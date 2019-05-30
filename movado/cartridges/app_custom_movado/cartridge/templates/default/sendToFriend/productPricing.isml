@@ -1,0 +1,19 @@
+<isif condition="${price.type === 'tiered'}">
+    <isif condition="${price.useSimplePrice}">
+        ${price.startingFromPrice.sales.formatted}
+    <iselse/>
+        <isloop items="${price.tiers}" var="tier">
+            <isset name="price" value="${tier.price}" scope="page" />
+            <isinclude template="/sendToFriend/defaultPricing" />
+        </isloop>
+    </isif>  
+<iselseif condition="${price.type === 'range'}"/>
+    <isset name="origPrice" value="${price}" scope="page" />
+    <isset name="price" value="${origPrice.min}" scope="page" />
+    <isinclude template="/sendToFriend/defaultPricing" />
+    -
+    <isset name="price" value="${origPrice.max}" scope="page" />
+    <isinclude template="/sendToFriend/defaultPricing" />
+<iselse/>
+    <isinclude template="/sendToFriend/defaultPricing" />
+</isif>

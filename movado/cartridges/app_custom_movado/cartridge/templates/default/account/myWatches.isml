@@ -1,0 +1,15 @@
+<!--- TEMPLATENAME: mywatches.isml --->
+<div class="card">
+    <div class="card-header clearfix">
+        <h4 class="pull-left heading-three">
+        	${Resource.msg('label.myWatches','account',null)}
+        </h4>
+        <a href="${URLUtils.https('Account-ShowWatchlist')}" class="pull-right">
+			${Resource.msg('label.myWatches.showWatchList','account',null)}
+		</a>
+	</div>
+	<div class="card-header clearfix">
+		<isinclude template="account/showLatestMyWatch"/>
+	</div>
+    
+</div>

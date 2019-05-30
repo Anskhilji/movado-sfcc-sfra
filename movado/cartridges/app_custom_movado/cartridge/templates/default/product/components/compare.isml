@@ -1,0 +1,10 @@
+<isif condition="${pdict.display.compare}">
+<isif condition="${!('display' in pdict && 'compareAttr' in pdict.display && pdict.display.compareAttr == false)}">
+    <div class="compare hidden-xs-down">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" id="${product.id}" class="custom-control-input" value="true" data-compare-url="${URLUtils.url('Compare-ProductListFormation')}"/>
+        <label class="custom-control-label" for="${product.id}">${Resource.msg('checkbox.tile.compare', 'product', null)}</label>
+     </div>
+     </div>
+</isif>
+</isif>

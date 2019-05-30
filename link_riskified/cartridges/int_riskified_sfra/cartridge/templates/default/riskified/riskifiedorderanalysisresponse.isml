@@ -1,0 +1,13 @@
+<!--- TEMPLATENAME: riskifiedorderanalysisresponse.isml --->
+
+<isif condition="${pdict.ResponseStatus.equals('ok')}" >
+	Order Analysis Updated Successfully.
+<iselseif condition = "${pdict.AuthError}"> 
+	Authentication Error
+<iselseif condition = "${pdict.CartridgeDisabled}"> 
+	Riskified Cartridge is disabled.
+<iselseif condition = "${pdict.AnalysisUpdateError}">  
+	<isprint value="${pdict.AnalysisErrorMessage}" />
+<iselse>
+	Order Analysis Could not be updated.
+</isif>

@@ -1,0 +1,51 @@
+function create(order) {
+    var customer = order.customer,
+        customerModel,
+        customerCreationDate,
+        customerNote;
+
+    var Calendar = require('dw/util/Calendar');
+    var StringUtils = require('dw/util/StringUtils');
+
+    var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
+    var Constants = require('~/cartridge/scripts/riskified/util/Constants');
+
+    var regex = "([\"\'\\\/])";
+    var regExp = new RegExp(regex, 'gi');
+    
+    if (empty(customer.note)) {
+        customerNote = '';
+    }
+
+    if (customer.isRegistered()) {
+        Calendar = new Calendar(customer.profile.getCreationDate());
+        customerCreationDate = StringUtils.formatCalendar(Calendar, Constants.RISKIFIED_DATE_FORMAT);
+        customerModel = {
+            created_at     : customerCreationDate,
+            email          : RCUtilities.escape(customer.profile.email, regExp, '', true),
+            first_name     : RCUtilities.escape(customer.profile.firstName, regExp, '', true),
+            id             : RCUtilities.escape(customer.profile.customerNo, regExp, '', true),
+            last_name      : RCUtilities.escape(customer.profile.lastName, regExp, '', true),
+            note           : customerNote,
+            orders_count   : customer.orderHistory.orderCount,
+            verified_email : false,
+            account_type   : 'registered'
+        };
+    } else {
+        customerModel = {
+            created_at     : '',
+            email          : RCUtilities.escape(order.customerEmail, regExp, '', true),
+            first_name     : RCUtilities.escape(order.customerName, regExp, '', true),
+            id             : "anonymous",
+            last_name      : '',
+            note           : customerNote,
+            orders_count   : 0,
+            verified_email : false,
+            account_type   : 'guest'
+        };
+    }
+
+    return customerModel;
+}
+
+exports.create = create;

@@ -1,0 +1,30 @@
+<!--- TEMPLATENAME: gtmtags.isml --->
+
+<isset name="GTM_ID" value="${dw.system.Site.current.preferences.custom.GTM_ID}" scope="page" />
+<!-- Google Tag Manager -->
+<script>
+
+	
+	$('body').on('gtmOnLoadEvents:fired', function() {
+		
+		var gtmID = '${GTM_ID}';
+		var gtmCall = function(w,d,s,l,i){
+			w[l]=w[l]||[];
+			w[l].push({'gtm.start': new Date().getTime(),
+						event:'gtm.js'
+					});
+			var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),
+				dl=l!='dataLayer'?'&l='+l:'';
+				j.async=true;
+				j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;
+				f.parentNode.insertBefore(j,f);
+		};
+		gtmCall(window,document,'script','dataLayer','${GTM_ID}');
+		
+	});
+</script>
+
+<noscript>
+	<iframe src="//www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>

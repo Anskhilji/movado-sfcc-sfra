@@ -1,0 +1,33 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/wishlist.css');
+        assets.addJs('/js/wishlist.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+    <div class="hero container login-banner">
+        <isslot id="cs-account-wishlist-landing" description="Wishlist Landing banner Image" context="global" />
+    </div>
+    <div class="container account-pages ${pdict.loggedIn ? 'my-wishlist-page' : 'login-page'}">
+        <!---Breadcrumbs--->
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <isif condition="${pdict.loggedIn}">
+        
+        
+            <isinclude template="wishlist/components/wishlist" />
+        <iselse>
+            <isinclude template="wishlist/components/login" />
+        </isif>
+    </div>
+    
+     <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
+        <div class="modal fade share-via-email-overlay" id="sharewishlistform">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+        <!-- The Modal: Ends-->
+</isdecorate>

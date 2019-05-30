@@ -1,0 +1,152 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <div class="invalid-feedback server-error">
+
+            </div>
+            <form action="${pdict.action}" method="POST" name="${pdict.shareWishlistForm.htmlName}" class="sendtofriend mb-5" id="sharewishlistform">
+                <div class="review-headline">
+                    <p class="body-text">
+                        ${Resource.msg('forms.sharewishlist.review.headline', 'forms', null)}
+                    </p>
+                </div>
+                <div class="form-group firstPart ${pdict.shareWishlistForm.yourname.mandatory === true ? 'required' : ''} ${pdict.shareWishlistForm.yourname.htmlName}">
+                    <label class="form-control-label" for="yourname">
+                        ${Resource.msg('forms.sharewishlist.yourname', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control yourname" id="yourname" value="${pdict.customerName}" <isprint value="${pdict.shareWishlistForm.yourname.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <isif condition="${shareViaEmailThroughWishlistPage}" >
+                    <div class="form-group firstPart">
+                        <label class="form-control-label" for="youremail">
+                            ${Resource.msg('forms.sharewishlist.youremail', 'forms', null)}
+                        </label>
+                        <span>${pdict.customerEmail}</span>
+                    </div>
+                <iselse/>
+                    <div class="form-group firstPart ${pdict.shareWishlistForm.youremail.mandatory === true ? 'required' : ''} ${pdict.shareWishlistForm.youremail.htmlName}">
+                        <label class="form-control-label" for="youremail">
+                            ${Resource.msg('forms.sharewishlist.youremail', 'forms', null)}
+                        </label>
+                        <input autofocus type="text" class="form-control youremail" id="youremail" value="${pdict.customerEmail}" <isprint value="${pdict.shareWishlistForm.youremail.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+
+                        </div>
+                    </div>
+                </isif>
+                <div class="form-group firstPart ${pdict.shareWishlistForm.friendsname.mandatory === true ? 'required' : ''} ${pdict.shareWishlistForm.friendsname.htmlName}">
+                    <label class="form-control-label" for="friendsname">
+                        ${Resource.msg('forms.sharewishlist.friendsname', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control friendsname" id="friendsname" <isprint value="${pdict.shareWishlistForm.friendsname.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+                        ${pdict.shareWishlistForm.friendsname.error}
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.shareWishlistForm.friendsemail.mandatory === true ? 'required' : ''} ${pdict.shareWishlistForm.friendsemail.htmlName}">
+                    <label class="form-control-label" for="friendsemail">
+                        ${Resource.msg('forms.sharewishlist.friendsemail', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control friendsemail" id="friendsemail" <isprint value="${pdict.shareWishlistForm.friendsemail.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.shareWishlistForm.confirmfriendsemail.mandatory === true ? 'required' : ''} ${pdict.shareWishlistForm.confirmfriendsemail.htmlName}">
+                    <label class="form-control-label" for="confirmfriendsemail">
+                        ${Resource.msg('forms.sharewishlist.confirmfriendsemail', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control confirmfriendsemail" id="confirmfriendsemail" <isprint value="${pdict.shareWishlistForm.confirmfriendsemail.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+
+                <div class="form-group other ${pdict.shareWishlistForm.message.htmlName}">
+                    <label class="form-control-label" for="message">
+                        ${Resource.msg('forms.sharewishlist.message', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control message" id="message" <isprint value="${pdict.shareWishlistForm.message.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-primary other" id="sendtofriendformpreview" data-action="preview">
+                            ${Resource.msg('forms.sharewishlist.preview', 'forms', null)}
+                        </button>
+                        <button class="btn btn-primary other" id="sharewishlistformsend" data-action="send" type="submit">
+                            ${Resource.msg('forms.sharewishlist.send', 'forms', null)}
+                        </button>
+                        <button class="btn btn-outline-primary other" id="sendtofriendformcancel" data-action="cancel" data-dismiss="modal">
+                            ${Resource.msg('forms.sharewishlist.cancel', 'forms', null)}
+                        </button>
+                    </div>
+                </div>
+                <div class="message-sent">
+                    ${Resource.msg('forms.sharewishlist.message.sent', 'forms', null)}
+                </div>
+
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+                <div class="sendtofriend-preview" id="sendtofriend-preview">
+                    <ul class="preview-email">
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sharewishlist.friendsname', 'forms', null)}
+                                </dt>
+                                <dd class="preview-friendsname"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sharewishlist.youremail', 'forms', null)}
+                                </dt>
+                                <dd class="preview-youremail"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sharewishlist.friendsemail', 'forms', null)}
+                                </dt>
+                                <dd class="preview-friendsemail"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sharewishlist.yourname', 'forms', null)}
+                                </dt>
+                                <dd class="preview-from"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sharewishlist.message', 'forms', null)}
+                                </dt>
+                                <dd class="preview-message"></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <div class="preview-buttons">
+                        <button class="btn btn-outline-primary" id="sendtofriendformedit" type="submit">
+                            ${Resource.msg('forms.sharewishlist.edit', 'forms', null)}
+                        </button>
+                        <button class="btn btn-primary" id="sharewishlistformsend" data-action="send" type="submit">
+                            ${Resource.msg('forms.sharewishlist.send', 'forms', null)}
+                        </button>
+                        <button class="btn btn-outline-primary" id="sendtofriendformcancel" data-action="cancel" data-dismiss="modal">
+                            ${Resource.msg('forms.sharewishlist.cancel', 'forms', null)}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

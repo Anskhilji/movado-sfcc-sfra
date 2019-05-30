@@ -1,0 +1,7 @@
+cartridges/app_custom_sgwsd/cartridge/client/default/js/vendor/slick.min.js
+cartridges/app_custom_sgwsd/cartridge/static/
+cartridges/app_custom_hook/cartridge/static/
+cartridges/int_handlerframework/cartridge/static/
+coverage/
+doc/
+bin/

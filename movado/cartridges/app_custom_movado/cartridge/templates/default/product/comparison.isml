@@ -1,0 +1,29 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/search.js');
+        assets.addCss('/css/search.css');
+    </isscript>
+	<isinclude template="/components/modules" sf-toolkit="off" /> 
+	<div class="hero compare-banner container">
+         <isslot id="cs-compareresults-banner" description="compare results banner Image" context="global" />
+    </div>
+    <div class="container product-comparison" data-compare-url="${pdict.updateUrl}">
+        <div class="row">
+            <div class="col-3 back-to-results">
+                <button class="btn btn-outline-primary" onclick="history.back();">${pdict.backToResults}</button>
+            </div>
+        </div>
+        <isif condition="${pdict.attributes.length > 0}">
+            <isinclude template="product/compareAttributes"/>
+        <iselse>
+            <div class="row">
+                <isloop items="${pdict.pids}" var="productId">
+                    <div class="col">
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', productId, 'swatches', true, 'ratings', true, 'compare', false)}" />
+                    </div>
+                </isloop>
+            </div>
+        </isif>
+    </div>
+</isdecorate>

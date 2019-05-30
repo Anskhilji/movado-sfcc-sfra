@@ -1,0 +1,25 @@
+<div class="row justify-content-center ">
+    <div class="col-sm-9 col-lg-7 col-xl-6">
+        <h4 class="heading-four">${Resource.msgf('wishlist.owner.name', 'wishlist', null, pdict.wishlist.owner.firstName)}</h4>
+        <isif condition="${!pdict.wishlist.publicView && pdict.wishlist.items.length > 0}">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-control custom-checkbox wishlist-hide">
+                        <input ${!pdict.wishlist.publicList ? 'checked="checked"' : ''} class="custom-control-input" type="checkbox" value="" id="isPublicList" name="isPublicList" data-id="${pdict.wishlist.UUID}" data-url="${URLUtils.url('ProductList-TogglePublic', 'type', 10)}">
+                        <label for="isPublicList" class="custom-control-label wishlist-checkbox">
+                            ${Resource.msg('checkbox.makePublic', 'wishlist', null)}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <isinclude template="wishlist/components/list">
+        <isif condition=${!pdict.wishlist.publicView}>
+            <div class="my-account text-center col-12">
+                <a href="${URLUtils.url('Account-Show')}" title="${Resource.msgf('link.wishlist.myaccount', 'wishlist', null)}">
+                    ${Resource.msgf('link.wishlist.myaccount', 'wishlist', null)}
+                </a>
+            </div>
+        </isif>
+    </div>
+</div>

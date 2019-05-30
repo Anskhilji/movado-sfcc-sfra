@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header clearfix">
+        <h4 class="pull-left">${Resource.msg('label.profile','account',null)}</h4>
+        <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <a href="${URLUtils.url('Account-EditProfile')}" class="pull-right">${Resource.msg('link.edit','account',null)}</a>
+        </isif>
+    </div>
+    
+    <div class="card-body">
+        <dl>
+            <dt>${Resource.msg('label.profile.fullname','account',null)}</dt>
+            <dd>${pdict.account.profile.firstName + " " + pdict.account.profile.lastName}</dd>
+        </dl>
+        <isif condition="${pdict.account.birthmonth != null && pdict.account.birthdate != null}">
+            <dl>
+                <dt>${Resource.msg('label.profile.dateOfBirth','forms',null)}</dt>
+                <dd>${pdict.account.birthmonth + " " + pdict.account.birthdate}</dd>
+            </dl>
+        </isif>
+        <dl>
+            <dt>${Resource.msg('label.profile.email','account',null)}</dt>
+            <dd>${pdict.account.profile.email}</dd>
+        </dl>
+        <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <dl>
+                <dt>${Resource.msg('label.profile.phone','account',null)}</dt>
+                <dd>${pdict.account.profile.phone}</dd>
+            </dl>
+        </isif>
+    </div>
+</div>

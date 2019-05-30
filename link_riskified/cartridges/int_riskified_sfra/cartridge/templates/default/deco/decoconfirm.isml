@@ -1,0 +1,14 @@
+<!--- TEMPLATENAME: decoconfirm.isml --->
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/checkout/checkout.css');
+        assets.addJs('/js/checkoutRegistration.js');
+    </isscript>
+
+    <div class="hero slant-down hero-confirmation">
+        <h1 class="page-title">DECO test flow emulation</h1>
+    </div>
+    
+    <isinclude template="deco/decowidget"/>
+</isdecorate>

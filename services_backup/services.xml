@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+    <service-credential service-credential-id="AdyenPayment">
+        <url>https://pal-test.adyen.com/pal/servlet/Payment/v18/authorise</url>
+        <user-id>ws_987420@Company.MovadoGroupInc</user-id>
+        <password encrypted="true" encryption-type="common.export">gWe7cV0hYsLd0qcgDOIJpRtMgYQVBM3I8KWWL6mdEvUybz8qQyh+gaxdXjyH1ZTkmXwL+niMPxd9KuVaCOTE/Q==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="AdyenPayment3DSecure">
+        <url>https://pal-test.adyen.com/pal/servlet/Payment/v18/authorise3d</url>
+        <user-id>ws_987420@Company.MovadoGroupInc</user-id>
+        <password encrypted="true" encryption-type="common.export">SJ6lbqwBAZhTyLzyb0fK5RtMgYQVBM3I8KWWL6mdEvXJ3iMISatYmE4vydnBrgpD01LZNLNYOmVRmgjjoaewGQ==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="AdyenPaymentMethods">
+        <url>https://test.adyen.com/hpp/directory.shtml</url>
+        <user-id>ws_987420@Company.MovadoGroupInc</user-id>
+        <password encrypted="true" encryption-type="common.export">w8KkOd9rx4swwbnM5LeT7xtMgYQVBM3I8KWWL6mdEvUdArc3gICTfSEru81oXf6U+3tzHkGh0Kn9qzAnsw4vIA==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="AdyenPosPayment">
+        <url>https://terminal-api-test.adyen.com/sync</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">0gQmUkQ0HSULy4VvJVd2w/E7G0uaNCmXjncSj5JQlX4=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="AdyenRecurring">
+        <url>https://pal-test.adyen.com/pal/servlet/Recurring/v25/listRecurringDetails</url>
+        <user-id>ws@Company.SapientRazorfish</user-id>
+        <password encrypted="true" encryption-type="common.export">nbXaMu83iDn7MLAeAgvC/D3Hwapp0y6YWUDWQCTzZpoNmGWBb7ewxLu05TTRhs4yujTyS1IyttXCgpPu7N2JaA==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="AdyenRecurringDisable">
+        <url>https://pal-test.adyen.com/pal/servlet/Recurring/v25/disable</url>
+        <user-id>ws@Company.SapientRazorfish</user-id>
+        <password encrypted="true" encryption-type="common.export">I+cIO1ScPzZSoMsp0R5pxz3Hwapp0y6YWUDWQCTzZprHCLY1PR72kHkucS1gNy5DXRWZMVgeeD/c+Qu/R4oyFQ==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="InventoryCancelReserveCredientials">
+        <url>http://206.198.144.71/smcfs/restapi/executeFlow/OMSCreateReservationService</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">gldqefo4mOJhwq1arM3rpc+Yy1ZfrzrhWSGTgYL8QB8=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="InventoryLookupCredientials">
+        <url>http://206.198.144.71/smcfs/restapi/executeFlow/OMSRealTimeInventoryLookupService</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">XDTw7UwZU1HFrbwgWmjUWdkzkwaalMqio43B46IidQI=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="InventoryReserveCredientials">
+        <url>http://206.198.144.71/smcfs/restapi/executeFlow/OMSCreateReservationService</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">91LVNisxh/kMfloImIRLF/iO5oZfWesGmf5tpYiHq/I=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="OMSAuthCredentials">
+        <url>http://206.198.144.71/smcfs/restapi/invoke/login</url>
+        <user-id>admin</user-id>
+        <password encrypted="true" encryption-type="common.export">fe82FFU8eQElKiKLVoaZBjUHeS6s6qvB7QAmMKz05NJUCony2Rb318MMD2XJrMBK</password>
+    </service-credential>
+
+    <service-credential service-credential-id="SterlingOrderExportCredentials">
+        <url>http://206.198.144.71/smcfs/restapi/executeFlow/OMSCreateOrderFromDWService</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">RnrGxbIfl1t73oOuB0UKqD4WQmV9iOd15Kd59JKX8ZQ=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="TokenServiceCredientials">
+        <url>http://206.198.144.71/smcfs/restapi/invoke/login</url>
+        <user-id>admin</user-id>
+        <password encrypted="true" encryption-type="common.export">sQ0xPdg1mRhyIx43eqQLL/MRKYRCz5EmwQW9xaO1X9s=</password>
+    </service-credential>
+
+    <service-credential service-credential-id="orderHistory.test.credentials">
+        <url>http://206.198.144.71/smcfs/restapi/Order</url>
+        <user-id/>
+        <password encrypted="true" encryption-type="common.export">JfLzkVw/eibODaDVnRdx0RQJ5nmVj8yajUQAtxzcA/Q=</password>
+    </service-credential>
+
+    <service-profile service-profile-id="Adyen">
+        <timeout-millis>100</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="InventoryCancelReserveProfile">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>3</cb-calls>
+        <cb-millis>300000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="InventoryReserveProfile">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>3</cb-calls>
+        <cb-millis>300000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="OMSAuthProfile">
+        <timeout-millis>300</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="SterlingOrderExportProfile">
+        <timeout-millis>0</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="Token Service Profile">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>true</cb-enabled>
+        <cb-calls>3</cb-calls>
+        <cb-millis>300000</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="orderHistory.profile">
+        <timeout-millis>30000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service service-id="AdyenPayment">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Adyen</profile-id>
+        <credential-id>AdyenPayment</credential-id>
+    </service>
+
+    <service service-id="AdyenPayment3DSecure">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Adyen</profile-id>
+        <credential-id>AdyenPayment3DSecure</credential-id>
+    </service>
+
+    <service service-id="AdyenPaymentMethods">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Adyen</profile-id>
+        <credential-id>AdyenPaymentMethods</credential-id>
+    </service>
+
+    <service service-id="AdyenPosPayment">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Adyen</profile-id>
+        <credential-id>AdyenPosPayment</credential-id>
+    </service>
+
+    <service service-id="AdyenRecurring">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>Adyen</profile-id>
+        <credential-id>AdyenRecurring</credential-id>
+    </service>
+
+    <service service-id="AdyenRecurringDisable">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>adyen</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id/>
+        <credential-id>AdyenRecurringDisable</credential-id>
+    </service>
+
+    <service service-id="OMSAuth">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>OMSAuthService</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>true</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>OMSAuthProfile</profile-id>
+        <credential-id>OMSAuthCredentials</credential-id>
+    </service>
+
+    <service service-id="SterlingOrderExport">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>SterlingOrderExportLog</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>true</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>SterlingOrderExportProfile</profile-id>
+        <credential-id>SterlingOrderExportCredentials</credential-id>
+    </service>
+
+    <service service-id="oms.sterling.inventorycancelreserveservice.post">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix/>
+        <comm-log-enabled>false</comm-log-enabled>
+        <force-prd-enabled>true</force-prd-enabled>
+        <mock-mode-enabled>true</mock-mode-enabled>
+        <profile-id>InventoryCancelReserveProfile</profile-id>
+        <credential-id>InventoryCancelReserveCredientials</credential-id>
+    </service>
+
+    <service service-id="oms.sterling.inventorycheckservice.post">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix/>
+        <comm-log-enabled>false</comm-log-enabled>
+        <force-prd-enabled>true</force-prd-enabled>
+        <mock-mode-enabled>true</mock-mode-enabled>
+        <profile-id>Token Service Profile</profile-id>
+        <credential-id>InventoryLookupCredientials</credential-id>
+    </service>
+
+</services>

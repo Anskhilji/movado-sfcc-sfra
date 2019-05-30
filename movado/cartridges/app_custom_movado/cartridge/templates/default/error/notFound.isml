@@ -1,0 +1,5 @@
+<isdecorate template="common/layout/page">
+<isif condition="${pdict.content404Page}">
+	<isprint value="${pdict.content404Page.body}" encoding="off" />
+</isif>
+</isdecorate>

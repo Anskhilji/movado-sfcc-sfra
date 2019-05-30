@@ -1,0 +1,89 @@
+<isset name="productCopy" value="${pdict.product}" scope="page"/>
+<isset name="product" value="${pdict.product}" scope="page"/>
+<isset name="isBundle" value="${false}" scope="page"/>
+<isset name="isQuickView" value="${true}" scope="page"/>
+<isset name="isProductSet" value="${false}" scope="page" />
+<div class="product-quickview product-${product.productType} col product-wrapper product-detail" data-pid="${product.id}">
+    <div class="row">
+        <!-- Product Images Carousel -->
+        <isinclude template="product/components/imageCarousel" />
+
+        <div class="col-6">
+
+            <!-- Product Name -->
+            <h1 class="heading-two text-uppercase">${product.productName}</h1>
+
+            <isinclude template="product/components/pidRating" />
+
+            <div class="row">
+                <!-- Attributes and Quantity -->
+                <div class="col-12">
+
+                    <iscomment> <isinclude template="product/components/badges" /> </iscomment>
+
+                    <!-- Product Availability -->
+                    <div class="availability global-availability" data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
+                        <isinclude template="product/components/availability" />
+                    </div>
+
+                    <!-- Applicable Promotions -->
+                    <div class="promotions">
+                        <isinclude template="product/components/promotions" />
+                    </div>
+
+                    <isif condition="${pdict.addToCartUrl || pdict.updateCartUrl}">
+                        <div class="simple-quantity">
+                            <isinclude template="product/components/quantity" />
+                        </div>
+                    </isif>
+                    <hr />
+                </div>
+                <isif condition="${product.options && product.options.length > 0}">
+                    <isinclude template="product/components/options" />
+                </isif>
+                <div class="col-12">
+                    <isinclude template="product/components/mainAttributes" />
+                </div>
+
+                <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                    <isinclude template="product/components/variationAttributes" />
+                </isif>
+
+                <!-- Affirm Text -->
+                <div class="col-12">
+                    <div>
+                        <isinclude template="util/affirmmodule_mf" />
+                        <isaffirmpromo context="pdp"
+                            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                    </div>
+                </div>
+                <div class="col-12 prices-add-to-cart-actions">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+
+                   <isif condition="${product.readyToOrder && product.available}"> 
+	                    <!-- Cart and [Optionally] Apple Pay -->
+	                    <isif condition="${pdict.addToCartUrl}">
+	                        <isinclude template="product/components/addToCartGlobal" />
+	                    <iselse>
+	                        <isinclude template="product/components/updateProduct" />
+	                    </isif>
+	                </isif> 
+                </div>
+
+            </div>
+
+            <!-- Size Chart -->
+            <isif condition="${product.variationAttributes && product.sizeChartId}">
+                <div class="size-chart col-12">
+                    <isinclude template="product/components/sizeChart" />
+                </div>
+            </isif>
+        </div>
+    </div>
+
+    <isset name="product" value="${productCopy}" scope="page"/>
+</div>

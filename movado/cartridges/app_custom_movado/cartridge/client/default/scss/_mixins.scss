@@ -1,0 +1,119 @@
+// Base font size
+$base-font-size: 16px;
+
+@mixin primary-font {
+   	font-family: $font-primary;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	color: $primary;
+}
+
+@mixin placeholder{
+	::-webkit-input-placeholder { /* Chrome */
+	  color: $placeholder;
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+	  color: $placeholder;
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+	  color: $placeholder;
+	  opacity: 1;
+	}
+	:-moz-placeholder { /* Firefox 4 - 18 */
+	  color: $placeholder;
+	  opacity: 1;
+	}
+}
+
+@function rem($pixels, $context: $base-font-size) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return $pixels / $context * 1rem;
+}
+
+@mixin select-appearance ($value) {
+	-webkit-appearance: $value;
+	   -moz-appearance: $value;
+	        appearance: $value;
+}
+
+@mixin transform($transforms) {
+	-webkit-transform: $transforms;
+	-moz-transform: $transforms;
+	-ms-transform: $transforms;
+	transform: $transforms;
+}
+
+@mixin translate($x, $y) {
+	@include transform(translate($x, $y));
+  }
+
+  @mixin badgesType($direction,$color,$size){
+    width: 0;
+    height: 0;
+    display: block;
+    @if $direction == 'topleft' {
+        border-top: $size solid $color;
+        border-right: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+    } @else if $direction == 'topright' {
+        border-top: $size solid $color;
+        border-right: $size solid $color;
+        border-bottom: $size solid transparent;
+        border-left: $size solid transparent;
+    } @else if $direction == 'bottomleft' {
+        border-top: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+        border-left: $size solid $color;
+    } @else if $direction == 'bottomright' {
+        border-top: $size solid transparent;
+        border-right: $size solid $color;
+        border-bottom: $size solid $color;
+        border-left: $size solid transparent;
+    }
+  }
+  @mixin badgesText($direction,$color){
+      color: $color;
+      position: absolute;
+      text-align: center;
+      font-size: rem(18);
+      @if $direction == 'topleft'{
+        top: -20px;
+        left: -20px;
+        transform: rotate(-45deg);
+      } @else if $direction == 'topright' {
+        top: -20px;
+        left: -5px;
+        transform: rotate(45deg);
+      } @else if $direction == 'bottomleft' {
+
+      } @else if $direction == 'bottomright' {
+
+      }
+  }
+  @mixin headline($fontSize:16){
+      font-size: rem($fontSize);
+      letter-spacing: 2px;
+      font-weight: 500;
+      font-family: $font-medium;
+  }
+  @mixin formlabel($fontSize:14){
+    font-size: rem($fontSize);
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-family: $font-book;
+}
+ 
+@mixin boxShadow($horizantal,$vertical,$blur,$spread,$color){
+  box-shadow:$horizantal $vertical $blur $spread $color;
+}

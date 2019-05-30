@@ -1,0 +1,24 @@
+<!-- Gift Wrapping Option-->
+<div class="row product-gift-option">
+   <div class="form-group col-12 col-sm-6">
+        <label class="form-control-label" for="giftWrap">
+            ${Resource.msg('cart.gift.wrap.text','cart',null)}
+        </label>
+        <div class="custom-select-wrapper">
+        <select class="form-control add-gift-wrap custom-select" id="giftWrap"
+        data-option-uuid="${pdict.lineItemOptions[lineItem.UUID].optionUUID}"
+        data-product-uuid="${lineItem.UUID}"
+        href="${URLUtils.url('Cart-UpdateOptionProduct')}" >
+            <isloop items="${pdict.lineItemOptions[lineItem.UUID].selectOptionValue}" var="option">
+                <option value="${option.ID}" 
+                    <isif condition="${pdict.lineItemOptions[lineItem.UUID].selectedOptionValue == option.ID}" >selected</isif>
+                >${option.display} 
+                <isif condition="${option.price}" >
+                (+${option.price})
+                </isif></option>
+            </isloop>
+        </select>
+        <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>

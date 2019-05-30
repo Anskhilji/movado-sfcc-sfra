@@ -1,0 +1,73 @@
+<iscomment>Lucky Orange Analytics</iscomment>
+
+ <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('LuckyOrangeEnabled')}"> 
+	<script type='text/javascript'>
+		window.__lo_site_id = ${dw.system.Site.getCurrent().getCustomPreferenceValue('luckyOrangeSiteID')};
+
+		(function() {
+			var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+			wa.src = ${dw.system.Site.getCurrent().getCustomPreferenceValue('LuckyOrangeSrcJs')};
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  	})();
+	</script>
+ </isif> 
+ 
+<iscomment>Everage Integration</iscomment>
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('EvergageEnabled')}"> 
+	<script type="text/javascript" src="${dw.system.Site.getCurrent().getCustomPreferenceValue('evergageSrcJs')}"></script>
+</isif> 
+
+<iscomment>Movable Ink - global script inclusion</iscomment>
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('movableInkTrackEnabled')}">
+	<script type="text/javascript">
+	(function(m,o,v,a,b,l,e) {
+		if (typeof m['MovableInkTrack'] !== 'undefined') { return; }
+		m['MovableInkTrack'] = b;
+		l = o.createElement(v);
+		e = o.getElementsByTagName(v)[0];
+		l.type = 'text/javascript'; 
+		l.async = true;
+		l.src = '//' + a + '/p/js/1.js';
+		m[b] = m[b] || function() { (m[b].q=m[b].q||[]).push(arguments); };
+		e.parentNode.insertBefore(l, e);
+		})(window, document, 'script', 'yilvytkp.micpn.com', 'mitr');
+	</script>
+
+	<isif condition="${pdict.checkoutPage}">
+	<iscomment>Movable Ink - conversion tracking</iscomment>
+	<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('movableInkTrackEnabled')}">
+	<iscomment>get products line items</iscomment>
+		<isloop items="${pdict.order.items.items}" var="product">
+			<script>
+				mitr('addProduct', {
+					sku: "<isprint value="${product.id}" encoding="off" />",
+					name: "<isprint value="${product.productName}" encoding="off" />",
+					price: "<isprint value="${product.priceTotal.price}" formatter="#.00" />",
+					quantity: "<isprint value="${product.quantity}" formatter="#" />",
+					other: ""
+				});
+			</script>
+		</isloop>
+	</isif>
+	
+	<iscomment>get coupon line items</iscomment>
+		
+		<isloop items="${pdict.order.couponLineItemArray}" var="promo">
+			<script>
+			mitr('addPromo', {
+				code: "<isprint value="${promo.coupon.couponCode}" encoding="off"/>",
+				description: "<isprint value="${promo.coupon.couponDescription}" encoding="off"/>",
+				price: "<isprint value="${promo.coupon.couponAdjustmentPrice}" formatter="#.00" />",
+				quantity: "<isprint value="${promo.coupon.couponQuantity}" formatter="#" />",
+				other: ''
+			});
+			</script>
+		</isloop> 
+	<script>
+			mitr('send', 'conversion', {
+				revenue: "<isprint value="${pdict.order.totals.subTotal}" formatter="#.00" />",
+				identifier: "<isprint value="${pdict.order.orderNumber}" encoding="off" />",
+			});
+	</script>	
+	</isif>
+</isif>

@@ -1,0 +1,10 @@
+<isif condition="${lineItem.priceTotal.savingPrice > 0}">
+<div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price"> ${Resource.msg('cart.label.price','cart',null)} ${lineItem.priceTotal.nonAdjustedPrice}
+</div>
+
+<div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)}	${lineItem.priceTotal.formattedSavingPrice}
+</div>
+<div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} <span class="line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</span></div>
+<iselse>
+<div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
+</isif>

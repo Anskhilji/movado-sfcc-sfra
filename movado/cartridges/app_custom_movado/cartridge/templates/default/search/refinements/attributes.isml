@@ -1,0 +1,17 @@
+<isloop items="${refinement.values}" var="refinementValue" status="loopStatus">
+  <isif condition="${loopStatus.first}">
+    <ul class="values content" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
+  </isif>
+    <isif condition="${refinementValue.type === 'color'}">
+        <isinclude template="search/refinements/attributes/color"/>
+    <iselseif condition="${refinementValue.type === 'size'}"/>
+        <isinclude template="search/refinements/attributes/size"/>
+    <iselseif condition="${refinementValue.type === 'radio'}"/>
+        <isinclude template="search/refinements/attributes/radio"/>
+    <iselse/>
+        <isinclude template="search/refinements/attributes/boolean"/>
+    </isif>
+    <isif condition="${loopStatus.last}">
+      </ul>
+    </isif>
+</isloop>

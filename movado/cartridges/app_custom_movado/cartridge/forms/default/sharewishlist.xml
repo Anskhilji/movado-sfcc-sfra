@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+       <field formid="yourname"
+              label="${Resource.msg('forms.sharewishlist.yourname', 'forms', null)}"
+              type="string" mandatory="true"
+              missing-error="forms.sharewishlist.yourname.missing-error"
+              max-length="71"  
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	  />
+
+       <field formid="friendsname"
+              label="${Resource.msg('forms.sharewishlist.friendsname', 'forms', null)}"
+              type="string" mandatory="true"
+              missing-error="forms.sharewishlist.friendsname.missing-error"
+              max-length="71"  
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	  />
+
+       <field formid="youremail"
+              label="${Resource.msg('forms.sharewishlist.youremail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              max-length="50"
+              missing-error="forms.sharewishlist.friendsemail.missing-error"
+              value-error="forms.sharewishlist.youremail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="friendsemail"
+              label="${Resource.msg('forms.sharewishlist.friendsemail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              missing-error="forms.sharewishlist.friendsemail.missing-error"
+              max-length="50"
+              value-error="forms.sharewishlist.friendsemail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="confirmfriendsemail"
+              label="${Resource.msg('forms.sharewishlist.confirmfriendsemail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              missing-error="forms.sharewishlist.friendsemail.missing-error"
+              max-length="50"
+              value-error="forms.sharewishlist.confirmfriendsemail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="addtoemaillist"
+              label="${Resource.msg('forms.sharewishlist.addtoemaillist', 'forms', null)}"
+              type="boolean" mandatory="false"/>
+
+       <field formid="message"
+              label="${Resource.msg('forms.sharewishlist.message', 'forms', null)}"
+              type="string" mandatory="false"
+              max-length="250"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	    />
+
+       <action formid="preview" valid-form="true"/>
+       <action formid="send" valid-form="true"/>
+       <action formid="edit" valid-form="false"/>
+</form>

@@ -1,0 +1,5 @@
+<isif condition="${price.list !== null}">
+    ${price.list.formatted}
+<iselse/>
+    ${price.sales.formatted}
+</isif>

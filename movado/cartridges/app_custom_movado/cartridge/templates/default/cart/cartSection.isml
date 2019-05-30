@@ -1,0 +1,95 @@
+<iscontent type="text/html" charset="UTF-8" compact="true" />
+<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+    <isinclude template="reporting/reportingUrls" />
+</isif>
+<isif condition="${pdict.items.length !== 0}">
+    <div class="container cart-error-messaging cart-error mt-2">
+        <isif condition="${pdict.valid.error}">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${pdict.valid.message}
+            </div>
+        </isif>
+    </div>
+</isif>
+<isif condition="${pdict.paypalerror}">
+    <div class="container cart-error-messaging cart-error mt-2">
+        <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            ${Resource.msg('cart.paypal.error', 'cart', null)}
+        </div>
+    </div>
+</isif>
+
+<div class="container cart-header-wrapper text-center">
+    <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+    <isif condition="${pdict.items.length !== 0}">
+        <div class="estimate-price-wrapper">
+            <div class="row estimated-total justify-content-center">
+                ${Resource.msg('cart.label.estimatedtotal', 'cart', null)} <span class="cart-total ml-1">${pdict.totals.grandTotal}</span>
+            </div>
+            <isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+            <isinclude template="util/affirmmodule_mf" />
+            <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
+        </div>
+    </isif>
+</div>
+
+<isif condition="${pdict.items.length === 0}">
+    <div class="container my-5 cart-empty">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="empty-cart-header">${Resource.msg('info.cart.empty.msg', 'cart', null)}</h1>
+            </div>
+            <div class="col-12 col-sm-4">
+                <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block continue-shopping" role="button">
+                    ${Resource.msg('link.continue.shopping', 'cart', null)}
+                </a>
+            </div>
+        </div>
+    </div>
+<iselse/>
+    <div class="container cart cart-page">
+        <div class="row">
+            <!---product cards--->
+            <div class="col-sm-7 col-md-8">
+                <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
+                    <isif condition="${lineItem.productType === 'bundle'}">
+                        <isinclude template="cart/productCard/cartBundleCard" />
+                    <iselse/>
+                        <isinclude template="cart/productCard/cartProductCard" />
+                    </isif>
+                </isloop>
+                <isinclude template="cart/cartApproachingDiscount" />
+            </div>
+            <!---totals, and checkout actions--->
+            <div class="col-sm-5 col-md-4 totals">
+                <isinclude template="cart/cartPromoCode" />
+                <div class="coupons-and-promos coupons-wrapper mb-3">
+                    <isinclude template="cart/cartCouponDisplay" />
+                </div>
+                <div class="row">
+                    <isinclude template="cart/cartShippingMethodSelection" />
+                </div>
+                <isinclude template="cart/cartTotals" />
+                <div class="row">
+                    <div class="col-12 checkout-continue">
+                        <isinclude template="cart/checkoutButtons" />
+                    </div>
+                </div>
+                <div class="container">
+                    <isprint value="${pdict.assets.needHelp}" encoding="off" />
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <isinclude template="cart/cartRemoveProductModal" />
+    <div class="cart-coupons-remove">
+        <isinclude template="cart/cartRemoveCouponModal" />
+    </div>
+</isif>

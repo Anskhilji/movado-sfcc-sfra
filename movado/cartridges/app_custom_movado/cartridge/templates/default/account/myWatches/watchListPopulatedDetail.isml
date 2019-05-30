@@ -1,0 +1,37 @@
+<!--- TEMPLATENAME: registerListDetail.isml --->
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="card card-body card-info-group">
+	<div class = "row">
+	
+		<div class="item-image col-4 hidden-xs-down">
+			<iscomment>Display product image using DIS</iscomment>
+			<a href = "${myWatches.productUrl}">
+			<img class="img-fluid" src="${myWatches.productImage.url}" alt="${myWatches.productImage.alt}" title="${myWatches.productImage.title}">
+			</a>
+		</div>
+	
+	
+		<div class="item-details">
+		<a href = "${myWatches.productUrl}">
+			<div class = "item-name">
+				<isprint value="${myWatches.productName}"/>
+			</div>
+		</a>
+			
+			
+			<isprint value="${Resource.msg('myWatches.model','account',null)}"/>
+			<isprint value="${myWatches.id}" encoding="off"/>
+			
+			<div class="registration-date">
+				<isprint value="${Resource.msg('myWatches.registrationdate','account',null)}"/>
+				<isprint value="${myWatches.creationDate}" encoding="off"/>
+			</div>
+			
+			<iscontentasset aid="ca-my-watches-links"/>
+			
+			
+		</div>
+		
+		
+	</div>
+</div>

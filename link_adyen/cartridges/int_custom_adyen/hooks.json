@@ -1,0 +1,20 @@
+{
+	"hooks": [
+		{
+			"name": "app.payment.adyen.capture",
+			"script": "./cartridge/scripts/hooks/payment/adyenCaptureRefundSVC"
+		},
+		{
+			"name": "app.payment.adyen.refund",
+			"script": "./cartridge/scripts/hooks/payment/adyenCaptureRefundSVC"
+		},
+		{
+			"name": "app.payment.adyen.cancelOrRefund",
+			"script": "./cartridge/scripts/hooks/payment/adyenCancelSVC"
+		},
+		{
+			"name": "app.payment.adyen.adjustAuthorisation",
+			"script": "./cartridge/scripts/hooks/payment/adyenAdjustAuthorisationSVC"
+		}
+	]
+}

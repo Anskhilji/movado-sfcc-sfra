@@ -1,0 +1,21 @@
+.need-help {
+  margin: rem(40) 0;
+  text-align: left;
+  p {
+    font-family: $font-primary;
+    font-size: rem(14);
+    font-weight: 300;
+    letter-spacing: 1;
+    line-height: 2;
+    span {
+      display: block;
+    }
+  }
+}
+@include media-breakpoint-up(md) {
+  .need-help {
+    p {
+      font-size: rem(16);
+    }
+  }
+}

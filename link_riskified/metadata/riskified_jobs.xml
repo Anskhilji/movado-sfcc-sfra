@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="RiskifiedRetryExport" priority="0">
+        <description>This job retries to send failed data export to Riskified.</description>
+        <parameters/>
+        <flow>
+            <context site-id="SiteGenesis"/>
+            <step step-id="RiskifiedRetryExport-RecoveryProcessor-executeRecoveryProcess" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">int_riskified/cartridge/scripts/Riskified</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">executeRecoveryProcess</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-running runtime-threshold="60m" enabled="true">
+                <mark-job-as-hanging/>
+            </on-running>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2017-01-13Z</date>
+                <time>00:05:23.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+</jobs>

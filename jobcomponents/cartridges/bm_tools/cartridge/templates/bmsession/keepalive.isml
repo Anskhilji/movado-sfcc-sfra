@@ -1,0 +1,14 @@
+<isdecorate template="application/MenuFrame">
+<iscontent type="text/html" charset="UTF-8">
+<isinclude template="inc/Modules">
+<hr/>
+<h1 class="overview_title">BM Session Keep Alive</h1>
+<h2 class="table_title_description">This Business Manager Module Keeps Your Business Manager Session From Timing Out</h2>
+<script>
+var timeout = 300000; //5 mins
+setTimeout(function() {
+	location.reload();	
+}, timeout);
+</script>
+<img src="${URLUtils.staticURL('./heart.gif')}">
+</isdecorate>

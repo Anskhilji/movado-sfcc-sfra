@@ -1,0 +1,56 @@
+<div class="col-12 grid-footer d-flex"
+     data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
+     data-page-size="${pdict.productSearch.pageSize}"
+     data-page-number="${pdict.productSearch.pageNumber}"
+     data-pagination-urls="${pdict.productSearch.paginationUrls}"
+>
+    <!--- Pagination --->
+    <isif condition="${pdict.productSearch.count > pdict.productSearch.pageSize}">
+	    
+        <nav aria-label="Search Results Page" class="pagination-container mx-auto">	
+        <div class="d-flex page-wrapper">
+            <isif condition="${pdict.productSearch.paginationUrls.get('totalPages') > pdict.productSearch.paginationUrls.get('pagesToDisplay')}">
+	            <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disablePreviousButton')} first">
+	              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.first', 'search', null)}" data-url="${pdict.productSearch.paginationUrls.get('firstPage')}">
+	                  &#60;&#60;
+	                </button>
+	            </p>
+            </isif>
+            <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disablePreviousButton')} prev">
+              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.prev', 'search', null)}" data-url="${pdict.productSearch.paginationUrls.get('previous')}">
+                  &#60;
+                </button>
+            </p>
+            
+            <ul class="mx-auto pagination">
+              <isloop var="star" begin="${pdict.productSearch.paginationUrls.get('startPage')}" end="${pdict.productSearch.paginationUrls.get('endPage')}" status="pageNumber">
+                <isset name="key" value="${pageNumber.index}" scope="page"/>
+                  <li class="page-item show-pagination <isif condition="${pdict.productSearch.paginationUrls.get('currentPage') == pageNumber.index}">active</isif>">
+                      <button class="btn btn-outline-primary gtm-refinements" data-url="${pdict.productSearch.paginationUrls.get(key)}">
+                        ${pageNumber.index}
+                      </button>
+                  </li>
+                </isloop>
+            </ul>
+            
+            <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disableNextButton')} next">
+              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.next', 'search', null)}" data-url="${pdict.productSearch.paginationUrls.get('next')}">
+                  &#62;
+                </button>
+            </p>
+            <isif condition="${pdict.productSearch.paginationUrls.get('totalPages') > pdict.productSearch.paginationUrls.get('pagesToDisplay')}">
+	            <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disableNextButton')} last">
+	              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.last', 'search', null)}" data-url="${pdict.productSearch.paginationUrls.get('lastPage')}">
+	                  &#62;&#62;
+	                </button>
+	            </p>
+            </isif>
+        </div>
+		</nav>
+    </isif>
+
+    <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
+    <isif condition="${pdict.productSearch.category != null}">
+        <input type="hidden" class="category-id" value="${pdict.productSearch.category.id}" />
+    </isif>
+</div>

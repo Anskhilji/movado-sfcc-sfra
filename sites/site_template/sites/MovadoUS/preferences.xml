@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns="http://www.demandware.com/xml/impex/preferences/2007-03-31">
+    <custom-preferences>
+        <development>
+            <preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+				<preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+				<preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+				<preference preference-id="StoreDivisionCode">06</preference>
+				<preference preference-id="applePayCaptureDisabled">true</preference>
+                <preference preference-id="archiveLocations">
+                    <value>/src/feeds/orders</value>
+                    <value>/src/archive/stores</value>
+                </preference>
+				<preference preference-id="googleGeolocationLimit">10000</preference>
+        </development>
+        <staging>
+			<preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+				<preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+				<preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+				<preference preference-id="applePayCaptureDisabled">true</preference>
+                <preference preference-id="archiveLocations">
+                    <value>/src/feeds/orders</value>
+                    <value>/src/archive/stores</value>
+                </preference>
+        </staging>
+        <production>
+			<preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+				<preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+				<preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+				<preference preference-id="applePayCaptureDisabled">true</preference>
+                <preference preference-id="archiveLocations">
+                    <value>/src/feeds/orders</value>
+                    <value>/src/archive/stores</value>
+                </preference>
+		</production>
+    </custom-preferences>
+</preferences>

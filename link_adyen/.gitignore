@@ -1,0 +1,7 @@
+.idea
+/.DS_Store
+/cartridges/int_adyen_SFRA/dw.json
+node_modules/
+coverage/
+/.vscode
+cartridges/*/cartridge/static/

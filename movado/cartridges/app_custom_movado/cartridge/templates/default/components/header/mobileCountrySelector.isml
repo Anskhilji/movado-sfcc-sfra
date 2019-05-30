@@ -1,0 +1,3 @@
+<li class="country-selector-mobile">
+  <isslot id="country-selector" description="country selector" context="global"/>
+</li>

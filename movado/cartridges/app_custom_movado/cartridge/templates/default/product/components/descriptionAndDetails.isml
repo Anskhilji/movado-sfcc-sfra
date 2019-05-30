@@ -1,0 +1,16 @@
+<div class="description-and-detail">
+    <isif condition="${product.attributes && product.attributes.length}">
+        <hr/>
+        <div class="row product-attributes collapsible-sm">
+            <isinclude template="product/components/detailsAttributes" />
+        </div>
+    </isif>
+
+    <isif condition="${product.longDescription}">
+        <hr/>
+        <div class="row description collapsible-sm">
+            <isinclude template="product/components/highlights" />
+        </div>
+    </isif>
+<hr />
+</div>

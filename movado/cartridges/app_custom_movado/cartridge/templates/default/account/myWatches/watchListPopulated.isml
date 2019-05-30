@@ -1,0 +1,11 @@
+<div class = "form-list">
+	<isif condition="${pdict.fetchWatchList && pdict.fetchWatchList.items.length > 0}">
+		<div class="form-list-item">
+			<isloop items="${pdict.fetchWatchList.items}" var="myWatches">       
+             	<isinclude template="account/myWatches/watchListPopulatedDetail"/>
+        	</isloop>
+    	</div>
+    <iselse>
+    	<isprint value="${Resource.msg('myWatches.noWatchesRegistered','account',null)}"/>
+    </isif>
+</div>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="OrderStatusJob" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="OrderStatusFeedDownload" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description>Downloads the order status feed and map the attributes in SFCC System Objects</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*OrderStatus\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/orderstatus/</parameter>
+                    <parameter name="TargetFolder">src/feeds/orderStatus/</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="Populate SFCC objects" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapFeedFileProcess/sapFeedFileProcessJob.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">processFeedFile</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="SourceInventoryFolder">src/feeds/orderStatus</parameter>
+                    <parameter name="ArchiveInventorySuccessFolder">src/archive/orderStatus/success/</parameter>
+                    <parameter name="ArchiveInventoryFailureFolder">src/archive/orderStatus/error/</parameter>
+					<parameter name="SourceFilePatten">.*\.xml</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com, akash.jauhar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2019-02-28Z</date-from>
+                    <start-time>05:06:25.000Z</start-time>
+                    <interval>10m</interval>
+                    <day-of-week>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Saturday</weekday>
+                        <weekday>Sunday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Wednesday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+    <job job-id="OrderProcess" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="OrderProcess" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapOrderDecisionJob/processOrderStatus.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">processSAPAttributes</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-03-18Z</date>
+                <time>15:23:09.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+    <job job-id="RecurringCleanup" priority="0">
+        <description>Job to clean up the archive files from multiple archive locations.</description>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="PurgeArchiveFiles" type="custom.CSComponents.PurgeArchiveFiles" enforce-restart="false">
+                <description>To purge the archive files which are older than specific time.</description>
+                <parameters>
+                    <parameter name="DaysToPurge">10</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">CONTINUE</parameter>
+                    <parameter name="IsDisabled">true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-05-16Z</date>
+                <time>05:53:51.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+</jobs>

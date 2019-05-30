@@ -1,0 +1,69 @@
+<isdecorate template="common/layout/page">
+  <isscript>
+      var assets = require('*/cartridge/scripts/assets.js');
+      assets.addJs('/js/contactus.js');
+      assets.addCss('/css/staticContent.css');
+  </isscript>
+
+  <main role="main" id="main" class="pt_customerservice">
+    <isslot id="cs-folder-banner" description="customer support banner" context="folder"
+      context-object=${pdict.foldersearch.folder} />
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 hidden-xs-down">
+          <ol class="breadcrumb">
+            <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
+              <li class="breadcrumb-item">
+                <a href="${breadcrumbValue.url}">
+                  ${breadcrumbValue.htmlValue} </a>
+              </li>
+            </isloop>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="content row flex-column-reverse flex-md-row">
+      <aside class="col-md-3">
+        <nav>
+          <div class="secondary-navigation">
+            <ul>
+              <li>
+                <a href="${URLUtils.url('Search-ShowContent', 'fdid', pdict.foldersearch.folder.ID)}">
+                  <isprint value="${pdict.foldersearch.folder.displayName}" />
+                </a>
+              </li>
+              <isloop items="${pdict.foldersearch.folder.onlineContent}" var="contentAsset" status="loopcounter">
+                <li>
+
+                  <a href="${URLUtils.url('Page-Show', 'cid', contentAsset.ID)}"	<isif
+                    condition=" ${pdict.content.ID === contentAsset.ID}">
+                    class="is-selected"
+                    </isif>>
+                    <isprint value="${contentAsset.name}" />
+                  </a>
+                </li>
+              </isloop>
+            </ul>
+          </div>
+        </nav>
+        <isprint value="${pdict.helpContent}" encoding="off" />
+      </aside>
+
+      <div class="right-content offset-md-1 col-md-8 text">
+        <isprint encoding="off" value="${variable}" />
+        <isif condition="${pdict.content}">
+          <h2 class="heading-two text-uppercase"> ${pdict.content.name} </h2>
+          <isinclude template="components/content/contentAssetInc" />
+      <iselseif condition="${!pdict.cid}">
+            <isprint value="${pdict.foldersearch.customerServiceContent}" encoding="off" />
+        </isif>
+
+        <isinclude url="${URLUtils.url('ContactUs-Load')}">
+
+      </div>
+
+    </div>
+    </div>
+  </main>
+</isdecorate>

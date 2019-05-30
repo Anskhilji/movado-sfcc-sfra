@@ -1,0 +1,20 @@
+<isdecorate template="common/layout/page">
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/dashboard.css');
+    </isscript>
+    <div class="hero account-banner container">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+
+    <div class="container account-pages">
+        <!---Breadcrumbs--->
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <isinclude template="account/dashboardProfileCards"/>
+    </div>
+</isdecorate>

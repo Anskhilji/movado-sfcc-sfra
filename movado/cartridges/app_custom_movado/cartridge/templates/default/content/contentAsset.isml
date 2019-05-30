@@ -1,0 +1,29 @@
+<isdecorate template="common/layout/page">
+	<isscript>
+     var assets = require('*/cartridge/scripts/assets.js');
+     assets.addCss('/css/staticContent.css');
+ </isscript>
+
+	<div class="container">
+		<div class="row hidden-xs-down">
+			<div class="col">
+				<ol class="breadcrumb">
+					<isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
+						<li class="breadcrumb-item">
+							<a href="${breadcrumbValue.url}">
+								${breadcrumbValue.htmlValue} </a>
+						</li>
+					</isloop>
+				</ol>
+			</div>
+		</div>
+	</div>
+
+	<div class="container content-asset-container">
+		<!-- dwMarker="content" dwContentID="${pdict.content.UUID}" -->
+		<isprint value="${pdict.content.body}" encoding="off" />
+
+		<!-- END_dwmarker -->
+	</div>
+
+</isdecorate>

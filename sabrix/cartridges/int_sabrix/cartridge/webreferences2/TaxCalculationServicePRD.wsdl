@@ -1,0 +1,54 @@
+<?xml version="1.0" ?><wsdl:definitions targetNamespace="http://www.sabrix.com/services/taxcalculationservice/2011-09-01" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sabrix.com/services/taxcalculationservice/2011-09-01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.sabrix.com/services/taxcalculationservice/2011-09-01" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sabrix.com/services/taxcalculationservice/2011-09-01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:include schemaLocation="TaxCalculationSchemaPRD.xsd"></xs:include>
+		</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="taxCalculationResponse">
+    <wsdl:part element="tns:taxCalculationResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="taxCalculationFault">
+    <wsdl:part element="tns:taxCalculationFault" name="fault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="taxCalculationRequest">
+    <wsdl:part element="tns:taxCalculationRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TaxCalculationService">
+    <wsdl:operation name="CalculateTax">
+      <wsdl:input message="tns:taxCalculationRequest" name="taxCalculationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:taxCalculationResponse" name="taxCalculationResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:taxCalculationFault" name="taxCalculationFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TaxCalculationBinding" type="tns:TaxCalculationService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="CalculateTax">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="taxCalculationRequest">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="taxCalculationResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="taxCalculationFault">
+        <soap:fault name="taxCalculationFault" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TaxCalculationService">
+<wsdl:documentation>
+			
+			Tax calculation service that calculates tax on batches of invoices.
+			
+		</wsdl:documentation>
+    <wsdl:port binding="tns:TaxCalculationBinding" name="TaxCalculationServicePort">
+      <soap:address location="https://KPMG.hostedtax.thomsonreuters.com/sabrix/services/taxcalculationservice/2011-09-01/taxcalculationservice"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,9 @@
+<!--- Edit product and MoveToWishList--->
+<div class="product-edit product-move">
+    <a href="${URLUtils.url('Wishlist-AddProduct')}" class="move"
+        data-pid="${lineItem.id}"
+        data-name="${lineItem.productName}"
+        data-action="${URLUtils.url('Cart-RemoveProductLineItem')}"
+        data-uuid="${lineItem.UUID}"
+        title="${Resource.msg('link.add.to.wishlist', 'cart', null)}"  data-gtm-tracking='${JSON.stringify(pdict.wishlistGTMObj[loopStatus.index])}'>${Resource.msg('link.add.to.wishlist', 'cart', null)}</a>
+</div>

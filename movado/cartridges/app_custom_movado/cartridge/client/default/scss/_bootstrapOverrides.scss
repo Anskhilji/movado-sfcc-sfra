@@ -1,0 +1,227 @@
+.carousel {
+  .icon-prev,
+  .icon-next {
+    background-color: $white;
+    font-size: 1.875em;
+    // width and height here need to use rem units because the font size used here is 30px
+    height: 3rem;
+    padding-top: 0.24em;
+    width: 3rem;
+
+    &::before {
+      color: black;
+      font-family: "FontAwesome";
+    }
+  }
+
+  .icon-prev {
+    &::before {
+      content: "\f104";
+    }
+  }
+
+  .icon-next {
+    &::before {
+      content: "\f105";
+    }
+  }
+
+  .carousel-control-prev {
+    z-index: 0;
+    justify-content: flex-start;
+  }
+
+  .carousel-control-next {
+    z-index: 0;
+    justify-content: flex-end;
+  }
+}
+
+.nav-tabs {
+  border-bottom: $border-width solid $grey3;
+
+  .nav-link {
+    font-size: 1.1rem;
+    color: $nav-tabs-link-hover-border-color;
+
+    &.active {
+      border-bottom: 0.188em solid $primary;
+    }
+  }
+}
+.navbar-nav {
+  @include media-breakpoint-up(xl) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-link {
+    padding: 1rem 0 1rem 1rem;
+    font-size: rem(16);
+    color: $primary;
+    text-transform: uppercase;
+  }
+}
+.multilevel-dropdown {
+  .dropdown-item {
+    .dropdown-link {
+      padding: 1rem 0 1rem 1rem;
+      font-size: rem(14);
+      color: $primary;
+      text-transform: uppercase;
+      display: block;
+    }
+  }
+}
+.card {
+  margin-bottom: 1em;
+  box-shadow: 0 rem(2) rem(2) 0 $grey-transparent-7;
+  border-radius: rem(3);
+  border: rem(1) solid $grey3;
+}
+
+.card-header h4 {
+  margin-bottom: 0;
+}
+
+.modal .modal-body {
+  flex: 0 0 auto;
+}
+
+dt {
+  color: $gray-700;
+  font-weight: normal;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border: 1px solid black;
+  background: $grey1; /* For browsers that do not support gradients */
+  background: linear-gradient($grey1, $grey3); /* Standard syntax */
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  color: $white;
+  background-color: $black;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+  background-image: $svg-check;
+}
+.custom-radio .custom-control-label::before {
+  border: 1px solid black;
+  background: $grey3; /* For browsers that do not support gradients */
+  background: linear-gradient($grey3, $grey5); /* Standard syntax */
+}
+
+.btn {
+  text-transform: uppercase;
+  border-radius: unset;
+  letter-spacing: 2px;
+  @include headline;
+}
+// Bootstrap button overrides
+.btn-primary {
+  background: $black;
+  border-color: $black;
+  color: $white;
+}
+.btn-outline-primary {
+  border-color: $primary;
+  color: $primary;
+  &.add-to-wish-list {
+    color: $white;
+  }
+  &:hover {
+    border-color: $primary;
+    background: $white;
+    color: $primary;
+  }
+}
+
+.btn-outline-secondary {
+  background: $white;
+  border-color: $grey14;
+  color: $grey14;
+}
+
+.custom-select {
+  border-color: $primary;
+  color: $primary;
+  border-radius: unset;
+  text-transform: uppercase;
+  background: $white;
+  background-image: none;
+  @include headline(14);
+  line-height: rem(17);
+  @include media-breakpoint-up(md) {
+    font-size: rem(16);
+    line-height: rem(20);
+  }
+  + i {
+    position: absolute;
+    right: rem(24);
+    top: rem(11);
+    pointer-events: none;
+  }
+}
+html.modal-is-open {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.custom-checkbox .custom-control-label::before {
+  background: $white;
+  border: 1px solid $grey10;
+  border-radius: unset;
+}
+.fa {
+  &.fa-square-o {
+    color: $grey11;
+  }
+}
+.custom-control-label {
+  font-size: rem(14);
+  color: $grey11;
+  line-height: 1.75;
+  text-transform: uppercase;
+}
+.navbar-header {
+  .user {
+    a {
+      text-transform: uppercase;
+    }
+  }
+}
+.form-control {
+  border: 1px solid $primary;
+  border-radius: unset;
+  transition: none;
+  &:focus {
+    border-color: $primary;
+  }
+  &::-ms-clear {
+    display: none;
+  }
+  &.is-invalid {
+    background-image: none;
+  }
+}
+label {
+  font-size: rem(14);
+  text-transform: uppercase;
+  color: $primary;
+}
+
+.custom-select-wrapper {
+  position: relative;
+}
+
+.card.alert-dismissible {
+  box-shadow: 0 rem(2) rem(2) 0 $grey-transparent-7;
+  border-radius: rem(3);
+  border: rem(1) solid $grey3;
+  color: $dark-red;
+  background: none;
+  button {
+    opacity: 1;
+    color: $grey14;
+  }
+}

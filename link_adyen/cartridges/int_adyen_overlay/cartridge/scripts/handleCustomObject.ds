@@ -1,0 +1,145 @@
+/**
+* Demandware Script File
+* where
+*   <paramUsageType> can be either 'input' or 'output'
+*   <paramName> can be any valid parameter name
+*   <paramDataType> identifies the type of the parameter
+*   <paramComment> is an optional comment
+*
+* For example:
+*
+* @input CustomObj : dw.object.CustomObject
+* @output Order			: dw.order.Order	The updated order
+* @output EventCode		: String 			The event code
+* @output SkipNotification	: Boolean 			Skip email notification
+* @output RefusedHpp		: Boolean			Indicates that payment was made with using Adyen method and was refused
+* @output Pending  		: Boolean			Indicates that payment is in pending status
+* @output SkipOrder  		: Boolean			Indicates that we should skip order, order creation date > current date
+*
+*/
+importPackage( dw.system );
+importPackage( dw.object );
+importPackage( dw.order );
+importPackage( dw.util );
+
+function execute( args : PipelineDictionary ) : Number
+{
+    var result = handle(args.CustomObj);
+
+    args.EventCode = result.EventCode;
+    args.SkipNotification = result.SkipNotification;
+    args.RefusedHpp = result.RefusedHpp;
+    args.Pending = result.Pending;
+    args.SkipOrder = result.SkipOrder;
+    args.Order = result.Order;
+
+    return result.status;
+}
+function handle( customObj : CustomObject  ) : Object
+{
+	var STATUS_ERROR = 'ERROR';
+	var STATUS_SUCCESS = 'SUCCESS';
+	var paymentSuccess : Boolean = false;
+	var refusedHpp : Boolean = false;
+	var pending : Boolean = false;
+	var result = {};
+	result.status = STATUS_ERROR;
+	
+	result.EventCode = customObj.custom.eventCode;
+	result.SkipNotification = true;
+	result.SkipOrder = false;
+
+	var orderId = customObj.custom.orderId.split("-", 1);	
+	var order : Order = OrderMgr.getOrder(orderId[0]);
+	result.Order = order;
+	
+	if (order == null) {
+		// check to see if this was a $0.00 auth for recurring payment. if yes, CO can safely be deleted
+        if (orderId.indexOf('recurringPayment-') > -1) {
+            result.SkipOrder = true;
+            setProcessedCOInfo(customObj);
+        } else {
+            Logger.getLogger("Adyen", "adyen").fatal("Notification for not existing order {0} received.", customObj.custom.orderId);
+        }
+		return result;
+	}
+	
+	var orderCreateDate : Date = order.creationDate;
+	var orderCreateDateDelay = createDelayOrderDate(orderCreateDate);
+	var currentDate = new Date();
+		
+	Logger.getLogger("Adyen", "adyen").debug("Order date {0} , orderCreateDateDelay {1} , currentDate {2}", orderCreateDate , orderCreateDateDelay, currentDate);
+	if(orderCreateDateDelay < currentDate){
+		var eventCode = customObj.custom.eventCode;
+		if(eventCode && eventCode.indexOf('CAPTURE_FAILED') >-1){
+			order.custom.adyenCaptureFailedFlag = true;
+			Logger.getLogger("Adyen", "adyen").error ("Capture Failed for order {0}",order.orderNo);
+		}
+		else if(eventCode && eventCode.indexOf('REFUND_FAILED') > -1){
+			order.custom.adyenRefundFailedFlag = true;
+			Logger.getLogger("Adyen", "adyen").error ("Refund Failed for order {0}",order.orderNo);
+		}
+		else {
+			Logger.getLogger("Adyen", "adyen").info ("Order {0} received unhandled status {1}",order.orderNo,eventCode);
+		}
+		
+		order.addNote("Adyen Payment Notification", createLogMessage(customObj));
+		setProcessedCOInfo(customObj);
+    }
+    else {
+        Logger.getLogger("Adyen", "adyen").debug("Order date > current Date.");
+        result.SkipOrder = true;
+        result.status = STATUS_SUCCESS;
+        return result;
+    }
+
+    result.status = STATUS_SUCCESS;
+   	return result;
+}
+
+function setProcessedCOInfo(customObj)
+{
+    var now : Date = new Date();
+    customObj.custom.processedDate = now;
+    customObj.custom.updateStatus = "SUCCESS";
+    customObj.custom.processedStatus = "SUCCESS";
+}
+
+function createLogMessage(customObj){
+    var VERSION : String= customObj.custom.version;
+    var msg = "";
+    msg = "AdyenNotification v " + VERSION + " - Payment info (Called from : " + customObj.custom.httpRemoteAddress + ")";
+    msg = msg + "\n================================================================\n";
+    //msg = msg + "\nSessionID : " + args.CurrentSession.sessionID;
+    msg = msg + "reason : " +customObj.custom.reason;
+    msg = msg + "\neventDate : " + customObj.custom.eventDate;
+    msg = msg + "\nmerchantReference : " + customObj.custom.merchantReference;
+    msg = msg + "\ncurrency : " + customObj.custom.currency;
+    msg = msg + "\npspReference : " + customObj.custom.pspReference;
+    msg = msg + "\nmerchantAccountCode : " + customObj.custom.merchantAccountCode;
+    msg = msg + "\neventCode : " + customObj.custom.eventCode;
+    msg = msg + "\nvalue : " + customObj.custom.value;
+    msg = msg + "\noperations : " + customObj.custom.operations;
+    msg = msg + "\nsuccess : " + customObj.custom.success;
+    msg = msg + "\npaymentMethod : " + customObj.custom.paymentMethod;
+    msg = msg + "\nlive : " + customObj.custom.live;
+    return msg;
+}
+
+function createDelayOrderDate(orderCreateDate : Date)
+{
+	//AdyenNotificationDelayMinutes
+	var adyenDelayMin : Number = 1;
+	
+	// Variable in milliseconds 
+	var newDate = new Date();
+	newDate.setTime(orderCreateDate.getTime() + (adyenDelayMin * 60 * 1000));
+	return newDate;
+}
+
+
+
+module.exports = {
+    'execute': execute,
+    'handle': handle
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="RCDataObject">
+        <display-name xml:lang="x-default">RC Data Object</display-name>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="id">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="authErrorCode">
+                <display-name xml:lang="x-default">Authorisation Error Code</display-name>
+                <description xml:lang="x-default">This attribute saves authorisation error code in case of Checkout Denied only.</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="authErrorCreationTime">
+                <display-name xml:lang="x-default">Authorization Error Creation Time</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="authErrorMsg">
+                <display-name xml:lang="x-default">Authorisation Error Message</display-name>
+                <description xml:lang="x-default">This attribute saves authorisation error message in case of Checkout Denied only.</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="isCheckoutDenied">
+                <display-name xml:lang="x-default">Checkout Denied</display-name>
+                <description xml:lang="x-default">This flag indicates whether the data object holds checkout denied or order export data.</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="orderNo">
+                <display-name xml:lang="x-default">Order No</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="retryIndex">
+                <display-name xml:lang="x-default">Retry Index</display-name>
+                <type>int</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-value>1.0</min-value>
+                <max-value>3.0</max-value>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="riskified">
+                <display-name xml:lang="x-default">Riskified</display-name>
+                <attribute attribute-id="id"/>
+                <attribute attribute-id="orderNo"/>
+                <attribute attribute-id="retryIndex"/>
+                <attribute attribute-id="isCheckoutDenied"/>
+                <attribute attribute-id="authErrorCode"/>
+                <attribute attribute-id="authErrorMsg"/>
+                <attribute attribute-id="authErrorCreationTime"/>
+                <attribute attribute-id="lastModified" system="true"/>
+                <attribute attribute-id="creationDate" system="true"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+</metadata>

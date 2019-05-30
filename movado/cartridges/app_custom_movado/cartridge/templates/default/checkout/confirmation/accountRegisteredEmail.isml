@@ -1,0 +1,34 @@
+<html>
+<head>
+<isprint value="${pdict.emailHeader}" encoding="off" />  
+<body>
+<table class="responsive-540" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+    <tr>
+		<td class="p br pad-40-top" style="line-height:18px;font-size:12px;padding-bottom:16px;padding-top:40px;color:#000001;vertical-align:top;">
+			${pdict.dear}&nbsp;${pdict.firstName}&nbsp;${pdict.lastName},
+		</td>
+	</tr>
+	<tr>
+		<td class="p br" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;">
+            <isprint value="${pdict.apiContentBodyTop}" encoding="off" />
+        </td>
+	</tr>
+	<tr>
+		<td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;">
+			<p>
+				<span class="strong" style="font-weight:700;">
+					${pdict.emailText}
+				</span>
+				${pdict.email}
+				<br />
+				<span class="strong" style="font-weight:700;">
+					${pdict.passwordText}
+				</span>
+			</p>
+			
+			<isprint value="${pdict.emailCreateAccountNotes}" encoding="off" />
+		</td>
+	</tr>
+    <isprint value="${pdict.emailMarketingContent}" encoding="off" />
+</table>
+<isprint value="${pdict.emailFooter}" encoding="off" />

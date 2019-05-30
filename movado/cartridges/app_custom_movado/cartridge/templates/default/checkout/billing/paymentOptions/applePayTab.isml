@@ -1,0 +1,12 @@
+<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}">
+    <div class="panel-title">
+     <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link" value='${paymentOption.ID}' required />
+            <label for="${paymentOption.ID}" class="form-check-label d-block" >
+              <img src="${URLUtils.staticURL('/images/apple-pay-logo.png')}" alt="${Resource.msg('checkout.applepay.logo.text', 'checkout', null)}"/>
+            </label>
+        <a class="applepay-panel" data-toggle="collapse" aria-controls="applepay-content" href="${'#' + 'applepay-content'}">
+        </a>
+     </div>
+</div>
+
+

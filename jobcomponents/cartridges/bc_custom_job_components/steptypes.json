@@ -1,0 +1,832 @@
+{
+    "step-types": {
+        "script-module-step": [
+		{
+                "@type-id": "custom.CSComponents.ImportInventory",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/StandardImport.js",
+                "function": "inventoryLists",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "SourceFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Source folder path (in IMPEX)",
+                            "default-value": "src/import/inventory"
+                        },
+                        {
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "FileAction",
+                            "description": "Action to take with files after successful import",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "ARCHIVE",
+                            "enum-values": {
+                                "value": [
+                                    "REMOVE",
+                                    "KEEP",
+                                    "ARCHIVE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ImportMode",
+                            "description": "Import mode",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "MERGE",
+                            "enum-values": {
+                                "value": [
+                                    "MERGE",
+                                    "UPDATE",
+                                    "DELETE",
+                                    "REPLACE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "NoFileFoundStatus",
+                            "description": "No files found exit code",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "OK",
+                            "enum-values": {
+                                "value": [
+                                    "OK",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "OnError",
+                            "description": "If one ore multiple files fail...",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "CONTINUE",
+                            "enum-values": {
+                                "value": [
+                                    "CONTINUE",
+                                    "ABORT",
+                                    "ARCHIVEERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ArchivePath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/inventory"
+                        },
+                        {
+                            "@name": "ArchiveErrorPath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/inventory/error/"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CSComponents.CustomImportStores",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/StandardImport.js",
+                "function": "stores",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "SourceFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Source folder path (in IMPEX)",
+                            "default-value": "src/import/stores"
+                        },
+                        {
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "FileAction",
+                            "description": "Action to take with files after successful import",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "ARCHIVE",
+                            "enum-values": {
+                                "value": [
+                                    "REMOVE",
+                                    "KEEP",
+                                    "ARCHIVE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ImportMode",
+                            "description": "Import mode",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "MERGE",
+                            "enum-values": {
+                                "value": [
+                                    "MERGE",
+                                    "UPDATE",
+                                    "DELETE",
+                                    "REPLACE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "NoFileFoundStatus",
+                            "description": "No files found exit code",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "OK",
+                            "enum-values": {
+                                "value": [
+                                    "OK",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "OnError",
+                            "description": "If one ore multiple files fail...",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "CONTINUE",
+                            "enum-values": {
+                                "value": [
+                                    "CONTINUE",
+                                    "ABORT",
+                                    "ARCHIVEERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ArchivePath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/stores"
+                        },
+                        {
+                            "@name": "ArchiveErrorPath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/stores/error/"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CSComponents.ImportPriceBooks",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/StandardImport.js",
+                "function": "pricebooks",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "SourceFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Source folder path (in IMPEX)",
+                            "default-value": "src/import/pricebooks"
+                        },
+                        {
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "FileAction",
+                            "description": "Action to take with files after successful import",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "ARCHIVE",
+                            "enum-values": {
+                                "value": [
+                                    "REMOVE",
+                                    "KEEP",
+                                    "ARCHIVE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ImportMode",
+                            "description": "Import mode",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "MERGE",
+                            "enum-values": {
+                                "value": [
+                                    "MERGE",
+                                    "UPDATE",
+                                    "DELETE",
+                                    "REPLACE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "NoFileFoundStatus",
+                            "description": "No files found exit code",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "OK",
+                            "enum-values": {
+                                "value": [
+                                    "OK",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "OnError",
+                            "description": "If one ore multiple files fail...",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "CONTINUE",
+                            "enum-values": {
+                                "value": [
+                                    "CONTINUE",
+                                    "ABORT",
+                                    "ARCHIVEERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ArchivePath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/pricebook"
+                        },
+                        {
+                            "@name": "ArchiveErrorPath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/pricebook/error/"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CSComponents.ImportCatalog",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/StandardImport.js",
+                "function": "catalogs",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "SourceFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Source folder path (in IMPEX)",
+                            "default-value": "src/import/catalog"
+                        },
+                        {
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "FileAction",
+                            "description": "Action to take with files after successful import",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "ARCHIVE",
+                            "enum-values": {
+                                "value": [
+                                    "REMOVE",
+                                    "KEEP",
+                                    "ARCHIVE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ImportMode",
+                            "description": "Import mode",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "MERGE",
+                            "enum-values": {
+                                "value": [
+                                    "MERGE",
+                                    "UPDATE",
+                                    "DELETE",
+                                    "REPLACE"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "NoFileFoundStatus",
+                            "description": "No files found exit code",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "OK",
+                            "enum-values": {
+                                "value": [
+                                    "OK",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "OnError",
+                            "description": "If one ore multiple files fail...",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "CONTINUE",
+                            "enum-values": {
+                                "value": [
+                                    "CONTINUE",
+                                    "ABORT",
+                                    "ARCHIVEERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "ArchivePath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/catalog"
+                        },
+                        {
+                            "@name": "ArchiveErrorPath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "src/archive/catalog/error/"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            },
+
+            {
+			"@type-id": "custom.CSComponents.GetStoresGeolocation",
+			"@supports-site-context": true,
+			"@supports-organization-context": true,
+			"module": "bc_custom_job_components/cartridge/scripts/jobsteps/GetStoresGeolocation.js",
+			"function": "run",
+			"parameters": {
+				"parameters": [
+					{
+						"@name": "ServiceID",
+						"@type": "string",
+						"@required": true,
+						"@trim": true,
+						"default-value": "GoogleMapService"
+					},
+					{
+						"@name": "TargetFolder",
+						"@type": "string",
+						"@required": true,
+						"description": "Local folder where to store file will be generated with Lat and Long, relative to IMPEX/",
+						"@trim": true,
+						"default-value": "src/stores/geolocate"
+					},
+                    {
+                        "@name": "IsDisabled",
+                        "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                        "@type": "boolean",
+                        "@required": false,
+                        "@trim": true
+                    }
+				]
+			}
+		    },
+            {
+                "@type-id": "custom.CSComponents.ExportPICatalog",
+                "@supports-site-context": true,
+                "@supports-organization-context": false,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/PICatalogExport.js",
+                "function": "piCatalog",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "TargetFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Target folder path (in IMPEX)",
+                            "default-value": "src/export/catalog/PICatalog"
+                        },
+                        {
+                            "@name": "Filename",
+                            "description": "Filename of the generated files that will contains exported data",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": "export-piCatalog.txt"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "FILE_ALREADY_EXISTS",
+                            "description": "Used when a file already exists with the given filename in the given target folder and the overwrite option is not set to true."
+                        },
+                        {
+                            "@code": "NO_DATA_TO_EXPORT",
+                            "description": "Used when there is no data to export."
+                        }
+                    ]
+                }
+            },
+            {
+				"@type-id": "custom.OrderGuard",
+				"module": "bc_custom_job_components/cartridge/scripts/jobsteps/OrderGuard.js",
+				"function": "execute",
+				"parameters": {
+					"parameters": [
+						{
+							"@name": "maxAge",
+							"description": "Max age (in minutes) of the last order before an email is sent",
+							"@type": "string",
+							"@required": true,
+							"@trim": true
+						},
+						{
+							"@name": "notifyTo",
+							"description": "Email address that notification is sent to",
+							"@type": "string",
+							"@required": true,
+							"@trim": true
+						}
+					]
+				},
+				"status-codes": {
+					"status": [
+						{
+							"@code": "ERROR",
+							"description": "Used when an error occurred."
+						},
+						{
+							"@code": "OK",
+							"description": "Used when everything went well."
+						},
+						{
+							"@code": "WARN",
+							"description": "Used when small, but acceptable problems occurred."
+						}
+					]
+				}
+			},
+			{
+                "@type-id": "custom.CSComponents.NewsLetterOptIn",
+                "@supports-site-context": true,
+                "@supports-organization-context": false,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/NewsLetterOptInExport.js",
+                "function": "newsLetterOptIn",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "TargetFolder",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "description": "Target folder path (in IMPEX)",
+                            "default-value": "src/export/newsLetterOptIn"
+                        },
+                        {
+                            "@name": "Filename",
+                            "description": "Prefix of the generated files that will contains exported data",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": "NewsLetterOptIn"
+                        },
+                        {
+                            "@name": "Type",
+                            "description": "Type of custom object to export",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "default-value": "newsletterSignup"
+                        },
+                        {
+                            "@name": "Query",
+                            "description": "Query used to export custom objects. Leave empty to delete all custom objects of the given type",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": "custom.exportFlag = true"
+                        },
+                        {
+                            "@name": "ArchiveErrorPath",
+                            "description": "The file archive directory",
+                            "@type": "string",
+                            "@required": false,
+                            "@trim": true,
+                            "default-value": "src/export/newsLetterOptIn/error/"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "FILE_ALREADY_EXISTS",
+                            "description": "Used when a file already exists with the given filename in the given target folder and the overwrite option is not set to true."
+                        },
+                        {
+                            "@code": "NO_DATA_TO_EXPORT",
+                            "description": "Used when there is no data to export."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CSComponents.DeleteCustomObjects",
+                "@supports-site-context": true,
+                "@supports-organization-context": false,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/NewsLetterOptInExport.js",
+                "function": "deleteCustomObjects",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "Type",
+                            "description": "Type of custom object to export",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true",
+                            "default-value": "newsletterSignup"
+                        },
+                        {
+                            "@name": "Query",
+                            "description": "Query used to export custom objects. Leave empty to delete all custom objects of the given type",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": "exportFlag = true"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "FILE_ALREADY_EXISTS",
+                            "description": "Used when a file already exists with the given filename in the given target folder and the overwrite option is not set to true."
+                        },
+                        {
+                            "@code": "NO_DATA_TO_EXPORT",
+                            "description": "Used when there is no data to export."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.CSComponents.PurgeArchiveFiles",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "bc_custom_job_components/cartridge/scripts/jobsteps/PurgeFiles.js",
+                "function": "purgeFiles",
+                "parameters": {
+                    "parameters": [
+                        {
+                            "@name": "DaysToPurge",
+                            "description": "Number of days to purge the files.",
+                            "@type": "string",
+                            "@required": "true",
+                            "@trim": "true"
+                        },
+                        {
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "NoFileFoundStatus",
+                            "description": "No files found exit code",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "OK",
+                            "enum-values": {
+                                "value": [
+                                    "OK",
+                                    "ERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "OnError",
+                            "description": "If one ore multiple files fail...",
+                            "@type": "string",
+                            "@required": true,
+                            "@trim": true,
+                            "default-value": "CONTINUE",
+                            "enum-values": {
+                                "value": [
+                                    "CONTINUE",
+                                    "ABORT",
+                                    "ARCHIVEERROR"
+                                ]
+                            }
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
+                        {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

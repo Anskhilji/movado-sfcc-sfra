@@ -1,0 +1,26 @@
+{
+    "name": "sabrix",
+    "version": "0.0.1",
+    "description": "Sabrix Non Link Cartridge",
+    "main": "index.js",
+    "scripts": {
+        "upload": "sgmf-scripts --upload",
+        "uploadCartridge": "sgmf-scripts --uploadCartridge int_sabrix",
+        "lint": "sgmf-scripts --lint js",
+        "test": "sgmf-scripts --test test/unit/**/*.js",
+        "cover": "sgmf-scripts --cover"
+    },
+    "devDependencies": {
+        "sgmf-scripts": "^1.1.3",
+        "eslint-config-airbnb-base": "^5.0.1",
+        "eslint-plugin-import": "^1.12.0",
+        "eslint-plugin-sitegenesis": "~1.0.0",
+        "stylelint": "^8.2.0",
+        "stylelint-config-standard": "^17.0.0",
+        "stylelint-scss": "^2.1.0",
+        "eslint": "~4.18.2"
+    },
+    "paths": {
+        "base": "../storefront-reference-architecture/cartridges/app_storefront_base/"
+    }
+}

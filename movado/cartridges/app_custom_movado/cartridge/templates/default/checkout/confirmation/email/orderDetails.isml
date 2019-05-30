@@ -1,0 +1,38 @@
+<isloop items="${pdict.order.shipping}" var="shippingModel">
+<table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+	<tr>
+		<td style="color:#000001;vertical-align:top;" >
+			<table border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+                <isinclude template="/checkout/confirmation/email/productDetails" /> 
+            </table>
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+	<tr><td class="pad-40-top" style="padding-top:40px;color:#000001;vertical-align:top;" ><div class="divider-black" style="background-color:#000000;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;height:1px;line-height:1px;" ></div></td></tr>
+</table>
+</isloop>
+<table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+	<tr>
+		<td style="color:#000001;vertical-align:top;" >
+			<table class="order-details" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+				<tr><td class="h1 uppercase pad-40-top" style="font-size:20px;text-transform:uppercase;padding-top:40px;color:#000001;vertical-align:top;" >${pdict.paymentTotalLabel}</td></tr>
+				<tr><td class="pad-10-top pad-20-btm" style="padding-top:10px;padding-bottom:20px;color:#000001;vertical-align:top;" ><div class="divider-black" style="background-color:#000000;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;height:1px;line-height:1px;" ></div></td></tr>
+				<tr>
+					<td style="color:#000001;vertical-align:top;" >
+						<isinclude template="/checkout/confirmation/email/orderTotals" />
+					</td>
+				</tr>
+				<tr>
+                    <isinclude template="/checkout/confirmation/email/paymentDetails" />	
+				</tr>
+			</table>
+		</td>
+		<td style="color:#000001;vertical-align:top;" >
+			<table class="order-details" border="0" cellpadding="0" cellspacing="0" align="right" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+				<isinclude template="/checkout/confirmation/email/shippingDetails" />
+                <isinclude template="/checkout/confirmation/email/billingDetails" />
+			</table>
+		</td>
+	</tr>
+</table>

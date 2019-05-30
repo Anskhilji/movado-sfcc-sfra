@@ -1,0 +1,12 @@
+{
+	"hooks": [
+		{
+			"name": "app.payment.affirm.capture",
+			"script": "./cartridge/scripts/hooks/payment/affirmCaptureRefundSVC"
+		},
+		{
+			"name": "app.payment.affirm.refund",
+			"script": "./cartridge/scripts/hooks/payment/affirmCaptureRefundSVC"
+		}
+	]
+}

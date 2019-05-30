@@ -1,0 +1,737 @@
+diff --git a/app_storefront_controllers/cartridge/controllers/Account.js b/app_storefront_controllers/cartridge/controllers/Account.js
+index 84dd1f5d3..dd4d5c4c4 100644
+--- a/app_storefront_controllers/cartridge/controllers/Account.js
++++ b/app_storefront_controllers/cartridge/controllers/Account.js
+@@ -79,6 +79,7 @@ function editForm() {
+             var isProfileUpdateValid = true;
+             var hasEditSucceeded = false;
+             var Customer = app.getModel('Customer');
++            var Email = app.getModel('Email');
+
+             if (!Customer.checkUserName()) {
+                 app.getForm('profile.customer.email').invalidate();
+@@ -105,6 +106,12 @@ function editForm() {
+             }
+
+             if (isProfileUpdateValid && hasEditSucceeded) {
++                var accountUpdatedMail = Email.get('mail/accountupdatedemail', customer.profile.email);
++                accountUpdatedMail.setSubject(Resource.msg('account.updatedemail.subject', 'account', null));
++                accountUpdatedMail.send({
++                    Customer: customer
++                });
++
+                 response.redirect(URLUtils.https('Account-Show'));
+             } else {
+                 response.redirect(URLUtils.https('Account-EditProfile', 'invalid', 'true'));
+@@ -114,6 +121,7 @@ function editForm() {
+             var isProfileUpdateValid = true;
+             var hasEditSucceeded = false;
+             var Customer = app.getModel('Customer');
++            var Email = app.getModel('Email');
+
+             if (!Customer.checkUserName()) {
+                 app.getForm('profile.customer.email').invalidate();
+@@ -138,6 +146,12 @@ function editForm() {
+             }
+
+             if (isProfileUpdateValid && hasEditSucceeded) {
++                var passwordChangedMail = Email.get('mail/passwordchangedemail', customer.profile.email);
++                passwordChangedMail.setSubject(Resource.msg('account.passwordchangedemail.subject', 'account', null));
++                passwordChangedMail.send({
++                    Customer: customer
++                });
++
+                 response.redirect(URLUtils.https('Account-Show'));
+             } else {
+                 response.redirect(URLUtils.https('Account-EditProfile', 'invalid', 'true'));
+@@ -192,7 +206,7 @@ function passwordResetFormHandler(templateName, continueURL) {
+                 passwordemail.setSubject(Resource.msg('resource.passwordassistance', 'email', null));
+                 passwordemail.send({
+                     ResetPasswordToken: resetPasswordToken,
+-                    Customer: resettingCustomer.object.profile.customer
++                    Customer: resettingCustomer.object
+                 });
+             }
+
+@@ -306,7 +320,7 @@ function setNewPasswordForm() {
+                     }).render('account/password/setnewpassword');
+                 } else {
+                     passwordChangedMail = Email.get('mail/passwordchangedemail', resettingCustomer.object.profile.email);
+-                    passwordChangedMail.setSubject(Resource.msg('resource.passwordassistance', 'email', null));
++                    passwordChangedMail.setSubject(Resource.msg('account.passwordchangedemail.subject', 'account', null));
+                     passwordChangedMail.send({
+                         Customer: resettingCustomer.object
+                     });
+@@ -347,9 +361,10 @@ function startRegister() {
+ function registrationForm() {
+     app.getForm('profile').handleAction({
+         confirm: function () {
+-            var email, emailConfirmation, orderNo, profileValidation, password, passwordConfirmation, existingCustomer, Customer, target;
++            var email, emailConfirmation, orderNo, profileValidation, password, passwordConfirmation, existingCustomer, Customer, target, Email;
+
+             Customer = app.getModel('Customer');
++            Email = app.getModel('Email');
+             email = app.getForm('profile.customer.email').value();
+             emailConfirmation = app.getForm('profile.customer.emailconfirm').value();
+             orderNo =  app.getForm('profile.customer.orderNo').value();
+@@ -378,7 +393,7 @@ function registrationForm() {
+             if (profileValidation) {
+                 profileValidation = Customer.createAccount(email, password, app.getForm('profile'));
+
+-                if (orderNo) {
++                if (profileValidation && orderNo) {
+                     var orders = OrderMgr.searchOrders('orderNo={0} AND status!={1}', 'creationDate desc', orderNo,
+                             dw.order.Order.ORDER_STATUS_REPLACED);
+                     if (orders) {
+@@ -398,6 +413,13 @@ function registrationForm() {
+                 }).render('account/user/registration');
+             } else {
+                 app.getForm('profile').clear();
++
++                var accountCreatedMail = Email.get('mail/accountcreatedemail', email);
++                accountCreatedMail.setSubject(Resource.msg('account.createdemail.subject', 'account', null));
++                accountCreatedMail.send({
++                    Customer: profileValidation
++                });
++
+                 target = session.custom.TargetLocation;
+                 if (target) {
+                     delete session.custom.TargetLocation;
+diff --git a/app_storefront_controllers/cartridge/controllers/CustomerService.js b/app_storefront_controllers/cartridge/controllers/CustomerService.js
+index 5c6558474..acc0fb758 100644
+--- a/app_storefront_controllers/cartridge/controllers/CustomerService.js
++++ b/app_storefront_controllers/cartridge/controllers/CustomerService.js
+@@ -47,7 +47,10 @@ function submit() {
+             // Change the MailTo in order to send to the store's customer service email address. It defaults to the
+             // user's email.
+             var Email = app.getModel('Email');
+-            return Email.get('mail/contactus', formgroup.email.value)
++            return Email.get(
++                'mail/contactus',
++                require('dw/system/Site').current.getCustomPreferenceValue('customerServiceEmail')
++            )
+                 .setFrom(formgroup.email.value)
+                 .setSubject(formgroup.myquestion.value)
+                 .send({});
+diff --git a/app_storefront_controllers/cartridge/scripts/hooks.json b/app_storefront_controllers/cartridge/scripts/hooks.json
+index 0c35f20a5..296ff3bd9 100644
+--- a/app_storefront_controllers/cartridge/scripts/hooks.json
++++ b/app_storefront_controllers/cartridge/scripts/hooks.json
+@@ -39,6 +39,14 @@
+ 		{
+ 			"name": "app.payment.processor.VERISIGN_CREDIT",
+ 			"script": "./payment/processor/VERISIGN_CREDIT"
+-		}
+-	]
++		},
++        {
++            "name": "app.mail.sendMail",
++            "script": "./mail/mailHook"
++        },
++        {
++            "name": "app.template.afterFooter",
++            "script": "./template/footer"
++        }
++    ]
+ }
+diff --git a/app_storefront_controllers/cartridge/scripts/mail/mailHook.js b/app_storefront_controllers/cartridge/scripts/mail/mailHook.js
+new file mode 100644
+index 000000000..df04aac13
+--- /dev/null
++++ b/app_storefront_controllers/cartridge/scripts/mail/mailHook.js
+@@ -0,0 +1,20 @@
++'use strict';
++
++var ArrayList = require('dw/util/ArrayList');
++var Mail = require('dw/net/Mail');
++
++/**
++ * Hook for mail send action
++ * @param args
++ * @returns {dw.system.Status}
++ */
++function sendMail(args) {
++    var email = new Mail();
++    email.setTo(new ArrayList(args.toEmail));
++    email.setFrom(args.fromEmail);
++    email.setSubject(args.subject);
++    email.setContent(args.params.MainContent, 'text/html', 'UTF-8');
++    return email.send();
++}
++
++exports.sendMail = sendMail;
+diff --git a/app_storefront_controllers/cartridge/scripts/models/CustomerModel.js b/app_storefront_controllers/cartridge/scripts/models/CustomerModel.js
+index 54f9b8938..f8f776ea7 100644
+--- a/app_storefront_controllers/cartridge/scripts/models/CustomerModel.js
++++ b/app_storefront_controllers/cartridge/scripts/models/CustomerModel.js
+@@ -107,7 +107,10 @@ CustomerModel.login = function (username, password, rememberMe) {
+
+     if (authenticatedCustomer === null) {
+         if (typeof (TempCustomer) !== 'undefined' && TempCustomer !== null && TempCustomer.profile !== null && TempCustomer.profile.credentials.locked) {
+-            Email.get('mail/lockoutemail', TempCustomer.profile.email).setSubject((dw.web.Resource.msg('resource.youraccount', 'email', null))).send({
++            Email.get(
++                'mail/lockoutemail',
++                TempCustomer.profile.email
++            ).setSubject((dw.web.Resource.msg('resource.youraccount', 'email', null))).send({
+                 TempCustomer: TempCustomer
+             });
+         }
+@@ -201,7 +204,7 @@ CustomerModel.setLogin = function (customerToSet, login, password) {
+  * @param {String} email - The current customer email address to use for login.
+  * @param {String} password - The password of the customer.
+  * @param {dw.web.Form} form - The form instance to invalidate.
+- * @return <code>true</code> if the account was created successfully.
++ * @return {boolean|dw.customer.Customer} Customer instance if created successfully, false or null otherwise.
+  * @see module:models/CustomerModel~CustomerModel/createNewCustomer
+  * @see module:models/CustomerModel~CustomerModel/setLogin
+  */
+@@ -261,10 +264,12 @@ CustomerModel.checkUserName = function () {
+         return true;
+     }
+
+-    customerByLogin = CustomerMgr.getCustomerByLogin(profileForm.customer.email.value);
++    if (profileForm.customer.email.value !== null) {
++        customerByLogin = CustomerMgr.getCustomerByLogin(profileForm.customer.email.value);
+
+-    if (customerByLogin === null) {
+-        return true;
++        if (customerByLogin === null) {
++            return true;
++        }
+     }
+
+     return false;
+diff --git a/app_storefront_controllers/cartridge/scripts/models/EmailModel.js b/app_storefront_controllers/cartridge/scripts/models/EmailModel.js
+index 0c9cbeafd..1b49592c3 100644
+--- a/app_storefront_controllers/cartridge/scripts/models/EmailModel.js
++++ b/app_storefront_controllers/cartridge/scripts/models/EmailModel.js
+@@ -7,8 +7,10 @@
+  */
+
+ var AbstractModel = require('./AbstractModel');
+-var Mail = require('dw/net/Mail');
++var HookMgr = require('dw/system/HookMgr');
++var Logger = require('dw/system/Logger');
+ var Site = require('dw/system/Site');
++var Status = require('dw/system/Status');
+ var Template = require('dw/util/Template');
+
+ /**
+@@ -29,15 +31,31 @@ var Template = require('dw/util/Template');
+  */
+ var EmailModel = AbstractModel.extend({
+     template: null,
++    subject: '',
++    from: '',
++    to: [],
+
+     init: function (template, recipient) {
+-        this._super(new Mail());
+         this.template = template;
+
+         // prepare the email object
+-        var mail = this.object;
+-        mail.addTo(recipient);
+-        mail.setFrom(Site.getCurrent().getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com');
++        this.addTo(recipient);
++        this.setFrom(Site.getCurrent().getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com');
++    },
++
++    addTo: function(to) {
++        this.to.push(to);
++        return this;
++    },
++
++    setFrom: function(from) {
++        this.from = from;
++        return this;
++    },
++
++    setSubject: function(subject) {
++        this.subject = subject;
++        return this;
+     },
+
+     /**
+@@ -48,7 +66,7 @@ var EmailModel = AbstractModel.extend({
+      * @returns {dw.system.Status} Status tells whether the mail was successfully queued ( Status.OK) or not ( Status.ERROR).
+      * If an error is thrown, more information about the reason for the failure can be found within the log files.
+      * If the mandatory fields from, content, and subject are empty an IllegalArgumentException is thrown. An
+-     * llegalArgumentException is thrown if neither to, cc, nor bcc are set.
++     * IllegalArgumentException is thrown if neither to, cc, nor bcc are set.
+      */
+     send: function (args) {
+         // Add some default keys
+@@ -67,8 +85,27 @@ var EmailModel = AbstractModel.extend({
+         //var content = template.render(params);
+
+         // Sets the content and sends it.
+-        this.object.setContent(params.MainContent, 'text/html', 'UTF-8');
+-        return this.object.send();
++        var result;
++        var hookID = 'app.mail.sendMail';
++        if (HookMgr.hasHook(hookID)) {
++            // expects a Status object returned from the hook call
++            result = HookMgr.callHook(
++                hookID,
++                'sendMail',
++                {
++                    template: this.template,
++                    fromEmail: this.from,
++                    toEmail: this.to,
++                    subject: this.subject,
++                    messageBody: params.MainContent,
++                    params: params
++                }
++            );
++        } else {
++            Logger.error('No hook registered for {0}', hookID);
++            result = new Status(Status.ERROR);
++        }
++        return result;
+     },
+
+     __noSuchMethod__: function (methodName, methodArgs) {
+@@ -115,18 +152,10 @@ EmailModel.sendMail = function (options) {
+     if (!options.template || !options.recipient || !options.subject) {
+         return;
+     }
+-    var mail = new Mail();
+-    mail.addTo(options.recipient);
++    var mail = new EmailModel(options.template, options.recipient);
+     mail.setSubject(options.subject);
+-    mail.setFrom(options.from || Site.getCurrent().getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com');
+-    var context = require('~/cartridge/scripts/object').toHashMap(options.context);
+-    context.CurrentForms = session.forms;
+-    context.CurrentHttpParameterMap = request.httpParameterMap;
+-    context.CurrentCustomer = customer;
+-    var template = new Template(options.template);
+-    var content = template.render(context).text;
+-    mail.setContent(content, 'text/html', 'UTF-8');
+-    return mail.send();
++    if (options.from) mail.setFrom(options.from);
++    return mail.send(options.context);
+ };
+
+ /** The Email Model class */
+diff --git a/app_storefront_controllers/cartridge/scripts/models/OrderModel.js b/app_storefront_controllers/cartridge/scripts/models/OrderModel.js
+index 31f35d0b1..020d590cf 100644
+--- a/app_storefront_controllers/cartridge/scripts/models/OrderModel.js
++++ b/app_storefront_controllers/cartridge/scripts/models/OrderModel.js
+@@ -59,7 +59,7 @@ OrderModel.get = function (parameter) {
+  * Submits an order
+  * @param order {dw.order.Order} The order object to be submitted.
+  * @transactional
+- * @return {Object} object If order cannot be placed, object.error is set to true. Ortherwise, object.order_created is true, and object.Order is set to the order.
++ * @return {Object} object If order cannot be placed, object.error is set to true. Otherwise, object.order_created is true, and object.Order is set to the order.
+  */
+ OrderModel.submit = function (order) {
+     var Email = require('./EmailModel');
+@@ -74,7 +74,7 @@ OrderModel.submit = function (order) {
+         order.getGiftCertificateLineItems().toArray().map(function (lineItem) {
+             return GiftCertificate.createGiftCertificateFromLineItem(lineItem, order.getOrderNo());
+         }).forEach(GiftCertificate.sendGiftCertificateEmail);
+-
++
+         Transaction.commit();
+     } catch (e) {
+         Transaction.rollback();
+diff --git a/app_storefront_controllers/cartridge/scripts/template/footer.js b/app_storefront_controllers/cartridge/scripts/template/footer.js
+new file mode 100644
+index 000000000..7863e1267
+--- /dev/null
++++ b/app_storefront_controllers/cartridge/scripts/template/footer.js
+@@ -0,0 +1,29 @@
++'use strict';
++
++var ISML = require('dw/template/ISML');
++var Logger = require('dw/system/Logger');
++
++/**
++ * Example template-based hook
++ * Renders a template result. No value return is expected.
++ * Platform hook execution results in all registered hooks being executed, regardless of any return value.
++ * @param {Object} params Parameters from the template, includes requesting page's pdict as `pageParams` property
++ */
++function afterFooter(params) {
++    // NOTE: Template naming is still important, ensure your template is unique
++    // Otherwise, an unexpected template may be rendered based on cartridge path
++    var templateName = 'hooks/afterFooter';
++    try {
++        ISML.renderTemplate(templateName, params);
++        // Another option is to render using Velocity templates
++        /*
++         var velocity = require('dw/template/Velocity');
++         params.message = params.message || 'world';
++         velocity.render('Hello $message', params);
++         */
++    } catch (e) {
++        Logger.error('Error while rendering template ' + templateName);
++    }
++}
++
++exports.afterFooter = afterFooter;
+diff --git a/app_storefront_controllers/cartridge/scripts/template/hookHelper.js b/app_storefront_controllers/cartridge/scripts/template/hookHelper.js
+new file mode 100644
+index 000000000..7514e1819
+--- /dev/null
++++ b/app_storefront_controllers/cartridge/scripts/template/hookHelper.js
+@@ -0,0 +1,48 @@
++'use strict';
++
++var HookMgr = require('dw/system/HookMgr');
++var Logger = require('dw/system/Logger');
++
++function stringifyError(key, value) {
++    if (value instanceof Error) {
++        var error = {};
++        Object.getOwnPropertyNames(value).forEach(function (k) {
++            error[k] = value[k];
++        });
++        return error;
++    }
++
++    return value;
++}
++
++/**
++ * @param {string} hookname Registered hook
++ * @param {string} [hookfunction] Optional hook function, if empty, function is deduced from hookname
++ * @param {Object} [params] Optional params object to pass to the called hook
++ */
++function callHook(hookname, hookfunction, params) {
++    if (hookname) {
++        if (empty(hookfunction)) {
++            hookfunction = hookname.slice(hookname.lastIndexOf('.') + 1);
++        }
++        if (HookMgr.hasHook(hookname)) {
++            try {
++                HookMgr.callHook(
++                    hookname,
++                    hookfunction,
++                    params || {}
++                );
++            } catch (e) {
++                Logger.error(
++                    'Exception thrown while executing template hooks. Hook: {0} ;; Function: {1} ;; Error: {2}',
++                    hookname,
++                    hookfunction,
++                    JSON.stringify(e, stringifyError, 4)
++                );
++            }
++        }
++    }
++}
++
++exports.stringifyError = stringifyError;
++exports.callHook = callHook;
+diff --git a/app_storefront_controllers/package.json b/app_storefront_controllers/package.json
+index a9de38453..52276142a 100644
+--- a/app_storefront_controllers/package.json
++++ b/app_storefront_controllers/package.json
+@@ -1,3 +1,3 @@
+ {
+-   "hooks": "./cartridge/scripts/hooks.json"
++  "hooks": "./cartridge/scripts/hooks.json"
+ }
+diff --git a/app_storefront_core/cartridge/templates/default/components/footer/footer_UI.isml b/app_storefront_core/cartridge/templates/default/components/footer/footer_UI.isml
+index 1a97c2c6a..44d2d3b26 100644
+--- a/app_storefront_core/cartridge/templates/default/components/footer/footer_UI.isml
++++ b/app_storefront_core/cartridge/templates/default/components/footer/footer_UI.isml
+@@ -32,3 +32,8 @@
+ var meta = "${pdict.CurrentPageMetaData.description}";
+ var keywords = "${pdict.CurrentPageMetaData.keywords}";
+ </script>
++
++<isscript>
++    var hookHelper = require('app_storefront_controllers/cartridge/scripts/template/hookHelper');
++    hookHelper.callHook('app.template.afterFooter');
++</isscript>
+diff --git a/app_storefront_core/cartridge/templates/default/hooks/afterFooter.isml b/app_storefront_core/cartridge/templates/default/hooks/afterFooter.isml
+new file mode 100644
+index 000000000..4f43c21fd
+--- /dev/null
++++ b/app_storefront_core/cartridge/templates/default/hooks/afterFooter.isml
+@@ -0,0 +1,3 @@
++<!--- TEMPLATENAME: hooks/afterFooter.isml --->
++<iscontent compact="true"/>
++<!-- hooks/afterFooter is successfully loaded -->
+diff --git a/app_storefront_core/cartridge/templates/default/mail/accountcreatedemail.isml b/app_storefront_core/cartridge/templates/default/mail/accountcreatedemail.isml
+new file mode 100644
+index 000000000..eb366536f
+--- /dev/null
++++ b/app_storefront_core/cartridge/templates/default/mail/accountcreatedemail.isml
+@@ -0,0 +1,35 @@
++<iscontent type="text/html" charset="UTF-8" compact="true"/>
++<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
++<subject><isif condition="${!empty(pdict.MailSubject)}">${pdict.MailSubject}<iselse/>${Resource.msg('account.createdemail.subject','account',null)}</isif></subject>
++<html>
++<head>
++<title>${Resource.msg('account.createdemail.subject','account',null)}</title>
++</head>
++<body>
++<table width="100%" cellpadding="0" cellspacing="0">
++	<tr>
++		<td align="center" style="background:#e0e0e0;padding:50px 0;">
++			<center>
++				<table  style="background:#ffffff;border:1px solid #999999;width:680px;">
++					<tr>
++						<td style="font-size:12px;font-family:arial;padding:20px 10px;vertical-align:top;">
++
++							<p style="font-family:georgia;font-size:20px;">${Resource.msg('account.createdemail.dear','account',null)}&nbsp;<isprint value="${pdict.Customer.profile.firstName}"/>&nbsp;<isprint value="${pdict.Customer.profile.lastName}"/>,</p>
++
++							<p>${Resource.msg('account.createdemail.message1','account',null)}</p>
++
++							<p>${Resource.msg('account.createdemail.message2','account',null)} <a href="${URLUtils.https('Account-Show')}">${URLUtils.https('Account-Show')}</a>.</p>
++
++							<p>${Resource.msg('account.createdemail.message3','account',null)}</p>
++
++						</td>
++					</tr>
++				</table>
++			</center>
++		</td>
++	</tr>
++</table>
++
++
++</body>
++</html>
+diff --git a/app_storefront_core/cartridge/templates/default/mail/accountupdatedemail.isml b/app_storefront_core/cartridge/templates/default/mail/accountupdatedemail.isml
+new file mode 100644
+index 000000000..951c861fb
+--- /dev/null
++++ b/app_storefront_core/cartridge/templates/default/mail/accountupdatedemail.isml
+@@ -0,0 +1,35 @@
++<iscontent type="text/html" charset="UTF-8" compact="true"/>
++<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
++<subject><isif condition="${!empty(pdict.MailSubject)}">${pdict.MailSubject}<iselse/>${Resource.msg('account.updatedemail.subject','account',null)}</isif></subject>
++<html>
++<head>
++<title>${Resource.msg('account.updatedemail.subject','account',null)}</title>
++</head>
++<body>
++<table width="100%" cellpadding="0" cellspacing="0">
++	<tr>
++		<td align="center" style="background:#e0e0e0;padding:50px 0;">
++			<center>
++				<table  style="background:#ffffff;border:1px solid #999999;width:680px;">
++					<tr>
++						<td style="font-size:12px;font-family:arial;padding:20px 10px;vertical-align:top;">
++
++							<p style="font-family:georgia;font-size:20px;">${Resource.msg('account.updatedemail.dear','account',null)}&nbsp;<isprint value="${pdict.Customer.profile.firstName}"/>&nbsp;<isprint value="${pdict.Customer.profile.lastName}"/>,</p>
++
++							<p>${Resource.msg('account.updatedemail.message1','account',null)}</p>
++
++							<p>${Resource.msg('account.updatedemail.message2','account',null)} <a href="${URLUtils.https('Account-Show')}">${URLUtils.https('Account-Show')}</a>.</p>
++
++							<p>${Resource.msg('account.updatedemail.message3','account',null)}</p>
++
++						</td>
++					</tr>
++				</table>
++			</center>
++		</td>
++	</tr>
++</table>
++
++
++</body>
++</html>
+diff --git a/app_storefront_core/cartridge/templates/default/mail/contactus.isml b/app_storefront_core/cartridge/templates/default/mail/contactus.isml
+index a6ece2721..30449e759 100644
+--- a/app_storefront_core/cartridge/templates/default/mail/contactus.isml
++++ b/app_storefront_core/cartridge/templates/default/mail/contactus.isml
+@@ -17,28 +17,28 @@
+ 				<table  style="background:#ffffff;border:1px solid #999999;width:680px;">
+ 					<tr>
+ 						<td style="font-size:12px;font-family:arial;padding:20px 10px;vertical-align:top;">
+-
+-							<p style="font-family:georgia;font-size:20px;">Salesforce Commerce Cloud</p>
+-
++
++							<p style="font-family:georgia;font-size:20px;">${Resource.msg('global.storename','locale',null)}</p>
++
+ 							<p>${Resource.msg('contactus.name','email',null)} <isprint value="${pdict.CurrentForms.contactus.firstname.value}"/> <isprint value="${pdict.CurrentForms.contactus.lastname.value}"/></p>
+-
+-							<p>${Resource.msg('contactus.email','email',null)} <isprint value="${pdict.CurrentForms.contactus.email.value}"/></p>
+-
+-							<p>${Resource.msg('contactus.phone','email',null)} <isprint value="${pdict.CurrentForms.contactus.phone.value}"/></p>
+-
++
++							<p>${Resource.msg('contactus.email','email',null)} <isprint value="${pdict.CurrentForms.contactus.email.value}"/></p>
++
++							<p>${Resource.msg('contactus.phone','email',null)} <isprint value="${pdict.CurrentForms.contactus.phone.value}"/></p>
++
+ 							<p>${Resource.msg('contactus.ordernumber','email',null)}<isprint value="${pdict.CurrentForms.contactus.ordernumber.value}"/></p>
+-
++
+ 							<p>${Resource.msg('contactus.myquestion','email',null)}<isprint value="${pdict.CurrentForms.contactus.myquestion.value}"/></p>
+-
++
+ 							<p>${Resource.msg('contactus.comment','email',null)}<isprint value="${pdict.CurrentForms.contactus.comment.value}"/></p>
+
+ 						</td>
+ 					</tr>
+-				</table>
++				</table>
+ 			</center>
+ 		</td>
+ 	</tr>
+ </table>
+
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+diff --git a/app_storefront_core/cartridge/templates/default/mail/lockoutemail.isml b/app_storefront_core/cartridge/templates/default/mail/lockoutemail.isml
+index 653ee9efd..f83a28f03 100644
+--- a/app_storefront_core/cartridge/templates/default/mail/lockoutemail.isml
++++ b/app_storefront_core/cartridge/templates/default/mail/lockoutemail.isml
+@@ -1,6 +1,6 @@
+ <iscontent type="text/html" charset="UTF-8" compact="true"/>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+-<subject><isif condition="${!empty(pdict.MailSubject)}">${pdict.MailSubject}<iselse/></isif></subject>
++<subject><isif condition="${!empty(pdict.MailSubject)}">${pdict.MailSubject}<iselse/>${Resource.msg('account.lockoutemail.title','account',null)}</isif></subject>
+ <html>
+ <head>
+ <title>${Resource.msg('account.lockoutemail.title','account',null)}</title>
+@@ -13,29 +13,29 @@
+ 				<table  style="background:#ffffff;border:1px solid #999999;width:680px;">
+ 					<tr>
+ 						<td style="font-size:12px;font-family:arial;padding:20px 10px;vertical-align:top;">
+-
++
+ 							<h1 style="font-size:20px;font-family:georgia;font-weight:normal;">
+ 								${Resource.msg('account.passwordemail.dear','account',null)}
+ 								<isprint value="${pdict.TempCustomer.profile.firstName}"/>
+ 								<isprint value="${pdict.TempCustomer.profile.lastName}"/>,
+ 							</h1>
+-
++
+ 							<p>${Resource.msg('account.lockoutemail.message1','account',null)}</p>
+-
++
+ 							<p>${Resource.msg('account.lockoutemail.message2','account',null)}</p>
+-
++
+ 							<p>${Resource.msg('account.lockoutemail.message3','account',null)}</p>
+-
++
+ 							<p>${Resource.msg('account.lockoutemail.message4','account',null)}</p>
+-
++
+ 						</td>
+ 					</tr>
+-				</table>
++				</table>
+ 			</center>
+ 		</td>
+ 	</tr>
+ </table>
+-
+-
++
++
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+diff --git a/app_storefront_core/cartridge/templates/default/mail/orderconfirmation.isml b/app_storefront_core/cartridge/templates/default/mail/orderconfirmation.isml
+index 9dc7c908d..42c8671c5 100644
+--- a/app_storefront_core/cartridge/templates/default/mail/orderconfirmation.isml
++++ b/app_storefront_core/cartridge/templates/default/mail/orderconfirmation.isml
+@@ -3,12 +3,12 @@
+ <iscomment>The "subject" tag contains the mail subject and can contain dynamic information, like the order number.</iscomment>
+ <subject><isif condition="${!empty(pdict.MailSubject)}">${pdict.MailSubject}<iselse/><isprint value="${Resource.msg('order.orderconfirmation-email.001','order',null)}" encoding="off"/> <isprint value="${pdict.Order.orderNo}"/></isif></subject>
+ <iscomment>
+-	The "to" tag contains the email address of the recipient, the "from" tag the email address of the sender.
++	The "to" tag contains the email address of the recipient, the "from" tag the email address of the sender.
+ 	Each tag is to be specified max. once. Multiple email address can be separated by "," (see RFC2822).
+ </iscomment>
+ <to>${pdict.Order.customerEmail}</to>
+ <from>${dw.system.Site.getCurrent().getCustomPreferenceValue('customerServiceEmail')}</from>
+-
++<html>
+ <head>
+
+ <isinclude template="util/modules"/>
+@@ -36,7 +36,7 @@
+ 					</tr>
+ 					<tr>
+ 						<td colspan="2" style="font-size:12px;font-family:arial;padding:20px 10px;vertical-align:top;">
+-
++
+ 							<table  style="background:#ffffff;border:1px solid #999999;width:680px;">
+ 								<tr>
+ 									<th style="background:#cccccc;padding:5px 20px;font-size:12px;font-family:arial;text-align:left;">${Resource.msg('confirmation.thankyou','checkout',null)}</th>
+@@ -56,12 +56,12 @@
+ 							<isemailorderdetails order="${pdict.Order}"/>
+ 						</td>
+ 					</tr>
+-				</table>
++				</table>
+ 			</center>
+ 		</td>
+ 	</tr>
+-</table>
+-
++</table>
++
+
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+diff --git a/app_storefront_core/cartridge/templates/default/util/modules.isml b/app_storefront_core/cartridge/templates/default/util/modules.isml
+index 93fdce03b..5cebedd96 100644
+--- a/app_storefront_core/cartridge/templates/default/util/modules.isml
++++ b/app_storefront_core/cartridge/templates/default/util/modules.isml
+@@ -369,12 +369,12 @@
+ />
+
+ <iscomment>
+-	Render the bonus discount line item
+-	p_alert_text : the alert text for this line item
+-	p_discount_line_item : the line item
++    Render the bonus discount line item
++    p_alert_text : the alert text for this line item
++    p_discount_line_item : the line item
+ </iscomment>
+ <ismodule template="checkout/cart/bonusdiscountlineitem"
+-	name="bonusdiscountlineitem"
+-	attribute="p_alert_text"
+-	attribute="p_discount_line_item"
++          name="bonusdiscountlineitem"
++          attribute="p_alert_text"
++          attribute="p_discount_line_item"
+ />
+diff --git a/app_storefront_core/cartridge/templates/resources/account.properties b/app_storefront_core/cartridge/templates/resources/account.properties
+index ccb8be36a..5de654200 100644
+--- a/app_storefront_core/cartridge/templates/resources/account.properties
++++ b/app_storefront_core/cartridge/templates/resources/account.properties
+@@ -178,6 +178,21 @@ account.orderstatusinclude.ordercanceled=Canceled
+ account.orderstatusinclude.ordercontact=Please contact Customer Support:
+
+ ##############################################
++# ISML Directory: mail/
++##############################################
++account.createdemail.subject=Your New Account
++account.createdemail.dear=Dear
++account.createdemail.message1=You have successfully created a new account.
++account.createdemail.message2=You can visit your account at
++account.createdemail.message3=This is an automatically generated email, please do not reply.
++
++account.updatedemail.subject=Your Account
++account.updatedemail.dear=Dear
++account.updatedemail.message1=You have successfully updated your account.
++account.updatedemail.message2=You can visit your account at
++account.updatedemail.message3=This is an automatically generated email, please do not reply.
++
++##############################################
+ # ISML Directory: account/password/
+ ##############################################
+ account.passwordemail.subject=Your Password
+diff --git a/demo_data_no_hires_images/meta/custom-objecttype-definitions.xml b/demo_data_no_hires_images/meta/custom-objecttype-definitions.xml
+old mode 100755
+new mode 100644

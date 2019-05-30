@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <isprint value="${pdict.product.assets['pdp_video_asset']}" encoding="off"/>
+        </div>
+    </div>
+    <isif condition="${!pdict.hideMoreCollectionsHeader && pdict.collectionContentList && pdict.collectionContentList > 0}">
+        <h2 class="title text-center">${Resource.msg('label.product.asset.moreColleactions','product',null)}</h2>
+    </isif>
+    <isloop items="${pdict.collectionContentList}" var="content">
+        <isprint value="${content}" encoding="off"/>
+    </isloop>
+</div>

@@ -1,0 +1,30 @@
+<!--- TEMPLATENAME: watchList.isml --->
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/profile.js');
+    </isscript>
+   
+
+    <div class="hero container account-image">
+        <isslot id="cs-watches-list" description="My Watches List" context="global" />
+      </div>
+
+    <div class="container">
+        <!---Breadcrumbs--->
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6">
+                    <div class="card-body">
+                       <isinclude template="account/myWatches/watchList"/>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center mb-3">
+                <a href="${URLUtils.url('Account-Show')}" class="profile-back-to-account-link">${Resource.msg('link.profile.backtomyaccount','account',null)}</a>
+            </div>
+        </div>
+    </div>
+</isdecorate>

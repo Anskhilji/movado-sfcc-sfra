@@ -1,0 +1,31 @@
+<!--- TEMPLATENAME: adyenredirecttopaypal.isml --->
+<iscontent type="hidden/html" charset="UTF-8" compact="true">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>${Resource.msg('redirect.payment','common',null)}</title>
+	<meta http-equiv="Robots" content="noindex, follow" />
+</head>
+
+<body>
+    <form method="post" action="${pdict.url}" id="adyenForm" name="adyenForm" autocomplete="off">
+        <input type="hidden" name="merchantSig" value="${pdict.merchantSig}" />
+        <input type="hidden" name="sessionValidity" value="${pdict.paramsMap.sessionValidity}"/>
+        <input type="hidden" name="merchantAccount" value="${pdict.sitePrefs.merchantCode}"/>
+        <input type="hidden" name="paymentAmount" value="${pdict.Amount100}"/>
+        <input type="hidden" name="currencyCode" value="${pdict.CurrencyCode}" />
+        <input type="hidden" name="shopperLocale" value="${pdict.locale}" />
+        <input type="hidden" name="skinCode" value="${pdict.sitePrefs.skinCode}"/>
+        <input type="hidden" name="merchantReference" value="${pdict.paramsMap.merchantReference}"/>
+        <input type="hidden" name="brandCode" value="${pdict.sitePrefs.allowedMethods}"/>
+        <input type="hidden" name="resURL" value="${pdict.paramsMap.resURL}" />
+        <input type="hidden" name="recurringContract" value="${pdict.paramsMap.recurringContract}" />
+        <input type="hidden" name="shopperEmail" value="${pdict.paramsMap.shopperEmail}"/>
+        <input type="hidden" name="shopperReference" value="${pdict.paramsMap.shopperReference}"/>
+    </form>
+    <script>
+		document.getElementById('adyenForm').submit();
+	</script>
+</body>
+</html>

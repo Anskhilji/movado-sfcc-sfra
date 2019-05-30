@@ -1,0 +1,35 @@
+<isif condition="${pdict.viewData.showCompareBar}">
+	<div class="compare-bar-wrapper hidden-xs-down">
+	  <div class="container">
+	    <div class="row">
+	      <div class="compare-bar col-12" data-min-products-msg="${pdict.viewData.resources.select2}">
+	        <form method="GET" class="compare-products-form" name="compare-products" action="${pdict.viewData.actionUrl}">
+				<isif condition="${pdict.viewData.productsToCompare.length > 0}">
+				 <div class="product-slots">
+					<isloop items="${pdict.viewData.productsToCompare}" var="product" status = "status">
+					    <div class="selected-product">
+						  <div class="slot" data-pid="${product.pid}">
+							<img src=" ${product.imgSrc}" />
+							<span class="remove-product close-icon-white" data-compare-url="${pdict.viewData.updateUrl}"></span>
+						  </div>
+						  <input type="hidden" name="${'pid'+status.index}" value="${product.pid}" />
+						</div>
+					</isloop>
+					</div>
+				<iselse>
+					<div class="product-slots"> </div>
+				</isif>
+	          	<div class="right">
+		            <button type="submit" class="compare btn btn-primary" data-compare-url="${pdict.viewData.updateUrl}">
+		              ${pdict.viewData.resources.compare_items}
+		            </button>
+		            <button class="clear-all btn btn-link" data-compare-url="${pdict.viewData.updateUrl}">
+		              ${pdict.viewData.resources.clear_all}
+		            </button>
+	          </div>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</isif>

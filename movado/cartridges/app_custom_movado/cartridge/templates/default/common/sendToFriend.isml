@@ -1,0 +1,177 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <div class="invalid-feedback server-error">
+
+            </div>
+            <form action="${URLUtils.https('ShareByEmail-SendToFriend','pid',product.id)}" method="POST" name="${pdict.sendToFriendForm.htmlName}" class="sendtofriend mb-5" id="sendtofriendform">
+                <div class="review-headline">
+                    <p class="body-text">
+                        ${Resource.msg('forms.sendtofriend.review.headline', 'forms', null)}
+                    </p>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.yourname.mandatory === true ? 'required' : ''} ${pdict.sendToFriendForm.yourname.htmlName}">
+                    <label class="form-control-label" for="yourname">
+                        ${Resource.msg('forms.sendtofriend.yourname', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control yourname" id="yourname" value="${pdict.customerName}" <isprint value="${pdict.sendToFriendForm.yourname.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.youremail.mandatory === true ? 'required' : ''} ${pdict.sendToFriendForm.youremail.htmlName}">
+                    <label class="form-control-label" for="youremail">
+                        ${Resource.msg('forms.sendtofriend.youremail', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control youremail" id="youremail" value="${pdict.customerEmail}" <isprint value="${pdict.sendToFriendForm.youremail.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.addtoemaillist.htmlName}">
+                    <input autofocus type="checkbox" class="addtoemaillist" id="addtoemaillist" <isif condition="${pdict.addtoemaillist}">checked="checked"</isif> <isprint value="${pdict.sendToFriendForm.addtoemaillist.attributes}" encoding="off" />>
+                    <label class="form-control-label text-transform-reset" for="addtoemaillist">
+                        ${Resource.msg('forms.sendtofriend.addtoemaillist', 'forms', null)}
+                    </label>
+                    <a href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" class="link" target="_blank" rel='noopener noreferrer'>
+                        ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
+                    </a>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.friendsname.mandatory === true ? 'required' : ''} ${pdict.sendToFriendForm.friendsname.htmlName}">
+                    <label class="form-control-label" for="friendsname">
+                        ${Resource.msg('forms.sendtofriend.friendsname', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control friendsname" id="friendsname" <isprint value="${pdict.sendToFriendForm.friendsname.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+                        ${pdict.sendToFriendForm.friendsname.error}
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.friendsemail.mandatory === true ? 'required' : ''} ${pdict.sendToFriendForm.friendsemail.htmlName}">
+                    <label class="form-control-label" for="friendsemail">
+                        ${Resource.msg('forms.sendtofriend.friendsemail', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control friendsemail" id="friendsemail" <isprint value="${pdict.sendToFriendForm.friendsemail.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="form-group firstPart ${pdict.sendToFriendForm.confirmfriendsemail.mandatory === true ? 'required' : ''} ${pdict.sendToFriendForm.confirmfriendsemail.htmlName}">
+                    <label class="form-control-label" for="confirmfriendsemail">
+                        ${Resource.msg('forms.sendtofriend.confirmfriendsemail', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control confirmfriendsemail" id="confirmfriendsemail" <isprint value="${pdict.sendToFriendForm.confirmfriendsemail.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                </div>
+                <div class="send-to-friend-product mb-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class='active'>
+                                    <picture>
+                                        <img src="${pdict.image.url}" class="d-block img-fluid" alt="${pdict.image.alt}" />
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <h2 class="product-name d-sm-none d-md-block text-uppercase mb-2 heading-two">${product.productName}</h2>
+                                <div class="mb-2">
+                                    ${Resource.msg('forms.sendtofriend.productid', 'forms', null)}
+                                    ${product.id}
+                                </div>
+                                <div class="row description">
+                                    <isinclude template="product/components/description" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group other ${pdict.sendToFriendForm.message.htmlName}">
+                    <label class="form-control-label" for="message">
+                        ${Resource.msg('forms.sendtofriend.message', 'forms', null)}
+                    </label>
+                    <input autofocus type="text" class="form-control message" id="message" <isprint value="${pdict.sendToFriendForm.message.attributes}" encoding="off" />>
+                    <div class="invalid-feedback">
+
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-primary other" id="sendtofriendformpreview" data-action="preview">
+                            ${Resource.msg('forms.sendtofriend.preview', 'forms', null)}
+                        </button>
+                        <button class="btn btn-primary other" id="sendtofriendformsend" data-action="send" type="submit">
+                            ${Resource.msg('forms.sendtofriend.send', 'forms', null)}
+                        </button>
+                        <button class="btn btn-outline-primary other" id="sendtofriendformcancel" data-action="cancel" data-dismiss="modal">
+                            ${Resource.msg('forms.sendtofriend.cancel', 'forms', null)}
+                        </button>
+                    </div>
+                </div>
+                <div class="message-sent">
+                    ${Resource.msg('forms.sendtofriend.message.sent', 'forms', null)}
+                </div>
+
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+                <div class="sendtofriend-preview" id="sendtofriend-preview">
+                    <ul class="preview-email">
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sendtofriend.friendsname', 'forms', null)}
+                                </dt>
+                                <dd class="preview-friendsname"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sendtofriend.youremail', 'forms', null)}
+                                </dt>
+                                <dd class="preview-youremail"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sendtofriend.friendsemail', 'forms', null)}
+                                </dt>
+                                <dd class="preview-friendsemail"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sendtofriend.yourname', 'forms', null)}
+                                </dt>
+                                <dd class="preview-from"></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt class="form-control-label">
+                                    ${Resource.msg('forms.sendtofriend.message', 'forms', null)}
+                                </dt>
+                                <dd class="preview-message"></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <div class="preview-buttons">
+                        <button class="btn btn-outline-primary" id="sendtofriendformedit" type="submit">
+                            ${Resource.msg('forms.sendtofriend.edit', 'forms', null)}
+                        </button>
+                        <button class="btn btn-primary" id="sendtofriendformsend" data-action="send" type="submit">
+                            ${Resource.msg('forms.sendtofriend.send', 'forms', null)}
+                        </button>
+                        <button class="btn btn-outline-primary" id="sendtofriendformcancel" data-action="cancel" data-dismiss="modal">
+                            ${Resource.msg('forms.sendtofriend.cancel', 'forms', null)}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

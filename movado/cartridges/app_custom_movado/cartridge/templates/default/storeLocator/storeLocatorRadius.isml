@@ -1,0 +1,9 @@
+<label for="radius">${Resource.msg('field.radius','storeLocator',null)}</label>
+<div class="find-store-select">
+<select class="form-control custom-select radius" id="radius" name="radius" data-action-url="${pdict.stores.actionUrl}">
+    <isloop items="${pdict.stores.radiusOptions}" var="option">
+        <option value="${StringUtils.formatInteger(option)}">${StringUtils.formatInteger(option)} ${Resource.msg('storelocator.distance.unit.miles','storeLocator',null)}</option>
+    </isloop>
+</select>
+<i class="fa fa-angle-down"></i>
+</div>

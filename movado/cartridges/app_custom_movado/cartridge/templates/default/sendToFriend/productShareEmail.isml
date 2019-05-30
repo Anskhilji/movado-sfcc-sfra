@@ -1,0 +1,75 @@
+<html>
+<head>
+<isprint value="${pdict.emailHeader}" encoding="off" />  
+<table class="responsive-540" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+	<tr>
+		<td class="h1 br pad-30-top" style="font-size:20px;padding-bottom:16px;padding-top:30px;color:#000001;vertical-align:top;text-align:center;" >
+			${pdict.name} ${pdict.saluationText}
+		</td>
+	</tr>
+	<isif condition="${pdict.personalMessage}" >
+		<tr>
+			<td style="font:'Century Gothic';background-color:#e9e9e9;text-align:center;padding:20px">
+				<p>${pdict.personalMessage}</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="height:30px">
+				&nbsp;
+			</td>
+		</tr>
+	</isif>
+	<tr>
+		<td class="p" style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 35px 0" >
+			<table width="100%">
+				<tr>
+					<td style="vertical-align: top;">
+						<img src="${pdict.product.emailImage.tile150[0].url}" alt="${pdict.product.productName}" title="${pdict.product.productName}"/>
+					</td>
+					<td style="vertical-align: top;">
+						<div class="product-list-item">
+							<div class="name">
+								<a href="${pdict.pdpURL}">
+									<isprint value="${pdict.product.productName}"/>
+								</a>
+							</div>
+							<div class="sku">
+								<span class="label">${pdict.productModel}</span>
+								<span class="value"><isprint value="${pdict.product.id}"/></span>
+							</div>
+							<isif condition="${pdict.product.shopLabel}">
+								<div class="description">
+									${pdict.product.shopLabel}
+								</div>
+							</isif>
+							<div class="price">
+								<span class="label">${pdict.priceLabel}</span>
+								<span class="value">
+									<isset name="price" value="${pdict.product.price}" scope="page" />
+									<isinclude template="/sendToFriend/productPricing" />
+								</span>
+							</div>
+						</div>
+						<ul class="product-availability-list">
+							<isloop items="${pdict.product.availability.messages}" var="message">
+								<li>${message}</li>
+							</isloop>
+						</ul>
+					</td>
+					<iscomment>Product Actions</iscomment>
+					<td style="vertical-align: top;">
+						<a href="${pdict.addToCartURL}" title="${pdict.addToCartText}" value="${pdict.addToCartText}" class="button button-fancy-small add-to-cart">
+							${pdict.addToCartText}
+						</a>
+						<br />
+						<a class="text-button button-text" href="${pdict.pdpURL}">
+							${pdict.viewProductText}
+						</a>
+					</td>
+				</tr>
+			</table>
+			</td>
+	</tr>
+<isprint value="${pdict.emailMarketingContent}" encoding="off" />
+</table>
+<isprint value="${pdict.emailFooter}" encoding="off" />

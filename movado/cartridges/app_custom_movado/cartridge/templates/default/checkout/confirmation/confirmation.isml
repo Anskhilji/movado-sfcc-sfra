@@ -1,0 +1,44 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/checkout/checkout.css');
+          assets.addCss('/css/checkout/orderConfirmation.css');
+        assets.addJs('/js/checkoutRegistration.js');
+    </isscript>
+
+    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
+    <isslot id="cs-account-orderconfirmation-banner" description="orderconfirmation banner Image" context="global" />
+
+    <div class="container receipt mt-3 <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
+
+        <div class="row flex-md-row-reverse">
+
+                <div class="col-md-6 px-md-0">
+
+                        <h2 class="order-thank-you-msg heading-two">${Resource.msg('msg.placed.order.thank.you','confirmation',null)}</h2>
+                        <p class="order-thank-you-email-msg"><isprint value="${Resource.msgf('info.receive.email.confirmation', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" /></p>
+
+                        <isif condition="${pdict.returningCustomer === false}">
+                        <div class="col-md-8  px-0">
+                            <isinclude template="checkout/confirmation/confirmationCreateAccount" />
+                        </div>
+                        </isif>
+
+
+                </div>
+
+            <div class="col-md-6">
+                <isinclude template="checkout/confirmation/confirmationDetails" />
+                <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block order-confirmation-continue-shopping" role="button" aria-pressed="true">
+                    ${Resource.msg('button.continue.shopping','confirmation',null)}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <isinclude url="${URLUtils.http('Affirm-Tracking', 'orderId', pdict.order.orderNumber)}" >
+
+ </isdecorate>

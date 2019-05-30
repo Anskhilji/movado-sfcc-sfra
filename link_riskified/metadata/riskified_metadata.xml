@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    
+    <type-extension type-id="Order">
+        
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="authorizationID">
+                <display-name xml:lang="x-default">PayPal Authorization ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="avsResultCode">
+                <display-name xml:lang="x-default">AVS Result Code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="cardIIN">
+                <display-name xml:lang="x-default">Credit Card IIN</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="checkoutId">
+                <display-name xml:lang="x-default">Checkout ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="cvvResultCode">
+                <display-name xml:lang="x-default">CVV Result Code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="payerAddressStatus">
+                <display-name xml:lang="x-default">PayPal Payer Address Status</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="payerEmail">
+                <display-name xml:lang="x-default">PayPal Payer Email</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="payerStatus">
+                <display-name xml:lang="x-default">PayPal Payer Status</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="paymentMethod">
+                <display-name xml:lang="x-default">Payment Method</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="paypalPaymentStatus">
+                <display-name xml:lang="x-default">PayPal Payment Status</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="pendingReason">
+                <display-name xml:lang="x-default">PayPal Pending Reason</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="protectionEligibility">
+                <display-name xml:lang="x-default">PayPal Protection Eligibility</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="requestIP">
+                <display-name xml:lang="x-default">Request IP Address</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="riskifiedOrderAnalysis">
+                <display-name xml:lang="x-default">Riskified Order Analysis</display-name>
+                <description xml:lang="x-default">Riskified Order Analysis Status</description>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Pending</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Approved</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Declined</display>
+                        <value>3</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="sessionID">
+                <display-name xml:lang="x-default">User Session ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="riskifiedExportStatus">
+                <display-name xml:lang="x-default">Riskified Export Status</display-name>
+                <type>enum-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Not Exported</display>
+                        <value>0</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Uploaded To Riskified</display>
+                        <value>1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Failed To Upload</display>
+                        <value>2</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Riskified">
+                <display-name xml:lang="x-default">Riskified</display-name>
+                <attribute attribute-id="riskifiedOrderAnalysis"/>
+                <attribute attribute-id="paymentMethod"/>
+                <attribute attribute-id="checkoutId"/>
+                <attribute attribute-id="sessionID"/>
+                <attribute attribute-id="requestIP"/>
+                <attribute attribute-id="avsResultCode"/>
+                <attribute attribute-id="cvvResultCode"/>
+                <attribute attribute-id="cardIIN"/>
+                <attribute attribute-id="authorizationID"/>
+                <attribute attribute-id="payerAddressStatus"/>
+                <attribute attribute-id="payerEmail"/>
+                <attribute attribute-id="payerStatus"/>
+                <attribute attribute-id="protectionEligibility"/>
+                <attribute attribute-id="pendingReason"/>
+                <attribute attribute-id="paypalPaymentStatus"/>
+                <attribute attribute-id="riskifiedExportStatus"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="DECOEnable">
+                <display-name xml:lang="x-default">Deco functionality is enabled</display-name>
+                <description xml:lang="x-default">When Enabled, Eligible/Opt-In calls will be enabled post checkout_denied</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="historicalOrdersEnable">
+                <display-name xml:lang="x-default">Historical Orders Upload is enabled</display-name>
+                <description xml:lang="x-default">Enables or disables Historical orders upload</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+           <attribute-definition attribute-id="holdOrderUntilRiskifiedDecision">
+                <display-name xml:lang="x-default">Hold Order Until Riskified Decision</display-name>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="merchantDomainAddressOnRiskified">
+                <display-name xml:lang="x-default">Merchant Domain Address On Riskified</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="rcDebugLogEnabled">
+                <display-name xml:lang="x-default">Debug log is enabled</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="rcInfoLogEnabled">
+                <display-name xml:lang="x-default">Info Log is Enabled</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="rcRetryLimit">
+                <display-name xml:lang="x-default">RC Retry Limit</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>3</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="riskifiedAuthCode">
+                <display-name xml:lang="x-default">Riskified Authentication Code</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="riskifiedCartridgeEnabled">
+                <display-name xml:lang="x-default">Riskified Cartridge is enabled</display-name>
+                <description xml:lang="x-default">This enables/disables Riskified cartridge</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+		    <attribute-definition attribute-id="riskifiedOrderSyncDecision">
+                <display-name xml:lang="x-default">Order Synchronous Decision check</display-name>
+                <description xml:lang="x-default">This enables/disables Riskified Order Synchronous Decision check</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Riskified">
+                <display-name xml:lang="x-default">Riskified Configurations</display-name>
+                <attribute attribute-id="riskifiedCartridgeEnabled"/>
+				<attribute attribute-id="DECOEnable"/>
+				<attribute attribute-id="historicalOrdersEnable"/>
+				<attribute attribute-id="riskifiedOrderSyncDecision"/>
+				<attribute attribute-id="holdOrderUntilRiskifiedDecision"/>
+                <attribute attribute-id="merchantDomainAddressOnRiskified"/>
+                <attribute attribute-id="riskifiedAuthCode"/>
+                <attribute attribute-id="rcDebugLogEnabled"/>
+                <attribute attribute-id="rcInfoLogEnabled"/>
+                <attribute attribute-id="rcRetryLimit"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

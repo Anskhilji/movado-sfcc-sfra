@@ -1,0 +1,16 @@
+<isif condition="${pdict.moreStyleRecommendations && !!pdict.moreStyleRecommendations.length}">
+    <div class="col-12 more-styles-wrapper">
+        <h3>${Resource.msg('label.more.styles','product',null)}</h3>
+        <div class="more-styles">
+            <isloop items="${pdict.moreStyleRecommendations}" var="moreStyle" status="loopState">
+                <a href="${moreStyle.productUrl}" >
+                    	<img
+			src="${moreStyle.productImages.tile150[0].url}"
+			alt="${moreStyle.productName}" itemprop="image"
+			class="gtm-moreStyles-click"
+			data-gtm-moreStyles-click="${JSON.stringify(pdict.moreStyleGtmArray[loopState.index])}" />
+		</a>
+            </isloop>
+        </div>
+    </div>
+</isif>

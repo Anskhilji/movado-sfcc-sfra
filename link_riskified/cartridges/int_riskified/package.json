@@ -1,0 +1,4 @@
+{
+   "description" : "Riskified API Connector",
+   "main" : "./cartridge/scripts/Riskified.js"
+}

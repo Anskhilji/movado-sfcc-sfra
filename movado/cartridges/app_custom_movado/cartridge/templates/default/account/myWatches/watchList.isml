@@ -1,0 +1,19 @@
+<!--- TEMPLATENAME: watchList.isml --->
+<div class="card">
+    <div class="card-header clearfix">
+        <h4 class="pull-left heading-four">
+        	${Resource.msg('label.myWatches','account',null)}
+        </h4>
+        <a href="${URLUtils.https('Account-RegisterWatch')}" class="pull-right">
+        <isif condition="${pdict.fetchWatchList && pdict.fetchWatchList.items.length > 0}">
+        	${Resource.msg('label.myWatches.registeranother','account',null)}
+        <iselse>
+			${Resource.msg('label.myWatches.register','account',null)}
+		</isif>
+		</a>
+	</div>
+	
+	<div class="card-header clearfix">
+		<isinclude template="account/myWatches/watchListPopulated"/>
+	</div>
+</div>

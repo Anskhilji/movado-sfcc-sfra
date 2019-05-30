@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+       <field formid="yourname"
+              label="${Resource.msg('forms.sendtofriend.yourname', 'forms', null)}"
+              type="string" mandatory="true"
+              missing-error="forms.sendtofriend.yourname.missing-error"
+              max-length="71"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
+
+       <field formid="friendsname"
+              label="${Resource.msg('forms.sendtofriend.friendsname', 'forms', null)}"
+              type="string" mandatory="true"
+              missing-error="forms.sendtofriend.friendsname.missing-error"
+              max-length="71"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
+
+       <field formid="youremail"
+              label="${Resource.msg('forms.sendtofriend.youremail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              max-length="50"
+              missing-error="forms.sendtofriend.friendsemail.missing-error"
+              value-error="forms.sendtofriend.youremail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="friendsemail"
+              label="${Resource.msg('forms.sendtofriend.friendsemail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              missing-error="forms.sendtofriend.friendsemail.missing-error"
+              max-length="50"
+              value-error="forms.sendtofriend.friendsemail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="confirmfriendsemail"
+              label="${Resource.msg('forms.sendtofriend.confirmfriendsemail', 'forms', null)}"
+              type="string" mandatory="true"
+              regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+              missing-error="forms.sendtofriend.friendsemail.missing-error"
+              max-length="50"
+              value-error="forms.sendtofriend.confirmfriendsemail.value-error"
+              parse-error="error.message.parse.email.profile.form"/>
+
+       <field formid="addtoemaillist"
+              label="${Resource.msg('forms.sendtofriend.addtoemaillist', 'forms', null)}"
+              type="boolean" mandatory="false"/>
+
+       <field formid="message"
+              label="${Resource.msg('forms.sendtofriend.message', 'forms', null)}"
+              type="string" mandatory="false"
+              max-length="250"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
+
+       <action formid="preview" valid-form="true"/>
+       <action formid="send" valid-form="true"/>
+       <action formid="edit" valid-form="false"/>
+</form>

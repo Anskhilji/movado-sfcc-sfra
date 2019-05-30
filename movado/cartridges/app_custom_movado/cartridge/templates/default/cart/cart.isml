@@ -1,0 +1,12 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/cart.css');
+    </isscript>
+    <div class="cart-section-wrapper">
+        <isinclude template="cart/cartSection"/>
+    </div>
+    <div class="container cart-recommendation-wrapper mt-4">
+        <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
+    </div>
+</isdecorate>

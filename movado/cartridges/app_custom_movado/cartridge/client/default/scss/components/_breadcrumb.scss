@@ -1,0 +1,12 @@
+.container .breadcrumb {
+    border-radius: 0;
+    border-bottom: $border-width solid $grey3;
+    padding: rem(12) 0 rem(5) 0;
+    margin: rem(16) 0;
+    .breadcrumb-item a{
+      font-size: rem(14);
+      letter-spacing: 2px;
+      font-weight: 500;
+      font-family: $font-medium;
+    }
+}

@@ -1,0 +1,28 @@
+{
+	"hooks": [
+		{
+			"name": "app.fraud.detection.checkoutcreate",
+			"script": "./cartridge/scripts/hooks/fraudDetectionHook"
+		},
+		{
+			"name": "app.fraud.detection.checkoutdenied",
+			"script": "./cartridge/scripts/hooks/fraudDetectionHook"
+		},
+		{
+			"name": "app.fraud.detection.create",
+			"script": "./cartridge/scripts/hooks/fraudDetectionHook"
+		},
+		{
+			"name": "app.fraud.detection",
+			"script": "./cartridge/scripts/hooks/fraudDetectionHook"
+		},
+		{
+			"name": "app.riskified.paymentreversal",
+			"script": "./cartridge/scripts/hooks/paymentProcessHook"
+		},
+		{
+			"name": "app.riskified.paymentrefund",
+			"script": "./cartridge/scripts/hooks/paymentProcessHook"
+		}
+	]
+}

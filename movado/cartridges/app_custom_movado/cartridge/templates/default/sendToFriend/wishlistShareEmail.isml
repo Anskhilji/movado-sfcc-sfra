@@ -1,0 +1,98 @@
+<html>
+<head>
+<isprint value="${pdict.emailHeader}" encoding="off" />  
+<table class="responsive-540" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+    <tr>
+		<td class="h1 br pad-30-top" style="font-size:20px;padding-bottom:16px;padding-top:30px;color:#000001;vertical-align:top;" >${pdict.saluationText}</td>
+	</tr>
+    <isif condition="${pdict.personalMessage}" >
+    <tr>
+		<td class="p center" style="line-height:18px;font-size:12px;text-align:center;color:#000001;vertical-align:top;">
+			<div class="blockquote" style="font:'Century Gothic';background-color:#e9e9e9;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;padding-top:20px;padding-bottom:20px;padding-right:30px;padding-left:30px;">${pdict.personalMessage}</div>
+		</td>
+	</tr>
+    </isif>
+    <tr><td class="p center pad-40-top" style="line-height:18px;font-size:12px;text-align:center;padding-top:40px;color:#000001;vertical-align:top;">
+		<div class="bulletproof-btn">
+			<a href="${pdict.wishListShowURL}" title="${pdict.wishListLabel}" target="_blank" style="width:106px;color:#000000;display:inline-block;font-family:'Century Gothic', Arial, sans-serif;font-size:12px;line-height:30px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;text-transform:uppercase;border-width:1px;border-style:solid;border-color:#000000;">${pdict.wishListLabel}</a>
+		</div>
+	</td></tr>
+</table>
+<isif condition="${pdict.wishlist.productList.publicList}" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;">
+	<tbody><tr><td class="pad-40-top pad-40-btm" style="padding-top:40px;padding-bottom:40px;color:#000001;vertical-align:top;"><div class="divider-black" style="background-color:#000000;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;height:1px;line-height:1px;"></div></td></tr>
+	</tbody>
+</table>
+<isloop items="${pdict.wishlist.productList.items}" var="item" status="loopstate">
+	<isif condition="${item.publicItem}" >
+	<table class="responsive-550" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" class="yahoo-center-fix" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+		<tr>
+			<td style="color:#000001;vertical-align:top;" >
+				<table class="product-col-1" width="430" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+					<tr>
+						<td class="inline" style="color:#000001;vertical-align:top;" >
+							<table width="100" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+								<tr>
+									<td style="color:#000001;vertical-align:top;" ><img src="${item.imageObj.tile150[0].url}" alt="${item.name}" title="${item.name}"/></td>
+								</tr>
+							</table>
+						</td>
+						<td width="100%" style="color:#000001;vertical-align:top;" >
+							<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+								<tr><td class="h5 uppercase" style="font-size:16px;text-transform:uppercase;color:#000001;vertical-align:top;" >${item.name}</td></tr>
+                                <isif condition="${item.shopbagLabel}" >
+								    <tr><td class="p br" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${item.shopbagLabel}</td></tr>
+                                </isif>
+                                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >
+                                    <isset name="price" value="${item.priceObj}" scope="page" />
+                                    <isinclude template="/sendToFriend/productPricing" />
+                                </td></tr>
+                                <tr><td class="p light uppercase" style="line-height:18px;font-size:12px;text-transform:uppercase;vertical-align:top;color:#cccccc;" >
+                                    <ul class="product-availability-list">
+                                        <isloop items="${item.availability.messages}" var="message">
+                                            <li>${message}</li>
+                                        </isloop>
+                                    </ul>
+                                </td></tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td style="color:#000001;vertical-align:top;" >
+				<table class="product-col-2" width="120" border="0" cellpadding="0" cellspacing="0" align="right" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+					<tr>
+						<td width="100%" style="color:#000001;vertical-align:top;" >
+							<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+								<tr>
+									<td class="p br product-cta" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;text-align:right;" >
+										<div class="bulletproof-btn">
+                                            <isif condition="${!item.available}">
+                                                ${pdict.notAvailableText}
+                                            <iselse/>
+                                                <a href="${URLUtils.https('Cart-AddProductFromEmail', 'pid', item.pid)}" title="${pdict.addToCartText}" target="_blank" style="width:98px;color:#000000;display:inline-block;font-family:'Century Gothic', Arial, sans-serif;font-size:12px;line-height:30px;text-align:center;text-decoration:none;-webkit-text-size-adjust:none;mso-hide:all;text-transform:uppercase;border-width:1px;border-style:solid;border-color:#000000;">${pdict.addToCartText}</a>
+                                            </isif>
+										</div>
+									</td>
+								</tr>
+								<tr><td class="p uppercase product-details" style="line-height:18px;font-size:12px;text-transform:uppercase;color:#000001;vertical-align:top;text-align:right;" >								
+								<a href="${URLUtils.http('Product-Show', 'pid', item.pid)}" target="_blank" style="color:#000001;" >${pdict.viewProductText}</a></td></tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+		<tr><td class="pad-40-top pad-40-btm" style="padding-top:40px;padding-bottom:40px;color:#000001;vertical-align:top;" ><div class="divider-grey" style="background-color:#cccccc;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;height:1px;line-height:1px;" ></div></td></tr>
+	<isif condition="${!loopstate.last}">
+        </table>
+    </isif>
+	</isif>
+</isloop>
+</isif>
+<isprint value="${pdict.emailMarketingContent}" encoding="off" />
+</table>
+<isprint value="${pdict.emailFooter}" encoding="off" />

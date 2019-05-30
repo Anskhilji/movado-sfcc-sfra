@@ -1,0 +1,1 @@
+<p><span class="field-label">${Resource.msg('label.orderhistory.shippedto','account',null)}</span> <span class="field-value">${order.shippedToFirstName} ${order.shippedToLastName}</span></p>

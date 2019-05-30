@@ -1,0 +1,66 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isscript>
+    var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var currentOrder = OrderMgr.getOrder(pdict.orderID);
+    var orderToken = pdict.orderToken;
+
+    var submitUrl = URLUtils.url('Order-Confirm','ID', pdict.orderID).toString();
+
+    var checkoutId = session.custom.checkoutUUID;
+    var shopUrl = Site.getCurrent().preferences.custom.merchantDomainAddressOnRiskified;
+    
+</isscript>
+<div class="container receipt">
+<div class='deco-widget-container'>
+    <div id='deco-loading'><p></p><h3>You order is eligible for Deco. Please wait while widget is loading...</h3></div>
+    <div id="deco-widget"></div>
+    <div id="deco-widget-status" style='font-size: 14px; font-weight: bold;'></div>
+    
+    <script src="//sandboxapp.decopayments.com/be/widget/widget.js?shop_url=${shopUrl}"></script>
+    
+    <script>
+    (function (window, document) {
+        var decoWidgetInit = function () {
+            $('#deco-loading').hide();
+            window.drawDecoWidget( function() {
+                // Ok, call Deco Opt-in
+                var order = {
+                    order_no: '${pdict.orderID}',
+                    checkout_id: '${checkoutId}'
+                };
+                $.ajax({
+                    url: "${URLUtils.url('DecoEndpoint-OptIn')}",
+                    data: order,
+                    success: function (response) {
+                        if (response.ok) {
+                            var submitUrl = '${submitUrl}&token=${orderToken}';
+                            console.log('Order is submitted, redirecting to confirmation. Url: ', submitUrl);
+                            window.location.assign(submitUrl);
+                        } else {
+                            /**
+                             * We get here if the order was approved by Deco as Eligible,
+                             * but the opt_in request to Deco failed, and the order wasn't created at Deco Service
+                             * 
+                             * As a minimal handling we show the message, preserve the shopper Basket, so the shopper
+                             * can continue the shopping and take another attempt to place an order.
+                             * 
+                             * Any 'fail to place an order' processing can be added here
+                             * 
+                             * */
+                            $('#deco-widget-status').text(response.message);
+                        }
+                    },
+                    dataType: 'json'
+                });
+            });
+        };
+        window.addEventListener ? window.addEventListener("load", decoWidgetInit, false) : window.attachEvent("onload", decoWidgetInit);
+    })(window, document);
+    </script>
+</div>
+<div>
+<a href="${URLUtils.url('Checkout-Begin').toString()}">Return to checkout</a>
+</div>
+</div>

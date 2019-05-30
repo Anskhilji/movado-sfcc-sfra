@@ -1,0 +1,14 @@
+<isset name="sharewishlist" value="" scope="page" />
+<!-- Modal Header -->
+<div class="modal-header">
+    <h2 class="modal-title-sendtofriend body-text"><isprint value="${Resource.msg('forms.sharewishlist.header', 'forms', null)}" encoding="htmlcontent" /></h2>
+    <h2 class="modal-title-review body-text"><isprint value="${Resource.msg('forms.sharewishlist.review.title', 'forms', null)}" encoding="htmlcontent" /></h2>
+    <button id="modal-close" type="button" class="close pull-right body-text" data-dismiss="modal"><span class="close-icon">${Resource.msg('link.header.menu.close', 'common', null)}</span></button>
+</div>
+<!-- Modal body -->
+<div class="modal-body">
+    <div class="sendtofriendmodal">
+        <isset name="shareViaEmailThroughWishlistPage" value="true" scope="page"/>
+        <isinclude template="common/shareWishlist"/>
+    </div>
+</div>

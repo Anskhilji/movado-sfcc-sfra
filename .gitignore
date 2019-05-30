@@ -1,0 +1,12 @@
+**/node_modules/
+**/coverage/
+**/.vscode
+**/cartridge/static/**/css/*
+**/cartridge/static/**/js/*
+**/npm-debug.log
+**/cartridges.zip
+**/site_template.zip
+**/.idea/
+**/dw.json
+**/.DS_Store
+**/tmp/

@@ -1,0 +1,14 @@
+<!--- TEMPLATENAME: showLatestMyWatch.isml --->
+<div class = "form-list">
+	<isif condition="${pdict.fetchWatchList && pdict.fetchWatchList.items && pdict.fetchWatchList.items.length > 0}">
+		<div class="form-list-item">
+			<isloop items="${pdict.fetchWatchList.items}" var="myWatches" status="loopState">     
+			<isif condition="${loopState.last}"> 
+				<isinclude template="account/myWatches/watchListPopulatedDetail"/>
+			</isif>  
+        	</isloop>
+    	</div>
+    <iselse>
+    	<isprint value="${Resource.msg('myWatches.noWatchesRegistered','account',null)}"/>
+    </isif>
+</div>

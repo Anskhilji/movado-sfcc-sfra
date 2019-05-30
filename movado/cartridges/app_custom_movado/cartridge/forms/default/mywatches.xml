@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+	<group formid="mywatches">
+    	<field 
+    	   formid="modelNo"   
+    	   type="string"
+    	   label="label.input.myWatches.modelNo"
+    	   max-length="20"
+    	   mandatory="true"
+    	   value-error="ValueErrorText"
+           missing-error="error.message.required"  
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
+         <field 
+    	   formid="collection"
+    	   label="label.input.myWatches.collection"  
+    	   type="string" 
+    	   mandatory="false" 
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	    />
+	</group>
+</form>

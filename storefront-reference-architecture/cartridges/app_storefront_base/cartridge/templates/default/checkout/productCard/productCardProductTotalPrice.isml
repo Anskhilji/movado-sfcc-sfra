@@ -1,0 +1,7 @@
+<div class="strike-through
+<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>"
+>
+Price   ${lineItem.priceTotal.nonAdjustedPrice}
+</div>
+Item Total:<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
+Savings: ${pdict.promotionPrice}

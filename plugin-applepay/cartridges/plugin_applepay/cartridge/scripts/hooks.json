@@ -1,0 +1,12 @@
+{
+    "hooks": [
+        {
+            "name": "dw.extensions.paymentapi.afterAuthorization",
+            "script": "./applePay.js"
+        },
+        {
+            "name": "dw.extensions.applepay.prepareBasket",
+            "script": "./applePay.js"
+        }
+   ]
+}

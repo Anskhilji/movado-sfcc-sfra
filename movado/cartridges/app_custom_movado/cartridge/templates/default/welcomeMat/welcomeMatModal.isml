@@ -1,0 +1,4 @@
+<isif condition="${session.custom.welcomeMat}" >
+    <isprint value="${pdict.contentBody}" encoding="off" />
+    <span class="welcomemat-current-country d-none">${pdict.currentCountry}</span>
+</isif>  

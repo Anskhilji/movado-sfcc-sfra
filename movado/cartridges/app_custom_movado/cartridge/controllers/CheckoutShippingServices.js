@@ -1,0 +1,341 @@
+'use strict';
+
+var server = require('server');
+server.extend(module.superModule);
+
+var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+
+server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+    var AccountModel = require('*/cartridge/models/account');
+    var OrderModel = require('*/cartridge/models/order');
+    var URLUtils = require('dw/web/URLUtils');
+    var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+    var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+    var Locale = require('dw/util/Locale');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (!currentBasket) {
+        res.json({
+            error: true,
+            cartError: true,
+            fieldErrors: [],
+            serverErrors: [],
+            redirectUrl: URLUtils.url('Cart-Show').toString()
+        });
+        return next();
+    }
+
+    var shipmentUUID = req.querystring.shipmentUUID || req.form.shipmentUUID;
+    var shipment;
+    if (shipmentUUID) {
+        shipment = ShippingHelper.getShipmentByUUID(currentBasket, shipmentUUID);
+    } else {
+        shipment = currentBasket.defaultShipment;
+    }
+
+    var address = checkoutAddrHelper.getAddressFromRequest(req);
+
+    var shippingMethodID;
+
+    if (shipment.shippingMethod) {
+        shippingMethodID = shipment.shippingMethod.ID;
+    }
+
+    Transaction.wrap(function () {
+        var shippingAddress = shipment.shippingAddress;
+
+        if (!shippingAddress) {
+            shippingAddress = shipment.createShippingAddress();
+        }
+
+        Object.keys(address).forEach(function (key) {
+            var value = address[key];
+            if (value) {
+                shippingAddress[key] = value;
+            } else {
+                shippingAddress[key] = null;
+            }
+        });
+
+        ShippingHelper.selectShippingMethod(shipment, shippingMethodID);
+
+        basketCalculationHelpers.calculateTotals(currentBasket);
+    });
+
+    var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
+    var currentLocale = Locale.getLocale(req.locale.id);
+
+    var basketModel = new OrderModel(
+        currentBasket,
+        { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+    );
+
+    res.json({
+        customer: new AccountModel(req.currentCustomer),
+        order: basketModel,
+        shippingForm: server.forms.getForm('shipping')
+    });
+
+    return next();
+});
+
+/**
+ * Handle Ajax shipping form submit
+ */
+server.replace(
+    'SubmitShipping',
+    server.middleware.https,
+    csrfProtection.validateAjaxRequest,
+    function (req, res, next) {
+        var BasketMgr = require('dw/order/BasketMgr');
+        var URLUtils = require('dw/web/URLUtils');
+        var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+        var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+        var Transaction = require('dw/system/Transaction');
+
+        var currentBasket = BasketMgr.getCurrentBasket();
+
+        if (!currentBasket) {
+            res.json({
+                error: true,
+                cartError: true,
+                fieldErrors: [],
+                serverErrors: [],
+                redirectUrl: URLUtils.url('Cart-Show').toString()
+            });
+            return next();
+        }
+
+        var form = server.forms.getForm('shipping');
+        var result = {};
+
+        var saveShippingAddress = false;
+        var shippingAddressId;
+        if (form.shippingAddress.addressFields.saveShippingAddress != undefined) {
+        	saveShippingAddress = form.shippingAddress.addressFields.saveShippingAddress.checked;
+        	Transaction.wrap(function () {
+            	currentBasket.custom.saveShippingAddress = saveShippingAddress;
+        });
+        }
+
+        if (form.shippingAddress.addressFields.shippingAddressId != undefined) {
+        	shippingAddressId = form.shippingAddress.addressFields.shippingAddressId.htmlValue;
+        	Transaction.wrap(function () {
+            	currentBasket.custom.shipAddressId = shippingAddressId;
+        });
+        }
+
+        // verify shipping form data
+        var shippingFormErrors = COHelpers.validateShippingForm(form.shippingAddress.addressFields);
+
+        if (Object.keys(shippingFormErrors).length > 0) {
+            req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'invalid');
+
+            res.json({
+                form: form,
+                fieldErrors: [shippingFormErrors],
+                serverErrors: [],
+                error: true
+            });
+        } else {
+            req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
+
+            result.address = {
+                firstName: form.shippingAddress.addressFields.firstName.value,
+                lastName: form.shippingAddress.addressFields.lastName.value,
+                companyName: form.shippingAddress.addressFields.companyName.value,
+                address1: form.shippingAddress.addressFields.address1.value,
+                address2: form.shippingAddress.addressFields.address2.value,
+                city: form.shippingAddress.addressFields.city.value,
+                postalCode: form.shippingAddress.addressFields.postalCode.value,
+                countryCode: form.shippingAddress.addressFields.country.value,
+                phone: form.shippingAddress.addressFields.phone.value
+            };
+            if (Object.prototype.hasOwnProperty
+                .call(form.shippingAddress.addressFields, 'states')) {
+                result.address.stateCode =
+                    form.shippingAddress.addressFields.states.stateCode.value;
+            }
+
+            result.shippingBillingSame =
+                form.shippingAddress.shippingAddressUseAsBillingAddress.value;
+
+            result.shippingMethod = form.shippingAddress.shippingMethodID.value
+                ? form.shippingAddress.shippingMethodID.value.toString()
+                : null;
+
+            result.isGift = form.shippingAddress.isGift.checked;
+
+            result.giftMessage = result.isGift ? form.shippingAddress.giftMessage.value : null;
+
+            res.setViewData(result);
+
+            this.on('route:BeforeComplete', function (req, res) { // eslint-disable-line no-shadow
+                var AccountModel = require('*/cartridge/models/account');
+                var OrderModel = require('*/cartridge/models/order');
+                var Locale = require('dw/util/Locale');
+
+                var shippingData = res.getViewData();
+
+                checkoutAddrHelper.copyShippingAddressToShipment(
+                    shippingData,
+                    currentBasket.defaultShipment
+                );
+
+                var giftResult = COHelpers.setGift(
+                    currentBasket.defaultShipment,
+                    shippingData.isGift,
+                    shippingData.giftMessage
+                );
+
+                if (giftResult.error) {
+                    res.json({
+                        error: giftResult.error,
+                        fieldErrors: [],
+                        serverErrors: [giftResult.errorMessage]
+                    });
+                    return;
+                }
+
+                if (!currentBasket.billingAddress) {
+                    if (req.currentCustomer.addressBook
+                        && req.currentCustomer.addressBook.preferredAddress) {
+                        // Copy over preferredAddress (use addressUUID for matching)
+                    	checkoutAddrHelper.copyBillingAddressToBasket(
+                            req.currentCustomer.addressBook.preferredAddress, currentBasket);
+                    } else {
+                        // Copy over first shipping address (use shipmentUUID for matching)
+                    	checkoutAddrHelper.copyBillingAddressToBasket(
+                            currentBasket.defaultShipment.shippingAddress, currentBasket);
+                    }
+                }
+                var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
+                if (usingMultiShipping === true && currentBasket.shipments.length < 2) {
+                    req.session.privacyCache.set('usingMultiShipping', false);
+                    usingMultiShipping = false;
+                }
+
+                COHelpers.recalculateBasket(currentBasket);
+
+                var currentLocale = Locale.getLocale(req.locale.id);
+                var basketModel = new OrderModel(
+                    currentBasket,
+                    {
+                        usingMultiShipping: usingMultiShipping,
+                        shippable: true,
+                        countryCode: currentLocale.country,
+                        containerView: 'basket'
+                    }
+                );
+
+                res.json({
+                    customer: new AccountModel(req.currentCustomer),
+                    order: basketModel,
+                    form: server.forms.getForm('shipping')
+                });
+            });
+        }
+
+        return next();
+    }
+);
+
+server.replace('SelectShippingMethod', server.middleware.https, function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Resource = require('dw/web/Resource');
+    var Transaction = require('dw/system/Transaction');
+    var AccountModel = require('*/cartridge/models/account');
+    var OrderModel = require('*/cartridge/models/order');
+    var URLUtils = require('dw/web/URLUtils');
+    var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+    var Locale = require('dw/util/Locale');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+    var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (!currentBasket) {
+        res.json({
+            error: true,
+            redirectUrl: URLUtils.url('Cart-Show').toString()
+        });
+        return next();
+    }
+
+    var shipmentUUID = req.querystring.shipmentUUID || req.form.shipmentUUID;
+    var shippingMethodID = req.querystring.methodID || req.form.methodID;
+    var shipment;
+    if (shipmentUUID) {
+        shipment = ShippingHelper.getShipmentByUUID(currentBasket, shipmentUUID);
+    } else {
+        shipment = currentBasket.defaultShipment;
+    }
+
+    var viewData = res.getViewData();
+    viewData.address = checkoutAddrHelper.getAddressFromRequest(req);
+    viewData.isGift = req.form.isGift === 'true';
+    viewData.giftMessage = req.form.isGift ? req.form.giftMessage : null;
+    res.setViewData(viewData);
+
+    this.on('route:BeforeComplete', function (req, res) { // eslint-disable-line no-shadow
+        var shippingData = res.getViewData();
+        var address = shippingData.address;
+
+        try {
+            Transaction.wrap(function () {
+                var shippingAddress = shipment.shippingAddress;
+
+                if (!shippingAddress) {
+                    shippingAddress = shipment.createShippingAddress();
+                }
+
+                shippingAddress.setFirstName(address.firstName || '');
+                shippingAddress.setLastName(address.lastName || '');
+                shippingAddress.setCompanyName(address.companyName || '');
+                shippingAddress.setAddress1(address.address1 || '');
+                shippingAddress.setAddress2(address.address2 || '');
+                shippingAddress.setCity(address.city || '');
+                shippingAddress.setPostalCode(address.postalCode || '');
+                shippingAddress.setStateCode(address.stateCode || '');
+                shippingAddress.setCountryCode(address.countryCode || '');
+                shippingAddress.setPhone(address.phone || '');
+
+                ShippingHelper.selectShippingMethod(shipment, shippingMethodID);
+
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            });
+        } catch (err) {
+            res.setStatusCode(500);
+            res.json({
+                error: true,
+                errorMessage: Resource.msg('error.cannot.select.shipping.method', 'cart', null)
+            });
+
+            return;
+        }
+
+        COHelpers.setGift(shipment, shippingData.isGift, shippingData.giftMessage);
+
+        var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
+        var currentLocale = Locale.getLocale(req.locale.id);
+
+        var basketModel = new OrderModel(
+            currentBasket,
+            { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+        );
+
+        res.json({
+            customer: new AccountModel(req.currentCustomer),
+            order: basketModel
+        });
+    });
+
+    return next();
+});
+
+module.exports = server.exports();

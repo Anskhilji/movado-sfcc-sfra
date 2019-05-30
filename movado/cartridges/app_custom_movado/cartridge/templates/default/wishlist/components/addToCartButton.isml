@@ -1,0 +1,14 @@
+<div class="col-12 col-sm-6 add-to-cart-wishList">
+    <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+    <button class="add-to-cart-button btn btn-primary gtm-addtocart"
+        data-pid="${item.pid}"
+        data-url="${URLUtils.url('Cart-AddProduct')}"
+        data-option="${JSON.stringify(item.selectedOptions)}"
+        ${!item.available ? "disabled" : ""} data-gtm-addToCart="${JSON.stringify(pdict.productAddGtmObj[loopStatus.index])}">
+        <i class="fa fa-shopping-bag"></i>
+        ${Resource.msg('button.addtocart', 'common', null)}
+    </button>
+</div>
+
+
+

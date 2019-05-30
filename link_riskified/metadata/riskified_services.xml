@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+    <service-credential service-credential-id="int_riskified.deco.https.api.cred">
+        <url>https://sandboxw.decopayments.com/api</url>
+        <user-id>astound_preauth_sync.com</user-id>
+        <password encrypted="true" encryption-type="common.export">ebgeI49GIsj8N3okmgFwUHgVOUpAegJg6TKp6ix9ufVpRbCtNa0GIkGqErjrcyp3YcC2p7wR++73o2WG5lIH9g==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="int_riskified.https.api.cred">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>astound_preauthasync.com</user-id>
+        <password encrypted="true" encryption-type="common.export">yJRT6gm/MsPZ2sXzuHJ/TtVeVYkyBULJyg6DbWi2FN4S0b/pHx66YNQarSbR7qnjyXwxo1ck4KEFIK28881X+A==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="int_riskified.https.sync.api.cred">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>astound_postauth_sync.com</user-id>
+        <password encrypted="true" encryption-type="common.export">ErqLqTLz6gtnCHlC2+g6dnktmUswa6N1egFdtcT+2gcE+HLjshZEciHcLhKSesdWgxbq/x5SowVn0XMQngSWpg==</password>
+    </service-credential>
+
+    <service-profile service-profile-id="int_riskified.deco.https.api.profile">
+        <timeout-millis>10000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="int_riskified.https.api.profile">
+        <timeout-millis>5000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service-profile service-profile-id="int_riskified.https.sync.api.profile">
+        <timeout-millis>10000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service service-id="int_riskified.deco.https.api">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>DecoService</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>int_riskified.deco.https.api.profile</profile-id>
+        <credential-id>int_riskified.deco.https.api.cred</credential-id>
+    </service>
+
+    <service service-id="int_riskified.https.api">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>RiskifiedServices</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>int_riskified.https.api.profile</profile-id>
+        <credential-id>int_riskified.https.api.cred</credential-id>
+    </service>
+
+    <service service-id="int_riskified.https.sync.api">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>RiskifiedSyncServices</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>int_riskified.https.sync.api.profile</profile-id>
+        <credential-id>int_riskified.https.sync.api.cred</credential-id>
+    </service>
+
+</services>

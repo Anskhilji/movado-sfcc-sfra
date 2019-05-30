@@ -1,0 +1,12 @@
+{
+    "hooks": [
+        {
+            "name": "dw.order.calculateTax",
+            "script": "./cartridge/scripts/hooks/cart/calculateSabrixTax.js"
+        }, 
+		{
+			"name": "dw.order.calculateSfraTax",
+			"script": "./../app_storefront_base/cartridge/scripts/hooks/cart/calculate.js"
+        }	
+	]
+}
