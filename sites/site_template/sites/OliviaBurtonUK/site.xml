@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site xmlns="http://www.demandware.com/xml/impex/site/2007-04-30" site-id="OliviaBurtonUK">
+    <name>Olivia Burton UK</name>
+    <currency>GBP</currency>
+    <taxation>net</taxation>
+    <custom-cartridges>app_custom_ob_uk:app_custom_movado:int_handlerframework:int_sabrix:int_custom_adyen:int_custom_affirm:int_adyen_expresspaypal:int_custom_riskified:int_adyen_SFRA:int_adyen_overlay:int_affirm_sfra:int_affirm:plugin_productcompare:plugin_wishlists:lib_productlist:plugin_dis:app_storefront_base:int_riskified_sfra:int_riskified:bc_custom_job_components:bc_job_components:int_sap_orderStatus:plugin_applepay:int_gtm</custom-cartridges>
+    <storefront-status>protected</storefront-status>
+    <storefront-password></storefront-password>
+</site>
+

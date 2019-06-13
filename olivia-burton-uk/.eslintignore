@@ -1,0 +1,4 @@
+cartridges/**/cartridge/static/
+coverage/
+doc/
+bin/
