@@ -1,6 +1,7 @@
 'use strict';
 var base = require('./base');
 var processInclude = require('base/util');
+var slickCarousel = require('../components/slickCarousel');
 processInclude(require('./productOptionTextValidator'));
 
 /**
@@ -70,6 +71,9 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
             $('#quickViewModal').modal('show');
+            setTimeout(function () {
+                slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
+            }, 1000);
             affirm.ui.refresh();
             $.spinner().stop();
         },

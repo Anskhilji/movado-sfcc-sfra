@@ -1,6 +1,576 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
-    <job job-id="OrderStatusJob" priority="0">
+    <job job-id="GeolocateStores" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="UpdateStoresGeolocation" type="custom.CSComponents.GetStoresGeolocation" enforce-restart="false">
+                <description>Get Lat. and long. details of the store and write to the file</description>
+                <parameters>
+                    <parameter name="ServiceID">GoogleMapService</parameter>
+                    <parameter name="TargetFolder">src/stores/geolocate</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="ImportGeolocateStoresToSFCC" type="custom.CSComponents.CustomImportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/stores/geolocate</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">UPDATE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/stores/geolocate</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/stores/geolocate/error/</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="InventoryImport" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="DownloadInventoryFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description>Download Inventory From SFTP</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_INVENTORYLIST_1000\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/inventoryfeed/</parameter>
+                    <parameter name="TargetFolder">src/feeds/inventory</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="ImportInventoryToSFCC" type="custom.CSComponents.ImportInventory" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/feeds/inventory</parameter>
+                    <parameter name="FilePattern">.*DW_INVENTORYLIST_1000\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/inventory</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/inventory/error/</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="UploadInventoryToSFTP" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_INVENTORYLIST_1000\.xml</parameter>
+                    <parameter name="SourceFolder">src/archive/inventory/error</parameter>
+                    <parameter name="TargetFolder">/ftproot/test/sfccinbound/inventoryfeed/</parameter>
+                    <parameter name="ArchiveFolder">src/archive/inventory/error/uploaded</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="InventoryImportEbelConcord" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="DownloadInventoryEbelConcordFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_INVENTORYLIST_2001\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/inventoryfeed/</parameter>
+                    <parameter name="TargetFolder">src/feeds/inventory</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="ImportInventoryEbelConcordToSFCC" type="custom.CSComponents.ImportInventory" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/feeds/inventory</parameter>
+                    <parameter name="FilePattern">.*DW_INVENTORYLIST_2001\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">CONTINUE</parameter>
+                    <parameter name="ArchivePath">src/archive/inventory</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/inventory/error/</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@ebel.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-06-11Z</date>
+                <time>15:59:16.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="NewsLetterOptInExport" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="NewsLetterOptInExport" type="custom.CSComponents.NewsLetterOptIn" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="TargetFolder">src/export/newsLetterOptIn</parameter>
+                    <parameter name="Filename">NewsLetterOptIn_6425470</parameter>
+                    <parameter name="Type">newsletterSignup</parameter>
+                    <parameter name="Query">(custom.exportFlag = NULL or custom.exportFlag != true) and (custom.optOutFlag = NULL or custom.optOutFlag != true)</parameter>
+                    <parameter name="ArchiveErrorPath">src/export/newsLetterOptIn/error/</parameter>
+                </parameters>
+            </step>
+            <step step-id="UploadNewLetterOptIn" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">NewsLetterService</parameter>
+                    <parameter name="FilePattern">NewsLetterOptIn.*\.csv</parameter>
+                    <parameter name="SourceFolder">src/export/newsLetterOptIn</parameter>
+                    <parameter name="TargetFolder">/Export/</parameter>
+                    <parameter name="ArchiveFolder">src/export/newsLetterOptIn/archive</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="RemoveExportedNewsletterSignup" type="custom.CSComponents.DeleteCustomObjects" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="Type">newsletterSignup</parameter>
+                    <parameter name="Query">custom.exportFlag=true or custom.optOutFlag=true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="false">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderExportConcord" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="exportOrderFeedXMLConcord" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Export orders in XML format</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">app_custom_movado/cartridge/scripts/jobs/orderFeedXML.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">exportOrderFeed</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="UploadOrdersToSFTPConcord" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description>Upload exported orders to SAP SFTP</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="SourceFolder">/src/feeds/orders</parameter>
+                    <parameter name="TargetFolder">/test/sfccoutbound/orderexportfeed</parameter>
+                    <parameter name="ArchiveFolder">src/archive/orderexport</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderExportEbel" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="exportOrderFeedXMLEbel" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Export orders in XML format</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">app_custom_movado/cartridge/scripts/jobs/orderFeedXML.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">exportOrderFeed</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="UploadOrdersToSFTPEbel" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description>Upload exported orders to SAP SFTP</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="SourceFolder">/src/feeds/orders</parameter>
+                    <parameter name="TargetFolder">/test/sfccoutbound/orderexportfeed</parameter>
+                    <parameter name="ArchiveFolder">src/archive/orderexport</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderExportMovado" priority="0">
+        <description>Export Order Feed XMLs to SAP via SFTP</description>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="exportOrderFeedXML" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Export orders in XML format</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">app_custom_movado/cartridge/scripts/jobs/orderFeedXML.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">exportOrderFeed</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="UploadOrdersToSFTP" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description>Upload exported orders to SAP SFTP</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="SourceFolder">/src/feeds/orders</parameter>
+                    <parameter name="TargetFolder">/test/sfccoutbound/orderexportfeed</parameter>
+                    <parameter name="ArchiveFolder">src/archive/orderexport</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderGaurdMovado" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="OrderGuard" type="custom.OrderGuard" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="maxAge">60</parameter>
+                    <parameter name="notifyTo">email@test.com</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-04-08Z</date>
+                <time>12:26:12.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderGuardConcord" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="OrderGuardConcord" type="custom.OrderGuard" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="maxAge">60</parameter>
+                    <parameter name="notifyTo">email@email.com</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-06-12Z</date>
+                <time>05:10:17.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderGuardEbel" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="OrderGuardEbel" type="custom.OrderGuard" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="maxAge">60</parameter>
+                    <parameter name="notifyTo">email@test.com</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-06-12Z</date>
+                <time>05:08:53.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderSAPProcess" priority="0">
+        <description/>
+        <parameters/>
+        <split sequential="false">
+            <flow>
+                <context site-id="ConcordUS"/>
+                <template-ref template-id="template_135"/>
+            </flow>
+            <flow>
+                <context site-id="EbelUS"/>
+                <template-ref template-id="template_135"/>
+            </flow>
+            <flow>
+                <context site-id="MovadoUS"/>
+                <template-ref template-id="template_135"/>
+            </flow>
+            <flow-template template-id="template_135">
+                <step step-id="OrderProcess" type="ExecuteScriptModule" enforce-restart="false">
+                    <description/>
+                    <parameters>
+                        <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapOrderDecisionJob/processOrderStatus.js</parameter>
+                        <parameter name="ExecuteScriptModule.FunctionName">processSAPAttributes</parameter>
+                        <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    </parameters>
+                </step>
+            </flow-template>
+        </split>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com, akash.jauhar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderStatusJobConcord" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="OrderStatusFeedDownloadConcord" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description>Downloads the order status feed and map the attributes in SFCC System Objects</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*OrderStatus_CONCORDUS\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/orderstatus/</parameter>
+                    <parameter name="TargetFolder">src/feeds/orderStatus/</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="Populate SFCC objects" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapFeedFileProcess/sapFeedFileProcessJob.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">processFeedFile</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="SourceInventoryFolder">src/feeds/orderStatus</parameter>
+                    <parameter name="ArchiveInventorySuccessFolder">src/archive/orderStatus/success/</parameter>
+                    <parameter name="ArchiveInventoryFailureFolder">src/archive/orderStatus/error/</parameter>
+                    <parameter name="SourceFilePatten">.*\.xml</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderStatusJobEbel" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="OrderStatusFeedDownloadEbel" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description>Downloads the order status feed and map the attributes in SFCC System Objects</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*OrderStatus_EBELUS\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/orderstatus/</parameter>
+                    <parameter name="TargetFolder">src/feeds/orderStatus/</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="Populate SFCC objects" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapFeedFileProcess/sapFeedFileProcessJob.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">processFeedFile</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="SourceInventoryFolder">src/feeds/orderStatus</parameter>
+                    <parameter name="ArchiveInventorySuccessFolder">src/archive/orderStatus/success/</parameter>
+                    <parameter name="ArchiveInventoryFailureFolder">src/archive/orderStatus/error/</parameter>
+                    <parameter name="SourceFilePatten">.*\.xml</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="OrderStatusJobMovado" priority="0">
         <description/>
         <parameters/>
         <flow>
@@ -9,7 +579,7 @@
                 <description>Downloads the order status feed and map the attributes in SFCC System Objects</description>
                 <parameters>
                     <parameter name="ServiceID">TestSFTPService</parameter>
-                    <parameter name="FilePattern">.*OrderStatus\.xml</parameter>
+                    <parameter name="FilePattern">.*OrderStatus_MOVADOUS\.xml</parameter>
                     <parameter name="SourceFolder">/test/sfccinbound/orderstatus/</parameter>
                     <parameter name="TargetFolder">src/feeds/orderStatus/</parameter>
                     <parameter name="DeleteRemoteFiles">true</parameter>
@@ -34,7 +604,7 @@
                     <parameter name="SourceInventoryFolder">src/feeds/orderStatus</parameter>
                     <parameter name="ArchiveInventorySuccessFolder">src/archive/orderStatus/success/</parameter>
                     <parameter name="ArchiveInventoryFailureFolder">src/archive/orderStatus/error/</parameter>
-					<parameter name="SourceFilePatten">.*\.xml</parameter>
+                    <parameter name="SourceFilePatten">.*\.xml</parameter>
                 </parameters>
             </step>
         </flow>
@@ -47,46 +617,228 @@
             </on-exit>
         </rules>
         <triggers>
-            <run-recurring enabled="false">
-                <recurrence>
-                    <date-from>2019-02-28Z</date-from>
-                    <start-time>05:06:25.000Z</start-time>
-                    <interval>10m</interval>
-                    <day-of-week>
-                        <weekday>Tuesday</weekday>
-                        <weekday>Friday</weekday>
-                        <weekday>Monday</weekday>
-                        <weekday>Saturday</weekday>
-                        <weekday>Sunday</weekday>
-                        <weekday>Thursday</weekday>
-                        <weekday>Wednesday</weekday>
-                    </day-of-week>
-                </recurrence>
-            </run-recurring>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
         </triggers>
     </job>
-    <job job-id="OrderProcess" priority="0">
+
+    <job job-id="PICatalogJob" priority="0">
         <description/>
         <parameters/>
         <flow>
             <context site-id="MovadoUS"/>
-            <step step-id="OrderProcess" type="ExecuteScriptModule" enforce-restart="false">
+            <step step-id="PICatalogJobExport" type="custom.CSComponents.ExportPICatalog" enforce-restart="false">
                 <description/>
                 <parameters>
-                    <parameter name="ExecuteScriptModule.Module">int_sap_orderStatus/cartridge/scripts/jobs/sapOrderDecisionJob/processOrderStatus.js</parameter>
-                    <parameter name="ExecuteScriptModule.FunctionName">processSAPAttributes</parameter>
-                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="TargetFolder">src/export/catalog/PICatalog</parameter>
+                    <parameter name="Filename">export_PI_catalog.txt</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="uploadPiCatalog" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*\.txt</parameter>
+                    <parameter name="SourceFolder">src/export/catalog/PICatalog</parameter>
+                    <parameter name="TargetFolder">/test/sfccoutbound/sfmcpicatalogfeed/</parameter>
+                    <parameter name="ArchiveFolder">src/archive/catalog/sfmc</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">true</parameter>
                 </parameters>
             </step>
         </flow>
-        <rules/>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
         <triggers>
             <run-once enabled="false">
-                <date>2019-03-18Z</date>
-                <time>15:23:09.000Z</time>
+                <date>2019-03-01Z</date>
+                <time>07:29:00.000Z</time>
             </run-once>
         </triggers>
     </job>
+
+    <job job-id="PriceImport" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="Sites"/>
+            <step step-id="DownloadPriceFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description>For downloading Price files from SFTP Location</description>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_PRICEBOOK_ECOM_RP_USD\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/pricefeed/</parameter>
+                    <parameter name="TargetFolder">src/feeds/pricing/</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="ImportPriceToSFCC" type="custom.CSComponents.ImportPriceBooks" enforce-restart="false">
+                <description>For Importing Price to SFCC</description>
+                <parameters>
+                    <parameter name="SourceFolder">src/feeds/pricing</parameter>
+                    <parameter name="FilePattern">.*DW_PRICEBOOK_ECOM_RP_USD\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/pricing</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/pricing/error</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="UploadPriceToSFTP" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_PRICEBOOK_ECOM_RP_USD\.xml</parameter>
+                    <parameter name="SourceFolder">src/archive/pricing/error</parameter>
+                    <parameter name="TargetFolder">/ftproot/test/sfccinbound/pricefeed/</parameter>
+                    <parameter name="ArchiveFolder">src/archive/pricing/error/uploaded</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="ProductImport" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="DownloadProductsFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_Catalog_Output\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/productfeed/</parameter>
+                    <parameter name="TargetFolder">src/feeds/catalog</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="ImportProductsToSFCC" type="custom.CSComponents.ImportCatalog" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/feeds/catalog</parameter>
+                    <parameter name="FilePattern">.*DW_Catalog_Output\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/catalog</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/catalog/error/</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="ProductIndexing" type="SearchReindex" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+            <step step-id="UploadProductsFromSFTP" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DW_Catalog_Output\.xml</parameter>
+                    <parameter name="SourceFolder">src/archive/catalog/error/</parameter>
+                    <parameter name="TargetFolder">/ftproot/test/sfccinbound/productfeed/</parameter>
+                    <parameter name="ArchiveFolder">src/archive/catalog/error/uploaded</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">true</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="EbelProductIndex" type="SearchReindex" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="ConcordProductIndex" type="SearchReindex" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="Product related search indexes">true</parameter>
+                    <parameter name="Active data search index">false</parameter>
+                    <parameter name="Content search index">false</parameter>
+                    <parameter name="Indexer Type">Full Index Rebuild</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
     <job job-id="RecurringCleanup" priority="0">
         <description>Job to clean up the archive files from multiple archive locations.</description>
         <parameters/>
@@ -99,7 +851,7 @@
                     <parameter name="FilePattern">.*\.xml</parameter>
                     <parameter name="NoFileFoundStatus">OK</parameter>
                     <parameter name="OnError">CONTINUE</parameter>
-                    <parameter name="IsDisabled">true</parameter>
+                    <parameter name="IsDisabled">false</parameter>
                 </parameters>
             </step>
         </flow>
@@ -111,4 +863,192 @@
             </run-once>
         </triggers>
     </job>
+
+    <job job-id="StoresDeleteImport" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="DownloadStoreLocatorDeleteFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*DeletesStoreLocator\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/storefeed/</parameter>
+                    <parameter name="TargetFolder">src/storesdelete</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="ImportStoreLocatorDeleteToSFCC" type="custom.CSComponents.CustomImportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/storesdelete</parameter>
+                    <parameter name="FilePattern">.*DeletesStoreLocator\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">UPDATE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/storesdelete</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/storesdelete/error/</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2019-05-02Z</date>
+                <time>16:12:53.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="StoresImportEbelConcord" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="EbelUS"/>
+            <step step-id="ImportMGIStoresToEbel" type="custom.CSComponents.CustomImportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/export/stores</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">CONTINUE</parameter>
+                    <parameter name="ArchivePath">src/archive/stores</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/stores/error/</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <flow>
+            <context site-id="ConcordUS"/>
+            <step step-id="ImportMGIStoresToConcord" type="custom.CSComponents.CustomImportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/export/stores</parameter>
+                    <parameter name="FilePattern">.*\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">CONTINUE</parameter>
+                    <parameter name="ArchivePath">src/archive/stores</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/stores/error/</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+    <job job-id="StoresImportMovado" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="MovadoUS"/>
+            <step step-id="DownloadStoreLocatorFromSFTP" type="custom.CSComponents.FtpDownload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*-StoreLocator\.xml</parameter>
+                    <parameter name="SourceFolder">/test/sfccinbound/storefeed/</parameter>
+                    <parameter name="TargetFolder">src/feeds/stores</parameter>
+                    <parameter name="DeleteRemoteFiles">true</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+            </step>
+            <step step-id="ImportStoreLocatorToSFCC" type="custom.CSComponents.CustomImportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="SourceFolder">src/feeds/stores</parameter>
+                    <parameter name="FilePattern">.*StoreLocator\.xml</parameter>
+                    <parameter name="FileAction">ARCHIVE</parameter>
+                    <parameter name="ImportMode">MERGE</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="OnError">ARCHIVEERROR</parameter>
+                    <parameter name="ArchivePath">src/archive/stores</parameter>
+                    <parameter name="ArchiveErrorPath">src/archive/stores/error/</parameter>
+                    <parameter name="IsDisabled">false</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="UploadStoreLocatorToSFTP" type="custom.CSComponents.FtpUpload" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ServiceID">TestSFTPService</parameter>
+                    <parameter name="FilePattern">.*StoreLocator\.xml</parameter>
+                    <parameter name="SourceFolder">src/archive/stores/error</parameter>
+                    <parameter name="TargetFolder">/ftproot/test/sfccinbound/storefeed</parameter>
+                    <parameter name="ArchiveFolder">src/archive/stores/error/uploaded</parameter>
+                    <parameter name="NoFileFoundStatus">OK</parameter>
+                    <parameter name="IsDisabled">true</parameter>
+                </parameters>
+            </step>
+            <step step-id="PopulateLatLongForStores" type="IncludeStepsFromJob" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="JobID">GeolocateStores</parameter>
+                </parameters>
+            </step>
+            <step step-id="ExportMGIStores" type="custom.CSComponents.ExportStores" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="TargetFolder">src/export/stores</parameter>
+                    <parameter name="Filename">export-stores.xml</parameter>
+                    <parameter name="OverwriteExportFile">true</parameter>
+                </parameters>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules>
+            <on-exit status="ERROR" enabled="true">
+                <send-mail>
+                    <from>noreply@movado.com</from>
+                    <to>sanjay.kumar@publicissapient.com</to>
+                </send-mail>
+            </on-exit>
+        </rules>
+        <triggers>
+            <run-once enabled="true">
+                <date>2019-03-01Z</date>
+                <time>06:01:20.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
 </jobs>

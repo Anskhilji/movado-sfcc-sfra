@@ -1,10 +1,8 @@
 'use strict';
-var ADYEN_CREDIT = 'ADYEN_CREDIT';
-var AFFIRM_PAYMENT = 'AFFIRM_PAYMENT';
-var ADYEN = 'Adyen'
+
 var collections = require('*/cartridge/scripts/util/collections');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-
+var PaymentMgr = require('dw/order/PaymentMgr');
 
 /**
  * 
@@ -63,20 +61,33 @@ function paymentRefund(order, amount, isSentMail) {
  */
 function refund(order, amount, isSentMail, paymentProcessor){
 	var refundResponse;
-	if (paymentProcessor === ADYEN_CREDIT || paymentProcessor === ADYEN) {
+	var isRiskifiedflag = false;
 
-		refundResponse = hooksHelper(
+    var paymentInstruments = order.paymentInstruments;
+    if (paymentInstruments) {
+    	for (var i = 0; i < paymentInstruments.length; i++) {
+			var paymentInstrument = paymentInstruments[i];
+            var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
+			isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
+			if (isRiskifiedflag) {
+				break;
+			}
+    	}
+    }
+
+    if (isRiskifiedflag) {
+        refundResponse = hooksHelper(
 				'app.payment.adyen.refund',
 				'refund',
 				order,
 				amount,
 				isSentMail,
 				require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
-	} 
-	
-	return refundResponse;
+	}
+
+    return refundResponse;
 }
 
 
-module.exports.paymentReversal=paymentReversal;
-module.exports.paymentRefund=paymentRefund;
+module.exports.paymentReversal = paymentReversal;
+module.exports.paymentRefund = paymentRefund;

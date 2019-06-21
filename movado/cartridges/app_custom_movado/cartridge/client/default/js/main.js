@@ -1,7 +1,7 @@
 var processInclude = require('base/util');
 
 $(document).ready(function () {
-    processInclude(require('./components/carousel'));
+    processInclude(require('./components/slickCarousel'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/modal'));
     processInclude(require('./components/menu'));

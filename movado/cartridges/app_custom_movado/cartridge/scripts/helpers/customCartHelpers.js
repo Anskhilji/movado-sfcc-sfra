@@ -196,7 +196,21 @@ function getWishlistGtmObj(productLineItems) {
  * @returns
  */
 function validStringXSS(message){
-	var regex = new RegExp("^[^(\\<\\>\\\\)]+$",'i');
+	var regex = new RegExp("^[A-Za-z0-9\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$",'i');
+	var results=false;
+	if(message){
+		results = regex.test(message);
+	}
+	return results;
+}
+
+/**
+ *  validation ForCrossSiteScriptCharacters
+ * @param message
+ * @returns
+ */
+function validGiftMsgStringXSS(message){
+	var regex = new RegExp("^[A-Za-z0-9\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\s\n]+$",'i');
 	var results=false;
 	if(message){
 		results = regex.test(message);
@@ -242,6 +256,7 @@ module.exports = {
     removeFromCartGTMObj:removeFromCartGTMObj,
     getWishlistGtmObj:getWishlistGtmObj,
     validStringXSS:validStringXSS,
+    validGiftMsgStringXSS:validGiftMsgStringXSS,
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml
 };

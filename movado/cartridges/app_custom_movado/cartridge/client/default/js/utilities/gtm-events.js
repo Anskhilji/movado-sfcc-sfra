@@ -213,7 +213,7 @@ var onPromoImpressionsLoad = function (e) {
     var $currentTarget = $('.gtm-view');
     var dataLayerObj = [];
     $.each($currentTarget, function () {
-        var gtmTrackingData = $(this).data('gtm-tracking');
+        var gtmTrackingData = $(this).attr('data-gtm-tracking');
         if (gtmTrackingData !== undefined) {
             dataLayerObj.push(JSON.parse(gtmTrackingData));
         }

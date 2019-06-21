@@ -120,9 +120,11 @@ function post(serviceType, callerModule, payload, action) {
     switch (serviceType) {
     case 'async':
         service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedRestService');
+        service.setCredentialID('riskified.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
         break;
     case 'sync':
         service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/RiskifiedSyncRestService');
+        service.setCredentialID('riskified.sync.'+Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified);
         break;
     case 'deco':
         service = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService');

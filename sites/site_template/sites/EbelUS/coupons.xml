@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coupons xmlns="http://www.demandware.com/xml/impex/coupon/2008-06-17">
+    <coupon coupon-id="2019 Abandoned Cart">
+        <description>Free Overnight Shipping</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>SHOP19</single-code>
+    </coupon>
+
+    <coupon coupon-id="August 2019 Birthday">
+        <description>10% off August Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYAUG19</single-code>
+    </coupon>
+
+    <coupon coupon-id="CUSTOMERSERVI">
+        <description>Customer Service 15% off</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <limit-per-code>1</limit-per-code>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <system-codes>
+            <max-number-of-codes>150</max-number-of-codes>
+            <code-prefix>MOV15</code-prefix>
+            <code-length>16</code-length>
+            <include-vowels>true</include-vowels>
+            <include-dashes>true</include-dashes>
+            <algorithm>F2</algorithm>
+        </system-codes>
+    </coupon>
+
+    <coupon coupon-id="December 2019 Birthday">
+        <description>10% off December Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYDEC19</single-code>
+    </coupon>
+
+    <coupon coupon-id="FREESHIP">
+        <description>Free Overnight Shipping</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>FREESHIP</single-code>
+    </coupon>
+
+    <coupon coupon-id="July 2019 Birthday">
+        <description>10% off July Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYJUL19</single-code>
+    </coupon>
+
+    <coupon coupon-id="June 2019 Birthday">
+        <description>10% off June Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYJUN19</single-code>
+    </coupon>
+
+    <coupon coupon-id="MCSCoupons">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <multiple-codes/>
+    </coupon>
+
+    <coupon coupon-id="MOVADOSHIP">
+        <description>Free Overnight Shipping</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>MOVADOSHIP</single-code>
+    </coupon>
+
+    <coupon coupon-id="May 2019 Birthday">
+        <description>10% off May Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYMAY19</single-code>
+    </coupon>
+
+    <coupon coupon-id="Movado Face 15% off">
+        <description>15% off Movado Face</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>FACE15</single-code>
+    </coupon>
+
+    <coupon coupon-id="November 2019 Birthday">
+        <description>10% off November Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYNOV19</single-code>
+    </coupon>
+
+    <coupon coupon-id="ORDERCOUPON">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>true</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>ORDERCOUPON</single-code>
+    </coupon>
+
+    <coupon coupon-id="October 2019 Birthday">
+        <description>10% off October Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYOCT19</single-code>
+    </coupon>
+
+    <coupon coupon-id="ProdCoupon">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>true</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>ProdCoupon</single-code>
+    </coupon>
+
+    <coupon coupon-id="ProductCoupon">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>true</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>PRODUCTCOUPON</single-code>
+    </coupon>
+
+    <coupon coupon-id="SHIPCOUPON">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>true</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>SHIPCOUPON</single-code>
+    </coupon>
+
+    <coupon coupon-id="September 2019 Birthday">
+        <description>10% off September Birthday - email</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>EMBDAYSEP19</single-code>
+    </coupon>
+
+    <coupon coupon-id="Welcome 2019">
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>false</case-insensitive>
+        <redemption-limits>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <single-code>WELCOME19</single-code>
+    </coupon>
+
+    <coupon-codes coupon-id="MCSCoupons">
+        <code>15LAN</code>
+
+        <code>15DH</code>
+
+        <code>15SM</code>
+
+        <code>15WIL</code>
+
+        <code>15DAW</code>
+
+        <code>15SA</code>
+
+        <code>15TC</code>
+
+        <code>15KIT</code>
+
+        <code>15ORLINT</code>
+
+        <code>15CAM</code>
+
+        <code>15ELL</code>
+
+        <code>15GUR</code>
+
+        <code>15WOO</code>
+
+        <code>15ONT</code>
+
+        <code>15LEE</code>
+
+        <code>15ORLPRE</code>
+
+        <code>15ALL</code>
+
+        <code>15WRE</code>
+
+        <code>15RIV</code>
+
+        <code>15GIL</code>
+
+        <code>15CLI</code>
+
+        <code>15SEA</code>
+
+        <code>15VAC</code>
+
+        <code>15MIR</code>
+
+        <code>15LVN</code>
+
+        <code>15SAW</code>
+
+        <code>15PHI</code>
+
+        <code>15POT</code>
+
+        <code>15GL</code>
+
+        <code>15DOL</code>
+
+        <code>15SAN</code>
+
+        <code>15PHO</code>
+
+        <code>15NAT</code>
+
+        <code>15LVS</code>
+
+        <code>15CHA</code>
+
+        <code>15EAG</code>
+
+        <code>15CHI</code>
+
+        <code>15HOU</code>
+
+        <code>15CIT</code>
+
+        <code>15FOC</code>
+
+        <code>15DP</code>
+
+        <code>15CARL</code>
+
+        <code>15DEN</code>
+
+        <code>15TOR</code>
+
+        <code>15JER</code>
+
+    </coupon-codes>
+</coupons>

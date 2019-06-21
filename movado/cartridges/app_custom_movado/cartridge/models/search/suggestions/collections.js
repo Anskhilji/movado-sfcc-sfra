@@ -6,16 +6,9 @@ var Site = require('dw/system/Site');
 var collectionsCategory = Site.current.getCustomPreferenceValue('collectionsCategory');
 var root = Site.current.getCustomPreferenceValue('rootCategory');
 
-/**
- * @constructor
- * @classdesc CategorySuggestions class
- *
- * @param {dw.suggest.SuggestModel} suggestions - Suggest Model
- * @param {number} maxItems - Maximum number of categories to retrieve
- */
-
 // checking for hierarchical parent for browse by collection category
 function pushToCollection(category, immediateParent) {
+    var status = false;
     if (immediateParent.ID === root) {
         return false;
     }
@@ -23,7 +16,7 @@ function pushToCollection(category, immediateParent) {
     if (collectionsCategory.length > 0) {
         for (var a = 0; a < collectionsCategory.length; a++) {
             if (category.ID === collectionsCategory[a]) {
-                return true;
+                status = true;
             }
         }
     }
@@ -31,20 +24,28 @@ function pushToCollection(category, immediateParent) {
     if (collectionsCategory.length > 0) {
         for (var b = 0; b < collectionsCategory.length; b++) {
             if (immediateParent.ID === collectionsCategory[b]) {
-                return true;
+                status = true;
             }
         }
     }
 
-    pushToCollection(immediateParent, immediateParent.parent);
+    return status ? true : pushToCollection(immediateParent, immediateParent.parent);
 }
+
+/**
+ * @constructor
+ * @classdesc CategorySuggestions class
+ *
+ * @param {dw.suggest.SuggestModel} suggestions - Suggest Model
+ * @param {number} maxItems - Maximum number of categories to retrieve
+ */
 function CollectionSuggestions(suggestions, maxItems) {
     this.categories = [];
 
     var collectionSuggestions = suggestions.categorySuggestions;
     var iter = collectionSuggestions.suggestedCategories;
 
-    this.available = collectionSuggestions.hasSuggestions();
+    this.available = false;
 
     for (var i = 0; i < maxItems; i++) {
         var category = null;
@@ -55,14 +56,13 @@ function CollectionSuggestions(suggestions, maxItems) {
             if (pushFlag) {
                 this.available = true;
                 this.categories.push({
+                    id: category.ID,
                     name: category.displayName,
                     imageUrl: category.image ? category.image.url : '',
                     url: URLUtils.url(endpoint, 'cgid', category.ID),
                     parentID: category.parent.ID,
                     parentName: category.parent.displayName
                 });
-            } else {
-                this.available = false;
             }
         }
     }

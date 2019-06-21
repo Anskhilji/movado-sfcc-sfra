@@ -24,15 +24,10 @@
 <isif condition="${'GoogleVerificationTag' in dw.system.Site.current.preferences.custom && dw.system.Site.current.preferences.custom.GoogleVerificationTag!=''}">
     <meta name="google-site-verification" content="<isprint value="${dw.system.Site.current.preferences.custom.GoogleVerificationTag}"/>" />
 </isif>
-<link href="${URLUtils.staticURL('/images/favicons/favicon.ico')}" rel="shortcut icon" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-152.ico')}" sizes="152x152" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-144.ico')}" sizes="144x144" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-120.ico')}" sizes="120x120" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-72.ico')}" sizes="72x72" />
-<link rel="apple-touch-icon-precomposed" href="${URLUtils.staticURL('/images/favicons/favicon-114.ico')}" sizes="114x114" />
+
+<isinclude template="/common/favicon" />
 
 <isinclude template="affirm/affirmheader_mf" />
-
 
 <div data-url-path-gtm="${dw.system.Site.current.preferences.custom.URLPath}">
 	<isif condition="${dw.system.Site.current.preferences.custom.gtmEnabled}">

@@ -64,7 +64,7 @@ server.post('AddGiftMessage',
     var result = { error: false };
     var prodUUID = req.form.productUUID;
     var giftMessage = req.form.giftMessage;
-    var isValidString = customCartHelpers.validStringXSS(giftMessage);
+    var isValidString = customCartHelpers.validGiftMsgStringXSS(giftMessage);
 
 
     if (currentBasket && prodUUID && isValidString) {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tax xmlns="http://www.demandware.com/xml/impex/tax/2007-02-14">
+    <tax-classes>
+        <tax-class class-id="GCF2">
+            <display-name>GCF2</display-name>
+            <description>Accessories (straps)</description>
+        </tax-class>
+
+        <tax-class class-id="GS53" default="true">
+            <display-name>GS53</display-name>
+            <description>Watches</description>
+        </tax-class>
+
+    </tax-classes>
+    <tax-jurisdictions>
+        <tax-jurisdiction jurisdiction-id="US" default="true">
+            <display-name>United States</display-name>
+            <address-mappings>
+                <address-mapping key1="US" key2="-"/>
+            </address-mappings>
+        </tax-jurisdiction>
+
+    </tax-jurisdictions>
+    <tax-rates>
+        <tax-rate jurisdiction-id="US" class-id="GS53">0</tax-rate>
+
+        <tax-rate jurisdiction-id="US" class-id="GCF2">0</tax-rate>
+
+    </tax-rates>
+</tax>

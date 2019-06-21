@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns="http://www.demandware.com/xml/impex/preferences/2007-03-31">
+    <standard-preferences>
+        <all-instances>
+            <preference preference-id="AccountNumberRetentionDays">30</preference>
+            <preference preference-id="AddProductToBasketBehavior">AllowRepeats</preference>
+            <preference preference-id="BasketLifetime">240</preference>
+            <preference preference-id="BasketLifetimeUnregistered">120</preference>
+            <preference preference-id="BasketPersistence">all</preference>
+            <preference preference-id="CategoryChangeFrequency">daily</preference>
+            <preference preference-id="CategoryPriority">0.5</preference>
+            <preference preference-id="ContentChangeFrequency">daily</preference>
+            <preference preference-id="ContentPriority">0.5</preference>
+            <preference preference-id="CouponGeneratorIncludeDashes">true</preference>
+            <preference preference-id="CouponGeneratorIncludeVowels">true</preference>
+            <preference preference-id="EnableSiteOrderNumbers">false</preference>
+            <preference preference-id="EnforceHTTPS">false</preference>
+            <preference preference-id="IntegrationOrderCenterIncludeSite">true</preference>
+            <preference preference-id="MaxURLsPerFile">5000</preference>
+            <preference preference-id="ProductChangeFrequency">daily</preference>
+            <preference preference-id="ProductPriority">0.5</preference>
+            <preference preference-id="RedirectUrlCopySourceParameters">true</preference>
+            <preference preference-id="SiteCatalog">ebel-us-storefront</preference>
+            <preference preference-id="SiteCurrencies">USD</preference>
+            <preference preference-id="SiteCustomerList">MovadoUS</preference>
+            <preference preference-id="SiteDefaultLocale">en_US</preference>
+            <preference preference-id="SiteInventoryList">2001</preference>
+            <preference preference-id="SiteLibrary">EbelUS</preference>
+            <preference preference-id="SiteLocales">en_US:default</preference>
+            <preference preference-id="SitePriceBooks">ECOM_RP_USD</preference>
+            <preference preference-id="SiteTimezone">Etc/UTC</preference>
+            <preference preference-id="StorefrontURLsEnabled">true</preference>
+        </all-instances>
+        <development>
+            <preference preference-id="AvailabilityFiltering">Disabled</preference>
+            <preference preference-id="AvailabilityLowRankingThreshold">0.0</preference>
+            <preference preference-id="IncludePromotionIDInProductIndex">false</preference>
+            <preference preference-id="MergedVariationGroupsDisplayMode">false</preference>
+            <preference preference-id="PageURLBlankSubstitute">%20</preference>
+            <preference preference-id="PersonalizedSearchRecommendations">Disabled</preference>
+            <preference preference-id="RobotsTxtContent"/>
+            <preference preference-id="RobotsTxtMode">DisallowAll</preference>
+            <preference preference-id="SearchAutoCorrection">Disabled</preference>
+            <preference preference-id="SearchDictionaryLocaleFallback">Disabled</preference>
+            <preference preference-id="SearchFriendlyURLsEnabled">false</preference>
+            <preference preference-id="SearchIgnoreLeadingZeros">Disabled</preference>
+            <preference preference-id="SearchRedirectKeywordRuleEnabled">Enabled</preference>
+            <preference preference-id="SearchSuggestions">Disabled</preference>
+        </development>
+        <staging>
+            <preference preference-id="AvailabilityFiltering">Disabled</preference>
+            <preference preference-id="AvailabilityLowRankingThreshold">0.0</preference>
+            <preference preference-id="IncludePromotionIDInProductIndex">false</preference>
+            <preference preference-id="MergedVariationGroupsDisplayMode">false</preference>
+            <preference preference-id="PageURLBlankSubstitute">%20</preference>
+            <preference preference-id="PersonalizedSearchRecommendations">Disabled</preference>
+            <preference preference-id="RobotsTxtContent"/>
+            <preference preference-id="RobotsTxtMode">DisallowAll</preference>
+            <preference preference-id="SearchAutoCorrection">Disabled</preference>
+            <preference preference-id="SearchDictionaryLocaleFallback">Disabled</preference>
+            <preference preference-id="SearchFriendlyURLsEnabled">true</preference>
+            <preference preference-id="SearchIgnoreLeadingZeros">Disabled</preference>
+            <preference preference-id="SearchRedirectKeywordRuleEnabled">Enabled</preference>
+            <preference preference-id="SearchSuggestions">Disabled</preference>
+        </staging>
+        <production>
+            <preference preference-id="AvailabilityFiltering">Disabled</preference>
+            <preference preference-id="AvailabilityLowRankingThreshold">0.0</preference>
+            <preference preference-id="IncludePromotionIDInProductIndex">false</preference>
+            <preference preference-id="MergedVariationGroupsDisplayMode">false</preference>
+            <preference preference-id="PageURLBlankSubstitute">%20</preference>
+            <preference preference-id="PersonalizedSearchRecommendations">Disabled</preference>
+            <preference preference-id="RobotsTxtContent">User-agent: *&#13;
+Disallow: /account-edit*&#13;
+Disallow: /password-reset*&#13;
+Disallow: /register-watch*&#13;
+Disallow: /account*&#13;
+Disallow: /account-mywatches*&#13;
+Disallow: /account-register*&#13;
+Disallow: /address-list*&#13;
+Disallow: /checkout-start*&#13;
+Disallow: /cart-addproduct*&#13;
+Disallow: /shopping-bag*&#13;
+Disallow: /logout*&#13;
+Disallow: /order-history*&#13;
+Disallow: /search*&#13;
+Disallow: /wishlist-add*&#13;
+Disallow: /wishlist*&#13;
+Disallow: /wishlists*&#13;
+Disallow: *Account-EditProfile*&#13;
+Disallow: *Account-PasswordResetDialog*&#13;
+Disallow: *Account-RegisterProduct*&#13;
+Disallow: *Account-Show*&#13;
+Disallow: *Account-ShowWatchlist*&#13;
+Disallow: *Account-StartRegister*&#13;
+Disallow: *Address-List*&#13;
+Disallow: *CO-Customer-Start*&#13;
+Disallow: *Cart-AddProduct*&#13;
+Disallow: *Cart-Show*&#13;
+Disallow: *Login-Logout*&#13;
+Disallow: *Order-History*&#13;
+Disallow: *Search-Show*&#13;
+Disallow: *Wishlist-Add*&#13;
+Disallow: *Wishlist-Show*&#13;
+Disallow: *Wishlist-ShowOther*&#13;
+Disallow: *SendToFriend-Start*&#13;
+Disallow: *cgid*&#13;
+Disallow: *Page-Show*&#13;
+Disallow: *BISNSave-Dialog*&#13;
+Disallow: /shop-watchesbest-sellers/&#13;
+Disallow: /shop-watchesnew-arrivals/&#13;
+Disallow: /movado-boldbold-chronographs&#13;
+Disallow: /movado-boldbold-metals/&#13;
+Disallow: /discover-movado/ournews/&#13;
+Disallow: /collections/fiero/&#13;
+Disallow: /movado-boldbold-diamonds/&#13;
+Disallow: /mens-series800-2/&#13;
+Disallow: /discover-movado/ambassadors/&#13;
+Disallow: /discover-movado/editorial/&#13;
+Disallow: /news/news-baselworld/&#13;
+Disallow: /discover-movado/&#13;
+Disallow: /movado-boldbold-colorado-straps/&#13;
+Disallow: /discover-movado/advertising/&#13;
+Disallow: /shop-watchesbest-sellers/&#13;
+Disallow: /shop-watcheswomens-designs/&#13;
+Disallow: /news/&#13;
+Disallow: /shop-watchesmens-designs/&#13;
+Disallow: /movado-bold-motion/&#13;
+Disallow: /mens-sapphire-2/&#13;
+Disallow: /discover-movado/events/&#13;
+Disallow: /discover-movado/artists-museums/&#13;
+Disallow: /newsnews-baselworld/&#13;
+Disallow: /boldmotion/&#13;
+Disallow: /movado-boldbold-tr-90/&#13;
+Disallow: /shop-watchesshop-all-watches/&#13;
+Disallow: /news/news-1881automatic/&#13;
+Disallow: /discover-movado/heritage/&#13;
+Disallow: /legacy/&#13;
+Disallow: /movado-motion-by-mmt/&#13;
+Disallow: /newsnews-1881automatic/&#13;
+Disallow: /movado-boldbold-luxe/&#13;
+&#13;
+Sitemap: http://www.movado.com/sitemap_index.xml</preference>
+            <preference preference-id="RobotsTxtMode">Custom</preference>
+            <preference preference-id="SearchAutoCorrection">Disabled</preference>
+            <preference preference-id="SearchDictionaryLocaleFallback">Disabled</preference>
+            <preference preference-id="SearchFriendlyURLsEnabled">false</preference>
+            <preference preference-id="SearchIgnoreLeadingZeros">Disabled</preference>
+            <preference preference-id="SearchRedirectKeywordRuleEnabled">Enabled</preference>
+            <preference preference-id="SearchSuggestions">Disabled</preference>
+        </production>
+    </standard-preferences>
+    <custom-preferences>
+        <all-instances/>
+        <development>
+            <preference preference-id="AdyenCseEnabled">true</preference>
+            <preference preference-id="AdyenCseLibraryToken">8215184284030597</preference>
+            <preference preference-id="AdyenPaymentCancelService">adyen.http.payment.cancel</preference>
+            <preference preference-id="AdyenPaymentCaptureServicePrefix">adyen.http.payment.capture</preference>
+            <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+            <preference preference-id="Adyen_API_Key">01013F8667F12682C96F1742C349BF9F7439A9FDD565845B0C97457F7759D368829065068AC265048B4C0921600AFFC7D69FE91FBBA1D0A53C2B62E925F05BC6314110C15D5B0DBEE47CDCB5588C48224C6007</preference>
+            <preference preference-id="Adyen_Debug">false</preference>
+            <preference preference-id="Adyen_HMACkey">DCCD65E9459F669D6F87FC02002AAC667A3A9CEAF5805EFD20D0433A1F119455</preference>
+            <preference preference-id="Adyen_Mode">TEST</preference>
+            <preference preference-id="Adyen_PaymentSelection">one</preference>
+            <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+            <preference preference-id="Adyen_directoryLookup">true</preference>
+            <preference preference-id="Adyen_merchantCode">Ebel_us</preference>
+            <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+            <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+            <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+            <preference preference-id="AffirmCartPromoMessage">true</preference>
+            <preference preference-id="AffirmModalEnable">modal</preference>
+            <preference preference-id="AffirmMode">sandbox</preference>
+            <preference preference-id="AffirmOnline">true</preference>
+            <preference preference-id="AffirmPLPPromoMessage">false</preference>
+            <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+            <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+            <preference preference-id="AffirmPrivateKey">63qsHdETTQI0Y5zu3Sq7f7jaf4HKJSEf</preference>
+            <preference preference-id="AffirmProductMessage">true</preference>
+            <preference preference-id="AffirmPublicKey">9T30P8TTX95V9GTT</preference>
+            <preference preference-id="CompareEnabled">true</preference>
+            <preference preference-id="DECOEnable">false</preference>
+            <preference preference-id="EvergageEnabled">true</preference>
+            <preference preference-id="GMapAPIKey">AIzaSyBUgOhMTqOmxA5Kqb8eMyuQJTqeCgWPDv0</preference>
+            <preference preference-id="GTM_ID">GTM-KQ3B827</preference>
+            <preference preference-id="LuckyOrangeEnabled">true</preference>
+            <preference preference-id="LuckyOrangeSrcJs">'https://d10lpsik1i8c69.cloudfront.net/w.js'</preference>
+            <preference preference-id="POType">ECM</preference>
+            <preference preference-id="ProductCompareAttributes">
+                <value>Color</value>
+                <value>Material</value>
+                <value>Strap</value>
+                <value>Gender</value>
+                <value>Bracelet</value>
+                <value>Carat Weight</value>
+                <value>Water Resistance</value>
+                <value>Case Material</value>
+                <value>Crystal</value>
+                <value>Dial</value>
+                <value>Gemstone Type</value>
+                <value>Gemstone Number</value>
+                <value>Movement</value>
+            </preference>
+            <preference preference-id="SAPMaxLimit">35</preference>
+            <preference preference-id="SearchMaxSuggestions">3.0</preference>
+            <preference preference-id="SearchMinChars">3.0</preference>
+            <preference preference-id="StoreDivisionCode">12</preference>
+            <preference preference-id="URLPath">/s/EbelUS/en/</preference>
+            <preference preference-id="addthisUrl">//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-4fc9383e1ee05f1b</preference>
+            <preference preference-id="addthis_enabled">true</preference>
+            <preference preference-id="adyenDirectoryLookupUrl">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="applePayCaptureDisabled">true</preference>
+            <preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+            <preference preference-id="caratWeightAttributeImage">images/productattributes/carat_weight.png
+            </preference>
+            <preference preference-id="caseDiameterAttributeImage">images/productattributes/case_diameter.png
+            </preference>
+            <preference preference-id="caseMaterialAttributeImage">images/productattributes/case_material.png
+            </preference>
+            <preference preference-id="collectionsCategory">
+                <value>collections</value>
+            </preference>
+            <preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+            <preference preference-id="customerServiceEmail">customerservice@ebel.com</preference>
+            <preference preference-id="deliveryAllowedCountryCodes">
+                <value>US</value>
+            </preference>
+            <preference preference-id="dialAttributeImage">images/productattributes/dial_icon.png</preference>
+            <preference preference-id="disImageMappingJSON">{"viewTypeMapping":{"medium":"large","thumbnail":"large","small":"large","cart":"large","grid":"large","large":"large","zoom":"large","image90X90":"large","image55X55":"large","image1350X1000":"large","morestyles":"large","icon":"large","tile150":"large","tile217":"large","tile256":"large","small50":"large","small80":"large","zoom830":"large","zoom1660":"large","pdp533":"large","pdp353":"large","pdp320":"large"},"enforceImageScaling":"true","useMissingImages":false,"zoom":{"scaleWidth":1056,"scaleHeight":1880},"large":{"scaleWidth":780,"scaleHeight":940},"medium":{"scaleWidth":604,"scaleHeight":728},"small":{"scaleWidth":183,"scaleHeight":321},"grid":{"scaleWidth":353,"scaleHeight":426},"thumbnail":{"scaleWidth":200,"scaleHeight":200,"scaleMode":"crop"},"morestyles":{"scaleWidth":70,"scaleHeight":70,"scaleMode":"crop"},"cart":{"scaleWidth":325,"scaleHeight":325},"icon":{"scaleWidth":53,"scaleHeight":64},"image90X90":{"scaleWidth":90,"scaleHeight":90},"image55X55":{"scaleWidth":85,"scaleHeight":85},"image1350X1000":{"scaleWidth":1350,"scaleHeight":1000},"tile150":{"scaleWidth":150,"scaleHeight":150},"tile217":{"scaleWidth":217,"scaleHeight":217},"tile256":{"scaleWidth":256,"scaleHeight":256},"small50":{"scaleWidth":50,"scaleHeight":50},"small80":{"scaleWidth":80,"scaleHeight":80},"zoom830":{"scaleWidth":830,"scaleHeight":830},"zoom1660":{"scaleWidth":1660,"scaleHeight":1660},"pdp533":{"scaleWidth":533,"scaleHeight":533},"pdp353":{"scaleWidth":353,"scaleHeight":353},"pdp320":{"scaleWidth":320,"scaleHeight":320},"missingImages":{"small":"/images/dis/183x321.png","medium":"/images/dis/prod-353x426.png","large":"/images/dis/prod-1055x1273.png","hi-res":"testimgs/osterhase.jpg"},"imageMissingText":"Theproductimageismissing!"}</preference>
+            <preference preference-id="disImageSourceEnvironment">STG</preference>
+            <preference preference-id="embossingTextValidations">{
+                "horizontalTextLimit": "2",
+                "verticalTextLimit": "7"
+                }</preference>
+            <preference preference-id="enableLoginWithFacebook">true</preference>
+            <preference preference-id="enableLoginWithGoogle">true</preference>
+            <preference preference-id="enablePagination">true</preference>
+            <preference preference-id="enableSeprateLineItemInCart">true</preference>
+            <preference preference-id="engravingTextValidations">{
+                "casebackLineLimit": "2",
+                "casebackCharLimit": "10",
+                "jewelryLineLimit": "1",
+                "jewelryCharLimit": "7"
+                }</preference>
+            <preference preference-id="evergageSrcJs">//cdn.evgnet.com/beacon/movado/engage/scripts/evergage.min.js
+            </preference>
+            <preference preference-id="gemstoneClarityAttributeImage">images/productattributes/gemstone_clarity.png
+            </preference>
+            <preference preference-id="gemstoneNumberAttributeImage">images/productattributes/gemstone_number.png
+            </preference>
+            <preference preference-id="gemstoneTypeAttributeImage">images/productattributes/gemstone_type.png
+            </preference>
+            <preference preference-id="giftMessageLimit">40</preference>
+            <preference preference-id="gmtTenantJSON">{"en_us":"Ebel US", "en":"Ebel US", "default":"Ebel US"}</preference>
+            <preference preference-id="googleGeolocationLimit">10000</preference>
+            <preference preference-id="gtmEnabled">true</preference>
+            <preference preference-id="historicalOrdersEnable">false</preference>
+            <preference preference-id="holdOrderUntilRiskifiedDecision">true</preference>
+            <preference preference-id="imageBadge1">images/badges/newArrival.png</preference>
+            <preference preference-id="imageTypeBadges">
+                <value>newArrival</value>
+            </preference>
+            <preference preference-id="inventoryLocation">1000</preference>
+            <preference preference-id="luckyOrangeSiteID">70720</preference>
+            <preference preference-id="merchantDomainAddressOnRiskified">ebel.com</preference>
+            <preference preference-id="moreStylesRecomendationTypes">
+                <value>1</value>
+            </preference>
+            <preference preference-id="movableInkTrackEnabled">false</preference>
+            <preference preference-id="movementTypeAttributeImage">images/productattributes/movement_type.png
+            </preference>
+            <preference preference-id="myWatchesCategoryId">collections</preference>
+            <preference preference-id="orderExportImpexFilePath">/IMPEX/src/feeds/orders/</preference>
+            <preference preference-id="orderStatusSentFromMail">noreply@ebel.com</preference>
+            <preference preference-id="orderStatusSentToMail">garima.negi@publicissapient.com</preference>
+            <preference preference-id="orderType">ZOR</preference>
+            <preference preference-id="pageListForCompare">
+                <value>Home-Show</value>
+                <value>Search-Show</value>
+                <value>Product-Show</value>
+            </preference>
+            <preference preference-id="pageNameJSON">{"home-show":"Homepage","search-show":"Search Listing Page","product-listing":"Product Listing Page",  "account-show":"My Account","login-show":"My Account","page-show":"Content Page","product-show":"Product Details Page","cart-show":"Cart","checkout-login":"Checkout – Sign In","checkout-shipping":"Checkout – Shipping","checkout-billing":"Checkout – Billing","checkout-placeorder":"Checkout – Review","home-errornotfound":"404 Page","no-searchresult-page":"No Search Results Page","stores-find":"Stores","order-history":"Order-History", "order-details": "Order-Details", "wishlist-show":"Wishlist-Show","order-confirm":"Checkout – Thank you"}</preference>
+            <preference preference-id="pageSize">18</preference>
+            <preference preference-id="paypalLiveURL">https://live.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="paypalTestURL">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+            <preference preference-id="pdpAttributesList">dial,caseDiameter,caseMaterial,crystalFabrication,waterResistance,attachmentType,movementType,watchGender,gemstoneType,gemstoneNumber,caratWeight,gemstoneClarity</preference>
+            <preference preference-id="piCatalogAttributes">skuID|productName|productType|productLink|imageLink|regularPrice|onlineAvailability|productDescription|brandName|color|material|keywords</preference>
+            <preference preference-id="piCatalogProductLinkDomain">www.ebel.com</preference>
+            <preference preference-id="piCatalogThumbnailImageParamsJSON">{"scaleWidth":80,"scaleHeight":80}</preference>
+            <preference preference-id="primarySiteSectionJSON">{ "home-show":"home", "account-show":"account","login-show":"account","cart-show":"cart", "checkout-login":"Checkout", "checkout-begin":"Checkout"}</preference>
+            <preference preference-id="rcDebugLogEnabled">true</preference>
+            <preference preference-id="rcInfoLogEnabled">true</preference>
+            <preference preference-id="recommendationCarouselConfig">{
+                "dots": true,
+                "infinite": false,
+                "arrows": true,
+                "slidesToShow": 3,
+                "responsive": [
+                {
+                "breakpoint": 544,
+                "settings": {
+                "arrows": false,
+                "slidesToShow": 2
+                }
+                }
+                ]
+                }
+            </preference>
+            <preference preference-id="recommendationsTitle">YOU MIGHT LIKE</preference>
+            <preference preference-id="riskifiedAuthCode">bcd9ea3850876e9b12d88e92c3aa18ae</preference>
+            <preference preference-id="riskifiedCartridgeEnabled">true</preference>
+            <preference preference-id="riskifiedOrderSyncDecision">false</preference>
+            <preference preference-id="rootCategory">root</preference>
+            <preference preference-id="sabrixCallingSystemNumber">Razor360SMTS</preference>
+            <preference preference-id="sabrixCompanyRole">S</preference>
+            <preference preference-id="sabrixCurrencyCode">USD</preference>
+            <preference preference-id="sabrixDefaultProductTaxCode">5310</preference>
+            <preference preference-id="sabrixEnable">true</preference>
+            <preference preference-id="sabrixExternalCompanyId">1204-US01</preference>
+            <preference preference-id="sabrixHostRequestID">RazorSMTS</preference>
+            <preference preference-id="sabrixHostRequestLogEntryID">0987654321</preference>
+            <preference preference-id="sabrixIsAudited">false</preference>
+            <preference preference-id="sabrixIsCredit">false</preference>
+            <preference preference-id="sabrixLineIsExempt">false</preference>
+            <preference preference-id="sabrixLineItemTaxClass">GS53</preference>
+            <preference preference-id="sabrixLinePointOfTitleTransfer">D</preference>
+            <preference preference-id="sabrixLineQuantityUOM">EACH</preference>
+            <preference preference-id="sabrixServiceFailureMailFrom">noreply@movado.com</preference>
+            <preference preference-id="sabrixServiceFailureMailTo">garima.negi@publicissapient.com</preference>
+            <preference preference-id="sabrixShipFromAddress1">109 State Street</preference>
+            <preference preference-id="sabrixShipFromCity">Moonachie</preference>
+            <preference preference-id="sabrixShipFromCountryCode">US</preference>
+            <preference preference-id="sabrixShipFromPostalCode">07074</preference>
+            <preference preference-id="sabrixShipFromStateCode">NJ</preference>
+            <preference preference-id="sabrixShippingLineItemTaxClass">GB4H</preference>
+            <preference preference-id="sabrixTransactionType">GS</preference>
+            <preference preference-id="sapCurrencyCode">USD</preference>
+            <preference preference-id="sapEventAllowedValues">
+                <value>billing</value>
+                <value>return</value>
+                <value>credit</value>
+                <value>cancellation</value>
+            </preference>
+            <preference preference-id="sapShippingLineItemID">FIXEDFREIGHT</preference>
+            <preference preference-id="sapSiteId">EBELUS</preference>
+            <preference preference-id="sapTransactionAllowedValues">
+                <value>capture</value>
+                <value>refund</value>
+                <value>void</value>
+                <value>update</value>
+            </preference>
+            <preference preference-id="shippingLineItemSKU">FIXEDFREIGHT</preference>
+            <preference preference-id="showWelcomeMat">true</preference>
+            <preference preference-id="textForBadges">{
+            "exclusive":"MOVADO.COM EXCLUSIVE",
+            "nearlyGone":"HurryUp Nearly Gone!!"
+            }</preference>
+            <preference preference-id="textTypeBadges">
+                <value>exclusive</value>
+                <value>nearlyGone</value>
+            </preference>
+            <preference preference-id="watchGenderAttributeImage">images/productattributes/gender.png</preference>
+            <preference preference-id="waterResistanceAttributeImage">images/productattributes/water_resistance.png
+            </preference>
+            <preference preference-id="webOrderCreationTimeZone">EST</preference>
+            <preference preference-id="webSiteID">EBELUS</preference>
+            <preference preference-id="youMayLikeRecomendationTypes">
+                <value>2</value>
+            </preference>
+        </development>
+        <staging>
+            <preference preference-id="AdyenCseEnabled">true</preference>
+            <preference preference-id="AdyenCseLibraryToken">8215184284030597</preference>
+            <preference preference-id="AdyenPaymentCancelService">adyen.http.payment.cancel</preference>
+            <preference preference-id="AdyenPaymentCaptureServicePrefix">adyen.http.payment.capture</preference>
+            <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+            <preference preference-id="Adyen_API_Key">01013F8667F12682C96F1742C349BF9F7439A9FDD565845B0C97457F7759D368829065068AC265048B4C0921600AFFC7D69FE91FBBA1D0A53C2B62E925F05BC6314110C15D5B0DBEE47CDCB5588C48224C6007</preference>
+            <preference preference-id="Adyen_Debug">false</preference>
+            <preference preference-id="Adyen_HMACkey">DCCD65E9459F669D6F87FC02002AAC667A3A9CEAF5805EFD20D0433A1F119455</preference>
+            <preference preference-id="Adyen_Mode">TEST</preference>
+            <preference preference-id="Adyen_PaymentSelection">one</preference>
+            <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+            <preference preference-id="Adyen_directoryLookup">true</preference>
+            <preference preference-id="Adyen_merchantCode">Ebel_us</preference>
+            <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+            <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+            <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+            <preference preference-id="AffirmCartPromoMessage">true</preference>
+            <preference preference-id="AffirmModalEnable">modal</preference>
+            <preference preference-id="AffirmMode">sandbox</preference>
+            <preference preference-id="AffirmOnline">true</preference>
+            <preference preference-id="AffirmPLPPromoMessage">false</preference>
+            <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+            <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+            <preference preference-id="AffirmPrivateKey">63qsHdETTQI0Y5zu3Sq7f7jaf4HKJSEf</preference>
+            <preference preference-id="AffirmProductMessage">true</preference>
+            <preference preference-id="AffirmPublicKey">9T30P8TTX95V9GTT</preference>
+            <preference preference-id="AffirmVCNIntegration">off</preference>
+            <preference preference-id="AffirmVCNPaymentInstrument">BASIC_CREDIT</preference>
+            <preference preference-id="CompareEnabled">true</preference>
+            <preference preference-id="DECOEnable">false</preference>
+            <preference preference-id="EvergageEnabled">true</preference>
+            <preference preference-id="GMapAPIKey">AIzaSyBUgOhMTqOmxA5Kqb8eMyuQJTqeCgWPDv0</preference>
+            <preference preference-id="GTM_ID">GTM-KQ3B827</preference>
+            <preference preference-id="LuckyOrangeEnabled">true</preference>
+            <preference preference-id="LuckyOrangeSrcJs">'https://d10lpsik1i8c69.cloudfront.net/w.js'</preference>
+            <preference preference-id="POType">ECM</preference>
+            <preference preference-id="ProductCompareAttributes">
+                <value>Color</value>
+                <value>Material</value>
+                <value>Strap</value>
+                <value>Gender</value>
+                <value>Bracelet</value>
+                <value>Carat Weight</value>
+                <value>Water Resistance</value>
+                <value>Case Material</value>
+                <value>Crystal</value>
+                <value>Dial</value>
+                <value>Gemstone Type</value>
+                <value>Gemstone Number</value>
+                <value>Movement</value>
+            </preference>
+            <preference preference-id="SAPMaxLimit">35</preference>
+            <preference preference-id="SearchMaxSuggestions">3.0</preference>
+            <preference preference-id="SearchMinChars">3.0</preference>
+            <preference preference-id="StoreDivisionCode">12</preference>
+            <preference preference-id="URLPath">/s/EbelUS/en/</preference>
+            <preference preference-id="addthisUrl">//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-4fc9383e1ee05f1b</preference>
+            <preference preference-id="addthis_enabled">true</preference>
+            <preference preference-id="adyenDirectoryLookupUrl">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="applePayCaptureDisabled">true</preference>
+            <preference preference-id="archiveLocations">
+                <value>/src/archive/stores</value>
+                <value>/src/archive/catalog</value>
+                <value>/src/archive/inventory</value>
+                <value>/src/archive/orderStatus</value>
+                <value>/src/archive/orderexport</value>
+                <value>/src/archive/pricing</value>
+                <value>/src/archive/storesdelete</value>
+                <value>/src/archive/stores/geolocate</value>
+            </preference>
+            <preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+            <preference preference-id="caratWeightAttributeImage">images/productattributes/carat_weight.png
+            </preference>
+            <preference preference-id="caseDiameterAttributeImage">images/productattributes/case_diameter.png
+            </preference>
+            <preference preference-id="caseMaterialAttributeImage">images/productattributes/case_material.png
+            </preference>
+            <preference preference-id="collectionsCategory">
+                <value>collections</value>
+            </preference>
+            <preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+            <preference preference-id="customerServiceEmail">customerservice@ebel.com</preference>
+            <preference preference-id="deliveryAllowedCountryCodes">
+                <value>US</value>
+            </preference>
+            <preference preference-id="dialAttributeImage">images/productattributes/dial_icon.png</preference>
+            <preference preference-id="disImageMappingJSON">{"viewTypeMapping":{"medium":"large","thumbnail":"large","small":"large","cart":"large","grid":"large","large":"large","zoom":"large","image90X90":"large","image55X55":"large","image1350X1000":"large","morestyles":"large","icon":"large","tile150":"large","tile217":"large","tile256":"large","small50":"large","small80":"large","zoom830":"large","zoom1660":"large","pdp533":"large","pdp353":"large","pdp320":"large"},"enforceImageScaling":"true","useMissingImages":false,"zoom":{"scaleWidth":1056,"scaleHeight":1880},"large":{"scaleWidth":780,"scaleHeight":940},"medium":{"scaleWidth":604,"scaleHeight":728},"small":{"scaleWidth":183,"scaleHeight":321},"grid":{"scaleWidth":353,"scaleHeight":426},"thumbnail":{"scaleWidth":200,"scaleHeight":200,"scaleMode":"crop"},"morestyles":{"scaleWidth":70,"scaleHeight":70,"scaleMode":"crop"},"cart":{"scaleWidth":325,"scaleHeight":325},"icon":{"scaleWidth":53,"scaleHeight":64},"image90X90":{"scaleWidth":90,"scaleHeight":90},"image55X55":{"scaleWidth":85,"scaleHeight":85},"image1350X1000":{"scaleWidth":1350,"scaleHeight":1000},"tile150":{"scaleWidth":150,"scaleHeight":150},"tile217":{"scaleWidth":217,"scaleHeight":217},"tile256":{"scaleWidth":256,"scaleHeight":256},"small50":{"scaleWidth":50,"scaleHeight":50},"small80":{"scaleWidth":80,"scaleHeight":80},"zoom830":{"scaleWidth":830,"scaleHeight":830},"zoom1660":{"scaleWidth":1660,"scaleHeight":1660},"pdp533":{"scaleWidth":533,"scaleHeight":533},"pdp353":{"scaleWidth":353,"scaleHeight":353},"pdp320":{"scaleWidth":320,"scaleHeight":320},"missingImages":{"small":"/images/dis/183x321.png","medium":"/images/dis/prod-353x426.png","large":"/images/dis/prod-1055x1273.png","hi-res":"testimgs/osterhase.jpg"},"imageMissingText":"Theproductimageismissing!"}</preference>
+            <preference preference-id="disImageSourceEnvironment">STG</preference>
+            <preference preference-id="embossingTextValidations">{
+                "horizontalTextLimit": "2",
+                "verticalTextLimit": "7"
+                }</preference>
+            <preference preference-id="enableLoginWithFacebook">true</preference>
+            <preference preference-id="enableLoginWithGoogle">true</preference>
+            <preference preference-id="enablePagination">false</preference>
+            <preference preference-id="enableSeprateLineItemInCart">true</preference>
+            <preference preference-id="engravingTextValidations">{
+                "casebackLineLimit": "2",
+                "casebackCharLimit": "10",
+                "jewelryLineLimit": "1",
+                "jewelryCharLimit": "7"
+                }</preference>
+            <preference preference-id="evergageSrcJs">//cdn.evgnet.com/beacon/movado/engage/scripts/evergage.min.js
+            </preference>
+            <preference preference-id="gemstoneClarityAttributeImage">images/productattributes/gemstone_clarity.png
+            </preference>
+            <preference preference-id="gemstoneNumberAttributeImage">images/productattributes/gemstone_number.png
+            </preference>
+            <preference preference-id="gemstoneTypeAttributeImage">images/productattributes/gemstone_type.png
+            </preference>
+            <preference preference-id="giftMessageLimit">40</preference>
+            <preference preference-id="gmtTenantJSON">{"en_us":"Ebel US", "en":"Ebel US", "default":"Ebel US"}</preference>
+            <preference preference-id="googleGeolocationLimit">10000</preference>
+            <preference preference-id="gtmEnabled">true</preference>
+            <preference preference-id="historicalOrdersEnable">false</preference>
+            <preference preference-id="holdOrderUntilRiskifiedDecision">true</preference>
+            <preference preference-id="imageBadge1">images/badges/newArrival.png</preference>
+            <preference preference-id="imageTypeBadges">
+                <value>newArrival</value>
+            </preference>
+            <preference preference-id="inventoryLocation">1000</preference>
+            <preference preference-id="luckyOrangeSiteID">70720</preference>
+            <preference preference-id="merchantDomainAddressOnRiskified">ebel.com</preference>
+            <preference preference-id="moreStylesRecomendationTypes">
+                <value>1</value>
+            </preference>
+            <preference preference-id="movableInkTrackEnabled">false</preference>
+            <preference preference-id="movementTypeAttributeImage">images/productattributes/movement_type.png
+            </preference>
+            <preference preference-id="myWatchesCategoryId">collections</preference>
+            <preference preference-id="orderExportImpexFilePath">/IMPEX/src/feeds/orders/</preference>
+            <preference preference-id="orderStatusSentFromMail">noreply@ebel.com</preference>
+            <preference preference-id="orderStatusSentToMail">garima.negi@publicissapient.com</preference>
+            <preference preference-id="orderType">ZOR</preference>
+            <preference preference-id="pageListForCompare">
+                <value>Home-Show</value>
+                <value>Search-Show</value>
+                <value>Product-Show</value>
+            </preference>
+            <preference preference-id="pageNameJSON">{"home-show":"Homepage","search-show":"Search Listing Page","product-listing":"Product Listing Page",  "account-show":"My Account","login-show":"My Account","page-show":"Content Page","product-show":"Product Details Page","cart-show":"Cart","checkout-login":"Checkout – Sign In","checkout-shipping":"Checkout – Shipping","checkout-billing":"Checkout – Billing","checkout-placeorder":"Checkout – Review","home-errornotfound":"404 Page","no-searchresult-page":"No Search Results Page","stores-find":"Stores","order-history":"Order-History", "order-details": "Order-Details", "wishlist-show":"Wishlist-Show","order-confirm":"Checkout – Thank you"}</preference>
+            <preference preference-id="pageSize">18</preference>
+            <preference preference-id="paypalLiveURL">https://live.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="paypalTestURL">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+            <preference preference-id="pdpAttributesList">dial,caseDiameter,caseMaterial,crystalFabrication,waterResistance,attachmentType,movementType,watchGender,gemstoneType,gemstoneNumber,caratWeight,gemstoneClarity</preference>
+            <preference preference-id="piCatalogAttributes">skuID|productName|productType|productLink|imageLink|regularPrice|onlineAvailability|productDescription|brandName|color|material|keywords</preference>
+            <preference preference-id="piCatalogProductLinkDomain">www.ebel.com</preference>
+            <preference preference-id="piCatalogThumbnailImageParamsJSON">{"scaleWidth":80,"scaleHeight":80}</preference>
+            <preference preference-id="primarySiteSectionJSON">{ "home-show":"home", "account-show":"account","login-show":"account","cart-show":"cart", "checkout-login":"Checkout", "checkout-begin":"Checkout"}</preference>
+            <preference preference-id="rcDebugLogEnabled">true</preference>
+            <preference preference-id="rcInfoLogEnabled">true</preference>
+            <preference preference-id="recommendationCarouselConfig">{
+                "dots": true,
+                "infinite": false,
+                "arrows": true,
+                "slidesToShow": 3,
+                "responsive": [
+                {
+                "breakpoint": 544,
+                "settings": {
+                "arrows": false,
+                "slidesToShow": 2
+                }
+                }
+                ]
+                }
+            </preference>
+            <preference preference-id="recommendationsTitle">YOU MIGHT LIKE</preference>
+            <preference preference-id="riskifiedAuthCode">bcd9ea3850876e9b12d88e92c3aa18ae</preference>
+            <preference preference-id="riskifiedCartridgeEnabled">true</preference>
+            <preference preference-id="riskifiedOrderSyncDecision">false</preference>
+            <preference preference-id="rootCategory">root</preference>
+            <preference preference-id="sabrixCallingSystemNumber">Razor360SMTS</preference>
+            <preference preference-id="sabrixCompanyRole">S</preference>
+            <preference preference-id="sabrixCurrencyCode">USD</preference>
+            <preference preference-id="sabrixDefaultProductTaxCode">5310</preference>
+            <preference preference-id="sabrixEnable">true</preference>
+            <preference preference-id="sabrixExternalCompanyId">1204-US01</preference>
+            <preference preference-id="sabrixHostRequestID">RazorSMTS</preference>
+            <preference preference-id="sabrixHostRequestLogEntryID">0987654321</preference>
+            <preference preference-id="sabrixIsAudited">false</preference>
+            <preference preference-id="sabrixIsCredit">false</preference>
+            <preference preference-id="sabrixLineIsExempt">false</preference>
+            <preference preference-id="sabrixLineItemTaxClass">GS53</preference>
+            <preference preference-id="sabrixLinePointOfTitleTransfer">D</preference>
+            <preference preference-id="sabrixLineQuantityUOM">EACH</preference>
+            <preference preference-id="sabrixServiceFailureMailFrom">noreply@movado.com</preference>
+            <preference preference-id="sabrixServiceFailureMailTo">garima.negi@publicissapient.com</preference>
+            <preference preference-id="sabrixShipFromAddress1">109 State Street</preference>
+            <preference preference-id="sabrixShipFromCity">Moonachie</preference>
+            <preference preference-id="sabrixShipFromCountryCode">US</preference>
+            <preference preference-id="sabrixShipFromPostalCode">07074</preference>
+            <preference preference-id="sabrixShipFromStateCode">NJ</preference>
+            <preference preference-id="sabrixShippingLineItemTaxClass">GB4H</preference>
+            <preference preference-id="sabrixTransactionType">GS</preference>
+            <preference preference-id="sapCurrencyCode">USD</preference>
+            <preference preference-id="sapEventAllowedValues">
+                <value>billing</value>
+                <value>return</value>
+                <value>credit</value>
+                <value>cancellation</value>
+            </preference>
+            <preference preference-id="sapShippingLineItemID">FIXEDFREIGHT</preference>
+            <preference preference-id="sapSiteId">EBELUS</preference>
+            <preference preference-id="sapTransactionAllowedValues">
+                <value>capture</value>
+                <value>refund</value>
+                <value>void</value>
+                <value>update</value>
+            </preference>
+            <preference preference-id="shippingLineItemSKU">FIXEDFREIGHT</preference>
+            <preference preference-id="showWelcomeMat">true</preference>
+            <preference preference-id="textForBadges">{
+            "exclusive":"MOVADO.COM EXCLUSIVE",
+            "nearlyGone":"HurryUp Nearly Gone!!"
+            }</preference>
+            <preference preference-id="textTypeBadges">
+                <value>exclusive</value>
+                <value>nearlyGone</value>
+            </preference>
+            <preference preference-id="watchGenderAttributeImage">images/productattributes/gender.png</preference>
+            <preference preference-id="waterResistanceAttributeImage">images/productattributes/water_resistance.png
+            </preference>
+            <preference preference-id="webOrderCreationTimeZone">EST</preference>
+            <preference preference-id="webSiteID">EBELUS</preference>
+            <preference preference-id="youMayLikeRecomendationTypes">
+                <value>2</value>
+            </preference>
+        </staging>
+        <production>
+            <preference preference-id="AdyenCseEnabled">true</preference>
+            <preference preference-id="AdyenCseLibraryToken">2615579479152909</preference>
+            <preference preference-id="AdyenPaymentCancelService">adyen.http.payment.cancel</preference>
+            <preference preference-id="AdyenPaymentCaptureServicePrefix">adyen.http.payment.capture</preference>
+            <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+            <preference preference-id="AdyenRecurringPaymentsEnabled">false</preference>
+            <preference preference-id="Adyen_API_Key">AQEwhmfxLY7IbRJBw0m/n3Q5qf3VZYRbDJdFf3dZ02iCkGUQJpDbkwC8dZg1ByZ6Ob0oEMFdWw2+5HzctViMSCJMYAc=-shBUqVEcCI6TdEQIlY+deIAmtPDaVqhKzj9G5oySft4=-uJZ92Tn85SQKKZmG</preference>
+            <preference preference-id="Adyen_Debug">false</preference>
+            <preference preference-id="Adyen_HMACkey">E5D39D9F7002504EA1408C5A5668C246B41699051A724E64FC1A6D01809F6854</preference>
+            <preference preference-id="Adyen_Mode">LIVE</preference>
+            <preference preference-id="Adyen_PaymentSelection">one</preference>
+            <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+            <preference preference-id="Adyen_directoryLookup">true</preference>
+            <preference preference-id="Adyen_merchantCode">Ebel_us</preference>
+            <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+            <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+            <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+            <preference preference-id="AffirmCartPromoMessage">true</preference>
+            <preference preference-id="AffirmModalEnable">modal</preference>
+            <preference preference-id="AffirmMode">production</preference>
+            <preference preference-id="AffirmOnline">true</preference>
+            <preference preference-id="AffirmPLPPromoMessage">false</preference>
+            <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+            <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+            <preference preference-id="AffirmPrivateKey">DDmPHz9Z2tXxm0h9QsiF05M4I2wZsC9i</preference>
+            <preference preference-id="AffirmProductMessage">true</preference>
+            <preference preference-id="AffirmPublicKey">DF477WWBZ08CYGL9</preference>
+            <preference preference-id="AffirmVCNIntegration">off</preference>
+            <preference preference-id="AffirmVCNPaymentInstrument">BASIC_CREDIT</preference>
+            <preference preference-id="CompareEnabled">true</preference>
+            <preference preference-id="DECOEnable">false</preference>
+            <preference preference-id="EvergageEnabled">true</preference>
+            <preference preference-id="GMapAPIKey">AIzaSyBUgOhMTqOmxA5Kqb8eMyuQJTqeCgWPDv0</preference>
+            <preference preference-id="GTM_ID">GTM-WDD7L2</preference>
+            <preference preference-id="GoogleVerificationTag">6Sh5hhdFWn3-DsXSs2ICarGwIOu4NcaAS7904Ak52vQ</preference>
+            <preference preference-id="LuckyOrangeEnabled">true</preference>
+            <preference preference-id="LuckyOrangeSrcJs">'https://d10lpsik1i8c69.cloudfront.net/w.js'</preference>
+            <preference preference-id="POType">ECM</preference>
+            <preference preference-id="ProductCompareAttributes">
+                <value>Color</value>
+                <value>Material</value>
+                <value>Strap</value>
+                <value>Gender</value>
+                <value>Bracelet</value>
+                <value>Carat Weight</value>
+                <value>Water Resistance</value>
+                <value>Case Material</value>
+                <value>Crystal</value>
+                <value>Dial</value>
+                <value>Gemstone Type</value>
+                <value>Gemstone Number</value>
+                <value>Movement</value>
+            </preference>
+            <preference preference-id="SAPMaxLimit">35</preference>
+            <preference preference-id="SearchMaxSuggestions">3.0</preference>
+            <preference preference-id="SearchMinChars">3.0</preference>
+            <preference preference-id="StoreDivisionCode">12</preference>
+            <preference preference-id="URLPath">/us/en/</preference>
+            <preference preference-id="addthisUrl">//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-4fc9383e1ee05f1b</preference>
+            <preference preference-id="addthis_enabled">true</preference>
+            <preference preference-id="adyenDirectoryLookupUrl">https://live.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="applePayCaptureDisabled">true</preference>
+            <preference preference-id="archiveLocations">
+                <value>/src/archive/stores/geolocate</value>
+                <value>/src/archive/stores</value>
+                <value>/src/archive/storesdelete</value>
+                <value>/src/archive/pricing</value>
+                <value>/src/archive/orderexport</value>
+                <value>/src/archive/orderStatus/success</value>
+                <value>/src/archive/inventory</value>
+                <value>/src/archive/catalog</value>
+            </preference>
+            <preference preference-id="attachmentTypeAttributeImage">images/productattributes/bracelet_fabrication.png</preference>
+            <preference preference-id="baseTrackingUrl">https://www.fedex.com/apps/fedextrack/?action=track&amp;trackingnumber=#</preference>
+            <preference preference-id="caratWeightAttributeImage">images/productattributes/carat_weight.png
+            </preference>
+            <preference preference-id="caseDiameterAttributeImage">images/productattributes/case_diameter.png
+            </preference>
+            <preference preference-id="caseMaterialAttributeImage">images/productattributes/case_material.png
+            </preference>
+            <preference preference-id="collectionsCategory">
+                <value>collections</value>
+            </preference>
+            <preference preference-id="crystalFabricationAttributeImage">images/productattributes/gemstone_type.png</preference>
+            <preference preference-id="customerServiceEmail">customerservice@ebel.com</preference>
+            <preference preference-id="deliveryAllowedCountryCodes">
+                <value>US</value>
+            </preference>
+            <preference preference-id="dialAttributeImage">images/productattributes/dial_icon.png</preference>
+            <preference preference-id="disImageMappingJSON">{"viewTypeMapping":{"medium":"large","thumbnail":"large","small":"large","cart":"large","grid":"large","large":"large","zoom":"large","image90X90":"large","image55X55":"large","image1350X1000":"large","morestyles":"large","icon":"large","tile150":"large","tile217":"large","tile256":"large","small50":"large","small80":"large","zoom830":"large","zoom1660":"large","pdp533":"large","pdp353":"large","pdp320":"large"},"enforceImageScaling":"true","useMissingImages":false,"zoom":{"scaleWidth":1056,"scaleHeight":1880},"large":{"scaleWidth":780,"scaleHeight":940},"medium":{"scaleWidth":604,"scaleHeight":728},"small":{"scaleWidth":183,"scaleHeight":321},"grid":{"scaleWidth":353,"scaleHeight":426},"thumbnail":{"scaleWidth":200,"scaleHeight":200,"scaleMode":"crop"},"morestyles":{"scaleWidth":70,"scaleHeight":70,"scaleMode":"crop"},"cart":{"scaleWidth":325,"scaleHeight":325},"icon":{"scaleWidth":53,"scaleHeight":64},"image90X90":{"scaleWidth":90,"scaleHeight":90},"image55X55":{"scaleWidth":85,"scaleHeight":85},"image1350X1000":{"scaleWidth":1350,"scaleHeight":1000},"tile150":{"scaleWidth":150,"scaleHeight":150},"tile217":{"scaleWidth":217,"scaleHeight":217},"tile256":{"scaleWidth":256,"scaleHeight":256},"small50":{"scaleWidth":50,"scaleHeight":50},"small80":{"scaleWidth":80,"scaleHeight":80},"zoom830":{"scaleWidth":830,"scaleHeight":830},"zoom1660":{"scaleWidth":1660,"scaleHeight":1660},"pdp533":{"scaleWidth":533,"scaleHeight":533},"pdp353":{"scaleWidth":353,"scaleHeight":353},"pdp320":{"scaleWidth":320,"scaleHeight":320},"missingImages":{"small":"/images/dis/183x321.png","medium":"/images/dis/prod-353x426.png","large":"/images/dis/prod-1055x1273.png","hi-res":"testimgs/osterhase.jpg"},"imageMissingText":"Theproductimageismissing!"}</preference>
+            <preference preference-id="disImageSourceEnvironment">PRD</preference>
+            <preference preference-id="embossingTextValidations">{
+                "horizontalTextLimit": "2",
+                "verticalTextLimit": "7"
+                }</preference>
+            <preference preference-id="enableLoginWithFacebook">true</preference>
+            <preference preference-id="enableLoginWithGoogle">false</preference>
+            <preference preference-id="enablePagination">false</preference>
+            <preference preference-id="enableSeprateLineItemInCart">true</preference>
+            <preference preference-id="engravingTextValidations">{
+                "casebackLineLimit": "2",
+                "casebackCharLimit": "10",
+                "jewelryLineLimit": "1",
+                "jewelryCharLimit": "7"
+                }</preference>
+            <preference preference-id="evergageSrcJs">//cdn.evgnet.com/beacon/movado/engage/scripts/evergage.min.js
+            </preference>
+            <preference preference-id="gemstoneClarityAttributeImage">images/productattributes/gemstone_clarity.png
+            </preference>
+            <preference preference-id="gemstoneNumberAttributeImage">images/productattributes/gemstone_number.png
+            </preference>
+            <preference preference-id="gemstoneTypeAttributeImage">images/productattributes/gemstone_type.png
+            </preference>
+            <preference preference-id="giftMessageLimit">40</preference>
+            <preference preference-id="gmtTenantJSON">{"en_us":"Ebel US", "en":"Ebel US", "default":"Ebel US"}</preference>
+            <preference preference-id="googleGeolocationLimit">10000</preference>
+            <preference preference-id="gtmEnabled">true</preference>
+            <preference preference-id="historicalOrdersEnable">false</preference>
+            <preference preference-id="holdOrderUntilRiskifiedDecision">true</preference>
+            <preference preference-id="imageBadge1">images/badges/newArrival.png</preference>
+            <preference preference-id="imageTypeBadges">
+                <value>newArrival</value>
+            </preference>
+            <preference preference-id="inventoryLocation">1000</preference>
+            <preference preference-id="luckyOrangeSiteID">70720</preference>
+            <preference preference-id="merchantDomainAddressOnRiskified">ebel.com</preference>
+            <preference preference-id="moreStylesRecomendationTypes">
+                <value>1</value>
+            </preference>
+            <preference preference-id="movableInkTrackEnabled">false</preference>
+            <preference preference-id="movementTypeAttributeImage">images/productattributes/movement_type.png
+            </preference>
+            <preference preference-id="myWatchesCategoryId">collections</preference>
+            <preference preference-id="orderExportImpexFilePath">/IMPEX/src/feeds/orders/</preference>
+            <preference preference-id="orderStatusSentFromMail">noreply@ebel.com</preference>
+            <preference preference-id="orderStatusSentToMail">customerservice@ebel.com</preference>
+            <preference preference-id="orderType">ZOR</preference>
+            <preference preference-id="pageListForCompare">
+                <value>Home-Show</value>
+                <value>Search-Show</value>
+                <value>Product-Show</value>
+            </preference>
+            <preference preference-id="pageNameJSON">{"home-show":"Homepage","search-show":"Search Listing Page","product-listing":"Product Listing Page",  "account-show":"My Account","login-show":"My Account","page-show":"Content Page","product-show":"Product Details Page","cart-show":"Cart","checkout-login":"Checkout – Sign In","checkout-shipping":"Checkout – Shipping","checkout-billing":"Checkout – Billing","checkout-placeorder":"Checkout – Review","home-errornotfound":"404 Page","no-searchresult-page":"No Search Results Page","stores-find":"Stores","order-history":"Order-History", "order-details": "Order-Details", "wishlist-show":"Wishlist-Show","order-confirm":"Checkout – Thank you"}</preference>
+            <preference preference-id="pageSize">18</preference>
+            <preference preference-id="paypalLiveURL">https://live.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="paypalTestURL">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            <preference preference-id="pdpAttrIdNameMapping">{
+                "dial": "Dial",
+                "caseDiameter": "Case Diameter (mm)",
+                "caseMaterial": "Case Material",
+                "crystalFabrication": "Crystal",
+                "waterResistance": "Water Resistance",
+                "attachmentType": "Attachment Type",
+                "movementType": "Movement",
+                "watchGender": "Gender",
+                "gemstoneType": "Gemstone Type",
+                "gemstoneNumber": "Gemstone Number",
+                "caratWeight":"Carat Weight",
+                "gemstoneClarity":"Gemstone Clarity",
+                "Strap":"Strap",
+                "Bracelet":"Bracelet"
+                }</preference>
+            <preference preference-id="pdpAttributesList">dial,caseDiameter,caseMaterial,crystalFabrication,waterResistance,attachmentType,movementType,watchGender,gemstoneType,gemstoneNumber,caratWeight,gemstoneClarity</preference>
+            <preference preference-id="piCatalogAttributes">skuID|productName|productType|productLink|imageLink|regularPrice|onlineAvailability|productDescription|brandName|color|material|keywords</preference>
+            <preference preference-id="piCatalogProductLinkDomain">www.ebel.com</preference>
+            <preference preference-id="piCatalogThumbnailImageParamsJSON">{"scaleWidth":80,"scaleHeight":80}</preference>
+            <preference preference-id="primarySiteSectionJSON">{ "home-show":"home", "account-show":"account","login-show":"account","cart-show":"cart", "checkout-login":"Checkout", "checkout-begin":"Checkout"}</preference>
+            <preference preference-id="rcDebugLogEnabled">false</preference>
+            <preference preference-id="rcInfoLogEnabled">false</preference>
+            <preference preference-id="recommendationCarouselConfig">{
+                "dots": true,
+                "infinite": false,
+                "arrows": true,
+                "slidesToShow": 3,
+                "responsive": [
+                {
+                "breakpoint": 544,
+                "settings": {
+                "arrows": false,
+                "slidesToShow": 2
+                }
+                }
+                ]
+                }
+            </preference>
+            <preference preference-id="recommendationsTitle">YOU MIGHT LIKE</preference>
+            <preference preference-id="riskifiedAuthCode">d62ac51b91b09fe6c21acea1a206295a</preference>
+            <preference preference-id="riskifiedCartridgeEnabled">true</preference>
+            <preference preference-id="riskifiedOrderSyncDecision">false</preference>
+            <preference preference-id="rootCategory">root</preference>
+            <preference preference-id="sabrixCallingSystemNumber">Razor360SMTS</preference>
+            <preference preference-id="sabrixCompanyRole">S</preference>
+            <preference preference-id="sabrixCurrencyCode">USD</preference>
+            <preference preference-id="sabrixDefaultProductTaxCode">5310</preference>
+            <preference preference-id="sabrixEnable">true</preference>
+            <preference preference-id="sabrixExternalCompanyId">1204-US01</preference>
+            <preference preference-id="sabrixHostRequestID">RazorSMTS</preference>
+            <preference preference-id="sabrixHostRequestLogEntryID">0987654321</preference>
+            <preference preference-id="sabrixIsAudited">false</preference>
+            <preference preference-id="sabrixIsCredit">false</preference>
+            <preference preference-id="sabrixLineIsExempt">false</preference>
+            <preference preference-id="sabrixLineItemTaxClass">GS53</preference>
+            <preference preference-id="sabrixLinePointOfTitleTransfer">D</preference>
+            <preference preference-id="sabrixLineQuantityUOM">EACH</preference>
+            <preference preference-id="sabrixServiceFailureMailFrom">noreply@movado.com</preference>
+            <preference preference-id="sabrixServiceFailureMailTo">customerservice@movado.com</preference>
+            <preference preference-id="sabrixShipFromAddress1">109 State Street</preference>
+            <preference preference-id="sabrixShipFromCity">Moonachie</preference>
+            <preference preference-id="sabrixShipFromCountryCode">US</preference>
+            <preference preference-id="sabrixShipFromPostalCode">07074</preference>
+            <preference preference-id="sabrixShipFromStateCode">NJ</preference>
+            <preference preference-id="sabrixShippingLineItemTaxClass">GB4H</preference>
+            <preference preference-id="sabrixTransactionType">GS</preference>
+            <preference preference-id="sapCurrencyCode">USD</preference>
+            <preference preference-id="sapEventAllowedValues">
+                <value>billing</value>
+                <value>return</value>
+                <value>credit</value>
+                <value>cancellation</value>
+            </preference>
+            <preference preference-id="sapShippingLineItemID">FIXEDFREIGHT</preference>
+            <preference preference-id="sapSiteId">EBELUS</preference>
+            <preference preference-id="sapTransactionAllowedValues">
+                <value>capture</value>
+                <value>refund</value>
+                <value>void</value>
+                <value>update</value>
+            </preference>
+            <preference preference-id="shippingLineItemSKU">FIXEDFREIGHT</preference>
+            <preference preference-id="showWelcomeMat">true</preference>
+            <preference preference-id="textForBadges">{
+            "exclusive":"MOVADO.COM EXCLUSIVE",
+            "nearlyGone":"HurryUp Nearly Gone!!"
+            }</preference>
+            <preference preference-id="textTypeBadges">
+                <value>exclusive</value>
+                <value>nearlyGone</value>
+            </preference>
+            <preference preference-id="watchGenderAttributeImage">images/productattributes/gender.png</preference>
+            <preference preference-id="waterResistanceAttributeImage">images/productattributes/water_resistance.png
+            </preference>
+            <preference preference-id="webOrderCreationTimeZone">EST</preference>
+            <preference preference-id="webSiteID">EBELUS</preference>
+            <preference preference-id="youMayLikeRecomendationTypes">
+                <value>2</value>
+            </preference>
+        </production>
+    </custom-preferences>
+</preferences>
+

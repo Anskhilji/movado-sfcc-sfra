@@ -3,6 +3,8 @@
 var OrderManager = require('dw/order/OrderMgr');
 var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
+var PriceAdjustment = require('dw/order/PriceAdjustment');
+var ShippingLineItem = require('dw/order/ShippingLineItem');
 
 function populateLineItemAttributes(lineItem) {
     var oldTrackingCode = lineItem.custom.SAPTrackingNumber;
@@ -62,14 +64,14 @@ function populateOrderAttributes() {
     while (orderIterator.hasNext()) {
         try {
             order = orderIterator.next();
-            allLineItems = order.allLineItems;
+            var allLineItems = order.allLineItems;
 
             if (order) {
                 Transaction.wrap(function () {
                     populateOrderLevelAttributes(order);
 
                     for (var i = 0; i < allLineItems.length; i++) {
-                        if (!(allLineItems[i] instanceof dw.order.PriceAdjustment || allLineItems[i] instanceof dw.order.ShippingLineItem)) {
+                        if (!(allLineItems[i] instanceof  PriceAdjustment || allLineItems[i] instanceof  ShippingLineItem)) {
                             populateLineItemAttributes(allLineItems[i]);
                         }
                     }

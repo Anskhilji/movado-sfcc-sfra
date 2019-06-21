@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns="http://www.demandware.com/xml/impex/library/2006-10-31">
-	<content content-id="ca-footer-support">
-		<display-name xml:lang="x-default">Footer Support</display-name>
-		<description xml:lang="x-default">Footer Support</description>
-		<online-flag>true</online-flag>
-		<searchable-flag>false</searchable-flag>
-		<custom-attributes>
-			<custom-attribute attribute-id="body" xml:lang="x-default"><![CDATA[
-			<h3><a class="title" href="$url('Search-ShowContent','fdid','fd-customer-support')$">CUSTOMER SERVICE</a></h3>
-
-			<ul class="menu-footer content">
-			<li><a href="$url('Page-Show','cid','ca-contact-us')$" title="Go to Contact Us">Contact Us</a></li>
-			<li><a href="$url('Page-Show','cid','ca-faqs')$" title="Go to Help">Help</a></li>
-			<li><a href="$url('Page-Show','cid','ca-after-sale-service')$" title="Go to Repairs">Repairs</a></li>
-			<li><a href="$httpsUrl('SiteMap-Start')$" title="Go to Site Map">Site Map</a></li>
-			</ul>]]></custom-attribute>
-		  </custom-attributes>
+	<content content-id="email-partial-cancellation-top">
+        <display-name xml:lang="x-default">Email Partial Cancellation Top</display-name>
+        <description xml:lang="x-default">Email partial cancellation top content</description>
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">Unfortunately, we are unable to process some of the items on your order and those items have been cancelled. The remaining items will be on their way soon. Should you need assistance, please feel free to reach out to our Customer Service team at 1-800-810-2311, Monday - Friday between 9am - 5pm Eastern.</custom-attribute>
+        </custom-attributes>
     </content>
 </library>

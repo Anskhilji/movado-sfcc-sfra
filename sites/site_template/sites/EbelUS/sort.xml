@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sort xmlns="http://www.demandware.com/xml/impex/sort/2009-05-15">
+    <dynamic-attribute dynamic-attribute-id="best-sellers">
+        <weighted-attribute>
+            <attribute-path>product.activeData.revenueYear</attribute-path>
+            <weight>75</weight>
+            <default-value>average</default-value>
+            <direction>descending</direction>
+        </weighted-attribute>
+        <weighted-attribute>
+            <attribute-path>product.activeData.conversionYear</attribute-path>
+            <weight>25</weight>
+            <default-value>average</default-value>
+            <direction>descending</direction>
+        </weighted-attribute>
+    </dynamic-attribute>
+
+    <dynamic-attribute dynamic-attribute-id="slowest-sellers">
+        <weighted-attribute>
+            <attribute-path>product.activeData.revenueMonth</attribute-path>
+            <weight>75</weight>
+            <default-value>average</default-value>
+            <direction>ascending</direction>
+        </weighted-attribute>
+        <weighted-attribute>
+            <attribute-path>product.activeData.conversionMonth</attribute-path>
+            <weight>25</weight>
+            <default-value>average</default-value>
+            <direction>ascending</direction>
+        </weighted-attribute>
+    </dynamic-attribute>
+
+    <sorting-rule rule-id="New-arrivals">
+        <description>new arrivals</description>
+        <sorting-attributes>
+            <attribute>
+                <attribute-path>product.custom.newArrivalBeginDate</attribute-path>
+                <direction>descending</direction>
+                <include-text-relevance>false</include-text-relevance>
+            </attribute>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule rule-id="best-sellers">
+        <description>Sorts by the manually assigned search ordering first (unassigned to lowest to highest number), then by a combination of revenue and conversion rate, highest to lowest</description>
+        <sorting-attributes>
+            <dynamic-attribute dynamic-attribute-id="best-sellers" attribute-context="site">
+                <include-text-relevance>false</include-text-relevance>
+            </dynamic-attribute>
+            <category-position/>
+            <attribute>
+                <attribute-path>product.custom.newArrivalBeginDate</attribute-path>
+                <direction>descending</direction>
+                <include-text-relevance>false</include-text-relevance>
+            </attribute>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule rule-id="featured">
+        <description>Sorts by search placement</description>
+        <sorting-attributes>
+            <category-position/>
+            <attribute>
+                <attribute-path>product.searchPlacement</attribute-path>
+                <direction>descending</direction>
+                <include-text-relevance>false</include-text-relevance>
+            </attribute>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule rule-id="price-high-to-low">
+        <description>Sorts by price, descending</description>
+        <sorting-attributes>
+            <price>
+                <direction>descending</direction>
+            </price>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule rule-id="price-low-to-high">
+        <description>Sorts by price, ascending</description>
+        <sorting-attributes>
+            <price>
+                <direction>ascending</direction>
+            </price>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule rule-id="relevance">
+        <description>Sort by search relevance</description>
+        <sorting-attributes>
+            <text-relevance/>
+        </sorting-attributes>
+    </sorting-rule>
+
+    <sorting-rule-assignment category-id="collections" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="1881-automatic" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="gifts-under-500" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="hidden" rule-id="relevance" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="online-exclusives" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="root" rule-id="relevance" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="sale" rule-id="relevance" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-bold" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-straps" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-esperanza" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-series800" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-museum-sport" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-movado-face" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-bold" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-designs" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-esperanza" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="new-mens-watches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="new-womens-watches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-1881" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-heritage" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-modern-47" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-movado-connect" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-museumclassic" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-exclusives" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-heritage" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-kora" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-la-nouvelle" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-bangles" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-museumclassic" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-smartwatches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="new-arrivals" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="blackout-watches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mesh-watches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-exclusives" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-redlabel" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-sapphire" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="mens-ultra-slim" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-red-label" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-sapphire" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-movado-face" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-ultra-slim" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-modern-47" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="womens-designs" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-exclusives" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-face-shop-all" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="whats-new" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="shop-all-watches" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-watch-strap" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-face-41mm" rule-id="featured" rule-context="site"/>
+
+    <sorting-rule-assignment category-id="movado-face-35mm" rule-id="featured" rule-context="site"/>
+
+    <sorting-options>
+        <sorting-option option-id="relevance">
+            <rule-id>relevance</rule-id>
+            <rule-context>site</rule-context>
+            <display-name xml:lang="x-default">RELEVANCE</display-name>
+        </sorting-option>
+        <sorting-option option-id="price-high-to-low">
+            <rule-id>price-high-to-low</rule-id>
+            <rule-context>site</rule-context>
+            <display-name xml:lang="x-default">PRICE: HIGH TO LOW</display-name>
+            <display-name xml:lang="en">price</display-name>
+        </sorting-option>
+        <sorting-option option-id="price-low-to-high">
+            <rule-id>price-low-to-high</rule-id>
+            <rule-context>site</rule-context>
+            <display-name xml:lang="x-default">PRICE: LOW TO HIGH</display-name>
+        </sorting-option>
+        <sorting-option option-id="best-sellers-high-to-low">
+            <rule-id>best-sellers</rule-id>
+            <rule-context>site</rule-context>
+            <display-name xml:lang="x-default">BEST SELLERS</display-name>
+        </sorting-option>
+        <sorting-option option-id="new-arrivals">
+            <rule-id>New-arrivals</rule-id>
+            <rule-context>site</rule-context>
+            <display-name xml:lang="x-default">NEW ARRIVALS</display-name>
+        </sorting-option>
+    </sorting-options>
+
+    <keyword-search-sorting-rule-assignment rule-id="best-sellers" rule-context="site"/>
+
+</sort>

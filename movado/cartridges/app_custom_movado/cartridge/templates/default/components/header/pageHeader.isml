@@ -22,7 +22,7 @@
                   </button>
                 </div>
                 <div class="middle">
-                  <isslot id="movado-logo" description="Movado Brand Logo" context="global" />
+                  <isslot id="brand-logo" description="Brand Logo" context="global" />
                 </div>
                 <div class="right">
                   <div class="hidden-sm-down search">

@@ -1,0 +1,42 @@
+.share-via-email-overlay {
+    .modal-header {
+        background-color: $grey2;
+        border-bottom: 2px solid $grey3;
+        height: rem(58);
+        display: table;
+        width: 100%;
+        >* {
+            display: table-cell;
+        }
+        .close{
+          opacity: 1;
+          font-weight: normal;
+        }
+        .close-icon{
+          width: auto;
+          padding-right: rem(20);
+          background-position-x: right;
+          height: rem(21);
+          background-size: rem(13);
+        }
+    }
+    .privacy {
+        text-decoration: underline;
+    }
+    .preview-email {
+        padding: 0;
+        list-style: none;
+        dl {
+            margin-bottom: rem(5);
+        }
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    .share-via-email-overlay {
+        .btn {
+            width: 100%;
+            margin-bottom: rem(10);
+        }
+    }
+}

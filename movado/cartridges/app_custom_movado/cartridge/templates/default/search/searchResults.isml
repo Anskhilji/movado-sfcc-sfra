@@ -35,7 +35,7 @@
 	              </a>
 	            </li>
 	            
-	            <isif condition="${pdict.contentSearch.contentCount !== 0}">
+	            <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
 		            <li class="nav-item">
 		              <a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab" aria-expanded="false"
 		              data-url="${URLUtils.url('Search-Content', 'q', pdict.productSearch.searchKeywords, 'startingPage', 0)}">

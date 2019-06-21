@@ -16,6 +16,12 @@ var rskfdRestService = LocalServiceRegistry.createService('int_riskified.https.a
         if (Site.getCurrent().getPreferences().custom.DECOEnable) {
         	merchantDomainAddressOnRiskified = require('int_riskified/cartridge/scripts/riskified/servicesregistry/DecoRestService').getConfiguration().getCredential().getUser();
         }
+		var merchantDomainAddressOnRiskifiedPref = Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified;
+		if (merchantDomainAddressOnRiskifiedPref && merchantDomainAddressOnRiskifiedPref !== merchantDomainAddressOnRiskified) {
+			service.setCredentialID('riskified.'+merchantDomainAddressOnRiskifiedPref);
+			merchantDomainAddressOnRiskified = service.getConfiguration().getCredential().getUser();
+		}
+
         var riskifiedBaseURL = service.getConfiguration().getCredential().getURL();
         // var riskifiedBaseURL = 'https://sandbox.riskified.com/api';
 

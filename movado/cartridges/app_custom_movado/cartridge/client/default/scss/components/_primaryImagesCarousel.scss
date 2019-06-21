@@ -1,0 +1,30 @@
+.primary-images {
+  .cs-carousel-wrapper {
+
+    .slick-slide,
+    .slick-list,
+    .cs-carousel {
+      margin: 0;
+      display: block;
+    }
+
+    .carousel-tile {
+      display: table-cell;
+      width: 100%;
+    }
+
+    .slick-arrow {
+      top: 42%;
+      background-color: rgba($white, 0.5);
+      background-size: rem(10);
+    }
+
+    .slick-prev {
+      left: 0;
+    }
+
+    .slick-next {
+      right: 0;
+    }
+  }
+}

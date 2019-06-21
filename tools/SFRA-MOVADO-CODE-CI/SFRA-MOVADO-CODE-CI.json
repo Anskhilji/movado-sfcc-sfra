@@ -246,6 +246,42 @@
 		"int_adyen_expresspaypal"
       ]
     },
+    {
+      "repository": {
+        "url": "source/cartridges/concord",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_concord"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/ebel",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ebel"
+      ]
+    },
 	{
       "repository": {
         "url": "source/sites",

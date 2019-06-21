@@ -86,9 +86,27 @@ var URLUtils = {
     }
 };
 
-var createStoresResultsHtml = function () {
+var createStoresResultsHtml = function (stores) {
     return 'rendered html';
 }
+
+var HashMap = function(){
+    return {
+        put : function(param1,param2){
+
+        }
+    };
+};
+
+var Template = function(){
+    return {
+        render : function(param1){
+            return {
+                text : "rendered"
+            };
+        }
+    };
+};
 
 module.exports ={
 	Site,
@@ -96,5 +114,7 @@ module.exports ={
 	StoreMgr,
 	StoresModel,
     Resource,
-    createStoresResultsHtml
+    createStoresResultsHtml,
+    HashMap,
+    Template
 }

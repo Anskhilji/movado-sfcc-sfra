@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<payment-processors xmlns="http://www.demandware.com/xml/impex/paymentprocessor/2007-03-31">
+    <payment-processor processor-id="ADYEN_CREDIT">
+        <description>Adyen Payment Processor</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="ADYEN_PAYPAL">
+        <description>Adyen Paypal Express Checkout (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="AFFIRM_PAYMENT">
+        <description>Affirm Payment Processor</description>
+        <preferences>
+            <all-instances/>
+            <development>
+                <preference preference-id="AffirmOnline">true</preference>
+                <preference preference-id="AffirmMode">sandbox</preference>
+                <preference preference-id="AffirmPublicKey">Q0E8KEFM00HEV0VG</preference>
+                <preference preference-id="AffirmPrivateKey">2Ux0VFr0YCMcYM64W73RbzAvN3RSmjgO</preference>
+                <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+                <preference preference-id="AffirmPLPPromoMessage">false</preference>
+                <preference preference-id="AffirmProductMessage">true</preference>
+                <preference preference-id="AffirmCartPromoMessage">true</preference>
+                <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+                <preference preference-id="AffirmModalEnable">modal</preference>
+            </development>
+            <staging>
+                <preference preference-id="AffirmOnline">true</preference>
+                <preference preference-id="AffirmMode">sandbox</preference>
+                <preference preference-id="AffirmPublicKey">Q0E8KEFM00HEV0VG</preference>
+                <preference preference-id="AffirmPrivateKey">2Ux0VFr0YCMcYM64W73RbzAvN3RSmjgO</preference>
+                <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+                <preference preference-id="AffirmPLPPromoMessage">false</preference>
+                <preference preference-id="AffirmProductMessage">true</preference>
+                <preference preference-id="AffirmCartPromoMessage">true</preference>
+                <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+                <preference preference-id="AffirmModalEnable">modal</preference>
+                <preference preference-id="AffirmVCNIntegration">off</preference>
+                <preference preference-id="AffirmVCNPaymentInstrument">BASIC_CREDIT</preference>
+            </staging>
+            <production>
+                <preference preference-id="AffirmOnline">true</preference>
+                <preference preference-id="AffirmMode">production</preference>
+                <preference preference-id="AffirmPublicKey">DF477WWBZ08CYGL9</preference>
+                <preference preference-id="AffirmPrivateKey">DDmPHz9Z2tXxm0h9QsiF05M4I2wZsC9i</preference>
+                <preference preference-id="AffirmPaymentAction">CAPTURE</preference>
+                <preference preference-id="AffirmPLPPromoMessage">false</preference>
+                <preference preference-id="AffirmProductMessage">true</preference>
+                <preference preference-id="AffirmCartPromoMessage">true</preference>
+                <preference preference-id="AffirmPaymentOnlineStatus">false</preference>
+                <preference preference-id="AffirmModalEnable">modal</preference>
+                <preference preference-id="AffirmVCNIntegration">off</preference>
+                <preference preference-id="AffirmVCNPaymentInstrument">BASIC_CREDIT</preference>
+            </production>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="Adyen">
+        <description>Adyen Payment Processor</description>
+        <preferences>
+            <all-instances/>
+            <development>
+                <preference preference-id="Adyen_merchantCode">Movado_us</preference>
+                <preference preference-id="Adyen_Mode">TEST</preference>
+                <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+                <preference preference-id="Adyen_HMACkey">DCCD65E9459F669D6F87FC02002AAC667A3A9CEAF5805EFD20D0433A1F119455</preference>
+                <preference preference-id="Adyen_Debug">false</preference>
+                <preference preference-id="AdyenCseEnabled">true</preference>
+                <preference preference-id="AdyenCseLibraryToken">8215184284030597</preference>
+                <preference preference-id="Adyen_directoryLookup">true</preference>
+                <preference preference-id="Adyen_PaymentSelection">one</preference>
+                <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+                <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+                <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+                <preference preference-id="Adyen_API_Key">01013F8667F12682C96F1742C349BF9F7439A9FDD565845B0C97457F7759D368829065068AC265048B4C0921600AFFC7D69FE91FBBA1D0A53C2B62E925F05BC6314110C15D5B0DBEE47CDCB5588C48224C6007</preference>
+                <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+                <preference preference-id="adyenDirectoryLookupUrl">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            </development>
+            <staging>
+                <preference preference-id="Adyen_merchantCode">Movado_us</preference>
+                <preference preference-id="Adyen_Mode">TEST</preference>
+                <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+                <preference preference-id="Adyen_HMACkey">DCCD65E9459F669D6F87FC02002AAC667A3A9CEAF5805EFD20D0433A1F119455</preference>
+                <preference preference-id="Adyen_Debug">false</preference>
+                <preference preference-id="AdyenCseEnabled">true</preference>
+                <preference preference-id="AdyenCseLibraryToken">8215184284030597</preference>
+                <preference preference-id="Adyen_directoryLookup">true</preference>
+                <preference preference-id="Adyen_PaymentSelection">one</preference>
+                <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+                <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+                <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+                <preference preference-id="Adyen_API_Key">01013F8667F12682C96F1742C349BF9F7439A9FDD565845B0C97457F7759D368829065068AC265048B4C0921600AFFC7D69FE91FBBA1D0A53C2B62E925F05BC6314110C15D5B0DBEE47CDCB5588C48224C6007</preference>
+                <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+                <preference preference-id="adyenDirectoryLookupUrl">https://test.adyen.com/hpp/skipDetails.shtml</preference>
+            </staging>
+            <production>
+                <preference preference-id="Adyen_merchantCode">Movado_us</preference>
+                <preference preference-id="Adyen_Mode">LIVE</preference>
+                <preference preference-id="Adyen_skinCode">crHr9NYY</preference>
+                <preference preference-id="Adyen_HMACkey">E5D39D9F7002504EA1408C5A5668C246B41699051A724E64FC1A6D01809F6854</preference>
+                <preference preference-id="Adyen_Debug">false</preference>
+                <preference preference-id="AdyenCseEnabled">true</preference>
+                <preference preference-id="AdyenCseLibraryToken">2615579479152909</preference>
+                <preference preference-id="Adyen_directoryLookup">true</preference>
+                <preference preference-id="Adyen_PaymentSelection">one</preference>
+                <preference preference-id="AdyenRecurringPaymentsEnabled">false</preference>
+                <preference preference-id="Adyen_notification_user">adyenNotifyUser</preference>
+                <preference preference-id="Adyen_notification_password">2z!4IDT6nH</preference>
+                <preference preference-id="AdyenRatePayID">oj9GsQ</preference>
+                <preference preference-id="Adyen_API_Key">AQEwhmfxLY7IbRJBw0m/n3Q5qf3VZYRbDJdFf3dZ02iCkGUQJpDbkwC8dZg1ByZ6Ob0oEMFdWw2+5HzctViMSCJMYAc=-shBUqVEcCI6TdEQIlY+deIAmtPDaVqhKzj9G5oySft4=-uJZ92Tn85SQKKZmG</preference>
+                <preference preference-id="Adyen_allowedMethods">paypal_ecs</preference>
+                <preference preference-id="adyenDirectoryLookupUrl">https://live.adyen.com/hpp/skipDetails.shtml</preference>
+            </production>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="Adyen_POS">
+        <description>Adyen Payment Processor</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="BASIC_CREDIT">
+        <description>Internal credit card handling with simple card number check only.</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="BASIC_GIFT_CERTIFICATE">
+        <description>Internal gift certificate handling.</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="CYBERSOURCE_BML">
+        <description>'Bill Me Later' online authorization through Cybersource (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="CYBERSOURCE_CREDIT">
+        <description>Cybersource online credit card authorization (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="PAYPAL_CREDIT">
+        <description>Paypal online credit card authorization (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="PAYPAL_EXPRESS">
+        <description>Paypal Express Checkout (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+    <payment-processor processor-id="VERISIGN_CREDIT">
+        <description>Verisign online credit card authorization (test and production systems).</description>
+        <preferences>
+            <all-instances/>
+            <development/>
+            <staging/>
+            <production/>
+        </preferences>
+    </payment-processor>
+
+</payment-processors>

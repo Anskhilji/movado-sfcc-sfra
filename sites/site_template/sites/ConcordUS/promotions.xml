@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<promotions xmlns="http://www.demandware.com/xml/impex/promotion/2008-01-31">
+    <campaign campaign-id="26Mar_OrderCampaign">
+        <enabled-flag>false</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <end-date>2019-05-01T23:45:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Unregistered"/>
+            <customer-group group-id="Everyone"/>
+            <customer-group group-id="Registered"/>
+        </customer-groups>
+        <coupons>
+            <coupon coupon-id="ORDERCOUPON"/>
+        </coupons>
+    </campaign>
+
+    <campaign campaign-id="26Mar_ProductCampaign">
+        <description>This is a product campaign</description>
+        <enabled-flag>false</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-04-21T00:00:00.000Z</start-date>
+        <end-date>2019-04-22T23:45:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+        <coupons>
+            <coupon coupon-id="ProductCoupon"/>
+            <coupon coupon-id="Movado_Coupon"/>
+        </coupons>
+    </campaign>
+
+    <campaign campaign-id="26Mar_ShippingCampaign">
+        <enabled-flag>false</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="2019 Birthday Emails">
+        <description>10% off birthday promo </description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-05-01T00:00:00.000Z</start-date>
+        <end-date>2020-01-01T00:00:00.000Z</end-date>
+    </campaign>
+
+    <campaign campaign-id="CONNECT100">
+        <description>$100 off connect watches</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-03-01T00:00:00.000Z</start-date>
+        <end-date>2019-03-29T00:00:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="CONNECT150">
+        <description>$150 off Connect Watches</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-04-01T00:00:00.000Z</start-date>
+        <end-date>2019-08-01T00:00:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="CUSTSERVICE15">
+        <description>15% off purchase</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-05-01T00:00:00.000Z</start-date>
+        <end-date>2019-12-31T00:00:00.000Z</end-date>
+    </campaign>
+
+    <campaign campaign-id="Free Overnight Shipping">
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+    </campaign>
+
+    <campaign campaign-id="WELCOME2019EMAIL">
+        <description>Free Overnight Shipping</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-01-01T00:00:00.000Z</start-date>
+        <end-date>2020-01-01T00:00:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+        <coupons>
+            <coupon coupon-id="Welcome 2019"/>
+        </coupons>
+    </campaign>
+
+    <campaign campaign-id="ABANDONEDCART2019">
+        <description>Free Overnight Shipping</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2019-01-01T00:00:00.000Z</start-date>
+        <end-date>2020-01-01T00:00:00.000Z</end-date>
+    </campaign>
+
+    <campaign campaign-id="Free ground shipping always on">
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="GoogleMiniGWP">
+        <description>Free Google Home w/Connect Purchase</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2018-11-27T00:00:00.000Z</start-date>
+        <end-date>2019-01-04T00:00:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="MCSCAMPAIGN">
+        <description>Movado Company Stores 15% off</description>
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="CustomizedWatch">
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <end-date>2019-04-24T23:59:59.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <campaign campaign-id="FreeStrapHeritage">
+        <enabled-flag>true</enabled-flag>
+        <campaign-scope>
+            <applicable-online/>
+        </campaign-scope>
+        <start-date>2018-06-13T00:00:00.000Z</start-date>
+        <end-date>2018-06-15T00:00:00.000Z</end-date>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+
+    <promotion promotion-id="27Mar_Order">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">27Mar_Order</name>
+        <callout-msg xml:lang="x-default">This is a order promo</callout-msg>
+        <order-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>0607307</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discount-only-qualifying-products>true</discount-only-qualifying-products>
+            <discounts condition-type="order-total">
+                <discount>
+                    <threshold>1800.0</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+            <exclude-discounted-products>false</exclude-discounted-products>
+        </order-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="27Mar_Product">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">27Mar_Product</name>
+        <callout-msg xml:lang="x-default">This is a product promo</callout-msg>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3660020</product-id>
+                            <product-id>3660018</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </discounted-products>
+            <simple-discount>
+                <percentage>10.0</percentage>
+            </simple-discount>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="27Mar_Shipping">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">27Mar_Shipping</name>
+        <callout-msg xml:lang="x-default">this is a shipping promo</callout-msg>
+        <shipping-promotion-rule>
+            <shipping-methods>
+                <method-id>FED1PI</method-id>
+            </shipping-methods>
+            <discounts condition-type="shipment-total">
+                <discount>
+                    <threshold>750.0</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+            <enable-upsells>true</enable-upsells>
+            <upsell-threshold>500.0</upsell-threshold>
+        </shipping-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="AUG BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="CONNECT100">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">$100 off Movado Connect</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$100 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;&#13;
+&#13;
+&lt;p&gt;&lt;span style="color:#0000ff;"&gt;Discount will appear in shopping cart.&lt;/span&gt;&lt;/p&gt;</callout-msg>
+        <details xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$100 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;&#13;
+&#13;
+&lt;p&gt;&lt;span style="color:#0000ff;"&gt;Discount will appear in shopping cart.&lt;/span&gt;&lt;/p&gt;</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NAC1</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>connect-movado</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </discounted-products>
+            <simple-discount>
+                <amount>100.0</amount>
+            </simple-discount>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="CONNECT150">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">$150 off Movado Connect</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$150 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;</callout-msg>
+        <details xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$150 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NAC2</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>connect-movado</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+                <excluded-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3660015</product-id>
+                            <product-id>3660017</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </excluded-products>
+            </discounted-products>
+            <simple-discount>
+                <amount>150.0</amount>
+            </simple-discount>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="CONNECT200">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">$200 off Movado Connect</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$200 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;</callout-msg>
+        <details xml:lang="x-default">&lt;p&gt;&lt;span style="color:#0000ff;"&gt;$200 off Movado Connect. Limited time only. Final Sale.&lt;/span&gt;&lt;/p&gt;</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NAC3</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3660015</product-id>
+                            <product-id>3660017</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </discounted-products>
+            <simple-discount>
+                <amount>200.0</amount>
+            </simple-discount>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="CUSTSERVICE15">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">HELLO</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP15</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>15.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="DEC BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="Free Shipping">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Free Overnight Shipping</name>
+        <callout-msg xml:lang="x-default">Free Overnight Shipping</callout-msg>
+        <details xml:lang="x-default">Free Overnight Shipping</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">freeship</custom-attribute>
+        </custom-attributes>
+        <shipping-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <price-condition operator="greater than">
+                            <price>0</price>
+                        </price-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <shipping-methods>
+                <method-id>FED1PI</method-id>
+            </shipping-methods>
+            <prohibit-nonqualifying-products>false</prohibit-nonqualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <free/>
+                </discount>
+            </discounts>
+        </shipping-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="FreeGroundShipping">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Free Ground Shipping</name>
+        <details xml:lang="x-default">Free Ground Shipping</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NPFF</custom-attribute>
+        </custom-attributes>
+        <shipping-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <price-condition operator="greater than">
+                            <price>0.01</price>
+                        </price-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <shipping-methods>
+                <method-id>FED2NCI</method-id>
+            </shipping-methods>
+            <discounts condition-type="shipment-total">
+                <discount>
+                    <threshold>1.0</threshold>
+                    <free/>
+                </discount>
+            </discounts>
+        </shipping-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="GoogleMiniGWP">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Free Google Home Mini On Us</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;&lt;span style="color:#1373ac;font-size:1rem; letter-spacing:.025em;"&gt;Buy any Movado Connect from us and receive a Google Home Mini as our gift to you. While supplies last. Only valid in the United States.&lt;br&gt;Google Home Mini will automatically be added to your cart.&lt;/span&gt;&lt;/p&gt;</callout-msg>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NPFF</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3660014</product-id>
+                            <product-id>3660015</product-id>
+                            <product-id>3660016</product-id>
+                            <product-id>3660017</product-id>
+                            <product-id>3660018</product-id>
+                            <product-id>3660019</product-id>
+                            <product-id>3660020</product-id>
+                            <product-id>3660021</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <bonus>
+                        <bonus-products>
+                            <product-id>06GWP001</product-id>
+                        </bonus-products>
+                    </bonus>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="JULY BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="JUNE BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="MAY BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="MOVADOSHIP">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">MOVADOSHIP</name>
+        <details xml:lang="x-default">Free Overnight Shipping</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NPFF</custom-attribute>
+        </custom-attributes>
+        <shipping-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <shipping-methods>
+                <method-id>FED1PI</method-id>
+            </shipping-methods>
+            <prohibit-nonqualifying-products>false</prohibit-nonqualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <free/>
+                </discount>
+            </discounts>
+        </shipping-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="MovadoOneTime">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>class</exclusivity>
+        <name xml:lang="x-default">Movado one time offer</name>
+        <callout-msg xml:lang="x-default">Movado one time offer</callout-msg>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP60</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <price-condition operator="greater than">
+                            <price>0.01</price>
+                        </price-condition>
+                    </condition-group>
+                </included-products>
+            </discounted-products>
+            <simple-discount>
+                <percentage>60.0</percentage>
+            </simple-discount>
+            <max-applications>1</max-applications>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NOV BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NP15">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">15% OFF</name>
+        <callout-msg xml:lang="x-default">Take 15% off your purchase</callout-msg>
+        <details xml:lang="x-default">Take 15% off your purchase</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP15</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-amount">
+                <discount>
+                    <threshold>1.0</threshold>
+                    <percentage>15.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NP25">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">25% OFF SELECT STYLES - LIMITED TIME ONLY</name>
+        <callout-msg xml:lang="x-default">End of season sale, limited time only.  Add item to your shopping bag to see special price.</callout-msg>
+        <details xml:lang="x-default">End of season sale, limited time only.  Add item to your shopping bag to see special price.</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP25</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <discounted-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3600196</product-id>
+                            <product-id>3600197</product-id>
+                            <product-id>3600214</product-id>
+                            <product-id>3600215</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </discounted-products>
+            <simple-discount>
+                <percentage>25.0</percentage>
+            </simple-discount>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NP30">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>class</exclusivity>
+        <name xml:lang="x-default">30% OFF SELECT STYLES – LIMITED TIME ONLY</name>
+        <callout-msg xml:lang="x-default">Semi-annual sale.  Savings will be shown in shopping cart.</callout-msg>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP30</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3600542</product-id>
+                            <product-id>3600543</product-id>
+                            <product-id>3600545</product-id>
+                            <product-id>3600546</product-id>
+                            <product-id>3600547</product-id>
+                            <product-id>0607054</product-id>
+                            <product-id>0606803</product-id>
+                            <product-id>0607080</product-id>
+                            <product-id>0606759</product-id>
+                            <product-id>0607129</product-id>
+                            <product-id>0607130</product-id>
+                            <product-id>0606796</product-id>
+                            <product-id>0606888</product-id>
+                            <product-id>0607065</product-id>
+                            <product-id>0607088</product-id>
+                            <product-id>0607169</product-id>
+                            <product-id>3600559</product-id>
+                            <product-id>3600556</product-id>
+                            <product-id>3600557</product-id>
+                            <product-id>3600558</product-id>
+                            <product-id>3600445</product-id>
+                            <product-id>3600468</product-id>
+                            <product-id>3600469</product-id>
+                            <product-id>3600471</product-id>
+                            <product-id>3600472</product-id>
+                            <product-id>3600491</product-id>
+                            <product-id>3600440</product-id>
+                            <product-id>3600435</product-id>
+                            <product-id>3600549</product-id>
+                            <product-id>3600499</product-id>
+                            <product-id>3600478</product-id>
+                            <product-id>3600420</product-id>
+                            <product-id>3600421</product-id>
+                            <product-id>3600541</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>30.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NPFF">
+        <enabled-flag>false</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Free Strap</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;Receive a free additional strap when you buy a customized watch. Click &lt;a href="$url('Search-Show','cgid','movado-watch-strap')$"&gt;here&lt;/a&gt; to select your additional strap. &lt;/p&gt;</callout-msg>
+        <details xml:lang="x-default">&lt;p&gt;Receive a free additional strap when you buy a customized watch. Click &lt;a href="$url('Search-Show','cgid','movado-watch-strap')$"&gt;here&lt;/a&gt; to select your additional strap. &lt;/p&gt;</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NPFF</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>watch-engraving</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <bogo-discounts>
+                <bogo>
+                    <threshold>1</threshold>
+                    <free/>
+                    <eligible-quantity>1</eligible-quantity>
+                </bogo>
+            </bogo-discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="NPFFHERITAGE">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Free Strap with Heritage Series purchase</name>
+        <callout-msg xml:lang="x-default">&lt;p&gt;Receive a free additional strap when you buy a customized watch. Click &lt;a href="$url('Search-Show','cgid','movado-watch-strap')$"&gt;here&lt;/a&gt; to select your additional strap.&lt;/p&gt;</callout-msg>
+        <details xml:lang="x-default">&lt;p&gt;Receive a free additional strap when you buy a customized watch. Click &lt;a href="$url('Search-Show','cgid','movado-watch-strap')$"&gt;here&lt;/a&gt; to select your additional strap.&lt; /p&gt;</details>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NPFF</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>heritage-series</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <bogo-discounts>
+                <bogo>
+                    <threshold>1</threshold>
+                    <free/>
+                    <eligible-quantity>1</eligible-quantity>
+                </bogo>
+            </bogo-discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="OCT BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>movado-face</category-id>
+                            <category-id>Movado_Motion</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="SEPT BIRTHDAY 2019">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">10% off - Happy Birthday</name>
+        <custom-attributes>
+            <custom-attribute attribute-id="promoCode">NP10</custom-attribute>
+        </custom-attributes>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <category-condition catalog-id="movado-us-storefront" operator="is equal">
+                            <category-id>shop-watches</category-id>
+                            <category-id>Movado_Motion</category-id>
+                            <category-id>movado-face</category-id>
+                        </category-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion promotion-id="promotion">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <exclusivity>no</exclusivity>
+        <product-promotion-rule>
+            <qualifying-products>
+                <included-products>
+                    <condition-group>
+                        <product-id-condition operator="is equal">
+                            <product-id>3600307</product-id>
+                        </product-id-condition>
+                    </condition-group>
+                </included-products>
+            </qualifying-products>
+            <discounts condition-type="product-quantity">
+                <discount>
+                    <threshold>1</threshold>
+                    <bonus-choice>
+                        <bonus-products>
+                            <bonus-product product-id="3600279">
+                                <bonus-product-price>0</bonus-product-price>
+                            </bonus-product>
+                        </bonus-products>
+                        <max-bonus-items>1</max-bonus-items>
+                    </bonus-choice>
+                </discount>
+            </discounts>
+        </product-promotion-rule>
+    </promotion>
+
+    <promotion-campaign-assignment promotion-id="27Mar_Order" campaign-id="26Mar_OrderCampaign">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="27Mar_Product" campaign-id="26Mar_ProductCampaign">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="27Mar_Shipping" campaign-id="26Mar_ShippingCampaign">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="AUG BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="August 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-08-01T00:00:00.000Z</start-date>
+            <end-date>2019-09-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="CONNECT100" campaign-id="CONNECT100">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="CONNECT150" campaign-id="CONNECT150">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="CONNECT200" campaign-id="CONNECT150">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="CUSTSERVICE15" campaign-id="CUSTSERVICE15">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="CUSTOMERSERVI"/>
+        </coupons>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="DEC BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="December 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-12-01T00:00:00.000Z</start-date>
+            <end-date>2020-01-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="Free Shipping" campaign-id="Free Overnight Shipping">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="FREESHIP"/>
+        </coupons>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="Free Shipping" campaign-id="WELCOME2019EMAIL">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="Free Shipping" campaign-id="ABANDONEDCART2019">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="2019 Abandoned Cart"/>
+        </coupons>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="FreeGroundShipping" campaign-id="Free ground shipping always on">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="GoogleMiniGWP" campaign-id="GoogleMiniGWP">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="JULY BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="July 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-07-01T00:00:00.000Z</start-date>
+            <end-date>2019-08-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="JUNE BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="June 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-06-01T00:00:00.000Z</start-date>
+            <end-date>2019-07-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="MAY BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="May 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-05-01T00:00:00.000Z</start-date>
+            <end-date>2019-06-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="MOVADOSHIP" campaign-id="Free Overnight Shipping">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="MOVADOSHIP"/>
+        </coupons>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="NOV BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="November 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-11-01T00:00:00.000Z</start-date>
+            <end-date>2019-12-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="NP15" campaign-id="MCSCAMPAIGN">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="MCSCoupons"/>
+        </coupons>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="NPFF" campaign-id="CustomizedWatch">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="NPFFHERITAGE" campaign-id="FreeStrapHeritage">
+        <qualifiers match-mode="any">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="OCT BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="October 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-10-01T00:00:00.000Z</start-date>
+            <end-date>2019-11-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+    <promotion-campaign-assignment promotion-id="SEPT BIRTHDAY 2019" campaign-id="2019 Birthday Emails">
+        <qualifiers match-mode="all">
+            <customer-groups/>
+            <source-codes/>
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="September 2019 Birthday"/>
+        </coupons>
+        <schedule>
+            <start-date>2019-09-01T00:00:00.000Z</start-date>
+            <end-date>2019-10-01T00:00:00.000Z</end-date>
+        </schedule>
+    </promotion-campaign-assignment>
+
+</promotions>

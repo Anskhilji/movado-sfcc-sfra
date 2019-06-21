@@ -246,6 +246,42 @@
 		"int_adyen_expresspaypal"
       ]
     },
+    {
+      "repository": {
+        "url": "source/cartridges/concord",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_concord"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/ebel",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ebel"
+      ]
+    },
 	{
       "repository": {
         "url": "source/sites",
@@ -276,7 +312,7 @@
   "settings": {
 	"project": {
       "name":    "movado",
-      "version": "movado_sfra_stg_20190524_v1"
+      "version": "movado_sfra_stg_20190618_v1"
     },
 	"general": {
 	  "password_encryption": true,
