@@ -1,0 +1,142 @@
+.checkout-header-wrapper {
+  .checkout-logo {
+    left: 45%;
+
+    .logo-checkout-text {
+      margin-left: 30px;
+      color: $black;
+      font-family: $font-museo-std;
+      font-size: $font-size-text3;
+      letter-spacing: 0.34px;
+      font-weight: $font-semi-bold;
+    }
+
+    &::before {
+      content: url('../images/icons/checkout_obuk_logo.png');
+      background-size: 138px 18px;
+      width: 138px;
+    }
+  }
+}
+
+header {
+  .logo {
+    &-link {
+      img {
+        width: rem(90);
+      }
+    }
+  }
+
+  .left {
+    button {
+      font-family: $font-museo-std;
+      font-weight: $font-semi-bold;
+
+      i,
+      .menu-text {
+        font-size: $font-size-text-heading1;
+        letter-spacing: 1.4px;
+      }
+
+      .menu-icon {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background: url(../images/icons/menu_icon.png) center no-repeat;
+        position: relative;
+        top: 5px;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .right {
+    input.search-field {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading3;
+      letter-spacing: 1.6px;
+      color: $dark-grey3;
+    }
+  }
+}
+
+header.checkout-header {
+  .checkout-header-wrapper {
+    background-color: $white-smoke;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .checkout-header-wrapper {
+    .checkout-logo {
+      left: 48%;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  header {
+    .checkout-logo {
+      .logo-checkout-text {
+        font-size: $font-size-text2;
+        letter-spacing: 0.4px;
+      }
+    }
+
+    .logo {
+      &-link {
+        img {
+          width: rem(110);
+        }
+      }
+    }
+  }
+
+  .checkout-header-wrapper {
+    .checkout-logo {
+      left: 50%;
+
+      .logo-checkout-text {
+        font-size: $font-size-text2;
+        letter-spacing: 0.4px;
+        margin-left: 8px;
+      }
+
+      &::before {
+        background-size: 161px 22px;
+        width: 161px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  header {
+    .left {
+      .user a,
+      select {
+        font-family: $font-museo-std;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 1.4px;
+        font-weight: $font-semi-bold;
+      }
+
+      select {
+        padding-right: 18px;
+      }
+
+      .flag-icon {
+        border-radius: 3px;
+      }
+    }
+
+    .logo {
+      &-link {
+        img {
+          width: rem(130);
+        }
+      }
+    }
+  }
+}

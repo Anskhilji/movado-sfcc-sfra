@@ -1,0 +1,198 @@
+.store-locator-container {
+  .find-store-form {
+    font-family: $font-gills-light;
+
+    p {
+      font-size: $font-size-heading3;
+      letter-spacing: 0.4px;
+      font-weight: normal;
+    }
+
+    .card-button {
+      font-family: $font-museo-std;
+      color: $black;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 2px;
+      background: $pink-grey;
+      border: 1px solid $pink-grey;
+    }
+
+    label.form-control-label {
+      color: $black-opacity-8;
+      font-size: $font-size-text-heading2;
+      letter-spacing: 1.3px;
+      font-weight: normal;
+    }
+
+    input {
+      border: 1px solid $black;
+      color: $dark-grey3;
+      font-size: $font-size-heading3;
+      letter-spacing: 1.6px;
+    }
+  }
+
+  div.results-card,
+  div.find-store-form {
+    box-shadow: $form-box-shadow;
+    border-radius: 3px;
+    border: 1px solid $extra-light-grey;
+  }
+
+  .find-store-select {
+    select.radius,
+    select.store-country-code {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: 1.6px;
+      font-weight: normal;
+      color: $black;
+      border: 1px solid $black;
+    }
+  }
+
+  .results-card {
+    font-family: $font-gills-light;
+
+    .store-details {
+      .store-name {
+        font-family: $font-gill-std;
+        font-size: $font-size-heading2;
+        font-weight: $font-semi-bold;
+        letter-spacing: 0.4px;
+        color: $black;
+        text-transform: lowercase;
+
+        &::first-line {
+          text-transform: capitalize;
+        }
+      }
+
+      a {
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 0.37px;
+        font-weight: normal;
+      }
+
+      address {
+        p,
+        .store-map {
+          font-family: $font-gills-light;
+          font-size: $font-size-text-heading1;
+          letter-spacing: 0.37px;
+          font-weight: normal;
+        }
+      }
+    }
+
+    label {
+      color: $black-opacity-8;
+      font-size: $font-size-text-heading2;
+      letter-spacing: 1.3px;
+      font-weight: normal;
+    }
+
+    .map-marker {
+      color: $white;
+      background-color: $black-opacity-6;
+    }
+  }
+}
+
+.map-canvas {
+  .gm-style-iw .store-details {
+    .store-name {
+      font-family: $font-gill-std;
+      font-size: $font-size-heading2;
+      font-weight: $font-semi-bold;
+      letter-spacing: 0.4px;
+      color: $black;
+      text-transform: lowercase;
+
+      &::first-line {
+        text-transform: capitalize;
+      }
+    }
+
+    a {
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 0.37px;
+      font-weight: normal;
+      color: $black;
+    }
+
+    address {
+      p,
+      .store-map {
+        color: $black;
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 0.37px;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+div.store-locator-hero {
+  h1.page-title {
+    font-family: $font-adobe;
+    font-size: $font-size-title6;
+    letter-spacing: 1.8px;
+    color: $white;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .store-locator-container {
+    .find-store-form {
+      label.form-control-label,
+      input {
+        font-family: $font-gills-light;
+      }
+    }
+  }
+
+  .map-canvas {
+    .store-details {
+      address {
+        .storelocator-phone {
+          letter-spacing: 0.4px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .store-locator-container {
+    .find-store-form {
+      p {
+        font-size: $font-size-text-heading1;
+      }
+
+      label.form-control-label {
+        font-family: $font-gills-light;
+      }
+    }
+  }
+
+  .map-canvas {
+    .store-details {
+      address {
+        .storelocator-phone {
+          letter-spacing: 0.4px;
+        }
+      }
+    }
+  }
+
+  .footer-item {
+    h3 {
+      font-family: $font-museo-std;
+      letter-spacing: 1.4px;
+    }
+  }
+}

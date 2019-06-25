@@ -1,0 +1,92 @@
+.search-results {
+  .reset-container {
+    .secondary-bar {
+      a.reset {
+        font-family: $font-museo-std;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 2px;
+        font-weight: $font-semi-bold;
+        background: $pink-grey;
+        border: 1px solid $pink-grey;
+      }
+    }
+  }
+
+  .result-count {
+    span {
+      color: $black-opacity-5;
+      font-family: $font-museo-std;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 1.3px;
+      font-weight: $font-semi-bold;
+    }
+  }
+
+  .refinements {
+    .values {
+      li {
+        a {
+          font-family: $font-museo-light;
+          font-size: $font-size-text1;
+          letter-spacing: 1.6px;
+          font-weight: $font-light;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .refinement.card {
+      .card-header {
+        font-family: $font-adobe;
+        font-size: $font-size-main-heading6;
+        font-style: italic;
+        letter-spacing: 2px;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .filter-header {
+    .header-bar {
+      button.close {
+        font-family: $font-museo-std;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 1.4px;
+        font-weight: $font-semi-bold;
+      }
+    }
+  }
+
+  select.custom-select {
+    font-family: "Gill Sans MT Std";
+    font-size: $font-size-text1;
+    height: 36px;
+    letter-spacing: 0.4px;
+    font-weight: $font-semi-bold;
+  }
+
+  button.filter-results {
+    color: $black;
+    background: $pink-grey;
+    border: 1px solid $pink-grey;
+  }
+
+  .filter-bar {
+    li.filter-value {
+      a {
+        font-family: $font-museo-light;
+        font-size: $font-size-text1;
+        letter-spacing: 1.6px;
+        font-weight: $font-light;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .search-results {
+    select.custom-select {
+      font-size: $font-size-text-heading1;
+    }
+  }
+}

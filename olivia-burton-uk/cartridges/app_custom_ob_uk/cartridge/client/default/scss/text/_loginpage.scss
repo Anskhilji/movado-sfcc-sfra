@@ -1,0 +1,55 @@
+.login-page {
+  .track-order-header-text {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+  }
+
+  .heading-three {
+    color: $extra-dark-grey;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading1;
+    letter-spacing: 1px;
+  }
+
+  .nav-tabs {
+    .nav-link {
+      color: $extra-dark-grey;
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .login-page {
+    .heading-three {
+      font-size: $font-size-main-heading6;
+      letter-spacing: 1px;
+    }
+
+    .nav-tabs {
+      .nav-link {
+        font-size: $font-size-heading1;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .login-page {
+    .heading-three {
+      font-size: $font-size-main-heading5;
+      letter-spacing: 1px;
+    }
+
+    .nav-tabs {
+      .nav-link {
+        font-size: $font-size-main-heading6;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}

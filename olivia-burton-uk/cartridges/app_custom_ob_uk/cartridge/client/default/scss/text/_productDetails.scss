@@ -1,0 +1,295 @@
+.product-detail {
+  .product-name {
+    font-family: $font-adobe;
+    font-size: $font-size-main-heading3;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: lowercase !important;
+
+    &::first-line {
+      text-transform: capitalize;
+    }
+  }
+
+  .product-availability {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+  }
+
+  p.affirm-as-low-as {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+
+    a {
+      font-family: $font-museo-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 0.9px;
+      font-weight: $font-light;
+    }
+  }
+
+  .price {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: $font-semi-bold;
+  }
+
+  button.add-to-cart {
+    color: $black;
+    background: $pink-grey;
+    border: 1px solid $pink-grey;
+  }
+
+  .description {
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.35px;
+    font-weight: normal;
+  }
+
+  .product-options {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+
+    a {
+      font-family: $font-museo-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 0.9px;
+      font-weight: $font-light;
+    }
+
+    p {
+      font-family: $font-gills-light;
+      font-size: $font-size-text1;
+      letter-spacing: 0.4px;
+      color: $black-opacity-8;
+      font-weight: normal;
+    }
+
+    .option-message {
+      .form-control {
+        font-family: $font-gills-light;
+        font-weight: normal;
+      }
+    }
+
+    button {
+      font-family: $font-museo-std;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 2px;
+      font-weight: $font-semi-bold;
+    }
+  }
+
+  .more-styles-wrapper {
+    h3 {
+      font-family: $font-adobe;
+      font-size: $font-size-main-heading6;
+      font-style: italic;
+      letter-spacing: 1px;
+      text-transform: lowercase;
+
+      &::first-line {
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .product-number {
+    font-family: $font-gills-light;
+    color: $dim-grey;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 1px;
+    font-weight: normal;
+  }
+}
+
+.description-and-detail {
+  button.title {
+    font-family: $font-adobe;
+    font-size: $font-size-main-heading6;
+    font-style: italic;
+    letter-spacing: 2px;
+    text-transform: capitalize !important;
+
+    &::after {
+      font-style: normal;
+    }
+  }
+
+  .attribute {
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+
+    .attribute-name {
+      color: #868686;
+    }
+  }
+}
+
+.cs-carousel-wrapper {
+  .carousel-title {
+    font-family: $font-adobe;
+    font-size: $font-size-main-heading6;
+    font-style: italic;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.addToCartModal {
+  p {
+    font-family: $font-gill-std;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.4px;
+    font-weight: $font-semi-bold;
+  }
+
+  a.btn-primary {
+    font-family: $font-museo-std;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 2px;
+    font-weight: $font-semi-bold;
+    background: $pink-grey;
+    color: $black;
+    border: none;
+  }
+
+  a.btn-link {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+    color: $black;
+  }
+}
+
+.product-quickview {
+  .heading-two {
+    font-family: $font-adobe;
+    font-size: $font-size-main-heading3;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: lowercase !important;
+
+    &::first-line {
+      text-transform: capitalize;
+    }
+  }
+
+  .product-options {
+    font-family: $font-gills-light;
+  }
+
+  .availability {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+  }
+}
+
+.quick-view-dialog {
+  .modal-header {
+    background-color: $white-smoke;
+
+    .close-icon {
+      font-family: $font-museo-std;
+      color: $black;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 1.4px;
+      font-weight: $font-semi-bold;
+    }
+
+    .full-pdp-link {
+      color: $extra-dark-grey;
+      font-family: $font-museo-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: 0.9px;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .product-detail {
+    .price {
+      font-size: $font-size-main-heading6;
+      letter-spacing: 2px;
+      font-weight: normal;
+    }
+
+    .description {
+      font-size: $font-size-heading3;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .description-and-detail {
+    button.title {
+      font-size: $font-size-main-heading4;
+    }
+  }
+
+  .cs-carousel-wrapper {
+    .carousel-title {
+      font-size: $font-size-main-heading4;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .product-detail {
+    .product-name {
+      font-size: $font-size-main-heading1;
+      letter-spacing: 1.5px;
+      color: #060506;
+    }
+
+    .description {
+      font-size: $font-size-heading2;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .description-and-detail {
+    button.title {
+      font-size: $font-size-main-heading1;
+      letter-spacing: 1.5px;
+    }
+  }
+
+  .cs-carousel-wrapper {
+    .carousel-title {
+      font-size: $font-size-main-heading1;
+      letter-spacing: 1.5px;
+    }
+
+    .product-tile {
+      .tile-body {
+        .price {
+          font-size: $font-size-text-heading1;
+          letter-spacing: 0.4px;
+        }
+      }
+    }
+  }
+
+  .product-quickview {
+    .heading-two {
+      font-size: $font-size-main-heading1;
+    }
+  }
+}

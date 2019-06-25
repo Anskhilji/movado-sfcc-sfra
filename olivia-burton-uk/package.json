@@ -13,6 +13,7 @@
     "test:functional:sauce": "./node_modules/.bin/wdio test/functional/webdriver/wdio.conf.js ",
     "compile:scss": "sgmf-scripts --compile css",
     "compile:js": "sgmf-scripts --compile js",
+    "compile:fonts": "node bin/Makefile compileFonts",
     "compile:svg": "node svgSprite",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "sgmf-scripts --lint css",
@@ -88,6 +89,7 @@
   ],
   "paths": {
     "base": "../storefront-reference-architecture/cartridges/app_storefront_base/",
+    "movado": "../movado/cartridges/app_custom_movado/",
     "wishlist": "../plugin_wishlists/cartridges/plugin_wishlists/",
     "productCompare": "../plugin_productcompare/cartridges/plugin_productcompare/"
   }

@@ -1,0 +1,21 @@
+// Base font size
+$base-font-size: $font-size-heading2;
+
+@mixin primary-font-obuk {
+  font-family: $font-museo-std;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 2px;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  color: $black;
+}
+
+@mixin primary-font-label {
+  color: $black-opacity-8;
+  font-family: $font-gills-light;
+  font-size: $font-size-text-heading2;
+  letter-spacing: 1.3px;
+  font-weight: normal;
+}

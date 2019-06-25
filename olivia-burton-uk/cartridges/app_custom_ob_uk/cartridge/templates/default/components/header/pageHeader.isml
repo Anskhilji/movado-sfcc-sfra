@@ -1,0 +1,55 @@
+<isslot id="header-banner-m" description="Slot above the site header" context="global"/>
+<header>
+  <nav>
+    <div class="sticky-header-wrapper">
+      <div class="sticky-header-placeholder"></div>
+      <div class="header-menu-wrapper">
+        <div class="header-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 header-container">
+                <div class="left navbar-header">
+                  <div class="hidden-md-down account-wrapper">
+                    <isinclude url="${URLUtils.url('Account-Header')}"/>
+                    <isslot id="country-selector" description="country selector" context="global" />
+                  </div>
+                  <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false">
+                    <iscomment>
+                      custom: Change icons class
+                    </iscomment>
+                    <i class="menu-icon"></i>
+                    <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
+                    <span class="menu-text d-none d-md-inline-block d-lg-none">
+                      ${Resource.msg('link.header.menu', 'common', null)}
+                    </span>
+                  </button>
+                </div>
+                <div class="middle">
+                  <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                </div>
+                <div class="right">
+                  <div class="hidden-sm-down search">
+                    <isinclude template="components/header/search"/>
+                  </div>
+                  <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                    <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown" id="sg-navbar-collapse">
+          <div class="container">
+            <div class="row">
+              <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-mobile d-md-none">
+      <isinclude template="components/header/search" />
+    </div>
+  </nav>
+</header>

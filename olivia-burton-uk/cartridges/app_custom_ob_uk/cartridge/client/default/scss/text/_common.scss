@@ -1,0 +1,233 @@
+body {
+  @include primary-font-obuk;
+}
+
+.hero {
+  h1.page-title {
+    font-family: $font-adobe;
+    font-size: $font-size-title6;
+    font-style: italic;
+    letter-spacing: 1.8px;
+    font-weight: italic;
+    text-transform: lowercase;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.compare-bar-wrapper {
+  .compare.btn {
+    background: $pink-grey;
+    border: 1px solid $pink-grey;
+    color: $black;
+  }
+
+  .clear-all {
+    font-family: $font-museo-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.9px;
+    font-weight: $font-light;
+  }
+}
+
+.btn {
+  font-family: $font-museo-std;
+  font-size: $font-size-text-heading1;
+  font-weight: $font-semi-bold;
+  letter-spacing: 2px;
+}
+
+.btn-primary {
+  background: $pink-grey;
+  border: 1px solid $pink-grey;
+  color: $black;
+
+  &:hover {
+    background: $pink-grey;
+    border: 1px solid $pink-grey;
+    color: $black;
+  }
+}
+
+.custom-select {
+  color: $black;
+  font-family: $font-gills-light;
+  font-size: $font-size-heading2;
+  letter-spacing: 1.6px;
+  font-weight: normal;
+}
+
+.checkout-coupon-code-field,
+.checkout-promo-code-btn {
+  height: 36px;
+}
+
+.heading-one {
+  font-family: $font-adobe;
+  font-size: $font-size-title6;
+  letter-spacing: 1.8px;
+}
+
+a {
+  color: $black;
+}
+
+.heading-two {
+  font-family: $font-gills-light;
+  font-size: $font-size-main-heading6;
+  letter-spacing: 0.4px;
+}
+
+.heading-three {
+  font-family: $font-gills-light;
+  font-size: $font-size-heading1;
+  letter-spacing: 0.4px;
+}
+
+.heading-four {
+  font-family: $font-gills-light;
+  font-size: $font-size-heading3;
+  letter-spacing: 0.4px;
+}
+
+body {
+  .order-summary-title {
+    h5 {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading3;
+      letter-spacing: 0.4px;
+      font-weight: normal;
+    }
+  }
+
+  .summary-details {
+    color: $black-opacity-6;
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+  }
+
+  .summary-section-label {
+    color: $black;
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: 0.4px;
+    font-weight: normal;
+  }
+}
+
+label {
+  @include primary-font-label;
+}
+
+form {
+  input.form-control {
+    border: 1px solid $black;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading3;
+    letter-spacing: 1.6px;
+    color: $black;
+  }
+}
+
+.password-description {
+  font-family: $font-gills-light;
+  font-size: $font-size-text-heading1;
+  letter-spacing: 0.4px;
+  font-weight: normal;
+}
+
+.pricing {
+  font-size: $font-size-text-heading1;
+  font-weight: normal;
+}
+
+.header-banner {
+  background-color: $pink-grey;
+
+  .html-slot-container {
+    color: $black;
+    font-family: $font-gills-light;
+    font-size: $font-size-text1;
+    letter-spacing: 0.35px;
+    font-weight: normal;
+    text-transform: lowercase;
+
+    &::first-line {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.container {
+  .breadcrumb {
+    .breadcrumb-item {
+      a {
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading2;
+        letter-spacing: 1.3px;
+        font-weight: normal;
+        color: $grey;
+      }
+    }
+  }
+}
+
+.filter-bar {
+  li.filter-value {
+    background: $pink-grey;
+  }
+}
+
+.body-text {
+  font-family: $font-gills-light;
+  font-size: $font-size-heading2;
+  letter-spacing: 0.4px;
+}
+
+@include media-breakpoint-up(sm) {
+  .hero {
+    h1.page-title {
+      font-size: $font-size-title5;
+      letter-spacing: 2px;
+    }
+  }
+
+  .header-banner {
+    .html-slot-container {
+      font-size: $font-size-text-heading1;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .heading-three {
+    font-size: $font-size-main-heading6;
+    letter-spacing: 0.5px;
+  }
+}
+
+.grand-total-label,
+.grand-total-price,
+.grand-total {
+  font-family: $font-gill-std;
+  font-size: $font-size-heading3;
+  letter-spacing: 0.4px;
+  font-weight: $font-semi-bold;
+}
+
+@include media-breakpoint-up(md) {
+  .hero {
+    h1.page-title {
+      font-size: $font-size-title-heading1;
+      letter-spacing: 3px;
+    }
+  }
+
+  .heading-three {
+    font-size: $font-size-main-heading5;
+    letter-spacing: 0.6px;
+  }
+}

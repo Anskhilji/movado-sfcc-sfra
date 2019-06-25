@@ -28,7 +28,7 @@ module.exports = [{
     name: 'js',
     entry: jsFiles,
     output: {
-        path: path.resolve('./cartridges/app_custom_movado/cartridge/static'),
+        path: path.resolve('./cartridges/app_custom_ob_uk/cartridge/static'),
         filename: '[name].js'
     },
     module: {
@@ -52,7 +52,7 @@ module.exports = [{
     name: 'scss',
     entry: scssFiles,
     output: {
-        path: path.resolve('./cartridges/app_custom_movado/cartridge/static'),
+        path: path.resolve('./cartridges/app_custom_ob_uk/cartridge/static'),
         filename: '[name].css'
     },
     module: {

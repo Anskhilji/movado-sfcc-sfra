@@ -1,0 +1,57 @@
+.product-comparison {
+  .product-tile {
+    .tile-body {
+      .pdp-link {
+        a {
+          font-family: $font-museo-light;
+          font-size: $font-size-text-heading1;
+          letter-spacing: 2px;
+          font-weight: $font-light;
+        }
+      }
+
+      .price {
+        font-family: $font-gill-std;
+        font-size: $font-size-text-heading1;
+        letter-spacing: 0.4px;
+        font-weight: normal;
+        color: $black-opacity-6;
+      }
+    }
+  }
+
+  tbody {
+    th {
+      font-family: $font-gill-std;
+      font-size: $font-size-text-heading1;
+      font-weight: $font-semi-bold;
+      letter-spacing: 0.4px;
+    }
+
+    td {
+      font-family: $font-gills-light;
+      font-size: $font-size-text1;
+      font-weight: normal;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .back-to-results {
+    button {
+      background: $pink-grey;
+      border: 1px solid $pink-grey;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .product-comparison {
+    .product-tile {
+      .tile-body {
+        .price {
+          font-size: $font-size-heading1;
+        }
+      }
+    }
+  }
+}
