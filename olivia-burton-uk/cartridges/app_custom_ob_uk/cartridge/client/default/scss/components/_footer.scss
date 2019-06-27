@@ -1,0 +1,129 @@
+@import "~movado/components/footer";
+
+button {
+  &:focus,
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cookie {
+  &-warning {
+    &-messaging {
+      background-color: $grey49;
+      bottom: 0;
+      color: $white;
+      position: fixed;
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+      z-index: 1000;
+      display: none;
+
+      .before {
+        &-after {
+          &-common {
+            content: '';
+            top: 0.85rem;
+            right: 0.25rem;
+            height: 1px;
+            width: 1rem;
+            background-color: $white;
+            position: absolute;
+          }
+        }
+      }
+
+      h3 {
+        &::after {
+          @extend .before-after-common;
+
+          -webkit-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+        }
+
+        &::before {
+          @extend .before-after-common;
+
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+      }
+
+      .content {
+        &-asset {
+          width: 95%;
+          float: left;
+        }
+      }
+
+      p {
+        color: $white;
+        font-size: 0.7rem;
+        line-height: 1.3rem;
+        padding-top: 1.875rem;
+        padding-left: 5%;
+      }
+
+      a {
+        @extend p;
+
+        padding-left: 1px;
+        text-decoration: underline;
+      }
+
+      .cookie {
+        &-close {
+          width: 2%;
+          height: 26%;
+          padding-top: 10px;
+          padding-right: 5px;
+          position: absolute;
+          right: 0;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .cookie {
+    &-warning {
+      &-messaging {
+        padding: 0.2rem;
+
+        .content {
+          &-asset {
+            width: 98%;
+          }
+        }
+
+        a,
+        p {
+          width: 80%;
+          margin: auto;
+          padding-top: 3px;
+          padding-left: inherit;
+        }
+
+        .cookie {
+          &-close {
+            width: 2%;
+            padding-top: 2px;
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
