@@ -5,15 +5,15 @@
         a {
           font-family: $font-museo-light;
           font-size: $font-size-text-heading1;
-          letter-spacing: 2px;
+          letter-spacing: rem(2);
           font-weight: $font-light;
         }
       }
 
       .price {
-        font-family: $font-gill-std;
+        font-family: $font-gills-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.4px;
+        letter-spacing: rem(0.4);
         font-weight: normal;
         color: $black-opacity-6;
       }
@@ -25,21 +25,21 @@
       font-family: $font-gill-std;
       font-size: $font-size-text-heading1;
       font-weight: $font-semi-bold;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
     }
 
     td {
       font-family: $font-gills-light;
       font-size: $font-size-text1;
       font-weight: normal;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
     }
   }
 
   .back-to-results {
     button {
       background: $pink-grey;
-      border: 1px solid $pink-grey;
+      border: rem(1) solid $pink-grey;
     }
   }
 }
@@ -48,9 +48,24 @@
   .product-comparison {
     .product-tile {
       .tile-body {
+        .pdp-link {
+          a {
+            font-family: $font-gills-light;
+            font-size: $font-size-heading2;
+            letter-spacing: rem(0.4);
+            font-weight: normal;
+          }
+        }
+
         .price {
           font-size: $font-size-heading1;
         }
+      }
+    }
+
+    tbody {
+      td {
+        font-size: $font-size-text-heading1;
       }
     }
   }

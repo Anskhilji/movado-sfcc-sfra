@@ -4,20 +4,21 @@
       a.reset {
         font-family: $font-museo-std;
         font-size: $font-size-text-heading1;
-        letter-spacing: 2px;
+        letter-spacing: rem(2);
         font-weight: $font-semi-bold;
         background: $pink-grey;
-        border: 1px solid $pink-grey;
+        border: rem(1) solid $pink-grey;
       }
     }
   }
 
   .result-count {
-    span {
+    span,
+    span.make-bold {
       color: $black-opacity-5;
       font-family: $font-museo-std;
       font-size: $font-size-text-heading1;
-      letter-spacing: 1.3px;
+      letter-spacing: rem(1.3);
       font-weight: $font-semi-bold;
     }
   }
@@ -28,7 +29,7 @@
         a {
           font-family: $font-museo-light;
           font-size: $font-size-text1;
-          letter-spacing: 1.6px;
+          letter-spacing: rem(1.6);
           font-weight: $font-light;
           text-transform: uppercase;
         }
@@ -40,8 +41,22 @@
         font-family: $font-adobe;
         font-size: $font-size-main-heading6;
         font-style: italic;
-        letter-spacing: 2px;
+        letter-spacing: rem(2);
         text-transform: capitalize;
+
+        &::after {
+          font-style: normal;
+          content: url('../images/icons/right_arrow_down.png');
+        }
+      }
+
+      &.active {
+        .card-header {
+          &::after {
+            font-style: normal;
+            content: url('../images/icons/right_arrow_up.png');
+          }
+        }
       }
     }
   }
@@ -51,24 +66,28 @@
       button.close {
         font-family: $font-museo-std;
         font-size: $font-size-text-heading1;
-        letter-spacing: 1.4px;
+        letter-spacing: rem(1.4);
         font-weight: $font-semi-bold;
       }
     }
   }
 
   select.custom-select {
-    font-family: "Gill Sans MT Std";
-    font-size: $font-size-text1;
-    height: 36px;
-    letter-spacing: 0.4px;
+    font-family: $font-museo-std;
+    font-size: $font-size-text4;
+    height: rem(36);
+    letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
 
   button.filter-results {
+    font-family: $font-museo-std;
+    font-size: $font-size-text-heading1;
+    font-weight: $font-semi-bold;
+    letter-spacing: rem(2);
     color: $black;
     background: $pink-grey;
-    border: 1px solid $pink-grey;
+    border: rem(1) solid $pink-grey;
   }
 
   .filter-bar {
@@ -76,9 +95,25 @@
       a {
         font-family: $font-museo-light;
         font-size: $font-size-text1;
-        letter-spacing: 1.6px;
+        letter-spacing: rem(1.6);
         font-weight: $font-light;
       }
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .search-results {
+    select.custom-select + i.fa-angle-down {
+      right: rem(14.4);
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .search-results {
+    select.custom-select {
+      font-size: $font-size-text1;
     }
   }
 }

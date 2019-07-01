@@ -1,10 +1,19 @@
 .product-tile {
+  .promo {
+    &-msg.callout {
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: rem(1.4);
+      font-weight: normal;
+    }
+  }
+
   .tile-body {
     .pdp-link {
       a {
         font-family: $font-museo-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 2px;
+        letter-spacing: rem(2);
         font-weight: $font-light;
       }
     }
@@ -12,14 +21,15 @@
     .price {
       font-family: $font-gills-light;
       font-size: $font-size-text-heading1;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
       font-weight: normal;
     }
 
     .compare {
       label {
+        font-family: $font-gills-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.4px;
+        letter-spacing: rem(0.4);
         font-weight: normal;
       }
     }
@@ -27,8 +37,8 @@
 
   .out-of-stock {
     font-family: $font-gills-light;
-    font-size: 10px;
-    letter-spacing: 0.4px;
+    font-size: rem(10);
+    letter-spacing: rem(0.4);
     font-weight: normal;
   }
 }
@@ -40,22 +50,19 @@
       background: $pink-grey;
     }
   }
+
+  .page-item {
+    .btn {
+      font-family: $font-gills-light;
+      font-size: rem(16);
+    }
+  }
 }
 
 @include media-breakpoint-up(sm) {
   .product-tile {
     .out-of-stock {
       font-size: $font-size-text1;
-    }
-  }
-}
-
-@include media-breakpoint-up(md) {
-  .product-tile {
-    .tile-body {
-      .price {
-        font-size: $font-size-heading1;
-      }
     }
   }
 }

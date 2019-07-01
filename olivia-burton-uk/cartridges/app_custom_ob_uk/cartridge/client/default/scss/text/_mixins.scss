@@ -2,11 +2,11 @@
 $base-font-size: $font-size-heading2;
 
 @mixin primary-font-obuk {
-  font-family: $font-museo-std;
-  font-size: 0.875rem;
-  font-weight: 300;
+  font-family: $font-gills-light;
+  font-size: rem(14);
+  font-weight: $font-light;
   line-height: normal;
-  letter-spacing: 2px;
+  letter-spacing: rem(2);
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   color: $black;
@@ -16,6 +16,6 @@ $base-font-size: $font-size-heading2;
   color: $black-opacity-8;
   font-family: $font-gills-light;
   font-size: $font-size-text-heading2;
-  letter-spacing: 1.3px;
+  letter-spacing: rem(1.3);
   font-weight: normal;
 }

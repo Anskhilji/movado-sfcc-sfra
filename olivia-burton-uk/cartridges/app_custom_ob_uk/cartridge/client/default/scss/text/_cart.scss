@@ -1,10 +1,29 @@
 .cart-section-wrapper {
+  .fa-angle-down {
+    background: url(../images/icons/arrow_down.png) center no-repeat;
+    height: rem(15);
+    width: rem(15);
+    background-size: contain;
+
+    &::before {
+      content: '';
+    }
+  }
+
+  select.custom-select + i {
+    top: rem(11.2);
+  }
+
+  select.custom-select {
+    padding-right: rem(45);
+  }
+
   .cart-header-wrapper {
     .cart-header {
       font-family: $font-adobe;
       font-size: $font-size-title6;
       font-style: italic;
-      letter-spacing: 1.8px;
+      letter-spacing: rem(1.8);
       text-transform: capitalize;
     }
   }
@@ -12,7 +31,7 @@
   .estimate-price-wrapper {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
 
     .estimated-total {
       color: $black-opacity-6;
@@ -24,7 +43,7 @@
       a {
         font-family: $font-museo-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.9px;
+        letter-spacing: rem(0.9);
         font-weight: $font-light;
       }
     }
@@ -36,11 +55,11 @@
         color: $black-opacity-8;
         font-family: $font-gills-light;
         font-size: $font-size-text-heading2;
-        letter-spacing: 1.3px;
+        letter-spacing: rem(1.3);
       }
 
       &::after {
-        border: 1px solid $dark-grey2;
+        border: rem(1) solid $dark-grey2;
         background-color: $white;
       }
 
@@ -48,15 +67,15 @@
         color: $dark-grey1;
         font-family: $font-gills-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.4px;
-        border: 1px solid $black-opacity-6;
+        letter-spacing: rem(0.4);
+        border: rem(1) solid $black-opacity-6;
       }
 
       .character-limit {
         color: $black-opacity-5;
         font-family: $font-gills-light;
         font-size: $font-size-text1;
-        letter-spacing: 0.4px;
+        letter-spacing: rem(0.4);
       }
     }
   }
@@ -66,21 +85,25 @@
       color: $black-opacity-8;
       font-family: $font-gills-light;
       font-size: $font-size-text-heading2;
-      letter-spacing: 1.3px;
+      letter-spacing: rem(1.3);
       font-weight: normal;
+    }
+
+    .shippingMethods + i {
+      top: rem(35);
     }
 
     .shippingMethods {
       font-family: $font-gills-light;
       font-size: $font-size-heading2;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
     }
 
     .price-label,
     .cost {
       font-family: $font-gills-light;
       font-size: $font-size-heading2;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
       font-weight: normal;
     }
 
@@ -96,26 +119,26 @@
     color: $black;
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
   }
 
   .promo-code-btn {
-    border: 1px solid $black;
+    border: rem(1) solid $black;
     background-color: $white;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
   }
 
   .coupon-code-field {
     font-family: $font-gills-light;
     font-size: $font-size-heading3;
-    letter-spacing: 1.6px;
+    letter-spacing: rem(1.6);
     color: $dark-grey3;
   }
 
   .promo-code-btn,
   .coupon-code-field {
-    height: 36px;
+    height: rem(36);
   }
 }
 
@@ -125,7 +148,7 @@
   .line-item-name {
     font-family: $font-museo-light;
     font-size: $font-size-text-heading1;
-    letter-spacing: 2px;
+    letter-spacing: rem(2);
     font-weight: $font-light;
   }
 
@@ -134,21 +157,31 @@
       .model-name,
       .line-item-attributes,
       .personalize-msg,
-      .personalize-price {
+      .personalize-price,
+      .savings,
+      .original-price,
+      .line-item-promo,
+      .total-amount {
         font-family: $font-gills-light;
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.4px;
+        letter-spacing: rem(0.4);
       }
 
       .model-name {
         color: $dark-grey1;
       }
 
+      .product-edit {
+        a {
+          font-family: $font-museo-light;
+          font-size: $font-size-text-heading1;
+          letter-spacing: rem(0.9);
+          font-weight: $font-light;
+        }
+      }
+
       .total-amount {
         color: $black;
-        font-family: $font-gills-light;
-        font-size: $font-size-heading1;
-        letter-spacing: 0.4px;
       }
     }
   }
@@ -160,7 +193,7 @@ div.checkout-button-wrapper {
       font-family: $font-gill-std;
       font-size: $font-size-heading2;
       font-weight: $font-semi-bold;
-      letter-spacing: 0.46px;
+      letter-spacing: rem(0.46);
     }
   }
 
@@ -168,8 +201,8 @@ div.checkout-button-wrapper {
     color: $black;
     font-family: $font-museo-std;
     font-size: $font-size-text-heading1;
-    letter-spacing: 2px;
-    border: 1px solid $pink-grey;
+    letter-spacing: rem(2);
+    border: rem(1) solid $pink-grey;
     background-color: $pink-grey;
   }
 }
@@ -185,7 +218,7 @@ div.checkout-button-wrapper {
     font-family: $font-adobe;
     font-size: $font-size-main-heading4;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: rem(2);
     text-transform: capitalize;
   }
 
@@ -195,7 +228,21 @@ div.checkout-button-wrapper {
       font-family: $font-gill-std;
       font-size: $font-size-heading2;
       font-weight: $font-semi-bold;
-      letter-spacing: 0.46px;
+      letter-spacing: rem(0.46);
+    }
+  }
+
+  .item {
+    &-info {
+      .item {
+        &-attributes {
+          .total {
+            &-amount {
+              font-size: rem(18);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -206,10 +253,12 @@ div.checkout-button-wrapper {
 }
 
 @include media-breakpoint-down(xs) {
-  div.checkout-button-wrapper {
+  div.checkout-button-wrapper,
+  .prices-add-to-cart-actions {
     background: $black-opacity-8;
 
-    .estimated-price {
+    .estimated-price,
+    .price {
       span {
         color: $white;
       }
@@ -222,7 +271,7 @@ div.checkout-button-wrapper {
     .cart-header-wrapper {
       .cart-header {
         font-size: $font-size-main-heading1;
-        letter-spacing: 1.5px;
+        letter-spacing: rem(1.5);
       }
     }
 
@@ -230,12 +279,12 @@ div.checkout-button-wrapper {
       .product-gift-wrap {
         .gift-text {
           font-size: $font-size-heading3;
-          letter-spacing: 1.6px;
+          letter-spacing: rem(1.6);
         }
 
         .character-limit {
           font-size: $font-size-text-heading1;
-          letter-spacing: 0.4px;
+          letter-spacing: rem(0.4);
         }
       }
     }
@@ -243,19 +292,19 @@ div.checkout-button-wrapper {
     .totals {
       .shippingMethods {
         font-size: $font-size-text-heading1;
-        letter-spacing: 1px;
+        letter-spacing: rem(1);
       }
 
       .price-label,
       .cost {
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.88px;
+        letter-spacing: rem(0.88);
       }
 
       p.grand-total-label,
       p.grand-total {
         font-size: $font-size-text-heading1;
-        letter-spacing: 0.4px;
+        letter-spacing: rem(0.4);
       }
     }
   }

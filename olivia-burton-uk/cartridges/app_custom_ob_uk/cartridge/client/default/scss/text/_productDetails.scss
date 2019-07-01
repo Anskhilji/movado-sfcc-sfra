@@ -3,7 +3,7 @@
     font-family: $font-adobe;
     font-size: $font-size-main-heading3;
     font-style: italic;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
     text-transform: lowercase !important;
 
     &::first-line {
@@ -14,20 +14,20 @@
   .product-availability {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
   }
 
   p.affirm-as-low-as {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
 
     a {
       font-family: $font-museo-light;
       font-size: $font-size-text-heading1;
-      letter-spacing: 0.9px;
+      letter-spacing: rem(0.9);
       font-weight: $font-light;
     }
   }
@@ -35,40 +35,40 @@
   .price {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
 
   button.add-to-cart {
     color: $black;
     background: $pink-grey;
-    border: 1px solid $pink-grey;
+    border: rem(1) solid $pink-grey;
   }
 
   .description {
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
-    letter-spacing: 0.35px;
+    letter-spacing: rem(0.35);
     font-weight: normal;
   }
 
   .product-options {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
 
     a {
       font-family: $font-museo-light;
       font-size: $font-size-text-heading1;
-      letter-spacing: 0.9px;
+      letter-spacing: rem(0.9);
       font-weight: $font-light;
     }
 
     p {
       font-family: $font-gills-light;
       font-size: $font-size-text1;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
       color: $black-opacity-8;
       font-weight: normal;
     }
@@ -77,13 +77,14 @@
       .form-control {
         font-family: $font-gills-light;
         font-weight: normal;
+        border-radius: rem(2);
       }
     }
 
     button {
       font-family: $font-museo-std;
       font-size: $font-size-text-heading1;
-      letter-spacing: 2px;
+      letter-spacing: rem(2);
       font-weight: $font-semi-bold;
     }
   }
@@ -93,7 +94,7 @@
       font-family: $font-adobe;
       font-size: $font-size-main-heading6;
       font-style: italic;
-      letter-spacing: 1px;
+      letter-spacing: rem(1);
       text-transform: lowercase;
 
       &::first-line {
@@ -106,7 +107,7 @@
     font-family: $font-gills-light;
     color: $dim-grey;
     font-size: $font-size-text-heading1;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
     font-weight: normal;
   }
 }
@@ -116,7 +117,7 @@
     font-family: $font-adobe;
     font-size: $font-size-main-heading6;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: rem(2);
     text-transform: capitalize !important;
 
     &::after {
@@ -127,11 +128,12 @@
   .attribute {
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
 
-    .attribute-name {
-      color: #868686;
+    &-name {
+      color: $grey;
+      margin-bottom: rem(8);
     }
   }
 }
@@ -141,7 +143,7 @@
     font-family: $font-adobe;
     font-size: $font-size-main-heading6;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: rem(2);
     text-transform: lowercase;
 
     &::first-letter {
@@ -154,14 +156,14 @@
   p {
     font-family: $font-gill-std;
     font-size: $font-size-text-heading1;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
 
   a.btn-primary {
     font-family: $font-museo-std;
     font-size: $font-size-text-heading1;
-    letter-spacing: 2px;
+    letter-spacing: rem(2);
     font-weight: $font-semi-bold;
     background: $pink-grey;
     color: $black;
@@ -171,7 +173,7 @@
   a.btn-link {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
     color: $black;
   }
@@ -182,7 +184,7 @@
     font-family: $font-adobe;
     font-size: $font-size-main-heading3;
     font-style: italic;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
     text-transform: lowercase !important;
 
     &::first-line {
@@ -197,8 +199,18 @@
   .availability {
     font-family: $font-gills-light;
     font-size: $font-size-heading2;
-    letter-spacing: 0.4px;
+    letter-spacing: rem(0.4);
     font-weight: normal;
+  }
+
+  .promotions {
+    letter-spacing: rem(1.4);
+  }
+
+  .prices {
+    .sales {
+      font-size: $font-size-main-heading6;
+    }
   }
 }
 
@@ -206,19 +218,23 @@
   .modal-header {
     background-color: $white-smoke;
 
-    .close-icon {
-      font-family: $font-museo-std;
-      color: $black;
-      font-size: $font-size-text-heading1;
-      letter-spacing: 1.4px;
-      font-weight: $font-semi-bold;
+    .close {
+      opacity: unset;
+
+      &-icon {
+        font-family: $font-museo-std;
+        color: $black;
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(1.4);
+        font-weight: $font-semi-bold;
+      }
     }
 
     .full-pdp-link {
       color: $extra-dark-grey;
       font-family: $font-museo-light;
       font-size: $font-size-text-heading1;
-      letter-spacing: 0.9px;
+      letter-spacing: rem(0.9);
     }
   }
 }
@@ -227,13 +243,13 @@
   .product-detail {
     .price {
       font-size: $font-size-main-heading6;
-      letter-spacing: 2px;
+      letter-spacing: rem(2);
       font-weight: normal;
     }
 
     .description {
       font-size: $font-size-heading3;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
     }
   }
 
@@ -254,34 +270,34 @@
   .product-detail {
     .product-name {
       font-size: $font-size-main-heading1;
-      letter-spacing: 1.5px;
+      letter-spacing: rem(1.5);
       color: #060506;
     }
 
     .description {
       font-size: $font-size-heading2;
-      letter-spacing: 0.4px;
+      letter-spacing: rem(0.4);
     }
   }
 
   .description-and-detail {
     button.title {
       font-size: $font-size-main-heading1;
-      letter-spacing: 1.5px;
+      letter-spacing: rem(1.5);
     }
   }
 
   .cs-carousel-wrapper {
     .carousel-title {
       font-size: $font-size-main-heading1;
-      letter-spacing: 1.5px;
+      letter-spacing: rem(1.5);
     }
 
     .product-tile {
       .tile-body {
         .price {
           font-size: $font-size-text-heading1;
-          letter-spacing: 0.4px;
+          letter-spacing: rem(0.4);
         }
       }
     }

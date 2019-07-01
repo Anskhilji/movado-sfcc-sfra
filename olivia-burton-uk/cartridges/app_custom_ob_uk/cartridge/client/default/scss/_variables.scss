@@ -32,27 +32,28 @@ $font-family-adobe: "Adobe-Garamond-Pro", Times, serif;
 $font-adobe: "Adobe-Garamond-Pro", Times, serif;
 
 //font size
-$font-size-title-heading1: 60px;
-$font-size-title1: 56px;
-$font-size-title2: 52px;
-$font-size-title3: 48px;
-$font-size-title4: 44px;
-$font-size-title5: 40px;
-$font-size-title6: 36px;
-$font-size-main-heading1: 30px;
-$font-size-main-heading2: 28px;
-$font-size-main-heading3: 26px;
-$font-size-main-heading4: 24px;
-$font-size-main-heading5: 22px;
-$font-size-main-heading6: 20px;
-$font-size-heading1: 18px;
-$font-size-heading2: 16px;
-$font-size-heading3: 15px;
-$font-size-text-heading1: 14px;
-$font-size-text-heading2: 13px;
-$font-size-text1: 12px;
-$font-size-text2: 11px;
-$font-size-text3: 9.44px;
+$font-size-title-heading1: rem(60);
+$font-size-title1: rem(56);
+$font-size-title2: rem(52);
+$font-size-title3: rem(48);
+$font-size-title4: rem(44);
+$font-size-title5: rem(40);
+$font-size-title6: rem(36);
+$font-size-main-heading1: rem(30);
+$font-size-main-heading2: rem(28);
+$font-size-main-heading3: rem(26);
+$font-size-main-heading4: rem(24);
+$font-size-main-heading5: rem(22);
+$font-size-main-heading6: rem(20);
+$font-size-heading1: rem(18);
+$font-size-heading2: rem(16);
+$font-size-heading3: rem(15);
+$font-size-text-heading1: rem(14);
+$font-size-text-heading2: rem(13);
+$font-size-text1: rem(12);
+$font-size-text2: rem(11);
+$font-size-text3: rem(10);
+$font-size-text4: rem(9.44);
 
 //font weight
 $font-semi-bold: 500;
@@ -75,6 +76,7 @@ $dark-grey2: #bbbdbf;
 $dark-grey3: #615f5f;
 $extra-dark-grey: #060506;
 $extra-light-grey: #ccc;
+$aqua-blue: #00a1e0;
 
 //box shadows
-$form-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+$form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);
