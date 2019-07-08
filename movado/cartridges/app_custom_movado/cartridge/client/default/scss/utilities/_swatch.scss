@@ -61,7 +61,10 @@ $swatch-colors: (
     'purple': #800080,
     'red': #f00,
     'white': $white,
-    'yellow': #ff0
+    'yellow': #ff0,
+    'silver': #c0c0c0,
+    'gold': #ffd700,
+    'rose-gold': #b76e79
 );
 
 @each $color in map-keys($swatch-colors) {

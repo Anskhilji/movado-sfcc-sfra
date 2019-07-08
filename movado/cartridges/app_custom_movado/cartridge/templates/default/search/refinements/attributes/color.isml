@@ -1,3 +1,13 @@
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
+
+<li title="${refinementValue.title}" class="color-attribute ${!refinementValue.selectable ? 'disabled' : ''}">
+    <a href="${refinementValue.url}">
+        <span class="${refinementValue.swatchId} swatch-circle color-value swatch-mark <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif><isif condition="${!refinementValue.selectable}">disabled</isif>"></span>
+    </a>
+</li>
+
+<iselse>
+
 <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
   <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
     <isif condition="${refinementValue.selected && refinementValue.selectable}">
@@ -10,3 +20,6 @@
     </span>
   </a>
 </li>
+
+</isif>
+
