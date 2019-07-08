@@ -1,4 +1,4 @@
-window.jQuery = window.$ = require('jquery');
+var $ = window.jQuery;
 
 var processInclude = require('base/util');
 
