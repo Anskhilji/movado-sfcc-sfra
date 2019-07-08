@@ -3783,7 +3783,7 @@ body, td{-webkit-text-size-adjust:none;}
 	td {
 		width: 100% !important;
 	}
-	span[class=force] { 
+	span[class=force] {
 		display: block;
 		width: 100% !important;
 	}
@@ -4160,44 +4160,34 @@ body, td{-webkit-text-size-adjust:none;}
         </custom-attributes>
     </content>
 
-    <content content-id="welcome-mat">
-        <display-name xml:lang="x-default">Welcome Mat</display-name>
-        <online-flag>true</online-flag>
-        <searchable-flag>false</searchable-flag>
-        <page-attributes/>
-        <custom-attributes>
-            <custom-attribute attribute-id="body" xml:lang="x-default">&lt;div class="modal show welcomeMat" id="welcomeMat" role="dialog" tabindex="-1"&gt;
-        &lt;div class="modal-dialog modal-lg modal-middle"&gt;
-        &lt;div class="modal-content"&gt;
-        &lt;div class="modal-header border-0 pt-5 pb-4 d-block text-center"&gt;
-        &lt;div class="middle"&gt;
-        &lt;span class="logo-link"&gt;&lt;img alt="movado logo"
-        src="images/logo/movado-logo.svg?$staticlink$" title="movado logo" /&gt;&lt;/span&gt;
+
+ <content content-id="welcome-mat">
+    <display-name xml:lang="x-default">Welcome Mat</display-name>
+    <online-flag>true</online-flag>
+    <searchable-flag>false</searchable-flag>
+    <custom-attributes>
+      <custom-attribute attribute-id="body" xml:lang="x-default">&lt;div class=&quot;modal show welcomeMat&quot; id=&quot;welcomeMat&quot; role=&quot;dialog&quot; tabindex=&quot;-1&quot;&gt;
+        &lt;div class=&quot;modal-dialog modal-lg modal-middle&quot;&gt;
+        &lt;div class=&quot;modal-content&quot;&gt;
+        &lt;div class=&quot;modal-header border-0 pt-5 pb-4 d-block text-center&quot;&gt;
+        &lt;div class=&quot;middle&quot;&gt;&lt;span class=&quot;logo-link&quot;&gt;&lt;img alt=&quot;&quot; src=&quot;images/logo/ebel-logo.svg?$staticlink$&quot; title=&quot;&quot; /&gt;&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="modal-body text-center"&gt;
-        &lt;span class="h4 text-uppercase"&gt;Looks like you’re visiting from &lt;span class="current-state"&gt;&lt;/span&gt;&lt;/span&gt;
-        &lt;p class="pt-3"&gt;From Movado.com you can only ship to delivery addresses in the USA&lt;/p&gt;
-        &lt;div class="mt-3 pt-3"&gt;
-        &lt;button class="btn btn-primary continue-here" data-dismiss="modal" data-continue="$httpsUrl('WelcomeMat-SetWelcomeMatHide')$"&gt;CONTINUE TO MOVADO.COM&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class="position-relative mt-3 mb-4 d-inline-block country-selector"&gt;
-        &lt;select class="custom-select border-0 form-control select-strapLength"&gt;
-        &lt;option data-value=""&gt;Other Locations&lt;/option&gt;
-        &lt;option data-value="http://movado.ca/en/home"&gt;CANADA-ENGLISH&lt;/option&gt;
-        &lt;option data-value="http://movado.ca/fr/home"&gt;CANADA-FRENCH&lt;/option&gt;
-        &lt;option data-value="http://movado.co.uk/en_GB/home"&gt;UK-ENGLISH&lt;/option&gt;
-        &lt;option data-value="http://movado.cn/zh/home"&gt;CHINA-简化中国&lt;/option&gt;
-        &lt;option data-value="http://movado.cn/en_CN/home"&gt;CHINA-ENGLISH&lt;/option&gt;
-        &lt;option data-value="http://www.intl.movado.com"&gt;OTHER COUNTRIES-ENGLISH&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;i class="fa fa-angle-down"&gt;&lt;/i&gt;
-        &lt;/div&gt;
+
+        &lt;div class=&quot;modal-body text-center&quot;&gt;
+        &lt;p&gt;&lt;span class=&quot;h4 text-uppercase&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;span class=&quot;h4 text-uppercase&quot;&gt;Looks like you&amp;rsquo;re visiting from &lt;span class=&quot;current-state&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+
+        &lt;p class=&quot;pt-3&quot;&gt;From Ebel.com you can only ship to delivery addresses in the USA&lt;/p&gt;
+
+        &lt;div class=&quot;mt-3 pt-3&quot;&gt;&lt;button class=&quot;btn btn-primary continue-here&quot; data-continue=&quot;$httpsUrl('WelcomeMat-SetWelcomeMatHide')$&quot; data-dismiss=&quot;modal&quot;&gt;CONTINUE TO EBEL.COM&lt;/button&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;position-relative mt-3 mb-4 d-inline-block country-selector&quot;&gt;&lt;select class=&quot;custom-select border-0 form-control select-strapLength&quot;&gt;&lt;option data-value=&quot;&quot;&gt;Other Locations&lt;/option&gt;&lt;option data-value=&quot;https://ebel.com/fr/home?redirect=no&quot;&gt;French&lt;/option&gt;&lt;option data-value=&quot;https://ebel.com/de/home?redirect=no&quot;&gt;German&lt;/option&gt; &lt;/select&gt;&amp;nbsp;&lt;/div&gt;
         &lt;/div&gt;
         &lt;/div&gt;
         &lt;/div&gt;
         &lt;/div&gt;</custom-attribute>
-        </custom-attributes>
+      </custom-attributes>
     </content>
 
 </library>

@@ -66,7 +66,7 @@ module.exports = {
             var enable = $('.product-availability').toArray().every(function (item) {
                 return $(item).data('available') && $(item).data('ready-to-order');
             });
-            $('button.add-to-cart-global').attr('disabled', !enable);
+            $('button.add-to-cart-global').parent().toggleClass('d-none', !enable);
 
             if (response.product.readyToOrder) {
                 var applePayButton = $('.apple-pay-pdp', response.$productContainer);

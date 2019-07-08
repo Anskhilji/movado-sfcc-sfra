@@ -306,7 +306,7 @@
   "settings": {
 	"project": {
       "name":    "movado",
-      "version": "movado_sfra_20190618_v1"
+      "version": "movado_sfra_20190625_v2"
     },
 	"general": {
 	  "password_encryption": true,

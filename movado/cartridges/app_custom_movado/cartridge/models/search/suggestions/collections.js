@@ -41,28 +41,27 @@ function pushToCollection(category, immediateParent) {
  */
 function CollectionSuggestions(suggestions, maxItems) {
     this.categories = [];
-
-    var collectionSuggestions = suggestions.categorySuggestions;
-    var iter = collectionSuggestions.suggestedCategories;
-
     this.available = false;
+    var collectionSuggestions = suggestions.categorySuggestions;
+    if (!!collectionSuggestions){
+        var iter = collectionSuggestions.suggestedCategories;
+        for (var i = 0; i < maxItems; i++) {
+            var category = null;
 
-    for (var i = 0; i < maxItems; i++) {
-        var category = null;
-
-        if (iter.hasNext()) {
-            category = iter.next().category;
-            var pushFlag = pushToCollection(category, category.parent);
-            if (pushFlag) {
-                this.available = true;
-                this.categories.push({
-                    id: category.ID,
-                    name: category.displayName,
-                    imageUrl: category.image ? category.image.url : '',
-                    url: URLUtils.url(endpoint, 'cgid', category.ID),
-                    parentID: category.parent.ID,
-                    parentName: category.parent.displayName
-                });
+            if (iter.hasNext()) {
+                category = iter.next().category;
+                var pushFlag = pushToCollection(category, category.parent);
+                if (pushFlag) {
+                    this.available = true;
+                    this.categories.push({
+                        id: category.ID,
+                        name: category.displayName,
+                        imageUrl: category.image ? category.image.url : '',
+                        url: URLUtils.url(endpoint, 'cgid', category.ID),
+                        parentID: category.parent.ID,
+                        parentName: category.parent.displayName
+                    });
+                }
             }
         }
     }

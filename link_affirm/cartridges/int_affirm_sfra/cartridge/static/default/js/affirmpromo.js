@@ -1,1 +1,41 @@
-!function(a,b){"function"==typeof define&&define.amd?define([],b):"object"==typeof exports?module.exports=b():b()()}(0,function(){return function(){$(document).on("initAffirm",function(){var a=$(this),b=a.find(".js-affirm-promo"),c=b.find(".js-affirm-text");b.length&&affirm.ui.ready(function(){affirm.ui.payments.get_estimate({months:parseInt(b.data("affirm-month"),10),apr:b.data("affirm-apr"),amount:parseInt(b.data("affirm-amount"),10)},function(a){var d=b.data("affirm-text"),e=0|a.payment/100,f=a.payment%100;f=f<10?"0"+f:f+"",c.text(d.replace("{dollars}",e).replace("{cents}",f))})})}).trigger("initAffirm"),$(document).ajaxComplete(function(a,b,c){-1!==c.url.indexOf("Product-Variation")&&$(document).trigger("initAffirm")}),$(document).on("click",".js-affirm-text",function(a){a.preventDefault(),new affirm.widgets.learn_more})}});
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory();
+    } else {
+        factory()();
+    }
+}(this, function () {
+    return function () {
+        $(document).on('initAffirm', function () {
+            var $this = $(this);
+            var $promo = $this.find('.js-affirm-promo');
+            var $text = $promo.find('.js-affirm-text');
+            if ($promo.length) {
+                affirm.ui.ready(function () {
+                    affirm.ui.payments.get_estimate({
+                        months: parseInt($promo.data('affirm-month'), 10),
+                        apr: $promo.data('affirm-apr'),
+                        amount: parseInt($promo.data('affirm-amount'), 10)
+                    }, function (estimates) {
+                        var text = $promo.data('affirm-text');
+                        var dollars = 0 | (estimates.payment / 100);
+                        var cents = (estimates.payment % 100);
+                        cents = cents < 10 ? '0' + cents : cents + '';
+                        $text.text(text.replace('{dollars}', dollars).replace('{cents}', cents));
+                    });
+                });
+            }
+        }).trigger('initAffirm');
+        $(document).ajaxComplete(function (event, request, settings) {
+            if (settings.url.indexOf('Product-Variation') !== -1) {
+                $(document).trigger('initAffirm');
+            }
+        });
+        $(document).on('click', '.js-affirm-text', function (event) {
+            event.preventDefault();
+            new affirm.widgets.learn_more();
+        });
+    };
+}));

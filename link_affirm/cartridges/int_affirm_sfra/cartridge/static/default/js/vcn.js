@@ -1,1 +1,100 @@
-$(function(){$(document).on("click",".place-order",function(a){if("Affirm"!==$(".payment-information").data("payment-method-id"))return!0;if(!$("#vcn-data").data("affirmselected")||window.vcn_approved)return!0;var b=$("#vcn-data").data("vcndata");if($("#vcn-data").data("enabled")){var c=$(this);$("#vcn-data").data("vcncomplete","true"),a.preventDefault(),delete b.metadata.mode,affirm.checkout.open_vcn({success:function(a){$.ajax({url:$("#vcn-data").data("updateurl")+"?"+$("#vcn-data").data("csrfname")+"="+$("#vcn-data").data("csrftoken"),data:a,dataType:"json",method:"POST",success:function(a){a.error?$("div.error-form").length?$("div.error-form").text($("#vcn-data").data("errormessages").default):$("table.item-list").before("<div class='error-form'>"+$("#vcn-data").data("errormessages").default+"</div>"):(window.vcn_approved=!0,c.click())},error:function(a){$("table.item-list").before('<div class="error-form">Error in establishing connection with Affirm VCN service!</div>')},done:function(){console.log("done")}})},error:function(a){if("canceled"==a.reason||"closed"==a.reason)return void window.location.assign($("#vcn-data").data("errorurl"));var b="",c=$("#vcn-data").data("errormessages");b=c[a.reason]||c.default,$("div.error-form").length?$("div.error-form").text(b):$("table.item-list").before("<div class='error-form'>"+b+"</div>")},checkout_data:b})}else"modal"==b.metadata.mode?(a.preventDefault(),affirm.checkout(b),affirm.checkout.open({onFail:function(a){window.location.assign(b.merchant.user_cancel_url)},onSuccess:function(a){var c=$("#vcn-data").data("csrfname")+"="+$("#vcn-data").data("csrftoken"),d=b.merchant.user_confirmation_url+"?checkout_token="+a.checkout_token+"&"+c;window.location.assign(d)}})):(a.preventDefault(),affirm.checkout(b),affirm.checkout.post())}),$(document).on("product:afterAttributeSelect",function(a,b){var c=null,d=b.data.product;d.price.sales?c=d.price.sales.value:d.price.list?c=d.price.list.value:d.price.startingFromPrice&&(c=d.price.startingFromPrice.sales.value),$(".affirm-as-low-as").attr("data-amount",(100*c).toFixed()),affirm.ui.refresh()}),$(document).on("checkout:updateCheckoutView",function(a,b){$(".affirm-product-modal").attr("data-amount",(100*b.order.totals.grandTotal.substr(1)).toFixed()),affirm.ui.refresh()}),affirm.ui.ready(function(){affirm.ui.error.on("close",function(){window.location.replace($("#vcn-data").data("errorurl"))})})});
+$(function () {
+    $(document).on('click', '.place-order', function (e) {
+    	if ($('.payment-information').data('payment-method-id') !== 'Affirm') {
+    		return true;
+    	}
+    	if (!$('#vcn-data').data('affirmselected') || window.vcn_approved) {
+        return true;
+    }
+        var checkoutObject = $('#vcn-data').data('vcndata');
+        if ($('#vcn-data').data('enabled')) {
+        	var $thisBtn = $(this);
+        	$('#vcn-data').data('vcncomplete', 'true');
+        	e.preventDefault();
+            delete checkoutObject.metadata.mode;
+            affirm.checkout.open_vcn({
+                success: function (card_details) {
+                    $.ajax({
+                        url: $('#vcn-data').data('updateurl') + '?' + $('#vcn-data').data('csrfname') + '=' + $('#vcn-data').data('csrftoken'),
+                        data: card_details,
+                        dataType: 'json',
+                        method: 'POST',
+                        success: function (response) {
+                            if (!response.error) {
+                                window.vcn_approved = true;
+                                $thisBtn.click();
+                            } else if ($('div.error-form').length) {
+                                $('div.error-form').text($('#vcn-data').data('errormessages').default);
+                            } else {
+                                $('table.item-list').before('<div class=\'error-form\'>' + $('#vcn-data').data('errormessages').default + '</div>');
+                            }
+                        },
+                        error: function (error) {
+                            $('table.item-list').before('<div class="error-form">Error in establishing connection with Affirm VCN service!</div>');
+                            return;
+                        },
+                        done: function () {
+                        	console.log('done');
+                        }
+                    });
+                },
+                error: function (error) {
+                    if (error.reason == 'canceled' || error.reason == 'closed') {
+                        window.location.assign($('#vcn-data').data('errorurl'));
+                        return;
+                    }
+                    var errorText = '';
+                    var errorCollection = $('#vcn-data').data('errormessages');
+                    errorText = errorCollection[error.reason] || errorCollection.default;
+                    if ($('div.error-form').length) {
+                        $('div.error-form').text(errorText);
+                    } else {
+                        $('table.item-list').before('<div class=\'error-form\'>' + errorText + '</div>');
+                    }
+                },
+                checkout_data: checkoutObject
+            });
+        } else if (checkoutObject.metadata.mode == 'modal') {
+            e.preventDefault();
+            affirm.checkout(checkoutObject);
+            affirm.checkout.open({
+                onFail: function (a) {
+                    window.location.assign(checkoutObject.merchant.user_cancel_url);
+                },
+                onSuccess: function (data) {
+                	 var csrftoken = $('#vcn-data').data('csrfname') + '=' + $('#vcn-data').data('csrftoken');
+					 var url = checkoutObject.merchant.user_confirmation_url + '?checkout_token=' + data.checkout_token + '&' + csrftoken;
+					 window.location.assign(url);
+                }
+            });
+        } else {
+            e.preventDefault();
+            affirm.checkout(checkoutObject);
+            affirm.checkout.post();
+        }
+    });
+    $(document).on('product:afterAttributeSelect', function (data, container) {
+    	var newPrice = null;
+    	var product = container.data.product;
+    	if (product.price.sales) {
+    		newPrice = product.price.sales.value;
+    	} else if (product.price.list) {
+    		newPrice = product.price.list.value;
+    	} else if (product.price.startingFromPrice) {
+    		newPrice = product.price.startingFromPrice.sales.value;
+    	}
+    	$('.affirm-as-low-as').attr('data-amount', (newPrice * 100).toFixed());
+    	affirm.ui.refresh();
+    });
+    $(document).on('checkout:updateCheckoutView', function (e, data) {
+    	$('.affirm-product-modal').attr('data-amount', (data.order.totals.grandTotal.substr(1) * 100).toFixed());
+    	affirm.ui.refresh();
+    });
+    affirm.ui.ready(
+        function () {
+            affirm.ui.error.on('close', function () {
+                window.location.replace($('#vcn-data').data('errorurl'));
+            });
+        }
+    );
+});

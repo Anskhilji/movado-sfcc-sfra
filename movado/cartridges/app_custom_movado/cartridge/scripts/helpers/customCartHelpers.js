@@ -123,7 +123,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             		"id" : pli.product.ID,
             		"name" : pli.product.name,
             		"brand" : pli.product.brand,
-            		"category" : pli.product.variant ? pli.product.masterProduct.primaryCategory.ID
+            		"category" : pli.product.variant && !!pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
             				   : pli.product.primaryCategory.ID,
             		"variant" : variant,
             		"price" : pli.product.priceModel.price.value,
@@ -148,7 +148,7 @@ function removeFromCartGTMObj(productLineItems){
      		'id':pli.product.ID,
      		'name':pli.product.name,
      		'brand':pli.product.brand,
-     		'category':pli.product.variant ? pli.product.masterProduct.primaryCategory.ID : pli.product.primaryCategory.ID,
+     		'category':(pli.product.variant && !!pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.ID : pli.product.primaryCategory.ID,
      		'variant':variant,
      		'price':pli.priceValue
      		});

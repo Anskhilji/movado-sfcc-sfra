@@ -308,9 +308,9 @@ function handleVariantResponse(response, $productContainer) {
     // Update primary images
     var primaryImageUrls = response.product.images;
     primaryImageUrls.pdp533.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images carousel').find('img').eq(idx)
+        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
             .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images carousel').find('picture source').eq(idx)
+        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
 
@@ -323,7 +323,7 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Update promotions
-    $('div[data-pid='+$productContainer.data('pid')+']').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
+    $('div[data-pid="'+$productContainer.data('pid')+'"]').find('.promotions').empty().html(getPromotionsHtml(response.product.promotions));
 
     updateAvailability(response, $productContainer);
 

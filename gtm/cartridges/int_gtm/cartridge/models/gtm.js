@@ -295,7 +295,7 @@ function getCategoryBreadcrumb(categoryObj) {
  * @returns productBreadcrumb
  */
 function getProductBreadcrumb(productObj) {
-    var category = productObj.variant
+    var category = productObj.variant && !!productObj.masterProduct.primaryCategory
     ? productObj.masterProduct.primaryCategory
     : productObj.primaryCategory;
     var categoryHierarchy = getCategoryBreadcrumb(category);
@@ -393,7 +393,7 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     brand: cartItem.product.brand,
-                    category: cartItem.product.variant ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
+                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
                     variant: variants,
                     price: (cartItem.product.priceModel.price.available ? (cartItem.product.priceModel.price.value) : (cartItem.product.priceModel.minPrice.value)),
                     revenue: cartItem.grossPrice.value,

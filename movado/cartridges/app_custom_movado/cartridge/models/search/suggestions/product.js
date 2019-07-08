@@ -19,7 +19,7 @@ function getImageUrl(product) {
     var productObj = Object.create(null);
     // fetching DIS image URL
     decorators.images(productObj, imageProduct, { types: [IMAGE_SIZE], quantity: 'single' });
-    return productObj.images[IMAGE_SIZE][0].url;
+    return (productObj != null && productObj.images[IMAGE_SIZE] != null && productObj.images[IMAGE_SIZE][0] != null && !!productObj.images[IMAGE_SIZE][0].url) ? productObj.images[IMAGE_SIZE][0].url : null;
 }
 
 /**

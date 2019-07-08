@@ -148,7 +148,7 @@ function getProductGtmArray(productListItemObject) {
         id: productListItemObject.product.ID,
         name: productListItemObject.product.name,
         brand: productListItemObject.product.brand,
-        category: productListItemObject.product.variant ? productListItemObject.product.masterProduct.primaryCategory.ID
+        category: productListItemObject.product.variant && !!productListItemObject.product.masterProduct.primaryCategory ? productListItemObject.product.masterProduct.primaryCategory.ID
                    : productListItemObject.product.primaryCategory.ID,
         variant: getProductOptions(productListItemObject.product.optionModel.options),
         price: productListItemObject.product.priceModel.price.value

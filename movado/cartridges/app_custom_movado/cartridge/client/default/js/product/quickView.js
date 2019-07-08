@@ -145,7 +145,7 @@ module.exports = {
             var dialog = $(response.$productContainer)
                 .closest('.quick-view-dialog');
 
-            $('.add-to-cart-global', dialog).attr('disabled',
+            $('.add-to-cart-global', dialog).parent().toggleClass('d-none',
                 !$('.global-availability', dialog).data('ready-to-order')
                 || !$('.global-availability', dialog).data('available')
             );

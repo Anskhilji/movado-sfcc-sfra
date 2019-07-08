@@ -1,17 +1,14 @@
 <div class="row cart-and-ipay">
-    <div class="col-sm-12">
+    <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <button class="add-to-cart-global btn btn-primary gtm-addtocart"
-                data-pid="${product.id}"
-                ${!product.readyToOrder || !product.available ? "disabled" : ""} >
+                data-pid="${product.id}">
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
                 ${Resource.msg('button.addalltocart', 'common', null)}
             <iselse>
                 ${Resource.msg('button.addtocart', 'common', null)}
             </isif>
         </button>
-	    <isif condition="${product.available && product.readyToOrder}">
 	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
-	    </isif>
     </div>
 </div>

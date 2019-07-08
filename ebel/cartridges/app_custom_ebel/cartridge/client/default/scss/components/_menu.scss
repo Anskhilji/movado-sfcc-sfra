@@ -266,8 +266,9 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     }
     .nav-item {
       .nav-link {
-        padding: rem(15) rem(12);
+        padding: rem(15) rem(25);
         line-height: rem(17);
+        font-weight: bold;
       }
       &.show {
         .nav-link {

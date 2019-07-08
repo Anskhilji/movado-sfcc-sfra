@@ -266,7 +266,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     }
     .nav-item {
       .nav-link {
-        padding: rem(15) rem(12);
+        padding: rem(15) rem(19);
         line-height: rem(20);
       }
       &.show {
@@ -299,6 +299,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
       }
       .dropdown-link {
         padding: 0;
+        padding-right: rem(8);
         letter-spacing: rem(1);
       }
       .featured-promotion {

@@ -64,14 +64,12 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
-                   <isif condition="${product.readyToOrder && product.available}"> 
 	                    <!-- Cart and [Optionally] Apple Pay -->
 	                    <isif condition="${pdict.addToCartUrl}">
 	                        <isinclude template="product/components/addToCartGlobal" />
 	                    <iselse>
 	                        <isinclude template="product/components/updateProduct" />
 	                    </isif>
-	                </isif> 
                 </div>
 
             </div>

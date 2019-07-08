@@ -123,6 +123,7 @@
         .name {
             font-size: rem(16);
             line-height: rem(19);
+            flex: 1;
             > a {
             color: $grey14;
             }
