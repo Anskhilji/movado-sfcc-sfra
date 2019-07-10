@@ -1,3 +1,33 @@
+'use strict'
+
+var priceBook = {
+	ID: 'priceBookID'
+};
+
+var model = {
+	priceInfo: {
+		priceBook: 'priceBook'
+	}
+}
+
+var PriceHelper =  {
+	getRootPriceBook: function(param1){
+	return priceBook;
+	}
+}
+
+var product = {
+	getPriceModel: function(){
+		return model;
+	}
+}
+
+var ProductMgr = {
+	getProduct: function(para1){
+		return product;
+	}
+}
+
 var FileHelper =  {
 	createDirectory: function(){
 		return '';
@@ -13,48 +43,147 @@ var address = {
 	city: 'New York',
 	postalCode: 10036,
 	stateCode: 'NY',
-	phone: 8888888888
+	phone: {
+		replace: function (p1, p2) {
+			return 8888888888;
+		}
+	}
 }
 
-var ID = 'USPS';
-var coupon = 'COUPON';
-var coupons = [];
-coupons[0] = coupon;
-
 var promotion = {
-	basedOnCoupon: true,
-	coupons: coupon
+	custom: {
+		promoCode: 'PromoCaode'
+	},
+	getID: function(){
+		return 'PromotionID';
+	}
+};
+
+var productPriceAdjustment = {
+	getPromotion: function () {
+	    return promotion;
+	},
+	custom : {
+		sabrixStateTotal: '1.00',
+		sabrixCountyTotal: '1.00',
+		sabrixCityTotal: '1.00',
+		sabrixDistrictTotal: '0.00',
+		sabrixAdditionalCityTotal: '0.00',
+		sabrixAdditionalDistrictTotal: '0.00',
+	}
 }
 
 var shippingPriceAdjustment = {
 	getPromotion: function(){
 		return promotion;
+	},
+	custom : {
+		sabrixStateTotal: '1.00',
+		sabrixCountyTotal: '1.00',
+		sabrixCityTotal: '1.00',
+		sabrixDistrictTotal: '0.00',
+		sabrixAdditionalCityTotal: '0.00',
+		sabrixAdditionalDistrictTotal: '0.00',
 	}
 }
+
+var orderPriceAdjustment = {
+	getPromotion: function(){
+		return promotion;
+	},
+	custom : {
+		sabrixStateTotal: '1.00',
+		sabrixCountyTotal: '1.00',
+		sabrixCityTotal: '1.00',
+		sabrixDistrictTotal: '0.00',
+		sabrixAdditionalCityTotal: '0.00',
+		sabrixAdditionalDistrictTotal: '0.00',
+	},
+	price: {
+		value: 90.00
+	},
+	tax: {
+		value: 1.00
+	}
+}
+
+var shippingPriceAdjustmentsforTax = [
+	{
+		custom : {
+			sabrixStateTotal: '1.00',
+			sabrixCountyTotal: '1.00',
+			sabrixCityTotal: '1.00',
+			sabrixDistrictTotal: '0.00',
+			sabrixAdditionalCityTotal: '0.00',
+			sabrixAdditionalDistrictTotal: '0.00',
+		},
+		price: {
+			value: 5.00
+		},
+		tax: {
+			value: 1.00
+		}
+	}
+]
+
+var orderAdjustmentCollection = [];
+orderAdjustmentCollection[0] = orderPriceAdjustment;
+
+var adjustmentCollection = [];
+adjustmentCollection[0] = productPriceAdjustment;
+
 var getShippingPriceAdjustments = [];
 getShippingPriceAdjustments[0] = shippingPriceAdjustment;
 
-var shippingLineItem = {
-	getShippingPriceAdjustments : getShippingPriceAdjustments
-}
+var SLI = function (){};
+function ShippingLineItem (){
+	SLI.call(this);
+	return {};
+};
+ShippingLineItem.prototype = Object.create(SLI.prototype);
+ShippingLineItem.prototype.constructor = ShippingLineItem;
+var shippingLineItem = new ShippingLineItem();
 
-var shippingLineItem = {
-	getBasePrice: function(){
-		return '';
+var PLI = function (){};
+function ProductLineItem (){
+	PLI.call(this);
+	return {};
+};
+ProductLineItem.prototype = Object.create(PLI.prototype);
+ProductLineItem.prototype.constructor = ProductLineItem;
+var productLineItem = new ProductLineItem();
+
+shippingLineItem = {
+	UUID: 'UUID',
+	getBasePrice: function (){
+		return 10.00;
 	},
-	getAdjustedPrice: function(){
-		return '';
+	getAdjustedPrice: function (){
+		return 8.00;
 	},
-	custom : {
-		sabrixStateTotal: '',
-		sabrixCountyTotal: '',
-		sabrixCityTotal: '',
-		sabrixDistrictTotal: '',
-		sabrixAdditionalCityTotal: '',
-		sabrixAdditionalDistrictTotal: ''
+	custom: {
+		// sabrixStateTotal: '0.00',
+		// sabrixCountyTotal: '0.00',
+		// sabrixCityTotal: '0.00',
+		// sabrixDistrictTotal: '0.00',
+		// sabrixAdditionalCityTotal: '0.00',
+		// sabrixAdditionalDistrictTotal: '0.00',
+		isThisBillable: 'Y'
 	},
-	getAdjustedTax: function(){
-		return '';
+	getAdjustedTax: function (){
+		return 2.00;
+	},
+	basePrice: {
+		value: 10.00
+	},
+	proratedPrice: {
+		value: 5.00
+	},
+	adjustedPrice: {
+		value: 8.00
+	},
+	adjustedTax: {
+		value: 8.00
 	}
 }
 
@@ -67,18 +196,42 @@ var shipment = {
 	},
 	getShippingMethod: function(){
 		return {
-			ID : ID
+			ID : 'ShipID'
 		};
 	},
 	shippingLineItems: shippingLineItems,
+	shippingPriceAdjustments: shippingPriceAdjustments
 };
 
 var shipments = [];
 shipments[0] = shipment;
 
-var productLineItem = {
+var productLineItemOptions = [];
+productLineItemOptions[0] = {
+    UUID: 'UUID',
+    getOptionID: function (){
+	    return 'GiftWrap';
+	}
+};
+
+productLineItemOptions[1] = {
+    UUID: 'UUID',
+    getOptionID: function (){
+	    return 'Embossed';
+	}
+};
+
+productLineItemOptions[2] = {
+    UUID: 'UUID',
+    getOptionID: function (){
+	    return 'Engraved';
+	}
+};
+
+productLineItem = {
+	UUID: 'UUID',
 	getPosition: function(){
-		return 0.0;
+		return 1;
 	},
 	getProductID: function(){
 		return 'PRODUCTID';
@@ -86,52 +239,285 @@ var productLineItem = {
 	quantityValue: function(){
 		return 1;
 	},
+	productID: 'PRODUCTID',
 	custom : {
-		ispreOrderProduct : true,
-		sabrixStateTotal: 0.0,
-		sabrixCountyTotal: 0.0,
-		sabrixCityTotal: 0.0,
+		isPreOrderProduct : true,
+		sabrixStateTotal: 1.0,
+		sabrixCountyTotal: 1.0,
+		sabrixCityTotal: 1.0,
 		sabrixDistrictTotal : 0.0,
 		sabrixAdditionalCityTotal: 0.0,
 		sabrixAdditionalDistrictTotal: 0.0,
-		GiftWrapMessage: 'dummyMessage'
+		GiftWrapMessage: 'dummyMessage',
+		giftWrapOption: 'giftWrapOption',
+		giftBoxSKU: 'giftBoxSKU',
+		isGiftWrapped: true,
+		engraveMessageLine1: 'engraveMessageLine1',
+		engraveMessageLine2: 'engraveMessageLine2',
+		fontName: 'fontName',
+		embossMessageLine1: 'embossMessageLine1',
+		isHorizontal: 'isHorizontal',
+		isThisBillable: 'Y',
+		basePrice: 10.0
 	},
 	getBasePrice: function(){
-		return 0.0;
+		return 10.0;
 	},
 	getProratedPrice: function(){
-		return 0.0;
+		return 5.0;
 	},
 	getTax: function(){
-		return 0.0;
+		return 10.0;
 	},
 	getOptionProductLineItems: function (){
-		return false;
+		return productLineItemOptions;
 	},
 	getOptionModel: function(){
-		return false;
+		return {
+			getOption: function(param1){
+				return {
+					getID: function(){
+						return 'GiftWrapped';
+					}
+				};
+			},
+			getSelectedOptionValue: function(param2){
+				return 'OptionValue';
+			},
+			getPrice: function(param3){
+				return 10.00;
+			}
+		};
 	},
-
+	getPriceAdjustments: function(){
+		return adjustmentCollection;
+	},
+	priceAdjustments: adjustmentCollection,
+	basePrice: {
+		value: 10.00
+	},
+	proratedPrice: {
+		value: 5.00
+	},
+	adjustedPrice: {
+		value: 8.00
+	},
+	tax: {
+		value: 10.00
+	},
+	adjustedTax: {
+		value: 9.00
+	}
 }
 
+var productLineItem1 = {
+	UUID: 'UUID',
+	getPosition: function(){
+		return 1;
+	},
+	getProductID: function(){
+		return 'PRODUCTID';
+	},
+	quantityValue: function(){
+		return 1;
+	},
+	productID: 'PRODUCTID',
+	custom : {
+		isPreOrderProduct : true,
+		sabrixStateTotal: 1.0,
+		sabrixCountyTotal: 1.0,
+		sabrixCityTotal: 1.0,
+		sabrixDistrictTotal : 0.0,
+		sabrixAdditionalCityTotal: 0.0,
+		sabrixAdditionalDistrictTotal: 0.0,
+		GiftWrapMessage: 'dummyMessage',
+		giftWrapOption: 'giftWrapOption',
+		giftBoxSKU: 'giftBoxSKU',
+		isGiftWrapped: false,
+		engraveMessageLine1: 'engraveMessageLine1',
+		engraveMessageLine2: 'engraveMessageLine2',
+		fontName: 'fontName',
+		embossMessageLine1: 'embossMessageLine1',
+		isHorizontal: 'isHorizontal',
+		isThisBillable: 'Y',
+		basePrice: 10.0
+	},
+	getBasePrice: function(){
+		return 10.0;
+	},
+	getProratedPrice: function(){
+		return 5.0;
+	},
+	getTax: function(){
+		return 10.0;
+	},
+	getOptionProductLineItems: function (){
+		return productLineItemOptions;
+	},
+	getOptionModel: function(){
+		return {
+			getOption: function(param1){
+				return {
+					getID: function(){
+						return 'Embossed';
+					}
+				};
+			},
+			getSelectedOptionValue: function(param2){
+				return 'OptionValue';
+			},
+			getPrice: function(param3){
+				return 10.00;
+			}
+		};
+	},
+	getPriceAdjustments: function(){
+		return adjustmentCollection;
+	},
+	priceAdjustments: adjustmentCollection,
+	basePrice: {
+		value: 10.00
+	},
+	proratedPrice: {
+		value: 5.00
+	},
+	adjustedPrice: {
+		value: 8.00
+	},
+	tax: {
+		value: 10.00
+	},
+	adjustedTax: {
+		value: 9.00
+	}
+}
+
+var productLineItem2 = {
+	UUID: 'UUID',
+	getPosition: function(){
+		return 1;
+	},
+	getProductID: function(){
+		return 'PRODUCTID';
+	},
+	quantityValue: function(){
+		return 1;
+	},
+	productID: 'PRODUCTID',
+	custom : {
+		isPreOrderProduct : true,
+		sabrixStateTotal: 1.0,
+		sabrixCountyTotal: 1.0,
+		sabrixCityTotal: 1.0,
+		sabrixDistrictTotal : 0.0,
+		sabrixAdditionalCityTotal: 0.0,
+		sabrixAdditionalDistrictTotal: 0.0,
+		GiftWrapMessage: 'dummyMessage',
+		giftWrapOption: 'giftWrapOption',
+		giftBoxSKU: 'giftBoxSKU',
+		isGiftWrapped: false,
+		engraveMessageLine1: 'engraveMessageLine1',
+		engraveMessageLine2: 'engraveMessageLine2',
+		fontName: 'fontName',
+		embossMessageLine1: 'embossMessageLine1',
+		isHorizontal: 'isHorizontal',
+		isThisBillable: 'Y',
+		basePrice: 10.0
+	},
+	getBasePrice: function(){
+		return 10.0;
+	},
+	getProratedPrice: function(){
+		return 5.0;
+	},
+	getTax: function(){
+		return 10.0;
+	},
+	getOptionProductLineItems: function (){
+		return productLineItemOptions;
+	},
+	getOptionModel: function(){
+		return {
+			getOption: function(param1){
+				return {
+					getID: function(){
+						return 'Engraved';
+					}
+				};
+			},
+			getSelectedOptionValue: function(param2){
+				return 'OptionValue';
+			},
+			getPrice: function(param3){
+				return 10.00;
+			}
+		};
+	},
+	getPriceAdjustments: function(){
+		return adjustmentCollection;
+	},
+	priceAdjustments: adjustmentCollection,
+	basePrice: {
+		value: 10.00
+	},
+	proratedPrice: {
+		value: 5.00
+	},
+	adjustedPrice: {
+		value: 8.00
+	},
+	tax: {
+		value: 10.00
+	},
+	adjustedTax: {
+		value: 9.00
+	}
+}
 var allProductLineItems = [];
 allProductLineItems[0] = productLineItem;
+allProductLineItems[1] = productLineItem1;
+allProductLineItems[2] = productLineItem2;
 
 var orderPaymentInstrument = {
 	getPaymentMethod: function(){
 		return 'Any Card';
 	},
 	custom : {
-		AuthExpirationDate: ''
+		authExpirationDate: ''
 	}
 }
 
 var orderPaymentInstruments = [];
 orderPaymentInstruments[0] = orderPaymentInstrument;
 
+var shippingPriceAdjustmentObj = {
+	custom : {
+		sabrixStateTotal: '1.00',
+		sabrixCountyTotal: '1.00',
+		sabrixCityTotal: '1.00',
+		sabrixDistrictTotal: '0.00',
+		sabrixAdditionalCityTotal: '0.00',
+		sabrixAdditionalDistrictTotal: '0.00'
+	},
+	tax: {
+		value: 2.00
+	},
+}
+
+var shippingPriceAdjustments = [];
+shippingPriceAdjustments[0] = shippingPriceAdjustmentObj;
+
+var Order = {
+	ORDER_STATUS_REPLACED: '',
+	ORDER_STATUS_FAILED: '',
+	CONFIRMATION_STATUS_CONFIRMED: '',
+	ORDER_STATUS_CANCELLED: '',
+	EXPORT_STATUS_EXPORTED: ''
+}
+
 var order = {
 	getOrderNo: function(){
-		return '';
+		return '1234567890';
 	},
 	getCreationDate: function(){
 		return '';
@@ -141,16 +527,31 @@ var order = {
 		httpLocale: 'en'
 	},
 	getCurrencyCode: function(){
-		return '';
+		return 'USD';
 	},
 	getAdjustedMerchandizeTotalPrice: function(){
-		return '';
+		return 100.00;
+	},
+	adjustedMerchandizeTotalPrice: {
+		value: 80.00
+	},
+	adjustedShippingTotalPrice: {
+		value: 10.00
+	},
+	adjustedShippingTotalTax: {
+		value: 2.00
+	},
+	adjustedShippingTotalGrossPrice: {
+		value: 3.00
+	},
+	shippingTotalGrossPrice: {
+		value: 3.00
 	},
 	getTotalTax: function(){
-		return '';
+		return 10.00;
 	},
 	getTotalGrossPrice: function(){
-		return '';
+		return 100.00;
 	},
 	billingAddress: {
 		firstName: 'Bhanuj',
@@ -160,37 +561,59 @@ var order = {
 		city:  'New York',
 		postalCode: 10036,
 		stateCode: 'NY',
-		phone: 8888888888
+		phone: {
+			replace: function(p1, p2) {
+				return 8888888888;
+			}
+		}
 	},
-	getShipments: shipments,
-	getProductLineItems: function(){
+	getShipments: function () {
+		return shipments;
+	},
+	shipments: {
+		0: {
+			shippingPriceAdjustments
+		},
+		length: 1
+	},
+	shippingPriceAdjustments: shippingPriceAdjustmentsforTax,
+	allProductLineItems: allProductLineItems,
+	getProductLineItems: function (){
 		return allProductLineItems;
 	},
-	getPaymentInstruments: orderPaymentInstruments,
-	getShippingTotalPrice: 10
-}
-
-var array = {
-	add: function (){
-		return "added";
+	getPaymentInstruments: function () {
+		return orderPaymentInstruments;
+	},
+	getShippingTotalPrice: function () {
+		return 10.00;
+	},
+	getPriceAdjustments: function () {
+		return orderAdjustmentCollection;
+	},
+	priceAdjustments: orderAdjustmentCollection,
+	setExportStatus: function (param2) {
+		return '';
 	}
 }
 
 var ArrayList = function(){
-	return array;
-}
-
-var paymentMethod = {
-	SAPPaymentMethod: 'any card'
-}
+	return {
+		add: function (){
+			return "added";
+		},
+		length: 1
+	}
+};
 
 var PaymentMgr = {
 	getPaymentMethod: function(param1){
-		return paymenthMethodObj = {
-			custom: paymentMethod
+		return {
+			custom: {
+				SAPPaymentMethod: 'SAP'
+			}
 		}
 	}
-}
+};
 
 var Site = {
     getCurrent: function () {
@@ -202,17 +625,10 @@ var Site = {
     }
 };
 
-var Order = {
-	ORDER_STATUS_NEW: '',
-	ORDER_STATUS_OPEN: '',
-	CONFIRMATION_STATUS_CONFIRMED: '',
-	ORDER_STATUS_CANCELLED: ''
-}
-
 var Logger = {
 	getLogger: function(param1){
 		return {
-			info: function(){
+			warn: function(){
 				return 'info';
 			},
 			error: function(){
@@ -281,55 +697,36 @@ var Calendar = function(){
 	return 'calender';
 }
 
-var OrderData = {
-	WebSiteID: 'MOVADOUS',
-	OrderType: 'ZOR',
-	POType: 'ECM',
-	WebOrderCreationTimeStamp: '20190101000000',
-	PONumber: 123456,
-	PODate: '20190101000000',
-	ShiptoName: 'Bhanuj Kashyap',
-	ShiptoCountry: 'US',
-	BilltoName: 'Bhanuj Kashyap',
-	CarrierCode: 'USPS',
-	InventoryLocation: 1000,
-	SubTotal: 200,
-	TotalTax: 10,
-	NetAmount: 200,
-	ChargingShipping: 'Y',
-	PaymentMethod: 'CreditCard',
-	POItemNumber: 1,
-	SKUNumber: 'SKU',
-	Quantity: 1,
-	ShippingLineItem: 'FIXEDFREIGHT'
-}
-
-var OrderManager ={
-    processOrders: function(dummyMethodCallback, param1, param2, param3, param4, param5, param6){
-        return 123456;
+var OrderManager = {
+    processOrders: function(generateOrderXML, param1, param2, param3, param4, param5, param6){
+        return generateOrderXML.call(null, order);
     }
-}
+};
 
-var ShippingLineItem = function (){
-	return '';
-}
-
-var ProductLineItem = function (){
-	return '';
-}
+var Transaction = {
+    wrap: function (callBack) {
+        return callBack.call();
+    },
+    begin: function () {},
+    commit: function () {}
+};
 
 module.exports = {
-	OrderManager,
-	ShippingLineItem,
-	ProductLineItem,
-	PaymentMgr,
-	Order,
-	Logger,
-	File,
-	FileHelper,
-	FileWriter,
-	XMLStreamWriter,
-	StringUtils,
-	ArrayList,
-	Calendar
+	Site: Site,
+	OrderManager: OrderManager,
+	ShippingLineItem: ShippingLineItem,
+	ProductLineItem: ProductLineItem,
+	PaymentMgr: PaymentMgr,
+	Order: Order,
+	Logger: Logger,
+	File: File,
+	FileHelper: FileHelper,
+	FileWriter: FileWriter,
+	XMLStreamWriter: XMLStreamWriter,
+	StringUtils: StringUtils,
+	ArrayList: ArrayList,
+	Calendar: Calendar,
+	ProductMgr: ProductMgr,
+	PriceHelper: PriceHelper,
+	Transaction: Transaction
 }

@@ -1,0 +1,26 @@
+[data-action="Product-Show"] {
+  .cs-product-recommendation {
+    .cs-carousel-wrapper {
+      .carousel-title {
+        text-align: left;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  [data-action="Product-Show"] {
+    .cs-product-recommendation {
+      .cs-carousel-wrapper {
+        .cs-carousel {
+          margin-left: 20%;
+        }
+        .slick-arrow {
+          &.slick-prev {
+            left: rem(-25);
+          }
+        }
+      }
+    }
+  }
+}

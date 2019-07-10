@@ -1,0 +1,45 @@
+.hero-banner-wrapper {
+    position: relative;
+    .content-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: rem(10);
+        &.light {
+            color: $white;
+        }
+        &.right-align {
+            left: unset;
+            right: 0;
+        }
+        &.bottom-align {
+            bottom: 0;
+            top: unset;
+        }
+        &.center-align {
+            margin-left: 0;
+            margin-right: 0;
+            left: 50%;
+            text-align: center;
+            transform: translateX(-50%);
+        }
+        &.middle-align {
+            margin-top: 0;
+            margin-bottom: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            &.center-align {
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .hero-banner-wrapper {
+        .content-section {
+            width: 30%;
+            margin: rem(45);
+        }
+    }
+}

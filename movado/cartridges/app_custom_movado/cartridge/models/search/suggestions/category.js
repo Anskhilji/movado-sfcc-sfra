@@ -22,33 +22,30 @@ function CategorySuggestions(suggestions, maxItems, collectionSuggestions) {
     var categorySuggestions = suggestions.categorySuggestions;
     var iter = categorySuggestions.suggestedCategories;
 
-
-    var collectionIter = collectionSuggestions ? collectionSuggestions.suggestedCategories : null;
-
-    this.available = categorySuggestions.hasSuggestions();
+    var collectionIter = collectionSuggestions ? collectionSuggestions.categories : null;
+    var collectionList = new Array();
+    for (var key in collectionIter) {
+        if (collectionIter.hasOwnProperty(key)) {
+            collectionList.push(collectionIter[key].id);
+        }
+    }
+    this.available = false;
 
     for (var i = 0; i < maxItems; i++) {
         var category = null;
-        var collection = null;
 
         if (iter.hasNext()) {
             category = iter.next().category;
 
-            if (collectionIter != null && collectionIter.hasNext()) {
-                collection = collectionIter.next().category;
-
-                // Not pushing a category in object if category is equal to collection
-                if (category != collection) {
-                	this.categories.push({
-                		name: category.displayName,
-                		imageUrl: category.image ? category.image.url : '',
-                		url: URLUtils.url(endpoint, 'cgid', category.ID),
-                		parentID: category.parent.ID,
-                		parentName: category.parent.displayName
-                	});
-                }
-            } else {
-            	this.available = false;
+            if (collectionList.indexOf(category.ID) == -1) {
+                this.available = true;
+                this.categories.push({
+                    name: category.displayName,
+                    imageUrl: category.image ? category.image.url : '',
+                    url: URLUtils.url(endpoint, 'cgid', category.ID),
+                    parentID: category.parent.ID,
+                    parentName: category.parent.displayName
+                });
             }
         }
     }

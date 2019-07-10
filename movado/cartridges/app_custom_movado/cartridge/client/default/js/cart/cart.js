@@ -662,7 +662,7 @@ module.exports = function () {
         var dialog = $(response.$productContainer)
             .closest('.quick-view-dialog');
 
-        $('.update-cart-product-global', dialog).attr('disabled',
+        $('.update-cart-product-global', dialog).parent().toggleClass('d-none',
             !$('.global-availability', dialog).data('ready-to-order')
             || !$('.global-availability', dialog).data('available')
         );

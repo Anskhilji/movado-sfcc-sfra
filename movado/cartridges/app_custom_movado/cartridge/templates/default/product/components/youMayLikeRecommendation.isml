@@ -1,5 +1,5 @@
 <isif condition="${pdict.youMayLikeRecommendations && !!pdict.youMayLikeRecommendations.length}">
-  <div class="container">
+  <div class="container cs-product-recommendation">
     <div class="row">
       <div class="col-12">
         <div class="cs-carousel-wrapper">

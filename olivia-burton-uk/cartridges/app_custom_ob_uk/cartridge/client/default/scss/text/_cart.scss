@@ -1,0 +1,311 @@
+.cart-section-wrapper {
+  .fa-angle-down {
+    background: url(../images/icons/arrow_down.png) center no-repeat;
+    height: rem(15);
+    width: rem(15);
+    background-size: contain;
+
+    &::before {
+      content: '';
+    }
+  }
+
+  select.custom-select + i {
+    top: rem(11.2);
+  }
+
+  select.custom-select {
+    padding-right: rem(45);
+  }
+
+  .cart-header-wrapper {
+    .cart-header {
+      font-family: $font-adobe;
+      font-size: $font-size-title6;
+      font-style: italic;
+      letter-spacing: rem(1.8);
+      text-transform: capitalize;
+    }
+  }
+
+  .estimate-price-wrapper {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: rem(0.4);
+
+    .estimated-total {
+      color: $black-opacity-6;
+    }
+
+    p {
+      color: $black;
+
+      a {
+        font-family: $font-museo-light;
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(0.9);
+        font-weight: $font-light;
+      }
+    }
+  }
+
+  .product-card-wrapper {
+    .product-gift-wrap {
+      label.custom-control-label {
+        color: $black-opacity-8;
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading2;
+        letter-spacing: rem(1.3);
+      }
+
+      &::after {
+        border: rem(1) solid $dark-grey2;
+        background-color: $white;
+      }
+
+      .gift-text {
+        color: $dark-grey1;
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(0.4);
+        border: rem(1) solid $black-opacity-6;
+      }
+
+      .character-limit {
+        color: $black-opacity-5;
+        font-family: $font-gills-light;
+        font-size: $font-size-text1;
+        letter-spacing: rem(0.4);
+      }
+    }
+  }
+
+  .totals {
+    label {
+      color: $black-opacity-8;
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading2;
+      letter-spacing: rem(1.3);
+      font-weight: normal;
+    }
+
+    .shippingMethods + i {
+      top: rem(35);
+    }
+
+    .shippingMethods {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(0.4);
+    }
+
+    .price-label,
+    .cost {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+
+    p.grand-total-label,
+    p.grand-total {
+      font-family: $font-gill-std;
+      font-size: $font-size-heading1;
+      font-weight: $font-semi-bold;
+    }
+  }
+
+  .more-ways-text {
+    color: $black;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: rem(0.4);
+    font-weight: normal;
+  }
+
+  .promo-code-btn {
+    border: rem(1) solid $black;
+    background-color: $white;
+    letter-spacing: rem(1);
+  }
+
+  .coupon-code-field {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading3;
+    letter-spacing: rem(1.6);
+    color: $dark-grey3;
+  }
+
+  .promo-code-btn,
+  .coupon-code-field {
+    height: rem(36);
+  }
+}
+
+.product-card-wrapper {
+  color: $black;
+
+  .line-item-name {
+    font-family: $font-museo-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(2);
+    font-weight: $font-light;
+  }
+
+  .item-info {
+    .item-attributes {
+      .model-name,
+      .line-item-attributes,
+      .personalize-msg,
+      .personalize-price,
+      .savings,
+      .original-price,
+      .line-item-promo,
+      .total-amount {
+        font-family: $font-gills-light;
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(0.4);
+      }
+
+      .model-name {
+        color: $dark-grey1;
+      }
+
+      .product-edit {
+        a {
+          font-family: $font-museo-light;
+          font-size: $font-size-text-heading1;
+          letter-spacing: rem(0.9);
+          font-weight: $font-light;
+        }
+      }
+
+      .total-amount {
+        color: $black;
+      }
+    }
+  }
+}
+
+div.checkout-button-wrapper {
+  .estimated-price {
+    span {
+      font-family: $font-gill-std;
+      font-size: $font-size-heading2;
+      font-weight: $font-semi-bold;
+      letter-spacing: rem(0.46);
+    }
+  }
+
+  .checkout-btn {
+    color: $black;
+    font-family: $font-museo-std;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(2);
+    border: rem(1) solid $pink-grey;
+    background-color: $pink-grey;
+  }
+}
+
+.product-info {
+  .remove-btn {
+    color: $black;
+  }
+}
+
+.minicart {
+  h4 {
+    font-family: $font-adobe;
+    font-size: $font-size-main-heading4;
+    font-style: italic;
+    letter-spacing: rem(2);
+    text-transform: capitalize;
+  }
+
+  .estimated-total {
+    .sub-total-label,
+    .sub-total {
+      font-family: $font-gill-std;
+      font-size: $font-size-heading2;
+      font-weight: $font-semi-bold;
+      letter-spacing: rem(0.46);
+    }
+  }
+
+  .item {
+    &-info {
+      .item {
+        &-attributes {
+          .total {
+            &-amount {
+              font-size: rem(18);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .view-cart {
+    font-family: $font-museo-std;
+    font-weight: $font-semi-bold;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  div.checkout-button-wrapper,
+  .prices-add-to-cart-actions {
+    background: $black-opacity-8;
+
+    .estimated-price,
+    .price {
+      span {
+        color: $white;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .cart-section-wrapper {
+    .cart-header-wrapper {
+      .cart-header {
+        font-size: $font-size-main-heading1;
+        letter-spacing: rem(1.5);
+      }
+    }
+
+    .product-card-wrapper {
+      .product-gift-wrap {
+        .gift-text {
+          font-size: $font-size-heading3;
+          letter-spacing: rem(1.6);
+        }
+
+        .character-limit {
+          font-size: $font-size-text-heading1;
+          letter-spacing: rem(0.4);
+        }
+      }
+    }
+
+    .totals {
+      .shippingMethods {
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(1);
+      }
+
+      .price-label,
+      .cost {
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(0.88);
+      }
+
+      p.grand-total-label,
+      p.grand-total {
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(0.4);
+      }
+    }
+  }
+}

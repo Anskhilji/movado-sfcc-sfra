@@ -1084,8 +1084,8 @@ function amountAdjustmentsAndWrapping(order, commerceObject) {
     var taxObj = populatePriceBreakup(order);
     commerceItemsObject = persistData(commerceItemsObject, taxObj);
 
-    Object.keys(commerceItemsObject).forEach(function (key) {
-        var commerceItem = commerceItemsObject[key];
+    for (var z = 0; z < commerceItemsObject.length; z++) {
+        var commerceItem = commerceItemsObject[z];
         commerceItem.GrossValue = parseFloat(commerceItem.GrossValue).toFixed(TWO_DECIMAL_PLACES);
         commerceItem.SubTotal = parseFloat(commerceItem.SubTotal).toFixed(TWO_DECIMAL_PLACES);
         commerceItem.PromoAmount = parseFloat(commerceItem.PromoAmount).toFixed(TWO_DECIMAL_PLACES);
@@ -1136,8 +1136,8 @@ function amountAdjustmentsAndWrapping(order, commerceObject) {
             commerceItem.giftWrapObj.Tax6 = parseFloat(commerceItem.giftWrapObj.Tax6).toFixed(TWO_DECIMAL_PLACES);
         }
         commerceItem.NetAmount = parseFloat(commerceItem.NetAmount).toFixed(TWO_DECIMAL_PLACES);
-        commerceItemsObject[key] = commerceItem;
-    });
+        commerceItemsObject[z] = commerceItem;
+    };
 
     return commerceItemsObject;
 }

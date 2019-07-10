@@ -13,6 +13,12 @@ var rskfdSyncRestService = LocalServiceRegistry.createService('int_riskified.htt
 
     createRequest: function (service, params) {
         var merchantDomainAddressOnRiskified = service.getConfiguration().getCredential().getUser(); // replacing a sitepref approach
+		var merchantDomainAddressOnRiskifiedPref = Site.getCurrent().getPreferences().custom.merchantDomainAddressOnRiskified;
+		if (merchantDomainAddressOnRiskifiedPref && merchantDomainAddressOnRiskifiedPref !== merchantDomainAddressOnRiskified) {
+			service.setCredentialID('riskified.sync.'+merchantDomainAddressOnRiskifiedPref);
+			merchantDomainAddressOnRiskified = service.getConfiguration().getCredential().getUser();
+		}
+
         var riskifiedBaseURL = service.getConfiguration().getCredential().getURL();
 
         service.addHeader('Accept', 'application/vnd.riskified.com; version=2');

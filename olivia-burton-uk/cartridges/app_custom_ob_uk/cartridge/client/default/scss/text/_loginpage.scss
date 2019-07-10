@@ -1,0 +1,70 @@
+.login-page {
+  .track-order-header-text {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: rem(0.4);
+  }
+
+  .form-group {
+    label {
+      font-family: $font-gills-light;
+    }
+  }
+
+  input.form-control {
+    font-size: $font-size-text-heading1;
+    border-radius: rem(2);
+  }
+
+  .heading-three {
+    color: $extra-dark-grey;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading1;
+    letter-spacing: rem(1);
+  }
+
+  .nav-tabs {
+    .nav-link {
+      color: $black;
+      font-family: $font-gills-light;
+      font-size: $font-size-heading3;
+      letter-spacing: rem(1);
+    }
+
+    .nav-link.active {
+      border-bottom: 0.188em solid $aqua-blue;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .login-page {
+    .heading-three {
+      font-size: $font-size-main-heading6;
+      letter-spacing: rem(1);
+    }
+
+    .nav-tabs {
+      .nav-link {
+        font-size: $font-size-heading2;
+        letter-spacing: rem(1);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .login-page {
+    .heading-three {
+      font-size: $font-size-main-heading5;
+      letter-spacing: rem(1);
+    }
+
+    .nav-tabs {
+      .nav-link {
+        font-size: $font-size-main-heading6;
+        letter-spacing: rem(1);
+      }
+    }
+  }
+}

@@ -153,26 +153,37 @@ describe('customStoreHelper', function () {
         });
 
  });
-});
 
-describe('createStoresResultsHtml', function () {
-    it('should return the rendered HTML', function () {
-        var stores = [
-            {
-                ID: 'storeId00001',
-                name: 'Downtown TV Shop'
-            },
-            {
-                ID: 'storeId00002',
-                name: 'Uptown TV Shop'
-            },
-            {
-                ID: 'storeId00001',
-                name: 'Midtown TV Shop'
-            }
-        ];
+    describe('createStoresResultsHtml', function () {
+        it('should return the rendered HTML', function () {
+            var stores = [
+                {
+                    ID: 'storeId00001',
+                    name: 'Downtown TV Shop'
+                },
+                {
+                    ID: 'storeId00002',
+                    name: 'Uptown TV Shop'
+                },
+                {
+                    ID: 'storeId00001',
+                    name: 'Midtown TV Shop'
+                }
+            ];
 
-        var renderedHtml = mockStoreHelper.createStoresResultsHtml(stores);
-        assert.equal(renderedHtml, 'rendered html');
+            var object = proxyquire('../../../../../../cartridges/app_custom_movado/cartridge/scripts/helpers/customStoreHelper', {
+                '*/cartridge/models/stores' : mockStoreHelper.StoresModel,
+                'dw/web/Resource': mockStoreHelper.Resource,
+                'dw/catalog/StoreMgr' : mockStoreHelper.StoreMgr,
+                'dw/system/Site' : mockStoreHelper.Site,
+                'dw/web/URLUtils': mockStoreHelper.URLUtils,
+                'dw/util/HashMap': mockStoreHelper.HashMap,
+                'dw/util/Template' : mockStoreHelper.Template
+            });
+
+            var renderedHtml = object.createStoresResultsHtml(stores);
+            assert.equal(renderedHtml, 'rendered');
+        });
     });
+
 });

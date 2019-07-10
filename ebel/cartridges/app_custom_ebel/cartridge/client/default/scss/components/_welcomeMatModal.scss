@@ -1,0 +1,28 @@
+.welcomeMat {
+
+    span {
+        font-size: rem(24);
+    }
+
+    .logo-link {
+        img {
+            height: rem(48);
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .logo-link {
+            img {
+                height: rem(28);
+            }
+        }
+    }
+
+    select + i {
+        &.fa {
+            right: rem(4);
+            font-size: rem(24);
+            top: rem(6.4);
+        }
+    }
+}

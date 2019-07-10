@@ -14,7 +14,7 @@
         'searchTerm': '${pdict.gtm.searchTerm}', 
         'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />' 
 	};	
-	<isif condition="${pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview'}">
+	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
 		dataLayer.push ({
 			'ecommerce':{ 
 			'detail': { "actionField": {"list": "detail"},

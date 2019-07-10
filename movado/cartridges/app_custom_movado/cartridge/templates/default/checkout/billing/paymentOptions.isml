@@ -70,7 +70,7 @@
                 <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
                 ${pdict.forms.billingForm.subscribetomovado.attributes}/>
                 <label class="form-control-label text-transform-reset" for="subscribeToMovado">
-                    ${Resource.msg('field.customer.subscribeToMovado', 'checkout', null)}
+                    ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
                     <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
                         ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
                     </a>

@@ -1,0 +1,27 @@
+.suggestions {
+  .items-header {
+    color: $black-opacity-5;
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(0.4);
+  }
+
+  .item {
+    .name {
+      a {
+        color: $black;
+        font-family: $font-gills-light;
+        font-size: $font-size-heading2;
+        letter-spacing: rem(0.4);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .suggestions {
+    .items-header {
+      letter-spacing: rem(2);
+    }
+  }
+}

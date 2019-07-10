@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "Museo-Slab-Medium";
+  src: url('../fonts/Museo_Slab_500.otf');
+}
+
+@font-face {
+  font-family: "Museo-Slab-Light";
+  src: url('../fonts/Museo_Slab_300.otf');
+}
+
+@font-face {
+  font-family: "Gill-Sans-MT-Light";
+  src: url('../fonts/Gill_Sans_Light.otf');
+}
+
+@font-face {
+  font-family: "Gill-Sans-MT-Std";
+  src: url('../fonts/Gill_Sans_Medium.otf');
+}
+
+@font-face {
+  font-family: "Adobe-Garamond-Pro";
+  src: url('../fonts/AGaramondPro_Italic.otf');
+}
+
+//font family
+$font-museo-std: "Museo-Slab-Medium", "Courier New", monospace;
+$font-museo-light: "Museo-Slab-Light", "Courier New", monospace;
+$font-gill-std: "Gill-Sans-MT-Std", Arial, sans-serif;
+$font-gills-light: "Gill-Sans-MT-Light", Arial, sans-serif;
+$font-family-adobe: "Adobe-Garamond-Pro", Times, serif;
+$font-adobe: "Adobe-Garamond-Pro", Times, serif;
+
+//font size
+$font-size-title-heading1: rem(60);
+$font-size-title1: rem(56);
+$font-size-title2: rem(52);
+$font-size-title3: rem(48);
+$font-size-title4: rem(44);
+$font-size-title5: rem(40);
+$font-size-title6: rem(36);
+$font-size-main-heading1: rem(30);
+$font-size-main-heading2: rem(28);
+$font-size-main-heading3: rem(26);
+$font-size-main-heading4: rem(24);
+$font-size-main-heading5: rem(22);
+$font-size-main-heading6: rem(20);
+$font-size-heading1: rem(18);
+$font-size-heading2: rem(16);
+$font-size-heading3: rem(15);
+$font-size-text-heading1: rem(14);
+$font-size-text-heading2: rem(13);
+$font-size-text1: rem(12);
+$font-size-text2: rem(11);
+$font-size-text3: rem(10);
+$font-size-text4: rem(9.44);
+
+//font weight
+$font-semi-bold: 500;
+$font-light: 300;
+
+//color
+$black: #000;
+$black-opacity-5: rgba(0, 0, 0, 0.5);
+$black-opacity-8: rgba(0, 0, 0, 0.8);
+$black-opacity-6: rgba(0, 0, 0, 0.6);
+$white: #fff;
+$white-smoke: #f0f0f0;
+$white-smoke-light: #f7f7f7;
+$grey: #868686;
+$grey49: #7d7d7d;
+$pink-grey: #ead7d5;
+$dim-grey: #666;
+$dark-grey1: #999;
+$dark-grey2: #bbbdbf;
+$dark-grey3: #615f5f;
+$extra-dark-grey: #060506;
+$extra-light-grey: #ccc;
+$aqua-blue: #00a1e0;
+
+//box shadows
+$form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);

@@ -1,0 +1,116 @@
+.confirmation-hero-banner {
+  background: $black-opacity-8;
+
+  .content-title {
+    font-style: italic;
+    color: $white;
+  }
+}
+
+.receipt {
+  .order-thank-you-msg {
+    font-weight: normal;
+  }
+
+  .order-thank-you-email-msg {
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(0.4);
+    font-weight: normal;
+  }
+
+  label {
+    @include primary-font-label;
+  }
+
+  input.form-control {
+    color: $dark-grey3;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading3;
+    letter-spacing: rem(1.6);
+    border-radius: rem(3);
+  }
+
+  .summary-section-label {
+    font-weight: normal;
+  }
+
+  .order-total-summary {
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: rem(0.4);
+    font-weight: normal;
+
+    .grand-total {
+      span {
+        font-size: $font-size-heading1;
+        letter-spacing: rem(0.4);
+        font-weight: $font-semi-bold;
+      }
+    }
+  }
+
+  .shipping-method-price {
+    color: $black-opacity-6;
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(0.4);
+  }
+}
+
+.order-confirm-create-account {
+  button {
+    background: $pink-grey;
+    border: rem(1) solid $pink-grey;
+    color: $black;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .confirmation-hero-banner {
+    .content-title {
+      font-size: $font-size-title5;
+      letter-spacing: rem(2);
+    }
+  }
+
+  .receipt {
+    .order-thank-you-email-msg {
+      font-size: $font-size-heading3;
+    }
+
+    .heading-four {
+      font-size: $font-size-heading2;
+    }
+
+    input.form-control {
+      border-radius: unset;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .confirmation-hero-banner {
+    .content-title {
+      font-size: $font-size-title5;
+      letter-spacing: rem(2);
+    }
+  }
+
+  .receipt {
+    .order-thank-you-email-msg {
+      font-size: $font-size-heading2;
+    }
+
+    .heading-four {
+      font-size: $font-size-main-heading6;
+    }
+
+    .order-thank-you-msg {
+      font-family: $font-adobe;
+      font-style: italic;
+      font-size: $font-size-main-heading1;
+      letter-spacing: rem(1.5);
+    }
+  }
+}

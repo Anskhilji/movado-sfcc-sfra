@@ -1,0 +1,157 @@
+.checkout-header-wrapper {
+  .checkout-logo {
+    left: 45%;
+
+    .logo-checkout-text {
+      margin-left: rem(30);
+      color: $black;
+      font-family: $font-museo-std;
+      font-size: $font-size-text4;
+      letter-spacing: rem(0.34);
+      font-weight: $font-semi-bold;
+    }
+
+    &::before {
+      content: url('../images/icons/checkout_obuk_logo.png');
+      background-size: rem(138) rem(18);
+      width: rem(138);
+    }
+  }
+}
+
+header {
+  .logo {
+    &-link {
+      img {
+        width: rem(90);
+      }
+    }
+  }
+
+  .left {
+    button {
+      font-family: $font-museo-std;
+      font-weight: $font-semi-bold;
+
+      i,
+      .menu-text {
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(1.4);
+      }
+
+      .menu-icon {
+        width: rem(20);
+        height: rem(20);
+        display: inline-block;
+        background: url(../images/icons/menu_icon.png) center no-repeat;
+        position: relative;
+        top: rem(5);
+        margin-right: rem(3);
+      }
+    }
+
+    .user {
+      font-family: $font-museo-std;
+      font-weight: $font-semi-bold;
+      font-size: $font-size-text-heading1;
+      letter-spacing: rem(1.4);
+
+      .popover {
+        a {
+          font-family: $font-museo-light;
+          font-size: rem(12);
+          font-weight: $font-light;
+        }
+      }
+    }
+  }
+
+  .right {
+    input.search-field {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading3;
+      letter-spacing: rem(1.6);
+      color: $dark-grey3;
+    }
+  }
+}
+
+header.checkout-header {
+  .checkout-header-wrapper {
+    background-color: $white-smoke;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .checkout-header-wrapper {
+    .checkout-logo {
+      left: 48%;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  header {
+    .checkout-logo {
+      .logo-checkout-text {
+        font-size: $font-size-text2;
+        letter-spacing: rem(0.4);
+      }
+    }
+
+    .logo {
+      &-link {
+        img {
+          width: rem(110);
+        }
+      }
+    }
+  }
+
+  .checkout-header-wrapper {
+    .checkout-logo {
+      left: 50%;
+
+      .logo-checkout-text {
+        font-size: $font-size-text2;
+        letter-spacing: rem(0.4);
+        margin-left: rem(8);
+      }
+
+      &::before {
+        background-size: rem(161) rem(22);
+        width: rem(161);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  header {
+    .left {
+      .user a,
+      select {
+        font-family: $font-museo-std;
+        font-size: $font-size-text-heading1;
+        letter-spacing: rem(1.4);
+        font-weight: $font-semi-bold;
+      }
+
+      select {
+        padding-right: rem(18);
+      }
+
+      .flag-icon {
+        border-radius: rem(3);
+      }
+    }
+
+    .logo {
+      &-link {
+        img {
+          width: rem(130);
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 'use strict';
 var base = require('./base');
 var processInclude = require('base/util');
+var slickCarousel = require('../components/slickCarousel');
 processInclude(require('./productOptionTextValidator'));
 
 /**
@@ -70,6 +71,9 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
             $('#quickViewModal').modal('show');
+            setTimeout(function () {
+                slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
+            }, 1000);
             affirm.ui.refresh();
             $.spinner().stop();
         },
@@ -141,7 +145,7 @@ module.exports = {
             var dialog = $(response.$productContainer)
                 .closest('.quick-view-dialog');
 
-            $('.add-to-cart-global', dialog).attr('disabled',
+            $('.add-to-cart-global', dialog).parent().toggleClass('d-none',
                 !$('.global-availability', dialog).data('ready-to-order')
                 || !$('.global-availability', dialog).data('available')
             );

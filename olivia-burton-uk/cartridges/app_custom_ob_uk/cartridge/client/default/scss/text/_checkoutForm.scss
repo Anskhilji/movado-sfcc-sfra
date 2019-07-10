@@ -1,0 +1,236 @@
+.data-checkout-stage {
+  .submit-shipping,
+  .submit-payment,
+  .place-order,
+  .order-confirmation-continue-shopping {
+    background: $pink-grey;
+    border: rem(1) solid $pink-grey;
+    color: $black;
+  }
+
+  .item {
+    &-info {
+      .item {
+        &-attributes {
+          .total {
+            &-amount {
+              font-size: rem(18);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .btn-show-details,
+  .btn-add-new {
+    color: $black;
+    font-family: $font-gills-light;
+    font-size: $font-size-heading2;
+    letter-spacing: rem(0.4);
+    font-weight: normal;
+  }
+
+  .card {
+    .card-header {
+      span,
+      h4 {
+        font-family: $font-gills-light;
+        font-size: $font-size-heading3;
+        letter-spacing: rem(0.4);
+        font-weight: normal;
+      }
+    }
+  }
+
+  .form-group {
+    label.form-control-label {
+      color: $black-opacity-8;
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading2;
+      letter-spacing: rem(1.3);
+      font-weight: normal;
+    }
+
+    input.form-control {
+      color: $black;
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(1.6);
+      border: rem(1) solid $black;
+    }
+
+    select.form-control {
+      border: rem(1) solid $black;
+      color: $black;
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+  }
+
+  select.custom-select + i {
+    top: rem(28.48);
+  }
+
+  .fa-angle-down {
+    background: url(../images/icons/arrow_down.png) center no-repeat;
+    height: rem(15);
+    width: rem(15);
+    background-size: contain;
+
+    &::before {
+      content: '';
+    }
+  }
+
+  .shipping-method-block {
+    h5.ship-method-header,
+    .shipping-method-option,
+    .shipping-method-pricing {
+      font-family: $font-gills-light;
+      font-size: $font-size-text-heading1;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+  }
+
+  .order-total-summary {
+    p.order-receipt-label,
+    p.text-right,
+    p.sub-total {
+      color: $black;
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+
+    span.sub-total {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+
+    .grand-total {
+      p.order-receipt-label,
+      p.text-right {
+        font-size: $font-size-heading1;
+        font-family: $font-gill-std;
+        font-weight: $font-semi-bold;
+        letter-spacing: rem(0.4);
+      }
+    }
+  }
+
+  .order-product-summary {
+    .grand-total-label,
+    .grand-total-price {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading3;
+      letter-spacing: rem(0.4);
+      font-weight: normal;
+    }
+  }
+
+  .top-grandtotal-label,
+  .grand-total-price {
+    font-family: $font-gills-light;
+    font-weight: normal;
+    font-size: $font-size-heading3;
+    letter-spacing: rem(0.4);
+  }
+
+  .right-section {
+    .text-center {
+      font-family: $font-gills-light;
+      font-size: $font-size-heading2;
+      letter-spacing: rem(1);
+    }
+  }
+}
+
+.product-summary-block {
+  .line-item-name span {
+    color: $black;
+    font-family: $font-museo-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(2);
+    font-weight: $font-light;
+  }
+}
+
+.checkout-page {
+  label {
+    font-family: $font-gills-light;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .data-checkout-stage {
+    .card {
+      .card-header {
+        span,
+        h4 {
+          font-size: $font-size-heading2;
+          letter-spacing: rem(0.4);
+        }
+      }
+    }
+
+    .form-group {
+      input.form-control {
+        font-size: $font-size-heading3;
+      }
+
+      select.form-control {
+        font-size: $font-size-heading2;
+        letter-spacing: rem(1.6);
+      }
+    }
+
+    .shipping-method-block {
+      h5.ship-method-header,
+      .shipping-method-option {
+        font-size: $font-size-heading2;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .data-checkout-stage {
+    .card {
+      .card-header {
+        span,
+        h4 {
+          font-size: $font-size-heading2;
+          letter-spacing: rem(0.4);
+        }
+      }
+    }
+
+    .form-group {
+      input.form-control {
+        font-size: $font-size-heading3;
+      }
+
+      select.form-control {
+        font-size: $font-size-heading2;
+        letter-spacing: rem(1.6);
+      }
+    }
+
+    .shipping-method-block {
+      .ship-method-header {
+        font-size: $font-size-heading2;
+      }
+
+      .shipping-method-option {
+        font-size: $font-size-heading2;
+      }
+    }
+  }
+}

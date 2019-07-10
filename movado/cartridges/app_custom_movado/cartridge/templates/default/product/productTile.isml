@@ -42,7 +42,7 @@
 			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.calloutMsg !== ''}">
                         <div class="callout promo-msg" title="${promotion.details}">
-                            <p><isprint value="${promotion.calloutMsg}" encoding="off"></p>
+                            <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
                         </div>
                     </isif>
 			    </isloop>

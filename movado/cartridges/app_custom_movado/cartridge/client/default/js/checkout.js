@@ -11,8 +11,13 @@ $(document).ready(function () { // eslint-disable-line
     }
     processInclude(require('./checkout/billing'));
     processInclude(require('./checkout/checkout'));
-    $('#selectedPaymentOption').val($('.payment-options .show').parent().find('.form-check').data('method-id'));
-
+    var paymentMethod = $('.payment-options .show').parent().find('.form-check').data('method-id');
+    $('#selectedPaymentOption').val(paymentMethod);
+    if (paymentMethod === 'Adyen') {
+        $('#adyenPaymentMethod').val('PayPal');
+        $('#brandCode').val('paypal');
+    } 
+    
     if (window.dw &&
         window.dw.applepay &&
         window.ApplePaySession &&

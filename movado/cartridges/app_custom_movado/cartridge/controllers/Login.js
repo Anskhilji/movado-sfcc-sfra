@@ -7,6 +7,7 @@ server.extend(page);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var Site = require('dw/system/Site');
 
 server.append(
     'Show',
@@ -18,12 +19,23 @@ server.append(
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
         var folderSearch = searchCustomHelpers.setupContentFolderSearch('root');
+        
+        var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
+        var googleOauthProvider = Site.getCurrent().getCustomPreferenceValue('googleOauthProvider');
+        
         var contentObj = {
         		pageTitle: folderSearch.folder.pageTitle,
         		pageDescription: folderSearch.folder.pageDescription,
         		pageKeywords: folderSearch.folder.pageKeywords };
 
         pageMetaHelper.setPageMetaData(req.pageMetaData, contentObj);
+        
+        var oAuthObject = {
+        		facebookOauthProvider : facebookOauthProvider,
+        		googleOauthProvider : googleOauthProvider
+        }
+        
+        res.setViewData(oAuthObject);
 
         next();
     }
@@ -47,6 +59,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
     var Transaction = require('dw/system/Transaction');
     var Resource = require('dw/web/Resource');
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+    var firstTimeUser = false;
 
     var destination = req.session.privacyCache.store.oauthLoginTargetEndPoint;
 
@@ -146,13 +159,16 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
             authenticatedCustomerProfile.setLastName(lastName);
             authenticatedCustomerProfile.setEmail(email);
         });
+        firstTimeUser = true;
     }
 
     var credentials = authenticatedCustomerProfile.getCredentials();
     if (credentials.isEnabled()) {
         Transaction.wrap(function () {
             CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, false);
-            accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
+            if(firstTimeUser){
+                accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
+            }
         });
     } else {
         res.render('/error', {

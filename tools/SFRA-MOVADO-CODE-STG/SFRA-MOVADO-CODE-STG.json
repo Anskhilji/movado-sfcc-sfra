@@ -246,6 +246,62 @@
 		"int_adyen_expresspaypal"
       ]
     },
+    {
+      "repository": {
+        "url": "source/cartridges/concord",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_concord"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/ebel",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ebel"
+      ]
+    },
+	{
+      "repository": {
+        "url": "source/cartridges/olivia-burton-uk",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+          "compile:js",
+          "compile:fonts"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ob_uk"
+      ]
+    },
 	{
       "repository": {
         "url": "source/sites",
@@ -262,8 +318,8 @@
   "environments": {
     "stg": {
       "server": "staging-na02-movado.demandware.net",
-      "username": "admin",
-      "password": "Ironman123$",
+      "username": "deployment",
+      "password": "d2!YK1!O?h",
 	  "two_factor": {
         "enabled": "true",
         "cert": "movado.p12",
@@ -276,7 +332,7 @@
   "settings": {
 	"project": {
       "name":    "movado",
-      "version": "movado_sfra_stg_20190524_v1"
+      "version": "movado_sfra_stg_20190710_v2"
     },
 	"general": {
 	  "password_encryption": true,

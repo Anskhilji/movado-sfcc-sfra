@@ -40,7 +40,7 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
 server.replace('ErrorNotFound', function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
     var ContentModel = require('*/cartridge/models/content');
-	// res.setStatusCode(404);
+	res.setStatusCode(410);
     var result = { content404Page: '' };
 
     var apiContent = ContentMgr.getContent('ca-404page');

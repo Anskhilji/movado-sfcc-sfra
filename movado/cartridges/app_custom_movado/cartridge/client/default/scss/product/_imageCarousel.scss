@@ -14,11 +14,15 @@
   }
 }
 
-.carousel {
+.primary-images {
   .quickview {
     position: absolute;
-    bottom: 4rem;
-    left: 2rem;
+    bottom: rem(80);
+    left: rem(15);
+    @include media-breakpoint-up(md) {
+      bottom: rem(140);
+      left: rem(40);
+    }
     z-index: 1;
     i {
       &.fa-circle {

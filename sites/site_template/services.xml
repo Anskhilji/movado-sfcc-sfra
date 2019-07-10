@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+    <service-credential service-credential-id="riskified.concord.ch">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>concord.ch</user-id>
+        <password encrypted="true" encryption-type="common.export">N+xkiyAD1loGjsshQcZJBI2JWQsbpkPyNLUDlUAZXAH+WUtUsy3W7J44VvpQ/RbLBs70vr6UriSEibKuOyta6w==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="riskified.ebel.com">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>ebel.com</user-id>
+        <password encrypted="true" encryption-type="common.export">vp8hZUJ8hmFJF1KtVzBjQsbhK9qLIV7IR/xOXkIM6ZFYG7/qsltvagZTEVHDXXQYMGg8v9kWXvLJzqF2uIKhug==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="riskified.movado.com">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>movado.com</user-id>
+        <password encrypted="true" encryption-type="common.export">K7D14Sw9hhu92MpfeBPrlLcDVU7tpZXaw8SiJLGIhRQ8Sa9XlV2odH3p6TlVA19uIntMrCBAxwoVWswTbBtcSQ==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="riskified.sync.concord.ch">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>concord.ch</user-id>
+        <password encrypted="true" encryption-type="common.export">eEhYFIZDYTZSKYt56fSJ1o2JWQsbpkPyNLUDlUAZXAFkz+Rtu4ifEnoqRmKskWBf9xpkElSoswfygyjOaA6ewg==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="riskified.sync.ebel.com">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>ebel.com</user-id>
+        <password encrypted="true" encryption-type="common.export">Y107fV2vMrcVD6CKlseiVcbhK9qLIV7IR/xOXkIM6ZE/6VZYPbS1TZ6wrDeRrwEQvDP1D1tKqKIY40UeJFqwbQ==</password>
+    </service-credential>
+
+    <service-credential service-credential-id="riskified.sync.movado.com">
+        <url>https://sandbox.riskified.com/api</url>
+        <user-id>movado.com</user-id>
+        <password encrypted="true" encryption-type="common.export">rp432W63pd7b+QfKxmyQdF8gffKOiz4GMF/n7q8UJxI=</password>
+    </service-credential>
+
+    <service service-id="int_riskified.https.api">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>RiskifiedServices</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>int_riskified.https.api.profile</profile-id>
+        <credential-id>riskified.movado.com</credential-id>
+    </service>
+
+    <service service-id="int_riskified.https.sync.api">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>RiskifiedSyncServices</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>int_riskified.https.sync.api.profile</profile-id>
+        <credential-id>riskified.sync.movado.com</credential-id>
+    </service>
+	
+</services>

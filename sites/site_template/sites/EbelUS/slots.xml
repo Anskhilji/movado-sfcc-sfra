@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<slot-configurations xmlns="http://www.demandware.com/xml/impex/slot/2008-09-08">
+    <slot-configuration slot-id="affirm-payment-method" context="global" configuration-id="Affirm Slot Configuration" assigned-to-site="true">
+        <template>slots/content/contentassetbody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="affirm-payment-method"/>
+            </content-assets>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-compareresults-banner" context="global" configuration-id="Compare results" assigned-to-site="true">
+        <description>Compare Banner Image and Title</description>
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt;
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt;
+&lt;img alt="Compare" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt;
+&lt;/picture&gt;
+&lt;h1 class="page-title heading-one"&gt;Compare&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="header-banner-m" context="global" configuration-id="FreeShip-FreeReturn-Header" assigned-to-site="true">
+        <template>slots/html/headerBanner.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">FREE 2-DAY SHIPPING AND FREE RETURNS EVERY DAY</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-login" context="global" configuration-id="Login Header Banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="LOGIN" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="LOGIN" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;LOGIN&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-accountdashboard-banner" context="global" configuration-id="My Account Header Banner" default="true" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="MY ACCOUNT" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="MY ACCOUNT" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;MY ACCOUNT&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-watches-list" context="global" configuration-id="My Watches Header Banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="MY WATCHES" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="MY WATCHES" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;MY WATCHES&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-cart-recommendations" context="global" configuration-id="New Slot Configuration - 2019-04-05 15:27:14" assigned-to-site="true">
+        <template>slots/product/carousel.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <products>
+                <product product-id="0607401"/>
+                <product product-id="0607402"/>
+                <product product-id="0607374"/>
+                <product product-id="0607400"/>
+                <product product-id="0607378"/>
+                <product product-id="0607377"/>
+                <product product-id="3600594"/>
+                <product product-id="3600593"/>
+                <product product-id="3600586"/>
+                <product product-id="3600587"/>
+            </products>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="bottomSectionCarousel" xml:lang="x-default">&lt;a class="btn
+                btn-outline-primary" href="$url('Search-Show','cgid','new-arrivals')$" title="View this
+                collection"&gt;Shop New Arrivals&lt;/a&gt;</custom-attribute>
+            <custom-attribute attribute-id="carouselConfig" xml:lang="x-default">{
+                "dots": true,
+                "infinite": false,
+                "arrows": true,
+                "slidesToShow": 3,
+                "responsive": [
+                {
+                "breakpoint": 544,
+                "settings": {
+                "arrows": false,
+                "slidesToShow": 2
+                }
+                }
+                ]
+                }</custom-attribute>
+            <custom-attribute attribute-id="carouselTitle" xml:lang="x-default">YOU MAY ALSO LIKE</custom-attribute>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-search-banner-image" context="global" configuration-id="New Slot Configuration - 2019-04-10 10:27:51" assigned-to-site="true">
+        <description>Search Banner Image and Title</description>
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt;
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt;
+&lt;img alt="Search" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt;
+&lt;/picture&gt;
+&lt;h1 class="page-title heading-one"&gt;Search&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-login" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:50" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Account" src="images/Page Banners.jpg?$staticlink$" title="My Account" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Account&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderdetail-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:53" default="true" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Account" src="images/Page Banners.jpg?$staticlink$" title="My Account" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Account&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-addressbook-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:55" default="true" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Account" src="images/Page Banners.jpg?$staticlink$" title="My Account" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Account&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderhistory-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:56" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Account" src="images/Page Banners.jpg?$staticlink$" title="My Account" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Account&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-wishlist-landing" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:57" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Wishlist" src="images/Page Banners.jpg?$staticlink$" title="My Wishlist" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Wishlist&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-editaddressbook-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:58" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="My Account" src="images/Page Banners.jpg?$staticlink$" title="My Account" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one dark-text-on-light"&gt;My Account&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-profile-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:32:59" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="MY ACCOUNT" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="MY ACCOUNT" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;MY ACCOUNT&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderconfirmation-banner" context="global" configuration-id="New Slot Configuration - 2019-04-15 10:41:44" default="true" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;div class="confirmation-hero-banner"&gt;
+&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/Page Banners.jpg?$staticlink$" /&gt; &lt;img alt="Thank You" src="images/Page Banners.jpg?$staticlink$" title="" /&gt; &lt;/picture&gt;
+&lt;h1 class="content-title heading-one"&gt;Thank You&lt;/h1&gt;
+&lt;/div&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-footer-column-m" context="global" configuration-id="New Slot Configuration - 2019-04-15 11:25:49" default="true" assigned-to-site="true">
+        <template>slots/content/contentAssetBody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="ca-footer-social-email"/>
+            </content-assets>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-compareresults-banner" context="global" configuration-id="New Slot Configuration - 2019-04-23 15:06:41" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt; &lt;img alt="Compare" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt; &lt;/picture&gt; &lt;h1 class="page-title heading-one"&gt;Compare&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-register-watches" context="global" configuration-id="Register Header Banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="REGISTER" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="REGISTER" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;REGISTER&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-search-banner-image" context="global" configuration-id="Search-Results-Banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="SEARCH RESULTS" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="SEARCH RESULTS" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;SEARCH RESULTS&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-wishlist-landing" context="global" configuration-id="Wishlist Header Banner" assigned-to-site="true">
+        <description>Wishlist Landing Banner Image</description>
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="WISHLIST" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="WISHLIST" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;WISHLIST&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-password-banner" context="global" configuration-id="account password banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="PASSWORD" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="PASSWORD" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;PASSWORD&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-accountdashboard-banner" context="global" configuration-id="accountdashboard" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt;
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt;
+&lt;img alt="Dashboard" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt;
+&lt;/picture&gt;
+&lt;h1 class="page-title heading-one"&gt;Dashboard&lt;/h1&gt;</body>
+            </html>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-profile-banner" context="global" configuration-id="accountprofile" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="MY PROFILE" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="MY PROFILE" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;MY PROFILE&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-addressbook-banner" context="global" configuration-id="addressbook" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt; &lt;img alt="Address Book" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one"&gt;Address Book&lt;/h1&gt;</body>
+            </html>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="country-selector" context="global" configuration-id="country-selector" assigned-to-site="true">
+        <description>country selector</description>
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;div class="country-selector-wrapper country-selector"&gt;
+                &lt;i class="flag-icon flag-icon-us"&gt;&lt;/i&gt;
+                &lt;select title="Country Selector"&gt;
+                &lt;option  data-value=""&gt; US-ENGLISH &lt;/option&gt;
+                &lt;option data-value="http://movado.ca/en/home" &gt; CA-ENGLISH &lt;/option&gt;
+                &lt;option data-value="http://movado.ca/fr/home" &gt; CA-FRENCH &lt;/option&gt;
+                &lt;option data-value="http://movado.co.uk/en_GB/home" &gt; UK-ENGLISH &lt;/option&gt;
+                &lt;option data-value="http://movado.cn/zh/home" &gt; CN-简化中国 &lt;/option&gt;
+                &lt;option data-value="http://movado.cn/en_CN/home" &gt; CN-ENGLISH &lt;/option&gt;
+                &lt;option data-value="http://movado.com/en/home" &gt; INT-ENGLISH &lt;/option&gt;
+                &lt;/select&gt;
+                &lt;/div&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-editaddressbook-banner" context="global" configuration-id="editaddressbook" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="ADDRESS BOOK" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="ADDRESS BOOK" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;ADDRESS BOOK&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-folder-banner" context="folder" context-id="fd-customer-support" configuration-id="folder-banner" default="true" assigned-to-site="true">
+        <template>slots/content/contentAssetBody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="ca-static-content-hero-banner"/>
+            </content-assets>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+        <customer-groups>
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-footer-column-m" context="global" configuration-id="footer-social-email" assigned-to-site="true">
+        <description>Footer slot containing the social icons and email form.</description>
+        <template>slots/content/contentAssetBody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="ca-footer-social-email"/>
+            </content-assets>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="footer-column-m" context="global" configuration-id="footer-social-email" assigned-to-site="true">
+        <description>Footer slot containing the social icons and email form.</description>
+        <template>slots/content/contentAssetBody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="footer-social-email"/>
+            </content-assets>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="header-banner-m" context="global" configuration-id="header-banner-m" assigned-to-site="true">
+        <description>Header Promotion Banner</description>
+        <template>slots/html/headerBanner.isml</template>
+        <enabled-flag>false</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">This is a promotional banner.</body>
+            </html>
+        </content>
+    </slot-configuration>
+
+
+    <slot-configuration slot-id="brand-logo" context="global" configuration-id="ebel-logo-v1" default="true" assigned-to-site="true">
+        <description>Ebel Logo</description>
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;p&gt;&lt;a class="logo-link" href="$url('Home-Show')$"&gt;&lt;img alt="ebel logo" src="images/logo/ebel-logo.svg?$staticlink$" /&gt; &lt;/a&gt;&lt;/p&gt;</body>
+            </html>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderconfirmation-banner" context="global" configuration-id="order-confirmation-thankyou-banner" assigned-to-site="true">
+        <template>slots/content/contentAssetBody.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <content-assets>
+                <content-asset content-id="ca-order-confirmation-hero-banner"/>
+            </content-assets>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+        <customer-groups>
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderdetail-banner" context="global" configuration-id="orderDetail" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt; &lt;source media="(min-width: 544px)" srcset="images/bannerImages/hero_banner.jpg?$staticlink$" /&gt; &lt;source media="(min-width: 320px)" srcset="images/bannerImages/hero_banner_small.jpg?$staticlink$" /&gt; &lt;img alt="Order Detail" src="images/bannerImages/hero_banner.jpg?$staticlink$" title="" /&gt; &lt;/picture&gt;
+&lt;h1 class="page-title heading-one"&gt;Order Detail&lt;/h1&gt;</body>
+            </html>
+        </content>
+    </slot-configuration>
+
+    <slot-configuration slot-id="cs-account-orderhistory-banner" context="global" configuration-id="orderhistory-banner" assigned-to-site="true">
+        <template>slots/html/htmlSlotContainer.isml</template>
+        <enabled-flag>true</enabled-flag>
+        <content>
+            <html>
+                <body xml:lang="x-default">&lt;picture&gt;
+
+&lt;source media="(min-width: 544px)" srcset="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" /&gt;
+
+&lt;source media="(min-width: 320px)" srcset="images/bannerImages/HeaderBanner_600x100_black.jpg?$staticlink$" /&gt;
+
+&lt;img alt="ORDER HISTORY" src="images/bannerImages/HeaderBanner_1300x150_black.jpg?$staticlink$" title="ORDER HISTORY" /&gt;
+&lt;/picture&gt;
+
+&lt;h1 class="page-title heading-one"&gt;ORDER HISTORY&lt;/h1&gt;</body>
+            </html>
+        </content>
+        <custom-attributes>
+            <custom-attribute attribute-id="isCarouselTitleLeftAligned">false</custom-attribute>
+        </custom-attributes>
+    </slot-configuration>
+
+</slot-configurations>

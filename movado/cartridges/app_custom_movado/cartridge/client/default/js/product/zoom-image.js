@@ -1,30 +1,16 @@
-$('body').on('click', '.js-zoom-image', function (e) {
-    e.preventDefault();
+var $zoomedImageContainer = $('.zoomedImage');
+var $zoomedImage = $zoomedImageContainer.find('img');
+var $primaryImageCarousel = $('.primary-images .js-carousel');
+/* eslint-disable  new-cap, no-undef */
+var pinchZoom = PinchZoom;
+var pz = pinchZoom && new pinchZoom.default($zoomedImageContainer[0]);
+/* eslint-enable */
 
-    var $zoomEl;
-    var pinchZoom;
-
-    var $productImage = $('.primary-images .carousel-item.active').find('img'),
-        mobileImageUrl = $productImage.data('zoom-mobile-url'),
-        desktopImageUrl = $productImage.data('zoom-desktop-url'),
-        imageAlt = $productImage.attr('alt');
-
-    $('#zoomProduct .modal-body').html('<div class="pinchZoom"></div>');
-    $('#zoomProduct .modal-body .pinchZoom').html(
-        '<picture>'
-        + '<source media="(min-width: 992px)" srcset="' + desktopImageUrl + '"/>'
-        + '<source media="(max-width: 991px)" srcset="' + mobileImageUrl + '"/>'
-        + '<img alt="' + imageAlt + '" src="' + mobileImageUrl + '"/>'
-        + '</picture>'
-    );
-
-    $zoomEl = document.querySelector('#zoomProduct .pinchZoom');
-
-    $('#zoomProduct').on('shown.bs.modal', function () {
-        pinchZoom = new PinchZoom.default($zoomEl);
-    });
-
-    $('#zoomProduct').on('hide.bs.modal', function () {
-        pinchZoom = null;
-    });
+$('body').on('click', '.js-zoom-image', function (evt) {
+    evt.preventDefault();
+    var $activeImage = $primaryImageCarousel.find('.slick-active img');
+    var imageUrl = matchMedia('(max-width: 991px)').matches ? $activeImage.data('zoom-mobile-url') : $activeImage.data('zoom-desktop-url');
+    if ($zoomedImage.attr('src') !== imageUrl) {
+        $zoomedImage.attr('src', imageUrl);
+    }
 });

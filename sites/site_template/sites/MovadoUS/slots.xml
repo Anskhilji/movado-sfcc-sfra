@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <slot-configurations xmlns="http://www.demandware.com/xml/impex/slot/2008-09-08">
-
+  <slot-configuration slot-id="brand-logo" context="global" configuration-id="movado-logo-v1" default="true" assigned-to-site="true">
+          <description>Movado Logo</description>
+          <template>slots/html/htmlSlotContainer.isml</template>
+          <enabled-flag>true</enabled-flag>
+          <content>
+              <html>
+                  <body xml:lang="x-default">&lt;a class="logo-link" href="$url('Home-Show')$"&gt;&lt;img alt="movado logo"
+                  src="images/logo/movado-logo.svg?$staticlink$" /&gt;&lt;/a&gt;</body>
+              </html>
+          </content>
+  </slot-configuration>
 </slot-configurations>
