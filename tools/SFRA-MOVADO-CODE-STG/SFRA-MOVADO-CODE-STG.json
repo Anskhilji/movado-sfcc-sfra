@@ -284,6 +284,26 @@
     },
 	{
       "repository": {
+        "url": "source/cartridges/olivia-burton-uk",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+          "compile:js",
+          "compile:fonts"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ob_uk"
+      ]
+    },
+	{
+      "repository": {
         "url": "source/sites",
         "type": "file"
       },
