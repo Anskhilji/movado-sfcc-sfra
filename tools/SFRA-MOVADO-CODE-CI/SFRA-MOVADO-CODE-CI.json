@@ -296,10 +296,10 @@
   ],
 
   "environments": {
-    "dev16": {
-      "server": "dev16-na-movadogroup.demandware.net",
-      "username": "qauser",
-      "password": "Movado@12345"   
+    "dev05": {
+      "server": "dev05-na02-movado.demandware.net",
+      "username": "deployment",
+      "password": "d2!YK1!O?h"   
     }
   },
   
@@ -310,7 +310,7 @@
     },
 	"general": {
 	  "password_encryption": true,
-      "target_environment": "dev16"
+      "target_environment": "dev05"
     },
     "optimize": {
       "postcss": true,
