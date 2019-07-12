@@ -131,8 +131,13 @@ function getSapOrderStatus(lineItemContainer, view) {
 
 function formatPhoneNumber(phoneNumber) {
     var cleanedPhoneNumber = ('' + phoneNumber).replace(/\D/g, '');
+    var currentLocal = request.locale;
     var match = cleanedPhoneNumber.match(/^(\d{3})(\d{3})(\d{4})$/);
 
+    if (currentLocal === 'en_GB') {
+        return phoneNumber;
+    }
+ 
     if (match) {
         return match[1] + '-' + match[2] + '-' + match[3];
     }
