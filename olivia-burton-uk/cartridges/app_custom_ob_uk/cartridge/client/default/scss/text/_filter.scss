@@ -26,6 +26,10 @@
   .refinements {
     .values {
       li {
+        .fa-check-square {
+          font-size: rem(20);
+        }
+
         a {
           font-family: $font-museo-light;
           font-size: $font-size-text1;
@@ -91,7 +95,16 @@
   }
 
   .filter-bar {
+    li.swatch-filter {
+      &::before,
+      &::after {
+        pointer-events: none;
+      }
+    }
+
     li.filter-value {
+      background: $pink-grey;
+
       a {
         font-family: $font-museo-light;
         font-size: $font-size-text1;

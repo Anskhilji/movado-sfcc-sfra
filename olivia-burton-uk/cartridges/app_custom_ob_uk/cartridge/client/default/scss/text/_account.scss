@@ -1,0 +1,18 @@
+.account {
+  &-pages {
+    div.card {
+      &-body {
+        dt {
+          font-family: $font-gills-light;
+        }
+      }
+
+      &-header {
+        h4,
+        h3 {
+          font-family: $font-gill-std;
+        }
+      }
+    }
+  }
+}
