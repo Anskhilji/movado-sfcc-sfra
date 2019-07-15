@@ -136,6 +136,13 @@
       margin-bottom: rem(8);
     }
   }
+
+  .description {
+    font-family: $font-gills-light;
+    font-size: $font-size-text-heading1;
+    letter-spacing: rem(0.35);
+    font-weight: normal;
+  }
 }
 
 .cs-carousel-wrapper {
@@ -257,6 +264,10 @@
     button.title {
       font-size: $font-size-main-heading4;
     }
+
+    .description {
+      font-size: $font-size-heading3;
+    }
   }
 
   .cs-carousel-wrapper {
@@ -284,6 +295,10 @@
     button.title {
       font-size: $font-size-main-heading1;
       letter-spacing: rem(1.5);
+    }
+
+    .description {
+      font-size: $font-size-text-heading1;
     }
   }
 

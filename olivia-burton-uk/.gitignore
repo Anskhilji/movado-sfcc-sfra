@@ -3,6 +3,7 @@ coverage/
 /.vscode
 **/cartridge/static/**/css/*
 **/cartridge/static/**/js/*
+**/cartridge/static/**/fonts/*
 npm-debug.log
 cartridges.zip
 .idea/
