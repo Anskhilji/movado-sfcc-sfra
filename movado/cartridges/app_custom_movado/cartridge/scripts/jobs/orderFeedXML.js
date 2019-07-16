@@ -14,6 +14,7 @@ var XMLStreamWriter = require('dw/io/XMLStreamWriter');
 var StringUtils = require('dw/util/StringUtils');
 var ArrayList = require('dw/util/ArrayList');
 var Calendar = require('dw/util/Calendar');
+var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
@@ -31,7 +32,7 @@ var TWO_DECIMAL_PLACES = 2;
 var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
 var TIME_FORMAT = 'yyyyMMddhhmmss';
-var BILLINGCURRENCY = 'USD';
+var BILLINGCURRENCY = Site.current.getID() == 'OliviaBurtonUK' ? 'GBP' : 'USD';
 
 var orderFailedArray = new ArrayList();
 var fileExtension = '.xml';
@@ -1303,7 +1304,7 @@ function isDutyInclusive(order) {
 * @returns {string} Yes or No
 */
 function isVATInclusive(order) {
-    return 'N';
+    return Site.current.getID() == 'OliviaBurtonUK' ? 'Y' : 'N';
 }
 
 /**
