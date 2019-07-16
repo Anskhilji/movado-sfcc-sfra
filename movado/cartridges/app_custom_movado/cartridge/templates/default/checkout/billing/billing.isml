@@ -26,8 +26,8 @@
                     <i class="fa fa-angle-down"></i>
                     <div class="invalid-feedback"></div>
                     <div class="row">
-                        <a class="col-6 text-left edit-address btn-show-details">${Resource.msg('action.edit.step', 'checkout', null)}</a>
-                        <a class="col-6 text-right add-address btn-add-new">${Resource.msg('action.add.new', 'checkout', null)}</a>
+                        <a class="col-6 text-left edit-address btn-show-details" tabindex="0">${Resource.msg('action.edit.step', 'checkout', null)}</a>
+                        <a class="col-6 text-right add-address btn-add-new" tabindex="0">${Resource.msg('action.add.new', 'checkout', null)}</a>
                     </div>
                 </div>
             </fieldset>
