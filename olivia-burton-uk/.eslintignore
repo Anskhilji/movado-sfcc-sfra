@@ -1,4 +1,10 @@
 cartridges/**/cartridge/static/
+cartridges/**/cartridge/client/default/js/cart/cart.js
+cartridges/**/cartridge/client/default/js/components/miniCart.js
+cartridges/**/cartridge/client/default/js/product/base.js
+cartridges/**/cartridge/client/default/js/product/quickView.js
+cartridges/**/cartridge/controllers/Cart.js
+cartridges/**/cartridge/scripts/helpers/customProductOptionsHelper.js
 coverage/
 doc/
 bin/
