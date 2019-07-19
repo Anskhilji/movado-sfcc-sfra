@@ -105,6 +105,7 @@ module.exports = {
     addBonusProductsToCart: base.addBonusProductsToCart,
     availability: base.availability,
     addToCart: base.addToCart,
+    allowOnlyAlphaNumericInput: base.allowOnlyAlphaNumericInput,
     showSpinner: function () {
         $('body').on('product:beforeAddToCart', function (e, data) {
             $(data).closest('.modal-content').spinner().start();
