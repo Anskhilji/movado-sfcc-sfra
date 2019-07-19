@@ -415,12 +415,7 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
-                    $('.cart').empty().append('<div class="row cart-empty"> ' +
-                        '<div class="col-12 text-center"> ' +
-                        '<h1 class="empty-cart-header">' + data.basket.resources.emptyCartMsg + '</h1> ' +
-                        '</div> ' +
-                        '</div>'
-                    );
+                    $('.cart').empty().append(data.emptyCartDom);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty().removeClass('show');

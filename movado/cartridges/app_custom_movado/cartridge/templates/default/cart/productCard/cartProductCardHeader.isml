@@ -3,7 +3,9 @@
 </isif>
 <div class="line-item-header">
     <div class="line-item-name">
-        ${lineItem.productName}
+        <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+        <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}">${lineItem.productName}</a>
+        <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
     </div>
     <isif condition="${!lineItem.isBonusProductLineItem}"/>
         <div class="remove-line-item">
