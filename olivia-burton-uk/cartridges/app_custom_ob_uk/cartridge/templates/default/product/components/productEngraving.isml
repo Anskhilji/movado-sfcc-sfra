@@ -27,7 +27,7 @@
             <p>${pdict.product.assets.engravingTop}</p>
             <div class="row m-0">
                 <div class="col col-sm-auto mb-3">
-                    <input type="radio" name="font" class="form-check-input" value="Standard" data-name="font" id="font-standard" required checked="checked">
+                    <input type="radio" name="font" class="form-check-input default-checked-radio-button" value="Standard" data-name="font" id="font-standard" required checked="checked">
                     <label for="font-standard" class="form-check-label"><span class="display-name">Standard</span></label>
                 </div>
                 <div class="col col-sm-auto mb-3">

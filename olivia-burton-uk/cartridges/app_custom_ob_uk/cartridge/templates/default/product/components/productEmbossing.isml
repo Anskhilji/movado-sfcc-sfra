@@ -28,17 +28,17 @@
             <p>${pdict.product.assets.embossingTop}</p>
             <div class="row m-0">
                 <div class="col col-sm-auto mb-3">
-                    <input type="radio" name="orientation" class="form-check-input orientation-radio-button" value="${true}" data-name="orientation" id="orientation-horizontal" required checked="checked">
+                    <input type="radio" name="orientation" class="form-check-input default-checked-radio-button" value="isHorizontal" data-name="orientation" id="orientation-horizontal" required checked="checked">
                     <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
                 </div>
                 <div class="col col-sm-auto mb-3">
-                    <input type="radio" name="orientation" class="form-check-input orientation-radio-button" value="${false}" data-name="orientation" id="orientation-vertical" required>
+                    <input type="radio" name="orientation" class="form-check-input" value="isVertical" data-name="orientation" id="orientation-vertical" required>
                     <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 col-sm-auto mb-3 option-message">
-                    <input type="text" class="form-control" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                    <input type="text" class="form-control alpha-numeric-input" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
                 </div>
                 <div class="col-5 mb-3 col-sm-auto">
                     <button type="submit" class="btn btn-primary" form="embossingForm">

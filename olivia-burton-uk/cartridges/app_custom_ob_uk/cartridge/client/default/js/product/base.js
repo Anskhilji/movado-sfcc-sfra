@@ -249,6 +249,7 @@ function removeOption($productOptionContainer) {
     $productOptionContainer.find("button").removeClass('submitted');
     $productOptionContainer.find('input[type="text"], textarea').removeAttr("readonly");
     $productOptionContainer.find('input[type="radio"]:eq(0)').prop('checked', true).change();
+    $productOptionContainer.find('.default-checked-radio-button').prop('checked', true).change();
     $productOptionContainer.closest('form').validate().resetForm();
 }
 
@@ -664,11 +665,11 @@ module.exports = {
             optionContainer.toggleClass('active');
             $(optionContainer).find('.attribute-text').toggle();
             if (!optionContainer.hasClass('active')) {
-                removeOption($(optionContainer).closest(".product-detail"));
+                removeOption($(optionContainer).closest(".product-option"));
             }
         });
 
-        $(document).on('click', 'form[name="embossing"] button, form[name="engraving"] button', function (e) {
+        $(document).off('click', 'form[name="embossing"] button, form[name="engraving"] button').on('click', 'form[name="embossing"] button, form[name="engraving"] button', function (e) {
             e.preventDefault();
             var $this = $(this).closest("form");
             validateOptions($this);
@@ -713,7 +714,6 @@ module.exports = {
             var pidsObj;
             var setPids;
 
-            debugger;
             $('body').trigger('product:beforeAddToCart', this);
 
             if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
@@ -932,6 +932,17 @@ module.exports = {
             	$('#addToCartModal').modal('show');
             }
     	});
+    },
+    allowOnlyAlphaNumericInput: function () {
+        $(document).on('keypress', '.alpha-numeric-input', function (e) {
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                return true;
+            }
+            e.preventDefault();
+            return false;
+        });
     },
 
     getPidValue: getPidValue,

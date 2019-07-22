@@ -5,6 +5,7 @@ module.exports = {
     availability: base.availability,
 
     addToCart: base.addToCart,
+    allowOnlyAlphaNumericInput: base.allowOnlyAlphaNumericInput,
 
     updateAttributesAndDetails: function () {
         $('body').on('product:statusUpdate', function (e, data) {
