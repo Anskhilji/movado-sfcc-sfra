@@ -1,9 +1,8 @@
 .checkout-header-wrapper {
   .checkout-logo {
-    left: 45%;
+    width: unset;
 
     .logo-checkout-text {
-      margin-left: rem(30);
       color: $black;
       font-family: $font-museo-std;
       font-size: $font-size-text4;
@@ -12,9 +11,7 @@
     }
 
     &::before {
-      content: url('../images/icons/checkout_obuk_logo.png');
-      background-size: rem(138) rem(18);
-      width: rem(138);
+      content: '';
     }
   }
 }
@@ -82,14 +79,6 @@ header.checkout-header {
   }
 }
 
-@include media-breakpoint-up(sm) {
-  .checkout-header-wrapper {
-    .checkout-logo {
-      left: 48%;
-    }
-  }
-}
-
 @include media-breakpoint-up(md) {
   header {
     .checkout-logo {
@@ -110,17 +99,9 @@ header.checkout-header {
 
   .checkout-header-wrapper {
     .checkout-logo {
-      left: 50%;
-
       .logo-checkout-text {
         font-size: $font-size-text2;
         letter-spacing: rem(0.4);
-        margin-left: rem(8);
-      }
-
-      &::before {
-        background-size: rem(161) rem(22);
-        width: rem(161);
       }
     }
   }

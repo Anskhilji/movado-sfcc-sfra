@@ -216,6 +216,13 @@ form {
   letter-spacing: rem(0.4);
 }
 
+.description {
+  font-family: $font-gills-light;
+  font-size: $font-size-text-heading1;
+  letter-spacing: rem(0.35);
+  font-weight: normal;
+}
+
 @include media-breakpoint-down(xs) {
   .hero {
     img {
@@ -295,6 +302,10 @@ form {
       font-size: $font-size-title-heading1;
       letter-spacing: rem(3);
     }
+  }
+
+  .description {
+    font-size: $font-size-text-heading1;
   }
 
   .heading-three {

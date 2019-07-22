@@ -22,11 +22,13 @@ function updateOptionLineItem(lineItemCtnr, productUUID, embossedMessage, engrav
                 collections.forEach(pli.optionProductLineItems, function (option) {
                     Transaction.wrap(function () {
                         if (option.optionID == EMBOSSED && embossedMessage) {
-                            if(orientation == 'true') {
-                                pli.custom.isHorizontal = true;
+                            if(orientation) {
+                                pli.custom.isHorizontal = orientation;
                             }
                         } else if (option.optionID == ENGRAVED && engravedMessage) {
-                            pli.custom.fontName = font;
+                            if(font) {
+                                pli.custom.fontName = font;
+                            }
                         }
                     });
                 });

@@ -401,7 +401,7 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
         Embossing.Orientation = '';
     }
     Embossing.Alignment = '';
-    Embossing.Font = (productLineItem.custom.fontName !== null) ? productLineItem.custom.fontName : '';
+    Embossing.Font = '';
     Embossing.GiftWrapOption = '';
     Embossing.GiftBoxSKU = '';
     Embossing.IsThisBillable = optionPrice > 0 ? 'Y' : 'N';
