@@ -3,6 +3,7 @@ var Site = require('dw/system/Site');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
+var productFactory = require('*/cartridge/scripts/factories/product');
 var Resource = require('dw/web/Resource');
 var Encoding = require('dw/crypto/Encoding');
 
@@ -365,7 +366,8 @@ function getPDPProductImpressionsTags(productObj) {
     var productName = productObj.name;
     var brand = productObj.brand;
     var productPersonalization = '';
-    var productPrice = (productObj.priceModel.price.available ? (productObj.priceModel.price.value) : (productObj.priceModel.minPrice.value));
+    var productModel = productFactory.get({pid: productID});
+    var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
 
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
 
@@ -389,14 +391,16 @@ function getBasketParameters() {
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
+                var productModel = productFactory.get({pid: cartItem.productID});
+                var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
                 cartJSON.push({
                     id: cartItem.productID,
                     name: cartItem.productName,
                     brand: cartItem.product.brand,
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
                     variant: variants,
-                    price: (cartItem.product.priceModel.price.available ? (cartItem.product.priceModel.price.value) : (cartItem.product.priceModel.minPrice.value)),
-                    revenue: cartItem.grossPrice.value,
+                    price: productPrice,
+                    revenue: productPrice,
                     tax: cartItem.tax.value,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.value,
                     coupon: appliedCoupons });

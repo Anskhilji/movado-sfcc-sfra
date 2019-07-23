@@ -1,6 +1,7 @@
 'use strict';
 
 var ProductLineItem = require('dw/order/ProductLineItem');
+var productFactory = require('*/cartridge/scripts/factories/product');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
 var EMBOSSED = 'Embossed';
@@ -117,23 +118,28 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 	var productGtmArray={};
 	var variant;
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
-    if (pli.UUID == productUUID) {
-    	variant=getProductOptions(embossedMessage,engravedMessage)
-            	productGtmArray={
-            		"id" : pli.product.ID,
-            		"name" : pli.product.name,
-            		"brand" : pli.product.brand,
-            		"category" : pli.product.variant && !!pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-            				   : pli.product.primaryCategory.ID,
-            		"variant" : variant,
-            		"price" : pli.product.priceModel.price.value,
-            		"currency" : pli.product.priceModel.price.currencyCode,
-            		"list" : Resource.msg('gtm.list.pdp.value','cart',null)
-            	};
-    		}
-	 });
 
-		return productGtmArray;
+        if (pli.UUID == productUUID) {
+            var productID = pli.product.ID;
+            var productModel = productFactory.get({pid: productID});
+            var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+
+            variant=getProductOptions(embossedMessage,engravedMessage)
+                    productGtmArray={
+                        "id" : productID,
+                        "name" : pli.product.name,
+                        "brand" : pli.product.brand,
+                        "category" : pli.product.variant && !!pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
+                                : pli.product.primaryCategory.ID,
+                        "variant" : variant,
+                        "price" : productPrice,
+                        "currency" : pli.product.priceModel.price.currencyCode,
+                        "list" : Resource.msg('gtm.list.pdp.value','cart',null)
+                    };
+                }
+        });
+
+        return productGtmArray;
 }
 
 
