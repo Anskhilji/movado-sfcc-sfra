@@ -1,5 +1,5 @@
 footer {
-  background-color: $white-smoke-light;
+  background-color: $white;
 
   .home-email-signup {
     .email-description {
@@ -52,6 +52,22 @@ footer {
     font-family: $font-gill-std;
     font-size: $font-size-text-heading2;
     letter-spacing: rem(0.4);
+  }
+}
+
+.home {
+  &-email {
+    &-signup {
+      background-color: $pink-grey;
+
+      .input {
+        &-group {
+          &-btn {
+            border-right: rem(1) solid $black;
+          }
+        }
+      }
+    }
   }
 }
 
