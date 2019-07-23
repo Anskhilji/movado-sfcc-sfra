@@ -144,7 +144,6 @@
                     <isprint value="${pdict.addressForm.postalCode.attributes}" encoding="off" />
                     autocomplete="postal-code">
                 <div class="invalid-feedback"></div>
-                <span>${Resource.msg('example.postalcode','forms',null)}</span>
             </div>
         </div>
     </div>
