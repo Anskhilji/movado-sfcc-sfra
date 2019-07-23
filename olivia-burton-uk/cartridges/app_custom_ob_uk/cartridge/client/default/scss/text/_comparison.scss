@@ -44,6 +44,21 @@
   }
 }
 
+.compare {
+  &-banner {
+    &.hero {
+      h1 {
+        &.page {
+          &-title {
+            font-size: $font-size-title5;
+            letter-spacing: rem(2);
+          }
+        }
+      }
+    }
+  }
+}
+
 @include media-breakpoint-up(md) {
   .product-comparison {
     .product-tile {
