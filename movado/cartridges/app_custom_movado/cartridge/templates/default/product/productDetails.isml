@@ -121,6 +121,9 @@
                                 </isif>
                             </div>
                             <div class="row description">
+                                <isinclude template="product/components/productWhyBuyMe" />
+                            </div>
+                            <div class="row description">
                                 <isinclude template="product/components/description" />
                             </div>
                         </div>

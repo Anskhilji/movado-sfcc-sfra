@@ -197,6 +197,15 @@ div.checkout-button-wrapper {
     }
   }
 
+  .why-buy-me {
+    font-size: rem(13px);
+    font-weight: 600;
+
+    &-details {
+      padding-bottom: rem(20px);
+    }
+  }
+
   .checkout-btn {
     color: $black;
     font-family: $font-museo-std;

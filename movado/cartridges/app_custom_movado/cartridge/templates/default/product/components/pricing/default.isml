@@ -18,13 +18,13 @@
         <meta itemprop="priceCurrency" content="${price.currency}" />
         <span class="sales">
             <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" itemprop="lowprice" content="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" itemprop="highprice" content="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == null}">
-                <span class="value" itemprop="price" content="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>
