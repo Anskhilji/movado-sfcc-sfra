@@ -24,7 +24,7 @@
 		type="string"/> 
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="false"
            min-length="10" max-length="20"
-           regexp="(^\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*$)" 
+           regexp="(^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$)"  
            missing-error="error.message.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>

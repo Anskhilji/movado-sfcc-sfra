@@ -60,7 +60,7 @@
            missing-error="error.message.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"
-           regexp="(^((\(?0\d{4}\)?\s?\d{3}\s?\d{3})|(\(?0\d{3}\)?\s?\d{3}\s?\d{4})|(\(?0\d{2}\)?\s?\d{4}\s?\d{4}))(\s?#(\d{4}|\d{3}))?$)"/>
+           regexp="(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)" />
 
     <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
 	<field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>
