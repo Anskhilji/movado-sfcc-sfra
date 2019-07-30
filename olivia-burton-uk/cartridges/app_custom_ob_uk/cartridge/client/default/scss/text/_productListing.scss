@@ -1,3 +1,40 @@
+#product {
+  &-search {
+    &-results {
+      .product {
+        &-tile {
+          .image {
+            &-container {
+              border-width: 2px;
+            }
+          }
+        }
+
+        &-tile {
+          .tile {
+            &-body {
+              .price.price-to-center {
+                width: 100%;
+                font-weight: $font-semi-bold;
+                font-family: $font-gill-std;
+              }
+
+              .pdp {
+                &-link {
+                  a {
+                    font-family: $font-gills-light;
+                    text-transform: unset;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .product-tile {
   .promo {
     &-msg.callout {
