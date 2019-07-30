@@ -1,0 +1,16 @@
+<!--- TEMPLATENAME: tracking.isml --->
+
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')}">
+    <isset name="organizationId" value="${dw.system.Site.current.getCustomPreferenceValue('organizationId')}" scope="page" />
+    <script>
+        var analyticsTracking = {
+            organisationId: '${organizationId}',
+            user: {},
+            search: {},
+            category: {},
+            pdp: {},
+            cart: {},
+            order: {}
+        }
+    </script>
+</isif>

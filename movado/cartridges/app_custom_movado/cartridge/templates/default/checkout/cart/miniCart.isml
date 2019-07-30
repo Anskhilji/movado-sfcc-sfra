@@ -68,5 +68,6 @@
             </div>
         </div>
 
+        <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
     </div>

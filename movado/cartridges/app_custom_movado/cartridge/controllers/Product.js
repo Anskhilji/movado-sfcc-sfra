@@ -26,6 +26,8 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var Site = require('dw/system/Site');
+    
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var viewData = res.getViewData();
@@ -35,6 +37,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
+    var pdpAnalyticsTrackingData;
 
 	/* get recommendations for product*/
     if (product) {
@@ -45,7 +48,11 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
     }
-
+    
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        pdpAnalyticsTrackingData = {item: product.ID};
+    }
+    
     viewData = {
         moreStyleRecommendations: moreStyleRecommendations,
         youMayLikeRecommendations: youMayLikeRecommendations,
@@ -54,7 +61,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         loggedIn: req.currentCustomer.raw.authenticated,
         socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
-        wishlistGtmObj: wishlistGtmObj
+        wishlistGtmObj: wishlistGtmObj,
+        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
     };
 
     res.setViewData(viewData);
@@ -96,6 +104,10 @@ server.replace('Variation', function (req, res, next) {
 });
 
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var Site = require('dw/system/Site');
+    var pdpAnalyticsTrackingData;
+    var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
+    
     res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
     var queryString = res.viewData.queryString;
     var productID;
@@ -117,7 +129,16 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         currency: product.priceModel.price.currencyCode,
         list: Resource.msg('gtm.list.quickview.value', 'product', null)
     };
-    res.setViewData({ productGtmArray: productGtmArray });
+    
+    if(isanalyticsTrackingEnabled) {
+        pdpAnalyticsTrackingData = {item: product.ID};
+    }
+    
+    res.setViewData({
+        productGtmArray: productGtmArray,
+        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
+        isanalyticsTrackingEnabled: isanalyticsTrackingEnabled
+    });
     next();
 });
 

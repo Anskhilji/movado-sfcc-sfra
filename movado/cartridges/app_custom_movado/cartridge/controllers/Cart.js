@@ -89,12 +89,42 @@ server.append(
 	    function (req, res, next) {
         res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
         var BasketMgr = require('dw/order/BasketMgr');
+        var CartModel = require('*/cartridge/models/cart');
+        var Site = require('dw/system/Site');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var cartItemObj = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
-        res.setViewData(
-        		{ cartItemObj: cartItemObj,
-        		wishlistGTMObj: wishlistGTMObj });
+        var basketModel = new CartModel(currentBasket);
+
+        var cartAnalyticsTrackingData;
+
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+
+            if (basketModel.items.length > 0) {
+
+                var analyticsTrackingLineItems = [];
+                for (var i = 0; i < basketModel.items.length; i++) {
+                    analyticsTrackingLineItems.push ({
+                        item:  basketModel.items[i].id,
+                        quantity: basketModel.items[i].quantity,
+                        price: basketModel.items[i].price.sales.decimalPrice,
+                        unique_id: basketModel.items[i].id
+                    });
+                }
+                cartAnalyticsTrackingData = {cartItems: analyticsTrackingLineItems};
+            } else {
+                cartAnalyticsTrackingData = {clear_cart: true};
+            }
+            cartAnalyticsTrackingData.customerEmailOrUniqueNo = currentBasket.getCustomerEmail()
+                ? currentBasket.getCustomerEmail()
+                : customer.getID();
+        }
+
+        res.setViewData({
+            cartItemObj: cartItemObj,
+            wishlistGTMObj: wishlistGTMObj,
+            cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)
+        });
         if (req.querystring.paypalerror) {
         	res.setViewData({ paypalerror: true });
         }
@@ -200,15 +230,54 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var emptyCartDom;
+    var Site = require('dw/system/Site');
 
     if (currentBasket.productLineItems.length === 0) {
         emptyCartDom = customCartHelpers.getCartAssets();
-        res.setViewData({ emptyCartDom: emptyCartDom.markup });
+        var cartAnalyticsTrackingData;
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+            cartAnalyticsTrackingData = {
+                clear_cart: true,
+                customerEmailOrUniqueNo : currentBasket.getCustomerEmail() ? currentBasket.getCustomerEmail() : customer.getID()
+            };
+        }
+        res.setViewData({ emptyCartDom: emptyCartDom.markup, cartAnalyticsTrackingData: cartAnalyticsTrackingData });
     } else {
         res.setViewData({ emptyCartDom: emptyCartDom });
     }
 
 	 next();
+});
+
+server.append('MiniCartShow', function(req, res, next){
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var Site = require('dw/system/Site');
+    
+    var basketModel = new CartModel(currentBasket);
+    var cartAnalyticsTrackingData;
+    
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        if(basketModel.items.length > 0) {
+            var analyticsTrackingLineItems = [];
+            for (var i = 0; i < basketModel.items.length; i++) {
+                analyticsTrackingLineItems.push ({
+                    item:  basketModel.items[i].id,
+                    quantity: basketModel.items[i].quantity,
+                    price: basketModel.items[i].price.sales.decimalPrice,
+                    unique_id: basketModel.items[i].id
+                });
+            }
+            
+            cartAnalyticsTrackingData = {cart: analyticsTrackingLineItems};
+        } else {
+            cartAnalyticsTrackingData = {clear_cart: true};
+        }
+    }
+    res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
+    
+    next();
 });
 
 

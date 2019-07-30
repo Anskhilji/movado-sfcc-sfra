@@ -70,12 +70,18 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
+            
             $('#quickViewModal').modal('show');
             setTimeout(function () {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
             affirm.ui.refresh();
             $.spinner().stop();
+            
+            if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData) {
+                setAnalyticsTrackingByAJAX.pdpAnalyticsTrackingData = data.pdpAnalyticsTrackingData;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
         },
         error: function () {
             $.spinner().stop();

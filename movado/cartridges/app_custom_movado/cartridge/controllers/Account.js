@@ -18,11 +18,13 @@ server.replace(
         var CustomerMgr = require('dw/customer/CustomerMgr');
         var Resource = require('dw/web/Resource');
         var URLUtils = require('dw/web/URLUtils');
+        var Site = require('dw/system/Site');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
         var customAccountHelpers = require('*/cartridge/scripts/helpers/customAccountHelpers');
         var showMyWatchesList = require('*/cartridge/models/myWatches/getProductListItems');
         var reportingURLs;
         var fetchWatchList;
+        var userTracking;
 
         // Get reporting event Account Open url
         if (req.querystring.registration && req.querystring.registration === 'submitted') {
@@ -32,6 +34,10 @@ server.replace(
         }
 
         var accountModel = customAccountHelpers.getModel(req); // updated part for preferred address
+        
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+            userTracking = {email: accountModel.profile.email};
+        }
 
         // fetching already existing product list
         fetchWatchList = new showMyWatchesList(req.currentCustomer.raw);
@@ -46,7 +52,8 @@ server.replace(
                 }
             ],
             reportingURLs: reportingURLs,
-            fetchWatchList: fetchWatchList
+            fetchWatchList: fetchWatchList,
+            userTracking: JSON.stringify(userTracking)
         });
         next();
     }
