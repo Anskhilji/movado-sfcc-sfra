@@ -162,7 +162,7 @@ function displayErrorMessage($elementAppendTo, msg) {
  * @param {number} pageNumber - current page number
  * @param {boolean} spinner - if the spinner has already started
  */
-function renderNewPageOfItems(pageNumber, spinner) {
+function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
     var publicView = $('.wishlistItemCardsData').data('public-view');
     var listUUID = $('.wishlistItemCardsData').data('uuid');
     var url = $('.wishlistItemCardsData').data('href');
@@ -181,6 +181,9 @@ function renderNewPageOfItems(pageNumber, spinner) {
         }
     }).done(function (data) {
         $('.wishlistItemCards').empty();
+        if (isListEmpty) {
+            $('.checkbox-wishlist-hide').remove();
+        }
         $('body .wishlistItemCards').append(data);
         document.documentElement.scrollTop = scrollPosition;
     }).fail(function () {
@@ -224,9 +227,9 @@ module.exports = {
                     type: 'get',
                     dataType: 'json',
                     data: {},
-                    success: function () {
+                    success: function (data) {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
-                        renderNewPageOfItems(pageNumber, false);
+                        renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
                     },
                     error: function () {
                         $.spinner().stop();
