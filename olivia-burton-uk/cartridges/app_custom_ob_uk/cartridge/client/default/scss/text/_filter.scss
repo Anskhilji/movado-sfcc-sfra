@@ -78,10 +78,11 @@
 
   select.custom-select {
     font-family: $font-museo-std;
-    font-size: $font-size-text4;
+    font-size: $font-size-text-heading1;
     height: rem(36);
     letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
+    text-transform: none;
   }
 
   button.filter-results {
@@ -126,7 +127,7 @@
 @include media-breakpoint-up(sm) {
   .search-results {
     select.custom-select {
-      font-size: $font-size-text1;
+      font-size: $font-size-text-heading1;
     }
   }
 }
