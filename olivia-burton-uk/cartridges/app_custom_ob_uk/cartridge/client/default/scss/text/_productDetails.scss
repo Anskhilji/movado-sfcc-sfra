@@ -91,8 +91,8 @@
 
   .more-styles-wrapper {
     h3 {
-      font-family: $font-adobe;
-      font-size: $font-size-main-heading6;
+      font-family: $font-garamond;
+      font-size: $font-size-heading3;
       font-style: italic;
       letter-spacing: rem(1);
       text-transform: lowercase;
@@ -161,7 +161,7 @@
 
 .addToCartModal {
   p {
-    font-family: $font-gill-std;
+    font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;

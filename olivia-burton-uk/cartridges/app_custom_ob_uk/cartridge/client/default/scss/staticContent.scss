@@ -1,0 +1,63 @@
+@import "variables";
+@import "~movado/staticContent";
+@import "~movado/mixins";
+
+.pt_customerservice {
+  aside {
+    nav {
+      ul {
+        padding-left: 0;
+        li {
+          border-bottom: rem(1) solid $grey3;
+          a {
+            padding: rem(16) 0;
+            font-family: $font-museo-light;
+            font-size: rem(18);
+          }
+        }
+      }
+    }
+  }
+  .right-content {
+    h2 {
+      margin-bottom: rem(40);
+    }
+    p {
+      font-family: $font-gills-light;
+      font-size: rem(16);
+    }
+    a {
+      font-family: $font-museo-light;
+      font-size: rem(18);
+    }
+  }
+}
+
+.need-help {
+  p {
+    font-family: $font-gills-light;
+    font-size: rem(16);
+    font-weight: 300;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-garamond;
+}
+
+h3 {
+    font-size: rem(20);
+}
+
+h2 {
+    font-size: rem(30);
+}
+
+h1 {
+    font-size: rem(60);
+}
