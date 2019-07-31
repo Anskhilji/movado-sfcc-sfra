@@ -106,6 +106,8 @@ module.exports = {
     availability: base.availability,
     addToCart: base.addToCart,
     allowOnlyAlphaNumericInput: base.allowOnlyAlphaNumericInput,
+    switchEmbossOrientation: base.switchEmbossOrientation,
+    
     showSpinner: function () {
         $('body').on('product:beforeAddToCart', function (e, data) {
             $(data).closest('.modal-content').spinner().start();

@@ -493,6 +493,21 @@ function validateEmbossMessage(embossMessage) {
 }
 
 /**
+*
+* @param embossMessage
+* @param characterLimit
+* @returns
+*/
+function validateEmbossMessageByOrientation(embossMessage, characterLimit) {
+   var regex = new RegExp("^[A-Za-z0-9\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
+   var results = '';
+   if (embossMessage.length <= characterLimit) {
+       results = regex.test(embossMessage);
+   }
+   return results;
+}
+
+/**
  * Validate Personalization message and update options and
  * Store session data for apple pay for options & message
  *
@@ -501,12 +516,31 @@ function validateEmbossMessage(embossMessage) {
  * @returns
  */
 function updateOptionsAndMessage(req, params) {
+    
     var embossedMessage = params.EmbossedMessage;
     var previousEmbossOptionId = params.EmbossedFirstOptionID;
 
     var engravedMessage = params.EngravedMessage;
     var previousEngraveOptionId = params.EngravedFirstOptionID;
-
+    
+    //For OliviaBurtonUK validate by orientation character limit
+    var characterLimit = 2;
+    var siteID = Site.getCurrent().getID();
+    if (siteID == 'OliviaBurtonUK') {
+        
+        var embossingCharacterLimitValidation = Site.getCurrent().getCustomPreferenceValue('embossingTextValidations');
+        if (embossingCharacterLimitValidation) {
+            embossingCharacterLimitValidation = JSON.parse(embossingCharacterLimitValidation);
+        }
+        
+        
+        if(params.orientation == 'isVertical') {
+            characterLimit = embossingCharacterLimitValidation.verticalTextLimit;
+        } else if (params.orientation == 'isHorizontal') {
+            characterLimit = embossingCharacterLimitValidation.horizontalTextLimit;
+        }
+    }
+    
 	// Check for embossedMessage/engravedMessage received
     if (embossedMessage || engravedMessage) {
         var validEmbossMessage = true;
@@ -514,7 +548,12 @@ function updateOptionsAndMessage(req, params) {
 
 		// validate embossedMessage message
         if (embossedMessage) {
-            validEmbossMessage = validateEmbossMessage(embossedMessage);
+            if (siteID == 'OliviaBurtonUK') { 
+                validEmbossMessage = validateEmbossMessageByOrientation(embossedMessage, characterLimit);
+            } else {
+                validEmbossMessage = validateEmbossMessage(embossedMessage);
+            }
+            
             if (!validEmbossMessage) {
                 params.validationErrorEmbossed = Resource.msg('error.emboss.message', 'product', null);
                 req.session.raw.custom.appleEmbossedMessage = '';

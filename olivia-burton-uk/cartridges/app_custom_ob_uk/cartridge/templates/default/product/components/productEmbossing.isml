@@ -28,11 +28,13 @@
             <p>${pdict.product.assets.embossingTop}</p>
             <div class="row m-0">
                 <div class="col col-sm-auto mb-3">
-                    <input type="radio" name="orientation" class="form-check-input default-checked-radio-button" value="isHorizontal" data-name="orientation" id="orientation-horizontal" required checked="checked">
+                    <input type="radio" name="orientation" class="form-check-input default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
+                    data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
                     <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
                 </div>
                 <div class="col col-sm-auto mb-3">
-                    <input type="radio" name="orientation" class="form-check-input" value="isVertical" data-name="orientation" id="orientation-vertical" required>
+                    <input type="radio" name="orientation" class="form-check-input" value="isVertical" data-name="orientation" data-characterlimit="${product.embossingTextValidations['verticalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-vertical" required 
+                    data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
                     <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
                 </div>
             </div>

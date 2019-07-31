@@ -6,6 +6,7 @@ module.exports = {
 
     addToCart: base.addToCart,
     allowOnlyAlphaNumericInput: base.allowOnlyAlphaNumericInput,
+    switchEmbossOrientation: base.switchEmbossOrientation,
 
     updateAttributesAndDetails: function () {
         $('body').on('product:statusUpdate', function (e, data) {

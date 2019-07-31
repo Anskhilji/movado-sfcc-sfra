@@ -18,10 +18,18 @@ module.exports = function (object, apiProduct) {
         	EstimatedTotal: Resource.msg('label.product.detail.estimated.total', 'product', null),
         	Personalization: Resource.msg('label.product.option.personalization', 'product', null),
         	embossingPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.embossing', 'product', null),
+        	
+        	embossingHorizontalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.horizontal.embossing', 'product', null),
+        	embossingVerticalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.vertical.embossing', 'product', null),
+        	
         	engravingPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.engraving', 'product', null),
         	Free: Resource.msg('label.product.option.personalization.Free', 'product', null),
             errorEmptyEmbossText: Resource.msg('label.product.personalization.mandatory.embossing.message', 'product', null),
             errorMaxlengthEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.message', 'product', null),
+            
+            errorMaxlengthHorizontalEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.horizontal.message', 'product', null),
+            errorMaxlengthVerticalEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.vertical.message', 'product', null),
+            
         	errorEmptyEngraveText: Resource.msg('label.product.personalization.mandatory.engarving.message', 'product', null),
         	errorMaxlengthEngraveText: Resource.msg('label.product.personalization.maxlength.engarving.message', 'product', null),
         	viewMoreStyles: Resource.msg('label.product.recommendations.viewMoreStyles', 'product', null),
