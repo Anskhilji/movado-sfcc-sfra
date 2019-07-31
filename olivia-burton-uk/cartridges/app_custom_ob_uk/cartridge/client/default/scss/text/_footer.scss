@@ -29,8 +29,8 @@ footer {
 
   h3 {
     color: $black;
-    font-family: $font-gill-std;
-    font-size: $font-size-text-heading1;
+    font-family: $font-garamond;
+    font-size: $font-size-heading3;
     letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
@@ -83,8 +83,8 @@ footer {
     .footer {
       &-item {
         h3 {
-          font-family: $font-museo-std;
-          font-size: $font-size-text-heading1;
+          font-family: $font-garamond;
+          font-size: $font-size-heading3;
           letter-spacing: rem(0.4);
           font-weight: $font-semi-bold;
         }

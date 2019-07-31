@@ -39,16 +39,26 @@ server.append(
 	consentTracking.consent,
 	csrfProtection.generateToken,
 	function (req, res, next) {
-    var viewData = res.getViewData();
-    var actionUrls = viewData.order.checkoutCouponUrls;
-    var totals = viewData.order.totals;
+        var Site = require('dw/system/Site');
+        
+        var viewData = res.getViewData();
+        var actionUrls = viewData.order.checkoutCouponUrls;
+        var totals = viewData.order.totals;
+        var userTracking;
+        
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+            if(viewData.customer.profile) {
+                userTracking = {email: viewData.customer.profile.email};
+            }
+        }
 
-    res.setViewData({
-        actionUrls: actionUrls,
-        totals: totals
-    });
+        res.setViewData({
+            actionUrls: actionUrls,
+            totals: totals,
+            userTracking: JSON.stringify(userTracking)
+        });
 
-    next();
+        next();
 });
 
 module.exports = server.exports();

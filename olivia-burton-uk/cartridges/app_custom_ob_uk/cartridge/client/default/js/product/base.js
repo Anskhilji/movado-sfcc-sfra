@@ -244,12 +244,14 @@ function removeOption($productOptionContainer) {
     } else {
         $productOptionContainer.find('input[type="text"], textarea').val("");
         $productOptionContainer.find("form").removeClass('submitted');
+        $productOptionContainer.find('input[name="orientation"]').attr('disabled', false).change();
+        $productOptionContainer.find('.default-checked-radio-button').prop('checked', true).trigger('click').change();
     }
 
     $productOptionContainer.find("button").removeClass('submitted');
     $productOptionContainer.find('input[type="text"], textarea').removeAttr("readonly");
     $productOptionContainer.find('input[type="radio"]:eq(0)').prop('checked', true).change();
-    $productOptionContainer.find('.default-checked-radio-button').prop('checked', true).change();
+    $productOptionContainer.find('input[name="orientation"]').attr('disabled', false).change();
     $productOptionContainer.closest('form').validate().resetForm();
 }
 
@@ -261,6 +263,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         optionForm.find("button").removeClass('submitted');
         optionForm.find('input[type="text"], textarea').removeAttr("readonly");
         optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
+        optionForm.find('input[name="orientation"]').attr('disabled', false).change();
         validateOptions(optionForm).showErrors({
             "option-message": embossedMessageError
         });
@@ -381,7 +384,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
 
         selectedValueUrl = new URL(selectedValueUrl);
 
-        $productContainer.find('input[type="text"], textarea').filter('[required]:visible')
+        $productContainer.find('input[type="text"], textarea, input[type="radio"]:checked').filter('[required]:visible')
         .each(function() {
             if($(this).val() && $(this).closest("form.submitted").length) {
                 selectedValueUrl.searchParams.append($(this).data('name'), $(this).val());
@@ -685,6 +688,7 @@ module.exports = {
                     $(this).addClass('submitted');
                     $this.find('input[type="text"], textarea').attr("readonly", true);
                     $this.find('input[type="radio"]').eq(1).prop('checked', true).change();
+                    $this.find('input[name="orientation"]').attr('disabled', true).change();
                 }
             }
 
@@ -942,6 +946,21 @@ module.exports = {
             }
             e.preventDefault();
             return false;
+        });
+    },
+    switchEmbossOrientation: function () {
+        $(document).off('click', 'form[name="embossing"] input[name="orientation"]').on('click', 'form[name="embossing"] input[name="orientation"]', function (e) {
+            var orientationRadioBtn = $(this);
+            var input = $(orientationRadioBtn.data('input'));
+            
+            if ($(this).is(':checked')) {
+                if(input.attr('maxlength') != orientationRadioBtn.data('characterlimit')) {
+                    input.val('');
+                }
+                input.attr('maxlength', orientationRadioBtn.data('characterlimit'));
+                input.attr('placeholder', orientationRadioBtn.data('placeholder'));
+                input.attr('data-format-error', orientationRadioBtn.data('format-error'));
+            }
         });
     },
 

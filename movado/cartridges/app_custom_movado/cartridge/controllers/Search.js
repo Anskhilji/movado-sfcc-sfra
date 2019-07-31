@@ -19,6 +19,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
+    var Site = require('dw/system/Site');
 
     var categoryTemplate = '';
     var productSearch;
@@ -35,6 +36,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var searchRedirect = req.querystring.q
         ? apiProductSearch.getSearchRedirect(req.querystring.q)
         : null;
+    var categoryAnalyticsTrackingData;
 
     if (searchRedirect) {
         res.redirect(searchRedirect.getLocation());
@@ -81,6 +83,10 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
+    
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        categoryAnalyticsTrackingData = {categoryId: productSearch.category.id};
+    }
 
     if (
         productSearch.isCategorySearch
@@ -94,7 +100,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 productSearch: productSearch,
                 maxSlots: maxSlots,
                 reportingURLs: reportingURLs,
-                refineurl: refineurl
+                refineurl: refineurl,
+                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
             });
         } else {
             res.render(categoryTemplate, {
@@ -102,7 +109,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 maxSlots: maxSlots,
                 category: apiProductSearch.category,
                 reportingURLs: reportingURLs,
-                refineurl: refineurl
+                refineurl: refineurl,
+                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
             });
         }
     } else {
@@ -110,7 +118,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             productSearch: productSearch,
             maxSlots: maxSlots,
             reportingURLs: reportingURLs,
-            refineurl: refineurl
+            refineurl: refineurl,
+            categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
         });
     }
 

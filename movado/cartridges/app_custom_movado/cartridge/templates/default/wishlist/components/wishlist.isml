@@ -4,7 +4,7 @@
         <isif condition="${!pdict.wishlist.publicView && pdict.wishlist.items.length > 0}">
             <div class="row">
                 <div class="col-12">
-                    <div class="custom-control custom-checkbox wishlist-hide">
+                    <div class="custom-control custom-checkbox wishlist-hide checkbox-wishlist-hide">
                         <input ${!pdict.wishlist.publicList ? 'checked="checked"' : ''} class="custom-control-input" type="checkbox" value="" id="isPublicList" name="isPublicList" data-id="${pdict.wishlist.UUID}" data-url="${URLUtils.url('ProductList-TogglePublic', 'type', 10)}">
                         <label for="isPublicList" class="custom-control-label wishlist-checkbox">
                             ${Resource.msg('checkbox.makePublic', 'wishlist', null)}

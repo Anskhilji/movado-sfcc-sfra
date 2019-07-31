@@ -63,7 +63,7 @@ button {
 
       p {
         color: $white;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         line-height: 1.3rem;
         padding-top: 1.875rem;
         padding-left: 5%;
@@ -92,6 +92,20 @@ button {
       }
     }
   }
+}
+
+footer-links {
+    color: #000;
+    font-family: $font-museo-light;
+    font-size: 0.87375rem;
+}
+
+footer h3 {
+    @extend footer-links;
+}
+
+footer .content li a {
+    @extend footer-links;
 }
 
 @include media-breakpoint-down(xs) {

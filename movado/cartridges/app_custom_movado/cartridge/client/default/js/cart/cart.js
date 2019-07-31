@@ -423,6 +423,10 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
+                    if(data.cartAnalyticsTrackingData) {
+                        setAnalyticsTrackingByAJAX.cartTracking = data.cartAnalyticsTrackingData;
+                        window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                    }
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {

@@ -8,6 +8,10 @@ function processSubscription(response) {
         if (!response.error) {
             $('.submission-status div').attr('class', 'success');
             $('#add-to-email-list').prop('checked', response.customerFound);
+            if(response.isanalyticsTrackingEnabled && response.userTracking) {
+                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
         } else {
             $('.submission-status div').attr('class', 'error');
         }

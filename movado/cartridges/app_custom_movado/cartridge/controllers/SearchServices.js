@@ -13,6 +13,7 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
     var ProductSuggestions = require('*/cartridge/models/search/suggestions/product');
     var SearchPhraseSuggestions = require('*/cartridge/models/search/suggestions/searchPhrase');
     var CollectionSuggestions = require('*/cartridge/models/search/suggestions/collections');
+    var Site = require('dw/system/Site');
     var collectionSuggestions;
     var categorySuggestions;
     var contentSuggestions;
@@ -25,6 +26,7 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
 
     var minChars = Site.getCurrent().getCustomPreferenceValue('SearchMinChars');
     var maxSuggestions = Site.getCurrent().getCustomPreferenceValue('SearchMaxSuggestions');
+    var searchAnalyticsTrackingData;
 
     if (searchTerms && searchTerms.length >= minChars) {
 		// creating a new suggestion model
@@ -53,6 +55,10 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
             }
         }
 
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+            searchAnalyticsTrackingData = {search: searchTerms};
+        }
+
         if (productSuggestions.available || contentSuggestions.available
 				|| categorySuggestions.available
 				|| recentSuggestions.available
@@ -69,7 +75,8 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
                     brand: brandSuggestions,
                     collection: collectionSuggestions,
                     didYouMeanPresence: didYouMeanPresence
-                }
+                },
+                searchAnalyticsTrackingData: JSON.stringify(searchAnalyticsTrackingData)
             });
         } else {
             res.json({});

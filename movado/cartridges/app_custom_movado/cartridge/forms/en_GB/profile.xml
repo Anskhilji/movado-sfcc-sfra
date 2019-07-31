@@ -107,7 +107,7 @@
 			formid="phone"
 			label="label.input.phone.profile"
 			mandatory="true"
-			regexp="(^((\(?0\d{4}\)?\s?\d{3}\s?\d{3})|(\(?0\d{3}\)?\s?\d{3}\s?\d{4})|(\(?0\d{2}\)?\s?\d{4}\s?\d{4}))(\s?#(\d{4}|\d{3}))?$)"
+			regexp="(^\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*$)"
 			missing-error="error.message.required"
 			parse-error="error.message.parse.phone.profile.form"
 			type="string"/> 
