@@ -1,0 +1,30 @@
+.product-whyByMe-details {
+    font-size: $font-size-main-heading6;
+    font-weight: 300;
+    letter-spacing: .05em;
+    line-height: 1.1em;
+    outline: 0;
+    font-style: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 2px solid #E1E2E3;
+    padding-bottom: 3px
+}
+
+.why-buy-me {
+    @extend .product-whyByMe-details; 
+    margin-bottom: rem(18.992);
+
+    &-details {
+        letter-spacing: .025em;
+        font-weight: 400;
+        vertical-align: baseline;
+    }
+}
+
+.description-heading {
+    @extend .product-whyByMe-details;
+    margin-bottom: rem(20);   
+}
