@@ -306,16 +306,23 @@ module.exports = {
     },
 
     paymentTabs: function () {
-        $('.payment-options .accordion-link').on('click', function (e) {
+        $('.payment-options .accordion-link').on('click', function () {
             var methodID = $(this).closest('.form-check').data('method-id');
+            var brandCode = $(this).closest('.form-check').data('brand-code');
             $(this).parent().find('a').trigger('click');
             $('#selectedPaymentOption').val(methodID);
             $('.payment-information').data('payment-method-id', methodID);
             $('#adyenPaymentMethod, #brandCode').val('');
 
-            if (methodID === 'Adyen') {
-                $('#adyenPaymentMethod').val('PayPal');
-                $('#brandCode').val('paypal');
+            if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && !brandCode) {
+                $('#adyenPaymentMethod').val(Resources.PAYPAL_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.PAYPAL_PAYMENT_METHOD_BRAND_CODE);
+            } else if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && brandCode === Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE) {
+                $('#adyenPaymentMethod').val(Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE);
+            } else if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && brandCode === Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE) {
+                $('#adyenPaymentMethod').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
             }
         });
     }

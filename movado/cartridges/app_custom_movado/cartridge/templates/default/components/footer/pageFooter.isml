@@ -53,5 +53,8 @@
         </div>
     </div>
     <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>  
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
+    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+    <isinclude template="resources/appresources"/>
+
 </footer>

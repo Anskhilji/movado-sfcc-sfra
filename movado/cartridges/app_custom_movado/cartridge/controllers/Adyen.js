@@ -12,6 +12,7 @@ var Resource = require('dw/web/Resource');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Status = require('dw/system/Status');
 var Order = require('dw/order/Order');
+var constants = require('*/cartridge/scripts/helpers/constants.js');
 
 server.replace('Redirect', server.middleware.https, function (req, res, next) {
 	  var	adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
@@ -61,12 +62,17 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 });
 
 server.replace('ShowConfirmation', server.middleware.https, function (req, res, next) {
+    var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+    var Order = require('dw/order/Order');  
+    var Status = require('dw/system/Status');
     var order = null;
     if (req.querystring.merchantReference) {
         order = OrderMgr.getOrder(req.querystring.merchantReference.toString());
+    } else if (session.custom.brandCode.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+      order = OrderMgr.getOrder(session.custom.orderNo);
     }
 
-    if (req.querystring.authResult.value != 'CANCELLED') {
+    if (req.querystring.authResult && req.querystring.authResult.value !== constants.PAYMENT_STATUS_CANCELLED) {
         var requestMap = new Array();
         for (var item in req.querystring) {
             if (item !== 'toString') {
@@ -86,13 +92,14 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         }
     }
 
-    var Status = require('dw/system/Status');
-    var Order = require('dw/order/Order');
-    var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var orderNumber = order.orderNo;
     var paymentInstrument = order.paymentInstrument;
-  // AUTHORISED: The payment authorisation was successfully completed.
-    if (req.querystring.authResult == 'AUTHORISED') {
+    var viewData = res.getViewData();
+    var klarnaPaymentStatus = viewData.klarnaPaymentStatus;
+    var klarnaPaymentMethod = viewData.klarnaPaymentMethod;
+    var klarnaPaymentPspReference = viewData.klarnaPaymentPspReference;
+    // AUTHORISED: The payment authorisation was successfully completed.
+    if (req.querystring.authResult === constants.PAYMENT_STATUS_AUTHORISED || (klarnaPaymentStatus && klarnaPaymentStatus.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED)) {
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
 
@@ -115,15 +122,21 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 	    if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
 	    	order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
 	    }
-	    order.setExportStatus(Order.EXPORT_STATUS_READY);
-	    order.custom.Adyen_eventCode = 'CAPTURE';
+      order.setExportStatus(Order.EXPORT_STATUS_READY);
+      order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
+          ? klarnaPaymentStatus.toUpperCase()
+          : constants.PAYMENT_STATUS_CAPTURE;
 	    order.custom.Adyen_value = order.totalGrossPrice.value;
-            if ('pspReference' in req.querystring && req.querystring.pspReference) {
-                order.custom.Adyen_pspReference = req.querystring.pspReference;
-            }
-            if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
-                order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
-            }
+      if ('pspReference' in req.querystring && req.querystring.pspReference) {
+          order.custom.Adyen_pspReference = req.querystring.pspReference;
+      } else if (klarnaPaymentPspReference) {
+        order.custom.Adyen_pspReference = klarnaPaymentPspReference;
+      }
+      if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
+          order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
+      } else if (klarnaPaymentMethod) {
+        order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
+      }
 	    Transaction.commit();
 
             var checkoutDecisionStatus = hooksHelper(

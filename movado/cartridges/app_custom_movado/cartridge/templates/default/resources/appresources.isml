@@ -1,0 +1,14 @@
+<iscontent type="text/javascript" charset="UTF-8" compact="true"/>
+
+<iscomment>
+    This template will render client side messages loaded from 
+    resource bundle in JavaScript.
+</iscomment>
+<isscript>
+    var ResourceHelper = require('*/cartridge/scripts/helpers/resourceHelper');
+</isscript>
+<script>
+    (function(){
+        window.Resources = <isprint value="${JSON.stringify(ResourceHelper.getResources())}" encoding="off"/>;
+    }());
+</script>

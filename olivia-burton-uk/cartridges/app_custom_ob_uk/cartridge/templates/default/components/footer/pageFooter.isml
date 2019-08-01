@@ -60,4 +60,6 @@
             <h3 class="cookie-close"></h3>
         </div>
     </div>
+    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+    <isinclude template="resources/appresources"/>
 </footer>
