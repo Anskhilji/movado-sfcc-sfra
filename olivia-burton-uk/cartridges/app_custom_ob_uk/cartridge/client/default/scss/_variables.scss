@@ -23,23 +23,13 @@
   src: url('../fonts/AGaramondPro_Italic.otf');
 }
 
-@font-face {
-  font-family: "EBGaramond-Pro-italic";
-  src: url('../fonts/EBGaramond-RegularItalic.ttf');
-}
-
 //font family
-$font-medium : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-book : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-bold : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-primary: $font-book;
 $font-museo-std: "Museo-Slab-Medium", "Courier New", monospace;
 $font-museo-light: "Museo-Slab-Light", "Courier New", monospace;
 $font-gill-std: "Gill-Sans-MT-Std", Arial, sans-serif;
 $font-gills-light: "Gill-Sans-MT-Light", Arial, sans-serif;
 $font-family-adobe: "Adobe-Garamond-Pro", Times, serif;
 $font-adobe: "Adobe-Garamond-Pro", Times, serif;
-$font-garamond: "EBGaramond-Pro-italic", Arial, sans-serif;
 
 //font size
 $font-size-title-heading1: rem(60);
@@ -60,7 +50,7 @@ $font-size-heading2: rem(16);
 $font-size-heading3: rem(15);
 $font-size-text-heading1: rem(13.98);
 $font-size-text-heading2: rem(13);
-$font-size-text1: rem(12);
+$font-size-text1: rem(12.5);
 $font-size-text2: rem(11);
 $font-size-text3: rem(10);
 $font-size-text4: rem(9.44);
