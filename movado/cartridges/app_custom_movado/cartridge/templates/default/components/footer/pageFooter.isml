@@ -53,5 +53,5 @@
         </div>
     </div>
     <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>  
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
 </footer>

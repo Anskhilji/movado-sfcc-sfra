@@ -21,9 +21,10 @@ server.append('Confirm', function (req, res, next) {
         var orderLineItemsIterator = orderLineItems.iterator();
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
-            if (productLineItem instanceof dw.order.ProductLineItem) {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
                 analyticsTrackingLineItems.push ({
-                    item:  productLineItem.productID,
+                    item:  productLineItem.productName,
                     quantity: productLineItem.quantityValue,
                     price: productLineItem.basePrice.decimalValue.get(),
                     unique_id: productLineItem.productID
@@ -33,7 +34,8 @@ server.append('Confirm', function (req, res, next) {
         orderAnalyticsTrackingData = {
             cart: analyticsTrackingLineItems,
             order_number: viewData.order.orderNumber,
-            shipping: order.getShippingTotalGrossPrice,
+            shipping: order.getShippingTotalGrossPrice().toString(),
+            tax: order.getTotalTax().getDecimalValue().toString(),
             customerEmailOrUniqueNo: order.getCustomerEmail() ? order.getCustomerEmail() : order.getCustomerNo()
         };
     }

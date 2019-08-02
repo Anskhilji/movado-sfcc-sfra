@@ -105,7 +105,7 @@ server.append(
                 var analyticsTrackingLineItems = [];
                 for (var i = 0; i < basketModel.items.length; i++) {
                     analyticsTrackingLineItems.push ({
-                        item:  basketModel.items[i].id,
+                        item:  basketModel.items[i].productName,
                         quantity: basketModel.items[i].quantity,
                         price: basketModel.items[i].price.sales.decimalPrice,
                         unique_id: basketModel.items[i].id
@@ -115,9 +115,7 @@ server.append(
             } else {
                 cartAnalyticsTrackingData = {clear_cart: true};
             }
-            cartAnalyticsTrackingData.customerEmailOrUniqueNo = currentBasket.getCustomerEmail()
-                ? currentBasket.getCustomerEmail()
-                : customer.getID();
+            cartAnalyticsTrackingData.customerEmailOrUniqueNo = (customer.isAuthenticated() ? customer.getProfile().getEmail() : customer.getID())
         }
 
         res.setViewData({
@@ -238,7 +236,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
                 clear_cart: true,
-                customerEmailOrUniqueNo : currentBasket.getCustomerEmail() ? currentBasket.getCustomerEmail() : customer.getID()
+                customerEmailOrUniqueNo : (customer.isAnonymous() ? customer.getID() : customer.getProfile().getemail())
             };
         }
         res.setViewData({ emptyCartDom: emptyCartDom.markup, cartAnalyticsTrackingData: cartAnalyticsTrackingData });
