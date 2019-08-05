@@ -4,12 +4,8 @@
     font-size: $font-size-main-heading3;
     font-style: italic;
     letter-spacing: rem(1);
-    text-transform: lowercase !important;
+    text-transform: unset !important;
     width: 96%;
-
-    &::first-line {
-      text-transform: capitalize;
-    }
   }
 
   .product-availability {
@@ -193,11 +189,7 @@
     font-size: $font-size-main-heading3;
     font-style: italic;
     letter-spacing: rem(1);
-    text-transform: lowercase !important;
-
-    &::first-line {
-      text-transform: capitalize;
-    }
+    text-transform: unset !important;
   }
 
   .product-options {
