@@ -60,4 +60,5 @@
             <h3 class="cookie-close"></h3>
         </div>
     </div>
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
 </footer>

@@ -78,11 +78,7 @@
         font-weight: $font-semi-bold;
         letter-spacing: rem(0.4);
         color: $black;
-        text-transform: lowercase;
-
-        &::first-line {
-          text-transform: capitalize;
-        }
+        text-transform: unset;
       }
 
       a {
@@ -125,11 +121,7 @@
       font-weight: $font-semi-bold;
       letter-spacing: rem(0.4);
       color: $black;
-      text-transform: lowercase;
-
-      &::first-line {
-        text-transform: capitalize;
-      }
+      text-transform: unset;
     }
 
     a {
@@ -155,7 +147,7 @@
 
 div.store-locator-hero {
   h1.page-title {
-    font-family: $font-garamond;
+    font-family: $font-adobe;
     font-size: $font-size-title6;
     letter-spacing: rem(1.8);
     color: $white;
