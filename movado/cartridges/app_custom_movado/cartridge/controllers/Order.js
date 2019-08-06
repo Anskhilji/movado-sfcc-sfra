@@ -26,7 +26,7 @@ server.append('Confirm', function (req, res, next) {
                 analyticsTrackingLineItems.push ({
                     item:  productLineItem.productName,
                     quantity: productLineItem.quantityValue,
-                    price: productLineItem.basePrice.decimalValue.get(),
+                    price: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
                     unique_id: productLineItem.productID
                 });
             }
