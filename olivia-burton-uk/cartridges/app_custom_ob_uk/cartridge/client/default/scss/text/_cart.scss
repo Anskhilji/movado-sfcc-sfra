@@ -9,6 +9,19 @@
       content: '';
     }
   }
+  
+  .cart {
+    &-empty {
+      .empty {
+        &-cart {
+          &-header {
+            font-family: $font-gill-std;
+            font-weight: $font-semi-bolder;
+          }
+        }
+      }
+    }
+  }
 
   select.custom-select + i {
     top: rem(11.2);
@@ -111,7 +124,7 @@
     p.grand-total {
       font-family: $font-gill-std;
       font-size: $font-size-heading1;
-      font-weight: $font-semi-bold;
+      font-weight: $font-semi-bolder;
     }
   }
 
@@ -182,6 +195,7 @@
 
       .total-amount {
         color: $black;
+        font-size: $font-size-heading1;
       }
     }
   }
@@ -192,7 +206,7 @@ div.checkout-button-wrapper {
     span {
       font-family: $font-gill-std;
       font-size: $font-size-heading2;
-      font-weight: $font-semi-bold;
+      font-weight: $font-semi-bolder;
       letter-spacing: rem(0.46);
     }
   }
@@ -234,9 +248,9 @@ div.checkout-button-wrapper {
   .estimated-total {
     .sub-total-label,
     .sub-total {
-      font-family: $font-adobe;
+      font-family: $font-gill-std;
       font-size: $font-size-heading2;
-      font-weight: $font-semi-bold;
+      font-weight: $font-semi-bolder;
       letter-spacing: rem(0.46);
     }
   }

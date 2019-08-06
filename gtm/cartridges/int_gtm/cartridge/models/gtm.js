@@ -400,7 +400,7 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
                     variant: variants,
                     price: productPrice,
-                    revenue: productPrice,
+                    revenue: cartItem.grossPrice.value,
                     tax: cartItem.tax.value,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.value,
                     coupon: appliedCoupons });
@@ -583,12 +583,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.name = productLineItem.product.name;
             produtObj.brand = productLineItem.product.brand;
             produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? productLineItem.product.masterProduct.primaryCategory.ID
-			    				: '')
-			    				: ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID
-			    						: ''));
-			    produtObj.variant = variants;
-			    produtObj.price = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.value) : (productLineItem.product.priceModel.minPrice.value));
-			    produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+                : '')
+                : ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID : ''));
+            produtObj.variant = variants;
+            produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
+            produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
 			    produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
 
