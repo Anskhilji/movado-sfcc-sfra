@@ -62,4 +62,5 @@
     </div>
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
     <isinclude template="resources/appresources"/>
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
 </footer>

@@ -4,7 +4,7 @@ body {
 
 .hero {
   h1.page-title {
-    font-family: $font-garamond;
+    font-family: $font-adobe;
     font-size: $font-size-title6;
     font-style: italic;
     letter-spacing: rem(1.8);
@@ -36,6 +36,7 @@ body {
   font-size: $font-size-text-heading1;
   font-weight: $font-semi-bold;
   letter-spacing: rem(2);
+  background-color: transparent;
 }
 
 .btn-primary {
@@ -72,7 +73,7 @@ select + i.fa {
 }
 
 .heading-one {
-  font-family:$font-garamond;
+  font-family: $font-adobe;
   font-size: $font-size-title6;
   letter-spacing: rem(1.8);
 }
@@ -82,28 +83,48 @@ a {
 }
 
 .heading-two {
-  font-family: $font-garamond;
-  font-size: rem(30);
+  font-family: $font-gills-light;
+  font-size: $font-size-main-heading6;
   letter-spacing: rem(0.4);
 }
 
 .heading-three {
-  font-family: $font-garamond;
+  font-family: $font-gills-light;
   font-size: $font-size-heading1;
   letter-spacing: rem(0.4);
 }
 
 .heading-four {
-  font-family: $font-garamond;
+  font-family:  $font-gills-light;
   font-size: $font-size-heading3;
   letter-spacing: rem(0.4);
+}
+
+.pt_customerservice {
+  .heading-two {
+    font-family: $font-adobe;
+    font-size: rem(30);
+    letter-spacing: rem(0.4);
+  }
+
+  .heading-three {
+    font-family: $font-adobe;
+    font-size: $font-size-heading1;
+    letter-spacing: rem(0.4);
+  }
+
+  .heading-four {
+    font-family:  $font-adobe;
+    font-size: $font-size-heading3;
+    letter-spacing: rem(0.4);
+  }
 }
 
 body {
   .order-summary-title {
     h5,
     .grand-total-label {
-      font-family: $font-garamond;
+      font-family: $font-gills-light;
       font-size: $font-size-heading3;
       letter-spacing: rem(0.4);
       font-weight: normal;
@@ -162,11 +183,7 @@ form {
     font-size: $font-size-text1;
     letter-spacing: rem(0.35);
     font-weight: normal;
-    text-transform: lowercase;
-
-    &::first-line {
-      text-transform: capitalize;
-    }
+    text-transform: unset;
   }
 }
 

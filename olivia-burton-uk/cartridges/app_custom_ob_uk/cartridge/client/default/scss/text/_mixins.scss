@@ -3,7 +3,7 @@ $base-font-size: $font-size-heading2;
 
 @mixin primary-font-obuk {
   font-family: $font-gills-light;
-  font-size: rem(14);
+  font-size: $font-size-text-heading1;
   font-weight: $font-light;
   line-height: normal;
   letter-spacing: rem(2);

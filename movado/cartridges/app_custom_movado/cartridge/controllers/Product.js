@@ -50,7 +50,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     }
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        pdpAnalyticsTrackingData = {item: product.ID};
+        pdpAnalyticsTrackingData = {item: product.getName()};
     }
     
     viewData = {

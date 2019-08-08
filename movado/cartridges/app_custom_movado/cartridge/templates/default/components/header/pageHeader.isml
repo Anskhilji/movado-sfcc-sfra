@@ -48,6 +48,6 @@
     <div class="search-mobile d-md-none">
       <isinclude template="components/header/search" />
     </div>
-    <isinclude template="analyticsTracking/analyticsTrackingHeader.isml">
+    <isinclude template="analyticsTracking/analyticsTrackingHeader.isml"/>
   </nav>
 </header>

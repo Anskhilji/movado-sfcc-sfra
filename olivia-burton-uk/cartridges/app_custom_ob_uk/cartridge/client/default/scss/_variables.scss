@@ -1,45 +1,43 @@
-@font-face {
-  font-family: "Museo-Slab-Medium";
-  src: url('../fonts/Museo_Slab_500.otf');
-}
+@font-face {font-family: 'MuseoSlab-100';src: url('../webfonts/39E093_0_0.eot');src: url('../webfonts/39E093_0_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_0_0.woff2') format('woff2'),url('../webfonts/39E093_0_0.woff') format('woff'),url('../webfonts/39E093_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'MuseoSlab-700';src: url('../webfonts/39E093_1_0.eot');src: url('../webfonts/39E093_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_1_0.woff2') format('woff2'),url('../webfonts/39E093_1_0.woff') format('woff'),url('../webfonts/39E093_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'MuseoSlab-900';src: url('../webfonts/39E093_2_0.eot');src: url('../webfonts/39E093_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_2_0.woff2') format('woff2'),url('../webfonts/39E093_2_0.woff') format('woff'),url('../webfonts/39E093_2_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'MuseoSlab-300';src: url('../webfonts/39E093_3_0.eot');src: url('../webfonts/39E093_3_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_3_0.woff2') format('woff2'),url('../webfonts/39E093_3_0.woff') format('woff'),url('../webfonts/39E093_3_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'MuseoSlab-1000';src: url('../webfonts/39E093_4_0.eot');src: url('../webfonts/39E093_4_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_4_0.woff2') format('woff2'),url('../webfonts/39E093_4_0.woff') format('woff'),url('../webfonts/39E093_4_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'MuseoSlab-500';src: url('../webfonts/39E093_5_0.eot');src: url('../webfonts/39E093_5_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_5_0.woff2') format('woff2'),url('../webfonts/39E093_5_0.woff') format('woff'),url('../webfonts/39E093_5_0.ttf') format('truetype');}
+ 
+  
+//@font-face {font-family: 'RockwellStd';src: url('../webfonts/39E093_6_0.eot');src: url('../webfonts/39E093_6_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_6_0.woff2') format('woff2'),url('../webfonts/39E093_6_0.woff') format('woff'),url('../webfonts/39E093_6_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'GaramondMTPro-Italic';src: url('../webfonts/39E093_7_0.eot');src: url('../webfonts/39E093_7_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_7_0.woff2') format('woff2'),url('../webfonts/39E093_7_0.woff') format('woff'),url('../webfonts/39E093_7_0.ttf') format('truetype');}
+ 
 
-@font-face {
-  font-family: "Museo-Slab-Light";
-  src: url('../fonts/Museo_Slab_300.otf');
-}
-
-@font-face {
-  font-family: "Gill-Sans-MT-Light";
-  src: url('../fonts/Gill_Sans_Light.otf');
-}
-
-@font-face {
-  font-family: "Gill-Sans-MT-Std";
-  src: url('../fonts/Gill_Sans_Medium.otf');
-}
-
-@font-face {
-  font-family: "Adobe-Garamond-Pro";
-  src: url('../fonts/AGaramondPro_Italic.otf');
-}
-
-@font-face {
-  font-family: "EBGaramond-Pro-italic";
-  src: url('../fonts/EBGaramond-RegularItalic.ttf');
-}
+@font-face {font-family: 'RockwellStd';src: url('../webfonts/39E094_0_0.eot');src: url('../webfonts/39E094_0_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_0_0.woff2') format('woff2'),url('../webfonts/39E094_0_0.woff') format('woff'),url('../webfonts/39E094_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'GillSansMTStd-Light';src: url('../webfonts/39E094_1_0.eot');src: url('../webfonts/39E094_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_1_0.woff2') format('woff2'),url('../webfonts/39E094_1_0.woff') format('woff'),url('../webfonts/39E094_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'GaramondMTStd-Italic';src: url('../webfonts/39E094_2_0.eot');src: url('../webfonts/39E094_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_2_0.woff2') format('woff2'),url('../webfonts/39E094_2_0.woff') format('woff'),url('../webfonts/39E094_2_0.ttf') format('truetype');}
+ 
 
 //font family
-$font-medium : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-book : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-bold : "EBGaramond-Pro-italic", Arial, sans-serif !default;
-$font-primary: $font-book;
-$font-museo-std: "Museo-Slab-Medium", "Courier New", monospace;
-$font-museo-light: "Museo-Slab-Light", "Courier New", monospace;
-$font-gill-std: "Gill-Sans-MT-Std", Arial, sans-serif;
-$font-gills-light: "Gill-Sans-MT-Light", Arial, sans-serif;
-$font-family-adobe: "Adobe-Garamond-Pro", Times, serif;
-$font-adobe: "Adobe-Garamond-Pro", Times, serif;
-$font-garamond: "EBGaramond-Pro-italic", Arial, sans-serif;
+$font-museo-std: "MuseoSlab-500", "Courier New", monospace;
+$font-museo-light: "MuseoSlab-300", "Courier New", monospace;
+$font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
+$font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;
+$font-family-adobe: "GaramondMTPro-Italic", Times, serif;
+$font-adobe: "GaramondMTPro-Italic", Times, serif;
 
 //font size
 $font-size-title-heading1: rem(60);
@@ -58,16 +56,17 @@ $font-size-main-heading6: rem(20);
 $font-size-heading1: rem(18);
 $font-size-heading2: rem(16);
 $font-size-heading3: rem(15);
-$font-size-text-heading1: rem(13.98);
+$font-size-text-heading1: rem(14);
 $font-size-text-heading2: rem(13);
 $font-size-text1: rem(12);
 $font-size-text2: rem(11);
 $font-size-text3: rem(10);
-$font-size-text4: rem(9.44);
+$font-size-text4: rem(9);
 
 //font weight
 $font-semi-bold: 500;
 $font-light: 300;
+$font-semi-bolder: 600;
 
 //color
 $black: #000;
