@@ -122,8 +122,33 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
                 error: true
             };
         }
+        order.custom.Adyen_eventCode = 'AUTHORISATION';
+        if ('PspReference' in result && !empty(result.PspReference)) {
+            paymentInstrument.paymentTransaction.transactionID = result.PspReference;
+            order.custom.Adyen_pspReference = result.PspReference;
+        }
+
+        if ('AuthorizationCode' in result && !empty(result.AuthorizationCode)) {
+            paymentInstrument.paymentTransaction.custom.authCode = result.AuthorizationCode;
+        }
+
+        if ('AdyenAmount' in result && !empty(result.AdyenAmount)) {
+            order.custom.Adyen_value = result.AdyenAmount;
+        }
+
+        if ('AdyenCardType' in result && !empty(result.AdyenCardType)) {
+            order.custom.Adyen_paymentMethod = result.AdyenCardType;
+        }
+        Transaction.commit();
         return {
-            error: false
+            error: false,
+            authorized: true,
+            authorized3d: true,
+            order: order,
+            paymentInstrument: paymentInstrument,
+            issuerUrl: result.IssuerUrl,
+            paRequest: result.PaRequest,
+            md: result.MD
         };
     }
 

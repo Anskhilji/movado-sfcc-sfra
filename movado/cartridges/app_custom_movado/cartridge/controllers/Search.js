@@ -85,7 +85,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     }
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        categoryAnalyticsTrackingData = {categoryId: productSearch.category.id};
+    	if (productSearch && productSearch.category && productSearch.category.id){
+    		categoryAnalyticsTrackingData = {categoryId: productSearch.category.id};
+    	}
     }
 
     if (
