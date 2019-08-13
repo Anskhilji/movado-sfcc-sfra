@@ -24,7 +24,8 @@
     "uploadCartridge": "sgmf-scripts --uploadCartridge app_storefront_base && sgmf-scripts --uploadCartridge modules",
     "watch": "sgmf-scripts --watch",
     "watch:static": "sgmf-scripts --watch static",
-    "release": "node bin/Makefile release --"
+    "release": "node bin/Makefile release --",
+    "compile:all": "npm run compile:js && npm run compile:scss && npm run compile:fonts"
   },
   "repository": {
     "type": "git",
