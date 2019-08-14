@@ -23,7 +23,8 @@
     "watch": "sgmf-scripts --watch",
     "release": "node bin/Makefile release --",
     "web": "webpack --watch",
-    "dev": "npm-run-all compile:scss compile:js -p -r"
+    "dev": "npm-run-all compile:scss compile:js -p -r",
+    "compile:all": "npm run compile:js && npm run compile:scss && npm run compile:fonts"
   },
   "author": "Innovadel Technologies",
   "license": "movado",
