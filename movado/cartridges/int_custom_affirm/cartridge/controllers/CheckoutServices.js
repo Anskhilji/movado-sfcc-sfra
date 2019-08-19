@@ -227,7 +227,9 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
-
+	  Transaction.wrap(function(){
+	      order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
+	  });
 	  // If payment is redirected, order is created first
 	  if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
 	    session.custom.orderNo = placeOrderResult.order.orderNo;

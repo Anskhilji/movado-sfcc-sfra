@@ -130,7 +130,8 @@ function placeOrder(order, fraudDetectionStatus) {
             if (placeOrderStatus === Status.ERROR) {
                 throw new Error();
             }
-            if (fraudDetectionStatus.status === 'flag') {
+	        //check if riskified is enabled and riskified analysis status is not approved(2).
+	        if (fraudDetectionStatus.status === 'flag' && order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value != 2) {
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
             } else {
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
