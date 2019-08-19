@@ -27,7 +27,7 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var Site = require('dw/system/Site');
-    
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var viewData = res.getViewData();
@@ -54,6 +54,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     }
     
     viewData = {
+        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
         moreStyleRecommendations: moreStyleRecommendations,
         youMayLikeRecommendations: youMayLikeRecommendations,
         collectionContentList: collectionContentList,
