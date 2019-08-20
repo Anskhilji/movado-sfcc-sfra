@@ -139,7 +139,48 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         if ('AdyenCardType' in result && !empty(result.AdyenCardType)) {
             order.custom.Adyen_paymentMethod = result.AdyenCardType;
         }
+        
+        if (result.Decision != 'ACCEPT') {
+            Transaction.rollback();
+            hooksHelper(
+                'app.fraud.detection.checkoutdenied',
+                'checkoutDenied',
+                orderNumber,
+                paymentInstrument,
+                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+            return {
+                error: true
+            };
+        }
+        // Save full response to transaction custom attribute
+        paymentInstrument.paymentTransaction.custom.Adyen_log = JSON
+            .stringify(result);
+        paymentInstrument.paymentTransaction.transactionID = result.PspReference;
+        paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
         Transaction.commit();
+        
+        var checkoutDecisionStatus = hooksHelper(
+                'app.fraud.detection.create',
+                'create',
+                orderNumber,
+                paymentInstrument,
+                require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+        if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
+        	// call hook for auth reverse using call cancelOrRefund api for safe side
+        	hooksHelper(
+                'app.riskified.paymentrefund',
+                'paymentRefund',
+                order,
+                order.getTotalGrossPrice().value,
+                true,
+                require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
+            return {
+                error: true
+            };
+        }
+        Transaction.wrap(function () {
+            OrderMgr.placeOrder(order);
+        });
         return {
             error: false,
             authorized: true,

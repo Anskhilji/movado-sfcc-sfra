@@ -85,7 +85,12 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 	    }
 
 	    Transaction.begin();
-	    order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
+	    //If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
+	    if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
+	        order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
+	    } else {
+	    	order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
+	    }
 	    order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
 	    paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
 	    Transaction.commit();
