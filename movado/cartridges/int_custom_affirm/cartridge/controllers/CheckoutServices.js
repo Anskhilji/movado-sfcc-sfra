@@ -227,7 +227,6 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
-
 	  // If payment is redirected, order is created first
 	  if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
 	    session.custom.orderNo = placeOrderResult.order.orderNo;
