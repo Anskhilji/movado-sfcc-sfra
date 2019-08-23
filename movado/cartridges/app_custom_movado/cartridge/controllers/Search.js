@@ -177,6 +177,20 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             });
         }
     }
+    
+    try {
+        var viewData = res.getViewData();
+        var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+        var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+
+        if (yotpoConfig.isCartridgeEnabled) {
+            session.custom.yotpoConfig = yotpoConfig;
+        }
+    } catch (ex) {
+        var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+        YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
+    }
+    
     return next();
 }, pageMetaData.computedPageMetaData);
 

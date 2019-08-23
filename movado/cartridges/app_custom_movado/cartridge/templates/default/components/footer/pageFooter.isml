@@ -52,6 +52,10 @@
             </div>
         </div>
     </div>
-    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>  
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
+    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+    
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+
+    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
+    <isinclude template="include/yotpofooter"/>
 </footer>

@@ -41,4 +41,7 @@
 
     <isinclude url="${URLUtils.http('Affirm-Tracking', 'orderId', pdict.order.orderNumber)}" >
 
+    <iscomment> Yotpo conversion tracking should be included in order confirmation page.</iscomment>
+    <isinclude template="tracking/yotpoconversiontracking" />
+
  </isdecorate>

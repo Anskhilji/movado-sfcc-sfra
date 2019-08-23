@@ -62,3 +62,8 @@
 	</isif>
 </isif>
 
+<iscomment>
+	The Yopto header file that loads JavaScript dynamically. It shoudl always be inlucded in header of the site.
+</iscomment>
+<isinclude template="include/yotpoheader"/>
+

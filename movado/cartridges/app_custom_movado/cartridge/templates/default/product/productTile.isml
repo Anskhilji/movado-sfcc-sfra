@@ -54,5 +54,11 @@
             </button>
         </isif>
     </div>
+    <div class="row m-10">
+        <div class="col d-flex align-items-center justify-content-center">
+            <isinclude template="product/components/ratings" />
+        </div>
+    </div>
+    
     <!-- END_dwmarker -->
 </div>
