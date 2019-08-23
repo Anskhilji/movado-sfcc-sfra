@@ -16,6 +16,8 @@ var ArrayList = require('dw/util/ArrayList');
 var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+var constants = require('app_custom_movado/cartridge/scripts/helpers/constants.js');
+var Resource = require('dw/web/Resource');
 
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
 var GIFTWRAP = 'GIFTWRAP';
@@ -1328,6 +1330,10 @@ function getPaymentMethodData(order) {
     var orderPaymentInstruments = order.getPaymentInstruments();
     var paymentMethodsMultiplePayments = new ArrayList();
     var paymentMethodData = {};
+    var KLARNA_SLICE_IT_CODE = Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null);
+    var KLARNA_SLICE_IT_TEXT = Resource.msg('checkout.payment.method.klarna.slice.it.brand.order.export.text', 'checkout', null);
+    var KLARNA_PAY_LATER_CODE = Resource.msg('checkout.payment.method.klarna.pay.later.brand.code', 'checkout', null);
+    var KLARNA_PAY_LATER_TEXT = Resource.msg('checkout.payment.method.klarna.pay.later.brand.order.export.text', 'checkout', null);
 
     if (orderPaymentInstruments && orderPaymentInstruments.length > 0) {
         for (var b = 0; b < orderPaymentInstruments.length; b++) {
@@ -1346,11 +1352,24 @@ function getPaymentMethodData(order) {
     }
 
     var paymentMethodObj = PaymentMgr.getPaymentMethod(paymentMethodsMultiplePayments[0]);
-    if ('SAPPaymentMethod' in paymentMethodObj.custom && paymentMethodObj.custom.SAPPaymentMethod) {
-        paymentMethodData.paymentMethod = paymentMethodObj.custom.SAPPaymentMethod;
+    
+    if (order.custom.Adyen_paymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+        switch (order.custom.Adyen_paymentMethod) {
+            case KLARNA_SLICE_IT_CODE:
+                paymentMethodData.paymentMethod=KLARNA_SLICE_IT_TEXT;
+                break;
+            case KLARNA_PAY_LATER_CODE:
+                paymentMethodData.paymentMethod=KLARNA_PAY_LATER_TEXT;
+        }
+        
     } else {
-        paymentMethodData.paymentMethod = '';
+        if ('SAPPaymentMethod' in paymentMethodObj.custom && paymentMethodObj.custom.SAPPaymentMethod) {
+            paymentMethodData.paymentMethod = paymentMethodObj.custom.SAPPaymentMethod;
+        } else {
+            paymentMethodData.paymentMethod = '';
+        }
     }
+    
     return paymentMethodData;
 }
 
