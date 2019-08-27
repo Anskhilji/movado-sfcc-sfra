@@ -1,29 +1,34 @@
 'use strict';
 
 function isCategoryNonCompareable(category) {
-    var isComparabelEnabled = category.custom.enableCompare;
-    var parentCategory = category.getParent();
-    if (!isComparabelEnabled) {
-        return true;
-    } else if (parentCategory) {
-        isCategoryNonCompareable(parentCategory);
-    } else {
+    var isComparabelDisabled = false;
+    while (category != null) {
+        isComparabelDisabled = category.custom.disabledDetailAndCompareable;
+        if (isComparabelDisabled == true) {
+           break;
+        }
+        category = category.getParent();
+    }
+    if (isComparabelDisabled == null || isComparabelDisabled == undefined) {
         return false;
     }
+    return isComparabelDisabled;
 }
+
 var isCompareableDisabled = function(productID) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var product = ProductMgr.getProduct(productID);
     var productCategories = product.getOnlineCategories();
     var categoriesIterator = productCategories.iterator();
-    var isCompareableDisabled = false;
+    var isDisabledCompareable = false;
     while (categoriesIterator.hasNext()) {
-        isCompareableDisabled = isCategoryNonCompareable(categoriesIterator.next());
-        if (isCompareableDisabled) {
+        var category = categoriesIterator.next();
+        isDisabledCompareable = isCategoryNonCompareable(category);
+        if (isDisabledCompareable) {
             break;
         }
     }
-    return isCompareableDisabled;
+    return isDisabledCompareable;
 }
 module.exports = {
     isCompareableDisabled: isCompareableDisabled
