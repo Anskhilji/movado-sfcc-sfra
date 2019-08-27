@@ -51,6 +51,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         pdpAnalyticsTrackingData = {item: product.getName()};
+    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile()
+    		? customer.getProfile().getEmail()
+    		: customer.getID();
     }
     
     viewData = {

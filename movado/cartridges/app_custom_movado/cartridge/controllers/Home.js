@@ -13,6 +13,7 @@ server.extend(page);
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var Site = require('dw/system/Site');
 
 server.append('Show', consentTracking.consent, cache.applyDefaultCache, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
@@ -21,6 +22,7 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var viewData = res.getViewData();
     var content = ContentMgr.getContent('ca-home-hreflang');
+    var userTracking;
 
     var folderSearch = searchCustomHelpers.setupContentFolderSearch('root');
     var contentObj = {
@@ -29,7 +31,11 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     		pageKeywords: folderSearch.folder.pageKeywords };
 
     pageMetaHelper.setPageMetaData(req.pageMetaData, contentObj);
-
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        if (customer.isAuthenticated() && customer.getProfile()) {
+            viewData.userTracking = JSON.stringify({email: customer.getProfile().getEmail()});
+        }
+    }
     viewData.content = content && content.custom && content.custom.body ? content.custom.body : '';
     res.setViewData(viewData);
     return next();

@@ -3,40 +3,67 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')}">
     <script>
         var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');
+        var triggerEvent;
 
-        if('${pdict.userTracking}' !== 'null') {
+        if('${pdict.userTracking}' != 'null') {
             analyticsTracking.user = JSON.parse('<isprint value="${pdict.userTracking}" encoding="htmlsinglequote"/>');
+            triggerEvent = 'setUserInfo';
         }
-        if('${pdict.cartAnalyticsTrackingData}' !== 'null') {
+        if('${pdict.cartAnalyticsTrackingData}' != 'null') {
             analyticsTracking.cart = JSON.parse('<isprint value="${pdict.cartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            if (analyticsTracking.cart.clear_cart) {
+            	triggerEvent = 'setClearCart';
+            } 
         }
-        if('${pdict.orderAnalyticsTrackingData}' !== 'null') {
+        if('${pdict.orderAnalyticsTrackingData}' != 'null') {
             analyticsTracking.order = JSON.parse('<isprint value="${pdict.orderAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
         }
-        if('${pdict.pdpAnalyticsTrackingData}' !== 'null') {
+        
+        if('${pdict.pdpAnalyticsTrackingData}' != 'null') {
             analyticsTracking.pdp = JSON.parse('<isprint value="${pdict.pdpAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            triggerEvent = 'itemDetails';
         }
-        if('${pdict.categoryAnalyticsTrackingData}' !== 'null') {
+        if('${pdict.categoryAnalyticsTrackingData}' != 'null') {
             analyticsTracking.category = JSON.parse('<isprint value="${pdict.categoryAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            if (analyticsTracking.category.searchQuery) {
+                triggerEvent = 'search';
+            } else {
+                triggerEvent = 'categorySearch';
+            }
+            
         }
 
-        if('${pdict.searchAnalyticsTrackingData}' !== 'null') {
+        if('${pdict.searchAnalyticsTrackingData}' != 'null') {
             analyticsTracking.search = JSON.parse('<isprint value="${pdict.searchAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
         }
 
         window.addEventListener ('analyticsTracking', function(e) {
             if(e.pdpAnalyticsTrackingData) {
                 analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
+                dataLayer.push({'analyticsTracking': analyticsTracking});
             }
 
             if(e.userTracking) {
                 analyticsTracking.user = JSON.parse(e.userTracking);
+                dataLayer.push({'event':'setUserInfo', 'analyticsTracking': analyticsTracking});
             }
 
             if (e.cartTracking) {
                 analyticsTracking.cart = JSON.parse(e.cartTracking);
+            	if (analyticsTracking.cart.clear_cart) {
+            		dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
+            	} else {
+            		dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
+            	}
+                
             }
+            
         });
-        dataLayer.push({'analyticsTracking': analyticsTracking});
+        if (triggerEvent) {
+        	dataLayer.push({'event': triggerEvent, 'analyticsTracking': analyticsTracking});
+        	triggerEvent = null;
+        } else {
+        	dataLayer.push({'analyticsTracking': analyticsTracking});
+        }
     </script>
 </isif>

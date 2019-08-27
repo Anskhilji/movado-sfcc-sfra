@@ -142,6 +142,29 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
         return productGtmArray;
 }
 
+function createAddtoCartAnalyticsTrackingArray(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+	var productDetail={};
+	var analyticsTrackingCartItems = [];
+	var variant;
+	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
+
+        if (pli.UUID == productUUID) {
+            var productID = pli.product.ID;
+            var productModel = productFactory.get({pid: productID});
+            var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+            variant=getProductOptions(embossedMessage,engravedMessage)
+                    productDetail={
+                        item : productID,
+                        quantity: pli.quantity.decimalValue.toString(),
+                        price : productPrice,
+                        unique_id: productID
+                    };
+            		analyticsTrackingCartItems.push(productDetail);
+                }
+        });
+
+        return analyticsTrackingCartItems;
+}
 
 function removeFromCartGTMObj(productLineItems){
 
@@ -264,7 +287,7 @@ module.exports = {
     validStringXSS:validStringXSS,
     validGiftMsgStringXSS:validGiftMsgStringXSS,
     getContentAssetContent: getContentAssetContent,
-    getcartPageHtml: getcartPageHtml
+    getcartPageHtml: getcartPageHtml,
+    createAddtoCartAnalyticsTrackingArray: createAddtoCartAnalyticsTrackingArray
 };
-
 
