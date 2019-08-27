@@ -18,19 +18,20 @@
 </div>
 
 <!-- Sales Tax -->
-<div class="row">
-    <div class="col-8">
-        <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('DisableSaleTaxTag').indexOf(dw.system.Site.getCurrent().getID()) === -1}">
+    <div class="row">
+        <div class="col-8">
+            <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+        </div>
+        <div class="col-4">
+            <isif condition="${pdict.totalTaxVal == '-'}">
+            	<p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
+            <iselse>
+            	<p class="text-right cost tax-total">${pdict.totals.totalTax}</p>
+            </isif>
+        </div>
     </div>
-    <div class="col-4">
-        <isif condition="${pdict.totalTaxVal == '-'}">
-        	<p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
-        <iselse>
-        	<p class="text-right cost tax-total">${pdict.totals.totalTax}</p>
-        </isif>
-    </div>
-</div>
-
+</isif>
 <div class="row">
     <div class="col-8">
         <p class="grand-total-label price-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
