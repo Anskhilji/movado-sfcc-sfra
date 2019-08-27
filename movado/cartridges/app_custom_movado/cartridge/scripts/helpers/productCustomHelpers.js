@@ -526,7 +526,7 @@ function updateOptionsAndMessage(req, params) {
     //For OliviaBurtonUK validate by orientation character limit
     var characterLimit = 2;
     var siteID = Site.getCurrent().getID();
-    if (siteID == 'OliviaBurtonUK') {
+    if (siteID == 'OliviaBurtonUK' || siteID == 'OliviaBurtonUS') {
         
         var embossingCharacterLimitValidation = Site.getCurrent().getCustomPreferenceValue('embossingTextValidations');
         if (embossingCharacterLimitValidation) {
@@ -548,7 +548,7 @@ function updateOptionsAndMessage(req, params) {
 
 		// validate embossedMessage message
         if (embossedMessage) {
-            if (siteID == 'OliviaBurtonUK') { 
+            if (siteID == 'OliviaBurtonUK' || siteID == 'OliviaBurtonUS') { 
                 validEmbossMessage = validateEmbossMessageByOrientation(embossedMessage, characterLimit);
             } else {
                 validEmbossMessage = validateEmbossMessage(embossedMessage);
