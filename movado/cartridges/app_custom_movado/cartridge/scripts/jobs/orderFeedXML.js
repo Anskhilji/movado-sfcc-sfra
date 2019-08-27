@@ -35,6 +35,7 @@ var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
 var TIME_FORMAT = 'yyyyMMddhhmmss';
 var BILLINGCURRENCY = Site.current.getID() == 'OliviaBurtonUK' ? 'GBP' : 'USD';
+var FIXEDFREIGHT = 'FIXEDFREIGHT';
 
 var orderFailedArray = new ArrayList();
 var fileExtension = '.xml';
@@ -1616,9 +1617,15 @@ function generateOrderXML(order) {
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeEndElement();
 
+                var requestDeliveryDate;
                 for (var i = 0; i < commerceItemsInfo.length; i++) {
                     var commerceItem = commerceItemsInfo[i];
                     /* Create EcommercePOItemHeader Elements: start*/
+                    
+                    if (commerceItem.RequestedDeliveryDate) {
+                        requestDeliveryDate = commerceItem.RequestedDeliveryDate;
+                    }
+                    
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('EcommercePOItem');
                     streamWriter.writeCharacters(''); streamWriter.writeRaw('\r\n');
@@ -1626,14 +1633,20 @@ function generateOrderXML(order) {
                     streamWriter.writeCharacters(commerceItem.POItemNumber);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('RequestedDeliveryDate');
-                    streamWriter.writeCharacters(commerceItem.RequestedDeliveryDate);
+                    streamWriter.writeStartElement('SKUNumber');
+                    streamWriter.writeCharacters(commerceItem.SKUNumber);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Quantity');
                     streamWriter.writeCharacters(commerceItem.Quantity);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
+                    if (commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        streamWriter.writeStartElement('RequestedDeliveryDate');
+                        streamWriter.writeCharacters(requestDeliveryDate);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    } 
                     if (commerceItem.SKUNumber !== shippingLineItemSKU) {
                         streamWriter.writeStartElement('PreSale');
                         streamWriter.writeCharacters(commerceItem.PreSale);
