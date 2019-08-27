@@ -1626,8 +1626,8 @@ function generateOrderXML(order) {
                     streamWriter.writeCharacters(commerceItem.POItemNumber);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('SKUNumber');
-                    streamWriter.writeCharacters(commerceItem.SKUNumber);
+                    streamWriter.writeStartElement('RequestedDeliveryDate');
+                    streamWriter.writeCharacters(commerceItem.RequestedDeliveryDate);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Quantity');
@@ -1635,10 +1635,6 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     if (commerceItem.SKUNumber !== shippingLineItemSKU) {
-                        streamWriter.writeStartElement('RequestedDeliveryDate');
-                        streamWriter.writeCharacters(commerceItem.RequestedDeliveryDate);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
                         streamWriter.writeStartElement('PreSale');
                         streamWriter.writeCharacters(commerceItem.PreSale);
                         streamWriter.writeEndElement();
