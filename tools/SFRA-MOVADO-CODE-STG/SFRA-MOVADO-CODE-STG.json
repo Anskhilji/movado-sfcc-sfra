@@ -313,7 +313,7 @@
       "npm": {
         "install": true,
         "scripts": [
-          "compile:scss",
+          "compile:scss"
         ]
       },
       "cartridges": [
