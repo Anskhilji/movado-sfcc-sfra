@@ -304,6 +304,24 @@
     },
 	{
       "repository": {
+        "url": "source/cartridges/klarna",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+        ]
+      },
+      "cartridges": [
+        "int_custom_adyen_klarna"
+      ]
+    },
+	{
+      "repository": {
         "url": "source/sites",
         "type": "file"
       },
