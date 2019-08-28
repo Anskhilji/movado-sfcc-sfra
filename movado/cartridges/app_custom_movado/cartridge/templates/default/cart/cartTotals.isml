@@ -18,7 +18,7 @@
 </div>
 
 <!-- Sales Tax -->
-<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('DisableSaleTaxTag').indexOf(dw.system.Site.getCurrent().getID()) === -1}">
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
     <div class="row">
         <div class="col-8">
             <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>

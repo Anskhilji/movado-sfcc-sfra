@@ -39,7 +39,7 @@
 </div>
 
 <!--- Sales Tax --->
-<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('DisableSaleTaxTag').indexOf(dw.system.Site.getCurrent().getID()) === -1}">
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
     <div class="row leading-lines justify-content-between sales-tax-item">
         <div class="start-lines">
             <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
