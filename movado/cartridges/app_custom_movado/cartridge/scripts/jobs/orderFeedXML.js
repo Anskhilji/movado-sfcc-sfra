@@ -1640,16 +1640,20 @@ function generateOrderXML(order) {
                     streamWriter.writeStartElement('Quantity');
                     streamWriter.writeCharacters(commerceItem.Quantity);
                     streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    if (commerceItem.SKUNumber === FIXEDFREIGHT) {
+                    streamWriter.writeRaw('\r\n'); 
+                    if (commerceItem.SKUNumber !== shippingLineItemSKU) {
                         streamWriter.writeStartElement('RequestedDeliveryDate');
                         streamWriter.writeCharacters(requestDeliveryDate);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
-                    } 
-                    if (commerceItem.SKUNumber !== shippingLineItemSKU) {
                         streamWriter.writeStartElement('PreSale');
                         streamWriter.writeCharacters(commerceItem.PreSale);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
+                    if (commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        streamWriter.writeStartElement('RequestedDeliveryDate');
+                        streamWriter.writeCharacters(requestDeliveryDate);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
