@@ -1354,7 +1354,7 @@ function getPaymentMethodData(order) {
 
     var paymentMethodObj = PaymentMgr.getPaymentMethod(paymentMethodsMultiplePayments[0]);
     
-    if (order.custom.Adyen_paymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+    if (order.custom.Adyen_paymentMethod && order.custom.Adyen_paymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
         switch (order.custom.Adyen_paymentMethod) {
             case KLARNA_SLICE_IT_CODE:
                 paymentMethodData.paymentMethod=KLARNA_SLICE_IT_TEXT;
@@ -1404,10 +1404,11 @@ function generateOrderXML(order) {
         var shippingAddress = getShippingAddress(order);
         var commerceItemsRawData = getPOItemsInfo(order);
         var commerceItemsInfo = amountAdjustmentsAndWrapping(order, commerceItemsRawData);
-        var paymentMethodData = getPaymentMethodData(order);
+        var paymentMethodData;
 
         try {
             FileHelper.createDirectory(impexFilePath);
+            paymentMethodData = getPaymentMethodData(order);
             var file = new File(impexFilePath + order.getOrderNo() + '_' + formatDate(order.getCreationDate(), 'yyyyMMdd_hhmmss') + fileExtension);
             if (file.exists()) {
                 file.remove();

@@ -216,7 +216,7 @@ var formHelpers = require('base/checkout/formErrors');
                       data: paymentForm,
                       success: function (data) {
                 // look for field validation errors
-                    	  if(data.email && data.email.value) {
+                    	  if(data.email && data.email.value && analyticsTracking && setAnalyticsTrackingByAJAX) {
                               setAnalyticsTrackingByAJAX.userTracking = JSON.stringify({email: data.email.value});
                               window.dispatchEvent(setAnalyticsTrackingByAJAX);
                           }

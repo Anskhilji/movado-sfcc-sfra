@@ -423,7 +423,7 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
-                    if(data.cartAnalyticsTrackingData) {
+                    if(data.cartAnalyticsTrackingData && analyticsTracking && setAnalyticsTrackingByAJAX) {
                         setAnalyticsTrackingByAJAX.cartTracking = data.cartAnalyticsTrackingData;
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);
                     }
