@@ -516,7 +516,7 @@ function handlePostCartAdd(response) {
     $('#addToCartModal .modal-body p').addClass(messageType);
     if(response.addCartGtmArray !== undefined){
     	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-    	 if(response.cartAnalyticsTrackingData && analyticsTracking && setAnalyticsTrackingByAJAX) {
+    	 if(response.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
     	     setAnalyticsTrackingByAJAX.cartTracking = response.cartAnalyticsTrackingData;
              window.dispatchEvent(setAnalyticsTrackingByAJAX);
     	 }
