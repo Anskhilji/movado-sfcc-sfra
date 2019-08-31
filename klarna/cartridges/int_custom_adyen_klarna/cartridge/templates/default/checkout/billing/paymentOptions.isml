@@ -1,0 +1,132 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addJs('/js/adyen-cse.js');
+    assets.addCss('/css/adyenCss.css');
+</isscript>
+<iscontent type="text/html" encoding="off" />
+<isset name="paymentmethod" value="" scope="page" />
+<isset name="pymtMethod" value="" scope="page" />
+<isset name="openInvoiceWhiteListMethods" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('Adyen_Open_Invoice_Whitelist')}" scope="page" />
+<isloop items="${pdict.order.billing.payment.selectedPaymentInstruments}" var="payment">
+    <isset name="pymtMethod" value="${payment}" scope="page" />
+    <isif condition="${payment.paymentMethod === 'CREDIT_CARD'}">
+        <isset name="paymentmethod" value="${payment.paymentMethod}" scope="page" />
+    </isif>
+    <isif condition="${payment.paymentMethod === 'Adyen' || payment.paymentMethod === 'PayPal'}">
+        <isset name="paymentmethod" value="${payment.selectedAdyenPM}" scope="page" />
+    </isif>
+    <isif condition="${payment.paymentMethod === 'Affirm'}">
+        <isset name="paymentmethod" value="${payment.paymentMethod}" scope="page" />
+    </isif>
+</isloop>
+
+<div class="form-nav billing-nav payment-information" data-payment-method-id="${paymentmethod}" data-is-new-payment="${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? false : true}">
+
+    <isset name="AdyenHelper" value="${require('*/cartridge/scripts/util/AdyenHelper')}" scope="pdict" />
+    <isset name="AdyenCseEnabled" value="${pdict.AdyenHelper.getAdyenCseEnabled()}" scope="page" />
+    <input type="hidden" name="originalCardNumber" id="originalCardNumber"  value=""/>
+
+    <fieldset>
+        <input id="adyenPaymentMethod" type="hidden" name="adyenPaymentMethod"/>
+        <input id="adyenIssuerName" type="hidden" name="adyenIssuerName"/>
+        <input type="hidden" class="form-control" id="creditBin" name="creditBin" value="">
+        <isset name="creditFields" value="${pdict.forms.billingForm.creditCardFields}" scope="page" />
+
+        <div class="row">
+            <div class="col-sm-6 field-left">
+                <div class="form-group
+		            <isif condition=${creditFields.email.mandatory === true}>required</isif>
+		            ${creditFields.email.htmlName}">
+                    <label class="form-control-label" for="email">${Resource.msg('field.customer.email','checkout',null)}</label>
+                    <span class="info-icon">
+                        <span class="icon">i</span>
+                        <div class="tooltip">
+                            ${Resource.msg('tooltip.email','creditCard',null)}
+                        </div>
+                    </span>
+                    <input type="text" class="form-control email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
+                        ${creditFields.email.attributes}>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 field-right">
+                <div class="form-group
+		            <isif condition=${creditFields.phone.mandatory === true}>required</isif>
+		            ${creditFields.phone.htmlName}">
+                    <label class="form-control-label" for="phoneNumber">${Resource.msg('field.customer.phone.number','checkout',null)}</label>
+                    <span class="info-icon">
+                        <span class="icon">i</span>
+                        <div class="tooltip">
+                            ${Resource.msg('tooltip.phone.number','creditCard',null)}
+                        </div>
+                    </span>
+                    <input type="tel" class="form-control phone" id="phoneNumber" value="${pdict.order.billing.billingAddress.address
+		                ? pdict.order.billing.billingAddress.address.phone||''
+		                : ''}"
+                        ${creditFields.phone.attributes}>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+                <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
+                ${pdict.forms.billingForm.subscribetomovado.attributes}/>
+                <label class="form-control-label text-transform-reset" for="subscribeToMovado">
+                    ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
+                    <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
+                        ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
+                    </a>
+                </label>
+            </div>
+        </div>
+
+        <input type="hidden" class="form-control" id="selectedPaymentOption" name="${pdict.forms.billingForm.paymentMethod.htmlName}"
+            value="paymentMethod">
+        <div class="invalid-feedback mb-2"></div>
+
+        <div class="panel-group payment-options" id="accordion">
+            <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopstate">
+                <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+                    <div class="panel panel-default">
+                        <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
+                        <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
+                        <isinclude template="checkout/billing/paymentOptions/creditCardContent" />
+                    </div>
+                </isif>
+                <isif condition="${paymentOption.ID ==='Adyen'}">
+	                 <div class="panel panel-default">
+	                     <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
+	                     <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodsContent" />
+	                 </div>
+	                 <iscomment>Custom Start: Add klarna payment methods </iscomment>
+	                 <isif condition="${!empty(openInvoiceWhiteListMethods)}">
+	                     <isif condition="${openInvoiceWhiteListMethods.search('klarna_pay_later') > -1}">
+		                     <div class="panel panel-default">
+		                         <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodTab"/>
+		                         <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodContent"/>
+		                     </div>
+	                     </isif>
+	                     <isif condition="${openInvoiceWhiteListMethods.search('klarna_slice_it') > -1}">
+	                         <div class="panel panel-default">
+	                             <isinclude template="checkout/billing/paymentOptions/klarnaSliceItPaymentMethodTab"/>
+	                             <isinclude template="checkout/billing/paymentOptions/klarnaSliceItPaymentMethodContent"/>
+                             </div>
+                         </isif>
+	                 </isif>
+	                 <iscomment>Custom End: Add klarna payment methods </iscomment>
+                </isif>
+                <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
+	                <div class="panel panel-default">
+	                    <isinclude template="affirm/affirmpaymethodli" />
+	                    <isinclude template="affirm/paymentmethodinput_mf" />
+	                </div>
+	                </isif>
+	                <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
+	                <div class="panel panel-default applepay-tab-wrapper">
+	                    <isinclude template="checkout/billing/paymentOptions/applePayTab" />
+	                    <isinclude template="checkout/billing/paymentOptions/applePayContent" />
+	                </div>
+                </isif>
+            </isloop>
+       </div>
+    </fieldset>
+</div>

@@ -16,6 +16,8 @@ var ArrayList = require('dw/util/ArrayList');
 var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+var constants = require('app_custom_movado/cartridge/scripts/helpers/constants.js');
+var Resource = require('dw/web/Resource');
 
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
 var GIFTWRAP = 'GIFTWRAP';
@@ -33,6 +35,7 @@ var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
 var TIME_FORMAT = 'yyyyMMddhhmmss';
 var BILLINGCURRENCY = Site.current.getID() == 'OliviaBurtonUK' ? 'GBP' : 'USD';
+var FIXEDFREIGHT = 'FIXEDFREIGHT';
 
 var orderFailedArray = new ArrayList();
 var fileExtension = '.xml';
@@ -1328,6 +1331,10 @@ function getPaymentMethodData(order) {
     var orderPaymentInstruments = order.getPaymentInstruments();
     var paymentMethodsMultiplePayments = new ArrayList();
     var paymentMethodData = {};
+    var KLARNA_SLICE_IT_CODE = Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null);
+    var KLARNA_SLICE_IT_TEXT = Resource.msg('checkout.payment.method.klarna.slice.it.brand.order.export.text', 'checkout', null);
+    var KLARNA_PAY_LATER_CODE = Resource.msg('checkout.payment.method.klarna.pay.later.brand.code', 'checkout', null);
+    var KLARNA_PAY_LATER_TEXT = Resource.msg('checkout.payment.method.klarna.pay.later.brand.order.export.text', 'checkout', null);
 
     if (orderPaymentInstruments && orderPaymentInstruments.length > 0) {
         for (var b = 0; b < orderPaymentInstruments.length; b++) {
@@ -1346,11 +1353,24 @@ function getPaymentMethodData(order) {
     }
 
     var paymentMethodObj = PaymentMgr.getPaymentMethod(paymentMethodsMultiplePayments[0]);
-    if ('SAPPaymentMethod' in paymentMethodObj.custom && paymentMethodObj.custom.SAPPaymentMethod) {
-        paymentMethodData.paymentMethod = paymentMethodObj.custom.SAPPaymentMethod;
+    
+    if (order.custom.Adyen_paymentMethod && order.custom.Adyen_paymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+        switch (order.custom.Adyen_paymentMethod) {
+            case KLARNA_SLICE_IT_CODE:
+                paymentMethodData.paymentMethod=KLARNA_SLICE_IT_TEXT;
+                break;
+            case KLARNA_PAY_LATER_CODE:
+                paymentMethodData.paymentMethod=KLARNA_PAY_LATER_TEXT;
+        }
+        
     } else {
-        paymentMethodData.paymentMethod = '';
+        if ('SAPPaymentMethod' in paymentMethodObj.custom && paymentMethodObj.custom.SAPPaymentMethod) {
+            paymentMethodData.paymentMethod = paymentMethodObj.custom.SAPPaymentMethod;
+        } else {
+            paymentMethodData.paymentMethod = '';
+        }
     }
+    
     return paymentMethodData;
 }
 
@@ -1384,10 +1404,11 @@ function generateOrderXML(order) {
         var shippingAddress = getShippingAddress(order);
         var commerceItemsRawData = getPOItemsInfo(order);
         var commerceItemsInfo = amountAdjustmentsAndWrapping(order, commerceItemsRawData);
-        var paymentMethodData = getPaymentMethodData(order);
+        var paymentMethodData;
 
         try {
             FileHelper.createDirectory(impexFilePath);
+            paymentMethodData = getPaymentMethodData(order);
             var file = new File(impexFilePath + order.getOrderNo() + '_' + formatDate(order.getCreationDate(), 'yyyyMMdd_hhmmss') + fileExtension);
             if (file.exists()) {
                 file.remove();
@@ -1597,9 +1618,15 @@ function generateOrderXML(order) {
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeEndElement();
 
+                var requestDeliveryDate;
                 for (var i = 0; i < commerceItemsInfo.length; i++) {
                     var commerceItem = commerceItemsInfo[i];
                     /* Create EcommercePOItemHeader Elements: start*/
+                    
+                    if (commerceItem.RequestedDeliveryDate) {
+                        requestDeliveryDate = commerceItem.RequestedDeliveryDate;
+                    }
+                    
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('EcommercePOItem');
                     streamWriter.writeCharacters(''); streamWriter.writeRaw('\r\n');
@@ -1614,14 +1641,20 @@ function generateOrderXML(order) {
                     streamWriter.writeStartElement('Quantity');
                     streamWriter.writeCharacters(commerceItem.Quantity);
                     streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
+                    streamWriter.writeRaw('\r\n'); 
                     if (commerceItem.SKUNumber !== shippingLineItemSKU) {
                         streamWriter.writeStartElement('RequestedDeliveryDate');
-                        streamWriter.writeCharacters(commerceItem.RequestedDeliveryDate);
+                        streamWriter.writeCharacters(requestDeliveryDate);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                         streamWriter.writeStartElement('PreSale');
                         streamWriter.writeCharacters(commerceItem.PreSale);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
+                    if (commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        streamWriter.writeStartElement('RequestedDeliveryDate');
+                        streamWriter.writeCharacters(requestDeliveryDate);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }

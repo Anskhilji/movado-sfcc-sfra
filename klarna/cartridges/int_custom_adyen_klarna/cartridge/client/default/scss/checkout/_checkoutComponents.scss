@@ -1,0 +1,11 @@
+@import "~movado/checkout/checkoutComponents";
+
+.klarna {
+  &-panel {
+    &-image {
+      width: rem(93);
+      border-radius: rem(8);
+      height: rem(24);
+    }
+  }
+}

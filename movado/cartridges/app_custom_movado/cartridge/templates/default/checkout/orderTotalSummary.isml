@@ -39,19 +39,20 @@
 </div>
 
 <!--- Sales Tax --->
-<div class="row leading-lines justify-content-between sales-tax-item">
-    <div class="start-lines">
-        <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
+    <div class="row leading-lines justify-content-between sales-tax-item">
+        <div class="start-lines">
+            <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
+        </div>
+        <div class="end-lines">
+            <isif condition="${pdict.order.totalTaxVal == '-'}">
+            	<p class="text-right tax-total">${pdict.order.resources.toBeDeclared}</p>
+            <iselse>
+            <p class="text-right tax-total">${pdict.order.totals.totalTax}</p>
+            </isif>
+        </div>
     </div>
-    <div class="end-lines">
-        <isif condition="${pdict.order.totalTaxVal == '-'}">
-        	<p class="text-right tax-total">${pdict.order.resources.toBeDeclared}</p>
-        <iselse>
-        	<p class="text-right tax-total">${pdict.order.totals.totalTax}</p>
-        </isif>
-    </div>
-</div>
-
+</isif>
 <!--- Grand Total --->
 <div class="row grand-total justify-content-between leading-lines">
     <div class="start-lines">

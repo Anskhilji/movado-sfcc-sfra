@@ -22,10 +22,12 @@ function setProductProperties(productSearch, httpParams, selectedCategory, sorti
         productSearch.setProductID(httpParams.pid);
     }
     if (httpParams.pmin) {
-        productSearch.setPriceMin(parseInt(httpParams.pmin, 10));
+        var httpParamsPmin = httpParams.pmin.replace(',','');
+        productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
     }
     if (httpParams.pmax) {
-        productSearch.setPriceMax(parseInt(httpParams.pmax, 10));
+        var httpParamsPmax = httpParams.pmax.replace(',','');
+        productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
     }
 
     if (sortingRule) {

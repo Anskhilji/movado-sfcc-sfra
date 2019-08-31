@@ -35,8 +35,9 @@
         <iselse>
             <isinclude template="product/components/pricing/main" />
         </isif>
-        <isinclude template="product/components/compare" />
-
+        <isif condition="${!pdict.isCompareableDisabled}"> 
+            <isinclude template="product/components/compare" />
+        </isif>
         <isif condition="${product.promotions}">
 		    <div class="promotions">
 			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">

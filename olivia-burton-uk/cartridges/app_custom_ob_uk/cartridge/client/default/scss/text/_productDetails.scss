@@ -2,9 +2,9 @@
   .product-name {
     font-family: $font-adobe;
     font-size: $font-size-main-heading3;
-    font-style: italic;
+    font-style: normal;
     letter-spacing: rem(1);
-    text-transform: unset !important;
+    text-transform: capitalize !important;
     width: 96%;
   }
 
@@ -90,7 +90,7 @@
     h3 {
       font-family: $font-adobe;
       font-size: $font-size-main-heading6;
-      font-style: italic;
+      font-style: normal;
       letter-spacing: rem(1);
       text-transform: lowercase;
 
@@ -113,7 +113,7 @@
   button.title {
     font-family: $font-adobe;
     font-size: $font-size-main-heading6;
-    font-style: italic;
+    font-style: normal;
     letter-spacing: rem(2);
     text-transform: capitalize !important;
 
@@ -146,7 +146,7 @@
   .carousel-title {
     font-family: $font-adobe;
     font-size: $font-size-main-heading6;
-    font-style: italic;
+    font-style: normal;
     letter-spacing: rem(2);
     text-transform: lowercase;
 
@@ -187,7 +187,7 @@
   .heading-two {
     font-family: $font-adobe;
     font-size: $font-size-main-heading3;
-    font-style: italic;
+    font-style: normal;
     letter-spacing: rem(1);
     text-transform: unset !important;
   }

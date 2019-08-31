@@ -35,7 +35,7 @@
     .cart-header {
       font-family: $font-adobe;
       font-size: $font-size-title6;
-      font-style: italic;
+      font-style: normal;
       letter-spacing: rem(1.8);
       text-transform: capitalize;
     }
@@ -240,7 +240,7 @@ div.checkout-button-wrapper {
   h4 {
     font-family: $font-adobe;
     font-size: $font-size-main-heading4;
-    font-style: italic;
+    font-style: normal;
     letter-spacing: rem(2);
     text-transform: capitalize;
   }

@@ -1,0 +1,13 @@
+.site-search {
+    .search-field {
+        padding: .75rem 2.5rem .75rem .75rem;
+        @include media-breakpoint-up(md) {
+            padding: .6rem 2rem .6rem .75rem;
+        }
+    }
+}
+.addToCartModal {
+    .text-success {
+        color: black !important;
+    }
+}

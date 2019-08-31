@@ -8,6 +8,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
 
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
@@ -45,6 +46,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var productGtmObj = productCustomHelpers.getProductGtmObj(product, categoryName, productTileParams.position);
     var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
     var context = {
+        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
         urls: {
             product: productUrl,

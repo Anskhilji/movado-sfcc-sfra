@@ -60,7 +60,8 @@
             <h3 class="cookie-close"></h3>
         </div>
     </div>
-    
+    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+    <isinclude template="resources/appresources"/>
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
     
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>

@@ -4,7 +4,7 @@
 <iselse/>
     <isset name="show" value="" scope="page"/>
 </isif>
-<div class="panel-collapse collapse ${show}" id="adyen-content" data-parent="#accordion">
+<div class="panel-collapse collapse" id="adyen-content" data-parent="#accordion">
     <div class="panel-body">
         <fieldset>
             <isinclude template="checkout/billing/alternativePaymentMethodForm" />

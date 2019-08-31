@@ -1,0 +1,20 @@
+<iscomment>Custom Template </iscomment>
+<iscontent compact="true"/>
+<isif condition="${!!pymtMethod && (pymtMethod.paymentMethod === 'Adyen')}" >
+    <isset name="show" value="show" scope="page"/>      
+<iselse/>
+    <isset name="show" value="" scope="page"/>
+</isif>
+
+<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}" data-brand-code="klarna_account">
+    <div class="panel-title">
+        <input type='radio' id="slice-it-${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
+                value='adyen' required ${checked}/>
+        <label for='slice-it-${paymentOption.ID}' class="form-check-label d-block">
+            <img src="${URLUtils.staticURL('/images/slice-it.PNG')}" class="klarna-panel-image" alt="Klarna slice it logo"/>
+            <span>${Resource.msg('hpp.klarna.slice.it.label', 'hpp', null)}</span>
+        </label>
+        <a class="klarna-slice-it-panel" data-toggle="collapse" aria-controls="klarna-slice-it-content" href="${'#' + 'klarna-slice-it-content'}">
+        </a> 
+    </div>
+</div>
