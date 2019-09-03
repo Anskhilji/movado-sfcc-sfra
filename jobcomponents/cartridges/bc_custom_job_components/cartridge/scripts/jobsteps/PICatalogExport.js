@@ -23,7 +23,12 @@ var piCatalog = function piCatalog(args, options) {
             var File = require('dw/io/File');
             var FileWriter = require('dw/io/FileWriter');
             var FileHelper = require('*/cartridge/scripts/file/FileHelper');
-            var filePrefix = 'export_PI_catalog';
+            if (args.Filename) {
+                var filePrefix = args.Filename;
+            }
+            else {
+                var filePrefix = 'export_PI_catalog';
+            }
             var targetFolder = args.TargetFolder;
 
 				// create  target Folder folder if it doesn't exist
