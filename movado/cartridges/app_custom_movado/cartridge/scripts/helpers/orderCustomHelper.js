@@ -173,6 +173,45 @@ function getCustomerNo(customer) {
     return null;
 }
 
+function isPreOrder(order) {
+    var Transaction = require('dw/system/Transaction');
+    var isPreOrder = false;
+    if (order) {
+        var productLineItems = order.getProductLineItems();
+        if (productLineItems) {
+            var productLineItemsIterator = productLineItems.iterator();
+            while (productLineItemsIterator.hasNext()) {
+                var lineItem = productLineItemsIterator.next();
+                if (lineItem instanceof dw.order.ProductLineItem && !lineItem.bonusProductLineItem) {
+	                var apiProduct = dw.catalog.ProductMgr.getProduct(lineItem.getProductID());
+	                var productAvailabilityModel = apiProduct.getAvailabilityModel();
+	                var availabilityModelLevels = productAvailabilityModel.getAvailabilityLevels(lineItem.getQuantity().decimalValue);
+	                if (availabilityModelLevels.preorder.value > 0) {
+                        Transaction.wrap(function (){
+                            lineItem.custom.isPreOrderProduct = true;
+                        });
+	                    isPreOrder = true;
+	                }
+                }
+            }
+        }
+    }
+    return isPreOrder;
+}
+
+/**
+* Fetches the payment method from order
+* @param {Order} order.
+* @returns {PaymentMethod} order payment method
+*/
+function getPaymentMethod(order) {
+    var paymentMethod;
+    for (var i = 0; i < order.paymentInstruments.length; i++) {
+        paymentMethod = order.paymentInstruments[i].paymentMethod;
+    }
+    return paymentMethod;
+}
+
 module.exports = {
     formatOrderDate: formatOrderDate,
     getTrackingUrls: getTrackingUrls,
@@ -182,5 +221,7 @@ module.exports = {
     getCheckoutCouponUrl: getCheckoutCouponUrl,
     getSaveShippingAddressValue: getSaveShippingAddressValue,
     getShippingAddressId: getShippingAddressId,
-    getCustomerNo: getCustomerNo
+    getCustomerNo: getCustomerNo,
+    isPreOrder: isPreOrder,
+    getPaymentMethod: getPaymentMethod
 };

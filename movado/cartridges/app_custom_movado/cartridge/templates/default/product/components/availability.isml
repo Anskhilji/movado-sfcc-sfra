@@ -13,6 +13,11 @@
                     <isloop items="${product.availability.messages}" var="message">
                         <div>${message}</div>
                     </isloop>
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        </br>
+                        <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'dd/MM/yyyy')}" scope="page" />
+                        ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+                    </isif>
                 </isif>
             </li>
         </ul>

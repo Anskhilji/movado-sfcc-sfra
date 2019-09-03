@@ -1147,6 +1147,21 @@ function amountAdjustmentsAndWrapping(order, commerceObject) {
 }
 
 /**
+* Fetches the pre-sale item requested delivery date.
+* @param {ProductLineItem} product line item.
+* @returns {Date} in-stock date
+*/
+function getPreSaleItemRequestedDeliveryDate(lineItem) {
+    var requestedDeliverDate;
+    var apiProduct = dw.catalog.ProductMgr.getProduct(lineItem.getProductID());
+    var productAvailabilityModel = apiProduct.getAvailabilityModel();
+    if (productAvailabilityModel && productAvailabilityModel.getInventoryRecord()) {
+        requestedDeliverDate = productAvailabilityModel.getInventoryRecord().getInStockDate();
+    }
+    return requestedDeliverDate;
+}
+
+/**
 * Fetches the item information for an Order.
 * @param {Order} order Order container.
 * @returns {json} Commerce Items JSON
@@ -1175,12 +1190,13 @@ function getPOItemsInfo(order) {
         obj.POItemNumber = sequenceNumber;
         obj.SKUNumber = productLineItem.getProductID();
         obj.Quantity = productLineItem.quantityValue.toString();
-        obj.RequestedDeliveryDate = formatDate(new Date(), DATE_FORMAT);
+        var requestedDeliveryDate;
 
         if ('custom' in productLineItem) {
             if ('isPreOrderProduct' in productLineItem.custom && (productLineItem.custom.isPreOrderProduct)) {
                 if (productLineItem.custom.isPreOrderProduct === true) {
                     obj.PreSale = 'Y';
+                    requestedDeliveryDate = formatDate(getPreSaleItemRequestedDeliveryDate(productLineItem), DATE_FORMAT);
                 } else {
                     obj.PreSale = 'N';
                 }
@@ -1189,6 +1205,7 @@ function getPOItemsInfo(order) {
             }
         }
 
+        obj.RequestedDeliveryDate = requestedDeliveryDate ? requestedDeliveryDate : formatDate(new Date(), DATE_FORMAT);
         obj.IsThisBillable = isThisBillableItem(productLineItem);
         obj.InventoryLocation = inventoryLocation;
 

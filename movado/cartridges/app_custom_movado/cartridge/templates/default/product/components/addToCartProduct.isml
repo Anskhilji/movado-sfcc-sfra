@@ -5,7 +5,11 @@
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
-                ${Resource.msg('button.addtocart', 'common', null)}
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselse/>
+                     ${Resource.msg('button.addtocart', 'common', null)}
+                </isif>
         </button>
 		<isif condition="${product.available && product.readyToOrder}">
 	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
