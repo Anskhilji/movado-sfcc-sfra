@@ -9,7 +9,7 @@
                 <i class="fa fa-minus"></i>
                 <span>${Resource.msg('label.product.personalizaion.remove', 'product', null)}</span>
             </span>
-        </a>&nbsp;${option.name} [<isif condition="${option.values[1].priceValue == 0}">${pdict.product.resources.Free}<iselse>${option.values[1].price}</isif>]
+        </a>&nbsp;${Resource.msg('emboss.option.name.display', 'product', null)} [<isif condition="${option.values[1].priceValue == 0}">${pdict.product.resources.Free}<iselse>${option.values[1].price}</isif>]
         <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
         <isloop items="${option.values}" var="value" status="optionLoopStatus">
             <isif condition="${optionLoopStatus.first}">

@@ -30,7 +30,14 @@
                         <isif condition="${option.optionId != lineItem.resources.Engraved &&
                         	option.optionId != lineItem.resources.Embossed &&
                         	option.optionId != lineItem.resources.GiftWrapped}">
-                        	<div class="line-item-option">${option.displayName}</div>
+                        	<isif condition="${lineItem.customAttributes['emboss']}">
+                        		<div class="line-item-option">${Resource.msg('label.personalization.embossed', 'confirmation', null)}</div>
+                        	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
+                        		option.optionId != lineItem.resources.GiftWrapped}" >
+                        		<div class="line-item-option">${Resource.msg('label.personalization.embossed.off', 'confirmation', null)}</div>
+                        	<iselse>
+                        		<div class="line-item-option">${option.displayName}</div>
+                        	</isif>
                         </isif>
                     </isloop>
                 </div>
