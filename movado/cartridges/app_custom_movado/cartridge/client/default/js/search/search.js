@@ -1,5 +1,6 @@
 'use strict';
 
+var swatches = require('../utilities/swatches');
 /**
  * Update DOM elements with Ajax results
  *
@@ -386,6 +387,7 @@ module.exports = {
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
+                        swatches.showSwatchImages();
                     },
                     error: function () {
                         $.spinner().stop();

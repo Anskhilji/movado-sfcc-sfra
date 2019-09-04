@@ -19,6 +19,7 @@ $(document).ready(function () {
     processInclude(require('./product/compare'));
     processInclude(require('./utilities/gtm-events'));
     processInclude(require('./product/wishlistHeart'));
+    processInclude(require('./utilities/swatches'));
 });
 
 require('base/components/spinner');
