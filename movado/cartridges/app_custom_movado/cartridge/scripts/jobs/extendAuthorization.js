@@ -66,7 +66,7 @@ function extendPaymentAuthorization(order) {
  */
 function extendAuthorization() {
     var status = false;
-    var ORDER_EXPORT_STATUS = '2';
+    var ORDER_EXPORT_STATUS = '1';
     try {
         OrderManager.processOrders(extendPaymentAuthorization,
              'exportStatus = {0} AND status != {1} AND status != {2} AND status != {3} AND confirmationStatus = {4} AND custom.isPreorder != NULL AND custom.isPreorderProcessing = {5}',
