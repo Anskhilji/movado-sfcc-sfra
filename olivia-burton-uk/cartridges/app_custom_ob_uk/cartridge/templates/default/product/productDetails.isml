@@ -5,6 +5,7 @@
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
+        assets.addCss('css/klarna-promo/klarna_promo.css');
     </isscript>
 
     <isset name="product" value="${pdict.product}" scope="page" />
@@ -100,7 +101,10 @@
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                             </div>
                         </div>
-                        
+                        <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                            <isinclude template="klarna/klarnaPromotionMessage" />
+                            <isinclude template="klarna/klarnaPromoModal" />
+                        </isif>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">

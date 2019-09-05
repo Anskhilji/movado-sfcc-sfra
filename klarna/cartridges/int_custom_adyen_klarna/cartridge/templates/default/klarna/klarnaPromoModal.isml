@@ -1,0 +1,65 @@
+
+<div class="modal fade klarna-promo-modal hide" data-focus-on="input:first" id="klarnaPrmoModal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content klarna-modal-content">
+            <div class="modal-body p-0 text-center">
+                <div id="interstitial">
+                    <header>
+                        <img src="//eu-assets.klarnaservices.com/images/logo_gray.svg" alt="Klarna Logo.">
+                    </header>
+
+                    <div class="interstitial-container">
+                        <section>
+                          <h2 class="text-center">${Resource.msg('klarna.promomotion.modal.header', 'hpp', null)}</h2>
+                          <p class="title-description text-center">
+                              ${Resource.msg('klarna.promomotion.modal.header', 'hpp', null)}
+                          </p>
+                        </section>
+                        <section>
+                          <ul class="list-icon list-unstyled">
+                            <li>
+                              <div class="image">
+                                <img class="header-icon" src="//us-assets.klarnaservices.com/templates/images/snail.svg" alt="">
+                              </div>
+                              <p>${Resource.msg('klarna.promomotion.modal.body.li.delivery', 'hpp', null)}</p>
+                            </li>
+                            <li>
+                              <div class="image">
+                                <img class="header-icon" src="//us-assets.klarnaservices.com/templates/images/glasses.svg" alt="">
+                              </div>
+                              <p>${Resource.msg('klarna.promomotion.modal.body.li.simplicity', 'hpp', null)}</p>
+                            </li>
+                            <li>
+                              <div class="image">
+                                <img class="header-icon" src="//us-assets.klarnaservices.com/templates/images/boomerang.svg" alt="">
+                              </div>
+                              <p>${Resource.msg('klarna.promomotion.modal.body.li.gaurantee', 'hpp', null)}</p>
+                            </li>
+                          </ul>
+                        </section>
+                        <section class="buttons">
+                          <a href="javascript:void(0)" data-dismiss="modal" style="cursor:pointer" class="button">
+                             ${Resource.msg('klarna.prmotion.button.close', 'hpp', null)}
+                          </a>
+                        </section>
+                    </div>
+                  </div>
+                  <span class="klarna-upstream-interstitial__overlay__content__close">
+                    <style>
+                        button.cross {
+                            width: 20px;
+                            height: 20px;
+                            margin-top: 12px;
+                            margin-right: 5px;
+                            background-image: url(//us-assets.klarnaservices.com/images/cross.svg);
+                            background-repeat: no-repeat;
+                            border-color: transparent;
+                            border-width: 0;
+                        }
+                    </style>
+                    <button class="cross" aria-label="Close" data-dismiss="modal"></button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

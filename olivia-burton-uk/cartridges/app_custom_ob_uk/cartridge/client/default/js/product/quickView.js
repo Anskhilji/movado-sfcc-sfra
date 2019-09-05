@@ -84,6 +84,11 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
 }
 
 module.exports = {
+    initializeKlarnaPrmo: function () {
+        $(document).on('click', '.klarna-promo-link', function (e) {
+            $('#klarnaPrmoModal').modal('show');
+        });
+    },
     showQuickview: function () {
         $('body').on('click', '.quickview', function (e) {
             e.preventDefault();

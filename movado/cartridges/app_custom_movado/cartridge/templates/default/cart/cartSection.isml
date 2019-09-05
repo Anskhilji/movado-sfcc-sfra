@@ -35,6 +35,12 @@
             <isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
             <isinclude template="util/affirmmodule_mf" />
             <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
+            <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaCartPromoMsg}"> 
+                 <div class="klarna-cart-promo-msg">
+                    <isinclude template="klarna/klarnaPromotionMessage" />
+                    <isinclude template="klarna/klarnaPromoModal" />
+                 </div>
+            </isif>
         </div>
     </isif>
 </div>

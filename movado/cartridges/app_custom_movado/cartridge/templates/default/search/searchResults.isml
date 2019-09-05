@@ -3,12 +3,12 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
+        assets.addCss('css/klarna-promo/klarna_promo.css');
     </isscript>
 
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
-	
 	<div class="hero search-banner container">
     <isif condition="${pdict.productSearch.isCategorySearch}">
         <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
@@ -135,8 +135,6 @@
 	</div>
 	</div>
 	
-
-    
     <isif condition="${pdict.productSearch.category}">
     	<isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
@@ -146,5 +144,7 @@
             <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
         </div>
     </isif>
-    
+    <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+         <isinclude template="klarna/klarnaPromoModal" />
+     </isif>
 </isdecorate>

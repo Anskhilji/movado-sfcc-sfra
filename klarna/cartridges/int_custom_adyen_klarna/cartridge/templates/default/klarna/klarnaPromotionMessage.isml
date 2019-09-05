@@ -1,0 +1,14 @@
+<div class="col-md-12 col-12">
+    <div class="klarna-promo-msg">
+        <p>
+            ${Resource.msg('klarna.promotion.message', 'hpp', null)}
+            <span class="nowrap">
+              <span class="logo">
+                  <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-promo-image" alt="Klarna logo"/>
+              </span>
+            </span>
+            </br>
+            <button class="klarna-promo-link">${Resource.msg('button.klarna.promotion.learn.more', 'hpp', null)}</button>
+        </p>
+    </div>
+</div>

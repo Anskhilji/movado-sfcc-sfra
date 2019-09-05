@@ -1,7 +1,7 @@
 <isdecorate template="common/layout/page">
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
-        assets.addCss('/css/homePage.css');
+        assets.addJs('js/klarna_promotion/klarnaPromotion.js');
     </isscript>
     <div class="static-content-wrapper">
         <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
