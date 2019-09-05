@@ -31,10 +31,10 @@
                         	option.optionId != lineItem.resources.Embossed &&
                         	option.optionId != lineItem.resources.GiftWrapped}">
                         	<isif condition="${lineItem.customAttributes['emboss']}">
-                        		<div class="line-item-option">${Resource.msg('label.personalization.embossed', 'confirmation', null)}</div>
+                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
                         	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
                         		option.optionId != lineItem.resources.GiftWrapped}" >
-                        		<div class="line-item-option">${Resource.msg('label.personalization.embossed.off', 'confirmation', null)}</div>
+                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
                         	<iselse>
                         		<div class="line-item-option">${option.displayName}</div>
                         	</isif>
@@ -61,7 +61,7 @@
 
                 	<isif condition="${lineItem.customAttributes['emboss']}">
                 		<div class="line-item-option mb-2">
-	                		<div class="personalize-price">${Resource.msgf('label.personalization.emboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
+	                		<div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
 	                	</div>
                 	</isif>
 
