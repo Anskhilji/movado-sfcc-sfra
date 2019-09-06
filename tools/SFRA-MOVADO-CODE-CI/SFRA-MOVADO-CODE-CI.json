@@ -322,6 +322,25 @@
     },
 	{
       "repository": {
+        "url": "source/cartridges/movado_redesign",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+          "compile:js"
+        ]
+      },
+      "cartridges": [
+        "app_custom_movado_redesign"
+      ]
+    },
+	{
+      "repository": {
         "url": "source/sites",
         "type": "file"
       },

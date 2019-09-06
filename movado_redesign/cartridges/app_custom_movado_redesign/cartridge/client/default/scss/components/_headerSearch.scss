@@ -1,0 +1,45 @@
+.suggestions-wrapper {
+  position: relative;
+}
+
+.suggestions {
+  width: 100%;
+  position: relative;
+
+  .items-header {
+    color: $storm-gray;
+    font-family: $font-medium;
+    font-size: rem(15);
+    padding-bottom: rem(15);
+    font-weight: 600;
+  }
+
+  > div {
+    padding: 0;
+  }
+
+  .item {
+
+    .name {
+
+      > a {
+        font-size: rem(15);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+
+  .suggestions {
+    border-radius: rem(0);
+    box-shadow: unset;
+    padding-top: rem(11);
+    top: unset;
+  }
+
+  .suggestions:after, .suggestions:before {
+    content: unset;
+  }
+}
+

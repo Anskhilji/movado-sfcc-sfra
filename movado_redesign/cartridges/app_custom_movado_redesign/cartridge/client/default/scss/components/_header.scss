@@ -1,0 +1,474 @@
+.header-banner {
+  .html-slot-container {
+    font-family: $font-book;
+    font-size: rem(14);
+
+    @include media-breakpoint-down(sm) {
+      font-size: rem(12);
+    }
+  }
+}
+
+header.new-header {
+  background: url("../images/wrist-watch-bg.jpg") center center no-repeat;
+  background-size: cover;
+  padding-bottom: rem(200);
+
+  @import "menu";
+
+  .overlay {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: rem(60);
+    box-shadow: 0px 0px rem(14) rem(1) $grey-dark;
+    z-index: 999;
+    margin: 0;
+    opacity: 0;
+  }
+
+  .desktop-search .header-search-field {
+    opacity: 0;
+  }
+
+  .navbar-toggler-custom {
+    padding: 0;
+  }
+
+  .header-icon {
+    height: rem(20);
+    width: rem(20);
+    display: inline-block;
+    margin-right: rem(20);
+  }
+
+  .menu-text {
+    font-size: rem(15);
+    font-family: $font-book;
+    color: $white;
+    letter-spacing: rem(0.5);
+  }
+
+  .header-wrapper {
+    .header-container {
+      @include media-breakpoint-down(sm) {
+        height: rem(45);
+        padding: 0 rem(10);
+        > div {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .user {
+    margin-right: rem(20);
+    padding: rem(18) rem(4) rem(16) rem(3);
+    outline: none;
+    border-bottom: 2px solid transparent;
+    &:hover {
+      border-color: $black;
+    }
+
+    .popover {
+      padding: rem(10) rem(20);
+      padding-bottom: rem(20);
+      width: rem(150);
+      left: rem(-48);
+      top: rem(60);
+      box-shadow: unset;
+      border-radius: unset;
+
+      a {
+        font: rem(15) $font-primary;
+      }
+
+      &::before {
+        content: unset;
+      }
+    }
+
+    &.user-not-login {
+      
+      .popover {
+        padding: rem(20) rem(13);
+        min-height: unset;
+
+        .btn {
+          padding: rem(12) 0;
+          text-transform: uppercase;
+          font: rem(16) $font-medium;
+          color: $grey8;
+          border-radius: unset;
+
+          &:hover {
+            color: $white;
+          }
+
+          &:focus {
+            box-shadow: unset;
+            outline: unset;
+          }
+        }
+      }
+    }
+
+    &:hover {
+
+      .popover {
+        display: block;
+      }
+    }
+
+    .user-icon {
+      height: rem(20);
+      width: rem(20);
+      display: inline-block;
+      background: url("../images/user-icon-white.svg") center center no-repeat;
+      cursor: pointer;
+    }
+
+    &.user-login {
+
+      .user-icon {
+        background: url("../images/user-icon-white-fill.svg") center center no-repeat;
+      }
+    }
+  }
+
+  .navbar-toggler-custom {
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.1875rem;
+    outline: none;
+
+    .fa-bars {
+      height: rem(13);
+      width: rem(19);
+      background: url("../images/menu-toggle.svg") center center no-repeat;
+      margin-right: 5px;
+
+      &::before {
+        content: unset;
+      }
+    }
+  }
+
+  .search-icon {
+    background: url("../images/search-icon-white.svg") center center no-repeat;
+  }
+
+  .minicart-link {
+    background: url("../images/cart-icon-white.svg") center center no-repeat;
+  }
+  
+  .logo-link {
+
+    img {
+      filter: invert(1);
+    }
+  }
+
+  .header-search-field{
+    font-family: $font-medium;
+    font-size: rem(16);
+    border: unset;
+    border-bottom: 2px solid $dark-gray;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    padding-bottom: rem(10);
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .desktop-search {
+    position: fixed;
+    background: $white;
+    width: 100%;
+    top: 0;
+    padding: 0 rem(15);
+    padding-top: rem(25);
+    padding-bottom: rem(100);
+    display: none;
+
+    .logo-link {
+
+      img {
+        filter: unset;
+      }
+    }
+
+    .dropdown-menu {
+       opacity: 0;
+       display: unset;
+    }
+
+    .search-close {
+      font-family: $font-book;
+      font-size: rem(15);
+      color: $grey8;
+      text-transform: uppercase;
+      padding: rem(2px) 0;
+      background: url("../images/close-icon-black.svg") right center no-repeat;
+      background-size: rem(13);
+      padding-right: rem(25px);
+      text-decoration: unset;
+      margin-right: rem(10px);
+    }
+
+    .search-close-mobile {
+      position: absolute;
+      top: 0;
+      right: rem(10);
+      height: rem(20);
+    }
+  }
+
+  .header-menu-wrapper {
+    transition: 0.2s;
+
+    .desktop-menu {
+      position: unset;
+    }
+
+    &.sticky-header {
+      background-color: $white;
+
+      .header-container {
+        box-shadow: rem(1) rem(1) rem(7) 0 $grey-transparent-7;
+      }
+
+      .user {
+
+        .popover {
+          box-shadow: rem(-1) rem(4) rem(6) rem(-3) $grey3;
+        }
+      }
+
+      .menu-text {
+        color: $black;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+
+      &:hover {
+        background-color: $white;
+
+        .navbar-toggler-custom {
+          cursor: pointer;
+
+          .fa-bars {
+            background: url("../images/menu-toggle-black.svg") center center no-repeat;
+          }
+        }
+
+        .search-icon {
+          background: url("../images/search-icon-black.svg") center center no-repeat;
+        }
+
+        .user {
+
+          .user-icon {
+            background: url("../images/user-icon-black.svg") center center no-repeat;
+          }
+
+          &.user-login {
+
+            .user-icon {
+              background: url("../images/user-icon-fill.svg") center center no-repeat;
+            }
+          }
+        }
+
+        .minicart-link {
+          background: url("../images/cart-icon-black.svg") center center no-repeat;
+        }
+
+        .logo-link {
+
+          img {
+            filter: unset;
+          }
+        }
+
+        .desktop-menu {
+          position: unset;
+
+          .nav-link {
+            color: $black;
+          }
+        }
+      }
+    }
+
+    &.sticky-header{
+
+      .navbar-toggler-custom {
+        cursor: pointer;
+
+        .fa-bars {
+          background: url("../images/menu-toggle-black.svg") center center no-repeat;
+        }
+      }
+
+      .search-icon {
+        background: url("../images/search-icon-black.svg") center center no-repeat;
+      }
+
+      .user {
+
+        .user-icon {
+          background: url("../images/user-icon-black.svg") center center no-repeat;
+        }
+      }
+
+      .minicart-link {
+        background: url("../images/cart-icon-black.svg") center center no-repeat;
+      }
+
+      .logo-link {
+
+        img {
+          filter: unset;
+        }
+      }
+
+      .desktop-menu {
+        position: unset;
+
+        .nav-link {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  .navbar-nav {
+
+    .nav-link {
+        font-size: rem(14);
+    }
+  } 
+
+  .header-logo {
+
+    p {
+        margin: 0;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+
+  header.new-header {
+
+    .header-banner {
+
+      .html-slot-container {
+        font-size: rem(15);
+      }
+    }
+
+    .logo-link {
+
+      img {
+        width: rem(155);
+      }
+    }
+
+    .header-wrapper {
+
+      .header-container {
+        height: rem(60);
+      }
+    }
+
+    .sticky-header-placeholder {
+      height: rem(120);
+    }
+
+    .header-menu-wrapper {
+      background-color: transparent;
+    }
+
+    .fixed-header {
+
+      .header-menu-wrapper {
+        background: $white;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+
+  header {
+
+    .header-wrapper {
+      background: transparent;
+    }
+
+    .multilevel-dropdown {
+
+      .close-menu {
+        background-color: $white;
+        position: relative;
+
+        .close-button {
+          right: 0;
+        }
+      }
+    }  
+  }
+
+  .fixed-header {
+
+    .header-wrapper {
+      background: $white;
+    }
+  }
+}
+
+@media only screen and (max-width: $custom-xl) {
+
+  header.new-header {
+
+    .desktop-menu {
+
+      .nav-item {
+        margin: 0 rem(8px);
+
+        .nav-link {
+          font-size: rem(12);
+          letter-spacing: rem(0.5);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $custom-lg) {
+
+  header.new-header { 
+
+    .desktop-menu {
+
+      .nav-item {
+        margin-left: 10px;
+        margin-right: 0;
+
+        .nav-link {
+          font-size: rem(12);
+          letter-spacing: normal;
+        }
+      }
+    }
+  }
+}

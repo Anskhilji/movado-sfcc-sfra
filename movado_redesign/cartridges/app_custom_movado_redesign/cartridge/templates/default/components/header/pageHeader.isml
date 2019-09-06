@@ -1,0 +1,89 @@
+<iscomment> Custom: HTML Structure change</iscomment>
+<isslot id="header-banner-m" description="Slot above the site header" context="global" />
+<header class="new-header">
+    <nav>
+        <div class="sticky-header-wrapper">
+            <div class="sticky-header-placeholder"></div>
+            <div class="header-menu-wrapper">
+                <div class="header-wrapper">
+                    <div class="container-fluid px-0">
+                    <div class="row overlay"></div>
+                        <div class="row header-container m-0">
+                            <div class="col-3 col-md-2 navbar-header header-logo">
+                                <div class="d-none d-lg-inline-block">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars"></i> 
+                                    <span class="menu-text d-md-inline-block d-lg-none">
+                                        ${Resource.msg('link.header.menu', 'common', null)}
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
+                                <div class="d-none d-lg-inline-block">
+                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                                </div>
+                                <div class="d-block text-center d-lg-none">
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-2 justify-content-end right">
+                                <a href="#" class="search-icon header-icon"></a>
+                                <div class="hidden-md-down account-wrapper">
+                                    <isinclude url="${URLUtils.url('Account-Header')}" />
+                                </div>
+                                <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                    <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="desktop-search show w-100">
+                            <div class="row justify-content-center">
+                                <div class="col-md-3 hidden-lg-down">
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                                <div class="col-md-6 m-0">
+                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+                                        <button class="fa fa-search gtm-customEvent d-none" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                            <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
+                                        </button>
+                                        <input class="form-control search-field header-search-field"
+                                            type="search" name="q"
+                                            title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                                            autocomplete="off"
+                                            data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+                                        <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
+                                        <input type="hidden" value="${pdict.locale}" name="lang" />
+                                        <a href="#" class="search-close search-close-mobile hidden-lg-up"></a>
+                                    </form>
+                                </div>
+                                <div class="col-md-3 text-right hidden-lg-down">
+                                    <a href="#" class="search-close">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
+                <div class="container">
+                    <div class="row">
+                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-mobile d-none">
+            <isinclude template="components/header/search" />
+        </div>
+        <isinclude template="analyticsTracking/analyticsTrackingHeader.isml">
+    </nav>
+</header>
+

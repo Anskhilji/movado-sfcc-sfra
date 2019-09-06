@@ -640,4 +640,23 @@ server.post(
 }
 );
 
+server.replace('Header', server.middleware.include, function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var Site = require('dw/system/Site');
+    
+    var headerTemplate = req.querystring.mobile ? 'account/mobileHeader' : 'account/header';
+    
+    // A/B testing for header design
+    if (Site.getCurrent().getCustomPreferenceValue('enableABTest')) {
+        if (!ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
+            headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';
+        }
+    }
+    
+    res.render(headerTemplate, { name:
+        req.currentCustomer.profile ? req.currentCustomer.profile.firstName : null
+    });
+    next();
+});
+
 module.exports = server.exports();
