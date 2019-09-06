@@ -48,6 +48,11 @@
             <isif condition="${lineItem.customAttributes && lineItem.customAttributes.sapLineStatus}">
                 <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.shippingStatusLabel}${lineItem.customAttributes.sapLineStatus}</td></tr>
             </isif>
+            <isif condition="${lineItem.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(lineItem.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;margin-top:16px;color:#000001;vertical-align:top;" >${lineItem.availability.messages[0]}</td></tr>
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${Resource.msgf('order.item.ship.by.date.presale', 'order', null, availabilityDate)}</td></tr>
+            </isif>
         </table>
     </td>
 </tr>
