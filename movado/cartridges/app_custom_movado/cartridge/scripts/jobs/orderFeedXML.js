@@ -30,6 +30,7 @@ var ENGRAVED = 'Engraved';
 var EMBOSSED = 'Embossed';
 var ZERO = 0.00;
 var TEN = 10;
+var NINETY = 90;
 var TWO_DECIMAL_PLACES = 2;
 var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
@@ -1347,6 +1348,7 @@ function addDays(date, days) {
 function getPaymentMethodData(order) {
     var orderPaymentInstruments = order.getPaymentInstruments();
     var paymentMethodsMultiplePayments = new ArrayList();
+    var presaleOrderAuthExpirationDays = dw.system.Site.getCurrent().getCustomPreferenceValue('presaleOrderAuthExpirationDays');
     var paymentMethodData = {};
     var KLARNA_SLICE_IT_CODE = Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null);
     var KLARNA_SLICE_IT_TEXT = Resource.msg('checkout.payment.method.klarna.slice.it.brand.order.export.text', 'checkout', null);
@@ -1357,15 +1359,21 @@ function getPaymentMethodData(order) {
         for (var b = 0; b < orderPaymentInstruments.length; b++) {
             var orderPaymentInstrument = orderPaymentInstruments[b];
             paymentMethodsMultiplePayments[b] = orderPaymentInstrument.getPaymentMethod();
-            if ('authExpirationDate' in orderPaymentInstrument.custom) {
-                if (orderPaymentInstrument.custom.authExpirationDate) {
-                    paymentMethodData.AuthExpirationDate = orderPaymentInstrument.custom.authExpirationDate;
+            if ('isPreorder' in order.custom && order.custom.isPreorder) {
+                presaleOrderAuthExpirationDays = presaleOrderAuthExpirationDays ? presaleOrderAuthExpirationDays : NINETY;
+                paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), presaleOrderAuthExpirationDays), DATE_FORMAT);
+            } else {
+                if ('authExpirationDate' in orderPaymentInstrument.custom) {
+                    if (orderPaymentInstrument.custom.authExpirationDate) {
+                        paymentMethodData.AuthExpirationDate = orderPaymentInstrument.custom.authExpirationDate;
+                    } else {
+                        paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
+                    }
                 } else {
                     paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
                 }
-            } else {
-                paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
             }
+
         }
     }
 
