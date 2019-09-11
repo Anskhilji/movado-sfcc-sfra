@@ -1644,6 +1644,16 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
 
                 var requestDeliveryDate;
+                var requestDeliveryDateFixedFreight;
+                for (var i = 0; i < commerceItemsInfo.length; i++) {
+                    var commerceItem = commerceItemsInfo[i];
+                    if (!requestDeliveryDateFixedFreight) {
+                        requestDeliveryDateFixedFreight = commerceItem.RequestedDeliveryDate;
+                    }
+                    else if (requestDeliveryDateFixedFreight > commerceItem.RequestedDeliveryDate) {
+                        requestDeliveryDateFixedFreight = commerceItem.RequestedDeliveryDate;
+                    }
+                }
                 for (var i = 0; i < commerceItemsInfo.length; i++) {
                     var commerceItem = commerceItemsInfo[i];
                     /* Create EcommercePOItemHeader Elements: start*/
@@ -1679,7 +1689,7 @@ function generateOrderXML(order) {
                     }
                     if (commerceItem.SKUNumber === FIXEDFREIGHT) {
                         streamWriter.writeStartElement('RequestedDeliveryDate');
-                        streamWriter.writeCharacters(requestDeliveryDate);
+                        streamWriter.writeCharacters(requestDeliveryDateFixedFreight);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
