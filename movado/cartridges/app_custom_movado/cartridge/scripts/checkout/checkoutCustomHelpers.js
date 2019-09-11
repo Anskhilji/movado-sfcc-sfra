@@ -61,7 +61,7 @@ function sendOrderConfirmationEmail(order, locale) {
         quantityLabel: Resource.msg('order.confirmation.email.quantity', 'order', null),
         bonusLabel: Resource.msg('order.confirmation.email.bonus', 'order', null),
         engraveLabel: Resource.msg('order.confirmation.email.label.personalization.engrave', 'order', null),
-        embossLabel: Resource.msg('order.confirmation.email.label.personalization.emboss', 'order', null),
+        embossLabel: Resource.msg('order.confirmation.email.label.personalization.deboss', 'order', null),
         giftWrapLabel: Resource.msg('order.confirmation.email.label.personalization.giftWrap', 'order', null),
         giftMessageLabel: Resource.msg('order.confirmation.email.label.personalization.giftMessage', 'order', null),
         paymentTotalLabel: Resource.msg('order.confirmation.email.label.paymenttotal', 'order', null),
