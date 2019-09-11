@@ -11,7 +11,6 @@ var Transaction = require('dw/system/Transaction');
 var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 var adyenHelpers = require('~/cartridge/scripts/helpers/adyenHelpers');
 var adyenExtendAuthService = require('~/cartridge/scripts/services/adyenExtendAuthorizationService');
-var dateHelpers = require('~/cartridge/scripts/helpers/dateHelpers');
 
 /**
 * Converts amount to specific currency value/minor units
@@ -35,17 +34,15 @@ function extendPaymentAuthorization(order) {
         var currencyCode = order.currencyCode;
         //Days after which authorization extension must happen for pre-order items
         var defaultAuthExtensionDays = Site.getCurrent().getCustomPreferenceValue('adyenAuthorizationExtensionDays');
-        var defaultAuthExtensionDate = dateHelpers.getPastDateFromDays(defaultAuthExtensionDays ? defaultAuthExtensionDays : 7);
-        var defaultAuthExtensionDateCalendar = new Calendar(defaultAuthExtensionDate);
+        var currentDate = new Date();
         var lastAdjustmentDate = order.custom.lastAdjustmentDate ? order.custom.lastAdjustmentDate : order.getCreationDate();
-        var lastAdjustmentDateCalendar = new Calendar(lastAdjustmentDate);
-        var isQualifiedDate = lastAdjustmentDateCalendar.isSameDay(defaultAuthExtensionDateCalendar);
+        var isQualifiedDate = (currentDate.getDate() - lastAdjustmentDate.getDate()) >= defaultAuthExtensionDays;
         //It's already in minor units
         var orderTotalAuthorizedAmount = order.custom.Adyen_value;
         var sapAlreadyCapturedAmount = (order.custom.sapAlreadyCapturedAmount) ? getCurrenyValueForAmount(order.custom.sapAlreadyCapturedAmount, currencyCode) : 0.0;
         var sapAlreadyRefundedAmount = (order.custom.sapAlreadyRefundedAmount) ? getCurrenyValueForAmount(order.custom.sapAlreadyRefundedAmount, currencyCode) : 0.0;
         var newAuthAmount = orderTotalAuthorizedAmount - (sapAlreadyRefundedAmount + sapAlreadyCapturedAmount);
-        
+
         if (newAuthAmount > 0.0 && isQualifiedDate) {
             var adyenAdjustAuthRequestPayload = adyenHelpers.buildAdjustAuthorizationRequestPayload({Order: order, authorizationAmount: newAuthAmount});
             var adyenServiceResponse = adyenExtendAuthService.callAdyenCheckoutPaymentAPI(adyenAdjustAuthRequestPayload);
