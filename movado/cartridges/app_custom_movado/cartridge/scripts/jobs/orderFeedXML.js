@@ -1231,6 +1231,7 @@ function getPOItemsInfo(order) {
         }
         commerceItems[sequenceNumber - 1] = obj;
         sequenceNumber++;
+        requestedDeliveryDate = null;
     }
 
     if (allShipments) {
