@@ -153,7 +153,13 @@ label.availability {
 			line-height: rem(26);
 			font-weight: 300;
 		}
-	}
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    .klarna-promo-parent-container {
+        margin: auto;
+    }
 }
 
 @include media-breakpoint-up(lg) {

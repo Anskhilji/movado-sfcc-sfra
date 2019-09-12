@@ -1,14 +1,15 @@
-<div class="col-md-12 col-12">
-    <div class="klarna-promo-msg">
-        <p>
-            ${Resource.msg('klarna.promotion.message', 'hpp', null)}
-            <span class="nowrap">
-              <span class="logo">
-                  <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-promo-image" alt="Klarna logo"/>
-              </span>
-            </span>
-            </br>
-            <button class="klarna-promo-link">${Resource.msg('button.klarna.promotion.learn.more', 'hpp', null)}</button>
-        </p>
-    </div>
-</div>
+<isset name="salesPrice" value="${product.price.sales}" scope="page" />
+<isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
+    <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
+    <isif condition="${siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].placementsDataId}">
+        <div class="klarna-promo-parent-container">
+            <!-- Placement v1 -->
+            <klarna-placement class="klarna-placement"
+            data-id=${KlarnaOnSiteMessaging[siteLocaleCountryCode].placementsDataId}
+            data-purchase_amount="${salesPrice && salesPrice.decimalPrice ? salesPrice.decimalPrice : pdict.totals.grandTotal}"
+            ></klarna-placement>
+            <!-- end Placement -->
+        </div>
+    </isif>
+</isif>

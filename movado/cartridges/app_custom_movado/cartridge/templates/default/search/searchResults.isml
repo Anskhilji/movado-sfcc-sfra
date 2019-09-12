@@ -3,7 +3,6 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
-        assets.addCss('css/klarna-promo/klarna_promo.css');
     </isscript>
 
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
@@ -144,7 +143,4 @@
             <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
         </div>
     </isif>
-    <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-         <isinclude template="klarna/klarnaPromoModal" />
-     </isif>
 </isdecorate>

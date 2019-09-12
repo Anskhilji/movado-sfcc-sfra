@@ -355,3 +355,11 @@ $negative-spacer: -0.625rem;
     line-height: rem(31);
   }
 }
+
+@include media-breakpoint-up(lg) {
+	.klarna-promo-parent-container {
+    .klarna-placement {
+      max-width: 351px !important;
+    }
+  }
+}

@@ -2,7 +2,6 @@
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/cart.css');
-        assets.addCss('css/klarna-promo/klarna_promo.css');
     </isscript>
     <div class="cart-section-wrapper">
         <isinclude template="cart/cartSection"/>

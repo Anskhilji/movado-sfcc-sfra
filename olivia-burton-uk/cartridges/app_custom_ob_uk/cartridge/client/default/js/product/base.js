@@ -625,11 +625,6 @@ var updateCartPage = function(data) {
 };
 
 module.exports = {
-    initializeKlarnaPrmo: function () {
-        $(document).on('click', '.klarna-promo-link', function (e) {
-            $('#klarnaPrmoModal').modal('show');
-        });
-    },
 	attributeSelect: attributeSelect,
     methods: {
         editBonusProducts: function (data) {
