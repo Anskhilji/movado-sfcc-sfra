@@ -414,6 +414,13 @@ module.exports = function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
+                if (isklarnaPromoEnabled && data.isKlarnaCartPromoEnabled) {
+                    $('klarna-placement').attr("data-purchase_amount", data.basket.totals.klarnaGrandTotal);
+                    window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+                    window.KlarnaOnsiteService.push({
+                        eventName: 'refresh-placements'
+                    });
+                }
                 if (data.basket.items.length === 0) {
                     $('.cart').empty().append(data.emptyCartDom);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);

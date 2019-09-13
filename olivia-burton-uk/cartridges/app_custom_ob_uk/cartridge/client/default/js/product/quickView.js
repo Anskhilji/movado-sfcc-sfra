@@ -75,10 +75,12 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
             affirm.ui.refresh();
-            window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
-            window.KlarnaOnsiteService.push({
-                eventName: 'refresh-placements'
-            });
+            if (isklarnaPromoEnabled && data.isKlarnaPDPPromoEnabled) {
+                window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+                window.KlarnaOnsiteService.push({
+                    eventName: 'refresh-placements'
+                });
+            }
             $.spinner().stop();
         },
         error: function () {
