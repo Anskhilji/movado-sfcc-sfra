@@ -27,6 +27,7 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var Site = require('dw/system/Site');
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
@@ -37,11 +38,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
+    var klarnaProductPrice = '0';
     var pdpAnalyticsTrackingData;
 
 	/* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -66,7 +69,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
         wishlistGtmObj: wishlistGtmObj,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
+        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
+        klarnaProductPrice: klarnaProductPrice
     };
 
     res.setViewData(viewData);

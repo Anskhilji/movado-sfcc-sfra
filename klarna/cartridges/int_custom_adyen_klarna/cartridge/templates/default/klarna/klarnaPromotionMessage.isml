@@ -1,4 +1,3 @@
-<isset name="salesPrice" value="${product.price.sales}" scope="page" />
 <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
     <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
@@ -6,9 +5,8 @@
         <div class="klarna-promo-parent-container">
             <!-- Placement v1 -->
             <klarna-placement class="klarna-placement"
-            data-id=${KlarnaOnSiteMessaging[siteLocaleCountryCode].placementsDataId}
-            data-purchase_amount="${salesPrice && salesPrice.decimalPrice ? salesPrice.decimalPrice :
-                pdict.totals.grandTotal == '-' ? '0' : pdict.totals.grandTotal.substr(1)}"
+            data-id="${KlarnaOnSiteMessaging[siteLocaleCountryCode].placementsDataId}"
+            data-purchase_amount="${pdict.klarnaProductPrice ? pdict.klarnaProductPrice : pdict.totals.klarnaGrandTotal}"
             ></klarna-placement>
             <!-- end Placement -->
         </div>

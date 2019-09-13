@@ -2,6 +2,7 @@
 
 var Totals = module.superModule;
 var shippingCustomHelper = require('*/cartridge/scripts/helpers/shippingCustomHelper');
+var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 
 /**
 * extend is use to extend super module
@@ -40,10 +41,18 @@ function extend(target, source) {
 function totals(lineItemContainer) {
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
+    var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
+
+    if (KlarnaGrandTotal.available) {
+        KlarnaGrandTotal = AdyenHelpers.getCurrencyValueForApi(KlarnaGrandTotal).toString();
+    } else {
+        KlarnaGrandTotal = '0';
+    }
 
     if (lineItemContainer) {
 	    totalsObj = extend(totalsModel, {
-	    	totalTax: shippingCustomHelper.getTaxTotals(lineItemContainer.totalTax)
+            totalTax: shippingCustomHelper.getTaxTotals(lineItemContainer.totalTax),
+            klarnaGrandTotal: KlarnaGrandTotal
 	    });
     }
 
