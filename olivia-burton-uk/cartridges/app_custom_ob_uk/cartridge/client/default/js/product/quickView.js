@@ -76,6 +76,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             }, 1000);
             affirm.ui.refresh();
             if (isklarnaPromoEnabled && data.isKlarnaPDPPromoEnabled) {
+                $('klarna-placement').attr("data-purchase_amount", data.klarnaProductPrice);
                 window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
                 window.KlarnaOnsiteService.push({
                     eventName: 'refresh-placements'
