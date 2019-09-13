@@ -35,8 +35,13 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var isPreOrder = orderCustomHelpers.isPreOrder(order);
     //Set order custom attribute if there is any pre-order item exists in order
     if (isPreOrder) {
+        var paymentMethod = orderCustomHelpers.getPaymentMethod(order);
         Transaction.wrap(function () {
             order.custom.isPreorder = isPreOrder;
+            if (paymentMethod === 'CREDIT_CARD' || paymentMethod === 'DW_APPLE_PAY') {
+                order.custom.isPreorderProcessing = isPreOrder;
+                order.custom.Adyen_value = order.totalGrossPrice.available ? order.totalGrossPrice.value * 100 : 0.0;
+            }
         });
     }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
