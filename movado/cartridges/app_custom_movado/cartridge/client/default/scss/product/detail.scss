@@ -170,3 +170,11 @@ label.availability {
 		}
 	}
 }
+
+@include media-breakpoint-up(sm) {
+	.klarna-promo-parent-container {
+    .klarna-placement {
+      max-width: 351px !important;
+    }
+  }
+}

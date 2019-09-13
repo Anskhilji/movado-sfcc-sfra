@@ -101,7 +101,9 @@
                             </div>
                         </div>
                         <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-                            <isinclude template="klarna/klarnaPromotionMessage" />
+                            <div class="col-md-10 col-12 text-center text-sm-left">
+                                <isinclude template="klarna/klarnaPromotionMessage" />
+                            </div>
                         </isif>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->

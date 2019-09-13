@@ -7,7 +7,8 @@
             <!-- Placement v1 -->
             <klarna-placement class="klarna-placement"
             data-id=${KlarnaOnSiteMessaging[siteLocaleCountryCode].placementsDataId}
-            data-purchase_amount="${salesPrice && salesPrice.decimalPrice ? salesPrice.decimalPrice : pdict.totals.grandTotal}"
+            data-purchase_amount="${salesPrice && salesPrice.decimalPrice ? salesPrice.decimalPrice :
+                pdict.totals.grandTotal == '-' ? '0' : pdict.totals.grandTotal.substr(1)}"
             ></klarna-placement>
             <!-- end Placement -->
         </div>
