@@ -8,6 +8,7 @@ var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var Transaction = require('dw/system/Transaction');
 var Resource = require('dw/web/Resource');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var order = OrderMgr.getOrder(req.querystring.order_id);
@@ -30,7 +31,14 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     if (orderPlacementStatus.error) {
         return next(new Error('Could not place order'));
     }
-
+    //Check if order includes Pre-Order item
+    var isPreOrder = orderCustomHelpers.isPreOrder(order);
+    //Set order custom attribute if there is any pre-order item exists in order
+    if (isPreOrder) {
+        Transaction.wrap(function () {
+            order.custom.isPreorder = isPreOrder;
+        });
+    }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
     var URLUtils = require('dw/web/URLUtils');
