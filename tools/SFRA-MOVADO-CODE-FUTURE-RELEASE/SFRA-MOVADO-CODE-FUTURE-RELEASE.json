@@ -1,0 +1,397 @@
+{
+  "dependencies": [
+    {
+      "repository": {
+        "url": "source/cartridges/storefront-reference-architecture",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:js",
+          "compile:scss",
+          "compile:fonts"
+        ]
+      },
+      "cartridges": [
+        "app_storefront_base",
+        "modules"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/lib_productlist",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "lib_productlist"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/plugin-applepay",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "plugin_applepay"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/dis-product-image-wrapper",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "plugin_dis"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/gtm",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "int_gtm"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/sapOrderProcessing",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "int_sap_orderStatus"
+      ]
+    },	
+    {
+      "repository": {
+        "url": "source/cartridges/sabrix",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "int_sabrix"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/link_riskified",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:js"
+        ]
+      },
+      "cartridges": [
+		"int_custom_riskified",
+        "int_riskified_sfra",
+		"int_riskified",
+		"int_riskified_bm"
+      ]
+    },	
+    {
+      "repository": {
+        "url": "source/cartridges/link_affirm",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+		"int_affirm_sfra",
+		"int_affirm"
+      ]
+    },		
+    {
+      "repository": {
+        "url": "source/cartridges/plugin_productcompare",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:js",
+		  "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "plugin_productcompare"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/plugin_wishlists",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:js",
+		  "compile:scss"
+		  ]
+      },
+      "cartridges": [
+        "plugin_wishlists"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/jobcomponents",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "bc_job_components",
+		"bc_custom_job_components",
+		"bm_tools"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/link_adyen",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:js",
+		  "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "int_adyen_SFRA",
+		"int_adyen_overlay",
+		"int_custom_adyen",
+		"bm_adyen"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/movado",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+		  "compile:js"
+        ]
+      },
+      "cartridges": [
+        "app_custom_movado",
+		"int_custom_affirm",
+		"int_adyen_expresspaypal"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/concord",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_concord"
+      ]
+    },
+    {
+      "repository": {
+        "url": "source/cartridges/ebel",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ebel"
+      ]
+    },
+	{
+      "repository": {
+        "url": "source/cartridges/olivia-burton-uk",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss",
+          "compile:js",
+          "compile:fonts"
+        ]
+      },
+      "cartridges": [
+        "app_custom_ob_uk"
+      ]
+    },
+	{
+      "repository": {
+        "url": "source/cartridges/klarna",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true,
+        "scripts": [
+          "compile:scss"
+        ]
+      },
+      "cartridges": [
+        "int_custom_adyen_klarna"
+      ]
+    },
+	{
+      "repository": {
+        "url": "source/cartridges/yotpo",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "bm_yotpo",
+		"int_custom_yotpo",
+		"int_yotpo",
+		"int_yotpo_pipelines",
+		"int_yotpo_sfra"
+      ]
+    },
+	{
+      "repository": {
+        "url": "source/sites",
+        "type": "file"
+      },
+      "siteImport": {
+        "enabled": "true",
+		"sites": ["MovadoUS"],
+        "initPath": "site_template"
+      }
+    }
+  ],
+
+  "environments": {
+    "dev05": {
+      "server": "dev10-na02-movado.demandware.net",
+      "username": "deployment",
+      "password": "6eM_BxD7"
+    }
+  },
+  
+  "settings": {
+	"project": {
+      "name":    "movado",
+      "version": "ci_movado_sfra"
+    },
+	"general": {
+	  "password_encryption": true,
+      "target_environment": "dev05"
+    },
+    "optimize": {
+      "postcss": true,
+      "browserify": true,
+      "js": true,
+      "css": true,
+      "concatenate": true
+    },
+	"upload": {
+      "cleanup": true,
+      "excludehidden": false
+    },
+    "siteImport": {
+      "enabled": true,                                                
+      "filenames": {
+        "init": "build-suite-site-template",
+        "meta": "build-suite-metadata",
+        "content": "previously-uploaded-content-archive" 
+      }
+    },
+	"storefront_build_information": {
+      "enabled": true,
+      "target_cartridge": "app_custom_movado",
+      "target_template": "default/components/footer/footer.isml"
+    }
+  }
+}
