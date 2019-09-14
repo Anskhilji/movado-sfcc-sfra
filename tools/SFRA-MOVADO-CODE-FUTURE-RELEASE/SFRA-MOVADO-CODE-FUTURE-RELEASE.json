@@ -322,21 +322,21 @@
     },
 	{
       "repository": {
-        "url": "source/cartridges/movado_redesign",
+        "url": "source/cartridges/yotpo",
         "type": "file"
       },
       "source": {
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss",
-          "compile:js"
-        ]
+        "install": true
       },
       "cartridges": [
-        "app_custom_movado_redesign"
+        "bm_yotpo",
+		"int_custom_yotpo",
+		"int_yotpo",
+		"int_yotpo_pipelines",
+		"int_yotpo_sfra"
       ]
     },
 	{
@@ -354,9 +354,9 @@
 
   "environments": {
     "dev05": {
-      "server": "dev05-na02-movado.demandware.net",
+      "server": "dev10-na02-movado.demandware.net",
       "username": "deployment",
-      "password": "d2!YK1!O?hffgtf"
+      "password": "6eM_BxD7"
     }
   },
   
