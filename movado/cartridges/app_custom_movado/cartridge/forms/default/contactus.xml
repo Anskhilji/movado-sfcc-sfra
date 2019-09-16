@@ -42,7 +42,6 @@
 		</options>	
 	</field>
 	<field formid="comment" label="label.input.comment" type="string" mandatory="false"
-    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
     	   parse-error="error.message.invalid"
            />
 
