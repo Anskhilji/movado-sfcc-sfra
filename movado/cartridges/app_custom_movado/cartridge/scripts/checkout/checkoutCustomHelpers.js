@@ -7,6 +7,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
+var Logger = require('dw/system/Logger').getLogger('sapFeedFileParser');
 
 /**
  * Sends a confirmation to the current user if riskified not enabled
@@ -25,6 +26,7 @@ function sendConfirmationEmail(order, locale) {
         }
         if (!riskifiedEnabled) {
             sendOrderConfirmationEmail(order, locale);
+            Logger.debug('Sent confirmation mail to the current user, riskified not enabled, for order: {0}',order.OrderNo);
         }
     }
 }
@@ -91,6 +93,7 @@ function sendOrderConfirmationEmail(order, locale) {
     };
 
     emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
+    Logger.debug('Sent Order Confirmation mail to the current user, for order: {0}',orderModel.orderNumber);
 }
 /**
  * Send order cancellation email
@@ -120,6 +123,8 @@ function sendCancellationEmail(emailObject) {
         type: emailHelpers.emailTypes.orderCancellation
     };
     emailHelpers.sendEmail(emailObj, 'order/email/cancellation', orderObject);
+    Logger.debug('Sent order cancellation mail to the current user, for order: {0}',emailObject.orderNumber);
+    
 }
 
 /**
@@ -150,6 +155,7 @@ function sendPartialCancellationEmail(emailObject) {
         type: emailHelpers.emailTypes.orderPartialCancellation
     };
     emailHelpers.sendEmail(emailObj, 'order/email/partialCancellation', orderObject);
+    Logger.debug('Sent partial order cancellation mail to the current user, for order: {0}',emailObject.orderNumber);
 }
 
 /**
@@ -213,6 +219,7 @@ function sendShippingEmail(order) {
     };
 
     emailHelpers.sendEmail(emailObj, 'order/email/shippingEmail', orderObject);
+    Logger.debug('Sent Shipping mail to the current user, for order: {0}', orderModel.orderNumber);
 }
 
 /**
@@ -226,6 +233,7 @@ function sendShippingEmail(order) {
 function failOrderRisifiedCall(order, orderNumber, paymentInstrument) {
     Transaction.wrap(function () {
 	    OrderMgr.failOrder(order);
+	    Logger.debug('Failed Order with RisifiedCall, for order: {0}',orderNumber);
 	  });
 	  hooksHelper(
 	          'app.fraud.detection.checkoutdenied',
