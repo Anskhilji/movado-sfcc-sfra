@@ -4,9 +4,17 @@
         <button class="add-to-cart-global btn btn-primary gtm-addtocart"
                 data-pid="${product.id}">
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
-                ${Resource.msg('button.addalltocart', 'common', null)}
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                    ${Resource.msg('button.preorder.all.now', 'common', null)} </br>
+                 <iselse/>
+                    ${Resource.msg('button.addalltocart', 'common', null)}
+                 </isif>
             <iselse>
-                ${Resource.msg('button.addtocart', 'common', null)}
+                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                    ${Resource.msg('button.preorder.now', 'common', null)}
+                 <iselse/>
+                    ${Resource.msg('button.addtocart', 'common', null)}
+                 </isif>
             </isif>
         </button>
 	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>

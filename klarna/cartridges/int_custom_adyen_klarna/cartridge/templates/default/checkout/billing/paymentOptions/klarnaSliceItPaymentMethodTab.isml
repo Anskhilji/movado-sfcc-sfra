@@ -11,7 +11,7 @@
         <input type='radio' id="slice-it-${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
                 value='adyen' required ${checked}/>
         <label for='slice-it-${paymentOption.ID}' class="form-check-label d-block">
-            <img src="${URLUtils.staticURL('/images/slice-it.PNG')}" class="klarna-panel-image" alt="Klarna slice it logo"/>
+            <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-panel-image" alt="Klarna logo"/>
             <span>${Resource.msg('hpp.klarna.slice.it.label', 'hpp', null)}</span>
         </label>
         <a class="klarna-slice-it-panel" data-toggle="collapse" aria-controls="klarna-slice-it-content" href="${'#' + 'klarna-slice-it-content'}">

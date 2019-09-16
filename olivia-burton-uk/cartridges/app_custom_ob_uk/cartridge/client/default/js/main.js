@@ -22,6 +22,7 @@ $(document).ready(function () {
     processInclude(require('movado/product/wishlistHeart'));
     processInclude(require('./product/base'));
     processInclude(require('./components/miniCart'));
+    processInclude(require('movado/utilities/swatches'));
 });
 
 require('base/components/spinner');

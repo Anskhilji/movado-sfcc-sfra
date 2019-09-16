@@ -27,6 +27,7 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var Site = require('dw/system/Site');
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
@@ -37,11 +38,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
+    var klarnaProductPrice = '0';
     var pdpAnalyticsTrackingData;
 
 	/* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -66,7 +69,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
         wishlistGtmObj: wishlistGtmObj,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
+        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
+        klarnaProductPrice: klarnaProductPrice
     };
 
     res.setViewData(viewData);
@@ -109,9 +113,12 @@ server.replace('Variation', function (req, res, next) {
 
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var Site = require('dw/system/Site');
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var pdpAnalyticsTrackingData;
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
-    
+    var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
+    var klarnaProductPrice = '0';
+
     res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
     var queryString = res.viewData.queryString;
     var productID;
@@ -119,6 +126,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     	productID = queryString.split('=')[1];
     }
     var product = productMgr.getProduct(productCustomHelpers.formatProductId(productID));
+    if (product) {
+        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+    }
     var productGtmArray = {};
   // object for GTM
     productGtmArray = {
@@ -141,7 +151,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     res.setViewData({
         productGtmArray: productGtmArray,
         pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
-        isanalyticsTrackingEnabled: isanalyticsTrackingEnabled
+        isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
+        isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
+        klarnaProductPrice: klarnaProductPrice
     });
     next();
 });

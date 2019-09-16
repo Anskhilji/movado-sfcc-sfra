@@ -57,6 +57,9 @@
                             fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                     </div>
                 </div>
+                <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                    <isinclude template="klarna/klarnaPromotionMessage" />
+                </isif>
                 <div class="col-12 prices-add-to-cart-actions">
                     <!-- Prices -->
                     <div class="prices">

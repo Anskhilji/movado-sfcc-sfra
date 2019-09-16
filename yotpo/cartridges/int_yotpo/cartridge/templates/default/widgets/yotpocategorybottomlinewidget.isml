@@ -1,0 +1,61 @@
+<iscomment>It displays the rating for current product on category/search pge. 
+Session variables used in this template are declared in yotpobottomlineheader.isml</iscomment>
+<iscontent type="text/html" />
+
+<isif condition="${session.custom.yotpoCartridgeEnabled}">
+
+	<isif condition="${!empty(pdict.product)}">
+	
+		<isscript>
+			if(session.custom.isBottomLineEnabled){
+				var product : dw.catalog.Product = pdict.product;
+				var currentProduct : dw.catalog.Product;
+				
+				currentProduct = product;
+				
+				if(product.variant) {
+					if(session.custom.productInformationFromMaster) {
+						currentProduct = product.getVariationModel().master;
+					}
+				}
+				
+				var model : String = currentProduct.brand;
+				
+				if(empty(model)){
+					model = "";
+				}
+				
+				var domainAddress : String = URLUtils.home(); 		
+				
+				var regex : String = "([\/])";
+				var regExp = new RegExp(regex, "gi");
+				var productID = currentProduct.ID.replace(regExp, "-");
+				
+				var productURL : String = URLUtils.abs('Product-Show','pid', currentProduct.ID);
+				productURL = encodeURI(productURL);
+				
+				var imageURL : String = "";
+				var image = currentProduct.getImage('large',0);
+				if(!empty(image))	{
+					imageURL = image.getAbsURL();
+				}
+				imageURL = encodeURI(imageURL);
+				imageURL = empty(imageURL) ? "Image not available" : imageURL;
+			}
+		</isscript>
+		
+		<isif condition="${session.custom.isBottomLineEnabled}">
+			<div id="yotpo-bottomline-top-div" class="yotpo bottomLine"
+			    data-appkey="${session.custom.yotpoAppKey}"
+			    data-domain="${domainAddress}"
+			    data-product-id="${productID}"
+			    data-product-models="${model}"
+			    data-name="${currentProduct.name}"
+			    data-url="${productURL}"
+			    data-image-url="${imageURL}"
+			    data-description="${currentProduct.shortDescription}">
+			</div>
+		</isif>
+	</isif>
+	
+</isif>

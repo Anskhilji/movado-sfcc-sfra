@@ -2,6 +2,6 @@
     <!-- TODO: Title BM Configurable -->
     <button class="title text-uppercase btn p-0 text-left shadow-none">${product.resources.Highlight}</button>
 </h2>
-<div class="col-sm-12 col-md-8 col-lg-9 value content text-uppercase">
+<div class="col-sm-12 col-md-8 col-lg-9 value content">
     <isprint value="${product.longDescription}" encoding="off"/>
 </div>

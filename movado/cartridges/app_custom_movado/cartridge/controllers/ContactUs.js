@@ -36,6 +36,11 @@ server.post(
         var Site = require('dw/system/Site');
         var formErrors = require('*/cartridge/scripts/formErrors');
         var contactUsForm = server.forms.getForm('contactus');
+        var dwUtil = require('dw/util');
+        var template = dwUtil.Template('contactUsEmail.isml')
+        var contentMap = dwUtil.HashMap();
+
+        
         if (contactUsForm.valid) {
             var result = {
                 firstName: contactUsForm.firstname.value,
@@ -47,29 +52,18 @@ server.post(
                 myquestion: contactUsForm.myquestion.value || '',
                 contactUsForm: contactUsForm
             };
-
+            
+            contentMap.put('result',result);
             var mail = new Mail();
             mail.setFrom(result.email);
             mail.addTo(
-                Site.current.getCustomPreferenceValue('customerServiceEmail')
+            	Site.current.getCustomPreferenceValue('customerServiceEmail')
             );
             mail.setSubject(
                 Resource.msg('subject.contactus.email', 'common', null)
             );
-            mail.setContent(
-                'firstName:' +
-                    result.firstName +
-                    'lastName:' +
-                    result.lastName +
-                    'phone:' +
-                    result.phone +
-                    'comment' +
-                    result.comment +
-                    'ordernumber' +
-                    result.ordernumber +
-                    'question' +
-                    result.myquestion
-            );
+            var text: MimeEncodedText = template.render(contentMap);
+            mail.setContent(text);
             mail.send();
 
             var apiContent = ContentMgr.getContent('ca-contactus-thankyou');

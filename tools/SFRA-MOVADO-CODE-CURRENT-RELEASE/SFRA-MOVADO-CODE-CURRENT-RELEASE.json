@@ -322,6 +322,25 @@
     },
 	{
       "repository": {
+        "url": "source/cartridges/yotpo",
+        "type": "file"
+      },
+      "source": {
+        "path": "cartridges"
+      },
+      "npm": {
+        "install": true
+      },
+      "cartridges": [
+        "bm_yotpo",
+		"int_custom_yotpo",
+		"int_yotpo",
+		"int_yotpo_pipelines",
+		"int_yotpo_sfra"
+      ]
+    },
+  {
+      "repository": {
         "url": "source/cartridges/movado_redesign",
         "type": "file"
       },

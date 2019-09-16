@@ -2,6 +2,7 @@ var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 var Logger = require('dw/system/Logger');
 var ArrayList = require('dw/util/ArrayList');
+var YotpoHelper = require('int_custom_yotpo/cartridge/scripts/yotpo/helper/YotpoHelper');
 
 
 /* global constants*/
@@ -206,7 +207,6 @@ function getOrderStatus(shippedQuantity, returnedQuantity, cancelledQuantity, to
     return orderStatus;
 }
 
-
 /**
  *
  * @param orderAttribute
@@ -278,6 +278,16 @@ function updateOrderStatus(order, eventType) {
             order.custom.sapOrderStatus = orderStatus;
         }
     });
+    
+    switch(orderStatus) {
+        case ORDR_STATUS_RETURNED:
+            YotpoHelper.deleteOrder(order);
+            break;
+        case ORDR_STATUS_CANCELLED:
+            YotpoHelper.deleteOrder(order);
+            break;
+    }
+  
 }
 
 

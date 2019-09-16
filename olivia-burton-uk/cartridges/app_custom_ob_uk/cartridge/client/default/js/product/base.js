@@ -625,7 +625,7 @@ var updateCartPage = function(data) {
 };
 
 module.exports = {
-    attributeSelect: attributeSelect,
+	attributeSelect: attributeSelect,
     methods: {
         editBonusProducts: function (data) {
             chooseBonusProducts(data);
