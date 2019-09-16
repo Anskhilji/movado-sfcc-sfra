@@ -1,0 +1,412 @@
+@import '~movado/search';
+@import 'vars';
+@import "animate.css/animate";
+@import "custom-animation";
+.plp-new-design {
+
+  @include media-breakpoint-down(sm) {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  &.search-banner {
+
+    img {
+      width: 100%;
+      height: rem(350px);
+    }
+  }
+
+  .filter-bar {
+
+      ul {
+        width: 100%;
+        padding-top: rem(15);
+        border-top: rem(1) solid $white-grey;
+      }
+
+    .filter-value {
+      padding: 0;
+      background: none;
+      border-radius: unset;
+
+      a {
+        text-decoration: none;
+        display: inline-block;
+        border: rem(1) solid $parrot-green;
+        text-transform: capitalize;
+        border-radius: rem(5);
+        width: 100%;
+        padding: rem(5) rem(10);
+        padding-right: rem(25);
+        text-align: center;
+        font-size: rem(12);
+        @include font-medium;
+        color: $dark-green;
+        outline: none;
+        transition: 0.3s;
+        letter-spacing: rem(1);
+        display: inline-block;
+        background: $gray-green;
+      }
+    }
+  }
+
+  .refinements {
+
+    .values {
+      margin: 0;
+    }
+  }
+
+  .product-grid {
+    padding: 0 rem(15);
+
+    @include media-breakpoint-down(md) {
+      padding: 0 rem(20);
+      overflow: hidden;
+    }
+
+    > div {
+      margin-bottom: rem(15);
+      padding: 0;
+    }
+  }
+
+  .filter-btn {
+
+    button{
+      border: unset;
+      background: unset;
+      font-size:rem(15);
+      @include font-medium;
+      color: $black;
+      font-weight: bold;
+      outline: none;
+      padding-left: rem(25);
+      background: url("../images/filter.png") left center no-repeat;
+    }
+  }
+
+  .tab-content {
+    position: unset;
+  }
+
+  .result-count {
+
+    > span {
+        margin: 0;
+    }
+
+    .make-bold {
+        @include font-medium;
+        font-weight: bold;
+        font-size: rem(17);
+    }
+  }
+
+  .refinement-bar {
+    position: fixed;
+    width: rem(350);
+    z-index: 9999;
+    background:$white;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: unset;
+    opacity: 0;
+    pointer-events: none;
+    
+    @include media-breakpoint-down(sm) {
+      width: rem(325);
+    }
+
+    &.animated {
+      pointer-events: all;
+    }
+
+    .refinement.card {
+      padding-bottom: rem(10);
+      margin-bottom: 0;
+      margin-bottom: rem(10);
+
+      .card-header {
+        @include font-book;
+        font-size: rem(17);
+        color: $grey8;
+        line-height: rem(22);
+        text-transform: capitalize;
+        outline: none;
+        padding: rem(5) 0;
+
+        &::after {
+          content: "";
+          background: url("../images/down-arrow.svg") left center no-repeat;
+          opacity: 0.3;
+          right: 0;
+          top: rem(7);
+        }
+      }
+
+      .values {
+        display: flex;
+
+        li {
+          padding-right: 0;
+          padding-left: 0;
+          margin-bottom: rem(10);
+
+          &:nth-child(odd) {
+            padding-right: rem(5);
+          }
+
+          &:nth-child(even) {
+            padding-left: rem(5);
+          }
+        }
+      }
+
+      .selection-tab {
+        display: inline-block;
+        border: 1px solid $gray90;
+        border-radius: rem(3);
+        width: 100%;
+        padding: rem(10) rem(3);
+        text-align: center;
+        font-size: rem(12);
+        @include font-medium;
+        color: $grey8;
+        outline: none;
+        transition: 0.3s;
+        letter-spacing: rem(1);
+
+        &:hover, &:focus, &.selected {
+          border-color: $parrot-green;
+          color: $dark-green;
+          background: $gray-green;
+        }
+      }
+
+      &.active {
+
+        .card-header {
+
+          &:after {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      .card-body {
+        padding: 0;
+        margin-top: rem(10);
+      }
+    }
+
+    .close-refinebar {
+      background: url("../images/left-arrow.svg") left -4px center no-repeat;
+      border: unset;
+      font-size: rem(17);
+      @include font-medium;
+      color: $black;
+      letter-spacing:  normal;
+      outline: none;
+      padding: rem(3) 0;
+      padding-left: rem(15);
+      background-size: rem(15);
+    }
+
+    .header-bar {
+      padding: rem(10) rem(20);
+      background: $gull-gray-light;
+
+      .secondary-bar {
+        overflow: unset;
+
+        .reset {
+          color: $regent-grey;
+          font-size: rem(15);
+          @include font-medium;
+          padding: 0;
+          border-bottom: 1px solid $regent-grey;
+          font-weight: bold;
+          letter-spacing: normal;
+          text-decoration: unset;
+        }
+      }
+    }
+
+    .refine-wrapper {
+      padding: rem(20) rem(5);
+
+      @include media-breakpoint-down(sm) {
+        padding: rem(20) rem(15);
+      }
+    }
+
+    &.animated {
+      pointer-events: all;
+    }
+  }
+
+  .product {
+    position: relative;
+    height: 100%;
+    padding: 0 rem(5);
+  }
+
+  .tile-discription, .tile-btns {
+    display: none;
+  }
+
+  .product-tile {
+    background: $white-smoke;
+    margin-bottom: rem(15);
+    height: 100%;
+    position: relative;
+
+    @include media-breakpoint-down(lg) {
+      min-height: unset;
+    }
+
+    .out-of-stock {
+      position: absolute;
+      top: rem(15);
+      right: rem(15);
+      display: inline-block;
+      color: $storm-gray;
+      font-size: rem(11);
+      letter-spacing: normal;
+      padding: rem(3) rem(10);
+      background: $dark-pink;
+      @include font-medium;
+      font-weight: 600;
+      text-transform: capitalize;
+      border-radius: rem(10);
+    }
+
+    .new-product {
+      position: absolute;
+      top: rem(15);
+      left: rem(15);
+      display: inline-block;
+      color: $storm-gray;
+      font-size: rem(11);
+      letter-spacing: normal;
+      padding: rem(3) rem(10);
+      background: $grey9-light;
+      @include font-medium;
+      font-weight: 600;
+      text-transform: capitalize;
+      border-radius: rem(10);
+    }
+
+    .image-container {
+      border: unset;
+    }
+
+    .tile-body {
+      text-align: left;
+      padding: rem(10) rem(15);
+
+      .pdp-link {
+        margin-bottom: rem(5);
+      }
+
+      .price {
+        padding: 0;
+        display: block;
+        font-size: rem(15);
+        @include font-light;
+        float: unset;
+        letter-spacing: normal;
+        color: $grey8;
+        margin-bottom: rem(5);
+      }
+
+      .product-name {
+        font-size: rem(15);
+        @include font-medium;
+        font-weight: bold;
+        color: $grey8;
+        letter-spacing: normal;
+        text-transform: capitalize;
+      }
+
+      .tile-detail-btn {
+        font-size: rem(15);
+        @include font-medium;
+        font-weight: 600;
+        letter-spacing: normal;
+        text-transform: uppercase;
+        color: $grey8;
+        display: inline-block;
+        padding: rem(5) rem(20);
+        border: rem(1) solid $grey8;
+        transition: 0.3s;
+        text-decoration: unset;
+
+        &:hover {
+          color: $white;
+          background: $grey8;
+        }
+      }
+
+      .tile-quick-view-btn {
+        display: inline-block;
+        width: rem(28);
+        height: rem(28);
+        background: url("../images/shoping-bag.svg") center no-repeat;
+        background-size: rem(24);
+      }
+      
+      .tile-discription {
+        font-size: rem(15);
+        @include font-light;
+        color: $grey8;
+        font-weight: 400;
+        letter-spacing: normal;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+  .hovered-tile {
+    z-index: 99999;
+    position: relative;
+    width: 100%;
+    min-height: rem(363);
+
+    .tile-body {
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      background: $gray-overlay;
+      padding-bottom: rem(15);
+    }
+
+    .tile-discription {
+      display: -webkit-box;
+    }
+
+    .tile-btns {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .sort-col, .filter-col {
+    display: none;
+  }
+}
+
+.no-overflow {
+  overflow: hidden;
+}
+
+.modal-background {
+  opacity: 1;
+  background-color: $grey-transparent-1;
+}

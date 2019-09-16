@@ -1,6 +1,35 @@
 $storm-gray:#787a8a !default;
 $gray94:#f0f0f0 !default;
 $white-grey:#eaeaea !default;
-$gray-x11:#bcbec0;
+$gray-x11:#bcbec0 !default;
+$regent-grey:#787A8A !default;
+$gray90:#E5E5E5 !default;
+$gull-gray-light:rgba(160, 169, 186, 0.1) !default;
+$parrot-green:#99CB7F !default;
+$gray-green:rgba(102,152,76,0.1) !default;
+$dark-green:#66984C !default;
+$white-smoke:#F2F2F2 !default;
+$gray-overlay:rgba(242,242,242,0.89) !default;
+$dark-pink:rgba(153,84,100,0.25) !default;
+$grey9-light: rgba(188,190,192,0.5) !default;
+
+@mixin font-medium {
+    font-family: futura-pt,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-light {
+    font-family: futura-pt,sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: futura-pt,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 $custom-xl:1280px;
 $custom-lg:1070px;

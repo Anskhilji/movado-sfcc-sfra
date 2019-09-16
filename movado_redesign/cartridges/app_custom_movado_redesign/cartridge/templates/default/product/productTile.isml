@@ -1,0 +1,35 @@
+<iscomment> Custom: HTML divs replaced, two buttons added</iscomment>
+<div class="product-tile" itemscope itemtype="http://schema.org/Product">
+    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+
+    <isloop items="${product.availability.messages}" var="message">
+        <isset name="outOfStock" value="${false}" scope="page"/>
+        <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
+            <isset name="outOfStock" value="${true}" scope="page"/>
+        </isif>
+    </isloop>
+
+    <isinclude template="product/components/productTileImage" />
+    <isif condition="${outOfStock}">
+        <div class="out-of-stock">
+            ${Resource.msg('label.soldout', 'common', null)}
+        </div>
+    </isif>
+    <div class="tile-body">
+        <isset name="price" value="${product.price}" scope="page" />
+        <isif condition="${product.productType === 'set'}">
+            <isinclude template="product/components/pricing/setPrice" />
+        <iselse>
+            <isinclude template="product/components/pricing/main" />
+        </isif>
+        <isinclude template="product/components/productTileName" />
+        <p class="tile-discription">
+           ${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}
+        </p>
+        <div class="tile-btns">
+            <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.detail.details', 'product', null)}</a>
+            <a href="" class="tile-quick-view-btn"></a>
+        </div>
+    </div>
+    <!-- END_dwmarker -->
+</div>
