@@ -234,6 +234,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var emptyCartDom;
     var Site = require('dw/system/Site');
+    var isKlarnaCartPromoEnabled = Site.current.getCustomPreferenceValue('klarnaCartPromoMsg');
     
     emptyCartDom = customCartHelpers.getCartAssets();
     if (currentBasket.productLineItems.length === 0) {
@@ -248,7 +249,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     } else {
         res.setViewData({ emptyCartDom: emptyCartDom});
     }
-
+    res.setViewData({isKlarnaCartPromoEnabled: isKlarnaCartPromoEnabled});
 	 next();
 });
 

@@ -8,6 +8,7 @@ var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var Transaction = require('dw/system/Transaction');
 var Resource = require('dw/web/Resource');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var order = OrderMgr.getOrder(req.querystring.order_id);
@@ -30,7 +31,19 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     if (orderPlacementStatus.error) {
         return next(new Error('Could not place order'));
     }
-
+    //Check if order includes Pre-Order item
+    var isPreOrder = orderCustomHelpers.isPreOrder(order);
+    //Set order custom attribute if there is any pre-order item exists in order
+    if (isPreOrder) {
+        var paymentMethod = orderCustomHelpers.getPaymentMethod(order);
+        Transaction.wrap(function () {
+            order.custom.isPreorder = isPreOrder;
+            if (paymentMethod === 'CREDIT_CARD' || paymentMethod === 'DW_APPLE_PAY') {
+                order.custom.isPreorderProcessing = isPreOrder;
+                order.custom.Adyen_value = order.totalGrossPrice.available ? order.totalGrossPrice.value * 100 : 0.0;
+            }
+        });
+    }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
     var URLUtils = require('dw/web/URLUtils');

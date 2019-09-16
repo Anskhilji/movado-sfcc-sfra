@@ -75,6 +75,13 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
             affirm.ui.refresh();
+            if (isklarnaPromoEnabled && data.isKlarnaPDPPromoEnabled) {
+                $('klarna-placement').attr("data-purchase_amount", data.klarnaProductPrice);
+                window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+                window.KlarnaOnsiteService.push({
+                    eventName: 'refresh-placements'
+                });
+            }
             $.spinner().stop();
         },
         error: function () {
@@ -84,6 +91,11 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
 }
 
 module.exports = {
+    initializeKlarnaPrmo: function () {
+        $(document).on('click', '.klarna-promo-link', function (e) {
+            $('#klarnaPrmoModal').modal('show');
+        });
+    },
     showQuickview: function () {
         $('body').on('click', '.quickview', function (e) {
             e.preventDefault();

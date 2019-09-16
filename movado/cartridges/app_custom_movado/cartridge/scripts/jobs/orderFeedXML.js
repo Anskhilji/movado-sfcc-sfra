@@ -30,6 +30,7 @@ var ENGRAVED = 'Engraved';
 var EMBOSSED = 'Embossed';
 var ZERO = 0.00;
 var TEN = 10;
+var NINETY = 90;
 var TWO_DECIMAL_PLACES = 2;
 var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
@@ -1147,6 +1148,21 @@ function amountAdjustmentsAndWrapping(order, commerceObject) {
 }
 
 /**
+* Fetches the pre-sale item requested delivery date.
+* @param {ProductLineItem} product line item.
+* @returns {Date} in-stock date
+*/
+function getPreSaleItemRequestedDeliveryDate(lineItem) {
+    var requestedDeliverDate;
+    var apiProduct = dw.catalog.ProductMgr.getProduct(lineItem.getProductID());
+    var productAvailabilityModel = apiProduct.getAvailabilityModel();
+    if (productAvailabilityModel && productAvailabilityModel.getInventoryRecord()) {
+        requestedDeliverDate = productAvailabilityModel.getInventoryRecord().getInStockDate();
+    }
+    return requestedDeliverDate;
+}
+
+/**
 * Fetches the item information for an Order.
 * @param {Order} order Order container.
 * @returns {json} Commerce Items JSON
@@ -1175,12 +1191,13 @@ function getPOItemsInfo(order) {
         obj.POItemNumber = sequenceNumber;
         obj.SKUNumber = productLineItem.getProductID();
         obj.Quantity = productLineItem.quantityValue.toString();
-        obj.RequestedDeliveryDate = formatDate(new Date(), DATE_FORMAT);
+        var requestedDeliveryDate;
 
         if ('custom' in productLineItem) {
             if ('isPreOrderProduct' in productLineItem.custom && (productLineItem.custom.isPreOrderProduct)) {
                 if (productLineItem.custom.isPreOrderProduct === true) {
                     obj.PreSale = 'Y';
+                    requestedDeliveryDate = formatDate(getPreSaleItemRequestedDeliveryDate(productLineItem), DATE_FORMAT);
                 } else {
                     obj.PreSale = 'N';
                 }
@@ -1189,6 +1206,7 @@ function getPOItemsInfo(order) {
             }
         }
 
+        obj.RequestedDeliveryDate = requestedDeliveryDate ? requestedDeliveryDate : formatDate(new Date(), DATE_FORMAT);
         obj.IsThisBillable = isThisBillableItem(productLineItem);
         obj.InventoryLocation = inventoryLocation;
 
@@ -1213,6 +1231,7 @@ function getPOItemsInfo(order) {
         }
         commerceItems[sequenceNumber - 1] = obj;
         sequenceNumber++;
+        requestedDeliveryDate = null;
     }
 
     if (allShipments) {
@@ -1330,6 +1349,7 @@ function addDays(date, days) {
 function getPaymentMethodData(order) {
     var orderPaymentInstruments = order.getPaymentInstruments();
     var paymentMethodsMultiplePayments = new ArrayList();
+    var presaleOrderAuthExpirationDays = dw.system.Site.getCurrent().getCustomPreferenceValue('presaleOrderAuthExpirationDays');
     var paymentMethodData = {};
     var KLARNA_SLICE_IT_CODE = Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null);
     var KLARNA_SLICE_IT_TEXT = Resource.msg('checkout.payment.method.klarna.slice.it.brand.order.export.text', 'checkout', null);
@@ -1340,15 +1360,21 @@ function getPaymentMethodData(order) {
         for (var b = 0; b < orderPaymentInstruments.length; b++) {
             var orderPaymentInstrument = orderPaymentInstruments[b];
             paymentMethodsMultiplePayments[b] = orderPaymentInstrument.getPaymentMethod();
-            if ('authExpirationDate' in orderPaymentInstrument.custom) {
-                if (orderPaymentInstrument.custom.authExpirationDate) {
-                    paymentMethodData.AuthExpirationDate = orderPaymentInstrument.custom.authExpirationDate;
+            if ('isPreorder' in order.custom && order.custom.isPreorder) {
+                presaleOrderAuthExpirationDays = presaleOrderAuthExpirationDays ? presaleOrderAuthExpirationDays : NINETY;
+                paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), presaleOrderAuthExpirationDays), DATE_FORMAT);
+            } else {
+                if ('authExpirationDate' in orderPaymentInstrument.custom) {
+                    if (orderPaymentInstrument.custom.authExpirationDate) {
+                        paymentMethodData.AuthExpirationDate = orderPaymentInstrument.custom.authExpirationDate;
+                    } else {
+                        paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
+                    }
                 } else {
                     paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
                 }
-            } else {
-                paymentMethodData.AuthExpirationDate = formatDate(addDays(order.getCreationDate(), TEN), DATE_FORMAT);
             }
+
         }
     }
 
@@ -1619,6 +1645,16 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
 
                 var requestDeliveryDate;
+                var requestDeliveryDateFixedFreight;
+                for (var i = 0; i < commerceItemsInfo.length; i++) {
+                    var commerceItem = commerceItemsInfo[i];
+                    if (!requestDeliveryDateFixedFreight) {
+                        requestDeliveryDateFixedFreight = commerceItem.RequestedDeliveryDate;
+                    }
+                    else if (requestDeliveryDateFixedFreight > commerceItem.RequestedDeliveryDate) {
+                        requestDeliveryDateFixedFreight = commerceItem.RequestedDeliveryDate;
+                    }
+                }
                 for (var i = 0; i < commerceItemsInfo.length; i++) {
                     var commerceItem = commerceItemsInfo[i];
                     /* Create EcommercePOItemHeader Elements: start*/
@@ -1654,7 +1690,7 @@ function generateOrderXML(order) {
                     }
                     if (commerceItem.SKUNumber === FIXEDFREIGHT) {
                         streamWriter.writeStartElement('RequestedDeliveryDate');
-                        streamWriter.writeCharacters(requestDeliveryDate);
+                        streamWriter.writeCharacters(requestDeliveryDateFixedFreight);
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }

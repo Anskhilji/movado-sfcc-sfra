@@ -6,6 +6,10 @@
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
         	<isset name="outOfStock" value="${true}" scope="page"/>
         </isif>
+        <isset name="preOrder" value="${false}" scope="page"/>
+        <isif condition="${message === Resource.msg('info.product.availability.preorder', 'common', null)}">
+        	<isset name="preOrder" value="${true}" scope="page"/>
+        </isif>
     </isloop>
 
     <isinclude template="product/components/productTileImage" />
@@ -16,6 +20,12 @@
         </isif>
 
         <isinclude template="product/components/productTileName" />
+        
+        <isif condition="${preOrder}">
+            <div class="out-of-stock">
+                ${Resource.msg('info.product.availability.preorder', 'common', null)}
+            </div>
+        </isif>
 
 		<isif condition="${outOfStock}">
 			<div class="out-of-stock">
@@ -55,5 +65,11 @@
             </button>
         </isif>
     </div>
+    <div class="row m-10">
+        <div class="col d-flex align-items-center justify-content-center">
+            <isinclude template="product/components/ratings" />
+        </div>
+    </div>
+    
     <!-- END_dwmarker -->
 </div>

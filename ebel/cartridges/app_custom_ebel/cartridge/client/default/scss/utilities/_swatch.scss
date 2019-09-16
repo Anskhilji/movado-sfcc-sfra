@@ -40,10 +40,10 @@
         font-family: 'FontAwesome';
         font-size: 1.625em;
         height: 0.75em;
-        left: 0.31em;
+        left: 0.35em;
         line-height: 0.8em;
         position: absolute;
-        top: 0.35em;
+        top: 0.39em;
         width: 0.8em;
     }
 }
@@ -63,6 +63,12 @@ $swatch-colors: (
     'white': $white,
     'yellow': #ff0
 );
+
+.color-attribute {
+  .swatch-circle {
+      position: relative;
+  }
+}
 
 @each $color in map-keys($swatch-colors) {
     $colorValue: #{map-get($swatch-colors, $color)};

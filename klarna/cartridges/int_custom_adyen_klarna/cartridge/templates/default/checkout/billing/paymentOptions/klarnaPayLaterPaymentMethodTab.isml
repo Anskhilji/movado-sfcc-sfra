@@ -11,7 +11,7 @@
         <input type='radio' id="pay-later-${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
                 value='adyen' required ${checked}/>
         <label for='pay-later-${paymentOption.ID}' class="form-check-label d-block">
-            <img src="${URLUtils.staticURL('/images/pay-later.PNG')}" class="klarna-panel-image" alt="Klarna pay later logo"/>
+            <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-panel-image" alt="Klarna logo"/>
             <span>${Resource.msg('hpp.klaran.pay.later.label', 'hpp', null)}</span>
         </label>
         <a class="klarna-pay-later-panel" data-toggle="collapse" aria-controls="klarna-pay-later-content" href="${'#' + 'klarna-pay-later-content'}">

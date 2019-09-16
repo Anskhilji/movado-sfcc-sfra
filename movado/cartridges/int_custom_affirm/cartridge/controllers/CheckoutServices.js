@@ -89,6 +89,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 	  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 	  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 	  var currentBasket = BasketMgr.getCurrentBasket();
 	  if (!currentBasket) {
@@ -164,7 +165,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
-
+	  //Check if order includes Pre-Order item
+	  var isPreOrder = orderCustomHelpers.isPreOrder(currentBasket);
 	  // Creates a new order.
 	  var order = COHelpers.createOrder(currentBasket);
 	  if (!order) {
@@ -173,6 +175,15 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	      errorMessage: Resource.msg('error.technical', 'checkout', null)
 	    });
 	    return next();
+	  }
+	  //Set order custom attribute if there is any pre-order item exists in order
+	  if (isPreOrder) {
+		Transaction.wrap(function () {
+			order.custom.isPreorder = isPreOrder;
+			if (orderCustomHelpers.getPaymentMethod(order) == 'CREDIT_CARD') {
+				order.custom.isPreorderProcessing = isPreOrder;
+			}
+		});
 	  }
 
 	  // Handles payment authorization

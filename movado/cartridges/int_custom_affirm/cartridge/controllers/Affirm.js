@@ -13,8 +13,10 @@ var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var affirmHelper = require('*/cartridge/scripts/utils/affirmHelper');
 var OrderModel = require('*/cartridge/models/order');
+var Transaction = require('dw/system/Transaction');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 /**
  * Handle successful response from Affirm
@@ -49,7 +51,14 @@ server.replace(
             });
             return next();
         }
-
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function (){
+                order.custom.isPreorder = isPreOrder;
+            });
+        }
         var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
         if (handlePaymentResult.error) {
             res.json({

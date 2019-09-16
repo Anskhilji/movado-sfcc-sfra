@@ -67,6 +67,18 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
             context.display[key] = false;
         }
     });
+    
+    try {
+        if (!empty(session.custom.yotpoConfig)) {
+            var viewData = res.getViewData();
+            var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+            viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(session.custom.yotpoConfig, req.querystring.pid);
+            res.setViewData(viewData);
+        }
+    } catch (ex) {
+        var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+        YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
+    }
 
     res.render('product/gridTile.isml', context);
 

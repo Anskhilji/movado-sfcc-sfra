@@ -1,0 +1,24 @@
+<html>
+	<head>
+ 		<isprint value="${dw.content.ContentMgr.getContent('email-header').custom.body}" encoding="off"/>
+			<div >
+				<h2>
+					${Resource.msg('label.mail.contactUs.heading','common',null)} 
+				</h2>
+				<br/>
+ 				${Resource.msg('label.mail.contactUs.name','common',null)} &nbsp;<isprint value="${param.result.firstName}">&nbsp;
+ 				<br/><br/>
+ 				${Resource.msg('label.mail.contactUs.email','common',null)}&nbsp;<isprint value="${param.result.email}">
+ 				<br/><br/>
+ 				${Resource.msg('label.mail.contactUs.phone','common',null)} &nbsp;<isprint value="${param.result.phone}">
+ 				<br /><br/>
+ 				${Resource.msg('label.mail.contactUs.orderNumber','common',null)} &nbsp;<isprint value="${param.result.ordernumber}">&nbsp;
+ 				<br /><br/>
+ 				${Resource.msg('label.mail.contactUs.mySubject','common',null)} &nbsp;<isprint value="${param.result.myquestion}">&nbsp;
+ 				<br /><br/>
+ 				${Resource.msg('label.mail.contactUs.comment','common',null)} &nbsp;<isprint value="${param.result.comment}">&nbsp;
+ 				<br />
+				 &nbsp;
+ 		</div>
+		<isprint value="${dw.content.ContentMgr.getContent('email-footer').custom.body}" encoding="off"/>
+</html>
