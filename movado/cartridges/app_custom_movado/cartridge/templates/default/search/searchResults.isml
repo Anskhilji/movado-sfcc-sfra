@@ -99,7 +99,7 @@
 								    	</div>
 								    </isif>
 								    
-								    <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
+								    <isif condition="${(product.productSearchHit.product.primaryCategory == null)|| (pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1))}">
 								    <iselse>
 								    	<div class="col-6 col-sm-4" data-gtm-refinements='${product.productSearchHit.productID}'>
 								    		<isobject object="${product.productSearchHit}" view="searchhit">

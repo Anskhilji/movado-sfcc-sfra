@@ -27,6 +27,7 @@
 
             <div class="row items">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
+                <isif condition="${product.hasPrimaryCategory}">
                     <div class="col-12 item">
                         <div class="row">
                             <div class="align-self-center px-3">
@@ -39,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                  </isif>
                 </isloop>
             </div>
         </isif>
