@@ -88,7 +88,7 @@ function verify(args) {
             jsonObject['additionalData'] = cardObject.additionalData;
         }
 
-        if (order.custom.isPreorder) {
+        if (order.custom.isPreorderProcessing) {
             jsonObject['additionalData'].authorisationType = 'PreAuth';
         }
 
