@@ -273,6 +273,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     }
     if (enableGridSlot) {
     	this.enableGridSlot = enableGridSlot;
+    	this.count = productSearch.count >=5 ? productSearch.count+1 : productSearch.count;
     }
     this.defaultPageSize = DEFAULT_PAGE_SIZE;
 }
