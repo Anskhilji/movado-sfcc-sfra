@@ -88,6 +88,10 @@ function verify(args) {
             jsonObject['additionalData'] = cardObject.additionalData;
         }
 
+        if (order.custom.isPreorder) {
+            jsonObject['additionalData'].authorisationType = 'PreAuth';
+        }
+
         var shopperObject = AdyenHelper.createShopperObject({
             Customer: customer,
             Basket: order
