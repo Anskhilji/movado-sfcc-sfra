@@ -11,6 +11,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
+var ProductMgr = require('dw/catalog/ProductMgr');
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -153,7 +154,17 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (req.querystring.pmin || req.querystring.prefn1) {
             facetNav = true;
         }
-
+        
+        var primayCategory;
+        if (productSearch.count === 1 && !facetNav) {
+            var prodId = productSearch.productIds[0].productID;
+            var product = ProductMgr.getProduct(prodId);
+            if(product.primaryCategory == null){
+               productSearch.count = 0;
+               productSearch.productIds.length = 0;
+            }
+        
+        }
         if (productSearch.count === 1 && !facetNav) {
             var prodId = productSearch.productIds[0].productID;
             res.redirect(URLUtils.url('Product-Show', 'pid', prodId));

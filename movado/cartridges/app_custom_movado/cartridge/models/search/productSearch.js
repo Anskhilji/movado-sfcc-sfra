@@ -8,6 +8,7 @@ var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 var Site = require('dw/system/Site');
 var catalogMgr = require('dw/catalog/CatalogMgr');
+var customCountObj = 0;
 
 var ACTION_ENDPOINT = 'Search-Show';
 var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
@@ -276,6 +277,11 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     	this.count = productSearch.count >=5 ? productSearch.count+1 : productSearch.count;
     }
     this.defaultPageSize = DEFAULT_PAGE_SIZE;
+    for(var i = 0; i < this.productIds.length; i++){
+    	if(this.productIds[i].productSearchHit.product.primaryCategory != null)
+    		customCountObj++
+    }
+    this.customCount = customCountObj;
 }
 
 Object.defineProperty(ProductSearch.prototype, 'refinements', {
