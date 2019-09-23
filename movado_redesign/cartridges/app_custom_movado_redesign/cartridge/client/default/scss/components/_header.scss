@@ -587,7 +587,8 @@ header.new-header {
   header {
 
     .header-wrapper {
-      background: transparent;
+      background: $white;
+      position: relative;
     }
 
     .multilevel-dropdown {
