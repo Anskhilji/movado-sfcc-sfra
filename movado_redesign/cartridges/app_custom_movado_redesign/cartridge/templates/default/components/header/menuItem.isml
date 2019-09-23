@@ -12,7 +12,7 @@
     <iselse>
     
     
-    <div class="menu-content">
+    <div class="menu-content movado-header-dropdown">
         <div class="menu-pane">
             <ul>
               <isloop items="${menuItem.subCategories}" var="category">
@@ -42,8 +42,12 @@
             </isloop>
         </div>
         <isif condition="${topCat.headerMenuBanner}">
+            
             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+                <h3>${Resource.msg('heading.menu.categories', 'common', null)}</h3>
+                <div class="header-tiles">
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
+                </div>
             </div>
         </isif>
     </div>

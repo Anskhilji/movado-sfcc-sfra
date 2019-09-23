@@ -31,6 +31,69 @@ header.new-header {
     opacity: 0;
   }
 
+  .top-search-tiles {
+    display: flex;
+    
+    @include media-breakpoint-down(sm) {
+      margin: 0 rem(-19);
+    }
+    
+    .product {
+      max-width: rem(165);
+      margin-right: rem(5);
+
+      &:last-child {
+        margin: 0;
+      }
+
+      .product-tile {
+        background: $white-smoke;
+
+        @include media-breakpoint-down(sm) {
+          min-height: unset
+        }
+
+        .image-container {
+          border: unset;
+        }
+
+        .tile-body {
+          text-align: left;
+          padding: rem(10);
+          
+          .pdp-link , .price {
+            display: block;
+            float: unset;
+            padding: 0;
+            margin: 0;
+          }
+
+          .price {
+            padding: 0;
+            display: block;
+            font-size: rem(12);
+            @include font-light;
+            float: unset;
+            letter-spacing: normal;
+            color: $grey8;
+            margin-bottom: rem(5);
+          }
+
+          .product-name {
+            font-size: rem(12);
+            @include font-medium;
+            font-weight: bold;
+            color: $grey8;
+            letter-spacing: normal;
+            text-transform: capitalize;
+          }
+          .tile-discription, .tile-btns {
+            display: none;
+          }
+        }
+      }
+    }
+  }
   .desktop-search .header-search-field {
     opacity: 0;
   }
@@ -43,6 +106,10 @@ header.new-header {
     height: rem(20);
     width: rem(20);
     display: inline-block;
+    margin-right: rem(20);
+  }
+
+  .minicart {
     margin-right: rem(20);
   }
 
@@ -202,9 +269,70 @@ header.new-header {
     top: 0;
     padding: 0 rem(15);
     padding-top: rem(25);
-    padding-bottom: rem(100);
     display: none;
 
+    .search-suggestions {
+      padding: rem(15) rem(0);
+      padding-top: rem(0);
+      @include media-breakpoint-up(lg) {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+      }
+
+      h3 {
+        color: $storm-gray;
+        @include font-medium;
+        font-size: rem(15);
+        font-weight: 600;
+        letter-spacing: normal;
+        margin-bottom: rem(15);
+        text-transform: capitalize;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: rem(10);
+        }
+      }
+
+      .category-slot {
+        margin-bottom: rem(20);
+
+        a {
+          display: inline-block;
+          color: $grey8;
+          font-family: $font-book;
+          font-size: rem(15);
+          letter-spacing: normal;
+          text-decoration: none;
+          opacity: 0;
+
+          &::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: rem(1);
+            background: $black;
+            transition: width .3s;
+            position: relative;
+            top: rem(1.5)
+          }
+
+          &:hover {
+    
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    
     .logo-link {
 
       img {
@@ -229,12 +357,41 @@ header.new-header {
       text-decoration: unset;
       margin-right: rem(10px);
     }
-
+    
+    form {
+      position: relative;
+    }
+    
     .search-close-mobile {
       position: absolute;
-      top: 0;
-      right: rem(10);
+      top: rem(4);
+      right: rem(2);
       height: rem(20);
+      margin: 0;
+    }
+
+    
+    .slick-dots {
+
+      li {
+        width: rem(20);
+        height: rem(2);
+        background: $gray-x11;
+        margin: 0;
+
+        button {
+          height: 100%;
+          width: 100%;
+
+          &::before{
+            content: unset;
+          }
+        }
+
+        &.slick-active {
+          background: $black;
+        }
+      }
     }
   }
 
@@ -374,7 +531,7 @@ header.new-header {
 }
 
 @include media-breakpoint-up(lg) {
-
+  
   header.new-header {
 
     .header-banner {
@@ -433,7 +590,11 @@ header.new-header {
           right: 0;
         }
       }
-    }  
+
+      .featured-promotion {
+        display: block;
+      }
+    }
   }
 
   .fixed-header {
@@ -478,5 +639,12 @@ header.new-header {
         }
       }
     }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .search-suggestions {
+    display: flex;
+    justify-content: space-between
   }
 }

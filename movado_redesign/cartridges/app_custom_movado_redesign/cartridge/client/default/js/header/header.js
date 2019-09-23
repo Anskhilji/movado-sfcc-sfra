@@ -1,18 +1,24 @@
 'use strict';
 $(document).ready(function() {
     $(window).on("resize", function () {
-var width = $(".desktop-menu .navbar-nav").width();
+    var width = $(".desktop-menu .navbar-nav").width();
         $(".desktop-menu .sub-dropdown .menu-content").width(width);
     }).resize();
 });
 
 $(".search-icon").click(function(){
     $(".desktop-search").slideDown("fast");
+    $(".header-search-field").val("");
+    $(".search-recomendation").fadeIn();
     $(".desktop-search .header-search-field").addClass("fadeIn animated delay-point-three");
+    $(".desktop-search .category-slot a").addClass("fadeInLeft animated delay-point-three");
+    $(".desktop-search .product").addClass("fadeIn animated delay-point-three");
 });
 
 $(".search-close").click(function(){
     $(".desktop-search").slideUp();
+    $(".desktop-search .category-slot a").removeClass("fadeInLeft animated delay-point-three");
+    $(".desktop-search .product").removeClass("fadeIn animated delay-point-three");
     $(".desktop-search .header-search-field").removeClass("fadeIn animated delay-point-three");
 });
 
@@ -72,11 +78,6 @@ $(".navbar-toggler-custom").click(function(){
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
 });
 
-$(".multilevel-dropdown .dropdown-toggle").click(function(){
-    $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
-    $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
-    $(this).siblings(".dropdown-menu").find(".shop-by-collection-slide p").addClass("animated fast fadeInUp delay-point-three");
-});
 
 $(document).on('click',".back", function(){
     $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft delay-point-three");
@@ -94,3 +95,42 @@ $(document).on('click',".close-button", function(){
     $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
     $(".dropdown-menu").removeClass("animated fadeIn");
 });
+
+
+$(window).on("load resize scroll", function(e) {
+    $('.mobile-menu .movado-header-dropdown .header-tiles').not('.slick-initialized').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: false,
+        centerPadding: '60px',
+    });
+});
+
+$('.header-search-field').on('change keypress paste keyup', function() {
+    $(".search-recomendation").fadeOut();
+    
+    setTimeout(function(){
+        if (!$(".header-search-field").val()) { 
+            $(".search-recomendation").fadeIn();
+            console.log("this is empaty")
+        }else{
+            $(".search-recomendation").fadeOut();
+        }
+    },1000);
+});
+
+if ($(".header-search-field").is(':empty')) { 
+    $(".search-recomendation").show();
+}
+
+$(".multilevel-dropdown .dropdown-toggle").click(function(){
+    $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
+    $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
+    $(this).siblings(".dropdown-menu").find(".shop-by-collection-slide p").addClass("animated fast fadeInUp delay-point-three");
+    $(".slick-slider").resize();
+});
+

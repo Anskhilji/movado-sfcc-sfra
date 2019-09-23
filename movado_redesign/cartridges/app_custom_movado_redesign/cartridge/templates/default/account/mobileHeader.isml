@@ -1,9 +1,21 @@
 <isif condition="${pdict.name === null}">
 <iscomment> Custom: nav-item class removed, mt-5 added</iscomment>
-  <li class="mt-4 mobile-login d-lg-none" role="menuitem">
+  <li class="mt-4 nav-item mobile-login  d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
-      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      <i class="fa login" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
+    </a>
+  </li>
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('stores-find')} " class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+  <li class="nav-item my-wishlist d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Wishlist-Show')}" class="nav-link">
+      <i class="fa whishlist-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.wishlist.login', 'account', null)}</span>
     </a>
   </li>
 <iselse/>
