@@ -4,7 +4,7 @@
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
-            <div class="header-menu-wrapper">
+            <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="container-fluid px-0">
                     <div class="row overlay"></div>

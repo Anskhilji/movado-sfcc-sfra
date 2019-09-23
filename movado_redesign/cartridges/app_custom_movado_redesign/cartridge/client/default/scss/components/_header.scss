@@ -402,8 +402,9 @@ header.new-header {
       position: unset;
     }
 
-    &.sticky-header {
+    &.sticky-header, &.non-sticky {
       background-color: $white;
+      position: relative;
 
       .header-container {
         box-shadow: rem(1) rem(1) rem(7) 0 $grey-transparent-7;
@@ -473,7 +474,7 @@ header.new-header {
       }
     }
 
-    &.sticky-header{
+    &.sticky-header, &.non-sticky {
 
       .navbar-toggler-custom {
         cursor: pointer;
@@ -513,6 +514,8 @@ header.new-header {
         }
       }
     }
+
+
   }
 
   .navbar-nav {
@@ -533,6 +536,13 @@ header.new-header {
 @include media-breakpoint-up(lg) {
   
   header.new-header {
+
+    .fixed-header {
+      .header-menu-wrapper {
+        position: fixed;
+      }
+    }
+
 
     .header-banner {
 

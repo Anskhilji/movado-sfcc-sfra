@@ -67,6 +67,10 @@
 
   .slick-slide {
     outline: none;
+
+    a {
+        outline: none;
+    }
   }
 
   .slick-dots {
@@ -211,6 +215,13 @@
     border-color: $gray94;
   }
 
+  .shop-by-collection-slide {
+    overflow: auto;
+    height: 100%;
+    padding-right: rem(15);
+    margin-right: rem(15);
+    padding-bottom: rem(150);
+  }
   .navbar {
     padding: 0 rem(30);
 
@@ -584,6 +595,7 @@
         margin: rem(10) 0;
         height: rem(130);
         max-width: rem(130);
+        width: rem(10);
       }
 
       span {
