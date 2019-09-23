@@ -316,7 +316,7 @@ function populateOrderAttributes(orderItem) {
         return { success: successFlag, orderNumber: orderId, eventType: eventType, transactionType: sapTransactionType };
     } catch (e) {
         Logger.error('orderStatusETL: Error occured while populating custom Order Attribute: ' + e + '\n' + e.stack);
-        throw e;
+        return { success: successFlag, orderNumber: orderId, eventType: eventType, transactionType: sapTransactionType };
     }
 }
 
@@ -349,42 +349,20 @@ function clearSapAttributesAtLine(order) {
  * @param parsingResult
  * @returns boolean
  */
-function triggerEmail(parsingResult) {
-    var Mail = require('dw/net/Mail');
-    var mail;
-    var failedFiles = '';
-    var failedOrders = '';
-    var errorFilesList = parsingResult.errorFiles;
-    var errorOrdersList = parsingResult.errorOrders;
-    var sendToMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentToMail');
-    var sendFromMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentFromMail');
-
+function triggerEmail(errorMap) {
     try {
-        if (errorFilesList) {
-            for (var i = 0; i < errorFilesList.length; i++) {
-                if (failedFiles.length > 0) {
-                    failedFiles += errorFilesList[i].file.name + ' :';
-                } else {
-                    failedFiles = errorFilesList[i].file.name + ' :';
-                }
-            }
-        }
-
-        if (errorOrdersList) {
-            for (var i = 0; i < errorOrdersList.length; i++) {
-                if (failedOrders.length > 0) {
-                    failedOrders += errorOrdersList[i].orderId + ' :';
-                } else {
-                    failedOrders = errorOrdersList[i].orderId + ' :';
-                }
-            }
-        }
-
+        var Mail = require('dw/net/Mail');
+        var sendToMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentToMail');
+        var sendFromMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentFromMail');
+        var template = Util.Template('failedOrdersTemplate.isml');
+        var contentMap = Util.HashMap();
+        contentMap.put("errorMap" , errorMap);
+        var text: MimeEncodedText = template.render(contentMap);
         mail = new Mail();
-        mail.setSubject('Order Processing Failed');
+        mail.setSubject(' Order Status Import Error Notification.');
         mail.setFrom(sendFromMail);
         mail.addTo(sendToMail);
-        mail.setContent('Order Status Job-1 failed to populate feed attributes : with Feed Files : ' + failedFiles + ' with failed order list as : ' + failedOrders);
+        mail.setContent(text);
         mail.send();
     } catch (e) {
         Logger.error('orderStatusETL: mail not sent due to exception : ' + e + '\n' + e.stack);
@@ -420,12 +398,15 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
         successOrders: [],
         successFiles: []
     };
-
+    
+    var errorMap = Util.HashMap();
+    
 	/* loop through all feed files in IMPEX location */
     inputFilePath = File.IMPEX + File.SEPARATOR + srcDirPath;
     orderfeedFiles = FileHelper.getFiles(inputFilePath, filePattern);
 
     for (var i = 0; i < orderfeedFiles.length; i++) {
+    	
         try {
             var errorFileMoved = false;
             file = new File(orderfeedFiles[i]);
@@ -486,6 +467,14 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
                                     eventType = orderResult.eventType;
                                     transactionType = orderResult.transactionType;
                                     orderAttributesPopulated = orderResult.success;
+                                    if(!orderAttributesPopulated){
+                                    	var errorOrderObj = {
+                                                eventType : eventType,
+                                                sapTransactionType : transactionType,
+                                                orderId : orderNumber
+                                            };
+                                        parsingResult.errorOrders.push({ errorOrderObj: errorOrderObj });
+                                    }
                                 }
 										/* check if it is LineItem Information, populate line item level custom attributes*/
                                         if (orderNumber && orderItem && orderItem.localName() !== null && orderItem.localName().toString() === ORDER_STATUS_ITEM) {
@@ -525,7 +514,6 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
                             }									else {
                                 clearSapAttributesAtLine(order);
                                 Logger.error('orderStatusETL: File Moved to error folder as attributes were not populated : ');
-                                parsingResult.errorOrders.push({ orderId: orderNumber });
                             }
                                 });
                             }
@@ -545,16 +533,19 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
 		/* Move the file to success Files Array if all processing is successful*/
         if (parsingResult.errorOrders.length > 0 && !errorFileMoved) {
             parsingResult.errorFiles.push({ file: file });
+            errorMap.put(file.name , parsingResult.errorOrders);
+            parsingResult.errorOrders = [];
         } else if (!errorFileMoved) {
             parsingResult.successFiles.push({ file: file });
         }
+        
     }
 
 	/* return result based on error Files array and success Files array*/
     if (parsingResult.errorFiles.length > 0) {
         parsingResult.status = false;
         parsingResult.statusMessage = 'Some Orders or Files Failed with Exception';
-        triggerEmail(parsingResult);
+        triggerEmail(errorMap);
         for (var i = 0; i < parsingResult.errorFiles.length; i++) {
             moveFileToTargetDirectory(archiveErrorDirectory, parsingResult.errorFiles[i].file);
         }

@@ -36,7 +36,7 @@ function triggerEmail(failedOrdersList) {
                 failedOrders = failedOrdersList[i].orderId + ' :';
             }
         }
-
+        
         mail = new Mail();
         mail.setSubject('Order Processing Failed');
         mail.setFrom(sendFromMail);
