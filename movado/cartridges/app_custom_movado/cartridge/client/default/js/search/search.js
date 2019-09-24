@@ -193,9 +193,6 @@ function updatePageURLForShowMore(showMoreUrl) {
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
     var url;
-    var currentProductCount = $('#show-more-update').text();
-    var res = currentProductCount.replace(size, newSize);
-    $('#show-more-update').text(res);
     
     if (history.pushState) {
     	if (document.location.href.indexOf('?') > -1) {
