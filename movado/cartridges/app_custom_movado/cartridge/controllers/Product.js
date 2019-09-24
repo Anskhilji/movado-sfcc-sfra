@@ -171,7 +171,8 @@ server.get('ShowCartButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false
     });
     next();
 });

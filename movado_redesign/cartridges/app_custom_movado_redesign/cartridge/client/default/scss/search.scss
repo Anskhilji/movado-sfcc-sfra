@@ -17,13 +17,25 @@
     }
   }
 
+  .pdpToCart {
+    display: none;
+  }
+  
+  .plpToCart {
+    display: inline-block;
+  } 
+
+  .cart-and-ipay {
+    margin: 0;
+  }
+
   .filter-bar {
 
-      ul {
-        width: 100%;
-        padding-top: rem(15);
-        border-top: rem(1) solid $white-grey;
-      }
+    ul {
+      width: 100%;
+      padding-top: rem(15);
+      border-top: rem(1) solid $white-grey;
+    }
 
     .filter-value {
       padding: 0;
@@ -71,6 +83,12 @@
       margin-bottom: rem(15);
       padding: 0;
     }
+
+    #show-more-update {
+      text-align: center;
+      font-size:rem(15);
+      @include font-book;
+    }
   }
 
   .filter-btn {
@@ -105,6 +123,24 @@
     }
   }
 
+  .show-more {
+
+    button {
+      @include font-medium;
+      font-size: rem(16);
+      height: rem(45);
+      letter-spacing: normal;
+
+      &:hover, &:focus {
+        color: $white;
+        background-color: $black;
+        border-color: $black;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+  
   .refinement-bar {
     position: fixed;
     width: rem(350);
@@ -116,7 +152,28 @@
     left: unset;
     opacity: 0;
     pointer-events: none;
-    
+
+    .sort-col {
+      display: block;
+    }
+
+    .custom-select {
+      border-radius: rem(3);
+      border-color: $grey3;
+      @include font-medium;
+      letter-spacing: normal;
+      text-align: center;
+      outline: none;
+      box-shadow: none;
+      font-size: rem(14);
+      min-height: rem(40);
+
+      & + i.fa {
+        right: rem(15);
+        font-weight: 300;
+      }
+    }
+
     @include media-breakpoint-down(sm) {
       width: rem(325);
     }
@@ -259,6 +316,13 @@
     display: none;
   }
 
+  .modal-open {
+
+    .modal {
+      z-index: 99999;
+    }
+  }
+
   .product-tile {
     background: $white-smoke;
     margin-bottom: rem(15);
@@ -371,6 +435,8 @@
         height: rem(28);
         background: url("../images/shoping-bag.svg") center no-repeat;
         background-size: rem(24);
+        border: none;
+        outline: none
       }
       
       .tile-discription {
@@ -412,6 +478,67 @@
 
   .sort-col, .filter-col {
     display: none;
+  }
+}
+
+.plp-discover.plp-new-design {
+  margin-top: rem(30);
+  background: $gray98;
+  padding: rem(50) 0;
+
+  & > .container {
+    overflow: hidden;
+    max-width: unset;
+  }
+  
+  .cs-carousel-wrapper {
+    .slick-list {
+        padding:0 rem(160) !important;
+        margin: 0 rem(-20);
+    }
+
+    .slick-dots {
+      bottom: rem(-15);
+
+      li {
+        width: rem(50);
+        height: rem(3);
+        background: $gray-x11;
+        margin: 0;
+  
+        button {
+          height: 100%;
+          width: 100%;
+  
+          &::before{
+            content: unset;
+          }
+        }
+  
+        &.slick-active {
+          background: $black;
+        }
+      }
+    }
+  }
+  
+  .discover-head {
+    text-align: center;
+
+    h2 {
+      font-size:rem(34);
+      @include font-medium;
+      color: $grey8;
+      letter-spacing: normal;
+    }
+
+    p {
+      font-size:rem(17);
+      @include font-light;
+      color: $grey8;
+      letter-spacing: normal;
+      padding: 0 32%;
+    }
   }
 }
 

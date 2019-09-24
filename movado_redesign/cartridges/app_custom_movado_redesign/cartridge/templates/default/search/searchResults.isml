@@ -4,6 +4,7 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
+        assets.addJs('/js/productDetail.js');
     </isscript>
 
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
@@ -26,7 +27,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab" aria-expanded="true">
                                     <isif condition="${pdict.productSearch.count>0}" >
-                                        ${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
+                                        ${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.customCount)}
                                     <iselse/>
                                         ${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
                                     </isif>
@@ -97,7 +98,7 @@
                                         </div>
                                     </isif>
                                     
-                                    <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
+                                    <isif condition="${(product.productSearchHit.product.primaryCategory == null)||pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
                                     <iselse>
                                         <div class="col-6 col-sm-4 col-lg-3" data-gtm-refinements='${product.productSearchHit.productID}'>
                                             <isobject object="${product.productSearchHit}" view="searchhit">
@@ -117,6 +118,7 @@
                                 <iselse>
                                     <isinclude template="search/showMore" />
                                 </isif>
+
                             </div>
                         </div>
                     </isif>
@@ -130,7 +132,10 @@
         </div>
     </div>
 
-    <isif condition="${pdict.productSearch.category}">
-        <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${pdict.productSearch.category}"/>
-    </isif>
+    <div class="plp-discover plp-new-design">
+        <isif condition="${pdict.productSearch.category}">
+            <isslot id="cs_plp_bottom_slot-head" context="category" description="Content slot at the bottom of the PLP" context-object="${pdict.productSearch.category}"/>
+            <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${pdict.productSearch.category}"/>
+        </isif>
+    </div>
 </isdecorate>

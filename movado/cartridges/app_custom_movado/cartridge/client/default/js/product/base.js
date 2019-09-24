@@ -734,7 +734,11 @@ module.exports = {
                 pidsObj = JSON.stringify(setPids);
             }
 
-            pid = getPidValue($(this));
+            if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+                pid = $(this).data('pid');
+            } else {
+            	pid = getPidValue($(this));
+            }
 
             var $productContainer = $(this).closest('.product-detail');
             if (!$productContainer.length) {

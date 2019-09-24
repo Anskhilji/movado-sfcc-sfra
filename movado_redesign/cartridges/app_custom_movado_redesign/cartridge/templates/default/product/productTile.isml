@@ -28,7 +28,10 @@
         </p>
         <div class="tile-btns">
             <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.detail.details', 'product', null)}</a>
-            <a href="" class="tile-quick-view-btn"></a>
+            <div class="product-detail" data-pid="${product.id}" data-isplp="true" itemscope
+                itemtype="http://schema.org/Product">
+                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+            </div>
         </div>
     </div>
     <!-- END_dwmarker -->

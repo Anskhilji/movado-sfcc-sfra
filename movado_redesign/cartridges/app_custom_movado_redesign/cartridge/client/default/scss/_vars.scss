@@ -12,21 +12,28 @@ $white-smoke:#F2F2F2 !default;
 $gray-overlay:rgba(242,242,242,0.89) !default;
 $dark-pink:rgba(153,84,100,0.25) !default;
 $grey9-light: rgba(188,190,192,0.5) !default;
+$gray98:#fafafa !default;
+
+@mixin font-bold {
+    font-family: futura-pt, FuturaStd-Bold, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
 
 @mixin font-medium {
-    font-family: futura-pt,sans-serif, "FuturaStd-Medium", Arial, sans-serif;
+    font-family: futura-pt, FuturaStd-Medium, sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: futura-pt,sans-serif,"FuturaStd-Book", Arial, sans-serif;
+    font-family: futura-pt, FuturaStd-Book, sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: futura-pt,sans-serif,"FuturaStd-Book", Arial, sans-serif;
+    font-family: futura-pt, FuturaStd-Book, sans-serif;
     font-weight: 400;
     font-style: normal;
 }

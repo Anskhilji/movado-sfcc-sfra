@@ -1,4 +1,4 @@
-<isloop items="${refinement.values}" var="refinementValue" status="loopStatus">
+<isloop items="${refinement.values}" var="refinementValue" status="loopStatus" >
   <isif condition="${loopStatus.first}">
   <iscomment> Custom Start: Bootstrap class row added</iscomment>
     <ul class="values row content" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
@@ -10,8 +10,9 @@
         <isinclude template="search/refinements/attributes/size"/>
     <iselseif condition="${refinementValue.type === 'radio'}"/>
         <isinclude template="search/refinements/attributes/radio"/>
+    
     <iselse/>
-        <isinclude template="search/refinements/attributes/boolean"/>
+     <isinclude template="search/refinements/attributes/boolean"/>
     </isif>
     <isif condition="${loopStatus.last}">
       </ul>

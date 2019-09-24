@@ -1,0 +1,26 @@
+<div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+    <isif condition="${pdict.isPLPProduct}">
+         <div class="simple-quantity">
+            <isinclude template="product/components/quantity" />
+        </div>
+     </isif>
+    <div class="col-sm-12">
+        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <button class='add-to-cart btn btn-primary pdpToCart'
+            data-pid="${product.id}"
+            ${!product.readyToOrder ? "disabled" : ""}  >
+                <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselse/>
+                     ${Resource.msg('button.addtocart', 'common', null)}
+                </isif>
+        </button>
+        <button  class='add-to-cart tile-quick-view-btn plpToCart' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""} >
+
+        </button>
+        <isif condition="${product.available && product.readyToOrder}">
+            <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+        </isif>
+    </div>
+</div>
