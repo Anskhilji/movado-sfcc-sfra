@@ -358,7 +358,7 @@
     .new-product {
       position: absolute;
       top: rem(15);
-      left: rem(15);
+      right: rem(15);
       display: inline-block;
       color: $storm-gray;
       font-size: rem(11);
@@ -380,6 +380,42 @@
 
     .image-container {
       border: unset;
+      position: relative;
+
+      .whislist-icon {
+        position: absolute;
+        top: rem(10);
+        left: rem(5);
+        height: rem(30);
+
+        &:hover {
+
+          .fa-heart-o {
+
+            &::before {
+              content:"\F004";
+            }
+          }
+        }
+
+        .wishlistTile {
+          top: 0;
+          left: 0;
+          height: 100%;
+
+          .fa-circle {
+
+            &::before {
+              content: unset;
+            }
+          }
+
+          .fa {
+            font-size: rem(20);
+            color: $gray-x11;
+          }
+        }
+      }
     }
 
     .tile-body {

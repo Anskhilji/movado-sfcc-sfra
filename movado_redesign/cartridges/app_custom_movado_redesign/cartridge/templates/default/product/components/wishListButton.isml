@@ -1,0 +1,3 @@
+<isif condition="${pdict.loggedIn}">
+    <div class="col-auto whislist-icon"><isinclude template="wishlist/components/addToWishListButton" /></div>
+</isif>
