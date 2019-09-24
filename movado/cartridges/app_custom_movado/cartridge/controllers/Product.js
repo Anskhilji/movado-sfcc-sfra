@@ -54,9 +54,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         pdpAnalyticsTrackingData = {item: product.getName()};
-    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile()
-    		? customer.getProfile().getEmail()
-    		: customer.getID();
+    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
     }
     
     viewData = {
@@ -135,8 +133,8 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         id: product.ID,
         name: product.name,
         brand: product.brand,
-        category: product.variant && !!product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.ID
-				   : product.primaryCategory.ID,
+        category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.displayName
+				   : product.primaryCategory.displayName,
         variant: productCustomHelpers
 					.getProductOptions(product.optionModel.options),
         price: product.priceModel.price.value,
@@ -146,6 +144,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     
     if(isanalyticsTrackingEnabled) {
         pdpAnalyticsTrackingData = {item: product.ID};
+        pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
     }
     
     res.setViewData({

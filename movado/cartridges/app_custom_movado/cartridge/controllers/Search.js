@@ -88,13 +88,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
-    		categoryAnalyticsTrackingData = {categoryId: productSearch.category.id};
+    		categoryAnalyticsTrackingData = {categoryName : productSearch.category.name};
     	} else {
     		categoryAnalyticsTrackingData = {searchQuery: req.querystring.q};
     	}
-		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile())
-				? customer.getProfile().getEmail()
-			    : customer.getID();
+		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
     }
 
     if (

@@ -14,10 +14,16 @@ server.extend(page);
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var ContentMgr = require('dw/content/ContentMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var Site = require('dw/system/Site');
+    var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
     var addCartGtmArray;
     var userTracking;
+    var trackCartAnalyticsTrackingData;
     var cartAnalyticsTrackingData = {};
+
     if (!viewData.error) {
 		// variables for personalization message
         var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
@@ -33,19 +39,41 @@ server.append('AddProduct', function (req, res, next) {
             viewData.message = content.custom.body.markup;
         }
         viewData.addCartGtmArray = addCartGtmArray;
+        
         if (customer.isAuthenticated() && customer.getProfile()) {
             userTracking = {email: customer.getProfile().getEmail()};
-            cartAnalyticsTrackingData.customerEmailOrUniqueNo= customer.getProfile().getEmail();
+            cartAnalyticsTrackingData.email = customer.getProfile().getEmail();
         } else {
-            cartAnalyticsTrackingData.customerEmailOrUniqueNo= customer.getID();
+            cartAnalyticsTrackingData.email = '';
         }
+        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         viewData.userTracking = userTracking;
         cartAnalyticsTrackingData.cartItems = JSON.stringify(customCartHelpers.createAddtoCartAnalyticsTrackingArray(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage));
         viewData.cartAnalyticsTrackingData = JSON.stringify(cartAnalyticsTrackingData);
+
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
             viewData.cartPageHtml = customCartHelpers.getcartPageHtml(req);
         }
-        res.setViewData(viewData);
+
+        if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        	isAnalyticsTrackingEnabled = true;
+            if(basketModel.items.length > 0) {
+            	cartItems.push({
+             		'id': addCartGtmArray.id,
+             		'name': addCartGtmArray.name,
+             		'brand': addCartGtmArray.brand,
+             		'category': addCartGtmArray.category,
+             		'variant': addCartGtmArray.variant,
+             		'price': addCartGtmArray.price
+             		});
+            	trackCartAnalyticsTrackingData = {isTrackCart: true};
+            	trackCartAnalyticsTrackingData.trackCart = JSON.stringify(cartItems);
+            }
+        }
+        res.setViewData({
+            trackCartAnalyticsTrackingData: trackCartAnalyticsTrackingData,
+            viewData: viewData
+        });
     }
     return next();
 });
@@ -103,7 +131,7 @@ server.append(
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        var cartItemObj = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var basketModel = new CartModel(currentBasket);
 
@@ -113,18 +141,18 @@ server.append(
 
             if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
-               if (customer.isAuthenticated() && customer.getProfile()) {
-                   cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.getProfile().getEmail();
-               } else {
-                   cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.getID();
-               }
+               cartAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
                cartAnalyticsTrackingData = JSON.stringify(cartAnalyticsTrackingData);
-            } 
-            
+            } else {
+                cartAnalyticsTrackingData = {trackCart: true};
+                cartAnalyticsTrackingData.trackCart  = cartItems;
+                cartAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+                cartAnalyticsTrackingData = JSON.stringify(cartAnalyticsTrackingData);
+            }
         }
 
         res.setViewData({
-            cartItemObj: cartItemObj,
+        	cartItemObj: cartItems,
             wishlistGTMObj: wishlistGTMObj,
             cartAnalyticsTrackingData: cartAnalyticsTrackingData
         });
@@ -242,7 +270,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
                 clear_cart: true,
-                customerEmailOrUniqueNo : (customer.isAnonymous() ? customer.getID() : customer.getProfile().getEmail())
+                email : (customer.isAnonymous() ? '' : customer.getProfile().getEmail())
             };
         }
         res.setViewData({ emptyCartDom: emptyCartDom.markup, cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});

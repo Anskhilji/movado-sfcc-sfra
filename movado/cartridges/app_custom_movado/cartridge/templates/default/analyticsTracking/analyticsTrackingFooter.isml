@@ -9,16 +9,26 @@
             analyticsTracking.user = JSON.parse('<isprint value="${pdict.userTracking}" encoding="htmlsinglequote"/>');
             triggerEvent = 'setUserInfo';
         }
+
+        if('${pdict.trackCartAnalyticsTrackingData}' != 'null') {
+            analyticsTracking.trackCart = JSON.parse('<isprint value="${pdict.trackCartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            if (analyticsTracking.trackCart.isTrackCart) {
+            	triggerEvent = 'trackCart';	
+            }
+        }
+        
         if('${pdict.cartAnalyticsTrackingData}' != 'null') {
             analyticsTracking.cart = JSON.parse('<isprint value="${pdict.cartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             if (analyticsTracking.cart.clear_cart) {
             	triggerEvent = 'setClearCart';
-            } 
+            } else {
+            	triggerEvent = 'trackCart';
+            }
         }
         if('${pdict.orderAnalyticsTrackingData}' != 'null') {
             analyticsTracking.order = JSON.parse('<isprint value="${pdict.orderAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
         }
-        
+
         if('${pdict.pdpAnalyticsTrackingData}' != 'null') {
             analyticsTracking.pdp = JSON.parse('<isprint value="${pdict.pdpAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             triggerEvent = 'itemDetails';
@@ -38,9 +48,16 @@
         }
 
         window.addEventListener ('analyticsTracking', function(e) {
-            if(e.pdpAnalyticsTrackingData) {
-                analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
-                dataLayer.push({'analyticsTracking': analyticsTracking});
+            if(e.categoryAnalyticsTrackingData === null) {
+            	if (e.pdpAnalyticsTrackingData) {
+            		analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
+            		dataLayer.push({'analyticsTracking': analyticsTracking});
+            	}
+            }
+
+            if(e.trackCart) {
+                analyticsTracking.trackCart = JSON.parse(e.trackCart);
+                dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
             }
 
             if(e.userTracking) {
@@ -48,16 +65,15 @@
                 dataLayer.push({'event':'setUserInfo', 'analyticsTracking': analyticsTracking});
             }
 
-            if (e.cartTracking) {
-                analyticsTracking.cart = JSON.parse(e.cartTracking);
-            	if (analyticsTracking.cart.clear_cart) {
-            		dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
-            	} else {
-            		dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
-            	}
-                
-            }
-            
+           	if (e.cartAnalyticsTrackingData && e.trackCart === null) {
+	            analyticsTracking.cart = JSON.parse(e.cartAnalyticsTrackingData);
+	            if (analyticsTracking.cart.clear_cart) {
+	                dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
+	            } else {
+	                dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
+	            }
+           	}
+
         });
         if (triggerEvent) {
         	dataLayer.push({'event': triggerEvent, 'analyticsTracking': analyticsTracking});

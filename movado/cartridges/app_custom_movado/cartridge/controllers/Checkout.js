@@ -47,8 +47,10 @@ server.append(
         var userTracking;
         
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-            if(viewData.customer.profile) {
-                userTracking = {email: viewData.customer.profile.email};
+            if (viewData.customer.profile) {
+                userTracking = { email : viewData.customer.profile.email };
+            } else {
+            	userTracking = { email : '' };
             }
         }
 
