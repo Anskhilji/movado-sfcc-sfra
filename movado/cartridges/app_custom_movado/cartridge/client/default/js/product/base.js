@@ -510,7 +510,7 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-body p').addClass(messageType);
-    if(response.trackCartAnalyticsTrackingData.isTrackCart) {
+    if(response.trackCartAnalyticsTrackingData.isTrackCart && typeof setAnalyticsTrackingByAJAX != 'undefined') {
         setAnalyticsTrackingByAJAX.trackCart = response.trackCartAnalyticsTrackingData.trackCart;
         window.dispatchEvent(setAnalyticsTrackingByAJAX);
     }
