@@ -171,6 +171,7 @@
       & + i.fa {
         right: rem(15);
         font-weight: 300;
+        font-size: rem(25);
       }
     }
 
@@ -178,10 +179,73 @@
       width: rem(325);
     }
 
+    .custom-select {
+      position: relative;
+      box-sizing: border-box;
+      display: block;
+      text-align: left;
+      height: unset;
+      border: rem(1) solid $white-grey;
+      padding: 0;
+      border-radius: rem(5);
+      overflow: hidden;
+      border-bottom: unset;
+      
+
+      .custom-select__option {
+        width: 100%;
+        padding: 0 0.5rem;
+        color: $grey8;
+        line-height: 2rem;
+        overflow: hidden;
+        background-color: transparent;
+        border: 0;
+        border-bottom: rem(1) solid $gray90;
+        text-align: center;
+        @include font-book;
+        font-size: rem(15);
+        min-height: 2.5rem;
+        outline: none;
+        text-transform: capitalize;
+
+        &.selected-value {
+          span {
+            color: $regent-grey;
+            font-size: rem(16);
+          }
+        }
+        
+        &:hover {
+          background: $white-grey;
+        }
+      }
+      
+      &> .custom-select__option {
+        @include font-medium;
+        font-weight: 600;
+      }
+      
+      .custom-select__dropdown {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        top: 100%;
+        background: $white;
+        left: 0;
+      }
+    }
+  
+    .sort-col {
+      display: block;
+    }
+
     &.animated {
       pointer-events: all;
     }
 
+    .custom-select.custom-select--active + .fa-angle-down {
+      display: none;
+    }
     .refinement.card {
       padding-bottom: rem(10);
       margin-bottom: 0;

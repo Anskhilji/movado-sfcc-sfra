@@ -4,6 +4,11 @@ $(document).ready(function () {
         $(".modal-background").addClass("d-block").show();
         $("body").addClass("no-overflow");
         $(".refinement-bar").addClass("faster fadeInRight animated").addClass("d-block");
+        $('.selected-value').prepend("<span>Sort By</span> ");
+    });
+
+    $(".custom-select__dropdown .custom-select__option").click(function(){
+        $('.selected-value').prepend("<span>Sort By</span> ");
     });
 });
 
@@ -51,3 +56,4 @@ $(window).on("load resize scroll", function(e) {
     }
 });
 
+$('#sort-order').customSelect();
