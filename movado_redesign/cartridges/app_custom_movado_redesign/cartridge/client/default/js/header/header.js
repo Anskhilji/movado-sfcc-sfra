@@ -76,6 +76,7 @@ $(".navbar-toggler-custom").click(function(){
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
+    $('.mobile-menu .movado-header-dropdown .header-tiles').slick("refresh");
 });
 
 
@@ -137,7 +138,7 @@ $(document).ready(function() {
         slidesToShow: 2,
         slidesToScroll: 1,
         arrows: false,
-        autoplay: false,
+        autoplay: true,
         centerPadding: '60px',
     });
  });
