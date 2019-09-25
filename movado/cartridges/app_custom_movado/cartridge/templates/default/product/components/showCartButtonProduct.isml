@@ -1,2 +1,8 @@
 <isset name="product" value="${pdict.product}" scope="page"/>
-<isinclude template="product/components/addToCartProduct" />
+<isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','Control')}">
+    <isinclude template="product/old/components/addToCartProduct" />
+<iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
+    <isinclude template="product/components/addToCartProduct" />
+<iselse> 
+    <isinclude template="product/old/components/addToCartProduct" />
+</isif>
