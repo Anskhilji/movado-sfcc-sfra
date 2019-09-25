@@ -114,13 +114,20 @@
 
     > span {
         margin: 0;
+        @include font-book;
+        font-size: rem(15);
+        letter-spacing: normal;
     }
 
-    .make-bold {
+    .make-bold, .category-name {
         @include font-medium;
         font-weight: bold;
         font-size: rem(17);
+        margin: 0;
+        margin-right: rem(10);
+        text-transform: capitalize;
     }
+    .category-name {font-size: rem(15);}
   }
 
   .show-more {
