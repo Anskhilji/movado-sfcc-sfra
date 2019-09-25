@@ -183,7 +183,7 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
 function isAllowedCountryCode(countryCode) {
     var deliveryAllowedCountryCodes = Site.getCurrent().preferences.custom.deliveryAllowedCountryCodes;
     for (var i = 0; i < deliveryAllowedCountryCodes.length; i++) {
-        if (countryCode === deliveryAllowedCountryCodes[i]) {
+        if (countryCode && countryCode.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) {
             return true;
         }
     }
