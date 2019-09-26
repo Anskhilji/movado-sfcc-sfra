@@ -26,7 +26,7 @@ function sendConfirmationEmail(order, locale) {
         }
         if (!riskifiedEnabled) {
             sendOrderConfirmationEmail(order, locale);
-            Logger.debug('Sent confirmation mail to the current user, riskified not enabled, for order: {0}',order.OrderNo);
+            Logger.debug('Sent confirmation mail to the current user, riskified not enabled, for order: {0}', order.orderNo);
         }
     }
 }
