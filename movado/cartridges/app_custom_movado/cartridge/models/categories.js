@@ -46,8 +46,11 @@ function categoryToObject(category) {
     	    		eventLabel: categoryDisplayName
     	    };
     }
-    var staticContentAsset = category.custom.staticContentAssetID ? ContentMgr.getContent(category.custom.staticContentAssetID).custom.body : '';
-
+    var staticContentAsset;
+    if (category.custom.staticContentAssetID) {
+        var contentAsset = ContentMgr.getContent(category.custom.staticContentAssetID);
+        staticContentAsset = contentAsset ? contentAsset.custom.body : '';
+    }
     var result = {
         name: category.getDisplayName(),
         url: getCategoryUrl(category),

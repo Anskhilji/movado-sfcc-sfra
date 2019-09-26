@@ -4,7 +4,9 @@
     
     <div class="shop-by-collection-slide">
         <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-            <isprint value="${topCat.staticContentAsset}" encoding="off"/>
+            <isif condition="${topCat.staticContentAsset && topCat.staticContentAsset !== ''}">
+                <isprint value="${topCat.staticContentAsset}" encoding="off"/>
+            </isif>
         </div>
     </div>
     
