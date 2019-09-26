@@ -11,12 +11,12 @@
         }
 
         if('${pdict.trackCartAnalyticsTrackingData}' != 'null') {
-            analyticsTracking.trackCart = JSON.parse('<isprint value="${pdict.trackCartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
-            if (analyticsTracking.trackCart.isTrackCart) {
-            	triggerEvent = 'trackCart';	
+            analyticsTracking.cart = JSON.parse('<isprint value="${pdict.trackCartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            if (analyticsTracking.cart.isTrackCart) {
+            	triggerEvent = 'trackCart';
             }
         }
-        
+
         if('${pdict.cartAnalyticsTrackingData}' != 'null') {
             analyticsTracking.cart = JSON.parse('<isprint value="${pdict.cartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             if (analyticsTracking.cart.clear_cart) {
@@ -48,15 +48,15 @@
         }
 
         window.addEventListener ('analyticsTracking', function(e) {
-            if(e.categoryAnalyticsTrackingData === null) {
-            	if (e.pdpAnalyticsTrackingData) {
-            		analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
-            		dataLayer.push({'analyticsTracking': analyticsTracking});
-            	}
-            }
+           	if (e.pdpAnalyticsTrackingData) {
+           		debugger;
+           		analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
+           		dataLayer.push({'analyticsTracking': analyticsTracking});
+           	}
 
             if(e.trackCart) {
-                analyticsTracking.trackCart = JSON.parse(e.trackCart);
+            	debugger;
+                analyticsTracking.cart = JSON.parse(e.trackCartAnalyticsTrackingData);
                 dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
             }
 
@@ -65,7 +65,7 @@
                 dataLayer.push({'event':'setUserInfo', 'analyticsTracking': analyticsTracking});
             }
 
-           	if (e.cartAnalyticsTrackingData && e.trackCart === null) {
+           	if (e.cartAnalyticsTrackingData) {
 	            analyticsTracking.cart = JSON.parse(e.cartAnalyticsTrackingData);
 	            if (analyticsTracking.cart.clear_cart) {
 	                dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});

@@ -18,16 +18,17 @@ server.append('Confirm', function (req, res, next) {
     var productLineItem;
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
-    var queryStringIntoParts = viewData.queryString.split('&');
-    var urlID = queryStringIntoParts[0].split('=');
-    var id = urlID[1];
-    var urltoken = queryStringIntoParts[1].split('=');
-    var token = urltoken[1];
-    var thankYouPageUrl = URLUtils.abs('Order-Confirm', 'ID', id, 'token', token).toString();
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        var analyticsTrackingLineItems = [];
+        var queryStringIntoParts = viewData.queryString.split('&');
+        var urlID = queryStringIntoParts[0].split('=');
+        var id = urlID[1];
+        var urltoken = queryStringIntoParts[1].split('=');
+        var token = urltoken[1];
+        var thankYouPageUrl = URLUtils.abs('Order-Confirm', 'ID', id, 'token', token).toString();
+    	var analyticsTrackingLineItems = [];
         var orderLineItemsIterator = orderLineItems.iterator();
+
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem &&
@@ -43,6 +44,7 @@ server.append('Confirm', function (req, res, next) {
                 });
             }
         }
+
         orderAnalyticsTrackingData = {
             cart: analyticsTrackingLineItems,
             order_number: viewData.order.orderNumber,
@@ -51,11 +53,11 @@ server.append('Confirm', function (req, res, next) {
             tax: order.getTotalTax().getDecimalValue().toString(),
             customerEmail: order.getCustomerEmail() ? order.getCustomerEmail() : ''
         };
+        res.setViewData({orderAnalyticsTrackingData: JSON.stringify(orderAnalyticsTrackingData)});
     }
 
     viewData.checkoutPage = true;
     res.setViewData(viewData);
-    res.setViewData({orderAnalyticsTrackingData: JSON.stringify(orderAnalyticsTrackingData)});
     next();
 });
 

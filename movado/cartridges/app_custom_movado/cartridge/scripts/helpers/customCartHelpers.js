@@ -122,7 +122,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
-            var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+            var productPrice = pli.price.decimalValue.toString();
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -151,7 +151,7 @@ function createAddtoCartAnalyticsTrackingArray(lineItemCtnr, productUUID, emboss
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
-            var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+            var productPrice = pli.price.decimalValue.toString();
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productDetail={
                         item : productID,
@@ -171,7 +171,8 @@ function removeFromCartGTMObj(productLineItems){
 	var cartItemObj =[];
 	var variant='';
 	 collections.forEach(productLineItems, function (pli) {
-		variant  =getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1)
+		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
+		var price = pli.price.decimalValue.toString();
 
      	cartItemObj.push({
      		'id':pli.product.ID,
@@ -179,7 +180,7 @@ function removeFromCartGTMObj(productLineItems){
      		'brand':pli.product.brand,
      		'category':(pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : pli.product.primaryCategory.displayName,
      		'variant':variant,
-     		'price':pli.priceValue
+     		'price': price
      		});
      	});
 	 return cartItemObj;

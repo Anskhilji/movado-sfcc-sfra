@@ -39,7 +39,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
-    var pdpAnalyticsTrackingData;
 
 	/* get recommendations for product*/
     if (product) {
@@ -51,25 +50,38 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
     }
-    
+
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        pdpAnalyticsTrackingData = {item: product.getName()};
+    	var pdpAnalyticsTrackingData;
+    	pdpAnalyticsTrackingData = {item: product.getName()};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        viewData = {
+            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
+            moreStyleRecommendations: moreStyleRecommendations,
+            youMayLikeRecommendations: youMayLikeRecommendations,
+            collectionContentList: collectionContentList,
+            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
+            loggedIn: req.currentCustomer.raw.authenticated,
+            socialShareEnable: socialShareEnable,
+            moreStyleGtmArray: moreStyleGtmArray,
+            wishlistGtmObj: wishlistGtmObj,
+            klarnaProductPrice: klarnaProductPrice,
+            pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
+        };
+    } else {
+        viewData = {
+            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
+            moreStyleRecommendations: moreStyleRecommendations,
+            youMayLikeRecommendations: youMayLikeRecommendations,
+            collectionContentList: collectionContentList,
+            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
+            loggedIn: req.currentCustomer.raw.authenticated,
+            socialShareEnable: socialShareEnable,
+            moreStyleGtmArray: moreStyleGtmArray,
+            wishlistGtmObj: wishlistGtmObj,
+            klarnaProductPrice: klarnaProductPrice
+        };
     }
-    
-    viewData = {
-        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-        moreStyleRecommendations: moreStyleRecommendations,
-        youMayLikeRecommendations: youMayLikeRecommendations,
-        collectionContentList: collectionContentList,
-        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-        loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
-        moreStyleGtmArray: moreStyleGtmArray,
-        wishlistGtmObj: wishlistGtmObj,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
-        klarnaProductPrice: klarnaProductPrice
-    };
 
     res.setViewData(viewData);
     next();
@@ -112,7 +124,6 @@ server.replace('Variation', function (req, res, next) {
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-    var pdpAnalyticsTrackingData;
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
     var klarnaProductPrice = '0';
@@ -141,12 +152,14 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         currency: product.priceModel.price.currencyCode,
         list: Resource.msg('gtm.list.quickview.value', 'product', null)
     };
-    
+
     if(isanalyticsTrackingEnabled) {
+    	var pdpAnalyticsTrackingData;
         pdpAnalyticsTrackingData = {item: product.ID};
         pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});
     }
-    
+
     res.setViewData({
         productGtmArray: productGtmArray,
         pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
