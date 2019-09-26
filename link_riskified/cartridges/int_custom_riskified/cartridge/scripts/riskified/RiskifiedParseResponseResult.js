@@ -71,16 +71,21 @@ function parseRiskifiedResponse(order) {
         }
         
     } else {
-		// riskifiedStatus as approved then mark as confirmed
-        if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
-            Transaction.wrap(function () {
-                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                order.setExportStatus(Order.EXPORT_STATUS_READY);
-            });
+		if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
+			// riskifiedStatus as approved then mark as confirmed
+			if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
+				Transaction.wrap(function () {
+					order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+					order.setExportStatus(Order.EXPORT_STATUS_READY);
+				});
+			}
+			var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+			COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+			Transaction.wrap(function () {
+				order.custom.is3DSecureTransactionAlreadyCompleted = false;
+			});
 		}
-		var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-		COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
-    }
+	}
 }
 
 module.exports.parseRiskifiedResponse = parseRiskifiedResponse;
