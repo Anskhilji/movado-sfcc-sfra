@@ -414,7 +414,7 @@ module.exports = function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                if (isklarnaPromoEnabled && data.isKlarnaCartPromoEnabled) {
+                if (typeof isklarnaPromoEnabled != 'undefined' && isklarnaPromoEnabled && data.isKlarnaCartPromoEnabled) {
                     $('klarna-placement').attr("data-purchase_amount", data.basket.totals.klarnaGrandTotal);
                     window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
                     window.KlarnaOnsiteService.push({
