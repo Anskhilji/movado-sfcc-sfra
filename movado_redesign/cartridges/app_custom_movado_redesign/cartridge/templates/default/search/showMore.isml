@@ -16,7 +16,7 @@
         </div>
         <div class="show-more">
             <div class="text-center">
-                <button class="btn btn-outline-primary col-12 col-sm-4"
+                <button class="btn btn-outline-primary col-12 col-sm-6 col-md-4"
                         data-url="${pdict.productSearch.showMoreUrl}"
                 >
                     ${Resource.msg('button.more', 'search', null)}
