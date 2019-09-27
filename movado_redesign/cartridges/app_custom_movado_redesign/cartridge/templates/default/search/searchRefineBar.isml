@@ -6,7 +6,7 @@
             <div class="pull-right">
                 <div class="secondary-bar p-0">
                     <a class="reset" href="${pdict.productSearch.resetLink}">
-                        ${Resource.msg('link.reset', 'search', null)}
+                        ${Resource.msg('link.reset.new', 'search', null)}
                     </a>
                 </div>
             </div>

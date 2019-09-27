@@ -1,20 +1,6 @@
-<isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','Control')}">
-    <isinclude template="search/old/components/productTiles" />
-<iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
-    <isinclude template="search/components/productTiles" />
-<iselse> 
-    <isinclude template="search/old/components/productTiles" />
-</isif>
-
-
+<isinclude template="search/components/productTiles" />
 <isif condition="${pdict.productSearch.enablePagination}">
 	<isinclude template="search/pagination" />
 <iselse>
-    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','Control')}">
-        <isinclude template="search/old/showMore" />
-    <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
-        <isinclude template="search/showMore" />
-     <iselse> 
-         <isinclude template="search/old/showMore" />
-    </isif>
+    <isinclude template="search/showMore" />
 </isif>

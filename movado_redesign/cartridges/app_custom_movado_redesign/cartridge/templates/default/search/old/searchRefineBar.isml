@@ -2,7 +2,7 @@
 <div class="filter-header">
     <div class="header-bar d-md-none clearfix">
         <div class="pull-left d-md-none result-count">
-            <isinclude template="search/resultsCount" />
+            <isinclude template="search/old/resultsCount" />
         </div>
         <button class="pull-right close">
             <span>${Resource.msg('button.close', 'search', null)}</span>
