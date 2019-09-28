@@ -367,3 +367,13 @@ $negative-spacer: -0.625rem;
 .klarna-promo-parent-container {
   margin-bottom: 5px;
 }
+
+.estimated-price {
+    .grand-total {
+        font-family: $font-medium;
+        line-height: rem(19);
+        letter-spacing: 0.125rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+}
