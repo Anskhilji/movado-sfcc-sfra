@@ -44,9 +44,7 @@
             </isloop>
         </div>
         <isif condition="${topCat.headerMenuBanner}">
-            
             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-                <h3>${Resource.msg('heading.menu.categories', 'common', null)}</h3>
                 <div class="header-tiles">
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
                 </div>

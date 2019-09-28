@@ -30,7 +30,7 @@ $(".desktop-menu .sub-dropdown").hover(
         $(".overlay").addClass("fadeIn animated faster");
         $(this).find(".dropdown-menu").addClass("fadeIn fast animated");
         $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
-
+        $('.slick-slider').slick("refresh");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
             dots: true,
             infinite: true,
@@ -76,7 +76,7 @@ $(".navbar-toggler-custom").click(function(){
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
-    $('.mobile-menu .movado-header-dropdown .header-tiles').slick("refresh");
+    $('.slick-slider').slick("refresh");
 });
 
 
@@ -96,7 +96,9 @@ $(document).on('click',".close-button", function(){
     $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
     $(".dropdown-menu").removeClass("animated fadeIn");
 });
-
+$(document).on('click',".dropdown-toggle", function(){
+    $('.slick-slider').slick("refresh");
+});
 
 $(window).on("load resize scroll", function(e) {
 
@@ -138,7 +140,7 @@ $(document).ready(function() {
         slidesToShow: 2,
         slidesToScroll: 1,
         arrows: false,
-        autoplay: true,
+        autoplay: false,
         centerPadding: '60px',
     });
  });
