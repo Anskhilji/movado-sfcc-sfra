@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-md-2 justify-content-end right">
-                                <a href="#" class="search-icon header-icon"></a>
+                                <a href="javascript:void(0);" class="search-icon header-icon"></a>
                                 <div class="hidden-md-down account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
                                 </div>
@@ -61,11 +61,11 @@
                                             data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
                                         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
                                         <input type="hidden" value="${pdict.locale}" name="lang" />
-                                        <a href="#" class="search-close search-close-mobile hidden-lg-up"></a>
+                                        <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
                                     </form>
                                 </div>
                                 <div class="col-md-3 text-right hidden-md-down">
-                                    <a href="#" class="search-close">${Resource.msg('label.button.close', 'common', null)}</a>
+                                    <a href="javascript:void(0);" class="search-close">${Resource.msg('label.button.close', 'common', null)}</a>
                                 </div>
                             </div>
 

@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     $(".search-results.plp-new-design .filter-btn").click(function(){
-        $(".modal-background").addClass("d-block").show();
+        $(".modal-background").addClass("d-block").fadeIn();
         $("body").addClass("no-overflow");
         $(".search-results.plp-new-design .refinement-bar").removeClass("fast fadeOutRight animated").addClass("faster fadeInRight animated").addClass("d-block");
     });
@@ -14,25 +14,29 @@ $(document).ready(function () {
 
 $(document).on("click",".search-results.plp-new-design  .close-refinebar", function (e) {
     e.preventDefault();
-    $(".modal-background").removeClass("d-block").hide();
+    $(".modal-background").removeClass("d-block").fadeOut();
     $("body").removeClass("no-overflow");
     $(".search-results.plp-new-design .refinement-bar").removeClass("faster fadeInRight animated").addClass("fast fadeOutRight animated");
     setTimeout(function(){
         $(".search-results.plp-new-design .refinement-bar").removeClass("d-block");
     },300);
 });
-const $menu = $('.search-results.plp-new-design  .refinement-bar');
+const $filter = $('.refinement-bar, .filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
 $(document).mouseup(e => {
-    if (!$menu.is(e.target) // if the target of the click isn't the container...
-    && $menu.has(e.target).length === 0) // ... nor a descendant of the container
+    if (!$filter.is(e.target) // if the target of the click isn't the container...
+    && $filter.has(e.target).length === 0) // ... nor a descendant of the container
     {
-        $(".modal-background").removeClass("d-block").hide();
+        $(".modal-background").fadeOut();
         $("body").removeClass("no-overflow");
-        $(".search-results.plp-new-design  .refinement-bar").removeClass("faster fadeInRight animated").removeClass("d-block").addClass("fast fadeOutRight animated");
+        $(".search-results.plp-new-design  .refinement-bar").removeClass("faster fadeInRight").addClass("fast fadeOutRight");
         setTimeout(function(){
+            $(".modal-background").removeClass("d-block");
             $(".search-results.plp-new-design  .refinement-bar").removeClass("d-block");
-        },300);
-   
+        },500);
+
+        setTimeout(function(){
+            $(".refinement-bar").removeClass("animated");
+        },700);
     }
   });
 
@@ -45,7 +49,6 @@ $(".search-results.plp-new-design  .mobile-menu .close-button").click(function()
         $(".mobile-menu").removeClass("animated");
     },1000);
 });
-
 
 
 $('.search-results.plp-new-design #sort-order').customSelect();
@@ -73,26 +76,25 @@ $(window).on("load resize scroll", function(e) {
                 $(".tile-discription").removeClass("delay-point-five fast animated");
                 $(".hovered-tile").css("min-height", "unset");
             });
-    }else {
+    } else {
         $('.search-results.plp-new-design .product .product-tile').mouseenter(function () {
             var that=this
             var thatHeight=$(this).height();
             console.log(thatHeight);
 
-            myTimeout = setTimeout(function () {
-                $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-                $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
-                $(".tile-discription").removeClass("delay-point-five fast animated");
-                $(".hovered-tile").css("min-height", "unset");
-                }, 500);
-            }).mouseleave(function () {
-                clearTimeout(myTimeout);
-                $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-                $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
-                $(".tile-discription").removeClass("delay-point-five fast animated");
-                $(".hovered-tile").css("min-height", "unset");
-            });
-
-    }
+        myTimeout = setTimeout(function () {
+            $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
+            $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
+            $(".tile-discription").removeClass("delay-point-five fast animated");
+            $(".hovered-tile").css("min-height", "unset");
+            }, 500);
+        }).mouseleave(function () {
+            clearTimeout(myTimeout);
+            $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
+            $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
+            $(".tile-discription").removeClass("delay-point-five fast animated");
+            $(".hovered-tile").css("min-height", "unset");
+        });
+     }
 });
 

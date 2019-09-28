@@ -5,7 +5,7 @@
 .plp-new-design {
 
   @include media-breakpoint-down(xs) {
-
+    padding: 0;
     overflow: hidden;
   }
 
@@ -705,6 +705,10 @@
       @include font-medium;
       color: $grey8;
       letter-spacing: normal;
+      
+      @include media-breakpoint-down(sm) {
+        font-size: rem(24);
+      }
     }
 
     p {
@@ -716,6 +720,7 @@
 
       @include media-breakpoint-down(md) {
         padding: 0 10%;
+        font-size: rem(14);
       }
     }
   }
@@ -728,4 +733,8 @@
 .modal-background {
   opacity: 1;
   background-color: $grey-transparent-1;
+}
+.show-overlay {
+  display: block;
+  z-index: 99;
 }

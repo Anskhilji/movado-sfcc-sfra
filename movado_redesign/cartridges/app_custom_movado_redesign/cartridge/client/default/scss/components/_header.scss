@@ -1,4 +1,7 @@
 .header-banner {
+  position: relative;
+  z-index: 999;
+
   .html-slot-container {
     @include font-book;
     font-size: rem(14);
@@ -606,12 +609,15 @@ header.new-header {
 @include media-breakpoint-down(lg) {
 
   header.new-header {
-
     .header-wrapper {
       background: $white;
       position: relative;
     }
-
+    .fixed-header {
+      .header-wrapper {
+        position: fixed;
+      }
+    }
     .multilevel-dropdown {
 
       .close-menu {
@@ -693,4 +699,9 @@ header.new-header {
     display: flex;
     justify-content: space-between
   }
+}
+
+.show-overlay {
+  display: block;
+  z-index: 99;
 }
