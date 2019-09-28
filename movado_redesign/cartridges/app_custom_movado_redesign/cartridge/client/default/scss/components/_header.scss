@@ -365,7 +365,7 @@ header.new-header {
       color: $grey8;
       text-transform: uppercase;
       padding: rem(2px) 0;
-      background: url("../images/close-icon-black.svg") right center no-repeat;
+      background: $white url("../images/close-icon-black.svg") right center no-repeat;
       background-size: rem(13);
       padding-right: rem(25px);
       text-decoration: unset;
@@ -506,6 +506,13 @@ header.new-header {
 
         .user-icon {
           background: url("../images/user-icon-black.svg") center center no-repeat;
+        }
+
+        &.user-login {
+
+          .user-icon {
+            background: url("../images/user-icon-fill.svg") center center no-repeat;
+          }
         }
       }
 

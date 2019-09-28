@@ -380,7 +380,7 @@
     li.top-category {
 
       .nav-link {
-        font-family: $font-book;
+        @include font-book;
         color: black;
         font-weight: normal;
       }
@@ -389,7 +389,7 @@
     .my-account {
       
       .dropdown-link {
-        font-family: $font-medium;
+        @include font-medium;
         color: $storm-gray;
         font-weight: bold;
       }
@@ -423,7 +423,16 @@
         background-size: 100%;
       }
     }
+    .fa-sign-in {
 
+      &::before {
+        content: "";
+        width: rem(18);
+        height: rem(18);
+        background: url("../images/logout.svg") center center no-repeat;
+        background-size: 100%;
+      }
+    }
     .close-menu {
       padding: 0;
     }

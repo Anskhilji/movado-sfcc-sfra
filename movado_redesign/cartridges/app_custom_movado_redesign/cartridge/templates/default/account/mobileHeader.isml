@@ -7,7 +7,7 @@
     </a>
   </li>
   <li class="nav-item my-stores d-lg-none" role="menuitem">
-    <a href="${URLUtils.https('stores-find')} " class="nav-link">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
       <i class="fa stores-icon" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
     </a>
@@ -42,6 +42,12 @@
         </a>
       </li>
     </ul>
+  </li>
+    <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
   </li>
 </isif>
 
