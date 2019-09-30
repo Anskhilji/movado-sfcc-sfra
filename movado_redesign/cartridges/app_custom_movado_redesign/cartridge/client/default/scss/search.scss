@@ -519,7 +519,7 @@
       width: 100%;
       bottom: 0px;
       background: $gray-overlay;
-      transition: 0.2s ease-out;
+      transition: 0.4s ease-out;
 
       .pdp-link {
         margin-bottom: rem(5);
@@ -605,8 +605,8 @@
 
     .tile-body {
       padding-bottom: rem(10);
-      height: rem(155);
-      transition: 0.2s ease-in;
+      height: rem(160);
+      transition: 0.4s ease-in;
     }
 
     .tile-discription {
@@ -656,6 +656,10 @@
             }
           }
         }
+    }
+
+    .slick-slide {
+      margin: 0 rem(10);
     }
 
     .hero-banner-wrapper {
