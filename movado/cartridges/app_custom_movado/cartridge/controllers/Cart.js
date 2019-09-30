@@ -320,31 +320,4 @@ server.append('MiniCartShow', function(req, res, next){
     next();
 });
 
-server.replace('MiniCart', server.middleware.include, function (req, res, next) {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var Site = require('dw/system/Site');
-
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var quantityTotal;
-
-    if (currentBasket) {
-        quantityTotal = currentBasket.productQuantityTotal;
-    } else {
-        quantityTotal = 0;
-    }
-    
-    var miniCartTemplate = '/components/header/miniCart';
-    
-    // A/B testing for header design
-    if (Site.getCurrent().getCustomPreferenceValue('enableABTest')) {
-        if (!ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
-            miniCartTemplate = '/components/header/old/miniCart';
-        }
-    }
-    
-    res.render(miniCartTemplate, { quantityTotal: quantityTotal });
-    next();
-});
-
 module.exports = server.exports();

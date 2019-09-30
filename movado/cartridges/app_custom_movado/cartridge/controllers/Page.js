@@ -114,32 +114,4 @@ server.replace(
     pageMetaData.computedPageMetaData
 );
 
-server.replace(
-        'IncludeHeaderMenu',
-        server.middleware.include,
-        cache.applyDefaultCache,
-        function (req, res, next) {
-            var ABTestMgr = require('dw/campaign/ABTestMgr');
-            var catalogMgr = require('dw/catalog/CatalogMgr');
-            var Categories = require('*/cartridge/models/categories');
-            var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
-            var Site = require('dw/system/Site');
-
-            var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
-                    siteRootCategory.getOnlineSubCategories() : null;
-            
-            var menuTemplate = '/components/header/menu';
-            
-            // A/B testing for header design
-            if (Site.getCurrent().getCustomPreferenceValue('enableABTest')) {
-                if (!ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
-                    menuTemplate = '/components/header/old/menu';
-                }
-            }
-            
-            res.render(menuTemplate, new Categories(topLevelCategories));
-            next();
-        }
-    );
-
 module.exports = server.exports();
