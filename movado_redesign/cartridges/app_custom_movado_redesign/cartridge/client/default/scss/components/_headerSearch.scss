@@ -7,11 +7,13 @@
   position: relative;
 
   .items-header {
-    color: $storm-gray;
-    font-family: $font-medium;
-    font-size: rem(15);
-    padding-bottom: rem(15);
-    font-weight: 600;
+    > div {
+      color: $storm-gray;
+      @include font-medium;
+      font-size: rem(15);
+      padding-bottom: rem(15);
+      font-weight: 600;
+    }
   }
 
   > div {
@@ -33,13 +35,13 @@
 
   .suggestions {
     border-radius: rem(0);
-    box-shadow: unset;
+    box-shadow: none;
     padding-top: rem(11);
-    top: unset;
+    top: 0;
   }
 
   .suggestions:after, .suggestions:before {
-    content: unset;
+    content: none;
   }
 }
 

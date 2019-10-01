@@ -3,7 +3,7 @@
   .nav-item.show  {
 
     .nav-link {
-      position: unset;
+      position: static;
     }
   }
 
@@ -29,11 +29,11 @@
   }
 
   .navbar-nav {
-    position: unset;
+    position: static;
   }
 
   nav {
-    position: unset;
+    position: static;
   }
 
   @include media-breakpoint-down(lg){
@@ -84,6 +84,7 @@
 
 
   .slick-dots {
+    left: 0;
 
     li {
       width: rem(70);
@@ -306,7 +307,6 @@
         width: rem(6);
       }
     }
-
 
     .close-icon {
       margin-left: rem(5);
@@ -680,7 +680,7 @@
 
     .nav-item {
       &.show {
-        box-shadow: unset;
+        box-shadow: none;
         border-bottom: rem(2) solid $black;
       }
     }
@@ -693,7 +693,7 @@
         justify-content: center;
 
         &.show{
-          display: unset;
+          display: block;
         }
       }
     }

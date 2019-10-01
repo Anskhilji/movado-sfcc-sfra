@@ -25,7 +25,7 @@ function remove_grayout (){
 
     $(".modal-background").removeClass("show-overlay").fadeOut();
     $(".modal-background").removeClass("d-block").fadeOut();
-    $(".multilevel-dropdown .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("in");
@@ -93,7 +93,7 @@ $(".desktop-menu .sub-dropdown").hover(
 
 $(".mobile-menu .close-button").click(function(){
     $(".mobile-menu").addClass("animated fadeOut delay-point-three");
-    $(".multilevel-dropdown .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("animated");
@@ -103,7 +103,7 @@ $(".mobile-menu .close-button").click(function(){
 
 $(".navbar-toggler-custom").click(function(){
     setTimeout(function(){
-        $(".multilevel-dropdown .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
+        $(".mobile-menu .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
     $(".modal-background").addClass("d-block").fadeIn();
@@ -124,7 +124,7 @@ $(document).on('click',".back", function(){
 });
 
 $(document).on('click',".close-button", function(){
-    $(".multilevel-dropdown .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
+    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
     $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
     $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
     $(".dropdown-menu").removeClass("animated fadeIn");

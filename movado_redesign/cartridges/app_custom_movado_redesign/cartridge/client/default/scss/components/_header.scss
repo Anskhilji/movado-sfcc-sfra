@@ -60,13 +60,14 @@ header.new-header {
         }
 
         .image-container {
-          border: unset;
+          border: none;
         }
 
         .tile-body {
           text-align: left;
           padding: rem(10);
-          
+          overflow: auto;
+
           .pdp-link , .price {
             display: block;
             float: unset;
@@ -149,7 +150,7 @@ header.new-header {
   }
 
   .sticky-header-placeholder {
-    height: unset;
+    height: auto;
   }
 
   .user {
@@ -267,8 +268,9 @@ header.new-header {
   .header-search-field{
     font-family: $font-medium;
     font-size: rem(16);
-    border: unset;
+    border: none;
     border-bottom: 2px solid $dark-gray;
+    border-radius: 0;
     outline: none;
     width: 100%;
     padding: 0;
@@ -368,10 +370,10 @@ header.new-header {
       color: $grey8;
       text-transform: uppercase;
       padding: rem(2px) 0;
-      background: $white url("../images/close-icon-black.svg") right center no-repeat;
-      background-size: rem(13);
+      background: $white url("../images/close-button.svg") right center no-repeat;
+      background-size: 13px;
       padding-right: rem(25px);
-      text-decoration: unset;
+      text-decoration: none;
       margin-right: rem(10px);
     }
     
@@ -416,7 +418,7 @@ header.new-header {
     transition: 0.2s;
 
     .desktop-menu {
-      position: unset;
+      position: static;
     }
 
     &.sticky-header, &.non-sticky {
@@ -482,7 +484,7 @@ header.new-header {
         }
 
         .desktop-menu {
-          position: unset;
+          position: static;
 
           .nav-link {
             color: $black;
@@ -531,7 +533,7 @@ header.new-header {
       }
 
       .desktop-menu {
-        position: unset;
+        position: static;
 
         .nav-link {
           color: $black;
@@ -590,7 +592,7 @@ header.new-header {
     }
 
     .sticky-header-placeholder {
-      height: unset;
+      height: auto;
     }
 
     .header-menu-wrapper {
