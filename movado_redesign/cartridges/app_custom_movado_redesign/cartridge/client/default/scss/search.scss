@@ -424,7 +424,6 @@
     margin-bottom: rem(15);
     height: 100%;
     position: relative;
-    padding-left: rem(0.5);
 
     @include media-breakpoint-down(lg) {
       min-height: unset;
