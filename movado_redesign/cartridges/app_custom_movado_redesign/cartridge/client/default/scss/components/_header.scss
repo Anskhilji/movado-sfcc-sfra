@@ -767,6 +767,23 @@ header.new-header {
         }
       }
 
+      .dropdown-menu {
+
+        .dropdown-link {
+          font-size: rem(14);
+        }
+      }
+
+      .featured-promotion {
+
+        p {
+
+          span {
+            font-size: rem(14);
+          }
+        }
+      }
+
       .slick-dots {
 
         li {
@@ -790,6 +807,23 @@ header.new-header {
         .nav-link {
           font-size: rem(12);
           letter-spacing: normal;
+        }
+      }
+
+      .dropdown-menu {
+
+        .dropdown-link {
+          font-size: rem(12);
+        }
+      }
+
+      .featured-promotion {
+
+        p {
+
+          span {
+            font-size: rem(12);
+          }
         }
       }
 
