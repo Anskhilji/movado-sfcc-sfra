@@ -50,9 +50,9 @@ server.append('AddProduct', function (req, res, next) {
 
             if (customer.isAuthenticated() && customer.getProfile()) {
                 userTracking = {email: customer.getProfile().getEmail()};
-                cartAnalyticsTrackingData.email = customer.getProfile().getEmail();
+                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.getProfile().getEmail();
             } else {
-                cartAnalyticsTrackingData.email = '';
+                cartAnalyticsTrackingData.customerEmailOrUniqueNo = '';
                 userTracking = {email: ''};
             }
 
@@ -72,12 +72,11 @@ server.append('AddProduct', function (req, res, next) {
              		});
             	trackCartAnalyticsTrackingData = {trackCart: true};
             	trackCartAnalyticsTrackingData.trackCart = cartItems;
-            	trackCartAnalyticsTrackingData.userTracking = userTracking;
             }
+        	trackCartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.getProfile() ? customer.getProfile().getEmail() : '';
             res.setViewData({
-            	trackCartAnalyticsTrackingData: JSON.stringify(trackCartAnalyticsTrackingData),
-            	userTracking: JSON.stringify(userTracking)
-        	});
+            	trackCartAnalyticsTrackingData: JSON.stringify(trackCartAnalyticsTrackingData)
+            });
         }
         res.setViewData({viewData: viewData});
     }
@@ -146,12 +145,12 @@ server.append(
 
         	if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
-               cartAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+               cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
                cartAnalyticsTrackingData = JSON.stringify(cartAnalyticsTrackingData);
             } else {
                 cartAnalyticsTrackingData = {trackCart: true};
                 cartAnalyticsTrackingData.trackCart  = cartItems;
-                cartAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
                 cartAnalyticsTrackingData = JSON.stringify(cartAnalyticsTrackingData);
             }
             res.setViewData({
@@ -167,9 +166,11 @@ server.append(
         if (req.querystring.paypalerror) {
         	res.setViewData({ paypalerror: true });
         }
+
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
@@ -310,9 +311,12 @@ server.append('MiniCartShow', function(req, res, next){
                     unique_id: basketModel.items[i].id
                 });
             }
-            cartAnalyticsTrackingData = {cart: analyticsTrackingLineItems};
+            cartAnalyticsTrackingData = {trackCart: true};
+            cartAnalyticsTrackingData.trackCart  = analyticsTrackingLineItems;
+            cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         } else {
             cartAnalyticsTrackingData = {clear_cart: true};
+            cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         }
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }

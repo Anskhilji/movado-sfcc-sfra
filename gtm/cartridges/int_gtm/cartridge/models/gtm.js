@@ -400,9 +400,9 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
                     variant: variants,
                     price: productPrice,
-                    revenue: cartItem.grossPrice.value,
-                    tax: cartItem.tax.value,
-                    shipping: cartItem.shipment.shippingTotalGrossPrice.value,
+                    revenue: cartItem.grossPrice.decimalValue,
+                    tax: cartItem.tax.decimalValue,
+                    shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,
                     coupon: appliedCoupons });
             }
         });
@@ -604,9 +604,9 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         var orderObj = {};
         orderObj.orderId = orderId;
-        orderObj.revenue = order.totalGrossPrice.value;
-        orderObj.tax = order.totalTax.value;
-        orderObj.shipping = order.shippingTotalPrice.value;
+        orderObj.revenue = order.totalGrossPrice.decimalValue;
+        orderObj.tax = order.totalTax.decimalValue;
+        orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
 	    orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);

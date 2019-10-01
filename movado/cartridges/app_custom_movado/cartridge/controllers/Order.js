@@ -33,7 +33,7 @@ server.append('Confirm', function (req, res, next) {
             productLineItem = orderLineItemsIterator.next();
             if (productLineItem instanceof dw.order.ProductLineItem &&
                 !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
-            	var netPrice = productLineItem.getNetPrice() ? productLineItem.getNetPrice() : 0;
+            	var netPrice = productLineItem.getNetPrice().getDecimalValue() ? productLineItem.getNetPrice().getDecimalValue() : 0.00;
             	var discount = netPrice - productLineItem.getAdjustedNetPrice().getDecimalValue();
                 analyticsTrackingLineItems.push ({
                     item:  productLineItem.productName,
@@ -48,10 +48,10 @@ server.append('Confirm', function (req, res, next) {
         orderAnalyticsTrackingData = {
             cart: analyticsTrackingLineItems,
             order_number: viewData.order.orderNumber,
-            shipping: order.getShippingTotalGrossPrice().toString(),
-            url: thankYouPageUrl,
-            tax: order.getTotalTax().getDecimalValue().toString(),
-            customerEmail: order.getCustomerEmail() ? order.getCustomerEmail() : ''
+            shipping: order.getShippingTotalGrossPrice().getDecimalValue() ? order.getShippingTotalGrossPrice().getDecimalValue().toString() : 0.00,
+            orderConfirmationUrl: thankYouPageUrl,
+            tax: order.getTotalTax().getDecimalValue() ? order.getTotalTax().getDecimalValue().toString() : 0.00,
+            customerEmailOrUniqueNo: order.getCustomerEmail() ? order.getCustomerEmail() : ''
         };
         res.setViewData({orderAnalyticsTrackingData: JSON.stringify(orderAnalyticsTrackingData)});
     }

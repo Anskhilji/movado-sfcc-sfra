@@ -96,7 +96,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
-    		categoryAnalyticsTrackingData = {categoryName : productSearch.category.name};
+    		categoryAnalyticsTrackingData = {categoryId : productSearch.category.name};
     	} else {
     		categoryAnalyticsTrackingData = {searchQuery: req.querystring.q};
     	}

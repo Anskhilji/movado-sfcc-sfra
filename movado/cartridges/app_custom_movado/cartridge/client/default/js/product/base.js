@@ -510,13 +510,9 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-body p').addClass(messageType);
-    if (typeof setAnalyticsTrackingByAJAX != 'undefined') {
+    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.trackCartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.trackCart = response.trackCartAnalyticsTrackingData;
-            window.dispatchEvent(setAnalyticsTrackingByAJAX);
-        }
-        if(response.userTracking !== undefined) {
-            setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
             window.dispatchEvent(setAnalyticsTrackingByAJAX);
         }
         if(response.addCartGtmArray !== undefined){
