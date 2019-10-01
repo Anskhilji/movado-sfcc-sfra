@@ -3,10 +3,9 @@
 var server = require('server');
 server.extend(module.superModule);
 
-server.append('Header', server.middleware.include, function (req, res, next) {
+server.replace('Header', server.middleware.include, function (req, res, next) {
     var ABTestMgr = require('dw/campaign/ABTestMgr');
     var headerTemplate = null;
-    var viewData = res.getViewData();
 
     // A/B testing for header design
     if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
@@ -16,7 +15,9 @@ server.append('Header', server.middleware.include, function (req, res, next) {
     } else {
         headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';
     }
-    viewData.template = headerTemplate;
+    res.render(headerTemplate, { name:
+        req.currentCustomer.profile ? req.currentCustomer.profile.firstName : null
+    });
     next();
 });
 
