@@ -524,7 +524,6 @@
     opacity: 0;
     pointer-events: none;
     overflow-y: auto;
-    padding-bottom: rem(60);
 
     &.fadeIn {
       pointer-events: all;
@@ -557,6 +556,11 @@
 
 .mobile-menu {
 
+  .mobile-slider-container {
+    position: relative;
+    height: rem(200);
+  }
+
   .country-selector-mobile {
     padding: 0;
   }
@@ -584,6 +588,14 @@
   }
 
   .movado-header-dropdown {
+    position: relative;
+    min-height: 81%;
+    
+    .menu-pane {
+      padding-bottom: rem(260);
+      min-height: rem(460);
+    }
+
     .featured-promotion {
       margin-top: rem(30);
       position: absolute;
