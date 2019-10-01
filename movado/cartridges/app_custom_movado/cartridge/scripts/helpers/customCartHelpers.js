@@ -178,7 +178,7 @@ function removeFromCartGTMObj(productLineItems){
      		'id':pli.product.ID,
      		'name':pli.product.name,
      		'brand':pli.product.brand,
-     		'category':(pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : pli.product.primaryCategory.displayName,
+     		'category':(pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
      		'variant':variant,
      		'price': price
      		});

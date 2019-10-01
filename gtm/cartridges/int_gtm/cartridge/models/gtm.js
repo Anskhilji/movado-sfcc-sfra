@@ -397,7 +397,7 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     brand: cartItem.product.brand,
-                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
+                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     price: productPrice,
                     revenue: cartItem.grossPrice.decimalValue,

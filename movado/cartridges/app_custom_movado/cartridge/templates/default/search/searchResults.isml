@@ -27,7 +27,7 @@
 	              <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
 	              aria-expanded="true">
 								<isif condition="${pdict.productSearch.count>0}" >
-									${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.customCount)}
+									${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
 								<iselse/>
 									${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
 								</isif>
@@ -99,7 +99,7 @@
 								    	</div>
 								    </isif>
 								    
-								    <isif condition="${(product.productSearchHit.product.primaryCategory == null)|| (pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1))}">
+								    <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
 								    <iselse>
 								    	<div class="col-6 col-sm-4" data-gtm-refinements='${product.productSearchHit.productID}'>
 								    		<isobject object="${product.productSearchHit}" view="searchhit">
