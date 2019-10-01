@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="desktop-search pb-md-4 show w-100">
-                            <div class="row justify-content-center pb-4 pb-md-0">
+                            <div class="row justify-content-center">
                                 <div class="col-md-3 hidden-md-down">
                                     <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>

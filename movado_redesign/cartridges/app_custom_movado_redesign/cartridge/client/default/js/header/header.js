@@ -14,6 +14,7 @@ $(".search-icon").click(function(){
     $(".desktop-search .category-slot a").addClass("fadeInLeft animated delay-point-three");
     $(".desktop-search .product").addClass("fadeIn animated delay-point-three");
     $(".modal-background").addClass("show-overlay").fadeIn();
+    $(".desktop-search input").focus();
     e.preventDefault();
 });
 
