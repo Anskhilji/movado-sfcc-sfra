@@ -61,6 +61,10 @@ header.new-header {
 
         .image-container {
           border: none;
+
+          .quickview {
+            display: none;
+          }
         }
 
         .tile-body {
@@ -126,7 +130,7 @@ header.new-header {
     }
   }
 
-  .out-of-stock, .tile-discription {
+  .out-of-stock, .tile-discription, .product-badge {
     display: none;
   }
   

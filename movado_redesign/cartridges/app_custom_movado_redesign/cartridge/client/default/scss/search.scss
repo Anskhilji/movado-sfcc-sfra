@@ -353,7 +353,19 @@
         margin-top: rem(10);
       }
     }
+ 
+    .refinement-collection.card {
 
+      .selection-tab {
+        display: block;
+
+        img {
+          width: rem(100);
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
     .close-refinebar {
       background: url("../images/left-arrow.svg") left -4px center no-repeat;
       border: none;
@@ -688,6 +700,18 @@
         a {
           font-size: rem(12);
           outline: none;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        h1, h2, h3, h4, h5, h6 {
+          font-size: rem(12);
+        }
+
+        a {
+          font-size: rem(9);
+          outline: none;
+          padding: rem(5);
         }
       }
     }

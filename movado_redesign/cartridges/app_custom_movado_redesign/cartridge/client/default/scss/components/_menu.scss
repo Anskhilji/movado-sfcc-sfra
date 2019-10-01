@@ -191,7 +191,8 @@
       color: $white;
       font-size: rem(15);
       @include font-book;
-      letter-spacing: rem(1);
+      letter-spacing: normal;
+      text-transform: uppercase;
 
       &::after {
         display: none;
@@ -275,7 +276,7 @@
 
       .dropdown-link {
         padding: 0;
-        text-transform: capitalize;
+        text-transform: none;
         @include font-book;
         font-size: rem(16);
         letter-spacing: rem(0.5);
@@ -445,7 +446,7 @@
     }
 
     .nav-link {
-      text-transform: capitalize;
+      text-transform: none;
       @include font-book;
       font-size: rem(16);
       letter-spacing: rem(0.5);
