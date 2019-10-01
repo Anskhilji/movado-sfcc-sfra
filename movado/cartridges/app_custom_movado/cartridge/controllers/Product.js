@@ -145,7 +145,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         name: product.name,
         brand: product.brand,
         category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.displayName
-				   : product.primaryCategory.displayName,
+				   : (product.primaryCategory ? product.primaryCategory.displayName : ''),
         variant: productCustomHelpers
 					.getProductOptions(product.optionModel.options),
         price: product.priceModel.price.value,
