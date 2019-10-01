@@ -6,7 +6,7 @@
      </isif>
     <div class="col-sm-12">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-        <button class='add-to-cart btn btn-primary pdpToCart'
+        <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
