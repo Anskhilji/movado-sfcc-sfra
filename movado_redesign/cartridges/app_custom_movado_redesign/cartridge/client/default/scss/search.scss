@@ -47,7 +47,7 @@
     .filter-value {
       padding: 0;
       background: none;
-      border-radius: unset;
+      border-radius: 0;
 
       a {
         text-decoration: none;
@@ -108,7 +108,6 @@
 
     button{
       border: none;
-      background: unset;
       font-size:rem(15);
       @include font-medium;
       color: $black;
@@ -210,7 +209,7 @@
       padding: 0;
       border-radius: rem(5);
       overflow: hidden;
-      border-bottom: unset;
+      border-bottom: none;
       z-index: 99;
 
       .custom-select__option {
@@ -394,7 +393,7 @@
           border-bottom: 1px solid $regent-grey;
           font-weight: bold;
           letter-spacing: normal;
-          text-decoration: unset;
+          text-decoration: none;
           display: block;
           margin: 0;
         }
@@ -489,7 +488,7 @@
     }
 
     .image-container {
-      border: unset;
+      border: none;
       position: relative;
       padding-bottom: rem(65);
 
@@ -503,7 +502,7 @@
         .fa-circle {
 
           &::before {
-            content: unset;
+            content: none;
           }
         }
 
@@ -730,7 +729,7 @@
           width: 100%;
   
           &::before{
-            content: unset;
+            content: none;
           }
         }
   
