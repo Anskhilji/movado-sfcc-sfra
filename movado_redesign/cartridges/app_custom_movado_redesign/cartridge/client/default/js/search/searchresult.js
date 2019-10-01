@@ -65,35 +65,33 @@ $(window).on("load resize scroll", function(e) {
 
             myTimeout = setTimeout(function () {
             $(that).addClass('hovered-tile');
-            $(".hovered-tile").css("min-height", thatHeight);
             $(that).find(".tile-btns").addClass("delay-point-five fadeIn fast animated");
             $(that).find(".tile-discription").addClass(" delay-point-five fadeIn fast animated");
                 }, 500);
             }).mouseleave(function () {
                 clearTimeout(myTimeout);
                 $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-                $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
-                $(".tile-discription").removeClass("delay-point-five fast animated");
-                $(".hovered-tile").css("min-height", "unset");
+                $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
+                $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
+                $(".product-tile").css("min-height", "auto");
             });
     } else {
         $('.search-results.plp-new-design .product .product-tile').mouseenter(function () {
             var that=this
             var thatHeight=$(this).height();
-            console.log(thatHeight);
 
         myTimeout = setTimeout(function () {
             $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-            $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
-            $(".tile-discription").removeClass("delay-point-five fast animated");
-            $(".hovered-tile").css("min-height", "unset");
+            $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
+            $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
+            $(".product-tile").css("min-height", "auto");
             }, 500);
         }).mouseleave(function () {
             clearTimeout(myTimeout);
             $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-            $(".tile-btns").removeClass("fadeIn delay-point-five fast animated");
-            $(".tile-discription").removeClass("delay-point-five fast animated");
-            $(".hovered-tile").css("min-height", "unset");
+            $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
+            $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
+            $(".product-tile").css("min-height", "auto");
         });
      }
 });
