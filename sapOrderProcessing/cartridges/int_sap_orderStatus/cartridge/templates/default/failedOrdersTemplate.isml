@@ -4,8 +4,8 @@
       <div style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: x-small; color: Black;">
           <p>Order Status Job-1 failed to populate feed attributes : with Feed Files : </p>
             <tr>
-                <isloop items="${param.errorMap.keySet()}" var = "key"> 
-                    <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${key}, </td>
+                <isloop items="${param.errorMap.keySet()}" var = "fileName"> 
+                    <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${fileName}, </td>
                 </isloop>
             </tr>
           <isloop items="${param.errorMap.keySet()}" var = "fileName"> 
@@ -18,7 +18,7 @@
                         <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Event Type</th>
                     </tr>
                 </isif>
-                <isloop items="${param.errorMap.get(key)}" var = "failedOrder">
+                <isloop items="${param.errorMap.get(fileName)}" var = "failedOrder">
                     <tr>
                         <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${failedOrder.errorOrderObj.orderId}</td>
                         <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${failedOrder.errorOrderObj.sapTransactionType}</td>
