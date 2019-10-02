@@ -67,7 +67,7 @@ $(window).on("load resize scroll", function(e) {
             $(that).addClass('hovered-tile');
             $(that).find(".tile-btns").addClass("delay-point-five fadeIn fast animated");
             $(that).find(".tile-discription").addClass(" delay-point-five fadeIn fast animated");
-                }, 500);
+                }, 200);
             }).mouseleave(function () {
                 clearTimeout(myTimeout);
                 $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
@@ -85,7 +85,7 @@ $(window).on("load resize scroll", function(e) {
             $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
             $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
             $(".product-tile").css("min-height", "auto");
-            }, 500);
+            }, 200);
         }).mouseleave(function () {
             clearTimeout(myTimeout);
             $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');

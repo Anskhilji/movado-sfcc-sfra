@@ -277,7 +277,7 @@
       border-color: $gray94;
 
       .card-header {
-        @include font-book;
+        @include font-light;
         font-size: rem(17);
         color: $grey8;
         line-height: rem(22);
