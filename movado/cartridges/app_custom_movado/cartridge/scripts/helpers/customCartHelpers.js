@@ -130,7 +130,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "name" : pli.product.name,
                         "brand" : pli.product.brand,
                         "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-                                : pli.product.primaryCategory.ID,
+                                : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
                         "variant" : variant,
                         "price" : productPrice,
                         "currency" : pli.product.priceModel.price.currencyCode,

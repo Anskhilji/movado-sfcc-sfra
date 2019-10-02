@@ -106,7 +106,7 @@ function createFromContainer(order) {
                 quantity   : productLineItem.quantity.value,
                 sku        : productLineItem.productID,
                 brand      : product.brand,
-                category   : product.getPrimaryCategory().getDisplayName()
+                category   : (product.getPrimaryCategory() ? product.getPrimaryCategory().getDisplayName() : '')
             });
         } else if(product){
     		brand = product.getBrand();

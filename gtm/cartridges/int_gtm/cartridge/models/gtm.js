@@ -276,16 +276,18 @@ function getCategoryBreadcrumb(categoryObj) {
     var tertiaryCategory = '';
 
     var levelCount = 0;
-    var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-    if (categoryLevel == 3) {
-    	tertiaryCategory = categoryObj.displayName;
-    	secondaryCategory = categoryObj.parent.displayName;
-    	primaryCategory = categoryObj.parent.parent.displayName;
-    } else if (categoryLevel == 2) {
-    	secondaryCategory = categoryObj.displayName;
-    	primaryCategory = categoryObj.parent.displayName;
-    } else if (categoryLevel == 1) {
-    	primaryCategory = categoryObj.displayName;
+    if (categoryObj) {
+        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
+        if (categoryLevel == 3) {
+            tertiaryCategory = categoryObj.displayName;
+            secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
+            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
+        } else if (categoryLevel == 2) {
+            secondaryCategory = categoryObj.displayName;
+            primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
+        } else if (categoryLevel == 1) {
+            primaryCategory = categoryObj.displayName;
+        }
     }
     return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
 }
