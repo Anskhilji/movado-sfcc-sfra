@@ -277,7 +277,7 @@
       border-color: $gray94;
 
       .card-header {
-        @include font-light;
+        @include font-book;
         font-size: rem(17);
         color: $grey8;
         line-height: rem(22);
@@ -440,7 +440,7 @@
       min-height: unset;
     }
 
-    .out-of-stock {
+    .out-of-stock, .pre-order {
       position: absolute;
       top: rem(15);
       right: rem(15);
@@ -462,6 +462,25 @@
       @include media-breakpoint-down(xs) {
         font-size: rem(9);
       }
+    }
+
+    .pre-order {
+      background: $grey9-light;
+      z-index: 999; 
+    }
+
+    .plp-botton-text {
+      display: flex;
+
+      .pre-order-text {
+        @include font-book;
+        font-size: rem(14);
+        position: relative;
+        letter-spacing: normal;
+        color: $grey8;
+        top: rem(5);
+        margin-right: rem(5);
+      } 
     }
 
     .new-product {

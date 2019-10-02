@@ -8,14 +8,25 @@
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
             <isset name="outOfStock" value="${true}" scope="page"/>
         </isif>
+        <isset name="preOrder" value="${false}" scope="page"/>
+        <isif condition="${message === Resource.msg('info.product.availability.preorder', 'common', null)}">
+            <isset name="preOrder" value="${true}" scope="page"/>
+        </isif>
     </isloop>
 
+
     <isinclude template="product/components/productTileImage" />
+    <isif condition="${preOrder}">
+        <div class="out-of-stock pre-order">
+            ${Resource.msg('info.product.availability.preorder', 'common', null)}
+        </div>
+    </isif>
     <isif condition="${outOfStock}">
         <div class="out-of-stock">
             ${Resource.msg('label.soldout', 'common', null)}
         </div>
     </isif>
+
     <div class="tile-body">
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
@@ -28,10 +39,18 @@
            ${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}
         </p>
         <div class="tile-btns">
+		    
             <a href="${pdict.urls.product}" class="tile-detail-btn">${Resource.msg('label.product.detail.details', 'product', null)}</a>
-            <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
-                itemtype="http://schema.org/Product">
-                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+            <div class="plp-botton-text">
+                <isif condition="${preOrder}">
+                    <div class="pre-order-text">
+                        ${Resource.msg('info.product.availability.preorder', 'common', null)}
+                    </div>
+                </isif>
+                <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
+                    itemtype="http://schema.org/Product">
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+                </div>
             </div>
         </div>
     </div>
