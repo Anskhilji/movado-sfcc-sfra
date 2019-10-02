@@ -38,7 +38,7 @@ $(document).mouseup(e => {
             $(".refinement-bar").removeClass("animated");
         },700);
     }
-  });
+});
 
 
 $(".search-results.plp-new-design  .mobile-menu .close-button").click(function(){
@@ -56,7 +56,7 @@ $(window).on("load resize scroll", function(e) {
     var width= $(window).width();
     var tileHeight=$('.search-results.plp-new-design .product-tile').height();
 
-    if ($(window).width() > 768) {
+    if ($(window).width() > 800) {
 
         var myTimeout; 
         $('.search-results.plp-new-design .product .product-tile').mouseenter(function () {
