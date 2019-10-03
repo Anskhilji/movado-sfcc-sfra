@@ -40,6 +40,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
     var pdpAnalyticsTrackingData;
+    var isEmbossEnabled;
+    var isEngraveEnabled;
+    var isGiftWrapEnabled;
 
 	/* get recommendations for product*/
     if (product) {
@@ -50,6 +53,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
+        isEmbossEnabled = product.custom.Emboss;
+        isEngraveEnabled = product.custom.Engrave;
+        isGiftWrapEnabled = product.custom.GiftWrap;
     }
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -60,6 +66,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     }
     
     viewData = {
+        isEmbossEnabled: isEmbossEnabled,
+        isEngraveEnabled: isEngraveEnabled,
+        isGiftWrapEnabled: isGiftWrapEnabled,
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
         moreStyleRecommendations: moreStyleRecommendations,
         youMayLikeRecommendations: youMayLikeRecommendations,
