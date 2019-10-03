@@ -538,6 +538,7 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
 			/* move the file to archive error folder if there is any exception*/
             Logger.error('orderStatusETL: Exception occured while parsing XML : ' + e + '\n' + e.stack);
             parsingResult.errorFiles.push({ file: orderfeedFiles[i] });
+            errorMap.put(file.name , parsingResult.errorOrders);
             var archiveErrorDirectory = File.IMPEX + File.SEPARATOR + targetErrorDirPath;
             moveFileToTargetDirectory(archiveErrorDirectory, file);
             errorFileMoved = true;
