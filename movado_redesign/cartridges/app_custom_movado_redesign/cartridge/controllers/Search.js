@@ -14,7 +14,7 @@ var Site = require('dw/system/Site');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var ABTestMgr = require('dw/campaign/ABTestMgr');
 
-server.replace('Refinebar', cache.applyDefaultCache, function (req, res, next) {
+server.replace('Refinebar', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');

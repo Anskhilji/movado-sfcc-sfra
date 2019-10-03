@@ -36,7 +36,7 @@
         </isif>
         <isinclude template="product/components/productTileName" />
         <p class="tile-discription">
-           ${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}
+           <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
         <div class="tile-btns">
 		    

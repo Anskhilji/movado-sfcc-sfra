@@ -393,7 +393,7 @@ module.exports = {
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
-                        $(".result-count").removeClass("col-12 col-md-9 col-sm-6 order-sm-2");
+                        $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                     },
                     error: function () {
                         $.spinner().stop();

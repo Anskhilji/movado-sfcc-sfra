@@ -10,7 +10,7 @@ server.extend(page);
 server.replace(
         'IncludeHeaderMenu',
         server.middleware.include,
-        cache.applyDefaultCache,
+        cache.applyPromotionSensitiveCache,
         function (req, res, next) {
             var ABTestMgr = require('dw/campaign/ABTestMgr');
             var catalogMgr = require('dw/catalog/CatalogMgr');
