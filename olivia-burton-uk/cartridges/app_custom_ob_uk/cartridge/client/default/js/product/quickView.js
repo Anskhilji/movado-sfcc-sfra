@@ -75,7 +75,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
             affirm.ui.refresh();
-            if (isklarnaPromoEnabled && data.isKlarnaPDPPromoEnabled) {
+            if (typeof isklarnaPromoEnabled !== 'undefined' && data.isKlarnaPDPPromoEnabled) {
                 $('klarna-placement').attr("data-purchase_amount", data.klarnaProductPrice);
                 window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
                 window.KlarnaOnsiteService.push({

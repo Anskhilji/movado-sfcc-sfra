@@ -48,6 +48,15 @@ function BooleanObject(productSearch,
     });
         return booleanObj;
     }
+    if (value.presentationID) {
+        var product = dw.catalog.ProductMgr.getProduct(value.presentationID);
+        if (product) {
+            Object.defineProperty(booleanTempModel, 'imgURL', {
+                value: product.image.url,
+                writable: false
+            });
+        }
+    }
     return booleanTempModel;
 }
 

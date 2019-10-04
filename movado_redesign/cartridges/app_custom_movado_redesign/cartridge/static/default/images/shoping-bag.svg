@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="28px" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 57.1 (101010) - https://sketch.com -->
+    <title>9C17C113-B7C2-45BD-957B-ED9BC059643B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="30" height="30"></rect>
+    </defs>
+    <g id="CLP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="R3_1_CLP_Desktop03" transform="translate(-1019.000000, -788.000000)">
+            <g id="Icons/AddShoppingBag/Black" transform="translate(1016.000000, 787.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Background"></g>
+                <g id="Shopping_Bag_Icon" mask="url(#mask-2)">
+                    <g transform="translate(1.800000, 1.200000)">
+                        <rect id="Rectangle" fill-opacity="0" fill="#D8D8D8" x="0" y="0.6" width="27" height="27"></rect>
+                        <g id="Group-13-Copy-2" stroke-width="1" fill="none" transform="translate(2.100000, 0.000000)">
+                            <path d="M0.892500043,7.2 L21.6075,7.2 C22.1004141,7.2 22.5,7.59958588 22.5,8.09250004 L22.5,26.5575 C22.5,27.0504141 22.1004141,27.45 21.6075,27.45 L0.892500043,27.45 C0.39958588,27.45 0,27.0504141 0,26.5575 L0,8.09250004 C0,7.59958588 0.39958588,7.2 0.892500043,7.2 Z M2.4,9.6 L2.4,25.05 L20.1,25.05 L20.1,9.6 L2.4,9.6 Z" id="Rectangle" fill="#000000" fill-rule="nonzero"></path>
+                            <g id="24px" transform="translate(2.400000, 9.000000)">
+                                <polygon id="Path" points="0 0 18 0 18 18 0 18"></polygon>
+                                <path d="M13.5,9.75 L9.75,9.75 L9.75,13.5 C9.75,13.9125 9.4125,14.25 9,14.25 C8.5875,14.25 8.25,13.9125 8.25,13.5 L8.25,9.75 L4.5,9.75 C4.0875,9.75 3.75,9.4125 3.75,9 C3.75,8.5875 4.0875,8.25 4.5,8.25 L8.25,8.25 L8.25,4.5 C8.25,4.0875 8.5875,3.75 9,3.75 C9.4125,3.75 9.75,4.0875 9.75,4.5 L9.75,8.25 L13.5,8.25 C13.9125,8.25 14.25,8.5875 14.25,9 C14.25,9.4125 13.9125,9.75 13.5,9.75 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+                            </g>
+                            <path d="M7.29831694,12.6542022 C7.61556405,5.63771904 9.09536287,2.40000002 11.3099094,2.40000002 C13.5226014,2.40000002 14.9943487,5.63597716 15.2958238,12.6515195 C15.3242772,13.3136501 15.8841061,13.827347 16.5462367,13.7988937 C17.2083673,13.7704403 17.7220642,13.2106113 17.6936108,12.5484807 C17.3419046,4.36402293 15.3571134,0 11.3099094,0 C7.26456016,0 5.27078049,4.36228104 4.90076648,12.545798 C4.8708315,13.2078633 5.38327435,13.7688404 6.04533963,13.7987754 C6.7074049,13.8287104 7.26838196,13.3162675 7.29831694,12.6542022 Z" id="Path-7" fill="#000000" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

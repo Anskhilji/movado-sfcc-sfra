@@ -1,7 +1,10 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row checkout-button-wrapper">
     <div class="col-12 estimated-price text-center d-block d-sm-none">
-        <span>${Resource.msg('label.estimatedtotal','cart',null)} ${pdict.totals.grandTotal}</span>
+        <span>
+            ${Resource.msg('label.estimatedtotal','cart',null)}
+            <div class="grand-total">${pdict.totals.grandTotal}</div>
+        </span>
     </div>
     <div class="col-12">
         <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"

@@ -531,6 +531,7 @@ function processOrder(sfccOrder) {
         }
 		/* if event type and transaction is not valid then return error*/
         Logger.getLogger('OrderStatusHelper').debug('Event Type or Transaction Type sent in feed is not valid for order Number : ' + sfccOrder.orderNo);
+        updateOrderBasicAttributes(sfccOrder, RESP_ERROR);
         return { error: true };
     } catch (e) {
         Logger.getLogger('OrderStatusHelper').error('Error Occurred while processing order Status for order : ' + sfccOrder.orderNo + 'with error : ' + e + '\n' + e.stack);

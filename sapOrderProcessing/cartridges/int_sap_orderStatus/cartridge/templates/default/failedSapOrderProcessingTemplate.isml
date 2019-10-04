@@ -1,0 +1,22 @@
+<iscontent type="text/html" charset="UTF-8">
+<html>
+  <body>
+      <div style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: x-small; color: Black;">
+          <p>Order Status Job-2 failed to process order attributes :</p>
+          <table style="border-collapse: collapse; width: 100%;">
+              <tr>
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Order Number</th>
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Transaction Type</th>
+                  <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Event Type</th>
+              </tr>
+              <isloop items="${param.errorMap}" var = "failedOrder">
+                  <tr>
+                      <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${failedOrder.errorOrderObj.orderId}</td>
+                      <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${failedOrder.errorOrderObj.sapTransactionType}</td>
+                      <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${failedOrder.errorOrderObj.eventType}</td>
+                  </tr>
+              </isloop>
+          </table>
+      </div>
+  </body>
+</html>

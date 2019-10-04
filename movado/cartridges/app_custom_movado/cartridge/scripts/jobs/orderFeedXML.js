@@ -40,6 +40,7 @@ var FIXEDFREIGHT = 'FIXEDFREIGHT';
 
 var orderFailedArray = new ArrayList();
 var fileExtension = '.xml';
+var exportLogger = Logger.getLogger('SAPOrderFeed');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -109,6 +110,7 @@ function isThisBillableItem(lineItem) {
 * @returns {json} Shipping Address JSON
 */
 function getShippingAddress(order) {
+    exportLogger.debug('Getting shipping address for, order {0}', order.getOrderNo());
     var Site = require('dw/system/Site');
     var SAPMaxLimit = Site.getCurrent().getCustomPreferenceValue('SAPMaxLimit');
     var shipments = order.getShipments();
@@ -180,6 +182,7 @@ function getShippingAddress(order) {
 * @returns {json} Billing Address JSON
 */
 function getBillingAddress(order) {
+    exportLogger.debug('Getting billing address for, order {0}', order.getOrderNo());
     var Site = require('dw/system/Site');
     var SAPMaxLimit = Site.getCurrent().getCustomPreferenceValue('SAPMaxLimit');
     var billingAddressObj = {};
@@ -233,7 +236,6 @@ function getBillingAddress(order) {
     } else {
         billingAddressObj.BilltoPhone = '';
     }
-
     return billingAddressObj;
 }
 
@@ -1168,6 +1170,7 @@ function getPreSaleItemRequestedDeliveryDate(lineItem) {
 * @returns {json} Commerce Items JSON
 */
 function getPOItemsInfo(order) {
+    exportLogger.debug('Getting POItemsInfo for, order {0}', order.getOrderNo());
     var Site = require('dw/system/Site');
     var inventoryLocation = Site.getCurrent().getCustomPreferenceValue('inventoryLocation');
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
@@ -1308,6 +1311,7 @@ function getPOItemsInfo(order) {
             }
         }
     }
+    exportLogger.debug('POItemsInfo for, order {0} , Commerce Items: {1}', order.getOrderNo(), JSON.stringify(commerceItems));
     return commerceItems;
 }
 
@@ -1433,6 +1437,7 @@ function generateOrderXML(order) {
         var paymentMethodData;
 
         try {
+            exportLogger.info('Starting feed file generation for order number {0}', order.getOrderNo());
             FileHelper.createDirectory(impexFilePath);
             paymentMethodData = getPaymentMethodData(order);
             var file = new File(impexFilePath + order.getOrderNo() + '_' + formatDate(order.getCreationDate(), 'yyyyMMdd_hhmmss') + fileExtension);
@@ -1443,6 +1448,7 @@ function generateOrderXML(order) {
             var streamWriter = new XMLStreamWriter(fileWriter);
 
             if (streamWriter) {
+                exportLogger.debug('started stream wirting for, order {0}', order.getOrderNo());
                 streamWriter.writeRaw('<?xml version="1.0" encoding="UTF-8"?>\r\n');
                 /* Start of the root element*/
                 streamWriter.writeStartElement('root');
@@ -1657,6 +1663,7 @@ function generateOrderXML(order) {
                 }
                 for (var i = 0; i < commerceItemsInfo.length; i++) {
                     var commerceItem = commerceItemsInfo[i];
+                    exportLogger.debug('Writing EcommercePOItemHeader Element commerceItem {0} for order {1}', commerceItem.POItemNumber , order.getOrderNo());
                     /* Create EcommercePOItemHeader Elements: start*/
                     
                     if (commerceItem.RequestedDeliveryDate) {
@@ -2162,6 +2169,7 @@ function generateOrderXML(order) {
                             /* EcommercePOItemPersonalization Elements: ends*/
                     }
                     streamWriter.writeEndElement();
+                    exportLogger.debug('Finished writing EcommercePOItemHeader Element for order {0}', order.getOrderNo());
                         /* EcommercePOItemHeader Elements: ends*/
                 }
                 /* End of the Order element*/
@@ -2176,6 +2184,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndDocument();
                 streamWriter.flush();
                 streamWriter.close();
+                exportLogger.debug('Closed stream writers successfully for order {0}', order.getOrderNo());
             }
 
             fileWriter.close();
@@ -2183,13 +2192,14 @@ function generateOrderXML(order) {
             Transaction.wrap(function () {
                 order.setExportStatus(Order.EXPORT_STATUS_EXPORTED);
             });
+            exportLogger.debug('Generated feed file successfully for order {0}', order.getOrderNo());
         } catch (error) {
             orderFailedArray.push(order.getOrderNo());
-            Logger.getLogger('SAPOrderFeed').error('Error occurred while generating xml, order {0} added to the failed list.', order.getOrderNo());
-            Logger.getLogger('SAPOrderFeed').error(error);
+            exportLogger.error('Error occurred while generating xml, order {0} added to the failed list.', order.getOrderNo());
+            exportLogger.error('Exception is: {0}', error);
         }
     } else {
-        Logger.getLogger('SAPOrderFeed').error('Incorrect Order Object passed to generate XML.');
+        exportLogger.error('Incorrect Order Object {0} passed to generate XML.', order);
     }
 }
 
@@ -2199,7 +2209,9 @@ function generateOrderXML(order) {
 */
 function exportOrderFeed() {
     var status = false;
+    var Site = require('dw/system/Site');
     try {
+        exportLogger.info('Starting order export feed for site:  {0}', Site.current.getID());
         OrderManager.processOrders(generateOrderXML,
              'exportStatus = {0} AND status != {1} AND status != {2} AND status != {3} AND confirmationStatus = {4}',
              ORDER_EXPORT_STATUS,
@@ -2209,8 +2221,9 @@ function exportOrderFeed() {
              Order.CONFIRMATION_STATUS_CONFIRMED
         );
         status = true;
+        exportLogger.info('Export OrderFeed Completed successfully');
     } catch (e) {
-        Logger.getLogger('SAPOrderFeed').warn(e.toString());
+        exportLogger.error('Error occurred while running order export job. Exception is: {0} ', e.toString())
     }
     return status;
 }

@@ -510,10 +510,15 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-body p').addClass(messageType);
-    if(response.addCartGtmArray !== undefined){
-    	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
+        if(response.trackCartAnalyticsTrackingData !== undefined) {
+            setAnalyticsTrackingByAJAX.trackCart = response.trackCartAnalyticsTrackingData;
+            window.dispatchEvent(setAnalyticsTrackingByAJAX);
+        }
+        if(response.addCartGtmArray !== undefined){
+        	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+        }	
     }
-
     if (response.newBonusDiscountLineItem
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
@@ -730,7 +735,11 @@ module.exports = {
                 pidsObj = JSON.stringify(setPids);
             }
 
-            pid = getPidValue($(this));
+            if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+                pid = $(this).data('pid');
+            } else {
+            	pid = getPidValue($(this));
+            }
 
             var $productContainer = $(this).closest('.product-detail');
             if (!$productContainer.length) {

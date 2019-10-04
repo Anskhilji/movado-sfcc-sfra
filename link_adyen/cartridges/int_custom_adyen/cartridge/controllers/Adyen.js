@@ -83,18 +83,20 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 	      res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
 	      return next();
 	    }
-
-	    Transaction.begin();
-	    //If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
-	    if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
-	        order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
-	    } else {
-	    	order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
-	    }
-	    order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
-	    paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
-	    Transaction.commit();
-	    COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+		Transaction.begin();
+		//If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
+		if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
+			order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
+			order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
+			order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_CONFIRMED);
+			COCustomHelpers.sendOrderConfirmationEmail(order, req.locale.id);
+		} else {
+			order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
+			order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+			order.custom.is3DSecureTransactionAlreadyCompleted = true;
+		}
+		paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
+		Transaction.commit();
 	    clearForms();
 	    res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
 	    return next();

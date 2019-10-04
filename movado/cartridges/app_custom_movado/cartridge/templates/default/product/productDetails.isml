@@ -142,7 +142,10 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
-        <isinclude template="product/components/youMayLikeRecommendation" />
+        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
+            <isinclude template="product/components/youMayLikeRecommendation" />
+        </isif>
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
         <isinclude template="product/components/contentAssets" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
