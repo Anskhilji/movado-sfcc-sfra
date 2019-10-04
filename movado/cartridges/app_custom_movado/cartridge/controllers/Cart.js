@@ -44,11 +44,11 @@ server.append('AddProduct', function (req, res, next) {
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData = {};
-        	cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
             cartAnalyticsTrackingData.cartItems = {};
 
             if(basketModel.items.length > 0) {
                 cartAnalyticsTrackingData = {trackCart: true};
+                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
                 cartAnalyticsTrackingData.cartItems  = customCartHelpers.getCartForAnalyticsTracking(currentBasket);
             }
             res.setViewData({
