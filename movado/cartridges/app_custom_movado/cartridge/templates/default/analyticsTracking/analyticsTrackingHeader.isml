@@ -10,7 +10,6 @@
             category: {},
             pdp: {},
             cart: {},
-            trackCart: {},
             order: {}
         }
     </script>

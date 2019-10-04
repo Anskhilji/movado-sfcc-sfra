@@ -51,25 +51,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
     }
 
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-    	var pdpAnalyticsTrackingData;
-    	pdpAnalyticsTrackingData = {item: product.getName()};
-    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
-        viewData = {
-            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-            moreStyleRecommendations: moreStyleRecommendations,
-            youMayLikeRecommendations: youMayLikeRecommendations,
-            collectionContentList: collectionContentList,
-            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-            loggedIn: req.currentCustomer.raw.authenticated,
-            socialShareEnable: socialShareEnable,
-            moreStyleGtmArray: moreStyleGtmArray,
-            wishlistGtmObj: wishlistGtmObj,
-            klarnaProductPrice: klarnaProductPrice,
-            pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
-        };
-    } else {
-        viewData = {
+    viewData = {
             isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
             moreStyleRecommendations: moreStyleRecommendations,
             youMayLikeRecommendations: youMayLikeRecommendations,
@@ -80,7 +62,16 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice
-        };
+    };
+
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+    	var pdpAnalyticsTrackingData;
+    	pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+    	};
+    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
     }
 
     res.setViewData(viewData);
@@ -154,15 +145,18 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     };
 
     if(isanalyticsTrackingEnabled) {
-    	var pdpAnalyticsTrackingData;
-        pdpAnalyticsTrackingData = {item: product.ID};
+        var pdpAnalyticsTrackingData;
+
+        pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+        };
         pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});
     }
 
     res.setViewData({
         productGtmArray: productGtmArray,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
         klarnaProductPrice: klarnaProductPrice
