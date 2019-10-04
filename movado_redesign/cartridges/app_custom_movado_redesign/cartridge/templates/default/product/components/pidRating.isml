@@ -1,0 +1,6 @@
+<div class="product-number-rating clearfix">
+    <!-- Product Rating -->
+    <div class="ratings pull-left">
+        <isinclude template="product/components/productRating" />
+    </div>
+</div>

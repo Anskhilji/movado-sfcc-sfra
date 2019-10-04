@@ -1,5 +1,7 @@
 @import '~movado/product/detail';
+@import '~movado/variables';
 @import '../vars';
+
 @import "animate.css/animate";
 @import "../custom-animation";
 
@@ -12,6 +14,13 @@
     .product-name {
         @include font-bold;
         font-size: rem(34);
-        color: $gray8;
+        color: $grey8;
+    }
+
+    .description {
+        @include font-light;
+        font-size: rem(17);
+        color: $grey8;
+        letter-spacing: normal;
     }
 }
