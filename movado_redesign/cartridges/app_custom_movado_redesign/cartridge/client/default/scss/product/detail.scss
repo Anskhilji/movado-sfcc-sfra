@@ -1,0 +1,17 @@
+@import '~movado/product/detail';
+@import '../vars';
+@import "animate.css/animate";
+@import "../custom-animation";
+
+.container-fluid.pdp-v-one {
+    padding-top: rem(16);
+    padding-bottom: rem(16);
+    margin: 0;
+    background: $slate-grey-light;
+
+    .product-name {
+        @include font-bold;
+        font-size: rem(34);
+        color: $gray8;
+    }
+}
