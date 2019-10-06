@@ -39,7 +39,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
-    var pdpAnalyticsTrackingData;
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
@@ -57,30 +56,32 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
-    
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        pdpAnalyticsTrackingData = {item: product.getName()};
-    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile()
-    		? customer.getProfile().getEmail()
-    		: customer.getID();
-    }
-    
+
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
-        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-        moreStyleRecommendations: moreStyleRecommendations,
-        youMayLikeRecommendations: youMayLikeRecommendations,
-        collectionContentList: collectionContentList,
-        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-        loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
-        moreStyleGtmArray: moreStyleGtmArray,
-        wishlistGtmObj: wishlistGtmObj,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
-        klarnaProductPrice: klarnaProductPrice
+            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
+            moreStyleRecommendations: moreStyleRecommendations,
+            youMayLikeRecommendations: youMayLikeRecommendations,
+            collectionContentList: collectionContentList,
+            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
+            loggedIn: req.currentCustomer.raw.authenticated,
+            socialShareEnable: socialShareEnable,
+            moreStyleGtmArray: moreStyleGtmArray,
+            wishlistGtmObj: wishlistGtmObj,
+            klarnaProductPrice: klarnaProductPrice
     };
+
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+    	var pdpAnalyticsTrackingData;
+    	pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+    	};
+    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
 
     res.setViewData(viewData);
     next();
@@ -123,7 +124,6 @@ server.replace('Variation', function (req, res, next) {
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-    var pdpAnalyticsTrackingData;
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
     var klarnaProductPrice = '0';
@@ -144,22 +144,28 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         id: product.ID,
         name: product.name,
         brand: product.brand,
-        category: product.variant && !!product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.ID
-				   : product.primaryCategory.ID,
+        category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.displayName
+				   : (product.primaryCategory ? product.primaryCategory.displayName : ''),
         variant: productCustomHelpers
 					.getProductOptions(product.optionModel.options),
         price: product.priceModel.price.value,
         currency: product.priceModel.price.currencyCode,
         list: Resource.msg('gtm.list.quickview.value', 'product', null)
     };
-    
+
     if(isanalyticsTrackingEnabled) {
-        pdpAnalyticsTrackingData = {item: product.ID};
+        var pdpAnalyticsTrackingData;
+
+        pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+        };
+        pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});
     }
-    
+
     res.setViewData({
         productGtmArray: productGtmArray,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
         klarnaProductPrice: klarnaProductPrice
@@ -181,7 +187,8 @@ server.get('ShowCartButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false
     });
     next();
 });

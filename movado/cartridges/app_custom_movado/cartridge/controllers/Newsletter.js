@@ -16,12 +16,11 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     
     res.json(newletterHelper.subscribeToNewsletter(req.form.email, null, req.currentCustomer));
-    
-    var userTracking;
+
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
-    
+
     if(isanalyticsTrackingEnabled) {
-        var userTracking = {email: req.form.email};
+    	var userTracking = {email: req.form.email};
         res.setViewData({
             userTracking: JSON.stringify(userTracking),
             isanalyticsTrackingEnabled: isanalyticsTrackingEnabled

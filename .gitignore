@@ -10,3 +10,6 @@
 **/dw.json
 **/.DS_Store
 **/tmp/
+**/package-lock.json
+/.metadata/
+/DigitalServer/

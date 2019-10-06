@@ -514,12 +514,14 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-body p').addClass(messageType);
-    if(response.addCartGtmArray !== undefined){
-    	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-    	 if(response.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
-    	     setAnalyticsTrackingByAJAX.cartTracking = response.cartAnalyticsTrackingData;
-             window.dispatchEvent(setAnalyticsTrackingByAJAX);
-    	 }
+    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
+        if(response.cartAnalyticsTrackingData !== undefined) {
+            setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
+            window.dispatchEvent(setAnalyticsTrackingByAJAX);
+        }
+        if(response.addCartGtmArray !== undefined){
+        	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+        }	
     }
 
     if (response.newBonusDiscountLineItem

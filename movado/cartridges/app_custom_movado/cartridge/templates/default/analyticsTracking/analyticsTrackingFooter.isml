@@ -9,16 +9,25 @@
             analyticsTracking.user = JSON.parse('<isprint value="${pdict.userTracking}" encoding="htmlsinglequote"/>');
             triggerEvent = 'setUserInfo';
         }
+        if('${pdict.trackCartAnalyticsTrackingData}' != 'null') {
+            analyticsTracking.cart = JSON.parse('<isprint value="${pdict.trackCartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            if (analyticsTracking.cart.trackCart) {
+            	triggerEvent = 'trackCart';
+            }
+        }
         if('${pdict.cartAnalyticsTrackingData}' != 'null') {
             analyticsTracking.cart = JSON.parse('<isprint value="${pdict.cartAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             if (analyticsTracking.cart.clear_cart) {
             	triggerEvent = 'setClearCart';
-            } 
+            } else {
+            	triggerEvent = 'trackCart';
+            }
         }
         if('${pdict.orderAnalyticsTrackingData}' != 'null') {
             analyticsTracking.order = JSON.parse('<isprint value="${pdict.orderAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+            triggerEvent = 'purchase';
         }
-        
+
         if('${pdict.pdpAnalyticsTrackingData}' != 'null') {
             analyticsTracking.pdp = JSON.parse('<isprint value="${pdict.pdpAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             triggerEvent = 'itemDetails';
@@ -30,7 +39,6 @@
             } else {
                 triggerEvent = 'categorySearch';
             }
-            
         }
 
         if('${pdict.searchAnalyticsTrackingData}' != 'null') {
@@ -38,26 +46,30 @@
         }
 
         window.addEventListener ('analyticsTracking', function(e) {
-            if(e.pdpAnalyticsTrackingData) {
-                analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
-                dataLayer.push({'analyticsTracking': analyticsTracking});
-            }
+           	if (e.pdpAnalyticsTrackingData) {
+           		analyticsTracking.pdp = JSON.parse(e.pdpAnalyticsTrackingData);
+           		dataLayer.push({'event':'itemDetails', 'analyticsTracking': analyticsTracking});
+           	}
 
             if(e.userTracking) {
                 analyticsTracking.user = JSON.parse(e.userTracking);
                 dataLayer.push({'event':'setUserInfo', 'analyticsTracking': analyticsTracking});
             }
 
-            if (e.cartTracking) {
-                analyticsTracking.cart = JSON.parse(e.cartTracking);
-            	if (analyticsTracking.cart.clear_cart) {
-            		dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
-            	} else {
-            		dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
-            	}
-                
+           	if (e.cartAnalyticsTrackingData) {
+           		analyticsTracking.cart = JSON.parse(e.cartAnalyticsTrackingData);
+	            if (analyticsTracking.cart.clear_cart) {
+	                dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
+	            } else {
+	                dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
+	            }
+           	}
+           	
+            if(e.purchase) {
+                analyticsTracking.order = JSON.parse(e.purchase);
+                dataLayer.push({'event':'purchase', 'analyticsTracking': analyticsTracking});
             }
-            
+
         });
         if (triggerEvent) {
         	dataLayer.push({'event': triggerEvent, 'analyticsTracking': analyticsTracking});

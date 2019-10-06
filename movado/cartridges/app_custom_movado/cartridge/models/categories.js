@@ -2,6 +2,7 @@
 
 var collections = require('*/cartridge/scripts/util/collections');
 var URLUtils = require('dw/web/URLUtils');
+var ContentMgr = require('dw/content/ContentMgr');
 
 /**
  * Get category url
@@ -45,13 +46,19 @@ function categoryToObject(category) {
     	    		eventLabel: categoryDisplayName
     	    };
     }
-
+    var staticContentAsset;
+    if (category.custom.staticContentAssetID) {
+        var contentAsset = ContentMgr.getContent(category.custom.staticContentAssetID);
+        staticContentAsset = contentAsset ? contentAsset.custom.body : '';
+    }
     var result = {
         name: category.getDisplayName(),
         url: getCategoryUrl(category),
         id: category.ID,
         headerMenuBanner: category.custom.headerMenuBanner,
-        gtmNavVal: gtmNavVal
+        gtmNavVal: gtmNavVal,
+        disableSubCategories: category.custom.disableSubCategories,
+        staticContentAsset: staticContentAsset
     };
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;

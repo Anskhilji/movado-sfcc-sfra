@@ -48,7 +48,7 @@ function create(order) {
                 quantity   : productLineItem.quantity.value,
                 sku        : productLineItem.productID,
                 brand      : RCUtilities.escape(brand, regExp, '', true),
-                category   : category.getDisplayName()
+                category   : category ? category.getDisplayName() : ''
             });
         }
     }
@@ -99,7 +99,7 @@ function createFromContainer(order) {
                 quantity   : productLineItem.quantity.value,
                 sku        : productLineItem.productID,
                 brand      : product.brand,
-                category   : product.getPrimaryCategory().getDisplayName()
+                category   : product.getPrimaryCategory() ? product.getPrimaryCategory().getDisplayName() : ''
             });
         } else {
             brand = product.getBrand();
@@ -126,7 +126,7 @@ function createFromContainer(order) {
                 quantity   : productLineItem.quantity.value,
                 sku        : productLineItem.productID,
                 brand      : RCUtilities.escape(brand, regExp, '', true),
-                category   : category.getDisplayName()
+                category   : category ? category.getDisplayName() : ''
             });
         }
     }

@@ -131,13 +131,30 @@ var onPDPAddProductClickEvent = function () {
                 ecommerce: { currencyCode: addtoCartData.currency,
                     add: { actionField: { list: addtoCartData.list },
 				      products: [{
-          id: addtoCartData.id,
-          name: addtoCartData.name,
-          price: addtoCartData.price,
-          category: addtoCartData.category,
-          variant: addtoCartData.variant
-      }]
-				  }
+				          id: addtoCartData.id,
+				          name: addtoCartData.name,
+				          price: addtoCartData.price,
+				          category: addtoCartData.category,
+				          variant: addtoCartData.variant
+				      }]
+                    }
+                }
+            });
+        } else if ($('[data-action]').data('action') == 'Search-Show') {
+            updateDataLayer('addToCart');
+            var addtoCartData = JSON.parse(data);
+            dataLayer.push({
+                event: 'addToCart',
+                ecommerce: { currencyCode: addtoCartData.currency,
+                    add: { actionField: { list: addtoCartData.list },
+				      products: [{
+					          id: addtoCartData.id,
+					          name: addtoCartData.name,
+					          price: addtoCartData.price,
+					          category: addtoCartData.category,
+					          variant: addtoCartData.variant
+				      	}]
+                    }
                 }
             });
         }

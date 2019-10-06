@@ -276,16 +276,18 @@ function getCategoryBreadcrumb(categoryObj) {
     var tertiaryCategory = '';
 
     var levelCount = 0;
-    var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-    if (categoryLevel == 3) {
-    	tertiaryCategory = categoryObj.displayName;
-    	secondaryCategory = categoryObj.parent.displayName;
-    	primaryCategory = categoryObj.parent.parent.displayName;
-    } else if (categoryLevel == 2) {
-    	secondaryCategory = categoryObj.displayName;
-    	primaryCategory = categoryObj.parent.displayName;
-    } else if (categoryLevel == 1) {
-    	primaryCategory = categoryObj.displayName;
+    if (categoryObj) {
+        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
+        if (categoryLevel == 3) {
+            tertiaryCategory = categoryObj.displayName;
+            secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
+            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
+        } else if (categoryLevel == 2) {
+            secondaryCategory = categoryObj.displayName;
+            primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
+        } else if (categoryLevel == 1) {
+            primaryCategory = categoryObj.displayName;
+        }
     }
     return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
 }
@@ -397,12 +399,12 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     brand: cartItem.product.brand,
-                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : cartItem.product.primaryCategory.ID,
+                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     price: productPrice,
-                    revenue: cartItem.grossPrice.value,
-                    tax: cartItem.tax.value,
-                    shipping: cartItem.shipment.shippingTotalGrossPrice.value,
+                    revenue: cartItem.grossPrice.decimalValue,
+                    tax: cartItem.tax.decimalValue,
+                    shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,
                     coupon: appliedCoupons });
             }
         });
@@ -604,9 +606,9 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         var orderObj = {};
         orderObj.orderId = orderId;
-        orderObj.revenue = order.totalGrossPrice.value;
-        orderObj.tax = order.totalTax.value;
-        orderObj.shipping = order.shippingTotalPrice.value;
+        orderObj.revenue = order.totalGrossPrice.decimalValue;
+        orderObj.tax = order.totalTax.decimalValue;
+        orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
 	    orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);

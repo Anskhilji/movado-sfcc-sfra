@@ -11,6 +11,8 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
+var ABTestMgr = require('dw/campaign/ABTestMgr');
+
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -20,8 +22,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var Site = require('dw/system/Site');
+    var viewData = res.getViewData();
 
-    var categoryTemplate = '';
     var productSearch;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     res.setViewData({
@@ -29,7 +31,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
+    var resultsTemplate = viewData.resultsTemplate;
+    resultsTemplate = resultsTemplate ? resultsTemplate : (isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults');
     var apiProductSearch = new ProductSearchModel();
     var maxSlots = 4;
     var reportingURLs;
@@ -46,8 +49,13 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
     apiProductSearch.search();
-
     categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+    var categoryTemplateReDesign = viewData.categoryTemplate;
+
+    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
+        categoryTemplate = categoryTemplateReDesign;
+    }
+
     productSearch = new ProductSearch(
         apiProductSearch,
         req.querystring,
@@ -87,13 +95,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
-    		categoryAnalyticsTrackingData = {categoryId: productSearch.category.id};
+    		categoryAnalyticsTrackingData = {categoryId : productSearch.category.name};
     	} else {
     		categoryAnalyticsTrackingData = {searchQuery: req.querystring.q};
     	}
-		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile())
-				? customer.getProfile().getEmail()
-			    : customer.getID();
+		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
     }
 
     if (

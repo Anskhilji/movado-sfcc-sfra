@@ -414,7 +414,7 @@ module.exports = function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                if (isklarnaPromoEnabled && data.isKlarnaCartPromoEnabled) {
+                if (typeof isklarnaPromoEnabled != 'undefined' && isklarnaPromoEnabled && data.isKlarnaCartPromoEnabled) {
                     $('klarna-placement').attr("data-purchase_amount", data.basket.totals.klarnaGrandTotal);
                     window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
                     window.KlarnaOnsiteService.push({
@@ -430,10 +430,6 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
-                    if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
-                        setAnalyticsTrackingByAJAX.cartTracking = data.cartAnalyticsTrackingData;
-                        window.dispatchEvent(setAnalyticsTrackingByAJAX);
-                    }
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -450,6 +446,12 @@ module.exports = function () {
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
                 }
+
+                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                }
+
                 $.spinner().stop();
             },
             error: function (err) {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="19px" viewBox="0 0 13 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 56.3 (101010) - https://sketch.com -->
+    <title>A5126DA7-3EAA-4C8F-93A1-0EC47917C289</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Navigation_New_Taxonomy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03" transform="translate(-29.000000, -430.000000)">
+            <g id="Group-6" transform="translate(0.000000, -5.000000)">
+                <g id="Stacked-Group" transform="translate(25.000000, 393.000000)">
+                    <g id="Group-8" transform="translate(0.000000, 41.000000)">
+                        <g id="Icons/Location">
+                            <g id="outline-location_on-24px">
+                                <polygon id="Path" points="0 0 20 0 20 20 0 20"></polygon>
+                                <path d="M10.2,1.2 C6.77228571,1.2 4,4.017 4,7.5 C4,12.225 10.2,19.2 10.2,19.2 C10.2,19.2 16.4,12.225 16.4,7.5 C16.4,4.017 13.6277143,1.2 10.2,1.2 Z M5.77142849,7.5 C5.77142849,5.01599997 7.75542844,3 10.1999998,3 C12.6445712,3 14.6285711,5.01599997 14.6285711,7.5 C14.6285711,10.0919999 12.077714,13.9709998 10.1999998,16.3919998 C8.35771414,13.9889998 5.77142849,10.0649999 5.77142849,7.5 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                                <circle id="Oval" fill="#000000" fill-rule="nonzero" cx="10.2" cy="7.4" r="2.2"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

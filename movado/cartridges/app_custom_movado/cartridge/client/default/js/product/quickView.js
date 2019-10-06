@@ -78,7 +78,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             affirm.ui.refresh();
             $.spinner().stop();
             
-            if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData) {
+            if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                 setAnalyticsTrackingByAJAX.pdpAnalyticsTrackingData = data.pdpAnalyticsTrackingData;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }

@@ -193,7 +193,7 @@ function updatePageURLForShowMore(showMoreUrl) {
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
     var url;
-
+    
     if (history.pushState) {
     	if (document.location.href.indexOf('?') > -1) {
     		if (document.location.href.indexOf('sz=') > -1) {

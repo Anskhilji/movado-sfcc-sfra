@@ -40,7 +40,8 @@ function getProducts(suggestedProducts, maxItems) {
             products.push({
                 name: product.name,
                 imageUrl: getImageUrl(product),
-                url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID)
+                url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID),
+                hasPrimaryCategory: product.primaryCategory ? true : false
             });
         }
     }

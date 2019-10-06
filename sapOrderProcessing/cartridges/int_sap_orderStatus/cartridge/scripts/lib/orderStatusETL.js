@@ -316,7 +316,7 @@ function populateOrderAttributes(orderItem) {
         return { success: successFlag, orderNumber: orderId, eventType: eventType, transactionType: sapTransactionType };
     } catch (e) {
         Logger.error('orderStatusETL: Error occured while populating custom Order Attribute: ' + e + '\n' + e.stack);
-        throw e;
+        return { success: successFlag, orderNumber: orderId, eventType: eventType, transactionType: sapTransactionType };
     }
 }
 
@@ -344,47 +344,26 @@ function clearSapAttributesAtLine(order) {
     }
 }
 
+
 /**
  * sends mail if error files failed to process
  * @param parsingResult
  * @returns boolean
  */
-function triggerEmail(parsingResult) {
-    var Mail = require('dw/net/Mail');
-    var mail;
-    var failedFiles = '';
-    var failedOrders = '';
-    var errorFilesList = parsingResult.errorFiles;
-    var errorOrdersList = parsingResult.errorOrders;
-    var sendToMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentToMail');
-    var sendFromMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentFromMail');
-
+function triggerEmail(errorMap) {
     try {
-        if (errorFilesList) {
-            for (var i = 0; i < errorFilesList.length; i++) {
-                if (failedFiles.length > 0) {
-                    failedFiles += errorFilesList[i].file.name + ' :';
-                } else {
-                    failedFiles = errorFilesList[i].file.name + ' :';
-                }
-            }
-        }
-
-        if (errorOrdersList) {
-            for (var i = 0; i < errorOrdersList.length; i++) {
-                if (failedOrders.length > 0) {
-                    failedOrders += errorOrdersList[i].orderId + ' :';
-                } else {
-                    failedOrders = errorOrdersList[i].orderId + ' :';
-                }
-            }
-        }
-
+        var Mail = require('dw/net/Mail');
+        var sendToMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentToMail');
+        var sendFromMail = Site.getCurrent().getCustomPreferenceValue('orderStatusSentFromMail');
+        var template = Util.Template('failedOrdersTemplate.isml');
+        var contentMap = Util.HashMap();
+        contentMap.put("errorMap" , errorMap);
+        var text: MimeEncodedText = template.render(contentMap);
         mail = new Mail();
-        mail.setSubject('Order Processing Failed');
+        mail.setSubject(' Order Status Import Error Notification.');
         mail.setFrom(sendFromMail);
         mail.addTo(sendToMail);
-        mail.setContent('Order Status Job-1 failed to populate feed attributes : with Feed Files : ' + failedFiles + ' with failed order list as : ' + failedOrders);
+        mail.setContent(text);
         mail.send();
     } catch (e) {
         Logger.error('orderStatusETL: mail not sent due to exception : ' + e + '\n' + e.stack);
@@ -420,12 +399,16 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
         successOrders: [],
         successFiles: []
     };
-
+    
+    var errorMap = Util.HashMap();
+    var fileErrorMap = Util.HashMap();
+    
 	/* loop through all feed files in IMPEX location */
     inputFilePath = File.IMPEX + File.SEPARATOR + srcDirPath;
     orderfeedFiles = FileHelper.getFiles(inputFilePath, filePattern);
 
     for (var i = 0; i < orderfeedFiles.length; i++) {
+    	
         try {
             var errorFileMoved = false;
             file = new File(orderfeedFiles[i]);
@@ -436,6 +419,7 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
                 errorFileMoved = true;
             } else {
                 var fileReader = new FileReader(file);
+                
 
 				/* if file not present then continue and check the next file in directory*/
                 if (!fileReader) {
@@ -449,6 +433,7 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
 
 					/* read file using stream reader */
                     while (xmlReader.hasNext()) {
+                    	var parsedSuccessfully = true;
                         parseEvent = xmlReader.next();
                         if (parseEvent === XMLStreamConstants.START_ELEMENT) {
                             tempLocalName = StringUtils.trim(xmlReader.getLocalName());
@@ -481,52 +466,68 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
 
 										/* check if it is Order Header Information, populate order level custom attributes*/
                                         if (orderItem && orderItem.localName() !== null && orderItem.localName().toString() === ORDER_STATUS_HEADER) {
-                                    var orderResult = populateOrderAttributes(orderItem);
-                                    orderNumber = orderResult.orderNumber;
-                                    eventType = orderResult.eventType;
-                                    transactionType = orderResult.transactionType;
-                                    orderAttributesPopulated = orderResult.success;
-                                }
+                                            var orderResult = populateOrderAttributes(orderItem);
+                                            orderNumber = orderResult.orderNumber;
+                                            eventType = orderResult.eventType;
+                                            transactionType = orderResult.transactionType;
+                                            orderAttributesPopulated = orderResult.success;
+                                            if(!orderAttributesPopulated){
+                                                parsedSuccessfully = false;
+                                            } else {
+                                            	 parsedSuccessfully = true;
+                                            }
+                                        }
 										/* check if it is LineItem Information, populate line item level custom attributes*/
                                         if (orderNumber && orderItem && orderItem.localName() !== null && orderItem.localName().toString() === ORDER_STATUS_ITEM) {
-                                    var statusFlag = populateLineItemAttributes(orderItem, orderNumber, eventType, transactionType);
-                                    lineItemsRecievedInFeed += 1;
+                                            var statusFlag = populateLineItemAttributes(orderItem, orderNumber, eventType, transactionType);
+                                            lineItemsRecievedInFeed += 1;
 
 											/* logic to check if all line items have been populated then only mark success*/
-                                    if (statusFlag == false) {
-                                    lineAttributesPopulated = false;
-                                } else if (!lineAttributesPopulated) {
-                                lineAttributesPopulated = true;
-                            }
-                                }
+                                            if (statusFlag == false) {
+                                                lineAttributesPopulated = false;
+                                            } else if (!lineAttributesPopulated) {
+                                            	lineAttributesPopulated = true;
+                                            }
+                                        }
+                                        if(!parsedSuccessfully){
+                                            var errorOrderObj = {
+                                                    eventType : eventType,
+                                                    sapTransactionType : transactionType,
+                                                    orderId : orderNumber
+                                            };
+                                            if (!fileErrorMap.containsKey(orderNumber)) {
+                                                fileErrorMap.put( orderNumber, '1');
+                                                parsingResult.errorOrders.push({ errorOrderObj: errorOrderObj });
+                                            }
+                                        }
                                     }
 
-									/* Mark the order in processing phase so it could be processed in the next Job*/
+                                    /* Mark the order in processing phase so it could be processed in the next Job*/
                                     order = OrderMgr.getOrder(orderNumber);
-                                    if (eventType && eventType.toLowerCase() != 'credit' && orderAttributesPopulated && lineAttributesPopulated) {
+                                    if (eventType && eventType.toLowerCase() != 'credit' && orderAttributesPopulated && lineAttributesPopulated && parsedSuccessfully) {
                                         order.custom.processingFlag = true;
                                         var existingItems = order.custom.totalLineItemsReceived;
                                         if (order.custom.totalLineItemsReceived && parseInt(order.custom.totalLineItemsReceived) > 0) {
-                                    var existingItems = parseInt(order.custom.totalLineItemsReceived);
-                                    var totalLineItemsReceived = existingItems + lineItemsRecievedInFeed;
-                                    order.custom.totalLineItemsReceived = totalLineItemsReceived.toString();
-                                } else {
-                                    order.custom.totalLineItemsReceived = lineItemsRecievedInFeed.toString();
-                                }
+                                            var existingItems = parseInt(order.custom.totalLineItemsReceived);
+                                            var totalLineItemsReceived = existingItems + lineItemsRecievedInFeed;
+                                            order.custom.totalLineItemsReceived = totalLineItemsReceived.toString();
+                                        } else {
+                                            order.custom.totalLineItemsReceived = lineItemsRecievedInFeed.toString();
+                                        }
 
-										/* Move the order to success array*/
+                                        /* Move the order to success array*/
                                         Logger.debug('orderStatusETL: File Parsed Successfully with fileName: ' + file.name);
                                         parsingResult.successOrders.push({ orderId: order.orderNo });
-                                    }									else if (eventType && eventType.toLowerCase() == 'credit' && orderAttributesPopulated) {
-                                order.custom.processingFlag = true;
-										/* Move the file to success Archive directory if all processing is successful*/
-                                Logger.debug('orderStatusETL: File Parsed Successfully with fileName: ' + file.name);
-                                parsingResult.successOrders.push({ orderId: order.orderNo });
-                            }									else {
-                                clearSapAttributesAtLine(order);
-                                Logger.error('orderStatusETL: File Moved to error folder as attributes were not populated : ');
-                                parsingResult.errorOrders.push({ orderId: orderNumber });
-                            }
+                                    } else if (eventType && eventType.toLowerCase() == 'credit' && orderAttributesPopulated && parsedSuccessfully) {
+                                        order.custom.processingFlag = true;
+                                        /* Move the file to success Archive directory if all processing is successful*/
+                                        Logger.debug('orderStatusETL: File Parsed Successfully with fileName: ' + file.name);
+                                        parsingResult.successOrders.push({ orderId: order.orderNo });
+                                    } else {
+                                        clearSapAttributesAtLine(order);
+                                        Logger.error('orderStatusETL: File Moved to error folder as attributes were not populated : ');
+                                        
+                                    }
                                 });
                             }
                         }
@@ -537,24 +538,29 @@ function parseorderStatusFile(srcDirPath, targetSuccessDirPath, targetErrorDirPa
 			/* move the file to archive error folder if there is any exception*/
             Logger.error('orderStatusETL: Exception occured while parsing XML : ' + e + '\n' + e.stack);
             parsingResult.errorFiles.push({ file: orderfeedFiles[i] });
+            errorMap.put(file.name , parsingResult.errorOrders);
             var archiveErrorDirectory = File.IMPEX + File.SEPARATOR + targetErrorDirPath;
             moveFileToTargetDirectory(archiveErrorDirectory, file);
             errorFileMoved = true;
         }
-
+        
 		/* Move the file to success Files Array if all processing is successful*/
         if (parsingResult.errorOrders.length > 0 && !errorFileMoved) {
             parsingResult.errorFiles.push({ file: file });
+            errorMap.put(file.name , parsingResult.errorOrders);
+            parsingResult.errorOrders = [];
+            fileErrorMap.clear();
         } else if (!errorFileMoved) {
             parsingResult.successFiles.push({ file: file });
         }
+        
     }
 
 	/* return result based on error Files array and success Files array*/
     if (parsingResult.errorFiles.length > 0) {
         parsingResult.status = false;
         parsingResult.statusMessage = 'Some Orders or Files Failed with Exception';
-        triggerEmail(parsingResult);
+        triggerEmail(errorMap);
         for (var i = 0; i < parsingResult.errorFiles.length; i++) {
             moveFileToTargetDirectory(archiveErrorDirectory, parsingResult.errorFiles[i].file);
         }

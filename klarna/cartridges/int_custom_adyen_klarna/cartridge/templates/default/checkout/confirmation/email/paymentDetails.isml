@@ -23,7 +23,7 @@
                 <isif condition="${payment.maskedCreditCardNumber}">
                     <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${payment.maskedCreditCardNumber}</td></tr>
                 </isif>
-                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.expLabel}${payment.expirationMonth}/${payment.formattedExpirationYear}</td></tr>
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.expLabel}${payment.expirationMonth}/${payment.expirationYear}</td></tr>
             </isif>
         </isloop>
     </table>
