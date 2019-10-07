@@ -23,4 +23,33 @@
         color: $grey8;
         letter-spacing: normal;
     }
+
+    .price {
+        @include font-light;
+        font-size: rem(34);
+        color: $grey8;
+        letter-spacing: normal;
+    }
+
+    .affirm-as-low-as {
+        @include font-medium;
+        font-size: rem(16);
+        color: $grey8;
+        letter-spacing: normal;
+
+        .affirm-modal-trigger {
+            @include font-medium;
+            font-size: rem(15);
+            display: inline-block;
+            color: $grey8;
+            letter-spacing: normal;
+        }
+    }
+
+    .availability-msg-text {
+        color: $storm-gray;
+        @include font-medium;
+        font-size: rem(15);
+        letter-spacing: normal;
+    }
 }
