@@ -42,26 +42,24 @@
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-6">
-
+	               <div class="row">
+	                   <!-- Attributes and Quantity -->
+	                   <div class="col-md-10 col-12">
+	                       <isinclude template="product/components/badges" />
+	                    </div>
+	                </div>
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
+                    <h1 class="product-name d-sm-none d-md-block text-capitalize">${product.productName}</h1>
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-
+                    <div class="row mt-4 description">
+                        <isinclude template="product/components/description" />
+                    </div>
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
-
-                            <isinclude template="product/components/badges" />
-
-                            <!-- Product Availability -->
-                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
-                            </div>
 
                             <!-- Applicable Promotions -->
                             <div class="promotions">
@@ -73,7 +71,6 @@
                                     <isinclude template="product/components/quantity" />
                                 </div>
                             </isif>
-                            <hr />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
                             <isinclude template="product/components/options" />
@@ -88,22 +85,28 @@
 
 
                         <!-- Affirm Text -->
-                        
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
-                        </div>
-                        
+                         <button class="d-block d-md-none">${Resource.msg('label.product.engraving', 'product', 'null')}</button>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
                             </div>
+                            <div class="engraving-btn mb-3">
+                                <button>${Resource.msg('label.product.engraving', 'product', 'null')}</button>
+                            </div>
+                            <div>
+                                <isinclude template="util/affirmmodule_mf" />
+                                <isaffirmpromo context="pdp"
+                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            </div>
 
+                            <!-- Product Availability -->
+                            <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                data-available="${product.available}">
+                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                                
+                            </div>
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                         </div>
@@ -112,15 +115,8 @@
                             <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <!-- Social Sharing Icons -->
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                                    <isinclude template="product/components/socialIcons" />
-                                </isif>
-                            </div>
-                            <div class="row description">
-                                <isinclude template="product/components/description" />
                             </div>
                         </div>
-                        <isinclude template="product/components/moreStyles" />
                     </div>
 
                     <!-- Size Chart -->

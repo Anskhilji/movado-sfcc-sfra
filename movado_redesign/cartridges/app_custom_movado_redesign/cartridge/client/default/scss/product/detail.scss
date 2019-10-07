@@ -23,6 +23,7 @@
         font-size: rem(17);
         color: $grey8;
         letter-spacing: normal;
+        margin-bottom: rem(15);
     }
 
     .price {
@@ -33,13 +34,13 @@
     }
 
     .affirm-as-low-as {
-        @include font-medium;
+        @include font-demi;
         font-size: rem(16);
         color: $grey8;
         letter-spacing: normal;
 
         .affirm-modal-trigger {
-            @include font-medium;
+            @include font-demi;
             font-size: rem(15);
             display: inline-block;
             color: $grey8;
@@ -52,5 +53,67 @@
         @include font-demi;
         font-size: rem(15);
         letter-spacing: normal;
+    }
+
+    .add-to-cart {
+        min-width: rem(330);
+    }
+
+    .affirm-as-low-as {
+        margin: 0;
+    }
+
+    .slick-slide {
+        img {
+            margin: 0 auto;
+        }
+    }
+
+    .engraving-btn {
+        button {
+            color: $black;
+            @include font-demi;
+            font-size: rem(12);
+            background: none;
+            border: rem(1) solid $black;
+            padding: rem(4) rem(20);
+            border-radius: rem(20);
+            background: url("../../images/add.svg") left rem(12) center no-repeat;
+            background-size: rem(9);
+            outline: none;
+            padding-left: rem(30);
+
+            &:hover {
+                background: $black url("../../images/add-white.svg") left rem(12) center no-repeat;
+                background-size: rem(9);
+                color: $white;
+                transition: 0.3s;
+            }
+        }
+    }
+
+    .add-to-cart {
+        @include font-demi;
+        font-size: rem(16);
+        letter-spacing: normal;
+    }
+
+    .primary-images {
+        .cs-carousel-wrapper {
+            .slick-arrow.slick-next {
+                background-image: url("../../images/slide-right-arrow.png");
+                background-color: transparent;
+            }
+        }
+    }
+
+    .exclusive-badges {
+        .badge {
+            @include font-demi;
+            font-size: rem(10);
+            letter-spacing: normal;
+            color: $storm-gray;
+            padding: rem(3) rem(8);
+        }
     }
 }
