@@ -1,6 +1,7 @@
 @import '~movado/product/detail';
 @import '~movado/variables';
 @import '../vars';
+@import '../utilities/fonts';
 
 @import "animate.css/animate";
 @import "../custom-animation";
@@ -48,7 +49,7 @@
 
     .availability-msg-text {
         color: $storm-gray;
-        @include font-medium;
+        @include font-demi;
         font-size: rem(15);
         letter-spacing: normal;
     }
