@@ -16,6 +16,7 @@
         @include font-bold;
         font-size: rem(34);
         color: $grey8;
+        letter-spacing: normal;
     }
 
     .description {
@@ -102,7 +103,17 @@
         .cs-carousel-wrapper {
             .slick-arrow.slick-next {
                 background-image: url("../../images/slide-right-arrow.png");
+            }
+
+            .slick-arrow.slick-prev {
+                background-image: url("../../images/slide-right-arrow.png");
+                transform: rotateY(180deg);
+            }
+
+            .slick-arrow {
                 background-color: transparent;
+                background-size: rem(24) rem(43);
+                outline: none;
             }
         }
     }
@@ -114,6 +125,65 @@
             letter-spacing: normal;
             color: $storm-gray;
             padding: rem(3) rem(8);
+            margin: 0;
+        }
+    }
+
+    .quickview {
+        display: none;
+    }
+
+    .carousel-nav {
+        .slick-slide {
+            width: rem(100) !important;
+            height: rem(100);
+            .carousel-tile {
+                border: 1px solid transparent;
+                
+                img {
+                    width: 100%;
+                }
+            }
+
+            &.slick-current {
+                .carousel-tile {
+                    border: 1px solid $black;
+                }
+            }
+        }
+
+        .slick-track {
+            margin: 0 auto;
+        }
+    }
+
+    .description-and-detail {
+        margin: 0;
+        padding: 2rem 0;
+
+        .attribute-name {
+            @include font-book;
+            font-size: rem(15);
+            letter-spacing: normal;
+            color: $grey8;
+        }
+
+        .attribute-value {
+            @include font-demi;
+            font-size: rem(16);
+            letter-spacing: normal;
+            color: $grey8;
+        }
+
+        .title {
+            @include font-demi;
+            font-size: rem(28);
+            letter-spacing: normal;
+            color: $grey8;
         }
     }
 }
+
+.container-fluid.detail-bg {
+    background-color: $white;
+} 
