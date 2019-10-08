@@ -46,7 +46,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 	/* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -136,7 +138,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     }
     var product = productMgr.getProduct(productCustomHelpers.formatProductId(productID));
     if (product) {
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
     }
     var productGtmArray = {};
   // object for GTM

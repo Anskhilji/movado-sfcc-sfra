@@ -122,7 +122,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
-            var productPrice = pli.price.decimalValue.toString();
+            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -167,7 +167,7 @@ function removeFromCartGTMObj(productLineItems){
 	var variant='';
 	 collections.forEach(productLineItems, function (pli) {
 		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
-		var price = pli.price.decimalValue.toString();
+		var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
      	cartItemObj.push({
      		'id':pli.product.ID,
