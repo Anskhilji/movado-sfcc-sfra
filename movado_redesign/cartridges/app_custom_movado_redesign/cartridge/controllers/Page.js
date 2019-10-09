@@ -34,4 +34,25 @@ server.replace(
         }
     );
 
+server.get(
+    'IncludeHeader',
+    server.middleware.include,
+    cache.applyPromotionSensitiveCache,
+    function (req, res, next) {
+        var ABTestMgr = require('dw/campaign/ABTestMgr');
+
+        var headerTemplate = null;
+        // A/B testing for header design
+        if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
+            headerTemplate = '/components/header/old/pageHeader';
+        } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
+            headerTemplate = '/components/header/pageHeader';
+        } else {
+            headerTemplate = '/components/header/old/pageHeader';
+        }
+        res.render(headerTemplate);
+        next();
+    }
+);
+
 module.exports = server.exports();
