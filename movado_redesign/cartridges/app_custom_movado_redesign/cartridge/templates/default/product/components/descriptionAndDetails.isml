@@ -2,7 +2,13 @@
 <div class="row">
     <isif condition="${product.longDescription}">
         <div class="col-sm-7 description collapsible-sm">
-            <isinclude template="product/components/highlights" />
+            <div class="row">
+                <div class="col-sm-11">
+                    <isinclude template="product/components/highlights" />
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
         </div>
     </isif>
     <isif condition="${!pdict.isCompareableDisabled}">
