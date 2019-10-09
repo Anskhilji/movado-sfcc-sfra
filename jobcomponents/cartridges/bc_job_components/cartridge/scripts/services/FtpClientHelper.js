@@ -8,9 +8,9 @@
 
 var File = require('dw/io/File');
 var Logger = require('dw/system/Logger');
-
+var Status = require('dw/system/Status');
 var FileHelper = require('~/cartridge/scripts/file/FileHelper');
-
+var SFTPClient = require('dw/net/SFTPClient');
 var DownloadLogger = Logger.getLogger('cs.job.FtpDownload');
 var UploadLogger = Logger.getLogger('cs.job.FtpUpload');
 
@@ -23,7 +23,31 @@ var UploadLogger = Logger.getLogger('cs.job.FtpUpload');
  */
 function FtpClientHelper(service) {
     this.service = service;
+    this.service.setAutoDisconnect(false);
 }
+
+/**
+ * Disconnect the SFTP service if it is connected.
+ *
+ * @method
+ *
+ * @param {dw.svc.Service} service The service instance to use.
+ */
+FtpClientHelper.prototype.sftpServiceDisconnect = function (ftpService) {
+    try {
+        if (ftpService.getClient() !== null) {
+        	var sftpClient : SFTPClient = ftpService.getClient();
+        	if (sftpClient.getConnected()) {
+        		sftpClient.disconnect();
+        		return new Status(Status.OK, 'SUCCESS', 'Ftp connection is closed.');
+        	}
+        	return new Status(Status.OK, 'SUCCESS', 'Ftp connection is already closed.');
+        }
+        return new Status(Status.ERROR, 'ERROR', 'Ftp client is empty.');
+    } catch(err) {
+    	 return new Status(Status.ERROR, 'ERROR', 'Something wrong with sftp connection.');
+    } 
+};
 
 /**
  * Removes a file from the SFTP server.
@@ -171,6 +195,8 @@ FtpClientHelper.prototype.downloadFiles = function (remoteFilePaths, localDirect
             self.removeRemoteFile(remoteFilePath);
         }
     });
+    
+    return this.sftpServiceDisconnect(this.service);
 };
 
 /**
@@ -201,7 +227,7 @@ FtpClientHelper.prototype.uploadFiles = function (fileList, targetFolder, archiv
         self.uploadFile(targetFolder, new File(file), archiveFolder);
     });
 
-    return true;
+    return this.sftpServiceDisconnect(this.service);
 };
 
 module.exports = FtpClientHelper;
