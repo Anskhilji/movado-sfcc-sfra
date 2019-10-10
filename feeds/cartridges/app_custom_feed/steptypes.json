@@ -1,0 +1,64 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id": "custom.feed.ExportProductFeedToSmartGift",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Step use to export product feed for SmartGift",
+                "module": "app_custom_feed/cartridge/scripts/ExportProductFeed.js",
+                "function": "exportSmartGiftFeed",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [{
+                        "@name": "targetFolder",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Target folder path (in IMPEX)",
+                        "default-value": "/src/feeds/SmartGiftFeed/"
+                    },
+                    {
+                        "@name": "fileName",
+                        "description": "File name of the generated feed files",
+                        "@type": "string",
+                        "@required": "false",
+                        "@trim": "true",
+                        "default-value": "SmartGiftProductFeed"
+                    }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.feed.ExportProductFeedToGoogle",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Step use to export product feed for Google",
+                "module": "app_custom_feed/cartridge/scripts/ExportProductFeed.js",
+                "function": "exportGoogleFeed",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [{
+                        "@name": "targetFolder",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Target folder path (in IMPEX)",
+                        "default-value": "/src/feeds/GoogleFeed/"
+                    },
+                    {
+                        "@name": "fileName",
+                        "description": "File name of the generated feed files",
+                        "@type": "string",
+                        "@required": "false",
+                        "@trim": "true",
+                        "default-value": "GoogleProductFeed"
+                    }
+                    ]
+                }
+            }
+        ]
+    }
+}
