@@ -1,19 +1,17 @@
 <div class="description-and-detail">
 <div class="row">
     <isif condition="${product.longDescription}">
-        <div class="col-sm-7 description collapsible-sm">
+        <div class="col-sm-8 description">
             <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-10">
                     <isinclude template="product/components/highlights" />
-                </div>
-                <div class="col-sm-1">
                 </div>
             </div>
         </div>
     </isif>
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
-            <div class="col-sm-5 product-attributes collapsible-sm">
+            <div class="col-sm-4 p-0 product-attributes">
                 <isinclude template="product/components/detailsAttributes" />
             </div>
         </isif>

@@ -11,9 +11,9 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container-fluid pdp-v-one product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid pdp-mobile pdp-v-one product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
-            <div class="row hidden-xs-down d-md-none">
+            <div class="row mobile-detail-head d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
                     <div class="product-breadcrumb">
@@ -41,7 +41,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-sm-5 pt-5">
+                <div class="col-12 col-sm-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
@@ -67,7 +67,7 @@
                             </div>
 
                             <isif condition="${!product.variationAttributes && product.options.length === 0}">
-                                <div class="simple-quantity">
+                                <div class="simple-quantity d-none">
                                     <isinclude template="product/components/quantity" />
                                 </div>
                             </isif>
@@ -85,7 +85,6 @@
 
 
                         <!-- Affirm Text -->
-                         <button class="d-block d-md-none">${Resource.msg('label.product.engraving', 'product', 'null')}</button>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
@@ -111,7 +110,7 @@
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                         </div>
 
-                        <div class="col-12">
+                        <div class="">
                             <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <!-- Social Sharing Icons -->
@@ -130,7 +129,7 @@
         </div>
 
 
-        <div class="container-fluid detail-bg pdp-v-one">
+        <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 

@@ -15,6 +15,10 @@
         background: $slate-grey-light;
     }
 
+    .detail-sec {
+        padding-top: rem(100);
+    }
+
     .product-name {
         @include font-bold;
         font-size: rem(34);
@@ -177,6 +181,7 @@
             font-size: rem(16);
             letter-spacing: normal;
             color: $grey8;
+            text-transform: capitalize;
         }
 
         .title {
@@ -310,6 +315,9 @@
         .image-container {
           border: none;
           background: $white-smoke;
+          a {
+              outline: none;
+          }
           .quickview {
             display: none;
           }
@@ -399,4 +407,90 @@
 
 .container-fluid.detail-bg {
     background-color: $white;
-} 
+}
+
+.container-fluid.pdp-mobile {
+    @include media-breakpoint-down(sm) {
+        padding-bottom: rem(0);
+
+        .prices-add-to-cart-actions {
+            position: static;
+            background-color: transparent;
+        }
+
+        .estimated-text {
+            display: none;
+        }
+
+        .detail-sec {
+            background: $white;
+            border-radius: rem(35) rem(35) 0 0;
+            box-shadow: 0 rem(-2) rem(6) rem(-1) $grey-light;
+            padding-top: rem(30);
+            .product-name {
+                display: none;
+            }
+            .description {
+                display: none;
+            }
+            .exclusive-badges {
+                margin: 0;
+            }
+        }
+
+        .cart-and-ipay {
+            padding-bottom: 0;
+            margin: 0;
+        }
+
+        .ratings {
+            background: none;
+        }
+
+        .wishlist-row {
+            margin: 0;
+        }
+
+        .engraving-btn {
+            text-align: center;
+        }
+
+        .prices {
+            margin-bottom: rem(10);
+        }
+
+        .carousel-nav {
+            .slick-slide {
+                width: rem(70) !important;
+                height: rem(70);
+            }
+
+            .slick-track {
+                margin: 0;
+            }
+        }
+
+        .mobile-detail-head {
+            .product-name {
+                margin-bottom: rem(15);
+            }
+
+            .product-number-rating {
+                margin-bottom: rem(15);
+            }
+        }
+
+        .description-and-detail {
+            padding-top: 0;
+
+            .title {
+                font-size: rem(17);
+                text-align: center;
+
+                &::after {
+                    content: none;
+                }
+            }
+        }
+    }
+}

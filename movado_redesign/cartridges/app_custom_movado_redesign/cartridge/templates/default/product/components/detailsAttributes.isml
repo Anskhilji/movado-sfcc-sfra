@@ -1,6 +1,6 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
     <h2 class="col-sm-12 mb-3">
-      <button class="title text-capitalize btn p-0 text-left shadow-none">${product.resources.Details}</button>
+      <div class="title text-capitalize p-0 shadow-none">${product.resources.Details}</div>
     </h2>
     <div class="col-sm-12 value content">
 	    <isloop items="${product.pdpAttributesList}" var="attr">

@@ -1,6 +1,6 @@
 <h2 class="col-sm-12  mb-3">
     <!-- TODO: Title BM Configurable -->
-    <button class="title text-capitalize btn p-0 text-left shadow-none">${product.resources.Highlight}</button>
+    <div class="title text-capitalize p-0 shadow-none">${product.resources.Highlight}</div>
 </h2>
 <div class="col-sm-12">
     <isprint value="${product.longDescription}" encoding="off"/>
