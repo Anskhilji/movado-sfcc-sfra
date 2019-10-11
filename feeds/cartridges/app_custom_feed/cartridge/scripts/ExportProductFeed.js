@@ -80,7 +80,7 @@ function exportGoogleFeed(args) {
             "imageLink" : 6,
             "additionalImageLink" : 7,
             "availability" : 8,
-            "productType" : 9,
+            "product_type" : 9,
             "googleProductCategory": 10,
             "condition" : 11,
             "gtin" : 12,
@@ -89,7 +89,7 @@ function exportGoogleFeed(args) {
             "color" : 15,
             "size" : 16,
             "gender" : 17,
-            "ageGroup" : 18, 
+            "age_group" : 18, 
             "customLabel0" : 19,
             "customLabel1" : 20,
             "customLabel2" : 21,
@@ -119,7 +119,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 continue;
             }
             var productAttributes = getProductAttributes(product, feedParameters);
-            var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters, productAttributes);
+            var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
             writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
             if (product.master) {
                 var isVariant = true;
@@ -128,7 +128,6 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
                 });
             }
-            break;
         }
     } catch(e) {
         Logger.error('Error occurred while generating csv file for product feed:' + e);
@@ -333,7 +332,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['availability'])) {
-        productDetails.push("in stock");
+        if (product.instock) {
+            productDetails.push("in stock");
+        } else {
+            productDetails.push("");
+        }
     }
 
     if (!empty(feedColumns['productType'])) {
@@ -401,7 +404,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['ageGroup'])) {
-        productDetails.push("adult");
+        productDetails.push("");
     }
 
     if (!empty(feedColumns['customLabel0'])) {
@@ -457,31 +460,28 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters) {
-    var productPrice = product.getPriceModel().getPrice();
-    var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productAttributes = {
-            ID: product.ID,
-            title: product.name,
-            imageurl: getProductImageURL(product),
-            producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
-            description: product.getShortDescription(),
-            price:  productPrice + " " + productCurrencyCode,
-            salePrice: getProductSalePrice(product),
-            instock: product.onlineFlag,
-            brand : product.brand ? product.brand : "",
-            color : product.custom.color ? buildStringAttributes(product.custom.color, feedParameters) : "",
-            dialStyle : product.custom.dialStyle ? product.custom.dialStyle : "",
-            familyName : buildStringAttributes(product.custom.familyName, feedParameters),
-            gtin : product.custom.gtins ? product.custom.gtins : "",
-            jewelryType : product.custom.jewelryType ? product.custom.jewelryType : "",
-            masterProductID : product.ID,
-            productType : false,
-            longDescription : product.getLongDescription(),
-            gender : product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
-            width : product.custom.width ? product.custom.width : "",
-            isMasterProduct : product.master ? true : false,
-            googleCategoyrPath : "Apparel & Accessories>Jewelry >" + product.custom.jewelryStyle
-            };
+        ID: product.ID,
+        title: product.name,
+        imageurl: getProductImageURL(product),
+        producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
+        description: product.getShortDescription(),
+        price:  product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().getValueOrNull() : "",
+        salePrice: getProductSalePrice(product),
+        instock: product.onlineFlag,
+        brand : product.brand ? product.brand : "",
+        color : product.custom.color ? buildStringAttributes(product.custom.color, feedParameters) : "",
+        dialStyle : product.custom.dialStyle ? product.custom.dialStyle : "",
+        familyName : buildStringAttributes(product.custom.familyName, feedParameters),
+        gtin : product.custom.gtins ? product.custom.gtins : "",
+        jewelryType : product.custom.jewelryType ? product.custom.jewelryType : "",
+        masterProductID : product.ID,
+        productType : false,
+        longDescription : product.getLongDescription(),
+        gender : product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
+        width : product.custom.width ? product.custom.width : "",
+        isMasterProduct : product.master ? true : false
+    };
     return productAttributes;
 }
 
@@ -536,27 +536,25 @@ function getProductSalePrice(product) {
     return salePrice;
 }
 
-function buildCategoryPath(categories, feedParameters, productAttributes) {
+function buildCategoryPath(categories, feedParameters) {
     var categoriesIt = categories.iterator();
     var categoryList = new Array();
-    var replacedCategoryList = [];
-    if (feedParameters.singleCategory) {
-        replacedCategoryList.push(productAttributes.googleCategoyrPath);
-    } else {
-        while (categoriesIt.hasNext()) {
-            var category = categoriesIt.next();
-            var categoryArray = new ArrayList();
-            while (!empty(category)) {
-                if ((!empty(category.displayName)) && category.ID !== 'root' && category.online) {
-                    categoryArray.add(category.displayName);
-                    category = category.parent;
-                } else {
-                    category = null;
-                }
+    while (categoriesIt.hasNext()) {
+        var category = categoriesIt.next();
+        var categoryArray = new ArrayList();
+        while (!empty(category)) {
+            if ((!empty(category.displayName)) && category.ID !== 'root' && category.online) {
+                categoryArray.add(category.displayName);
+                category = category.parent;
+            } else {
+                category = null;
             }
-            categoryArray.reverse();
-            categoryList.push(categoryArray.join(feedParameters.angleSeparator));
-            replacedCategoryList = categoryList.join(',').replace(/,/g, feedParameters.pipeSeparator).split();
+        }
+        categoryArray.reverse();
+        categoryList.push(categoryArray.join(feedParameters.angleSeparator));
+        var replacedCategoryList = categoryList.join(',').replace(/,/g, feedParameters.pipeSeparator).split();
+        if (feedParameters.singleCategory) {
+            break;
         }
     }
     return replacedCategoryList;
