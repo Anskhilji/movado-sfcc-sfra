@@ -20,6 +20,9 @@ module.exports.getFTPService = function (serviceID) {
     var ftpService = LocalServiceRegistry.createService(serviceID, {
         createRequest: function (service) {
             var args = Array.prototype.slice.call(arguments, 1);
+            if (service.isAutoDisconnect()) {
+            	service.setAutoDisconnect(false);
+            }
             service.setOperation.apply(service, args);
             return service;
         },

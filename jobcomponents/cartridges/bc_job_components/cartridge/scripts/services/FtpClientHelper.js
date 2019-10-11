@@ -23,7 +23,6 @@ var UploadLogger = Logger.getLogger('cs.job.FtpUpload');
  */
 function FtpClientHelper(service) {
     this.service = service;
-    this.service.setAutoDisconnect(false);
 }
 
 /**
