@@ -53,7 +53,7 @@ function exportSmartGiftFeed(args) {
             "color" : 10,
             "size" : 11,
             "width" :12,
-            "googleProductCategory" : 13,
+            "categories" : 13,
             "rating" : 14,
             "gender" : 15,
             "isMasterProduct" : 16
@@ -62,7 +62,8 @@ function exportSmartGiftFeed(args) {
             "colonSeparator" : Constants.COLON_SEPARATOR,
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
-            "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR
+            "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
+            "categories" : "categories"
     }
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
     exportFeed(feedColumnsSmartGift, fileArgs, feedParametersSmartGift);
@@ -119,7 +120,11 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 continue;
             }
             var productAttributes = getProductAttributes(product, feedParameters);
-            var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
+
+            if(feedParameters.categories) {
+                var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
+            }
+
             writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
             if (product.master) {
                 var isVariant = true;
@@ -194,8 +199,8 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("product_type");
     }
     
-    if (!empty(feedColumns['googleProductCategory'])) {
-        csvFileHeader.push("google_product_category");
+    if (!empty(feedColumns['categories'])) {
+        csvFileHeader.push("Categories");
     }
     
     if (!empty(feedColumns['condition'])) {
@@ -347,7 +352,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['googleProductCategory'])) {
+    if (!empty(feedColumns['categories'])) {
         if (categoriesPath) {
             productDetails.push(categoriesPath);
         } else {
@@ -553,9 +558,6 @@ function buildCategoryPath(categories, feedParameters) {
         categoryArray.reverse();
         categoryList.push(categoryArray.join(feedParameters.angleSeparator));
         var replacedCategoryList = categoryList.join(',').replace(/,/g, feedParameters.pipeSeparator).split();
-        if (feedParameters.singleCategory) {
-            break;
-        }
     }
     return replacedCategoryList;
 }
