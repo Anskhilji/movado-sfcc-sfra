@@ -1,7 +1,7 @@
-<h2 class="col-sm-12  mb-3">
+<h2 class="col-sm-12  mb-4">
     <!-- TODO: Title BM Configurable -->
     <div class="title text-capitalize p-0 shadow-none">${product.resources.Highlight}</div>
 </h2>
-<div class="col-sm-12">
+<div class="col-sm-12 bottom-detail">
     <isprint value="${product.longDescription}" encoding="off"/>
 </div>

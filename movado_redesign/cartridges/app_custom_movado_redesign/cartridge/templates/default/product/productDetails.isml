@@ -57,7 +57,7 @@
                     <div class="row mt-4 description">
                         <isinclude template="product/components/description" />
                     </div>
-                    <div class="row">
+                    <div class="row m-0">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
