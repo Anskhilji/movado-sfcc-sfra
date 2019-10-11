@@ -182,3 +182,22 @@ label.availability {
 .klarna-promo-parent-container {
     margin-bottom: 5px;
 }
+
+.smartgift-btn {
+    background: url(../../images/gift-box.svg) left rem(15) center no-repeat;
+    background-size: rem(19);
+    padding-left: rem(42);
+    letter-spacing: normal;
+    font-weight: 600;
+    padding-right: rem(15);
+    outline: none;
+    &:hover, &:focus {
+        color: unset;
+        background-color: unset;
+        border-color: unset;
+        box-shadow: none;
+    }
+}
+.smartgift-bottom-text {
+    letter-spacing: rem(0);
+}

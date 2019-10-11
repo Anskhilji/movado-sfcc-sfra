@@ -4,12 +4,12 @@ var server = require('server');
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 
-
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    
     // The req parameter has a property called querystring. In this use case the querystring could
     // have the following:
     // pid - the Product ID
@@ -34,6 +34,9 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Product-Show', 'pid', product.id).relative().toString();
         quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', product.id)
             .relative().toString();
+        var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.id);
+        res.setViewData(smartGift);
+
     } catch (e) {
         product = false;
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
@@ -80,7 +83,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
     }
 
-    res.render('product/gridTile.isml', context);
+    res.render('product/gridTile.isml', context);   
 
     next();
 });

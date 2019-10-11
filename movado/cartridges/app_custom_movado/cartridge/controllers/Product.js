@@ -29,6 +29,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var viewData = res.getViewData();
@@ -74,6 +75,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice
     };
+    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
+    res.setViewData(smartGift);
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
