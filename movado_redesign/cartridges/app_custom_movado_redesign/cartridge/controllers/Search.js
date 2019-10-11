@@ -14,7 +14,7 @@ var Site = require('dw/system/Site');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var ABTestMgr = require('dw/campaign/ABTestMgr');
 
-server.replace('Refinebar', cache.applyPromotionSensitiveCache, function (req, res, next) {
+server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
@@ -45,12 +45,11 @@ server.replace('Refinebar', cache.applyPromotionSensitiveCache, function (req, r
             querystring: req.querystring
         });
     }
-    
 
     next();
 });
 
-server.prepend('Show', function (req, res, next) {
+server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
 
     var categoryTemplate = '';
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
@@ -74,7 +73,6 @@ server.prepend('Show', function (req, res, next) {
     
     res.setViewData({resultsTemplate: resultsTemplate, categoryTemplate: categoryTemplate})
     return next();
-});
-
+}, pageMetaData.computedPageMetaData);
 
 module.exports = server.exports();

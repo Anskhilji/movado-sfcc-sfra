@@ -1,5 +1,7 @@
 'use strict';
 
+var swatches = require('movado/utilities/swatches');
+
 /**
  * Update DOM elements with Ajax results
  *
@@ -393,6 +395,7 @@ module.exports = {
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
+                        swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                     },
                     error: function () {

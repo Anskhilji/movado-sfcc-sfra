@@ -155,6 +155,7 @@ function getShippingAddress(order) {
         } else {
             shippingObject.address2 = address.address2;
         }
+
         if (shippingObject.address3 == null) {
             shippingObject.address3 = '';
         }
