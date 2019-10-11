@@ -15,7 +15,7 @@ var getSmartGiftCardBasket = function(productID) {
         var quantity = 0;
         var inventoryRecord =  apiProduct.getAvailabilityModel().getInventoryRecord();
         if (inventoryRecord) { 
-            quantity = inventoryRecord.ATS.available ? inventoryRecord.ATS.value : 0;
+            quantity = inventoryRecord.ATS.available ? 1 : 0;
         }
         smartGift = {
             skuCode: apiProduct.ID,
