@@ -12,5 +12,4 @@
         <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
       </div>
     </isif>
-  </div>
 </isif>
