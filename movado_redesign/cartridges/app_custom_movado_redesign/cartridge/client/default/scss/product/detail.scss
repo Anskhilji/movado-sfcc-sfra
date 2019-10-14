@@ -56,7 +56,7 @@
         }
     }
 
-    .availability-msg-text {
+    .availability-msg {
         color: $storm-gray;
         @include font-demi;
         font-size: rem(15);
@@ -161,14 +161,19 @@
         }
 
         .slick-track {
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
         }
     }
 
     .description-and-detail {
         margin: 0;
-        padding: 2rem 0;
-
+        padding: 2rem;
+        
+        @include media-breakpoint-down(sm) {
+            padding: 2rem 0;
+        }
+        
         .attribute-name {
             @include font-book;
             font-size: rem(15);
@@ -402,8 +407,47 @@
           }
     }
 
+    .prices-add-to-cart-actions {
+        padding: 0;
+    }
 
+    .detail-bottom-blocks {
+
+        .bottom-block {
+            width: rem(200);
+            height: rem(70);
+            border-radius: rem(5);
+            background: $slate-grey-light;
+            margin-right: rem(10);
+            padding: rem(15);
+            float: left;
+            display: flex;
+            align-items: center;
+            line-height: rem(16);
+            @include media-breakpoint-down(sm) {
+                width: rem(170);
+                margin: 0;
+                margin-bottom: rem(5);
+
+                &:first-child {
+                    margin-right: rem(5);
+                }
+                
+            }
+            p {
+                @include font-demi;
+                font-size: rem(12);
+                letter-spacing: normal;
+                color: $storm-gray;
+                letter-spacing: normal;
+                padding-left: rem(50);
+                margin: 0;
+            }
+        }
+    }
 }
+
+
 
 .container-fluid.detail-bg {
     background-color: $white;
@@ -518,7 +562,6 @@
         }
 
         .description-and-detail {
-            padding-top: 0;
 
             .title {
                 font-size: rem(17);
