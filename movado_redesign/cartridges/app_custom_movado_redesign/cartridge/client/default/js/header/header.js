@@ -57,7 +57,7 @@ $(".desktop-menu .sub-dropdown").hover(
         $(this).find(".menu-pane").addClass("animated faster fadeInLeft delay-point-three");
         $(this).find(".featured-promotion").addClass("fadeIn animated delay-point-three");
         $(".overlay").addClass("fadeIn animated faster");
-        $(this).find(".dropdown-menu").addClass("fadeIn fast animated");
+        $(this).find(".dropdown-menu").addClass("fadeIn fast animated show");
         $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
         $('.slick-slider').slick("refresh");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
@@ -85,7 +85,7 @@ $(".desktop-menu .sub-dropdown").hover(
         $(this).find(".menu-pane").removeClass("animated faster  fadeInLeft delay-point-three");
         $(this).find(".featured-promotion").removeClass("fadeIn animated delay-point-three");
         $(".overlay").removeClass("fadeIn animated faster");
-        $(this).find(".dropdown-menu").removeClass("fadeIn fast animated");
+        $(this).find(".dropdown-menu").removeClass("fadeIn fast animated show");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick("unslick");
         $(".shop-by-collection-slide .featured-promotion p").removeClass('fadeInRight delay-point-five animated');
     }
