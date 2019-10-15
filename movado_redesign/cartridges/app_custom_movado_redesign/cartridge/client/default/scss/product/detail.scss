@@ -24,6 +24,7 @@
         font-size: rem(34);
         color: $grey8;
         letter-spacing: normal;
+        margin-bottom: rem(10);
     }
 
     .description {
@@ -31,7 +32,6 @@
         font-size: rem(17);
         color: $grey8;
         letter-spacing: normal;
-        margin-bottom: rem(15);
     }
 
     .price {
@@ -39,6 +39,10 @@
         font-size: rem(34);
         color: $grey8;
         letter-spacing: normal;
+    }
+
+    .prices {
+        padding-bottom: 0;
     }
 
     .affirm-as-low-as {
@@ -108,6 +112,8 @@
 
     .primary-images {
         .cs-carousel-wrapper {
+            margin-bottom: rem(10);
+
             .slick-arrow.slick-next {
                 background-image: url("../../images/slide-right-arrow.png");
             }
@@ -122,6 +128,17 @@
                 background-size: rem(24) rem(43);
                 outline: none;
             }
+        }
+    }
+
+    .promotions {
+
+        .callout {
+            @include font-demi;
+            font-size: rem(13);
+            padding-top: rem(10);
+            color: $dark-green;
+            letter-spacing: normal;
         }
     }
 
@@ -364,48 +381,48 @@
         }
     }
 
-    &.cs-product-recommendation {
 
-        .cs-carousel-wrapper {
+    .cs-carousel-wrapper {
 
-            .slick-slide {
-                margin: 0 rem(5);
-            }
-
-            .slick-list {
-                margin: 0;
-            }
+        .slick-slide {
+            margin: 0 rem(5);
         }
 
-        .carousel-title {
-            @include font-demi;
-            font-size: rem(34);
-            color: $grey8;
+        .slick-list {
+            margin: 0;
         }
+    }
 
-        .slick-dots {
+    .carousel-title {
+        @include font-demi;
+        font-size: rem(34);
+        color: $grey8;
+        margin-bottom: rem(30);
+        letter-spacing: rem(1);
+    }
 
-            li {
-              width: 4%;
-              height: rem(2);
-              background: $gray-x11;
-              margin: 0;
-      
-              button {
-                height: 100%;
-                width: 100%;
-      
-                &::before{
-                  content: unset;
-                }
-              }
-      
-              &.slick-active {
-                background: $black;
-              }
+    .slick-dots {
+
+        li {
+          width: 4%;
+          height: rem(2);
+          background: $gray-x11;
+          margin: 0;
+  
+          button {
+            height: 100%;
+            width: 100%;
+  
+            &::before{
+              content: unset;
             }
           }
-    }
+  
+          &.slick-active {
+            background: $black;
+          }
+        }
+      }
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -445,9 +462,29 @@
             }
         }
     }
+
+    &.recently-viewed {
+        > .container {
+            max-width: none;
+        }
+    }
+
+    &.collection-you-may-like {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+
+        .hero-banner-wrapper {
+            &:first-child {
+                margin-right: rem(15);
+            }
+
+            img {
+                min-height: rem(350);
+            }
+        }
+    }
 }
-
-
 
 .container-fluid.detail-bg {
     background-color: $white;
@@ -467,7 +504,11 @@
                 display: flex;
             }
         }
-
+        .carousel-title {
+            @include font-demi;
+            font-size: rem(17);
+            letter-spacing: normal;
+        }
         .cart-and-ipay {
             padding-bottom: 0;
             margin: 0;
@@ -475,6 +516,29 @@
             
             .add-to-cart {
                 min-width: 100%;
+            }
+        }
+
+        &.collection-you-may-like {
+            display: block;
+            padding: 0;
+    
+            .hero-banner-wrapper {
+                &:first-child {
+                    margin-bottom: rem(15);
+                }
+
+                img {
+                    min-height: rem(185);
+                }
+
+                .heading-one {
+                    font-size: rem(15);
+                }
+
+                .pre-text {
+                    font-size: rem(14);
+                }
             }
         }
     }

@@ -61,11 +61,6 @@
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
-                            <!-- Applicable Promotions -->
-                            <div class="promotions">
-                                <isinclude template="product/components/promotions" />
-                            </div>
-
                             <isif condition="${!product.variationAttributes && product.options.length === 0}">
                                 <div class="simple-quantity d-none">
                                     <isinclude template="product/components/quantity" />
@@ -90,6 +85,11 @@
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
+                            </div>
+                            
+                            <!-- Applicable Promotions -->
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
                             </div>
                             <div class="engraving-btn mb-3">
                                 <button>${Resource.msg('label.product.engraving', 'product', 'null')}</button>
@@ -137,6 +137,14 @@
         </isif>
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
         <isinclude template="product/components/contentAssets" />
+
+        <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
+            <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        </div>
+
+        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+            <isslot id="pdp-recently-viewed-products" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">
