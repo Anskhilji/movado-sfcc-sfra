@@ -25,7 +25,7 @@
         }
         if('${pdict.orderAnalyticsTrackingData}' != 'null') {
             analyticsTracking.order = JSON.parse('<isprint value="${pdict.orderAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
-            triggerEvent = 'purchase';
+            triggerEvent = 'piPurchase';
         }
 
         if('${pdict.pdpAnalyticsTrackingData}' != 'null') {
@@ -67,7 +67,7 @@
            	
             if(e.purchase) {
                 analyticsTracking.order = JSON.parse(e.purchase);
-                dataLayer.push({'event':'purchase', 'analyticsTracking': analyticsTracking});
+                dataLayer.push({'event':'piPurchase', 'analyticsTracking': analyticsTracking});
             }
 
         });
