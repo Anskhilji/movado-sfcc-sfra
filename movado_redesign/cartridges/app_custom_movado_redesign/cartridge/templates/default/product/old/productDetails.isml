@@ -143,7 +143,7 @@
         </div>
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
-            <isinclude template="product/components/youMayLikeRecommendation" />
+            <isinclude template="product/old/components/youMayLikeRecommendation" />
         </isif>
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
         <isinclude template="product/components/contentAssets" />

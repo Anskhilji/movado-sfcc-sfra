@@ -42,7 +42,7 @@
     }
 
     .prices {
-        padding-bottom: 0;
+        padding-bottom: rem(10);
     }
 
     .affirm-as-low-as {
@@ -136,7 +136,7 @@
         .callout {
             @include font-demi;
             font-size: rem(13);
-            padding-top: rem(10);
+            padding-top: rem(0);
             color: $dark-green;
             letter-spacing: normal;
         }
@@ -441,16 +441,7 @@
             display: flex;
             align-items: center;
             line-height: rem(16);
-            @include media-breakpoint-down(sm) {
-                width: rem(170);
-                margin: 0;
-                margin-bottom: rem(5);
 
-                &:first-child {
-                    margin-right: rem(5);
-                }
-                
-            }
             p {
                 @include font-demi;
                 font-size: rem(12);
@@ -484,14 +475,57 @@
             }
         }
     }
+
+    .add-to-wish-list {
+        font-size:0;
+        height: rem(30);
+        width: rem(30);
+        background: url("../../images/add-to-wish.svg") center no-repeat;
+        transition: 0.3s;
+
+        &.added, &:hover {
+            background: url("../../images/add-to-wish-fill.svg") center no-repeat;
+        }
+    }
+
+    .cart-wishlist {
+        display: flex;
+        align-items: center;
+        > div {
+            text-align: center;
+        }
+    }
+
 }
 
 .container-fluid.detail-bg {
     background-color: $white;
 }
 
+[data-action="Product-Show"] {
+    .cs-product-recommendation.pdp-v-one {
+        .cs-carousel-wrapper {
+            .cs-carousel {
+                margin: 0;
+            }
+            .carousel-title {
+                text-align: center;
+            }
+        }
+    }
+}
+
 .container-fluid.pdp-mobile {
     @include media-breakpoint-down(sm) {
+        .detail-bottom-blocks {
+            padding: 0;
+            .bottom-block {
+                width: rem(160);
+                margin-right: rem(5);
+                margin-bottom: rem(5);
+                padding: rem(10);
+            }
+        }
         .carousel-nav {
             .slick-slide {
                 width: rem(70) !important;
@@ -513,7 +547,11 @@
             padding-bottom: 0;
             margin: 0;
             padding: 0;
-            
+            flex-basis: 100%;
+
+            > div {
+                padding:0;
+            }
             .add-to-cart {
                 min-width: 100%;
             }
@@ -541,8 +579,7 @@
                 }
             }
         }
-    }
-    @include media-breakpoint-down(xs) {
+
         padding-bottom: rem(0);
 
         .prices-add-to-cart-actions {
@@ -559,6 +596,8 @@
             border-radius: rem(35) rem(35) 0 0;
             box-shadow: 0 rem(-2) rem(6) rem(-1) $grey-light;
             padding-top: rem(30);
+            text-align: center;
+
             .product-name {
                 display: none;
             }
@@ -570,13 +609,9 @@
             }
         }
 
-        .cart-and-ipay {
-            padding-bottom: 0;
-            margin: 0;
-            padding: 0;
-            
-            .add-to-cart {
-                min-width: 100%;
+        .product-detail {
+            .product-name {
+                text-align: center;
             }
         }
 
@@ -586,6 +621,7 @@
             }
             justify-content: space-between;
         }
+
         .ratings {
             background: none;
         }
@@ -643,6 +679,33 @@
 
         .bottom-detail {
             padding: 0;
+        }
+
+        .promotions {
+
+            .callout {
+                text-align: center;
+            }
+        }
+
+        .primary-images {
+            margin-bottom: rem(20);
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        .detail-bottom-blocks {
+            padding: 0;
+            .bottom-block {
+                width: rem(160);
+                margin-right: 0;
+                margin-bottom: rem(5);
+                padding: rem(10);
+
+                &:first-child {
+                    margin-right: rem(5);
+                }
+            }
         }
     }
 }

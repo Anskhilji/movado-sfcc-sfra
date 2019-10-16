@@ -18,8 +18,8 @@ productHelpers.showProductPage = function (querystring, reqPageMetaData) {
         template = (product.template) ? product.template : 'product/old/productDetails';
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')) {
         template = (product.template) ? product.template : 'product/productDetails';
-    } else {
-        template = (product.template) ? product.template : 'product/old/productDetails';
+    } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
+        template = (product.template) ? product.template : 'product/traditional/productDetails';
     }
 
     if (product.productType === 'bundle') {

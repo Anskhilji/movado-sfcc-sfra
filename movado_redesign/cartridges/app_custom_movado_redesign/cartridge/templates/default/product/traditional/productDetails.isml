@@ -16,7 +16,7 @@
             <div class="row mobile-detail-head d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
-                    <div class="product-breadcrumb">
+                    <div class="product-breadcrumb d-none">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
                     </div>
 
@@ -29,7 +29,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isinclude template="product/traditional/components/pidRating" />
                         </div>
                     </div>
 
@@ -39,20 +39,20 @@
 
             <div class="row">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarousel" />
+                <isinclude template="product/traditional/components/imageCarousel" />
 
-                <div class="col-12 col-sm-5 detail-sec pt-sm-5">
+                <div class="col-12 col-md-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
-	                       <isinclude template="product/components/badges" />
+	                       <isinclude template="product/traditional/components/badges" />
 	                    </div>
 	                </div>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-capitalize">${product.productName}</h1>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
+                        <isinclude template="product/traditional/components/pidRating" />
                     </div>
                     <div class="row mt-4 description">
                         <isinclude template="product/components/description" />
@@ -106,13 +106,11 @@
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                             </div>
                                 <!-- Cart and [Optionally] Apple Pay -->
+                            <div class="cart-wishlist">
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                        </div>
-
-                        <div class="">
-                            <div class="wishlist-row row">
+                            <div class="wishlist-row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <!-- Social Sharing Icons -->
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -129,11 +127,11 @@
 
 
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/traditional/components/descriptionAndDetails" />
         </div>
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
-            <isinclude template="product/components/youMayLikeRecommendation" />
+            <isinclude template="product/traditional/components/youMayLikeRecommendation" />
         </isif>
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
         <isinclude template="product/components/contentAssets" />

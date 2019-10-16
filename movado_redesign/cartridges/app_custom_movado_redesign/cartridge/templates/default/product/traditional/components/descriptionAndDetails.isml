@@ -4,7 +4,7 @@
         <div class="col-sm-8 description">
             <div class="row">
                 <div class="col-sm-10">
-                    <isinclude template="product/components/highlights" />
+                    <isinclude template="product/traditional/components/highlights" />
                 </div>
             </div>
         </div>
@@ -12,7 +12,7 @@
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
             <div class="col-sm-4 p-0 product-attributes">
-                <isinclude template="product/components/detailsAttributes" />
+                <isinclude template="product/traditional/components/detailsAttributes" />
             </div>
         </isif>
     </isif>
