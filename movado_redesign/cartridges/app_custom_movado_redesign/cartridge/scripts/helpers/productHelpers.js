@@ -17,9 +17,11 @@ productHelpers.showProductPage = function (querystring, reqPageMetaData) {
     if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','Control')) {
         template = (product.template) ? product.template : 'product/old/productDetails';
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')) {
-        template = (product.template) ? product.template : 'product/productDetails';
+        template = (product.template) ? product.template : 'product/modren/productDetails';
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
         template = (product.template) ? product.template : 'product/traditional/productDetails';
+    } else {
+        template = (product.template) ? product.template : 'product/old/productDetails';
     }
 
     if (product.productType === 'bundle') {

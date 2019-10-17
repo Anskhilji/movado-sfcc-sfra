@@ -121,6 +121,7 @@
             .slick-arrow.slick-prev {
                 background-image: url("../../images/slide-right-arrow.png");
                 transform: rotateY(180deg);
+                top: 37%;
             }
 
             .slick-arrow {
@@ -385,7 +386,7 @@
     .cs-carousel-wrapper {
 
         .slick-slide {
-            margin: 0 rem(5);
+            margin: 0 rem(3);
         }
 
         .slick-list {

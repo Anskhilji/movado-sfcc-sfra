@@ -196,8 +196,21 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
 
 server.get('ShowAvailability', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    res.render('product/components/showAvailability', {
+    
+    var template;	//'product/components/showAvailability'
+    if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','Control')) {
+        template = 'product/old/components/showAvailability';
+    } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')) {
+        template = 'product/traditional/components/showAvailability';
+    } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
+        template = 'product/traditional/components/showAvailability';
+    } else {
+        template = 'product/old/components/showAvailability';
+    }
+
+    res.render(template, {
         product: showProductPageHelperResult.product
     });
     next();
