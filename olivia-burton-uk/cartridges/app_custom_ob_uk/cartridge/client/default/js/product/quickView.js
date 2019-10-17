@@ -82,6 +82,12 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                     eventName: 'refresh-placements'
                 });
             }
+
+            if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                setAnalyticsTrackingByAJAX.pdpAnalyticsTrackingData = data.pdpAnalyticsTrackingData;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
+
             $.spinner().stop();
         },
         error: function () {

@@ -6,7 +6,7 @@ $(document).ready(function() {
     }).resize();
 });
 
-$(".search-icon").click(function(){
+$(".search-icon").click(function(e){
     $(".desktop-search").slideDown("fast");
     $(".header-search-field").val("");
     $(".search-recomendation").fadeIn();
@@ -57,7 +57,7 @@ $(".desktop-menu .sub-dropdown").hover(
         $(this).find(".menu-pane").addClass("animated faster fadeInLeft delay-point-three");
         $(this).find(".featured-promotion").addClass("fadeIn animated delay-point-three");
         $(".overlay").addClass("fadeIn animated faster");
-        $(this).find(".dropdown-menu").addClass("fadeIn fast animated");
+        $(this).find(".dropdown-menu").addClass("fadeIn fast animated show");
         $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
             dots: true,
@@ -86,11 +86,61 @@ $(".desktop-menu .sub-dropdown").hover(
         $(this).find(".menu-pane").removeClass("animated faster  fadeInLeft delay-point-three");
         $(this).find(".featured-promotion").removeClass("fadeIn animated delay-point-three");
         $(".overlay").removeClass("fadeIn animated faster");
-        $(this).find(".dropdown-menu").removeClass("fadeIn fast animated");
+        $(this).find(".dropdown-menu").removeClass("fadeIn fast animated show");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick("unslick");
         $(".shop-by-collection-slide .featured-promotion p").removeClass('fadeInRight delay-point-five animated');
     }
 );
+
+function hideCollectionSlider(container){
+    $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick("unslick");
+    $(container).find(".featured-promotion").removeClass("fadeIn animated delay-point-three");
+    $(".shop-by-collection-slide .featured-promotion p").removeClass('fadeInRight delay-point-five animated');
+}
+
+function showCollectionSlider(container){
+    $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
+    $('.slick-slider').slick("refresh");
+    $(container).find(".featured-promotion").addClass("fadeIn animated delay-point-three");
+    $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        centerPadding: '60px',
+        responsive: [
+            {
+              breakpoint: 1280,
+              settings: {
+                slidesToShow: 4,
+              }
+            },
+        ]
+    });
+}
+$(".desktop-menu .sub-dropdown").keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+        break;
+
+        case 38: // up
+            hideCollectionSlider(this);
+        break;
+
+        case 39: // right
+        break;
+
+        case 40:
+            showCollectionSlider(this);
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
 
 
 $(".mobile-menu .close-button").click(function(){

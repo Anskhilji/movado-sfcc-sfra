@@ -113,7 +113,7 @@ function OrderModel(lineItemContainer, options) {
             totalTaxVal: totalTaxVal,
             couponLineItemArray: couponLineItemArray,
             creationDate: orderCustomHelper.formatOrderDate(lineItemContainer),
-            trackingUrls: orderCustomHelper.getTrackingUrls(lineItemContainer.productLineItems),
+            trackingUrlsAndNumbers: orderCustomHelper.getTrackingUrlsAndNumbers(lineItemContainer.productLineItems),
             sapOrderStatus: orderCustomHelper.getSapOrderStatus(lineItemContainer, options.containerView),
             checkoutCouponUrls: orderCustomHelper.getCheckoutCouponUrl(),
             saveShippingAddress: orderCustomHelper.getSaveShippingAddressValue(lineItemContainer),

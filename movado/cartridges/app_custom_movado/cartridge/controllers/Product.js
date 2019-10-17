@@ -29,6 +29,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var viewData = res.getViewData();
@@ -39,7 +40,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
-    var pdpAnalyticsTrackingData;
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
@@ -47,7 +47,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 	/* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -58,25 +60,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
 
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-    	var pdpAnalyticsTrackingData;
-    	pdpAnalyticsTrackingData = {item: product.getName()};
-    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
-        viewData = {
-            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-            moreStyleRecommendations: moreStyleRecommendations,
-            youMayLikeRecommendations: youMayLikeRecommendations,
-            collectionContentList: collectionContentList,
-            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-            loggedIn: req.currentCustomer.raw.authenticated,
-            socialShareEnable: socialShareEnable,
-            moreStyleGtmArray: moreStyleGtmArray,
-            wishlistGtmObj: wishlistGtmObj,
-            klarnaProductPrice: klarnaProductPrice,
-            pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)
-        };
-    } else {
-        viewData = {
+    viewData = {
+        isEmbossEnabled: isEmbossEnabled,
+        isEngraveEnabled: isEngraveEnabled,
+        isGiftWrapEnabled: isGiftWrapEnabled,
             isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
             moreStyleRecommendations: moreStyleRecommendations,
             youMayLikeRecommendations: youMayLikeRecommendations,
@@ -87,25 +74,19 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice
-        };
-    }
-
-    viewData = {
-        isEmbossEnabled: isEmbossEnabled,
-        isEngraveEnabled: isEngraveEnabled,
-        isGiftWrapEnabled: isGiftWrapEnabled,
-        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-        moreStyleRecommendations: moreStyleRecommendations,
-        youMayLikeRecommendations: youMayLikeRecommendations,
-        collectionContentList: collectionContentList,
-        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-        loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
-        moreStyleGtmArray: moreStyleGtmArray,
-        wishlistGtmObj: wishlistGtmObj,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
-        klarnaProductPrice: klarnaProductPrice
     };
+    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
+    res.setViewData(smartGift);
+
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+    	var pdpAnalyticsTrackingData;
+    	pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+    	};
+    	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
 
     res.setViewData(viewData);
     next();
@@ -160,7 +141,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     }
     var product = productMgr.getProduct(productCustomHelpers.formatProductId(productID));
     if (product) {
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
     }
     var productGtmArray = {};
   // object for GTM
@@ -178,15 +161,18 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     };
 
     if(isanalyticsTrackingEnabled) {
-    	var pdpAnalyticsTrackingData;
-        pdpAnalyticsTrackingData = {item: product.ID};
+        var pdpAnalyticsTrackingData;
+
+        pdpAnalyticsTrackingData = {
+            itemID: product.ID,
+            itemName: product.name
+        };
         pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});
     }
 
     res.setViewData({
         productGtmArray: productGtmArray,
-        pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData),
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
         klarnaProductPrice: klarnaProductPrice
@@ -196,21 +182,8 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
 
 server.get('ShowAvailability', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    
-    var template;	//'product/components/showAvailability'
-    if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','Control')) {
-        template = 'product/old/components/showAvailability';
-    } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')) {
-        template = 'product/traditional/components/showAvailability';
-    } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
-        template = 'product/traditional/components/showAvailability';
-    } else {
-        template = 'product/old/components/showAvailability';
-    }
-
-    res.render(template, {
+    res.render('product/components/showAvailability', {
         product: showProductPageHelperResult.product
     });
     next();

@@ -53,7 +53,7 @@
         var isklarnaPromoEnabled = false;
     </script>
     <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
-    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
+    <isif condition="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) && dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
         <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
         <isif condition="${siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
             <script async src="https://eu-library.klarnaservices.com/merchant.js?uci=${KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}&country=${siteLocaleCountryCode}"></script>
@@ -62,6 +62,15 @@
             </script>
             <script>
                 window.isklarnaPromoEnabled = true;
+            </script>
+        </isif>
+    </isif>
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isif condition="${!empty(sitePref.enableSmartGift)}">
+        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
+            <script>
+                (function (d,g,e,c,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
+                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}');
             </script>
         </isif>
     </isif>

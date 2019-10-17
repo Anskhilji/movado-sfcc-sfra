@@ -122,7 +122,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
-            var productPrice = pli.price.decimalValue.toString();
+            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -142,25 +142,20 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
         return productGtmArray;
 }
 
-function createAddtoCartAnalyticsTrackingArray(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+function getCartForAnalyticsTracking(lineItemCtnr){
 	var productDetail={};
 	var analyticsTrackingCartItems = [];
-	var variant;
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
-
-        if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
-            var productModel = productFactory.get({pid: productID});
-            var productPrice = pli.price.decimalValue.toString();
-            variant=getProductOptions(embossedMessage,engravedMessage)
-                    productDetail={
-                        item : productID,
-                        quantity: pli.quantity.decimalValue.toString(),
-                        price : productPrice,
-                        unique_id: productID
-                    };
-            		analyticsTrackingCartItems.push(productDetail);
-                }
+            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var quantity = pli.quantity.decimalValue ? pli.quantity.decimalValue.toString() : '0.0';
+            productDetail = {
+                item : productID,
+                quantity: quantity,
+                price : productPrice,
+                unique_id: productID
+            };
+            analyticsTrackingCartItems.push(productDetail);
         });
 
         return analyticsTrackingCartItems;
@@ -172,7 +167,7 @@ function removeFromCartGTMObj(productLineItems){
 	var variant='';
 	 collections.forEach(productLineItems, function (pli) {
 		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
-		var price = pli.price.decimalValue.toString();
+		var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
      	cartItemObj.push({
      		'id':pli.product.ID,
@@ -289,6 +284,6 @@ module.exports = {
     validGiftMsgStringXSS:validGiftMsgStringXSS,
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
-    createAddtoCartAnalyticsTrackingArray: createAddtoCartAnalyticsTrackingArray
+    getCartForAnalyticsTracking: getCartForAnalyticsTracking
 };
 

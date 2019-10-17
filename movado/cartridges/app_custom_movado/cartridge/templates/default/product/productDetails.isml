@@ -107,14 +107,25 @@
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
                             </div>
-
-                                <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            <div class="d-block d-md-flex">
+                               <!-- Cart and [Optionally] Apple Pay -->
+                               <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                               <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+	                               </isif>    
+                               </isif>
+                            </div>
                         </div>
 
                         <div class="col-12">
                             <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-block d-md-none"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
+                                </isif>
                                 <!-- Social Sharing Icons -->
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
@@ -142,10 +153,12 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
-        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
+        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
         <isinclude template="product/components/contentAssets" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->

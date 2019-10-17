@@ -258,7 +258,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    orderToken: order.orderToken,
 	    continueUrl: URLUtils.url('Order-Confirm').toString()
 	  });
-
+	  res.setViewData({orderNo: placeOrderResult.order.orderNo, trackingCode: currentBasket.custom.smartGiftTrackingCode});
 	  // remove session params
 	  session.custom.paymentParams = '';
 	  session.custom.cardIIN = '';

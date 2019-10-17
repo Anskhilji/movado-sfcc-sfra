@@ -150,9 +150,12 @@ function getShippingAddress(order) {
             shippingObject['address' + i] = addressArray[i - 1];
         }
 
-        if (shippingObject.address2 == null) {
+        if (address.address2 == null) {
             shippingObject.address2 = '';
+        } else {
+            shippingObject.address2 = address.address2;
         }
+
         if (shippingObject.address3 == null) {
             shippingObject.address3 = '';
         }
