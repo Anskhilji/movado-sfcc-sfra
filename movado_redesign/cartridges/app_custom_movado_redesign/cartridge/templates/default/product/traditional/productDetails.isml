@@ -67,9 +67,7 @@
                                 </div>
                             </isif>
                         </div>
-                        <isif condition="${product.options && product.options.length > 0}">
-                            <isinclude template="product/components/options" />
-                        </isif>
+
                         <div class="col-md-10 col-12">
                             <isinclude template="product/components/mainAttributes" />
                         </div>
@@ -91,9 +89,9 @@
                             <div class="promotions">
                                 <isinclude template="product/components/promotions" />
                             </div>
-                            <div class="engraving-btn mb-3">
-                                <button>${Resource.msg('label.product.engraving', 'product', 'null')}</button>
-                            </div>
+	                        <isif condition="${product.options && product.options.length > 0}">
+	                            <isinclude template="product/traditional/components/options" />
+	                        </isif>
                             <div>
                                 <isinclude template="util/affirmmodule_mf" />
                                 <isaffirmpromo context="pdp"
