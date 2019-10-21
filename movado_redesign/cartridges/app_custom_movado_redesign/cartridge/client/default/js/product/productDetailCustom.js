@@ -24,9 +24,31 @@ $(function() {
         $(".prices-add-to-cart-actions").css("z-index", "9");
         e.preventDefault();
     });
-    $('.pdp-v-one .popup-action-btns .save').on('click', function()  {
-        var textaraetext=$('.pdp-v-one .text-area textarea.valid').val();
-        $('.pdp-v-one .engravedtext').text(textaraetext);
+    $('.pdp-v-one .engraving-form .popup-action-btns .save').on('click', function()  {
+        setTimeout(function(){ 
+            var getText=$.trim($('.pdp-v-one .engraving-form .text-area .engraving-input.valid').val());
+            var showText = getText.replace("/<br\s*\/?>/mg","\n");
+            if(showText == undefined || showText == ""){
+                $('.pdp-v-one .engraved-text').text("");
+                $('.pdp-v-one .engraving-form .text-on-watch pre').text("Line 1\nLine2");
+                
+            }else {
+                $('.pdp-v-one .engraved-text').text(showText);
+                $('.pdp-v-one .engraving-form .text-on-watch pre').text(showText);
+            }
+        }, 300);
     });
-    save
+
+    $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function()  {
+        setTimeout(function(){ 
+            var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
+            if(debossingtext == undefined || debossingtext == ""){
+                $('.pdp-v-one .debossing-text').text("");
+                $('.pdp-v-one .engraving-form .text-on-watch pre').text("Line 1");
+            }else {
+                $('.pdp-v-one .debossing-text').text(debossingtext);
+                $('.pdp-v-one .engraving-form .text-on-watch span').text(debossingtext);
+            }
+        }, 300);
+    });
 });

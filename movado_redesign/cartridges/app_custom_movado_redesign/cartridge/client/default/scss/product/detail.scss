@@ -84,7 +84,7 @@
         display: none;
     }
     form.submitted {
-        .engraving-btn {
+        .engraving-btn, .debossing-btn {
             > a {
                 background: url("../../images/minus-sign.svg") left rem(12) center no-repeat;
                 background-size: rem(11);
@@ -102,7 +102,7 @@
             }
         }
     }
-    .engraving-btn {
+    .engraving-btn, .debossing-btn {
         > a {
             color: $black;
             @include font-demi;
@@ -127,6 +127,26 @@
 
             &.focus {
                 box-shadow: none;
+            }
+        }
+    }
+
+    .debossing-text, .engraved-text {
+        @include font-demi;
+        font-size: rem(13);
+        letter-spacing: normal;
+        color: $dark-green;
+        margin-top: rem(10);
+    }
+
+    .product-options {
+        display: flex;
+        margin-bottom: rem(25);
+        .product-option {
+            margin: 0;
+
+            &:not(:first-child) {
+                margin-left: rem(10);
             }
         }
     }
@@ -524,6 +544,9 @@
         }
     }
 
+    pre {
+        margin: 0;
+    }
 
     .popup {
         width: 100%;
@@ -568,13 +591,14 @@
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    
-                    span {
+
+                    pre, span {
                         display: block;
                         color: $grey8;
                         @include font-demi;
                         font-size: rem(15);
                         letter-spacing: normal;
+                        text-align: left;
                     }
                 }
 
@@ -589,7 +613,7 @@
 
                 .option-message {
                     position: relative;
-                    textarea {
+                    .engraving-input, .debossing-input {
                         @include font-light;
                         font-size: rem(15);
                         color: $storm-gray;
@@ -663,7 +687,25 @@
             transform: translate(-50%, -50%);
             padding-bottom: rem(5);
           }
-      }
+    }
+    .debossing-form {
+        .popup {
+            .popup-body {
+                .watch-image {
+                    img {
+                        object-fit: contain;
+                    }
+                    .text-on-watch {
+                        position: absolute;
+                        bottom: 11%;
+                        left: 50%;
+                        top:auto;
+                        transform: translateX(-50%)
+                    }
+                }
+            }
+        }
+    }
 }
 
 .container-fluid.detail-bg {
