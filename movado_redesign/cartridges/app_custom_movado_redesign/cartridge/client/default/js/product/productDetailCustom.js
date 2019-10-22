@@ -44,10 +44,10 @@ $(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             if(debossingtext == undefined || debossingtext == ""){
                 $('.pdp-v-one .debossing-text').text("");
-                $('.pdp-v-one .engraving-form .text-on-watch pre').text("Line 1");
+                $('.pdp-v-one .debossing-form .text-on-watch span').text("Line 1");
             }else {
                 $('.pdp-v-one .debossing-text').text(debossingtext);
-                $('.pdp-v-one .engraving-form .text-on-watch span').text(debossingtext);
+                $('.pdp-v-one .debossing-form .text-on-watch span').text(debossingtext);
             }
         }, 300);
     });

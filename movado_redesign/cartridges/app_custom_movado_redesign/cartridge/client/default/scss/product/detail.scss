@@ -565,6 +565,10 @@
                 font-size: rem(34);
                 color: $grey8;
                 letter-spacing: normal;
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(28);
+                }
             }
         }
         .popup-body {
@@ -576,12 +580,17 @@
                 text-align: center;
                 letter-spacing: normal;
                 margin: 0;
+                @include media-breakpoint-down(sm) {
+                    padding: 0 5%;
+                }
             }
 
             .watch-image {
                 background: $slate-grey-light;
                 margin: rem(30) 0;
-
+                @include media-breakpoint-down(sm) {
+                    margin: rem(25) 0;
+                }
                 .image {
                     position: relative;
                 }
@@ -594,11 +603,15 @@
 
                     pre, span {
                         display: block;
-                        color: $grey8;
+                        color: $grey3;
                         @include font-demi;
                         font-size: rem(15);
                         letter-spacing: normal;
                         text-align: left;
+                    }
+
+                    span {
+                        color: $white;
                     }
                 }
 
@@ -686,6 +699,12 @@
             left: 45%;
             transform: translate(-50%, -50%);
             padding-bottom: rem(5);
+
+            @include media-breakpoint-down(sm) {
+                left:50%;
+                height: 100vh;
+                max-width: 100%;
+            }
           }
     }
     .debossing-form {
