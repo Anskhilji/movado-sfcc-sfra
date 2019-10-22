@@ -227,6 +227,13 @@ var formHelpers = require('base/checkout/formErrors');
                                         formHelpers.loadFormErrors('.payment-form', error);
                                     }
                                   });
+                                  var scrollUtil = require('../utilities/scrollUtil');
+                                  var firstErrorFieldName =  $('.payment-form').find('.is-invalid').first()[0].name;
+                                  if (firstErrorFieldName == 'dwfrm_billing_paymentMethod') {
+                                      scrollUtil.scrollInvalidFields('.payment-form', 700, 300);
+                                  } else {
+                                      scrollUtil.scrollInvalidFields('.payment-form', -80, 300);
+                                  }
                               }
 
                               if (data.serverErrors.length) {

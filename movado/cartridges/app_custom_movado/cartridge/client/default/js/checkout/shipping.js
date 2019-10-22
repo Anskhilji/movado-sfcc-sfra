@@ -490,6 +490,8 @@ function shippingFormResponse(defer, data) {
                 if (Object.keys(error).length) {
                     formHelpers.loadFormErrors(formSelector, error);
                 }
+                var scrollUtil = require('../utilities/scrollUtil');
+                scrollUtil.scrollInvalidFields(formSelector, -80, 300);
             });
             defer.reject(data);
         }
