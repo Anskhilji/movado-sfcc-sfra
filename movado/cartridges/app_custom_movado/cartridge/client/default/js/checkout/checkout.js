@@ -512,7 +512,12 @@ function createErrorNotification(message) {
  * @param {Object} data - AJAX response from the server
  */
 function updateCheckoutTotals(data) {
-    $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);
+    if (data.totals.isFree == true) {
+        $('.shipping-total-cost').empty().append(data.totals.freeShippingLabel);
+    } else {
+        $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);
+    }
+    
     $('.tax-total').empty().append(data.totals.totalTax);
     $('.grand-total-sum').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);

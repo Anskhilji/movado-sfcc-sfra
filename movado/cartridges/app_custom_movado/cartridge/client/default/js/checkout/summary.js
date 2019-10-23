@@ -5,7 +5,12 @@
  * @param {Array} totals - the totals data
  */
 function updateTotals(totals) {
-    $('.shipping-total-cost').text(totals.totalShippingCost);
+    if (totals.isFree == true) {
+        $('.shipping-total-cost').text(totals.freeShippingLabel);
+    } else {
+        $('.shipping-total-cost').text(totals.totalShippingCost);
+    }
+
     $('.tax-total').text(totals.totalTax);
     $('.sub-total').text(totals.subTotal);
     $('.grand-total-sum').text(totals.grandTotal);

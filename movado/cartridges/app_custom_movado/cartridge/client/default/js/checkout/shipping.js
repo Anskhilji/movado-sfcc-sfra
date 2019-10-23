@@ -285,7 +285,11 @@ function updateShippingSummaryInformation(shipping, order) {
             } else {
                 $methodArrivalTime.empty();
             }
-            $methodPrice.text(selectedShippingMethod.shippingCost);
+            if (selectedShippingMethod.freeShippingContent.isFree){
+                $methodPrice.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
+            } else {
+                $methodPrice.text(selectedShippingMethod.shippingCost);
+            }
         }
 
         if (isGift) {
