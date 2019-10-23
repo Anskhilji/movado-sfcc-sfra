@@ -90,9 +90,7 @@ function exportGoogleFeed(args) {
                 "brand" : 13,
                 "color" : 14,
                 "gender" : 15,
-                "ageGroup" : 16, 
-                "customLabel0" : 17,
-                "customLabel1" : 18
+                "ageGroup" : 16
                 }
     } else {
         feedColumnsGoogle = {
@@ -398,8 +396,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['googleProductCategory'])) {
-        if (product.googleCategoyrPath) {
-            productDetails.push(product.googleCategoyrPath);
+        if (product.googleCategoryPath) {
+            productDetails.push(product.googleCategoryPath);
         } else {
             productDetails.push("");
         }
@@ -462,8 +460,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['customLabel0'])) {
-        if (product.googleCategoyrPath) {
-            productDetails.push(product.googleCategoyrPath);
+        if (product.googleCategoryPath) {
+            productDetails.push(product.googleCategoryPath);
         } else {
             productDetails.push("");
         }
@@ -517,6 +515,7 @@ function getProductAttributes(product, feedParameters) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice() : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
+    var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
     var productAttributes = {
         ID: product.ID,
         title: product.name,
@@ -539,8 +538,8 @@ function getProductAttributes(product, feedParameters) {
         gender : product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
         width : product.custom.width ? product.custom.width : "",
         isMasterProduct : product.master ? true : false,
-        jewelryStyle : product.custom.jewelryStyle ? product.custom.jewelryStyle : "",
-        googleCategoyrPath : Constants.GOOGLE_CATEGORY_PATH + product.custom.jewelryStyle ? product.custom.jewelryStyle : "" ,
+        jewelryStyle : jewelryStyle,
+        googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot"
     };
     return productAttributes;
