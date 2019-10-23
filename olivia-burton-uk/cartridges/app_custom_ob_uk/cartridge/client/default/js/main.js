@@ -13,7 +13,7 @@ $(document).ready(function () {
     processInclude(require('movado/components/collapsibleItem'));
     processInclude(require('movado/components/search'));
     processInclude(require('./productTile'));
-    processInclude(require('base/components/clientSideValidation'));
+    processInclude(require('movado/components/clientSideValidation'));
     processInclude(require('base/components/countrySelector'));
     processInclude(require('movado/welcomeMat/welcomeMatModal'));
     processInclude(require('movado/components/mod_video'));

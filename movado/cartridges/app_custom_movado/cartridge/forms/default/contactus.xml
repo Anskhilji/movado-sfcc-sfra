@@ -41,7 +41,7 @@
 			<option optionid="Other" value="Other" label="label.contactus.other"/>
 		</options>	
 	</field>
-	<field formid="comment" label="label.input.comment" type="string" mandatory="false"
+	<field formid="comment" label="label.input.comment" type="string" mandatory="true" missing-error="error.message.required"
     	   parse-error="error.message.invalid"
            />
 

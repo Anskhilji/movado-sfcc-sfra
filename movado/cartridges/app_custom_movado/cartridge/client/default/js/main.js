@@ -12,7 +12,7 @@ $(document).ready(function () {
     processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/search'));
     processInclude(require('./productTile'));
-    processInclude(require('base/components/clientSideValidation'));
+    processInclude(require('./components/clientSideValidation'));
     processInclude(require('base/components/countrySelector'));
     processInclude(require('./welcomeMat/welcomeMatModal'));
     processInclude(require('./components/mod_video'));
