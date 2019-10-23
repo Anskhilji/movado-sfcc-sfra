@@ -178,9 +178,6 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
                 error: true
             };
         }
-        Transaction.wrap(function () {
-            OrderMgr.placeOrder(order);
-        });
         return {
             error: false,
             authorized: true,
