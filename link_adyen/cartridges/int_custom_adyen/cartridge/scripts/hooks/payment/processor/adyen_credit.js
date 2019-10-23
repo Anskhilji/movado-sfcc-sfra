@@ -178,6 +178,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
                 error: true
             };
         }
+
         return {
             error: false,
             authorized: true,
