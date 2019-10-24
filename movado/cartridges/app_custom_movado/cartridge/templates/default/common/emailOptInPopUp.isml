@@ -1,0 +1,36 @@
+<!--- TEMPLATENAME: emailOptInPopUp.isml --->
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isif condition="${!session.custom.emailOptInViewed}"> 
+   <isset name="emailOptInViewed" value="${false}" scope="session" />
+</isif>
+<isset name="currentSite" value="${dw.system.Site.getCurrent()}" scope="page" />
+<isset name="priority" value="${pdict.priority}" scope="page" />
+<isif condition="${priority != null && priority > -1 && !session.custom.emailOptInViewed}">
+    <isset name="emailOptInViewed" value="${true}" scope="session" />
+    <div class="modal fade show email-popup" id="emailOptInPopUp" role="dialog" aria-modal="true" 
+         data-emailoptinfrequency = "${pdict.popUpSettings.emailPopupMuteForDays}"
+         data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
+         data-thankyounotecolor = "${pdict.popUpSettings.emailPopUpThankYouNoteColor}"
+         data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
+        <div class=" modal-dialog quick-view-dialog email-popup-container" 
+             style = "left: ${pdict.popUpSettings.emailPopupLeftPosition}%;
+                     right: ${pdict.popUpSettings.emailPopupRightPosition}%;
+                     top: ${pdict.popUpSettings.emailPopupTopPoistion}%;
+                     bottom: ${pdict.popUpSettings.emailPopupBottomPosition}%;
+                     height: ${pdict.popUpSettings.emailPopupHeight}%;
+                     width: ${pdict.popUpSettings.emailPopupWidth}%;
+                     background: ${pdict.popUpSettings.emailPopupBackgroundColor};"
+            <!-- Modal content-->
+            <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content" style = "background: ${pdict.popUpSettings.emailPopupBackgroundColor};">
+                <div class="modal-body">
+                    <div class="email-optin-control">
+                        <iscontentasset aid="emailOptInPopUp"/>
+                    </div>
+                    <div class="thankyou-note-control d-none">
+                        <iscontentasset aid="emailOptInThankYouNote"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

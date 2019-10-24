@@ -16,6 +16,9 @@
             This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeHeader.
             <isinclude template="/components/header/pageHeader" />
         </iscomment>
+            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('emailPopupEnabled')}">
+                <isinclude url="${URLUtils.url('EmailPopUp-Show', 'RefererPath', request.httpPath)}">
+            </isif>
         <div id="mainContent">
             <isreplace/>
         </div>
