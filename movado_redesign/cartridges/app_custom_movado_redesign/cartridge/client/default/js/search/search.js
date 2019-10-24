@@ -307,7 +307,7 @@ module.exports = {
 
     showMore: function () {
         // Show more products
-        $('.container, .container-fluid').on('click', '.plp-show-more button', function (e) {
+        $('.container, .container-fluid').on('click', '.plp-show-more button, .show-more button', function (e) {
             e.stopPropagation();
             var showMoreUrl = $(this).data('url');
 
