@@ -142,7 +142,8 @@
     .category-name {font-size: rem(15);}
   }
 
-  .show-more {
+  .plp-show-more {
+    margin-top: rem(10);
 
     button {
       @include font-medium;
