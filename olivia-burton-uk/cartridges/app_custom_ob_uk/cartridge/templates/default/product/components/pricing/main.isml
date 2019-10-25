@@ -5,18 +5,18 @@
 
 <isif condition="${price.type === 'tiered'}">
     <div class="price ${priceToCenter}">
-        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <span class="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA') ? 'd-none' : 'd-sm-none'} estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <isinclude template="/product/components/pricing/tiered" />
     </div>
 <iselseif condition="${price.type === 'range'}">
     <div class="price ${priceToCenter}"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer"">
-        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <span class="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA') ? 'd-none' : 'd-sm-none'} estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <isinclude template="/product/components/pricing/range" />
     </div>
 <iselse>
     <div class="price ${priceToCenter}"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <isset name="isLowPrice" value="${}" scope="page" />
-        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <span class="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA') ? 'd-none' : 'd-sm-none'} estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <isinclude template="/product/components/pricing/default" />
     </div>
 </isif>

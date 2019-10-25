@@ -275,6 +275,18 @@ div.checkout-button-wrapper {
   }
 }
 
+.prices-add-to-cart-text-center {
+
+    @include media-breakpoint-down(xs) {
+        padding-top: rem(1.6px);
+
+        .price {
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}
+
 @include media-breakpoint-down(xs) {
   div.checkout-button-wrapper,
   .prices-add-to-cart-actions {
@@ -331,4 +343,14 @@ div.checkout-button-wrapper {
       }
     }
   }
+}
+
+.checkout-button-without-sticky {
+    padding: rem(8px) 0;
+    border-top: rem(1px) solid $grey4;
+}
+
+.checkout-button-without-sticky + .more-ways-text {
+    padding: 0;
+    border-top: 0;
 }
