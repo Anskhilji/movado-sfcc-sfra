@@ -198,7 +198,10 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
-
+	  //set custom attirbute in session to avoid order confirmation page reload
+	  session.custom.orderJustPlaced = true;
+	  //set order number in session to get order back after redirection
+	  session.custom.orderNo = order.orderNo;
 	  if (handlePaymentResult.issuerUrl != '' && handlePaymentResult.authorized3d) {
 		session.custom.MD = handlePaymentResult.md;
 		Transaction.wrap(function () { order.custom.is3DSecureOrder = true; });

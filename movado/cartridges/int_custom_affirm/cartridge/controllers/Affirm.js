@@ -77,7 +77,8 @@ server.replace(
 
         affirmHelper.PostProcess(order);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-
+        //set custom attirbute in session to avoid order confirmation page reload
+        session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken));
 

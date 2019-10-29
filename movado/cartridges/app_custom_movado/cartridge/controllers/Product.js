@@ -9,6 +9,7 @@ var productMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var page = module.superModule;
 var Resource = require('dw/web/Resource');
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -82,7 +83,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     	var pdpAnalyticsTrackingData;
     	pdpAnalyticsTrackingData = {
             itemID: product.ID,
-            itemName: product.name
+            itemName: stringUtils.removeSingleQuotes(product.name)
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
@@ -149,7 +150,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
   // object for GTM
     productGtmArray = {
         id: product.ID,
-        name: product.name,
+        name: stringUtils.removeSingleQuotes(product.name),
         brand: product.brand,
         category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.displayName
 				   : (product.primaryCategory ? product.primaryCategory.displayName : ''),
@@ -165,7 +166,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
 
         pdpAnalyticsTrackingData = {
             itemID: product.ID,
-            itemName: product.name
+            itemName: stringUtils.removeSingleQuotes(product.name)
         };
         pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});

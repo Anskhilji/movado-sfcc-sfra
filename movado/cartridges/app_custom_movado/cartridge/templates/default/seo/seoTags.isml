@@ -25,6 +25,8 @@
 <meta property='og:price:currency' content="${price.currency}"/>
 <isif condition="${pdict.product.availability.messages.indexOf('In Stock')> -1}">
 	<meta property='og:availability' content="instock"/>
+<iselseif condition="${pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
+	<meta itemprop="og:availability" content="preorder" />
 <iselse>
 	<meta property='og:availability' content="oos"/>
 </isif>

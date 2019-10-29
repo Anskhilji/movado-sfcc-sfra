@@ -63,7 +63,11 @@ function exportSmartGiftFeed(args) {
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
             "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
+<<<<<<< HEAD
             "categories" : true
+=======
+            "categories" : "categories"
+>>>>>>> Merged in release-5-new (pull request #258)
     }
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
     exportFeed(feedColumnsSmartGift, fileArgs, feedParametersSmartGift);
@@ -72,6 +76,7 @@ function exportSmartGiftFeed(args) {
 function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
+<<<<<<< HEAD
     var feedColumnsGoogle = {};
     if(Site.current.ID == "MovadoUS") {
         feedColumnsGoogle = {
@@ -119,34 +124,77 @@ function exportGoogleFeed(args) {
                 }
         }
 
+=======
+    var feedColumnsGoogle = {
+            "ID" : 1,
+            "title" : 2,
+            "description" : 3,
+            "price" : 4,
+            "link" : 5,
+            "imageLink" : 6,
+            "additionalImageLink" : 7,
+            "availability" : 8,
+            "product_type" : 9,
+            "googleProductCategory": 10,
+            "condition" : 11,
+            "gtin" : 12,
+            "mpn" : 13,
+            "brand" : 14,
+            "color" : 15,
+            "size" : 16,
+            "gender" : 17,
+            "age_group" : 18, 
+            "customLabel0" : 19,
+            "customLabel1" : 20,
+            "customLabel2" : 21,
+            "customLabel3" : 22
+    }
+    
+>>>>>>> Merged in release-5-new (pull request #258)
     var feedParametersGoogle = {
             "colonSeparator" : Constants.COLON_SEPARATOR,
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
             "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
+<<<<<<< HEAD
             "skipMissingProductTypeSKUs" : true
     }
 
+=======
+            "singleCategory" : "singleCategory"
+    }
+>>>>>>> Merged in release-5-new (pull request #258)
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
     exportFeed(feedColumnsGoogle, fileArgs, feedParametersGoogle);
 }
 
 function exportFeed(feedColumns, fileArgs, feedParameters) {
+<<<<<<< HEAD
+=======
+    var logLocation = 'ExportProductFeed~generateProductFeed';
+>>>>>>> Merged in release-5-new (pull request #258)
     try {
         fileArgs.csvStreamWriter.writeNext(buildCsvHeader(feedColumns));
         var productSearchHitsItr = getProductSearchHitIt();
         while (productSearchHitsItr.hasNext()) {
             var product = productSearchHitsItr.next().product;
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> Merged in release-5-new (pull request #258)
             if (product.variant) {
                 continue;
             }
             var productAttributes = getProductAttributes(product, feedParameters);
 
+<<<<<<< HEAD
             if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
                 continue;
             }
 
+=======
+>>>>>>> Merged in release-5-new (pull request #258)
             if(feedParameters.categories) {
                 var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
             }
@@ -181,6 +229,7 @@ function getProductSearchHitIt() {
 
 function buildCsvHeader(feedColumns) {
     var csvFileHeader = new Array();
+<<<<<<< HEAD
 
     if (!empty(feedColumns['ID'])) {
         csvFileHeader.push("id");
@@ -226,10 +275,57 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("product_type");
     }
 
+=======
+    
+    if (!empty(feedColumns['ID'])) {
+        csvFileHeader.push("id");
+    }
+    
+    if (!empty(feedColumns['masterProductID'])) {
+        csvFileHeader.push("item_group_id");
+    }
+    
+    if (!empty(feedColumns['isMasterProduct'])) {
+        csvFileHeader.push("is_master_product");
+    }
+    if (!empty(feedColumns['title'])) {
+        csvFileHeader.push("title");
+    }
+    
+    if (!empty(feedColumns['description'])) {
+        csvFileHeader.push("description");
+    }
+    
+    if (!empty(feedColumns['price'])) {
+        csvFileHeader.push("price");
+    }
+    
+    if (!empty(feedColumns['link'])) {
+        csvFileHeader.push("link");
+    }
+    
+    if (!empty(feedColumns['imageLink'])) {
+        csvFileHeader.push("image_link");
+    }
+    
+    if (!empty(feedColumns['additionImageLink'])) {
+        csvFileHeader.push("additional_image_link");
+    }
+    
+    if (!empty(feedColumns['availability'])) {
+        csvFileHeader.push("availability");
+    }
+    
+    if (!empty(feedColumns['productType'])) {
+        csvFileHeader.push("product_type");
+    }
+    
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['categories'])) {
         csvFileHeader.push("Categories");
     }
     
+<<<<<<< HEAD
     if (!empty(feedColumns['googleProductCategory'])) {
         csvFileHeader.push("google_product_category");
       }
@@ -294,6 +390,68 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("rating");
     }
 
+=======
+    if (!empty(feedColumns['condition'])) {
+        csvFileHeader.push("condition");
+    }
+    
+    if (!empty(feedColumns['gtin'])) {
+        csvFileHeader.push("gtin");
+    }
+    
+    if (!empty(feedColumns['mpn'])) {
+        csvFileHeader.push("mpn");
+    }
+    
+    if (!empty(feedColumns['brand'])) {
+        csvFileHeader.push("brand");
+    }
+    
+    if (!empty(feedColumns['color'])) {
+        csvFileHeader.push("color");
+    }
+    
+    if (!empty(feedColumns['size'])) {
+        csvFileHeader.push("size");
+    }
+    
+    if (!empty(feedColumns['gender'])) {
+        csvFileHeader.push("gender");
+    }
+    
+    if (!empty(feedColumns['ageGroup'])) {
+        csvFileHeader.push("age_group");
+    }
+    
+    if (!empty(feedColumns['customLabel0'])) {
+        csvFileHeader.push("custom_label_0");
+    }
+    
+    if (!empty(feedColumns['customLabel1'])) {
+        csvFileHeader.push("custom_label_1");
+    }
+    
+    if (!empty(feedColumns['customLabel2'])) {
+        csvFileHeader.push("custom_label_2");
+    }
+    
+    if (!empty(feedColumns['customLabel3'])) {
+        csvFileHeader.push("custom_label_3");
+    }
+    
+    if (!empty(feedColumns['longDescription'])) {
+        csvFileHeader.push("long_description");
+    }
+    
+    if (!empty(feedColumns['width'])) {
+        csvFileHeader.push("width");
+    }
+    
+    if (!empty(feedColumns['rating'])) {
+        csvFileHeader.push("rating");
+    }
+    
+>>>>>>> Merged in release-5-new (pull request #258)
     return csvFileHeader
 }
 
@@ -306,7 +464,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push(""); 
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['masterProductID'])) {
         if (product.ID && product.productType) {
             productDetails.push(product.masterProductID);
@@ -314,7 +476,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push(""); 
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['isMasterProduct'])) {
         if (product.isMasterProduct) {
             productDetails.push("1");
@@ -322,7 +488,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("0");
         }
     }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['title'])) {
         if (product.title) {
             productDetails.push(product.title);
@@ -330,7 +500,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['description'])) {
         if (product.description) {
             productDetails.push(product.description);
@@ -338,7 +512,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['price'])) {
         if (product.price) {
             productDetails.push(product.price);
@@ -346,7 +524,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['link'])) {
         if (product.producturl) {
             productDetails.push(product.producturl);
@@ -363,12 +545,17 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+<<<<<<< HEAD
     if (!empty(feedColumns['additionalImageLink'])) {
         if (product.isWristedImage == 'Wrist-Shot') {
             productDetails.push(product.additionalImageLink)
         } else {
             productDetails.push("");
         }
+=======
+    if (!empty(feedColumns['additionImageLink'])) {
+        productDetails.push("");
+>>>>>>> Merged in release-5-new (pull request #258)
     }
 
     if (!empty(feedColumns['availability'])) {
@@ -395,6 +582,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+<<<<<<< HEAD
     if (!empty(feedColumns['googleProductCategory'])) {
         if (product.googleCategoryPath) {
             productDetails.push(product.googleCategoryPath);
@@ -403,6 +591,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
       } 
 
+=======
+>>>>>>> Merged in release-5-new (pull request #258)
     if (!empty(feedColumns['condition'])) {
         productDetails.push("new");
     }
@@ -416,11 +606,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['mpn'])) {
+<<<<<<< HEAD
         if (product.ID) {
             productDetails.push(product.ID);
         } else {
             productDetails.push(""); 
         }
+=======
+        productDetails.push("");
+>>>>>>> Merged in release-5-new (pull request #258)
     }
 
     if (!empty(feedColumns['brand'])) {
@@ -456,12 +650,21 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['ageGroup'])) {
+<<<<<<< HEAD
         productDetails.push("adult");
     }
 
     if (!empty(feedColumns['customLabel0'])) {
         if (product.googleCategoryPath) {
             productDetails.push(product.googleCategoryPath);
+=======
+        productDetails.push("");
+    }
+
+    if (!empty(feedColumns['customLabel0'])) {
+        if (categoriesPath) {
+            productDetails.push(categoriesPath);
+>>>>>>> Merged in release-5-new (pull request #258)
         } else {
             productDetails.push("");
         }
@@ -476,7 +679,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['customLabel2'])) {
+<<<<<<< HEAD
         productDetails.push(product.isWristedImage);
+=======
+        productDetails.push("");
+>>>>>>> Merged in release-5-new (pull request #258)
     }
 
     if (!empty(feedColumns['customLabel3'])) {
@@ -512,6 +719,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters) {
+<<<<<<< HEAD
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice() : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
@@ -524,6 +732,15 @@ function getProductAttributes(product, feedParameters) {
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
         price:  productPrice + " " + productCurrencyCode,
+=======
+    var productAttributes = {
+        ID: product.ID,
+        title: product.name,
+        imageurl: getProductImageURL(product),
+        producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
+        description: product.getShortDescription(),
+        price:  product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().getValueOrNull() : "",
+>>>>>>> Merged in release-5-new (pull request #258)
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
@@ -537,10 +754,14 @@ function getProductAttributes(product, feedParameters) {
         longDescription : product.getLongDescription(),
         gender : product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
         width : product.custom.width ? product.custom.width : "",
+<<<<<<< HEAD
         isMasterProduct : product.master ? true : false,
         jewelryStyle : jewelryStyle,
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot"
+=======
+        isMasterProduct : product.master ? true : false
+>>>>>>> Merged in release-5-new (pull request #258)
     };
     return productAttributes;
 }
@@ -558,11 +779,19 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
             if (empty(variantJSON.product.description)) {
                 variantJSON.product.description = masterProductAttributes.description;
             }
+<<<<<<< HEAD
 
             if (empty(variantJSON.product.name)) {
                 variantJSON.product.name = masterProductAttributes.name;
             }
 
+=======
+            
+            if (empty(variantJSON.product.name)) {
+                variantJSON.product.name = masterProductAttributes.name;
+            }
+            
+>>>>>>> Merged in release-5-new (pull request #258)
             variants.push(variantJSON);
         }
     }
@@ -570,10 +799,16 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
 }
 
 function getProductImageURL(product) {
+<<<<<<< HEAD
     var firstImageLink = product.getImage("large", 0) != null ? product.getImage("large", 0).absURL.toString() : null;
     var additionalImageLink = product.getImage("large", 3) != null ? product.getImage("large", 3).absURL.toString() : null;
     var isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1))) ? true : false;
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage}
+=======
+    var images = product.getImages('large');
+    var imagesIt = images.iterator();
+    return imagesIt.hasNext() ? imagesIt.next().absURL.toString() : null;
+>>>>>>> Merged in release-5-new (pull request #258)
 }
 
 function getProductSalePrice(product) {

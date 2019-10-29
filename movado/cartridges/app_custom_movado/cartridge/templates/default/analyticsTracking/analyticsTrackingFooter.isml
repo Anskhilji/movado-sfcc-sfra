@@ -1,6 +1,16 @@
 <!--- TEMPLATENAME: trackingFooter.isml --->
 
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')}">
+    <isif condition="${!empty(pdict.pdpAnalyticsTrackingData)}">
+        <script>
+            var pdpAnalyticsTrackingData = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Analytics-GetEmail', 'trackingData', pdict.pdpAnalyticsTrackingData)}"/>));
+        </script>
+    </isif>
+    <isif condition="${!empty(pdict.categoryAnalyticsTrackingData)}">
+        <script>
+            var categoryAnalyticsTrackingData = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Analytics-GetEmail', 'trackingData', pdict.categoryAnalyticsTrackingData)}"/>));
+        </script>
+    </isif>
     <script>
         var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');
         var triggerEvent;
@@ -23,17 +33,16 @@
             	triggerEvent = 'trackCart';
             }
         }
-        if('${pdict.orderAnalyticsTrackingData}' != 'null') {
+        if('${pdict.orderAnalyticsTrackingData}' != 'null' && '${session.custom.orderJustPlaced}' == 'true') {
             analyticsTracking.order = JSON.parse('<isprint value="${pdict.orderAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
             triggerEvent = 'piPurchase';
         }
-
-        if('${pdict.pdpAnalyticsTrackingData}' != 'null') {
-            analyticsTracking.pdp = JSON.parse('<isprint value="${pdict.pdpAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+        if(typeof pdpAnalyticsTrackingData !== 'undefined' && pdpAnalyticsTrackingData && pdpAnalyticsTrackingData.trackingData) {
+            analyticsTracking.pdp = pdpAnalyticsTrackingData.trackingData;
             triggerEvent = 'itemDetails';
         }
-        if('${pdict.categoryAnalyticsTrackingData}' != 'null') {
-            analyticsTracking.category = JSON.parse('<isprint value="${pdict.categoryAnalyticsTrackingData}" encoding="htmlsinglequote"/>');
+        if(typeof categoryAnalyticsTrackingData !== 'undefined' && categoryAnalyticsTrackingData && categoryAnalyticsTrackingData.trackingData) {
+            analyticsTracking.category = categoryAnalyticsTrackingData.trackingData;
             if (analyticsTracking.category.searchQuery) {
                 triggerEvent = 'search';
             } else {

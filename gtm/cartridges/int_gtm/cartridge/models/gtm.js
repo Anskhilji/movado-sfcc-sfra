@@ -6,6 +6,7 @@ var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSO
 var productFactory = require('*/cartridge/scripts/factories/product');
 var Resource = require('dw/web/Resource');
 var Encoding = require('dw/crypto/Encoding');
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
@@ -89,7 +90,7 @@ function gtmModel(req) {
     	    var productImpressionTags = getPDPProductImpressionsTags(productObj);
     	    this.product = {
     	    	productID: productImpressionTags.productID,
-        	    productName: productImpressionTags.productName,
+        	    productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
         	    brand: productImpressionTags.brand,
         	    productPersonalization: productImpressionTags.productPersonalization,
         	    category: primarySiteSection,
@@ -99,7 +100,7 @@ function gtmModel(req) {
     	}    	else if (searchkeyword != null) {
     		// search count
         searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
-        this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? searchkeyword : '';
+        this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
     	    var searchQuery = { q: searchkeyword };
     		var productArray = getSearchResultProducts(req, searchQuery);
@@ -365,7 +366,7 @@ function getCategoryLevelCount(category, levelCount) {
  */
 function getPDPProductImpressionsTags(productObj) {
     var productID = productObj.ID;
-    var productName = productObj.name;
+    var productName = stringUtils.removeSingleQuotes(productObj.name);
     var brand = productObj.brand;
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
@@ -397,7 +398,7 @@ function getBasketParameters() {
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
                 cartJSON.push({
                     id: cartItem.productID,
-                    name: cartItem.productName,
+                    name: stringUtils.removeSingleQuotes(cartItem.productName),
                     brand: cartItem.product.brand,
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
@@ -423,7 +424,7 @@ function getCartJSONArray(checkoutObject) {
     for (var i = 0; i < cartJSON.length; i++) {
         var cartObj = {};
         cartObj.id = cartJSON[i].id;
-        cartObj.name = cartJSON[i].name;
+        cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
         cartObj.price = cartJSON[i].price;
         cartObj.brand = cartJSON[i].brand;
         cartObj.category = escapeQuotes(cartJSON[i].category);
@@ -582,7 +583,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             var produtObj = {};
 
             produtObj.id = productLineItem.product.ID;
-            produtObj.name = productLineItem.product.name;
+            produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
             produtObj.brand = productLineItem.product.brand;
             produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? productLineItem.product.masterProduct.primaryCategory.ID
                 : '')
