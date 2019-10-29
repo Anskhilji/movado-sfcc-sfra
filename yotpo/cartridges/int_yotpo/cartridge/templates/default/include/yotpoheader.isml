@@ -29,14 +29,14 @@ from Yotpo which is mandatory for the Yotpo functionality to work</iscomment>
 		
 		//Custom code to refresh Yotpo Widgets
 	       function refreshYotpoWidgets() {
-	           if(isYotpoJsLoaded) {
+	           if(document.readyState === 'complete' && isYotpoJsLoaded) {
 	               var api = new Yotpo.API(yotpo);
 	               api.refreshWidgets();
 	           } else {
-	               setTimeout(refreshYotpoWidgets, 1000);
+	               setTimeout(refreshYotpoWidgets, 500);
 	           }
 	       }
-	        setTimeout(refreshYotpoWidgets, 2000);
+	        setTimeout(refreshYotpoWidgets, 500);
 	</script>
 	<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled}">
 		<isscript>

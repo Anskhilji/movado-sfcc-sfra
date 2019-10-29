@@ -86,6 +86,7 @@ function searchOrders(currentDateTime, orderFeedJobLastExecutionTime) {
 function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig) {
     var Calendar = require('dw/util/Calendar');
     var ProductMgr = require('dw/catalog/ProductMgr');
+    var Site = require('dw/system/Site');
     var StringUtils = require('dw/util/StringUtils');
     var URLUtils = require('dw/web/URLUtils');
     var Constants = require('~/cartridge/scripts/yotpo/utils/Constants');
@@ -127,6 +128,12 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
 
     // Configuration data
     var utokenAuthCode = yotpoConfiguration.custom.utokenAuthCode;
+    
+    // Product name for yotpo
+    var yotpoProductName;
+
+    // Get custom preference
+    var overrideProductName = Site.getCurrent().getCustomPreferenceValue('overrideProductName');
 
     payload += '{';
     temp += '"validate_data": true,'
@@ -144,7 +151,7 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
         }
 
         customer = order.customer;
-
+        
         try {
             var orderPayload = '';
             if (customer.isRegistered()) {
@@ -216,8 +223,14 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
                     if (empty(currentProduct.ID) || empty(productURL) || empty(currentProduct.name)) {
                         throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
                     }
-
-                    productName = empty(currentProduct.name) ? ' ' : YotpoUtils.escape(currentProduct.name, Constants.REGEX_FOR_YOTPO_DATA, '');
+                    
+                    if(overrideProductName && currentProduct.custom.yotpoProductName){
+                        productName = currentProduct.custom.yotpoProductName;
+                    } else {
+                        productName = currentProduct.name;
+                    }
+                    
+                    productName = empty(productName) ? ' ' : YotpoUtils.escape(productName, Constants.REGEX_FOR_YOTPO_DATA, '');
                     description = empty(currentProduct.shortDescription) ? ' ' : YotpoUtils.escape(currentProduct.shortDescription.source, Constants.REGEX_FOR_YOTPO_DATA, '');
                     productID = YotpoUtils.escape(currentProduct.ID, Constants.PRODUCT_REGEX_FOR_YOTPO_DATA, '-');
                     mpn = empty(currentProduct.manufacturerSKU) ? ' ' : YotpoUtils.escape(currentProduct.manufacturerSKU, Constants.REGEX_FOR_YOTPO_DATA, '');

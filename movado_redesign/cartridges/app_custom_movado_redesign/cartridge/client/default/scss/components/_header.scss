@@ -300,12 +300,16 @@ header.new-header {
 
           &:focus {
             box-shadow: none;
-            outline: none;
+            outline: -webkit-focus-ring-color auto 1px;
+            
           }
         }
       }
     }
-
+    &:focus {
+        outline: -webkit-focus-ring-color auto 1px;
+    }
+    
     &:hover {
 
       .popover {
@@ -390,6 +394,7 @@ header.new-header {
     padding: 0 rem(15);
     padding-top: rem(25);
     display: none;
+    padding-bottom: rem(5);
 
     .search-recomendation  {
       margin-top: rem(16);
@@ -488,6 +493,10 @@ header.new-header {
       text-decoration: none;
       margin-right: rem(10px);
       letter-spacing: normal;
+      
+      &:focus {
+        outline: -webkit-focus-ring-color auto 1px;
+      }
     }
     
     form {

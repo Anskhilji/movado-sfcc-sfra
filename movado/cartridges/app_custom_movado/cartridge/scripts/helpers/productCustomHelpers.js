@@ -676,7 +676,7 @@ function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
     if (categoryName != null) {
         productClickGtmObj.push({
-            name: product.productName,
+            name: escapeQuotes(product.productName),
             id: product.id,
             price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
             brand: product.brand,
@@ -716,7 +716,7 @@ function getProductGtmObj(product, categoryName, position) {
     var productGtmObj = [];
     if (categoryName != null) {
         productGtmObj.push({
-	          name: product.productName,
+	          name: escapeQuotes(product.productName),
 	          id: product.id,
 	          price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
 	          currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
@@ -771,7 +771,7 @@ function getQVGtmObj(product, categoryName) {
         category = escapeQuotes(categoryName);
     }
     productGtmObj.push({
-	          name: product.productName,
+	          name: escapeQuotes(product.productName),
 	          id: product.id,
 	          price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
 	          brand: product.brand,

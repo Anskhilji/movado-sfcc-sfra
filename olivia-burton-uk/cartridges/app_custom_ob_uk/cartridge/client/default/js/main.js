@@ -26,3 +26,4 @@ $(document).ready(function () {
 });
 
 require('base/components/spinner');
+window.slickSlider = require('movado/components/slickCarousel');

@@ -26,13 +26,15 @@
 				style="line-height:18px;font-size:12px;text-align:center;color:#000001;vertical-align:top;">
 				<div class="blockquote"
 					style="background-color:#e9e9e9;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;padding-top:20px;padding-bottom:20px;padding-right:30px;padding-left:30px;">
-					<isloop items="${pdict.order.trackingUrls}" var="tracking" status="status">
-						<span class="strong uppercase" style="font-weight:700;text-transform:uppercase;">${pdict.trackingNumberLabel}${tracking.trackingNumber}</span>
-							<br/>
+					<isloop items="${pdict.order.trackingUrlsAndNumbers}" var="tracking" status="status">
+						<span class="strong uppercase" style="font-weight:700;text-transform:uppercase;">
+						    ${pdict.trackingNumberLabel}${tracking.trackingNumber}
+						</span>
+						</br>
 						<a href="${tracking.trackingURL}">${pdict.trackLabel}</a>
 						<isif condition="${!status.last}" >
-							<br/>
-						</isif>
+                            <br/>
+                        </isif>
 					</isloop>
 				</div>
 			</td>

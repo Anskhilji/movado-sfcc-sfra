@@ -12,7 +12,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
 var ABTestMgr = require('dw/campaign/ABTestMgr');
-
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -95,9 +95,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
-    		categoryAnalyticsTrackingData = {categoryId : productSearch.category.name};
+            var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
+    		categoryAnalyticsTrackingData = {categoryId : categoryNameWithoutApostrophe};
     	} else {
-    		categoryAnalyticsTrackingData = {searchQuery: req.querystring.q};
+            var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(req.querystring.q);
+    		categoryAnalyticsTrackingData = {searchQuery: searchQueryWithoutApostrophe};
     	}
 		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
     }

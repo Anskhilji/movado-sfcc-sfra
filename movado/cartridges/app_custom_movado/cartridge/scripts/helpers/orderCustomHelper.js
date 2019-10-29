@@ -28,25 +28,30 @@ function formatOrderDate(lineItemContainer) {
     return creationDate;
 }
 
-function getTrackingUrls(lineItems) {
+function getTrackingUrlsAndNumbers(lineItems) {
     var trackingUrls = new ArrayList();
-    var trackingNumbers = new HashMap();
+    var baseTrackingUrl = Site.current.getCustomPreferenceValue('baseTrackingUrl');
 
-    collections.forEach(lineItems, function (lineItem) {
-        var trackingNumber = lineItem.custom.sapTrackingNumber;
-        if (trackingNumber != undefined) {
-            if (trackingNumbers[trackingNumber] == undefined) {
-                trackingNumbers.put(trackingNumber, trackingNumber);
-                var trackingURL = baseTrackingUrl + trackingNumber;
-                var trackingInfo = {
-                    trackingNumber: trackingNumber,
-                    trackingURL: trackingURL
-                };
-                trackingUrls.add(trackingInfo);
+    if (!empty(baseTrackingUrl)) {
+        baseTrackingUrl = JSON.parse(baseTrackingUrl);
+        var trackingUrlsObj = baseTrackingUrl.trackingUrls;
+        var trackingNumbers = new HashMap();
+        collections.forEach(lineItems, function (lineItem) {
+        	var vendorCode = lineItem.custom.sapCarrierCode;
+            var trackingNumber = lineItem.custom.sapTrackingNumber;
+            if (!empty(trackingNumber) && !empty(vendorCode)) {
+            	var val = getTrackingURL(trackingUrlsObj, vendorCode, trackingNumber);
+                if (empty(trackingNumbers.get(trackingNumber))) {
+                    trackingNumbers.put(trackingNumber, trackingNumber);
+                    var trackingInfo = {
+                        trackingNumber: trackingNumber,
+                        trackingURL: getTrackingURL(trackingUrlsObj, vendorCode, trackingNumber)
+                    };
+                    trackingUrls.add(trackingInfo);
+                }
             }
-        }
-    });
-
+        });
+    }
     return trackingUrls;
 }
 
@@ -214,7 +219,8 @@ function getPaymentMethod(order) {
 
 module.exports = {
     formatOrderDate: formatOrderDate,
-    getTrackingUrls: getTrackingUrls,
+    getTrackingURL: getTrackingURL,
+    getTrackingUrlsAndNumbers: getTrackingUrlsAndNumbers,
     getProductLineItemCustomAttributes: getProductLineItemCustomAttributes,
     getSapOrderStatus: getSapOrderStatus,
     formatPhoneNumber: formatPhoneNumber,
@@ -225,3 +231,12 @@ module.exports = {
     isPreOrder: isPreOrder,
     getPaymentMethod: getPaymentMethod
 };
+
+function getTrackingURL(trackingUrl, vendorCode, trackingNum) {
+    var trackingURL = "";
+    var trackingURLData = trackingUrl[vendorCode];
+    if (trackingURLData !== undefined && trackingURLData) {
+        trackingURL = trackingURLData.replace('{trackingNumber}', trackingNum);
+    }
+    return trackingURL;
+}

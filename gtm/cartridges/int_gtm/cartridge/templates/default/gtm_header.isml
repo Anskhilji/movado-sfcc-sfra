@@ -90,7 +90,7 @@
 		</isloop>
 		);				
 	</isif>
-	<isif condition="${pdict.gtm.action === 'order-confirm'}">
+	<isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
 	dataLayer.push (
 		<isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
 			{ "event": "purchase",'ecommerce':{

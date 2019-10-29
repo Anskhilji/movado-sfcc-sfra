@@ -95,6 +95,9 @@
     > div {
       margin-bottom: rem(15);
       padding: 0;
+      @include media-breakpoint-down(sm) {
+        margin-bottom: rem(5);
+      }
     }
 
     #show-more-update {
@@ -418,6 +421,9 @@
     position: relative;
     height: 100%;
     padding: 0 rem(5);
+    @include media-breakpoint-down(sm) {
+        padding: 0 rem(3);
+    }
   }
 
   .tile-discription, .tile-btns {
@@ -439,6 +445,36 @@
 
     @include media-breakpoint-down(lg) {
       min-height: unset;
+    }
+    .promotions {
+        margin-left: rem(15);
+        @include media-breakpoint-down(sm) {
+            margin-left: rem(10);
+        }
+        .callout.promo-msg {
+            padding-top: 0;
+            letter-spacing: normal;
+            font-size: rem(15);
+            @include font-medium;
+            color: $dark-green;
+
+            p {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              width: 60%;
+              white-space: nowrap;
+              margin: 0;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 95px;
+                white-space: nowrap;
+                text-align: left;
+            }
+        }
     }
 
     .out-of-stock, .pre-order {
@@ -552,7 +588,9 @@
       bottom: 0px;
       background: $gray-overlay;
       transition: 0.4s ease-out;
-
+    @include media-breakpoint-down(xs) {
+        padding: rem(10);
+    }
       .pdp-link {
         margin-bottom: rem(5);
       }
@@ -841,15 +879,16 @@
 
 
 @media only screen and (min-width: $custom-sm) {
-  .pdp-link {
-    display: flex;
-    align-items: center;
-
-    .product-name {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+  .plp-new-design {
+    .pdp-link {
+      display: flex;
+      align-items: center;
+      .product-name {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

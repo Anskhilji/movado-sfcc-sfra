@@ -9,6 +9,7 @@ var productMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var page = module.superModule;
 var Resource = require('dw/web/Resource');
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -29,6 +30,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var viewData = res.getViewData();
@@ -39,19 +41,30 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
+    var isEmbossEnabled;
+    var isEngraveEnabled;
+    var isGiftWrapEnabled;
 
 	/* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
+        isEmbossEnabled = product.custom.Emboss;
+        isEngraveEnabled = product.custom.Engrave;
+        isGiftWrapEnabled = product.custom.GiftWrap;
     }
 
     viewData = {
+        isEmbossEnabled: isEmbossEnabled,
+        isEngraveEnabled: isEngraveEnabled,
+        isGiftWrapEnabled: isGiftWrapEnabled,
             isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
             moreStyleRecommendations: moreStyleRecommendations,
             youMayLikeRecommendations: youMayLikeRecommendations,
@@ -63,12 +76,14 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice
     };
+    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
+    res.setViewData(smartGift);
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
     	pdpAnalyticsTrackingData = {
             itemID: product.ID,
-            itemName: product.name
+            itemName: stringUtils.removeSingleQuotes(product.name)
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
@@ -127,13 +142,15 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
     }
     var product = productMgr.getProduct(productCustomHelpers.formatProductId(productID));
     if (product) {
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        if(product.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        }
     }
     var productGtmArray = {};
   // object for GTM
     productGtmArray = {
         id: product.ID,
-        name: product.name,
+        name: stringUtils.removeSingleQuotes(product.name),
         brand: product.brand,
         category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.displayName
 				   : (product.primaryCategory ? product.primaryCategory.displayName : ''),
@@ -149,7 +166,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
 
         pdpAnalyticsTrackingData = {
             itemID: product.ID,
-            itemName: product.name
+            itemName: stringUtils.removeSingleQuotes(product.name)
         };
         pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         res.setViewData({pdpAnalyticsTrackingData: JSON.stringify(pdpAnalyticsTrackingData)});

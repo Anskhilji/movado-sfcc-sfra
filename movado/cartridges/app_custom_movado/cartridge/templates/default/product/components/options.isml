@@ -5,16 +5,22 @@
         <div class="row product-option" data-option-id="${option.id}">
             <div class="col-12">
                 <isif condition="${option.id.indexOf('Embossed') > -1}">
-                	<isinclude template="product/components/productEmbossing" />	
+                    <isif condition="${pdict.isEmbossEnabled}">
+                        <isinclude template="product/components/productEmbossing" />
+                    </isif>
                 <iselseif condition="${option.id.indexOf('Engraved') > -1}">
-                   <isinclude template="product/components/productEngraving" />
+                    <isif condition="${pdict.isEngraveEnabled}">
+                        <isinclude template="product/components/productEngraving" />
+                    </isif>
                 <iselseif condition = "${option.id.indexOf('GiftWrapped') > -1}">
-                    <div class="d-none">
+                <div class="d-none">
+                    <isif condition="${pdict.isGiftWrapEnabled}">
                         <isinclude template="product/components/option" />
-                    </div>
+                    </isif> 
+                </div>
                 <iselse>
                    <isinclude template="product/components/option" />
-                </isif>    
+                </isif>
             </div>
 
             <!-- Quantity Drop Down Menu -->
@@ -24,7 +30,7 @@
                 </div>
             </isif>
         </div>
-        <isif condition="${(product.options.length == loopStatus.count) && product.options[loopStatus.count - 1].id.indexOf('GiftWrapped') < 0}">
+        <isif condition="${(product.options.length == loopStatus.count) && product.options[loopStatus.count - 1].id.indexOf('GiftWrapped') < 0 && (pdict.isEmbossEnabled || pdict.isEngraveEnabled || pdict.isGiftWrapEnabled)}">
             <hr />
         </isif>
     </isloop>
