@@ -512,7 +512,7 @@ function createErrorNotification(message) {
  * @param {Object} data - AJAX response from the server
  */
 function updateCheckoutTotals(data) {
-    if (data.totals.isFree == true) {
+    if (typeof data.totals !== 'undefined' && typeof data.totals.isFree !== 'undefined' && data.totals.isFree === true) {
         $('.shipping-total-cost').empty().append(data.totals.freeShippingLabel);
     } else {
         $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);

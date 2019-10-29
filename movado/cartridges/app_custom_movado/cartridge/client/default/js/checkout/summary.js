@@ -5,7 +5,7 @@
  * @param {Array} totals - the totals data
  */
 function updateTotals(totals) {
-    if (totals.isFree == true) {
+    if (typeof totals !== 'undefined' && typeof totals.isFree !== 'undefined' && totals.isFree === true) {
         $('.shipping-total-cost').text(totals.freeShippingLabel);
     } else {
         $('.shipping-total-cost').text(totals.totalShippingCost);

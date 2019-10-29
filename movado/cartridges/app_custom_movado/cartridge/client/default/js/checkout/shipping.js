@@ -195,7 +195,12 @@ function updateShippingMethods(shipping) {
                             .show();
                     }
                     // set shipping cost
-                    $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                    if (typeof shippingMethod !== 'undefined' && typeof shippingMethod.freeShippingContent !== 'undefined' 
+                            && shippingMethod.freeShippingContent.isFree === true) {
+                            $('.shipping-cost', tmpl).text(shippingMethod.freeShippingContent.freeShippingLabel);
+                        } else {
+                            $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                        }
                     $shippingMethodList.append(tmpl.html());
                 });
             }
@@ -285,7 +290,9 @@ function updateShippingSummaryInformation(shipping, order) {
             } else {
                 $methodArrivalTime.empty();
             }
-            if (selectedShippingMethod.freeShippingContent.isFree){
+            if (typeof selectedShippingMethod !== 'undefined' && selectedShippingMethod !== null 
+                && typeof selectedShippingMethod.freeShippingContent !== 'undefined' 
+                && selectedShippingMethod.freeShippingContent.isFree === true) {
                 $methodPrice.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
             } else {
                 $methodPrice.text(selectedShippingMethod.shippingCost);
