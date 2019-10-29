@@ -23,6 +23,7 @@ $(document).ready(function () {
     processInclude(require('./product/base'));
     processInclude(require('./components/miniCart'));
     processInclude(require('movado/utilities/swatches'));
+    processInclude(require('movado/components/emailPopUpSubscription'));
 });
 
 require('base/components/spinner');

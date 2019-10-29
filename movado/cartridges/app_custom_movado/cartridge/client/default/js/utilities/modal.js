@@ -15,25 +15,6 @@ var cookieHandler = require('./cookieHandler');
         }
         $('.email-popup').hide();
     });
-    
-    // Hide email pop up on submit button click
-    $('#emailOptInPopUp_Submit').click(function() {
-        $('.email-optin-control').addClass('d-none');
-        $('.thankyou-note-control').removeClass('d-none');
-        $('.email-popup .modal-dialog').removeClass('quick-view-dialog email-popup-container').addClass('modal-sm');
-        $('.email-popup .modal-dialog').width('60%');
-        $('.email-popup .modal-dialog').height('30%');
-        $(".email-popup").addClass('thankyou-opened');
-        var thankYouNoteColor = $('.email-popup').data('thankyounotecolor');
-        if (thankYouNoteColor) {
-            $('.email-popup .modal-dialog .email-popup-content').css('background', thankYouNoteColor);
-        }
-        setTimeout(function() { 
-            $(".thankyou-opened").click( function() {
-                $('.thankyou-opened').hide();
-            });
-        }, 200);
-    });
 
     // Hide Thank you note on click any where
     $(".thankyou-opened").click( function() {

@@ -20,6 +20,7 @@ $(document).ready(function () {
     processInclude(require('./utilities/gtm-events'));
     processInclude(require('./product/wishlistHeart'));
     processInclude(require('./utilities/swatches'));
+    processInclude(require('./components/emailPopUpSubscription'));
 });
 
 require('base/components/spinner');
