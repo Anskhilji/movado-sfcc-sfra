@@ -1,7 +1,6 @@
-'use strict';
-
-var path = require('path');
-var webpack = require('sgmf-scripts').webpack;
+var fs = require('fs');
+ var path = require('path');
+ var webpack = require('sgmf-scripts').webpack;
 var ExtractTextPlugin = require('sgmf-scripts')['extract-text-webpack-plugin'];
 var sgmfScripts = require('sgmf-scripts');
 
@@ -20,74 +19,71 @@ var bootstrapPackages = {
 };
 
 module.exports = [{
-    mode: 'production',
-    name: 'js',
-    entry: sgmfScripts.createJsPath(),
-    output: {
-        path: path.resolve('./cartridges/int_sap_orderStatus/cartridge/static'),
-        filename: '[name].js'
-    },
-    resolve: {
-        alias: {
-            jquery: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/jquery'),
-            bootstrap: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/bootstrap'),
-            lodash: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/lodash')
-        }
-    },
-    module: {
-        rules: [
-            {
-                test: /bootstrap(.)*\.js$/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/env'],
-                        plugins: ['@babel/plugin-proposal-object-rest-spread'],
-                        cacheDirectory: true
-                    }
-                }
-            }
-        ]
-    },
-    plugins: [new webpack.ProvidePlugin(bootstrapPackages)]
-}, {
-    mode: 'none',
-    name: 'scss',
-    entry: sgmfScripts.createScssPath(),
-    output: {
-        path: path.resolve('./cartridges/int_sap_orderStatus/cartridge/static'),
-        filename: '[name].css'
-    },
-    module: {
-        rules: [{
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-                use: [{
-                    loader: 'css-loader',
-                    options: {
-                        url: false,
-                        minimize: true
-                    }
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: [
-                            require('autoprefixer')()
-                        ]
-                    }
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        includePaths: [
-                            path.resolve(process.cwd(), '../storefront-reference-architecture/node_modules/'),
-                            path.resolve(process.cwd(), '../storefront-reference-architecture/node_modules/flag-icon-css/sass')
-                        ]
-                    }
-                }]
-            })
-        }]
-    },
-    plugins: [
-        new ExtractTextPlugin({ filename: '[name].css' })
-    ]
+     mode: 'production',
+     name: 'js',
+     entry: sgmfScripts.createJsPath(),
+     output: {
+         path: path.resolve('./cartridges/int_sap_orderStatus/cartridge/static'),
+         filename: '[name].js'
+     },
+     resolve: {
+         alias: {
+             jquery: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/jquery'),
+             bootstrap: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/bootstrap'),
+             lodash: path.resolve(__dirname, '../storefront-reference-architecture/node_modules/lodash')
+         }
+     },
+     module: {
+         rules: [
+             {
+                 test: /bootstrap(.)*\.js$/,
+                 use: {
+                     loader: 'babel-loader',
+                     options: {
+                         presets: ['@babel/env'],
+                         plugins: ['@babel/plugin-proposal-object-rest-spread'],
+                         cacheDirectory: true
+                 }
+             }
+     },
+     plugins: [new webpack.ProvidePlugin(bootstrapPackages)]
+	}, {
+     mode: 'none',
+     name: 'scss',
+     entry: sgmfScripts.createScssPath(),
+     output: {
+         path: path.resolve('./cartridges/int_sap_orderStatus/cartridge/static'),
+         filename: '[name].css'
+     },
+     module: {
+         rules: [{
+             test: /\.scss$/,
+             use: ExtractTextPlugin.extract({
+                 use: [{
+                     loader: 'css-loader',
+                     options: {
+                         url: false,
+                         minimize: true
+                     }
+                 }, {
+                     loader: 'postcss-loader',
+                     options: {
+                         plugins: [
+                             require('autoprefixer')()
+                         ]
+                     }
+                 }, {
+                     loader: 'sass-loader',
+                     options: {
+                         includePaths: [
+                             path.resolve(process.cwd(), '../storefront-reference-architecture/node_modules/'),
+                             path.resolve(process.cwd(), '../storefront-reference-architecture/node_modules/flag-icon-css/sass')
+                         ]
+                 }]
+             })
+         }]
+     },
+     plugins: [
+         new ExtractTextPlugin({ filename: '[name].css' })
+     ]
 }];

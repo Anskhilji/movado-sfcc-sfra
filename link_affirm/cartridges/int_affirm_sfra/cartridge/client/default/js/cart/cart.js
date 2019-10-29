@@ -1,5 +1,5 @@
 'use strict';
-var base = require('../base/product/base');
+var base = require('base/product/base');
 
 /**
  * appends params to a url
