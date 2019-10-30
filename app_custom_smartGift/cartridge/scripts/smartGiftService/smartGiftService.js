@@ -81,15 +81,9 @@ var sendOrderDetails = function(requestPayload) {
     url = url.toString() + 'complete';
     smartGiftService.setURL(url);
     try {
-<<<<<<< HEAD
-        var requestPayload = smartGiftService.call(requestPayload);
-        if (!requestPayload.isOk()) {
-            Logger.error(LOG_LOCATION + ' Smartgift: Send Cart Details Service Call. Error code : {0} Error => ResponseStatus: {1} ', requestPayload.getError().toString(), requestPayload.getStatus());
-=======
         var serviceResponse = smartGiftService.call(requestPayload);
         if (!serviceResponse.isOk()) {
             Logger.error(LOG_LOCATION + ' Smartgift: Send Cart Details Service Call. Error code : {0} Error => ResponseStatus: {1} ', serviceResponse.getError().toString(), serviceResponse.getStatus());
->>>>>>> Merged in release-5-new (pull request #258)
         }
     } catch (e) {
         Logger.fatal('Smartgift: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);

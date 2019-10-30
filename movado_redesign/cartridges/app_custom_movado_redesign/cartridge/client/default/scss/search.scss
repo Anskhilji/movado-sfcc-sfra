@@ -457,8 +457,6 @@
             font-size: rem(15);
             @include font-medium;
             color: $dark-green;
-<<<<<<< HEAD
-=======
 
             p {
               text-overflow: ellipsis;
@@ -468,7 +466,6 @@
               margin: 0;
             }
 
->>>>>>> Merged in release-5-new (pull request #258)
             @include media-breakpoint-down(sm) {
                 font-size: rem(10);
                 text-overflow: ellipsis;
