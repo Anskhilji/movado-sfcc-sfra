@@ -1,4 +1,6 @@
 <isif condition="${session.custom.welcomeMat}" >
     <isprint value="${pdict.contentBody}" encoding="off" />
     <span class="welcomemat-current-country d-none">${pdict.currentCountry}</span>
-</isif>  
+    <span data-currentsiteurl="${pdict.shippingURL}" class="welcomemat-current-shipping-country d-none welcomemat-current-site-url">${pdict.currentWebsite}</span>
+    <isset name="redirectionShippingFlag" value="true" scope="session"/>
+</isif>
