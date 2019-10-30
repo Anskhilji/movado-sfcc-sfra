@@ -1,10 +1,10 @@
-<div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+<div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <isif condition="${pdict.isPLPProduct}">
          <div class="simple-quantity">
             <isinclude template="product/components/quantity" />
         </div>
      </isif>
-    <div class="col-sm-12">
+    <div>
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart'
             data-pid="${product.id}"

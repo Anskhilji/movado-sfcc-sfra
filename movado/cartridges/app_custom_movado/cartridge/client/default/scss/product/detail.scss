@@ -185,18 +185,24 @@ label.availability {
 
 .smartgift-btn {
     background: url(../../images/sg-gift-box.svg) left rem(15) top rem(6) no-repeat;
-    background-size: rem(19);
+    background-size: 19px;
     padding-left: rem(42);
     letter-spacing: normal;
     font-weight: 600;
     padding-right: rem(15);
     outline: none;
+    border-radius: 0px;
     &:hover, &:focus {
-        color: unset;
-        background-color: unset;
-        border-color: unset;
+        color: inherit;
+        background-color: transparent;
+        border-color: inherit;
         box-shadow: none;
+        box-radius: none;
     }
+}
+
+.add-to-cart {
+    border-radius: 0px;
 }
 .smartgift-bottom-text {
     letter-spacing: rem(0);
