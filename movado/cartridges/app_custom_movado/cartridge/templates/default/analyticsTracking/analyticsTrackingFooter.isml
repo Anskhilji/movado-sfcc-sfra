@@ -67,10 +67,10 @@
 
            	if (e.cartAnalyticsTrackingData) {
            		analyticsTracking.cart = JSON.parse(e.cartAnalyticsTrackingData);
-           		dataLayer.push({'analyticsTracking': undefined});
 	            if (analyticsTracking.cart.clear_cart) {
 	                dataLayer.push({'event':'setClearCart', 'analyticsTracking': analyticsTracking});
 	            } else {
+	                dataLayer.push({'analyticsTracking': undefined});
 	                dataLayer.push({'event':'trackCart', 'analyticsTracking': analyticsTracking});
 	            }
            	}
