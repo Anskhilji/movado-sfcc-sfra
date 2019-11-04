@@ -72,6 +72,7 @@
   }
 
   .refinements {
+    padding-top: rem(41);
 
     .values {
       margin: 0;
@@ -118,6 +119,9 @@
       outline: none;
       padding-left: rem(25);
       background: url("../images/filter.png") left center no-repeat;
+      &:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
     }
   }
 
@@ -175,7 +179,7 @@
     left: unset;
     opacity: 0;
     pointer-events: none;
-
+    display: none !important;
     .sort-col {
       display: block;
     }
@@ -231,6 +235,9 @@
         min-height: 2.5rem;
         outline: none;
         text-transform: capitalize;
+        &:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
 
         &.selected-value {
           span {
@@ -271,6 +278,10 @@
       pointer-events: all;
     }
 
+    &.d-block {
+      display: block !important;
+    }
+
     .custom-select.custom-select--active + .fa-angle-down {
       display: none;
     }
@@ -288,6 +299,9 @@
         text-transform: capitalize;
         outline: none;
         padding: rem(5) 0;
+        &:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
 
         &::after {
           content: "";
@@ -380,6 +394,9 @@
       padding: rem(3) 0;
       padding-left: rem(15);
       background-size: rem(15);
+      &:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+      }
     }
 
     .header-bar {
@@ -651,7 +668,10 @@
         background: url("../images/shoping-bag.svg") center no-repeat;
         background-size: rem(24);
         border: none;
-        outline: none
+        outline: none;
+        &:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
       }
 
       .tile-discription {
