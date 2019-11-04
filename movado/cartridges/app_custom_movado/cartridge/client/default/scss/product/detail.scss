@@ -227,3 +227,14 @@ label.availability {
 .smartgift-bottom-text {
     letter-spacing: rem(0);
 }
+
+.product-detail, .description-and-detail {
+
+    .btn {
+        background-color: transparent;
+
+        &.btn-primary {
+            background-color: $black;
+        }
+    }
+}
