@@ -306,6 +306,9 @@ $negative-spacer: -0.625rem;
         object-fit: cover;
         object-position: top;
         overflow: hidden;
+        @media (max-width: 576px) {
+            max-height: 6.875rem;
+        }
     }
     .gift-text {
       height: 6.875rem;

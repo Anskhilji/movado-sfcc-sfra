@@ -1,4 +1,4 @@
-<!-- Gift Messaging and Wrapping Option-->
+<!-- Gift Messaging and Wrapping Option Customized Movado Only-->
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="product-gift-wrap pt-2" data-update-message-url="${URLUtils.url('Cart-AddGiftMessage')}">
     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -23,20 +23,29 @@
                     <iscontentasset aid="giftWrapImage"/>
                 </div>
                 <div class="col-md-8 p-0 pl-md-2">
-                    <div class="character-limit float-right">
+                    <div class="character-limit text-right mb-2">
                         <span class="characters-left">${pdict.lineItemGiftMessage[lineItem.UUID].giftCharLimit}</span> ${pdict.giftMessaging.giftCharLimitText}
                         <br>
-                        <span class='float-right mb-1 mt-1'>${Resource.msg('cart.gift.no.emojis.text', 'cart', null)}</span>
+                        <span class=' mt-1'>${Resource.msg('cart.gift.no.emojis.text', 'cart', null)}</span>
                     </div>
-                    <div class="form-group gift-textarea">
-                        <textarea rows="4" name="giftMessageText" class="form-control gift-text mb-1"
-                            aria-label="${pdict.giftMessaging.giftTextPlaceholder}" col="35"
-                            placeholder="${pdict.giftMessaging.giftTextPlaceholder}" data-format-error="" data-required-error=""
-                            data-row-max="4"
-                            data-row-maxlength="35" maxlength="${pdict.giftMessaging.giftCharLimit}">${pdict.lineItemGiftMessage[lineItem.UUID].giftMessage ? pdict.lineItemGiftMessage[lineItem.UUID].giftMessage : ''}</textarea>
-                        <div class="gift-error-wrapper">
-                            <span class="gift-message-blank">${pdict.giftMessaging.missingText}</span>
-                            <span class="gift-message-error">${Resource.msg('error.message.invalid', 'forms', null)}</span>
+                    <div class="container p-0">
+                        <div class="row">
+                            <div class="col-4 ml-3 p-0 gift-image-ribbon-box d-block d-md-none">
+                                <iscontentasset aid="giftWrapImage"/>
+                            </div>
+                            <div class="col pl-1 pl-md-3">
+                                <div class="form-group gift-textarea">
+                                    <textarea rows="4" name="giftMessageText" class="form-control gift-text mb-1"
+                                        aria-label="${pdict.giftMessaging.giftTextPlaceholder}" col="35"
+                                        placeholder="${pdict.giftMessaging.giftTextPlaceholder}" data-format-error="" data-required-error=""
+                                        data-row-max="4"
+                                        data-row-maxlength="35" maxlength="${pdict.giftMessaging.giftCharLimit}">${pdict.lineItemGiftMessage[lineItem.UUID].giftMessage ? pdict.lineItemGiftMessage[lineItem.UUID].giftMessage : ''}</textarea>
+                                    <div class="gift-error-wrapper">
+                                        <span class="gift-message-blank">${pdict.giftMessaging.missingText}</span>
+                                        <span class="gift-message-error">${Resource.msg('error.message.invalid', 'forms', null)}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${lineItem.UUID}"
