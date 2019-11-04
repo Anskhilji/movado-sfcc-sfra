@@ -4,7 +4,7 @@
             <isinclude template="product/components/quantity" />
         </div>
      </isif>
-    <div>
+    <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart'
             data-pid="${product.id}"
