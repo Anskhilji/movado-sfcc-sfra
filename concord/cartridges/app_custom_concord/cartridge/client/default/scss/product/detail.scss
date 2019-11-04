@@ -172,11 +172,7 @@ label.availability {
 
 .product-detail, .description-and-detail {
 
-    .btn {
+    .btn.quickview, .btn.title {
         background-color: transparent;
-
-        &.btn-primary {
-            background-color: $black;
-        }
     }
 }
