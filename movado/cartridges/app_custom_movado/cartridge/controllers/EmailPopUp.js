@@ -10,7 +10,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var Site = require('dw/system/Site');
 var Util = require('dw/util');
 
-server.get('Show', cache.applyDefaultCache, function (req, res, next) {
+server.get('Show', function (req, res, next) {
     var currentSite = Site.getCurrent();
     var referersPath = req.querystring.RefererPath;
     var seoURL = req.httpHeaders.get('x-is-path_translated');
@@ -21,10 +21,14 @@ server.get('Show', cache.applyDefaultCache, function (req, res, next) {
     var isWhitelistedURL = currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls') 
                            ? currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls').indexOf(relativeURL) : -1;
     var priority = isWhitelistedPipeline > -1 && isWhitelistedPipeline != null ? isWhitelistedPipeline : isWhitelistedURL;
-    var popUpSettings = getPopUpSettings();
-
+    var isEmailPopUpEnabled = currentSite.getCustomPreferenceValue('emailPopupEnabled');
+    var popUpSettings;
+    if (isEmailPopUpEnabled) {
+        popUpSettings = getPopUpSettings();
+    }
     res.render('common/emailOptInPopUp', {
         priority: priority,
+        isEmailPopUpEnabled : isEmailPopUpEnabled,
         popUpSettings: popUpSettings
     });;
     next();
