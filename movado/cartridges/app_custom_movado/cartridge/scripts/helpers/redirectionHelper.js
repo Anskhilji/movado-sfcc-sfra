@@ -42,13 +42,11 @@ function getRedirection(redirectionCookie) {
                 if (currentSiteID !== shippingCountries[country].siteID) {
                     shippingCountry = shippingCountries[country].countryName;
                     countryFlag = true;
-                    var instanceType = System.getInstanceType();  //  0 develpment, 1 stagging, 2 production
+                    var instanceType = System.getInstanceType();
                     if (instanceType === System.PRODUCTION_SYSTEM) {
-                        shippingURL = shippingCountries[country].absURL;
-                    } else if (Site.getCurrent().getCustomPreferenceValue('isRedirectToCurrentHost')) {
-                        shippingURL = 'https://' + hostName + shippingCountries[country].relativeURL;
+                        shippingURL = shippingCountries[country].absURL; 
                     } else {
-                        shippingURL = shippingCountries[country].absURL;
+                        shippingURL = 'https://' + hostName + shippingCountries[country].relativeURL;
                     }
                 } else {
                     countryFlag = false;
