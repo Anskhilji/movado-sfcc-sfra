@@ -76,7 +76,7 @@ function exportGoogleFeed(args) {
     if(Site.current.ID == "MovadoUS") {
         feedColumnsGoogle = {
             "ID" : 1,
-            "title" : 2,
+            "metaTitle" : 2,
             "description" : 3,
             "price" : 4,
             "link" : 5,
@@ -95,7 +95,7 @@ function exportGoogleFeed(args) {
     } else {
         feedColumnsGoogle = {
             "ID" : 1,
-            "title" : 2,
+            "metaTitle" : 2,
             "description" : 3,
             "price" : 4,
             "link" : 5,
@@ -195,6 +195,10 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['title'])) {
+        csvFileHeader.push("title");
+    }
+    
+    if (!empty(feedColumns['metaTitle'])) {
         csvFileHeader.push("title");
     }
 
@@ -326,6 +330,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     if (!empty(feedColumns['title'])) {
         if (product.title) {
             productDetails.push(product.title);
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+    if (!empty(feedColumns['metaTitle'])) {
+        if (product.metaTitle) {
+            productDetails.push(product.metaTitle);
         } else {
             productDetails.push("");
         }
@@ -519,6 +531,7 @@ function getProductAttributes(product, feedParameters) {
     var productAttributes = {
         ID: product.ID,
         title: product.name,
+        metaTitle : product.pageTitle,
         imageurl: productImages.firstImageLink,
         additionalImageLink : productImages.additionalImageLink ? productImages.additionalImageLink : "",
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
