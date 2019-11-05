@@ -16,8 +16,16 @@ function getRedirection(redirectionCookie) {
     var shippingCountry = currentCountry;
     var hostName = request.httpHost;
     var countryFlag;
+    var ShipToCountryFlagIcon;
     var shippingURL;
     var responseURL;
+    var currentMatchedCountryName;
+    
+    shippingCountries.forEach(function (country) {
+        if (currentSiteID === country.siteID) {
+        	currentMatchedCountryName = country.countryName;
+        } 
+    });
     
     if (session.custom.redirectionShippingFlag) {
         countryFlag = false;
@@ -28,6 +36,7 @@ function getRedirection(redirectionCookie) {
             } 
             if (redirectionCookie.value === country.absURL) {
                 shippingCountry = country.countryName;
+                ShipToCountryFlagIcon = country.flag;
             }
         });
         if (responseURL !== redirectionCookie.value) {
@@ -41,6 +50,7 @@ function getRedirection(redirectionCookie) {
             if (currentCountry == shippingCountries[country].countryName) {
                 if (currentSiteID !== shippingCountries[country].siteID) {
                     shippingCountry = shippingCountries[country].countryName;
+                    ShipToCountryFlagIcon = shippingCountries[country].flag;
                     countryFlag = true;
                     var instanceType = System.getInstanceType();
                     if (instanceType === System.PRODUCTION_SYSTEM) {
@@ -57,7 +67,9 @@ function getRedirection(redirectionCookie) {
     var obj = {
         countryFlag: countryFlag,
         shippingURL: shippingURL,
-        shippingCountry: shippingCountry
+        shippingCountry: shippingCountry,
+        currentMatchedCountryName: currentMatchedCountryName,
+        ShipToCountryFlagIcon: ShipToCountryFlagIcon
     };
     return obj;
 }

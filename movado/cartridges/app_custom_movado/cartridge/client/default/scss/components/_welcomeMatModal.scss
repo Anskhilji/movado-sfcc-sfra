@@ -1,5 +1,5 @@
 .welcomeMat {
-
+    padding-left: 0 !important;
     span {
         font-size: rem(24);
     }
@@ -24,5 +24,28 @@
             font-size: rem(24);
             top: rem(6.4);
         }
+    }
+    
+    .modal-header {
+    	background-color: $grey-light;
+    }
+    
+    .continue-here {
+        text-transform: none;
+    }
+}
+
+.want-to-ship {
+    background-color: black !important;
+}
+
+.welcome-mat-body {
+    letter-spacing: normal;
+    font-weight: 600;
+}
+
+.welcomeMat {
+     span {
+        font-size: rem(18);
     }
 }

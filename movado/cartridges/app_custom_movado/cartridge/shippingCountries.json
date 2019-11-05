@@ -4,276 +4,322 @@
         "countryName": "Andorra",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ad"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Australia",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-au"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Austria",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-at"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Belgium",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-be"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Bulgaria",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-bg"
     }, {
         "siteID": "OliviaBurtonCA",
         "countryName": "Canada",
         "group": "OB CA",
         "absURL": "http://ca.oliviaburton.com/en_US/home?redirect=no",
-        "relativeURL": "http://ca.oliviaburton.com/en_US/home?redirect=no"
+        "relativeURL": "http://ca.oliviaburton.com/en_US/home?redirect=no",
+        "flag": "flag-icon-ca"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Croatia",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-hr"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Cyprus",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-cy"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Czech Republic",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-es"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Denmark",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-dk"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Estonia",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-et"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Finland",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-fi"
     }, {
         "siteID": "OliviaBurtonFR",
         "countryName": "France",
         "group": "OB FR",
         "absURL": "http://fr.oliviaburton.com/?redirect=no",
-        "relativeURL": "http://fr.oliviaburton.com/?redirect=no"
+        "relativeURL": "http://fr.oliviaburton.com/?redirect=no",
+        "flag": "flag-icon-fr"
     }, {
         "siteID": "OliviaBurtonDE",
         "countryName": "Germany",
         "group": "OB DE",
         "absURL": "http://de.oliviaburton.com/?redirect=no",
-        "relativeURL": "http://de.oliviaburton.com/?redirect=no"
+        "relativeURL": "http://de.oliviaburton.com/?redirect=no",
+        "flag": "flag-icon-de"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Greece",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-gr"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Hong Kong",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-hk"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Hungary",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-hu"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Iceland",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-is"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Indonesia",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-in"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Ireland",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ie"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Japan",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-jp"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Latvia",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-lv"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Lithuania",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-lt"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Luxembourg",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-lu"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Malaysia",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ms"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Malta",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-mt"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Monaco",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-mc"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Netherlands",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-nl"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "New Zealand",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-nz"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Norway",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-no"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Philippines",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ph"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Poland",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-pl"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Portugal",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-pt"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Romania",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ro"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Singapore",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-sg"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Slovakia",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-sk"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Slovenia",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-si"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "South Africa",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-za"
     }, {
         "siteID": "OliviaBurtonES",
         "countryName": "Spain",
         "group": "OB ES",
         "absURL": "http://es.oliviaburton.com/?redirect=no",
-        "relativeURL": "http://es.oliviaburton.com/?redirect=no"
+        "relativeURL": "http://es.oliviaburton.com/?redirect=no",
+        "flag": "flag-icon-es"
     }, {
         "siteID": "OliviaBurtonEU",
         "countryName": "Sweden",
         "group": "OBEU",
         "absURL": "http://eu.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://eu.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-sv"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Switzerland",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ch"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "Taiwan",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-tw"
     }, {
         "siteID": "OliviaBurtonUK",
         "countryName": "Turkey",
         "group": "OBUK",
         "absURL": "https://www.oliviaburton.com/uk/home",
-        "relativeURL": "https://www.oliviaburton.com/uk/home"
+        "relativeURL": "https://www.oliviaburton.com/uk/home",
+        "flag": "flag-icon-tk"
     }, {
         "siteID": "OliviaBurtonIntl",
         "countryName": "United Arab Emirates",
         "group": "OB INTL",
         "absURL": "http://intl.oliviaburton.com/en/home?redirect=no",
-        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no"
+        "relativeURL": "http://intl.oliviaburton.com/en/home?redirect=no",
+        "flag": "flag-icon-ae"
     }, {
         "siteID": "OliviaBurtonUK",
         "countryName": "United Kingdom",
         "group": "OBUK",
         "absURL": "https://www.oliviaburton.com/uk/home",
-        "relativeURL": "/s/OliviaBurtonUK/en_GB/home"
+        "relativeURL": "/s/OliviaBurtonUK/en_GB/home",
+        "flag": "flag-icon-gb"
     }, {
         "siteID": "OliviaBurtonUS",
         "countryName": "United States",
         "group": "OBUS",
         "absURL": "https://us.oliviaburton.com",
-        "relativeURL": "/s/OliviaBurtonUS/en_GB/home"
+        "relativeURL": "/s/OliviaBurtonUS/en_GB/home",
+        "flag": "flag-icon-us"
     }
 ]

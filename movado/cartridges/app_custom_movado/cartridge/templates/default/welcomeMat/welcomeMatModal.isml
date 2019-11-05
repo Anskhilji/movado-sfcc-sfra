@@ -2,5 +2,7 @@
     <isprint value="${pdict.contentBody}" encoding="off" />
     <span class="welcomemat-current-country d-none">${pdict.currentCountry}</span>
     <span data-currentsiteurl="${pdict.shippingURL}" class="welcomemat-current-shipping-country d-none welcomemat-current-site-url">${pdict.currentWebsite}</span>
+    <span class="d-none welcomemat-current-site-matched-country">${pdict.currentMatchedCountryName}</span>
+    <span class="d-none welcomemat-country-flag-icon">${pdict.ShipToCountryFlagIcon}</span>
     <isset name="redirectionShippingFlag" value="true" scope="session"/>
 </isif>

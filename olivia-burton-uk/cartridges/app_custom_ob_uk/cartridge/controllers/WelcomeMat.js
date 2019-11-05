@@ -23,7 +23,9 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
              apiContent && apiContent.custom.body ? apiContent.custom.body: '',
              currentCountry: request.geolocation.countryName,
              currentWebsite: redirection.shippingCountry,
-             shippingURL: redirection.shippingURL
+             shippingURL: redirection.shippingURL,
+             currentMatchedCountryName: redirection.currentMatchedCountryName,
+             ShipToCountryFlagIcon: redirection.ShipToCountryFlagIcon
         });
     } 
     next();
