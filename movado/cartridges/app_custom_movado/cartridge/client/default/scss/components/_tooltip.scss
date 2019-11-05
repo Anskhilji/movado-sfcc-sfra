@@ -8,13 +8,16 @@ $arrow-height: 1.25em; /* 20/16 */
     .icon {
         border-radius: 100%;
         background-color: $grey14;
-        width: rem(18);
-        height: rem(18);
+        width: rem(21);
+        height: rem(21);
+        line-height: rem(21);
         display: inline-block;
         text-align: center;
         text-transform: lowercase;
         color: #fff;
-        padding-left: rem(2);
+        padding-left: rem(0.8);
+        vertical-align: middle;
+        font-weight: bold;
     }
 
     &:hover .tooltip, &:hover .left-tooltip {
