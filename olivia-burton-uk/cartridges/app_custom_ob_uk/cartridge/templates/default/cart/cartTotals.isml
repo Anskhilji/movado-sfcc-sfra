@@ -12,13 +12,15 @@
 </div>
 
 <!--- Shipping Discount --->
-<div class="row shipping-discount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
-    <div class="col-8">
-        <p class="price-label">${Resource.msg('label.shipping.discount', 'common', null)}</p>
-    </div>
-    <div class="col-4">
-        <p class="text-right cost shipping-discount-total">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</p>
-    </div>
+<div class="row shipping-discount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value === 0 || pdict.totals.isFree === true}">hide-shipping-discount</isif>">
+
+        <div class="col-8">
+            <p class="price-label">${Resource.msg('label.shipping.discount', 'common', null)}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-right cost shipping-discount-total">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</p>
+        </div>
+
 </div>
 
 <!-- Sales Tax -->

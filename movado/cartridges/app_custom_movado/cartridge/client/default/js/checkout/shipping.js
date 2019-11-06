@@ -197,9 +197,10 @@ function updateShippingMethods(shipping) {
                     // set shipping cost
                     if (typeof shippingMethod !== 'undefined' && typeof shippingMethod.freeShippingContent !== 'undefined' 
                             && shippingMethod.freeShippingContent.isFree === true) {
-                            $('.shipping-cost', tmpl).text(shippingMethod.freeShippingContent.freeShippingLabel);
+                            $('.free-label', tmpl).text(shippingMethod.freeShippingContent.freeShippingLabel);
+                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost).wrap('<strike>');
                         } else {
-                            $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost);
                         }
                     $shippingMethodList.append(tmpl.html());
                 });
@@ -260,7 +261,8 @@ function updateShippingSummaryInformation(shipping, order) {
         var $shippingPhone = $container.find('.shipping-phone');
         var $methodTitle = $container.find('.shipping-method-title');
         var $methodArrivalTime = $container.find('.shipping-method-arrival-time');
-        var $methodPrice = $container.find('.shipping-method-price');
+        var $methodPrice = $container.find('.shipping-method-price-control');
+        var $freeLabel = $container.find('.free-label');
         var $shippingSummaryLabel = $container.find('.shipping-method-label');
         var $summaryDetails = $container.find('.row.summary-details');
         var giftMessageSummary = $container.find('.gift-summary');
@@ -293,7 +295,9 @@ function updateShippingSummaryInformation(shipping, order) {
             if (typeof selectedShippingMethod !== 'undefined' && selectedShippingMethod !== null 
                 && typeof selectedShippingMethod.freeShippingContent !== 'undefined' 
                 && selectedShippingMethod.freeShippingContent.isFree === true) {
-                $methodPrice.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
+                $freeLabel.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
+                $methodPrice.text(selectedShippingMethod.shippingCost).wrap("<strike>");
+
             } else {
                 $methodPrice.text(selectedShippingMethod.shippingCost);
             }

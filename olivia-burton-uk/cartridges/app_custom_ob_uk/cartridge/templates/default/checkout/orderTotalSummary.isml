@@ -37,7 +37,7 @@
 </div>
 
 <!--- Shipping Discount --->
-<div class="row leading-lines justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
+<div class="row leading-lines justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0 || pdict.order.totals.isFree == true}">hide-shipping-discount</isif>">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.shipping.discount', 'common', null)}</span></p>
     </div>

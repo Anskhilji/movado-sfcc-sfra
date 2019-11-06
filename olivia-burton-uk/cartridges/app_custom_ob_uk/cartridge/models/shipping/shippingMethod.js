@@ -14,6 +14,7 @@ var formatCurrency = require('*/cartridge/scripts/util/formatting').formatCurren
  * @returns {string} String representation of Shipping Cost
  */
 function getShippingCost(shippingMethod, shipment) {
+    
     var shipmentShippingModel = ShippingMgr.getShipmentShippingModel(shipment);
     var shippingCost = shipmentShippingModel.getShippingCost(shippingMethod);
     this.shipingCostDecimalValue = shippingCost.getAmount().getDecimalValue();
@@ -22,12 +23,20 @@ function getShippingCost(shippingMethod, shipment) {
 }
 
 function getIsFree(shippingMethod, shipment) {
-    var freeShippingAmount = 0.00;
-    var isFree =  this.shipingCostDecimalValue == freeShippingAmount || this.shipingCostDecimalValue == '-' ? true : false;
+    var freeShippingDiscountItem = false;
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var promotionPlan = PromotionMgr.getActivePromotions();
+    var shippingPromotions = promotionPlan.getShippingPromotions(shippingMethod).toArray() ;
+   for (var i = 0 ; i < shippingPromotions.length; i++) {
+        var promotion = shippingPromotions[i];
+        if (promotion.promotionClass == "SHIPPING") {
+            freeShippingDiscountItem = true;
+        }
+    }
+    var isFree = freeShippingDiscountItem;
     var freeShippingLabel = Resource.msg('shipping.free.label.text','shipping',null);
     return {isFree : isFree, freeShippingLabel : freeShippingLabel};
 }
-
 
 /**
  * Plain JS object that represents a DW Script API dw.order.ShippingMethod object

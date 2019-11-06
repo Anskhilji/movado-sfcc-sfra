@@ -5,6 +5,7 @@ var Resource = require('dw/web/Resource');
 var Totals = module.superModule;
 var shippingCustomHelper = require('*/cartridge/scripts/helpers/shippingCustomHelper');
 var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+var PriceAdjustment = require('dw/order/PriceAdjustment');
 
 /**
 * extend is use to extend super module
@@ -43,13 +44,20 @@ function extend(target, source) {
 function totals(lineItemContainer) {
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
+    var discountShippingCost = false;
+    for (i = 0; i < lineItemContainer.allLineItems.length; i++) {
+	    if (lineItemContainer.allLineItems[i] instanceof PriceAdjustment) {
+            if (lineItemContainer.allLineItems[i].basePrice) {
+                discountShippingCost = true;
+            }
+		}
+	}
     var totalShippingCost = lineItemContainer.shippingTotalPrice;
     var isFree;
-
     if (lineItemContainer) {
         totalsObj = extend(totalsModel, {
             totalShippingCost : formatMoney(totalShippingCost),
-            isFree : totalShippingCost == '0' ||  totalShippingCost == '-' ? true : false,
+            isFree : discountShippingCost,
             freeShippingLabel : Resource.msg('shipping.free.label.text','shipping',null)
         });
     }

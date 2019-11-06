@@ -531,7 +531,7 @@ function updateCheckoutTotals(data) {
         $('.order-discount').addClass('hide-order-discount');
     }
 
-    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+    if (data.totals.shippingLevelDiscountTotal.value > 0 && typeof data.totals !== 'undefined' && typeof data.totals.isFree !== 'undefined' && data.totals.isFree === false) {
         $('.shipping-discount').removeClass('hide-shipping-discount');
         $('.shipping-discount-total').empty().append('- ' +
             data.totals.shippingLevelDiscountTotal.formatted);

@@ -22,7 +22,7 @@ function updateTotals(totals) {
         $('.order-discount').addClass('hide-order-discount');
     }
 
-    if (totals.shippingLevelDiscountTotal.value > 0) {
+    if (totals.shippingLevelDiscountTotal.value > 0 && typeof totals !== 'undefined' && typeof totals.isFree !== 'undefined' && totals.isFree === false) {
         $('.shipping-discount').removeClass('hide-shipping-discount');
         $('.shipping-discount-total').text('- ' +
             totals.shippingLevelDiscountTotal.formatted);
