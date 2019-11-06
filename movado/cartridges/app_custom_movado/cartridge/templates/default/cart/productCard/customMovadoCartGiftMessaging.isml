@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <button href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${lineItem.UUID}"
-                        class="btn btn-block btn-outline-primary add-gift-message col-12 col-sm-4" title=""
+                        class="btn btn-block btn-outline-primary add-gift-message col-12 col-md-4" title=""
                         <isif condition="${pdict.lineItemGiftMessage[lineItem.UUID].giftMessage}" >
                             disabled
                         </isif>>

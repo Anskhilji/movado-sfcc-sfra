@@ -306,7 +306,7 @@ $negative-spacer: -0.625rem;
         object-fit: cover;
         object-position: top;
         overflow: hidden;
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
             max-height: 6.875rem;
         }
     }
