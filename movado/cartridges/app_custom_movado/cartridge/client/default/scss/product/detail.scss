@@ -205,7 +205,7 @@ label.availability {
 .dw-apple-pay-button.apple-pay-pdp:hover {
     min-width: 30%;
     @include media-breakpoint-down(lg) {
-        min-width: 100%;
+        min-width: 96%;
         font-size: rem(16);
         margin-top: rem(5);
         margin-left: rem(0) !important;
@@ -218,6 +218,34 @@ label.availability {
 .cta-add-to-cart {
     @include media-breakpoint-down(lg) {
         min-width: 100%;
+    }
+}
+.add-to-cart {
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        margin-bottom: rem(5); 
+    }
+}
+
+.smartgift-medium-scr {
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+    }
+    @include media-breakpoint-down(xs) {
+        width: auto;
+    }
+}
+
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    @include media-breakpoint-down(sm) {
+        min-width: 100%;
+    }
+}
+
+.smartgift-btn {
+    @include media-breakpoint-down(md) {
+        width: 100%;
     }
 }
 
