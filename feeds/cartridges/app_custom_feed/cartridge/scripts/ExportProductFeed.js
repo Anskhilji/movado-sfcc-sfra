@@ -78,7 +78,7 @@ function exportGoogleFeed(args) {
             "ID" : 1,
             "metaTitle" : 2,
             "description" : 3,
-            "price" : 4,
+            "decimalPrice" : 4,
             "link" : 5,
             "imageLink" : 6,
             "availability" : 7,
@@ -97,7 +97,7 @@ function exportGoogleFeed(args) {
             "ID" : 1,
             "metaTitle" : 2,
             "description" : 3,
-            "price" : 4,
+            "decimalPrice" : 4,
             "link" : 5,
             "imageLink" : 6,
             "additionalImageLink" : 7,
@@ -207,6 +207,10 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['price'])) {
+        csvFileHeader.push("price");
+    }
+    
+    if (!empty(feedColumns['decimalPrice'])) {
         csvFileHeader.push("price");
     }
 
@@ -358,6 +362,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+    
+    if (!empty(feedColumns['decimalPrice'])) {
+        if (product.decimalPrice) {
+            productDetails.push(product.decimalPrice);
+        } else {
+            productDetails.push("");
+        }
+    }
 
     if (!empty(feedColumns['link'])) {
         if (product.producturl) {
@@ -392,8 +404,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productType'])) {
-        if (product.jewelryType) {
-            productDetails.push(product.jewelryType);
+        if (product.jewelryStyle) {
+            productDetails.push(product.jewelryStyle);
         } else {
             productDetails.push("");
         }
@@ -524,7 +536,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters) {
-    var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice() : "";
+    var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
+    var productDecimalPrice = product.getPriceModel().getPrice() ? (product.getPriceModel().getPrice().decimalValue ? product.getPriceModel().getPrice().decimalValue.toString() : "") : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
     var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
@@ -536,6 +549,7 @@ function getProductAttributes(product, feedParameters) {
         additionalImageLink : productImages.additionalImageLink ? productImages.additionalImageLink : "",
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
+        decimalPrice : productDecimalPrice + " " + productCurrencyCode,
         price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
