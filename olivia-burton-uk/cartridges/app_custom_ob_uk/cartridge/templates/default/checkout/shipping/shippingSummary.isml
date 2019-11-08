@@ -29,12 +29,7 @@
                     </p>
                 </div>
                 <div class="end-lines">
-                    <isif condition="${shippingModel.selectedShippingMethod.freeShippingContent.isFree == true}">
-                        <p class="text-right pricing shipping-method-price free-label">${shippingModel.selectedShippingMethod.freeShippingContent.freeShippingLabel}</p> <br />
-                        <p class="text-right pricing shipping-method-price shipping-method-price-control"><del>${shippingModel.selectedShippingMethod.shippingCost}</del></p>
-                    <iselse>
-                        <p class="text-right pricing shipping-method-price">${shippingModel.selectedShippingMethod.shippingCost}</p>
-                    </isif>
+                    <p class="text-right pricing shipping-method-price">${shippingModel.selectedShippingMethod.shippingCost}</p>
                 </div>
             </div>
             <isinclude template="checkout/shipping/giftMessageSummary" />

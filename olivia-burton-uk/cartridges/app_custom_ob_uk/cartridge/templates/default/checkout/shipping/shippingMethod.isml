@@ -16,12 +16,7 @@
             </label>
         </div>
         <div class="col-3 text-right shipping-method-pricing end-lines">
-            <isif condition="${shippingMethod.freeShippingContent.isFree == true}">
-                <span class="shipping-cost free-label">${shippingMethod.freeShippingContent.freeShippingLabel}</span> <br />
-                <span class="shipping-cost shipping-cost-control"><del>${shippingMethod.shippingCost}<del></span>
-            <iselse>
-                <span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span>
-            </isif>
+            <span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span>
         </div>
     </isloop>
 </div>
@@ -38,7 +33,6 @@
         </label>
     </div>
     <div class="col-3 text-right shipping-method-pricing end-lines">
-        <span class="shipping-cost free-label"></span> <br />
         <span class="shipping-cost shipping-cost-control"></span>
     </div>
 </div>

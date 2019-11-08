@@ -45,12 +45,14 @@ function totals(lineItemContainer) {
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
     var discountShippingCost = false;
-    for (i = 0; i < lineItemContainer.allLineItems.length; i++) {
-	    if (lineItemContainer.allLineItems[i] instanceof PriceAdjustment) {
-            if (lineItemContainer.allLineItems[i].basePrice) {
-                discountShippingCost = true;
-            }
-		}
+    for (i = 0; i < lineItemContainer.getAllShippingPriceAdjustments().length; i++) {
+    	var shippingAdjustment = lineItemContainer.allShippingPriceAdjustments[i];
+    		var appliedDiscount = shippingAdjustment.getAppliedDiscount();
+    		if (appliedDiscount.type === 'FREE') {
+    			discountShippingCost = true;
+    		} else {
+    			discountShippingCost = false;
+    		}
 	}
     var totalShippingCost = lineItemContainer.shippingTotalPrice;
     var isFree;

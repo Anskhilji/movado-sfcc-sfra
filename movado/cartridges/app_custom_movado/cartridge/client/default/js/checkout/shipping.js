@@ -198,7 +198,7 @@ function updateShippingMethods(shipping) {
                     if (typeof shippingMethod !== 'undefined' && typeof shippingMethod.freeShippingContent !== 'undefined' 
                             && shippingMethod.freeShippingContent.isFree === true) {
                             $('.free-label', tmpl).text(shippingMethod.freeShippingContent.freeShippingLabel);
-                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost).wrap('<strike>');
+                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost);
                         } else {
                             $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost);
                         }
@@ -296,8 +296,7 @@ function updateShippingSummaryInformation(shipping, order) {
                 && typeof selectedShippingMethod.freeShippingContent !== 'undefined' 
                 && selectedShippingMethod.freeShippingContent.isFree === true) {
                 $freeLabel.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
-                $methodPrice.text(selectedShippingMethod.shippingCost).wrap("<strike>");
-
+                $methodPrice.text(selectedShippingMethod.shippingCost);
             } else {
                 $methodPrice.text(selectedShippingMethod.shippingCost);
             }

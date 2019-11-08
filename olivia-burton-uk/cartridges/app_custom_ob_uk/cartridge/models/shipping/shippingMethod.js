@@ -2,6 +2,7 @@
 
 var ShippingMethodBase = module.superModule;
 
+var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Resource = require('dw/web/Resource');
 var ShippingMgr = require('dw/order/ShippingMgr');
 
@@ -24,13 +25,25 @@ function getShippingCost(shippingMethod, shipment) {
 
 function getIsFree(shippingMethod, shipment) {
     var freeShippingDiscountItem = false;
-    var PromotionMgr = require('dw/campaign/PromotionMgr');
     var promotionPlan = PromotionMgr.getActivePromotions();
     var shippingPromotions = promotionPlan.getShippingPromotions(shippingMethod).toArray() ;
+    
    for (var i = 0 ; i < shippingPromotions.length; i++) {
         var promotion = shippingPromotions[i];
-        if (promotion.promotionClass == "SHIPPING") {
-            freeShippingDiscountItem = true;
+        if (promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_SHIPPING) {
+        	var shippingPriceAdjustmentsItr = shipment.getShippingPriceAdjustments().iterator();
+        	while (shippingPriceAdjustmentsItr.hasNext()) {
+        		var shippingAdjustment = shippingPriceAdjustmentsItr.next();
+        		var appliedDiscount = shippingAdjustment.getAppliedDiscount()
+        		if (appliedDiscount.type === 'FREE') {
+        			freeShippingDiscountItem = true;
+        		} else {
+        			freeShippingDiscountItem = false;
+        		}
+        	}
+            
+        } else {
+        	freeShippingDiscountItem = true;
         }
     }
     var isFree = freeShippingDiscountItem;
