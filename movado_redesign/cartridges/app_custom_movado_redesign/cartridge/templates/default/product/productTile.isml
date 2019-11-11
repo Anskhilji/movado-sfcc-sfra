@@ -69,6 +69,7 @@
     </div>
     <!-- END_dwmarker -->
 </div>
+<iscomment> Custom: reposition tile name, d-none class added on rating div</iscomment>
 <iselse/>
     <div class="product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->

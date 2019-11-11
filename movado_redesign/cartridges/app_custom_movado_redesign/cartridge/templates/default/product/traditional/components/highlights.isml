@@ -1,3 +1,4 @@
+<iscomment>Updated the boostrap columns classes and added 3 bottom blocks</iscomment>
 <h2 class="col-sm-12  mb-4">
     <!-- TODO: Title BM Configurable -->
     <div class="title text-capitalize p-0 shadow-none">${product.resources.Highlight}</div>

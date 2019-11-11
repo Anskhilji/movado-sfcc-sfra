@@ -3,10 +3,10 @@
 var productHelpers = require('app_storefront_base/cartridge/scripts/helpers/productHelpers');
 
 productHelpers.showProductPage = function (querystring, reqPageMetaData) {
-    var URLUtils = require('dw/web/URLUtils');
-    var ProductFactory = require('*/cartridge/scripts/factories/product');
-    var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var URLUtils = require('dw/web/URLUtils');
+    var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
 
     var params = querystring;
     var product = ProductFactory.get(params);
