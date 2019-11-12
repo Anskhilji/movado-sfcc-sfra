@@ -2,7 +2,6 @@
 @import '~movado/variables';
 @import '../vars';
 @import '../utilities/fonts';
-
 @import "animate.css/animate";
 @import "../custom-animation";
 
@@ -50,6 +49,7 @@
         font-size: rem(16);
         color: $grey8;
         letter-spacing: normal;
+        margin: 0;
 
         .affirm-modal-trigger {
             @include font-demi;
@@ -69,10 +69,9 @@
 
     .add-to-cart {
         min-width: rem(330);
-    }
-
-    .affirm-as-low-as {
-        margin: 0;
+        @include font-demi;
+        font-size: rem(16);
+        letter-spacing: normal;
     }
 
     .slick-slide {
@@ -153,12 +152,6 @@
                 margin-left: rem(10);
             }
         }
-    }
-
-    .add-to-cart {
-        @include font-demi;
-        font-size: rem(16);
-        letter-spacing: normal;
     }
 
     .primary-images {
@@ -293,143 +286,147 @@
         position: relative;
 
         .out-of-stock {
-          position: absolute;
-          top: rem(5);
-          right: rem(5);
-          display: inline-block;
-          color: $storm-gray;
-          font-size: rem(10);
-          letter-spacing: normal;
-          padding: rem(2) rem(5);
-          background: $dark-pink;
-          @include font-book;
-          text-transform: capitalize;
-          border-radius: rem(10);
-          z-index: 99;
-    
-          @include media-breakpoint-down(sm) {
+            position: absolute;
+            top: rem(5);
             right: rem(5);
-          }
-          @include media-breakpoint-down(xs) {
-            font-size: rem(9);
-          }
+            display: inline-block;
+            color: $storm-gray;
+            font-size: rem(10);
+            letter-spacing: normal;
+            padding: rem(2) rem(5);
+            background: $dark-pink;
+            @include font-book;
+            text-transform: capitalize;
+            border-radius: rem(10);
+            z-index: 99;
+
+            @include media-breakpoint-down(sm) {
+                right: rem(5);
+            }
+            @include media-breakpoint-down(xs) {
+                font-size: rem(9);
+            }
         }
 
         .product-badge.left {
-          display: none;
+            display: none;
         }
 
         .new-product, .pre-order, .exclusive-product  {
-          position: absolute;
-          top: rem(5);
-          right: rem(5);
-          display: inline-block;
-          color: $storm-gray;
-          font-size: rem(11);
-          display: block !important;
-          letter-spacing: normal;
-          padding: rem(2) rem(7);
-          background: $white;
-          @include font-lato-bold;
-          text-transform: capitalize;
-          border-radius: rem(10);
-          z-index: 99;
-          @include media-breakpoint-down(sm) {
+            position: absolute;
+            top: rem(5);
             right: rem(5);
-          }
-          @include media-breakpoint-down(xs) {
-            font-size: rem(9);
-          }
+            display: inline-block;
+            color: $storm-gray;
+            font-size: rem(11);
+            display: block !important;
+            letter-spacing: normal;
+            padding: rem(2) rem(7);
+            background: $white;
+            @include font-lato-bold;
+            text-transform: capitalize;
+            border-radius: rem(10);
+            z-index: 99;
+            @include media-breakpoint-down(sm) {
+                right: rem(5);
+            }
+            @include media-breakpoint-down(xs) {
+                font-size: rem(9);
+            }
         }
+
         .pre-order {
-          background: white;
-          z-index: 999; 
+            background: white;
+            z-index: 999;
         }
 
         .wishlistTile {
-          position: absolute;
-          top: rem(5);
-          left: rem(5);
-          height: rem(30);
-          display: none;
-  
-          .fa-circle {
-  
-            &::before {
-              content: unset;
+            position: absolute;
+            top: rem(5);
+            left: rem(5);
+            height: rem(30);
+            display: none;
+
+            .fa-circle {
+
+                &::before {
+                    content: unset;
+                }
             }
-          }
-  
-          .fa {
-            font-size: rem(20);
-            color: $gray-x11;
-          }
-  
-          &:hover {
-  
-            .fa-heart-o {
-  
-              &::before {
-                content:"\F004";
-              }
+
+            .fa {
+                font-size: rem(20);
+                color: $gray-x11;
             }
-          }
+
+            &:hover {
+    
+                .fa-heart-o {
+    
+                    &::before {
+                        content: $heart-icon;
+                    }
+                }
+            }
         }
 
         &:hover {
-          .wishlistTile {
-            display: block;
-          }
+            .wishlistTile {
+                display: block;
+            }
         }
 
         @include media-breakpoint-down(sm) {
-          min-height: unset
+            min-height: auto;
         }
 
         .image-container {
-          border: none;
-          background: $white-smoke;
-          a {
-              outline: none;
-          }
-          .quickview {
-            display: none;
-          }
+            border: none;
+            background: $white-smoke;
+
+            a {
+                outline: none;
+            }
+
+            .quickview {
+                display: none;
+            }
         }
 
         .tile-body {
-          text-align: left;
-          padding: rem(10);
-          overflow: auto;
+            text-align: left;
+            padding: rem(10);
+            overflow: auto;
 
-          .pdp-link , .price {
-            display: block;
-            float: unset;
-            padding: 0;
-            margin: 0;
-          }
+            .pdp-link , .price {
+                display: block;
+                float: unset;
+                padding: 0;
+                margin: 0;
+            }
 
-          .price {
-            padding: 0;
-            display: block;
-            font-size: rem(15);
-            @include font-book;
-            float: unset;
-            letter-spacing: normal;
-            color: $grey8;
-          }
+            .price {
+                padding: 0;
+                display: block;
+                font-size: rem(15);
+                @include font-book;
+                float: unset;
+                letter-spacing: normal;
+                color: $grey8;
+            }
 
-          .product-name {
-            font-size: rem(15);
-            @include font-lato-bold;
-            font-weight: bold;
-            color: $grey8;
-            letter-spacing: normal;
-            text-transform: capitalize;
-          }
-          .tile-discription, .tile-btns {
-            display: none;
-          }
+            .product-name {
+                font-size: rem(15);
+                @include font-lato-bold;
+                font-weight: bold;
+                color: $grey8;
+                letter-spacing: normal;
+                text-transform: capitalize;
+            }
+
+            .tile-discription, .tile-btns {
+                display: none;
+            }
         }
     }
 
@@ -456,25 +453,25 @@
     .slick-dots {
 
         li {
-          width: 4%;
-          height: rem(2);
-          background: $gray-x11;
-          margin: 0;
-  
-          button {
-            height: 100%;
-            width: 100%;
-  
-            &::before{
-              content: unset;
+            width: 4%;
+            height: rem(2);
+            background: $gray-x11;
+            margin: 0;
+
+            button {
+                height: 100%;
+                width: 100%;
+
+                &::before{
+                content: unset;
+                }
             }
-          }
-  
-          &.slick-active {
-            background: $black;
-          }
+
+            &.slick-active {
+                background: $black;
+            }
         }
-      }
+    }
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -500,9 +497,21 @@
                 letter-spacing: normal;
                 color: $storm-gray;
                 letter-spacing: normal;
-                padding-left: rem(50);
+                padding-left: rem(55);
                 margin: 0;
             }
+        }
+
+        .free-shipping-block {
+            background: $slate-grey-light url("../../images/box.png") left rem(15) center no-repeat;
+        }
+
+        .swiss-movement-block {
+            background: $slate-grey-light url("../../images/swiss.png") left rem(15) center no-repeat;
+        }
+
+        .warranty-block {
+            background: $slate-grey-light url("../../images/badge.png") left rem(15) center no-repeat;
         }
     }
 
@@ -528,14 +537,13 @@
         }
     }
 
-    .add-to-wish-list {
+    .add-to-wish-list, .wishlist-login {
         font-size:0;
         height: rem(30);
         width: rem(30);
         background: url("../../images/add-to-wish.svg") center no-repeat;
-        transition: 0.3s;
 
-        &.added, &:hover {
+        &.added-to-wishlist, &:hover {
             background: url("../../images/add-to-wish-fill.svg") center no-repeat;
         }
     }
@@ -803,7 +811,7 @@
         &.collection-you-may-like {
             display: block;
             padding: 0;
-    
+
             .hero-banner-wrapper {
                 &:first-child {
                     margin-bottom: rem(15);
