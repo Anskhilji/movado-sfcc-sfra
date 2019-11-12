@@ -261,7 +261,7 @@ function updateShippingSummaryInformation(shipping, order) {
         var $shippingPhone = $container.find('.shipping-phone');
         var $methodTitle = $container.find('.shipping-method-title');
         var $methodArrivalTime = $container.find('.shipping-method-arrival-time');
-        var $methodPrice = $container.find('.shipping-method-price-control');
+        var $methodPrice = $container.find('.shipping-method-price');
         var $freeLabel = $container.find('.free-label');
         var $shippingSummaryLabel = $container.find('.shipping-method-label');
         var $summaryDetails = $container.find('.row.summary-details');
