@@ -16,7 +16,7 @@
             </label>
         </div>
         <div class="col-3 text-right shipping-method-pricing end-lines">
-            <span class="shipping-cost">${shippingMethod.shippingCost}</span>
+            <span class="shipping-cost shipping-cost-control">${shippingMethod.shippingCost}</span>
         </div>
     </isloop>
 </div>
@@ -33,6 +33,7 @@
         </label>
     </div>
     <div class="col-3 text-right shipping-method-pricing end-lines">
-        <span class="shipping-cost"></span>
+        
+        <span class="shipping-cost shipping-cost-control"></span>
     </div>
 </div>

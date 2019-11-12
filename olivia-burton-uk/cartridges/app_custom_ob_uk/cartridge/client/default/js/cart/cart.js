@@ -57,7 +57,11 @@ function validateBasket(data) {
  */
 function updateCartTotals(data) {
     $('.number-of-items').empty().append(data.resources.numberOfItems);
-    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    if(data.totals.isFree === true) {
+        $('.shipping-cost').empty().append(data.totals.freeShippingLabel);
+    } else {
+        $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    }
     $('.tax-total').empty().append(data.totals.totalTax);
     $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
@@ -76,9 +80,8 @@ function updateCartTotals(data) {
     }
 
     if (data.totals.shippingLevelDiscountTotal.value > 0) {
-        $('.shipping-discount').removeClass('hide-shipping-discount');
-        $('.shipping-discount-total').empty().append('- ' +
-            data.totals.shippingLevelDiscountTotal.formatted);
+        $('.shipping-discount').addClass('hide-shipping-discount');
+        $('.shipping-discount-total').empty().append('- ' + data.totals.shippingLevelDiscountTotal.formatted);
     } else {
         $('.shipping-discount').addClass('hide-shipping-discount');
     }

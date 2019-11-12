@@ -77,6 +77,11 @@ $stored-payment-spacing: rem(16);
       line-height: rem(17);
       letter-spacing: rem(0.4);
       color: $grey14;
+      padding-bottom: rem(4);
+    }
+
+    > .info-icon {
+        padding-bottom: rem(4);
     }
 
     .form-control {

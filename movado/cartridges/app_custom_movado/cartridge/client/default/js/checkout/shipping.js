@@ -195,7 +195,13 @@ function updateShippingMethods(shipping) {
                             .show();
                     }
                     // set shipping cost
-                    $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                    if (typeof shippingMethod !== 'undefined' && typeof shippingMethod.freeShippingContent !== 'undefined' 
+                            && shippingMethod.freeShippingContent.isFree === true) {
+                            $('.free-label', tmpl).text(shippingMethod.freeShippingContent.freeShippingLabel);
+                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost);
+                        } else {
+                            $('.shipping-cost-control', tmpl).text(shippingMethod.shippingCost);
+                        }
                     $shippingMethodList.append(tmpl.html());
                 });
             }
@@ -256,6 +262,7 @@ function updateShippingSummaryInformation(shipping, order) {
         var $methodTitle = $container.find('.shipping-method-title');
         var $methodArrivalTime = $container.find('.shipping-method-arrival-time');
         var $methodPrice = $container.find('.shipping-method-price');
+        var $freeLabel = $container.find('.free-label');
         var $shippingSummaryLabel = $container.find('.shipping-method-label');
         var $summaryDetails = $container.find('.row.summary-details');
         var giftMessageSummary = $container.find('.gift-summary');
@@ -285,7 +292,14 @@ function updateShippingSummaryInformation(shipping, order) {
             } else {
                 $methodArrivalTime.empty();
             }
-            $methodPrice.text(selectedShippingMethod.shippingCost);
+            if (typeof selectedShippingMethod !== 'undefined' && selectedShippingMethod !== null 
+                && typeof selectedShippingMethod.freeShippingContent !== 'undefined' 
+                && selectedShippingMethod.freeShippingContent.isFree === true) {
+                $freeLabel.text(selectedShippingMethod.freeShippingContent.freeShippingLabel);
+                $methodPrice.text(selectedShippingMethod.shippingCost);
+            } else {
+                $methodPrice.text(selectedShippingMethod.shippingCost);
+            }
         }
 
         if (isGift) {
@@ -490,6 +504,8 @@ function shippingFormResponse(defer, data) {
                 if (Object.keys(error).length) {
                     formHelpers.loadFormErrors(formSelector, error);
                 }
+                var scrollUtil = require('../utilities/scrollUtil');
+                scrollUtil.scrollInvalidFields(formSelector, -80, 300);
             });
             defer.reject(data);
         }

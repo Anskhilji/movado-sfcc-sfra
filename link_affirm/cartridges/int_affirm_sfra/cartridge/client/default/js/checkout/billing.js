@@ -1,7 +1,7 @@
 'use strict';
 
-var addressHelpers = require('../base/checkout/address');
-var cleave = require('../base/components/cleave');
+var addressHelpers = require('base/checkout/address');
+var cleave = require('base/components/cleave');
 
 /**
  * updates the billing address selector within billing forms

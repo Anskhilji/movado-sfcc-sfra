@@ -1,4 +1,6 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="addressFields" value="${pdict.forms.shippingForm.shippingAddress.addressFields}" scope="page"/>
+<isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page"/>
 <isif condition="${shippingModel.shippingAddress}">
     <isset name="shippingAddress" value="${shippingModel.shippingAddress}" scope="page" />
 <iselse/>
@@ -58,6 +60,9 @@
             ${addressFields.address1.htmlName}">
             <label class="form-control-label" for="shippingAddressOne">
                 <isprint value="${addressFields.address1.label}" encoding="htmlcontent" />
+                <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
+                    <iscontentasset aid="calloutMsgAddress1"/>
+                </isif>
             </label>
             <input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
                 value="${shippingAddress.address1||''}" <isprint value=${addressFields.address1.attributes} encoding="off"/>
@@ -75,6 +80,9 @@
             ${addressFields.address2.htmlName}">
             <label class="form-control-label" for="shippingAddressTwo">
                <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
+                <isif condition="${sitePref.custom.enableCalloutMsgAddress2 === true}">
+                    <iscontentasset aid="calloutMsgAddress2"/>
+                </isif>
             </label>
             <input type="text" class="form-control shippingAddressTwo" id="shippingAddressTwo"
                 value="${shippingAddress.address2||''}" <isprint value=${addressFields.address2.attributes} encoding="off"/>
@@ -142,6 +150,9 @@
             ${addressFields.postalCode.htmlName}">
             <label class="form-control-label" for="shippingZipCode">
                 ${Resource.msg('field.shipping.address.zip.code','address',null)}
+                <isif condition="${sitePref.custom.enableCalloutMsgPostalCode === true}">
+                    <iscontentasset aid="calloutMsgPostalCode"/>
+                </isif>
             </label>
             <input type="text" class="form-control shippingZipCode" id="shippingZipCode"
                 value="${shippingAddress.postalCode||''}" <isprint value=${addressFields.postalCode.attributes} encoding="off"/>
@@ -158,6 +169,9 @@
             ${addressFields.phone.htmlName}">
             <label class="form-control-label" for="shippingPhoneNumber">
                <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
+                <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
+                    <iscontentasset aid="calloutMsgMobileNumber"/>
+                </isif>
             </label>
             <input type="tel" class="form-control shippingPhoneNumber" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value=${addressFields.phone.attributes} encoding="off"/>

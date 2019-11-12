@@ -1,54 +1,99 @@
-'use strict';
-
+var fs = require('fs');
 var path = require('path');
-var ExtractTextPlugin = require('sgmf-scripts')['extract-text-webpack-plugin'];
-var sgmfScripts = require('sgmf-scripts');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const shell = require('shelljs');
 
-module.exports = [{
-    mode: 'production',
-    name: 'js',
-    entry: sgmfScripts.createJsPath(),
-    output: {
-        path: path.resolve('./cartridges/plugin_productcompare/cartridge/static'),
-        filename: '[name].js'
-    }
-}, {
-    mode: 'none',
-    name: 'scss',
-    entry: sgmfScripts.createScssPath(),
-    output: {
-        path: path.resolve('./cartridges/plugin_productcompare/cartridge/static'),
-        filename: '[name].css'
-    },
-    module: {
-        rules: [{
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-                use: [{
-                    loader: 'css-loader',
-                    options: {
-                        url: false,
-                        minimize: true
+var configs = [];
+
+if (fs.existsSync(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/client/default/scss/'))) {
+    var cssFiles = shell.ls(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/client/default/scss/**/*.scss'));
+    cssFiles = cssFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
+    var cssEntries = {};
+    cssFiles.forEach(filename => {
+        var location = path.relative(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/client/default/scss/'), filename);
+        var basename = location.substr(0, location.length - (location.length - location.indexOf('.scss')));
+        cssEntries[basename] = path.resolve(filename);
+    });
+    
+    configs.push({
+        mode: 'none',
+        name: 'scss',
+        entry: cssEntries,
+        output: {
+            path: path.resolve(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/static/default/css')),
+        },
+        module: {
+            rules: [{
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,
+                            minimize: true
+                        }
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                require('autoprefixer')()
+                            ]
+                        }
+                    }, {
+                        loader: 'sass-loader',
+                        options: {
+                            includePaths: []
+                        }
                     }
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: [
-                            require('autoprefixer')()
-                        ]
-                    }
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        includePaths: [
-                            path.resolve(process.cwd(), '../storefront-reference-architecture/node_modules/')
-                        ]
-                    }
-                }]
+                ]
+            }]
+        },
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "[name].css",
+                chunkFilename: "[id].css"
             })
-        }]
-    },
-    plugins: [
-        new ExtractTextPlugin({ filename: '[name].css' })
-    ]
-}];
+        ]
+    });
+}
+
+if (fs.existsSync(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/client/default/js/'))) {
+    var jsFiles = shell.ls(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/client/default/js/*.js'));
+    jsFiles = jsFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
+    var jsEntries = {};
+    jsFiles.forEach(filename => {
+        var basename = path.basename(filename, '.js');
+        jsEntries[basename] = path.resolve(filename);
+    });
+
+    configs.push({
+        mode: 'production',
+        name: 'js',
+        entry: jsEntries,
+        output: {
+            path: path.resolve(path.join(__dirname, './cartridges/plugin_productcompare/cartridge/static/default/js')),
+            filename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/env'],
+                            plugins: ['@babel/plugin-proposal-object-rest-spread'],
+                            cacheDirectory: true
+                        }
+                    }
+                }
+            ]
+        }
+    });
+}
+
+module.exports = configs;

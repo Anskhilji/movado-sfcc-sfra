@@ -12,6 +12,7 @@
  */
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -20,7 +21,12 @@ function getResources(pageContext) {
         KLARNA_PAY_LATER_PAYMENT_METHOD_TEXT: Resource.msg('checkout.payment.method.klarna.pay.later.text', 'checkout', null),
         PAYPAL_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.paypal.brand.code', 'checkout', null),
         PAYPAL_PAYMENT_METHOD_TEXT: Resource.msg('checkout.payment.method.paypal.text', 'checkout', null),
-        ADYEN_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.adyen', 'checkout', null)
+        ADYEN_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.adyen', 'checkout', null),
+        EMAIL_POPUP_SERVER_ERROR_MSG: Resource.msg('email.popUp.server.error', 'common', null),
+        COOKIE_EXPIRY_TIME_WELCOME_MAT: Site.getCurrent().getCustomPreferenceValue('cookieExpiryTimeInDays'),
+        CURRENT_SITE_ID : Site.getCurrent().getID(),
+        OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
+        OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null)
     };
     return resources;
 }

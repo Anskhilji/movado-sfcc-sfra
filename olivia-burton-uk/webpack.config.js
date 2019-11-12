@@ -1,90 +1,99 @@
-/* globals cat, cd, cp, echo, exec, exit, find, ls, mkdir, rm, target, test */
-
-'use strict';
-
-require('shelljs/make');
+var fs = require('fs');
 var path = require('path');
-var webpack = require('sgmf-scripts').webpack;
-var ExtractTextPlugin = require('sgmf-scripts')['extract-text-webpack-plugin'];
-var jsFiles = require('sgmf-scripts').createJsPath();
-var scssFiles = require('sgmf-scripts').createScssPath();
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const shell = require('shelljs');
 
-var bootstrapPackages = {
-    Alert: 'exports-loader?Alert!bootstrap/js/src/alert',
-    // Button: 'exports-loader?Button!bootstrap/js/src/button',
-    Carousel: 'exports-loader?Carousel!bootstrap/js/src/carousel',
-    Collapse: 'exports-loader?Collapse!bootstrap/js/src/collapse',
-    // Dropdown: 'exports-loader?Dropdown!bootstrap/js/src/dropdown',
-    Modal: 'exports-loader?Modal!bootstrap/js/src/modal',
-    // Popover: 'exports-loader?Popover!bootstrap/js/src/popover',
-    Scrollspy: 'exports-loader?Scrollspy!bootstrap/js/src/scrollspy',
-    Tab: 'exports-loader?Tab!bootstrap/js/src/tab',
-    // Tooltip: 'exports-loader?Tooltip!bootstrap/js/src/tooltip',
-    Util: 'exports-loader?Util!bootstrap/js/src/util'
-};
+var configs = [];
 
-module.exports = [{
-    mode: 'development',
-    name: 'js',
-    entry: jsFiles,
-    output: {
-        path: path.resolve('./cartridges/app_custom_ob_uk/cartridge/static'),
-        filename: '[name].js'
-    },
-    module: {
-        rules: [
-            {
-                test: /(\.js$)|(bootstrap\.js$)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-proposal-object-rest-spread'],
-                        cacheDirectory: true
+if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/client/default/scss/'))) {
+    var cssFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/client/default/scss/**/*.scss'));
+    cssFiles = cssFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
+    var cssEntries = {};
+    cssFiles.forEach(filename => {
+        var location = path.relative(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/client/default/scss/'), filename);
+        var basename = location.substr(0, location.length - (location.length - location.indexOf('.scss')));
+        cssEntries[basename] = path.resolve(filename);
+    });
+    
+    configs.push({
+        mode: 'none',
+        name: 'scss',
+        entry: cssEntries,
+        output: {
+            path: path.resolve(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/static/default/css')),
+        },
+        module: {
+            rules: [{
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,
+                            minimize: true
+                        }
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                require('autoprefixer')()
+                            ]
+                        }
+                    }, {
+                        loader: 'sass-loader',
+                        options: {
+                            includePaths: []
+                        }
+                    }
+                ]
+            }]
+        },
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "[name].css",
+                chunkFilename: "[id].css"
+            })
+        ]
+    });
+}
+
+if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/client/default/js/'))) {
+    var jsFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/client/default/js/*.js'));
+    jsFiles = jsFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
+    var jsEntries = {};
+    jsFiles.forEach(filename => {
+        var basename = path.basename(filename, '.js');
+        jsEntries[basename] = path.resolve(filename);
+    });
+
+    configs.push({
+        mode: 'production',
+        name: 'js',
+        entry: jsEntries,
+        output: {
+            path: path.resolve(path.join(__dirname, './cartridges/app_custom_ob_uk/cartridge/static/default/js')),
+            filename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/env'],
+                            plugins: ['@babel/plugin-proposal-object-rest-spread'],
+                            cacheDirectory: true
+                        }
                     }
                 }
-            }
-        ]
-    },
-    plugins: [new webpack.ProvidePlugin(bootstrapPackages)]
-}, {
-    mode: 'none',
-    name: 'scss',
-    entry: scssFiles,
-    output: {
-        path: path.resolve('./cartridges/app_custom_ob_uk/cartridge/static'),
-        filename: '[name].css'
-    },
-    module: {
-        rules: [{
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-                use: [{
-                    loader: 'css-loader',
-                    options: {
-                        url: false,
-                        minimize: true
-                    }
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: [
-                            require('autoprefixer')()
-                        ]
-                    }
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        includePaths: [
-                            path.resolve('node_modules'),
-                            path.resolve('node_modules/flag-icon-css/sass')
-                        ]
-                    }
-                }]
-            })
-        }]
-    },
-    plugins: [
-        new ExtractTextPlugin({ filename: '[name].css' })
-    ]
-}];
+            ]
+        }
+    });
+}
+
+module.exports = configs;

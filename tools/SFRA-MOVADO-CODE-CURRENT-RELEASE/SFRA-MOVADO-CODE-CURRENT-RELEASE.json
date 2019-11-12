@@ -9,12 +9,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:js",
-          "compile:scss",
-          "compile:fonts"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_storefront_base",
@@ -30,7 +25,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "lib_productlist"
@@ -45,7 +40,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "plugin_applepay"
@@ -60,7 +55,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "plugin_dis"
@@ -75,7 +70,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "int_gtm"
@@ -90,7 +85,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "int_sap_orderStatus"
@@ -105,7 +100,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "int_sabrix"
@@ -120,10 +115,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:js"
-        ]
+        "install": false
       },
       "cartridges": [
 		"int_custom_riskified",
@@ -141,7 +133,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
 		"int_affirm_sfra",
@@ -157,11 +149,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:js",
-		  "compile:scss"
-        ]
+        "install": false
       },
       "cartridges": [
         "plugin_productcompare"
@@ -176,11 +164,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:js",
-		  "compile:scss"
-		  ]
+        "install": false
       },
       "cartridges": [
         "plugin_wishlists"
@@ -195,7 +179,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "bc_job_components",
@@ -212,11 +196,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:js",
-		  "compile:scss"
-        ]
+        "install": false
       },
       "cartridges": [
         "int_adyen_SFRA",
@@ -234,11 +214,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss",
-		  "compile:js"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_custom_movado",
@@ -255,10 +231,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_custom_concord"
@@ -273,10 +246,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_custom_ebel"
@@ -291,12 +261,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss",
-          "compile:js",
-          "compile:fonts"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_custom_ob_uk"
@@ -311,10 +276,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss"
-        ]
+        "install": false
       },
       "cartridges": [
         "int_custom_adyen_klarna"
@@ -329,7 +291,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true
+        "install": false
       },
       "cartridges": [
         "bm_yotpo",
@@ -348,11 +310,7 @@
         "path": "cartridges"
       },
       "npm": {
-        "install": true,
-        "scripts": [
-          "compile:scss",
-          "compile:js"
-        ]
+        "install": false
       },
       "cartridges": [
         "app_custom_movado_redesign"
@@ -372,7 +330,7 @@
   ],
 
   "environments": {
-    "dev05": {
+    "dev09": {
       "server": "dev09-na02-movado.demandware.net",
       "username": "deployment",
       "password": "6eM_BxD7"
@@ -386,7 +344,7 @@
     },
 	"general": {
 	  "password_encryption": true,
-      "target_environment": "dev05"
+      "target_environment": "dev09"
     },
     "optimize": {
       "postcss": true,

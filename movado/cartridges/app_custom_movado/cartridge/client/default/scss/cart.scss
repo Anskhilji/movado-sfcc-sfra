@@ -293,7 +293,25 @@ $negative-spacer: -0.625rem;
   	.gift-message-wrapper, .character-limit {
   		display: none;
   	}
+  	
+    .gift-description-font {
+        font-size: rem(14);
+    }
+    .is-gift-row {
+        height: 13.5rem;
+    }
+    .gift-image-ribbon-box {
+        max-height: 12.875rem;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+        overflow: hidden;
+        @media (max-width: 768px) {
+            max-height: 6.875rem;
+        }
+    }
     .gift-text {
+      height: 6.875rem;
       resize: none;
       border: rem(1) solid $grey-dark-1;
     }

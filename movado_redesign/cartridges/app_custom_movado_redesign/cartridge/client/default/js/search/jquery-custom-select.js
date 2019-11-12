@@ -64,7 +64,7 @@
             var r = l.find("option"),
                 u = "." + d.block,
                 f = d.block + "--active",
-                p = '<button class="' + d.block + '__option"></button>',
+                p = '<button class="' + d.block + '__option" tabindex="0"></button>',
                 h = u + "__option",
                 v = l.next(u),
                 k = v.find(u + "__option--value"),
@@ -75,7 +75,7 @@
             }
             e.each(s, function(t, o) {
                 var n = r.eq(t).attr("class"),
-                    a = e(p).text(o).addClass(n);
+                    a = e(p).text(o).addClass(n).attr('aria-label','option '+ o +'');
                 o === l.find(":selected").text().trim() ? (k.text(o).addClass(n).data("class", n), d.includeValue && b.append(a)) : b.append(a)
             }), a();
             var w = b.find(h);

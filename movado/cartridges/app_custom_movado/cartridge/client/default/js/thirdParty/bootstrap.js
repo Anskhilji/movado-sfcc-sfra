@@ -8,7 +8,7 @@ var Modal = require('bootstrap/js/src/modal');
 require('bootstrap/js/src/scrollspy');
 require('bootstrap/js/src/tab');
 // require('bootstrap/js/src/tooltip');
-// require('bootstrap/js/src/popover');
+//require('bootstrap/js/src/popover');
 
 //
 $.fn.modal = Modal.default._jQueryInterface;

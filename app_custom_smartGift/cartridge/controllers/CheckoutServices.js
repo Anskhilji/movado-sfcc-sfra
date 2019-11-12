@@ -30,7 +30,6 @@ server.append('PlaceOrder', server.middleware.https, function (req, res, next) {
                   merchantOrderId: viewData.orderID,
                   paidAmount: currentOrder.getTotalGrossPrice().value,
                   items: items
-                  
               }
               smartGiftService.sendOrderDetails(requestPayload);
           }
