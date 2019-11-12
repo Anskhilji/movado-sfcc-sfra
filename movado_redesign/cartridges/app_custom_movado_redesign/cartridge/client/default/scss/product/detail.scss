@@ -446,9 +446,21 @@
                 letter-spacing: normal;
                 color: $storm-gray;
                 letter-spacing: normal;
-                padding-left: rem(50);
+                padding-left: rem(55);
                 margin: 0;
             }
+        }
+
+        .free-shipping-block {
+            background: $slate-grey-light url("../../images/box.png") left rem(15) center no-repeat;
+        }
+
+        .swiss-movement-block {
+            background: $slate-grey-light url("../../images/swiss.png") left rem(15) center no-repeat;
+        }
+
+        .warranty-block {
+            background: $slate-grey-light url("../../images/badge.png") left rem(15) center no-repeat;
         }
     }
 
@@ -474,7 +486,7 @@
         }
     }
 
-    .add-to-wish-list {
+    .add-to-wish-list, .wishlist-login {
         font-size:0;
         height: rem(30);
         width: rem(30);
