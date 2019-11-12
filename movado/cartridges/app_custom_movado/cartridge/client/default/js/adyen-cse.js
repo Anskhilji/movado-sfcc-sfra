@@ -18,6 +18,8 @@ $('button[value="submit-payment"]').on('click', function (e) {
 
         var validCard = encryptData(cardData, options);
         if (!validCard) {
+            var scrollUtil = require('./utilities/scrollUtil');
+            scrollUtil.scrollInvalidFields('.payment-form .payment-options', -80, 300);
             return false;
         }
         $('#creditBin').val($('#cardNumber').val().split(' ').join('').substring(0, 6));

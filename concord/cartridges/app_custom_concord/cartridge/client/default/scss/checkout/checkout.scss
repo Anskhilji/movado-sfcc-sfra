@@ -366,3 +366,10 @@ header {
         }
     }
 }
+
+.form-control-label {
+
+    > .content-asset {
+        display: inline-block;
+    }
+}

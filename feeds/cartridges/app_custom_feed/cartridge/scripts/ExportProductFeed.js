@@ -63,7 +63,7 @@ function exportSmartGiftFeed(args) {
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
             "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
-            "categories" : "categories"
+            "categories" : true
     }
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
     exportFeed(feedColumnsSmartGift, fileArgs, feedParametersSmartGift);
@@ -72,16 +72,37 @@ function exportSmartGiftFeed(args) {
 function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
-    var feedColumnsGoogle = {
+    var feedColumnsGoogle = {};
+    if(Site.current.ID == "MovadoUS") {
+        feedColumnsGoogle = {
             "ID" : 1,
-            "title" : 2,
+            "metaTitle" : 2,
             "description" : 3,
-            "price" : 4,
+            "decimalPrice" : 4,
+            "link" : 5,
+            "imageLink" : 6,
+            "availability" : 7,
+            "productType" : 8,
+            "googleProductCategory": 9,
+            "condition" : 10,
+            "gtin" : 11,
+            "mpn" : 12,
+            "brand" : 13,
+            "color" : 14,
+            "gender" : 15,
+            "ageGroup" : 16
+                }
+    } else {
+        feedColumnsGoogle = {
+            "ID" : 1,
+            "metaTitle" : 2,
+            "description" : 3,
+            "decimalPrice" : 4,
             "link" : 5,
             "imageLink" : 6,
             "additionalImageLink" : 7,
             "availability" : 8,
-            "product_type" : 9,
+            "productType" : 9,
             "googleProductCategory": 10,
             "condition" : 11,
             "gtin" : 12,
@@ -90,36 +111,41 @@ function exportGoogleFeed(args) {
             "color" : 15,
             "size" : 16,
             "gender" : 17,
-            "age_group" : 18, 
+            "ageGroup" : 18, 
             "customLabel0" : 19,
             "customLabel1" : 20,
             "customLabel2" : 21,
             "customLabel3" : 22
+        }
     }
-    
+
     var feedParametersGoogle = {
             "colonSeparator" : Constants.COLON_SEPARATOR,
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
             "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
-            "singleCategory" : "singleCategory"
+            "skipMissingProductTypeSKUs" : true
     }
+
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
     exportFeed(feedColumnsGoogle, fileArgs, feedParametersGoogle);
 }
 
 function exportFeed(feedColumns, fileArgs, feedParameters) {
-    var logLocation = 'ExportProductFeed~generateProductFeed';
     try {
         fileArgs.csvStreamWriter.writeNext(buildCsvHeader(feedColumns));
         var productSearchHitsItr = getProductSearchHitIt();
         while (productSearchHitsItr.hasNext()) {
             var product = productSearchHitsItr.next().product;
-            
+
             if (product.variant) {
                 continue;
             }
             var productAttributes = getProductAttributes(product, feedParameters);
+
+            if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
+                continue;
+            }
 
             if(feedParameters.categories) {
                 var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
@@ -155,114 +181,127 @@ function getProductSearchHitIt() {
 
 function buildCsvHeader(feedColumns) {
     var csvFileHeader = new Array();
-    
+
     if (!empty(feedColumns['ID'])) {
         csvFileHeader.push("id");
     }
-    
+
     if (!empty(feedColumns['masterProductID'])) {
         csvFileHeader.push("item_group_id");
     }
-    
+
     if (!empty(feedColumns['isMasterProduct'])) {
         csvFileHeader.push("is_master_product");
     }
+
     if (!empty(feedColumns['title'])) {
         csvFileHeader.push("title");
     }
     
+    if (!empty(feedColumns['metaTitle'])) {
+        csvFileHeader.push("title");
+    }
+
     if (!empty(feedColumns['description'])) {
         csvFileHeader.push("description");
     }
-    
+
     if (!empty(feedColumns['price'])) {
         csvFileHeader.push("price");
     }
     
+    if (!empty(feedColumns['decimalPrice'])) {
+        csvFileHeader.push("price");
+    }
+
     if (!empty(feedColumns['link'])) {
         csvFileHeader.push("link");
     }
-    
+
     if (!empty(feedColumns['imageLink'])) {
         csvFileHeader.push("image_link");
     }
-    
-    if (!empty(feedColumns['additionImageLink'])) {
+
+    if (!empty(feedColumns['additionalImageLink'])) {
         csvFileHeader.push("additional_image_link");
     }
-    
+
     if (!empty(feedColumns['availability'])) {
         csvFileHeader.push("availability");
     }
-    
+
     if (!empty(feedColumns['productType'])) {
         csvFileHeader.push("product_type");
     }
-    
+
     if (!empty(feedColumns['categories'])) {
         csvFileHeader.push("Categories");
     }
     
+    if (!empty(feedColumns['googleProductCategory'])) {
+        csvFileHeader.push("google_product_category");
+      }
+
     if (!empty(feedColumns['condition'])) {
         csvFileHeader.push("condition");
     }
-    
+
     if (!empty(feedColumns['gtin'])) {
         csvFileHeader.push("gtin");
     }
-    
+
     if (!empty(feedColumns['mpn'])) {
         csvFileHeader.push("mpn");
     }
-    
+
     if (!empty(feedColumns['brand'])) {
         csvFileHeader.push("brand");
     }
-    
+
     if (!empty(feedColumns['color'])) {
         csvFileHeader.push("color");
     }
-    
+
     if (!empty(feedColumns['size'])) {
         csvFileHeader.push("size");
     }
-    
+
     if (!empty(feedColumns['gender'])) {
         csvFileHeader.push("gender");
     }
-    
+
     if (!empty(feedColumns['ageGroup'])) {
         csvFileHeader.push("age_group");
     }
-    
+
     if (!empty(feedColumns['customLabel0'])) {
         csvFileHeader.push("custom_label_0");
     }
-    
+
     if (!empty(feedColumns['customLabel1'])) {
         csvFileHeader.push("custom_label_1");
     }
-    
+
     if (!empty(feedColumns['customLabel2'])) {
         csvFileHeader.push("custom_label_2");
     }
-    
+
     if (!empty(feedColumns['customLabel3'])) {
         csvFileHeader.push("custom_label_3");
     }
-    
+
     if (!empty(feedColumns['longDescription'])) {
         csvFileHeader.push("long_description");
     }
-    
+
     if (!empty(feedColumns['width'])) {
         csvFileHeader.push("width");
     }
-    
+
     if (!empty(feedColumns['rating'])) {
         csvFileHeader.push("rating");
     }
-    
+
     return csvFileHeader
 }
 
@@ -275,7 +314,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push(""); 
         }
     }
-    
+
     if (!empty(feedColumns['masterProductID'])) {
         if (product.ID && product.productType) {
             productDetails.push(product.masterProductID);
@@ -283,7 +322,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push(""); 
         }
     }
-    
+
     if (!empty(feedColumns['isMasterProduct'])) {
         if (product.isMasterProduct) {
             productDetails.push("1");
@@ -291,7 +330,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("0");
         }
     }
-        
+
     if (!empty(feedColumns['title'])) {
         if (product.title) {
             productDetails.push(product.title);
@@ -299,7 +338,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
-        
+    
+    if (!empty(feedColumns['metaTitle'])) {
+        if (product.metaTitle) {
+            productDetails.push(product.metaTitle);
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['description'])) {
         if (product.description) {
             productDetails.push(product.description);
@@ -307,7 +354,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
-        
+
     if (!empty(feedColumns['price'])) {
         if (product.price) {
             productDetails.push(product.price);
@@ -315,7 +362,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
-        
+    
+    if (!empty(feedColumns['decimalPrice'])) {
+        if (product.decimalPrice) {
+            productDetails.push(product.decimalPrice);
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['link'])) {
         if (product.producturl) {
             productDetails.push(product.producturl);
@@ -332,8 +387,12 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['additionImageLink'])) {
-        productDetails.push("");
+    if (!empty(feedColumns['additionalImageLink'])) {
+        if (product.isWristedImage == 'Wrist-Shot') {
+            productDetails.push(product.additionalImageLink)
+        } else {
+            productDetails.push("");
+        }
     }
 
     if (!empty(feedColumns['availability'])) {
@@ -345,8 +404,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productType'])) {
-        if (product.jewelryType) {
-            productDetails.push(product.jewelryType);
+        if (product.jewelryStyle) {
+            productDetails.push(product.jewelryStyle);
         } else {
             productDetails.push("");
         }
@@ -359,6 +418,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+
+    if (!empty(feedColumns['googleProductCategory'])) {
+        if (product.googleCategoryPath) {
+            productDetails.push(product.googleCategoryPath);
+        } else {
+            productDetails.push("");
+        }
+      } 
 
     if (!empty(feedColumns['condition'])) {
         productDetails.push("new");
@@ -373,7 +440,11 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['mpn'])) {
-        productDetails.push("");
+        if (product.ID) {
+            productDetails.push(product.ID);
+        } else {
+            productDetails.push(""); 
+        }
     }
 
     if (!empty(feedColumns['brand'])) {
@@ -409,12 +480,12 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['ageGroup'])) {
-        productDetails.push("");
+        productDetails.push("adult");
     }
 
     if (!empty(feedColumns['customLabel0'])) {
-        if (categoriesPath) {
-            productDetails.push(categoriesPath);
+        if (product.googleCategoryPath) {
+            productDetails.push(product.googleCategoryPath);
         } else {
             productDetails.push("");
         }
@@ -429,7 +500,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['customLabel2'])) {
-        productDetails.push("");
+        productDetails.push(product.isWristedImage);
     }
 
     if (!empty(feedColumns['customLabel3'])) {
@@ -465,13 +536,21 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters) {
+    var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
+    var productDecimalPrice = product.getPriceModel().getPrice() ? (product.getPriceModel().getPrice().decimalValue ? product.getPriceModel().getPrice().decimalValue.toString() : "") : "";
+    var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
+    var productImages = getProductImageURL(product);
+    var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
     var productAttributes = {
         ID: product.ID,
         title: product.name,
-        imageurl: getProductImageURL(product),
+        metaTitle : product.pageTitle,
+        imageurl: productImages.firstImageLink,
+        additionalImageLink : productImages.additionalImageLink ? productImages.additionalImageLink : "",
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
-        price:  product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().getValueOrNull() : "",
+        decimalPrice : productDecimalPrice + " " + productCurrencyCode,
+        price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
@@ -485,7 +564,10 @@ function getProductAttributes(product, feedParameters) {
         longDescription : product.getLongDescription(),
         gender : product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
         width : product.custom.width ? product.custom.width : "",
-        isMasterProduct : product.master ? true : false
+        isMasterProduct : product.master ? true : false,
+        jewelryStyle : jewelryStyle,
+        googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
+        isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot"
     };
     return productAttributes;
 }
@@ -503,11 +585,11 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
             if (empty(variantJSON.product.description)) {
                 variantJSON.product.description = masterProductAttributes.description;
             }
-            
+
             if (empty(variantJSON.product.name)) {
                 variantJSON.product.name = masterProductAttributes.name;
             }
-            
+
             variants.push(variantJSON);
         }
     }
@@ -515,9 +597,10 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
 }
 
 function getProductImageURL(product) {
-    var images = product.getImages('large');
-    var imagesIt = images.iterator();
-    return imagesIt.hasNext() ? imagesIt.next().absURL.toString() : null;
+    var firstImageLink = product.getImage("large", 0) != null ? product.getImage("large", 0).absURL.toString() : null;
+    var additionalImageLink = product.getImage("large", 3) != null ? product.getImage("large", 3).absURL.toString() : null;
+    var isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1))) ? true : false;
+    return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage}
 }
 
 function getProductSalePrice(product) {

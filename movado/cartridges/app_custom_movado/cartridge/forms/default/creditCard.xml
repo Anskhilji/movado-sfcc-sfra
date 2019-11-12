@@ -28,7 +28,7 @@
            />
 
     <field formid="cardOwner" label="label.input.creditcard.owner" type="string" mandatory="false" binding="cardOwner"
-           max-length="16" missing-error="error.message.required" 
+           max-length="50" missing-error="error.message.required" 
     	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
     	   parse-error="error.message.invalid"
     	   />

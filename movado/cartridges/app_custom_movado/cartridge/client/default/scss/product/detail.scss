@@ -185,19 +185,80 @@ label.availability {
 
 .smartgift-btn {
     background: url(../../images/sg-gift-box.svg) left rem(15) top rem(6) no-repeat;
-    background-size: rem(19);
+    background-size: 19px;
     padding-left: rem(42);
     letter-spacing: normal;
     font-weight: 600;
     padding-right: rem(15);
     outline: none;
+    border-radius: 0px;
     &:hover, &:focus {
-        color: unset;
-        background-color: unset;
-        border-color: unset;
+        color: inherit;
+        background-color: transparent;
+        border-color: inherit;
         box-shadow: none;
+        box-radius: none;
     }
+}
+
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    min-width: 30%;
+    @include media-breakpoint-down(lg) {
+        min-width: 96%;
+        font-size: rem(16);
+        margin-top: rem(5);
+        margin-left: rem(0) !important;
+    }
+    &:after {
+        font-size: rem(6);
+    }
+}
+
+.cta-add-to-cart {
+    @include media-breakpoint-down(lg) {
+        min-width: 100%;
+    }
+}
+.add-to-cart {
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        margin-bottom: rem(5); 
+    }
+}
+
+.smartgift-medium-scr {
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+    }
+    @include media-breakpoint-down(xs) {
+        width: auto;
+    }
+}
+
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    @include media-breakpoint-down(sm) {
+        min-width: 100%;
+    }
+}
+
+.smartgift-btn {
+    @include media-breakpoint-down(md) {
+        width: 100%;
+    }
+}
+
+.add-to-cart {
+    border-radius: 0px;
 }
 .smartgift-bottom-text {
     letter-spacing: rem(0);
+}
+
+.product-detail, .description-and-detail {
+
+    .btn.quickview, .btn.title {
+        background-color: transparent;
+    }
 }

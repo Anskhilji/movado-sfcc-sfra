@@ -5,7 +5,12 @@
  * @param {Array} totals - the totals data
  */
 function updateTotals(totals) {
-    $('.shipping-total-cost').text(totals.totalShippingCost);
+    if (typeof totals !== 'undefined' && typeof totals.isFree !== 'undefined' && totals.isFree === true) {
+        $('.shipping-total-cost').text(totals.freeShippingLabel);
+    } else {
+        $('.shipping-total-cost').text(totals.totalShippingCost);
+    }
+
     $('.tax-total').text(totals.totalTax);
     $('.sub-total').text(totals.subTotal);
     $('.grand-total-sum').text(totals.grandTotal);
@@ -17,7 +22,7 @@ function updateTotals(totals) {
         $('.order-discount').addClass('hide-order-discount');
     }
 
-    if (totals.shippingLevelDiscountTotal.value > 0) {
+    if (totals.shippingLevelDiscountTotal.value > 0 && typeof totals !== 'undefined' && typeof totals.isFree !== 'undefined' && totals.isFree === false) {
         $('.shipping-discount').removeClass('hide-shipping-discount');
         $('.shipping-discount-total').text('- ' +
             totals.shippingLevelDiscountTotal.formatted);

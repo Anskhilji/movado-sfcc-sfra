@@ -227,6 +227,13 @@ var formHelpers = require('base/checkout/formErrors');
                                         formHelpers.loadFormErrors('.payment-form', error);
                                     }
                                   });
+                                  var scrollUtil = require('../utilities/scrollUtil');
+                                  var firstErrorFieldName =  $('.payment-form').find('.is-invalid').first()[0].name;
+                                  if (firstErrorFieldName == 'dwfrm_billing_paymentMethod') {
+                                      scrollUtil.scrollInvalidFields('.payment-form', 700, 300);
+                                  } else {
+                                      scrollUtil.scrollInvalidFields('.payment-form', -80, 300);
+                                  }
                               }
 
                               if (data.serverErrors.length) {
@@ -505,7 +512,12 @@ function createErrorNotification(message) {
  * @param {Object} data - AJAX response from the server
  */
 function updateCheckoutTotals(data) {
-    $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);
+    if (typeof data.totals !== 'undefined' && typeof data.totals.isFree !== 'undefined' && data.totals.isFree === true) {
+        $('.shipping-total-cost').empty().append(data.totals.freeShippingLabel);
+    } else {
+        $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);
+    }
+    
     $('.tax-total').empty().append(data.totals.totalTax);
     $('.grand-total-sum').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
@@ -519,7 +531,7 @@ function updateCheckoutTotals(data) {
         $('.order-discount').addClass('hide-order-discount');
     }
 
-    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+    if (data.totals.shippingLevelDiscountTotal.value > 0 && typeof data.totals !== 'undefined' && typeof data.totals.isFree !== 'undefined' && data.totals.isFree === false) {
         $('.shipping-discount').removeClass('hide-shipping-discount');
         $('.shipping-discount-total').empty().append('- ' +
             data.totals.shippingLevelDiscountTotal.formatted);

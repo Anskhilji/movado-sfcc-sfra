@@ -4,6 +4,6 @@
             <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
             <i class="fa fa-heart-o fa-stack-1x" ></i>
         </span>
-        <span class="hidden-label">${Resource.msg('wishlist.addto.wishlist.heart', 'wishlist', null)}</span>
+        <span class="hidden-label d-none">${Resource.msg('wishlist.addto.wishlist.heart', 'wishlist', null)}</span>
     </a>
 </isif>

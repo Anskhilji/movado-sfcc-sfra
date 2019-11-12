@@ -5,6 +5,11 @@ $(document).ready(function() {
         $(".desktop-menu .sub-dropdown .menu-content").width(width);
     }).resize();
 });
+$('.minicart .popover').keyup(function(event) {
+    if (event.key === 'Escape') {
+        $('.minicart .popover').removeClass('show');
+    }
+});
 
 $(".search-icon").click(function(e){
     $(".desktop-search").slideDown("fast");

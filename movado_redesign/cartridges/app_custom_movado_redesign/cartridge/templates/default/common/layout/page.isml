@@ -16,6 +16,7 @@
             This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeHeader.
             <isinclude template="/components/header/pageHeader" />
         </iscomment>
+        <isinclude url="${URLUtils.url('EmailPopUp-Show', 'RefererPath', request.httpPath)}">
         <div id="mainContent">
             <isreplace/>
         </div>

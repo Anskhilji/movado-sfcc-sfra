@@ -41,6 +41,7 @@ $(document).ready(function() { // eslint-disable-line
 
     // Avoid self toggle once a payment panel is expanded.
     $('a', $('.payment-options .form-check')).on('click', function (e) {
+        $('#selectedPaymentOption').removeClass('is-invalid')
         if ($(this).parents('.panel').children('.panel-collapse').hasClass('show')) {
             e.stopPropagation();
         }

@@ -2,8 +2,8 @@
 'use strict';
 
 require('shelljs/make');
-var path = require('path');
-
+ var path = require('path');
+ 
 var createJSPath = function() {
   var result = {};
   var jsFiles = ls('./tmp/js/*.js');

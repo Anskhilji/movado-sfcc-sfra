@@ -7,7 +7,7 @@ var path = require('path');
 var createJSPath = function() {
   var result = {};
   var jsFiles = ls('./tmp/js/*.js');
-
+  
   jsFiles.forEach(function(filePath) {
     var name = path.basename(filePath, '.js');
     result[name] = filePath;
