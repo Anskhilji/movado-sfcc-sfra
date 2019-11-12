@@ -79,11 +79,15 @@
             margin: 0 auto;
         }
     }
+
     .edit-popup {
         display: none;
     }
+
     form.submitted {
+
         .engraving-btn, .debossing-btn {
+
             > a {
                 background: url("../../images/minus-sign.svg") left rem(12) center no-repeat;
                 background-size: rem(11);
@@ -101,7 +105,9 @@
             }
         }
     }
+
     .engraving-btn, .debossing-btn {
+
         > a {
             color: $black;
             @include font-demi;
@@ -142,9 +148,11 @@
     .product-options {
         display: flex;
         margin-bottom: rem(25);
+
         @include media-breakpoint-down(sm) {
             justify-content: center;
         }
+
         .product-option {
             margin: 0;
 
@@ -155,6 +163,7 @@
     }
 
     .primary-images {
+
         .cs-carousel-wrapper {
             margin-bottom: rem(10);
 
@@ -204,18 +213,21 @@
     }
 
     .carousel-nav {
+
         .slick-slide {
             width: rem(100) !important;
             height: rem(100);
+
             .carousel-tile {
                 border: 1px solid transparent;
-                
+
                 img {
                     width: 100%;
                 }
             }
 
             &.slick-current {
+
                 .carousel-tile {
                     border: 1px solid $black;
                 }
@@ -235,7 +247,7 @@
         @include media-breakpoint-down(sm) {
             padding: 2rem 0;
         }
-        
+
         .attribute-name {
             @include font-book;
             font-size: rem(15);
@@ -281,7 +293,6 @@
     }
 
     .product-tile {
-
         min-height: unset;
         position: relative;
 
@@ -303,6 +314,7 @@
             @include media-breakpoint-down(sm) {
                 right: rem(5);
             }
+
             @include media-breakpoint-down(xs) {
                 font-size: rem(9);
             }
@@ -327,9 +339,11 @@
             text-transform: capitalize;
             border-radius: rem(10);
             z-index: 99;
+
             @include media-breakpoint-down(sm) {
                 right: rem(5);
             }
+
             @include media-breakpoint-down(xs) {
                 font-size: rem(9);
             }
@@ -371,6 +385,7 @@
         }
 
         &:hover {
+
             .wishlistTile {
                 display: block;
             }
@@ -572,6 +587,7 @@
         text-align: center;
 
         .popup-head {
+
             h1 {
                 @include font-demi;
                 font-size: rem(34);
@@ -583,7 +599,9 @@
                 }
             }
         }
+
         .popup-body {
+
             p {
                 @include font-book;
                 font-size: rem(15);
@@ -600,9 +618,11 @@
             .watch-image {
                 background: $slate-grey-light;
                 margin: rem(30) 0;
+
                 @include media-breakpoint-down(sm) {
                     margin: rem(25) 0;
                 }
+
                 .image {
                     position: relative;
                 }
@@ -632,6 +652,7 @@
                     max-height: 46vh;
                 }
             }
+
             .text-area {
                 max-width: rem(260);
                 margin: 0 auto;
@@ -673,7 +694,9 @@
                     }
                 }
             }
+
             .popup-action-btns {
+
                 .save, .cancel {
                     width: rem(120);
                     height: rem(45);
@@ -682,6 +705,7 @@
                     letter-spacing: normal;
                     line-height: rem(32);
                     transition: 0.3s;
+
                     &:focus {
                         box-shadow: none;
                     }
@@ -698,6 +722,7 @@
                 }
             }
         }
+
         .popup:before {
             content: '';
             display: inline-block;
@@ -705,7 +730,7 @@
             margin-right: -4px;
             vertical-align: top;
           }
-          
+
           .popup-inner {
             display: inline-block;
             text-align: left;
@@ -729,13 +754,19 @@
             }
           }
     }
+
     .debossing-form {
+
         .popup {
+
             .popup-body {
+
                 .watch-image {
+
                     img {
                         object-fit: contain;
                     }
+
                     .text-on-watch {
                         position: absolute;
                         bottom: 11%;
@@ -754,11 +785,15 @@
 }
 
 [data-action="Product-Show"] {
+
     .cs-product-recommendation.pdp-v-one {
+
         .cs-carousel-wrapper {
+
             .cs-carousel {
                 margin: 0;
             }
+
             .carousel-title {
                 text-align: center;
             }
@@ -767,9 +802,12 @@
 }
 
 .container-fluid.pdp-mobile {
+
     @include media-breakpoint-down(sm) {
+ 
         .detail-bottom-blocks {
             padding: 0;
+
             .bottom-block {
                 width: rem(160);
                 margin-right: rem(5);
@@ -777,7 +815,9 @@
                 padding: rem(10);
             }
         }
+
         .carousel-nav {
+
             .slick-slide {
                 width: rem(70) !important;
                 height: rem(70);
@@ -789,11 +829,13 @@
                 display: flex;
             }
         }
+
         .carousel-title {
             @include font-demi;
             font-size: rem(17);
             letter-spacing: normal;
         }
+
         .cart-and-ipay {
             padding-bottom: 0;
             margin: 0;
@@ -943,8 +985,10 @@
     }
 
     @include media-breakpoint-down(xs) {
+
         .detail-bottom-blocks {
             padding: 0;
+
             .bottom-block {
                 width: rem(160);
                 margin-right: 0;
