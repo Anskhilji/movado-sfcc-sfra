@@ -8,8 +8,7 @@ productHelpers.showProductPage = function (querystring, reqPageMetaData) {
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
 
-    var params = querystring;
-    var product = ProductFactory.get(params);
+    var product = ProductFactory.get(querystring);
     var addToCartUrl = URLUtils.url('Cart-AddProduct');
     var breadcrumbs = productHelpers.getAllBreadcrumbs(null, product.id, []).reverse();
     

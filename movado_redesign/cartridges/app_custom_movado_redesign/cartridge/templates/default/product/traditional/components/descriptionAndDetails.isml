@@ -1,25 +1,22 @@
 <div class="description-and-detail">
-<div class="row">
-    <isif condition="${product.longDescription}">
-        <div class="col-md-8 description">
-            <div class="row">
-                <div class="col-sm-10">
-                    <isinclude template="product/traditional/components/highlights" />
+    <div class="row">
+        <isif condition="${product.longDescription}">
+            <div class="col-sm-8 description">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <isinclude template="product/traditional/components/highlights" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </isif>
-    <isif condition="${!pdict.isCompareableDisabled}">
-        <isif condition="${product.attributes && product.attributes.length}">
-            <div class="col-md-4 p-0 product-attributes">
-                <isinclude template="product/traditional/components/detailsAttributes" />
-            </div>
         </isif>
-    </isif>
-</div>
-
-
-
+        <isif condition="${!pdict.isCompareableDisabled}">
+            <isif condition="${product.attributes && product.attributes.length}">
+                <div class="col-sm-4 p-0 product-attributes">
+                    <isinclude template="product/traditional/components/detailsAttributes" />
+                </div>
+            </isif>
+        </isif>
+    </div>
     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
      then appropriate template should be overridden. </iscomment>
     <isinclude template="widget/yotporeviewswidget" />

@@ -478,7 +478,7 @@
                 width: 100%;
 
                 &::before{
-                content: unset;
+                    content: unset;
                 }
             }
 
@@ -542,6 +542,8 @@
         padding: 0;
 
         .hero-banner-wrapper {
+            flex: 1;
+
             &:first-child {
                 margin-right: rem(15);
             }
@@ -804,7 +806,7 @@
 .container-fluid.pdp-mobile {
 
     @include media-breakpoint-down(sm) {
- 
+
         .detail-bottom-blocks {
             padding: 0;
 
@@ -845,6 +847,7 @@
             > div {
                 padding:0;
             }
+
             .add-to-cart {
                 min-width: 100%;
             }
