@@ -14,3 +14,8 @@ exports.SERVICE_ID = {
     INSTANT_DATA: 'mc.instant.data.api',
     BATCH_DATA: 'mc.batch.data.api'
 }
+exports.SFMC_SERVICE_API_TYPE = {
+    CONTACT: 'CONTACT',
+    EVENT: 'EVENT',
+    DATA_EXTENSION: 'DATA_EXTENSION'
+}

@@ -28,8 +28,8 @@ function getAuthTokenFromAPI(requestParams) {
     }
 }
 
-function getDataAPIService(serviceID, endpoint, accessToken) {
-    var service = MarketingCloudServiceRegistry.getDataAPIService(serviceID, endpoint);
+function getDataAPIService(serviceID, endpoint, accessToken, serviceType) {
+    var service = MarketingCloudServiceRegistry.getDataAPIService(serviceID, endpoint, serviceType);
     service.addHeader('Authorization', 'Bearer ' + accessToken);
     return service;
 }
@@ -105,7 +105,7 @@ function addContactToDataExtension(params, service) {
     var addContactToDataExtensionPayload = RequestModel.generateAddContactToDataExtensionPayload(params);
     var responsePayload = null;
     try {
-        responsePayload = service.call(addContactToDataExtensionPayload);
+        responsePayload = service.call(JSON.stringify(addContactToDataExtensionPayload));
     } catch (e) {
         Logger.error('MarketingCloud addContactToDataExtension: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
@@ -116,7 +116,7 @@ function addContactToDataExtension(params, service) {
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
-            responsePayload = service.call(addContactToDataExtensionPayload);
+            responsePayload = service.call(JSON.stringify(addContactToDataExtensionPayload));
         } catch (e) {
             Logger.error('MarketingCloud addContactToDataExtension: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }

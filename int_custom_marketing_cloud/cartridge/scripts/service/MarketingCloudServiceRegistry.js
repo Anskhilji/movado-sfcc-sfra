@@ -2,6 +2,8 @@
 
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
 
+var Constants = require('~/cartridge/scripts/util/Constants');
+
 function getAuthorizationServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
@@ -32,8 +34,25 @@ function getDataAPIServiceConfigs() {
     return serviceConfig;
 }
 
-function getDataAPIService(serviceID, endpoint) {
+function getDataExtensionServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('POST');
+            return args;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
+function getDataAPIService(serviceID, endpoint, serviceType) {
     var dataService = LocalServiceRegistry.createService(serviceID, getDataAPIServiceConfigs());
+    if (serviceType === Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION) {
+        dataService = LocalServiceRegistry.createService(serviceID, getDataExtensionServiceConfigs());
+    }
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     url = baseUrl.toString() + endpoint;
     dataService.setURL(url);

@@ -27,13 +27,13 @@ function exportAllSavedSubscribers() {
         authServiceID: Constants.SERVICE_ID.BATCH_AUTH
     }
     var accesToken = SFMCAPIHelper.getAuthToken(params);
-    var contactService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accesToken);
+    var contactService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accesToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
     if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
-        eventService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accesToken);
+        eventService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accesToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
         isMovadoOrOB = true;
     } else {
-        var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}',params.dataExtensionKey);
-        dataExtensionService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, endpoint, accesToken);
+        var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}', params.dataExtensionKey);
+        dataExtensionService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, endpoint, accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
     }
 
     var mcSubscribersObjectIterator = SFMCCOHelper.getEmailSubscribers();
