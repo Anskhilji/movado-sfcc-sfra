@@ -1,13 +1,19 @@
 'use strict';
 
+var Resource = require('dw/web/Resource');
+
 var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var shareByEmailHelper = require('*/cartridge/scripts/helpers/shareByEmailHelper');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
+var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
+
 
 /**
  * Opens the Modal and populates it with form data.
  */
+
 server.get('ShowModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
     var customerName = '';
     var customerEmail = '';
@@ -111,7 +117,13 @@ server.post('SendToFriend', server.middleware.https, csrfProtection.validateAjax
                 emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : '')
             };
 
-            status = shareByEmailHelper.subscribeToNewsletter(sendToFriendForm.addtoemaillist.checked, req, result.youremail);
+            if (sendToFriendForm.addtoemaillist.checked) {
+                var requestParams = {
+                    email: result.youremail
+                }
+                SFMCApi.sendSubscriberToSFMC(requestParams);
+                status = EmailSubscriptionHelper.emailSubscriptionResponse(true);
+            }
 
             var emailObj = {
                 to: result.friendsEmail,
@@ -123,15 +135,14 @@ server.post('SendToFriend', server.middleware.https, csrfProtection.validateAjax
 
             emailHelpers.sendEmail(emailObj, 'sendToFriend/productShareEmail', objectForEmail);
 
-            if (!status.error) {
+            if (status) {
                 res.json({
                     error: false
                 });
-            } else if (status.error && status.message) {
+            } else {
                 res.json({
-                    error: false,
-                    serverError: status.error,
-                    serverErrorMessage: status.message
+                    error: true,
+                    fields: formErrors.getFormErrors(sendToFriendForm)
                 });
             }
         }
