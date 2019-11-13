@@ -33,8 +33,8 @@
                             </picture>
                             <div class="text-on-watch">
 <pre>
-Line 1
-Line2
+${Resource.msg('embossing.text.placeholder1', 'product', null)}
+${Resource.msg('embossing.text.placeholder2', 'product', null)}
 </pre>
                             </div>
                         </div>
