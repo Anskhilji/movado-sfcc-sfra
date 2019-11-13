@@ -14,18 +14,7 @@
         </isif>
     </isloop>
 
-
     <isinclude template="product/components/productTileImage" />
-    <isif condition="${preOrder}">
-        <div class="out-of-stock pre-order">
-            ${Resource.msg('info.product.availability.preorder', 'common', null)}
-        </div>
-    </isif>
-    <isif condition="${outOfStock}">
-        <div class="out-of-stock">
-            ${Resource.msg('label.soldout', 'common', null)}
-        </div>
-    </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
@@ -84,7 +73,7 @@
             </isif>
         </isloop>
     
-        <isinclude template="product/old/components/productTileImage" />
+        <isinclude template="product/components/productTileImage" />
     
         <div class="tile-body" tabindex="0">
             <isif condition="${pdict.display.swatches !== false}">
@@ -93,24 +82,6 @@
     
             <isinclude template="product/components/productTileName" />
             
-            <isif condition="${preOrder}">
-                <div class="out-of-stock">
-                    ${Resource.msg('info.product.availability.preorder', 'common', null)}
-                </div>
-            </isif>
-    
-            <isif condition="${outOfStock}">
-                <div class="out-of-stock">
-                    ${Resource.msg('label.soldout', 'common', null)}
-                </div>
-            </isif>
-            
-                <isloop items="${product.badges.textBadges}" var="badge">
-                    <div class="exclusive-product">
-                        ${badge.text}
-                    </div>
-                </isloop>
-
             <isset name="price" value="${product.price}" scope="page" />
             <isif condition="${product.productType === 'set'}">
                 <isinclude template="product/components/pricing/setPrice" />
