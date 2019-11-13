@@ -49,12 +49,15 @@ function getDataExtensionServiceConfigs() {
 }
 
 function getDataAPIService(serviceID, endpoint, serviceType) {
-    var dataService = LocalServiceRegistry.createService(serviceID, getDataAPIServiceConfigs());
+    var serviceConfig = null;   
     if (serviceType === Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION) {
-        dataService = LocalServiceRegistry.createService(serviceID, getDataExtensionServiceConfigs());
+        serviceConfig = getDataExtensionServiceConfigs();
+    } else {
+        serviceConfig = getDataAPIServiceConfigs();
     }
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var baseUrl = dataService.getConfiguration().getCredential().URL;
-    url = baseUrl.toString() + endpoint;
+    var url = baseUrl.toString() + endpoint;
     dataService.setURL(url);
     return dataService;
 }
