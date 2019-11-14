@@ -5,6 +5,7 @@
         assets.addCss('/css/account/profile.css');
     </isscript>
 
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
     <div class="hero account-banner container">
       <isslot id="cs-account-orderhistory-banner" description="orderHistory banner Image" context="global" />
     </div>

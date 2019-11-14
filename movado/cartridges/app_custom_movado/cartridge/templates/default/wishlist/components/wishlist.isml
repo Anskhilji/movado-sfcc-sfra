@@ -1,3 +1,4 @@
+<isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.wishlist', 'eum', null))}"/>
 <div class="row justify-content-center ">
     <div class="col-sm-9 col-lg-7 col-xl-6">
         <h4 class="heading-four">${Resource.msgf('wishlist.owner.name', 'wishlist', null, pdict.wishlist.owner.firstName)}</h4>

@@ -10,9 +10,11 @@
 	</isif>
 	<div class="hero search-banner container">
     <isif condition="${pdict.productSearch.isCategorySearch}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
         <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
     <iselse>
-            <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+        <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
     </isif>
 	</div>
 	<div class="container search-results">

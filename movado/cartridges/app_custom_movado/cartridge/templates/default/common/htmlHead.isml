@@ -67,3 +67,4 @@
 </iscomment>
 <isinclude template="include/yotpoheader"/>
 
+<isinclude url="${URLUtils.url('EUMData-IncludeHeader')}"/>
