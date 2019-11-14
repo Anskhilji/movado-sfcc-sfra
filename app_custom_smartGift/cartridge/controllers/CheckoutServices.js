@@ -34,7 +34,6 @@ server.append('PlaceOrder', server.middleware.https, function (req, res, next) {
                   }
                   smartGiftService.sendOrderDetails(requestPayload);
               }
-              session.custom.orderNo = null;
           }
       } catch (e) {
           Logger.error("Error occurred while try to send order details to smart gift, and error is: " + e);
