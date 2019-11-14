@@ -114,7 +114,7 @@ function processSAPAttributes() {
                     var sapTransactionType = '';
                     if (order.custom.sapTransactionType) {
                         var transactionTypes = orderStatusHelper.convertSapAttributesToList(order.custom.sapTransactionType);
-                        if (transactionTypes && transactionTypes.length > 1) {
+                        if (transactionTypes && transactionTypes.length > 0) {
                             sapTransactionType = transactionTypes[transactionTypes.length -1];
                         }
                     }
@@ -132,13 +132,13 @@ function processSAPAttributes() {
 
                 if (order.custom.sapEventType) {
                     var eventTypes = orderStatusHelper.convertSapAttributesToList(order.custom.sapEventType);
-                    if (eventTypes && eventTypes.length > 1) {
+                    if (eventTypes && eventTypes.length > 0) {
                         customEventType = eventTypes[eventTypes.length -1];
                     }
                 }
                 if (order.custom.sapTransactionType) {
                     var transactionTypes = orderStatusHelper.convertSapAttributesToList(order.custom.sapTransactionType);
-                    if (transactionTypes && transactionTypes.length > 1) {
+                    if (transactionTypes && transactionTypes.length > 0) {
                         sapTransactionType = transactionTypes[transactionTypes.length -1];
                     }
                 }
