@@ -66,6 +66,8 @@
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
 
-    <isinclude template="cart/productCard/cartGiftMessaging" />
+    <isif condition="${!lineItem.isBonusProductLineItem}"> 
+        <isinclude template="cart/productCard/cartGiftMessaging" />
+    </isif>
 
 </div>
