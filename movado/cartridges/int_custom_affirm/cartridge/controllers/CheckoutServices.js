@@ -34,10 +34,7 @@ server.append('SubmitPayment',
         var requestParams = {
             email: viewData.email.value
         }
-        var SFMCApiResult = SFMCApi.sendSubscriberToSFMC(requestParams);
-        if (!SFMCApiResult) {
-            status.error = true;
-        }
+        SFMCApi.sendSubscriberToSFMC(requestParams);
     }
 
     if (status.error) {

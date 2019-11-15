@@ -13,8 +13,8 @@ function getEmailSubscribers() {
 }
 
 function saveEmailSubscriber(email) {
-    var UUID = UUIDUtils.createUUID();
     try {
+        var UUID = UUIDUtils.createUUID();
         if (UUID) {
             Transaction.wrap(function () {
                 var mcSubscriberObject = CustomObjectMgr.createCustomObject(Constants.SFMC_SUBSCRIBER_OBJECT, UUID);
@@ -24,7 +24,6 @@ function saveEmailSubscriber(email) {
     } catch (e) {
         Logger.error('Error occurred while trying to save subscriber email into custom object, ERROR: ' + e);
     }
-    
 }
 
 function getSavedAuthToken() {
