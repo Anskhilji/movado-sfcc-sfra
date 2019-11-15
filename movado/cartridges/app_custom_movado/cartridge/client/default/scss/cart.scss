@@ -298,8 +298,13 @@ $negative-spacer: -0.625rem;
         font-size: rem(14);
     }
     .is-gift-row {
-        height: 13.5rem;
+        min-height: 13.5rem;
     }
+
+    .add-gift-message {
+        margin-bottom: rem(10);
+    }
+
     .gift-image-ribbon-box {
         max-height: 12.875rem;
         width: 100%;
