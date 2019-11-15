@@ -474,13 +474,16 @@
             font-size: rem(15);
             @include font-medium;
             color: $dark-green;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 60%;
+            white-space: nowrap;
+            margin: 0;
 
             p {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              width: 60%;
-              white-space: nowrap;
-              margin: 0;
+                margin: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
 
             @include media-breakpoint-down(sm) {
@@ -610,9 +613,10 @@
       bottom: 0px;
       background: $gray-overlay;
       transition: 0.4s ease-out;
-    @include media-breakpoint-down(xs) {
+      overflow: hidden;
+      @include media-breakpoint-down(xs) {
         padding: rem(10);
-    }
+      }
       .pdp-link {
         margin-bottom: rem(5);
       }
@@ -674,6 +678,8 @@
         background-size: rem(24);
         border: none;
         outline: none;
+        cursor: pointer;
+
         &:focus {
             outline: -webkit-focus-ring-color auto 1px;
         }
@@ -732,8 +738,7 @@
             position: relative;
 
             .plpToCart {
-              position: absolute;
-              left: 0;
+                vertical-align: middle;
             }
 
             .dw-apple-pay-button.apple-pay-pdp {
@@ -741,7 +746,7 @@
               width: rem(65);
               height: rem(20);
               position: relative;
-              right: rem(-10);
+              margin-left: 0 !important
             }
           }
         }
