@@ -496,6 +496,10 @@
 
     .prices-add-to-cart-actions {
         padding: 0;
+
+        &.extra-z-index {
+            z-index: 999999;
+        }
     }
 
     .detail-bottom-blocks {

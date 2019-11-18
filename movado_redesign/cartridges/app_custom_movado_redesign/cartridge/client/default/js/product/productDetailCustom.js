@@ -12,9 +12,9 @@ $('.carousel-nav').slick({
 $(function() {
     //----- OPEN
     $('.pdp-v-one [pd-popup-open]').on('click', function(e)  {
-        var targeted_popup_class = jQuery(this).attr('pd-popup-open');
+        var targeted_popup_class = $(this).attr('pd-popup-open');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeIn(100);
-        $(".prices-add-to-cart-actions").css("z-index", "999999");
+        $('.prices-add-to-cart-actions').addClass('extra-z-index');
         e.preventDefault();
     });
  
@@ -22,7 +22,7 @@ $(function() {
     $('.pdp-v-one [pd-popup-close]').on('click', function(e)  {
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200);
-        $(".prices-add-to-cart-actions").css("z-index", "9");
+        $(".prices-add-to-cart-actions").removeClass('extra-z-index');
         e.preventDefault();
     });
     $('.pdp-v-one .engraving-form .popup-action-btns .save').on('click', function()  {
