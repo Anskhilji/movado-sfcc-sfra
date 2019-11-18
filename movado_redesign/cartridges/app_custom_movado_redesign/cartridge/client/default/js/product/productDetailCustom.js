@@ -1,4 +1,5 @@
 'use strict';
+
 $('.carousel-nav').slick({
     slidesToShow: 5,
     slidesToScroll: 1,
