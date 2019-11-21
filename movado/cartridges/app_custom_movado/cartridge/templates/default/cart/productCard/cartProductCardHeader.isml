@@ -1,5 +1,5 @@
 <isif condition="${lineItem.isBonusProductLineItem}" />
-    <isif condition="${lineItem.bonusProductText}"> 
+    <isif condition="${lineItem.isBonusProductText}"> 
         <div>${lineItem.bonusProductText}</div>
     <iselse>
         <div>${Resource.msg('msg.bonus.product','cart',null)}</div>

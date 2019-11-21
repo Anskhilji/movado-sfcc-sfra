@@ -44,7 +44,13 @@ module.exports = function productLineItem(product, apiProduct, options) {
     
     Object.defineProperty(product, 'bonusProductText', {
         enumerable: true,
-        value: apiProduct.custom.bonusProductText
+        value: apiProduct.custom.bonusProductText ? apiProduct.custom.bonusProductText : ''
     });
+    
+    Object.defineProperty(product, 'isBonusProductText', {
+        enumerable: true,
+        value: apiProduct.custom.bonusProductText ? true : false
+    });
+    
     return product;
 };
