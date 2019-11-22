@@ -21,6 +21,7 @@ function exportAllSavedSubscribers() {
     var params = {
         email: null,
         isExpired: false,
+        isJob: true,
         eventDefinationKey: Site.current.getCustomPreferenceValue('mcEventDefinationKey'),
         accountID: Site.current.getCustomPreferenceValue('mcAccountID'),
         dataExtensionKey: Site.current.getCustomPreferenceValue('mcDataExtensionKey'),

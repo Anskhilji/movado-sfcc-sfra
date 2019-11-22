@@ -15,6 +15,7 @@ function sendSubscriberToSFMC(requestParams) {
             email: requestParams.email,
             isExpired: false,
             requestModeInstant: true,
+            isJob: false,
             eventDefinationKey: Site.current.getCustomPreferenceValue('mcEventDefinationKey'),
             accountID: Site.current.getCustomPreferenceValue('mcAccountID'),
             dataExtensionKey: Site.current.getCustomPreferenceValue('mcDataExtensionKey'),
