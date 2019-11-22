@@ -67,8 +67,11 @@ function addContactToMC(params, service) {
         }
         
     }
+
     if (responsePayload.error) {
-        SFMCCOHelper.saveEmailSubscriber(params.email);
+        if (params.isJob == false) {
+            SFMCCOHelper.saveEmailSubscriber(params.email);
+        }
         return false;
     }
     return true;
@@ -94,8 +97,11 @@ function addContactToJourney(params, service) {
             Logger.error('MarketingCloud addContactToJourney: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
     }
+
     if (responsePayload.error) {
-        SFMCCOHelper.saveEmailSubscriber(params.email);
+        if (params.isJob == false) {
+            SFMCCOHelper.saveEmailSubscriber(params.email);
+        }
         return false;
     }
     return true;
@@ -121,8 +127,11 @@ function addContactToDataExtension(params, service) {
             Logger.error('MarketingCloud addContactToDataExtension: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
     }
+
     if (responsePayload.error) {
-        SFMCCOHelper.saveEmailSubscriber(params.email);
+        if (params.isJob == false) {
+            SFMCCOHelper.saveEmailSubscriber(params.email);
+        }
         return false;
     }
     return true;
