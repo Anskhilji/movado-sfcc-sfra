@@ -5,6 +5,7 @@
         assets.addJs('/js/myWatches.js');
     </isscript>
 
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.wishlist', 'eum', null))}"/>
    
     
      <div class="hero container account-image">

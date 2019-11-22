@@ -6,6 +6,7 @@
         assets.addJs('/js/profile.js');
     </isscript>
    
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.mywatches', 'eum', null))}"/>
 
     <div class="hero container account-image">
         <isslot id="cs-watches-list" description="My Watches List" context="global" />

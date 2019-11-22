@@ -9,6 +9,7 @@
         assets.addCss('/css/checkout/checkout.css');
     </isscript>
 
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.checkout', 'eum', null))}"/>
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>

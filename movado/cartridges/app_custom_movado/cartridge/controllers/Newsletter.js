@@ -9,16 +9,19 @@
 var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var newletterHelper = require('*/cartridge/scripts/helpers/newsletterHelper');
-var Resource = require('dw/web/Resource');
-
 
 server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
+    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+    var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     
-    res.json(newletterHelper.subscribeToNewsletter(req.form.email, null, req.currentCustomer));
-
+    var requestParams = {
+        email: req.form.email
+    }
+    SFMCApi.sendSubscriberToSFMC(requestParams);
+    res.json(EmailSubscriptionHelper.emailSubscriptionResponse(true));
+    
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
-
     if(isanalyticsTrackingEnabled) {
     	var userTracking = {email: req.form.email};
         res.setViewData({

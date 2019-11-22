@@ -50,7 +50,7 @@ function getCouponLineItemArray(lineItemContainer) {
             if (couponAdjustmentPrice && couponQuantity) {
                 var currCoupon = {
                     couponCode: coupon.couponCode,
-                    couponDescription: coupon.promotion.description,
+                    couponDescription: coupon.promotion ? coupon.promotion.description : '',
                     couponAdjustmentPrice: couponAdjustmentPrice,
                     couponQuantity: couponQuantity
                 };

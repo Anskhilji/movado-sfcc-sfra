@@ -1,0 +1,17 @@
+<isif condition="${pdict.eumID !== null && pdict.eumURL !== null}">
+	<script charset='UTF-8'>
+	window['adrum-start-time'] = new Date().getTime();
+	(function(config){
+	    config.appKey = '${pdict.eumID}';
+	    config.adrumExtUrlHttp = 'http://cdn.appdynamics.com';
+	    config.adrumExtUrlHttps = 'https://cdn.appdynamics.com';
+	    config.beaconUrlHttp = 'http://col.eum-appdynamics.com';
+	    config.beaconUrlHttps = 'https://col.eum-appdynamics.com';
+	    config.xd = {enable : true};
+	    config.spa = {
+	            "spa2": true
+	        };
+	})(window['adrum-config'] || (window['adrum-config'] = {}));
+	</script>
+	<script src='${pdict.eumURL}'></script>
+</isif>
