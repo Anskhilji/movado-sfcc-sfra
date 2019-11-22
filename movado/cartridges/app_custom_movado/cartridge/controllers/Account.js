@@ -66,6 +66,8 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 	        var CustomerMgr = require('dw/customer/CustomerMgr');
 	        var Resource = require('dw/web/Resource');
 
+                var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
 	        var registrationForm = server.forms.getForm('profile');
@@ -159,8 +161,16 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 	                                // assign values to the profile
 	                                var newCustomerProfile = newCustomer.getProfile();
 
-	                                // signup customer email for marketing mails
-	                           	 	var newsletterSignupProssesed = customAccountHelper.signUpforNewsletter(registrationForm.addToEmailList, registrationForm.email);
+	                               var newsletterSignupProssesed;
+	                           	   if (registrationForm.addToEmailList) {
+	                                    var requestParams = {
+                                            email: registrationForm.email
+                                        }
+	                                    SFMCApi.sendSubscriberToSFMC(requestParams);
+	                                    newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
+                                    } else {
+                                        newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
+                                    }
 
 	                                newCustomerProfile.firstName = registrationForm.firstName;
 	                                newCustomerProfile.lastName = registrationForm.lastName;

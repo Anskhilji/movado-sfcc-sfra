@@ -4,6 +4,7 @@
         assets.addCss('/css/login.css');
         assets.addJs('/js/login.js');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account.login', 'eum', null))}"/>
 
     <div class="hero container login-banner">
         <isslot id="cs-account-login" description="Login banner Image" context="global" />

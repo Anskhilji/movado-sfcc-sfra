@@ -8,6 +8,7 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/account/dashboard.css');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
     <div class="hero account-banner container">
          <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
     </div>

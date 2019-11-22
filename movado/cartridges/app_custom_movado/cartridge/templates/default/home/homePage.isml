@@ -2,6 +2,7 @@
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
     <div class="static-content-wrapper">
         <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
         <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />

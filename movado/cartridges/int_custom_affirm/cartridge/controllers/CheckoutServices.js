@@ -1,10 +1,9 @@
 'use strict';
 
-var shareByEmailHelper = require('*/cartridge/scripts/helpers/shareByEmailHelper');
-
 var server = require('server');
 server.extend(module.superModule);
 var RiskifiedService = require('int_riskified');
+var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
 
 server.append('SubmitPayment',
 		server.middleware.https,
@@ -31,7 +30,12 @@ server.append('SubmitPayment',
 
 		// Subscribe to the movado email list: Starts.
     viewData.subscribetomovado = paymentForm.subscribetomovado.checked;
-    status = shareByEmailHelper.subscribeToNewsletter(viewData.subscribetomovado, req, viewData.email.value);
+    if (viewData.subscribetomovado) {
+        var requestParams = {
+            email: viewData.email.value
+        }
+        SFMCApi.sendSubscriberToSFMC(requestParams);
+    }
 
     if (status.error) {
         res.json({

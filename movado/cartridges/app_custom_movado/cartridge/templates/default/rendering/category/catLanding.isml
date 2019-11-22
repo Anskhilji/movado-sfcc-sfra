@@ -4,6 +4,7 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addCss('/css/search.css');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
     <div class="container">
         <div class="row">
             <div class="col-12">
