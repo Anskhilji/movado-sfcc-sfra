@@ -106,5 +106,7 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
 $font-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
 $font-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
 $font-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
-$font-primary: $font-medium;
 $light-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
+$font-primary: $font-book;
+$maroon : rgb(75,40,9) !default;
+$footer-custom : rgb(254,253,252) !default;

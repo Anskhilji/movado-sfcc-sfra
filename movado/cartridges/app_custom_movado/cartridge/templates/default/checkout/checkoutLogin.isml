@@ -5,6 +5,7 @@
         assets.addCss('/css/checkout/checkoutLogin.css');
         assets.addJs('/js/login.js');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.checkout.login', 'eum', null))}"/>
 
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />

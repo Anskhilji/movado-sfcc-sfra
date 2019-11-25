@@ -4,6 +4,7 @@
         assets.addJs('/js/addressBook.js');
         assets.addCss('/css/account/addressBook.css');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
     <isinclude template="account/deleteAddressModal"/>
     <div class="hero account-banner container">
         <isslot id="cs-account-addressbook-banner" description="addressbook banner Image" context="global" />

@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/page">
 <isif condition="${pdict.content404Page}">
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.error', 'eum', null))}"/>
 	<isprint value="${pdict.content404Page.body}" encoding="off" />
 </isif>
 </isdecorate>

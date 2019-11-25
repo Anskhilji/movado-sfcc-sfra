@@ -3,6 +3,7 @@
      var assets = require('*/cartridge/scripts/assets.js');
      assets.addCss('/css/staticContent.css');
  </isscript>
+ <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.marketing', 'eum', null))}"/>
 
 	<div class="container">
 		<div class="row hidden-xs-down">

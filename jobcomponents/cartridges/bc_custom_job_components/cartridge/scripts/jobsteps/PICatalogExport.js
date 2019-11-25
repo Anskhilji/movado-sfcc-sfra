@@ -125,8 +125,8 @@ function getProductLink(product) {
 */
 function getImageLink(product) {
 
-	if (product.getImage() != null && Site.getCurrent().getCustomPreferenceValue('piCatalogThumbnailImageParamsJSON') != null) {
-		return getFinalUrlAsString(product.getImage().getImageURL(JSON.parse(Site.getCurrent().getCustomPreferenceValue('piCatalogThumbnailImageParamsJSON'))));
+	if (!empty(product.getImages('large').get(0)) && Site.getCurrent().getCustomPreferenceValue('piCatalogThumbnailImageParamsJSON') != null) {
+		return getFinalUrlAsString(product.getImages('large').get(0).getHttpsImageURL(JSON.parse(Site.getCurrent().getCustomPreferenceValue('piCatalogThumbnailImageParamsJSON'))));
     }
 
     return '';

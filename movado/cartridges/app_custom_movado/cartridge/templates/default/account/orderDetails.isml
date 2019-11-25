@@ -4,6 +4,7 @@
         assets.addCss('/css/account/orderTrack.css');
         assets.addCss('/css/account/profile.css');
     </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
 
     <!--- Replace image once UX has given images --->
     <div class="hero container">

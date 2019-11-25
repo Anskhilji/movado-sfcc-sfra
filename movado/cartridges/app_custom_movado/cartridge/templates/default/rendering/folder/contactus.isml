@@ -5,6 +5,7 @@
       assets.addCss('/css/staticContent.css');
   </isscript>
 
+  <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.company.info', 'eum', null))}"/>
   <main role="main" id="main" class="pt_customerservice">
     <isslot id="cs-folder-banner" description="customer support banner" context="folder"
       context-object=${pdict.foldersearch.folder} />

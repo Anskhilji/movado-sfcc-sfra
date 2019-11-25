@@ -1,3 +1,4 @@
+<isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.misc', 'eum', null))}"/>
 <isdecorate template="common/layout/page">
   <div class="container mb-5 mt-4">
     <div class="row">

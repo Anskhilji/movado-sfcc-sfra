@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/page">
 
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.error', 'eum', null))}"/>
     <div class="hero slant-down error-hero">
         <h1 class="page-title">${Resource.msg('heading.error.general','error',null)}</h1>
     </div>
