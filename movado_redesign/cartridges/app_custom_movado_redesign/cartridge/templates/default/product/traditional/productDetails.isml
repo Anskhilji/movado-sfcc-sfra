@@ -41,7 +41,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/traditional/components/imageCarousel" />
 
-                <div class="col-12 col-md-5 detail-sec pt-sm-5">
+                <div class="col-12 col-md-5 detail-sec mt-sm-5 pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">

@@ -1,7 +1,7 @@
 <iscomment>Updated the boostrap columns classes and added 3 bottom blocks</iscomment>
 <h2 class="col-sm-12  mb-4">
     <!-- TODO: Title BM Configurable -->
-    <div class="title text-capitalize p-0 shadow-none">${product.resources.Highlight}</div>
+    <div class="title text-capitalize p-0 shadow-none">${Resource.msg('label.product.detail.highlights2', 'product', null)}</div>
 </h2>
 <div class="col-sm-12 bottom-detail mb-4">
     <isprint value="${product.longDescription}" encoding="off"/>

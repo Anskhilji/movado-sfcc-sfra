@@ -82,7 +82,7 @@
                             </div>
 
 	                        <isif condition="${product.options && product.options.length > 0}">
-	                            <isinclude template="product/components/options" />
+	                            <isinclude template="product/traditional/components/options" />
 	                        </isif>
                             <div>
                                 <isinclude template="util/affirmmodule_mf" />

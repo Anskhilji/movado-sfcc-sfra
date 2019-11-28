@@ -35,7 +35,7 @@
                             </picture>
                             <div class="text-on-watch">
                                 <span>
-                                  ${Resource.msg('embossing.text.placeholder', 'product', null)}
+                                  ${Resource.msg('text.placeholder1', 'product', null)}
                                 </span>
                             </div>
                         </div>
