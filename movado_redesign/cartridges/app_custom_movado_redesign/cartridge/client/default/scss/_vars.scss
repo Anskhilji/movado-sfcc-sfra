@@ -14,6 +14,10 @@ $dark-pink:#ead7dc !default;
 $grey9-light: #d6d7d8 !default;
 $gray98:#fafafa !default;
 $zircon: #eaebeb;
+$slate-grey-light: #f5f6f8;
+$slate-grey: #A0A9BA;
+
+$heart-icon: "\F004";
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;
@@ -38,7 +42,7 @@ $zircon: #eaebeb;
     font-weight: 400;
     font-style: normal;
 }
-
+$custom-xll:1440px;
 $custom-xl:1280px;
 $custom-lg:1070px;
 $custom-sm:800px;

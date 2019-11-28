@@ -70,10 +70,12 @@ module.exports = {
                 },
                 success: function (data) {
                     displayMessage(data, button);
+                    button.addClass('added-to-wishlist');
                     $('body').trigger('addWishlist:success', button);
                 },
                 error: function (err) {
                     displayMessage(err, button);
+                    button.removeClass('added-to-wishlist');
                 }
             });
         });

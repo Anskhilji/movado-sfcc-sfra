@@ -1,0 +1,162 @@
+<iscomment> Custom: divs repositioned </iscomment>
+<isdecorate template="common/layout/page">
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
+        assets.addJs('/js/productDetail.js');
+        assets.addCss('/css/product/detail.css');
+    </isscript>
+
+    <isset name="product" value="${pdict.product}" scope="page" />
+    <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isobject object="${product.raw}" view="detail">
+        <div class="container-fluid pdp-mobile pdp-v-one product-detail product-wrapper" data-pid="${product.id}" itemscope
+            itemtype="http://schema.org/Product">
+            <div class="row mobile-detail-head d-md-none">
+                <div class="col-12">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb d-none">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="product-name text-capitalize" itemprop="name">${product.productName}</h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <isinclude template="product/traditional/components/pidRating" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Product Images Carousel -->
+                <isinclude template="product/traditional/components/imageCarousel" />
+
+                <div class="col-12 col-md-5 detail-sec pt-sm-5">
+	               <div class="row">
+	                   <!-- Attributes and Quantity -->
+	                   <div class="col-md-10 col-12">
+	                       <isinclude template="product/traditional/components/badges" />
+	                    </div>
+	                </div>
+                    <!-- Product Name -->
+                    <h1 class="product-name d-sm-none d-md-block text-capitalize">${product.productName}</h1>
+
+                    <div class="hidden-sm-down">
+                        <isinclude template="product/traditional/components/pidRating" />
+                    </div>
+                    <div class="row mt-4 description">
+                        <isinclude template="product/components/description" />
+                    </div>
+                    <div class="row m-0">
+                        <!-- Attributes and Quantity -->
+                        <div class="col-md-10 col-12">
+
+                            <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                                <div class="simple-quantity d-none">
+                                    <isinclude template="product/components/quantity" />
+                                </div>
+                            </isif>
+                        </div>
+
+                        <div class="col-md-10 col-12">
+                            <isinclude template="product/components/mainAttributes" />
+                        </div>
+
+                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                            <isinclude template="product/components/variationAttributes" />
+                        </isif>
+
+
+                        <!-- Affirm Text -->
+                        <div class="col-12 prices-add-to-cart-actions">
+                            <!-- Prices -->
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                            
+                            <!-- Applicable Promotions -->
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
+                            </div>
+	                        <isif condition="${product.options && product.options.length > 0}">
+	                            <isinclude template="product/traditional/components/options" />
+	                        </isif>
+                            <div>
+                                <isinclude template="util/affirmmodule_mf" />
+                                <isaffirmpromo context="pdp"
+                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            </div>
+
+                            <!-- Product Availability -->
+                            <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                data-available="${product.available}">
+                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                            </div>
+                                <!-- Cart and [Optionally] Apple Pay -->
+                            <div class="cart-wishlist">
+                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            <div class="wishlist-row">
+                                <isif condition="${!('display' in pdict && 'wishlists' in pdict.display && pdict.display.wishlists == false) && pdict.loggedIn}">
+                                    <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
+                                <iselse/>
+                                    <a class="btn ml-4 btn-link wishlist-login" href="${URLUtils.https('Login-Show')}">
+
+                                    </a>
+	                            </isif>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Chart -->
+                    <isif condition="${product.variationAttributes && product.sizeChartId}">
+                        <div class="size-chart col-md-10 col-12">
+                            <isinclude template="product/components/sizeChart" />
+                        </div>
+                    </isif>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
+            <isinclude template="product/traditional/components/descriptionAndDetails" />
+        </div>
+
+        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
+            <isinclude template="product/traditional/components/youMayLikeRecommendation" />
+        </isif>
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        <isinclude template="product/components/contentAssets" />
+
+        <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
+            <isslot id="pdp-collection-you-may-like" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        </div>
+
+        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+            <isslot id="pdp-recently-viewed-products" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
+
+        <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
+        <div class="modal fade share-via-email-overlay" id="sendtofriendform">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+        <!-- The Modal: Ends-->
+
+    </isobject>
+</isdecorate>

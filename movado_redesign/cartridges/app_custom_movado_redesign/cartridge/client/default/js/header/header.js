@@ -64,7 +64,6 @@ $(".desktop-menu .sub-dropdown").hover(
         $(".overlay").addClass("fadeIn animated faster");
         $(this).find(".dropdown-menu").addClass("fadeIn fast animated show");
         $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
-        $('.slick-slider').slick("refresh");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
             dots: true,
             infinite: true,
@@ -83,6 +82,8 @@ $(".desktop-menu .sub-dropdown").hover(
                 },
             ]
         });
+
+        $('.slick-slider').slick("refresh");
  
     },
 
