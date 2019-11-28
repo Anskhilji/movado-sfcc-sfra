@@ -32,11 +32,13 @@ function create(order) {
             account_type   : 'registered'
         };
     } else {
+        Calendar = new Calendar(order.getCreationDate());
+        orderCreationDate = StringUtils.formatCalendar(Calendar, Constants.RISKIFIED_DATE_FORMAT);
         customerModel = {
-            created_at     : '',
+            created_at     : orderCreationDate,
             email          : RCUtilities.escape(order.customerEmail, regExp, '', true),
             first_name     : RCUtilities.escape(order.customerName, regExp, '', true),
-            id             : "anonymous",
+            id             : order.getCustomer().ID,
             last_name      : '',
             note           : customerNote,
             orders_count   : 0,
