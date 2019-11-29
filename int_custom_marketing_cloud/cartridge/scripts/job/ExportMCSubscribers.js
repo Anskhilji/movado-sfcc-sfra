@@ -41,20 +41,22 @@ function exportAllSavedSubscribers() {
     while (mcSubscribersObjectIterator.hasNext()) { 
         try {
             subscriber = mcSubscribersObjectIterator.next();
-            params.email = subscriber.custom.email;
-            var result = SFMCAPIHelper.addContactToMC(params, contactService);
-            if (!result) {
-                continue;
-            }
-            if (isMovadoOrOB) {
-                result = SFMCAPIHelper.addContactToJourney(params, eventService);
-            } else {
-                result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
-            }
-            if (result) {
-                Transaction.wrap(function () {
-                    CustomObjectMgr.remove(subscriber);
-                });
+            if (subscriber) {
+                params.email = subscriber.custom.email;
+                var result = SFMCAPIHelper.addContactToMC(params, contactService);
+                if (!result) {
+                    continue;
+                }
+                if (isMovadoOrOB) {
+                    result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                } else {
+                    result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
+                }
+                if (result) {
+                    Transaction.wrap(function () {
+                        CustomObjectMgr.remove(subscriber);
+                    });
+                }
             }
        } catch (e) {
            Logger.debug('MarketingCloud: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);

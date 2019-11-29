@@ -100,7 +100,9 @@ function addContactToJourney(params, service) {
 
     if (responsePayload.error) {
         if (params.isJob == false) {
-            SFMCCOHelper.saveEmailSubscriber(params.email);
+            if (responsePayload.getError() !== '30000') {
+                SFMCCOHelper.saveEmailSubscriber(params.email);
+            }
         }
         return false;
     }

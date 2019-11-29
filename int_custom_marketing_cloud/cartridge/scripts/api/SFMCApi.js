@@ -2,6 +2,7 @@
 
 var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
 var Site = require('dw/system/Site');
+var StringUtils = require('dw/util/StringUtils');
 
 var Constants = require('~/cartridge/scripts/util/Constants');
 var MarketingCloudServiceRegistry = require('~/cartridge/scripts/service/MarketingCloudServiceRegistry');
@@ -12,7 +13,7 @@ function sendSubscriberToSFMC(requestParams) {
     var result = false;
     try {
         var params = {
-            email: requestParams.email,
+            email: StringUtils.trim(requestParams.email),
             isExpired: false,
             requestModeInstant: true,
             isJob: false,
