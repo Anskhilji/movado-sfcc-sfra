@@ -284,10 +284,10 @@ function declineOrder(order) {
 
         Transaction.wrap(function () {
             if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
-                Logger.info('declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
+                Logger.warn('declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
                 OrderMgr.failOrder(order);  //Order must be in status CREATED
             } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-                Logger.info('declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
+                Logger.warn('declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
                 OrderMgr.cancelOrder(order);
             }
         });
