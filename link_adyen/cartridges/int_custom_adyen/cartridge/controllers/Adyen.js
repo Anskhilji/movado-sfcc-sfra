@@ -8,6 +8,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+var Logger = require('dw/system/Logger');
 
 server.extend(module.superModule);
 
@@ -35,75 +36,121 @@ server.append('ShowConfirmation', function (req, res, next) {
 });
 
 server.replace('AuthorizeWithForm', server.middleware.https, function (req, res, next) {
-	  var adyen3DVerification = require('int_adyen_overlay/cartridge/scripts/adyen3DVerification');
-	  var order = session.custom.order;
-	  var paymentInstrument = session.custom.paymentInstrument;
-	  if (session.custom.MD == req.form.MD) {
-	    var result = adyen3DVerification.verify({
-	      Order: order,
-	      Amount: paymentInstrument.paymentTransaction.amount,
-	      CurrentRequest: req.request,
-	      MD: req.form.MD,
-	      PaResponse: req.form.PaRes
-	    });
+    var adyen3DVerification = require('int_adyen_overlay/cartridge/scripts/adyen3DVerification');
+    var order = session.custom.order;
+    var orderNo = order.getOrderNo();
+    var paymentInstrument = session.custom.paymentInstrument;
+    Logger.getLogger('Checkout').debug('AuthorizeWithForm: inside AuthorizeWithForm for order number: ' + orderNo);
 
-	    // if error, return to checkout page
-	    if (result.error || result.Decision != 'ACCEPT') {
-	      Transaction.wrap(function () {
-	        OrderMgr.failOrder(order);
-	      });
-	      res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-	      return next();
-	    }
+    try {
 
-	    //custom fraudDetection
-	    var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
-	    if (fraudDetectionStatus.status === 'fail') {
-	        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        if (session.custom.MD == req.form.MD) {
 
-					// fraud detection failed
-	        req.session.privacyCache.set('fraudDetectionStatus', true);
+            var amount = null;
+            if (!empty(session.custom.amount)) {
+                amount = session.custom.amount;
+            } else if (!empty(paymentInstrument)) {
+                amount = paymentInstrument.paymentTransaction.amount;
+            } else {
+                throw new Error('AuthorizeWithForm: invalid amount');
+            }
 
-	        res.json({
-	            error: true,
-	            cartError: true,
-	            redirectUrl: URLUtils.url('Error-ErrorCode', 'err', fraudDetectionStatus.errorCode).toString(),
-	            errorMessage: Resource.msg('error.technical', 'checkout', null)
-	        });
+            var result = adyen3DVerification.verify({
+                Order: order,
+                Amount: amount,
+                CurrentRequest: req.request,
+                MD: req.form.MD,
+                PaResponse: req.form.PaRes
+            });
 
-	        return next();
-	    }
+            Logger.getLogger('Checkout').debug('AuthorizeWithForm: 3DS verification executed for order number: ' + orderNo + ' with result: ' + result.Decision);
 
-	    // Places the order
-	    var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
-	      if (placeOrderResult.error) {
-	      Transaction.wrap(function () {
-	        OrderMgr.failOrder(order);
-	      });
-	      res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
-	      return next();
-	    }
-		Transaction.begin();
-		//If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
-		if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
-			order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
-			order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
-			order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_CONFIRMED);
-			COCustomHelpers.sendOrderConfirmationEmail(order, req.locale.id);
-		} else {
-			order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
-			order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-			order.custom.is3DSecureTransactionAlreadyCompleted = true;
-		}
-		paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
-		Transaction.commit();
-	    clearForms();
-	    res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
-	    return next();
-	  }
+            // if error, return to checkout page
+            if (result.error || result.Decision != 'ACCEPT') {
 
-	  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-	  return next();
+                Logger.getLogger('Checkout').error('AuthorizeWithForm: 3DS verification failed, going to fail the order for order number: ' + orderNo + ' with result: ' + result.Decision);
+
+                Transaction.wrap(function () {
+                    OrderMgr.failOrder(order);
+                });
+                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+                return next();
+            }
+
+            //custom fraudDetection
+            var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
+            if (fraudDetectionStatus.status === 'fail') {
+
+                Logger.getLogger('Checkout').debug('AuthorizeWithForm: fraud decteced, going to fail the order for order number: ' + orderNo + ' with result: ' + fraudDetectionStatus.status);
+
+                Transaction.wrap(function () { OrderMgr.failOrder(order); });
+
+                // fraud detection failed
+                req.session.privacyCache.set('fraudDetectionStatus', true);
+
+                res.json({
+                    error: true,
+                    cartError: true,
+                    redirectUrl: URLUtils.url('Error-ErrorCode', 'err', fraudDetectionStatus.errorCode).toString(),
+                    errorMessage: Resource.msg('error.technical', 'checkout', null)
+                    });
+                return next();
+            }
+
+            Logger.getLogger('Checkout').debug('AuthorizeWithForm: Going to place the order of order number: ' + orderNo);
+
+            // Places the order
+            var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
+            if (placeOrderResult.error) {
+
+                Logger.getLogger('Checkout').error('AuthorizeWithForm: order placement failed for order number: ' + orderNo);
+
+                Transaction.wrap(function () {
+                    OrderMgr.failOrder(order);
+                });
+                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
+                return next();
+            }
+
+            Transaction.begin();
+            //If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
+            if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
+                Logger.getLogger('Checkout').debug('AuthorizeWithForm: Riskifed statuses is approved going to set the status for order number: ' + orderNo);
+                order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
+                order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
+                order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_CONFIRMED);
+                COCustomHelpers.sendOrderConfirmationEmail(order, req.locale.id);
+            } else {
+                Logger.getLogger('Checkout').debug('AuthorizeWithForm: Riskifed status is not approved going to set status to not paid and not confirmed for order number: ' + orderNo);
+                order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
+                order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                order.custom.is3DSecureTransactionAlreadyCompleted = true;
+            }
+
+            if (!empty(paymentInstrument)) {
+                paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
+            }
+
+            Transaction.commit();
+            clearForms();
+            Logger.getLogger('Checkout').debug('AuthorizeWithForm: Order placed going to redirect the user to order confirmation for order number: ' + orderNo);
+            res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
+            return next();
+        }
+
+        Logger.getLogger('Checkout').error('AuthorizeWithForm: session MID and request MID mismatch for order number: ' + orderNo + ' going to redirect the user into checkout-Begin');
+
+        res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+        return next();
+
+    } catch (ex) {
+        Logger.getLogger('Checkout').error('AuthorizeWithForm: error occured while verify the 3DS for order number: ' + orderNo + ' and exception is: ' + ex
+              + ' Going to redirect the user to Checkout-Begin?stage=payment and decline the order');
+        COCustomHelpers.declineOrder(order);
+        res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
+        return next();
+    }
+
 });
 
 /**
@@ -127,6 +174,7 @@ function clearCustomSessionFields() {
   session.custom.issuerId = null;
   session.custom.adyenPaymentMethod = null;
   session.custom.adyenIssuerName = null;
+  session.custom.amount = null;
 }
 
 module.exports = server.exports();
