@@ -38,7 +38,7 @@ pipelines:
                 npm run activate:code $FUTURE_HOST_NAME $FUTURE_USER_NAME $FUTURE_PASSWORD $CLIENT_ID $CLIENT_SECRET $CUSTOM_CODE_VERSION
               else
                 echo "Skipping this step since current and configured branches didn't match"
-                exit 1;
+                exit 0;
               fi
   custom:
     staging server deployment:
