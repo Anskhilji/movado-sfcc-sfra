@@ -92,6 +92,7 @@
     }
   ],
   "paths": {
+    "custom_hour_time": "app_custom_hourtime",
     "custom_concord": "./concord",
     "custom_ebel": "./ebel",
     "custom_adyen_klarna": "./klarna",
@@ -118,6 +119,7 @@
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/scss",
+	"hourtime": "app_custom_hourtime/cartridge/client/default/scss",
     "concord": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
     "ebel": "./ebel/cartridges/app_custom_ebel/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/scss",
