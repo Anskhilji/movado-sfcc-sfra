@@ -6,13 +6,14 @@
             <isinclude template="checkout/shipping/selectedShippingMethod"/>
             <label class="form-check-label shipping-method-option" for="shippingMethod-${shippingMethod.ID}">
                 <span class="display-name">${shippingMethod.displayName}</span>
-                <isif condition="${shippingMethod.estimatedArrivalTime && shippingMethod.description}">
-                    <span class="text-muted arrival-time">(${shippingMethod.estimatedArrivalTime}, ${shippingMethod.description})</span>
+                <iscomment> <isif condition="${shippingMethod.estimatedArrivalTime && shippingMethod.description}">
+                    <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek}, ${shippingMethod.dayOfWeek})</span>
                 <iselseif condition="${shippingMethod.estimatedArrivalTime}">
-                    <span class="text-muted arrival-time">(${shippingMethod.estimatedArrivalTime})</span>
+                    <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek})</span>
                 <iselseif condition="${shippingMethod.description}">
-                    <span class="text-muted arrival-time">(${shippingMethod.description})</span>
-                </isif>
+                    <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek})</span>
+                </isif> </iscomment>
+                <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek})</span>
             </label>
         </div>
         <div class="col-3 text-right shipping-method-pricing end-lines">
