@@ -89,3 +89,16 @@
         }
     </script>
 </isif>
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('uniDaysEnabled')}">
+    <script>
+        var triggerUniDays;
+        if ('${pdict.uniDaysTrackingLineItems}' != 'null') {
+            uniDaysData.uniDays = JSON.parse('<isprint value="${pdict.uniDaysTrackingLineItems}" encoding="htmlsinglequote"/>');
+            triggerUniDays = 'uniDays';
+        }
+        if (triggerUniDays) {
+            dataLayer.push({'event': triggerUniDays, 'uniDaysData': uniDaysData});
+            triggerUniDays = null;
+        }
+    </script>
+</isif>
