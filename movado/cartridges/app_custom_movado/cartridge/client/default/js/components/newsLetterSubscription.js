@@ -27,7 +27,7 @@ $(document).ready(function () {
             var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
                 if(!pattern.test(inputValue)) {
                     wrapperContainer.removeClass('d-none');
-                    $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR);
+                    $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
                 } else {
                     $.spinner().start();
                     $.ajax({

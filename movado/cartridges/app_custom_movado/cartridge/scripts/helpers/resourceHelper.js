@@ -27,7 +27,8 @@ function getResources(pageContext) {
         CURRENT_SITE_ID : Site.getCurrent().getID(),
         OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
         OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
-        INVALID_EMAIL_ERROR: Resource.msg('newsletter.invalid.email.error', 'common', null)
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null)
     };
     return resources;
 }
