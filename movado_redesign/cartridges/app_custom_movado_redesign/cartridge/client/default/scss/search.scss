@@ -547,6 +547,10 @@
       align-items: flex-end;
       width: 100%;
     }
+    .exclusive-badge-container {
+      position: absolute;
+      top: rem(15);
+    }
     .new-product {
       display: inline-block;
       color: $storm-gray;
