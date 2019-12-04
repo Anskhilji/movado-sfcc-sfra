@@ -1,4 +1,4 @@
-<div class="p-0
+<div class="p-0 custom-options
     <isif condition="${!isQuickView}">col-md-12</isif>
     col-12 product-options">
     <isloop items="${product.options}" var="option" status="loopStatus">

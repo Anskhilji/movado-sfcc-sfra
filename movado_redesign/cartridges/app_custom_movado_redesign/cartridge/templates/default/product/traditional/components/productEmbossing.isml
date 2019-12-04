@@ -20,7 +20,7 @@
         </isloop>
 
         <div class="popup" pd-popup="debossing-popup">
-            <div class="popup-inner">
+            <div class="popup-inner pb-4">
                 <div class="popup-head mb-3">
                     <h1>${Resource.msg('label.product.add.debossing', 'product', 'null')}</h1>
                 </div>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 text-area">
+                    <div class="text-area pb-4">
                         <div class="mb-3 option-message">
                             <input type="text" class="form-control debossing-input" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
                         </div>

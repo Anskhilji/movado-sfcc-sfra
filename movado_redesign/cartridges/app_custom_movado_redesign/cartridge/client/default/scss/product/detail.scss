@@ -5,10 +5,21 @@
 @import "animate.css/animate";
 @import "../custom-animation";
 
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    min-width: auto;
+}
+
 .container-fluid.pdp-v-one {
     padding-top: rem(16);
     padding-bottom: rem(16);
     margin: 0;
+
+    .dw-apple-pay-button {
+        &.apple-pay-pdp {
+            min-width: auto;
+        }
+    }
 
     .pinch-zoom-container {
         display: none;
@@ -207,7 +218,7 @@
             }
         }
 
-        .slick-slide {
+        .main-carousel {
 
             img {
 
@@ -353,6 +364,7 @@
         .slick-track {
             display: flex;
             justify-content: center;
+            transform: none !important;
         }
     }
 
@@ -625,6 +637,7 @@
             display: flex;
             align-items: center;
             line-height: rem(16);
+            margin-bottom: rem(10);
 
             p {
                 @include font-demi;
@@ -703,7 +716,7 @@
         height: 100%;
         display: none;
         position: fixed;
-        top: 0px;
+        top: 0;
         left: 0px;
         background: rgba(0, 0, 0, 0.75);
         z-index: 9999;
@@ -743,7 +756,8 @@
                 margin: rem(30) 0;
 
                 @include media-breakpoint-down(sm) {
-                    margin: rem(25) 0;
+                    margin: rem(10) 0;
+                    margin-bottom: rem(15);
                 }
 
                 .image {
@@ -806,10 +820,11 @@
                     letter-spacing: normal;
                     margin-bottom: 0;
                     text-transform: capitalize;
-                    width: 110%;
+                    width: 120%;
                     position: absolute;
                     top: rem(-23);
                     left: 0;
+                    text-align: left;
 
                     @include media-breakpoint-down(sm) {
                         font-size: rem(13);
@@ -858,7 +873,7 @@
             display: inline-block;
             text-align: left;
             vertical-align: middle;
-            position: relative;
+            position: absolute;
             max-width: 90%;
             width: 100%;
             padding: rem(30) 0;
@@ -866,7 +881,7 @@
             background: $white;
             text-align: center;
             top: 50%;
-            left: 45%;
+            left: 50%;
             transform: translate(-50%, -50%);
             padding-bottom: rem(5);
 
@@ -1049,7 +1064,31 @@
 
 .container-fluid.pdp-mobile {
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
+
+        .primary-images {
+
+            .cs-carousel-wrapper {
+
+                .slick-list {
+
+                    .slick-slide {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .cart-wishlist {
+            justify-content: center;
+        }
+
+        .container-fluid.pdp-v-two  {
+
+            .mobile-detail-head {
+                margin-bottom: rem(15);
+            }
+        }
 
         .detail-bottom-blocks {
             padding: 0;
@@ -1067,10 +1106,11 @@
             .slick-slide {
                 width: rem(70) !important;
                 height: rem(70);
+                opacity: 1;
             }
 
             .slick-track {
-                margin: 0;
+                margin: 0 auto;
                 justify-content: center;
                 display: flex;
             }
@@ -1086,14 +1126,18 @@
             padding-bottom: 0;
             margin: 0;
             padding: 0;
-            flex-basis: 100%;
 
             > div {
                 padding:0;
             }
 
             .add-to-cart {
-                min-width: rem(330);
+                max-width: rem(330);
+                margin: 0;
+            }
+
+            .dw-apple-pay-button.apple-pay-pdp {
+                margin: 0;
             }
         }
 
@@ -1183,20 +1227,6 @@
             margin-bottom: rem(10);
         }
 
-        .carousel-nav {
-
-            .slick-slide {
-                width: rem(70) !important;
-                height: rem(70);
-            }
-
-            .slick-track {
-                margin: 0;
-                justify-content: center;
-                display: flex;
-            }
-        }
-
         .mobile-detail-head {
 
             .product-name {
@@ -1258,9 +1288,17 @@
         }
 
         .cart-and-ipay {
+            flex-basis: 100%;
 
             .add-to-cart {
                 min-width: 100%;
+                margin: 0;
+                margin-bottom: rem(10);
+            }
+
+            .dw-apple-pay-button.apple-pay-pdp {
+                min-width: 100%;
+                margin-bottom: 0;
             }
         }
 
@@ -1287,4 +1325,12 @@
             }
         }
     }
+}
+
+.no-overflow {
+    overflow: hidden;
+}
+
+.cart-and-ipay {
+    justify-content: flex-start;
 }
