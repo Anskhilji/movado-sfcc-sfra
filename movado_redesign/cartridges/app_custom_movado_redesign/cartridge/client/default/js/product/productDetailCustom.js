@@ -51,7 +51,7 @@ $(function() {
     });
 });
 
-$(document).mouseup(function(e)0{
+$(document).mouseup(function(e) {
     var container = $(".custom-options .popup .popup-inner");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         $(".custom-options .popup-opened").fadeOut(200);
