@@ -108,17 +108,17 @@ function addContactToJourney(params, service) {
             if (responsePayload.getError() !== '400') {
                 var resObj = JSON.parse(responsePayload.errorMessage);
                 if (resObj.errorcode && resObj.errorcode == 30000) {
-                    result.message = Resource.msg('newsletter.email.resubscription.error', 'common', null); //'You are already subscribed'; // Resource.msg('newsletter.email.resubscription.error', 'common', null)
+                    result.message = Resource.msg('newsletter.email.resubscription.error', 'common', null);
                     Logger.debug('MarketingCloud addContactToJourney: {0} and error message is {1}', Resource.msg('newsletter.email.resubscription.error', 'common', null), resObj.message);
                     result.success = false;
                     return result;
                 } else if (resObj.hasErrors && resObj.operationStatus == 'FAIL') {
-                    result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);    //'Please enter valid email'; // newsletter.email.error.invalid
-                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null)); // resObj.resultMessages.message
+                    result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
+                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
                     result.success = false;
                     return result;
                 } else {
-                    result.message = Resource.msg('newsletter.email.subscription.error', 'common', null);   //'Some error occurred while subscribing, please try later'; //newsletter.email.subscription.error
+                    result.message = Resource.msg('newsletter.email.subscription.error', 'common', null);
                     Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.subscription.error', 'common', null));
                     result.success = false;
                     return result;
