@@ -6,12 +6,12 @@ const shell = require('shelljs');
 
 var configs = [];
 
-if (fs.existsSync(path.join(__dirname, './cartridge/client/default/scss/'))) {
-    var cssFiles = shell.ls(path.join(__dirname, './cartridge/client/default/scss/**/*.scss'));
+if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/client/default/scss/'))) {
+    var cssFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/client/default/scss/**/*.scss'));
     cssFiles = cssFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
     var cssEntries = {};
     cssFiles.forEach(filename => {
-        var location = path.relative(path.join(__dirname, './cartridge/client/default/scss/'), filename);
+        var location = path.relative(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/client/default/scss/'), filename);
         var basename = location.substr(0, location.length - (location.length - location.indexOf('.scss')));
         cssEntries[basename] = path.resolve(filename);
     });
@@ -21,7 +21,7 @@ if (fs.existsSync(path.join(__dirname, './cartridge/client/default/scss/'))) {
         name: 'scss',
         entry: cssEntries,
         output: {
-            path: path.resolve(path.join(__dirname, './cartridge/static/default/css')),
+            path: path.resolve(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/static/default/css')),
         },
         module: {
             rules: [{
@@ -61,8 +61,8 @@ if (fs.existsSync(path.join(__dirname, './cartridge/client/default/scss/'))) {
     });
 }
 
-if (fs.existsSync(path.join(__dirname, './cartridge/client/default/js/'))) {
-    var jsFiles = shell.ls(path.join(__dirname, './cartridge/client/default/js/*.js'));
+if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/client/default/js/'))) {
+    var jsFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/client/default/js/*.js'));
     jsFiles = jsFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
     var jsEntries = {};
     jsFiles.forEach(filename => {
@@ -75,11 +75,17 @@ if (fs.existsSync(path.join(__dirname, './cartridge/client/default/js/'))) {
         name: 'js',
         entry: jsEntries,
         output: {
-            path: path.resolve(path.join(__dirname, './cartridge/static/default/js')),
+            path: path.resolve(path.join(__dirname, './cartridges/app_custom_storefront_hourtime/cartridge/static/default/js')),
             filename: '[name].js'
         },
         module: {
             rules: [
+                {
+                    enforce: "pre",
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    loader: "eslint-loader"
+                },
                 {
                     test: /\.js$/,
                     use: {
