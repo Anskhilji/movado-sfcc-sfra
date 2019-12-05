@@ -1,6 +1,7 @@
 'use strict'
 
 var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
+var Resource = require('dw/web/Resource');
 
 var Constants = require('~/cartridge/scripts/util/Constants');
 var RequestModel = require('~/cartridge/scripts/model/RequestModel');
@@ -79,6 +80,10 @@ function addContactToMC(params, service) {
 
 function addContactToJourney(params, service) {
     var addContactToJourneyPayload = RequestModel.generateAddContactToJourneyPayload(params);
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'common', null),
+        success: true
+    }
     var responsePayload = null;
     try {
         responsePayload = service.call(addContactToJourneyPayload);
@@ -100,16 +105,35 @@ function addContactToJourney(params, service) {
 
     if (responsePayload.error) {
         if (params.isJob == false) {
+            if (responsePayload.getError() == '400') {
+                var responseObj = JSON.parse(responsePayload.errorMessage);
+                if (responseObj.errorcode && responseObj.errorcode == 30000) {
+                    result.message = Resource.msg('newsletter.email.error.subscription.exist', 'common', null);
+                    Logger.debug('MarketingCloud addContactToJourney: Error occurred while try to add email: {0} and error message is {1}', Resource.msg('newsletter.email.error.subscription.exist', 'common', null), responseObj.message);
+                } else if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
+                    result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
+                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
+                } else {
+                    result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
+                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
+                }
+                result.success = false;
+                return result;
+            }
             SFMCCOHelper.saveEmailSubscriber(params.email);
         }
-        return false;
+        result.success = false;
     }
-    return true;
+    return result;
 }
 
 function addContactToDataExtension(params, service) {
     var addContactToDataExtensionPayload = RequestModel.generateAddContactToDataExtensionPayload(params);
     var responsePayload = null;
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'common', null),
+        success: true
+    }
     try {
         responsePayload = service.call(JSON.stringify(addContactToDataExtensionPayload));
     } catch (e) {
@@ -132,9 +156,9 @@ function addContactToDataExtension(params, service) {
         if (params.isJob == false) {
             SFMCCOHelper.saveEmailSubscriber(params.email);
         }
-        return false;
+        result.success = false;
     }
-    return true;
+    return result;
 }
 
 module.exports = {

@@ -7,7 +7,9 @@ function processSubscription(response) {
         if (!response.error) {
             $('.submission-status div').attr('class', 'success');
             $('#add-to-email-list').prop('checked', response.customerFound);
-            hideEmailPopUpModal();
+            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
+                hideEmailPopUpModal();
+            }
             if(response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
@@ -24,17 +26,22 @@ $(document).ready(function () {
         var endPointUrl = $(e.target).attr('action');
         var inputValue = $(e.target).find('.form-control').val();
         if (inputValue !== '') {
-            $.ajax({
-                url: endPointUrl,
-                method: 'POST',
-                data: { email: inputValue },
-                success: processSubscription,
-                error: function () { 
-                    wrapperContainer.removeClass('d-none');
-                    $('.submission-status div').text(Resources.EMAIL_POPUP_SERVER_ERROR_MSG).attr('class', 'error');
-                }
-            });
-            
+            var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+            if(!pattern.test(inputValue)) {
+                wrapperContainer.removeClass('d-none');
+                $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+            } else {
+                $.ajax({
+                    url: endPointUrl,
+                    method: 'POST',
+                    data: { email: inputValue },
+                    success: processSubscription,
+                    error: function () { 
+                        wrapperContainer.removeClass('d-none');
+                        $('.submission-status div').text(Resources.EMAIL_POPUP_SERVER_ERROR_MSG).attr('class', 'error');
+                    }
+                });
+            }
         } else {
             wrapperContainer.removeClass('d-none');
             $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
