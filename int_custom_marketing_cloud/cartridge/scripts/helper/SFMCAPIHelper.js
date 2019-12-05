@@ -110,18 +110,12 @@ function addContactToJourney(params, service) {
                 if (responseObj.errorcode && responseObj.errorcode == 30000) {
                     result.message = Resource.msg('newsletter.email.error.subscription.exist', 'common', null);
                     Logger.debug('MarketingCloud addContactToJourney: Error occurred while try to add email: {0} and error message is {1}', Resource.msg('newsletter.email.error.subscription.exist', 'common', null), responseObj.message);
-                    result.success = false;
-                    return result;
                 } else if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
                     result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
                     Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
-                    result.success = false;
-                    return result;
                 } else {
                     result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
                     Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
-                    result.success = false;
-                    return result;
                 }
                 result.success = false;
                 return result;
@@ -129,7 +123,6 @@ function addContactToJourney(params, service) {
             SFMCCOHelper.saveEmailSubscriber(params.email);
         }
         result.success = false;
-        return result;
     }
     return result;
 }
@@ -164,7 +157,6 @@ function addContactToDataExtension(params, service) {
             SFMCCOHelper.saveEmailSubscriber(params.email);
         }
         result.success = false;
-        return result;
     }
     return result;
 }
