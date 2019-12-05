@@ -24,7 +24,7 @@ function getShippingDate(shippingMethod) {
     
     var productLineItemsItr = basket.getAllProductLineItems().iterator();
     
-    while(productLineItemsItr.hasNext()){
+    while (productLineItemsItr.hasNext()) {
         var productLineItems = productLineItemsItr.next();
         if (productLineItems.custom.embossMessageLine1 || productLineItems.custom.engraveMessageLine1) {
             embossed = true;
@@ -41,7 +41,7 @@ function getShippingDate(shippingMethod) {
     var deliveryDaysAfterNoon = shippingMethod.custom.daysAfterNoon ? shippingMethod.custom.daysAfterNoon : 0;
     var optionProductShipmentDelay = shippingMethod.custom.optionProductShipmentDealy ? shippingMethod.custom.daysAfterNoon : 0;
     
-    if(!isEstimated) {
+    if (!isEstimated) {
         if (basketLastModifiedTime.indexOf('PM') > -1) {
             startingDeliveryDate = new Calendar(basket.getLastModified());
             endingDeliveryDate = new Calendar(basket.getLastModified());
@@ -79,8 +79,8 @@ function getShippingDate(shippingMethod) {
         for (var i = 1; i <= optionProductShipmentDelay; i++) {
             var currentEndingDate = endingDeliveryDate.time;
             var currentDate = new Calendar(currentEndingDate);
-             currentDate.add(currentDate.DAY_OF_MONTH, i);
-             dateRange.push(currentDate);
+            currentDate.add(currentDate.DAY_OF_MONTH, i);
+            dateRange.push(currentDate);
         } 
         endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, optionProductShipmentDelay);
     }
@@ -112,14 +112,17 @@ function getShippingDate(shippingMethod) {
 
 function excludeWeekendDates(deliveryDay, deliveryDate) {
     switch (deliveryDay) {
-    case 7:
-        deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
-        return deliveryDate
-    case 1:
-        deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
-        return deliveryDate
-    default:
-        return deliveryDate;
+        case 7:
+            deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
+            return deliveryDate;
+            break;
+        case 1:
+            deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
+            return deliveryDate;
+            break;
+        default:
+            return deliveryDate;
+            break;
     }
 }
 
@@ -185,57 +188,57 @@ function changeNumberToDayName(dayNumber) {
 function getMonthName(unformattedDate) {
     var monthNumber = unformattedDate.get(unformattedDate.MONTH);
     var monthName;
-    switch(monthNumber) {
-    case 0:
-        monthName = "January";
-        return monthName;
-        break;
-    case 1:
-        monthName = "February";
-        return monthName;
-        break;
-    case 2:
-        monthName = "March";
-        return monthName;
-        break;
-    case 3:
-        monthName = "April";
-        return monthName;
-        break;
-    case 4:
-        monthName = "May";
-        return monthName;
-        break;
-    case 5:
-        monthName = "June";
-        return monthName;
-        break;
-    case 6:
-        monthName = "July";
-        return monthName;
-        break;
-    case 7:
-        monthName = "August";
-        return monthName;
-        break;
-    case 8:
-        monthName = "September";
-        return monthName;
-        break;
-    case 9:
-        monthName = "October";
-        return monthName;
-        break;
-    case 10:
-        monthName = "November";
-        return monthName;
-        break;
-    case 11:
-        monthName = "December";
-        return monthName;
-        break;
+    switch (monthNumber) {
+        case 0:
+            monthName = "January";
+            return monthName;
+            break;
+        case 1:
+            monthName = "February";
+            return monthName;
+            break;
+        case 2:
+            monthName = "March";
+            return monthName;
+            break;
+        case 3:
+            monthName = "April";
+            return monthName;
+            break;
+        case 4:
+            monthName = "May";
+            return monthName;
+            break;
+        case 5:
+            monthName = "June";
+            return monthName;
+            break;
+        case 6:
+            monthName = "July";
+            return monthName;
+            break;
+        case 7:
+            monthName = "August";
+            return monthName;
+            break;
+        case 8:
+            monthName = "September";
+            return monthName;
+            break;
+        case 9:
+            monthName = "October";
+            return monthName;
+            break;
+        case 10:
+            monthName = "November";
+            return monthName;
+            break;
+        case 11:
+            monthName = "December";
+            return monthName;
+            break;
         default: 'Undefined';
-        break;
+            break;
     }
 }
 
@@ -251,18 +254,18 @@ function getShippingTime(shippingMethod) {
     var shippingCutOffTimePreference = Site.getCurrent().preferences.custom;
     var currentTime = Site.current.getCalendar().getTime();
     var currentDate = Site.current.getCalendar().getTime();
-    var dealsDate = Site.current.getCalendar().getTime();
+    var shippingDate = Site.current.getCalendar().getTime();
     var isEstimated = shippingMethod.custom.isEstimated ? true : false;
     currentDate.setHours(currentTime.getHours());
     currentDate.setMinutes(currentTime.getMinutes());
     currentDate.setSeconds(currentTime.getSeconds());
-    dealsDate.setHours(shippingCutOffTimePreference.shippingCutOffTimeHours);
-    dealsDate.setMinutes(shippingCutOffTimePreference.shippingCutOffTimeMinutes);
-    dealsDate.setSeconds(0);
-    if (dealsDate.valueOf() < currentDate.valueOf()) {
-        dealsDate.setHours(dealsDate.getHours() + 12);
+    shippingDate.setHours(shippingCutOffTimePreference.shippingCutOffTimeHours);
+    shippingDate.setMinutes(shippingCutOffTimePreference.shippingCutOffTimeMinutes);
+    shippingDate.setSeconds(0);
+    if (shippingDate.valueOf() < currentDate.valueOf()) {
+        shippingDate.setHours(shippingDate.getHours() + 12);
     }
-    var diffMilliSeconds = Math.abs(dealsDate.valueOf() - currentDate.valueOf());
+    var diffMilliSeconds = Math.abs(shippingDate.valueOf() - currentDate.valueOf());
     var remainingTime = new Date(diffMilliSeconds);
     
     var shippingCutOffTime = {
