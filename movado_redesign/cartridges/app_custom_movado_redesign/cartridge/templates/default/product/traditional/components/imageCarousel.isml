@@ -1,5 +1,5 @@
 <iscomment>Updated carousel configuration</iscomment>
-<div class="primary-images col-12 col-md-7">
+<div class="primary-images col-12 col-lg-7">
   <div class="product-badges">
     <isinclude template="product/components/newnessBadge"/>
   </div>
