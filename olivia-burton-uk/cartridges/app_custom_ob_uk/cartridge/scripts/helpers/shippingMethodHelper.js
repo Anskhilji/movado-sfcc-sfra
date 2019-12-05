@@ -35,11 +35,11 @@ function getShippingDate(shippingMethod) {
             new Calendar(basket.getLastModified()), 'h:mm a'
     )
     
-    var isEstimated = shippingMethod.custom.isEstimated;
-    var shippingDays = shippingMethod.custom.estimatedArrivalTime;
-    var deliveryDaysBeforeNoon = shippingMethod.custom.daysBeforeNoon;
-    var deliveryDaysAfterNoon = shippingMethod.custom.daysAfterNoon;
-    var optionProductShipmentDelay = shippingMethod.custom.optionProductShipmentDealy;
+    var isEstimated = shippingMethod.custom.isEstimated ? true : false;
+    var shippingDays = shippingMethod.custom.estimatedArrivalTime ? shippingMethod.custom.estimatedArrivalTime : 0;
+    var deliveryDaysBeforeNoon = shippingMethod.custom.daysBeforeNoon ? shippingMethod.custom.daysBeforeNoon : 0;
+    var deliveryDaysAfterNoon = shippingMethod.custom.daysAfterNoon ? shippingMethod.custom.daysAfterNoon : 0;
+    var optionProductShipmentDelay = shippingMethod.custom.optionProductShipmentDealy ? shippingMethod.custom.daysAfterNoon : 0;
     
     if(!isEstimated) {
         if (basketLastModifiedTime.indexOf('PM') > -1) {
