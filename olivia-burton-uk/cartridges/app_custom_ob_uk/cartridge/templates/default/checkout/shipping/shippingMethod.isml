@@ -13,7 +13,7 @@
                 <iselseif condition="${shippingMethod.description}">
                     <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek})</span>
                 </isif> </iscomment>
-                <span class="text-muted arrival-time">(${shippingMethod.dayOfWeek})</span>
+                <span class="text-muted arrival-time">(${shippingMethod.deliveryDate})</span>
             </label>
         </div>
         <div class="col-3 text-right shipping-method-pricing end-lines">
