@@ -43,7 +43,6 @@ function getShippingDate(shippingMethod) {
     
     if (!isEstimated) {
         if (basketLastModifiedTime.indexOf('PM') > -1) {
-            startingDeliveryDate = new Calendar(basket.getLastModified());
             endingDeliveryDate = new Calendar(basket.getLastModified());
             endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
             for (var i = 1; i <= deliveryDaysAfterNoon; i++) {
@@ -86,7 +85,16 @@ function getShippingDate(shippingMethod) {
     }
     
     for (var i = 0; i < dateRange.length; i++) {
+        startingDeliveryDate = excludePublicHolidays(startingDeliveryDate, dateRange, dateRange[i]);
+    }
+    
+    for (var i = 0; i < dateRange.length; i++) {
         endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange, dateRange[i]);
+    }
+    
+    for (var i = 0; i < dateRange.length; i++) {
+        var deliveryDay = dateRange[i].get(dateRange[i].DAY_OF_WEEK);
+        startingDeliveryDate = excludeWeekendDates(deliveryDay, startingDeliveryDate);
     }
     
     for (var i = 0; i < dateRange.length; i++) {
