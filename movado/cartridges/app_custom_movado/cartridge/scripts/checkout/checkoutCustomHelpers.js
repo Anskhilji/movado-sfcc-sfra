@@ -7,7 +7,8 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
-var Logger = require('dw/system/Logger').getLogger('sapFeedFileParser');
+var Order = require('dw/order/Order');
+var Logger = require('dw/system/Logger').getLogger('Checkout');
 
 /**
  * Sends a confirmation to the current user if riskified not enabled
@@ -254,6 +255,47 @@ function isRiskified(paymentInstrument) {
     return isRiskifiedflag;
 }
 
+function declineOrder(order) {
+
+    var paymentInstrument = order.paymentInstrument;
+    var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
+
+    try {
+        var orderNo = order.getOrderNo();
+        if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
+            Logger.warn('declineOrder: Going for paymentReversal for order number: ' + orderNo);
+            hooksHelper(
+                'app.riskified.paymentreversal',
+                'paymentReversal',
+                order,
+                order.getTotalGrossPrice().value,
+                false,
+                require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
+        } else {
+            Logger.warn('declineOrder: Going for paymentRefund for order number: ' + orderNo);
+            hooksHelper(
+                'app.riskified.paymentrefund',
+                'paymentRefund',
+                order,
+                order.getTotalGrossPrice().value,
+                false,
+                require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
+        }
+
+        Transaction.wrap(function () {
+            if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
+                Logger.warn('declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
+                OrderMgr.failOrder(order);  //Order must be in status CREATED
+            } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+                Logger.warn('declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
+                OrderMgr.cancelOrder(order);
+            }
+        });
+    } catch (ex) {
+        Logger.error('declineOrder: Exception occured while try to decline the order for order number: ' + orderNo + ' and exception is: ' + ex);
+    }
+
+}
 
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
@@ -262,5 +304,6 @@ module.exports = {
     sendPartialCancellationEmail: sendPartialCancellationEmail,
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
-    isRiskified: isRiskified
+    isRiskified: isRiskified,
+    declineOrder: declineOrder
 };
