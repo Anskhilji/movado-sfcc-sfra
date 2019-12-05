@@ -6,7 +6,11 @@ function processSubscription(response) {
         wrapperContainer.removeClass('d-none');
         $('.submission-status div').text(response.message);
         if (!response.error) {
-            $('.submission-status div').attr('class', 'success');
+            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
+                $('.submission-status div').attr('class', 'success');
+            } else {
+                $('.submission-status div').attr('class', 'error');
+            }
             $('#add-to-email-list').prop('checked', response.customerFound);
             if(response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;

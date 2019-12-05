@@ -52,7 +52,7 @@ function exportAllSavedSubscribers() {
                 } else {
                     result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
                 }
-                if (result) {
+                if (result.success === true) {
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(subscriber);
                     });
