@@ -2,14 +2,9 @@
 
 var ShippingMethodBase = module.superModule;
 
-var ArrayList = require('dw/util/ArrayList');
-var BasketMgr = require('dw/order/BasketMgr');
-var Calendar = require('dw/util/Calendar');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Resource = require('dw/web/Resource');
-var Site = require('dw/system/Site');
 var ShippingMgr = require('dw/order/ShippingMgr');
-var StringUtils = require('dw/util/StringUtils');
 
 var formatCurrency = require('*/cartridge/scripts/util/formatting').formatCurrency;
 

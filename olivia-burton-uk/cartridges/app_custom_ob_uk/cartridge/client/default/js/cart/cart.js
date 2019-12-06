@@ -19,40 +19,38 @@ function appendToUrl(url, params) {
 }
 
 $(
-        function () {
-            var dailyDealSelector = $('.delivery-time');
-            var hours = dailyDealSelector.data('hours');
-            var minutes = dailyDealSelector.data('minutes');
-            var seconds = dailyDealSelector.data('seconds');
-            var remainingDate = new Date();
-            remainingDate.setHours(hours);
-            remainingDate.setMinutes(minutes);
-            remainingDate.setSeconds(seconds);
-            var countDown = setInterval(function () {
-                if(remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
-                    var displayHours = remainingDate.getHours().toString().length < 2 ? '0' + remainingDate.getHours() : remainingDate.getHours();
-                    var displayMinutes = remainingDate.getMinutes().toString().length < 2 ? '0' + remainingDate.getMinutes() : remainingDate.getMinutes();
-                    var displaySeconds = remainingDate.getSeconds().toString().length < 2 ? '0' + remainingDate.getSeconds() : remainingDate.getSeconds();
-                    remainingDate.setSeconds(remainingDate.getSeconds() - 1);
-                    $('.time-update-control').text(
-                            displayHours
-                            + ' Hours, ' +
-                            displayMinutes
-                            + ' Minutes ' +
-                            displaySeconds
-                            + ' Seconds'
-                    );
-                } else {
-                    clearInterval(countDown);
-                    if (isNaN(remainingDate.getTime())) {
-                        $('.delivery-time').text('00:00:00');
-                    } else {
-                        location.reload();
-                    }
+    function () {
+        var deliveryTimeSelector = $('.delivery-time');
+        var hours = deliveryTimeSelector.data('hours');
+        var minutes = deliveryTimeSelector.data('minutes');
+        var seconds = deliveryTimeSelector.data('seconds');
+        var remainingDate = new Date();
+        remainingDate.setHours(hours);
+        remainingDate.setMinutes(minutes);
+        remainingDate.setSeconds(seconds);
+        var countDown = setInterval(function () {
+            if(remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
+                var displayHours = remainingDate.getHours().toString().length < 2 ? '0' + remainingDate.getHours() : remainingDate.getHours();
+                var displayMinutes = remainingDate.getMinutes().toString().length < 2 ? '0' + remainingDate.getMinutes() : remainingDate.getMinutes();
+                var displaySeconds = remainingDate.getSeconds().toString().length < 2 ? '0' + remainingDate.getSeconds() : remainingDate.getSeconds();
+                remainingDate.setSeconds(remainingDate.getSeconds() - 1);
+                $('.time-update-control').text(
+                    displayHours
+                    + ' Hours, ' +
+                    displayMinutes
+                    + ' Minutes ' +
+                    displaySeconds
+                    + ' Seconds'
+                );
+            } else {
+                clearInterval(countDown);
+                if (isNaN(remainingDate.getTime())) {
+                    $('.delivery-time').text('00:00:00');
                 }
-            }, 1000);
-        }
-    );
+            }
+        }, 1000);
+    }
+);
 
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
@@ -99,7 +97,6 @@ function updateCartTotals(data) {
         $('.shipping-cost').empty().append(data.totals.totalShippingCost);
     }
     
-    $('.test').empty().append(data.totals.deliveryTime.isEstimated);
     if (data.totals.deliveryTime.isEstimated) {
         $('.delivery-time').hide();
     } else {
