@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-area pb-4">
+                    <div class="text-area">
                         <div class="mb-3 option-message">
                             <input type="text" class="form-control debossing-input" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
                         </div>

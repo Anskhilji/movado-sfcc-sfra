@@ -876,7 +876,7 @@
             position: absolute;
             max-width: 90%;
             width: 100%;
-            padding: rem(30) 0;
+            padding: rem(20) 0;
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
             background: $white;
             text-align: center;
@@ -1293,11 +1293,11 @@
             .add-to-cart {
                 min-width: 100%;
                 margin: 0;
-                margin-bottom: rem(10);
             }
 
             .dw-apple-pay-button.apple-pay-pdp {
                 min-width: 100%;
+                margin-top: rem(10);
                 margin-bottom: 0;
             }
         }
@@ -1329,6 +1329,15 @@
 
 .no-overflow {
     overflow: hidden;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    margin-bottom: 0 !important;
+    overflow-x: hidden;
 }
 
 .cart-and-ipay {

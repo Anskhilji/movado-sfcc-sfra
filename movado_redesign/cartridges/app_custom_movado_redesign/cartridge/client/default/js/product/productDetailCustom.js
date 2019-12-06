@@ -55,6 +55,12 @@ $(document).mouseup(function(e) {
     var container = $(".custom-options .popup .popup-inner");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         $(".custom-options .popup-opened").fadeOut(200);
+        var targeted_popup_class = jQuery(this).attr('pd-popup-close');
+        $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
+        $(".prices-add-to-cart-actions").removeClass('extra-z-index');
+        $('body, html').removeClass('no-overflow');
+        $('body').removeClass('no-scroll');
+        e.preventDefault();
     }
 });
 
