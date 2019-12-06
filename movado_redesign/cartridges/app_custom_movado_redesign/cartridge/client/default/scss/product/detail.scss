@@ -1330,10 +1330,14 @@
 .no-overflow {
     overflow: hidden;
 }
-.no-scroll {
-    padding: 1px;
-  height: 100%;
 
+html {
+    overflow-x: hidden;
+}
+
+body {
+    margin-bottom: 0 !important;
+    overflow-x: hidden;
 }
 
 .cart-and-ipay {
