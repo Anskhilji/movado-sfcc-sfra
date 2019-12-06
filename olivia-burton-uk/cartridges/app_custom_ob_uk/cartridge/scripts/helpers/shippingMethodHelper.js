@@ -3,9 +3,10 @@
 var ArrayList = require('dw/util/ArrayList');
 var BasketMgr = require('dw/order/BasketMgr');
 var Calendar = require('dw/util/Calendar');
+var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
-var Resource = require('dw/web/Resource');
+var Util = require('dw/util');
 
 var CommonUtils = require('app_custom_movado/cartridge/utils/commonUtils');
 
@@ -19,15 +20,15 @@ function getShippingDate(shippingMethod) {
     var finalDeliveryDate;
     var formattedStartingDate;
     var formattedEndingDate;
-    var dateRange= new ArrayList();
+    var dateRange= new Util.HashMap();
     var productLineItems;
     var embossed;
     var basketLastModified;
+    var publicHolidays = new Util.HashMap();
     
     if (basket) {
         var productLineItemsItr = basket.getAllProductLineItems().iterator();
         var basketLastModified = basket.getLastModified();
-        
         while (productLineItemsItr.hasNext()) {
             var productLineItems = productLineItemsItr.next();
             if (!empty(productLineItems.custom.embossMessageLine1) || !empty(productLineItems.custom.engraveMessageLine1)) {
@@ -50,7 +51,7 @@ function getShippingDate(shippingMethod) {
             for (var i = 0; i <= splitedShippingDays[1]; i++) {
                 var currentDate = new Calendar(basketLastModified);
                 currentDate.add(currentDate.DAY_OF_MONTH, i);
-                dateRange.push(currentDate);
+                dateRange.put(currentDate, currentDate);
             }
             startingDeliveryDate = new Calendar(basketLastModified);
             startingDeliveryDate.add(startingDeliveryDate.DAY_OF_MONTH, splitedShippingDays[0]);
@@ -63,7 +64,7 @@ function getShippingDate(shippingMethod) {
                 for (var i = 1; i <= deliveryDaysAfterNoon; i++) {
                     var currentDate = new Calendar(basketLastModified);
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
-                    dateRange.push(currentDate);
+                    dateRange.put(currentDate, currentDate);
                 }
             } else {
                 endingDeliveryDate = new Calendar(basketLastModified);
@@ -71,7 +72,7 @@ function getShippingDate(shippingMethod) {
                 for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
                     var currentDate = new Calendar(basketLastModified);
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
-                    dateRange.push(currentDate);
+                    dateRange.put(currentDate, currentDate);
                 }
             }
         }
@@ -81,29 +82,31 @@ function getShippingDate(shippingMethod) {
                 var currentEndingDate = endingDeliveryDate.time;
                 var currentDate = new Calendar(currentEndingDate);
                 currentDate.add(currentDate.DAY_OF_MONTH, i);
-                dateRange.push(currentDate);
+                dateRange.put(currentDate, currentDate);
             } 
             endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, optionProductShipmentDelay);
         }
         
         if (isEstimated) {
-            for (var i = 0; i < dateRange.length; i++) {
-                startingDeliveryDate = excludePublicHolidays(startingDeliveryDate, dateRange, dateRange[i]);
-            }
+            startingDeliveryDate = excludePublicHolidays(startingDeliveryDate, dateRange);
             
-            for (var i = 0; i < dateRange.length; i++) {
-                var deliveryDay = dateRange[i].get(dateRange[i].DAY_OF_WEEK);
+            // Exclude weekends from starting delivery date
+            var dateRangeItr =  dateRange.values().iterator();
+            while (dateRangeItr.hasNext()) {
+                var deliveryDate = dateRangeItr.next();
+                var deliveryDay = deliveryDate.get(deliveryDate.DAY_OF_WEEK);
                 startingDeliveryDate = excludeWeekendDates(deliveryDay, startingDeliveryDate);
             }
             formattedStartingDate = CommonUtils.getFormatedDate(startingDeliveryDate);
         }
-        
-        for (var i = 0; i < dateRange.length; i++) {
-            endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange, dateRange[i]);
-        }
-        
-        for (var i = 0; i < dateRange.length; i++) {
-            var deliveryDay = dateRange[i].get(dateRange[i].DAY_OF_WEEK);
+
+        endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange);
+            
+        // exclude weekends from ending delivery date
+        var dateRangeItr =  dateRange.values().iterator();
+        while (dateRangeItr.hasNext()) {
+            var deliveryDate = dateRangeItr.next();
+            var deliveryDay = deliveryDate.get(deliveryDate.DAY_OF_WEEK);
             endingDeliveryDate = excludeWeekendDates(deliveryDay, endingDeliveryDate);
         }
         
@@ -120,6 +123,7 @@ function getShippingDate(shippingMethod) {
     }
 }
 
+// method to exclude weekends from delivery date
 function excludeWeekendDates(deliveryDay, deliveryDate) {
     switch (deliveryDay) {
         case 7:
@@ -136,21 +140,25 @@ function excludeWeekendDates(deliveryDay, deliveryDate) {
     }
 }
 
-function excludePublicHolidays(deliveryDate, dateRange, indexedDate) {
-    var formatedDeliveryDate;
-    formatedDeliveryDate = StringUtils.formatCalendar(
-            indexedDate, Resource.msg('year.month.date.pattern','shipping',null)
-    )
+// method to exclude public holidays from delivery date
+function excludePublicHolidays(deliveryDate, dateRange) {
+    var dateRangeCollection = dateRange.values();
+    var dateRangeItr = dateRangeCollection.iterator();
     var publicHolidays = Site.getCurrent().preferences.custom.publicHolidays;
-    for (var i = 0; i < publicHolidays.length; i++) {
-        if (formatedDeliveryDate == publicHolidays[i]) {
+    while(dateRangeItr.hasNext()) {
+        var indexedDate = dateRangeItr.next();
+        var formatedDeliveryDate;
+        formatedDeliveryDate = StringUtils.formatCalendar(
+                indexedDate, Resource.msg('year.month.date.pattern','shipping',null)
+        )
+        if (!empty(publicHolidays) && publicHolidays.valueOf(indexedDate) > -1) {
             deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
-            dateRange.push(deliveryDate);
+            dateRange.put(deliveryDate, deliveryDate);
             var currentDeliveryDate = deliveryDate;
             currentDeliveryDate.add(currentDeliveryDate.DAY_OF_MONTH, "1");
             var deliveryOnSunday = currentDeliveryDate.get(currentDeliveryDate.DAY_OF_WEEK);
             if (deliveryOnSunday == 1) {
-                dateRange.push(currentDeliveryDate);
+                dateRange.put(currentDeliveryDate, currentDeliveryDate);
             }
         }
     }
@@ -166,8 +174,8 @@ function getShippingTime(shippingMethod) {
     currentDate.setHours(currentTime.getHours());
     currentDate.setMinutes(currentTime.getMinutes());
     currentDate.setSeconds(currentTime.getSeconds());
-    shippingDate.setHours(shippingCutOffTimePreference.shippingCutOffTimeHours);
-    shippingDate.setMinutes(shippingCutOffTimePreference.shippingCutOffTimeMinutes);
+    shippingDate.setHours(!empty(shippingCutOffTimePreference) ? shippingCutOffTimePreference.shippingCutOffTimeHours : 0);
+    shippingDate.setMinutes(!empty(shippingCutOffTimePreference) ? shippingCutOffTimePreference.shippingCutOffTimeMinutes : 0);
     shippingDate.setSeconds(0);
     if (shippingDate.valueOf() < currentDate.valueOf()) {
         shippingDate.setHours(shippingDate.getHours() + 12);
