@@ -139,7 +139,7 @@ function excludeWeekendDates(deliveryDay, deliveryDate) {
 function excludePublicHolidays(deliveryDate, dateRange, indexedDate) {
     var formatedDeliveryDate;
     formatedDeliveryDate = StringUtils.formatCalendar(
-            indexedDate, 'yyyy-MM-dd'
+            indexedDate, Resource.msg('year.month.date.pattern','shipping',null)
     )
     var publicHolidays = Site.getCurrent().preferences.custom.publicHolidays;
     for (var i = 0; i < publicHolidays.length; i++) {
