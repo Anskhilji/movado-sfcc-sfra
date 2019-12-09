@@ -209,4 +209,4 @@ function getShippingTime(shippingMethod) {
 module.exports = {
     getShippingDate: getShippingDate,
     getShippingTime: getShippingTime
-    };
+};
