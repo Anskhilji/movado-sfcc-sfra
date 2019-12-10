@@ -3,6 +3,8 @@
 var Totals = module.superModule;
 var shippingCustomHelper = require('*/cartridge/scripts/helpers/shippingCustomHelper');
 var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+var collections = require('app_storefront_base/cartridge/scripts/util/collections');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 
 /**
 * extend is use to extend super module
@@ -32,6 +34,63 @@ function extend(target, source) {
 }
 
 /**
+ * * Extending totals model to include promotions based on coupons in cutoff which displayed on checkout
+ * @param {dw.util.Collection} collection - a collection of price adjustments
+ * @param {Object} discounts - an object of price adjustments
+ * @returns {Object} an object of price adjustments
+ */
+function createDiscountObject(collection, discounts) {
+    var result = discounts;
+    collections.forEach(collection, function (item) {
+//        if (!item.basedOnCoupon) {
+            result[item.UUID] = {
+                UUID: item.UUID,
+                lineItemText: item.lineItemText,
+                price: formatMoney(item.price),
+                type: 'promotion',
+                callOutMsg: ((item.promotion && item.promotion.calloutMsg)?item.promotion.calloutMsg:'')
+            };
+//        }
+    });
+
+    return result;
+}
+
+/**
+ * creates an array of discounts including promotions based on coupons.
+ * @param {dw.order.LineItemCtnr} lineItemContainer - the current line item container
+ * @returns {Array} an array of objects containing promotion and coupon information
+ */
+function getDiscounts(lineItemContainer) {
+    var discounts = {};
+    var priceAdjustments;
+    var test;
+
+    collections.forEach(lineItemContainer.couponLineItems, function (couponLineItem) {
+        priceAdjustments = collections.map(
+            couponLineItem.priceAdjustments, function (priceAdjustment) {
+                return { callOutMsg: priceAdjustment.promotion.calloutMsg };
+            });
+        discounts[couponLineItem.UUID] = {
+            type: 'coupon',
+            UUID: couponLineItem.UUID,
+            couponCode: couponLineItem.couponCode,
+            applied: couponLineItem.applied,
+            valid: couponLineItem.valid,
+            relationship: priceAdjustments
+        };
+    });
+
+    discounts = createDiscountObject(lineItemContainer.priceAdjustments, discounts);
+    discounts = createDiscountObject(lineItemContainer.allShippingPriceAdjustments, discounts);
+    test = discounts;
+
+    return Object.keys(discounts).map(function (key) {
+        return discounts[key];
+    });
+}
+
+/**
  * Extending totals model to set tax total to 'TBD' when the value is 0.00.
  * @param currentCustomer
  * @param addressModel
@@ -52,7 +111,8 @@ function totals(lineItemContainer) {
     if (lineItemContainer) {
 	    totalsObj = extend(totalsModel, {
             totalTax: shippingCustomHelper.getTaxTotals(lineItemContainer.totalTax),
-            klarnaGrandTotal: KlarnaGrandTotal
+            klarnaGrandTotal: KlarnaGrandTotal,
+            discounts: getDiscounts(lineItemContainer)
 	    });
     }
 
