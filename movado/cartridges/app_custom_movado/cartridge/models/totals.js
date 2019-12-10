@@ -5,6 +5,8 @@ var shippingCustomHelper = require('*/cartridge/scripts/helpers/shippingCustomHe
 var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 var collections = require('app_storefront_base/cartridge/scripts/util/collections');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
+var HashMap = require('dw/util/HashMap');
+var Template = require('dw/util/Template');
 
 /**
 * extend is use to extend super module
@@ -62,7 +64,6 @@ function createDiscountObject(collection, discounts) {
 function getDiscounts(lineItemContainer) {
     var discounts = {};
     var priceAdjustments;
-    var test;
 
     collections.forEach(lineItemContainer.couponLineItems, function (couponLineItem) {
         priceAdjustments = collections.map(
@@ -81,11 +82,28 @@ function getDiscounts(lineItemContainer) {
 
     discounts = createDiscountObject(lineItemContainer.priceAdjustments, discounts);
     discounts = createDiscountObject(lineItemContainer.allShippingPriceAdjustments, discounts);
-    test = discounts;
 
     return Object.keys(discounts).map(function (key) {
         return discounts[key];
     });
+}
+
+/**
+ * create the discount results html
+ * @param {Array} discounts - an array of objects that contains coupon and priceAdjustment
+ * information
+ * @returns {string} The rendered HTML
+ */
+function getDiscountsHtml(discounts) {
+    var context = new HashMap();
+    var object = { totals: { discounts: discounts } };
+
+    Object.keys(object).forEach(function (key) {
+        context.put(key, object[key]);
+    });
+
+    var template = new Template('cart/cartCouponDisplay');
+    return template.render(context).text;
 }
 
 /**
@@ -99,6 +117,7 @@ function totals(lineItemContainer) {
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
+    var discountArray = getDiscounts(lineItemContainer);
 
     if (KlarnaGrandTotal.available) {
         KlarnaGrandTotal = AdyenHelpers.getCurrencyValueForApi(KlarnaGrandTotal).toString();
@@ -110,7 +129,8 @@ function totals(lineItemContainer) {
 	    totalsObj = extend(totalsModel, {
             totalTax: shippingCustomHelper.getTaxTotals(lineItemContainer.totalTax),
             klarnaGrandTotal: KlarnaGrandTotal,
-            discounts: getDiscounts(lineItemContainer)
+            discounts: discountArray,
+            discountsHtml: getDiscountsHtml(discountArray)
 	    });
     }
 
