@@ -42,15 +42,13 @@ function extend(target, source) {
 function createDiscountObject(collection, discounts) {
     var result = discounts;
     collections.forEach(collection, function (item) {
-//        if (!item.basedOnCoupon) {
-            result[item.UUID] = {
-                UUID: item.UUID,
-                lineItemText: item.lineItemText,
-                price: formatMoney(item.price),
-                type: 'promotion',
-                callOutMsg: ((item.promotion && item.promotion.calloutMsg)?item.promotion.calloutMsg:'')
-            };
-//        }
+        result[item.UUID] = {
+            UUID: item.UUID,
+            lineItemText: item.lineItemText,
+            price: formatMoney(item.price),
+            type: 'promotion',
+            callOutMsg: ((item.promotion && item.promotion.calloutMsg)?item.promotion.calloutMsg:'')
+        };
     });
 
     return result;
