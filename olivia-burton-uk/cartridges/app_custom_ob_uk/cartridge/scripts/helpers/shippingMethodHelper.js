@@ -6,7 +6,6 @@ var Calendar = require('dw/util/Calendar');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
-var Util = require('dw/util');
 
 var CommonUtils = require('app_custom_movado/cartridge/utils/commonUtils');
 
@@ -21,17 +20,15 @@ function getShippingDate(shippingMethod) {
     var formattedStartingDate;
     var formattedEndingDate;
     var dateRange= new ArrayList();
-    var productLineItems;
     var embossed;
     var basketLastModified;
-    var publicHolidays = new Util.HashMap();
     
     if (basket) {
         var productLineItemsItr = basket.getAllProductLineItems().iterator();
         var basketLastModified = basket.getLastModified();
         while (productLineItemsItr.hasNext()) {
-            var productLineItems = productLineItemsItr.next();
-            if (!empty(productLineItems.custom.embossMessageLine1) || !empty(productLineItems.custom.engraveMessageLine1)) {
+            var productLineItem = productLineItemsItr.next();
+            if (!empty(productLineItem.custom.embossMessageLine1) || !empty(productLineItem.custom.engraveMessageLine1)) {
                 embossed = true;
             }
         }
