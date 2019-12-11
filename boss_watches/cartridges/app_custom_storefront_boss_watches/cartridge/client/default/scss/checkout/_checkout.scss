@@ -1,0 +1,13 @@
+@import '../variables';
+@import '~movado/checkout/checkout';
+
+header {
+    .logo-link {
+        img {
+            width: rem(80);
+            @include media-breakpoint-up(lg) {
+                width: rem(96);
+            }
+        }
+    }
+}
