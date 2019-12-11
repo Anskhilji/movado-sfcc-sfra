@@ -156,9 +156,9 @@ server.append('Confirm', function (req, res, next) {
             var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
 
             if (priceAdjustmentIterator) {
-            	while (priceAdjustmentIterator.hasNext()) {
+                while (priceAdjustmentIterator.hasNext()) {
                     var priceAdjustmentLineItem = priceAdjustmentIterator.next();
-                    orderDiscount = priceAdjustmentLineItem.priceValue * -1;
+                    orderDiscount += priceAdjustmentLineItem.priceValue * -1;
                 }
             }
 
