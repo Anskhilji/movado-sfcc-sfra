@@ -49,6 +49,10 @@ function getAuthToken(params) {
 
 function addContactToMC(params, service) {
     var allSubscriberPayload = RequestModel.generateAddContactToMCPayload(params);
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'common', null),
+        success: true
+    }
     var responsePayload = null;
     try {
         responsePayload = service.call(allSubscriberPayload);
@@ -69,13 +73,24 @@ function addContactToMC(params, service) {
         
     }
 
-    if (responsePayload.error) {
-        if (params.isJob == false) {
-            SFMCCOHelper.saveEmailSubscriber(params.email);
+    var isSaveCustomObject = true;
+    if (responsePayload.getError() == '400') {
+        var responseObj = JSON.parse(responsePayload.errorMessage);
+        if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
+            result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
+        } else {
+            result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
         }
-        return false;
+        isSaveCustomObject = false;
+        result.success = false;
     }
-    return true;
+    if (responsePayload.error && params.isJob == false && isSaveCustomObject) {
+        SFMCCOHelper.saveEmailSubscriber(params.email);
+        result.success = false;
+    }
+    return result;
 }
 
 function addContactToJourney(params, service) {
@@ -103,25 +118,24 @@ function addContactToJourney(params, service) {
         }
     }
 
-    if (responsePayload.error) {
-        if (params.isJob == false) {
-            if (responsePayload.getError() == '400') {
-                var responseObj = JSON.parse(responsePayload.errorMessage);
-                if (responseObj.errorcode && responseObj.errorcode == 30000) {
-                    result.message = Resource.msg('newsletter.email.error.subscription.exist', 'common', null);
-                    Logger.debug('MarketingCloud addContactToJourney: Error occurred while try to add email: {0} and error message is {1}', Resource.msg('newsletter.email.error.subscription.exist', 'common', null), responseObj.message);
-                } else if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
-                    result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
-                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
-                } else {
-                    result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
-                    Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
-                }
-                result.success = false;
-                return result;
-            }
-            SFMCCOHelper.saveEmailSubscriber(params.email);
+    var isSaveCustomObject = true;
+    if (responsePayload.getError() == '400') {
+        var responseObj = JSON.parse(responsePayload.errorMessage);
+        if (responseObj.errorcode && responseObj.errorcode == 30000) {
+            result.message = Resource.msg('newsletter.email.error.subscription.exist', 'common', null);
+            Logger.debug('MarketingCloud addContactToJourney: Error occurred while try to add email: {0} and error message is {1}', Resource.msg('newsletter.email.error.subscription.exist', 'common', null), responseObj.message);
+        } else if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
+            result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
+        } else {
+            result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
         }
+        isSaveCustomObject = false;
+        result.success = false;
+    }
+    if (responsePayload.error && params.isJob == false && isSaveCustomObject) {
+        SFMCCOHelper.saveEmailSubscriber(params.email);
         result.success = false;
     }
     return result;

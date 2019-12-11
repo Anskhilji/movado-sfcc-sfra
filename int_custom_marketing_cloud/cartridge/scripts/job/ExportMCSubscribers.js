@@ -44,7 +44,7 @@ function exportAllSavedSubscribers() {
             if (subscriber) {
                 params.email = subscriber.custom.email;
                 var result = SFMCAPIHelper.addContactToMC(params, contactService);
-                if (!result) {
+                if (!result.success) {
                     continue;
                 }
                 if (isMovadoOrOB) {
