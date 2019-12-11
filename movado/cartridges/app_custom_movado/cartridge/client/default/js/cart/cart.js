@@ -603,6 +603,7 @@ module.exports = function () {
         $deleteConfirmBtn.data('code', couponCode);
 
         $productToRemoveSpan.empty().append(couponCode);
+        $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
     });
 
     $('body').on('click', '.cart-coupons-remove .delete-coupon-confirmation-btn', function (e) {
@@ -629,6 +630,7 @@ module.exports = function () {
                 $('.coupon-uuid-' + uuid).remove();
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
+                $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $.spinner().stop();
             },
