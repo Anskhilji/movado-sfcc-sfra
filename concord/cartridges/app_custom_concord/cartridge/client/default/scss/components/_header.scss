@@ -74,7 +74,7 @@ header {
   header {
     .logo-link {
       img {
-        width: rem(150);
+        width: rem(160);
       }
     }
     .minicart {
@@ -112,7 +112,7 @@ header {
   header {
     .logo-link {
       img {
-        width: rem(215);
+        width: rem(176);
       }
     }
     .sticky-header-placeholder {
@@ -186,4 +186,13 @@ header {
       }
     }
   }
+}
+
+img {
+
+    &.concord-logo {
+        object-fit: cover;
+        object-position: top;
+        height: rem(24);
+    }
 }
