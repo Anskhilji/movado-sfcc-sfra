@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12">
             <p class="cost delivery-time" data-hours ="${pdict.totals.deliveryTime.hours}" data-minutes="${pdict.totals.deliveryTime.minutes}" data-seconds="${pdict.totals.deliveryTime.seconds}">
-                <span>Resource.msg('order.within.callout.message','shipping',null)</span> <span class="time-update-control font-weight-bold"></span>
+                <span>${Resource.msg('order.within.callout.message','shipping',null)}</span> <span class="time-update-control font-weight-bold"></span>
             </p>
         </div>
     </div>

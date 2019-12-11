@@ -86,9 +86,20 @@ function getShippingDate(shippingMethod) {
             }
         }
         
-        endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange);
+        if (isEstimated) {
+            var deliveryDay = startingDeliveryDate.get(startingDeliveryDate.DAY_OF_WEEK);
+            if (deliveryDay == 7) {
+                startingDeliveryDate.add(startingDeliveryDate.DAY_OF_MONTH, "2");
+                var currentStartignDate = startingDeliveryDate;
+            }
+            if (deliveryDay == 1) {
+                startingDeliveryDate.add(startingDeliveryDate.DAY_OF_MONTH, "1");
+            }
+            startingDeliveryDate = excludePublicHolidays(startingDeliveryDate, dateRange);
+        }
         
         endingDeliveryDate = excludeWeekendDates(endingDeliveryDate, dateRange);
+        endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange);
         
         formattedEndingDate = CommonUtils.getFormatedDate(endingDeliveryDate);
         
@@ -106,9 +117,9 @@ function getShippingDate(shippingMethod) {
 
 /**
  * Excludes a day from delivery date if the delivery day is on Weekend
- * @param deliveryDay
- * @param deliveryDate
- * @returns delivery date by adding an extra day if its weekend
+ * @param {Object} deliveryDate - calendar object of a deliveryDay
+ * @param {Array} dateRange - array of a deliveryDates
+ * @returns {Object} calendar object by adding an extra day in the delivery date if its weekend
  */
 function excludeWeekendDates(deliveryDate, dateRange) {
     var i = 0;
@@ -126,9 +137,9 @@ function excludeWeekendDates(deliveryDate, dateRange) {
 
 /**
  * Excludes a day from delivery date if the delivery is on a public holiday
- * @param deliveryDate
- * @param dateRange
- * @returns delivery date by adding an extra day if delivery is on public holiday
+ * @param {Object} deliveryDate - calendar object of a deliveryDay
+ * @param {Array} dateRange - array of a deliveryDate
+ * @returns {Object} calendar object by adding an extra day if delivery is on public holiday
  */
 function excludePublicHolidays(deliveryDate, dateRange) {
     var publicHolidays = new ArrayList(Site.getCurrent().preferences.custom.publicHolidays);
@@ -155,9 +166,10 @@ function excludePublicHolidays(deliveryDate, dateRange) {
 
 /**
  * Adds additional days into the delivery date if any of the product option is selected
- * @param deliveryDate
- * @param dateRange
+ * @param {Object} deliveryDate - calendar object of a deliveryDay
+ * @param {Array} dateRange - array of a deliveryDates
  * @param optionProductShipmentDelay
+ * return {Object} deliveryDate - calendar object by adding extra days for option product delay
  */
 function includeAdditionalDaysForOptionProduct(deliveryDate, dateRange, optionProductShipmentDelay) {
     for (var i = 1; i <= optionProductShipmentDelay; i++) {
@@ -174,7 +186,7 @@ function includeAdditionalDaysForOptionProduct(deliveryDate, dateRange, optionPr
 /**
  * Creates an object of shipping cutoff time by adding the time defined in custom preference
  *     into the current time
- * @param shippingMethod
+ * @param {Object} shippingMethod - shipping method object
  * @returns {Object} an object that contains shipping cutoff time
  */
 function getShippingTime(shippingMethod) {
