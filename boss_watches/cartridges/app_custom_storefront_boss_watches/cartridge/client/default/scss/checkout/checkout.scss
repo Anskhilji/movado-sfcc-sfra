@@ -2,28 +2,25 @@
 @import '~movado/checkout/checkout';
 
 header {
-
+    .logo-link {
+        img {
+            width: rem(80);
+            @include media-breakpoint-up(lg) {
+                width: rem(96);
+            }
+        }
+    }
+}
+header {
     .checkout-header-wrapper {
-
-        .checkout-logo {
-            .logo-link {
-                img {
-                    width: rem(96);
-                }
-             }
- 
-             &:before {
-                 margin-bottom: 4%;
-             }
-     
-             > .html-slot-container {
-                 margin: rem(5);
-             }
-     
-             .logo-checkout-text {
-                 margin-top: 0rem;
-                 margin-bottom: 4%;
-             }
-         }
-     }
- }
+        .logo-link {
+            img {
+                width: rem(64);
+                object-fit: cover;
+                object-position: top;
+                height: 2rem;
+                margin: rem(15) rem(5) 0 rem(5);
+            }
+        }
+    }
+}
