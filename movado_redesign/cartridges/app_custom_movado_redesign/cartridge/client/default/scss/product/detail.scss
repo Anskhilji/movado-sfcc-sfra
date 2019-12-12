@@ -21,6 +21,13 @@
         }
     }
 
+    .custom-options {
+        
+        .product-option {
+            display: inline-block;
+        }
+    }
+
     .pinch-zoom-container {
         display: none;
     }
@@ -215,6 +222,13 @@
                         min-width: rem(800);
                     }
                 }
+            }
+        }
+
+        .carousel-nav {
+
+            .slick-track {
+                margin: 0 auto;
             }
         }
 
@@ -693,7 +707,7 @@
         width: rem(30);
         background: url("../../images/add-to-wish.svg") center no-repeat;
 
-        &.added-to-wishlist, &:hover {
+        &.added-to-wishlist, &:hover, &:focus {
             background: url("../../images/add-to-wish-fill.svg") center no-repeat;
         }
     }
