@@ -103,6 +103,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     if (result.IssuerUrl != '') {
         session.custom.order = order;
         session.custom.paymentInstrument = paymentInstrument;
+        session.custom.amount = paymentInstrument.paymentTransaction.amount;
         var checkoutDecisionStatus = hooksHelper(
             'app.fraud.detection.create',
             'create',

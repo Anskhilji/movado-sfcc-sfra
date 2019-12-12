@@ -7,10 +7,74 @@ image: node:10.15.3
 
 pipelines:
   branches:
-    release-*:
+    '{release-*,develop,master}':
       - step:
           caches:
             - node
+          name: Release deployment
+          deployment: Release deployment
           script: # Modify the commands below to build your repository.
             - npm install
+            - echo "Current build branch "$BITBUCKET_BRANCH
             - npm run build
+            - >
+              if [ $BITBUCKET_BRANCH == $DEPLOYMENT_BRANCH_CURRENT ]; then
+                npm run build:config
+                npm run scan:cartridges
+                npm install -g dwupload
+                echo "Deploying to "$CURRENT_HOST_NAME
+                CUSTOM_CODE_VERSION="$CURRENT_CODE_VERSION_PREFIX"_"$(date +%Y-%m-%d)"_v"$BITBUCKET_BUILD_NUMBER"
+                echo "Code Version " $CUSTOM_CODE_VERSION
+                dwupload --hostname $CURRENT_HOST_NAME --username $CURRENT_USER_NAME --password $CURRENT_PASSWORD --code-version $CUSTOM_CODE_VERSION
+                npm run activate:code $CURRENT_HOST_NAME $CURRENT_USER_NAME $CURRENT_PASSWORD $CLIENT_ID $CLIENT_SECRET $CUSTOM_CODE_VERSION
+              elif [$BITBUCKET_BRANCH == $DEPLOYMENT_BRANCH_FUTURE]; then
+                npm run build:config
+                npm run scan:cartridges
+                npm install -g dwupload
+                echo "Deploying to "$FUTURE_HOST_NAME
+                CUSTOM_CODE_VERSION="$FUTURE_CODE_VERSION_PREFIX"_"$(date +%Y-%m-%d)"_v"$BITBUCKET_BUILD_NUMBER"
+                echo "Code Version " $CUSTOM_CODE_VERSION
+                dwupload --hostname $FUTURE_HOST_NAME --username $FUTURE_USER_NAME --password $FUTURE_PASSWORD --code-version $CUSTOM_CODE_VERSION
+                npm run activate:code $FUTURE_HOST_NAME $FUTURE_USER_NAME $FUTURE_PASSWORD $CLIENT_ID $CLIENT_SECRET $CUSTOM_CODE_VERSION
+              else
+                echo "Skipping this step since current and configured branches didn't match"
+                exit 0;
+              fi
+  custom:
+    staging server deployment:
+      - step:
+          name: Staging server deployment
+          deployment: Staging server deployment
+          caches:
+            - node
+          script:
+            - npm install
+            - echo "Current build branch "$BITBUCKET_BRANCH
+            - npm run build
+            - npm run build:config
+            - npm run scan:cartridges
+            - npm install -g dwupload
+            - echo "Deploying to "$HOST_NAME
+            - CUSTOM_CODE_VERSION="$CODE_VERSION_PREFIX"_"$(date +%Y-%m-%d)"_v"$BITBUCKET_BUILD_NUMBER"
+            - echo "Code Version " $CUSTOM_CODE_VERSION
+            - dwupload --hostname $HOST_NAME --username $USER_NAME --password $PASSWORD --code-version $CUSTOM_CODE_VERSION --p12 $CERT_PATH --passphrase $PASS_PHRASE
+    dynamic pipeline:
+      - variables:
+        - name: ENV_HOST_NAME
+        - name: ENV_USER_NAME
+        - name: ENV_PASSWORD
+        - name: ENV_CODE_VERSION_PREFIX
+      - step:
+          name: Manual deployment
+          script:
+            - npm install
+            - echo "Current build branch "$BITBUCKET_BRANCH
+            - npm run build
+            - npm run build:config
+            - npm run scan:cartridges
+            - npm install -g dwupload
+            - echo "Deploying to "$HOST_NAME
+            - CUSTOM_CODE_VERSION="$ENV_CODE_VERSION_PREFIX"_"$(date +%Y-%m-%d)"_v"$BITBUCKET_BUILD_NUMBER"
+            - echo "Code Version " $CUSTOM_CODE_VERSION
+            - dwupload --hostname $ENV_HOST_NAME --username $ENV_USER_NAME --password $ENV_PASSWORD --code-version $CUSTOM_CODE_VERSION
+            - npm run activate:code $ENV_HOST_NAME $ENV_USER_NAME $ENV_PASSWORD $CLIENT_ID $CLIENT_SECRET $CUSTOM_CODE_VERSION
