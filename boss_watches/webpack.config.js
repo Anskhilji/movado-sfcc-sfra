@@ -7,8 +7,7 @@ const shell = require('shelljs');
 var configs = [];
 
 if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss/'))) {
-	console.log(__dirname + './cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss/');
-    var cssFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss/**/*.scss'));
+	var cssFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss/**/*.scss'));
     cssFiles = cssFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
     var cssEntries = {};
     cssFiles.forEach(filename => {
