@@ -36,7 +36,8 @@ function extend(target, source) {
 }
 
 /**
- * * Extending totals model to include promotions based on coupons in cutoff which displayed on checkout
+ * Adding discounts to a discounts object including adjustments which are based on coupons as well
+ *     as others to show the cutoff on cart page.
  * @param {dw.util.Collection} collection - a collection of price adjustments
  * @param {Object} discounts - an object of price adjustments
  * @returns {Object} an object of price adjustments
@@ -49,7 +50,7 @@ function createDiscountObject(collection, discounts) {
             lineItemText: item.lineItemText,
             price: formatMoney(item.price),
             type: 'promotion',
-            callOutMsg: ((item.promotion && item.promotion.calloutMsg)?item.promotion.calloutMsg:'')
+            callOutMsg: ((item.promotion && item.promotion.calloutMsg) ? item.promotion.calloutMsg : '')
         };
     });
 
