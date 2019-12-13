@@ -14,16 +14,4 @@
 	<natures>
 		<nature>com.demandware.studio.core.beehiveNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>cartridge/static/default/css/fonts/Ubuntu-BoldItalic.ttf</name>
-			<type>1</type>
-			<location>C:/Users/User/Downloads/fonts_Boss/Ubuntu-BoldItalic.ttf</location>
-		</link>
-		<link>
-			<name>cartridge/static/default/css/fonts/Ubuntu-Regular.ttf</name>
-			<type>1</type>
-			<location>C:/Users/User/Downloads/fonts_Boss/Ubuntu-Regular.ttf</location>
-		</link>
-	</linkedResources>
 </projectDescription>
