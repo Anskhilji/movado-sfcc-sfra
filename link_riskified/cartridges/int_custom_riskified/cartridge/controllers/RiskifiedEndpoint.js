@@ -21,7 +21,9 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
     var jsonObj = JSON.parse(body);
     var orderId = jsonObj.order.id;
     var order = OrderMgr.getOrder(orderId);
-    if (order) {
+    var viewData = res.getViewData();
+    var isError = viewData.isError ? viewData.isError : false;
+    if (order && !isError) {
         riskifiedResponseResult.parseRiskifiedResponse(order);
     }
 });
