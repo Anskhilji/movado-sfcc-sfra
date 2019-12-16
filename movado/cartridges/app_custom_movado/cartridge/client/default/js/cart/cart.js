@@ -629,6 +629,7 @@ module.exports = function () {
                 $('.coupon-uuid-' + uuid).remove();
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
+                $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $.spinner().stop();
             },
