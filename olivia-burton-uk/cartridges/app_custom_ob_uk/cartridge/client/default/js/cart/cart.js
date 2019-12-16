@@ -29,7 +29,7 @@ $(
         remainingDate.setMinutes(minutes);
         remainingDate.setSeconds(seconds);
         var countDown = setInterval(function () {
-            if(remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
+            if (remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
                 var displayHours = remainingDate.getHours().toString().length < 2 ? '0' + remainingDate.getHours() : remainingDate.getHours();
                 var displayMinutes = remainingDate.getMinutes().toString().length < 2 ? '0' + remainingDate.getMinutes() : remainingDate.getMinutes();
                 var displaySeconds = remainingDate.getSeconds().toString().length < 2 ? '0' + remainingDate.getSeconds() : remainingDate.getSeconds();

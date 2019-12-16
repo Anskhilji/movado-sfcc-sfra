@@ -7,7 +7,8 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 
-var CommonUtils = require('app_custom_movado/cartridge/utils/commonUtils');
+var CommonUtils = require('*/cartridge/utils/commonUtils');
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants')
 
 function getShippingDate(shippingMethod) {
     var calendar = new Calendar();
@@ -34,10 +35,17 @@ function getShippingDate(shippingMethod) {
         }
         
         var basketLastModifiedTime = StringUtils.formatCalendar(
-            new Calendar(basketLastModified), Resource.msg('pattern.to.convert.time.to.12.hours','shipping',null)
+            new Calendar(basketLastModified), Constants.PATTERN_TO_CONVERT_TIME_TO_12_HOURS
         )
         
-        var isEstimated =  shippingMethod.custom.isEstimated ? true : false;
+        var isEstimated;
+        
+        if (!empty(shippingMethod.custom.isEstimated)) {
+            isEstimated = shippingMethod.custom.isEstimated ? true : false;
+        } else {
+            isEstimated  = false;
+        }
+        
         var shippingDays = !empty(shippingMethod.custom.estimatedArrivalTime) ? shippingMethod.custom.estimatedArrivalTime : 0;
         var deliveryDaysBeforeNoon = !empty(shippingMethod.custom.daysBeforeNoon) ? shippingMethod.custom.daysBeforeNoon : 0;
         var deliveryDaysAfterNoon = !empty(shippingMethod.custom.daysAfterNoon) ? shippingMethod.custom.daysAfterNoon : 0;
@@ -144,7 +152,7 @@ function excludePublicHolidays(deliveryDate, dateRange) {
     while(i < dateRange.length) {
         var indexedDate = dateRange.get(i);
         var formatedDeliveryDate = StringUtils.formatCalendar(
-                indexedDate, Resource.msg('year.month.date.pattern','shipping',null)
+                indexedDate, Constants.YEAR_MONTH_DATE_PATTERN
         );
         if (!empty(publicHolidays) && publicHolidays.contains(formatedDeliveryDate)) {
             deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
