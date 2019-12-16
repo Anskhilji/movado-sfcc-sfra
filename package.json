@@ -98,7 +98,7 @@
     }
   ],
   "paths": {
-    "custom_hour_time": "./hourtime",
+    "custom_hourtime": "./hourtime",
     "custom_concord": "./concord",
     "custom_ebel": "./ebel",
     "custom_adyen_klarna": "./klarna",
