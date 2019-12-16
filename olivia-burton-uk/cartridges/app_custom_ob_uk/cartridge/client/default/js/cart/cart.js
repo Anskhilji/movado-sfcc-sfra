@@ -18,6 +18,40 @@ function appendToUrl(url, params) {
     return newUrl;
 }
 
+$(
+    function () {
+        var deliveryTimeSelector = $('.delivery-time');
+        var hours = deliveryTimeSelector.data('hours');
+        var minutes = deliveryTimeSelector.data('minutes');
+        var seconds = deliveryTimeSelector.data('seconds');
+        var remainingDate = new Date();
+        remainingDate.setHours(hours);
+        remainingDate.setMinutes(minutes);
+        remainingDate.setSeconds(seconds);
+        var countDown = setInterval(function () {
+            if (remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
+                var displayHours = remainingDate.getHours().toString().length < 2 ? '0' + remainingDate.getHours() : remainingDate.getHours();
+                var displayMinutes = remainingDate.getMinutes().toString().length < 2 ? '0' + remainingDate.getMinutes() : remainingDate.getMinutes();
+                var displaySeconds = remainingDate.getSeconds().toString().length < 2 ? '0' + remainingDate.getSeconds() : remainingDate.getSeconds();
+                remainingDate.setSeconds(remainingDate.getSeconds() - 1);
+                $('.time-update-control').text(
+                    displayHours
+                    + ' Hours, ' +
+                    displayMinutes
+                    + ' Minutes ' +
+                    displaySeconds
+                    + ' Seconds'
+                );
+            } else {
+                clearInterval(countDown);
+                if (isNaN(remainingDate.getTime())) {
+                    $('.delivery-time').text('00:00:00');
+                }
+            }
+        }, 1000);
+    }
+);
+
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
  * checkout button
@@ -62,6 +96,13 @@ function updateCartTotals(data) {
     } else {
         $('.shipping-cost').empty().append(data.totals.totalShippingCost);
     }
+    
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isEstimated != 'undefined' && data.totals.deliveryTime.isEstimated) {
+       $('.delivery-time').hide();
+    } else {
+        $('.delivery-time').show();
+    }
+    $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.tax-total').empty().append(data.totals.totalTax);
     $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
