@@ -1,6 +1,7 @@
 'use strict';
 
 var server = require('server');
+var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var RiskifiedService = require('int_riskified');
 var Resource = require('dw/web/Resource');
 var OrderModelRiskified = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
@@ -13,7 +14,10 @@ function checkoutCreate(orderNumber, paymentInstrument) {
 			.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     if (isRiskifiedflag) {
-        RiskifiedService.sendCheckoutCreate(order);
+        var response = RiskifiedService.sendCheckoutCreate(order);
+        if (response.error) {
+            COCustomHelpers.declineOrder(order);
+        }
         if(paymentMethod.ID === 'PayPal' || (paymentMethod.ID === 'Adyen' && session.custom.adyenPaymentMethod ==='PayPal')){
         	RiskifiedService.storePaymentDetails({
                 avsResultCode: 'Y', // Street address and 5-digit ZIP code
