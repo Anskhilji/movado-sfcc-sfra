@@ -1,0 +1,61 @@
+<footer>
+    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+    <div class="home-email-signup"> 
+        <div class="container">
+            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
+                            </span>
+                        </div>
+                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="footer-container row">
+            <div class="footer-item col-sm-4 collapsible-xs">
+                <iscontentasset aid="ca-footer-account" />
+            </div>
+            <div class="footer-item col-sm-4 collapsible-xs">
+                <iscontentasset aid="ca-footer-support" />
+            </div>
+            <div class="footer-item col-sm-4 collapsible-xs">
+                <iscontentasset aid="ca-footer-about" />
+            </div>
+        </div>
+        <hr class="hidden-xs-down" />
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 order-sm-2 social">
+                <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                        <i class="fa fa-arrow-up fa-stack-1x"></i>
+                    </span>
+                </button>
+                <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+            </div>
+            <div class="col-lg-8 col-sm-6 order-sm-1 copyright-notice">
+              <iscontentasset aid="ca-footer-copy" />
+            </div>
+        </div>
+    </div>
+    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+    
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+
+    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+    <isinclude template="resources/appresources"/>
+
+    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
+    <isinclude template="include/yotpofooter"/>
+</footer>

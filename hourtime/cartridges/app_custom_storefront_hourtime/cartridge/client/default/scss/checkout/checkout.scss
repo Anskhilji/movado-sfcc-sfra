@@ -1,0 +1,32 @@
+@import '../variables';
+@import '~movado/checkout/checkout';
+
+header {
+
+    .checkout-header-wrapper {
+
+        .checkout-logo {
+            width: rem(288);
+
+            .logo-link {
+
+                img {
+                    width: rem(215);
+                }
+            }
+
+            &:before {
+                margin-bottom: 4%;
+            }
+    
+            > .html-slot-container {
+                margin: rem(5);
+            }
+    
+            .logo-checkout-text {
+                margin-top: 0rem;
+                margin-bottom: 4%;
+            }
+        }
+    }
+}
