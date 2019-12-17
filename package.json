@@ -113,7 +113,7 @@
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
-	"mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
+    "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/js",
     "olivia-burton-uk": "./olivia-burton-uk/cartridges/app_custom_ob_uk/cartridge/client/default/js",
     "product_compare": "./plugin_productcompare/cartridges/plugin_productcompare/cartridge/client/default/js",
@@ -126,7 +126,7 @@
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/scss",
-	"mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/scss",
+    "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/scss",
     "concord": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
     "ebel": "./ebel/cartridges/app_custom_ebel/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/scss",
