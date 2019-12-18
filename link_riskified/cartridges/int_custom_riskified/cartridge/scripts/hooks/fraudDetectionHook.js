@@ -16,7 +16,7 @@ function checkoutCreate(orderNumber, paymentInstrument) {
     if (isRiskifiedflag) {
         var response = RiskifiedService.sendCheckoutCreate(order);
         if (response.error) {
-            COCustomHelpers.declineOrder(order);
+            return false;
         }
         if(paymentMethod.ID === 'PayPal' || (paymentMethod.ID === 'Adyen' && session.custom.adyenPaymentMethod ==='PayPal')){
         	RiskifiedService.storePaymentDetails({
@@ -37,6 +37,7 @@ function checkoutCreate(orderNumber, paymentInstrument) {
             });
         }
     }
+    return true;
 }
 
 function checkoutDenied(orderNumber, paymentInstrument) {

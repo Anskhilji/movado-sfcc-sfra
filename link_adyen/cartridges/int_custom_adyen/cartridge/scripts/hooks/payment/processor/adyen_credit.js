@@ -68,7 +68,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var result = {};
-    hooksHelper(
+    var response = hooksHelper(
         'app.fraud.detection.checkoutcreate',
         'checkoutCreate',
         orderNumber,
@@ -78,17 +78,19 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var creditCardForm = server.forms.getForm('billing').creditCardFields;
     var adyenCreditVerification = require('*/cartridge/scripts/adyenCreditVerification');
     Transaction.begin();
-    var result = adyenCreditVerification.verify({
-        Order: order,
-        Amount: paymentInstrument.paymentTransaction.amount,
-        CurrentSession: session,
-        CurrentRequest: request,
-        PaymentInstrument: paymentInstrument,
-        CreditCardForm: creditCardForm,
-        SaveCreditCard: creditCardForm.saveCardAdyen.value
-    });
-
-    if (result.error) {
+    if (response) {
+        var result = adyenCreditVerification.verify({
+            Order: order,
+            Amount: paymentInstrument.paymentTransaction.amount,
+            CurrentSession: session,
+            CurrentRequest: request,
+            PaymentInstrument: paymentInstrument,
+            CreditCardForm: creditCardForm,
+            SaveCreditCard: creditCardForm.saveCardAdyen.value
+        });
+    }
+    
+    if (result.error || !response) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',

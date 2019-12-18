@@ -19,12 +19,16 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 
 	  var order = OrderMgr.getOrder(session.custom.orderNo);
 
-	  hooksHelper(
+	  var response = hooksHelper(
 		        'app.fraud.detection.checkoutcreate',
 		        'checkoutCreate',
 		        order.orderNo,
 		        order.paymentInstrument,
 		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+	  if (response) {
+	      res.render('error');
+	      return next();
+	  }
 
 
 	  var result;
