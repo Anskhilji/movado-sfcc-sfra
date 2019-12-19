@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 var URLUtils = require('dw/web/URLUtils');
+var ProductMgr = require('dw/catalog/ProductMgr')
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Promotion = require('dw/campaign/Promotion');
 var Money = require('dw/value/Money');
@@ -135,76 +136,56 @@ server.append('Confirm', function (req, res, next) {
         var couponCode;
         var priceAdjustments;
         var orderLineItemsIterator = orderLineItems.iterator();
-        var unidaysProductLineItem;
-        var totalOrderDiscount = 0.00;
-//        while (couponLineItemsItr.hasNext()) {
-//            var couponLineItem = couponLineItemsItr.next();
-//            couponCode = couponLineItem.getCouponCode();
-//            if (couponCode && couponCode.indexOf("UNIDAYS") > -1) {
-//                priceAdjustments = couponLineItem.getPriceAdjustments();
-//                break;
-//            }
-//        }
-        
+        var unidaysOrderDiscount = 0.00;
+        var unidaysDiscountPercentage = 0.00;
+        var unidaysProductIDs = [];
         while (orderLineItemsIterator.hasNext()) {
             productLinetItem = orderLineItemsIterator.next();
             var priceAdjustments = productLinetItem.getPriceAdjustments();
-            var priceAdjustmentIterator = priceAdjustments.iterator();
+            var priceAdjustmentIterator = priceAdjustments.iterator(); 
             var couponCodeUnidays;
+            var isProductIDExist;
+            var currentProductId;
             while (priceAdjustmentIterator.hasNext()) {
                 var priceAdjustmentLineItem = priceAdjustmentIterator.next();
                 var couponLineItem = priceAdjustmentLineItem.getCouponLineItem();
                 var currentCuponCode = couponLineItem.getCouponCode();
                 if (currentCuponCode && currentCuponCode.indexOf("UNIDAYS") > -1) {
-                    totalOrderDiscount += priceAdjustmentLineItem.priceValue * -1;
-                    unidaysProductLineItem = productLinetItem;
+                    unidaysOrderDiscount += priceAdjustmentLineItem.priceValue * -1;
                     couponCodeUnidays = couponLineItem.getCouponCode();
-                    break;
+                    currentProductId = productLinetItem.getProductID();
+                    isProductIDExist = false;
+                    for (var i = 0; i < unidaysProductIDs.length; i++) {
+                        if (currentProductId === unidaysProductIDs[i]) {
+                            isProductIDExist = true;
+                        }
+                    }
+                    if (!isProductIDExist) {
+                        unidaysProductIDs.push(currentProductId);
+                    }
                 }
             }
+            var unidaysProductsTotalAmount = 0;
+            var product;
+            unidaysProductIDs.forEach(function(pid) {
+                product = ProductMgr.getProduct(pid);
+                unidaysProductsTotalAmount += product.getPriceModel().getPrice();
+            })
+            unidaysDiscountPercentage = unidaysOrderDiscount / unidaysProductsTotalAmount * 100;
         }
-        
-
-
         if (couponCodeUnidays) {
             var partnerId = Site.current.getCustomPreferenceValue('uniDaysPartnerId');
             var transcationId;
             var currency;
             var code;
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var orderDiscount = 0.00;
-//            var totalOrderDiscount = 0.00;
-            var unidaysDiscountPercentage = 0.00;
-            var orderTotal = order.getMerchandizeTotalNetPrice().getDecimalValue() ? order.getMerchandizeTotalNetPrice().getDecimalValue() : 0.00;
             var isUniDaysTestMode = Site.current.getCustomPreferenceValue('uniDaysMode') == 'TEST' ? true : false;
-            var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
-
-//            if (priceAdjustmentIterator) {
-//                while (priceAdjustmentIterator.hasNext()) {
-//                    var priceAdjustmentLineItem = priceAdjustmentIterator.next();
-//                    totalOrderDiscount += priceAdjustmentLineItem.priceValue * -1;
-//                    orderDiscount = priceAdjustmentLineItem.priceValue * -1;
-//                }
-//            }
             
-            if (unidaysProductLineItem) {
-                var basePrice = unidaysProductLineItem.getBasePrice();
-                var adjustedPrice = unidaysProductLineItem.getAdjustedPrice();
-                var discountAmount = basePrice - adjustedPrice;
-                unidaysDiscountPercentage = discountAmount / basePrice * 100
-                
-            }
-
-//            unidaysDiscountPercentage = ((totalOrderDiscount * 100) / orderTotal).toFixed(2);
-            
-//            var discountPercentage = totalOrderDiscount / orderTotal * 100;
-
             uniDaysTrackingLineItems = {
                 partnerId: partnerId,
                 transcationId: viewData.order.orderNumber,
                 currency: order.currencyCode,
                 code: couponCodeUnidays,
-                itemsUnidaysDiscount: totalOrderDiscount.toFixed(2),
+                itemsUnidaysDiscount: unidaysOrderDiscount.toFixed(2),
                 unidaysDiscountPercentage : unidaysDiscountPercentage.toFixed(2),
                 isUniDaysTestMode : isUniDaysTestMode
             };
