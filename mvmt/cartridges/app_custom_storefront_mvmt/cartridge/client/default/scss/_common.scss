@@ -1,0 +1,16 @@
+.plpToCart {
+    display: none;
+}
+
+
+.slick-prev , .slick-next{
+    &::before {
+        content: unset;
+    }
+}
+
+.product-tile {
+    .tile-discription, .tile-btns {
+        display: none;
+    }
+}

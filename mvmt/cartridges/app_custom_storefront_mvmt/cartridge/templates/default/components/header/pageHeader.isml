@@ -1,0 +1,78 @@
+<iscomment> Custom: HTML Structure change</iscomment>
+<isslot id="header-banner-m" description="Slot above the site header" context="global" />
+<header class="new-header">
+    <nav>
+        <div class="sticky-header-wrapper">
+            <div class="sticky-header-placeholder"></div>
+            <div class="header-menu-wrapper non-sticky">
+                <div class="header-wrapper">
+                    <div class="container-fluid px-0">
+                    <div class="row overlay"></div>
+                        <div class="row header-container m-0">
+                            <div class="p-0 nav-left main-menu desktop-menu">
+                                <div class="d-none d-lg-inline-block">
+                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                                </div>
+                                <div class="d-block text-center d-lg-none">
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                            </div>
+                            <div class="nav-center navbar-header header-logo">
+                                <div class="d-none d-lg-inline-block">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars"></i>
+                                    <span class="menu-text d-md-inline-block d-lg-none">
+                                        ${Resource.msg('link.header.menu', 'common', null)}
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="nav-right justify-content-end right">
+                                <div class="hidden-md-down  navbar-header account-wrapper search">
+                                    <isinclude url="${URLUtils.url('Account-Header')}" />
+                                </div>
+
+                                <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                    <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+                                </div>
+                                <a href="javascript:void(0);" class="search-icon header-icon" tabindex="0" aria-label="Search" role="search"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
+                <div class="container">
+                    <div class="row">
+                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-mobile d-none">
+            <isinclude template="components/header/search" />
+        </div>
+        <isinclude template="analyticsTracking/analyticsTrackingHeader.isml">
+        <script>
+            var isklarnaPromoEnabled = false;
+        </script>
+        <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
+        <isif condition="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) && dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
+            <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
+            <isif condition="${siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
+                <script async src="https://eu-library.klarnaservices.com/merchant.js?uci=${KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}&country=${siteLocaleCountryCode}"></script>
+                <script>
+                    isklarnaPromoEnabled = true;
+                </script>
+                <script>
+                    window.isklarnaPromoEnabled = true;
+                </script>
+            </isif>
+        </isif>
+    </nav>
+</header>
