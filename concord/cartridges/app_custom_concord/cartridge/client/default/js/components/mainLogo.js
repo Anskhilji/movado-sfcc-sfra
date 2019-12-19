@@ -21,8 +21,8 @@ $(window).scroll(function (event) {
     }
 
     if (scroll != 0) {
-        $('.logo-link > img').addClass('concord-logo');
+        $('.header-container > .middle').addClass('concord-logo');
     } else {
-        $('.logo-link > img').removeClass('concord-logo');
+        $('.header-container > .middle').removeClass('concord-logo');
     }
 });

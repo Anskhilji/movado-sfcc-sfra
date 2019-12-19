@@ -47,7 +47,7 @@ header {
     .middle {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 55%;
       transform: translate(-50%, -50%);
       .html-slot-container {
         p {
@@ -183,11 +183,8 @@ header {
   }
 }
 
-img {
-
-    &.ebel-logo {
-        object-fit: cover;
-        object-position: top;
-        height: rem(24);
-    }
+.ebel-logo {
+    overflow: hidden;
+    height: rem(24);
 }
+

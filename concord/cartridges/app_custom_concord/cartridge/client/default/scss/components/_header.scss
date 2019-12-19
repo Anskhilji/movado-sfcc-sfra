@@ -188,11 +188,7 @@ header {
   }
 }
 
-img {
-
-    &.concord-logo {
-        object-fit: cover;
-        object-position: top;
-        height: rem(24);
-    }
+.concord-logo {
+    overflow: hidden;
+    height: rem(24);
 }

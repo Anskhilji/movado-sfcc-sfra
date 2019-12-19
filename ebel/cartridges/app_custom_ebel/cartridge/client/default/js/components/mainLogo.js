@@ -21,8 +21,8 @@ $(window).scroll(function (event) {
     }
 
     if (scroll != 0) {
-        $('.logo-link > img').addClass('ebel-logo');
+        $('.header-container > .middle').addClass('ebel-logo');
     } else {
-        $('.logo-link > img').removeClass('ebel-logo');
+        $('.header-container > .middle').removeClass('ebel-logo');
     }
 });
