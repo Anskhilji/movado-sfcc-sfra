@@ -25,7 +25,6 @@
 header.new-header {
   @import "headerSearch";
   @import "menu";
-  border-bottom: 1px solid $gray94;
 
   .overlay {
     position: absolute;
@@ -196,6 +195,7 @@ header.new-header {
       }
     }
   }
+
   .desktop-search .header-search-field {
     opacity: 0;
   }
@@ -205,30 +205,25 @@ header.new-header {
   }
 
   .header-icon {
-    height: rem(20);
-    width: rem(20);
     display: inline-block;
-    margin-right: rem(20);
     position: relative;
     top: rem(1);
 
-    @include media-breakpoint-down(xs) {
-      margin-right: rem(15);
-    }
-
     .minicart-quantity {
-      right: rem(-11);
       top: rem(-6);
+      right: rem(-7);
+      color: $black;
+      font-size: rem(9);
+      line-height: rem(10);
+      height: auto;
+      width: auto;
+      background: none;
     }
   }
 
 
   .tile-discription {
     display: none;
-  }
-
-  .minicart {
-    margin-right: rem(20);
   }
 
   .menu-text {
@@ -262,7 +257,7 @@ header.new-header {
 
     > a {
       font-size: rem(12);
-      @include font-light;
+      @include font-book;
       letter-spacing: rem(1.5);
       line-height: 1;
       color: $black;
@@ -278,9 +273,9 @@ header.new-header {
     }
 
     .popover {
-      padding: rem(10) rem(20);
-      padding-bottom: rem(20);
-      top: rem(60);
+      padding: rem(20);
+      min-height: auto;
+      top: 100%;
       box-shadow: none;
       border-radius: 0;
       background: $black;
@@ -297,8 +292,6 @@ header.new-header {
     &.user-not-login {
 
       .popover {
-        padding: rem(20);
-        min-height: auto;
 
         .button {
           text-transform: uppercase;
@@ -403,13 +396,15 @@ header.new-header {
     }
   }
 
-  .search-icon {
-    background: url("../images/search-icon-white.svg") center center no-repeat;
-    top: rem(-1);
-  }
-
   .minicart-link {
-    background: url("../images/cart-icon-white.svg") center center no-repeat;
+    background: none;
+    @include font-book;
+    font-size: rem(12);
+    text-transform: uppercase;
+    letter-spacing: rem(1.5);
+    color: $black;
+    line-height: 1;
+    padding: rem(30) rem(24) rem(30);
   }
 
   .logo-link {
@@ -437,6 +432,7 @@ header.new-header {
 
   .header-menu-wrapper {
     transition: 0.2s;
+    border-bottom: 1px solid $gray94;
 
     .desktop-menu {
       position: static;
@@ -462,10 +458,6 @@ header.new-header {
           .fa-bars {
             background: url("../images/menu-toggle-black.svg") center center no-repeat;
           }
-        }
-
-        .search-icon {
-          background: url("../images/search-icon-black.svg") center center no-repeat;
         }
 
         .user {
@@ -513,10 +505,6 @@ header.new-header {
         }
       }
 
-      .search-icon {
-        background: url("../images/search-icon-black.svg") center center no-repeat;
-      }
-
       .user {
 
         .user-icon {
@@ -532,7 +520,7 @@ header.new-header {
       }
 
       .minicart-link {
-        background: url("../images/cart-icon-black.svg") center center no-repeat;
+        background: none;
       }
 
       .logo-link {
@@ -592,9 +580,60 @@ header.new-header {
     position: relative;
   }
 
-  .desktop-menu .nav-item .nav-link, .user > a{
+  .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon{
     padding: rem(32) rem(24) rem(32);
     display: inline-block;
+  }
+
+  .header-nav-cart-icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+
+    svg {
+      height: rem(13);
+      width: rem(20);
+    }
+
+  }
+
+  .header-nav-dots-icon {
+    .header-dots {
+      padding: rem(33) 0 rem(30) rem(5);
+    }
+  }
+
+  .desktop-search-icon {
+    background: none;
+    border: none;
+    outline: none;
+
+    .desktop-search-icon__search {
+      vertical-align: middle;
+
+      svg {
+        height: rem(13);
+        width: rem(20);
+      }
+    }
+  }
+
+  .desktop-search-icon__close {
+    display: none;
+  }
+
+  .main-level-item {
+
+    > button, > a{
+      position: relative;
+      display: block;
+      @include font-book;
+      font-size: rem(12);
+      letter-spacing: rem(1.5);
+      color: $black;
+      text-transform: uppercase;
+      line-height: 1;
+    }
   }
 }
 
