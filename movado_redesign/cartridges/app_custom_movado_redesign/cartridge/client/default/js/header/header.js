@@ -71,16 +71,34 @@ $(".desktop-menu .sub-dropdown").hover(
             speed: 300,
             slidesToShow: 6,
             slidesToScroll: 1,
-            arrows: false,
+            arrows: true,
             autoplay: true,
             centerPadding: '60px',
             responsive: [
                 {
-                  breakpoint: 1280,
-                  settings: {
-                    slidesToShow: 4,
-                  }
+                    breakpoint: 4000,
+                    settings: {
+                        slidesToShow: 10,
+                    }
                 },
+                {
+                    breakpoint: 3000,
+                    settings: {
+                        slidesToShow: 8,
+                    }
+                },
+                {
+                    breakpoint: 2500,
+                    settings: {
+                        slidesToShow: 6,
+                    }
+                },
+                {
+                    breakpoint: 1500,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }
             ]
         });
  
@@ -112,16 +130,34 @@ function showCollectionSlider(container){
         speed: 300,
         slidesToShow: 6,
         slidesToScroll: 1,
-        arrows: false,
+        arrows: true,
         autoplay: true,
         centerPadding: '60px',
         responsive: [
             {
-              breakpoint: 1280,
-              settings: {
-                slidesToShow: 4,
-              }
+                breakpoint: 4000,
+                settings: {
+                    slidesToShow: 10,
+                }
             },
+            {
+                breakpoint: 3000,
+                settings: {
+                    slidesToShow: 8,
+                }
+            },
+            {
+                breakpoint: 2500,
+                settings: {
+                    slidesToShow: 6,
+                }
+            },
+            {
+                breakpoint: 1500,
+                settings: {
+                    slidesToShow: 4,
+                }
+            }
         ]
     });
 }

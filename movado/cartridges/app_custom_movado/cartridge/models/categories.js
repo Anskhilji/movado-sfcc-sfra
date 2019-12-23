@@ -60,6 +60,9 @@ function categoryToObject(category) {
         disableSubCategories: category.custom.disableSubCategories,
         staticContentAsset: staticContentAsset
     };
+    if (category.custom.categoryImageURL) {
+        result.categoryImageURL = category.custom.categoryImageURL.absURL;
+    }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;
 

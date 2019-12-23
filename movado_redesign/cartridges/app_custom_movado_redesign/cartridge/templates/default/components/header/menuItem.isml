@@ -4,9 +4,9 @@
     
     <div class="shop-by-collection-slide">
         <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-            <isif condition="${topCat.staticContentAsset && topCat.staticContentAsset !== ''}">
-                <isprint value="${topCat.staticContentAsset}" encoding="off"/>
-            </isif>
+            <isloop items="${menuItem.subCategories}" var="category">
+                <p><a href="${category.url}"><img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span>${category.name}</span> </a></p>
+            </isloop>
         </div>
     </div>
     
