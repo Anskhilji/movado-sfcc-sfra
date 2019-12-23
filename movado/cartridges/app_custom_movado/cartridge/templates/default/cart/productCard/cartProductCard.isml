@@ -62,12 +62,12 @@
         </isif>
     </div>
 
-    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-        <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
-    </isif>
-
     <isif condition="${!lineItem.isBonusProductLineItem}"> 
         <isinclude template="cart/productCard/cartGiftMessaging" />
+    </isif>
+
+    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+        <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
 
 </div>
