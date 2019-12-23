@@ -119,6 +119,8 @@
       outline: none;
       padding-left: rem(25);
       background: url("../images/filter.png") left center no-repeat;
+      cursor: pointer;
+
       &:focus {
             outline: -webkit-focus-ring-color auto 1px;
         }
