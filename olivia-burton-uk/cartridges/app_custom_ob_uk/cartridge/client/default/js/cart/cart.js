@@ -97,10 +97,10 @@ function updateCartTotals(data) {
         $('.shipping-cost').empty().append(data.totals.totalShippingCost);
     }
     
-    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isEstimated != 'undefined' && data.totals.deliveryTime.isEstimated) {
-       $('.delivery-time').hide();
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
+        $('.delivery-time').removeClass('d-none');
     } else {
-        $('.delivery-time').show();
+        $('.delivery-time').addClass('d-none');
     }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.tax-total').empty().append(data.totals.totalTax);

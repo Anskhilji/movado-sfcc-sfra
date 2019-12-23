@@ -6,7 +6,10 @@ var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper
 var collections = require('app_storefront_base/cartridge/scripts/util/collections');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 var HashMap = require('dw/util/HashMap');
+var Site = require('dw/system/Site');
 var Template = require('dw/util/Template');
+
+var shippingMethodHelper = require('*/cartridge/scripts/helpers/shippingMethodHelper'); 
 
 /**
 * extend is use to extend super module
@@ -125,13 +128,21 @@ function totals(lineItemContainer) {
     } else {
         KlarnaGrandTotal = '0';
     }
-
+    var shippingMethod = lineItemContainer.defaultShipment.shippingMethod;
+    var deliveryDate;
+    var deliveryTime;
+    if (Site.current.getCustomPreferenceValue('enableActualShippingEstimations')) {
+        deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);
+        deliveryTime = shippingMethodHelper.getShippingTime(shippingMethod);
+    }
     if (lineItemContainer) {
 	    totalsObj = extend(totalsModel, {
             totalTax: shippingCustomHelper.getTaxTotals(lineItemContainer.totalTax),
             klarnaGrandTotal: KlarnaGrandTotal,
             discounts: discountArray,
-            discountsHtml: getDiscountsHtml(discountArray)
+            discountsHtml: getDiscountsHtml(discountArray),
+            deliveryDate : deliveryDate,
+            deliveryTime : deliveryTime
 	    });
     }
 

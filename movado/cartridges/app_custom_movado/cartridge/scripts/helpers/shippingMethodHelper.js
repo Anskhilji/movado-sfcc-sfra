@@ -38,12 +38,12 @@ function getShippingDate(shippingMethod) {
             new Calendar(basketLastModified), Constants.PATTERN_TO_CONVERT_TIME_TO_12_HOURS
         )
         
-        var isEstimated;
+        var isExpress;
         
-        if (!empty(shippingMethod.custom.isEstimated)) {
-            isEstimated = shippingMethod.custom.isEstimated ? true : false;
+        if (!empty(shippingMethod.custom.isExpress)) {
+            isExpress = shippingMethod.custom.isExpress ? true : false;
         } else {
-            isEstimated  = false;
+            isExpress  = false;
         }
         
         var shippingDays = !empty(shippingMethod.custom.estimatedArrivalTime) ? shippingMethod.custom.estimatedArrivalTime : 0;
@@ -51,7 +51,7 @@ function getShippingDate(shippingMethod) {
         var deliveryDaysAfterNoon = !empty(shippingMethod.custom.daysAfterNoon) ? shippingMethod.custom.daysAfterNoon : 0;
         var optionProductShipmentDelay = !empty(shippingMethod.custom.optionProductShipmentDelay) ? shippingMethod.custom.optionProductShipmentDelay : 0;
         
-        if (isEstimated) {
+        if (!isExpress) {
             var splitedShippingDays = shippingDays.split("-");
             for (var i = 1; i <= splitedShippingDays[1]; i++) {
                 var currentDate = new Calendar(basketLastModified);
@@ -91,7 +91,7 @@ function getShippingDate(shippingMethod) {
             }
         }
         
-        if (isEstimated) {
+        if (!isExpress) {
             var deliveryDay = startingDeliveryDate.get(startingDeliveryDate.DAY_OF_WEEK);
             if (deliveryDay == 7) {
                 startingDeliveryDate.add(startingDeliveryDate.DAY_OF_MONTH, "2");
@@ -108,7 +108,7 @@ function getShippingDate(shippingMethod) {
         
         formattedEndingDate = CommonUtils.getFormatedDate(endingDeliveryDate);
         
-        if (isEstimated) {
+        if (!isExpress) {
             formattedStartingDate = CommonUtils.getFormatedDate(startingDeliveryDate);
             finalDeliveryDate = Resource.msg('delivery.between.callout.message','shipping',null) + formattedStartingDate + "-" + formattedEndingDate;
         } else {
@@ -199,7 +199,7 @@ function getShippingTime(shippingMethod) {
     var currentTime = Site.current.getCalendar().getTime();
     var currentDate = Site.current.getCalendar().getTime();
     var shippingDate = Site.current.getCalendar().getTime();
-    var isEstimated = shippingMethod.custom.isEstimated ? true : false;
+    var isExpress = shippingMethod.custom.isExpress ? shippingMethod.custom.isExpress : false;
     currentDate.setHours(currentTime.getHours());
     currentDate.setMinutes(currentTime.getMinutes());
     currentDate.setSeconds(currentTime.getSeconds());
@@ -216,7 +216,7 @@ function getShippingTime(shippingMethod) {
             "hours" : remainingTime.getHours() || 0,
             "minutes" : remainingTime.getMinutes() || 0,
             "seconds" : remainingTime.getSeconds() || 0,
-            "isEstimated" : isEstimated
+            "isExpress" : isExpress
     }
     return shippingCutOffTime;
 }
