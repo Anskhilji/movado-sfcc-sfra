@@ -63,7 +63,6 @@ function ShippingMethodModel(shippingMethod, shipment) {
     if (shipment) {
         this.shippingCost = getShippingCost(shippingMethod, shipment);
         this.freeShippingContent = getIsFree(shippingMethod, shipment);
-        this.deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);
     }
 }
 

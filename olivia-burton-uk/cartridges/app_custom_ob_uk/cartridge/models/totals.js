@@ -63,9 +63,7 @@ function totals(lineItemContainer) {
         totalsObj = extend(totalsModel, {
             totalShippingCost : formatMoney(totalShippingCost),
             isFree : discountShippingCost,
-            freeShippingLabel : Resource.msg('shipping.free.label.text','shipping',null),
-            deliveryDate : shippingMethodHelper.getShippingDate(shippingMethod),
-            deliveryTime : shippingMethodHelper.getShippingTime(shippingMethod)
+            freeShippingLabel : Resource.msg('shipping.free.label.text','shipping',null)
         });
     }
 
