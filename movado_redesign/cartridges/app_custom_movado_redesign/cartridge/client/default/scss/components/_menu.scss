@@ -591,23 +591,10 @@
   .movado-header-dropdown {
     position: relative;
     min-height: 81%;
-    
-    .menu-pane {
-      padding-bottom: rem(240);
-      min-height: rem(460);
-    }
 
     .featured-promotion {
       margin-top: rem(30);
-      position: absolute;
       width: rem(305);
-      @include media-breakpoint-down(md) {
-        bottom: rem(30);
-      }
-      @include media-breakpoint-down(xs) {
-        bottom: rem(5);
-      }
-
       margin-left: rem(-30);
     }
 
