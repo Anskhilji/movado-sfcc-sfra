@@ -1,3 +1,11 @@
 @charset "UTF-8";
+@import "variables";
+@import "~movado/mixins";
+@import "~movado/bootstrap-custom-import";
+@import "~movado/utilities/responsiveUtils";
 @import "components/footer";
-@import '~movado/global';
+@import "~movado/global";
+
+footer {
+    background-color: $white;
+}

@@ -1,11 +1,170 @@
+@import "variables";
+@import "~movado/components/footer";
+
 footer {
+
+    div, p, section, ul, a {
+        letter-spacing: rem(1.5);
+        font-family: $font-primary;
+    }
 
     > .container-fluid {
 
         > .footer-container {
 
+            .footer-left-contents {
+                padding: rem(64) rem(32) rem(40);
+            }
+
+            .footer-center-contents {
+                padding: rem(56) rem(0) rem(40);
+
+                .footer-item {
+
+                     h3 {
+                        margin-bottom: rem(10);
+                    }
+
+                    ul, h3 {
+                        font-size: rem(12);
+                        color: $black;
+                    }
+                }
+            }
+
+            .footer-right-contents {
+                padding: rem(56) rem(32) rem(40);
+            }
+
+            .company-info {
+
+               > .contact-items {
+                    letter-spacing: 0rem;
+                    font-size: rem(14);
+                    line-height: 1.8;
+                    color: $light-gray;
+                    font-weight: 400;
+                    margin: rem(20) 0rem rem(10);
+
+                    li {
+
+                        > a {
+                            color: $light-gray;
+                        }
+                    }
+                }
+            }
+
+            .social-links {
+                margin-bottom: 0rem;
+                max-width: 100%;
+                float: left;
+
+                > li {
+                    margin: 0rem;
+
+                    &:nth-child(1) {
+
+                       > a {
+                            padding-left: 0rem;
+                        }
+                    }
+
+                    > a {
+                        display: block;
+                        font-size: rem(14);
+                        font-style: normal;
+                        padding: rem(10);
+                        transition: all .25s;
+
+                       > .fa{
+
+                             &:hover {
+                                color: $dark-red;
+                             }
+                        }
+                    }
+                }
+            }
+
             ul, h3 {
                 text-transform: uppercase;
+            }
+        }
+    }
+
+    .terms-and-conditions {
+        margin: 0rem;
+        box-shadow: inset 0rem rem(1) 0rem 0rem $white-gray;
+
+        .copyright {
+            color: $light-gray2;
+            font-size: rem(11);
+            text-transform: uppercase;
+
+            a {
+                color: $light-gray2;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+
+    footer {
+
+        > .container-fluid {
+
+            > .footer-container {
+
+                .footer-center-contents {
+
+                    .footer-item {
+                        padding: 0rem;
+
+                        &.collapsible-sm {
+
+                            h3 {
+                                font-size: rem(14);
+                                padding: rem(20);
+
+                                &:after {
+                                    font-family: "FontAwesome";
+                                    float: right;
+                                    content: "\f107";
+                                    font-size: rem(23);
+                                    color: $black;
+                                    transition: all .25s;
+                                    transform: perspective(rem(400)) rotate3d(0,0,0,0);
+                                }
+
+                                ul {
+
+                                    > li {
+                                        font-size: rem(14);
+                                        padding: rem(20);
+                                    }
+                                }
+                            }
+
+                            &.active {
+
+                                h3 {
+
+                                    &:after {
+                                        content: "\f106";
+                                    }
+                                }
+                            }
+                        }
+
+                        h3 {
+                          border-bottom: 1px solid $grey10;
+                          font-family: $font-medium;
+                          font-weight: 500;
+                        }
+                    }
+                }
             }
         }
     }

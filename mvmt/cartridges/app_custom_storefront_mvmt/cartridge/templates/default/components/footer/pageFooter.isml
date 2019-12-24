@@ -25,11 +25,11 @@
 
     <div class="container-fluid">
         <div class="footer-container row">
-            <div class="footer-item col-md-3">
+            <div class="footer-left-contents footer-item col-md-3">
                 <iscontentasset aid="company-info" />
                 <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
             </div>
-            <div class="col-lg-6 col-md-8">
+            <div class="footer-center-contents col-lg-6 col-md-8">
                 <div class="row">
                     <div class="footer-item col-md-4 collapsible-sm">
                         <iscontentasset aid="mvmt-shop" />
@@ -42,20 +42,17 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-item col-md-3 collapsible-sm">
+            <div class="footer-right-contents footer-item col-md-3 collapsible-sm">
                 <iscontentasset aid="ca-footer-about" />
             </div>
         </div>
     </div>
 
-        <hr class="hidden-xs-down" />
-        <div class="row">
-            <div class="col-lg-8 col-sm-6 order-sm-1 copyright-notice">
-              <iscontentasset aid="ca-footer-copy" />
-            </div>
-        </div>
+    <div class="terms-and-conditions justify-content-center row">
+        <iscontentasset aid="ca-footer-copy" />
+    </div>
     <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
-    
+
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
