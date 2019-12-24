@@ -95,6 +95,35 @@
         border: 1px solid transparent;
     }
 }
+
+.header-wrapper {
+
+    .slick-arrow {
+        height: rem(50);
+        width: rem(50);
+        background-size: rem(15) rem(30);
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+        padding: rem(5) rem(8);
+        cursor: pointer;
+        top: 40%;
+        position: absolute;
+        z-index: 10;
+        outline: none;
+
+        &.slick-prev {
+            background-image: url(../../images/icons/arrow_left.png);
+            left: rem(-32);
+        }
+
+        &.slick-next {
+            background-image: url(../../images/icons/arrow_right.png);
+            right: rem(-32);
+        }
+    }
+}
+
 .slick-arrow.slick-hidden {
     display: none;
 }
