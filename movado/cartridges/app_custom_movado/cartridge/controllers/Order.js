@@ -135,58 +135,41 @@ server.append('Confirm', function (req, res, next) {
     if (Site.current.getCustomPreferenceValue('uniDaysEnabled')) {
         var couponCode;
         var priceAdjustments;
-        var orderLineItemsIterator = orderLineItems.iterator();
-        var unidaysOrderDiscount = 0.00;
-        var unidaysDiscountPercentage = 0.00;
-        var unidaysProductIDs = [];
-        while (orderLineItemsIterator.hasNext()) {
-            productLinetItem = orderLineItemsIterator.next();
-            var priceAdjustments = productLinetItem.getPriceAdjustments();
-            var priceAdjustmentIterator = priceAdjustments.iterator(); 
-            var couponCodeUnidays;
-            var isProductIDExist;
-            var currentProductId;
-            while (priceAdjustmentIterator.hasNext()) {
-                var priceAdjustmentLineItem = priceAdjustmentIterator.next();
-                var couponLineItem = priceAdjustmentLineItem.getCouponLineItem();
-                var currentCuponCode = couponLineItem.getCouponCode();
-                if (currentCuponCode && currentCuponCode.indexOf("UNIDAYS") > -1) {
-                    unidaysOrderDiscount += priceAdjustmentLineItem.priceValue * -1;
-                    couponCodeUnidays = couponLineItem.getCouponCode();
-                    currentProductId = productLinetItem.getProductID();
-                    isProductIDExist = false;
-                    for (var i = 0; i < unidaysProductIDs.length; i++) {
-                        if (currentProductId === unidaysProductIDs[i]) {
-                            isProductIDExist = true;
-                        }
-                    }
-                    if (!isProductIDExist) {
-                        unidaysProductIDs.push(currentProductId);
-                    }
-                }
+        var couponLineItemsItr = order.getCouponLineItems().iterator();
+        while (couponLineItemsItr.hasNext()) {
+            var couponLineItem = couponLineItemsItr.next();
+            couponCode = couponLineItem.getCouponCode();
+            if (couponCode && couponCode.indexOf("UNIDAYS") > -1) {
+                priceAdjustments = couponLineItem.getPriceAdjustments();
+                break;
             }
-            var unidaysProductsTotalAmount = 0;
-            var product;
-            unidaysProductIDs.forEach(function(pid) {
-                product = ProductMgr.getProduct(pid);
-                unidaysProductsTotalAmount += product.getPriceModel().getPrice();
-            })
-            unidaysDiscountPercentage = unidaysOrderDiscount / unidaysProductsTotalAmount * 100;
         }
-        if (couponCodeUnidays) {
+        if (couponCode) {
             var partnerId = Site.current.getCustomPreferenceValue('uniDaysPartnerId');
             var transcationId;
             var currency;
             var code;
             var isUniDaysTestMode = Site.current.getCustomPreferenceValue('uniDaysMode') == 'TEST' ? true : false;
-            
+            var unidaysOrderDiscount = 0.00;
+            var unidaysDiscountPercentage = 0.00;
+            var orderTotal = order.getMerchandizeTotalNetPrice().getDecimalValue() ? order.getMerchandizeTotalNetPrice().getDecimalValue() : 0.00;
+            var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
+
+            if (priceAdjustmentIterator) {
+                while (priceAdjustmentIterator.hasNext()) {
+                    var priceAdjustmentLineItem = priceAdjustmentIterator.next();
+                    unidaysOrderDiscount = priceAdjustmentLineItem.priceValue * -1;
+                }
+            }
+
+            unidaysDiscountPercentage = ((unidaysOrderDiscount * 100) / orderTotal).toFixed(2);
             uniDaysTrackingLineItems = {
                 partnerId: partnerId,
                 transcationId: viewData.order.orderNumber,
                 currency: order.currencyCode,
-                code: couponCodeUnidays,
+                code: couponCode,
                 itemsUnidaysDiscount: unidaysOrderDiscount.toFixed(2),
-                unidaysDiscountPercentage : unidaysDiscountPercentage.toFixed(2),
+                unidaysDiscountPercentage : unidaysDiscountPercentage,
                 isUniDaysTestMode : isUniDaysTestMode
             };
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
