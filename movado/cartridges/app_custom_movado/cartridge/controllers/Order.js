@@ -155,11 +155,9 @@ server.append('Confirm', function (req, res, next) {
             var orderTotal = order.getMerchandizeTotalNetPrice().getDecimalValue() ? order.getMerchandizeTotalNetPrice().getDecimalValue() : 0.00;
             var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
 
-            if (priceAdjustmentIterator) {
-                while (priceAdjustmentIterator.hasNext()) {
-                    var priceAdjustmentLineItem = priceAdjustmentIterator.next();
-                    unidaysOrderDiscount = priceAdjustmentLineItem.priceValue * -1;
-                }
+            if (priceAdjustmentIterator && priceAdjustmentIterator.hasNext()) {
+                var priceAdjustmentLineItem = priceAdjustmentIterator.next();
+                unidaysOrderDiscount = priceAdjustmentLineItem.priceValue * -1;
             }
 
             unidaysDiscountPercentage = ((unidaysOrderDiscount * 100) / orderTotal).toFixed(2);
