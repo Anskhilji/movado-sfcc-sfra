@@ -1,0 +1,43 @@
+<div class="card-body find-store-form">
+<iscomment> 
+    <isif condition="${pdict.showMap === 'true'}">
+        <p>${Resource.msg('msg.find.store','storeLocator',null)}</p>
+        <button type="submit" class="btn btn-primary btn-block btn-lg card-button detect-location mb-4" data-action="${pdict.stores.actionUrl}">
+            ${Resource.msg('button.use.my.location','storeLocator',null)}
+        </button>
+    </isif>
+</iscomment>
+    <${pdict.isForm === 'true' ? 'form' : 'div'} action="${pdict.stores.actionUrl}" class="store-locator" method="get" name="storelocator">
+    <iscomment> 
+        <div class="form-group required">
+            <label class="form-control-label" for="store-country-code">
+                ${Resource.msg('choose.country.text','storeLocator',null)}
+            </label>
+            <div class="find-store-select">
+            <select class="form-control custom-select store-country-code" id="store-country-code" name="countryCode" required>
+                <option  class="form-control" value="" selected>
+                    ${Resource.msg('choose.country.dropdown','storeLocator',null)}
+                </option>
+                <isloop items="${pdict.countries}" var="country">
+                    <option  class="form-control" value="${country.code}">${country.name}</option>
+                </isloop>
+            </select>
+            <i class="fa fa-angle-down"></i>
+            <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </iscomment>
+        <div class="form-group required">
+        <iscomment> 
+            <label class="form-control-label" for="store-postal-code">
+                ${Resource.msg('storelocator.input.address','storeLocator',null)}
+            </label>
+        </iscomment>
+            <input autofocus type="text" placeholder="${Resource.msg('storelocator.address.placeholder','storeLocator',null)}" class="form-control" id="store-postal-code" name="address"  value="" autocomplete="nofill" required/>
+            <div class="invalid-feedback"></div>
+        </div>
+        <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
+            ${Resource.msg('button.find.stores','storeLocator',null)}
+        </button>
+    </${pdict.isForm === 'true' ? 'form' : 'div'}>
+</div>

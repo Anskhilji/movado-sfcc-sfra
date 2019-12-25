@@ -1,0 +1,22 @@
+.section-locations-hero {
+    background-image: url("../images/storelocator.jpg");
+    margin-bottom: 0.625em;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+
+    .location-hero {
+        text-align: center;
+        width: 100%;
+
+        .location-hero-title {
+            color: #fff;
+            font-weight: 500;
+            font-size: 60px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+    }
+}
