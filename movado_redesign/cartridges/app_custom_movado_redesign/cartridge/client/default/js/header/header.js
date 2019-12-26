@@ -32,6 +32,7 @@ function remove_grayout (){
     $(".modal-background").removeClass("show-overlay").fadeOut();
     $(".modal-background").removeClass("d-block").fadeOut();
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft").addClass("animated fast fadeOutLeft");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("in");
@@ -148,7 +149,6 @@ $(".desktop-menu .sub-dropdown").keydown(function(e) {
 
 
 $(".mobile-menu .close-button").click(function(){
-    console.log("main menu close");
     $(".mobile-menu").addClass("animated fadeOut delay-point-three");
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
@@ -166,6 +166,7 @@ $(".navbar-toggler-custom").click(function(){
         $(".mobile-menu .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
+    $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeOutLeft").addClass("animated fast fadeInLeft");
     $(".modal-background").addClass("d-block").fadeIn();
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
     $('.slick-slider').slick("refresh");
@@ -218,7 +219,6 @@ $('.header-search-field').on('change keypress paste keyup', function() {
     setTimeout(function(){
         if (!$(".header-search-field").val()) { 
             $(".search-recomendation").fadeIn();
-            console.log("this is empaty")
         }else{
             $(".search-recomendation").fadeOut();
         }

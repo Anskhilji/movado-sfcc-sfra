@@ -617,14 +617,15 @@
 
       img {
         display: inline-block;
-        width: 100%;
+        min-width: 103%;
         margin-bottom: rem(10);
       }
       .slick-slide {
         &:nth-child(odd) {
           a {
             img {
-              padding-right: rem(5px)
+              padding-right: rem(5px);
+              padding-left: rem(5px);
             }
           }
         }
@@ -632,7 +633,8 @@
         &:nth-child(even) {
           a {
             img {
-              padding-left: rem(5px)
+              padding-left: rem(5px);
+              padding-right: rem(5px)
             }
           }
         }
