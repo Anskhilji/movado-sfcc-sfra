@@ -1,5 +1,16 @@
 .home-email-signup {
     background-color: $white;
+    margin: 0rem;
+
+    .footer-social-links {
+        display: none;
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+            padding-top: rem(10);
+            padding-bottom: rem(10);
+        }
+    }
 
     .email-description {
         text-transform: uppercase;
@@ -10,6 +21,7 @@
         font-family: $font-primary;
         margin-bottom: rem(15);
         letter-spacing: rem(2.29);
+        padding: 0rem;
     }
 
     .form-control {
@@ -25,6 +37,7 @@
         font-family: $font-primary;
         font-weight: 400;
         height: rem(40);
+        text-overflow: inherit;
 
         &:focus {
             box-shadow: none;
@@ -38,6 +51,11 @@
     .input-group {
         max-width: rem(300);
         background: $black;
+
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            max-width: 100%;
+        }
     }
 
     .input-group-btn {
