@@ -1,27 +1,10 @@
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-    <div class="home-email-signup"> 
-        <div class="container">
-            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
-                            </span>
-                        </div>
-                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
-                </div>
-            </form>
+    <div class="banner-with-contents">
+        <div class="container-fluid">
         </div>
-    </div>
+     </div>
 
     <div class="container-fluid">
         <div class="footer-container row">
@@ -42,8 +25,22 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-right-contents footer-item col-md-3 collapsible-sm">
-                <iscontentasset aid="ca-footer-about" />
+            <div class="col-md-3 footer-item footer-right-contents home-email-signup">
+                <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
+                <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                        <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                  <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
+                            </button>
+                        </span>
+                    </div>
+                    <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                      <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

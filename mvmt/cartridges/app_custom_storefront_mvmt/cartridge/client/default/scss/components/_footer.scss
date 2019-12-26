@@ -3,6 +3,11 @@
 
 footer {
 
+    .banner-with-contents {
+        background-color: $black;
+        padding: 50px;
+    }
+
     div, p, section, ul, a {
         letter-spacing: rem(1.5);
         font-family: $font-primary;
