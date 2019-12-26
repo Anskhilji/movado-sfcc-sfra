@@ -198,7 +198,6 @@ $(document).on('click',".close-button", function(){
 
     setTimeout(function(){
         $(".dropdown-menu").removeClass("animated fadeIn");
-
         $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
         $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
         $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
