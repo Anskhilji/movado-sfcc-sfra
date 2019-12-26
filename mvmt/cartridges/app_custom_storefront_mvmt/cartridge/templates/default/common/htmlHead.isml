@@ -1,20 +1,16 @@
 <meta charset=UTF-8>
-
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-	var dataLayer = undefined;
-	var pageDataGTM = undefined;
-	var checkoutDataLayer= undefined;
+    var dataLayer = undefined;
+    var pageDataGTM = undefined;
+    var checkoutDataLayer= undefined;
 </script>
 <isif condition="${dw.system.System.getInstanceType() != dw.system.System.PRODUCTION_SYSTEM}">
-<iscomment>
-	Customize Header Title
-</iscomment>
-	<title>${pdict.CurrentPageMetaData.title}</title>
+    <iscomment>Customize Header Title</iscomment>
+    <title>${pdict.CurrentPageMetaData.title}</title>
 <iselse/>
-  <title><isprint value="${pdict.CurrentPageMetaData.title}" encoding="htmlcontent" /></title>
+    <title><isprint value="${pdict.CurrentPageMetaData.title}" encoding="htmlcontent" /></title>
 </isif>
 
 <meta name="description" content="${pdict.CurrentPageMetaData.description ? pdict.CurrentPageMetaData.description : Resource.msg('global.storename','common',null)}"/>
@@ -33,36 +29,35 @@
 <isinclude template="affirm/affirmheader_mf" />
 
 <div data-url-path-gtm="${dw.system.Site.current.preferences.custom.URLPath}">
-	<isif condition="${dw.system.Site.current.preferences.custom.gtmEnabled}">
-		 <isinclude url="${URLUtils.url('GTM-LoadDataLayer','urlAction',pdict.action,'urlQueryString',pdict.queryString)}" />
-	</isif>
+    <isif condition="${dw.system.Site.current.preferences.custom.gtmEnabled}">
+        <isinclude url="${URLUtils.url('GTM-LoadDataLayer','urlAction',pdict.action,'urlQueryString',pdict.queryString)}" />
+    </isif>
 </div>
 
-
 <isif condition="${pdict.action && pdict.action ==='Home-Show'}">
-	<link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
-	<isprint value="${pdict.content}" encoding="off"/>
+    <link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
+    <isprint value="${pdict.content}" encoding="off"/>
 <iselseif condition="${pdict.action && pdict.action==='Product-Show'}">
-	<link rel="canonical" href="${URLUtils.https('Product-Show','pid', pdict.product.id)}"/>
-	<isif condition="${'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml!=''}">
-    	<isprint value="${pdict.product.raw.custom.ProductSeoHtml}" encoding="off"/>
-	</isif>
-	<isinclude template="seo/seoTags" />
+    <link rel="canonical" href="${URLUtils.https('Product-Show','pid', pdict.product.id)}"/>
+    <isif condition="${'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml!=''}">
+        <isprint value="${pdict.product.raw.custom.ProductSeoHtml}" encoding="off"/>
+    </isif>
+    <isinclude template="seo/seoTags" />
 <iselseif condition="${pdict.action && pdict.action==='Search-Show' && pdict.productSearch.category }">
-	<link rel="canonical" href="${URLUtils.https('Search-Show','cgid', pdict.productSearch.category.id)}"/>
-	<isif condition="${ pdict.productSearch.category.raw && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml!=''}">
-    	<isprint value="${pdict.productSearch.category.raw.custom.CategorySeoHtml}" encoding="off"/>
-	</isif>
+    <link rel="canonical" href="${URLUtils.https('Search-Show','cgid', pdict.productSearch.category.id)}"/>
+    <isif condition="${ pdict.productSearch.category.raw && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml!=''}">
+        <isprint value="${pdict.productSearch.category.raw.custom.CategorySeoHtml}" encoding="off"/>
+    </isif>
 <iselseif condition="${pdict.action && pdict.action==='Page-Show'}">
-	<link rel="canonical" href="${URLUtils.https('Page-Show','cid', pdict.content.ID)}"/>
-	<isif condition="${'ContentSeoHtml' in pdict.content.raw.custom && pdict.content.raw.custom.ContentSeoHtml!=''}">
-    	<isprint value="${pdict.content.raw.custom.ContentSeoHtml}" encoding="off"/>
-	</isif>
+    <link rel="canonical" href="${URLUtils.https('Page-Show','cid', pdict.content.ID)}"/>
+    <isif condition="${'ContentSeoHtml' in pdict.content.raw.custom && pdict.content.raw.custom.ContentSeoHtml!=''}">
+        <isprint value="${pdict.content.raw.custom.ContentSeoHtml}" encoding="off"/>
+    </isif>
 <iselseif condition="${pdict.action && pdict.action==='Search-ShowContent'}">
-	<link rel="canonical" href="${URLUtils.https('Search-ShowContent','fdid', pdict.folderID)}"/>
-	<isif condition="${'FolderSeoHtml' in pdict.foldersearch.folder.custom && pdict.foldersearch.folder.custom.FolderSeoHtml!=''}">
-    	<isprint value="${pdict.foldersearch.folder.custom.FolderSeoHtml}" encoding="off"/>
-	</isif>
+    <link rel="canonical" href="${URLUtils.https('Search-ShowContent','fdid', pdict.folderID)}"/>
+    <isif condition="${'FolderSeoHtml' in pdict.foldersearch.folder.custom && pdict.foldersearch.folder.custom.FolderSeoHtml!=''}">
+        <isprint value="${pdict.foldersearch.folder.custom.FolderSeoHtml}" encoding="off"/>
+    </isif>
 </isif>
 
 <iscomment>
