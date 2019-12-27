@@ -83,19 +83,17 @@
         }
       }
     }
-    .submission-status{
-      margin-top:rem(5);
-      text-align: left;
-      .success{
-        color:$white;
-      }
-      .error{
-        color: $red;
-      }
-    }
-}
-@include media-breakpoint-up(sm) {
 
-}
-@include media-breakpoint-up(lg) {
+    .submission-status {
+        margin-top:rem(5);
+        text-align: left;
+
+        .success {
+            color:$white;
+        }
+
+        .error {
+           color: $red;
+        }
+    }
 }

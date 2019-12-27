@@ -8,20 +8,32 @@
 
     <div class="container-fluid">
         <div class="footer-container row">
-            <div class="footer-left-contents footer-item col-md-3">
+            <div class="footer-left-contents footer-item col-md-4 col-lg-3">
                 <iscontentasset aid="company-info" />
                 <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
             </div>
             <div class="footer-center-contents col-lg-6 col-md-8">
                 <div class="row">
-                    <div class="footer-item col-md-4 collapsible-sm">
+                    <div class="footer-item col-md-4 desktop-view">
                         <iscontentasset aid="mvmt-shop" />
                     </div>
-                    <div class="footer-item col-md-4 collapsible-sm">
+                    <div class="footer-item col-md-4 desktop-view">
                         <iscontentasset aid="ca-footer-account" />
                     </div>
-                    <div class="footer-item col-md-4 collapsible-sm">
+                    <div class="footer-item col-md-4 desktop-view">
                         <iscontentasset aid="join-the-mvmt" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-1" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-2" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-3" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-4" />
                     </div>
                 </div>
             </div>
