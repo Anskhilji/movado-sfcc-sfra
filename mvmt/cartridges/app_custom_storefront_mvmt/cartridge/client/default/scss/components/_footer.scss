@@ -1,5 +1,4 @@
 @import "variables";
-@import "~movado/components/footer";
 
 footer {
     line-height: normal;
@@ -109,6 +108,10 @@ footer {
             .footer-center-contents {
                 padding: rem(56) rem(0) rem(40);
 
+                > .row {
+                    margin: 0rem;
+                }
+
                 .desktop-view {
                     display: block;
 
@@ -128,6 +131,10 @@ footer {
                 }
 
                 .footer-item {
+
+                    ul {
+                        margin-top: rem(10);
+                    }
 
                     .title {
                         position: relative;
@@ -149,6 +156,10 @@ footer {
             .footer-right-contents {
                 padding: rem(56) rem(32) rem(40);
 
+                @include media-breakpoint-only(md) {
+                    padding: 0 rem(32) rem(24);
+                }
+
                 @include media-breakpoint-down(sm) {
                     padding: rem(24) rem(32);
                 }
@@ -165,8 +176,10 @@ footer {
                     margin: rem(20) 0rem rem(10);
 
                     li {
+                    text-transform: capitalize;
 
                         > a {
+                            text-transform: lowercase;
                             color: $light-gray;
                         }
                     }
