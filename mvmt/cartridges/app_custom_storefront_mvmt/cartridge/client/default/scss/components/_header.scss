@@ -23,7 +23,7 @@
 }
 
 header.new-header {
-  @import "headerSearch";
+ 
   @import "menu";
 
   .overlay {
@@ -407,13 +407,6 @@ header.new-header {
     padding: rem(30) rem(24) rem(30);
   }
 
-  .logo-link {
-
-    img {
-      filter: invert(1);
-    }
-  }
-
   .header-search-field{
     font-family: $font-medium;
     font-size: rem(16);
@@ -460,24 +453,6 @@ header.new-header {
           }
         }
 
-        .user {
-
-          .user-icon {
-            background: url("../images/user-icon-black.svg") center center no-repeat;
-          }
-
-          &.user-login {
-
-            .user-icon {
-              background: url("../images/user-icon-fill.svg") center center no-repeat;
-            }
-          }
-        }
-
-        .minicart-link {
-          background: url("../images/cart-icon-black.svg") center center no-repeat;
-        }
-
         .logo-link {
 
           img {
@@ -502,20 +477,6 @@ header.new-header {
 
         .fa-bars {
           background: url("../images/menu-toggle-black.svg") center center no-repeat;
-        }
-      }
-
-      .user {
-
-        .user-icon {
-          background: url("../images/user-icon-black.svg") center center no-repeat;
-        }
-
-        &.user-login {
-
-          .user-icon {
-            background: url("../images/user-icon-fill.svg") center center no-repeat;
-          }
         }
       }
 
@@ -616,11 +577,27 @@ header.new-header {
         width: rem(20);
       }
     }
+
+    .desktop-search-icon__close {
+      display: none;
+
+      svg {
+        height: rem(10);
+        width: rem(20);
+      }
+    }
+
+    &.active {
+      .desktop-search-icon__close {
+        display: inline-block;
+      }
+
+      .desktop-search-icon__search {
+        display: none;
+      }
+    }
   }
 
-  .desktop-search-icon__close {
-    display: none;
-  }
 
   .main-level-item {
 
@@ -637,7 +614,126 @@ header.new-header {
   }
 }
 
+.new-header {
+  @import "headerSearch";
+}
+.desktop-side-search {
+
+  .search-suggestions {
+    padding-bottom: 0;
+    width: 100%;
+    max-height: 75vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    h3 {
+      display: none;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        border-radius: 2px;
+        padding: 0 rem(17);
+
+        &:hover {
+          background-color: $gray91;
+
+          a {
+              text-decoration: none;
+            }
+        }
+
+        a {
+          background: url("../images/fire.svg") center left no-repeat;
+          background-size: rem(14);
+          color: $black;
+          padding: rem(10) 0;
+          padding-left: rem(30);
+          @include font-medium;
+          font-size: rem(13);
+          font-style: italic;
+          display: block;
+        }
+      }
+    }
+  }
+
+  .search-input-field {
+    margin: 0 auto rem(15);
+    margin-bottom: rem(5);
+    padding: 0;
+    position: relative;
+
+    .header-search-field {
+      border: none;
+      outline: none;
+      border-bottom: rem(2) solid $black;
+      min-height: rem(50);
+      width: 100%;
+      padding-left: rem(30);
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+      @include font-light;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+
+    .side-search-icon {
+      left: 0;
+      position: absolute;
+      top: rem(15);
+      width: rem(20);
+      background: none;
+      border: none;
+      outline: none;
+
+      svg {
+        g {
+          fill: $black;
+          fill-opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+
+
+.search-bar {
+  background: $white;
+}
+
 @include media-breakpoint-up(lg) {
+  .desktop-side-search {
+    display: block;
+    height: 100%;
+    left: unset;
+    padding: rem(30) rem(20) 0;
+    position: fixed;
+    right: -100%;
+    top: rem(80);
+    transition: all .25s ease;
+    width: rem(400);
+    z-index: 8;
+
+    &.desktop-search-active {
+      opacity: 1;
+      right: 0;
+      box-shadow: 8px 0 20px 0 #404040;
+    }
+
+    .search-input-field {
+      border: 0;
+      width: 100%;
+    }
+  }
 
   header.new-header {
 
@@ -791,13 +887,6 @@ header.new-header {
         }
       }
     }
-  }
-}
-
-@include media-breakpoint-up(md) {
-  .search-suggestions {
-    display: flex;
-    justify-content: space-between
   }
 }
 

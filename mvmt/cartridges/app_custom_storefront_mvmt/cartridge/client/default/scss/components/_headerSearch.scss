@@ -34,9 +34,12 @@
 @include media-breakpoint-up(md) {
 
   .suggestions {
+    max-height: 75vh;
+    overflow-y: auto;
+    overflow-x: hidden;
     border-radius: rem(0);
     box-shadow: none;
-    padding-top: rem(11);
+    margin-top: rem(11);
     top: 0;
   }
 
