@@ -31,6 +31,11 @@ $negative-spacer: -0.625rem;
     width: auto;
   }
 
+#mainContent .bonus-product-line-item.product-card-wrapper > hr.custom-horizontal-rule {
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+}
+
   .estimated-price {
     font-family: $font-medium;
     font-size: rem(16);
