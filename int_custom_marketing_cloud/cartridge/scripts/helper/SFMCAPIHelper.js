@@ -127,12 +127,13 @@ function addContactToJourney(params, service) {
         } else if (responseObj.hasErrors && responseObj.operationStatus == 'FAIL') {
             result.message = Resource.msg('newsletter.email.error.invalid', 'common', null);
             Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
-        } else {
-            result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
-            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
         }
         isSaveCustomObject = false;
         result.success = false;
+        if (responseObj.errorcode && responseObj.errorcode == 10000) {
+            isSaveCustomObject = true;
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
+        }
     }
     if (responsePayload.error && params.isJob == false && isSaveCustomObject) {
         SFMCCOHelper.saveEmailSubscriber(params.email);
