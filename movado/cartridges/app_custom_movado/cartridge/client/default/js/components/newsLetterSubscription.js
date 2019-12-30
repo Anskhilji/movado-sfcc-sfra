@@ -28,7 +28,7 @@ $(document).ready(function () {
         var endPointUrl = $(e.target).attr('action');
         var inputValue = $(e.target).find('.form-control').val();
         if (inputValue !== '') {
-            var pattern = /^[\sA-Z0-9._%-]+@[A-Z0-9.-]+\.[\sA-Z]{2,9}$/i
+            var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
                 if(!pattern.test(inputValue)) {
                     wrapperContainer.removeClass('d-none');
                     $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
