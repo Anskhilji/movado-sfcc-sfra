@@ -2,6 +2,7 @@
 
 footer {
     line-height: normal;
+    padding: 0rem;
 
     div, p, section, ul, a {
         letter-spacing: rem(1.5);
@@ -42,6 +43,20 @@ footer {
                 }
             }
 
+            &:last-child {
+
+                 p {
+
+                    > span {
+                        display: block;
+
+                        @include media-breakpoint-up(md) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
             .proposition-copy-wrap {
                 margin: auto;
                 margin-left: rem(10);
@@ -54,14 +69,6 @@ footer {
                     width: 100%;
                     margin: 0 auto;
                     text-align: left;
-
-                    > span {
-                        display: block;
-
-                        @include media-breakpoint-up(md) {
-                            display: none;
-                        }
-                    }
 
                     @include media-breakpoint-up(md) {
                         max-width: rem(180);
@@ -133,7 +140,8 @@ footer {
                 .footer-item {
 
                     ul {
-                        margin-top: rem(10);
+                        margin-top: rem(16);
+                        margin-bottom: 0rem;
                     }
 
                     .title {
@@ -233,6 +241,7 @@ footer {
     .terms-and-conditions {
         margin: 0rem;
         box-shadow: inset 0rem rem(1) 0rem 0rem $white-gray;
+        height: rem(38);
 
         .copyright {
             color: $light-gray2;
