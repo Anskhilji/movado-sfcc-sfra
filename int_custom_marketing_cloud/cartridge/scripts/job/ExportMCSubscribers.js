@@ -53,7 +53,6 @@ function exportAllSavedSubscribers() {
                 } else {
                     result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
                 }
-                var test = result.message;
                 if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(subscriber);
