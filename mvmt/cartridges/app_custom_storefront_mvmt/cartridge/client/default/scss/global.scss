@@ -1,10 +1,14 @@
 @charset "UTF-8";
 @import "utilities/fonts";
 @import "variables";
-@import "~movado/global";
+@import '~movado/global';
 @import "components/footer";
 @import "components/newsletterSignUp";
 
 footer {
     background-color: $white;
+}
+
+.popover {
+    font-family: $font-book;
 }
