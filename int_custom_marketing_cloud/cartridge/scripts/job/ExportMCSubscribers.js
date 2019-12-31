@@ -2,6 +2,7 @@
 
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
+var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Status = require('dw/system/Status');
 var Transaction = require('dw/system/Transaction');
@@ -52,7 +53,7 @@ function exportAllSavedSubscribers() {
                 } else {
                     result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
                 }
-                if (result.success === true) {
+                if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(subscriber);
                     });
