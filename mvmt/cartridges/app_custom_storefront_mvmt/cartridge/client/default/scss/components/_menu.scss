@@ -4,7 +4,7 @@
   .nav-item.show  {
 
     .nav-link {
-      position: static;
+      position: relative;
     }
   }
 
@@ -76,6 +76,7 @@
   }
 
   .dropdown-item {
+
     a {
       @include font-book;
       font-size: rem(15);
@@ -101,6 +102,15 @@
   .dropdown-menu {
     margin-top: 0;
     overflow: hidden;
+    position: absolute;
+    opacity: 1;
+    pointer-events: auto;
+    min-height: 260px;
+    left: 50%;
+    transform: scaleY(0) translateX(-50%);
+    transform-origin: top center;
+    transition: transform .2s cubic-bezier(0,0,.2,1);
+    display: inherit !important;
 
     .dropdown-link {
       display: inline-block;
@@ -154,16 +164,24 @@
 
   .menu-group {
     margin-left: rem(25);
+
+    &:hover {
+      .dropdown-menu {
+        z-index: 0;
+        opacity: 0;
+        transform: scaleX(1) translateX(-50%);
+      }
+      .dropdown-menu.show {
+        z-index: 99999;
+        opacity: 1;
+      }
+    }
   }
 
   .nav-item {
 
     &:first-child{
       margin-left: 0;
-    }
-
-    &:hover {
-      border-color: $black;
     }
 
     .nav-link {
@@ -174,9 +192,39 @@
       letter-spacing: rem(1.5);
       text-transform: uppercase;
       line-height: 1;
+      position: relative;
+    }
 
-      &::after {
-        display: none;
+    &.dropdown {
+
+      .nav-link {
+
+        &::after {
+          content: "";
+          display: block;
+          background: url("../images/nav-hover-icon.svg")  center bottom no-repeat;
+          position: absolute;
+          bottom: -1px;
+          right: 0;
+          left: 0;
+          margin: 0 auto;
+          opacity: 0;
+          transform: rotateY(90deg);
+          transition: opacity .3s ease 0s,transform .24s ease 0s;
+          width: 30px;
+          height: 10px;
+        }
+      }
+
+      &:hover {
+
+        .nav-link {
+  
+          &::after {
+            transform: rotateY(0);
+            opacity: 1;
+          }
+        }
       }
     }
   }
@@ -202,7 +250,7 @@
         border: unset;
       }
     }
-  } 
+  }
 
   li,
   .close-menu {
@@ -242,7 +290,7 @@
         line-height: rem(45);
 
         &::after {
-          right: rem(5); 
+          right: rem(5);
         }
       }
     }
@@ -251,7 +299,7 @@
       padding: 0 rem(30);
       overflow: hidden;
 
-      .dropdown-item { 
+      .dropdown-item {
         height: unset;
       }
 
