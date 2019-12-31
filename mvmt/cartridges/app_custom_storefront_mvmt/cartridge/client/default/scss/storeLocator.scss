@@ -1,0 +1,46 @@
+@import "variables";
+@import "~movado/storeLocator";
+
+.store-locator-container {
+
+    .search-form {
+
+        .find-store-form {
+
+            form {
+
+              > .form-group {
+
+                    input {
+                        border: rem(1) solid $grey14;
+                        color: $grey14;
+                        border: none;
+                        border-bottom: rem(2) solid $black;
+                        box-shadow: none;
+                        padding: rem(15) 0rem rem(15) rem(25);
+                        font-size: rem(14);
+                        color: $black;
+                        letter-spacing: 0;
+                        font-weight: 500;
+                        width: 100%;
+                        margin: 0 auto rem(15);
+                        background-image: url(../images/search-icon.svg);
+                        background-position: 0rem;
+                        background-repeat: no-repeat;
+                   }
+               }
+
+               .btn-storelocator-search {
+                   color: $white;
+                   background-color: $black;
+                   border-radius: 0;
+                   padding: 0 rem(35);
+                   line-height: rem(50);
+                   letter-spacing: rem(1.6);
+                   margin: 0;
+                   width: auto;
+               }
+            }
+        }
+    }
+}
