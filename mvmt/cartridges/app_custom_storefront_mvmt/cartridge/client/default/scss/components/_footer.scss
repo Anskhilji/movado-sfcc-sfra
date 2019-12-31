@@ -3,6 +3,7 @@
 footer {
     line-height: normal;
     padding: 0rem;
+    overflow: hidden;
 
     div, p, section, ul, a {
         letter-spacing: rem(1.5);
@@ -164,6 +165,12 @@ footer {
             .footer-right-contents {
                 padding: rem(56) rem(32) rem(40);
 
+                .success_message {
+                    font-size: rem(14);
+                    color: $light-green;
+                    padding-bottom: rem(15);
+                }
+
                 @include media-breakpoint-only(md) {
                     padding: 0 rem(32) rem(24);
                 }
@@ -241,7 +248,7 @@ footer {
     .terms-and-conditions {
         margin: 0rem;
         box-shadow: inset 0rem rem(1) 0rem 0rem $white-gray;
-        height: rem(38);
+        height: rem(54);
 
         .copyright {
             color: $light-gray2;

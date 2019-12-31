@@ -1,3 +1,6 @@
+<iscomment> Custom Start: Adding the overlay style for the footer popup.</iscomment> 
+<div id="overlay" class=""></div>
+<iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
@@ -39,15 +42,15 @@
             </div>
             <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
                 <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-                            <button id="emailSubcriberBtn" class="btn btn-primary">
-                                <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
-                            </button>
-                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                            <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
-                        </div>
-                    </div>
+                <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                    <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                    <button id="emailSubcriberBtn" class="btn btn-primary">
+                        <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
+                    </button>
+                </div>
                 <isinclude template="components/newsLetter.isml">
                 <div class="footer-social-links">
                 <div class="justify-content-center row">

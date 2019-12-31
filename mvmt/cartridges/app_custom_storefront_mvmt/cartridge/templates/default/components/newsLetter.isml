@@ -9,19 +9,19 @@
             <legend class="footer-more-label">${Resource.msg('newsletter.form.label.birthday', 'newsLetter', null)}</legend>
             <div class=" footer-more-bday-group flex">
                 <div class="footer-select-third footer-select flex">
-                    <select class="footer-bday-select footer-bday-day" id="date" encoding="off" /> >
-                        <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.date.placeholder', 'newsLetter', null)}</option>
+                    <select class="footer-bday-select footer-bday-day" id="days" encoding="off" />
+                        <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.day.placeholder', 'newsLetter', null)}</option>
                     </select>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="footer-select-third footer-select flex">
-                    <select class="footer-bday-select footer-bday-day" id="month" encoding="off" />
+                    <select class="footer-bday-select footer-bday-day" id="months" encoding="off" />
                         <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.month.placeholder', 'newsLetter', null)}</option>
                     </select>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="footer-select-third footer-select flex">
-                    <select class="footer-bday-select footer-bday-day" id="year" encoding="off" />
+                    <select class="footer-bday-select footer-bday-day" id="years" encoding="off" />
                         <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.year.placeholder', 'newsLetter', null)}</option>
                     </select>
                     <div class="invalid-feedback"></div>
