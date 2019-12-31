@@ -592,23 +592,10 @@
   .movado-header-dropdown {
     position: relative;
     min-height: 81%;
-    
-    .menu-pane {
-      padding-bottom: rem(240);
-      min-height: rem(460);
-    }
 
     .featured-promotion {
       margin-top: rem(30);
-      position: absolute;
       width: rem(305);
-      @include media-breakpoint-down(md) {
-        bottom: rem(30);
-      }
-      @include media-breakpoint-down(xs) {
-        bottom: rem(5);
-      }
-
       margin-left: rem(-30);
     }
 
@@ -631,14 +618,16 @@
 
       img {
         display: inline-block;
-        width: 100%;
+        min-width: 103%;
+        height: rem(150);
         margin-bottom: rem(10);
       }
       .slick-slide {
         &:nth-child(odd) {
           a {
             img {
-              padding-right: rem(5px)
+              padding-right: rem(5px);
+              padding-left: rem(5px);
             }
           }
         }
@@ -646,7 +635,8 @@
         &:nth-child(even) {
           a {
             img {
-              padding-left: rem(5px)
+              padding-left: rem(5px);
+              padding-right: rem(5px);
             }
           }
         }
@@ -768,3 +758,18 @@
     }
   }
 }
+
+@include media-breakpoint-up(lg) {
+    .main-menu {
+        .dropdown-menu {
+             .featured-promotion {
+                 p {
+                     img {
+                         width: rem(160);
+                         height: rem(160);
+                     }
+                 }
+             }
+         }
+     }
+} 

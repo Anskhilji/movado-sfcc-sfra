@@ -32,6 +32,7 @@ function remove_grayout (){
     $(".modal-background").removeClass("show-overlay").fadeOut();
     $(".modal-background").removeClass("d-block").fadeOut();
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".dropdown-menu .dropdown-item a").removeClass("fadeInLeft").addClass("animated fast fadeOutLeft");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("in");
@@ -189,8 +190,11 @@ $(".mobile-menu .close-button").click(function(){
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("animated");
-    },1000);
-    $(".modal-background").removeClass("d-block").fadeOut();
+    }, 1000);
+
+    setTimeout(function(){
+        $(".modal-background").removeClass("d-block").fadeOut();
+    }, 300);
 });
 
 $(".navbar-toggler-custom").click(function(){
@@ -198,11 +202,11 @@ $(".navbar-toggler-custom").click(function(){
         $(".mobile-menu .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
+    $(".dropdown-menu .dropdown-item a").removeClass("fadeOutLeft").addClass("animated fast fadeInLeft");
     $(".modal-background").addClass("d-block").fadeIn();
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
     $('.slick-slider').slick("refresh");
 });
-
 
 $(document).on('click',".back", function(){
     $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft delay-point-three");
@@ -216,10 +220,25 @@ $(document).on('click',".back", function(){
 });
 
 $(document).on('click',".close-button", function(){
-    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
-    $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
-    $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
-    $(".dropdown-menu").removeClass("animated fadeIn");
+    $(".mobile-menu").addClass("animated fadeOut delay-point-three");
+    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+
+    setTimeout(function(){
+        $(".mobile-menu").removeClass("animated");
+    }, 1000);
+
+    setTimeout(function(){
+        $(".modal-background").removeClass("d-block").fadeOut();
+    }, 300);
+
+    setTimeout(function(){
+        $(".dropdown-menu").removeClass("animated fadeIn");
+        $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
+        $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
+        $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
+    }, 500);
+
 });
 $(document).on('click',".dropdown-toggle", function(){
     $('.slick-slider').slick("refresh");
@@ -235,7 +254,6 @@ $('.header-search-field').on('change keypress paste keyup', function() {
     setTimeout(function(){
         if (!$(".header-search-field").val()) { 
             $(".search-recomendation").fadeIn();
-            console.log("this is empaty")
         }else{
             $(".search-recomendation").fadeOut();
         }
