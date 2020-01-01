@@ -18,15 +18,6 @@
     <iscomment> Custom End </iscomment>
     <isinclude template="storeLocator/storeLocatorNoDecorator" />
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.store', 'eum', null))}"/>
-    <isif condition="${pdict.showMap === 'true'}">
-        <div class="jumbotron map-canvas" data-has-google-api="${pdict.stores.googleMapsApi ? true : false}" data-locations="${pdict.stores.locations}">
-            <div class="container">
-                <div class="row">
-                    <p class="store-locator-no-apiKey alert alert-danger">${Resource.msg('error.no.api.key','storeLocator',null)}</p>
-                </div>
-            </div>
-        </div>
-    </isif>
     <div class="hero store-locator-hero">
       <iscontentasset aid="store-locator-hero"/>
     </div>
