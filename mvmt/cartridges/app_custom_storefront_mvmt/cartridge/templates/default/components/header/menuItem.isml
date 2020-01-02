@@ -1,7 +1,6 @@
 <iscomment> Custom: menu-content div added</iscomment>
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <isif condition="${topCat.disableSubCategories}">
-
     <div class="shop-by-collection-slide">
         <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
             <isif condition="${topCat.staticContentAsset && topCat.staticContentAsset !== ''}">
@@ -22,7 +21,6 @@
                   </li>
               </isloop>
             </ul>
-            
         </div>
         <div class="submenu" id="submenu">
             <isloop items="${menuItem.subCategories}" var="category"  status="loopStatus">
@@ -30,7 +28,7 @@
                 <div class="submenu-container ${loopStatus.first == true ? '' : 'd-none' }" data-parentcategory = ${category.id}>
 	                <isif condition="${category.subCategories}">
 	                    <ul class="browse-collection">
-	                        <li class="dropdown-item dropdown" role="menuitem" >
+	                        <li class="dropdown" role="menuitem" >
 	                            <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
 	                            <isinclude template="components/header/menuItemList"/>
 	                        </li>
@@ -47,9 +45,5 @@
             </isloop>
         </div>
     </div>
-    
-    
     </isif>
-    
-    
 </div>
