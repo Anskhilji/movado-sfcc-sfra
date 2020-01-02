@@ -238,7 +238,7 @@ header.new-header {
     .header-container {
       margin: 0 auto;
       height: auto;
-      max-width: 1440px;
+      max-width: $container-max-width;
       @include media-breakpoint-down(sm) {
         padding: 0 rem(10);
         > div {
