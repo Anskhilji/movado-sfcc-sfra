@@ -44,13 +44,14 @@
         }
     }
 
-    ::placeholder {
-        color: $white;
-    }
 
     .input-group {
         max-width: rem(300);
         background: $black;
+
+        ::placeholder {
+            color: $white;
+        }
 
         .btn-primary:not(:disabled):not(.disabled):active:focus {
             box-shadow: inherit;
@@ -86,11 +87,13 @@
     }
 
     .submission-status {
-        margin-top:rem(5);
+        font-size: rem(14);
+        padding-bottom: rem(15);
+        margin-top: 0rem;
         text-align: left;
 
         .success {
-            color:$white;
+            color: $light-green;
         }
 
         .error {
@@ -105,16 +108,18 @@
         width: 90%;
         transform: translate(50%,-50%);
         background-color: $white;
-        z-index: 50;
         opacity: 0;
         transition: .5s ease-in-out;
         padding: rem(25);
         z-index: -1;
 
+        @include media-breakpoint-down(sm) {
+            padding: rem(16);
+        }
+
         &.is-active {
             transform: translate(50%,-50%);
             opacity: 1;
-            z-index: 50;
 
             @include media-breakpoint-up(lg) {
                 transform: translateY(-50%);
@@ -189,91 +194,97 @@
             font-size: rem(11)
         }
 
-        form {
+        ::placeholder {
+            color: $light-gray;
+        }
 
-            input {
-                width: 100%;
-                padding: rem(10);
-                background-color: $white;
-                border: rem(1) solid $light-gray4;
-                font-size: rem(11);
-                letter-spacing: rem(1.5);
-                color: $light-gray;
-                border-radius: 0rem;
+        input {
+            width: 100%;
+            padding: rem(10);
+            background-color: $white;
+            border: rem(1) solid $light-gray4;
+            font-size: rem(11);
+            letter-spacing: rem(1.5);
+            color: $light-gray;
+            border-radius: 0rem;
+            outline: 0;
+            font-style: normal;
+        }
+
+        fieldset {
+            padding: rem(5.6) rem(12) rem(10);
+            display: block;
+            margin-inline-start: rem(2);
+            margin-inline-end: rem(2);
+            min-inline-size: min-content;
+            border-width: rem(2);
+            border-style: groove;
+            border-color: threedface;
+            border-image: initial;
+        }
+
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            font-size: rem(11);
+            background-color: $white;
+            letter-spacing: rem(1.5);
+            border: rem(1) solid $light-gray4;
+            color: $light-gray;
+            border-radius: 0;
+            padding: rem(10);
+            outline: 0;
+
+            option {
                 outline: 0;
             }
+        }
 
-            fieldset {
-                padding: rem(5.6) rem(12) rem(10);
-                display: block;
-                margin-inline-start: rem(2);
-                margin-inline-end: rem(2);
-                min-inline-size: min-content;
-                border-width: rem(2);
-                border-style: groove;
-                border-color: threedface;
-                border-image: initial;
+        select::-ms-expand {
+          display: none;
+        }
+
+        .footer-more-label {
+            text-transform: capitalize;
+            font-size: rem(11);
+            letter-spacing: rem(1.5);
+            color: $black;
+            display: block;
+            text-align: center;
+            margin: rem(12) 0rem rem(5);
+            width: auto;
+        }
+
+        .footer-select-third {
+            width: 33%;
+
+            &:nth-child(2) {
+                margin: 0 10px;
+            }
+        }
+
+        .submit_button {
+            width: 100%;
+            margin-top: rem(25);
+            padding: rem(12) 0rem;
+            font-size: rem(14);
+            box-shadow: inherit;
+            border-width: rem(2);
+
+            @include media-breakpoint-down(sm) {
+                margin-top: rem(16);
             }
 
-            select {
-                -moz-appearance: none;
-                -webkit-appearance: none;
-                appearance: none;
-                width: 100%;
-                font-size: rem(11);
-                background-color: $white;
-                letter-spacing: rem(1.5);
-                border: rem(1) solid $light-gray4;
-                color: $light-gray;
-                border-radius: 0;
-                padding: rem(10);
-                outline: 0;
-
-                option {
-                    outline: 0;
-                }
+            &:hover {
+                background: $light-green;
+                transition: opacity .25s ease-in-out;
             }
+        }
 
-            select::-ms-expand {
-              display: none;
-            }
-
-            .footer-more-label {
-                text-transform: capitalize;
-                font-size: rem(11);
-                letter-spacing: rem(1.5);
-                color: $black;
-                display: block;
-                text-align: center;
-                margin: rem(12) 0rem rem(5);
-                width: auto;
-            }
-
-            .footer-select-third {
-                width: 33%;
-
-                &:nth-child(2) {
-                    margin: 0 10px;
-                }
-            }
-
-            .submit_button {
-                width: 100%;
-                margin-top: rem(25);
-                padding: rem(12) 0rem;
-                font-size: rem(14);
-                box-shadow: inherit;
-                border-width: rem(2);
-
-                &:hover {
-                    background: $light-green;
-                    transition: opacity .25s ease-in-out;
-                }
-            }
-
-            .btn-primary:focus, .btn-primary.focus, .btn-primary:not(:disabled):not(.disabled):active:focus {
-                box-shadow: inherit;
-            }
+        .btn-primary:focus, .btn-primary.focus, .btn-primary:not(:disabled):not(.disabled):active:focus {
+            box-shadow: inherit;
         }
     }
 }

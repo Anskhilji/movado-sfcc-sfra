@@ -1,10 +1,17 @@
-<div class="footer-more-fields">
-    <button class="close-footer-more" aria-label="close form modal"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
-    <span class="footer-more-title"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>${Resource.msg('newsletter.msg.thanks', 'newsLetter', null)}</span>
-    <span class="footer-more-small">${Resource.msg('newsletter.msg.optional', 'newsLetter', null)}</span>
-    <form action="#" method="GET" novalidate="novalidate">
+<form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+    <div class="input-group">
+        <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
+        <div class="invalid-feedback"></div>
+        <button id="emailSubcriberBtn" type="button" class="btn btn-primary">
+            <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
+        </button>
+    </div>
+    <div class="footer-more-fields">
+        <button class="close-footer-more" type="button" aria-label="close form modal"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
+        <span class="footer-more-title"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>${Resource.msg('newsletter.popup.title', 'newsLetter', null)}</span>
+        <span class="footer-more-small">${Resource.msg('newsletter.msg.optional', 'newsLetter', null)}</span>
         <label for="k_id_name" class="footer-more-label">${Resource.msg('newsletter.form.label.name', 'newsLetter', null)}</label>
-        <input type="text" value="" name="first_name" class="footer-name" placeholder="${Resource.msg('newsletter.form.input.name.placeholder', 'newsLetter', null)}">
+        <input type="text" class="footer-name form-control" placeholder="${Resource.msg('newsletter.form.input.name.placeholder', 'newsLetter', null)}" />
         <fieldset class=" select-date-widget">
             <legend class="footer-more-label">${Resource.msg('newsletter.form.label.birthday', 'newsLetter', null)}</legend>
             <div class=" footer-more-bday-group flex">
@@ -37,5 +44,5 @@
             </select>
         </div>
         <button type="submit" class="submit_button btn btn-block btn-primary">${Resource.msg('newsletter.form.button.submit', 'newsLetter', null)}</button>
-    </form>
-</div>
+    </div>
+</form>

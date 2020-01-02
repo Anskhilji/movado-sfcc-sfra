@@ -38,12 +38,68 @@ function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
 
+function top() {
+    var screenSize = $(window).width();
+    var top = "44%";
+    if (screenSize < 990) {
+        top = "50%";
+    }
+    return top;
+}
+
+var wrapperContainer = $('.submission-status');
+
+function processSubscription(response) {
+    $.spinner().stop();
+    if ((typeof (response) === 'object')) {
+        var topPercentage = top();
+        wrapperContainer.removeClass('d-none');
+        $('.submission-status div').text(response.message);
+        if (!response.error) {
+            $(".footer-more-fields").css("top", topPercentage);
+            $('.submission-status div').attr('class', 'success');
+            $('#add-to-email-list').prop('checked', response.customerFound);
+            if(response.isanalyticsTrackingEnabled && response.userTracking) {
+                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
+        } else {
+            $(".footer-more-fields").css("top", topPercentage);
+            $('.submission-status div').attr('class', 'error');
+        }
+    }
+}
+
+$('#newsletterSubscribe').submit(function (e) {
+    e.preventDefault();
+    wrapperContainer.addClass('d-none');
+    var topPercentage = top();
+    var endPointUrl = $(e.target).attr('action');
+    var inputValue = $(e.target).find('.form-control').val();
+    if (inputValue !== '') {
+        $.spinner().start();
+        $.ajax({
+            url: endPointUrl,
+            method: 'POST',
+            data: { email: inputValue },
+            success: processSubscription,
+            error: function () { $.spinner().stop(); }
+        });
+    } else {
+        $(".footer-more-fields").css("top", topPercentage);
+        wrapperContainer.removeClass('d-none');
+        $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+    }
+});
+
 $('#emailSubcriberBtn').click(function (e) {
     $("#overlay").addClass("footer-form-overlay");
+    $(".footer-more-fields").css("z-index", "9999");
     $(".footer-more-fields").addClass("is-active");
 });
 
 $('.close-footer-more').click(function (e) {
+    $(".footer-more-fields").css("z-index", "");
     $(".footer-more-fields").removeClass("is-active");
     $("#overlay").removeClass("footer-form-overlay");
 });
