@@ -3,12 +3,9 @@ $(document).ready(function() {
     $('.new-header .dropdown-menu .dropdown-item:first-child').addClass('active');
     $('.submenu-control').hover(function(event) {
         var currentCategory = $(this).data('category');
-        var activeSubMenu = $("ul").find("[data-parentcategory='" + currentCategory + "']");
-        var activeContentAssit = $('.featured-promotion').find("[data-parentcategory='" + currentCategory + "']");
-        activeSubMenu.siblings('.browse-collection').addClass('d-none');
-        activeSubMenu.siblings('.featured-promotion').addClass('d-none');
+        var activeSubMenu = $(".submenu").find("[data-parentcategory='" + currentCategory + "']");
+        activeSubMenu.siblings('.submenu-container').addClass('d-none');
         activeSubMenu.removeClass('d-none');
-        activeContentAssit.removeClass('d-none');
     });
 });
 
