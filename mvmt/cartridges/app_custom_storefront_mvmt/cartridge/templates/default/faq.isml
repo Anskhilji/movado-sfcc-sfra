@@ -1,0 +1,35 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+<div class="hero search-banner plp-new-design container-fluid p-0">
+    <isslot id="faq-banner" context="global" description="slot to show faq page banner" />
+</div>
+  <iscontentasset aid="faq-control-bar">
+	    <div class="tab-content">
+	        <iscontentasset aid="faq-general-tab" />
+	        <div id="contact-tab" class="tab-pane-control fade in container">
+	           <h1 class="text-center">Contact Us</h1>
+	           <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
+	           <hr class="w-25"/>
+	           <div class=row>
+	               <div class="col-md-7 contact-us-form-wrapper">
+	                   <h2>Send us an email:</h2>
+	                   <p>Ask us anything! We'll get back to you within 24-48 hours.</p>
+	               </div>
+	               <div class="col-md-5 contact-us-left-wrapper">
+	                   <h2>Chat with us</h2>
+	                   <p>If you have an issue or question that requires immediate assistance, you can click below to chat live with a customer service representative.
+	                   If we aren't available, drop us an email to the left and we'll respond within 24-48 hours.</p>
+	                   <button>Chat now</button>
+	                   <div class="contact-us-details">
+	                       <h2>Give us a call</h2>
+	                       <p>Call Toll-Free</p>
+	                       <p>+1(888) 507-0220</p>
+	                       <p>M-T 8:30-2:00 pm &amp; F 9-1 pm PT</p>
+	                       <p>Or you can reach us via email at <a href="mailto:support@mvmt.com">support@mvmt.com</a> and expect a response within 24-48 hours.</p>
+	                   </div>
+	               </div>
+	           </div>
+	        </div>
+	    </div>
+    </iscontentasset>
+</isdecorate>
