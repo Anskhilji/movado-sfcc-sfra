@@ -543,6 +543,10 @@ header.new-header {
       position: static;
     }
 
+    .desktop-menu .nav-item.sub-dropdown.dropdown.gtm-customEvent.show .slick-list {
+      width: 100%;
+    }
+
     &.sticky-header, &.non-sticky {
       background-color: $white;
       position: relative;
