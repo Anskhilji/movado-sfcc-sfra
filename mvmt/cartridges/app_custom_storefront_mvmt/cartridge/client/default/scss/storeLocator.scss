@@ -3,6 +3,8 @@
 
 .store-locator-container {
     max-width: rem(1460);
+    padding-left: 0;
+    padding-right: 0;
 
     .search-form {
         box-shadow: inherit;
@@ -33,10 +35,15 @@
                         margin-bottom: rem(15);
                     }
 
+                    @include media-breakpoint-down(xss) {
+                        margin-bottom: 0rem;
+                    }
+
                     input {
+                        border-radius: 0;
                         border: rem(1) solid $grey14;
                         color: $grey14;
-                        border: none;
+                        border: 0;
                         border-bottom: rem(2) solid $black;
                         box-shadow: inherit;
                         padding: rem(15) 0rem rem(15) rem(25);
@@ -55,14 +62,16 @@
                 .form-group2 {
                     width: auto;
                     display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+
+                    @include media-breakpoint-down(xs) {
+                        padding: 0 rem(30);
+                    }
                 }
 
                 .find-store-select {
                     width: rem(135);
-
-                    @include media-breakpoint-down(md) {
-                        width: 21%;
-                    }
 
                     select {
                         font-family: $font-primary;
@@ -82,6 +91,11 @@
                         box-shadow: inherit;
                         cursor: pointer;
                         text-transform: inherit;
+
+                        @include media-breakpoint-down(xs) {
+                            top: 0rem;
+                            position: relative;
+                        }
                     }
 
                     .caret {
@@ -96,6 +110,10 @@
                         border-left: rem(4) solid transparent;
                         pointer-events: none;
                         top: 70%;
+
+                        @include media-breakpoint-down(xs) {
+                            top: 40%;
+                        }
                     }
                 }
 
@@ -126,10 +144,6 @@
         box-shadow: inherit;
         border-radius: 0;
         border: 0;
-
-        .stores-list {
-            padding-left: rem(10);
-        }
     }
 
     .stores-list {
