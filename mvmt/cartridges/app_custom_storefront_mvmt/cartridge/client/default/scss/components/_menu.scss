@@ -836,15 +836,30 @@
 
 #submenu.submenu {
   display: flex;
+
+  .submenu-item {
+    display: flex;
+    align-items: center;
+    
+      .submenu-item-image {
+        height: rem(62);
+        min-height: rem(62);
+        width: rem(62);
+        min-width: rem(62);
+      }
+  }
+
   .submenu-container {
     display: flex;
+
     .browse-collection {
        margin-right: rem(25);
        margin-left: rem(0);
+
          .dropdown-item {
            overflow: initial;
          }
-       
+
      }
   }
 }

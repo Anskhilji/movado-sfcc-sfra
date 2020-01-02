@@ -1,8 +1,8 @@
 <div class="" role="menu" aria-hidden="true">
   <ul>
     <isloop items="${categoryItem.subCategories}" var="category">
-      <li class="gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-        <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
+      <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+        <a href="${category.url}"><img class="submenu-item-image" alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /></a>
         <a href="${category.url}" role="button" class="dropdown-link">${category.name}</a>
       </li>
     </isloop>
