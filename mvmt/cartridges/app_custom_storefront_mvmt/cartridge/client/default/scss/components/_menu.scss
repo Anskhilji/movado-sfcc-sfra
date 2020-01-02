@@ -50,6 +50,30 @@
   }
 
   .dropdown-menu {
+    padding: 0 rem(50);
+
+    .menu-pane {
+
+      > h3 {
+        @include font-medium;
+        font-size: rem(12);
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        margin-bottom: rem(15);
+        line-height: 1;
+        color: $black;
+        white-space: nowrap;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 80px;
+          white-space: nowrap;
+          border-bottom: 1px solid #000;
+          margin-top: 10px;
+        }
+      }
+    }
 
     .featured-promotion {
       h3 {
@@ -113,18 +137,7 @@
     display: inherit !important;
 
     .dropdown-link {
-      display: inline-block;
-
-      &::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: rem(1);
-        background: $black;
-        transition: width .3s;
-        position: relative;
-        top: rem(1.5)
-      }
+      display: block;
 
       &:hover {
 
@@ -171,9 +184,11 @@
         opacity: 0;
         transform: scaleX(1) translateX(-50%);
       }
+
       .dropdown-menu.show {
         z-index: 99999;
         opacity: 1;
+        padding-top: 0;
       }
     }
   }
@@ -219,7 +234,7 @@
       &:hover {
 
         .nav-link {
-  
+
           &::after {
             transform: rotateY(0);
             opacity: 1;
@@ -232,7 +247,8 @@
   .menu-content {
     display: flex;
     margin: 0 auto;
-    justify-content: space-between;
+    padding-top: rem(60);
+    padding-bottom: rem(30);
   }
 }
 
@@ -386,7 +402,6 @@
       font-size: rem(16);
       letter-spacing: rem(0.5);
       color: $storm-gray;
-      
     }
   }
 
@@ -709,6 +724,7 @@
     }
 
     .dropdown-menu {
+
       .movado-header-dropdown {
           .featured-promotion {
             display: unset;
@@ -723,16 +739,58 @@
             display: flex;
           }
       }
+
       .dropdown-item {
         margin-bottom: rem(11);
-      }
-      .dropdown-link {
-        font-size: rem(15);
+        position: relative;
+        line-height: 1.4;
+        margin: rem(6) 0;
+        overflow: hidden;
+        display: inline-block;
+        background: transparent;
+        padding-right: rem(15);
+
+        .dropdown-link {
+          @include font-medium;
+          font-size: rem(12);
+          transition: transform .24s ease 0s;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          background-image: url(../images/nav-icon-hover-right.svg);
+          background-repeat: no-repeat;
+          background-position: 50%;
+          background-size: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: rem(4.5);
+          height: rem(14);
+          transition: transform .24s ease 0s;
+          transform: translateX(-6px);
+        }
+
+        &.active {
+
+          .dropdown-link {
+            transform: translateX(15px);
+          }
+
+          &::before {
+            transform: translateX(0);
+          }
+        }
       }
     }
 
     .menu-pane {
-      margin-right: rem(50);
+      display: block;
+      margin-right: 15%;
+      width: 100px;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
     }
   }
 }
