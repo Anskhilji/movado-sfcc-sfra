@@ -38,12 +38,25 @@ function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
 
-function top() {
+function top(errorOrSuccess) {
     var screenSize = $(window).width();
-    var top = "44%";
-    if (screenSize < 990) {
+    var mediumScreenSize = 990;
+    var errorClass = $(".submission-status > .error").hasClass("error");
+    var successClass = $(".submission-status > .success").hasClass("success");
+    var top = "";
+
+    if (screenSize <= mediumScreenSize) {
         top = "50%";
+    } else if (screenSize >= mediumScreenSize && errorOrSuccess) {
+        top = "44%";
+    } else {
+        if (errorClass || successClass) {
+            top = "44%";
+        } else {
+            top = "32%";
+        }
     }
+
     return top;
 }
 
@@ -52,20 +65,20 @@ var wrapperContainer = $('.submission-status');
 function processSubscription(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
-        var topPercentage = top();
+        var topPercentage = top(true);
         wrapperContainer.removeClass('d-none');
         $('.submission-status div').text(response.message);
         if (!response.error) {
-            $(".footer-more-fields").css("top", topPercentage);
             $('.submission-status div').attr('class', 'success');
+            $(".footer-more-fields").css("top", topPercentage);
             $('#add-to-email-list').prop('checked', response.customerFound);
             if(response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }
         } else {
-            $(".footer-more-fields").css("top", topPercentage);
             $('.submission-status div').attr('class', 'error');
+            $(".footer-more-fields").css("top", topPercentage);
         }
     }
 }
@@ -73,7 +86,7 @@ function processSubscription(response) {
 $('#newsletterSubscribe').submit(function (e) {
     e.preventDefault();
     wrapperContainer.addClass('d-none');
-    var topPercentage = top();
+    var topPercentage = top(true);
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
     if (inputValue !== '') {
@@ -86,16 +99,18 @@ $('#newsletterSubscribe').submit(function (e) {
             error: function () { $.spinner().stop(); }
         });
     } else {
-        $(".footer-more-fields").css("top", topPercentage);
         wrapperContainer.removeClass('d-none');
         $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+        $(".footer-more-fields").css("top", topPercentage);
     }
 });
 
 $('#emailSubcriberBtn').click(function (e) {
+    var topPercentage = top(false);
     $("#overlay").addClass("footer-form-overlay");
     $(".footer-more-fields").css("z-index", "9999");
     $(".footer-more-fields").addClass("is-active");
+    $(".footer-more-fields").css("top", topPercentage);
 });
 
 $('.close-footer-more').click(function (e) {

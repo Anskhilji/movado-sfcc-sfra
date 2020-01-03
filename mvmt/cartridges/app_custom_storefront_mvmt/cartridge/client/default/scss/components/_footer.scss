@@ -338,6 +338,10 @@ footer {
                                     height: auto;
 
                                     a {
+                                        color: $black;
+                                        text-decoration: none;
+                                        box-shadow: none;
+                                        outline: 0;
                                         display: block;
                                         padding: rem(15) rem(20);
                                         font-size: rem(14);
