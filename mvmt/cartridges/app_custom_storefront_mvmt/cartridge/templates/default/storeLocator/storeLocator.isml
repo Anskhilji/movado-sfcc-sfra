@@ -12,7 +12,7 @@
     <iscomment> Custom Start: Store locator banner is added and it is comming from content assets. </iscomment>
     <div class="section-locations-hero">
         <div class="location-hero" >
-            <iscontentasset aid="store-locator-banner"/>
+            <isslot id="store-locator-banner-slot" description="Store locator banner" context="global" />
         </div>
     </div>
     <iscomment> Custom End </iscomment>

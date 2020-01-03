@@ -41,7 +41,6 @@
 
                     input {
                         border-radius: 0;
-                        border: rem(1) solid $grey14;
                         color: $grey14;
                         border: 0;
                         border-bottom: rem(2) solid $black;
@@ -53,6 +52,7 @@
                         font-weight: 500;
                         width: 100%;
                         margin: 0rem;
+                        background-size: rem(18px);
                         background-image: url(../images/search-icon.svg);
                         background-position: 0rem;
                         background-repeat: no-repeat;
@@ -74,6 +74,7 @@
                     width: rem(135);
 
                     select {
+                        padding: rem(6);
                         font-family: $font-primary;
                         position: absolute;
                         top: 30%;
@@ -109,7 +110,8 @@
                         border-right: rem(4) solid transparent;
                         border-left: rem(4) solid transparent;
                         pointer-events: none;
-                        top: 70%;
+                        top: 66%;
+                        right: rem(20);
 
                         @include media-breakpoint-down(xs) {
                             top: 40%;
