@@ -16,12 +16,12 @@
 	                   <p>Ask us anything! We'll get back to you within 24-48 hours.</p>
 	               </div>
 	               <div class="col-md-5 contact-us-left-wrapper">
-	                   <h2>Chat with us</h2>
-	                   <p>If you have an issue or question that requires immediate assistance, you can click below to chat live with a customer service representative.
+	                   <h2>Chat with us:</h2>
+	                   <p class="contact-call-out">If you have an issue or question that requires immediate assistance, you can click below to chat live with a customer service representative.
 	                   If we aren't available, drop us an email to the left and we'll respond within 24-48 hours.</p>
-	                   <button>Chat now</button>
-	                   <div class="contact-us-details">
-	                       <h2>Give us a call</h2>
+	                   <button class="chat-now-button">Chat now</button>
+	                   <div class="contact-us-details py-4">
+	                       <h2>Give us a call:</h2>
 	                       <p>Call Toll-Free</p>
 	                       <p>+1(888) 507-0220</p>
 	                       <p>M-T 8:30-2:00 pm &amp; F 9-1 pm PT</p>
