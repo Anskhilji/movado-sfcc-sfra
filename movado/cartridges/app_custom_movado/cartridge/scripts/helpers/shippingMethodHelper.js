@@ -54,7 +54,7 @@ function getShippingDate(shippingMethod) {
         
         if (!isExpress) {
             var splitedShippingDays = shippingDays.split("-");
-            for (var i = 0; i < splitedShippingDays[0]; i++) {
+            for (var i = 0; i <= splitedShippingDays[0]; i++) {
                 var currentDate = new Calendar(basketLastModified);
                 currentDate.add(currentDate.DAY_OF_MONTH, i);
                 startigDateRange.push(currentDate);
@@ -184,7 +184,7 @@ function excludePublicHolidays(deliveryDate, dateRange, shippingMethod) {
  * return {Object} deliveryDate - calendar object by adding extra days for option product delay
  */
 function includeAdditionalDaysForOptionProduct(deliveryDate, dateRange, optionProductShipmentDelay) {
-    for (var i = 0; i <= optionProductShipmentDelay; i++) {
+    for (var i = 1; i <= optionProductShipmentDelay; i++) {
         var currentEndingDate = deliveryDate.time;
         var currentDate = new Calendar(currentEndingDate);
         currentDate.add(currentDate.DAY_OF_MONTH, i);
