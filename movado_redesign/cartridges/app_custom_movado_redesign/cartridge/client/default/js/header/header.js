@@ -266,6 +266,7 @@ if ($(".header-search-field").is(':empty')) {
 
 $(".multilevel-dropdown .dropdown-toggle").click(function(){
     $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
+    $(this).siblings(".dropdown-menu").find(".dropdown-item a").removeClass('fadeOutLeft');
     $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
     $(this).siblings(".dropdown-menu").find(".shop-by-collection-slide p").addClass("animated fast fadeInUp delay-point-three");
  
