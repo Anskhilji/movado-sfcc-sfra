@@ -9,7 +9,7 @@
         assets.addJs('/js/storeLocator.js');
         assets.addCss('/css/storeLocator.css');
     </isscript>
-    <iscomment> Custom Start: Store locator banner is added and it is comming from content assets. </iscomment>
+    <iscomment> Custom Start: Add Content Slot For Store Locator Banner. </iscomment>
     <div class="section-locations-hero">
         <div class="location-hero" >
             <isslot id="store-locator-banner-slot" description="Store locator banner" context="global" />

@@ -1,9 +1,9 @@
 <div class="find-store-select">
-<select class="form-control custom-select radius" id="radius" name="radius" data-action-url="${pdict.stores.actionUrl}">
-    <option disabled="" selected="" value="">${Resource.msg('store.locator.form.select.radius','storeLocator',null)}</option>
-    <isloop items="${pdict.stores.radiusOptions}" var="option">
-        <option value="${StringUtils.formatInteger(option)}">${StringUtils.formatInteger(option)} ${Resource.msg('storelocator.distance.unit.miles','storeLocator',null)}</option>
-    </isloop>
-</select>
-<i class="caret"></i>
+    <select class="form-control custom-select radius" id="radius" name="radius" data-action-url="${pdict.stores.actionUrl}">
+        <option disabled="" selected="" value="">${Resource.msg('store.locator.form.select.radius','storeLocator',null)}</option>
+        <isloop items="${pdict.stores.radiusOptions}" var="option">
+            <option value="${StringUtils.formatInteger(option)}">${StringUtils.formatInteger(option)} ${Resource.msg('storelocator.distance.unit.miles','storeLocator',null)}</option>
+        </isloop>
+    </select>
+    <i class="caret"></i>
 </div>

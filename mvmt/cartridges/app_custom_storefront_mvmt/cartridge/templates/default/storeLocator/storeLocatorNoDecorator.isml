@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <iscomment> Custom: Start [Added new row] </iscomment>
+    <iscomment> Custom Start: Store locator results and google map are added in this row. </iscomment>
     <div class="row no-gutters">
         <div class="${pdict.horizontalView === 'true' ? 'col-md-4 order-md-0 order-2' : 'col-md-12'}">
             <div class="card results-card">
@@ -30,6 +30,7 @@
             </isif>
         </div>
     </div>
+    <iscomment> Custom End </iscomment>
     <isif condition="${pdict.showMap === 'false'}">
         <div class="row">
             <div class="${pdict.horizontalView === 'true' ? 'col-sm-6' : 'col-sm-12'}">
