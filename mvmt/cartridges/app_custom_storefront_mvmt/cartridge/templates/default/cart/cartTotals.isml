@@ -1,0 +1,35 @@
+<iscomment> Custom Start: These div's are not needed </iscomment>
+<iscomment>
+<div class="no-gutters row">
+    <div class="col-8">
+        <p class="price-label">${Resource.msg('label.shipping.cost','cart',null)}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right cost shipping-cost">${pdict.totals.totalShippingCost}</p>
+    </div>
+</div>
+<!-- Sales Tax -->
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
+    <div class="row">
+        <div class="col-8">
+            <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+        </div>
+        <div class="col-4">
+            <isif condition="${pdict.totalTaxVal == '-'}">
+            	<p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
+            <iselse>
+            	<p class="text-right cost tax-total">${pdict.totals.totalTax}</p>
+            </isif>
+        </div>
+    </div>
+</isif>
+</iscomment>
+<iscomment> Custom End </iscomment>
+<div class="row">
+    <div class="col-8">
+        <p class="grand-total-label price-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
+    </div>
+    <div class="col-4">
+        <p class="text-right grand-total cost">${pdict.totals.grandTotal}</p>
+    </div>
+</div>
