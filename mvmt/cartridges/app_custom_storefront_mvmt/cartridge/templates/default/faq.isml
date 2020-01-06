@@ -1,35 +1,104 @@
 <isdecorate template="common/layout/page">
     <isinclude template="/components/modules" sf-toolkit="off" />
-<div class="hero search-banner plp-new-design container-fluid p-0">
-    <isslot id="faq-banner" context="global" description="slot to show faq page banner" />
-</div>
-  <iscontentasset aid="faq-control-bar">
-	    <div class="tab-content">
-	        <iscontentasset aid="faq-general-tab" />
-	        <div id="contact-tab" class="tab-pane-control fade in container">
-	           <h1 class="text-center">Contact Us</h1>
-	           <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
-	           <hr class="w-25"/>
-	           <div class=row>
-	               <div class="col-md-7 contact-us-form-wrapper">
-	                   <h2>Send us an email:</h2>
-	                   <p>Ask us anything! We'll get back to you within 24-48 hours.</p>
-	               </div>
-	               <div class="col-md-5 contact-us-left-wrapper">
-	                   <h2>Chat with us:</h2>
-	                   <p class="contact-call-out">If you have an issue or question that requires immediate assistance, you can click below to chat live with a customer service representative.
-	                   If we aren't available, drop us an email to the left and we'll respond within 24-48 hours.</p>
-	                   <button class="chat-now-button">Chat now</button>
-	                   <div class="contact-us-details py-4">
-	                       <h2>Give us a call:</h2>
-	                       <p>Call Toll-Free</p>
-	                       <p>+1(888) 507-0220</p>
-	                       <p>M-T 8:30-2:00 pm &amp; F 9-1 pm PT</p>
-	                       <p>Or you can reach us via email at <a href="mailto:support@mvmt.com">support@mvmt.com</a> and expect a response within 24-48 hours.</p>
-	                   </div>
-	               </div>
-	           </div>
-	        </div>
-	    </div>
+    <div class="hero search-banner plp-new-design container-fluid p-0">
+        <isslot id="faq-banner" context="global" description="slot to show faq page banner" />
+    </div>
+    <iscontentasset aid="faq-control-bar">
+        <div class="tab-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="help-wrapper">
+                        <div class="help-heading">
+                            <h3>Need Help?</h3>
+                        </div>
+                        <hr />
+                        <div class="row help-contact-box">
+                            <div class=col-md-6>
+                                <i class="fa fa-comment"></i> <br />
+                                <a class="text-uppercase">Chat With Us</a>
+                            </div>
+                            <div class=col-md-6>
+                                <i class="fa fa-envelope"></i> <br />
+                                <a class="text-uppercase">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <iscontentasset aid="faq-general-tab" />
+                </div>
+            </div>
+            
+            <div id="contact-tab" class="tab-pane-control fade in container">
+                <div class="contact-us-callout-wrapper">
+                    <h1 class="text-center text-uppercase">Contact Us</h1>
+                    <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
+                    <hr class="w-25"/>
+                </div>
+                <div class=row>
+                    <div class="col-md-7 contact-us-form-wrapper">
+                        <h2 class="text-uppercase">Send us an email:</h2>
+                        <p class="text-uppercase">Ask us anything! We'll get back to you within 24-48 hours.</p>
+                        <div class="contactus-form">
+                            <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="name">
+                                        ${Resource.msg('contact.form.name','contactUs',null)}
+                                    </label>
+                                    <input type="text" class="form-control" id="name"
+                                        <isprint value="${pdict.contactUsForm.name.attributes}" encoding="off" />>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="emailAddress">
+                                        ${Resource.msg('contact.form.email.address','contactUs',null)}
+                                    </label>
+                                    <input type="text" class="form-control" id="emailAddress"
+                                        <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="orderNumber">
+                                        ${Resource.msg('contact.form.order.number','contactUs',null)}
+                                    </label>
+                                    <input type="text" class="form-control" id="orderNumber"
+                                        <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="help">
+                                        ${Resource.msg('contact.form.help','contactUs',null)}
+                                    </label>
+                                    <div class="myquestion-wrapper row">
+                                        <div class="custom-select-wrapper col-12">
+                                            <select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+                                            <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
+                                                <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+                                            </isloop>
+                                            </select>
+                                            <i class="fa fa-sort"></i>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                <textarea class="form-control" id="comment" rows="3"
+                                    <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />></textarea>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="Send" class="btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
+                                    </div>
+                                </div>
+                            </form>
+                         </div>
+                    </div>
+                    <div class="col-md-5 contact-us-left-wrapper">
+                        <iscontentasset aid="contact-us-address-wrapper"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </iscontentasset>
 </isdecorate>

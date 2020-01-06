@@ -19,5 +19,12 @@ $(document).ready(function () {
         var id = $(this).children().attr('href');
         $(id).show();
     });
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        // Do something
+        if (scroll >= 221) {
+            $('.help-wrapper').css({top: scroll + 'px'});
+        }
+    });
 });
 
