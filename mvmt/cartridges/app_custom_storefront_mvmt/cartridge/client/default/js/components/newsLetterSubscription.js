@@ -53,7 +53,7 @@ function top(errorOrSuccess) {
         if (errorClass || successClass) {
             top = "44%";
         } else {
-            top = "32%";
+            top = "33%";
         }
     }
 
@@ -108,13 +108,11 @@ $('#newsletterSubscribe').submit(function (e) {
 $('#emailSubcriberBtn').click(function (e) {
     var topPercentage = top(false);
     $("#overlay").addClass("footer-form-overlay");
-    $(".footer-more-fields").css("z-index", "9999");
     $(".footer-more-fields").addClass("is-active");
     $(".footer-more-fields").css("top", topPercentage);
 });
 
-$('.close-footer-more').click(function (e) {
-    $(".footer-more-fields").css("z-index", "");
+$('.close-footer-more, #overlay').click(function (e) {
     $(".footer-more-fields").removeClass("is-active");
     $("#overlay").removeClass("footer-form-overlay");
 });
