@@ -32,7 +32,6 @@ function remove_grayout (){
     $(".modal-background").removeClass("show-overlay").fadeOut();
     $(".modal-background").removeClass("d-block").fadeOut();
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
-    $(".dropdown-menu .dropdown-item a").removeClass("fadeInLeft").addClass("animated fast fadeOutLeft");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("in");
