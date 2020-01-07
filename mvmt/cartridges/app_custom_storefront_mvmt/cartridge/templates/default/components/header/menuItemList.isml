@@ -1,9 +1,13 @@
-<div class="" role="menu" aria-hidden="true">
+<div class="third-level-menu" role="menu" aria-hidden="true">
   <ul>
     <isloop items="${categoryItem.subCategories}" var="category">
       <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-        <a href="${category.url}"><img class="submenu-item-image" alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /></a>
-        <a href="${category.url}" role="button" class="dropdown-link">${category.name}</a>
+        <a href="${category.url}">
+          <div class="dropdown-menu-item-img-wrap">
+              <img class="dropdown-menu-item-img" alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
+          </div>
+          <div class="dropdown-menu-item-text">${category.name}</div>
+        </a>
       </li>
     </isloop>
   </ul>

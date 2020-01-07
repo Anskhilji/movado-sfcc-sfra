@@ -221,7 +221,6 @@ header.new-header {
     }
   }
 
-
   .tile-discription {
     display: none;
   }
@@ -517,7 +516,6 @@ header.new-header {
     }
   }
 
-
   .nav-left, .nav-center, .nav-right {
     display: flex;
     align-items: center;
@@ -598,7 +596,6 @@ header.new-header {
     }
   }
 
-
   .main-level-item {
 
     > button, > a{
@@ -617,6 +614,7 @@ header.new-header {
 .new-header {
   @import "headerSearch";
 }
+
 .desktop-side-search {
 
   .search-suggestions {
@@ -703,8 +701,6 @@ header.new-header {
     }
   }
 }
-
-
 
 .search-bar {
   background: $white;
