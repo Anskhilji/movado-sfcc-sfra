@@ -90,7 +90,9 @@ function exportGoogleFeed(args) {
             "brand" : 13,
             "color" : 14,
             "gender" : 15,
-            "ageGroup" : 16
+            "ageGroup" : 16,
+            "customLabel3" : 17,
+            "productLabel" : 18
                 }
     } else {
         feedColumnsGoogle = {
@@ -232,6 +234,10 @@ function buildCsvHeader(feedColumns) {
 
     if (!empty(feedColumns['productType'])) {
         csvFileHeader.push("product_type");
+    }
+
+    if (!empty(feedColumns['productLabel'])) {
+        csvFileHeader.push("product_label");
     }
 
     if (!empty(feedColumns['categories'])) {
@@ -411,6 +417,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['productLabel'])) {
+        if (product.jewelryStyle) {
+            productDetails.push(product.label);
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['categories'])) {
         if (categoriesPath) {
             productDetails.push(categoriesPath);
@@ -550,6 +564,7 @@ function getProductAttributes(product, feedParameters) {
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
         decimalPrice : productDecimalPrice + " " + productCurrencyCode,
+        label : product.custom.label,
         price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
