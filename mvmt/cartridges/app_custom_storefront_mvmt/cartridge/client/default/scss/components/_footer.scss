@@ -230,7 +230,7 @@ footer {
                             font-size: 16px;
                         }
 
-                        > .fa{
+                        > .fa {
 
                              &:hover {
                                 color: $dark-red;
@@ -329,73 +329,73 @@ footer {
 
                     .footer-item {
 
-                            ul {
-                                background: $light-gray3;
-                                margin: 0rem;
+                        ul {
+                            background: $light-gray3;
+                            margin: 0rem;
 
-                                > li {
+                            > li {
+                                font-size: rem(14);
+                                height: auto;
+
+                                a {
+                                    color: $black;
+                                    text-decoration: none;
+                                    box-shadow: none;
+                                    outline: 0;
+                                    display: block;
+                                    padding: rem(15) rem(20);
                                     font-size: rem(14);
-                                    height: auto;
-
-                                    a {
-                                        color: $black;
-                                        text-decoration: none;
-                                        box-shadow: none;
-                                        outline: 0;
-                                        display: block;
-                                        padding: rem(15) rem(20);
-                                        font-size: rem(14);
-                                    }
                                 }
                             }
+                        }
 
-                            a {
-                                letter-spacing: rem(2);
+                        a {
+                            letter-spacing: rem(2);
+                        }
+
+                        .title {
+                            font-size: rem(14);
+                            padding: rem(18) rem(20);
+                            margin: 0rem;
+                            border-top: rem(1) solid $white-gray;
+                            border-bottom: 0rem;
+                            text-decoration: none;
+                            background: $white;
+                            text-decoration: none;
+                            display: block;
+
+                            &:after {
+                                float: right;
+                                content: "";
+                                background-image: url(../images/footer-down-icon.svg);
+                                background-repeat: no-repeat;
+                                color: $black;
+                                position: absolute;
+                                top: rem(28);
+                                right: rem(20);
+                                width: rem(11);
+                                height: rem(8);
+                                transition: all .25s;
+                                transform: perspective(400px) rotate3d(0,0,0,0);
                             }
+                        }
+
+                        &.active {
 
                             .title {
-                                font-size: rem(14);
-                                padding: rem(18) rem(20);
-                                margin: 0rem;
-                                border-top: rem(1) solid $white-gray;
-                                border-bottom: 0rem;
-                                text-decoration: none;
-                                background: $white;
-                                text-decoration: none;
-                                display: block;
 
                                 &:after {
-                                    float: right;
-                                    content: "";
-                                    background-image: url(../images/footer-down-icon.svg);
-                                    background-repeat: no-repeat;
-                                    color: $black;
-                                    position: absolute;
-                                    top: rem(28);
-                                    right: rem(20);
-                                    width: rem(11);
-                                    height: rem(8);
-                                    transition: all .25s;
-                                    transform: perspective(400px) rotate3d(0,0,0,0);
+                                    margin-top: 0;
                                 }
                             }
+                        }
 
-                            &.active {
+                        &:nth-last-child(1) {
 
-                                .title {
-
-                                    &:after {
-                                        margin-top: 0;
-                                    }
-                                }
+                            .title {
+                                border-bottom: rem(1) solid $white-gray;
                             }
-
-                            &:nth-last-child(1) {
-
-                                .title {
-                                    border-bottom: rem(1) solid $white-gray;
-                                }
-                            }
+                        }
 
                         .title {
                           font-family: $font-medium;
