@@ -267,6 +267,7 @@ header.new-header {
         width: rem(20);
       }
     }
+
     &:hover {
       border-color: $black;
     }
@@ -286,61 +287,50 @@ header.new-header {
       &::before {
         content: unset;
       }
-    }
 
-    &.user-not-login {
+      .button {
+        text-transform: uppercase;
+        font-size: rem(11);
+        @include font-medium;
+        color: $grey8;
+        background-color: $white;
 
-      .popover {
+        margin: 0;
+        text-decoration: none;
+        white-space: nowrap;
+        padding: rem(14) rem(20);
+        border: rem(2) solid $black;
+        transition: .3s ease-in;
+        min-width: auto;
+        letter-spacing: rem(1.5);
+        line-height: rem(14);
+        text-align: center;
 
-        .button {
-          text-transform: uppercase;
-          font-size: rem(11);
-          @include font-medium;
-          color: $grey8;
-          border-radius: 0;
-          background-color: $white;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0;
-          text-decoration: none;
-          white-space: nowrap;
-          user-select: none;
-          padding: rem(14) rem(20);
-          border: rem(2) solid $black;
-          transition: .3s ease-in;
-          min-width: auto;
-          letter-spacing: rem(1.5);
-          line-height: rem(14);
-          text-align: center;
-
-          &:hover {
-            color: $white;
-            background-color: $apple-green;
-          }
-
-          &:focus {
-            box-shadow: none;
-            outline: -webkit-focus-ring-color auto 1px;
-
-          }
+        &:hover {
+          color: $white;
+          background-color: $apple-green;
         }
 
-        li {
-          &:first-child {
-            margin-bottom: rem(20);
-          }
-          &:last-child {
-            a {
-              background: $black;
-              color: $white;
-              border-color:$white;
+        &:focus {
+          box-shadow: none;
+          outline: -webkit-focus-ring-color auto 1px;
 
-              &:hover {
-                background: $white;
-                color: $black;
-              }
+        }
+      }
+
+      li {
+        &:first-child {
+          margin-bottom: rem(20);
+        }
+        &:last-child {
+          a {
+            background: $black;
+            color: $white;
+            border-color:$white;
+
+            &:hover {
+              background: $white;
+              color: $black;
             }
           }
         }
