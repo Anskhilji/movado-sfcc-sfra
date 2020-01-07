@@ -60,7 +60,7 @@ header.new-header {
         .out-of-stock {
           display: inline-block;
           color: $storm-gray;
-          font-size: rem(10);
+          font-size: rem(9);
           letter-spacing: normal;
           padding: rem(2) rem(5);
           background: $dark-pink;
@@ -88,11 +88,12 @@ header.new-header {
           flex-direction: column;
           align-items: flex-end;
           width: 100%;
+          padding-left: rem(3);
         }
         .new-product, .pre-order  {
           display: inline-block;
           color: $storm-gray;
-          font-size: rem(10);
+          font-size: rem(9);
           display: block !important;
           letter-spacing: normal;
           padding: rem(2) rem(5);
