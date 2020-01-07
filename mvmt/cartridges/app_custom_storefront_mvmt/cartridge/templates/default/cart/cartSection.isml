@@ -75,7 +75,6 @@
             </div>
             <!---totals, and checkout actions--->
             <div class="col-lg-4 col-md-12 totals">
-                <h1 class="page-title cart-header">${Resource.msg('title2.cart', 'cart', null)}</h1>
                 <iscomment> Custom Start: These templates and div's are not needed </iscomment>
                 <iscomment>
                 <isinclude template="cart/cartPromoCode" />
@@ -87,18 +86,23 @@
                 </div>
                 </iscomment>
                 <iscomment> Custom End </iscomment>
-                <isinclude template="cart/cartTotals" />
                 <div class="no-gutters row total-section">
-                    <div class="col-12 checkout-continue">
-                        <isinclude template="cart/checkoutButtons" />
+                    <div class="cart-order-box">
+                        <h1 class="page-title cart-header">${Resource.msg('title2.cart', 'cart', null)}</h1>
+                        <isinclude template="cart/cartTotals" />
+                        <div class="col-12 checkout-continue">
+                            <isinclude template="cart/checkoutButtons" />
+                            <iscontentasset aid="cart-tax-message" />
+                        </div>
                     </div>
-                    <p>${Resource.msg('cart.tax.msg', 'cart', null)}</p>
-                    <p>${Resource.msg('cart.tax.msg', 'cart', null)}</p>
+                </div>
+                <br/>
+                <div class="no-gutters row total-section">
+                    <iscontentasset aid="cart-customer-service-contact" />
                 </div>
                 <div class="container">
                     <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
-                <br/>
             </div>
         </div>
     </div>

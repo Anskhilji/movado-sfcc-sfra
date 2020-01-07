@@ -28,22 +28,55 @@
     }
 
     .totals {
-         background-color: $gray8;
-
-        .page-title {
-            margin: 0;
-            border-bottom: rem(1) solid $light-gray6;
-        }
-
-        .grand-total-label, .grand-total {
-            font-family: $font-primary;
-            font-size: rem(23);
-            margin: 0;
-            padding: rem(32) rem(10);
-            min-height: rem(60);
-        }
+         background-color: $white;
 
         .total-section {
+            background-color: $gray8;
+            border-radius: rem(6);
+
+            .cart-order-box {
+                width: 100%;
+                float: left;
+                margin: 0 rem(20);
+                padding: 0 0 rem(32) 0;
+                margin-bottom: rem(16);
+            }
+
+            .cart-customer-service-box {
+                width: 100%;
+                float: left;
+                margin: 0 rem(20);
+                padding: 0 0 rem(16) 0;
+
+                .phone, .email {
+                    margin: 0;
+                    font-size: rem(16);
+
+                    > a, span {
+                        text-decoration: none;
+                    }
+                }
+
+                .phone {
+                    padding: rem(16) rem(10) 0  rem(10);
+                }
+
+                .email {
+                    padding: rem(16) rem(10);
+                }
+            }
+
+            .page-title {
+                border-bottom: rem(1) solid $light-gray6;
+            }
+    
+            .grand-total-label, .grand-total {
+                font-family: $font-primary;
+                font-size: rem(23);
+                margin: 0;
+                padding: rem(32) rem(10);
+                min-height: rem(60);
+            }
 
             .checkout-continue {
                 padding-left: rem(10);
@@ -70,27 +103,29 @@
                     border-color: $light-green;
                     box-shadow: none;
                     border-radius: rem(4);
+                    letter-spacing: rem(3);
 
                     &:hover {
                         background-color: $light-green2;
                         border-color: $light-green2;
                     }
                 }
-            }
 
-            p {
-                margin: 0;
-                font-size: rem(14);
-                color: $gray1;
-                letter-spacing: 0;
-                text-align: center;
-                font-weight: 400;
-                font-style: normal;
+                p {
+                    margin: 0;
+                    font-size: rem(14);
+                    color: $gray1;
+                    letter-spacing: 0;
+                    text-align: center;
+                    font-weight: 400;
+                    font-style: normal;
+                }
             }
         }
     }
 
     .product-info {
+        padding: 0;
 
         .item-info {
             border-bottom: 0rem;
@@ -109,14 +144,49 @@
                     width: auto;
                     font-size: rem(16);
                     font-family: $font-primary;
-                    color: $light-gray7;
 
                     > a {
+                        color: $light-gray7;
+                        text-decoration: none;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        letter-spacing: 0;
+                    }
+                }
+            }
+
+            .line-item-total-price {
+
+                .price {
+
+                    .total-amount {
+                        font-size: rem(18);
+                        color: $light-gray7;
+                        transition: font-size 0.3s;
+                        letter-spacing: rem(1.5);
+                    }
+                }
+            }
+
+            .remove-line-item {
+
+                .remove-btn {
+                    font-size: rem(14);
+                    padding: 0 rem(10);
+                    text-decoration: underline;
+                    color: $red1;
+                    background: $white;
+                    border-color: $white;
+                    vertical-align: middle;
+                    top: 0;
+                    right: 0;
+                    letter-spacing: rem(3);
+
+                    &:hover {
                         text-decoration: none;
                     }
                 }
             }
         }
     }
-
 }

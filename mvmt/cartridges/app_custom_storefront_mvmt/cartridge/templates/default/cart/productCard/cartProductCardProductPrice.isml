@@ -9,12 +9,6 @@
     </div>
     </iscomment>
     <iscomment> Custom End </iscomment>
-    <!--- quantity --->
-    <iscomment> Custom Start: Removed the d-none class </iscomment>
-    <div class="col-4 col-lg-3 line-item-quantity">
-        <isinclude template="checkout/productCard/productCardQuantitySelector" />
-    </div>
-    <iscomment> Custom End </iscomment>
     <!--- line item total price --->
     <div class="line-item-total-price">
         <div class="item-total-${lineItem.UUID} price">
