@@ -41,5 +41,16 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
+    
+    Object.defineProperty(product, 'bonusProductText', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.bonusProductText) ? apiProduct.custom.bonusProductText : ''
+    });
+    
+    Object.defineProperty(product, 'isBonusProductText', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.bonusProductText) ? true : false
+    });
+    
     return product;
 };

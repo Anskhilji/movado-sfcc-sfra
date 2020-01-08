@@ -26,7 +26,9 @@ function getResources(pageContext) {
         COOKIE_EXPIRY_TIME_WELCOME_MAT: Site.getCurrent().getCustomPreferenceValue('cookieExpiryTimeInDays'),
         CURRENT_SITE_ID : Site.getCurrent().getID(),
         OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
-        OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null)
+        OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
+        INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null)
     };
     return resources;
 }

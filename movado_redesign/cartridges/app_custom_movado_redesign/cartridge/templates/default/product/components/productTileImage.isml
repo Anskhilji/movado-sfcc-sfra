@@ -1,8 +1,25 @@
 <iscomment> Custom Start: quick view button removed</iscomment>
     <div class="image-container">
-        <isloop items="${product.badges.imageBadges}" var="imageBadge">
-            <div class="product-badge new-product"><span class="badge-text">${Resource.msg('label.new', 'common', null)}</span></div>
-        </isloop>
+        <div class="badge-container">
+            <isloop items="${product.badges.textBadges}" var="badge">
+                <div class="new-product mb-1 text-uppercase">
+                    <span class="badge-text">${badge.text}</span>
+                </div>
+            </isloop>
+            <isloop items="${product.badges.imageBadges}" var="imageBadge">
+                <div class="new-product mb-1 text-uppercase"><span class="badge-text">${Resource.msg('label.new', 'common', null)}</span></div>
+            </isloop>
+            <isif condition="${preOrder}">
+                <div class="out-of-stock pre-order mb-1 text-uppercase">
+                    ${Resource.msg('info.product.availability.preorder', 'common', null)}
+                </div>
+            </isif>
+            <isif condition="${outOfStock}">
+                <div class="out-of-stock mb-1 text-uppercase">
+                    ${Resource.msg('label.soldout', 'common', null)}
+                </div>
+            </isif>
+        </div>
         <a href="${pdict.urls.product}">
             <isif condition="${product && product.images}"> 
                 <picture>
