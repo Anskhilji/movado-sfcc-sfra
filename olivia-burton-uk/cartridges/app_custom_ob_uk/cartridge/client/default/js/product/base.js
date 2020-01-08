@@ -790,7 +790,7 @@ module.exports = {
         });
     },
     selectBonusProduct: function () {
-        $(document).on('click', '.select-bonus-product', function () {
+        $(document).off('click', '.select-bonus-product').on('click', '.select-bonus-product', function () {
             var $choiceOfBonusProduct = $(this).parents('.choice-of-bonus-product');
             var pid = $(this).data('pid');
             var maxPids = $('.choose-bonus-product-dialog').data('total-qty');

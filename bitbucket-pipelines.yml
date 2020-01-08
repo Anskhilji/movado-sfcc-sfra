@@ -27,7 +27,7 @@ pipelines:
                 echo "Code Version " $CUSTOM_CODE_VERSION
                 dwupload --hostname $CURRENT_HOST_NAME --username $CURRENT_USER_NAME --password $CURRENT_PASSWORD --code-version $CUSTOM_CODE_VERSION
                 npm run activate:code $CURRENT_HOST_NAME $CURRENT_USER_NAME $CURRENT_PASSWORD $CLIENT_ID $CLIENT_SECRET $CUSTOM_CODE_VERSION
-              elif [$BITBUCKET_BRANCH == $DEPLOYMENT_BRANCH_FUTURE]; then
+              elif [ $BITBUCKET_BRANCH == $DEPLOYMENT_BRANCH_FUTURE ]; then
                 npm run build:config
                 npm run scan:cartridges
                 npm install -g dwupload
