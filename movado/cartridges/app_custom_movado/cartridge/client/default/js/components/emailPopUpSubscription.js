@@ -7,7 +7,9 @@ function processSubscription(response) {
         if (!response.error) {
             $('.submission-status div').attr('class', 'success');
             $('#add-to-email-list').prop('checked', response.customerFound);
-            hideEmailPopUpModal();
+            if (response.message == Resources.EMAIL_SUBSCRIPTION_SUCCESS) {
+                hideEmailPopUpModal();
+            }
             if(response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
@@ -24,17 +26,22 @@ $(document).ready(function () {
         var endPointUrl = $(e.target).attr('action');
         var inputValue = $(e.target).find('.form-control').val();
         if (inputValue !== '') {
-            $.ajax({
-                url: endPointUrl,
-                method: 'POST',
-                data: { email: inputValue },
-                success: processSubscription,
-                error: function () { 
-                    wrapperContainer.removeClass('d-none');
-                    $('.submission-status div').text(Resources.EMAIL_POPUP_SERVER_ERROR_MSG).attr('class', 'error');
-                }
-            });
-            
+            var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+            if(!pattern.test(inputValue)) {
+                wrapperContainer.removeClass('d-none');
+                $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+            } else {
+                $.ajax({
+                    url: endPointUrl,
+                    method: 'POST',
+                    data: { email: inputValue },
+                    success: processSubscription,
+                    error: function () { 
+                        wrapperContainer.removeClass('d-none');
+                        $('.submission-status div').text(Resources.EMAIL_POPUP_SERVER_ERROR_MSG).attr('class', 'error');
+                    }
+                });
+            }
         } else {
             wrapperContainer.removeClass('d-none');
             $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
@@ -45,15 +52,9 @@ $(document).ready(function () {
 // Hide email pop up 
 function hideEmailPopUpModal() {
     $('.email-optin-control').addClass('d-none');
-    $('.thankyou-note-control').removeClass('d-none');
-    $('.email-popup .modal-dialog').removeClass('quick-view-dialog email-popup-container').addClass('modal-sm');
-    $('.email-popup .modal-dialog').width('60%');
-    $('.email-popup .modal-dialog').height('30%');
+    $('.thankyou-note-control').removeClass('popup-form d-none');
     $(".email-popup").addClass('thankyou-opened');
-    var thankYouNoteColor = $('.email-popup').data('thankyounotecolor');
-    if (thankYouNoteColor) {
-        $('.email-popup .modal-dialog .email-popup-content').css('background', thankYouNoteColor);
-    }
+    $('.email-popup .quick-view-dialog').addClass('popup-message');
     setTimeout(function() { 
         $(".thankyou-opened").click( function() {
             $('.thankyou-opened').hide();

@@ -18,8 +18,8 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var requestParams = {
         email: req.form.email
     }
-    SFMCApi.sendSubscriberToSFMC(requestParams);
-    res.json(EmailSubscriptionHelper.emailSubscriptionResponse(true));
+    var result = SFMCApi.sendSubscriberToSFMC(requestParams);
+    res.json(EmailSubscriptionHelper.emailSubscriptionResponse(result));
     
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     if(isanalyticsTrackingEnabled) {

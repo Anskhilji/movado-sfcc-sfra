@@ -101,7 +101,6 @@ $(".desktop-menu .sub-dropdown").hover(
                 }
             ]
         });
- 
     },
 
     function() {

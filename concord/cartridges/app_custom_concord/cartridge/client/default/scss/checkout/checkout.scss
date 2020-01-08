@@ -373,3 +373,9 @@ header {
         display: inline-block;
     }
 }
+
+.shipping-method-option {
+    .arrival-time {
+        white-space: pre-wrap;
+    }
+}

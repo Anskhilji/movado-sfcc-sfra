@@ -52,6 +52,10 @@ $(
     }
 );
 
+$( document ).ready(function() {
+    $('.cart-page .bonus-product-line-item.product-card-wrapper > div.card.bonus-product-button').siblings('.item-info').css('border-bottom','none').children('.col-12:last').hide();
+});
+
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
  * checkout button

@@ -14,6 +14,11 @@ $negative-spacer: -0.625rem;
   @extend %card-box;
 }
 
+#mainContent .bonus-product-line-item.product-card-wrapper > hr.custom-horizontal-rule {
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+}
+
 .checkout-button-wrapper {
   width: 100%;
   position: fixed;

@@ -234,6 +234,11 @@ $negative-spacer: -0.625rem;
   }
 }
 
+#mainContent .bonus-product-line-item.product-card-wrapper > hr.custom-horizontal-rule {
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+}
+
 .bonus-product-button {
   margin-right: 1.5em;
 }
