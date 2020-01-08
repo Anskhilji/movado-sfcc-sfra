@@ -240,6 +240,7 @@ header.new-header {
       max-width: $container-max-width;
       @include media-breakpoint-down(sm) {
         padding: 0 rem(10);
+        padding-right: 0;
         > div {
           padding: 0;
         }
@@ -559,9 +560,65 @@ header.new-header {
       line-height: 1;
     }
   }
-  .header-mobile-categories {
+
+  .header-mobile-categories, .header-nav-right-mobile {
     display: none;
+
+    li {
+      border-left: rem(1) solid $gray91;
+    }
   }
+
+  .header-nav-right-mobile {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    .mobile-cart-close-icon {
+      display: none;
+      width: 18px;
+      text-align: right;
+    }
+
+    li {
+      padding: rem(14) rem(10);
+
+      button {
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0 rem(15);
+      }
+
+      svg {
+        width: rem(18);
+        height: rem(18);
+      }
+    }
+  }
+
+  .header-mobile-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .header-mobile-category {
+      display: flex;
+      margin: auto 0;
+      text-align: center;
+      text-transform: uppercase;
+      height: 100%;
+      width: 50%;
+      padding: rem(19) 0;
+
+      span {
+        @include font-book;
+        font-size: rem(12);
+        margin: auto;
+      }
+    }
+  }
+
   .desktop-search-icon {
     background: none;
     border: none;
@@ -608,6 +665,10 @@ header.new-header {
       text-transform: uppercase;
       line-height: 1;
     }
+  }
+
+  .mobile-navigation {
+    display: none;
   }
 }
 
@@ -774,25 +835,28 @@ header.new-header {
       flex-basis: 0;
     }
   }
-
-
 }
 
 @include media-breakpoint-down(lg) {
 
   header.new-header {
+
     .header-wrapper {
       background: $white;
       position: relative;
     }
-    .header-mobile-categories {
+
+    .header-mobile-categories, .header-nav-right-mobile {
       display: flex;
+      height: 100%;
     }
+
     .fixed-header {
       .header-wrapper {
         position: fixed;
       }
     }
+
     .multilevel-dropdown {
 
       .close-menu {
@@ -811,6 +875,19 @@ header.new-header {
 
     .nav-left {
       flex-grow: 1;
+    }
+
+    .mobile-navigation {
+      display: block;
+      width: 100%;
+    }
+
+    .header-desktop-categories {
+      display: none;
+    }
+
+    .nav-right {
+      flex-grow: 2;
     }
   }
 
