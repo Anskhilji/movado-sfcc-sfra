@@ -897,7 +897,11 @@
         }
 
         &.no-static-content {
-          width: 33.33%;
+          .third-level-menu {
+            .submenu-item {
+              width: 33.33%;
+            }
+          }
         }
       }
     }
