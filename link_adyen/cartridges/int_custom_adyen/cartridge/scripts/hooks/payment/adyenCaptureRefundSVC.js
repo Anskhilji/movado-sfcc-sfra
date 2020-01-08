@@ -239,6 +239,7 @@ function refund(order, amount, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
+                    order.custom.adyenRefundedFlag = true;
                 });
 
                 /* update already refunded amount list*/
