@@ -5,67 +5,66 @@
 <div class="card product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
     <div class="row ${bonuslineitemrow} item-info">
-        <div class="col-lg-12 d-flex flex-row mb-2">
-            <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
-                <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-                <div class="col-2">
-                    <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+        <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+            <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+            <div class="col-2">
+                <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+            </div>
+        </isif>
+        <div class="col-4">
+            <isinclude template="cart/productCard/cartProductCardHeader" />
+        </div>
+        <!--- quantity --->
+        <iscomment> Custom Start: Removed the d-none class </iscomment>
+        <div class="col-2 line-item-quantity">
+            <isinclude template="checkout/productCard/productCardQuantitySelector" />
+        </div>
+        <iscomment> Custom End </iscomment>
+        <div class="col-md-2 col-sm-3 hidden-xs-down">
+            <isinclude template="cart/productCard/cartProductCardProductPrice" />
+        </div>
+        <iscomment> Custom Start: These templates and div's are not needed </iscomment>
+        <iscomment>
+        <div class="item-attributes d-flex flex-column">
+            <isloop items="${lineItem.variationAttributes}" var="attribute">
+                <isif condition="${option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                    <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>                 
+                <iselse>
+                    <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
+                </isif>
+            </isloop>
+            <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
+            <isloop items="${lineItem.options}" var="option">
+                <isif condition="${!!option && option.selectedValueId != 0}" />
+                    <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
+                        <p class="line-item-attributes mb-2 personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
+                    </isif>
+                    <isif condition="${option.optionId === 'Engraved' && lineItem.customAttributes.engrave}">
+                        <div class="mb-2">
+                            <p class="line-item-attributes personalize-price">${option.optionId} (${lineItem.customAttributes.engrave.price}):</p>
+                            <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine1}</div>
+                            <isif condition="${lineItem.customAttributes.engrave.msgLine2}">
+                                <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine2}</div>
+                            </isif>
+                        </div>
+                    </isif>
+                </isif>
+            </isloop>
+            <isinclude template="cart/productCard/cartProductCardAvailability" />
+            <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
+                <div class="product-edit">
+                    <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
                 </div>
             </isif>
-            <div class="col-4">
-                <isinclude template="cart/productCard/cartProductCardHeader" />
-            </div>
-            <!--- quantity --->
-            <iscomment> Custom Start: Removed the d-none class </iscomment>
-            <div class="col-2 line-item-quantity">
-                <isinclude template="checkout/productCard/productCardQuantitySelector" />
-            </div>
-            <iscomment> Custom End </iscomment>
-            <div class="col-2">
-                <isinclude template="cart/productCard/cartProductCardProductPrice" />
-            </div>
-            <iscomment> Custom Start: These templates and div's are not needed </iscomment>
-            <iscomment>
-            <div class="item-attributes d-flex flex-column">
-                <isloop items="${lineItem.variationAttributes}" var="attribute">
-                    <isif condition="${option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
-                        <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>                 
-                    <iselse>
-                        <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
-                    </isif>
-                </isloop>
-                <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
-                <isloop items="${lineItem.options}" var="option">
-                    <isif condition="${!!option && option.selectedValueId != 0}" />
-                        <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
-                            <p class="line-item-attributes mb-2 personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
-                        </isif>
-                        <isif condition="${option.optionId === 'Engraved' && lineItem.customAttributes.engrave}">
-                            <div class="mb-2">
-                                <p class="line-item-attributes personalize-price">${option.optionId} (${lineItem.customAttributes.engrave.price}):</p>
-                                <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine1}</div>
-                                <isif condition="${lineItem.customAttributes.engrave.msgLine2}">
-                                    <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine2}</div>
-                                </isif>
-                            </div>
-                        </isif>
-                    </isif>
-                </isloop>
-                <isinclude template="cart/productCard/cartProductCardAvailability" />
-                <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
-                    <div class="product-edit">
-                        <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
-                    </div>
-                </isif>
-                <isif condition="${pdict.loggedIn}">
-                 <div class="hidden-xs-down  mb-2 edit-add-to-wishlist">
-                      <isinclude template="cart/productCard/cartProductCardEdit" />
-                 </div>
-                </isif>
-            </div>
-            </iscomment>
-            <iscomment> Custom End </iscomment>
-            <div class="col-2">
+            <isif condition="${pdict.loggedIn}">
+             <div class="hidden-xs-down  mb-2 edit-add-to-wishlist">
+                  <isinclude template="cart/productCard/cartProductCardEdit" />
+             </div>
+            </isif>
+        </div>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <div class="col-2">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
                     <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
@@ -89,7 +88,6 @@
                     </button>
                 </div> </iscomment>
             </isif>
-            </div>
         </div>
         <iscomment> Custom Start: This div is not needed </iscomment>
         <iscomment>
@@ -98,8 +96,8 @@
         </isif>
         </iscomment>
     </div>
-    <div class="row">
-        <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('label.cart.continue.shopping', 'cart',null)}</a>
+    <div class="row hidden-md-down">
+        <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
     </div>
     <iscomment> Custom Start: These templates are not needed </iscomment>
     <iscomment>

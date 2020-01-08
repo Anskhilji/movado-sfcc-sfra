@@ -86,9 +86,9 @@
                 </div>
                 </iscomment>
                 <iscomment> Custom End </iscomment>
-                <div class="no-gutters row total-section">
+                <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">
-                        <h1 class="page-title cart-header">${Resource.msg('title2.cart', 'cart', null)}</h1>
+                        <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>
                         <isinclude template="cart/cartTotals" />
                         <div class="col-12 checkout-continue">
                             <isinclude template="cart/checkoutButtons" />
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <br/>
-                <div class="no-gutters row total-section">
+                <div class="no-gutters row cart-customer-service-outer-box">
                     <iscontentasset aid="cart-customer-service-contact" />
                 </div>
                 <div class="container">

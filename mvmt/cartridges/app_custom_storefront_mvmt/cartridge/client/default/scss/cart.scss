@@ -30,9 +30,19 @@
     .totals {
          background-color: $white;
 
-        .total-section {
+        .page-title {
+            border-bottom: rem(1) solid $light-gray6;
+        }
+
+        .cart-order-outer-box {
             background-color: $gray8;
             border-radius: rem(6);
+
+            @include media-breakpoint-down(md) {
+                background-color: transparent;
+                border-radius: 0;
+                font-weight: 600;
+            }
 
             .cart-order-box {
                 width: 100%;
@@ -42,42 +52,17 @@
                 margin-bottom: rem(16);
             }
 
-            > .content-asset {
-                width: 100%;
-            }
-
-            .cart-customer-service-box {
-                margin: 0 rem(20);
-                padding: 0 0 rem(16) 0;
-
-                .phone, .email {
-                    margin: 0;
-                    font-size: rem(16);
-
-                    > a, span {
-                        text-decoration: none;
-                    }
-                }
-
-                .phone {
-                    padding: rem(16) rem(10) 0  rem(10);
-                }
-
-                .email {
-                    padding: rem(16) rem(10);
-                }
-            }
-
-            .page-title {
-                border-bottom: rem(1) solid $light-gray6;
-            }
-    
             .grand-total-label, .grand-total {
                 font-family: $font-primary;
                 font-size: rem(23);
                 margin: 0;
                 padding: rem(32) rem(10);
                 min-height: rem(60);
+                font-weight: 500;
+
+                @include media-breakpoint-down(md) {
+                    font-weight: 600;
+                }
             }
 
             .checkout-continue {
@@ -113,6 +98,11 @@
                     }
                 }
 
+                .home-btn {
+                    background-color: $light-gray6;
+                    border-color: $light-gray6;
+                }
+
                 p {
                     margin: 0;
                     font-size: rem(14);
@@ -121,6 +111,38 @@
                     text-align: center;
                     font-weight: 400;
                     font-style: normal;
+                }
+            }
+        }
+
+        .cart-customer-service-outer-box {
+            background-color: $gray8;
+            border-radius: rem(6);
+
+            > .content-asset {
+                width: 100%;
+            }
+
+            .cart-customer-service-box {
+                margin: 0 rem(20);
+                padding: 0 0 rem(16) 0;
+
+                .phone, .email {
+                    margin: 0;
+                    font-size: rem(16);
+
+                    > a, span {
+                        color: $light-gray7;
+                        text-decoration: none;
+                    }
+                }
+
+                .phone {
+                    padding: rem(16) rem(10) 0  rem(10);
+                }
+
+                .email {
+                    padding: rem(16) rem(10);
                 }
             }
         }
@@ -142,18 +164,26 @@
             > img, svg {
                 padding-bottom: rem(2);
                 padding-right: rem(5);
+                width: rem(24);
+                height: rem(24);
             }
         }
 
         .item-info {
             border-bottom: 0rem;
+            align-items: center;
 
             .product-image {
                 height: rem(98);
                 width: rem(98);
                 border: rem(1) solid $light-gray6;
                 border-radius: rem(4);
-                transition-duration: .3s;
+                transition-duration: 0.3s;
+
+                @include media-breakpoint-down(xs) {
+                    height: rem(58);
+                    width: rem(58);
+                }
             }
 
             .line-item-header {
@@ -195,9 +225,6 @@
                     color: $red1;
                     background: $white;
                     border-color: $white;
-                    vertical-align: middle;
-                    top: 0;
-                    right: 0;
                     letter-spacing: rem(3);
 
                     &:hover {
