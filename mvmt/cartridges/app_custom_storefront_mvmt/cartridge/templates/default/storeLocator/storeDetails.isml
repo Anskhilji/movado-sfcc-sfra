@@ -21,7 +21,7 @@
         </div>
         <p>
             <isif condition="${store.phone}">
-                <span><a class="storelocator-phone" href="tel:${store.phone}">${store.phone}</a></span>
+                <span><a class="storelocator-phone" href="${Resource.msg('storelocator.text.tel','storeLocator',null)}${store.phone}">${store.phone}</a></span>
             </isif>
         </p>
     </address>
