@@ -5,8 +5,11 @@ $(window).on('load', function() {
     customDatePicker.dateOfBirthday('#years', '#months', '#days');
 });
 
-/* This method will return the top percentage of the footer popup based
- * on the screenSize and messages of error or success */
+/**
+ * This method will return the top percentage of the footer popup based
+ * on the screen size and messages of error or success.
+ * @param boolean errorOrSuccess
+ **/
 function top(errorOrSuccess) {
     var screenSize = $(window).width();
     var mediumScreenSize = 990;
