@@ -13,7 +13,7 @@ var Order = require('dw/order/Order');
  * @param amount
  * @returns
  */
-function cancelOrRefund(order, amount, sendMail) {
+function cancelOrRefund(order, amount, isJob, sendMail) {
     var decision = 'ERROR';
     var callResult = null;
     var cancelRefundRequest;
@@ -73,6 +73,9 @@ function cancelOrRefund(order, amount, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
+                    if (!isJob) {
+                        order.custom.isRefunded = true;
+                    }
                 });
 
                 /* track the change in order */

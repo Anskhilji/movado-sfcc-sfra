@@ -63,7 +63,7 @@ function getOrdersDetails(order) {
             orderNo : order.orderNo ? order.orderNo : "",
             orderTotal : order.getMerchandizeTotalGrossPrice() ? formatMoney(order.getMerchandizeTotalGrossPrice()) : "",
             createdDate : orderCreatedDate ? formatCalendar(orderCreatedDate, "yyyy-MM-dd") : "",
-            refundAmount : order.custom.sapRefundAmount ? currencyCode + order.custom.sapRefundAmount : "",
+            refundAmount : order.custom.sapAlreadyRefundedAmount ? currencyCode + order.custom.sapAlreadyRefundedAmount : "",
             paymentMethod : order.custom.Adyen_paymentMethod ? order.custom.Adyen_paymentMethod : ""
     }
     return orderDetails;
