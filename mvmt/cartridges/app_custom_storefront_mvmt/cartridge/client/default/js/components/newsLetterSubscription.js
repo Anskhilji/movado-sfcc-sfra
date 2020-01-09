@@ -34,6 +34,11 @@ function top(errorOrSuccess) {
 
 var wrapperContainer = $('.submission-status');
 
+/**
+ * This function is used to process the response and display the response message
+ * Also it will add the error or success class in the top of newsletter on the basis of response
+ * @param object response
+ **/
 function processSubscription(response) {
     $.spinner().stop();
     if ((typeof (response) === 'object')) {

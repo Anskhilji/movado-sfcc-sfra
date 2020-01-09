@@ -25,7 +25,7 @@ function dateOfBirthday(yearsSelector, monthsSelector, daysSelector) {
 
     $(yearsSelector + ', ' + monthsSelector).change(function() {
         $(daysSelector).html('');
-        $(daysSelector).append('<option disabled="" selected="" value="">Day</option>');
+        $(daysSelector).append('<option disabled selected value="">' + window.Resources.FOOTER_POPUP_DATE_OF_BIRTHDAY_DAY + '</option>');
         updateNumberOfDays(yearsSelector, monthsSelector, daysSelector); 
     });
 }
