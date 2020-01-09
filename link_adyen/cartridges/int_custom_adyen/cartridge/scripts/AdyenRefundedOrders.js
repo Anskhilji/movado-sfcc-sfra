@@ -1,5 +1,6 @@
 'use strict';
 var Calendar = require('dw/util/Calendar');
+var Currency = require('dw/util/Currency');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 var formatCalendar = require('dw/util/StringUtils').formatCalendar;
 var Logger = require('dw/system/Logger');
@@ -56,14 +57,13 @@ function adyenRefundedOrders() {
 
 function getOrdersDetails(order) {
     var orderCreatedDate = new Calendar(order.creationDate);
-    var currencyCode = new Money.getCurrencyCode();
-    var sapRefundAmount = order.custom.sapRefundAmount ? new Number(order.custom.sapRefundAmount) : "";
-    var sapRefundAmountMoney = sapRefundAmount ? new Money(sapRefundAmount, currencyCode) : "";
+    var defaultCurrency = new Site.getCurrent().getDefaultCurrency();
+    var currencyCode = Currency.getCurrency(defaultCurrency).getSymbol();
     var orderDetails = {
             orderNo : order.orderNo ? order.orderNo : "",
             orderTotal : order.getMerchandizeTotalGrossPrice() ? formatMoney(order.getMerchandizeTotalGrossPrice()) : "",
             createdDate : orderCreatedDate ? formatCalendar(orderCreatedDate, "yyyy-MM-dd") : "",
-            refundAmount : sapRefundAmountMoney ? formatMoney(sapRefundAmountMoney) : "",
+            refundAmount : order.custom.sapRefundAmount ? currencyCode + order.custom.sapRefundAmount : "",
             paymentMethod : order.custom.Adyen_paymentMethod ? order.custom.Adyen_paymentMethod : ""
     }
     return orderDetails;

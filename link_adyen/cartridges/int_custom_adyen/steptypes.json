@@ -6,7 +6,7 @@
                 "@supports-parallel-execution": "false",
                 "@supports-site-context": "true",
                 "@supports-organization-context": "false",
-                "description": "Step use to export adyen refunded orders to movado",
+                "description": "Step use to export adyen refunded orders",
                 "module": "int_custom_adyen/cartridge/scripts/AdyenRefundedOrders.js",
                 "function": "adyenRefundedOrders",
                 "transactional": "true"
