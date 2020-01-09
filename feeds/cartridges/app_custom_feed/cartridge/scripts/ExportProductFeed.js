@@ -576,7 +576,7 @@ function getProductAttributes(product, feedParameters) {
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
         decimalPrice : productDecimalPrice + " " + productCurrencyCode,
-        label : product.custom.label,
+        label : product.custom.label ? product.custom.label : "",
         price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
