@@ -7,9 +7,11 @@
     .location-hero {
         text-align: center;
         width: 100%;
+        display: flex;
+        align-items: center;
 
         p {
-            margin: 0rem;
+            margin: 0;
         }
 
         img {
@@ -36,13 +38,10 @@
             margin: 0 auto;
             left: 0;
             right: 0;
-            vertical-align: middle;
-            top: 32%;
 
             @include media-breakpoint-down(md) {
                 font-size: rem(36);
                 letter-spacing: rem(5);
-                top: 26%;
             }
 
             @include media-breakpoint-down(xss) {

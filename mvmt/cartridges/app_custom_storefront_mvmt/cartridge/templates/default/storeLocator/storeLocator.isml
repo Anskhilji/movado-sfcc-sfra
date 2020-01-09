@@ -18,7 +18,7 @@
     <iscomment> Custom End </iscomment>
     <isinclude template="storeLocator/storeLocatorNoDecorator" />
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.store', 'eum', null))}"/>
-    <div class="hero store-locator-hero">
+    <div class="hero store-locator-hero d-none">
       <iscontentasset aid="store-locator-hero"/>
     </div>
 </isdecorate>
