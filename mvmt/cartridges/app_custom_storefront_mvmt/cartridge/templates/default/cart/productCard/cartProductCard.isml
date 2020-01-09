@@ -96,9 +96,6 @@
         </isif>
         </iscomment>
     </div>
-    <div class="row hidden-md-down">
-        <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
-    </div>
     <iscomment> Custom Start: These templates are not needed </iscomment>
     <iscomment>
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">

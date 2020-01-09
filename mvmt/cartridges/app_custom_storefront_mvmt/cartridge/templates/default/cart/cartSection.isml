@@ -71,6 +71,9 @@
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
                 </isloop>
+                <div class="row hidden-md-down">
+                    <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
+                </div>
                 <isinclude template="cart/cartApproachingDiscount" />
             </div>
             <!---totals, and checkout actions--->
