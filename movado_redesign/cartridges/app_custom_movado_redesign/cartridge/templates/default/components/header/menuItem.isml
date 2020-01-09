@@ -1,5 +1,5 @@
 <iscomment> Custom: menu-content div added</iscomment>
-<div class="dropdown-menu" role="menu" aria-hidden="true">
+<div class="dropdown-menu" data-disablesubcategories="${topCat.disableSubCategories}" role="menu" aria-hidden="true">
     <isif condition="${topCat.disableSubCategories}">
     
     <div class="shop-by-collection-slide">
