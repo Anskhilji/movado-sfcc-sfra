@@ -47,7 +47,7 @@ function adyenRefundedOrders() {
             var currentOrder = ordersIterator.next();
             orderDetails.put(currentOrder.orderNo, getOrdersDetails(currentOrder));
         }
-        if (ordersItr && noErroNotification === true) {
+        if (ordersItr || noErroNotification === true) {
             triggerEmail(orderDetails, dateRange);
         } 
     } catch(e) {
