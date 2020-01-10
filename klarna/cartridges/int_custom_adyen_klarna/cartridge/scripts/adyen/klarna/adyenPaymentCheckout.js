@@ -7,6 +7,7 @@ var Site = require('dw/system/Site');
 // Script includes
 var adyenPaymentCheckoutService = require('~/cartridge/scripts/adyen/service/adyenPaymentCheckoutService.js');
 var adyenHelpers = require('~/cartridge/scripts/adyen/klarna/util/adyenHelpers.js');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * This method is used to call Adyen service to get payment details.
@@ -17,6 +18,9 @@ var adyenHelpers = require('~/cartridge/scripts/adyen/klarna/util/adyenHelpers.j
 function getDetails(order) {
     var adyenMerchantAccount = Site.getCurrent().getCustomPreferenceValue('Adyen_merchantCode');
     var result = { error: false };
+    var orderNumber = order.orderNo;
+
+    checkoutLogger.debug('(adyenPaymentCheckout) -> getDetails: Inside getDetails to validate payment details with order and order number is:' + orderNumber);
 
     try {
         var requestPayload = adyenHelpers.buildGetPaymentDetailsRequestPayload({
@@ -36,13 +40,15 @@ function getDetails(order) {
                 });
             } else {
                 result.error = true;
+                checkoutLogger.error('(adyenPaymentCheckout) -> getDetails: Error occurred while try to get order details for order number :' + orderNumber);
             }
         } else {
             result.error = true;
+            checkoutLogger.error('(adyenPaymentCheckout) -> getDetails: Error occurred while try to get payment details for order number :' + orderNumber);
         }
     } catch (e) {
         result.error = true;
-        Logger.getLogger('Ayden').error('Ayden {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber)
+        Logger.getLogger('Ayden').error('Ayden {0} in {1} : {2} ' , e.toString() , e.fileName , e.lineNumber)
     }
 
     return result;
@@ -57,6 +63,9 @@ function getDetails(order) {
 function verifyDetails(args) {
     var result = { error: false };
     var redirectPaymentResult = args.Redirectresult;
+    var orderNumber = args.Order.orderNo;
+
+    checkoutLogger.debug('(adyenPaymentCheckout) -> verifyDetails: Inside verifyDetails to validate order and order number is:' + orderNumber);
 
     try {
         var requestPayload = adyenHelpers.buildVerifyPaymentDetailsRequestPayload({
@@ -69,6 +78,7 @@ function verifyDetails(args) {
                 result.paymentVarificationResult = verifyPaymentResponse.adyenPaymentDetailsResponse.getObject();
             } else {
                 result.error = true;
+                checkoutLogger.error('(adyenPaymentCheckout) -> verifyDetails: Error occurred while try to verify details for order number :' + orderNumber);
             }
         } else {
             Logger.getLogger('Adyen').error('Payment data is missing to verify the payment details');

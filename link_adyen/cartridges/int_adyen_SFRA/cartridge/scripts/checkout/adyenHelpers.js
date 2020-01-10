@@ -7,6 +7,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen');
 
 /**
  * handles the payment authorization for each payment instrument
@@ -17,10 +18,13 @@ var PaymentInstrument = require('dw/order/PaymentInstrument');
 function handlePayments(order, orderNumber) {
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
     var result = {};
+    adyenLogger.debug('(adyenHelpers) -> handlePayments: Inside handlePayments and order number is: ' + orderNumber);
+
     if (order.totalNetPrice !== 0.00) {
         var paymentInstruments = order.paymentInstruments;
 
         if (paymentInstruments.length === 0) {
+            adyenLogger.error('(adyenHelpers) -> handlePayments: Payment instruments length is zero due to order is failed order with order number is: ' + orderNumber + ' and going to set the result error status true');
             Transaction.wrap(function () { OrderMgr.failOrder(order); });
             result.error = true;
         }
@@ -39,6 +43,7 @@ function handlePayments(order, orderNumber) {
                     authorizationResult = hooksHelper('app.payment.processor.' + paymentProcessor.ID.toLowerCase(), 'Authorize', orderNumber, paymentInstrument, paymentProcessor, require('*/cartridge/scripts/hooks/payment/processor/' + paymentProcessor.ID.toLowerCase()).Authorize);
                     result = authorizationResult;
                     if (authorizationResult.error) {
+                        adyenLogger.error('(adyenHelpers) -> handlePayments: Payment authorization has been failed due to order is failed with order number: ' + orderNumber + ' and error is: ' + authorizationResult.error + ' and going to set the result error status true');
                         Transaction.wrap(function () { OrderMgr.failOrder(order); });
                         result.error = true;
                         break;
@@ -67,6 +72,8 @@ function validatePayment(req, currentBasket) {
     var paymentInstruments = currentBasket.paymentInstruments;
     var result = {};
 
+    adyenLogger.debug('(adyenHelpers) -> validatePayment: Inside validatePayment to check validity of payment instruments');
+
     applicablePaymentMethods = PaymentMgr.getApplicablePaymentMethods(
     currentCustomer,
     countryCode,
@@ -86,9 +93,11 @@ function validatePayment(req, currentBasket) {
             invalid = false;
         }
         if (paymentInstrument.paymentMethod == 'paypal' || paymentInstrument.paymentMethod == 'paypal_ecs') {
+            adyenLogger.debug('(adyenHelpers) -> validatePayment: Going to get the paypal method from PaymentMgr');
             var adyenPayPal = 'PayPal';
             var method = PaymentMgr.getPaymentMethod(adyenPayPal);
         } else {
+            adyenLogger.debug('(adyenHelpers) -> validatePayment: Going to get the paymentInstrument method from PaymentMgr');
             var method = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
         }
         var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
@@ -105,6 +114,7 @@ function validatePayment(req, currentBasket) {
         }
 
         if (invalid) {
+            adyenLogger.warn('(adyenHelpers) -> validatePayment: Invalid payment instrument');
             break; // there is an invalid payment instrument
         }
     }
@@ -120,16 +130,21 @@ function validatePayment(req, currentBasket) {
  */
 function placeOrder(order, fraudDetectionStatus) {
     var result = { error: false, order: order, order_created: false };
+    var orderNumber = order.orderNo;
+    adyenLogger.debug('(adyenHelpers) -> placeOrder: Inside placeOrder and going to place order with order number: ' + orderNumber);
 
     try {
         if (order.paymentInstrument.paymentMethod == 'Adyen') {
+            adyenLogger.debug('(adyenHelpers) -> placeOrder: Going to set the order_created status true with order number: ' + orderNumber);
             result.order_created = true;
         } else {
             Transaction.begin();
             var placeOrderStatus = OrderMgr.placeOrder(order);
             if (placeOrderStatus === Status.ERROR) {
+                adyenLogger.error('(adyenHelpers) -> placeOrder: Error occurred while placing order with order number: ' + orderNumber);
                 throw new Error();
             }
+            adyenLogger.debug('(adyenHelpers) -> placeOrder: Going to set the EXPORT_STATUS_READY in the order with order number: ' + orderNumber);
             order.setExportStatus(Order.EXPORT_STATUS_READY);
             Transaction.commit();
         }
@@ -138,6 +153,7 @@ function placeOrder(order, fraudDetectionStatus) {
         Transaction.wrap(function () {
             OrderMgr.failOrder(order);
         });
+        adyenLogger.error('(adyenHelpers) -> placeOrder: Exception occurred and order is failed while placing an order with order number: ' + orderNumber + ' and exception is: ' + e);
         result.error = true;
     }
     return result;

@@ -4,7 +4,6 @@
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
 
 var Logger = require('dw/system/Logger');
-
 var THIS_SCRIPT = '/app_custom_movado/cartridge/scripts/services/adyenExtendAuthorizationService.js';
 
 /**
@@ -55,6 +54,7 @@ function callAdyenCheckoutPaymentAPI(requestPayload) {
     var adyenAdjustAuthURL = adyenCheckoutPaymentService.getURL().replace('authorise', 'adjustAuthorisation');
     adyenCheckoutPaymentService.setURL(adyenAdjustAuthURL);
     var serviceError = false;
+    Logger.getLogger('Adyen').debug('(Adyen) -> adyenExtendAuthorizationService: Inside adyenExtendAuthorizationService going to call the adyen api.');
 
     try {
         adyenAdjustAuthServiceResponse = adyenCheckoutPaymentService.call(requestPayload);

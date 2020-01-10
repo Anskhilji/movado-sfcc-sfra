@@ -47,13 +47,17 @@ function verify( args : PipelineDictionary ) : Number {
 	var MERCHANTACCOUNT : String = Site.getCurrent().getCustomPreferenceValue("Adyen_merchantCode");
 	var msg : String = "";
 	var order = args.Order;
-	
+    var orderNumber = null;
+
 	if (order == null) {
-		Logger.getLogger("Adyen").fatal("Notification for not existing order received.");  
+		Logger.getLogger("Adyen").fatal("Notification for not existing order received and order is null.");
 		return PIPELET_ERROR;
 	}
 	
 	try	{
+        orderNumber = order.orderNo;
+        Logger.getLogger("Adyen").debug("(adyen3DVerification) -> verify: Inside verify to validate the order and order number is: " + orderNumber);
+
 		var myAmount : Number = AdyenHelper.getCurrencyValueForApi(args.Amount); //args.Amount * 100;	
 		var orderNo : String = args.Order.getOrderNo();	
 		var a : Number = Math.floor(Math.random()*10000);
@@ -83,9 +87,12 @@ function verify( args : PipelineDictionary ) : Number {
   		
 		var callResult = null;
 		var service = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT_3DSECURE);
-		if (service == null) {
-			return PIPELET_ERROR;
-		}
+        if (service == null) {
+            Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Error occured while trying to validate the 3d secure payment method and order number is: " + orderNumber);
+            return PIPELET_ERROR;
+        }
+
+        Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Going to verify the order for order and order number is: " + orderNumber);
 		
 		var resultObject = null;
 		service.addHeader("Content-type","application/json"); 
@@ -108,7 +115,10 @@ function verify( args : PipelineDictionary ) : Number {
 		}
 		
 		var resultText : String = resultObj.text;
-		if (resultText == null) { return PIPELET_ERROR; }
+		if (resultText == null) { 
+            Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Adyen response is null for order number: " + orderNumber + " skipping verification.");
+            return PIPELET_ERROR; 
+		}
 		
 		// build the response object
 		var responseObj = JSON.parse(resultText);
@@ -127,12 +137,13 @@ function verify( args : PipelineDictionary ) : Number {
 		if (resultCode.indexOf("Authorised") != -1) {
 			args.Decision = "ACCEPT";
 			args.PaymentStatus = resultCode;
-			Logger.getLogger("Adyen").info ("Payment result: Authorised");
-			Logger.getLogger("Adyen").info ("Decision: " + args.Decision);
+
+			Logger.getLogger("Adyen").info ("Payment result: Authorised and order number is: " + orderNumber);
+			Logger.getLogger("Adyen").info ("Decision: " + args.Decision + " and order number is: " + orderNumber);
 		}
 		else { // if is rejected
 			Logger.error("Adyen: Credit card rejected " +  resultObj.statusCode + " Error => ResponseStatus: " +  resultObj.statusMessage + " | ResponseErrorText: " + resultObj.errorText + " | ResponseText: " + resultText);
-		}	
+		}
 		
 		args.RequestID = orderNo;
 		args.AuthorizationAmount = args.Amount.getValue().toFixed(2);
@@ -141,10 +152,10 @@ function verify( args : PipelineDictionary ) : Number {
 	catch (e) {
 		var error = e;
 		if (e instanceof Fault) {
-           	Logger.getLogger("Adyen").debug("Adyen: Fault Actor " + e.faultActor + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + " == Details ==> " + e.faultDetail + ")");
+           	Logger.getLogger("Adyen").debug("Adyen: Fault Actor " + e.faultActor + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + " == Details ==> " + e.faultDetail + ") and order number is: " + orderNumber);
        	}
        	else {
-           	Logger.error("Adyen: " + e.toString());
+           	Logger.error("Adyen: " + e.toString() + ' and order number is: ' + orderNumber);
        	}	
 		return PIPELET_ERROR;
 	}

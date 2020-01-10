@@ -5,7 +5,6 @@ var adyenCustomHelper = require('~/cartridge/scripts/helpers/adyenCustomHelper')
 var Transaction = require('dw/system/Transaction');
 var Order = require('dw/order/Order');
 
-
 /**
  * calls the Adyen Adjust Auth API to revoke Auth Amount
  * sets the order custom attributes based on api response
@@ -24,6 +23,8 @@ function adjustAuthorisation(order, amount, sendMail) {
     var pspReference;
     var merchantAccount;
     var response = { refundResponse: '', decision: decision };
+
+    Logger.getLogger('Adyen').debug('(adyenAdjustAuthorisationSVC) -> adjustAuthorisation: Inside the adjustAuthorisation to validate the authorization of order and order number is: ' + order.getOrderNo());
 
     /* perform basic order parameter validations*/
     var status = adyenCustomHelper.validateOrderParameters(order);
@@ -46,6 +47,7 @@ function adjustAuthorisation(order, amount, sendMail) {
         adjustAuthSVC = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT);
 
         if (adjustAuthSVC == null) {
+            Logger.getLogger('Adyen').error('(adyenAdjustAuthorisationSVC) -> adjustAuthorisation: Adyen authorization service is null for order and order number is: ' + orderNo);
             return response;
         }
 
@@ -94,7 +96,7 @@ function adjustAuthorisation(order, amount, sendMail) {
                 }
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').debug('Service response for Adjust Authorisation : ' + result);
+                Logger.getLogger('Adyen').debug('Service response for Adjust Authorisation and order number: ' + orderNo +' and result is: '+ result);
                 Logger.getLogger('Adyen').debug('Payment modification result for order #' + orderNo + ': Adjust Authorisation');
             } else {
                 decision = 'REFUSED';
@@ -103,18 +105,18 @@ function adjustAuthorisation(order, amount, sendMail) {
                 });
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').error('Service response for Adjust Authorisation : ' + result);
+                Logger.getLogger('Adyen').error('Service response for Adjust Authorisation and order number: ' + orderNo +' and result is: ' + result);
                 Logger.getLogger('Adyen').error('Payment modification result for order #' + orderNo + ': Adjust Authorisation');
 
                 /* send mail to customer Service*/
                 adyenCustomHelper.triggerEmail(order, decision, amount);
             }
         } else {
-            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result.');
+            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result and order number: ' + orderNo);
             return response;
         }
     }	catch (e) {
-        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API.' + e + '\n' + e.stack);
+        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API and order number is: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
         return response;
     }
 
