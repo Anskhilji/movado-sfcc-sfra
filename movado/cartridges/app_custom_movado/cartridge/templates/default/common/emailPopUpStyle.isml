@@ -1,0 +1,64 @@
+<!--- TEMPLATENAME: emailPopUpStyle.isml --->
+<style>
+  .email-popup .popup-form {
+    <isif condition="${pdict.popUpSettings.popupFormHeightDesktop}">
+      height: ${pdict.popUpSettings.popupFormHeightDesktop}px !important;
+    </isif>
+    <isif condition="${pdict.popUpSettings.popupFormWidthDesktop}">
+      width: ${pdict.popUpSettings.popupFormWidthDesktop}px !important;
+    </isif>
+    <isif condition="${pdict.popUpSettings.emailPopupLeftPosition}">
+      left: ${pdict.popUpSettings.emailPopupLeftPosition}px;
+    </isif>
+    <isif condition="${pdict.popUpSettings.emailPopupRightPosition}">
+      right: ${pdict.popUpSettings.emailPopupRightPosition}px;
+    </isif>
+    <isif condition="${pdict.popUpSettings.emailPopupTopPoistion}">
+      top: ${pdict.popUpSettings.emailPopupTopPoistion}px;
+    </isif>
+    <isif condition="${pdict.popUpSettings.emailPopupBottomPosition}">
+      bottom: ${pdict.popUpSettings.emailPopupBottomPosition}px;
+    </isif>
+  }
+  .email-popup .popup-form .email-popup-content {
+    <isif condition="${pdict.popUpSettings.emailPopupBackgroundColor}">
+      background: ${pdict.popUpSettings.emailPopupBackgroundColor};
+    </isif>
+  }
+  
+  @media only screen and (max-width: 786px) {
+    .email-popup .popup-form {
+      <isif condition="${pdict.popUpSettings.popupFormHeightMobile}">
+        height: ${pdict.popUpSettings.popupFormHeightMobile}px !important;
+      </isif>
+      <isif condition="${pdict.popUpSettings.popupFormWidthMobile}">
+        width: ${pdict.popUpSettings.popupFormWidthMobile}px !important;
+      </isif>
+    }
+  }
+  
+  .email-popup .popup-message {
+    <isif condition="${pdict.popUpSettings.popupMessageHeightDesktop}">
+      height: ${pdict.popUpSettings.popupMessageHeightDesktop}px !important;
+    </isif>
+    <isif condition="${pdict.popUpSettings.popupMessageWidthDesktop}">
+      width: ${pdict.popUpSettings.popupMessageWidthDesktop}px !important;
+    </isif>
+  }
+  .email-popup .popup-message .email-popup-content {
+    <isif condition="${pdict.popUpSettings.emailPopUpThankYouNoteColor}">
+      background: ${pdict.popUpSettings.emailPopUpThankYouNoteColor};
+    </isif>
+  }
+  
+  @media only screen and (max-width: 786px) {
+    .email-popup .popup-message {
+      <isif condition="${pdict.popUpSettings.popupMessageHeightMobile}">
+        height: ${pdict.popUpSettings.popupMessageHeightMobile}px !important;
+      </isif>
+      <isif condition="${pdict.popUpSettings.popupMessageWidthMobile}">
+        width: ${pdict.popUpSettings.popupMessageWidthMobile}px !important;
+      </isif>
+    }
+  }
+</style>

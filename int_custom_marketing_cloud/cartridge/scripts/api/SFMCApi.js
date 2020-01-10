@@ -2,6 +2,7 @@
 
 var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
 var Site = require('dw/system/Site');
+var StringUtils = require('dw/util/StringUtils');
 
 var Constants = require('~/cartridge/scripts/util/Constants');
 var MarketingCloudServiceRegistry = require('~/cartridge/scripts/service/MarketingCloudServiceRegistry');
@@ -9,10 +10,16 @@ var SFMCAPIHelper = require('~/cartridge/scripts/helper/SFMCAPIHelper');
 var SFMCCOHelper = require('~/cartridge/scripts/helper/SFMCCOHelper');
 
 function sendSubscriberToSFMC(requestParams) {
-    var result = false;
+    var result = {
+        success: true
+    }
+    if (empty(requestParams.email)) {
+        result.success = false;
+        return result;
+    }
     try {
         var params = {
-            email: requestParams.email,
+            email: StringUtils.trim(requestParams.email),
             isExpired: false,
             requestModeInstant: true,
             isJob: false,
@@ -24,7 +31,7 @@ function sendSubscriberToSFMC(requestParams) {
         var accessToken = SFMCAPIHelper.getAuthToken(params);
         var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
         result = SFMCAPIHelper.addContactToMC(params, service);
-        if (result) {
+        if (result.success) {
             if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK') {
                 service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accessToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
                 result = SFMCAPIHelper.addContactToJourney(params, service);

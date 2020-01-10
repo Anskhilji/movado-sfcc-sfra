@@ -81,6 +81,11 @@ $negative-spacer: -0.625rem;
   vertical-align: top;
 }
 
+#mainContent .bonus-product-line-item.product-card-wrapper > hr.custom-horizontal-rule {
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+}
+
 .line-item-divider {
   margin: $spacer $negative-spacer $spacer $negative-spacer;
 }
