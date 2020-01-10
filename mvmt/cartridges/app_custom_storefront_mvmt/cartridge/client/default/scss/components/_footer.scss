@@ -192,7 +192,7 @@ footer {
                     margin: rem(20) 0rem rem(10);
 
                     li {
-                    text-transform: capitalize;
+                        text-transform: capitalize;
 
                         > a {
                             text-transform: lowercase;
@@ -227,7 +227,7 @@ footer {
                         > i {
                             font-style: normal;
                             line-height: 1;
-                            font-size: 16px;
+                            font-size: rem(16);
                         }
 
                         > .fa {
