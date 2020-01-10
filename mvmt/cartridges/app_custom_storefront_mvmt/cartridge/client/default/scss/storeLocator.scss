@@ -1,0 +1,355 @@
+@import "variables";
+@import "~movado/storeLocator";
+
+.store-locator-container {
+    max-width: rem(1460);
+    padding-left: 0;
+    padding-right: 0;
+
+    @include media-breakpoint-down(sm) {
+        padding-bottom: 0;
+    }
+
+    .search-form {
+        box-shadow: inherit;
+        border-radius: 0;
+        border: 0;
+        height: auto;
+        margin-bottom: 0;
+
+        .find-store-form {
+            box-shadow: inherit;
+            border-radius: 0;
+            border: 0;
+
+            form {
+                display: flex;
+                height: rem(50);
+
+                @include media-breakpoint-down(sm) {
+                    height: auto;
+                    flex-direction: column;
+                }
+
+                > .form-group {
+                    width: rem(460);
+                    margin-bottom: 0;
+
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: rem(15);
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
+
+                    input {
+                        font-family: $font-medium;
+                        border-radius: 0;
+                        border: 0;
+                        border-bottom: rem(2) solid $black;
+                        box-shadow: inherit;
+                        padding: rem(15) 0 rem(8) rem(25);
+                        font-size: rem(14);
+                        color: $black;
+                        letter-spacing: 0;
+                        font-weight: 500;
+                        width: 100%;
+                        margin: 0;
+                        background-size: rem(18px);
+                        background-image: url(../images/search-icon.svg);
+                        background-position: 0;
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                .form-group-2 {
+                    width: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                        flex-wrap: wrap;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        padding: 0 rem(30);
+                    }
+                }
+
+                .find-store-select {
+                    width: rem(135);
+
+                    select {
+                        align-items: normal;
+                        padding: rem(6);
+                        font-family: $font-medium;
+                        position: absolute;
+                        height: rem(50);
+                        background-color: transparent;
+                        border: 0;
+                        border-radius: 0;
+                        color: $grey8;
+                        font-size: rem(14);
+                        line-height: 1.5;
+                        text-align: center;
+                        white-space: nowrap;
+                        display: inline-block;
+                        vertical-align: bottom;
+                        box-shadow: inherit;
+                        cursor: pointer;
+                        text-transform: inherit;
+
+                        @include media-breakpoint-down(sm) {
+                            position: relative;
+                            align-items: center;
+                        }
+                    }
+
+                    .caret {
+                        display: inline-block;
+                        width: 0;
+                        height: 0;
+                        margin-top: rem(5);
+                        margin-left: 0;
+                        vertical-align: middle;
+                        border-top: rem(4) solid;
+                        border-right: rem(4) solid transparent;
+                        border-left: rem(4) solid transparent;
+                        pointer-events: none;
+                        right: rem(20);
+
+                        @include media-breakpoint-down(sm) {
+                            margin-top: rem(12);
+                            right: rem(25);
+                        }
+                    }
+                }
+
+                .btn-storelocator-search {
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    color: $white;
+                    background-color: $black;
+                    border-radius: 0;
+                    padding: 0 rem(35);
+                    line-height: rem(50);
+                    letter-spacing: rem(1.6);
+                    margin: 0;
+                    width: auto;
+                    box-shadow: inherit;
+                }
+
+                .btn-outline-secondary:not(:disabled):not(.disabled):active:focus {
+                    box-shadow: inherit;
+                }
+            }
+        }
+    }
+
+    .gm-style .gm-style-iw-c {
+        box-shadow: 0 rem(2) rem(7) rem(1) rgba(0,0,0,0.3);
+        border-radius: rem(8) !important;
+    }
+
+    .gm-style-iw {
+        max-width: rem(654) !important;
+    }
+
+    .gm-style-iw > button {
+        top: rem(-6) !important;
+        right: rem(-6) !important;
+    }
+
+    .results-card {
+        margin-bottom: 0;
+        box-shadow: inherit;
+        border-radius: 0;
+        border: 0;
+
+        .stores-list {
+
+            .store-details {
+
+                > address {
+
+                    > p {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .stores-list {
+
+        .results {
+            background-color: $light-gray5;
+            padding: rem(14);
+
+            @include media-breakpoint-up(md) {
+                height: rem(500);
+                max-height: rem(500);
+            }
+
+            .card-body {
+                border: 0;
+                outline: 0;
+            }
+
+            .store-marker {
+                border: 0;
+                transition: .2s ease;
+                background-color: $white;
+                box-shadow: rem(2) rem(2) rem(0) rgba(0,0,0,0.1);
+                margin-bottom: rem(15);
+                padding: rem(25) rem(20);
+                position: relative;
+
+                &:not(:first-child) {
+                    border: 0;
+                    outline: 0;
+                }
+
+                .map-marker {
+                    display: none;
+                }
+
+                .store-details {
+                    margin-left: 0;
+
+                    .store-name {
+                        font-family: $font-primary;
+                        font-weight: 400;
+                        font-size: rem(20);
+                        line-height: rem(24);
+                        margin-bottom: rem(20);
+                    }
+
+                    .get-direction {
+                        margin-top: rem(20);
+
+                        a {
+
+                            &:hover {
+                               text-decoration: none;
+                            }
+                        }
+                    }
+
+                    address {
+
+                        .storelocator-phone {
+
+                            &:hover {
+                                color: $black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .map-canvas {
+        margin: 0;
+        padding: 0;
+        height: rem(300);
+        display: block;
+
+        @include media-breakpoint-up(md) {
+            height: rem(500);
+        }
+    }
+
+    .store-details {
+
+        .store-name {
+            font-family: $font-medium;
+            font-weight: 700;
+            font-size: rem(22);
+            line-height: 1.2;
+            letter-spacing: rem(2.29);
+            margin-bottom: rem(10);
+            transition: .2s ease;
+            margin-top: 0;
+            color: rgba(0,0,0,0.87);
+        }
+
+        > address {
+            padding-left: 0;
+            font-size: rem(12);
+            line-height: 1.8;
+            color: $black;
+            position: static;
+            margin-bottom: 0;
+            letter-spacing: 0;
+            color: $black;
+
+            .store-map {
+                font-size: rem(12);
+                line-height: 1.8;
+                color: $black;
+                max-width: rem(200);
+            }
+
+            .storelocator-phone {
+
+                &:hover {
+                    color: #2a6496;
+                    text-decoration: underline;
+                }
+            }
+
+            p {
+                margin-top: 0;
+            }
+
+            div, span, p {
+                color: $black;
+                padding-left: 0;
+                font-size: rem(12);
+                line-height: 1.8;
+                color: $black;
+                position: static;
+                margin-bottom: 0;
+                letter-spacing: 0;
+            }
+        }
+
+        .get-direction {
+
+            a {
+                font-family: $font-medium;
+                font-weight: 700;
+                font-size: rem(11.5);
+                line-height: 1;
+                color: $black;
+                text-transform: uppercase;
+                padding: 0;
+                border: none;
+                background-color: transparent;
+                text-decoration: inherit;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &:after {
+                    content: "";
+                    width: rem(5);
+                    height: rem(8);
+                    display: inline-block;
+                    padding-left: rem(10);
+                    box-sizing: content-box;
+                    background-image: url(../images/arrow-right.svg);
+                    background-size: contain;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+    }
+}

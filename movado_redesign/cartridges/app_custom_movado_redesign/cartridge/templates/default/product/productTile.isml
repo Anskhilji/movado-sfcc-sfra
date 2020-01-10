@@ -1,5 +1,5 @@
 <iscomment> Custom: HTML divs replaced, two buttons added for PLP tile, condition applied to show different tile on plp</iscomment>
-<isif condition="${pdict.display.isPLP && pdict.display.isPLP == true}">
+<isif condition="${(pdict.display.isPLP && pdict.display.isPLP == true) || (pdict.display && pdict.display.isTopSearch)}">
     <div class="product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
@@ -14,18 +14,7 @@
         </isif>
     </isloop>
 
-
     <isinclude template="product/components/productTileImage" />
-    <isif condition="${preOrder}">
-        <div class="out-of-stock pre-order">
-            ${Resource.msg('info.product.availability.preorder', 'common', null)}
-        </div>
-    </isif>
-    <isif condition="${outOfStock}">
-        <div class="out-of-stock">
-            ${Resource.msg('label.soldout', 'common', null)}
-        </div>
-    </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
@@ -93,24 +82,6 @@
     
             <isinclude template="product/components/productTileName" />
             
-            <isif condition="${preOrder}">
-                <div class="out-of-stock">
-                    ${Resource.msg('info.product.availability.preorder', 'common', null)}
-                </div>
-            </isif>
-    
-            <isif condition="${outOfStock}">
-                <div class="out-of-stock">
-                    ${Resource.msg('label.soldout', 'common', null)}
-                </div>
-            </isif>
-            
-                <isloop items="${product.badges.textBadges}" var="badge">
-                    <div class="exclusive-product">
-                        ${badge.text}
-                    </div>
-                </isloop>
-
             <isset name="price" value="${product.price}" scope="page" />
             <isif condition="${product.productType === 'set'}">
                 <isinclude template="product/components/pricing/setPrice" />
