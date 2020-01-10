@@ -70,11 +70,10 @@ function getShippingDate(shippingMethod) {
             }
             
             if (!isExpress) {
-                startingDeliveryDate = excludePublicHolidays(startingDeliveryDate, startigDateRange, shippingMethod);
-                startingDeliveryDate = excludeWeekendDates(startingDeliveryDate, startigDateRange);
+                startingDeliveryDate = excludeNonWorkingDays(startingDeliveryDate, startigDateRange);
             }
             
-            for (var i = 0; i < differenceOfDays; i++) {
+            for (var i = 0; i <= differenceOfDays; i++) {
                 var startingDate;
                 if (startigDateRange.length >= 1) {
                     startingDate = startigDateRange[startigDateRange.length - 1];
@@ -111,8 +110,7 @@ function getShippingDate(shippingMethod) {
             }
         }
         
-        endingDeliveryDate = excludePublicHolidays(endingDeliveryDate, dateRange, shippingMethod);
-        endingDeliveryDate = excludeWeekendDates(endingDeliveryDate, dateRange);
+        endingDeliveryDate = excludeNonWorkingDays(endingDeliveryDate, dateRange);
         
         formattedEndingDate = CommonUtils.getFormatedDate(endingDeliveryDate);
         
@@ -134,32 +132,12 @@ function getShippingDate(shippingMethod) {
 }
 
 /**
- * Excludes a day from delivery date if the delivery day is on Weekend
- * @param {Object} deliveryDate - calendar object of a deliveryDay
- * @param {Array} dateRange - array of a deliveryDates
- * @returns {Object} calendar object by adding an extra day in the delivery date if its weekend
- */
-function excludeWeekendDates(deliveryDate, dateRange) {
-    var i = 0;
-    while (i < dateRange.length) {
-        var currentIndexDate = dateRange.get(i);
-        var deliveryDay = currentIndexDate.get(currentIndexDate.DAY_OF_WEEK);
-        if (deliveryDay == 1 || deliveryDay == 7) {
-            deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
-            dateRange.push(deliveryDate);
-        }
-        i++;
-    }
-    return deliveryDate;
-}
-
-/**
- * Excludes a day from delivery date if the delivery is on a public holiday
+ * Excludes a day from delivery date if the delivery is on non working day
  * @param {Object} deliveryDate - calendar object of a deliveryDay
  * @param {Array} dateRange - array of a deliveryDate
- * @returns {Object} calendar object by adding an extra day if delivery is on public holiday
+ * @returns {Object} calendar object by adding an extra day if delivery is on non working day
  */
-function excludePublicHolidays(deliveryDate, dateRange, shippingMethod) {
+function excludeNonWorkingDays(deliveryDate, dateRange) {
     var publicHolidays = new ArrayList(Site.getCurrent().preferences.custom.publicHolidays);
     var i = 0;
     while(i < dateRange.length) {
@@ -167,9 +145,11 @@ function excludePublicHolidays(deliveryDate, dateRange, shippingMethod) {
         var formatedDeliveryDate = StringUtils.formatCalendar(
                 indexedDate, Constants.YEAR_MONTH_DATE_PATTERN
         );
-        if (!empty(publicHolidays) && publicHolidays.contains(formatedDeliveryDate)) {
+        var deliveryDay = indexedDate.get(indexedDate.DAY_OF_WEEK);
+        if ((!empty(publicHolidays) && publicHolidays.contains(formatedDeliveryDate)) || deliveryDay == 1 || deliveryDay == 7 ) {
             deliveryDate.add(deliveryDate.DAY_OF_MONTH, "1");
-            dateRange.push(deliveryDate);
+            var currentDeliveryDate = new Calendar(deliveryDate.time);
+            dateRange.push(currentDeliveryDate);
         }
         i++;
     }
