@@ -550,6 +550,10 @@ header.new-header {
       width: 100%;
     }
 
+    .desktop-menu .featured-promotion.gtm-customEvent#custom-slick-slider-control .slick-list {
+        width: 500px;
+    }
+
     &.sticky-header, &.non-sticky {
       background-color: $white;
       position: relative;
@@ -869,4 +873,34 @@ header.new-header {
 .show-overlay {
   display: block;
   z-index: 99;
+}
+
+header.new-header {
+    .mobile-menu, .desktop-menu {
+        .movado-header-dropdown {
+            .slick-dots {
+                bottom: -10px;
+                li {
+                    width: 2%;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    header.new-header {
+        .main-menu {
+            .dropdown-menu {
+                .movado-header-dropdown {
+                    .header-tiles {
+                        &.slick-slider {
+                            display: grid;
+                            padding-left: 26px;
+                        }
+                    }
+                }
+        }
+    }
+    }
 }
