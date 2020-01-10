@@ -152,15 +152,17 @@ server.append('Confirm', function (req, res, next) {
             var isUniDaysTestMode = Site.current.getCustomPreferenceValue('uniDaysMode') == 'TEST' ? true : false;
             var unidaysOrderDiscount = 0.00;
             var unidaysDiscountPercentage = 0.00;
-            var orderTotal = order.getMerchandizeTotalNetPrice().getDecimalValue() ? order.getMerchandizeTotalNetPrice().getDecimalValue() : 0.00;
+            var merchandizeTotal = order.getMerchandizeTotalNetPrice().getDecimalValue() ? order.getMerchandizeTotalNetPrice().getDecimalValue() : 0.00;
             var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
+            var orderTotal = order.getTotalNetPrice() ? (order.getTotalNetPrice().value).toFixed(2) : 0.00;
+            var itemsGross = order.getMerchandizeTotalGrossPrice() ? (order.getMerchandizeTotalGrossPrice().value).toFixed(2) : 0.00;
 
             if (priceAdjustmentIterator && priceAdjustmentIterator.hasNext()) {
                 var priceAdjustmentLineItem = priceAdjustmentIterator.next();
                 unidaysOrderDiscount = priceAdjustmentLineItem.priceValue * -1;
             }
 
-            unidaysDiscountPercentage = ((unidaysOrderDiscount * 100) / orderTotal).toFixed(2);
+            unidaysDiscountPercentage = ((unidaysOrderDiscount * 100) / merchandizeTotal).toFixed(2);
             uniDaysTrackingLineItems = {
                 partnerId: partnerId,
                 transcationId: viewData.order.orderNumber,
@@ -168,7 +170,9 @@ server.append('Confirm', function (req, res, next) {
                 code: couponCode,
                 itemsUnidaysDiscount: unidaysOrderDiscount.toFixed(2),
                 unidaysDiscountPercentage : unidaysDiscountPercentage,
-                isUniDaysTestMode : isUniDaysTestMode
+                isUniDaysTestMode : isUniDaysTestMode,
+                orderTotal : orderTotal,
+                itemsGross : itemsGross
             };
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
