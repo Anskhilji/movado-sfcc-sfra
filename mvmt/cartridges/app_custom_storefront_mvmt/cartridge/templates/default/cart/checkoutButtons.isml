@@ -17,7 +17,7 @@
         </a>
     </div>
     <div class="col-md-6 hidden-lg-up">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block home-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block home-btn ${pdict.valid.error ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${Resource.msg('link.continue.shopping', 'cart', null)}
         </a>

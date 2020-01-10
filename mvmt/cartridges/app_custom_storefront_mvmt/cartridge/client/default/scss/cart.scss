@@ -186,12 +186,106 @@
                 }
             }
 
+            .line-item-quantity {
+
+                .quantity-form {
+                    display: flex;
+                    align-items: center;
+
+                    .quantity {
+                        font-size: rem(18);
+                        display: inline-block;
+                        width: rem(56);
+                        height: rem(24);
+                        padding: 0;
+                        border: 0;
+                        text-align: center;
+                        vertical-align: middle;
+                        box-shadow: none;
+                        min-width: auto;
+                        letter-spacing: rem(1.5);
+                        color: $light-gray;
+                        line-height: 1;
+
+                        @include media-breakpoint-down(sm) {
+                            width: rem(48);
+                            text-align: center;
+                            height: rem(34);
+                            padding: rem(6);
+                            background-color: $white;
+                            color: $light-gray7;
+                            border: rem(1) solid $light-gray6;
+                            border-radius: rem(4);
+                            transition-property: border-color,background-color,color;
+                            transition-duration: 0.2s;
+                            transition-timing-function: ease-out;
+
+                            &:focus {
+                                border-width: rem(2);
+                                border-color: $blue;
+                                outline: 0;
+                            }
+                        }
+                    }
+
+                    .quantity-btn {
+                        width: rem(24);
+                        height: rem(24);
+                        border-radius: rem(2);
+                        padding: 0;
+                        line-height: 1;
+                        vertical-align: middle;
+                        min-width: initial;
+                        border: rem(1) solid $gray1;
+                        background-color: transparent;
+                        color: $gray1;
+                        fill: $gray1;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+
+                        &:hover, &:focus {
+                            background-color: $gray9;
+                            border-color: $gray9;
+                            color: $white;
+                            fill: $white;
+                        }
+
+                        &:focus {
+                            outline: 0;
+                        }
+
+                        &:active {
+                            opacity: 0.3;
+                        }
+
+                        &:disabled {
+                            border-color: $gray10;
+                            background-color: $grey2;
+                            color: $grey3;
+                            fill: $grey3;
+                            cursor: not-allowed;
+                            pointer-events: none;
+                        }
+
+                        > img, svg {
+                            width: rem(16);
+                            height: rem(16);
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+
             .line-item-header {
 
                 .line-item-name {
                     width: auto;
                     font-size: rem(16);
                     font-family: $font-primary;
+
+                    @include media-breakpoint-down(md) {
+                        margin: 0;
+                    }
 
                     > a {
                         color: $light-gray7;
@@ -212,6 +306,16 @@
                         color: $light-gray7;
                         transition: font-size 0.3s;
                         letter-spacing: rem(1.5);
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(16);
+                        }
+
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(14);
+                            font-weight: 900;
+                            font-family: $font-medium;
+                        }
                     }
                 }
             }

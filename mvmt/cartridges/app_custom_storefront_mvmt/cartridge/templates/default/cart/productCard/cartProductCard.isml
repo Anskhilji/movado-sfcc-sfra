@@ -7,21 +7,27 @@
     <div class="row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-            <div class="col-2">
+            <div class="col-6">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                <div>
+	                <isinclude template="cart/productCard/cartProductCardHeader" />
+	                <div class="hidden-sm-up">
+			            <isset name="price" value="${lineItem.price}" scope="page"/>
+			            <isinclude template="/product/components/pricing/main" />
+	                </div>
+                </div>
             </div>
         </isif>
-        <div class="col-4">
-            <isinclude template="cart/productCard/cartProductCardHeader" />
-        </div>
+
         <!--- quantity --->
         <iscomment> Custom Start: Removed the d-none class </iscomment>
         <div class="col-2 line-item-quantity">
             <isinclude template="checkout/productCard/productCardQuantitySelector" />
         </div>
         <iscomment> Custom End </iscomment>
-        <div class="col-md-2 col-sm-3 hidden-xs-down">
-            <isinclude template="cart/productCard/cartProductCardProductPrice" />
+        <div class="col-2 hidden-xs-down">
+            <isset name="price" value="${lineItem.price}" scope="page"/>
+            <isinclude template="/product/components/pricing/main" />
         </div>
         <iscomment> Custom Start: These templates and div's are not needed </iscomment>
         <iscomment>

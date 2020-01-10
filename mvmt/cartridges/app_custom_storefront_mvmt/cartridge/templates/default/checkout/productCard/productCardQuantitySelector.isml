@@ -1,22 +1,17 @@
-<iscomment> Custom Start: Removed the d-none class </iscomment>
+<iscomment> Custom Start: Removed the unnesscary classes and div's </iscomment>
 <div class="quantity-form">
-    <label class="line-item-pricing-info quantity-label" for="quantity">${Resource.msg('field.selectquantity','cart',null)}</label>
-    <select class="form-control quantity custom-select"
-            data-uuid="${lineItem.UUID}"
-            data-pid="${lineItem.id}"
-            data-action="${pdict.actionUrls.updateQuantityUrl}"
-            data-pre-select-qty="${lineItem.quantity}"
-            id="quantity"
-            name="quantity">
-        <isloop begin="${lineItem.quantityOptions.minOrderQuantity}"
-                end="${lineItem.quantityOptions.maxOrderQuantity}"
-                status="status">
-            <isif condition="${lineItem.quantity === status.index}">
-                <option selected>${status.index}</option>
-            <iselse/>
-                <option>${status.index}</option>
-            </isif>
-        </isloop>
-    </select>
+    <button id="decreased-btn" class="quantity-btn hidden-sm-down" disabled>
+        <svg class="svg-icon" viewBox="0 0 8 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="0 7 0 9 8 9 8 7"></polygon></g></svg>
+    </button>
+    <input class="form-control quantity custom-select"
+        data-uuid="${lineItem.UUID}"
+        data-pid="${lineItem.id}"
+        data-action="${pdict.actionUrls.updateQuantityUrl}"
+        data-pre-select-qty="${lineItem.quantity}"
+        id="quantity"
+        name="quantity" type="text"/>
+    <button id="increased-btn" class="quantity-btn hidden-sm-down">
+        <svg class="svg-icon" viewBox="0 0 12 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="12 9 7 9 7 14 5 14 5 9 0 9 0 7 5 7 5 2 7 2 7 7 12 7"></polygon></g></svg>
+    </button>
 </div>
 <iscomment> Custom End </iscomment>
