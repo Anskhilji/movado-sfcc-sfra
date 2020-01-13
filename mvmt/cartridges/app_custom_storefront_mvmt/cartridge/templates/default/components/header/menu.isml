@@ -38,22 +38,35 @@
     </ul>
   </div>
 </nav>
-<ul class="header-mobile-categories">
-  <isif condition="${pdict.categories}">
-    <isloop items="${pdict.categories}" begin="0" end="1" var="category">
-      <isif condition="${category.subCategories || category.disableSubCategories}">
-        <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-          <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
-            ${category.name}
-          </span>
-        </li>
-      <iselse/>
-        <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-          <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-            ${category.name}
-          </a>
-        </li>
-      </isif>
-    </isloop>
-  </isif>
-</ul>
+<div class="mobile-view-design">
+    
+    <isif condition="${pdict.categories}">
+        <ul class="header-mobile-categories">
+        <isloop items="${pdict.categories}" begin="0" end="1" var="category">
+          <isif condition="${category.subCategories || category.disableSubCategories}">
+            <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+              <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
+                ${category.name}
+              </span>
+            </li>
+          <iselse/>
+            <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                ${category.name}
+              </a>
+            </li>
+          </isif>
+        </isloop>
+        </ul>
+        
+    </isif>
+    <div class="second-level-category d-none">
+      <isloop items="${pdict.categories}" var="category">
+           <ul>
+               <isloop items="${category.subCategories}" var="subCategory">
+                   <li>${subCategory.id}</li>
+               </isloop>
+           </ul>
+      </isloop>
+    </div>
+</div>
