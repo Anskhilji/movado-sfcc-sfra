@@ -576,12 +576,12 @@ header.new-header {
 
     .mobile-cart-close-icon {
       display: none;
-      width: 18px;
+      width: rem(18);
       text-align: right;
     }
 
     li {
-      padding: rem(14) rem(10);
+      padding: rem(15) rem(10);
 
       button {
         background: none;
@@ -611,6 +611,17 @@ header.new-header {
       width: 50%;
       padding: rem(19) 0;
 
+      &.active {
+        color: $white;
+        background-color: $black;
+        padding: rem(11) 0;
+
+        .header-mobile-category-text {
+          font-size: rem(32);
+          transform: rotate(45deg);
+          line-height: 1;
+        }
+      }
       span {
         @include font-book;
         font-size: rem(12);

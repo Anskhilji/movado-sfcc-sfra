@@ -14,6 +14,21 @@ $(".desktop-search-icon").click(function(){
     $('.desktop-side-search').toggleClass('desktop-search-active');
     $('.header-search-field').focus();
 });
+
+$('.header-mobile-categories .header-mobile-category').click(function() {
+    var menuText = $(this).find('.header-mobile-category-text').attr('data-trigger-menu');
+    $(this).toggleClass('active');
+
+    if ($(this).hasClass('active')) {
+        var siblingmenuText = $(this).siblings().find('.header-mobile-category-text').attr('data-trigger-menu');
+        $(this).siblings().removeClass('active');
+        $(this).siblings().find('.header-mobile-category-text').text(siblingmenuText);
+        $(this).find('.header-mobile-category-text').text('+');
+    } else {
+        $(this).find('.header-mobile-category-text').text(menuText);
+    }
+});
+
 /* $(".header-search-field").focusin(function(){
     $('.search-recomendation').fadeIn();
     if (!$(".header-search-field").val()) { 
