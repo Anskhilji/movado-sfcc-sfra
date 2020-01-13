@@ -57,9 +57,9 @@ function checkoutRefundedOrders() {
         }
         
         var emailObj = {
-                to: emailAddress,
-                subject: Site.current.getID() + " " + Resource.msg('checkout.refunded.orders.email.subject', 'checkoutRefundedOrders', null),
-                from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
+             to: emailAddress,
+             subject: Site.current.getID() + " " + Resource.msg('checkout.refunded.orders.email.subject', 'checkoutRefundedOrders', null),
+             from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         }
         
         while (ordersIterator.hasNext()) {
