@@ -101,6 +101,19 @@ $(".desktop-menu .sub-dropdown").hover(
                 }
             ]
         });
+        
+        var imagesLength = $(this).find('.movado-header-dropdown .featured-promotion a img').length;
+        if (imagesLength > 3) {
+            $(this).find('.movado-header-dropdown .featured-promotion .header-tiles').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: false,
+                autoplay: false,
+            });
+        }
     },
 
     function() {

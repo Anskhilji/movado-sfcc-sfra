@@ -44,7 +44,7 @@
             </isloop>
         </div>
         <isif condition="${topCat.headerMenuBanner}">
-            <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+            <div class="featured-promotion gtm-customEvent" id="${topCat.disableSubCategories == false ? 'custom-slick-slider-control' : ''}"  data-gtm-tracking='${gtmCategoryVal}'>
                 <div class="header-tiles">
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
                 </div>
