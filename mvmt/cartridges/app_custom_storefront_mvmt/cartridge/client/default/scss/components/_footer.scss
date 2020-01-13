@@ -1,5 +1,29 @@
 @import "variables";
 
+.cart-and-checkout-header {
+
+    ~ footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+
+        .terms-and-conditions {
+            height: rem(38);
+            align-items: center;
+
+            .copyright {
+                margin: 0;
+
+                > ul {
+                    letter-spacing: rem(0.5);
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
 footer {
     background-color: $white;
     line-height: normal;
@@ -260,7 +284,23 @@ footer {
                 color: $light-gray2;
             }
 
+            .cart-and-checkout-copyrights {
+
+               > li {
+                    font-size: rem(12);
+                    color: $light-gray8;
+                }
+            }
+
             .policy-copyright-list {
+
+               > li {
+                    font-size: rem(11);
+                    color: $light-gray2;
+                }
+            }
+
+            .policy-copyright-list, .cart-and-checkout-copyrights {
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
@@ -269,9 +309,7 @@ footer {
 
                 li {
                     font-weight: 400;
-                    font-size: rem(11);
                     text-transform: uppercase;
-                    color: $light-gray2;
                     line-height: 1;
                     width: 100%;
                     max-width: 100%;
