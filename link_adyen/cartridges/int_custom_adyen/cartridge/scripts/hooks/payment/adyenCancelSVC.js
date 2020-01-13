@@ -78,7 +78,7 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
                     if (!isJob) {
-                        checkoutLogger.warn(order.orderNo + 'Order refunded from Adyen');
+                        checkoutLogger.warn('Order refunded from Adyen with order id: ' + order.orderNo);
                         order.custom.isRefunded = true;
                     }
                 });
