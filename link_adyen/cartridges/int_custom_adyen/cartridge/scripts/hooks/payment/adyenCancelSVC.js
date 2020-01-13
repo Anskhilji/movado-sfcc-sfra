@@ -5,6 +5,8 @@ var adyenCustomHelper = require('~/cartridge/scripts/helpers/adyenCustomHelper')
 var Transaction = require('dw/system/Transaction');
 var Order = require('dw/order/Order');
 
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+
 /**
  * calls the Adyen Cancel or Refund API to void or refund the order amount
  * sets the order custom attributes based on api response
@@ -12,7 +14,7 @@ var Order = require('dw/order/Order');
  * @param amount
  * @returns
  */
-function cancelOrRefund(order, amount, sendMail) {
+function cancelOrRefund(order, amount, isJob, sendMail) {
     var decision = 'ERROR';
     var callResult = null;
     var cancelRefundRequest;
@@ -75,6 +77,10 @@ function cancelOrRefund(order, amount, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
+                    if (!isJob) {
+                        checkoutLogger.warn('Order refunded from Adyen with order id: ' + order.orderNo);
+                        order.custom.isRefunded = true;
+                    }
                 });
 
                 /* track the change in order */
