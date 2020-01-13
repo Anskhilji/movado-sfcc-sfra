@@ -275,7 +275,7 @@ if ($(".header-search-field").is(':empty')) {
     $(".search-recomendation").show();
 }
 
-$(".multilevel-dropdown .dropdown-toggle").click(function(){
+$(".new-header .multilevel-dropdown .dropdown-toggle").click(function(){
     $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
     $(this).siblings(".dropdown-menu").find(".dropdown-item a").removeClass('fadeOutLeft');
     $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
