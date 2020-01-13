@@ -32,7 +32,6 @@ function remove_grayout (){
     $(".modal-background").removeClass("show-overlay").fadeOut();
     $(".modal-background").removeClass("d-block").fadeOut();
     $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
-    $(".dropdown-menu .dropdown-item a").removeClass("fadeInLeft").addClass("animated fast fadeOutLeft");
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("in");
@@ -102,7 +101,6 @@ $(".desktop-menu .sub-dropdown").hover(
                 }
             ]
         });
- 
     },
 
     function() {
@@ -266,6 +264,7 @@ if ($(".header-search-field").is(':empty')) {
 
 $(".multilevel-dropdown .dropdown-toggle").click(function(){
     $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
+    $(this).siblings(".dropdown-menu").find(".dropdown-item a").removeClass('fadeOutLeft');
     $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
     $(this).siblings(".dropdown-menu").find(".shop-by-collection-slide p").addClass("animated fast fadeInUp delay-point-three");
  

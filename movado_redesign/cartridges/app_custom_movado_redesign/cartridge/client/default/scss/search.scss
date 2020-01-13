@@ -72,7 +72,7 @@
   }
 
   .refinements {
-    padding-top: rem(41);
+    padding-top: rem(40);
 
     .values {
       margin: 0;
@@ -119,6 +119,8 @@
       outline: none;
       padding-left: rem(25);
       background: url("../images/filter.png") left center no-repeat;
+      cursor: pointer;
+
       &:focus {
             outline: -webkit-focus-ring-color auto 1px;
         }
@@ -498,7 +500,6 @@
     }
 
     .out-of-stock, .pre-order {
-      position: absolute;
       top: rem(15);
       right: rem(15);
       display: inline-block;
@@ -517,7 +518,7 @@
         right: rem(5);
       }
       @include media-breakpoint-down(xs) {
-        font-size: rem(9);
+        font-size: rem(8);
       }
     }
 
@@ -540,10 +541,25 @@
       } 
     }
 
-    .new-product {
+    .badge-container {
+      position: absolute;
+      top: rem(10);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 100%;
+      padding-right: rem(10);
+
+      @include media-breakpoint-down(xs) {
+        top: rem(5);
+        padding-right: rem(5);
+      }
+    }
+    .exclusive-badge-container {
       position: absolute;
       top: rem(15);
-      right: rem(15);
+    }
+    .new-product {
       display: inline-block;
       color: $storm-gray;
       font-size: rem(11);
@@ -555,11 +571,12 @@
       text-transform: capitalize;
       border-radius: rem(10);
       z-index: 99;
+      float: right;
       @include media-breakpoint-down(sm) {
         right: rem(5);
       }
       @include media-breakpoint-down(xs) {
-        font-size: rem(9);
+        font-size: rem(8);
       }
     }
 

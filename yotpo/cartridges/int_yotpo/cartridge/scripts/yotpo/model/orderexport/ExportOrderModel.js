@@ -125,6 +125,7 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
     var isPayloadEmpty = true;
     var productGroupId;
     var currentLocaleID = yotpoConfiguration.custom.localeID;
+    var regexEmail = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/g;
 
     // Configuration data
     var utokenAuthCode = yotpoConfiguration.custom.utokenAuthCode;
@@ -165,7 +166,7 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
             }
 
             // Skipping the order if any of the following fields empty of an order,
-            if (empty(customerName) || empty(customerEmail) || empty(order.orderNo)) {
+            if (empty(customerName) || empty(customerEmail) || empty(order.orderNo) || !regexEmail.test(customerEmail)) {
                 throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
             }
 
