@@ -1,0 +1,50 @@
+<iscomment> Custom Start: Creating the new template for newsletter popup.</iscomment> 
+<form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+    <div class="input-group">
+        <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
+        <div class="invalid-feedback"></div>
+        <button id="emailSubcriberBtn" type="button" class="btn btn-primary">
+            <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
+        </button>
+    </div>
+    <div class="footer-more-fields">
+        <button class="close-footer-more" type="button" aria-label="close form modal"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
+        <span class="footer-more-title"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>${Resource.msg('newsletter.popup.title', 'newsLetter', null)}</span>
+        <span class="footer-more-small">${Resource.msg('newsletter.msg.optional', 'newsLetter', null)}</span>
+        <label for="k_id_name" class="footer-more-label">${Resource.msg('newsletter.form.label.name', 'newsLetter', null)}</label>
+        <input type="text" class="footer-name form-control" placeholder="${Resource.msg('newsletter.form.input.name.placeholder', 'newsLetter', null)}" />
+        <fieldset class=" select-date-widget">
+            <legend class="footer-more-label">${Resource.msg('newsletter.form.label.birthday', 'newsLetter', null)}</legend>
+            <div class=" footer-more-bday-group flex">
+                <div class="footer-select-third footer-select flex">
+                    <select class="footer-bday-select footer-bday-day" id="days" encoding="off" />
+                        <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.day.placeholder', 'newsLetter', null)}</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="footer-select-third footer-select flex">
+                    <select class="footer-bday-select footer-bday-day" id="months" encoding="off" />
+                        <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.month.placeholder', 'newsLetter', null)}</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="footer-select-third footer-select flex">
+                    <select class="footer-bday-select footer-bday-day" id="years" encoding="off" />
+                        <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.year.placeholder', 'newsLetter', null)}</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+        </fieldset>
+        <label for="gender" class="footer-more-label">${Resource.msg('newsletter.form.label.gender', 'newsLetter', null)}</label>
+        <div class="footer-select flex">
+            <select id="gender" name="Gender" class="footer-more-gender-select">
+                <option disabled="" selected="" value="">${Resource.msg('newsletter.form.input.gender.placeholder', 'newsLetter', null)}</option>
+                <option value="${Resource.msg('newsletter.form.input.gender.male', 'newsLetter', null)}">${Resource.msg('newsletter.form.input.gender.male', 'newsLetter', null)}</option>
+                <option value="${Resource.msg('newsletter.form.input.gender.female', 'newsLetter', null)}">${Resource.msg('newsletter.form.input.gender.female', 'newsLetter', null)}</option>
+            </select>
+        </div>
+        <button type="submit" class="submit_button btn btn-block btn-primary">${Resource.msg('newsletter.form.button.submit', 'newsLetter', null)}</button>
+    </div>
+</form>
+<iscomment> Custom End </iscomment>

@@ -1,10 +1,26 @@
+
+$white-gray: #f7f8f9;
+$dark-red: #a40000;
+$light-gray: #5c5c5c;
+$light-gray2: #929292;
+$light-gray3: #fafafa;
+$light-gray4: #e8e8e8;
+$light-gray5: #f6f6f6;
+$light-green: #53c563;
+$transparent-gray: rgba(0, 0, 0, 0.8);
+
 //font Families:
 $font-medium : "futura-pt-medium", Arial, sans-serif !default;
-$font-book : "futura-pt", Arial, sans-serif !default;
+$font-book : "futura-pt-book", Arial, sans-serif !default;
 $font-bold : "futura-pt-bold", Arial, sans-serif !default;
 $font-primary: $font-book;
 
-$light-gray5: #f6f6f6;
+$font-oswald-regular: "Oswald-Regular", futura-pt-book, Arial !default;
+$font-oswald-bold: "Oswald-Bold", futura-pt-book, Arial !default;
+$font-oswald-semi-bold: "Oswald-SemiBold", futura-pt-book, Arial !default;
+$font-oswald-medium: "Oswald-Medium", futura-pt-book, Arial !default;
+$font-oswald-light: "Oswald-Light", futura-pt-book, Arial !default;
+$font-oswald-extra-light: "Oswald-ExtraLight", futura-pt-book, Arial !default;
 
 $grid-breakpoints: (
     xss: 0,
