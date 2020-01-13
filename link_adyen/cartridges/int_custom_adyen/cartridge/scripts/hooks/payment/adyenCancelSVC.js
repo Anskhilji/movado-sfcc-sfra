@@ -7,7 +7,6 @@ var Order = require('dw/order/Order');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
-
 /**
  * calls the Adyen Cancel or Refund API to void or refund the order amount
  * sets the order custom attributes based on api response
@@ -28,6 +27,8 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
 
     var response = { cancelRefundResponse: '', decision: decision };
 
+    Logger.getLogger('Adyen').debug('(adyenCancelSVC) -> cancelOrRefund: Inside the cancelOrRefund to validate the order and order number is: ' + order.getOrderNo());
+
     var status = adyenCustomHelper.validateOrderParameters(order);
     if (status) {
         orderNo = order.getOrderNo();
@@ -44,6 +45,7 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
         cancelRefundSVC = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT);
 
         if (cancelRefundSVC == null) {
+            Logger.getLogger('Adyen').error('(adyenCancelSVC) -> cancelOrRefund: Adyen authorization service is null for order and order number is: ' + orderNo);
             return response;
         }
 
@@ -97,7 +99,7 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
                 }
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').debug('Service response for Cancel or Refund : ' + result);
+                Logger.getLogger('Adyen').debug('Service response for Cancel or Refund and order number: ' + orderNo + ' and result is: ' + result);
                 Logger.getLogger('Adyen').debug('Payment modification result for order #' + orderNo + ': Cancel or Refund');
             } else {
                 decision = 'REFUSED';
@@ -106,18 +108,18 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
                 });
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').error('Service response for Cancel or Refund : ' + result);
+                Logger.getLogger('Adyen').error('Service response for Cancel or Refund and order number: ' + orderNo + ' and result is: ' + result);
                 Logger.getLogger('Adyen').error('Payment modification result for order #' + orderNo + ': Cancel or Refund Refused');
 
                 /* send mail to customer Service*/
                 adyenCustomHelper.triggerEmail(order, decision, 0);
             }
         } else {
-            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result.');
+            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result and order number: ' + orderNo);
             return response;
         }
     }	catch (e) {
-        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API.' + e + '\n' + e.stack);
+        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API and order number: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
         return response;
     }
 

@@ -162,7 +162,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
         args.error = 'Error in expressPayPalAuthorisation.js for Adyen Express PayPal';
         if (e instanceof Fault) {
             Logger.getLogger('Adyen', 'Exp PayPal').error(' Error in expressPayPalAuthorisation.js for Adyen Express PayPal: Fault Actor ' + e.message + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + ' == Details ==> ' + e.faultDetail + ')');
-        }		else {
+        } else {
             Logger.getLogger('Adyen', 'Exp PayPal').error('Error in expressPayPalAuthorisation.js for Adyen Express PayPal: ' + error.toString() + ' in ' + error.fileName + ':' + error.lineNumber);
         }
         return args.error;

@@ -125,7 +125,6 @@ function sendCancellationEmail(emailObject) {
     };
     emailHelpers.sendEmail(emailObj, 'order/email/cancellation', orderObject);
     Logger.debug('Sent order cancellation mail to the current user, for order: {0}',emailObject.orderNumber);
-    
 }
 
 /**

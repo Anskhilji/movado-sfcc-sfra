@@ -9,7 +9,6 @@ var payPalHelper = require('../scripts/helper/aydenExpressPaypalHelper');
 var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var Logger = require('dw/system/Logger');
-
 var PAYPAL = 'PayPal';
 var CANCELLED = 'CANCELLED';
 var LIVE = 'LIVE';
@@ -49,11 +48,13 @@ server.get('ExpressCheckoutFromCart', server.middleware.https, function (req, re
 
     var orderNo = OrderMgr.createOrderNo();
 
+    Logger.getLogger('Adyen').debug('(AdyenExpressPaypal) -> ExpressCheckoutFromCart: Inside the ExpressCheckoutFromCart to validate the paypal express and order number is: ' + orderNo);
     Logger.getLogger(PAYPAL).warn('orderNo : ' + orderNo);
 
     var result = adyenExpressPaypalVerification.verify(currentBasket, customerEmail, sitePrefs, orderNo);
 
     if (result === null || result.paramsMap.merchantSig === null) {
+        Logger.getLogger('Adyen').error('(AdyenExpressPaypal) -> ExpressCheckoutFromCart: Adyen express paypal verificationto is result is null and order number is: ' + orderNo);
         res.redirect(URLUtils.url('Cart-Show', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
         return next();
     }
@@ -87,6 +88,8 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
     var Resource = require('dw/web/Resource');
     session.custom.CancelledPayPal = false;
 
+    Logger.getLogger('Adyen').debug('(AdyenExpressPaypal) -> RedirectFromExpressPay: Inside the RedirectFromExpressPay to validate the paypal response');
+
     if (req.querystring.authResult === CANCELLED) {
         session.custom.CancelledPayPal = true;
         res.redirect(URLUtils.url('Cart-Show'));
@@ -107,12 +110,14 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
     // Address validation
     var addressValidationFailed = payPalHelper.addressValidation(currentBasket, req.form);
     if (addressValidationFailed) {
+        Logger.getLogger('Adyen').error('(AdyenExpressPaypal) -> RedirectFromExpressPay: Address verification is failed and going to the cart page');
         res.redirect(URLUtils.url('Cart-Show', 'paypalerror', 'true'));
         return next();
     }
     var result = adyenHandleExpressPayPalResponse.execute(currentBasket, paymentProcessor, req.form);
 
     if (!result) {
+        Logger.getLogger('Adyen').error('(AdyenExpressPaypal) -> RedirectFromExpressPay: Paypal response express response is not true.');
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
     } else {
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder'));

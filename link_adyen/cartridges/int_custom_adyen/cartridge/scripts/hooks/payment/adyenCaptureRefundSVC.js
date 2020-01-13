@@ -62,8 +62,8 @@ function capture(order, amount, sendMail) {
 
 
         if (callResult.isOk() == false) {
-            Logger.error('Adyen: Call error code' + callResult.getError().toString() + ' Error => ResponseStatus: ' + callResult.getStatus() + ' | ResponseErrorText: ' + callResult.getErrorMessage() + ' | ResponseText: ' + callResult.getMsg());
             response.captureResponse = callResult;
+            Logger.error('Adyen: Call error code' + callResult.getError().toString() + ' Error => ResponseStatus: ' + callResult.getStatus() + ' | ResponseErrorText: ' + callResult.getErrorMessage() + ' | ResponseText: ' + callResult.getMsg());
             /* send mail to customer Service*/
             adyenCustomHelper.triggerEmail(order, decision, amount);
             return response;
@@ -164,6 +164,8 @@ function refund(order, amount, isJob, sendMail) {
     /* perform basic order parameter validations*/
     var status = adyenCustomHelper.validateOrderParameters(order);
 
+    Logger.getLogger('Adyen').debug('(adyenCaptureRefundSVC) -> refund: Inside the refund to validate the order and order number is: ' + order.getOrderNo());
+
     if (status) {
         orderNo = order.getOrderNo();
         currencyCode = order.getCurrencyCode();
@@ -211,6 +213,7 @@ function refund(order, amount, isJob, sendMail) {
         refundSVC = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT);
 
         if (refundSVC == null) {
+            Logger.getLogger('Adyen').error('(adyenCaptureRefundSVC) -> refund: Adyen authorization service is null for order and order number is: ' + orderNo);
             return response;
         }
 
@@ -258,7 +261,7 @@ function refund(order, amount, isJob, sendMail) {
                 });
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').debug('Service response for Refund : ' + result);
+                Logger.getLogger('Adyen').debug('Service response for Refund and order number: ' + orderNo + 'and result is: ' + result);
                 Logger.getLogger('Adyen').debug('Payment modification result for order #' + orderNo + ': Refunding');
             } else {
                 decision = 'REFUSED';
@@ -268,18 +271,18 @@ function refund(order, amount, isJob, sendMail) {
                 });
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').error('Service response for refund : ' + result);
+                Logger.getLogger('Adyen').error('Service response for refund and order number: ' + orderNo + ' and result is: ' + result);
                 Logger.getLogger('Adyen').error('Payment modification result for order #' + orderNo + ': Refund Refused');
 
                 /* send mail to customer Service*/
                 adyenCustomHelper.triggerEmail(order, decision, amount);
             }
         } else {
-            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result.');
+            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result and order number: ' + orderNo);
             return response;
         }
     }	catch (e) {
-        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API.' + e + '\n' + e.stack);
+        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API and order number: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
         return response;
     }
 

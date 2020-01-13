@@ -15,7 +15,7 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var Money = require('dw/value/Money');
-
+var affirmLogger = require('dw/system/Logger').getLogger('Affirm');
 var AddressModel = require('*/cartridge/models/address');
 var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -377,6 +377,7 @@ function calculatePaymentTransaction(currentBasket) {
             paymentInstrument.paymentTransaction.setAmount(orderTotal);
         });
     } catch (e) {
+        affirmLogger.error('(checkoutHelpers) -> calculatePaymentTransaction: Exception is occurred while calculating the transaction payment. Going to set the error result is true and exception is: ' + e);
         result.error = true;
     }
 
@@ -457,6 +458,7 @@ function createOrder(currentBasket) {
             return OrderMgr.createOrder(currentBasket);
         });
     } catch (error) {
+        affirmLogger.error('(checkoutHelpers) -> createOrder: While creating an order exception is occurred. Going to set the error result is true and exception is: ' + e);
         return null;
     }
     return order;
@@ -471,10 +473,13 @@ function createOrder(currentBasket) {
 function handlePayments(order, orderNumber) {
     var result = {};
 
-    if (order.totalNetPrice !== 0.00) {
+    affirmLogger.debug('(checkoutHelpers) -> handlePayments: Inside handlePayments and order number is: ' + order.orderNo);
+
+	if (order.totalNetPrice !== 0.00) {
         var paymentInstruments = order.paymentInstruments;
 
         if (paymentInstruments.length === 0) {
+            affirmLogger.warn('(checkoutHelpers) -> handlePayments: Since payment instruments length is zero thats why going to fail order with order number: ' + order.orderNo);
             Transaction.wrap(function () { OrderMgr.failOrder(order); });
             result.error = true;
         }
@@ -508,6 +513,7 @@ function handlePayments(order, orderNumber) {
                     }
 
                     if (authorizationResult.error) {
+                        affirmLogger.warn('(checkoutHelpers) -> handlePayments: Error occurred while Authorization of payment against order with order number: ' + order.orderNo + ' and error is: ' + authorizationResult.error);
                         Transaction.wrap(function () { OrderMgr.failOrder(order); });
                         result.error = true;
                         break;
@@ -557,21 +563,27 @@ function placeOrder(order, fraudDetectionStatus) {
     var result = { error: false };
 
     try {
+        affirmLogger.debug('(checkoutHelpers) -> placeOrder: Inside placeOrder and order number is: ' + order.orderNo);
         Transaction.begin();
         var placeOrderStatus = OrderMgr.placeOrder(order);
         if (placeOrderStatus === Status.ERROR) {
+            affirmLogger.error('(checkoutHelpers) -> placeOrder: Error occurred while placing order with order number: ' + order.orderNo);
             throw new Error();
         }
 
         if (fraudDetectionStatus.status === 'flag') {
+            affirmLogger.debug('(checkoutHelpers) -> placeOrder: fraud Detection status is flag and going to set the orderStatus not confirmed and order number is: ' + order.orderNo);
             order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         } else {
+            affirmLogger.debug('(checkoutHelpers) -> placeOrder: fraud Detection status is not flag and going to set the orderStatus confirmed and order number is: ' + order.orderNo);
             order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
         }
 
+        affirmLogger.debug('(checkoutHelpers) -> placeOrder: Going to set the EXPORT_STATUS_READY in the order and order number is: ' + order.orderNo);
         order.setExportStatus(Order.EXPORT_STATUS_READY);
         Transaction.commit();
     } catch (e) {
+        affirmLogger.error('(checkoutHelpers) -> placeOrder: An exception has been occurred so going to fail the order with order number: ' + order.orderNo + ' and exception is: ' + e);
         Transaction.wrap(function () { OrderMgr.failOrder(order); });
         result.error = true;
     }
@@ -655,6 +667,7 @@ function getRenderedPaymentInstruments(req, accountModel) {
  */
 function setGift(shipment, isGift, giftMessage) {
     var result = { error: false, errorMessage: null };
+    affirmLogger.debug('(checkoutHelpers) -> setGift: Inside setGift and going to set the gift meesage');
 
     try {
         Transaction.wrap(function () {
@@ -667,6 +680,7 @@ function setGift(shipment, isGift, giftMessage) {
             }
         });
     } catch (e) {
+        affirmLogger.error('(checkoutHelpers) -> setGift: Exception is occurred in the set gift. Going to set the error result is true and exception is:' + e);
         result.error = true;
         result.errorMessage = Resource.msg('error.message.could.not.be.attached', 'checkout', null);
     }

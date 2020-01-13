@@ -106,7 +106,7 @@ function execute(ccBasket, paymentProcessor, formData) {
                 oderPaymentInstrument.custom.adyenMerchantSignature = formData.merchantSig;
             }
             success = true;
-        }	catch (e) {
+        } catch (e) {
             Logger.getLogger('Adyen', 'Exp PayPal').error('Exception in adyenHandleExpressPayPalResponse.js = ' + e.message);
         }
     });
