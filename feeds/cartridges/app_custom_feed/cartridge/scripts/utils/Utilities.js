@@ -13,6 +13,12 @@ function getFormatedDate(unformattedDate) {
     return StringUtils.formatCalendar(unformattedDate, Constants.YEAR_MONTH_DATE_PATTERN);
 }
 
+/**
+ * subtract the date from a specified Calendar object.
+ * @param {Object} date - Calendar object of a date
+ * @param {Number} a number to subtract days from the date.
+ * @returns {Object} a calendar object after subtracting the specified number of days from a date.
+ */
 function subtractDaysFromDate(date, noOfDays) {
     date.add(date.DAY_OF_MONTH, -(noOfDays));
     return date;

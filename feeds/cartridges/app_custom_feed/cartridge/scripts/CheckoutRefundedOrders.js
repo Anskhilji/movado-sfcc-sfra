@@ -15,6 +15,10 @@ var Util = require('dw/util');
 var emailHelpers = require('app_custom_movado/cartridge/scripts/helpers/emailHelpers');
 var Utilities = require('~/cartridge/scripts/utils/Utilities');
 
+/**
+ * search the checkout refunded orders.
+ * @returns {Object} - refunded orders.
+ */
 function searchOrders() {
     var noOfDays = Site.current.getCustomPreferenceValue('numOfDays');
     var startingDate = new Calendar();
@@ -31,6 +35,9 @@ function searchOrders() {
     return {ordersIterator : ordersIterator, startingDate : startingDate, endingDate : endingDate};
 }
 
+/**
+ * get details of checkout refunded orders and process to send email
+ */
 function checkoutRefundedOrders() {
     Logger.info('Started to search checkout refunded orders.');
     try {
@@ -50,7 +57,7 @@ function checkoutRefundedOrders() {
         
         var emailObj = {
                 to: Site.current.getCustomPreferenceValue('recipientEmail'),
-                subject: Site.current.getID() + Resource.msg('checkout.refunded.orders.email.subject', 'checkoutRefundedOrders', null),
+                subject: Site.current.getID() + " " + Resource.msg('checkout.refunded.orders.email.subject', 'checkoutRefundedOrders', null),
                 from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         }
         
@@ -61,11 +68,17 @@ function checkoutRefundedOrders() {
         if (ordersIterator.hasNext() || noErroNotification === true) {
             emailHelpers.send(emailObj, 'orderRefundNotifications', orderDetailsObj);
         }
-        Logger.info('Email for checkout refunded orders sent successfully.');
+        Logger.info('Email for checkout refunded orders sent successfully between' + startingDate + 'and' + endingDate);
     } catch(e) {
-        Logger.error('Error occurred while sending email:'  + e + '\n' + e.stack);
+        Logger.error('Error occurred while sending email between' +  startingDate + 'and' + endingDate + e + '\n' + e.stack);
     }
 }
+
+/**
+ * prepare order object by fetching the required information to send along with the email.
+ * @param {Object} order - order object to fetch the required information from that object.
+ * @returns {Object} orderDetils - an object with all of the required details related to an order.
+ */
 
 function getOrdersDetails(order) {
     var orderCreatedDate = new Calendar(order.creationDate);
