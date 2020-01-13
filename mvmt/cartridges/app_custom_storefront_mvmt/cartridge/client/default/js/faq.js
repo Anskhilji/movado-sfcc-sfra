@@ -18,12 +18,26 @@ $(document).ready(function () {
         
         var id = $(this).children().attr('href');
         $(id).show();
+        $(id).removeClass('fade');
     });
     $(window).scroll(function (event) {
         var scroll = $(window).scrollTop();
-        // Do something
-        if (scroll >= 221) {
-            $('.help-wrapper').css({top: scroll + 'px'});
+        var header = $('header');
+        var headerHeight = header.height();
+        var helpContainer = $('.help-wrapper');
+        
+        if (helpContainer.hasClass('scroll-warp') == false  && ((helpContainer.offset().top - $(window).scrollTop()) < headerHeight)) {
+            helpContainer.addClass('scroll-warp');
+            helpContainer.css({'top' : headerHeight + 'px'});
+        } else if(helpContainer.offset().top <= ($('.tab-content').offset().top + headerHeight)) {
+            helpContainer.removeAttr('style');
+            helpContainer.removeClass('scroll-warp');
+        }
+        
+        var footer = $('footer');
+        
+        if((helpContainer.offset().top + 148) > $('footer').offset().top) {
+            helpContainer.css({'bottom' : 0 + 'px', 'top':'unset'});
         }
     });
 });
