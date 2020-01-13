@@ -3,14 +3,14 @@
   <body>
       <div style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: x-small; color: Black;">
             <isif condition="${param.orderDetails.length !== 0}">
-                <p>Following orders were refunded between ${param.startingDate} and ${param.endingDate}. </p>
+                <p>${Resource.msgf('checkout.refunded.orders.refunded.orders.body.text', 'checkoutRefundedOrders', null, param.startingDate, param.endingDate)} </p>
                 <table style="border-collapse: collapse; width: 100%;">
                     <tr>
-                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Order No</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Created Date</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Payment Method</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Order Total</th>
-                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Refund Amount</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${Resource.msg('checkout.refunded.orders.order.no', 'checkoutRefundedOrders', null)}</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${Resource.msg('checkout.refunded.orders.order.created.date', 'checkoutRefundedOrders', null)}</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${Resource.msg('checkout.refunded.orders.payment.method', 'checkoutRefundedOrders', null)}</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${Resource.msg('checkout.refunded.orders.order.total', 'checkoutRefundedOrders', null)}</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">${Resource.msg('checkout.refunded.orders.refunded.amount', 'checkoutRefundedOrders', null)}</th>
                     </tr>
                     <isloop items="${param.orderDetails}" var = "order">
                         <tr>
@@ -23,7 +23,7 @@
                     </isloop>
                 </table>
             <iselse>
-                <p>No orders were refunded between ${param.startingDate} and ${param.endingDate}. </p>
+                <p>${Resource.msgf('checkout.refunded.orders.refunded.no.orders.body.text', 'checkoutRefundedOrders', null, param.startingDate, param.endingDate)}</p>
             </isif>
       </div>
   </body>

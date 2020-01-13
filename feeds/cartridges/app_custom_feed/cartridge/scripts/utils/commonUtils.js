@@ -1,5 +1,6 @@
 'use strict';
 
+var Calendar = require('dw/util/Calendar');
 var StringUtils = require('dw/util/StringUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
@@ -14,12 +15,12 @@ function getFormatedDate(unformattedDate) {
 }
 
 /**
- * subtract the date from a specified Calendar object.
- * @param {Object} date - Calendar object of a date
+ * subtract the date from a specified Calendar object
  * @param {Number} a number to subtract days from the date.
  * @returns {Object} a calendar object after subtracting the specified number of days from a date.
  */
-function subtractDaysFromDate(date, noOfDays) {
+function subtractDaysFromDate(noOfDays) {
+    var date = new Calendar();
     date.add(date.DAY_OF_MONTH, -(noOfDays));
     return date;
 }

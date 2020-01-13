@@ -7,6 +7,8 @@ var Order = require('dw/order/Order');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
 
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+
 
 /**
  * calls the Adyen Capture API to capture order amount
@@ -240,6 +242,7 @@ function refund(order, amount, isJob, sendMail) {
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
                     if (!isjob) {
+                        checkoutLogger.info('Order refunded from Adyen');
                         order.custom.isRefunded = true;
                     }
                     

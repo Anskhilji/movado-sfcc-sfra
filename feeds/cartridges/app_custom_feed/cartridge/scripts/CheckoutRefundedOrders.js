@@ -8,12 +8,14 @@ var Mail = require('dw/net/Mail');
 var Money = require('dw/value/Money');
 var Order = require('dw/order/Order');
 var OrderMgr = require('dw/order/OrderMgr');
+var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Util = require('dw/util');
 
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var emailHelpers = require('app_custom_movado/cartridge/scripts/helpers/emailHelpers');
-var Utilities = require('~/cartridge/scripts/utils/Utilities');
+var commonUtils = require('~/cartridge/scripts/utils/commonUtils');
 
 /**
  * search the checkout refunded orders.
@@ -21,8 +23,7 @@ var Utilities = require('~/cartridge/scripts/utils/Utilities');
  */
 function searchOrders() {
     var noOfDays = Site.current.getCustomPreferenceValue('numOfDays');
-    var startingDate = new Calendar();
-    startingDate = Utilities.subtractDaysFromDate(startingDate, noOfDays);
+    startingDate = commonUtils.subtractDaysFromDate(noOfDays);
     var endingDate = new Calendar();
     var queryString = '';
     var sortString = 'orderNo ASC';
@@ -39,24 +40,24 @@ function searchOrders() {
  * get details of checkout refunded orders and process to send email
  */
 function checkoutRefundedOrders() {
-    Logger.info('Started to search checkout refunded orders.');
+    checkoutLogger.info('Started to search checkout refunded orders.');
     try {
         var args = searchOrders();
-        var startingDate = Utilities.getFormatedDate(args.startingDate);
-        var endingDate = Utilities.getFormatedDate(args.endingDate);
+        var startingDate = commonUtils.getFormatedDate(args.startingDate);
+        var endingDate = commonUtils.getFormatedDate(args.endingDate);
         var ordersIterator = args.ordersIterator;
         var currentOrderNo;
         var emailAddress = Site.current.getCustomPreferenceValue('recipientEmail');
-        var noErroNotification = Site.getCurrent().getCustomPreferenceValue('receiveNoResultNotification');
+        var isNoErrorNotification = Site.getCurrent().getCustomPreferenceValue('receiveNoResultNotification');
         var emailNotification;
         var orderDetailsObj = {
-                startingDate : startingDate,
-                endingDate : endingDate,
-                orderDetails : []
+            startingDate : startingDate,
+            endingDate : endingDate,
+            orderDetails : []
         }
         
         var emailObj = {
-                to: Site.current.getCustomPreferenceValue('recipientEmail'),
+                to: emailAddress,
                 subject: Site.current.getID() + " " + Resource.msg('checkout.refunded.orders.email.subject', 'checkoutRefundedOrders', null),
                 from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         }
@@ -65,12 +66,12 @@ function checkoutRefundedOrders() {
             var currentOrder = ordersIterator.next();
             orderDetailsObj.orderDetails.push(getOrdersDetails(currentOrder));
         }
-        if (ordersIterator.hasNext() || noErroNotification === true) {
+        if (orderDetailsObj.orderDetails.size > 0 || isNoErrorNotification === true) {
             emailHelpers.send(emailObj, 'orderRefundNotifications', orderDetailsObj);
         }
-        Logger.info('Email for checkout refunded orders sent successfully between' + startingDate + 'and' + endingDate);
+        checkoutLogger.info('Email for checkout refunded orders sent successfully between' + startingDate + 'and' + endingDate);
     } catch(e) {
-        Logger.error('Error occurred while sending email between' +  startingDate + 'and' + endingDate + e + '\n' + e.stack);
+        checkoutLogger.error('Error occurred while sending email between' +  startingDate + 'and' + endingDate + e + '\n' + e.stack);
     }
 }
 
@@ -84,16 +85,17 @@ function getOrdersDetails(order) {
     var orderCreatedDate = new Calendar(order.creationDate);
     var defaultCurrency = Site.getCurrent().getDefaultCurrency();
     var sapAlreadyRefundedAmount = order.custom.sapAlreadyRefundedAmount ? new Money(Number(order.custom.sapAlreadyRefundedAmount), defaultCurrency) : "";
+    var PaymentInstrument = order.paymentInstrument;
     var orderDetails = {
-            orderNo : order.orderNo ? order.orderNo : "",
-            orderTotal : order.getMerchandizeTotalGrossPrice() ? formatMoney(order.getMerchandizeTotalGrossPrice()) : "",
-            createdDate : orderCreatedDate ? Utilities.getFormatedDate(orderCreatedDate) : "",
-            refundAmount : sapAlreadyRefundedAmount ? formatMoney(sapAlreadyRefundedAmount) : "",
-            paymentMethod : order.custom.Adyen_paymentMethod ? order.custom.Adyen_paymentMethod : ""
+        orderNo : order.orderNo ? order.orderNo : "",
+        orderTotal : order.getMerchandizeTotalGrossPrice() ? formatMoney(order.getMerchandizeTotalGrossPrice()) : "",
+        createdDate : orderCreatedDate ? commonUtils.getFormatedDate(orderCreatedDate) : "",
+        refundAmount : sapAlreadyRefundedAmount ? formatMoney(sapAlreadyRefundedAmount) : "",
+        paymentMethod : PaymentInstrument ? PaymentInstrument.getPaymentMethod() : ""
     }
     return orderDetails;
 }
 
 module.exports = {
-        checkoutRefundedOrders : checkoutRefundedOrders
+    checkoutRefundedOrders : checkoutRefundedOrders
 };
