@@ -7,9 +7,9 @@
     <div class="row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-            <div class="col-6">
+            <div class="col-7 col-sm-6">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
-                <div>
+                <div class="item-name-and-price">
 	                <isinclude template="cart/productCard/cartProductCardHeader" />
 	                <div class="hidden-sm-up">
 			            <isset name="price" value="${lineItem.price}" scope="page"/>
@@ -70,7 +70,7 @@
         </div>
         </iscomment>
         <iscomment> Custom End </iscomment>
-        <div class="col-2">
+        <div class="col-3 col-sm-2 col-xs-3">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
                     <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"

@@ -1,5 +1,6 @@
-@charset "UTF-8";
-@import "utilities/fonts";
-@import "variables";
+@charset 'UTF-8';
+@import 'utilities/fonts';
+@import 'variables';
 @import '~movado/global';
 @import 'common';
+@import 'components/header';

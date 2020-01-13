@@ -63,6 +63,11 @@
                 @include media-breakpoint-down(md) {
                     font-weight: 600;
                 }
+
+                @include media-breakpoint-down(xss) {
+                    font-size: rem(22);
+                }
+
             }
 
             .checkout-continue {
@@ -168,10 +173,17 @@
 
     .product-info {
         padding: 0;
+        margin-bottom: rem(10);
 
         .item-info {
             border-bottom: 0rem;
             align-items: center;
+
+            .item-name-and-price {
+                display: inline-flex;
+                flex-direction: column;
+                vertical-align: middle;
+            }
 
             .product-image {
                 height: rem(98);
@@ -191,6 +203,7 @@
                 .quantity-form {
                     display: flex;
                     align-items: center;
+                    margin: 0;
 
                     .quantity {
                         font-size: rem(18);
@@ -297,27 +310,22 @@
                 }
             }
 
-            .line-item-total-price {
+            .price {
 
-                .price {
+                    font-size: rem(18);
+                    color: $light-gray7;
+                    transition: font-size 0.3s;
+                    letter-spacing: rem(1.5);
 
-                    .total-amount {
-                        font-size: rem(18);
-                        color: $light-gray7;
-                        transition: font-size 0.3s;
-                        letter-spacing: rem(1.5);
-
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(16);
-                        }
-
-                        @include media-breakpoint-down(xs) {
-                            font-size: rem(14);
-                            font-weight: 900;
-                            font-family: $font-medium;
-                        }
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(16);
                     }
-                }
+
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(14);
+                        font-weight: 900;
+                        font-family: $font-medium;
+                    }
             }
 
             .remove-line-item {

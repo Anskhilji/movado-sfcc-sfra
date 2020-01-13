@@ -1,0 +1,22 @@
+@import 'variables';
+@import '~movado/components/header';
+
+.cart-and-checkout-header {
+    width: 100%;
+    background-color: $black;
+
+
+    > .checkout-logo {
+        height: rem(56);
+
+        a {
+            display: block;
+            line-height: 0;
+
+            svg {
+                fill: $white;
+                color: $white;
+            }
+        }
+    }
+}
