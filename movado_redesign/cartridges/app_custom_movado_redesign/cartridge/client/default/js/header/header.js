@@ -102,7 +102,8 @@ $(".desktop-menu .sub-dropdown").hover(
             ]
         });
         
-        if ($(this).find('.movado-header-dropdown .featured-promotion a img').length > 3) {
+        var imagesLength = $(this).find('.movado-header-dropdown .featured-promotion a img').length;
+        if (imagesLength > 3) {
             $(this).find('.movado-header-dropdown .featured-promotion .header-tiles').slick({
                 dots: true,
                 infinite: true,
