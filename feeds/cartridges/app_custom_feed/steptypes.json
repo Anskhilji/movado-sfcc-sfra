@@ -64,7 +64,7 @@
                 "@supports-parallel-execution": "false",
                 "@supports-site-context": "true",
                 "@supports-organization-context": "false",
-                "description": "Step use to export checkout refunded orders",
+                "description": "This step is used to send email notifications for checkout refunded orders",
                 "module": "app_custom_feed/cartridge/scripts/CheckoutRefundedOrders.js",
                 "function": "checkoutRefundedOrders",
                 "transactional": "true"

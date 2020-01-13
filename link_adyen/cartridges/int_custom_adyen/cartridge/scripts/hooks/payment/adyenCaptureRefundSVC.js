@@ -9,7 +9,6 @@ var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
-
 /**
  * calls the Adyen Capture API to capture order amount
  * sets the order custom attributes based on api response
