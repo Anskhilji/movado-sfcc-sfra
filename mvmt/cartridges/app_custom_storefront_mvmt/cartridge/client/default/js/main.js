@@ -3,6 +3,6 @@ var processInclude = require('base/util');
 processInclude(require('movado/main'));
 
 $(document).ready(function () {
-    processInclude(require('./components/customCartFieldValidation'));
+    processInclude(require('./components/miniCart'));
     processInclude(require('./components/newsLetterSubscription'));
 });
