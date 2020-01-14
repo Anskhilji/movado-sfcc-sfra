@@ -76,7 +76,7 @@
 
     .featured-promotion {
       h3 {
-        color: $storm-gray;
+        color: $regent-grey;
         @include font-medium;
         font-size: rem(15);
         letter-spacing: normal;
@@ -511,7 +511,7 @@
       @include font-medium;
       font-size: rem(16);
       letter-spacing: rem(0.5);
-      color: $storm-gray;
+      color: $regent-grey;
     }
   }
 
@@ -648,7 +648,7 @@
             display: block;
             @include font-book;
             letter-spacing: rem(0.5);
-            color: $storm-gray;
+            color: $regent-grey;
 
             @include media-breakpoint-down(lg) {
               font-size: rem(15);
