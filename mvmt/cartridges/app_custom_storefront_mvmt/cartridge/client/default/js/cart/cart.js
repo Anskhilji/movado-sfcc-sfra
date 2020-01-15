@@ -156,24 +156,22 @@ function updateAvailability(data, uuid) {
 $(window).on('load', function() {
     var quantity = parseInt($('.quantity-form > .quantity').val());
 
-    if (isNaN(quantity) || quantity == 0) {
-        $('#decreased-btn').attr('disabled', true);
+    if (isNaN(quantity) || quantity == 0 || quantity == 1) {
+        $('.decreased-btn').attr('disabled', true);
         quantity = 1;
-    }
-
-    if (quantity == 1) {
-        $('#decreased-btn').attr('disabled', true);
     } else {
-        $('#decreased-btn').attr('disabled', false);
+        $('.decreased-btn').attr('disabled', false);
     }
 });
 
-$('#decreased-btn').click(function (e) {
-    decreaseQuantity('.quantity-form > .quantity');
+$('.decreased-btn').click(function (e) {
+    var quantitySelector = $(this).next('.quantity');
+    decreaseQuantity(quantitySelector);
 });
 
-$('#increased-btn').click(function (e) {
-    increaseQuantity('.quantity-form > .quantity');
+$('.increased-btn').click(function (e) {
+    var quantitySelector = $(this).prev('.quantity');
+    increaseQuantity(quantitySelector);
 });
 
 $('.quantity-form > .quantity').bind('keyup', function (e) {
@@ -204,16 +202,16 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
 function decreaseQuantity (quantitySelector) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
-        $('#decreased-btn').attr('disabled', true);
+        $('.decreased-btn').attr('disabled', true);
         quantity = 1;
     }
 
     quantity = (quantity > 1) ? quantity - 1 : quantity;
 
     if (quantity == 1) {
-        $('#decreased-btn').attr('disabled', true);
+        $('.decreased-btn').attr('disabled', true);
     } else {
-        $('#decreased-btn').attr('disabled', false);
+        $('.decreased-btn').attr('disabled', false);
     }
     $('.quantity-form > .quantity').val(quantity);
     $('.quantity-form > .quantity').trigger('change');
@@ -223,11 +221,11 @@ function increaseQuantity (quantitySelector) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
         $('.quantity-form > .quantity').val(1);
-        $('#decreased-btn').attr('disabled', true);
+        $('.decreased-btn').attr('disabled', true);
     }
 
     if (quantity >= 1) {
-        $('#decreased-btn').attr('disabled', false);
+        $('.decreased-btn').attr('disabled', false);
         quantity = quantity + 1;
         $('.quantity-form > .quantity').val(quantity);
     }
@@ -247,9 +245,9 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
     }
 
     if (quantity == 1 || quantity == 0) {
-        $('#decreased-btn').attr('disabled', true);
+        $('.decreased-btn').attr('disabled', true);
     } else {
-        $('#decreased-btn').attr('disabled', false);
+        $('.decreased-btn').attr('disabled', false);
     }
 
     var urlParams = {
@@ -314,17 +312,13 @@ module.exports = function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
+                $('.page').css('height', '100vh');
                 if (data.basket.items.length === 0) {
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();
                     $('.product-info').remove();
-                    $('.cart-page').append('<div class="row"> ' +
-                        '<div class="col-12 text-center empty-cart-msg"> ' +
-                        '<h1>' + data.basket.resources.emptyCartMsg + '</h1> ' +
-                        '</div> ' +
-                        '</div>'
-                    );
+                    $('.cart-page > .row').append('<div class="container my-5 cart-empty order-1"><div class="row justify-content-center"><div class="col-12 text-center"><h1 class="empty-cart-header empty-cart-msg"> ' + window.Resources.CART_EMPTY_MESSAGE + '</h1></div><div><a href= "' + data.homePage + '" class="btn btn-primary btn-block continue-shopping" role="button">' + window.Resources.CONTINUE_SHOPPING + '</a></div></div></div>');
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty();

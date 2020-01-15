@@ -1,8 +1,10 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <iscontent type="text/html" charset="UTF-8" compact="true" />
+<isset name="itemsLength" value="${pdict.items.length}" scope="page" />
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
-<isif condition="${pdict.items.length !== 0}">
+<isif condition="${itemsLength > 0}">
     <div class="container cart-error-messaging cart-error mt-2">
         <isif condition="${pdict.valid.error}">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
@@ -28,7 +30,7 @@
 <iscomment> Custom Start: This div section is not needed </iscomment>
 <iscomment>
 <div class="container cart-header-wrapper">
-    <isif condition="${pdict.items.length !== 0}">
+    <isif condition="${itemsLength > 0}">
         <div class="estimate-price-wrapper">
             <div class="row estimated-total justify-content-center">
                 ${Resource.msg('cart.label.estimatedtotal', 'cart', null)} <span class="cart-total ml-1">${pdict.totals.grandTotal}</span>
@@ -45,25 +47,12 @@
 </iscomment>
 <iscomment> Custom End </iscomment>
 
-<isif condition="${pdict.items.length === 0}">
-    <div class="container my-5 cart-empty">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="empty-cart-header empty-cart-msg">${Resource.msg('info.cart.empty.msg', 'cart', null)}</h1>
-            </div>
-            <div class="col-12 col-sm-4">
-                <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block continue-shopping" role="button">
-                    ${Resource.msg('link.continue.shopping', 'cart', null)}
-                </a>
-            </div>
-        </div>
-    </div>
-<iselse/>
-    <div class="container cart-page">
-        <div class="row">
-            <!---product cards--->
-            <div class="col-lg-8 col-md-12">
-                <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+<div class="container cart cart-page">
+    <div class="row">
+        <!---product cards--->
+        <div class="col-lg-8 col-md-12">
+            <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+            <isif condition="${itemsLength > 0}">
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
@@ -75,20 +64,22 @@
                     <a class="continue-shopping" href="${URLUtils.url('Home-Show')}"><img src="${URLUtils.staticURL('/images/cartLeftArrow.svg')}"/>${Resource.msg('link.continue.shopping', 'cart',null)}</a>
                 </div>
                 <isinclude template="cart/cartApproachingDiscount" />
+            </isif>
+        </div>
+        <!---totals, and checkout actions--->
+        <div class="col-lg-4 col-md-12 totals order-2 order-lg-0">
+            <iscomment> Custom Start: These templates and div's are not needed </iscomment>
+            <iscomment>
+            <isinclude template="cart/cartPromoCode" />
+            <div class="coupons-and-promos coupons-wrapper mb-3">
+                <isinclude template="cart/cartCouponDisplay" />
             </div>
-            <!---totals, and checkout actions--->
-            <div class="col-lg-4 col-md-12 totals">
-                <iscomment> Custom Start: These templates and div's are not needed </iscomment>
-                <iscomment>
-                <isinclude template="cart/cartPromoCode" />
-                <div class="coupons-and-promos coupons-wrapper mb-3">
-                    <isinclude template="cart/cartCouponDisplay" />
-                </div>
-                <div class="row">
-                    <isinclude template="cart/cartShippingMethodSelection" />
-                </div>
-                </iscomment>
-                <iscomment> Custom End </iscomment>
+            <div class="row">
+                <isinclude template="cart/cartShippingMethodSelection" />
+            </div>
+            </iscomment>
+            <iscomment> Custom End </iscomment>
+            <isif condition="${itemsLength > 0}">
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">
                         <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>
@@ -99,17 +90,32 @@
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div class="no-gutters row cart-customer-service-outer-box">
-                    <iscontentasset aid="cart-customer-service-contact" />
-                </div>
-                <div class="container">
-                    <isprint value="${pdict.assets.needHelp}" encoding="off" />
-                </div>
+                
+            </isif>
+            <br/>
+            <div class="no-gutters row cart-customer-service-outer-box">
+                <iscontentasset aid="cart-customer-service-contact"/>
+            </div>
+            <div class="container">
+                <isprint value="${pdict.assets.needHelp}" encoding="off" />
             </div>
         </div>
+        <isif condition="${itemsLength === 0}">
+            <div class="container my-5 cart-empty order-1">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <h1 class="empty-cart-header empty-cart-msg">${Resource.msg('info.cart.empty.msg', 'cart', null)}</h1>
+                    </div>
+                    <div>
+                        <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block continue-shopping" role="button">
+                            ${Resource.msg('link.continue.shopping', 'cart', null)}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </isif>
     </div>
-    <div class="cart-coupons-remove">
-        <isinclude template="cart/cartRemoveCouponModal" />
-    </div>
-</isif>
+</div>
+<div class="cart-coupons-remove">
+    <isinclude template="cart/cartRemoveCouponModal" />
+</div>
