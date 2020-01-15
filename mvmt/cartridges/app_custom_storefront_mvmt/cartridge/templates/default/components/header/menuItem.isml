@@ -8,9 +8,7 @@
             </isif>
         </div>
     </div>
-
     <iselse>
-
     <div class="menu-content movado-header-dropdown">
         <div class="menu-pane">
             <h3>${Resource.msgf('title.header.dropdown', 'common', null)} ${category.name}</h3>

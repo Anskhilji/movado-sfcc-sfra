@@ -601,33 +601,91 @@ header.new-header {
     display: none;
     padding: 0;
     list-style: none;
+    margin: 0;
 
     .mobile-category-item {
       background-color: $alice-blue;
       margin: rem(9) rem(8);
+    }
 
-      .mobile-category-link {
-        text-transform: uppercase;
-        display: block;
-        line-height: rem(55);
-        position: relative;
-        font-size: rem(16);
-        padding-left: rem(40);
-        letter-spacing: rem(0.6);
-        background-size: contain;
-        background-position: 100%;
-        background-repeat: no-repeat;
-        border-radius: 0;
-        box-shadow: none;
-        @include font-book;
-      }
+    .mobile-subnav-btn {
+      background-color: $alice-blue;
+      border: none;
     }
 
     &.active {
       display: block;
     }
+
+    .mobile-collapse-nav {
+      display: none;
+      width: 100%;
+      background-color: $white;
+      flex-wrap: wrap;
+      padding: rem(20) 0 rem(11);
+      list-style: none;
+
+      .menu-list-item {
+        width: 50%;
+        padding: rem(8) rem(8) rem(8) rem(15);
+        border: none;
+
+          a {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: rem(12);
+            text-transform: uppercase;
+            padding: 0;
+
+            img {
+              display: block;
+              width: rem(42);
+              height: rem(42);
+              overflow: hidden;
+              border: rem(2) solid $alice-blue;
+              border-radius: 50%;
+              margin: rem(2);
+              margin-right: rem(14);
+              flex-shrink: 0;
+            }
+
+            span {
+              font-size: rem(12);
+              line-height: 1;
+            }
+          }
+      }
+    }
   }
 
+  .mobile-dropdown-logo {
+    float: left;
+    margin-top: rem(40);
+    text-align: center;
+    p {
+      margin: 0;
+    }
+    img {
+      width: rem(120);
+    }
+  }
+
+  .mobile-category-link, .mobile-subnav-btn {
+    text-transform: uppercase;
+    display: block;
+    line-height: rem(55);
+    position: relative;
+    font-size: rem(16);
+    padding-left: rem(40);
+    letter-spacing: rem(0.6);
+    background-size: contain;
+    background-position: 100%;
+    background-repeat: no-repeat;
+    border-radius: 0;
+    box-shadow: none;
+    @include font-book;
+  }
   .header-desktop-categories, .mobile-view-design {
     display: none;
   }
@@ -651,8 +709,109 @@ header.new-header {
 
       span {
         @include font-medium;
-        font-size: rem(14);
+        font-size: rem(12);
         display: block;
+        margin-top: rem(8);
+        letter-spacing: normal;
+        line-height: 1;
+      }
+    }
+  }
+
+  .mobile-static-nav {
+    border-top: 1px solid $gray91;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: 0;
+      background-color: $white;
+    }
+  }
+
+  .mobile-subnav-btn {
+    border: none;
+    border-bottom: 1px solid $gray91;
+    @include font-medium;
+    font-size: rem(14);
+    padding-left: rem(48);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: $white;
+
+    &::before {
+      content: "";
+      width: rem(15);
+      height: rem(15);
+      display: inline-block;
+      background-image: url("../images/icon-plus.svg");
+      background-repeat: no-repeat;
+      margin-right: rem(14);
+    }
+
+    &.active {
+      &::before {
+        height: 1px;
+        background-image: url("../images/icon-minus.svg");
+      }
+
+      &+.mobile-collapse-nav {
+        display: flex;
+      }
+    }
+  }
+
+  .mobile-collapse-nav {
+    display: none;
+    width: 100%;
+    background-color: $white;
+    flex-wrap: wrap;
+    padding: 0;
+
+    .menu-list-item {
+      border-bottom: 2px solid #f7f8f9;
+      transition: all .25s;
+      width: 100%;
+
+      .menu-item-link {
+        @include font-book;
+        display: block;
+        font-size: rem(14);
+        line-height: rem(55);
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        padding: 0 rem(48);
+        position: relative;
+        color: $black;
+      }
+    }
+  }
+  .contact-help {
+    text-align: center;
+    p, a {
+      @include font-book;
+      font-size: rem(12);
+      letter-spacing: rem(1.5);
+      color: $gray36;
+      margin: 0;
+    }
+  }
+
+  .social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    border-top: rem(1) solid $alice-blue;
+    margin-top: rem(40);
+    padding: rem(20) 0;
+    li {
+      display: inline-block;
+
+      a {
+        font-size: rem(14);
       }
     }
   }

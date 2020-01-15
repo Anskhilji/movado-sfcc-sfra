@@ -39,8 +39,13 @@ $('.mobile-search-button').click(function() {
     $('.mobile-side-search .header-search-field').focus();
 });
 
+
 $('.mobile-search-icon').click(function() {
     $('.mobile-side-search').removeClass('active');
+});
+
+$('.mobile-nav .mobile-subnav-btn').click(function() {
+    $(this).toggleClass('active');
 });
 
 /* $(".header-search-field").focusin(function(){
