@@ -55,7 +55,7 @@ server.get('ExpressCheckoutFromCart', server.middleware.https, function (req, re
     var result = adyenExpressPaypalVerification.verify(currentBasket, customerEmail, sitePrefs, orderNo);
 
     if (result === null || result.paramsMap.merchantSig === null) {
-        adyenLogger.error('(AdyenExpressPaypal) -> ExpressCheckoutFromCart: Adyen express paypal verificationto is result is null and order number is: ' + orderNo);
+        adyenLogger.error('(AdyenExpressPaypal) -> ExpressCheckoutFromCart: Adyen express paypal verification to is result is null and order number is: ' + orderNo);
         res.redirect(URLUtils.url('Cart-Show', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
         return next();
     }
