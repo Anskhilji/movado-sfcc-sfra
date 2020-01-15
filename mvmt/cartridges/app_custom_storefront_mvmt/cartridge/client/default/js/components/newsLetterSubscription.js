@@ -44,6 +44,9 @@ function processSubscription(response) {
     if ((typeof (response) === 'object')) {
         var topPercentage = top(true);
         wrapperContainer.removeClass('d-none');
+//        $('.submission-status div').text(response.message);
+//        if (!response.error) {
+//            $('.submission-status div').attr('class', 'success');
         $('.submission-status').text(response.message);
         if (!response.error && (response.message == Resources.MVMT_EMAIL_SIGNUP_SUCCESS) ) {
             $('.submission-status').removeClass('error').addClass('success');
@@ -54,6 +57,7 @@ function processSubscription(response) {
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }
         } else {
+//            $('.submission-status div').attr('class', 'error');
             $('.submission-status').removeClass('success').addClass('error');
             $('.footer-more-fields').css('top', topPercentage);
         }
@@ -77,6 +81,8 @@ $('#newsletterSubscribe').submit(function (e) {
         });
     } else {
         wrapperContainer.removeClass('d-none');
+//        $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+        $('.submission-status').text(Resources.MVMT_EMAIL_SIGNUP_EMPTY_EMAIL);
         $('.submission-status').removeClass('success').addClass('error');
         $('.footer-more-fields').css('top', topPercentage);
     }

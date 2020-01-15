@@ -43,6 +43,7 @@
             <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
                 <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
                 <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                <iscomment><div>${Resource.msg('newsletter.email.error', 'common', null)}</div></iscomment>
                     ${Resource.msg('newsletter.email.error', 'common', null)}
                 </div>
                 <isinclude template="components/newsLetter.isml">
