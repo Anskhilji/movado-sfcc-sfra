@@ -86,7 +86,7 @@ function getOrdersDetails(order) {
     var paymentInstrument = order.paymentInstrument;
     var orderDetails = {
         orderNo : order.orderNo ? order.orderNo : '',
-        orderTotal : order.getTotalNetPrice() ? formatMoney(order.getTotalNetPrice()) : '',
+        orderTotal : order.getTotalGrossPrice() ? formatMoney(order.getTotalGrossPrice()) : '',
         creationDate : orderCreationDate ? commonUtils.getFormattedDate(orderCreationDate) : '',
         refundAmount : sapAlreadyRefundedAmount ? formatMoney(sapAlreadyRefundedAmount) : '',
         paymentMethod : paymentInstrument ? paymentInstrument.getPaymentMethod() : ''
