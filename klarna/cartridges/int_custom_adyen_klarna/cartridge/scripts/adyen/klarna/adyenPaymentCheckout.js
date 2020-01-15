@@ -8,6 +8,7 @@ var Site = require('dw/system/Site');
 var adyenPaymentCheckoutService = require('~/cartridge/scripts/adyen/service/adyenPaymentCheckoutService.js');
 var adyenHelpers = require('~/cartridge/scripts/adyen/klarna/util/adyenHelpers.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 
 /**
  * This method is used to call Adyen service to get payment details.
@@ -48,7 +49,7 @@ function getDetails(order) {
         }
     } catch (e) {
         result.error = true;
-        Logger.getLogger('Ayden').error('Ayden {0} in {1} : {2} ' , e.toString() , e.fileName , e.lineNumber)
+        adyenLogger.error('Ayden {0} in {1} : {2} ' , e.toString() , e.fileName , e.lineNumber)
     }
 
     return result;
@@ -81,12 +82,12 @@ function verifyDetails(args) {
                 checkoutLogger.error('(adyenPaymentCheckout) -> verifyDetails: Error occurred while try to verify details for order number :' + orderNumber);
             }
         } else {
-            Logger.getLogger('Adyen').error('Payment data is missing to verify the payment details');
+            adyenLogger.error('Payment data is missing to verify the payment details');
             result.error = true;
         }
     } catch (e) {
         result.error = true;
-        Logger.getLogger('Ayden').error('Ayden {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber)
+        adyenLogger.error('Ayden {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber)
     }
 
     return result;

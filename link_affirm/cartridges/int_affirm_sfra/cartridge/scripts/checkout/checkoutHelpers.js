@@ -15,7 +15,7 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var Money = require('dw/value/Money');
-var affirmLogger = require('dw/system/Logger').getLogger('Affirm');
+var affirmLogger = require('dw/system/Logger').getLogger('Affirm', '');
 var AddressModel = require('*/cartridge/models/address');
 var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -348,7 +348,7 @@ function validateBillingForm(form) {
 function validateCreditCard(form) {
     var result = {};
     var currentBasket = BasketMgr.getCurrentBasket();
-
+    affirmLogger.debug('(checkoutHelpers) -> validateCreditCard: Inside validateCreditCard to check the payment method is selected or not.');
     if (!form.paymentMethod.value) {
         if (currentBasket.totalGrossPrice.value > 0) {
             result[form.paymentMethod.htmlName] =
@@ -370,6 +370,7 @@ function calculatePaymentTransaction(currentBasket) {
     var result = { error: false };
 
     try {
+        affirmLogger.debug('(checkoutHelpers) -> calculatePaymentTransaction: Inside calculatePaymentTransaction to update the paymentInstrument amount');
         Transaction.wrap(function () {
             // TODO: This function will need to account for gift certificates at a later date
             var orderTotal = currentBasket.totalGrossPrice;
@@ -400,6 +401,8 @@ function validatePayment(req, currentBasket) {
     var currentCustomer = req.currentCustomer.raw;
     var paymentInstruments = currentBasket.paymentInstruments;
     var result = {};
+
+    affirmLogger.debug('(checkoutHelpers) -> validatePayment: Inside validatePayment to check validity of payment instruments');
 
     applicablePaymentMethods = PaymentMgr.getApplicablePaymentMethods(
         currentCustomer,
@@ -437,6 +440,7 @@ function validatePayment(req, currentBasket) {
         }
 
         if (invalid) {
+            affirmLogger.error('(checkoutHelpers) -> validatePayment: Payment instruments is not valid and order is not created');
             break; // there is an invalid payment instrument
         }
     }
@@ -454,6 +458,7 @@ function createOrder(currentBasket) {
     var order;
 
     try {
+        affirmLogger.debug('(checkoutHelpers) -> createOrder: Inside createOrder and going to creating the order.');
         order = Transaction.wrap(function () {
             return OrderMgr.createOrder(currentBasket);
         });

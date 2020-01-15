@@ -107,7 +107,7 @@ function execute(ccBasket, paymentProcessor, formData) {
             }
             success = true;
         } catch (e) {
-            Logger.getLogger('Adyen', 'Exp PayPal').error('Exception in adyenHandleExpressPayPalResponse.js = ' + e.message);
+            Logger.getLogger('Adyen', 'ExpPayPal').error('(adyenHandleExpressPayPalResponse) -> execute: Exception in adyenHandleExpressPayPalResponse.js = ' + e.message);
         }
     });
 

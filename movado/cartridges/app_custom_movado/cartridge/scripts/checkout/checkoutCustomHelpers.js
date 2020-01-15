@@ -8,7 +8,7 @@ var Transaction = require('dw/system/Transaction');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
-var Logger = require('dw/system/Logger').getLogger('Checkout');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * Sends a confirmation to the current user if riskified not enabled
@@ -27,7 +27,7 @@ function sendConfirmationEmail(order, locale) {
         }
         if (!riskifiedEnabled) {
             sendOrderConfirmationEmail(order, locale);
-            Logger.debug('Sent confirmation mail to the current user, riskified not enabled, for order: {0}', order.orderNo);
+            checkoutLogger.debug('(checkoutCustomHelpers) -> sendConfirmationEmail: Sent confirmation mail to the current user, riskified not enabled, for order: ' + order.orderNo);
         }
     }
 }
@@ -94,7 +94,7 @@ function sendOrderConfirmationEmail(order, locale) {
     };
 
     emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
-    Logger.debug('Sent Order Confirmation mail to the current user, for order: {0}',orderModel.orderNumber);
+    checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
 /**
  * Send order cancellation email
@@ -124,7 +124,7 @@ function sendCancellationEmail(emailObject) {
         type: emailHelpers.emailTypes.orderCancellation
     };
     emailHelpers.sendEmail(emailObj, 'order/email/cancellation', orderObject);
-    Logger.debug('Sent order cancellation mail to the current user, for order: {0}',emailObject.orderNumber);
+    checkoutLogger.debug('(checkoutCustomHelpers) -> sendCancellationEmail: Sent order cancellation mail to the current user, for order:' + emailObject.orderNumber);
 }
 
 /**
@@ -155,7 +155,7 @@ function sendPartialCancellationEmail(emailObject) {
         type: emailHelpers.emailTypes.orderPartialCancellation
     };
     emailHelpers.sendEmail(emailObj, 'order/email/partialCancellation', orderObject);
-    Logger.debug('Sent partial order cancellation mail to the current user, for order: {0}',emailObject.orderNumber);
+    checkoutLogger.debug('(checkoutCustomHelpers) -> sendPartialCancellationEmail: Sent partial order cancellation mail to the current user, for order: ' + emailObject.orderNumber);
 }
 
 /**
@@ -219,7 +219,7 @@ function sendShippingEmail(order) {
     };
 
     emailHelpers.sendEmail(emailObj, 'order/email/shippingEmail', orderObject);
-    Logger.debug('Sent Shipping mail to the current user, for order: {0}', orderModel.orderNumber);
+    checkoutLogger.debug('(checkoutCustomHelpers) -> sendShippingEmail: Sent Shipping mail to the current user, for order: ' + orderModel.orderNumber);
 }
 
 /**
@@ -233,7 +233,7 @@ function sendShippingEmail(order) {
 function failOrderRisifiedCall(order, orderNumber, paymentInstrument) {
     Transaction.wrap(function () {
 	    OrderMgr.failOrder(order);
-	    Logger.debug('Failed Order with RisifiedCall, for order: {0}',orderNumber);
+	    checkoutLogger.debug('Failed Order with RisifiedCall, for order: {0}',orderNumber);
 	  });
 	  hooksHelper(
 	          'app.fraud.detection.checkoutdenied',
@@ -262,7 +262,7 @@ function declineOrder(order) {
     try {
         var orderNo = order.getOrderNo();
         if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
-            Logger.warn('declineOrder: Going for paymentReversal for order number: ' + orderNo);
+            checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: Going for paymentReversal for order number: ' + orderNo);
             hooksHelper(
                 'app.riskified.paymentreversal',
                 'paymentReversal',
@@ -271,7 +271,7 @@ function declineOrder(order) {
                 false,
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
         } else {
-            Logger.warn('declineOrder: Going for paymentRefund for order number: ' + orderNo);
+            checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: Going for paymentRefund for order number: ' + orderNo);
             hooksHelper(
                 'app.riskified.paymentrefund',
                 'paymentRefund',
@@ -283,15 +283,15 @@ function declineOrder(order) {
 
         Transaction.wrap(function () {
             if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
-                Logger.warn('declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
+                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
                 OrderMgr.failOrder(order);  //Order must be in status CREATED
             } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-                Logger.warn('declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
+                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
                 OrderMgr.cancelOrder(order);
             }
         });
     } catch (ex) {
-        Logger.error('declineOrder: Exception occured while try to decline the order for order number: ' + orderNo + ' and exception is: ' + ex);
+        checkoutLogger.error('(checkoutCustomHelpers) -> declineOrder: Exception occured while try to decline the order for order number: ' + orderNo + ' and exception is: ' + ex);
     }
 
 }
