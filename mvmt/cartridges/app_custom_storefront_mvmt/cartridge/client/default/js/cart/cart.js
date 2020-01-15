@@ -153,6 +153,21 @@ function updateAvailability(data, uuid) {
     $('.availability-' + lineItem.UUID).html(messages);
 }
 
+$(window).on('load', function() {
+    var quantity = parseInt($('.quantity-form > .quantity').val());
+
+    if (isNaN(quantity) || quantity == 0) {
+        $('#decreased-btn').attr('disabled', true);
+        quantity = 1;
+    }
+
+    if (quantity == 1) {
+        $('#decreased-btn').attr('disabled', true);
+    } else {
+        $('#decreased-btn').attr('disabled', false);
+    }
+});
+
 $('#decreased-btn').click(function (e) {
     decreaseQuantity('.quantity-form > .quantity');
 });
@@ -300,9 +315,12 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
-                    $('.cart-order-outer-box').empty();
-                    $('.cart').empty().append('<div class="row"> ' +
-                        '<div class="col-12 text-center"> ' +
+                    $('.cart-order-outer-box + br').remove();
+                    $('.cart-order-outer-box').remove();
+                    $('.product-info + .row').remove();
+                    $('.product-info').remove();
+                    $('.cart-page').append('<div class="row"> ' +
+                        '<div class="col-12 text-center empty-cart-msg"> ' +
                         '<h1>' + data.basket.resources.emptyCartMsg + '</h1> ' +
                         '</div> ' +
                         '</div>'

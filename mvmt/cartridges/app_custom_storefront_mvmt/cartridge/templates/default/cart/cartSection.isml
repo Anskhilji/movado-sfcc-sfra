@@ -49,7 +49,7 @@
     <div class="container my-5 cart-empty">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h1 class="empty-cart-header">${Resource.msg('info.cart.empty.msg', 'cart', null)}</h1>
+                <h1 class="empty-cart-header empty-cart-msg">${Resource.msg('info.cart.empty.msg', 'cart', null)}</h1>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block continue-shopping" role="button">
