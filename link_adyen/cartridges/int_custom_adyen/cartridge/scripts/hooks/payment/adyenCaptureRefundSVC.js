@@ -243,7 +243,7 @@ function refund(order, amount, isJob, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
-                    if (!isjob) {
+                    if (!isJob) {
                         checkoutLogger.warn('Order refunded from Adyen with order id: ' + order.orderNo);
                         order.custom.isRefunded = true;
                     }
