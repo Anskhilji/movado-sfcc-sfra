@@ -93,7 +93,7 @@
         text-align: left;
 
         .success {
-            color: $light-green;
+            color: $light-green !important;
         }
 
         .error {

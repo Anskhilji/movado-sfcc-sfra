@@ -3,7 +3,8 @@
     <div class="input-group">
         <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         <div class="invalid-feedback"></div>
-        <button id="emailSubcriberBtn" type="button" class="btn btn-primary">
+        <iscomment><button id="emailSubcriberBtn" type="button" class="btn btn-primary"></iscomment>
+        <button type="submit" class="btn btn-primary">
             <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
         </button>
     </div>
