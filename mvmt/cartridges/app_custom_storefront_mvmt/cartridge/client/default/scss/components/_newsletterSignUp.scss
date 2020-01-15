@@ -92,11 +92,11 @@
         margin-top: 0rem;
         text-align: left;
 
-        .success {
-            color: $light-green !important;
+        &.success {
+            color: $light-green;
         }
 
-        .error {
+        &.error {
            color: $red;
         }
     }

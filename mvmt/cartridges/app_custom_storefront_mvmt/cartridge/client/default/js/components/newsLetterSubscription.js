@@ -44,18 +44,18 @@ function processSubscription(response) {
     if ((typeof (response) === 'object')) {
         var topPercentage = top(true);
         wrapperContainer.removeClass('d-none');
-        $('.submission-status div').text(response.message);
-        if (!response.error) {
-            $('.news-letter-signUP-submission-status div').removeClass('error').addClass('success');
-//            $('.footer-more-fields').css('top', topPercentage);
-//            $('#add-to-email-list').prop('checked', response.customerFound);
-//            if (response.isanalyticsTrackingEnabled && response.userTracking) {
-//                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
-//                window.dispatchEvent(setAnalyticsTrackingByAJAX);
-//            }
+        $('.submission-status').text(response.message);
+        if (!response.error && (response.message == Resources.MVMT_EMAIL_SIGNUP_SUCCESS) ) {
+            $('.submission-status').removeClass('error').addClass('success');
+            $('.footer-more-fields').css('top', topPercentage);
+            $('#add-to-email-list').prop('checked', response.customerFound);
+            if (response.isanalyticsTrackingEnabled && response.userTracking) {
+                setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
+                window.dispatchEvent(setAnalyticsTrackingByAJAX);
+            }
         } else {
-            $('.submission-status div').addClass('error');
-//            $('.footer-more-fields').css('top', topPercentage);
+            $('.submission-status').removeClass('success').addClass('error');
+            $('.footer-more-fields').css('top', topPercentage);
         }
     }
 }
@@ -77,7 +77,7 @@ $('#newsletterSubscribe').submit(function (e) {
         });
     } else {
         wrapperContainer.removeClass('d-none');
-        $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'ok');
+        $('.submission-status').removeClass('success').addClass('error');
         $('.footer-more-fields').css('top', topPercentage);
     }
 });
@@ -90,6 +90,6 @@ $('#emailSubcriberBtn').click(function (e) {
 });
 
 $('.close-footer-more, #overlay').click(function (e) {
-    //$('.footer-more-fields').removeClass('is-active');
+    $('.footer-more-fields').removeClass('is-active');
     $('#overlay').removeClass('footer-form-overlay');
 });
