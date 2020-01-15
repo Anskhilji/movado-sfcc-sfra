@@ -7,7 +7,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
-var adyenLogger = require('dw/system/Logger').getLogger('Adyen');
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 
 /**
  * handles the payment authorization for each payment instrument

@@ -186,7 +186,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     }
 
     checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
-    checkoutLogger.error('(Adyen) -> ShowConfirmation: Order is Failed with RisifiedCall and redirecting to the Checkout-Begin and stage is payment and order number: ' + orderNumber);
+    checkoutLogger.error('(Adyen) -> ShowConfirmation: Order is Failed due to payment result is not authorized and redirecting to the Checkout-Begin and stage is payment and order number: ' + orderNumber);
     res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
     return next();
 });

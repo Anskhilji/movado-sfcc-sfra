@@ -28,7 +28,7 @@ importPackage( dw.web );
 importPackage( dw.crypto ); 
 importPackage( dw.svc );
 importScript('libs/libAdyen.ds');
-
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 //script include
 var AdyenHelper = require ("int_adyen_overlay/cartridge/scripts/util/AdyenHelper");
 
@@ -50,13 +50,13 @@ function verify( args : PipelineDictionary ) : Number {
     var orderNumber = null;
 
 	if (order == null) {
-		Logger.getLogger("Adyen").fatal("Notification for not existing order received and order is null.");
+		adyenLogger.fatal("Notification for not existing order received and order is null.");
 		return PIPELET_ERROR;
 	}
 	
 	try	{
         orderNumber = order.orderNo;
-        Logger.getLogger("Adyen").debug("(adyen3DVerification) -> verify: Inside verify to validate the order and order number is: " + orderNumber);
+        adyenLogger.debug("(adyen3DVerification) -> verify: Inside verify to validate the order and order number is: " + orderNumber);
 
 		var myAmount : Number = AdyenHelper.getCurrencyValueForApi(args.Amount); //args.Amount * 100;	
 		var orderNo : String = args.Order.getOrderNo();	
@@ -88,11 +88,11 @@ function verify( args : PipelineDictionary ) : Number {
 		var callResult = null;
 		var service = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT_3DSECURE);
         if (service == null) {
-            Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Error occured while trying to validate the 3d secure payment method and order number is: " + orderNumber);
+            adyenLogger.error("(adyen3DVerification) -> verify: Error occured while trying to validate the 3d secure payment method and order number is: " + orderNumber);
             return PIPELET_ERROR;
         }
 
-        Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Going to verify the order for order and order number is: " + orderNumber);
+        adyenLogger.debug("(adyen3DVerification) -> verify: Going to verify the order and order number is: " + orderNumber);
 		
 		var resultObject = null;
 		service.addHeader("Content-type","application/json"); 
@@ -116,7 +116,7 @@ function verify( args : PipelineDictionary ) : Number {
 		
 		var resultText : String = resultObj.text;
 		if (resultText == null) { 
-            Logger.getLogger("Adyen").error("(adyen3DVerification) -> verify: Adyen response is null for order number: " + orderNumber + " skipping verification.");
+            adyenLogger.error("(adyen3DVerification) -> verify: Adyen response is null for order number: " + orderNumber + " skipping verification.");
             return PIPELET_ERROR; 
 		}
 		
@@ -138,8 +138,8 @@ function verify( args : PipelineDictionary ) : Number {
 			args.Decision = "ACCEPT";
 			args.PaymentStatus = resultCode;
 
-			Logger.getLogger("Adyen").info ("Payment result: Authorised and order number is: " + orderNumber);
-			Logger.getLogger("Adyen").info ("Decision: " + args.Decision + " and order number is: " + orderNumber);
+			adyenLogger.info ("Payment result: Authorised and order number is: " + orderNumber);
+			adyenLogger.info ("Decision: " + args.Decision + " and order number is: " + orderNumber);
 		}
 		else { // if is rejected
 			Logger.error("Adyen: Credit card rejected " +  resultObj.statusCode + " Error => ResponseStatus: " +  resultObj.statusMessage + " | ResponseErrorText: " + resultObj.errorText + " | ResponseText: " + resultText);
@@ -152,7 +152,7 @@ function verify( args : PipelineDictionary ) : Number {
 	catch (e) {
 		var error = e;
 		if (e instanceof Fault) {
-           	Logger.getLogger("Adyen").debug("Adyen: Fault Actor " + e.faultActor + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + " == Details ==> " + e.faultDetail + ") and order number is: " + orderNumber);
+           	adyenLogger.debug("Adyen: Fault Actor " + e.faultActor + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + " == Details ==> " + e.faultDetail + ") and order number is: " + orderNumber);
        	}
        	else {
            	Logger.error("Adyen: " + e.toString() + ' and order number is: ' + orderNumber);

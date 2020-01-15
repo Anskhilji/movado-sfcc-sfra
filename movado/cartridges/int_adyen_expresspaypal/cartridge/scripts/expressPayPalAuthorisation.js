@@ -1,6 +1,7 @@
 'use strict';
 
 var Logger = require('dw/system/Logger');
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var AdyenHelper = require('*/cartridge/scripts/util/AdyenHelper');
 var Money = require('dw/value/Money');
 
@@ -20,7 +21,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
     var MERCHANTACCOUNT = Site.getCurrent().getCustomPreferenceValue('Adyen_merchantCode');
 
     if (MERCHANTACCOUNT === null) {
-        Logger.getLogger('Adyen').fatal('MERCHANTACCOUNT not set.');
+        adyenLogger.fatal('(expressPayPalAuthorisation) -> verify: MERCHANTACCOUNT not set.');
         args.payPalErrorCode = 'merchant_account_missing';
         return args;
     }
@@ -28,7 +29,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
     var orderId = order.getOrderNo();
 
     if (orderId === null) {
-        Logger.getLogger('Adyen').fatal('No order exists for paypal express.');
+        adyenLogger.fatal('(expressPayPalAuthorisation) -> verify: No order exists for paypal express.');
         args.error = 'No order exists for paypal express.';
         return args;
     }
@@ -36,7 +37,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
     var customerEmail = order.customerEmail;
 
     if (customerEmail === null) {
-        Logger.getLogger('Adyen').fatal('No customer Email present for paypal express.');
+        adyenLogger.fatal('(expressPayPalAuthorisation) -> verify: No customer Email present for paypal express.');
         args.payPalErrorCode = 'Customer_Email_Missing';
         return args;
     }
@@ -108,7 +109,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
         service.addHeader('charset', 'UTF-8');
 
         var requestObj = JSON.stringify(jsonObjNew);
-        Logger.warn('Adyen Express PayPal Request' + requestObj);
+        Logger.warn('(expressPayPalAuthorisation) -> verify: Adyen Express PayPal Request' + requestObj);
 
         callResult = service.call(requestObj);
 
@@ -129,7 +130,7 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
 	            return args;
             }
             var responseObj = JSON.parse(resultText);
-            Logger.warn('Adyen Express PayPal Response' + responseObj);
+            Logger.warn('(expressPayPalAuthorisation) -> verify: Adyen Express PayPal Response' + responseObj);
             args.resultCode = (responseObj.resultCode !== null) ? responseObj.resultCode : '';
             args.authorizationCode = (responseObj.authCode !== null) ? responseObj.authCode : '';
             args.pspReference = (responseObj.pspReference !== null) ? responseObj.pspReference : '';
@@ -141,12 +142,12 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
             if (resultCode.indexOf('Authorised') !== -1 || resultCode.indexOf('RedirectShopper') !== -1) {
                 args.decision = 'ACCEPT';
                 args.paymentStatus = resultCode;
-                Logger.getLogger('Adyen', 'Exp PayPal').debug('Express PayPal Result text status in expressPayPalAuthorisation.js : ' + resultText);
+                Logger.getLogger('Adyen', 'ExpPayPal').debug('(expressPayPalAuthorisation) -> verify: Express PayPal Result text status in expressPayPalAuthorisation.js : ' + resultText);
             }			else {
                 args.paymentStatus = 'Refused';
                 args.payPalErrorCode = resultCode;
                 args.decision = 'REFUSED';
-                Logger.getLogger('Adyen', 'Exp PayPal').error('Authorisation Error in expressPayPalAuthorisation.js for Adyen Express PayPal: Refused ' + resultText);
+                Logger.getLogger('Adyen', 'ExpPayPal').error('(expressPayPalAuthorisation) -> verify: Authorisation Error in expressPayPalAuthorisation.js for Adyen Express PayPal: Refused ' + resultText);
             }
             args.authorizationCode = args.paymentStatus;
         } else if (callResult.isOk() === false) {
@@ -155,15 +156,15 @@ function verify(order, adyenPayPalToken, paymentMethod, request) {
             args.payPalErrorMsg = errorObj;
             args.resultCode = 'PENDING';
             args.decision = 'REFUSED';
-            Logger.getLogger('Adyen', 'ExpPayPal').error('Error in expressPayPalAuthorisation.js for Adyen PayPal Express  | ResponseErrorText ' + errorObj + ' Error => ResponseStatus: ' + callResult.getStatus() + ', Order Number = ' + orderId);
+            Logger.getLogger('Adyen', 'ExpPayPal').error('(expressPayPalAuthorisation) -> verify: Error in expressPayPalAuthorisation.js for Adyen PayPal Express  | ResponseErrorText ' + errorObj + ' Error => ResponseStatus: ' + callResult.getStatus() + ', Order Number = ' + orderId);
         }
     } catch (e) {
         var error = e;
         args.error = 'Error in expressPayPalAuthorisation.js for Adyen Express PayPal';
         if (e instanceof Fault) {
-            Logger.getLogger('Adyen', 'Exp PayPal').error(' Error in expressPayPalAuthorisation.js for Adyen Express PayPal: Fault Actor ' + e.message + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + ' == Details ==> ' + e.faultDetail + ')');
+            Logger.getLogger('Adyen', 'ExpPayPal').error('(expressPayPalAuthorisation) -> verify: Error in expressPayPalAuthorisation.js for Adyen Express PayPal: Fault Actor ' + e.message + " caused fault [code: '" + e.faultCode + "'] == Error ==> (" + e.faultString + ' == Details ==> ' + e.faultDetail + ')');
         } else {
-            Logger.getLogger('Adyen', 'Exp PayPal').error('Error in expressPayPalAuthorisation.js for Adyen Express PayPal: ' + error.toString() + ' in ' + error.fileName + ':' + error.lineNumber);
+            Logger.getLogger('Adyen', 'ExpPayPal').error('(expressPayPalAuthorisation) -> verify: Error in expressPayPalAuthorisation.js for Adyen Express PayPal: ' + error.toString() + ' in ' + error.fileName + ':' + error.lineNumber);
         }
         return args.error;
     }
