@@ -153,27 +153,6 @@ function updateAvailability(data, uuid) {
     $('.availability-' + lineItem.UUID).html(messages);
 }
 
-$(window).on('load', function() {
-    var quantity = parseInt($('.quantity-form > .quantity').val());
-
-    if (isNaN(quantity) || quantity == 0 || quantity == 1) {
-        $('.decreased-btn').attr('disabled', true);
-        quantity = 1;
-    } else {
-        $('.decreased-btn').attr('disabled', false);
-    }
-});
-
-$('.decreased-btn').click(function (e) {
-    var quantitySelector = $(this).next('.quantity');
-    decreaseQuantity(quantitySelector);
-});
-
-$('.increased-btn').click(function (e) {
-    var quantitySelector = $(this).prev('.quantity');
-    increaseQuantity(quantitySelector);
-});
-
 $('.quantity-form > .quantity').bind('keyup', function (e) {
     this.value = this.value.replace(/[^\d].+/, '');
 
@@ -199,37 +178,37 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
     }
 });
 
-function decreaseQuantity (quantitySelector) {
+function decreaseQuantity (quantitySelector, id) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
-        $('.decreased-btn').attr('disabled', true);
+        $('#decreased-' + id).attr('disabled', true);
         quantity = 1;
     }
 
     quantity = (quantity > 1) ? quantity - 1 : quantity;
 
     if (quantity == 1) {
-        $('.decreased-btn').attr('disabled', true);
+        $('#decreased-' + id).attr('disabled', true);
     } else {
-        $('.decreased-btn').attr('disabled', false);
+        $('#decreased-' + id).attr('disabled', false);
     }
-    $('.quantity-form > .quantity').val(quantity);
-    $('.quantity-form > .quantity').trigger('change');
+    $(quantitySelector).val(quantity);
+    updateCartQuantity(quantitySelector, false);
 }
 
-function increaseQuantity (quantitySelector) {
+function increaseQuantity (quantitySelector, id) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
-        $('.quantity-form > .quantity').val(1);
-        $('.decreased-btn').attr('disabled', true);
+        $(quantitySelector).val(1);
+        $('#decreased-' + id).attr('disabled', true);
     }
 
     if (quantity >= 1) {
-        $('.decreased-btn').attr('disabled', false);
+        $('#decreased-' + id).attr('disabled', false);
         quantity = quantity + 1;
-        $('.quantity-form > .quantity').val(quantity);
+        $(quantitySelector).val(quantity);
     }
-    $('.quantity-form > .quantity').trigger('change');
+    updateCartQuantity(quantitySelector, false);
 }
 
 function updateCartQuantity (quantitySelector, isKeyEvent) {
@@ -245,9 +224,9 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
     }
 
     if (quantity == 1 || quantity == 0) {
-        $('.decreased-btn').attr('disabled', true);
+        $('#decreased-' + productID).attr('disabled', true);
     } else {
-        $('.decreased-btn').attr('disabled', false);
+        $('#decreased-' + productID).attr('disabled', false);
     }
 
     var urlParams = {
@@ -290,6 +269,21 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
 }
 
 module.exports = function () {
+
+    $(document).on('click', '.decreased-btn', function (e) {
+        e.preventDefault();
+        var pid = $(this).data('pid');
+        var quantitySelector = '.' + $(this).data('pid');
+        decreaseQuantity(quantitySelector, pid);
+    });
+
+    $(document).on('click', '.increased-btn', function (e) {
+        e.preventDefault();
+        var pid = $(this).data('pid');
+        var quantitySelector = '.' + $(this).data('pid');
+        increaseQuantity(quantitySelector, pid);
+    });
+
     $('body').off('click', '.remove-product').on('click', '.remove-product', function (e) {
         e.preventDefault();
 
@@ -312,7 +306,6 @@ module.exports = function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                $('.page').css('height', '100vh');
                 if (data.basket.items.length === 0) {
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
@@ -355,6 +348,7 @@ module.exports = function () {
     });
 
     $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form > .quantity', function () {
+        e.preventDefault();
         updateCartQuantity(this, false);
     });
 

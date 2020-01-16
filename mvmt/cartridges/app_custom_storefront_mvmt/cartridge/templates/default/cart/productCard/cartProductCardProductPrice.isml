@@ -1,4 +1,4 @@
-<isif condition="${!lineItem.isBonusProductLineItem}"/>
+<isif condition="${!lineItem.isBonusProductLineItem}">
     <!---item price--->
     <iscomment> Custom Start: This template and div are not needed </iscomment>
     <iscomment>

@@ -7,7 +7,7 @@
     <div class="row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-            <div class="col-7 col-sm-6">
+            <div class="align-items-center col-7 col-sm-6 d-flex">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
                 <div class="item-name-and-price">
 	                <isinclude template="cart/productCard/cartProductCardHeader" />
