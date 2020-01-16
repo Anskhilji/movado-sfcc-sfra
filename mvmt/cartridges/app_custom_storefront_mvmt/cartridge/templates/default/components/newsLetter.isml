@@ -3,7 +3,11 @@
     <div class="input-group">
         <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         <div class="invalid-feedback"></div>
-        <iscomment><button id="emailSubcriberBtn" type="button" class="btn btn-primary"></iscomment>
+        <iscomment> Custom Start: Removing id and type of button then it will not display the footer popup form. </iscomment>
+        <iscomment>
+            <button id="emailSubcriberBtn" type="button" class="btn btn-primary">
+        </iscomment>
+        <iscomment> Custom End </iscomment>
         <button type="submit" class="btn btn-primary">
             <img src="${URLUtils.staticURL('/images/newsLetterButtonSvg.svg')}" alt="${Resource.msg('button.form.emailsignup', 'homePage', null)}" />
         </button>
