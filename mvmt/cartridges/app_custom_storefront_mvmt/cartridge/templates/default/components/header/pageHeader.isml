@@ -14,7 +14,7 @@
                                 <div class="d-none d-lg-inline-block">
                                     <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 </div>
-                                <div class="d-block text-center d-lg-none">
+                                <div class="d-block w-100 mobile-logo text-center d-lg-none">
                                     <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                         </button>
                                     </li>
                                 </ul>
-                                <div class="hidden-lg-down d-lg-flex">
+                                <div class="hidden-md-down d-lg-flex">
                                     <div class="main-level-item navbar-header account-wrapper search">
                                         <isinclude url="${URLUtils.url('Account-Header')}" />
                                     </div>

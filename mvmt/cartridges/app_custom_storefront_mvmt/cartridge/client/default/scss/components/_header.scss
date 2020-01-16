@@ -999,13 +999,23 @@ header.new-header {
   }
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(md) {
 
   header.new-header {
 
     .header-wrapper {
       background: $white;
       position: relative;
+    }
+
+    .mobile-logo {
+
+      .logo-link {
+
+        svg {
+          width: 70%;
+        }
+      }
     }
 
     .header-mobile-categories, .header-nav-right-mobile {
