@@ -22,14 +22,6 @@
                                 <div class="d-none d-lg-inline-block">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
-                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
-                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
-                                    aria-expanded="false">
-                                    <i class="fa fa-bars"></i>
-                                    <span class="menu-text d-md-inline-block d-lg-none">
-                                        ${Resource.msg('link.header.menu', 'common', null)}
-                                    </span>
-                                </button>
                             </div>
 
                             <div class="nav-right justify-content-end right">
@@ -314,4 +306,4 @@
     <iscontentasset aid="ca-footer-social-email" />
 </div>
 
-<div id="overlay" class="is-active"></div>
+<div id="overlay"></div>

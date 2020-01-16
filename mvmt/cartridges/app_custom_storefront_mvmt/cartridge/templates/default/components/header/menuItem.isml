@@ -1,14 +1,5 @@
 <iscomment> Custom: menu-content div added</iscomment>
 <div class="dropdown-menu" role="menu" aria-hidden="true">
-    <isif condition="${topCat.disableSubCategories}">
-    <div class="shop-by-collection-slide">
-        <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-            <isif condition="${topCat.staticContentAsset && topCat.staticContentAsset !== ''}">
-                <isprint value="${topCat.staticContentAsset}" encoding="off"/>
-            </isif>
-        </div>
-    </div>
-    <iselse>
     <div class="menu-content movado-header-dropdown">
         <div class="menu-pane">
             <h3>${Resource.msgf('title.header.dropdown', 'common', null)} ${category.name}</h3>
@@ -47,5 +38,4 @@
             </isloop>
         </div>
     </div>
-    </isif>
 </div>

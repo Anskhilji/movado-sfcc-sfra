@@ -15,6 +15,7 @@ $(".desktop-search-icon").click(function(){
     $('.desktop-side-search .header-search-field').focus();
 });
 
+
 $('.header-mobile-categories .header-mobile-category').click(function() {
     var menuText = $(this).find('.header-mobile-category-text').data('trigger-menu');
     $(this).toggleClass('active');
@@ -34,11 +35,17 @@ $('.header-mobile-categories .header-mobile-category').click(function() {
     }
 });
 
+$('#overlay').click(function() {
+    $('.mobile-nav, #overlay').removeClass('active');
+    var menuText = $('.header-mobile-categories .active .header-mobile-category-text').data('trigger-menu');
+    $('.header-mobile-categories .active .header-mobile-category-text').text(menuText);
+    $('.header-mobile-categories .header-mobile-category').removeClass('active');
+});
+
 $('.mobile-search-button').click(function() {
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();
 });
-
 
 $('.mobile-search-icon').click(function() {
     $('.mobile-side-search').removeClass('active');
@@ -48,16 +55,6 @@ $('.mobile-nav .mobile-subnav-btn').click(function() {
     $(this).toggleClass('active');
 });
 
-/* $(".header-search-field").focusin(function(){
-    $('.search-recomendation').fadeIn();
-    if (!$(".header-search-field").val()) { 
-        $(".search-recomendation").fadeIn();
-        console.log("this is empaty")
-    } else{
-        $(".search-recomendation").fadeOut();
-    }
-}); */
-
 $(".header-search-field").focusout(function(){
     if (!$(".header-search-field").val()) {
         $(".search-recomendation").fadeIn();
@@ -66,27 +63,5 @@ $(".header-search-field").focusout(function(){
         $(".search-recomendation").fadeOut();
     }
 });
-
-$('.header-search-field').on('change keypress paste keyup', function() {
-    $(".search-recomendation").fadeOut();
-
-    setTimeout(function(){
-        if (!$(".header-search-field").val()) {
-            $(".search-recomendation").fadeIn();
-        } else {
-            $(".search-recomendation").fadeOut();
-        }
-    }, 1000);
-});
-
-$('.new-header .dropdown-menu .dropdown-item').hover(function() {
-    $('.new-header .dropdown-menu .dropdown-item').removeClass('active');
-    $(this).addClass('active');
-});
-
-
-if ($(".header-search-field").is(':empty')) {
-    $(".search-recomendation").show();
-}
 
 

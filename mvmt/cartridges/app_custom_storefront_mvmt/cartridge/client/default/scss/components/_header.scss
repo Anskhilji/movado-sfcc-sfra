@@ -1,27 +1,3 @@
-.header-banner {
-  position: relative;
-  z-index: 999;
-
-  .html-slot-container {
-    @include font-book;
-    font-size: rem(14);
-
-    @include media-breakpoint-down(sm) {
-      font-size: rem(12);
-    }
-    @include media-breakpoint-down(xs) {
-      font-size: rem(10);
-    }
-  }
-}
-
-.home-page-banner-image {
-
-  img {
-    width: 100%;
-  }
-}
-
 header.new-header {
 
   @import "menu";
@@ -72,6 +48,7 @@ header.new-header {
       margin: 0 auto;
       height: auto;
       max-width: $container-max-width;
+
       @include media-breakpoint-down(sm) {
         padding: 0 rem(10);
         padding-right: 0;
@@ -103,10 +80,6 @@ header.new-header {
       }
     }
 
-    &:hover {
-      border-color: $black;
-    }
-
     .popover {
       padding: rem(20);
       min-height: auto;
@@ -129,7 +102,6 @@ header.new-header {
         @include font-medium;
         color: $grey8;
         background-color: $white;
-
         margin: 0;
         text-decoration: none;
         white-space: nowrap;
@@ -154,10 +126,13 @@ header.new-header {
       }
 
       li {
+
         &:first-child {
           margin-bottom: rem(20);
         }
+
         &:last-child {
+
           a {
             background: $black;
             color: $white;
@@ -204,27 +179,6 @@ header.new-header {
     }
   }
 
-  .navbar-toggler-custom {
-    cursor: pointer;
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: 0.1875rem;
-    outline: none;
-
-    .fa-bars {
-      height: rem(13);
-      width: rem(19);
-      background: url("../images/menu-toggle.svg") center center no-repeat;
-      margin-right: rem(5);
-
-      &::before {
-        content: unset;
-      }
-    }
-  }
-
   .minicart-link {
     background: none;
     @include font-book;
@@ -236,29 +190,8 @@ header.new-header {
     padding: rem(30) rem(24) rem(30);
   }
 
-  .header-search-field{
-    font-family: $font-medium;
-    font-size: rem(16);
-    border: none;
-    border-bottom: 2px solid $dark-gray;
-    border-radius: 0;
-    outline: none;
-    width: 100%;
-    padding: 0;
-    padding-bottom: rem(10);
-
-    &:focus {
-      box-shadow: none;
-    }
-  }
-
   .header-menu-wrapper {
     transition: 0.2s;
-
-
-    .desktop-menu {
-      position: static;
-    }
 
     &.sticky-header, &.non-sticky {
       background-color: $white;
@@ -273,14 +206,6 @@ header.new-header {
 
       &:hover {
         background-color: $white;
-
-        .navbar-toggler-custom {
-          cursor: pointer;
-
-          .fa-bars {
-            background: url("../images/menu-toggle-black.svg") center center no-repeat;
-          }
-        }
 
         .logo-link {
 
@@ -300,14 +225,6 @@ header.new-header {
     }
 
     &.sticky-header, &.non-sticky {
-
-      .navbar-toggler-custom {
-        cursor: pointer;
-
-        .fa-bars {
-          background: url("../images/menu-toggle-black.svg") center center no-repeat;
-        }
-      }
 
       .minicart-link {
         background: none;
@@ -388,6 +305,7 @@ header.new-header {
   }
 
   .header-nav-dots-icon {
+
     .header-dots {
       padding: rem(33) 0 rem(30) rem(5);
       display: block;
@@ -456,6 +374,7 @@ header.new-header {
           line-height: 1;
         }
       }
+
       span {
         @include font-book;
         font-size: rem(12);
@@ -488,6 +407,7 @@ header.new-header {
     }
 
     &.active {
+
       .desktop-search-icon__close {
         display: inline-block;
       }
@@ -540,10 +460,6 @@ header.new-header {
   right: -100%;
   width: 90%;
   z-index: 2001;
-
-  &.active {
-    right: 0;
-  }
 
   .mobile-search-nav {
     border-bottom: rem(2) solid $alice-blue;
@@ -663,9 +579,12 @@ header.new-header {
     float: left;
     margin-top: rem(40);
     text-align: center;
+    width: 100%;
+
     p {
       margin: 0;
     }
+
     img {
       width: rem(120);
     }
@@ -922,6 +841,8 @@ header.new-header {
 
 .desktop-side-search {
   display: none;
+  background: $white;
+
   .search-suggestions {
     padding-bottom: 0;
     width: 100%;
@@ -1007,10 +928,6 @@ header.new-header {
   }
 }
 
-.search-bar {
-  background: $white;
-}
-
 @include media-breakpoint-up(lg) {
   .desktop-side-search {
     display: block;
@@ -1039,6 +956,7 @@ header.new-header {
   header.new-header {
 
     .fixed-header {
+
       .header-menu-wrapper {
         position: fixed;
       }
@@ -1096,6 +1014,7 @@ header.new-header {
     }
 
     .fixed-header {
+
       .header-wrapper {
         position: fixed;
       }
@@ -1139,6 +1058,12 @@ header.new-header {
 
     .header-wrapper {
       background: $white;
+    }
+  }
+
+  .mobile-nav  {
+    &.active {
+      right: 0;
     }
   }
 }
