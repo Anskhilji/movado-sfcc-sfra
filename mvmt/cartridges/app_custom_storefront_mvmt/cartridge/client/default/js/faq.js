@@ -19,7 +19,7 @@ $(document).ready(function () {
     }
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
-    $('.tab-pane-control:first').removeClass('fade in');
+    $('.tab-pane-control:first').removeClass('d-none');
     
     $('.faq-nav-control-bar-btn').on('click', function() {
         $('.faq-nav-control-bar-inner').addClass('active');
@@ -32,9 +32,11 @@ $(document).ready(function () {
     $('.faq-nav-control-bar-link').on('click', function(){
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
+        $('.tab-pane-control').addClass('d-none');
         var id = $(this).attr('href');
         $(id).show();
         $(id).removeClass('d-none');
+        
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($(this).text());
         if(id == '#'+contactTab.attr('id')) {
