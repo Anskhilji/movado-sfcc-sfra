@@ -8,21 +8,26 @@ $(window).scroll(function (event) {
     if (screenSize != null) {
         if (screenSize <= mediumScreenSize) {
             if (scroll != 0) {
-                $('.logo-link > img').css("width", "10rem");
+                $('.logo-link img').css("width", "9rem");
                 $('.ebel-logo').css("height", "1.5rem");
             } else {
-                $('.logo-link > img').css("width", "8rem");
+                $('.logo-link img').css("width", "6.875rem");
                 $('.ebel-logo').css("height", "");
             }
         } else {
-            $('.logo-link > img').css("width", "10rem");
+            $('.header-container .middle .logo-link img').css("width", "9rem");
+            $('.checkout-logo .logo-link img').css("width", "7.5rem");
             $('.ebel-logo').css("height", "");
+            if (scroll != 0) {
+                $('.header-container .middle .logo-link img').css("width", "10rem");
+                $('.checkout-logo .logo-link img').css("width", "10rem");
+            }
         }
     }
 
     if (scroll != 0) {
-        $('.header-container > .middle').addClass('ebel-logo');
+        $('.header-container .middle, .checkout-logo').addClass('ebel-logo');
     } else {
-        $('.header-container > .middle').removeClass('ebel-logo');
+        $('.header-container .middle, .checkout-logo').removeClass('ebel-logo');
     }
 });
