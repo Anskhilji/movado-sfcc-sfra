@@ -312,4 +312,29 @@ $(document).ready(function() {
 
  });
 
+$(document).ready(function(event) {
+    attachCarousel('.trending-category-recommendation', 4);
+});
+
+function attachCarousel(selector, minimumTiles) {
+    var availableTiles = $(selector).find('.carousel-tile').length;
+    if (document.readyState === "complete") {
+        cloneRecomendationSlot(selector);
+        if(availableTiles > minimumTiles) {
+            window.slickSlider.initCarousel($(selector));
+        } else {
+            $(selector).find('.cs-carousel').addClass('d-flex');
+        }
+    } else {
+        setTimeout(function(){ attachCarousel(selector, minimumTiles); }, 3000);
+    }
+    
+}
+
+function cloneRecomendationSlot(selector) {
+    var recomendationSlot = $(selector).parent();
+    $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
+    recomendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recomendationSlot.attr('id'));
+}
+
  
