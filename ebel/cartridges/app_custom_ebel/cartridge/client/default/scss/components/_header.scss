@@ -17,7 +17,11 @@ header {
   letter-spacing: rem(0.4);
   .logo-link {
     img {
-      width: rem(110);
+      width: rem(144);
+
+        @include media-breakpoint-down(md) {
+            width: rem(110);
+        }
     }
   }
   .sticky-header-wrapper {
@@ -51,7 +55,7 @@ header {
       transform: translate(-50%, -50%);
       .html-slot-container {
         p {
-          margin: 0;
+          margin-bottom: rem(5);
           padding: 0;
         }
       }
@@ -71,11 +75,7 @@ header {
     }
   }
   header {
-    .logo-link {
-      img {
-        width: rem(150);
-      }
-    }
+
     .minicart {
       display: flex;
       align-items: center;
