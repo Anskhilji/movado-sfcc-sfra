@@ -125,7 +125,7 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
     var isPayloadEmpty = true;
     var productGroupId;
     var currentLocaleID = yotpoConfiguration.custom.localeID;
-    var regexEmail = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/g;
+    var customerEmailValid;
 
     // Configuration data
     var utokenAuthCode = yotpoConfiguration.custom.utokenAuthCode;
@@ -165,8 +165,11 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
                 customerEmail = order.customerEmail;
             }
 
+            var regexEmail = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/g;
+            customerEmailValid = regexEmail.test(StringUtils.trim(customerEmail));
+
             // Skipping the order if any of the following fields empty of an order,
-            if (empty(customerName) || empty(customerEmail) || empty(order.orderNo) || !regexEmail.test(customerEmail)) {
+            if (empty(customerName) || empty(customerEmail) || empty(order.orderNo) || (customerEmailValid == false)) {
                 throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
             }
 
@@ -319,12 +322,11 @@ function sendOrdersToYotpo(orderJSON, yotpoAppKey) {
 
         if (result.status === Result.OK) {
             YotpoLogger.logMessage('Order Feed sumbitted successfully.', 'debug', logLocation);
-        } else if (result.status === Result.ERROR) {
+        } else if (result.status === Result.ERROR && result.getError() == 401) {
             YotpoLogger.logMessage('The request to export order failed authentication. Error code: ' + result + '\n Error Text is: ' + result.msg + ' ' + result.errorMessage.error, 'error', logLocation);
             authenticationError = true;
         } else {
             YotpoLogger.logMessage('Could not export order to Yotpo - HTTP Status Code is: ' + result.error + '\n Error Text is: ' + result.errorMessage, 'error', logLocation);
-            throw Constants.EXPORT_ORDER_SERVICE_ERROR;
         }
     } catch (e) {
         YotpoLogger.logMessage('Error occured while trying to upload feed - ' + e, 'error', logLocation);
