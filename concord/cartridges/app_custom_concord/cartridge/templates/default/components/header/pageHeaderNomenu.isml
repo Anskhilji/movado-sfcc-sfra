@@ -1,0 +1,19 @@
+<header class="checkout-header">
+  <nav>
+    <div class="sticky-header-wrapper">
+      <div class="sticky-header-placeholder"></div>
+      <div class="header-menu-wrapper">
+        <div class="header-wrapper checkout-header-wrapper">
+          <div class="checkout-logo d-flex justify-content-center">
+            <isslot id="brand-logo" description="Brand Logo" context="global" />
+          </div>
+          <div class="right">
+            <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+              <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

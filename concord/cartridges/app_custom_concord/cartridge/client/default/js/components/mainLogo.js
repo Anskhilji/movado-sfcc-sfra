@@ -15,14 +15,15 @@ $(window).scroll(function (event) {
                 $('.concord-logo').css("height", "");
             }
         } else {
-            $('.logo-link > img').css("width", "10rem");
+            $('.header-container > .middle .logo-link > img').css("width", "10rem");
+            $('.checkout-logo .logo-link > img').css("width", "9rem");
             $('.concord-logo').css("height", "");
         }
     }
 
     if (scroll != 0) {
-        $('.header-container > .middle').addClass('concord-logo');
+        $('.header-container > .middle, .checkout-logo').addClass('concord-logo');
     } else {
-        $('.header-container > .middle').removeClass('concord-logo');
+        $('.header-container > .middle, .checkout-logo').removeClass('concord-logo');
     }
 });
