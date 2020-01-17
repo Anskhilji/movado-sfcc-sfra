@@ -8,22 +8,22 @@ $(window).scroll(function (event) {
     if (screenSize != null) {
         if (screenSize <= mediumScreenSize) {
             if (scroll != 0) {
-                $('.logo-link > img').css("width", "10rem");
+                $('.logo-link img').css("width", "10rem");
                 $('.concord-logo').css("height", "1.5rem");
             } else {
-                $('.logo-link > img').css("width", "8rem");
+                $('.logo-link img').css("width", "8rem");
                 $('.concord-logo').css("height", "");
             }
         } else {
-            $('.header-container > .middle .logo-link > img').css("width", "10rem");
-            $('.checkout-logo .logo-link > img').css("width", "9rem");
+            $('.header-container .middle .logo-link img').css("width", "10rem");
+            $('.checkout-logo .logo-link img').css("width", "9rem");
             $('.concord-logo').css("height", "");
         }
     }
 
     if (scroll != 0) {
-        $('.header-container > .middle, .checkout-logo').addClass('concord-logo');
+        $('.header-container .middle, .checkout-logo').addClass('concord-logo');
     } else {
-        $('.header-container > .middle, .checkout-logo').removeClass('concord-logo');
+        $('.header-container .middle, .checkout-logo').removeClass('concord-logo');
     }
 });
