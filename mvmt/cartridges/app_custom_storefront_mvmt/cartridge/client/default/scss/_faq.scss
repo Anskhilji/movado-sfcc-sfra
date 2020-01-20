@@ -23,17 +23,17 @@
         cursor: pointer;
         outline: 0;
         border: 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             display: none;
         }
         
         svg {
             position: absolute;
             top: 50%;
-            right: 20px;
+            right: rem(20);
             transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
+            width: rem(10);
+            height: rem(10);
         }
     }
     
@@ -47,7 +47,7 @@
         transition: transform .35s,opacity .35s;
         z-index: 11;
         opacity: 0;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             z-index: 1;
             opacity: 1;
             position: static;
@@ -76,7 +76,7 @@
             text-transform: uppercase;
             cursor: pointer;
             margin-bottom: rem(25);
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(lg) {
                 display: none;
             }
         }
@@ -89,41 +89,41 @@
     }
     
     .faq-nav-control-bar-link {
-        border: 1px solid #222;
+        border: rem(1) solid #222;
         color: #979797;
         cursor: pointer;
         display: block;
         font-weight: 500;
         line-height: 1;
-        letter-spacing: 1.5px;
-        margin: 0 auto 15px;
-        font-size: 12px;
+        letter-spacing: rem(1.5);
+        margin: 0 auto rem(15);
+        font-size: rem(12);
         text-align: center;
         text-transform: uppercase;
-        padding: 25px;
-        width: calc(100% - 50px);
+        padding: rem(25);
+        width: calc(100% - rem(50));
         color: #000!important;
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             border: 0;
-            border-right: 1px solid #e8e8e8;
+            border-right: rem(1) solid #e8e8e8;
             display: inline-block;
             flex-grow: 1;
-            font-size: 11px;
-            line-height: 48px;
+            font-size: rem(11);
+            line-height: rem(48);
             margin: 0;
-            padding: 0 25px;
+            padding: 0 rem(25);
             transition: background-color .25s ease-out;
             width: auto;
             &:first-of-type {
-                border-left: 1px solid #e8e8e8;
+                border-left: rem(1) solid #e8e8e8;
             }
         }
     }
     
     .faq-nav-control-bar-link.is-active {
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             background-color: #f7f8f9;
-            border-bottom: 2px solid #000;
+            border-bottom: rem(2) solid #000;
         }
     }
 }
@@ -131,32 +131,32 @@
 .faq-main {
     position: relative;
     width: 100%;
-    margin: 0 auto 80px 10px;
-    max-width: 800px;
+    margin: 0 auto rem(80) rem(10);
+    max-width: rem(800);
     padding: 0;
     
     .faq-title {
-        font-size: 36px;
-        letter-spacing: 3.38px;
-        line-height: 42px;
-        margin: 80px 0;
+        font-size: rem(36);
+        letter-spacing: rem(3.38);
+        line-height: rem(42);
+        margin: rem(80) 0;
         text-transform: uppercase;
         font-weight: bold;
     }
     
     .faq-section-header {
         color: #5c5c5c;
-        font-size: 16px;
-        line-height: 20px;
+        font-size: rem(16);
+        line-height: rem(20);
         font-weight: 400;
-        letter-spacing: 4.29px;
+        letter-spacing: rem(4.29);
         text-transform: uppercase;
     }
     
     .faq-accordion-block-header {
         color: #5c5c5c;
-        font-size: 16px;
-        line-height: 20px;
+        font-size: rem(16);
+        line-height: rem(20);
         font-weight: 400;
         margin: 2.5rem 0 1.25rem;
     }
@@ -168,13 +168,13 @@
     }
     
     .panel-title {
-        font-size: 16px;
+        font-size: rem(16);
         color: #000;
         font-weight: 400;
-        line-height: 20px;
-        padding-right: 17px;
+        line-height: rem(20);
+        padding-right: rem(17);
         position: relative;
-        letter-spacing: 2.5px;
+        letter-spacing: rem(2.5);
         
         .more-less {
             float: right;
@@ -184,53 +184,63 @@
     
     .panel-body {
          p {
-            letter-spacing: .5px;
+            letter-spacing: rem(.5);
         }
     }
 }
 
 #contact-tab {
     h1 {
-        font-size: 50px;
-        letter-spacing: 4.69px;
+        letter-spacing: rem(4.69);
         line-height: 1.5;
         font-weight: bold;
-        margin-bottom: 15px;
+        margin-bottom: rem(15);
         font-family: "futura-pt", sans-serif;
-        margin-top: 80px;
+        margin-top: rem(80);
+        
+        @include media-breakpoint-up(sm) {
+            font-size: rem(50);
+        }
     }
 }
 
 .contact-us-form-wrapper h2 {
-    font-size: 18px;
-    letter-spacing: 2.5px;
+    font-size: rem(18);
+    letter-spacing: rem(2.5);
     margin-bottom: 1.25rem;
 }
 
 .contact-us-form-wrapper {
-    padding: 4.045rem 7.483rem 7.483rem;
+    padding-left: rem(80);
+    padding-right: rem(160);
+    padding-top: rem(80);
+    padding-bottom: rem(160);
+    
+    @include media-breakpoint-down(md) {
+        padding: rem(48) rem(16) rem(32) rem(16);
+    }
 }
 .contact-us-form-wrapper p {
     margin: .59rem 0;
     line-height: 2em;
     font-family: Futura-pt,arial,sans-serif;
     color: #231103;
-    font-size: 12px;
+    font-size: rem(12);
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
 }
 
 .contact-us-callout-wrapper {
     text-align: center;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: rem(800);
     width: 100%;
     p {
         color: #000;
-        font-size: 16px;
+        font-size: rem(16);
         font-weight: bold;
-        line-height: 23px;
-        letter-spacing: .6px;
+        line-height: rem(23);
+        letter-spacing: rem(.6);
         font-family: Futura-pt,arial,sans-serif;
     }
 }
@@ -238,13 +248,16 @@
 .contact-us-left-wrapper {
     background: #f7f8f9;
     height: fit-content;
-    padding: 20px;
+    padding: rem(20);
     text-align: left;
-    width: 40%;
+    
+    @include media-breakpoint-down(md) {
+        margin: rem(16);
+    }
     
     h2 {
-        font-size: 18px;
-        letter-spacing: 2.5px;
+        font-size: rem(18);
+        letter-spacing: rem(2.5);
         margin-bottom: 1.25rem;
         color: #000;
         line-height: 1;
@@ -254,13 +267,13 @@
         font-family: Futura-pt,arial,sans-serif;
         font-weight: 500;
         font-style: normal;
-        border: 2px solid #000;
-        font-size: 11px;
-        letter-spacing: 1.5px;
+        border: rem(2) solid #000;
+        font-size: rem(11);
+        letter-spacing: rem(1.5);
         display: inline-block;
         text-align: center;
         line-height: 1;
-        border-radius: 1px;
+        border-radius: rem(1);
         transition: all .25s ease-in-out;
         position: relative;
         align-items: center;
@@ -274,7 +287,7 @@
         outline: 0;
         overflow: visible;
         padding: 1rem 1.75rem;
-        min-width: 200px;
+        min-width: rem(200);
         background-color: transparent;
         
         &:hover {
@@ -286,9 +299,9 @@
 
 .contact-call-out {
     color: #231103;
-    font-size: 12px !important;
+    font-size: rem(12) !important;
     font-weight: 500 !important;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
     margin: .59rem 0;
     line-height: 2em;
     text-align: left;
@@ -304,17 +317,17 @@
         font-style: normal;
         color: #5c5c5c;
         font-size: .875rem;
-        letter-spacing: .5px;
+        letter-spacing: rem(.5);
     }
 }
 
 .contactus-form .form-control {
-    border: 1px solid #ced4da;
+    border: rem(1) solid #ced4da;
     padding: 1.25rem;
 }
 
 .custom-select {
-    border: 1px solid #ced4da;
+    border: rem(1) solid #ced4da;
     padding: 1.25rem;
 }
 
@@ -325,23 +338,23 @@
 
 .btn-save {
     background: transparent;
-    border: 1px solid #000;
+    border: rem(1) solid #000;
     color: #000;
     font-size: .675rem;
-    height: 45px;
+    height: rem(45);
     white-space: nowrap;
 }
 
 .help-wrapper {
-    padding: 15px 10px;
+    padding: rem(15) rem(10);
     background-color: #F7F8F9;
     text-align: center;
     z-index: 5;
     position: relative;
-    margin-left: 0px;
-    max-width: 225px;
-    left: 44px;
-    top: 221px;
+    margin-left: rem(0);
+    max-width: rem(225);
+    left: rem(44);
+    top: rem(221);
     height : rem(143);
     
     .help-heading h3 {
@@ -349,10 +362,10 @@
     }
     
     .help-contact-box div a{
-    font-size: 10px;
-    margin-top: 6px;
-    text-decoration: underline;
-    cursor: pointer;
+        font-size: rem(10);
+        margin-top: rem(6);
+        text-decoration: underline;
+        cursor: pointer;
     
         &:hover {
             text-decoration: underline;
@@ -361,26 +374,26 @@
 }
 
 .help-wrapper-footer {
-    padding: 15px 10px;
+    padding: rem(15) rem(10);
     background-color: #F7F8F9;
     text-align: center;
     z-index: 5;
     position: absolute;
-    margin-left: 0px;
-    max-width: 225px;
-    left: 44px;
-    bottom: 0px;
+    margin-left: rem(0);
+    max-width: rem(225);
+    left: rem(44);
+    bottom: rem(0);
     height : rem(143);
     
     .help-heading h3 {
-        font-size: 1.17em
+        font-size: rem(18.72);
     }
     
     .help-contact-box div a{
-    font-size: 10px;
-    margin-top: 6px;
-    text-decoration: underline;
-    cursor: pointer;
+        font-size: rem(10);
+        margin-top: rem(6);
+        text-decoration: underline;
+        cursor: pointer;
     
         &:hover {
             text-decoration: underline;
@@ -390,4 +403,66 @@
 
 .scroll-warp {
     position: fixed;
+}
+
+
+.need-help-menu {
+    padding: 0;
+}
+
+@media only screen and (max-width: 1100px){
+    .help-wrapper{
+        left: rem(0);
+        top: 12.813rem;
+        height: auto;
+    }
+
+    .need-help-menu{
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 1099px){
+    .help-wrapper-control{
+        visibility: hidden;
+    }
+
+    .down {
+        flex-basis: 100%;
+        max-width: 100%;
+        margin-left: rem(32);
+    }
+}
+
+
+@media only screen and (max-width: 990px){
+    #contact-tab {
+        max-width: 95%;
+    }
+
+    #faq-general-tab, #faq-general-tab-inner{
+        max-width: 100%;
+    }
+    .down{
+        margin-left: 0;
+    }
+
+    .contact-us-form-wrapper, .contact-us-left-container{
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    
+    .contact-us-left-wrapper {
+        margin: 0;
+        margin-bottom: rem(16);
+    }
+
+    .btn-contact {
+        display: inline-block;
+        width: auto;
+        padding: rem(16) rem(56);
+    }
+
 }

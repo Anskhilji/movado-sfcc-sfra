@@ -49,23 +49,28 @@ $(document).ready(function () {
     });
     
     $(window).scroll(function (event) {
-        var scroll = $(window).scrollTop();
-        
-        if(!contactTab.is(':visible')) {
-            if (helpContainer.hasClass('scroll-warp') == false  && ((helpContainer.offset().top - $(window).scrollTop()) < headerHeight)) {
-                helpContainer.addClass('scroll-warp');
-                helpContainer.css({'top' : headerHeight + 'px'});
-            } else if(helpContainer.offset().top <= ($('.tab-content').offset().top + headerHeight)) {
-                helpContainer.removeAttr('style');
-                helpContainer.removeClass('scroll-warp');
+        if ($(this).width() >= 1100) {
+            var scroll = $(window).scrollTop();
+            
+            if(!contactTab.is(':visible')) {
+                if (helpContainer.hasClass('scroll-warp') == false  && ((helpContainer.offset().top - $(window).scrollTop()) < headerHeight)) {
+                    helpContainer.addClass('scroll-warp');
+                    helpContainer.css({'top' : headerHeight + 'px'});
+                } else if(helpContainer.offset().top <= ($('.tab-content').offset().top + headerHeight)) {
+                    helpContainer.removeAttr('style');
+                    helpContainer.removeClass('scroll-warp');
+                }
+                if((helpContainer.offset().top + helpContainer.outerHeight()) >= footer.offset().top) {
+                    helpContainer.hide();
+                    footerHelpContainer.show();
+                } else {
+                    footerHelpContainer.hide();
+                    helpContainer.show();
+                }
             }
-            if((helpContainer.offset().top + helpContainer.outerHeight()) >= footer.offset().top) {
-                helpContainer.hide();
-                footerHelpContainer.show();
-            } else {
-                footerHelpContainer.hide();
-                helpContainer.show();
-            }
+        } else {
+            helpContainer.hide();
+            footerHelpContainer.hide();
         }
     });
 });

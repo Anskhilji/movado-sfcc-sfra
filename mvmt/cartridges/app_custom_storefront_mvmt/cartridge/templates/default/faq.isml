@@ -28,34 +28,34 @@
 	                <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
 	            </svg>
 	        </div>
-	        <a href="#faq-general-tab" class="faq-nav-control-bar-link " title="General">General</a>
-	        <a href="#us-shipping-tab" class="faq-nav-control-bar-link " title="US Shipping">US Shipping</a>
-	        <a href="#international-tab" class="faq-nav-control-bar-link " title="International Shipping">International Shipping</a>
-	        <a href="#returns-tab" class="faq-nav-control-bar-link is-active" title="Returns">Returns</a>
-	        <a href="#contact-tab" class="faq-nav-control-bar-link " title="Contact">Contact</a>
+	        <a href="#faq-general-tab" class="faq-nav-control-bar-link is-active" title="General">General</a>
+	        <a href="#us-shipping-tab" class="faq-nav-control-bar-link" title="US Shipping">US Shipping</a>
+	        <a href="#international-tab" class="faq-nav-control-bar-link" title="International Shipping">International Shipping</a>
+	        <a href="#returns-tab" class="faq-nav-control-bar-link"title="Returns">Returns</a>
+	        <a href="#contact-tab" class="faq-nav-control-bar-link" title="Contact">Contact</a>
 	    </div>
 	</section>
         <div class="tab-content">
             <div class="row m-0">
-                <div class="col-md-2">
+                <div class="col-md-2 help-wrapper-control"> 
                     <div class="help-wrapper">
                         <div class="help-heading">
                             <h3>Need Help?</h3>
                         </div>
                         <hr />
                         <div class="row help-contact-box">
-                            <div class=col-md-6>
+                            <div class="col-md-6 need-help-menu">
                                 <i class="fa fa-comment"></i> <br />
                                 <a class="text-uppercase">Chat With Us</a>
                             </div>
-                            <div class=col-md-6>
+                            <div class="col-md-6 need-help-menu">
                                 <i class="fa fa-envelope"></i> <br />
                                 <a class="text-uppercase">Contact Us</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-10">
+                </div>  
+                <div class="col-md-10 down">
                     <iscontentasset aid="faq-general-tab" />
                 </div>
             </div>
@@ -119,14 +119,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button type="submit" name="Send" class="btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
+                                        <button type="submit" name="Send" class="btn-contact btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                                     </div>
                                 </div>
                             </form>
                          </div>
                     </div>
-                    <div class="col-md-5 contact-us-left-wrapper">
-                        <iscontentasset aid="contact-us-address-wrapper"/>
+                    <div class="col-md-5 contact-us-left-container">
+                        <div class="contact-us-left-wrapper">
+                            <iscontentasset aid="contact-us-address-wrapper"/>
+                        </div>
                     </div>
                 </div>
             </div>
