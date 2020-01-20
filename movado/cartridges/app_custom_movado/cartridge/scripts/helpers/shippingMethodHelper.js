@@ -6,12 +6,17 @@ var Calendar = require('dw/util/Calendar');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
+var System = require('dw/system/System');
 
 var CommonUtils = require('*/cartridge/utils/commonUtils');
-var Constants = require('~/cartridge/scripts/helpers/utils/Constants')
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 
 function getShippingDate(shippingMethod) {
-    var calendar = new Calendar();
+    var shippingCutOffTimePreference = Site.getCurrent().preferences.custom;
+    var cutOffTimeHours = shippingCutOffTimePreference.shippingCutOffTimeHours ? shippingCutOffTimePreference.shippingCutOffTimeHours : 0;
+    var cutOffTimeMinutes = shippingCutOffTimePreference.shippingCutOffTimeHours ? shippingCutOffTimePreference.shippingCutOffTimeMinutes : 0;
+    var calendar = System.getCalendar();
+    var cuttOffTime =  CommonUtils.fromatDateFromDateAndTime(cutOffTimeHours, cutOffTimeMinutes);
     var basket = BasketMgr.getCurrentBasket();
     var startingDeliveryDate;
     var endingDeliveryDate;
@@ -27,17 +32,12 @@ function getShippingDate(shippingMethod) {
     
     if (basket) {
         var productLineItemsItr = basket.getAllProductLineItems().iterator();
-        var basketLastModified = basket.getLastModified();
         while (productLineItemsItr.hasNext()) {
             var productLineItem = productLineItemsItr.next();
             if (!empty(productLineItem.custom.embossMessageLine1) || !empty(productLineItem.custom.engraveMessageLine1)) {
                 embossed = true;
             }
         }
-        
-        var basketLastModifiedTime = StringUtils.formatCalendar(
-            new Calendar(basketLastModified), Constants.PATTERN_TO_CONVERT_TIME_TO_12_HOURS
-        )
         
         var isExpress;
         
@@ -47,7 +47,7 @@ function getShippingDate(shippingMethod) {
             isExpress  = false;
         }
         
-        var shippingDays = !empty(shippingMethod.custom.estimatedArrivalTime) ? shippingMethod.custom.estimatedArrivalTime : 0;
+        var shippingDays = !empty(shippingMethod.custom.estimatedArrivalTime) ? shippingMethod.custom.estimatedArrivalTime : '0-0';
         var deliveryDaysBeforeNoon = !empty(shippingMethod.custom.daysBeforeNoon) ? shippingMethod.custom.daysBeforeNoon : 0;
         var deliveryDaysAfterNoon = !empty(shippingMethod.custom.daysAfterNoon) ? shippingMethod.custom.daysAfterNoon : 0;
         var optionProductShipmentDelay = !empty(shippingMethod.custom.optionProductShipmentDelay) ? shippingMethod.custom.optionProductShipmentDelay : 0;
@@ -55,14 +55,14 @@ function getShippingDate(shippingMethod) {
         if (!isExpress) {
             var splitedShippingDays = shippingDays.split("-");
             for (var i = 0; i <= splitedShippingDays[0]; i++) {
-                var currentDate = new Calendar(basketLastModified);
+                var currentDate = System.getCalendar();
                 currentDate.add(currentDate.DAY_OF_MONTH, i);
                 startigDateRange.push(currentDate);
             }
             
             var differenceOfDays = splitedShippingDays[1] - splitedShippingDays[0];
             
-            startingDeliveryDate = new Calendar(basketLastModified);
+            startingDeliveryDate = System.getCalendar();
             startingDeliveryDate.add(startingDeliveryDate.DAY_OF_MONTH, splitedShippingDays[0]);
             
             if (embossed) {
@@ -85,22 +85,22 @@ function getShippingDate(shippingMethod) {
             endingDeliveryDate = new Calendar(startingDeliveryDate.time);
             endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, differenceOfDays);
         } else {
-            if (basketLastModifiedTime.indexOf('PM') > -1) {
-                endingDeliveryDate = new Calendar(basketLastModified);
-                endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
+            if (calendar.before(cuttOffTime)) {
+                endingDeliveryDate = System.getCalendar();
+                endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysBeforeNoon);
                 for (var i = 0; i <= deliveryDaysAfterNoon; i++) {
-                    var currentDate = new Calendar(basketLastModified);
+                    var currentDate = System.getCalendar();
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
                     dateRange.push(currentDate);
                 }
                 if (embossed) {
                     endingDeliveryDate = includeAdditionalDaysForOptionProduct(endingDeliveryDate, dateRange, optionProductShipmentDelay);
                 }
-            } else {
-                endingDeliveryDate = new Calendar(basketLastModified);
-                endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysBeforeNoon);
+            } else if (calendar.after(cuttOffTime) || calendar.equals(cuttOffTime)) {
+                endingDeliveryDate = System.getCalendar();
+                endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
                 for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
-                    var currentDate = new Calendar(basketLastModified);
+                    var currentDate = System.getCalendar();
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
                     dateRange.push(currentDate);
                 }
