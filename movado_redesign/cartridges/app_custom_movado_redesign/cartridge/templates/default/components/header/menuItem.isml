@@ -43,13 +43,9 @@
               </isif>
             </isloop>
         </div>
-        <isif condition="${topCat.headerMenuBanner}">
-            <div class="featured-promotion gtm-customEvent" id="${topCat.disableSubCategories == false ? 'custom-slick-slider-control' : ''}"  data-gtm-tracking='${gtmCategoryVal}'>
-                <div class="header-tiles">
-                <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
-                </div>
-            </div>
-        </isif>
+        <div class="submenu-recommendations w-75" data-recomendationcategory="${topCat.id}">
+            <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
+        </div>
     </div>
     
     

@@ -312,4 +312,38 @@ $(document).ready(function() {
 
  });
 
+$(document).ready(function(event) {
+    renderRecommendationSlots();
+    $('.mobile-menu .html-slot-container .submenu-recommendations').parent().removeClass('w-75');
+});
+
+function renderRecommendationSlots() {
+    if (document.readyState === 'complete') {
+        $('.trending-category-recommendation').each( function() {
+            attachCarousel(this, 4);
+        });
+    } else {
+        setTimeout(function() {
+            renderRecommendationSlots(); 
+        }, 3000);
+    }
+}
+
+function attachCarousel(selector, minimumTiles) {
+    var availableTiles = $(selector).find('.carousel-tile').length;
+    cloneRecommendationSlot(selector);
+    if(availableTiles > minimumTiles) {
+        window.slickSlider.initCarousel($(selector));
+    } else {
+        $(selector).find('.cs-carousel').addClass('d-flex');
+    }
+}
+
+function cloneRecommendationSlot(selector) {
+    var recommendationSlot = $(selector).parent();
+    $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
+    recommendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id'));
+    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id') + ' .trending-category-recommendation'));
+}
+
  
