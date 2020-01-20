@@ -4,3 +4,13 @@
 .popover {
     font-family: $font-book;
 }
+
+.minicart {
+
+    .popover {
+
+        &:before {
+            content: none;
+        }
+    }
+}

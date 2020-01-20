@@ -4,4 +4,5 @@ processInclude(require('movado/main'));
 
 $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
+    processInclude(require('./components/miniCart'));
 });

@@ -1,0 +1,15 @@
+<iscomment>Custom Start: Removing the cart page url address because it is not in the mvmt design </iscomment>
+<div class="minicart-total hide-link-med">
+    <i class="minicart-icon fa fa-shopping-bag"></i>
+    <span class="minicart-quantity">
+        <isprint value="${pdict.quantityTotal}" formatter="##" />
+    </span>
+</div>
+<div class="minicart-total hide-no-link">
+    <i class="minicart-icon fa fa-shopping-bag"></i>
+        <span class="minicart-quantity">
+            <isprint value="${pdict.quantityTotal}" formatter="##" />
+        </span>
+</div>
+<div class="popover popover-bottom"></div>
+<iscomment> Custom End </iscomment>
