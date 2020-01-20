@@ -313,28 +313,37 @@ $(document).ready(function() {
  });
 
 $(document).ready(function(event) {
-    attachCarousel('.trending-category-recommendation', 4);
+    getRecomendationSlots();
+    $('.mobile-menu .html-slot-container .submenu-recommendations').parent().removeClass('w-75');
 });
+
+function getRecomendationSlots() {
+    if (document.readyState === "complete") {
+        $('.trending-category-recommendation').each( function() {
+            attachCarousel(this, 4);
+        });
+    } else {
+        setTimeout(function() {
+            getRecomendationSlots(); 
+        }, 3000);
+    }
+}
 
 function attachCarousel(selector, minimumTiles) {
     var availableTiles = $(selector).find('.carousel-tile').length;
-    if (document.readyState === "complete") {
-        cloneRecomendationSlot(selector);
-        if(availableTiles > minimumTiles) {
-            window.slickSlider.initCarousel($(selector));
-        } else {
-            $(selector).find('.cs-carousel').addClass('d-flex');
-        }
+    cloneRecomendationSlot(selector);
+    if(availableTiles > minimumTiles) {
+        window.slickSlider.initCarousel($(selector));
     } else {
-        setTimeout(function(){ attachCarousel(selector, minimumTiles); }, 3000);
+        $(selector).find('.cs-carousel').addClass('d-flex');
     }
-    
 }
 
 function cloneRecomendationSlot(selector) {
     var recomendationSlot = $(selector).parent();
     $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
     recomendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recomendationSlot.attr('id'));
+    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recomendationSlot.attr('id') + ' .trending-category-recommendation'));
 }
 
  
