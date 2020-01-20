@@ -205,7 +205,7 @@
             }
     
             @include media-breakpoint-down(sm) {
-              min-height: unset
+                min-height: unset
             }
 
             .image-container {
