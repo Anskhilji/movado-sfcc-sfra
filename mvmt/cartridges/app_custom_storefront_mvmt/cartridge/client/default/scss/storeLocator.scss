@@ -106,6 +106,7 @@
                         box-shadow: inherit;
                         cursor: pointer;
                         text-transform: inherit;
+                        width: rem(140);
 
                         @include media-breakpoint-down(sm) {
                             position: relative;
