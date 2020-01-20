@@ -77,6 +77,9 @@ server.replace(
 
         affirmHelper.PostProcess(order);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+        if (currentBasket.custom.smartGiftTrackingCode) {
+            SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, order.orderNo);
+        }
         //set custom attirbute in session to avoid order confirmation page reload
         session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');
