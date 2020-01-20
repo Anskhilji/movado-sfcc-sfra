@@ -1,6 +1,6 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row">
-    <iscomment> Custom Start: This div's section are not needed </iscomment>
+    <iscomment> Custom Start: This div's section are not needed because mvmt desing not have grand total price text </iscomment>
     <iscomment>
     <div class="col-12 estimated-price text-center d-block d-sm-none">
         <span>
@@ -23,7 +23,7 @@
         </a>
     </div>
 </div>
-<iscomment> Custom Start: This div's section are not needed </iscomment>
+<iscomment> Custom Start: This div's section are not needed because mvmt desing not expresspayplay and applypay button </iscomment>
 <iscomment>
 <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
 <div class="row more-options">

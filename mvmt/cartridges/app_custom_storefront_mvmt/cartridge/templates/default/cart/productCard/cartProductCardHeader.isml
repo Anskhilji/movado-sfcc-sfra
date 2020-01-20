@@ -1,5 +1,10 @@
+<iscomment>Custom Start: Moved the remove button div into the cardProductCard template according to the mvmt design </iscomment>
 <isif condition="${lineItem.isBonusProductLineItem}" />
-    <div>${Resource.msg('msg.bonus.product','cart',null)}</div>
+    <isif condition="${lineItem.isBonusProductText}"> 
+        <div>${lineItem.bonusProductText}</div>
+    <iselse>
+        <div>${Resource.msg('msg.bonus.product','cart',null)}</div>
+    </isif>
 </isif>
 <div class="line-item-header">
     <div class="line-item-name">

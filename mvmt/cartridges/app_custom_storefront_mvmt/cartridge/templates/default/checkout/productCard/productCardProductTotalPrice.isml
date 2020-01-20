@@ -1,3 +1,4 @@
+<iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
     <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${lineItem.priceTotal.nonAdjustedPrice}</div>
     <div class="savings">${Resource.msg('cart.label.savings','cart',null)}	${lineItem.priceTotal.formattedSavingPrice}</div>

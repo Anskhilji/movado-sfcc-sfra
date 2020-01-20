@@ -1,4 +1,4 @@
-<iscomment> Custom Start: Removed the unnesscary classes and div's </iscomment>
+<iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <div class="quantity-form">
     <button type="button" class="quantity-btn hidden-sm-down decreased-btn" ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
         <svg class="svg-icon" viewBox="0 0 8 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="0 7 0 9 8 9 8 7"></polygon></g></svg>

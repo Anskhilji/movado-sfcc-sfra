@@ -40,7 +40,7 @@
             &:hover {
                 background-color: $light-green4;
                 border-color: $light-green4;
-                color: #fff;
+                color: $white;
             }
 
             &:active {
@@ -55,7 +55,7 @@
                 outline: 0;
                 background-color: $light-green4;
                 border-color: $light-green4;
-                color: #fff;
+                color: $white;
             }
         }
     }

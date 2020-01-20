@@ -1,3 +1,4 @@
+<iscomment>Custom Start: Added new template for mvmt cart and checkout header design </iscomment>
 <isdecorate template="common/layout/cartAndCheckout">
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
@@ -11,3 +12,4 @@
         <isslot id="cs-cart-recommendations" description="Recommended products" context="global" />
     </div>
 </isdecorate>
+<iscomment> Custom End </iscomment>

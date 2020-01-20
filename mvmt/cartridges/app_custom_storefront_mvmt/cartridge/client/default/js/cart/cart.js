@@ -153,6 +153,13 @@ function updateAvailability(data, uuid) {
     $('.availability-' + lineItem.UUID).html(messages);
 }
 
+
+/**
+ * This event binding function will handle the keyboard pressed keys on the basis of 
+ * conditions and also it will replace the alphabets with empty string then update the 
+ * quantity of the product.
+ * @param e
+ */
 $('.quantity-form > .quantity').bind('keyup', function (e) {
     this.value = this.value.replace(/[^\d].+/, '');
 
@@ -178,6 +185,13 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
     }
 });
 
+/**
+ * DecreaseQuantity function is used to decrease the quantity of the selected product if 
+ * quantity of the product is empty or null then this function will add the one quantity instead of 
+ * empty or null. if selected product quantity is one then it will disable the decreaseQuantity button.
+ * @param quantitySelector
+ * @param id
+ */
 function decreaseQuantity (quantitySelector, id) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
@@ -196,6 +210,13 @@ function decreaseQuantity (quantitySelector, id) {
     updateCartQuantity(quantitySelector, false);
 }
 
+/**
+ * IncreaseQuantity function is used to increase the quantity of the selected product if 
+ * quantity of the product is empty or null then this function will add the one quantity instead of 
+ * empty or null. if selected product quantity is one then it will disable the decreaseQuantity button.
+ * @param quantitySelector
+ * @param id
+ */
 function increaseQuantity (quantitySelector, id) {
     var quantity = parseInt($(quantitySelector).val());
     if (isNaN(quantity)) {
@@ -211,6 +232,13 @@ function increaseQuantity (quantitySelector, id) {
     updateCartQuantity(quantitySelector, false);
 }
 
+/**
+ * updateCartQuantity function will update the quantity in the product and the cart.
+ * quantitySelector param is used to get the selected product class and it data attributes.
+ * isKeyEvent param is used to check the current event is fire from keys or mouse.
+ * @param quantitySelector
+ * @param isKeyEvent
+ */
 function updateCartQuantity (quantitySelector, isKeyEvent) {
     var preSelectQty = $(quantitySelector).data('pre-select-qty');
     var quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
@@ -270,6 +298,11 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
 
 module.exports = function () {
 
+    /**
+     * This is new click event function on the decreased quantity button.
+     * It will get the decreased-btn data attribute and made the quantitySelector 
+     * class and it will call the decreaseQuantity function.
+     */
     $(document).on('click', '.decreased-btn', function (e) {
         e.preventDefault();
         var pid = $(this).data('pid');
@@ -277,6 +310,11 @@ module.exports = function () {
         decreaseQuantity(quantitySelector, pid);
     });
 
+    /**
+     * This is new click event function on the increased quantity button.
+     * It will get the increased-btn data attribute and made the quantitySelector 
+     * class and it will call the increaseQuantity function.
+     */
     $(document).on('click', '.increased-btn', function (e) {
         e.preventDefault();
         var pid = $(this).data('pid');
@@ -284,6 +322,12 @@ module.exports = function () {
         increaseQuantity(quantitySelector, pid);
     });
 
+    /**
+     * This is override click event function on the remove button.
+     * It is used to remove the product from the cart and if product is 
+     * successfully removed then it will add the new classes with div's according to
+     * the mvmt design.
+     */
     $('body').off('click', '.remove-product').on('click', '.remove-product', function (e) {
         e.preventDefault();
 
@@ -347,6 +391,12 @@ module.exports = function () {
         });
     });
 
+    /**
+     * This is override change event function on the quantity input field.
+     * It is used to update the quantity of the product in the cart. It will call 
+     * the updateCartQuantity function that will handle the quantity update 
+     * functionality.
+     */
     $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form > .quantity', function () {
         e.preventDefault();
         updateCartQuantity(this, false);
