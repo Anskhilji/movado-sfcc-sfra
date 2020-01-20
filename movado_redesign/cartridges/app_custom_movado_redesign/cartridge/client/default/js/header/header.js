@@ -313,25 +313,25 @@ $(document).ready(function() {
  });
 
 $(document).ready(function(event) {
-    getRecomendationSlots();
+    renderRecommendationSlots();
     $('.mobile-menu .html-slot-container .submenu-recommendations').parent().removeClass('w-75');
 });
 
-function getRecomendationSlots() {
-    if (document.readyState === "complete") {
+function renderRecommendationSlots() {
+    if (document.readyState === 'complete') {
         $('.trending-category-recommendation').each( function() {
             attachCarousel(this, 4);
         });
     } else {
         setTimeout(function() {
-            getRecomendationSlots(); 
+            renderRecommendationSlots(); 
         }, 3000);
     }
 }
 
 function attachCarousel(selector, minimumTiles) {
     var availableTiles = $(selector).find('.carousel-tile').length;
-    cloneRecomendationSlot(selector);
+    cloneRecommendationSlot(selector);
     if(availableTiles > minimumTiles) {
         window.slickSlider.initCarousel($(selector));
     } else {
@@ -339,11 +339,11 @@ function attachCarousel(selector, minimumTiles) {
     }
 }
 
-function cloneRecomendationSlot(selector) {
-    var recomendationSlot = $(selector).parent();
+function cloneRecommendationSlot(selector) {
+    var recommendationSlot = $(selector).parent();
     $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
-    recomendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recomendationSlot.attr('id'));
-    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recomendationSlot.attr('id') + ' .trending-category-recommendation'));
+    recommendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id'));
+    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id') + ' .trending-category-recommendation'));
 }
 
  
