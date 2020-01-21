@@ -54,8 +54,6 @@ function deleteOrderFromYotpo (ordersJSON, appKey) {
  */
 function deleteOrder(order) {
     var CustomObjectMgr = require('dw/object/CustomObjectMgr');
-    var YotpoLogger = require('*/cartridge/scripts/yotpo/utils/YotpoLogger');
-    var Constants = require('*/cartridge/scripts/yotpo/utils/Constants');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
 
     var authenticationError;
