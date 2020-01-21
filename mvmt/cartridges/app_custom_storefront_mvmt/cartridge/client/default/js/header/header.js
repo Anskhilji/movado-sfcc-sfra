@@ -2,19 +2,20 @@
 $(document).ready(function() {
     $('.new-header .dropdown-menu .dropdown-item:first-child').addClass('active');
     $('.submenu-control').hover(function(event) {
+        $(this).parent().find('.submenu-control').removeClass('active');
+        $(this).addClass('active');
         var currentCategory = $(this).data('category');
-        var activeSubMenu = $(".submenu").find("[data-parentcategory='" + currentCategory + "']");
+        var activeSubMenu = $('.submenu').find('[data-parentcategory='" + currentCategory + "']');
         activeSubMenu.siblings('.submenu-container').addClass('d-none');
         activeSubMenu.removeClass('d-none');
     });
 });
 
-$(".desktop-search-icon").click(function(){
+$('.desktop-search-icon').click(function(){
     $(this).toggleClass('active');
     $('.desktop-side-search').toggleClass('desktop-search-active');
     $('.desktop-side-search .header-search-field').focus();
 });
-
 
 $('.header-mobile-categories .header-mobile-category').click(function() {
     var menuText = $(this).find('.header-mobile-category-text').data('trigger-menu');
@@ -55,7 +56,7 @@ $('.mobile-nav .mobile-subnav-btn').click(function() {
     $(this).toggleClass('active');
 });
 
-$(".header-search-field").focusout(function(){
+$('.header-search-field').focusout(function(){
     if (!$(".header-search-field").val()) {
         $(".search-recomendation").fadeIn();
         console.log("this is empaty")
@@ -63,5 +64,3 @@ $(".header-search-field").focusout(function(){
         $(".search-recomendation").fadeOut();
     }
 });
-
-
