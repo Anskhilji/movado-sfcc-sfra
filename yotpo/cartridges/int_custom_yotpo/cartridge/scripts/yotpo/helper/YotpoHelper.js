@@ -62,13 +62,14 @@ function deleteOrder(order) {
     var utokenAuthCode;
     var yotpoAppKey;
     var yotpoConfiguration;
+    var yotpoConfigurations;
     
     var logLocation = 'YotpoHelper~deleteOrder';
     if (!YotpoUtils.isCartridgeEnabled()) {
         return;
     }
     try {
-        var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
+        yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
     } catch (e) {
         YotpoLogger.logMessage('The Yotpo configuration does not exist, therefore cannot proceed further.', 'error', logLocation);
         return;
