@@ -42,11 +42,9 @@ $(
                     displaySeconds
                     + ' Seconds'
                 );
-            } else {
+            } else if (typeof hours != 'undefined' && typeof minutes != 'undefined' && typeof seconds != 'undefined') {
                 clearInterval(countDown);
-                if (isNaN(remainingDate.getTime())) {
-                    $('.delivery-time').text('00:00:00');
-                }
+                window.location.reload(true);
             }
         }, 1000);
     }
