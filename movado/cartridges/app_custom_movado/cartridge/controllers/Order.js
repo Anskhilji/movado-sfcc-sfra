@@ -156,6 +156,7 @@ server.append('Confirm', function (req, res, next) {
             var priceAdjustmentIterator = priceAdjustments ? priceAdjustments.iterator() : null;
             var orderTotal = order.getTotalNetPrice() ? (order.getTotalNetPrice().value).toFixed(2) : 0.00;
             var itemsGross = order.getMerchandizeTotalGrossPrice() ? (order.getMerchandizeTotalGrossPrice().value).toFixed(2) : 0.00;
+            var shippingGross = order.getShippingTotalGrossPrice() ? (order.getShippingTotalGrossPrice().value).toFixed(2) : 0.00;
 
             if (priceAdjustmentIterator && priceAdjustmentIterator.hasNext()) {
                 var priceAdjustmentLineItem = priceAdjustmentIterator.next();
@@ -172,7 +173,8 @@ server.append('Confirm', function (req, res, next) {
                 unidaysDiscountPercentage : unidaysDiscountPercentage,
                 isUniDaysTestMode : isUniDaysTestMode,
                 orderTotal : orderTotal,
-                itemsGross : itemsGross
+                itemsGross : itemsGross,
+                shippingGross : shippingGross
             };
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
