@@ -42,7 +42,7 @@ $(
                     displaySeconds
                     + ' Seconds'
                 );
-            } else {
+            } else if (typeof hours != 'undefined' && typeof minutes != 'undefined' && typeof seconds != 'undefined') {
                 clearInterval(countDown);
                 window.location.reload(true);
             }
