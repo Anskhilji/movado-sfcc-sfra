@@ -44,9 +44,7 @@ $(
                 );
             } else {
                 clearInterval(countDown);
-                if (isNaN(remainingDate.getTime())) {
-                    $('.delivery-time').text('00:00:00');
-                }
+                window.location.reload(true);
             }
         }, 1000);
     }

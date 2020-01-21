@@ -12,14 +12,14 @@ var CommonUtils = require('*/cartridge/utils/commonUtils');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 
 function getShippingDate(shippingMethod) {
-    var shippingCutOffTimePreference = Site.getCurrent().preferences.custom;
-    var cutOffTimeHours = shippingCutOffTimePreference.shippingCutOffTimeHours ? shippingCutOffTimePreference.shippingCutOffTimeHours : 0;
-    var cutOffTimeMinutes = shippingCutOffTimePreference.shippingCutOffTimeHours ? shippingCutOffTimePreference.shippingCutOffTimeMinutes : 0;
+    var siteCustomPreferences = Site.getCurrent().preferences.custom;
+    var cutOffTimeHours = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeHours : 0;
+    var cutOffTimeMinutes = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeMinutes : 0;
     var calendar = System.getCalendar();
     var cuttOffTime =  CommonUtils.fromatDateFromDateAndTime(cutOffTimeHours, cutOffTimeMinutes);
     var basket = BasketMgr.getCurrentBasket();
     var startingDeliveryDate;
-    var endingDeliveryDate;
+    var endingDeliveryDate = System.getCalendar();
     var endingDeliveryDay;
     var startingDeliveryDay;
     var finalDeliveryDate;
@@ -107,6 +107,18 @@ function getShippingDate(shippingMethod) {
                 if (embossed) {
                     endingDeliveryDate = includeAdditionalDaysForOptionProduct(endingDeliveryDate, dateRange, optionProductShipmentDelay);
                 }
+            } else {
+                endingDeliveryDate = System.getCalendar();
+                endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
+                for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
+                    var currentDate = System.getCalendar();
+                    currentDate.add(currentDate.DAY_OF_MONTH, i);
+                    dateRange.push(currentDate);
+                }
+                if (embossed) {
+                    endingDeliveryDate = includeAdditionalDaysForOptionProduct(endingDeliveryDate, dateRange, optionProductShipmentDelay);
+                }
+            
             }
         }
         
@@ -193,7 +205,7 @@ function getShippingTime(shippingMethod) {
     shippingDate.setMinutes(!empty(shippingCutOffTimePreference) ? shippingCutOffTimePreference.shippingCutOffTimeMinutes : 0);
     shippingDate.setSeconds(0);
     if (shippingDate.valueOf() < currentDate.valueOf()) {
-        shippingDate.setHours(shippingDate.getHours() + 12);
+        shippingDate.setHours(shippingDate.getHours() + 24);
     }
     var diffMilliSeconds = Math.abs(shippingDate.valueOf() - currentDate.valueOf());
     var remainingTime = new Date(diffMilliSeconds);
