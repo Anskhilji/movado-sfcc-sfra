@@ -53,6 +53,8 @@ function deleteOrderFromYotpo (ordersJSON, appKey) {
  * @param {Object} order: The order to be deleted from Yotpo.
  */
 function deleteOrder(order) {
+    var Site = require('dw/system/Site');
+
     var authenticationError;
     var authenticationResult;
     var currentLocaleID;
@@ -60,6 +62,12 @@ function deleteOrder(order) {
     var utokenAuthCode;
     var yotpoAppKey;
     var yotpoConfiguration;
+    
+    var yotpoCartridgeEnabled = Site.getCurrent().preferences.custom.yotpoCartridgeEnabled;
+
+    if (!yotpoCartridgeEnabled) {
+        return;
+    }
     var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
     
     var ordersJSON = prepareJsonForOrderDelete(order, utokenAuthCode);
