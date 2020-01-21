@@ -2,6 +2,7 @@
 
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
+var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var Status = require('dw/system/Status');
 var Transaction = require('dw/system/Transaction');
@@ -41,20 +42,22 @@ function exportAllSavedSubscribers() {
     while (mcSubscribersObjectIterator.hasNext()) { 
         try {
             subscriber = mcSubscribersObjectIterator.next();
-            params.email = subscriber.custom.email;
-            var result = SFMCAPIHelper.addContactToMC(params, contactService);
-            if (!result) {
-                continue;
-            }
-            if (isMovadoOrOB) {
-                result = SFMCAPIHelper.addContactToJourney(params, eventService);
-            } else {
-                result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
-            }
-            if (result) {
-                Transaction.wrap(function () {
-                    CustomObjectMgr.remove(subscriber);
-                });
+            if (subscriber) {
+                params.email = subscriber.custom.email;
+                var result = SFMCAPIHelper.addContactToMC(params, contactService);
+                if (!result.success) {
+                    continue;
+                }
+                if (isMovadoOrOB) {
+                    result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                } else {
+                    result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
+                }
+                if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
+                    Transaction.wrap(function () {
+                        CustomObjectMgr.remove(subscriber);
+                    });
+                }
             }
        } catch (e) {
            Logger.debug('MarketingCloud: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);

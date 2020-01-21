@@ -5,7 +5,7 @@ $(document).ready(function() {
         $(this).parent().find('.submenu-control').removeClass('active');
         $(this).addClass('active');
         var currentCategory = $(this).data('category');
-        var activeSubMenu = $('.submenu').find('[data-parentcategory='" + currentCategory + "']');
+        var activeSubMenu = $('.submenu').find("[data-parentcategory='" + currentCategory + "']");
         activeSubMenu.siblings('.submenu-container').addClass('d-none');
         activeSubMenu.removeClass('d-none');
     });
