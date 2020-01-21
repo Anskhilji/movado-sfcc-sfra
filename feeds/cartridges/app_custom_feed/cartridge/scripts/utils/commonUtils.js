@@ -31,7 +31,7 @@ function subtractDaysFromDate(noOfDaysToSubtract) {
         return calendar;
     }
 
-    noOfDaysToSubtract ? noOfDaysToSubtract : 0;
+    noOfDaysToSubtract = noOfDaysToSubtract ? noOfDaysToSubtract : 0;
     calendar.add(calendar.DAY_OF_MONTH, -(noOfDaysToSubtract));
     return calendar;
 }
