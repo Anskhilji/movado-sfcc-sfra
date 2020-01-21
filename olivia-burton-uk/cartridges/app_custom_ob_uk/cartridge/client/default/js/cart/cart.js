@@ -653,7 +653,7 @@ module.exports = function () {
         $productToRemoveSpan.empty().append(couponCode);
     });
 
-    $('body').on('click', '.cart-coupons-remove .delete-coupon-confirmation-btn', function (e) {
+    $('body').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
         e.preventDefault();
 
         var url = $(this).data('action');
@@ -677,7 +677,7 @@ module.exports = function () {
                 $('.coupon-uuid-' + uuid).remove();
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
-                $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $.spinner().stop();
             },
