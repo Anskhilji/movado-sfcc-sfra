@@ -21,7 +21,17 @@ function getFormattedDate(unformattedDate) {
  */
 function subtractDaysFromDate(noOfDaysToSubtract) {
     var calendar = new Calendar();
-    noOfDaysToSubtract ? noOfDaysToSubtract : 0;
+    var date = new Date();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    calendar.setTime(date);
+
+    if (noOfDaysToSubtract === 0) {
+        return calendar;
+    }
+
+    noOfDaysToSubtract = noOfDaysToSubtract ? noOfDaysToSubtract : 0;
     calendar.add(calendar.DAY_OF_MONTH, -(noOfDaysToSubtract));
     return calendar;
 }
