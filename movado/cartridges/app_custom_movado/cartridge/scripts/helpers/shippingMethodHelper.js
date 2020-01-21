@@ -16,7 +16,7 @@ function getShippingDate(shippingMethod) {
     var cutOffTimeHours = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeHours : 0;
     var cutOffTimeMinutes = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeMinutes : 0;
     var calendar = System.getCalendar();
-    var cuttOffTime =  CommonUtils.fromatDateFromDateAndTime(cutOffTimeHours, cutOffTimeMinutes);
+    var cuttOffTime =  CommonUtils.getDate(cutOffTimeHours, cutOffTimeMinutes);
     var basket = BasketMgr.getCurrentBasket();
     var startingDeliveryDate;
     var endingDeliveryDate = System.getCalendar();

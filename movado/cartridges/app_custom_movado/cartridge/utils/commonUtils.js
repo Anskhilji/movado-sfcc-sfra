@@ -16,12 +16,12 @@ function getFormatedDate(unformattedDate) {
 
 
 /**
- * This method formats the date, time by adding hours and minutes 
- * @param {Number} A number consisting hours to add
- * @param {Number} A number consisting minutes to add
+ * This method is used to get date, time by adding hours and minutes
+ * @param {Number} A number holding hours
+ * @param {Number} A number holding minutes
  * @returns {dw.util.Calendar} Current date by adding hours and minutes
  */
-function fromatDateFromDateAndTime(hours, minutes) {
+function getDate(hours, minutes) {
     var date = new Date();
     date.setHours(hours);
     date.setMinutes(minutes);
@@ -31,5 +31,5 @@ function fromatDateFromDateAndTime(hours, minutes) {
 
 module.exports = {
     getFormatedDate: getFormatedDate,
-    fromatDateFromDateAndTime : fromatDateFromDateAndTime
+    getDate : getDate
 };
