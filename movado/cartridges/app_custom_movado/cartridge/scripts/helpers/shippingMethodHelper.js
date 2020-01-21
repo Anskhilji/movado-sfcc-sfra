@@ -88,7 +88,7 @@ function getShippingDate(shippingMethod) {
             if (calendar.before(cuttOffTime)) {
                 endingDeliveryDate = System.getCalendar();
                 endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysBeforeNoon);
-                for (var i = 0; i <= deliveryDaysAfterNoon; i++) {
+                for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
                     var currentDate = System.getCalendar();
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
                     dateRange.push(currentDate);
@@ -99,7 +99,7 @@ function getShippingDate(shippingMethod) {
             } else if (calendar.after(cuttOffTime) || calendar.equals(cuttOffTime)) {
                 endingDeliveryDate = System.getCalendar();
                 endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
-                for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
+                for (var i = 0; i <= deliveryDaysAfterNoon; i++) {
                     var currentDate = System.getCalendar();
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
                     dateRange.push(currentDate);
@@ -110,7 +110,7 @@ function getShippingDate(shippingMethod) {
             } else {
                 endingDeliveryDate = System.getCalendar();
                 endingDeliveryDate.add(endingDeliveryDate.DAY_OF_MONTH, deliveryDaysAfterNoon);
-                for (var i = 0; i <= deliveryDaysBeforeNoon; i++) {
+                for (var i = 0; i <= deliveryDaysAfterNoon; i++) {
                     var currentDate = System.getCalendar();
                     currentDate.add(currentDate.DAY_OF_MONTH, i);
                     dateRange.push(currentDate);
