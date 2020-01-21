@@ -1,7 +1,6 @@
 'use strict';
 
 $(document).ready(function() {
-  slickHeight();
   $('.carousel-pagination').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
