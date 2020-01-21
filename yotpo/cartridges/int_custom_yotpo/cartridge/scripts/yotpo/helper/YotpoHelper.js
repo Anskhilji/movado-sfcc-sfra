@@ -62,11 +62,17 @@ function deleteOrder(order) {
     var utokenAuthCode;
     var yotpoAppKey;
     var yotpoConfiguration;
+    var yotpoConfigurations;
     
+    var logLocation = 'YotpoHelper~deleteOrder';
     if (!YotpoUtils.isCartridgeEnabled()) {
         return;
     }
-    var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
+    try {
+        yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
+    } catch (e) {
+        return;
+    }
     
     var ordersJSON = prepareJsonForOrderDelete(order, utokenAuthCode);
     for (var loopIndex = 0; loopIndex < yotpoConfigurations.size(); loopIndex++) {
