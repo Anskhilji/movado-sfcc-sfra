@@ -322,10 +322,6 @@ $(document).ready(function(event) {
 });
 
 function renderRecommendationSlots() {
-    if (window.screen.width < 991) {
-        $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
-        $('.desktop-menu').empty();
-    }
     if (document.readyState === 'complete') {
         $('.trending-category-recommendation').each( function() {
             attachCarousel(this, 4);
@@ -334,19 +330,24 @@ function renderRecommendationSlots() {
         setTimeout(function() {
             renderRecommendationSlots(); 
         }, 3000);
-
-        if (window.screen.width < 991) {
-            $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
-            $('.desktop-menu').empty();
-        }
     }
 }
 
 function attachCarousel(selector, minimumTiles) {
     var availableTiles = $(selector).find('.carousel-tile').length;
+    cloneRecommendationSlot(selector);
     if(availableTiles > minimumTiles) {
         window.slickSlider.initCarousel($(selector));
     } else {
         $(selector).find('.cs-carousel').addClass('d-flex');
     }
 }
+
+function cloneRecommendationSlot(selector) {
+    var recommendationSlot = $(selector).parent();
+    $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
+    recommendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id'));
+    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id') + ' .trending-category-recommendation'));
+}
+
+ 
