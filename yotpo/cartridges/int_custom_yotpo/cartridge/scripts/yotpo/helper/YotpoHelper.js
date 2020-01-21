@@ -71,7 +71,6 @@ function deleteOrder(order) {
     try {
         yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
     } catch (e) {
-        YotpoLogger.logMessage('The Yotpo configuration does not exist, therefore cannot proceed further.', 'error', logLocation);
         return;
     }
     
