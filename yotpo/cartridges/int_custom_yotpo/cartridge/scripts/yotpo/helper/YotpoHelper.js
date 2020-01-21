@@ -53,6 +53,9 @@ function deleteOrderFromYotpo (ordersJSON, appKey) {
  * @param {Object} order: The order to be deleted from Yotpo.
  */
 function deleteOrder(order) {
+    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+    var YotpoLogger = require('*/cartridge/scripts/yotpo/utils/YotpoLogger');
+    var Constants = require('*/cartridge/scripts/yotpo/utils/Constants');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
 
     var authenticationError;
@@ -63,7 +66,11 @@ function deleteOrder(order) {
     var yotpoAppKey;
     var yotpoConfiguration;
     
-    if (!YotpoUtils.isCartridgeEnabled()) {
+    var logLocation = 'YotpoHelper~deleteOrder';
+    var yotpoConfigsCustomObj = CustomObjectMgr.getAllCustomObjects(Constants.YOTPO_CONFIGURATION_OBJECT);
+
+    if (!YotpoUtils.isCartridgeEnabled() || yotpoConfigsCustomObj == null || !yotpoConfigsCustomObj.hasNext()) {
+        YotpoLogger.logMessage('The Yotpo configuration does not exist, therefore cannot proceed further.', 'error', logLocation);
         return;
     }
     var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
