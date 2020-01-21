@@ -65,13 +65,15 @@ function deleteOrder(order) {
     var yotpoConfiguration;
     
     var logLocation = 'YotpoHelper~deleteOrder';
-    var yotpoConfigsCustomObj = CustomObjectMgr.getAllCustomObjects(Constants.YOTPO_CONFIGURATION_OBJECT);
-
-    if (!YotpoUtils.isCartridgeEnabled() || yotpoConfigsCustomObj == null || !yotpoConfigsCustomObj.hasNext()) {
+    if (!YotpoUtils.isCartridgeEnabled()) {
+        return;
+    }
+    try {
+        var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
+    } catch (e) {
         YotpoLogger.logMessage('The Yotpo configuration does not exist, therefore cannot proceed further.', 'error', logLocation);
         return;
     }
-    var yotpoConfigurations = CommonModel.loadAllYotpoConfigurations();
     
     var ordersJSON = prepareJsonForOrderDelete(order, utokenAuthCode);
     for (var loopIndex = 0; loopIndex < yotpoConfigurations.size(); loopIndex++) {
