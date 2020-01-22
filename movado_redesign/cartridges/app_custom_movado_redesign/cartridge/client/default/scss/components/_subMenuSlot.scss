@@ -10,6 +10,14 @@
                 line-height: rem(38);
             }
 
+            .cs-carousel.d-flex {
+                justify-content: left;
+
+                .carousel-tile {
+                    flex-basis: 33%;
+                }
+            }
+
             .slick-slide {
                 margin: 0 rem(2.5);
             }

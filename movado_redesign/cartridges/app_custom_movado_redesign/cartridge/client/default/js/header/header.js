@@ -318,13 +318,13 @@ $(document).ready(function() {
 
 $(document).ready(function(event) {
     renderRecommendationSlots();
-    $('.mobile-menu .html-slot-container .submenu-recommendations').parent().removeClass('w-75');
+    $('.mobile-menu .submenu-recommendations .html-slot-container ').parent().removeClass('w-75');
 });
 
 function renderRecommendationSlots() {
     if (document.readyState === 'complete') {
-        $('.trending-category-recommendation').each( function() {
-            attachCarousel(this, 4);
+        $('.desktop-menu .trending-category-recommendation').each( function() {
+            attachCarousel(this, 3);
         });
     } else {
         setTimeout(function() {
@@ -340,6 +340,7 @@ function attachCarousel(selector, minimumTiles) {
         window.slickSlider.initCarousel($(selector));
     } else {
         $(selector).find('.cs-carousel').addClass('d-flex');
+        $(selector).find('.cs-carousel').slick('unslick');
     }
 }
 
