@@ -96,7 +96,7 @@
     }
 
     .product {
-        max-width: rem(146);
+        max-width: auto;
         margin: 0;
         margin-right: rem(5);
         min-width: 7.8125rem;
@@ -275,7 +275,7 @@
 
 .submenu-recommendations {
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
         margin-top: rem(50);
         margin-left: rem(-25);
         margin-right: rem(-25);
