@@ -340,7 +340,6 @@ function attachCarousel(selector, minimumTiles) {
         window.slickSlider.initCarousel($(selector));
     } else {
         $(selector).find('.cs-carousel').addClass('d-flex');
-        console.log("not slider");
         $(selector).find('.cs-carousel').slick('unslick');
     }
 }
