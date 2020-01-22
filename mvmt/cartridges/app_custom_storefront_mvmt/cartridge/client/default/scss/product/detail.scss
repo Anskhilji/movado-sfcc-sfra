@@ -13,13 +13,28 @@
 
     .primary-images {
 
-        @include media-breakpoint-down(sm) {
-            display: none;
+        .main-carousel {
+
+            @include media-breakpoint-up(lg) {
+                padding-left: rem(100);
+            }
+
+            .slick-slide {
+                text-align: center;
+
+                img {
+                    display: inline-block;
+                }
+            }
         }
 
         .carousel-pagination {
             z-index: 9;
             height: 100%;
+
+            @include media-breakpoint-down(sm) {
+                display: none;
+            }
 
             @include media-breakpoint-up(lg) {
                 float: left;
@@ -69,21 +84,6 @@
                         border-color: $black;
                     }
                 }
-            }
-        }
-    }
-
-    .main-carousel {
-
-        @include media-breakpoint-up(lg) {
-            padding-left: rem(100);
-        }
-
-        .slick-slide {
-            text-align: center;
-
-            img {
-                display: inline-block;
             }
         }
     }
