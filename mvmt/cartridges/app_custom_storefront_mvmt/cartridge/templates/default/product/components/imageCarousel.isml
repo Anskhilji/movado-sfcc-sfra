@@ -27,6 +27,30 @@
       <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
     </isscript>
     <div class="cs-carousel-wrapper">
+        <div class="zoom-icon">
+          <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Product-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Zoom---Original" transform="translate(-799.000000, -209.000000)" fill="#2B2B2B">
+                    <g id="Product-+-Details" transform="translate(0.000000, 113.000000)">
+                        <g id="Standard" transform="translate(127.000000, 75.000000)">
+                            <g id="expand" transform="translate(611.000000, 0.000000)">
+                                <g transform="translate(61.000000, 21.000000)" id="Group">
+                                    <g>
+                                        <g id="Shape">
+                                            <polygon points="8.90909091 3.81818182 10.1818182 5.09090909 12.7272727 2.54545455 14 3.81818182 14 0 10.1818182 0 11.4545455 1.27272727"></polygon>
+                                            <polygon points="3.81818182 8.90909091 5.09090909 10.1818182 2.54545455 12.7272727 3.81818182 14 0 14 0 10.1818182 1.27272727 11.4545455"></polygon>
+                                            <polygon points="10.1818182 14 14 14 14 10.1818182 12.7272727 11.4545455 10.1818182 8.90909091 8.90909091 10.1818182 11.4545455 12.7272727"></polygon>
+                                            <polygon points="3.85158862 0.0565471709 0.0334066727 0.0565471709 0.0334066727 3.87472909 1.30613407 2.60200182 3.85158862 5.14745636 5.12431589 3.87472909 2.57886135 1.32927444"></polygon>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+          </svg>
+        </div>
         <div class="js-carousel main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
             <div class="carousel-tile">

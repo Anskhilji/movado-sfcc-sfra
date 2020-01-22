@@ -15,6 +15,29 @@
 
         .cs-carousel-wrapper {
             position: relative;
+
+            .zoom-icon {
+                transition: all .25s ease;
+                right: 0;
+                display: block;
+                opacity: 0;
+                z-index: 2;
+                position: absolute;
+                top: 0;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 rem(95) rem(95) 0;
+                border-color: transparent $white-gray transparent transparent;
+                transition: opacity .4s ease;
+                cursor: zoom-in;
+            }
+
+            &::hover {
+                .zoom-icon {
+                    opacity: 1;
+                }
+            }
         }
 
         .main-carousel {
