@@ -206,6 +206,7 @@
     margin: 0 auto;
     justify-content: space-between;
     min-width: rem(730);
+
     @include media-breakpoint-down(lg) {
       min-width: rem(320);
     }
