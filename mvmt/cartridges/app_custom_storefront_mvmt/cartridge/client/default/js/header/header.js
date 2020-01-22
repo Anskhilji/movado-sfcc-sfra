@@ -44,8 +44,15 @@ $('#overlay').click(function() {
 });
 
 $('.mobile-search-button').click(function() {
+    var navwidth = $('header .nav-right').width();
+    $('.mobile-search-close').width(navwidth);
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();
+});
+
+$(window).on("load resize", function(e) {
+    var navwidth = $('header .nav-right').width();
+    $('.mobile-search-close').width(navwidth);
 });
 
 $('.mobile-search-icon').click(function() {

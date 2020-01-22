@@ -770,8 +770,6 @@ header.new-header {
   }
 
   .search-input-field {
-    border: rem(1) solid $gray91;
-    display: flex;
     margin: 0 auto rem(24);
     padding: 0;
     position: relative;
@@ -781,7 +779,7 @@ header.new-header {
       min-height: rem(50);
       width: 100%;
       padding-left: rem(30);
-      border: none;
+      border: rem(1) solid $gray91;
       background: none;
       font-size: rem(14);
       @include font-book;
