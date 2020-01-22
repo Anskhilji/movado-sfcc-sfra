@@ -1,23 +1,16 @@
 'use strict';
 
-var cart = require('movado/cart/cart');
+var cart = require('../cart/cart');
 
 module.exports = function () {
     cart();
 
-    $('.minicart').off('mouseenter focusin touchstart').on('click touchstart', '#close-mini-cart', function (event) {
-        event.preventDefault();
-        $('.minicart .popover').removeClass('show');
-        $('.minicart .popover').empty();
-        $('#overlay').removeClass('footer-form-overlay');
-    });
+    $('.minicart').off('mouseenter focusin');
 
     /**
      * This function is override from movado and it is used to show miniCart on the click event.
-     * if miniCart is showed then it will used to hide the mini cart.
      */
-    $('.minicart').off('mouseenter focusin touchstart').on('click touchstart', function (event) {
-        event.preventDefault();
+    $('body').off('click touchstart').on('click touchstart', '.minicart', function (event) {
         if ($('.search:visible').length === 0) {
             return;
         }
@@ -34,8 +27,10 @@ module.exports = function () {
         }
     });
 
-    $('body').off('touchstart click').on('touchstart click', function (event) {
-        event.preventDefault();
+    $('.minicart').on('click touchstart', '#close-mini-cart', function (event) {
+        $('.minicart .popover').removeClass('show');
+        $('.minicart .popover').empty();
+        $('#overlay').removeClass('footer-form-overlay');
     });
 
     $('.minicart').off('mouseleave focusout').on('mouseleave focusout', function (event) {
