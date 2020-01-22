@@ -13,6 +13,10 @@
 
     .primary-images {
 
+        .cs-carousel-wrapper {
+            position: relative;
+        }
+
         .main-carousel {
 
             @include media-breakpoint-up(lg) {
@@ -39,7 +43,7 @@
             @include media-breakpoint-up(lg) {
                 float: left;
                 position: absolute;
-                left: rem(25);
+                left: rem(05);
                 top: rem(165);
                 width: rem(102);
                 transform: translateY(-30%);
