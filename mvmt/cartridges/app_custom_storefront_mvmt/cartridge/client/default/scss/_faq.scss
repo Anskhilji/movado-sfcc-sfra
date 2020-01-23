@@ -457,40 +457,30 @@
     width: 100%;
     max-width: 14%;
 }
-
-
 .need-help-menu {
     padding: 0;
 }
 
 @media only screen and (max-width: 1280px){
-
-.help-wrapper{
-left: 0;
-}
-
-.container-control {
-    padding-left: 0;
-}
-
-.faq-main {
-
-    margin-left: 0;
-
-}
-
+    .help-wrapper{
+        left: 0;
+    }
+    .container-control {
+        padding-left: 0;
+    }
+    .faq-main {
+        margin-left: 0;
+    }
 }
 
 @include media-breakpoint-down(lg) {
     .col-md-control {
         margin-left: 0;
     }
-    
     .tab-pane-control, .container-control {
         padding-left: 0;
         max-width: 100%;
     }
-    
     .faq-main {
         max-width: 100%;
     }
@@ -500,17 +490,14 @@ left: 0;
     .help-wrapper-control {
         display: none;
     }
-    
     .tab-pane-control, .container-control {
-    max-width: 90%;
-    margin: 0;
-}
-    
+        max-width: 90%;
+        margin: 0;
+    }
     .faq-main {
-    max-width: 100%;
-    margin-left: 6.5rem;
-}
-
+        max-width: 100%;
+        margin-left: 6.5rem;
+    }
     .col-md-control {
         flex-basis: 100%;
         max-width: 100%;
@@ -519,54 +506,39 @@ left: 0;
 }
 
 @media only screen and (max-width: 1099px) {
-
-    
     .faq-main {
-
-    margin-left: 4rem;
+        margin-left: 4rem;
+    }
 }
-}
-
 
 @media only screen and (max-width: 991px){
-
     .tab-pane-control, .container-control {
-    max-width: 100%;
-}
-
-.container-control {
-    padding-right: 0;
-}
+        max-width: 100%;
+    }
+    .container-control {
+        padding-right: 0;
+    }
     #contact-tab {
         max-width: 95%;
     }
-
     .contact-us-form-wrapper, .contact-us-left-container{
         flex-basis: 100%;
         max-width: 100%;
     }
-    
     .contact-us-left-wrapper {
         margin: 0;
         margin-bottom: rem(16);
     }
-
     .btn-contact {
         display: inline-block;
         width: auto;
         padding: rem(16) rem(56);
     }
-    
     .col-md-control{
-    margin-left: 0;
+        margin-left: 0;
     }
     
     .faq-main {
-    margin-left: 0;
+        margin-left: 0;
+    }
 }
-
-
-
-}
-
-
