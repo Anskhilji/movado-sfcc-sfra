@@ -8,7 +8,7 @@ function emailSubscriptionResponse(result) {
             success: true,
             optOutFlag: true,
             customerFound: true,
-            message: Resource.msg('newsletter.signup.success', 'common', null)
+            message: result.message
         };
     } else {
         return {

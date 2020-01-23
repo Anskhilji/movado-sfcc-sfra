@@ -2,7 +2,9 @@
 @import "utilities/fonts";
 @import "variables";
 @import '~movado/global';
-@import "checkout/checkout";
+@import "components/footer";
+@import "components/newsletterSignUp";
+@import 'common';
 @import "faq";
 
 .popover {
