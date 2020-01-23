@@ -64,7 +64,7 @@ function checkoutRefundedOrders() {
             var currentOrder = ordersIterator.next();
             orderDetailsObj.orderDetails.push(getOrdersDetails(currentOrder));
         }
-        if (orderDetailsObj.orderDetails.size > 0 || noResultNotificationEnabled === true) {
+        if (orderDetailsObj.orderDetails.length > 0 || noResultNotificationEnabled === true) {
             emailHelpers.send(emailObj, 'orderRefundNotifications', orderDetailsObj);
         }
         checkoutLogger.info('Email for checkout refunded orders sent successfully between' + startingDate + 'and' + endingDate);
