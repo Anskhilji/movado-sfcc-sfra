@@ -4,102 +4,103 @@
         <isslot id="faq-banner" context="global" description="slot to show faq page banner" />
     </div>
     <iscontentasset aid="faq-control-bar" />
-        <div class="tab-content">
-            <div class="row m-0">
-                <div class="col-md-2 help-wrapper-control"> 
-                    <div class="help-wrapper">
-                        <div class="help-heading">
-                            <h3>Need Help?</h3>
+    <div class="tab-content">
+        <div class="row m-0">
+            <div class="col-md-2 help-wrapper-control"> 
+                <div class="help-wrapper">
+                    <div class="help-heading">
+                        <h3>Need Help?</h3>
+                    </div>
+                    <hr />
+                    <div class="row help-contact-box">
+                        <div class="col-md-6 need-help-menu">
+                            <i class="fa fa-comment"></i> <br />
+                            <a class="text-uppercase">Chat With Us</a>
                         </div>
-                        <hr />
-                        <div class="row help-contact-box">
-                            <div class="col-md-6 need-help-menu">
-                                <i class="fa fa-comment"></i> <br />
-                                <a class="text-uppercase">Chat With Us</a>
-                            </div>
-                            <div class="col-md-6 need-help-menu">
-                                <i class="fa fa-envelope"></i> <br />
-                                <a class="text-uppercase">Contact Us</a>
-                            </div>
+                        <div class="col-md-6 need-help-menu">
+                            <i class="fa fa-envelope"></i> <br />
+                            <a class="text-uppercase">Contact Us</a>
                         </div>
                     </div>
-                </div>  
-                <div class="col-md-10 col-md-control">
-                    <iscontentasset aid="faq-general-tab" />
                 </div>
+            </div>  
+            <div class="col-md-10 col-md-control">
+                <iscontentasset aid="faq-general-tab" />
             </div>
-            <div id="contact-tab" class="tab-pane-control fade-in container d-none">
-                <div class="contact-us-callout-wrapper">
-                    <h1 class="text-center text-uppercase">Contact Us</h1>
-                    <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
-                    <hr class="w-25"/>
-                </div>
-                <div class=row>
-                    <div class="col-md-7 contact-us-form-wrapper">
-                        <h2 class="text-uppercase">Send us an email:</h2>
-                        <p class="text-uppercase">Ask us anything! We'll get back to you within 24-48 hours.</p>
-                        <div class="contactus-form">
-                            <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="name">
+        </div>
+        <div id="contact-tab" class="tab-pane-control fade-in container d-none">
+            <div class="contact-us-callout-wrapper">
+                <h1 class="text-center text-uppercase">Contact Us</h1>
+                <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
+                <hr class="w-25"/>
+            </div>
+            <div class=row>
+                <div class="col-md-7 contact-us-form-wrapper">
+                    <h2 class="text-uppercase">Send us an email:</h2>
+                    <p class="text-uppercase">Ask us anything! We'll get back to you within 24-48 hours.</p>
+                    <div class="contactus-form">
+                        <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
+                            <div class="form-group">
+                                <label class="form-control-label" for="name">
                                         ${Resource.msg('contact.form.name','contactUs',null)}
-                                    </label>
-                                    <input type="text" class="form-control" id="name"
-                                        <isprint value="${pdict.contactUsForm.name.attributes}" encoding="off" />>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="emailAddress">
-                                        ${Resource.msg('contact.form.email.address','contactUs',null)}
-                                    </label>
-                                    <input type="text" class="form-control" id="emailAddress"
-                                        <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="orderNumber">
-                                        ${Resource.msg('contact.form.order.number','contactUs',null)}
-                                    </label>
-                                    <input type="text" class="form-control" id="orderNumber"
-                                        <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label" for="help">
-                                        ${Resource.msg('contact.form.help','contactUs',null)}
-                                    </label>
-                                    <div class="myquestion-wrapper row">
-                                        <div class="custom-select-wrapper col-12">
-                                            <select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
-                                            <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
-                                                <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
-                                            </isloop>
-                                            </select>
-                                            <i class="fa fa-sort"></i>
-                                            <div class="invalid-feedback"></div>
-                                        </div>
+                                </label>
+                                <input type="text" class="form-control" id="name"
+                                    <isprint value="${pdict.contactUsForm.name.attributes}" encoding="off" />>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="emailAddress">
+                                    ${Resource.msg('contact.form.email.address','contactUs',null)}
+                                </label>
+                                <input type="text" class="form-control" id="emailAddress"
+                                    <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="orderNumber">
+                                    ${Resource.msg('contact.form.order.number','contactUs',null)}
+                                </label>
+                                <input type="text" class="form-control" id="orderNumber"
+                                    <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="help">
+                                    ${Resource.msg('contact.form.help','contactUs',null)}
+                                </label>
+                                <div class="myquestion-wrapper row">
+                                    <div class="custom-select-wrapper col-12">
+                                        <select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+	                                        <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
+	                                            <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+	                                        </isloop>
+                                        </select>
+                                        <i class="fa fa-sort"></i>
+                                        <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                            </div>
+                            <div class="form-group">
                                 <textarea class="form-control" id="comment" rows="3"
-                                    <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />></textarea>
-                                    <div class="invalid-feedback"></div>
+                                    <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />>
+                                </textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" name="Send" class="btn-contact btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="submit" name="Send" class="btn-contact btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
-                                    </div>
-                                </div>
-                            </form>
-                         </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-md-5 contact-us-left-container">
-                        <div class="contact-us-left-wrapper">
-                            <iscontentasset aid="contact-us-address-wrapper"/>
-                        </div>
+                </div>
+                <div class="col-md-5 contact-us-left-container">
+                    <div class="contact-us-left-wrapper">
+                        <iscontentasset aid="contact-us-address-wrapper"/>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </iscontentasset>
 </isdecorate>
