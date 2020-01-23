@@ -11,7 +11,6 @@ module.exports = function () {
     * This function is override from movado and it is used to show miniCart on the click event.
     */
     $('body').off('click touchstart').on('click touchstart', '.minicart', function (event) {
-        event.preventDefault();
         if ($('.search:visible').length === 0) {
             return;
         }
@@ -41,7 +40,7 @@ module.exports = function () {
     * This function is override from movado and it is used to prevent others event.
     */
     $('.minicart').off('mouseleave focusout').on('mouseleave focusout', function (event) {
-        event.preventDefault();
+        
     });
 
 };

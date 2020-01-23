@@ -5,9 +5,6 @@
     name="${pdict.profileForm.htmlName}">
     <div class="form-group
         <isif condition="${!!pdict.profileForm.customer.firstname.mandatory === true}">required</isif>">
-        <label class="form-control-label" for="registration-form-fname">
-            <isprint value="${pdict.profileForm.customer.firstname.label}" encoding="htmlcontent" />
-        </label>
         <input
             type="text"
             class="form-control"
@@ -18,9 +15,6 @@
 
     <div class="form-group
         <isif condition="${!!pdict.profileForm.customer.lastname.mandatory === true}">required</isif>">
-        <label class="form-control-label" for="registration-form-lname">
-            <isprint value="${pdict.profileForm.customer.lastname.label}" encoding="htmlcontent" />
-        </label>
         <input
             type="text"
             class="form-control"
@@ -34,27 +28,26 @@
             <isprint value="${pdict.profileForm.customer.birthdate.label}" encoding="htmlcontent" />
         </span>
         <div class="dob-wrapper row">
-          	<div class="custom-select-wrapper col-6">
-			  	<label for="month" class="sr-only">${Resource.msg('label.input.dateofbirth.month','forms',null)}</label>
-				<select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />>
-		           <isloop items=${pdict.profileForm.customer.birthmonth.options} var="month">
-		           	 <option id="${'month-'+month.id}" value="${month.htmlValue}" <isif condition="${month.selected}">selected</isif> >${month.label}</option>
-		           </isloop>
-		        </select>
-		        <i class="fa fa-angle-down"></i>
-        		<div class="invalid-feedback"></div>
-        	</div>
-        	<div class="custom-select-wrapper col-6">
-				<label for="date" class="sr-only">${Resource.msg('label.input.dateofbirth.day','forms',null)}</label>
-		        <select class="form-control custom-select" id="date" <isprint value="${pdict.profileForm.customer.birthdate.attributes}" encoding="off" /> >
-		           <isloop items=${pdict.profileForm.customer.birthdate.options} var="date">
-		           	 <option id="${'day-'+date.id}" value="${date.htmlValue}" <isif condition="${date.selected}">selected</isif> >${date.label}</option>
-		           </isloop>
-		        </select>
-		        <i class="fa fa-angle-down"></i>
-		        <div class="invalid-feedback"></div>
-		       </div>
-		      </div>
+              <div class="custom-select-wrapper col-6">
+                  <label for="month" class="sr-only">${Resource.msg('label.input.dateofbirth.month','forms',null)}</label>
+                <select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />>
+                   <isloop items=${pdict.profileForm.customer.birthmonth.options} var="month">
+                        <option id="${'month-'+month.id}" value="${month.htmlValue}" <isif condition="${month.selected}">selected</isif> >${month.label}</option>
+                   </isloop>
+                </select>
+                <i class="fa fa-angle-down"></i>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="custom-select-wrapper col-6">
+                <label for="date" class="sr-only">${Resource.msg('label.input.dateofbirth.day','forms',null)}</label>
+                <select class="form-control custom-select" id="date" <isprint value="${pdict.profileForm.customer.birthdate.attributes}" encoding="off" /> >
+                   <isloop items=${pdict.profileForm.customer.birthdate.options} var="date">
+                        <option id="${'day-'+date.id}" value="${date.htmlValue}" <isif condition="${date.selected}">selected</isif> >${date.label}</option>
+                   </isloop>
+                </select>
+                <i class="fa fa-angle-down"></i>
+                <div class="invalid-feedback"></div>
+               </div>
     </div>
 
     <div class="form-group
