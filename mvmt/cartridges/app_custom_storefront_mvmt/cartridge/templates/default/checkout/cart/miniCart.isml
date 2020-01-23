@@ -51,6 +51,8 @@
         </isloop>
     </div>
     <div class="minicart-footer">
+        <iscomment>Custom Start: Estimated total is not in the mvmt design </iscomment>
+        <iscomment>
         <div class="row estimated-total">
             <div class="col-8">
                 <p class="sub-total-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
@@ -59,9 +61,28 @@
                 <p class="text-right sub-total">${pdict.totals.subTotal}</p>
             </div>
         </div>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+
+        <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
+        <form class="cart-checkout-options">
+            <div class="cart-checkout row guest">
+                <input class="checkout-radio-btn" checked="" type="radio" id="checkoutGuest" name="checkout"/>
+                <label for="checkoutGuest" id="checkoutGuestLabel" class="checkout-btn-label">${Resource.msg('button.checkout.as.guest', 'checkout', null)}</label>
+            </div>
+            <div class="cart-checkout row login">
+                <input class="checkout-radio-btn" type="radio" id="checkoutAccount" name="checkout"/>
+                <label for="checkoutAccount" id="checkoutAccountLabel" class="checkout-btn-label">
+                    ${Resource.msg('label.checkout.as.account', 'checkout', null)}
+                    <small class="checkout-sub">${Resource.msg('label.checkout.earn.reward', 'checkout', null)}</small>
+                </label>
+            </div>
+        </form>
+        <iscomment> Custom End </iscomment>
+
         <div class="row">
             <div class="col-12 checkout-continue">
-                <isinclude template="cart/checkoutButtons" />
+                <isinclude template="cart/miniCartCheckoutButtons" />
             </div>
         </div>
     </div>

@@ -8,9 +8,10 @@ module.exports = function () {
     $('.minicart').off('mouseenter focusin');
 
     /**
-     * This function is override from movado and it is used to show miniCart on the click event.
-     */
+    * This function is override from movado and it is used to show miniCart on the click event.
+    */
     $('body').off('click touchstart').on('click touchstart', '.minicart', function (event) {
+        event.preventDefault();
         if ($('.search:visible').length === 0) {
             return;
         }
@@ -27,12 +28,18 @@ module.exports = function () {
         }
     });
 
+    /**
+    * This function is used to close the miniCart on the click event.
+    */
     $('.minicart').on('click touchstart', '#close-mini-cart', function (event) {
         $('.minicart .popover').removeClass('show');
         $('.minicart .popover').empty();
         $('#overlay').removeClass('footer-form-overlay');
     });
 
+    /**
+    * This function is override from movado and it is used to prevent others event.
+    */
     $('.minicart').off('mouseleave focusout').on('mouseleave focusout', function (event) {
         event.preventDefault();
     });

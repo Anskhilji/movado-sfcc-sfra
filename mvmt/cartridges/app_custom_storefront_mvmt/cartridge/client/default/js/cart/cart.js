@@ -304,7 +304,7 @@ module.exports = function () {
      * successfully removed then it will add the new classes with div's according to
      * the mvmt design.
      */
-    $('body').off('click', '.remove-product').on('click', '.remove-product', function (e) {
+    $(document).off('click').on('click', '.remove-product', function (e) {
         e.preventDefault();
 
         var actionUrl = $(this).data('action');

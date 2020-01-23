@@ -38,14 +38,6 @@
             margin: 0;
             height: 100%;
 
-            .minicart-footer {
-                padding: 0;
-                box-shadow: 0 rem(5) 0 0 $white, 0 rem(-1) rem(5) 0 $light-gray6;
-                bottom: 0;
-                position: absolute;
-                width: 100%;
-            }
-
             .title-free-shipping {
                 text-align: center;
                 margin-bottom: rem(15);
@@ -252,6 +244,122 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        .minicart-footer {
+            padding: 0;
+            box-shadow: 0 rem(5) 0 0 $white, 0 rem(-1) rem(5) 0 $light-gray6;
+            bottom: 0;
+            position: absolute;
+            width: 100%;
+
+            .cart-checkout-options {
+                width: 100%;
+                display: block;
+
+                .cart-checkout {
+                    background-color: transparent;
+                    position: relative;
+                }
+
+                .checkout-btn-label {
+                    text-align: center;
+                    width: 100%;
+                    letter-spacing: 0.82px;
+                    outline: none;
+                    height: 55px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    font-size: 12px;
+                    flex: 1;
+                    cursor: pointer;
+
+                    .checkout-sub {
+                        color: $light-green2;
+                        display: block;
+                        font-style: italic;
+                        font-weight: 400;
+                        letter-spacing: normal;
+                        text-transform: none;
+                        font-size: 12px;
+                        margin-top: -5px;
+                        outline: 0;
+                    }
+                }
+
+                input[type="radio"] {
+                    transform: translateY(-60%);
+                    top: 48%;
+                    clip: auto;
+                    padding: 0;
+                    margin: 0;
+                    font-size: 12px;
+                    appearance: none;
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                    border: 2px solid #929292;
+                    position: absolute;
+                    left: 35px;
+                    cursor: pointer;
+                    outline: 0;
+
+                    + label {
+                        position: initial;
+
+                        &:before {
+                            content: none;
+                        }
+                    }
+
+                    &:checked {
+                        border: none;
+                        background-color: transparent;
+                        background-size: contain;
+                        background-position: 50%;
+                        background-repeat: no-repeat;
+                        background-image: url(../images/greentick.svg);
+
+                        + label {
+                            background-color: $transparent-green;
+
+                            &:before {
+                                content: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .checkout-continue {
+
+                .checkout-btn {
+                    margin-bottom: 12px !important;
+                    display: block;
+                    font-size: 14px;
+                    letter-spacing: 2px;
+                    background-color: $light-green;
+                    color: $white;
+                    margin: 0;
+                    padding: 14px 5px;
+                    text-align: center;
+                    line-height: 1;
+                    border: 0;
+                    border-radius: 1px;
+                    transition: all .25s ease-in-out;
+
+                    &:hover {
+                        background-image: linear-gradient($light-green, $light-green3);
+                        border-color: $light-green3;
+                    }
+
+                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                        box-shadow: none;
                     }
                 }
             }

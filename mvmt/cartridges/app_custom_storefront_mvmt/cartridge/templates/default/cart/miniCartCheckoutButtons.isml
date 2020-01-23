@@ -1,0 +1,18 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="row checkout-button-wrapper">
+    <div class="col-12">
+        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+            role="button" aria-pressed="true">
+            ${Resource.msg('button.checkout','cart',null)}
+        </a>
+    </div>
+</div>
+<div class="row more-options ${pdict.paypalButtonImg ? '' : 'd-none'}">
+    <div class="col col-sm-12">
+        <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+            role="button" aria-pressed="true">
+            <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+        </a>
+    </div>
+    <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+</div>
