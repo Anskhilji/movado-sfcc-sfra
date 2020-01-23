@@ -2,6 +2,8 @@
 @import '~movado/product/detail';
 .product-detail {
     padding: rem(45) rem(32) rem(32);
+    max-width: $custom-xl;
+    margin: 0 auto;
 
     @include media-breakpoint-up(md) {
         padding: rem(45) rem(32);
@@ -15,6 +17,7 @@
 
         .cs-carousel-wrapper {
             position: relative;
+            cursor: zoom-in;
 
             .zoom-icon {
                 transition: all .25s ease;
@@ -30,19 +33,30 @@
                 border-width: 0 rem(95) rem(95) 0;
                 border-color: transparent $white-gray transparent transparent;
                 transition: opacity .4s ease;
-                cursor: zoom-in;
+
+                svg {
+                    position: absolute;
+                    top: rem(20);
+                    right: rem(-75);
+                    width: rem(14);
+                    height: rem(14);
+                    display: inline-block;
+                }
             }
 
-            &::hover {
-                .zoom-icon {
+            .zoom-out.active {
+                opacity: 1;
+            }
+
+            &:hover {
+                .zoom-icon:not(.zoom-out) {
                     opacity: 1;
                 }
             }
         }
 
         .main-carousel {
-
-            @include media-breakpoint-up(lg) {
+            @include media-breakpoint-up(md) {
                 padding-left: rem(100);
             }
 
@@ -52,6 +66,24 @@
                 img {
                     display: inline-block;
                 }
+
+                .carousel-tile {
+                    overflow: visible !important;
+
+                    &.active {
+                        min-height: 80vh;
+                    }
+                }
+
+                .normal-zoom {
+                    max-width: rem(600);
+                    margin: 0 auto;
+                    width: 100%;
+                }
+            }
+
+            .zoom-img.zoomed-img {
+                cursor: zoom-out;
             }
         }
 
@@ -59,15 +91,15 @@
             z-index: 9;
             height: 100%;
 
-            @include media-breakpoint-down(sm) {
+            @include media-breakpoint-down(xs) {
                 display: none;
             }
 
             @include media-breakpoint-up(lg) {
                 float: left;
                 position: absolute;
-                left: rem(05);
-                top: rem(165);
+                left: rem(25);
+                top: 30%;
                 width: rem(102);
                 transform: translateY(-30%);
             }
