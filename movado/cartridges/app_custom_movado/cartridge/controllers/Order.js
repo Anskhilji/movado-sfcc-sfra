@@ -142,6 +142,8 @@ server.append('Confirm', function (req, res, next) {
             if (couponCode && couponCode.indexOf("UNIDAYS") > -1) {
                 priceAdjustments = couponLineItem.getPriceAdjustments();
                 break;
+            } else {
+                couponCode = null;
             }
         }
         if (couponCode) {
