@@ -1,2 +1,20 @@
 @import '../variables';
 @import '~movado/product/detail';
+
+.product-detail {
+    .product-price-rating {
+        display: flex;
+        margin-top: rem(15);
+
+        .prices {
+            padding: 0;
+            font-family: $font-medium;
+            letter-spacing: 1.5;
+            color: $black;
+        }
+
+        .ratings {
+            margin: 0;
+        }
+    }
+}

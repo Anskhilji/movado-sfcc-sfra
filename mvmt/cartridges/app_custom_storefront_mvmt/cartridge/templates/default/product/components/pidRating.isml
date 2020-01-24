@@ -1,0 +1,12 @@
+<div class="product-price-rating clearfix">
+    <!-- Product Price -->
+    <div class="prices">
+        <isset name="price" value="${product.price}" scope="page" />
+        <isinclude template="product/components/pricing/main" />
+    </div>
+
+    <!-- Product Rating -->
+    <div class="ratings">
+        <isinclude template="product/components/productRating" />
+    </div>
+</div>
