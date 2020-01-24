@@ -20,8 +20,13 @@
         transition: 0.5s ease-in-out;
         right: rem(-440);
         display: block;
-        z-index: 99999;
+        z-index: 99;
         opacity: 1;
+
+        @include media-breakpoint-down(md) {
+            width: 90%;
+            max-width: 90%;
+        }
 
         &.show {
             right: 0;
@@ -37,6 +42,15 @@
             padding: 0;
             margin: 0;
             height: 100%;
+
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            @include media-breakpoint-down(xs) {
+                min-width: auto;
+            }
 
             .title-free-shipping {
                 text-align: center;
@@ -109,7 +123,6 @@
 
             .product-summary {
                 height: 100%;
-                max-height: 100%;
                 margin: 0;
                 padding: 0;
 
@@ -117,7 +130,15 @@
                     padding: 0;
                 }
 
+                &:last-child {
+
+                    .card {
+                        border-bottom: none;
+                    }
+                }
+
                 .card {
+                    width: 100%;
                     margin-bottom: rem(15);
                     box-shadow: none;
                     border-radius: 0;
@@ -133,6 +154,10 @@
                             border-radius: 0;
                             border: 0;
                             padding: 0;
+
+                            .product-line-item-details.item-info {
+                                overflow: hidden;
+                            }
 
                             .quantity-form {
 
@@ -176,6 +201,11 @@
                                 margin: 0;
                                 font-family: $font-medium;
                                 text-decoration: none;
+                                display: inline-block;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                max-width: 90%;
+                                text-overflow: ellipsis;
 
                                 a, span {
                                     color: $black;
@@ -254,6 +284,7 @@
             bottom: 0;
             position: absolute;
             width: 100%;
+            background-color: $white;
 
             .cart-checkout-options {
                 width: 100%;
