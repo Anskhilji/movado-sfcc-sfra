@@ -1,34 +1,22 @@
 <isdecorate template="common/layout/page">
     <isinclude template="/components/modules" sf-toolkit="off" />
     <div class="hero p-0">
-        <isslot id="faq-banner" context="global" description="slot to show faq page banner" />
+        <isslot id="faq-top-banner" context="global" description="slot to show faq page banner" />
     </div>
-    <iscontentasset aid="faq-control-bar" />
+    <iscontentasset aid="faq-page-control-bar" />
     <div class="tab-content">
         <div class="row m-0">
             <div class="col-md-2 help-wrapper-control"> 
-                <div class="help-wrapper">
-                    <div class="help-heading">
-                        <h3>Need Help?</h3>
-                    </div>
-                    <hr />
-                    <div class="row help-contact-box">
-                        <div class="col-md-6 need-help-menu">
-                            <i class="fa fa-comment"></i> <br />
-                            <a class="text-uppercase">Chat With Us</a>
-                        </div>
-                        <div class="col-md-6 need-help-menu">
-                            <i class="fa fa-envelope"></i> <br />
-                            <a class="text-uppercase">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
-            </div>  
+                <iscontentasset aid="faq-help-section" />
+            </div>
             <div class="col-md-10 col-md-control">
-                <iscontentasset aid="faq-general-tab" />
+                <iscontentasset aid="faq-page-general-tab" />
+                <iscontentasset aid="faq-page-us-shipping-tab" />
+                <iscontentasset aid="faq-page-international-shipping-tab" />
+                <iscontentasset aid="faq-page-returns-tab" />
             </div>
         </div>
-        <div id="contact-tab" class="tab-pane-control fade-in container d-none">
+        <div id="faq-page-contact-tab" class="tab-pane-control fade-in container d-none">
             <div class="contact-us-callout-wrapper">
                 <h1 class="text-center text-uppercase">Contact Us</h1>
                 <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
@@ -102,5 +90,4 @@
             </div>
         </div>
     </div>
-    </iscontentasset>
 </isdecorate>

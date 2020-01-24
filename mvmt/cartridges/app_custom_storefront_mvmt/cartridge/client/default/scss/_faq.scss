@@ -14,26 +14,26 @@
     text-align: center;
     top: 0;
     width: 100%;
-}
-
-.faq-hero-title {
-    color: #fff;
-    font-size: 40px;
-    letter-spacing: 5.56px;
-    line-height: 49px;
-    font-weight: bold;
-    width: 80%;
-    margin: auto;
     
-    @include media-breakpoint-only(xl) {
-        font-size: rem(60);
+    .faq-hero-title {
+        color: $white;
+        font-size: rem(40);
+        letter-spacing: rem(5.56);
+        line-height: rem(49);
         font-weight: bold;
-        letter-spacing: rem(8.5);
-    }
+        width: 80%;
+        margin: auto;
     
-    @include media-breakpoint-only(lg) {
-        letter-spacing: 12.5px;
-        width: 100%;
+        @include media-breakpoint-only(xl) {
+            font-size: rem(60);
+            font-weight: bold;
+            letter-spacing: rem(8.5);
+        }
+        
+        @include media-breakpoint-only(lg) {
+            letter-spacing: rem(12.5);
+            width: 100%;
+        }
     }
 }
 
@@ -62,6 +62,7 @@
         cursor: pointer;
         outline: 0;
         border: 0;
+        
         @include media-breakpoint-up(lg) {
             display: none;
         }
@@ -82,7 +83,7 @@
         height: 100vh;
         width: 100%;
         top: 0;
-        background-color: #fff;
+        background-color: $white;
         transition: transform .35s,opacity .35s;
         z-index: 11;
         opacity: 0;
@@ -105,7 +106,7 @@
             background: linear-gradient(0deg,#fff,#fafafa);
             border-bottom: rem(1) solid #e8e8e8;
             padding: rem(20);
-            color: #222;
+            color: $dark-gray;
             font-size: rem(11);
             line-height: 1;
             display: inline-block;
@@ -129,7 +130,7 @@
     
     .faq-nav-control-bar-link {
         border: rem(1) solid #222;
-        color: #979797;
+        color: $light-gray6;
         cursor: pointer;
         display: block;
         font-weight: 500;
@@ -141,7 +142,7 @@
         text-transform: uppercase;
         padding: rem(25);
         width: calc(100% - rem(50));
-        color: #000!important;
+        color: $black !important;
         text-decoration: none;
         @include media-breakpoint-up(lg) {
             border: 0;
@@ -162,8 +163,8 @@
     
     .faq-nav-control-bar-link.is-active {
         @include media-breakpoint-up(lg) {
-            background-color: #f7f8f9;
-            border-bottom: rem(2) solid #000;
+            background-color: $cyan-blue;
+            border-bottom: rem(2) solid $black;
         }
     }
 }
@@ -193,7 +194,7 @@
     }
     
     .faq-section-header {
-        color: #5c5c5c;
+        color: $light-gray;
         font-size: rem(16);
         line-height: rem(20);
         font-weight: 400;
@@ -203,7 +204,7 @@
     }
     
     .faq-accordion-block-header {
-        color: #5c5c5c;
+        color: $light-gray;
         font-size: rem(16);
         line-height: rem(20);
         font-weight: 400;
@@ -218,7 +219,7 @@
     
     .panel-title {
         font-size: rem(16);
-        color: #000;
+        color: $black;
         font-weight: 400;
         line-height: rem(20);
         padding-right: rem(17);
@@ -227,7 +228,7 @@
         
         .more-less {
             float: right;
-            color: #212121;
+            color: $dark-gray1;
         }
     }
     
@@ -238,7 +239,7 @@
     }
 }
 
-#contact-tab {
+#faq-page-contact-tab {
     h1 {
         letter-spacing: rem(4.69);
         line-height: 1.5;
@@ -273,7 +274,7 @@
     margin: .59rem 0;
     line-height: 2em;
     font-family: Futura-pt,arial,sans-serif;
-    color: #231103;
+    color: $dark-orange1;
     font-size: rem(12);
     font-weight: bold;
     letter-spacing: rem(1);
@@ -285,7 +286,7 @@
     max-width: rem(800);
     width: 100%;
     p {
-        color: #000;
+        color: $black;
         font-size: rem(16);
         font-weight: bold;
         line-height: rem(23);
@@ -295,7 +296,7 @@
 }
 
 .contact-us-left-wrapper {
-    background: #f7f8f9;
+    background: $cyan-blue;
     height: fit-content;
     padding: rem(20);
     text-align: left;
@@ -308,7 +309,7 @@
         font-size: rem(18);
         letter-spacing: rem(2.5);
         margin-bottom: 1.25rem;
-        color: #000;
+        color: $black;
         line-height: 1;
     }
     
@@ -340,14 +341,14 @@
         background-color: transparent;
         
         &:hover {
-            color: #fff;
-            background-color: #000;
+            color: $white;
+            background-color: $black;
         }
     }
 }
 
 .contact-call-out {
-    color: #231103;
+    color: $dark-orange1;
     font-size: rem(12) !important;
     font-weight: 500 !important;
     letter-spacing: rem(1);
@@ -364,19 +365,19 @@
         font-family: Futura-pt,arial,sans-serif;
         font-weight: 400;
         font-style: normal;
-        color: #5c5c5c;
+        color: $light-gray;
         font-size: .875rem;
         letter-spacing: rem(.5);
     }
 }
 
 .contactus-form .form-control {
-    border: rem(1) solid #ced4da;
+    border: rem(1) solid $cyan-blue1;
     padding: 1.25rem;
 }
 
 .custom-select {
-    border: rem(1) solid #ced4da;
+    border: rem(1) solid $cyan-blue1;
     padding: 1.25rem;
 }
 
@@ -388,7 +389,7 @@
 .btn-save {
     background: transparent;
     border: rem(1) solid #000;
-    color: #000;
+    color: $black;
     font-size: .675rem;
     height: rem(45);
     white-space: nowrap;
@@ -396,7 +397,7 @@
 
 .help-wrapper {
     padding: rem(15) rem(10);
-    background-color: #F7F8F9;
+    background-color: $cyan-blue;
     text-align: center;
     z-index: 5;
     position: relative;
@@ -424,7 +425,7 @@
 
 .help-wrapper-footer {
     padding: rem(15) rem(10);
-    background-color: #F7F8F9;
+    background-color: $cyan-blue;
     text-align: center;
     z-index: 5;
     position: absolute;
@@ -518,7 +519,7 @@
     .container-control {
         padding-right: 0;
     }
-    #contact-tab {
+    #faq-page-contact-tab {
         max-width: 95%;
     }
     .contact-us-form-wrapper, .contact-us-left-container{
