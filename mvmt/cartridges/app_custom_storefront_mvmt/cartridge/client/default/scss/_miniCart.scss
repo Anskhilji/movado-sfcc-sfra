@@ -251,7 +251,6 @@
 
         .minicart-footer {
             padding: 0;
-            box-shadow: 0 rem(5) 0 0 $white, 0 rem(-1) rem(5) 0 $light-gray6;
             bottom: 0;
             position: absolute;
             width: 100%;
@@ -263,6 +262,13 @@
                 .cart-checkout {
                     background-color: transparent;
                     position: relative;
+                }
+
+                .guest {
+
+                    label {
+                        margin-bottom: 0;
+                    }
                 }
 
                 .checkout-btn-label {
@@ -336,12 +342,53 @@
                 }
             }
 
-            .mini-cart-login {
-                display: block;
+            .mini-cart-login, .mini-cart-registration, .checkout-with-account , .mini-cart-forget-password {
+                display: none;
             }
 
-            .mini-cart-registration {
-                display: none;
+            .continue-checkout-btn {
+                padding-top: rem(12);
+                display: block;
+
+                .checkout-btn {
+                    line-height: rem(18);
+                }
+            }
+
+            .checkout-with-account {
+
+                .sign-in {
+                    color: $white;
+                    border: rem(2) solid $light-green;
+                    background-image: linear-gradient($light-green, $light-green3);
+
+                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                        background-image: linear-gradient($light-green3, $light-green5);
+                    }
+                }
+
+                .create-account {
+                    color: $light-green;
+                    border: rem(2) solid $light-green;
+                    background-image: linear-gradient($white, $white);
+                }
+
+                button {
+                    cursor: pointer;
+                    text-align: center;
+                    margin: rem(2) rem(2) rem(10) 0;
+                    padding: rem(20);
+                    font-weight: 600;
+                    font-size: rem(14);
+                    line-height: rem(18);
+                    width: 49%;
+                    float: left;
+                    letter-spacing: rem(1.87);
+
+                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                        box-shadow: none;
+                    }
+                }
             }
 
             .login-oauth {
@@ -365,21 +412,29 @@
                 }
 
                 a {
+                    height: rem(51);
                     color: $white;
-                    text-align: center;
-                    padding: 16px;
+                    text-align: left;
+                    padding: rem(16);
+                    font-weight: 600;
+                    font-size: rem(12);
                     border: none;
-                    line-height: 18px;
+                    line-height: rem(18);
                     margin-bottom: 1%;
                     margin-top: 1%;
                     width: 49.5%;
                     float: left;
 
                     svg, img {
-                        width: 24px;
-                        height: 24px;
-                        margin-right: 5px;
-                        vertical-align: -40%;
+                        width: rem(24);
+                        height: rem(24);
+                        margin-right: rem(22);
+                        margin-left: rem(10);
+                        vertical-align: -50%;
+                    }
+
+                    span {
+                        margin-left: rem(3);
                     }
 
                     &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
@@ -390,7 +445,7 @@
                 }
             }
 
-            .mini-cart-login, .mini-cart-registration {
+            .mini-cart-login, .mini-cart-registration, .mini-cart-forget-password {
                 padding: rem(35) rem(35) 0;
                 margin-bottom: rem(25);
 
@@ -413,13 +468,19 @@
 
                 button[type="submit"] {
                     line-height: rem(18);
+                    font-weight: 600;
                     margin: 0;
                 }
 
                 .forgot-password {
                     text-align: center;
+                    margin-top: rem(6);
 
                     a {
+                        cursor: pointer;
+                        color: $black;
+                        font-size: rem(10);
+                        letter-spacing: rem(1);
                         text-align: center;
                         text-decoration: underline;
                         text-transform: uppercase;
@@ -484,6 +545,7 @@
             }
 
             .checkout-btn, button[type="submit"] {
+                font-weight: 600;
                 margin-bottom: rem(12);
                 display: block;
                 font-size: rem(14);

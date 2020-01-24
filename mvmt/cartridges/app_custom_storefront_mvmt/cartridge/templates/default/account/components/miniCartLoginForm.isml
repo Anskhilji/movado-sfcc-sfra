@@ -1,11 +1,11 @@
 <div class="mini-cart-login">
     <form action="${pdict.actionUrl}" method="POST" name="login-form">
         <div class="form-group required">
-            <input type="email" id="login-form-email" class="form-control" name="loginEmail">
+            <input type="email" id="login-form-email" class="form-control" name="loginEmail" placeholder="${Resource.msg('form.email.place.holder', 'common', null)}">
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group required">
-            <input type="password" id="login-form-password" class="form-control" name="loginPassword" autocomplete="off">
+            <input type="password" id="login-form-password" class="form-control" name="loginPassword" placeholder="${Resource.msg('form.password.place.holder', 'common', null)}" autocomplete="off">
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group custom-control custom-checkbox pull-left remember-me">
@@ -20,16 +20,8 @@
     </form>
     <isinclude template="account/components/oauth" />
     <div class="forgot-password">
-        <a
-            id="password-reset"
-            data-toggle="modal"
-            href="${URLUtils.url('Account-PasswordResetDialogForm')}"
-            data-target="#requestPasswordResetModal">
-            ${Resource.msg('link.login.forgotpassword', 'login', null)}
-        </a>
+        <a id="password-reset">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
         <span>&#32;&#124;&#32;</span>
-        <a id="create-account">
-            ${Resource.msg('link.text.create.account', 'cart', null)}
-        </a>
+        <a id="create-account">${Resource.msg('link.text.create.account', 'cart', null)}</a>
     </div>
 </div>

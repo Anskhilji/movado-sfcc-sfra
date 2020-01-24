@@ -83,11 +83,23 @@
         <iscomment>Custom Start: Adding account login, create and forget password form </iscomment>
         <isinclude template="account/components/miniCartLoginForm" />
         <isinclude template="account/components/miniCartRegisterForm" />
+        <isinclude template="account/components/miniCartForgetForm" />
         <iscomment> Custom End </iscomment>
 
-        <div class="row">
-            <div class="col-12 checkout-continue">
+        <div class="row continue-checkout-btn">
+            <div class="checkout-continue">
                 <isinclude template="cart/miniCartCheckoutButtons" />
+            </div>
+        </div>
+
+        <div class="row checkout-with-account">
+            <div class="col-12 checkout-continue">
+                <button type="button" class="btn btn-block btn-primary sign-in">
+                    ${Resource.msg('button.text.loginform', 'cart', null)}
+                </button>
+                <button type="button" class="btn btn-block btn-primary create-account">
+                    ${Resource.msg('link.text.create.account2', 'cart', null)}
+                </button>
             </div>
         </div>
     </div>

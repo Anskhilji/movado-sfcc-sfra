@@ -1,0 +1,13 @@
+<div class="mini-cart-forget-password">
+    <form action="${pdict.actionUrl}" method="POST" name="password-forget-form">
+        <div class="form-group required">
+            <input type="email" id="login-form-email" class="form-control" name="loginEmail" placeholder="${Resource.msg('form.email.place.holder', 'common', null)}">
+            <div class="invalid-feedback"></div>
+        </div>
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.forget.password', 'cart', null)}</button>
+    </form>
+    <div class="forgot-password">
+        <a id="login-in">${Resource.msg('link.text.login.in', 'cart', null)}</a>
+    </div>
+</div>

@@ -27,6 +27,74 @@ module.exports = function () {
         }
     });
 
+    $('.minicart').on('click touchstart', '#password-reset', function (event) {
+        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+            $('.mini-cart-registration').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'block');
+        } else {
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'block');
+        }
+    });
+
+    $('.minicart').on('click touchstart', '.sign-in, #sign-in-account, #login-in', function (event) {
+        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+            $('.mini-cart-registration').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.mini-cart-login').css('display', 'block');
+        } else {
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'block');
+        }
+    });
+
+    $('.minicart').on('click touchstart', '.create-account, #create-account', function (event) {
+        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+            $('.mini-cart-login').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'block');
+        } else {
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'block');
+        }
+    });
+
+    $('.minicart').on('change', '.cart-checkout-options input[type="radio"]', function (event) {
+        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.checkout-with-account').css('display', 'block');
+        } else {
+            $('.mini-cart-login').css('display', 'none');
+            $('.mini-cart-registration').css('display', 'none');
+            $('.checkout-with-account').css('display', 'none');
+            $('.mini-cart-forget-password').css('display', 'none');
+            $('.continue-checkout-btn').css('display', 'block');
+        }
+    });
+
     /**
     * This function is used to close the miniCart on the click event.
     */
