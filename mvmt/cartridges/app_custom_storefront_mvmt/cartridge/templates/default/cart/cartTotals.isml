@@ -1,5 +1,3 @@
-<iscomment> Custom Start: These div's are not needed becuase mvmt design ot have sales and estimated price </iscomment>
-<iscomment>
 <div class="no-gutters row">
     <div class="col-6">
         <p class="price-label">${Resource.msg('label.shipping.cost','cart',null)}</p>
@@ -23,8 +21,6 @@
         </div>
     </div>
 </isif>
-</iscomment>
-<iscomment> Custom End </iscomment>
 <div class="row">
     <div class="col-6">
         <p class="grand-total-label price-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>

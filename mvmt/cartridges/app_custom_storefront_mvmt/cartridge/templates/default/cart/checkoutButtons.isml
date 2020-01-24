@@ -1,15 +1,11 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row">
-    <iscomment> Custom Start: This div's section are not needed because mvmt desing not have grand total price text </iscomment>
-    <iscomment>
     <div class="col-12 estimated-price text-center d-block d-sm-none">
         <span>
             ${Resource.msg('label.estimatedtotal','cart',null)}
             <div class="grand-total">${pdict.totals.grandTotal}</div>
         </span>
     </div>
-    </iscomment>
-    <iscomment> Custom End </iscomment>
     <div class="col-md-6 col-lg-12">
         <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
             role="button" aria-pressed="true">
@@ -23,8 +19,6 @@
         </a>
     </div>
 </div>
-<iscomment> Custom Start: This div's section are not needed because mvmt desing not expresspayplay and applypay button </iscomment>
-<iscomment>
 <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
 <div class="row more-options">
     <div class="col col-sm-12">
@@ -35,5 +29,3 @@
     </div>
     <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
 </div>
-</iscomment>
-<iscomment> Custom End </iscomment>

@@ -26,8 +26,6 @@
         </div>
     </div>
 </isif>
-<iscomment> Custom Start: This div section is not needed because it is not in the mvmt design </iscomment>
-<iscomment>
 <div class="container cart-header-wrapper">
     <isif condition="${itemsLength > 0}">
         <div class="estimate-price-wrapper">
@@ -43,8 +41,6 @@
         </div>
     </isif>
 </div>
-</iscomment>
-<iscomment> Custom End </iscomment>
 <div class="container cart cart-page">
     <div class="row">
         <!---product cards--->
@@ -66,8 +62,6 @@
         </div>
         <!---totals, and checkout actions--->
         <div class="col-lg-4 col-md-12 totals order-2 order-lg-0">
-            <iscomment> Custom Start: These templates and div's are not needed because promo code and shipping method selection drop down design is not in the mvmt design </iscomment>
-            <iscomment>
             <isinclude template="cart/cartPromoCode" />
             <div class="coupons-and-promos coupons-wrapper mb-3">
                 <isinclude template="cart/cartCouponDisplay" />
@@ -75,8 +69,6 @@
             <div class="row">
                 <isinclude template="cart/cartShippingMethodSelection" />
             </div>
-            </iscomment>
-            <iscomment> Custom End </iscomment>
             <isif condition="${itemsLength > 0}">
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">

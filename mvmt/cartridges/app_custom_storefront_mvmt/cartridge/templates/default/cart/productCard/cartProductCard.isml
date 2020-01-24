@@ -28,8 +28,6 @@
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
-        <iscomment> Custom Start: These templates and div's are not needed because mvmt design not have emboss and engrave values. Also mvmt design not have the edit product feature.</iscomment>
-        <iscomment>
         <div class="item-attributes d-flex flex-column">
             <isloop items="${lineItem.variationAttributes}" var="attribute">
                 <isif condition="${option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
@@ -67,8 +65,6 @@
              </div>
             </isif>
         </div>
-        </iscomment>
-        <iscomment> Custom End </iscomment>
         <div class="col-3 col-sm-2 col-xs-3">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
@@ -94,19 +90,12 @@
                 </div> </iscomment>
             </isif>
         </div>
-        <iscomment> Custom Start: This line divider is not needed because mvmt design not have line divider </iscomment>
-        <iscomment>
         <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>
-        </iscomment>
     </div>
-    <iscomment> Custom Start: These templates are not needed because mvmt design not have embossed and gift card message </iscomment>
-    <iscomment>
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
     <isinclude template="cart/productCard/cartGiftMessaging" />
-    </iscomment>
-    <iscomment> Custom End </iscomment>
 </div>
