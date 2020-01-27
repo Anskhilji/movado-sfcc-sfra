@@ -134,7 +134,7 @@ server.append('Confirm', function (req, res, next) {
 
     viewData.checkoutPage = true;
     if (viewData.order) {
-    	var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);
+        var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);
         viewData.selectedPaymentMethod = selectedPaymentMethod;
     }
     res.setViewData(viewData);
