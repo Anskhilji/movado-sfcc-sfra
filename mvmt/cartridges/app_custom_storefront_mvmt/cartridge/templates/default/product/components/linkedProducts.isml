@@ -1,7 +1,8 @@
 <div class="linked-products">
     <isloop items="${pdict.linkedProducts}" var="productLink">
         <isset name="product" value="${productLink.getTargetProduct()}" scope="page" />
-        <div class="upsell_wrapper w-25 h-25">
+        <div class="upsell_wrapper">
+            <input type="checkbox" class="upsell_input" name="additionalProducts" value="${product.getID()}">
             <img class="upsell_image" src="${product.image.absURL}"/>
             <div class="upsell_meta">
                 <p class="upsell_price">
@@ -11,7 +12,6 @@
             </div>
             <p class="upsell_description">${product.getName()}</p>
             <div class="upsell_checkbox">
-                <input type="checkbox" name="additionalProducts" value="${product.getID()}">
             </div>
         </div>
     </isloop>
