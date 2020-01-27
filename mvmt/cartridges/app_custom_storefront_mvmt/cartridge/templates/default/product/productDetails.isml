@@ -147,6 +147,7 @@
                                 <isinclude template="product/components/description" />
                             </div>
                         </div>
+                        <isinclude template="product/components/linkedProducts" />
                         <isinclude template="product/components/moreStyles" />
                     </div>
 
