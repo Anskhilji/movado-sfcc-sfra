@@ -105,7 +105,7 @@
     "movado": "./movado",
     "custom_movado_redesign": "./movado_redesign",
     "custom_oliviaburton_uk": "./olivia-burton-uk",
-	"mvmt": "./mvmt",
+    "mvmt": "./mvmt",
     "productCompare": "./plugin_productcompare",
     "wishlist": "./plugin_wishlists",
     "base": "./storefront-reference-architecture"

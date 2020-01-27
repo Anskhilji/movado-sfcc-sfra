@@ -21,8 +21,16 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="product-breadcrumb hidden-sm-down">
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                                            <!-- Social Sharing Icons -->
+                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
+                                    <isinclude template="product/components/socialIcons" />
+                                </isif>
+        </div>
+        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+            <!---Breadcrumbs--->
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
@@ -46,21 +54,14 @@
                 </div>
             </div>
             <hr class="hidden-xs-down d-md-none"/>
-            <div class="product-breadcrumb hidden-sm-down">
-                <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-            </div>
-            <div class="row">
+            <div class="row pdp-desktop">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-6">
-                    <!---Breadcrumbs--->
-                    <div class="product-breadcrumb hidden-sm-down">
-                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                    </div>
 
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
+                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName} ${product.}</h1>
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
@@ -76,7 +77,6 @@
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                 data-available="${product.available}">
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
                             </div>
 
                             <!-- Applicable Promotions -->
@@ -102,31 +102,10 @@
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
 
-
-                        <!-- Affirm Text -->
-                        
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
-                        </div>
-                        
                         <div class="col-12 prices-add-to-cart-actions">
-                            <!-- Prices -->
-                            <div class="prices">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
-                            </div>
-                            <div class="d-block d-md-flex">
+                            <div class="d-block">
                                <!-- Cart and [Optionally] Apple Pay -->
                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                               <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-	                               </isif>    
-                               </isif>
                             </div>
                         </div>
 
@@ -138,13 +117,6 @@
                                         <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
-                                <!-- Social Sharing Icons -->
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                                    <isinclude template="product/components/socialIcons" />
-                                </isif>
-                            </div>
-                            <div class="row description">
-                                <isinclude template="product/components/description" />
                             </div>
                         </div>
                         <isinclude template="product/components/linkedProducts" />
