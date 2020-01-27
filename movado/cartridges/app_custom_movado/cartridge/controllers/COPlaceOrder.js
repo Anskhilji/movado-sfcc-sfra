@@ -5,6 +5,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var checkoutHelper = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var OrderModel = require('*/cartridge/models/order');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
 var Transaction = require('dw/system/Transaction');
 var Resource = require('dw/web/Resource');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
@@ -43,6 +44,9 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
                 order.custom.Adyen_value = order.totalGrossPrice.available ? order.totalGrossPrice.value * 100 : 0.0;
             }
         });
+    }
+    if (session.custom.trackingCode) {
+        SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, order.orderNo);
     }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);

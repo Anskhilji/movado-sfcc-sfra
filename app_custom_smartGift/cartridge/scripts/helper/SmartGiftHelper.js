@@ -37,9 +37,8 @@ var sendSmartGiftDetails = function(trackingCode, orderID) {
     
     var requestPayload;
     try {
-        var viewData = res.getViewData();
         if (orderID) {
-            var currentOrder = OrderMgr.getOrder(session.custom.orderNo);
+            var currentOrder = OrderMgr.getOrder(orderID);
             var productLineItems = currentOrder.getProductLineItems();
             var items = [];
             collections.forEach(productLineItems, function (pli) {
@@ -57,10 +56,11 @@ var sendSmartGiftDetails = function(trackingCode, orderID) {
                     items: items
                 }
                 smartGiftService.sendOrderDetails(requestPayload);
+                session.custom.trackingCode = '';
             }
         }
     } catch (e) {
-        Logger.error("Error occurred while try to send order details to smart gift, and error is: " + e);
+        Logger.error("Error occurred while try to send order details to smart gift,order number is: {0} and error is: {1}", orderID, e);
     }
 }
 

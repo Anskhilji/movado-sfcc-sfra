@@ -34,6 +34,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var config = {
         numberOfLineItems: '*'
     };
+    
     var orderModel = new OrderModel(order, { config: config });
     if (!req.currentCustomer.profile) {
         var passwordForm = server.forms.getForm('newPasswords');
