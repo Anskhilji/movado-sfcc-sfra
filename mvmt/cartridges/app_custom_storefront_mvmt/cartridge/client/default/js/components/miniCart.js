@@ -17,16 +17,13 @@ module.exports = function () {
     /**
      * It is is used to prevent the movado event.
      */
-    $('body').off('click touchstart');
+    $('body').off('click touchstart mouseenter focusin');
     $('.minicart').off('mouseenter focusin click touchstart mouseleave focusout');
 
     /**
     * This function is override from movado and it is used to show miniCart on the click event.
     */
     $('body').on('click touchstart', '.minicart', function (event) {
-        if ($('.search:visible').length === 0) {
-            return;
-        }
         var url = $('.minicart').data('action-url');
         var count = parseInt($('.minicart .minicart-quantity').text());
 
@@ -44,20 +41,20 @@ module.exports = function () {
     /**
      * This function is used to show forget form and hide other forms from the mini cart.
      */
-    $('.minicart').on('click', '#password-reset', function (event) {
+    $('.minicart').on('click touchstart', '#password-reset', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
         if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-login').css('display', 'none');
-            $('.mini-cart-forget-password').css('display', 'block');
+            $('.mini-cart-forget-password').slideDown();
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').css('display', 'block');
+            $('.continue-checkout-btn').slideDown();
         }
         setMiniCartProductSummaryHeight();
     });
@@ -65,20 +62,20 @@ module.exports = function () {
     /**
      * This function is used to show login form and hide other forms from the mini cart.
      */
-    $('.minicart').on('click', '.sign-in, #sign-in-account, #login-in', function (event) {
+    $('.minicart').on('click touchstart', '.sign-in, #sign-in-account, #login-in', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
         if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.mini-cart-login').css('display', 'block');
+            $('.mini-cart-login').slideDown();
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').css('display', 'block');
+            $('.continue-checkout-btn').slideDown();
         }
         setMiniCartProductSummaryHeight();
     });
@@ -86,20 +83,20 @@ module.exports = function () {
     /**
      * This function is used to show create form and hide other forms from the mini cart.
      */
-    $('.minicart').on('click', '.create-account, #create-account', function (event) {
+    $('.minicart').on('click touchstart', '.create-account, #create-account', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
         if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
             $('.mini-cart-login').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.mini-cart-registration').css('display', 'block');
+            $('.mini-cart-registration').slideDown();
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').css('display', 'block');
+            $('.continue-checkout-btn').slideDown();
         }
         setMiniCartProductSummaryHeight();
     });
@@ -114,13 +111,13 @@ module.exports = function () {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.checkout-with-account').css('display', 'block');
+            $('.checkout-with-account').slideDown();
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').css('display', 'block');
+            $('.continue-checkout-btn').slideDown();
         }
         setMiniCartProductSummaryHeight();
     });
@@ -128,7 +125,7 @@ module.exports = function () {
     /**
     * This function is used to close the miniCart on the click event.
     */
-    $('.minicart').on('click', '#close-mini-cart', function (event) {
+    $('.minicart').on('click touchstart', '#close-mini-cart', function (event) {
         $('.minicart .popover').removeClass('show');
         $('.minicart .popover').empty();
         $('#overlay').removeClass('footer-form-overlay');

@@ -94,7 +94,7 @@
 
         <iscomment>Custom Start: Adding the checkout account buttons like sign in and create account buttons</iscomment>
         <div class="row checkout-with-account">
-            <div class="checkout-continue">
+            <div class="col-12 checkout-continue">
                 <button type="button" class="btn btn-block sign-in hidden-md-up">
                     ${Resource.msg('link.text.sign.in', 'cart', null)}
                 </button>

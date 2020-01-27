@@ -28,6 +28,10 @@
             max-width: 90%;
         }
 
+        @include media-breakpoint-down(xs) {
+            min-width: auto;
+        }
+
         &.show {
             right: 0;
             transform: translate3d(0%, -49%, 0);
@@ -46,10 +50,6 @@
             @include media-breakpoint-down(md) {
                 width: 100%;
                 max-width: 100%;
-            }
-
-            @include media-breakpoint-down(xs) {
-                min-width: auto;
             }
 
             .title-free-shipping {
@@ -190,9 +190,20 @@
                             }
 
                             .item-attributes {
-                                flex: 1;
                                 color: $black;
                                 padding-left: rem(15);
+                                width: 65%;
+                                padding-right: rem(16);
+                                flex: auto;
+
+                                @include media-breakpoint-down(xs) {
+                                    width: 50%;
+                                }
+
+                                @include media-breakpoint-down(xss) {
+                                    width: 45%;
+                                }
+
                             }
 
                             .line-item-name {
@@ -419,6 +430,12 @@
                     &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
                         box-shadow: none;
                     }
+
+                    @include media-breakpoint-down(xss) {
+                        font-size: rem(10);
+                        padding: rem(20) rem(8);
+                    }
+
                 }
             }
 
@@ -462,6 +479,16 @@
                         margin-right: rem(22);
                         margin-left: rem(10);
                         vertical-align: -50%;
+
+                        @include media-breakpoint-down(xs) {
+                             margin-right: rem(16);
+                             margin-left: 0;
+                        }
+
+                        @include media-breakpoint-down(xss) {
+                             margin-right: 0;
+                             margin-left: 0;
+                        }
                     }
 
                     span {
