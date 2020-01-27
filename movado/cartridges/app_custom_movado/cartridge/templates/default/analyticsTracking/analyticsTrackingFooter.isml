@@ -89,3 +89,6 @@
         }
     </script>
 </isif>
+<isif condition="${!empty(pdict.selectedPaymentMethod)}"> 
+    dataLayer.push({'paymentMethod': pdict.selectedPaymentMethod});
+</isif>

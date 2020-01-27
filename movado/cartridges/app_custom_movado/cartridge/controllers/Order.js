@@ -88,6 +88,7 @@ server.append('Confirm', function (req, res, next) {
     var orderLineItems = order.getAllProductLineItems();
     var productLineItem;
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+    var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -132,6 +133,10 @@ server.append('Confirm', function (req, res, next) {
     }
 
     viewData.checkoutPage = true;
+    if (viewData.order) {
+    	var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);
+        viewData.selectedPaymentMethod = selectedPaymentMethod;
+    }
     res.setViewData(viewData);
     next();
 });
