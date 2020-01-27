@@ -235,9 +235,8 @@ function increaseQuantity (quantitySelector, id) {
 /**
  * updateCartQuantity function will update the quantity in the product and the cart.
  * quantitySelector param is used to get the selected product class and it data attributes.
- * isKeyEvent param is used to check the current event is fire from keys or mouse.
  * @param quantitySelector
- * @param isKeyEvent
+ * @param isKeyEvent is used to check the current event is fire from keys or mouse.
  */
 function updateCartQuantity (quantitySelector, isKeyEvent) {
     var preSelectQty = $(quantitySelector).data('pre-select-qty');
@@ -300,7 +299,7 @@ module.exports = function () {
 
     /**
      * This is new click event function on the decreased quantity button.
-     * It will get the decreased-btn data attribute and made the quantitySelector 
+     * It will get the decreased-btn data attribute and builds the quantitySelector 
      * class and it will call the decreaseQuantity function.
      */
     $(document).on('click', '.decreased-btn', function (e) {
@@ -312,7 +311,7 @@ module.exports = function () {
 
     /**
      * This is new click event function on the increased quantity button.
-     * It will get the increased-btn data attribute and made the quantitySelector 
+     * It will get the increased-btn data attribute and builds the quantitySelector 
      * class and it will call the increaseQuantity function.
      */
     $(document).on('click', '.increased-btn', function (e) {
@@ -337,8 +336,8 @@ module.exports = function () {
         var uuid = $(this).data('uuid');
         var gtmProdObj = $(this).data('gtm-cart');
         var urlParams = {
-                pid: productID,
-                uuid: uuid
+            pid: productID,
+            uuid: uuid
         };
 
         var url = appendToUrl(actionUrl, urlParams);
@@ -355,7 +354,7 @@ module.exports = function () {
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();
                     $('.product-info').remove();
-                    $('.cart-page > .row').append('<div class="container my-5 cart-empty order-1"><div class="row justify-content-center"><div class="col-12 text-center"><h1 class="empty-cart-header empty-cart-msg"> ' + window.Resources.CART_EMPTY_MESSAGE + '</h1></div><div><a href= "' + data.homePage + '" class="btn btn-primary btn-block continue-shopping" role="button">' + window.Resources.CONTINUE_SHOPPING + '</a></div></div></div>');
+                    $('.cart-page > .row').append('<div class="container my-5 cart-empty order-1"><div class="row justify-content-center"><div class="col-12 text-center"><h1 class="empty-cart-header empty-cart-msg"> ' + window.Resources.CART_EMPTY_MESSAGE + '</h1></div><div><a href= "' + data.homePageURL + '" class="btn btn-primary btn-block continue-shopping" role="button">' + window.Resources.CONTINUE_SHOPPING + '</a></div></div></div>');
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty();
@@ -401,12 +400,4 @@ module.exports = function () {
         e.preventDefault();
         updateCartQuantity(this, false);
     });
-
-    movadoBase.selectAttribute();
-    movadoBase.colorAttribute();
-    movadoBase.removeBonusProduct();
-    movadoBase.selectBonusProduct();
-    movadoBase.enableBonusProductSelection();
-    movadoBase.showMoreBonusProducts();
-    movadoBase.addBonusProductsToCart();
 };

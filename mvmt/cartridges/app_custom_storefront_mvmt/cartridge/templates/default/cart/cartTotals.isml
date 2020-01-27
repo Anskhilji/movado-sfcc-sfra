@@ -1,4 +1,4 @@
-<div class="no-gutters row">
+<div class="row">
     <div class="col-6">
         <p class="price-label">${Resource.msg('label.shipping.cost','cart',null)}</p>
     </div>
