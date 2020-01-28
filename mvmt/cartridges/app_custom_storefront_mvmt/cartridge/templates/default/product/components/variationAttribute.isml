@@ -12,7 +12,7 @@ Template Notes:
 <div class="attribute">
     <!-- Select <Attribute> Label -->
     <label class="${attr.id}">
-        ${Resource.msg('label.select', 'common', null)} ${attr.displayName}
+        ${attr.displayName} ${Resource.msg('label.size.unit', 'product', null)}
     </label>
 
     <isif condition="${attr.swatchable}">
@@ -36,19 +36,13 @@ Template Notes:
         </isloop>
 
     <iselse>
-        <!-- Attribute Values Drop Down Menu -->
-        <div class="select-${attr.id}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-            <option value="${attr.resetUrl}">
-                ${attr.displayName}
-            </option>
-            <isloop items="${attr.values}" var="attrValue">
-                <option value="${attrValue.url}" data-attr-value="${attrValue.value}"
-                    ${!attrValue.selectable ? 'disabled' : ''}
-                    ${attrValue.selected ? 'selected' : ''}
-                >
-                    ${attrValue.displayValue}
-                </option>
-            </isloop>
-        </div>
+        <isloop items="${attr.values}" var="attrValue">
+            <button class="product-size-options" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                ${!attrValue.selectable ? 'disabled' : ''}
+                ${attrValue.selected ? 'selected' : ''}
+            >
+                ${attrValue.displayValue}
+            </button>
+        </isloop>
     </isif>
 </div>
