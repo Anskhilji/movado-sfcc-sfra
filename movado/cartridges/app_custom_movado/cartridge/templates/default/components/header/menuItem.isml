@@ -16,18 +16,18 @@
                     </isif>
                 </isloop>
             </ul>
-        <isloop items="${menuItem.subCategories}" var="category">
-            <isif condition="${category.subCategories}">
-                <ul class="browse-collection">
-                    <li class="dropdown-item dropdown" role="menuitem" >
-                        <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
-                        <isset name="categoryItem" value="${category}" scope="page"/>
-                        <isinclude template="components/header/menuItemList"/>
-                    </li>
-                </ul>
-            </isif>
-        </isloop>
-    </div>
+            <isloop items="${menuItem.subCategories}" var="category">
+                <isif condition="${category.subCategories}">
+                    <ul class="browse-collection">
+                        <li class="dropdown-item dropdown" role="menuitem" >
+                            <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
+                            <isset name="categoryItem" value="${category}" scope="page"/>
+                            <isinclude template="components/header/menuItemList"/>
+                        </li>
+                    </ul>
+                </isif>
+            </isloop>
+        </div>
         <isif condition="${topCat.headerMenuBanner}">
             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                 <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
