@@ -84,6 +84,29 @@
     .totals {
          background-color: $white;
 
+        .promo-box {
+
+            .collapsible-promo-wrapper {
+                outline: 0;
+
+                &:focus {
+                    outline: 0;
+                }
+            }
+
+            .shippingMethods {
+
+                + i {
+                    top: rem(36.8);
+                    right: rem(10);
+
+                    @include media-breakpoint-down(xss) {
+                        right: rem(8);
+                    }
+                }
+            }
+        }
+
         .page-title {
             border-bottom: rem(1) solid $light-gray6;
         }

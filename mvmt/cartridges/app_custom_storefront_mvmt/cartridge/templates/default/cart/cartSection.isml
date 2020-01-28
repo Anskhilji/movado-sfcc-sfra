@@ -63,7 +63,7 @@
         <!---totals, and checkout actions--->
         <div class="col-lg-4 col-md-12 totals order-2 order-lg-0">
             <isif condition="${itemsLength > 0}">
-                <div class="col-12 promo-box">
+                <div class="promo-box">
                     <isinclude template="cart/cartPromoCode" />
                     <div class="coupons-and-promos coupons-wrapper mb-3">
                         <isinclude template="cart/cartCouponDisplay" />
