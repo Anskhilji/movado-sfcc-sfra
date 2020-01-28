@@ -181,7 +181,7 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
     }
 
     if (keyCode < 48 || keyCode > 57 || keyCode < 96 || keyCode > 105) {
-        event.preventDefault();
+        e.preventDefault();
     }
 });
 
@@ -313,8 +313,8 @@ module.exports = function () {
         var uuid = $(this).data('uuid');
         var gtmProdObj = $(this).data('gtm-cart');
         var urlParams = {
-                pid: productID,
-                uuid: uuid
+            pid: productID,
+            uuid: uuid
         };
 
         var url = appendToUrl(actionUrl, urlParams);
@@ -327,11 +327,21 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
+                    var htmlString = '<div class="container my-5 cart-empty order-1">'
+                        + '<div class="container my-5 cart-empty order-1">'
+                        + '<div class="row justify-content-center">'
+                        + '<div class="col-12 text-center">'
+                        + '<h1 class="empty-cart-header empty-cart-msg">'
+                        + window.Resources.CART_EMPTY_MESSAGE
+                        + '</h1></div>'
+                        + '<div><a href= "' + data.homePage + '" class="btn btn-primary btn-block continue-shopping" role="button">' 
+                        + window.Resources.CONTINUE_SHOPPING + '</a>'
+                        + '</div></div></div>';
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();
                     $('.product-info').remove();
-                    $('.cart-page > .row').append('<div class="container my-5 cart-empty order-1"><div class="row justify-content-center"><div class="col-12 text-center"><h1 class="empty-cart-header empty-cart-msg"> ' + window.Resources.CART_EMPTY_MESSAGE + '</h1></div><div><a href= "' + data.homePage + '" class="btn btn-primary btn-block continue-shopping" role="button">' + window.Resources.CONTINUE_SHOPPING + '</a></div></div></div>');
+                    $('.cart-page > .row').append(htmlString);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty();

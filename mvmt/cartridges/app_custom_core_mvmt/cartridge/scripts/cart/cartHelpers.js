@@ -2,17 +2,12 @@
 var cartHelpers = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Resource = require('dw/web/Resource');
-var Transaction = require('dw/system/Transaction');
-var URLUtils = require('dw/web/URLUtils');
 
 var collections = require('*/cartridge/scripts/util/collections');
-var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var arrayHelper = require('*/cartridge/scripts/util/array');
-var BONUS_PRODUCTS_PAGE_SIZE = 6;
 
 /**
- * This function is copied from storefront for same functionality.
+ * This function is copied from storefront base cartridge to override Movado specific changes and restore SFRA functionality.
  * Filter all the product line items matching productId and
  * has the same bundled items or options in the cart
  * @param {dw.catalog.Product} product - Product object
@@ -24,20 +19,20 @@ var BONUS_PRODUCTS_PAGE_SIZE = 6;
  * @return {dw.order.ProductLineItem[]} - Filtered all the product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options) {
+cartHelpers.getExistingProductLineItemsInCart = function getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options) {
     var matchingProductsObj = cartHelpers.getMatchingProducts(productId, productLineItems);
     var matchingProducts = matchingProductsObj.matchingProducts;
     var productLineItemsInCart = matchingProducts.filter(function (matchingProduct) {
         return product.bundle
             ? allBundleItemsSame(matchingProduct.bundledProductLineItems, childProducts)
-            : hasSameOptions(matchingProduct.optionProductLineItems, options || []);
+            : cartHelpers.hasSameOptions(matchingProduct.optionProductLineItems, options || []);
     });
 
     return productLineItemsInCart;
 }
 
 /**
- * This function is copied from storefront for same functionality.
+ * This function is copied from storefront base cartridge to override Movado specific changes and restore SFRA functionality.
  * Filter the product line item matching productId and
  * has the same bundled items or options in the cart
  * @param {dw.catalog.Product} product - Product object
@@ -49,19 +44,19 @@ function getExistingProductLineItemsInCart(product, productId, productLineItems,
  * @return {dw.order.ProductLineItem} - get the first product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options) {
-    return getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];
+cartHelpers.getExistingProductLineItemInCart = function getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options) {
+    return cartHelpers.getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];
 }
 
 /** 
- * This function is copied from storefront for same functionality.
+ * This function is copied from storefront base cartridge to override Movado specific changes and restore SFRA functionality.
  * Determines whether a product's current options are the same as those just selected   
  *  
  * @param {dw.util.Collection} existingOptions - Options currently associated with this product 
  * @param {SelectedOption[]} selectedOptions - Product options just selected    
  * @return {boolean} - Whether a product's current options are the same as those just selected  
  */ 
-function hasSameOptions(existingOptions, selectedOptions) { 
+cartHelpers.hasSameOptions = function hasSameOptions(existingOptions, selectedOptions) { 
     var selected = {};  
     for (var i = 0, j = selectedOptions.length; i < j; i++) {   
         selected[selectedOptions[i].optionId] = selectedOptions[i].selectedValueId; 
@@ -72,7 +67,7 @@ function hasSameOptions(existingOptions, selectedOptions) {
 }
 
 /**
- * This function is copied from storefront for same functionality.
+ * This function is copied from storefront base cartridge to override Movado specific changes and restore SFRA functionality.
  * Adds a product to the cart. If the product is already in the cart it increases the quantity of
  * that product.
  * @param {dw.order.Basket} currentBasket - Current users's basket
@@ -82,7 +77,7 @@ function hasSameOptions(existingOptions, selectedOptions) {
  * @param {SelectedOption[]} options - product options
  *  @return {Object} returns an error object
  */
-function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
+cartHelpers.addProductToCart = function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
     var availableToSell;
     var defaultShipment = currentBasket.defaultShipment;
     var perpetual;
@@ -121,8 +116,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
         return result;
     }
 
-    productInCart = getExistingProductLineItemInCart(
-        product, productId, productLineItems, childProducts, options);
+    productInCart = cartHelpers.getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options);
 
     if (productInCart) {
         productQuantityInCart = productInCart.quantity.value;
@@ -155,8 +149,4 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     return result;
 }
 
-cartHelpers.addProductToCart = addProductToCart;
-cartHelpers.getExistingProductLineItemInCart = getExistingProductLineItemInCart;
-cartHelpers.getExistingProductLineItemsInCart = getExistingProductLineItemsInCart;
-cartHelpers.hasSameOptions = hasSameOptions;
 module.exports = cartHelpers;

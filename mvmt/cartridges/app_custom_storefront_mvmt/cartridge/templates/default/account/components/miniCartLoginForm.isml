@@ -20,7 +20,7 @@
     </form>
     <isinclude template="account/components/oauth" />
     <div class="forgot-password">
-        <a id="password-reset">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
+        <a id="password-reset-btn">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
         <span>&#32;&#124;&#32;</span>
         <a id="create-account">${Resource.msg('link.text.create.account', 'cart', null)}</a>
     </div>

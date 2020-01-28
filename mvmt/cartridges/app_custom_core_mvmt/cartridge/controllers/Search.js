@@ -6,13 +6,14 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
+var CatalogMgr = require('dw/catalog/CatalogMgr');
+var Site = require('dw/system/Site');
+
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var CatalogMgr = require('dw/catalog/CatalogMgr');
-var Site = require('dw/system/Site');
-var ABTestMgr = require('dw/campaign/ABTestMgr');
-var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
 
 server.replace('Refinebar', cache.applyDefaultCache, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -41,10 +42,10 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var URLUtils = require('dw/web/URLUtils');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
+
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
-    var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 
     var productSearch;

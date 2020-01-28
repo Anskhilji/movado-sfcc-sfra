@@ -21,7 +21,7 @@ module.exports = function () {
     $('.minicart').off('mouseenter focusin click touchstart mouseleave focusout');
 
     /**
-    * This function is override from movado and it is used to show miniCart on the click event.
+    * This event is override from movado and it is used to show miniCart on the click event.
     */
     $('body').on('click touchstart', '.minicart', function (event) {
         var url = $('.minicart').data('action-url');
@@ -39,9 +39,19 @@ module.exports = function () {
     });
 
     /**
-     * This function is used to show forget form and hide other forms from the mini cart.
+     * This event is used to close the mini cart.
      */
-    $('.minicart').on('click touchstart', '#password-reset', function (event) {
+    $('#overlay').on('click touchstart', function (event) {
+        if ($('.minicart .popover.show').length > 0) {
+            $('.minicart .popover').removeClass('show');
+            $('.minicart .popover').empty();
+        }
+    });
+
+    /**
+     * This event is used to show forget form and hide other forms from the mini cart.
+     */
+    $('.minicart').on('click touchstart', '#password-reset-btn', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
         if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
             $('.mini-cart-registration').css('display', 'none');
@@ -60,7 +70,7 @@ module.exports = function () {
     });
 
     /**
-     * This function is used to show login form and hide other forms from the mini cart.
+     * This event is used to show login form and hide other forms from the mini cart.
      */
     $('.minicart').on('click touchstart', '.sign-in, #sign-in-account, #login-in', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
@@ -81,7 +91,7 @@ module.exports = function () {
     });
 
     /**
-     * This function is used to show create form and hide other forms from the mini cart.
+     * This event is used to show create form and hide other forms from the mini cart.
      */
     $('.minicart').on('click touchstart', '.create-account, #create-account', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
@@ -102,7 +112,7 @@ module.exports = function () {
     });
 
     /**
-     * This function is used to check get the selected radio button value.
+     * This event is used to check get the selected radio button value.
      */
     $('.minicart').on('change', '.cart-checkout-options input[type="radio"]', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
@@ -123,7 +133,7 @@ module.exports = function () {
     });
 
     /**
-    * This function is used to close the miniCart on the click event.
+    * This event is used to close the miniCart on the click event.
     */
     $('.minicart').on('click touchstart', '#close-mini-cart', function (event) {
         $('.minicart .popover').removeClass('show');

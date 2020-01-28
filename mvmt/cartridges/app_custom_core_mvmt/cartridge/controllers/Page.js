@@ -4,11 +4,6 @@
  */
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
-var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var Resource = require('dw/web/Resource');
-var URLUtils = require('dw/web/URLUtils');
-var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
-var ContentMgr = require('dw/content/ContentMgr');
 var page = module.superModule;
 server.extend(page);
 

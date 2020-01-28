@@ -203,7 +203,6 @@
                                 @include media-breakpoint-down(xss) {
                                     width: 45%;
                                 }
-
                             }
 
                             .line-item-name {
@@ -340,6 +339,7 @@
                 }
 
                 input[type="radio"] {
+                    z-index: 99;
                     transform: translateY(-60%);
                     top: 48%;
                     clip: auto;

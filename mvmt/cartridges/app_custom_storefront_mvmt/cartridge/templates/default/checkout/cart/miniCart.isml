@@ -81,7 +81,7 @@
         <iscomment>Custom Start: Adding account login, create and forget password form </iscomment>
         <isinclude template="account/components/miniCartLoginForm" />
         <isinclude template="account/components/miniCartRegisterForm" />
-        <isinclude template="account/components/miniCartForgetForm" />
+        <isinclude template="account/components/miniCartForgetPasswordForm" />
         <iscomment> Custom End </iscomment>
 
         <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>

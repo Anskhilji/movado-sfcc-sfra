@@ -93,10 +93,6 @@ $('#emailSubcriberBtn').click(function (e) {
 });
 
 $('.close-footer-more, #overlay').click(function (e) {
-    if ($('.minicart .popover.show').length > 0) {
-        $('.minicart .popover').removeClass('show');
-        $('.minicart .popover').empty();
-    }
     $('.footer-more-fields').removeClass('is-active');
     $('#overlay').removeClass('footer-form-overlay');
 });
