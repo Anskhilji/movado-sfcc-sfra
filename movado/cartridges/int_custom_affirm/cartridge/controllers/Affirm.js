@@ -78,7 +78,6 @@ server.replace(
 
         affirmHelper.PostProcess(order);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-        var test = session.custom.trackingCodeTest;
         if (currentBasket.custom.smartGiftTrackingCode) {
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
         }

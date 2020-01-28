@@ -124,7 +124,6 @@ exports.prepareBasket = function (basket, parameters) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     if (currentBasket.custom.smartGiftTrackingCode) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-        var test  = currentBasket.custom.smartGiftTrackingCode;
     }
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
