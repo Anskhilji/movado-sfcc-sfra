@@ -1,17 +1,15 @@
 .section-locations-hero {
     margin-bottom: rem(16);
     position: relative;
-    display: flex;
-    align-items: center;
+    display: block;
 
     .location-hero {
         text-align: center;
         width: 100%;
-        display: flex;
-        align-items: center;
 
         p {
             margin: 0;
+            width: 100%;
         }
 
         img {
@@ -27,6 +25,7 @@
         }
 
         .location-hero-title {
+            transform: translateY(-50%);
             color: $white;
             font-family: $font-medium;
             font-weight: 500;
@@ -35,9 +34,10 @@
             letter-spacing: rem(12);
             text-align: center;
             position: absolute;
-            margin: 0 auto;
             left: 0;
             right: 0;
+            bottom: 0;
+            top: 50%;
 
             @include media-breakpoint-down(md) {
                 font-size: rem(36);
