@@ -259,7 +259,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     }
     .nav-item {
       position: static;
-      &.show {
+      &.show, &:hover {
         box-shadow: 0 rem(2) rem(10) 0 $grey10;
       }
     }
