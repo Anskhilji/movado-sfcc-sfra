@@ -1,3 +1,4 @@
+<isif condition="${!topCat.disableSubCategories}">
 <div class="dropdown-menu" role="menu" aria-hidden="true">
   <div class="menu-pane">
     <ul>
@@ -34,3 +35,4 @@
     </div>
   </isif>
 </div>
+</isif>
