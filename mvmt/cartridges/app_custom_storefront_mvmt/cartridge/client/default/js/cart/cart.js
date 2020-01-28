@@ -350,6 +350,8 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
+                    $('.cart-header-wrapper').remove();
+                    $('.promo-box').remove();
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();

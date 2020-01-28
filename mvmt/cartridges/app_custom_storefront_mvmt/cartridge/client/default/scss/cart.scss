@@ -288,17 +288,38 @@
 
     .bundled-line-item {
 
+        .line-item-name {
+            color: $light-gray7;
+            letter-spacing: 0;
+            font-family: $font-book;
+        }
+
         .item-image {
             margin-right: rem(5);
             height: rem(98);
             width: rem(98);
-            border: rem(1) solid $light-gray6;
-            border-radius: rem(4);
             transition-duration: 0.3s;
 
             @include media-breakpoint-down(xs) {
                 height: rem(58);
                 width: rem(58);
+            }
+
+            .product-image {
+                margin-right: rem(5);
+                height: rem(98);
+                width: rem(98);
+                border: rem(1) solid $light-gray6;
+                border-radius: rem(4);
+                transition-duration: 0.3s;
+                max-height: none;
+                margin: 0;
+                max-width: none;
+
+                @include media-breakpoint-down(xs) {
+                    height: rem(58);
+                    width: rem(58);
+                }
             }
         }
     }
@@ -307,6 +328,11 @@
         padding: 0;
         margin-bottom: rem(10);
 
+        .bonus-product-button {
+            margin-top: rem(10);
+            margin-left: rem(6);
+        }
+
         .product-gift-wrap {
             padding-left: rem(8);
         }
@@ -314,6 +340,7 @@
         .item-info {
             border-bottom: 0rem;
             align-items: center;
+            margin-left: rem(-16);
 
             .item-name-and-price {
                 display: inline-flex;
