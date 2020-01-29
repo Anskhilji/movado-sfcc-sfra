@@ -376,7 +376,8 @@
                     text-transform: uppercase;
 
                      .line-item-attributes, .item-model, item-options, .price, 
-                     .total-amount, .item-personalization, .line-item-pricing-info {
+                     .total-amount, .item-personalization, .line-item-pricing-info,
+                     .personalize-price, .personalize-msg {
                          font-family: $font-book;
                          font-size: rem(12);
                          letter-spacing: 0;
