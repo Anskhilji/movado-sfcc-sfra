@@ -248,14 +248,21 @@
                             }
 
                             .line-item-attributes, .item-model, item-options, .price, 
-                            .total-amount, .item-personalization, .line-item-pricing-info {
+                            .total-amount, .item-personalization, .line-item-pricing-info,
+                            .personalize-price, .personalize-msg {
                                 font-family: $font-book;
-                                font-size: rem(11);
-                                letter-spacing: rem(1.5);
+                                font-size: rem(12);
+                                letter-spacing: 0;
                                 color: $black;
                                 font-style: normal;
                                 font-weight: normal;
                             }
+
+                            .original-price, .savings {
+                                 font-family: $font-book;
+                                 font-size: rem(12);
+                                 letter-spacing: 0;
+                             }
 
                             .price {
 
