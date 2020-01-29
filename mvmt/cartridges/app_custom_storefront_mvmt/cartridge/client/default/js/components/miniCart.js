@@ -15,7 +15,7 @@ module.exports = function () {
     cart();
 
     /**
-     * It is is used to prevent the movado event.
+     * It is used to off the movado event.
      */
     $('body').off('click touchstart mouseenter focusin');
     $('.minicart').off('mouseenter focusin click touchstart mouseleave focusout');
@@ -58,15 +58,22 @@ module.exports = function () {
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-login').css('display', 'none');
-            $('.mini-cart-forget-password').slideDown();
+            $('.mini-cart-forget-password').slideDown({complete: function () {
+                if($('.mini-cart-forget-password').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').slideDown();
+            $('.continue-checkout-btn').slideDown({complete: function () {
+                if($('.continue-checkout-btn').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         }
-        setMiniCartProductSummaryHeight();
     });
 
     /**
@@ -79,15 +86,22 @@ module.exports = function () {
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.mini-cart-login').slideDown();
+            $('.mini-cart-login').slideDown({complete: function () {
+                if($('.mini-cart-login').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').slideDown();
+            $('.mini-cart-forget-password').slideDown({complete: function () {
+                if($('.mini-cart-registration').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         }
-        setMiniCartProductSummaryHeight();
     });
 
     /**
@@ -95,20 +109,28 @@ module.exports = function () {
      */
     $('.minicart').on('click touchstart', '.create-account, #create-account', function (event) {
         var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        setMiniCartProductSummaryHeight();
         if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
             $('.mini-cart-login').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.mini-cart-registration').slideDown();
+            $('.mini-cart-registration').slideDown({complete: function () {
+                if($('.mini-cart-registration').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').slideDown();
+            $('.continue-checkout-btn').slideDown({complete: function () {
+                if($('.continue-checkout-btn').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         }
-        setMiniCartProductSummaryHeight();
     });
 
     /**
@@ -121,13 +143,21 @@ module.exports = function () {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.checkout-with-account').slideDown();
+            $('.checkout-with-account').slideDown({complete: function () {
+                if($('.checkout-with-account').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         } else {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
             $('.mini-cart-forget-password').css('display', 'none');
-            $('.continue-checkout-btn').slideDown();
+            $('.continue-checkout-btn').slideDown({complete: function () {
+                if($('.continue-checkout-btn').is(this)){
+                    setMiniCartProductSummaryHeight();
+                }
+            }});
         }
         setMiniCartProductSummaryHeight();
     });

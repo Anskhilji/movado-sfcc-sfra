@@ -125,16 +125,26 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
+                /* Hide scrollbar for IE and Edge */
+                -ms-overflow-style: none;
+
+                .row {
+
+                    &:last-child {
+
+                        .card {
+                            border-bottom: none;
+                        }
+                    }
+                }
+
+                /* Hide scrollbar for Chrome, Safari and Opera */
+                &::-webkit-scrollbar {
+                    display: none;
+                }
 
                 .col-12 {
                     padding: 0;
-                }
-
-                &:last-child {
-
-                    .card {
-                        border-bottom: none;
-                    }
                 }
 
                 .card {
@@ -189,12 +199,23 @@
                                 }
                             }
 
+                            .line-item-promo {
+
+                                p {
+                                    margin-bottom: 0;
+                                }
+                            }
+
                             .item-attributes {
                                 color: $black;
                                 padding-left: rem(15);
                                 width: 65%;
                                 padding-right: rem(16);
                                 flex: auto;
+
+                                p {
+                                    margin-bottom: 0;
+                                }
 
                                 @include media-breakpoint-down(xs) {
                                     width: 50%;
@@ -226,6 +247,16 @@
                                 }
                             }
 
+                            .line-item-attributes, .item-model, item-options, .price, 
+                            .total-amount, .item-personalization, .line-item-pricing-info {
+                                font-family: $font-book;
+                                font-size: rem(11);
+                                letter-spacing: rem(1.5);
+                                color: $black;
+                                font-style: normal;
+                                font-weight: normal;
+                            }
+
                             .price {
 
                                 .total-amount {
@@ -249,6 +280,11 @@
                                     letter-spacing: rem(1);
                                     cursor: pointer;
                                     margin: 0;
+                                    position: relative;
+
+                                    span {
+                                        position: relative;
+                                    }
 
                                     &:hover, &:focus {
                                         outline: 0;
@@ -267,9 +303,9 @@
                                         content: "";
                                         display: block;
                                         position: absolute;
-                                        bottom: rem(2);
+                                        bottom: rem(-4);
                                         height: rem(1);
-                                        width: 10%;
+                                        width: 100%;
                                         opacity: 0;
                                         background: $red1;
                                         transition: all .25s;
@@ -395,6 +431,20 @@
                 .checkout-btn {
                     line-height: rem(18);
                 }
+
+                .checkout-continue {
+
+                    .paypal-btn {
+                        background-color: $yellow;
+                        border-color: $yellow;
+
+                        &:not(:disabled):not(.disabled):active, &:hover {
+                            background-color: $yellow;
+                            border-color: $yellow;
+                            background-image: none;
+                        }
+                    }
+                }
             }
 
             .checkout-with-account {
@@ -419,7 +469,7 @@
                     cursor: pointer;
                     text-align: center;
                     margin: rem(2) rem(2) rem(10) 0;
-                    padding: rem(20);
+                    padding: rem(20) 0;
                     font-weight: 600;
                     font-size: rem(14);
                     line-height: rem(18);
@@ -431,11 +481,13 @@
                         box-shadow: none;
                     }
 
-                    @include media-breakpoint-down(xss) {
-                        font-size: rem(10);
-                        padding: rem(20) rem(8);
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(12);
                     }
 
+                    @include media-breakpoint-down(xss) {
+                        font-size: rem(10);
+                    }
                 }
             }
 
