@@ -1,3 +1,5 @@
+<iscomment> Custom: Start [Change classes and structure as per requirments] </iscomment> 
+
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
@@ -62,7 +64,7 @@
 
                 <div class="col-12 col-sm-4">
                     <div class="product-tag-wrapper">
-                        <span class="product-tag tag-red ">${Resource.msg('label.soldout', 'product', null)}</span>
+                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
                     </div>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
@@ -70,6 +72,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </div>
+
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
@@ -87,16 +90,16 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-
+                        <div class="col-12">
+                            <isinclude template="product/components/linkedProducts" />
+                        </div>
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">
                                <!-- Cart and [Optionally] Apple Pay -->
                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <isinclude template="product/components/linkedProducts" />
-                        </div>
+
                     </div>
 
                     <!-- Size Chart -->

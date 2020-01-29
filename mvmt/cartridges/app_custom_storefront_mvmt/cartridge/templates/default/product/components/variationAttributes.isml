@@ -1,3 +1,4 @@
+<iscomment> Custom: Start [Change classes and remove div as per requirments] </iscomment> 
 <div class="col-12 variationAttribute">
     <isset name="isBundle" value="${false}" scope="page" />
     <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">

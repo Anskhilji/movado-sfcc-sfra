@@ -1,6 +1,8 @@
 <isif condition="${pdict.socialShareEnable}">
   <div class="social-container">
+    <iscomment> Custom: Start [Resource msg added] </iscomment> 
     <span>${Resource.msg('label.share', 'product', null)}</span>
+    <iscomment> Custom: End </iscomment>
     <div class="addthis_toolbox social-icons">
       <a class="addthis_button_pinterest unlink" role="button" tabindex="0">
         <i class="fa fa-pinterest"></i>

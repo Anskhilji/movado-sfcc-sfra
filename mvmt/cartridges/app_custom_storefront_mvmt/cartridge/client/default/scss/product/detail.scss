@@ -104,7 +104,12 @@
     .product-tag-wrapper {
         height: rem(26);
         margin-bottom: rem(15);
+
+        @include media-breakpoint-down(sm) {
+            text-align: center;
+        }
     }
+
     .product-tag {
         text-align: center;
         text-transform: uppercase;
@@ -380,6 +385,7 @@
         }
 
         .attribute {
+            margin: 0;
             > label {
                 display: block;
                 color: $transparent-gray;
@@ -418,6 +424,51 @@
     .product-variations {
         > div {
             padding: 0;
+        }
+    }
+
+    .select-size-head {
+
+        @include media-breakpoint-up(sm) {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: rem(10);
+        }
+
+        label {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+
+            span {
+                display: inline-block;
+                color: $light-gray2;
+                font-size: rem(11);
+                letter-spacing: 0;
+                max-width: rem(100);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align: bottom;
+            }
+        }
+
+        .seefit-text {
+            display: none;
+            color: $transparent-gray;
+            font-size: rem(11);
+            font-family: $font-medium;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            background: none;
+            cursor: pointer;
+
+            @include media-breakpoint-up(sm) {
+                display: inline-block;
+            }
         }
     }
 

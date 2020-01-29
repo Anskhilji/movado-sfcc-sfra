@@ -11,9 +11,21 @@ Template Notes:
 
 <div class="attribute">
     <!-- Select <Attribute> Label -->
-    <label class="${attr.id}">
-        ${attr.displayName} ${Resource.msg('label.size.unit', 'product', null)}
-    </label>
+    <div class="select-size-head">
+        <label class="${attr.id}">
+            ${attr.displayName} ${Resource.msg('label.size.unit', 'product', null)}
+            <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 
+            <span>
+                28 ${Resource.msg('label.size.unit.small', 'product', null)}
+            </span>
+            <iscomment> Custom: End </iscomment>
+        </label>
+    <iscomment> Custom: Start see fit button added </iscomment>
+        <button class="seefit-text">
+            ${Resource.msg('label.seefit', 'product', null)}
+        </button>
+    <iscomment> Custom: End </iscomment>
+    </diV>
 
     <isif condition="${attr.swatchable}">
         <!-- Circular Swatch Image Attribute Values -->

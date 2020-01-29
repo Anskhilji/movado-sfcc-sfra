@@ -1,3 +1,4 @@
+<iscomment> Custom: Start [change classed and remove divs as per requirment] </iscomment> 
 <div class="cart-and-ipay w-100 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
