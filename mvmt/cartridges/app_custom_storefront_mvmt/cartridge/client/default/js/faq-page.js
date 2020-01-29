@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     var $contactTab = $('#faq-page-contact-tab');
+    var $returnsTab = $('#faq-page-returns-tab');
     var $helpContainer = $('.help-wrapper');
     var $header = $('header');
     var $headerHeight = $header.height();
@@ -71,6 +72,30 @@ $(document).ready(function () {
             $helpContainer.hide();
             $footerHelpContainer.hide();
         }
+    });
+    
+    $('.contact-page-link').on('click', function() {
+        var $controlBarLinks = $('.faq-nav-control-bar-link');
+        $($controlBarLinks).siblings().removeClass('is-active');
+        $($contactTab).addClass('is-active');
+        $('.tab-pane-control').addClass('d-none');
+        $($contactTab).show();
+        $($contactTab).removeClass('d-none');
+        $('.faq-nav-control-bar-inner').removeClass('active');
+        $('.faq-nav-control-bar-btn span').text($($contactTab).text());
+        $helpContainer.hide();
+        $footerHelpContainer.hide();
+    });
+    
+    $('.faq-return-page-link').on('click', function() {
+        var $controlBarLinks = $('.faq-nav-control-bar-link');
+        $($controlBarLinks).siblings().removeClass('is-active');
+        $($returnsTab).addClass('is-active');
+        $('.tab-pane-control').addClass('d-none');
+        $($returnsTab).show();
+        $($returnsTab).removeClass('d-none');
+        $('.faq-nav-control-bar-inner').removeClass('active');
+        $('.faq-nav-control-bar-btn span').text($($returnsTab).text());
     });
 });
 
