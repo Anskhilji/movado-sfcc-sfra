@@ -41,6 +41,47 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
+	                    <div class="item-personalization">
+	                        <isif condition="${lineItem.customAttributes['engrave']}">
+	                            <div class="line-item-option">
+	                                <div class="personalize-price">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
+	                                <div class="personalize-msg">${lineItem.customAttributes['engrave'].msgLine1}
+	                                    <isif condition="${lineItem.customAttributes['engrave'].msgLine2}">
+	                                        <br/>
+	                                        ${lineItem.customAttributes['engrave'].msgLine2}
+	                                    </isif>
+	                                </div>
+	                            </div>
+	                        </isif>
+	                        <isif condition="${lineItem.customAttributes['emboss']}">
+	                            <div class="line-item-option">
+	                                <div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
+	                            </div>
+	                        </isif>
+	    
+	                        <isif condition="${lineItem.customAttributes['giftWrap']}">
+	                            <div class="line-item-option">
+	                                <div class="personalize-price">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
+	                            </div>
+	                        </isif>
+	    
+	                        <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
+	                            <div class="line-item-option">
+	                                <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
+	                                <div class="personalize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+	                            </div>
+	                        </isif>
+	    
+	                        <isif condition="${lineItem.customAttributes['giftMessage']}">
+	                            <div class="line-item-option">
+	                                <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
+	                                <div class="personalize-msg">${lineItem.customAttributes['giftMessage']}</div>
+	                            </div>
+	                        </isif>
+	                    </div>
+	                    <div class="item-total-${lineItem.UUID} price">
+	                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+	                    </div>
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>

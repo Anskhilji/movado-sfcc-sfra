@@ -375,6 +375,32 @@
                     margin-top: rem(2);
                     text-transform: uppercase;
 
+                     .line-item-attributes, .item-model, item-options, .price, 
+                     .total-amount, .item-personalization, .line-item-pricing-info {
+                         font-family: $font-book;
+                         font-size: rem(12);
+                         letter-spacing: 0;
+                         color: $black;
+                         font-style: normal;
+                         font-weight: normal;
+                         white-space: nowrap;
+                         text-overflow: ellipsis;
+                         overflow: hidden;
+                     }
+
+                    .original-price, .savings {
+                         font-family: $font-book;
+                         font-size: rem(12);
+                         letter-spacing: 0;
+                         white-space: nowrap;
+                         text-overflow: ellipsis;
+                         overflow: hidden;
+                     }
+
+                    .total-amount {
+                        line-height: normal;
+                    }
+
                     .model-name, line-item-availability {
                         color: $light-gray7;
                         font-size: rem(12);
