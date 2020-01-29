@@ -78,7 +78,7 @@ server.replace(
 
         affirmHelper.PostProcess(order);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-        if (currentBasket.custom.smartGiftTrackingCode) {
+        if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
         }
         //set custom attirbute in session to avoid order confirmation page reload

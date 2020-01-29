@@ -9,7 +9,7 @@ var Logger = require('dw/system/Logger');
 server.append('PlaceOrder', server.middleware.https, function (req, res, next) {
       var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
       
-      if (session.custom.trackingCode && session.custom.orderNo) {
+      if (!empty(session.custom.trackingCode) && !empty(session.custom.orderNo)) {
           SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, session.custom.orderNo);
       }
       

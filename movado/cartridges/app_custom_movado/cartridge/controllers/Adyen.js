@@ -164,7 +164,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 		  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
 		  return next();
 	  }
-        if (session.custom.trackingCode) {
+        if (!empty(session.custom.trackingCode)) {
             SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
         }
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);

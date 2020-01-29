@@ -45,7 +45,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
             }
         });
     }
-    if (session.custom.trackingCode) {
+    if (!empty(session.custom.trackingCode)) {
         SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, order.orderNo);
     }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');

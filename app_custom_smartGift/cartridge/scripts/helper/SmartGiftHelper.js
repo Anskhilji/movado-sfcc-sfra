@@ -60,6 +60,7 @@ var sendSmartGiftDetails = function(trackingCode, orderID) {
             }
         }
     } catch (e) {
+        session.custom.trackingCode = '';
         Logger.error("Error occurred while try to send order details to smart gift,order number is: {0} and error is: {1}", orderID, e);
     }
 }
