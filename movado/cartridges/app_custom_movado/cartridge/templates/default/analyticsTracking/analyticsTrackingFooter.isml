@@ -91,6 +91,6 @@
 </isif>
 <isif condition="${!empty(pdict.selectedPaymentMethod)}">
     <script>
-        dataLayer.push({'Payment Type': '<isprint value="${pdict.selectedPaymentMethod}"/>'});
+        dataLayer.push({'paymentType': '<isprint value="${pdict.selectedPaymentMethod}"/>'});
     </script>
 </isif>
