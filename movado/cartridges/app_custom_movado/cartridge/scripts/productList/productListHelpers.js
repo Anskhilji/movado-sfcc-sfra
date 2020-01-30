@@ -220,7 +220,6 @@ function itemExists(list, pid, config) {
                 found = false;
             }
         }
-      
     }
     return found;
 }
