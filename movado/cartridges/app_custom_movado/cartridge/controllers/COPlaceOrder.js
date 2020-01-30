@@ -47,6 +47,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
     var URLUtils = require('dw/web/URLUtils');
+    session.custom.orderJustPlaced = true;
     res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken));
 
     return next();
