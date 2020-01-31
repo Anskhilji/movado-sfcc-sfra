@@ -34,6 +34,8 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
             if (response) {
                 res.redirect(result.adyenPaymentResponse.redirectUrl);
                 return next();
+            } else {
+                session.custom.klarnaRiskifiedFlag = true;
             }
         }
         res.render('error');

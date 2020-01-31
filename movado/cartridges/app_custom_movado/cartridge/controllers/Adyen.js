@@ -6,6 +6,7 @@ server.extend(module.superModule);
 var URLUtils = require('dw/web/URLUtils');
 var Transaction = require('dw/system/Transaction');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
 
@@ -19,6 +20,15 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 
 	  var order = OrderMgr.getOrder(session.custom.orderNo);
 
+	  if (!empty(session.custom.klarnaRiskifiedFlag)) {
+	      Logger.error('Riskified API Call failed for order number: {0}', order.orderNo);
+	      res.render('error', {
+              message: Resource.msg('subheading.error.general', 'error', null)
+          });
+          session.custom.klarnaRiskifiedFlag = '';
+          return next();
+	  }
+
 	  var response = hooksHelper(
 		        'app.fraud.detection.checkoutcreate',
 		        'checkoutCreate',
@@ -26,6 +36,7 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 		        order.paymentInstrument,
 		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 	  if (!response) {
+	      Logger.error('Riskified API Call failed for order number: {0}', order.orderNo);
 	      res.render('error', {
 	          message: Resource.msg('subheading.error.general', 'error', null)
 	      });
