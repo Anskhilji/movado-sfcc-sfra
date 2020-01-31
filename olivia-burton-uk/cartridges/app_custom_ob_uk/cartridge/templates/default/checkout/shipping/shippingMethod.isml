@@ -6,8 +6,15 @@
             <isinclude template="checkout/shipping/selectedShippingMethod"/>
             <label class="form-check-label shipping-method-option" for="shippingMethod-${shippingMethod.ID}">
                 <span class="display-name">${shippingMethod.displayName}</span>
-                <isif condition="${dw.campaign.ABTestMgr.isParticipant('EstimatedShippingDatesABTest','render-old-experience')}">
+                <isif condition="${dw.campaign.ABTestMgr.isParticipant('EstimatedShippingDatesABTest','Control')}">
+                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableActualShippingEstimations') == true}">
+                        <span class="text-muted arrival-time">(${shippingMethod.deliveryDate})</span>
+                    <iselse>
+                        <span class="text-muted arrival-time">(${shippingMethod.description})</span>
+                    </isif>
+                <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('EstimatedShippingDatesABTest','render-old-experience')}">
                     <span class="text-muted arrival-time">(${shippingMethod.description})</span>
+                </iselseif>
                 <iselse>
                     <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableActualShippingEstimations') == true}">
                         <span class="text-muted arrival-time">(${shippingMethod.deliveryDate})</span>
