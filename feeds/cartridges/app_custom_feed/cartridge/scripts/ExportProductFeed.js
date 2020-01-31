@@ -611,13 +611,13 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
 
 function getProductImageURL(product) {
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var firstImageLinkSmartGift = null;
     var params = {
-            pid: product.ID
+        pid: product.ID
     }
     var productFactory = ProductFactory.get(params);
-    var firstImageLinkSmartGift = null;
 
-    if (!empty(productFactory.images.pdp533[0])) {
+    if (!empty(productFactory) && !empty(productFactory.images) && !empty(productFactory.images.pdp533[0])) {
         firstImageLinkSmartGift = productFactory.images.pdp533[0].url != null ? productFactory.images.pdp533[0].url : null;
     }
 
