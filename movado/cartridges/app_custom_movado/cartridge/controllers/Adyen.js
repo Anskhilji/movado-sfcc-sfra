@@ -26,7 +26,9 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 		        order.paymentInstrument,
 		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 	  if (!response) {
-	      res.render('error');
+	      res.render('error', {
+	          message: Resource.msg('subheading.error.general', 'error', null)
+	      });
 	      return next();
 	  }
 
