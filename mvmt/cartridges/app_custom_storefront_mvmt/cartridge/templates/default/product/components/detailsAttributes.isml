@@ -1,0 +1,33 @@
+<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+
+    <div class="col-12 value content">
+        <div class="row">
+            <div class="col-12 col-sm-6 hidden-sm-down">
+                <isloop items="${product.images['pdp533']}" end="0" var="image" status="loopStatus">
+                    <div class="carousel-tile">
+                        <picture>
+                            <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
+                            <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
+                            <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />
+                            <isset name="isImageExist" value="true" scope="page" />
+                        </picture>
+                    </div>
+                </isloop>
+            </div>
+            <div class="col-12 col-sm-6 p-0">
+                <h3 class="detals-heading">${Resource.msg('label.details.know', 'product', null)} ${product.productName}</h3>
+                <div class="see-fit-button">
+                    <button class="button-outline button">${Resource.msg('button.see.fit', 'product', null)}</button>
+                </div>
+                <div class="attribute-list">
+                    <isloop items="${product.pdpAttributesList}" begin="0" end="5" var="attr">
+                        <div class="attribute-detail">
+                            <span class="attribute-name attribute-content">${attr.name}</span>
+                            <span class="attribute-value attribute-content">${attr.value}</span>
+                        </div>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

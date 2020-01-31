@@ -51,3 +51,38 @@
         }
     }
 }
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    border: 2px solid #000;
+    transition: .3s ease-in;
+    min-width: rem(200);
+    padding: rem(14) rem(20);
+    font-size: rem(14);
+    letter-spacing: 1.87px;
+    line-height: rem(18);
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $font-bold;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-outline {
+    color: $black;
+    font-size: rem(12);
+    letter-spacing: 1.6px;
+    line-height: rem(18);
+    background: transparent;
+
+    &:hover{
+        color: $white;
+        background-color: $black;
+    }
+}

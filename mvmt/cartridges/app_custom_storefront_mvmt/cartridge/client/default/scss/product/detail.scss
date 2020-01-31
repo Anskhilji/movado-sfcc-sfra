@@ -1,2 +1,192 @@
 @import '../variables';
 @import '~movado/product/detail';
+
+.pdp-tabs-nav {
+    border-bottom: rem(4) solid $light-gray6;
+
+    @include media-breakpoint-down(sm) {
+        display: none;
+    }
+
+    .pdp-tab-button {
+        font-family: $font-book;
+        font-weight: 400;
+        font-size: rem(18);
+        letter-spacing: 1;
+        margin: 0 rem(30);
+        padding: rem(10) rem(8);
+        text-transform: uppercase;
+        position: relative;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:before {
+            content: " ";
+            background-color: $black;
+            bottom: -4px;
+            left: 0;
+            position: absolute;
+            height: rem(4);
+            width: 100%;
+            transition: .25s linear;
+            opacity: 0;
+            visibility: hidden;
+            transform: scaleX(0);
+        }
+
+        &.active, &:hover {
+            &:before {
+                opacity: 1;
+                visibility: visible;
+                transform: scaleX(1);
+            }
+        }
+    }
+}
+
+.pdp-mobile-accordian {
+    padding: rem(17) rem(30);
+    display: block;
+    position: relative;
+    cursor: pointer;
+
+    .pdp-mobile-accordian-label {
+        font-size: rem(14);
+        font-family: $font-medium;
+        font-weight: 500;
+        line-height: rem(20);
+        letter-spacing: 1.17;
+        text-transform: uppercase;
+    }
+
+    .pdp-mobile-accordian-switch {
+        position: absolute;
+        top: rem(15);
+        right: rem(30);
+        transition: opacity .2s ease;
+    }
+
+    .pdp-mobile-accordian-plus {
+        opacity: 1;
+    }
+    .pdp-mobile-accordian-minus {
+        opacity: 0;
+    }
+
+    &.active {
+        .pdp-mobile-accordian-plus {
+            opacity: 0;
+        }
+        .pdp-mobile-accordian-minus {
+            opacity: 1;
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+
+    .pdp-tabs-accordian {
+        display: block;
+    }
+}
+
+
+.pdp-tabs-body {
+
+    .pdp-tab-content {
+        display: none;
+        position: relative;
+        border-bottom: 1px solid $light-gray6;
+
+        &:last-child {
+            border: none;
+        }
+
+        @include media-breakpoint-up(sm) {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: .25s linear;
+            border: none;
+        }
+
+        &.active {
+            display: block;
+        }
+
+        &.fadeIn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pdp-content-body {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: rem(20) rem(30);
+            display: none;
+
+            @include media-breakpoint-up(sm) {
+                padding: rem(60) rem(30);
+                display: flex;
+                flex-direction: row;
+            }
+
+            .detals-heading {
+                font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                line-height: rem(24);
+                letter-spacing: 1.53px;
+                color: $black;
+                margin-bottom: rem(30);
+                text-transform: uppercase;
+            }
+
+            .attribute-list {
+
+                @include media-breakpoint-up(sm) {
+                    padding: rem(65) 0;
+                }
+
+                .attribute-detail {
+                    border-bottom: 1px solid $light-gray6;
+                    padding: rem(20) 0;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(20);
+                    }
+
+                    .attribute-content {
+                        width: 50%;
+                        font-family: $font-medium;
+                        color: $black;
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: 1.6px;
+                        line-height: rem(12);
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+
+    .Reviews {
+        &.pdp-tab-content {
+            .pdp-content-body {
+                .detals-heading {
+                    font-size: rem(40);
+                    font-weight: 500;
+                    line-height: rem(42);
+                    letter-spacing: rem(4.29);
+                    margin-bottom: rem(30);
+                }
+            }
+        }
+    }
+}
