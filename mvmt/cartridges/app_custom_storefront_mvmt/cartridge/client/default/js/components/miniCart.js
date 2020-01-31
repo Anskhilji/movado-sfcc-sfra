@@ -1,5 +1,5 @@
 'use strict';
-
+var formHelpers = require('base/checkout/formErrors');
 var cart = require('../cart/cart');
 
 function setMiniCartProductSummaryHeight () {
@@ -169,5 +169,42 @@ module.exports = function () {
         $('.minicart .popover').removeClass('show');
         $('.minicart .popover').empty();
         $('#overlay').removeClass('footer-form-overlay');
+    });
+
+    $('.minicart').on('click touchstart', '#mini-cart-create-account-btn', function (e) {
+        var form = $('form#mini-cart-account-registration');
+        e.preventDefault();
+        var url = form.attr('action');
+        form.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function (data) {
+                form.spinner().stop();
+                if (data.error) {
+                    if (data.fieldErrors.length) {
+                    data.fieldErrors.forEach(function (error) {
+                        if (Object.keys(error).length) {
+                            formHelpers.loadFormErrors('#mini-cart-account-registration', error);
+                        }
+                    });
+                }
+
+                if (data.serverErrors && data.serverErrors.length) {
+                    $.each(data.serverErrors, function (index, element) {
+                        createErrorNotification(element.serverErrors[0]);
+                    });
+                }
+                } else {
+                    location.href = data.redirectUrl;
+                }
+            },
+            error: function (err) {
+                form.spinner().stop();
+            }
+        });
+        return false;
     });
 };
