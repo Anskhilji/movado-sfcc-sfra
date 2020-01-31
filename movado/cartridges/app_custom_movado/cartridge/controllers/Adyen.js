@@ -65,7 +65,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var Order = require('dw/order/Order');  
     var Status = require('dw/system/Status');
-    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var order = null;
     if (req.querystring.merchantReference) {
         order = OrderMgr.getOrder(req.querystring.merchantReference.toString());
@@ -165,7 +165,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 		  return next();
 	  }
         if (!empty(session.custom.trackingCode)) {
-            SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
+            smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
         }
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
