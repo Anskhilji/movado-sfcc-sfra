@@ -1,5 +1,5 @@
 <div class="mini-cart-login">
-    <form action="${pdict.actionUrl}" method="POST" name="login-form">
+    <form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
         <div class="form-group required">
             <input type="email" id="login-form-email" class="form-control" name="loginEmail" placeholder="${Resource.msg('form.email.place.holder', 'common', null)}">
             <div class="invalid-feedback"></div>

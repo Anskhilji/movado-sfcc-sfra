@@ -4,7 +4,7 @@
         <field 
             formid="firstname" 
             label="label.input.firstname.profile" 
-            mandatory="false" 
+            mandatory="true" 
             max-length="50"
             missing-error="error.message.required" 
             range-error="error.message.lessthan50" 
@@ -15,7 +15,7 @@
         <field 
             formid="lastname" 
             label="label.input.lastname.profile" 
-            mandatory="false" 
+            mandatory="true" 
             max-length="50" 
             missing-error="error.message.required"
             range-error="error.message.lessthan50" 
@@ -26,7 +26,7 @@
         <field 
             formid="email" 
             label="label.input.email.profile" 
-            mandatory="false" 
+            mandatory="true" 
             max-length="50" 
             missing-error="error.message.required" 
             parse-error="error.message.parse.email.profile.form" 
@@ -35,14 +35,18 @@
             value-error="ValueErrorText" 
             type="string"
             />
+    </group>
+
+    <group formid="login">
         <field 
             formid="password" 
             label="label.input.password.profile" 
-            mandatory="false" 
+            mandatory="true" 
             min-length="8" 
             max-length="255" 
+            missing-error="error.message.required" 
             range-error="error.message.8_255characters" 
-            value-error="error.message.currentpasswordnomatch" 
+            value-error="login.password.description" 
             type="string"/>
     </group>
 </form>

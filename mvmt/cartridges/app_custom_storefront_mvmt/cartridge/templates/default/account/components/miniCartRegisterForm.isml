@@ -1,5 +1,5 @@
 <div class="mini-cart-registration">
-    <form id="mini-cart-account-registration" action="${pdict.createAccountUrl}" method="POST" name="${pdict.miniCartRegisterForm.htmlName}">
+    <form class="registration" id="mini-cart-account-registration" action="${pdict.createAccountUrl}" method="POST" name="${pdict.miniCartRegisterForm.htmlName}">
         <div class="form-group
             <isif condition="${!!pdict.miniCartRegisterForm.customer.firstname.mandatory === true}">required</isif>">
             <input
@@ -31,17 +31,18 @@
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group
-            <isif condition="${!!pdict.miniCartRegisterForm.customer.password.mandatory === true}">required</isif>">
+            <isif condition="${!!pdict.miniCartRegisterForm.login.password.mandatory === true}">required</isif>">
             <input
                 type="password"
                 class="form-control"
                 id="registration-form-password"
                 autocomplete="off"
                 placeholder="${Resource.msg('form.create.password.place.holder', 'common', null)}"
-                <isprint value=${pdict.miniCartRegisterForm.customer.password.attributes} encoding="off">/>
+                <isprint value=${pdict.miniCartRegisterForm.login.password.attributes} encoding="off">/>
             <div class="invalid-feedback"></div>
         </div>
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <div class="unexpected-error invalid-feedback"></div>
         <button type="submit" id="mini-cart-create-account-btn" class="btn btn-block btn-primary">
             ${Resource.msg('button.text.loginform', 'cart', null)}
         </button>

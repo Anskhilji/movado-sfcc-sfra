@@ -1,5 +1,7 @@
 'use strict';
 var formHelpers = require('base/checkout/formErrors');
+var formValidation = require('base/components/formValidation');
+var createErrorNotification = require('base/components/errorNotification');
 var cart = require('../cart/cart');
 
 function setMiniCartProductSummaryHeight () {
@@ -35,6 +37,15 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
                 $('.minicart .popover').addClass('show');
             });
+        } else {
+            if (count === 0) {
+                $.get(url, function (data) {
+                    $('.minicart .popover').empty();
+                    $('.minicart .popover').append(data);
+                    $('#overlay').addClass('footer-form-overlay');
+                    $('.minicart .popover').addClass('show');
+                });
+            }
         }
     });
 
@@ -171,11 +182,12 @@ module.exports = function () {
         $('#overlay').removeClass('footer-form-overlay');
     });
 
-    $('.minicart').on('click touchstart', '#mini-cart-create-account-btn', function (e) {
-        var form = $('form#mini-cart-account-registration');
+    $('.minicart').on('submit', 'form.login', function (e) {
+        var form = $(this);
         e.preventDefault();
         var url = form.attr('action');
         form.spinner().start();
+        $('form.login').trigger('login:submit', e);
         $.ajax({
             url: url,
             type: 'post',
@@ -183,28 +195,99 @@ module.exports = function () {
             data: form.serialize(),
             success: function (data) {
                 form.spinner().stop();
-                if (data.error) {
-                    if (data.fieldErrors.length) {
-                    data.fieldErrors.forEach(function (error) {
-                        if (Object.keys(error).length) {
-                            formHelpers.loadFormErrors('#mini-cart-account-registration', error);
-                        }
-                    });
+                if (!data.success) {
+                    formValidation(form, data);
+                    $('form.login').trigger('login:error', data);
+                } else {
+                    $('form.login').trigger('login:success', data);
+                    location.href = data.redirectUrl;
                 }
+            },
+            error: function (data) {
+                if (data.responseJSON.redirectUrl) {
+                    window.location.href = data.responseJSON.redirectUrl;
+                } else {
+                    $('form.login').trigger('login:error', data);
+                    form.spinner().stop();
+                }
+            }
+        });
+        return false;
+    });
 
-                if (data.serverErrors && data.serverErrors.length) {
-                    $.each(data.serverErrors, function (index, element) {
-                        createErrorNotification(element.serverErrors[0]);
-                    });
-                }
+    $('.minicart').on('submit', 'form#mini-cart-account-registration', function (e) {
+        var form = $(this);
+        e.preventDefault();
+        var url = form.attr('action');
+        form.spinner().start();
+        $('form#mini-cart-account-registration').trigger('login:register', e);
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function (data) {
+                form.spinner().stop();
+                if (!data.success) {
+                    formValidation(form, data);
                 } else {
                     location.href = data.redirectUrl;
                 }
             },
             error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification($('.error-messaging'), err.responseJSON.errorMessage);
+                }
+
                 form.spinner().stop();
             }
         });
         return false;
+    });
+
+    $('.minicart').on('submit', 'form.reset-password-form', function (e) {
+        var form = $(this);
+        e.preventDefault();
+        var url = form.attr('action');
+        form.spinner().start();
+        $('.reset-password-form').trigger('login:register', e);
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function (data) {
+                form.spinner().stop();
+                if (!data.success) {
+                    formValidation(form, data);
+                } else {
+                    $('.request-password-title').text(data.receivedMsgHeading);
+                    $('.request-password-body').empty()
+                        .append('<p>' + data.receivedMsgBody + '</p>');
+                    if (!data.mobile) {
+                        $('#submitEmailButton').text(data.buttonText)
+                            .attr('data-dismiss', 'modal');
+                    } else {
+                        $('.send-email-btn').empty()
+                            .html('<a href="'
+                                + data.returnUrl
+                                + '" class="btn btn-primary btn-block">'
+                                + data.buttonText + '</a>'
+                            );
+                    }
+                }
+            },
+            error: function () {
+                form.spinner().stop();
+            }
+        });
+        return false;
+    });
+
+    $('.minicart #login .modal').on('hidden.bs.modal', function () {
+        $('#reset-password-email').val('');
+        $('.modal-dialog .form-control.is-invalid').removeClass('is-invalid');
     });
 };

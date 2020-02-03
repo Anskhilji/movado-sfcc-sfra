@@ -7,7 +7,7 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
-server.replace('MiniCart', function(req, res, next) {
+server.replace('MiniCart', server.middleware.include, function(req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 
     var currentBasket = BasketMgr.getCurrentBasket();
@@ -26,14 +26,15 @@ server.replace('MiniCart', function(req, res, next) {
 server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
     function(req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
-    //it is need to test
     var target = req.querystring.rurl || 1;
-    var createAccountUrl = URLUtils.url('Account-SubmitAccountRegistrationFromMiniCart', 'rurl', target).relative().toString();
+    var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'isMiniCart', true);
+    var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target, 'isMiniCart', true).toString();
     var miniCartRegisterForm = server.forms.getForm('miniCartRegistrationForm');
     miniCartRegisterForm.clear();
 
     res.setViewData({
         createAccountUrl: createAccountUrl,
+        actionUrl: actionUrl,
         miniCartRegisterForm: miniCartRegisterForm,
         paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
     });
