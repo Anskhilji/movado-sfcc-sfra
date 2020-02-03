@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isdecorate template="common/layout/page">
 
     <isscript>
@@ -181,6 +182,67 @@
                 </div>
             </div>
         </div>
+        <div class="size-guide">
+            <div class="size-guide-content" style="${dw.content.ContentMgr.getContent('watch-wrist-desktop').custom.body}">
+                <button class="size-guide-close" aria-label="close modal" data-close-modal>
+                    <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
+                                <g id="Iconography" transform="translate(27.000000, 827.000000)">
+                                    <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
+                                        <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+                <div class="size-guid-right">
+                    <div class="size-guid-title">${product.productName}</div>
+                    <p class="size-guide-description"><isprint value="${product.longDescription}" encoding="off"/></p>
+
+                    <table class="size-guide-content-details">
+                        <isloop items="${product.pdpAttributesList}" begin="0" end="1" var="attr">
+                            <tr>
+                                <td class="size-guide-detail-label">${attr.name}</td>
+                                <td class="size-guide-detail-value">${attr.value}</td>
+                            </tr>
+                        </isloop>
+                    </table>
+                </div>
+                <div class="size-guide-mobile-image">
+                    <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
+                </div>
+                <div class="size-guide-scales ">
+                    <div class="size-guide-scale">
+                        <p class="size-guide-scale-label">CASE THICKNESS:</p>
+                        <div class="size-guide-scale-bar">
+                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
+                        </div>
+                        <div class="size-guide-scale-range-labels">
+                            <span>FLAT</span>
+                            <span>TALL</span>
+                        </div>
+                    </div>
+
+                    <div class="size-guide-scale">
+                        <p class="size-guide-scale-label">CASE THICKNESS:</p>
+                        <div class="size-guide-scale-bar">
+                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
+                        </div>
+                        <div class="size-guide-scale-range-labels">
+                            <span>FLAT</span>
+                            <span>TALL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="overlay">
+            
+        </div>
+
         <!-- The Modal: Ends-->
 
     </isobject>

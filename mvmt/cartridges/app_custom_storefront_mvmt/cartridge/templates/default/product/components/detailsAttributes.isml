@@ -17,7 +17,7 @@
             <div class="col-12 col-sm-6 p-0">
                 <h3 class="detals-heading">${Resource.msg('label.details.know', 'product', null)} ${product.productName}</h3>
                 <div class="see-fit-button">
-                    <button class="button-outline button">${Resource.msg('button.see.fit', 'product', null)}</button>
+                    <button class="button-outline button call-see-fit-popup">${Resource.msg('button.see.fit', 'product', null)}</button>
                 </div>
                 <div class="attribute-list">
                     <isloop items="${product.pdpAttributesList}" begin="0" end="5" var="attr">

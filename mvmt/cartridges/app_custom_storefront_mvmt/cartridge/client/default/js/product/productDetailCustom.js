@@ -18,9 +18,15 @@ $(document).ready(function() {
     });
 
     $('.pdp-mobile-accordian').on('click', function(e) {
-
         $(this).toggleClass('active').siblings().slideToggle();
+    });
 
+    $('.call-see-fit-popup').on('click', function(e) {
+        $('.size-guide, #overlay').addClass('active');
+    });
+
+    $('.size-guide-close').on('click', function(e) {
+        $('.size-guide, #overlay').removeClass('active');
     });
 });
 
