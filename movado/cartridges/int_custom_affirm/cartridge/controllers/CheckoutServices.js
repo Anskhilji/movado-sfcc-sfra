@@ -206,6 +206,9 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  session.custom.orderJustPlaced = true;
 	  //set order number in session to get order back after redirection
 	  session.custom.orderNo = order.orderNo;
+	  if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
+	      session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+	  }
 	  if (handlePaymentResult.issuerUrl != '' && handlePaymentResult.authorized3d) {
 		session.custom.MD = handlePaymentResult.md;
 		Transaction.wrap(function () { order.custom.is3DSecureOrder = true; });
