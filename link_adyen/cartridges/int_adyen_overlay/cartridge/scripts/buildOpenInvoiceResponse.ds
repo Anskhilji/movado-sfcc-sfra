@@ -109,7 +109,6 @@ function getInvoiceResponse (order : Order) : String {
 			openInvoiceResponse += "openInvoiceDetailResult.lines."+count+".vatCategory=None&";
 			openInvoiceResponse += "openInvoiceDetailResult.lines."+count+".lineReference="+(count+1);
 		}
-		
 		Logger.getLogger("Adyen").debug("OpenInvoice Response  : " +openInvoiceResponse);
 	
     return PIPELET_NEXT;

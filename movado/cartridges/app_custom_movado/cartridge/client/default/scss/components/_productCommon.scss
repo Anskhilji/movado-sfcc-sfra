@@ -401,3 +401,11 @@ select {
         font-size: rem(20);
     }
 }
+
+.sku-text-alignment {
+    float: left;
+    @include media-breakpoint-down(xs) {
+        float: none;
+        text-align: center;
+    }
+}

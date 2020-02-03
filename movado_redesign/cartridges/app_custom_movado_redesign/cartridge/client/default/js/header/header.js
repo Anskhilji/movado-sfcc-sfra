@@ -1,8 +1,10 @@
 'use strict';
 $(document).ready(function() {
     $(window).on("resize", function () {
-    var width = $(".desktop-menu .navbar-nav").width();
-        $(".desktop-menu .sub-dropdown .menu-content").width(width);
+        var width = $(".desktop-menu .navbar-nav").width();
+        var leftmargin = $(".header-menu-wrapper .desktop-menu > div").position().left - 15;
+        $(".desktop-menu .sub-dropdown .menu-content").width(width).css("margin-left", leftmargin + "px");
+
     }).resize();
 });
 $('.minicart .popover').keyup(function(event) {
@@ -64,6 +66,8 @@ $(".desktop-menu .sub-dropdown").hover(
         $(".overlay").addClass("fadeIn animated faster");
         $(this).find(".dropdown-menu").addClass("fadeIn fast animated show");
         $(".shop-by-collection-slide .featured-promotion p").addClass('fadeInRight delay-point-five animated');
+        var leftmargin = $(".header-menu-wrapper .desktop-menu > div").position().left - 15;
+        $(".desktop-menu .sub-dropdown .menu-content").css("margin-left", leftmargin + "px");
         $('.slick-slider').slick("refresh");
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
             dots: true,
@@ -101,6 +105,19 @@ $(".desktop-menu .sub-dropdown").hover(
                 }
             ]
         });
+        
+        var imagesLength = $(this).find('.movado-header-dropdown .featured-promotion a img').length;
+        if (imagesLength > 3) {
+            $(this).find('.movado-header-dropdown .featured-promotion .header-tiles').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                arrows: false,
+                autoplay: false,
+            });
+        }
     },
 
     function() {
@@ -129,16 +146,34 @@ function showCollectionSlider(container){
         speed: 300,
         slidesToShow: 6,
         slidesToScroll: 1,
-        arrows: false,
+        arrows: true,
         autoplay: true,
         centerPadding: '60px',
         responsive: [
             {
-              breakpoint: 1280,
-              settings: {
-                slidesToShow: 4,
-              }
+                breakpoint: 4000,
+                settings: {
+                    slidesToShow: 10,
+                }
             },
+            {
+                breakpoint: 3000,
+                settings: {
+                    slidesToShow: 8,
+                }
+            },
+            {
+                breakpoint: 2500,
+                settings: {
+                    slidesToShow: 6,
+                }
+            },
+            {
+                breakpoint: 1500,
+                settings: {
+                    slidesToShow: 4,
+                }
+            }
         ]
     });
 }
@@ -170,8 +205,11 @@ $(".mobile-menu .close-button").click(function(){
     $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
     setTimeout(function(){
         $(".mobile-menu").removeClass("animated");
-    },1000);
-    $(".modal-background").removeClass("d-block").fadeOut();
+    }, 1000);
+
+    setTimeout(function(){
+        $(".modal-background").removeClass("d-block").fadeOut();
+    }, 300);
 });
 
 $(".navbar-toggler-custom").click(function(){
@@ -179,11 +217,11 @@ $(".navbar-toggler-custom").click(function(){
         $(".mobile-menu .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
         $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
     },300);
+    $(".dropdown-menu .dropdown-item a").removeClass("fadeOutLeft").addClass("animated fast fadeInLeft");
     $(".modal-background").addClass("d-block").fadeIn();
     $(".mobile-menu").removeClass("animated delay-point-three fadeOut").addClass("animated");
     $('.slick-slider').slick("refresh");
 });
-
 
 $(document).on('click',".back", function(){
     $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft delay-point-three");
@@ -197,10 +235,25 @@ $(document).on('click',".back", function(){
 });
 
 $(document).on('click',".close-button", function(){
-    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
-    $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
-    $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
-    $(".dropdown-menu").removeClass("animated fadeIn");
+    $(".mobile-menu").addClass("animated fadeOut delay-point-three");
+    $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+    $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeInLeft fast animated").addClass("fadeOutLeft fast animated");
+
+    setTimeout(function(){
+        $(".mobile-menu").removeClass("animated");
+    }, 1000);
+
+    setTimeout(function(){
+        $(".modal-background").removeClass("d-block").fadeOut();
+    }, 300);
+
+    setTimeout(function(){
+        $(".dropdown-menu").removeClass("animated fadeIn");
+        $(".mobile-menu .nav-item > a").removeClass("fadeInLeft fast animated delay-point-three").addClass("fadeOutLeft fast animated");
+        $(".dropdown-menu .dropdown-item a").removeClass("animated fast fadeInLeft");
+        $(".shop-by-collection-slide p").removeClass("animated fast fadeInUp delay-point-three");
+    }, 500);
+
 });
 $(document).on('click',".dropdown-toggle", function(){
     $('.slick-slider').slick("refresh");
@@ -216,7 +269,6 @@ $('.header-search-field').on('change keypress paste keyup', function() {
     setTimeout(function(){
         if (!$(".header-search-field").val()) { 
             $(".search-recomendation").fadeIn();
-            console.log("this is empaty")
         }else{
             $(".search-recomendation").fadeOut();
         }
@@ -227,8 +279,9 @@ if ($(".header-search-field").is(':empty')) {
     $(".search-recomendation").show();
 }
 
-$(".multilevel-dropdown .dropdown-toggle").click(function(){
+$(".new-header .multilevel-dropdown .dropdown-toggle").click(function(){
     $(this).siblings(".dropdown-menu").addClass("animated faster fadeIn");
+    $(this).siblings(".dropdown-menu").find(".dropdown-item a").removeClass('fadeOutLeft');
     $(this).siblings(".dropdown-menu").find(".dropdown-item a").addClass("animated fast fadeInLeft delay-point-three");
     $(this).siblings(".dropdown-menu").find(".shop-by-collection-slide p").addClass("animated fast fadeInUp delay-point-three");
  
@@ -262,5 +315,40 @@ $(document).ready(function() {
     });
 
  });
+
+$(document).ready(function(event) {
+    renderRecommendationSlots();
+    $('.mobile-menu .submenu-recommendations .html-slot-container ').parent().removeClass('w-75');
+});
+
+function renderRecommendationSlots() {
+    if (document.readyState === 'complete') {
+        $('.desktop-menu .trending-category-recommendation').each( function() {
+            attachCarousel(this, 3);
+        });
+    } else {
+        setTimeout(function() {
+            renderRecommendationSlots(); 
+        }, 3000);
+    }
+}
+
+function attachCarousel(selector, minimumTiles) {
+    var availableTiles = $(selector).find('.carousel-tile').length;
+    cloneRecommendationSlot(selector);
+    if(availableTiles > minimumTiles) {
+        window.slickSlider.initCarousel($(selector));
+    } else {
+        $(selector).find('.cs-carousel').addClass('d-flex');
+        $(selector).find('.cs-carousel').slick('unslick');
+    }
+}
+
+function cloneRecommendationSlot(selector) {
+    var recommendationSlot = $(selector).parent();
+    $('#sg-navbar-collapse.mobile-menu .submenu-recommendations').removeClass('w-75');
+    recommendationSlot.find(selector).clone().appendTo('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id'));
+    window.slickSlider.initCarousel($('#sg-navbar-collapse.mobile-menu #' + recommendationSlot.attr('id') + ' .trending-category-recommendation'));
+}
 
  
