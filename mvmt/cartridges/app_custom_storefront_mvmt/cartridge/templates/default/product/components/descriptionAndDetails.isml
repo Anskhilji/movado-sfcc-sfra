@@ -74,7 +74,9 @@
                     </div>
                 </div>
                 <div class="pdp-content-body">
-                    <isinclude template="product/components/highlights" />
+                    <div class="w-100">
+                        <isinclude template="product/components/highlights" />
+                    </div>
                 </div>
             </div>
         </isif>
@@ -109,10 +111,12 @@
                 </div>
             </div>
             <div class="pdp-content-body">
-                <h3 class="detals-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
-                <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                then appropriate template should be overridden. </iscomment>
-                <isinclude template="widget/yotporeviewswidget" />
+                <div class="w-100">
+                    <h3 class="detals-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
+                    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                    then appropriate template should be overridden. </iscomment>
+                    <isinclude template="widget/yotporeviewswidget" />
+                </div>
             </div>
         </div>
     </div>
