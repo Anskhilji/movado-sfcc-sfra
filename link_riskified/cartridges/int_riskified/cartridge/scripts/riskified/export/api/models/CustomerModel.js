@@ -6,6 +6,7 @@ function create(order) {
 
     var Calendar = require('dw/util/Calendar');
     var StringUtils = require('dw/util/StringUtils');
+    var UUIDUtils = require('dw/util/UUIDUtils');
 
     var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
     var Constants = require('~/cartridge/scripts/riskified/util/Constants');
@@ -32,11 +33,13 @@ function create(order) {
             account_type   : 'registered'
         };
     } else {
+        Calendar = new Calendar(order.getCreationDate());
+        orderCreationDate = StringUtils.formatCalendar(Calendar, Constants.RISKIFIED_DATE_FORMAT);
         customerModel = {
-            created_at     : '',
+            created_at     : orderCreationDate,
             email          : RCUtilities.escape(order.customerEmail, regExp, '', true),
             first_name     : RCUtilities.escape(order.customerName, regExp, '', true),
-            id             : "anonymous",
+            id             : UUIDUtils.createUUID(),
             last_name      : '',
             note           : customerNote,
             orders_count   : 0,

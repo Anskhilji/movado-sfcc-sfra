@@ -14,3 +14,10 @@
         }
     </script>
 </isif>
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('uniDaysEnabled')}">
+    <script>
+        var uniDaysData = {
+            uniDays: {}
+        }
+    </script>
+</isif>
