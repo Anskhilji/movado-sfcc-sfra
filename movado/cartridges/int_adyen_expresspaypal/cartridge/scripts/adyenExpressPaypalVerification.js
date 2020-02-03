@@ -4,6 +4,7 @@ var AdyenHelper = require('*/cartridge/scripts/util/AdyenHelper');
 var Transaction = require('dw/system/Transaction');
 var SortedMap = require('dw/util/SortedMap');
 var Logger = require('dw/system/Logger');
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var URLUtils = require('dw/web/URLUtils');
 var Encoding = require('dw/crypto/Encoding');
 var Mac = require('dw/crypto/Mac');
@@ -25,15 +26,15 @@ function verify(basket, userEmail, sitePrefs, orderNo) {
     var args = {};
 
     if (sitePrefs.merchantCode === null) {
-        Logger.getLogger(AYDEN).fatal('MERCHANTCODE not set.');
+        adyenLogger.fatal('(adyenExpressPaypalVerification) -> verify: MERCHANTCODE not set.');
         return false;
     }
     if (sitePrefs.skinCode === null) {
-        Logger.getLogger(AYDEN).fatal('skinCode not set.');
+        adyenLogger.fatal('(adyenExpressPaypalVerification) -> verify: skinCode not set.');
         return false;
     }
     if (sitePrefs.HMACkey === null) {
-        Logger.getLogger(AYDEN).fatal('HMACkey not set.');
+        adyenLogger.fatal('(adyenExpressPaypalVerification) -> verify: HMACkey not set.');
         return false;
     }
 
@@ -83,7 +84,7 @@ function verify(basket, userEmail, sitePrefs, orderNo) {
             var c = Mac(Mac.HMAC_SHA_256);
             var merchantSig = Encoding.toBase64(c.digest(requestString, keyBytes));
 
-            Logger.getLogger(AYDEN).debug('merchantSig : ' + merchantSig + '\n');
+            adyenLogger.debug('(adyenExpressPaypalVerification) -> verify: merchantSig : ' + merchantSig + '\n');
 
             adyenRequest.put('merchantSig', merchantSig);
             args.paramsMap = adyenRequest;
@@ -98,9 +99,9 @@ function verify(basket, userEmail, sitePrefs, orderNo) {
             msg += '\nAmount : ' + myAmount;
             msg += '\nPaydata : ' + requestString;
             msg += '\nSignature : ' + merchantSig;
-            Logger.getLogger(AYDEN).warn('Adyen Express PayPal ' + merchantReference + ' - ' + msg);
+            adyenLogger.warn('Adyen Express PayPal ' + merchantReference + ' - ' + msg);
         } catch (e) {
-            Logger.getLogger(AYDEN, EXPPAYPAL).error('Error in adyenHandleExpressPayPalResponse.js : ' + e.message + ', Order ' + orderNo);
+            Logger.getLogger(AYDEN, EXPPAYPAL).error('(adyenExpressPaypalVerification) -> verify: Error in adyenHandleExpressPayPalResponse.js : ' + e.message + ', Order ' + orderNo);
         }
     });
     return args;

@@ -1,0 +1,1 @@
+<link href="${URLUtils.staticURL('/images/favicons/favicon.ico')}" rel="shortcut icon" />
