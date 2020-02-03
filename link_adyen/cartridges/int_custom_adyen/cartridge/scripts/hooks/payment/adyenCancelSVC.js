@@ -4,7 +4,8 @@ var Logger = require('dw/system/Logger');
 var adyenCustomHelper = require('~/cartridge/scripts/helpers/adyenCustomHelper');
 var Transaction = require('dw/system/Transaction');
 var Order = require('dw/order/Order');
-
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * calls the Adyen Cancel or Refund API to void or refund the order amount
@@ -13,7 +14,7 @@ var Order = require('dw/order/Order');
  * @param amount
  * @returns
  */
-function cancelOrRefund(order, amount, sendMail) {
+function cancelOrRefund(order, amount, isJob, sendMail) {
     var decision = 'ERROR';
     var callResult = null;
     var cancelRefundRequest;
@@ -25,6 +26,8 @@ function cancelOrRefund(order, amount, sendMail) {
     var merchantAccount;
 
     var response = { cancelRefundResponse: '', decision: decision };
+
+    adyenLogger.debug('(adyenCancelSVC) -> cancelOrRefund: Inside the cancelOrRefund to validate the order and order number is: ' + order.getOrderNo());
 
     var status = adyenCustomHelper.validateOrderParameters(order);
     if (status) {
@@ -42,6 +45,7 @@ function cancelOrRefund(order, amount, sendMail) {
         cancelRefundSVC = AdyenHelper.getService(AdyenHelper.SERVICE.PAYMENT);
 
         if (cancelRefundSVC == null) {
+            adyenLogger.error('(adyenCancelSVC) -> cancelOrRefund: Adyen authorization service is null for order and order number is: ' + orderNo);
             return response;
         }
 
@@ -73,6 +77,10 @@ function cancelOrRefund(order, amount, sendMail) {
                 decision = 'SUCCESS';
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'CANCELLATION OR REFUND';
+                    if (!isJob) {
+                        checkoutLogger.warn('Order refunded from Adyen with order id: ' + order.orderNo);
+                        order.custom.isRefunded = true;
+                    }
                 });
 
                 /* track the change in order */
@@ -91,8 +99,8 @@ function cancelOrRefund(order, amount, sendMail) {
                 }
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').debug('Service response for Cancel or Refund : ' + result);
-                Logger.getLogger('Adyen').debug('Payment modification result for order #' + orderNo + ': Cancel or Refund');
+                adyenLogger.debug('Service response for Cancel or Refund and order number: ' + orderNo + ' and result is: ' + result);
+                adyenLogger.debug('Payment modification result for order #' + orderNo + ': Cancel or Refund');
             } else {
                 decision = 'REFUSED';
                 Transaction.wrap(function () {
@@ -100,18 +108,18 @@ function cancelOrRefund(order, amount, sendMail) {
                 });
 
                 /* Log the result of operation*/
-                Logger.getLogger('Adyen').error('Service response for Cancel or Refund : ' + result);
-                Logger.getLogger('Adyen').error('Payment modification result for order #' + orderNo + ': Cancel or Refund Refused');
+                adyenLogger.error('Service response for Cancel or Refund and order number: ' + orderNo + ' and result is: ' + result);
+                adyenLogger.error('Payment modification result for order #' + orderNo + ': Cancel or Refund Refused');
 
                 /* send mail to customer Service*/
                 adyenCustomHelper.triggerEmail(order, decision, 0);
             }
         } else {
-            Logger.getLogger('Adyen').error('The call to Adyen API did not return any result.');
+            adyenLogger.error('The call to Adyen API did not return any result and order number: ' + orderNo);
             return response;
         }
     }	catch (e) {
-        Logger.getLogger('Adyen').error('An error occurred during the call to Adyen API.' + e + '\n' + e.stack);
+        adyenLogger.error('An error occurred during the call to Adyen API and order number: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
         return response;
     }
 

@@ -4,7 +4,6 @@
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
 
 var Logger = require('dw/system/Logger');
-
 var THIS_SCRIPT = '/int_custom_adyen_klarna/cartridge/scripts/adyen/service/adyenPaymentCheckoutService.js';
 
 /**

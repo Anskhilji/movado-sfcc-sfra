@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -17,6 +18,7 @@ server.replace('UpdateShippingMethodsList', server.middleware.https, function (r
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var currentBasket = BasketMgr.getCurrentBasket();
+    checkoutLogger.debug('(CheckoutShippingServices) -> UpdateShippingMethodsList: Inside UpdateShippingMethodsList to update shipping method');
 
     if (!currentBasket) {
         res.json({
@@ -26,6 +28,7 @@ server.replace('UpdateShippingMethodsList', server.middleware.https, function (r
             serverErrors: [],
             redirectUrl: URLUtils.url('Cart-Show').toString()
         });
+    	checkoutLogger.error('(CheckoutShippingServices) -> UpdateShippingMethodsList: Current basket is empty');
         return next();
     }
 
@@ -79,8 +82,9 @@ server.replace('UpdateShippingMethodsList', server.middleware.https, function (r
         order: basketModel,
         shippingForm: server.forms.getForm('shipping')
     });
+    checkoutLogger.debug('(CheckoutShippingServices) -> UpdateShippingMethodsList: Shipping method list is updated');
 
-    return next();
+	return next();
 });
 
 /**
@@ -98,6 +102,7 @@ server.replace(
         var Transaction = require('dw/system/Transaction');
 
         var currentBasket = BasketMgr.getCurrentBasket();
+        checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Inside SubmitShipping to submit shipping form');
 
         if (!currentBasket) {
             res.json({
@@ -107,6 +112,7 @@ server.replace(
                 serverErrors: [],
                 redirectUrl: URLUtils.url('Cart-Show').toString()
             });
+            checkoutLogger.error('(CheckoutShippingServices) -> SubmitShipping: Current basket is empty');
             return next();
         }
 
@@ -119,7 +125,8 @@ server.replace(
         	saveShippingAddress = form.shippingAddress.addressFields.saveShippingAddress.checked;
         	Transaction.wrap(function () {
             	currentBasket.custom.saveShippingAddress = saveShippingAddress;
-        });
+        	});
+            checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Shipping address is saved in the current basket');
         }
 
         if (form.shippingAddress.addressFields.shippingAddressId != undefined) {
@@ -141,6 +148,7 @@ server.replace(
                 serverErrors: [],
                 error: true
             });
+            checkoutLogger.error('(CheckoutShippingServices) -> SubmitShipping: Field validations errors');
         } else {
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
 
@@ -198,6 +206,7 @@ server.replace(
                         fieldErrors: [],
                         serverErrors: [giftResult.errorMessage]
                     });
+                    checkoutLogger.error('(CheckoutShippingServices) -> SubmitShipping: Errors from gift result: ' + giftResult.error);
                     return;
                 }
 
@@ -258,12 +267,14 @@ server.replace('SelectShippingMethod', server.middleware.https, function (req, r
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 
     var currentBasket = BasketMgr.getCurrentBasket();
+    checkoutLogger.debug('(CheckoutShippingServices) -> SelectShippingMethod: Inside SelectShippingMethod to select shipping method');
 
     if (!currentBasket) {
         res.json({
             error: true,
             redirectUrl: URLUtils.url('Cart-Show').toString()
         });
+        checkoutLogger.error('(CheckoutShippingServices) -> SelectShippingMethod: Current basket is empty');
         return next();
     }
 
@@ -315,7 +326,8 @@ server.replace('SelectShippingMethod', server.middleware.https, function (req, r
                 error: true,
                 errorMessage: Resource.msg('error.cannot.select.shipping.method', 'cart', null)
             });
-
+            
+            checkoutLogger.error('(CheckoutShippingServices) -> SelectShippingMethod: Error in selecting shipping method and exception is : ' + err);
             return;
         }
 
