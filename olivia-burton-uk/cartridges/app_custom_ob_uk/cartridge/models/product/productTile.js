@@ -43,7 +43,6 @@ function getProductSearchHit(apiProduct) {
  */
 module.exports = function productTile(product, apiProduct, productType, params) {
     var productSearchHit = getProductSearchHit(apiProduct);
-    decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
     if (!productSearchHit) {
         return null;
     }
