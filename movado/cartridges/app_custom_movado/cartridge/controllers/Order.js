@@ -20,8 +20,11 @@ server.replace(
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
+        var ABTestMgr = require('dw/campaign/ABTestMgr');
+        var Transaction = require('dw/system/Transaction');
         var Locale = require('dw/util/Locale');
 
+        var abTestSegments;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
 
@@ -56,6 +59,26 @@ server.replace(
         var passwordForm;
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
+        var assignedTestSegments = ABTestMgr.getAssignedTestSegments();
+        var abTestParticipationSegment = '';
+        if (!empty(assignedTestSegments)) {
+            var assignedTestSegmentsIterator = assignedTestSegments.iterator();
+            while (assignedTestSegmentsIterator.hasNext()) {
+                abTestSegments = assignedTestSegmentsIterator.next();
+                if (abTestParticipationSegment == '') {
+                    abTestParticipationSegment = abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
+                } else {
+                    abTestParticipationSegment = ', ' + abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
+                }
+            }
+        }
+
+        // Save orderModel to custom object during session
+        if (!empty(abTestParticipationSegment)) {
+            Transaction.wrap(function () {
+                order.custom.abTestParticipationSegment = abTestParticipationSegment;
+            });
+        }
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
