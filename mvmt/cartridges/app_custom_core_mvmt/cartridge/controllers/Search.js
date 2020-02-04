@@ -6,15 +6,15 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 ​
-var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
-var cache = require('*/cartridge/scripts/middleware/cache');
-var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
-var ABTestMgr = require('dw/campaign/ABTestMgr');
+
+var cache = require('*/cartridge/scripts/middleware/cache');
+var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 ​
-server.replace('Refinebar', cache.applyDefaultCache, function (req, res, next) {
+server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
@@ -39,12 +39,13 @@ server.replace('Refinebar', cache.applyDefaultCache, function (req, res, next) {
 ​
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
+
     var ProductSearch = require('*/cartridge/models/search/productSearch');
+    var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
-    var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 ​
     var productSearch;

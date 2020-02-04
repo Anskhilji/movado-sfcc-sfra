@@ -2,11 +2,6 @@
 ​
 var server = require('server');
 ​
-var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
-var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var collections = require('*/cartridge/scripts/util/collections');
-var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-​
 var page = module.superModule;
 server.extend(page);
 ​
