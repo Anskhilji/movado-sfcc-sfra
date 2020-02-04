@@ -19,7 +19,7 @@ var payPalHelper = require('../../../helper/aydenExpressPaypalHelper');
  */
 function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var result = {};
-    var Logger = require('dw/system/Logger');
+    var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var adyenPayPalToken = order.custom.adyenPayPalToken;
@@ -44,7 +44,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 				orderNumber,
 				paymentInstrument,
 				require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
-        Logger.error('Riskified API Call failed for order number: {0}', orderNumber);
+        checkoutLogger.error('Riskified API Call failed for order number: {0}', orderNumber);
         return {
             error: true
         };
