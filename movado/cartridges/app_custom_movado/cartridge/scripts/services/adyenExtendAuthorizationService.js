@@ -2,9 +2,7 @@
 
 /* API Includes */
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
-
-var Logger = require('dw/system/Logger');
-
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var THIS_SCRIPT = '/app_custom_movado/cartridge/scripts/services/adyenExtendAuthorizationService.js';
 
 /**
@@ -55,16 +53,17 @@ function callAdyenCheckoutPaymentAPI(requestPayload) {
     var adyenAdjustAuthURL = adyenCheckoutPaymentService.getURL().replace('authorise', 'adjustAuthorisation');
     adyenCheckoutPaymentService.setURL(adyenAdjustAuthURL);
     var serviceError = false;
+    adyenLogger.debug('(Adyen) -> adyenExtendAuthorizationService: Inside adyenExtendAuthorizationService going to call the adyen api.');
 
     try {
         adyenAdjustAuthServiceResponse = adyenCheckoutPaymentService.call(requestPayload);
         if (!adyenAdjustAuthServiceResponse.isOk()) {
             serviceError = true;
-            Logger.getLogger('Adyen').error(THIS_SCRIPT + ' Adyen: Call error code' + adyenPaymentServiceResponse.getError().toString() + ' Error => ResponseStatus: ' + adyenPaymentServiceResponse.getStatus() + ' | ResponseErrorText: ' + adyenPaymentServiceResponse.getErrorMessage() + ' | ResponseText: ' + adyenPaymentServiceResponse.getMsg());
+            adyenLogger.error(THIS_SCRIPT + ' Adyen: Call error code' + adyenPaymentServiceResponse.getError().toString() + ' Error => ResponseStatus: ' + adyenPaymentServiceResponse.getStatus() + ' | ResponseErrorText: ' + adyenPaymentServiceResponse.getErrorMessage() + ' | ResponseText: ' + adyenPaymentServiceResponse.getMsg());
         }
     } catch (e) {
         serviceError = true;
-        Logger.getLogger('Adyen').fatal('Adyen: ' + e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
+        adyenLogger.fatal('Adyen: ' + e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
     }
 
     var adyenResponse = {

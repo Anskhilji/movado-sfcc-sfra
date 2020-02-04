@@ -317,13 +317,35 @@ header {
         }
     }
     .checkout-logo {
-        width: rem(200);
+        width: 100%;
+
+        p, span {
+            margin: 0;
+        }
+
         &:before {
             font-family: "FontAwesome";
             content: '\f023';
             font-size: rem(18);
             padding-right: rem(5);
+            margin-top: rem(28);
+
+           @include media-breakpoint-down(md) {
+               margin-top: rem(23);
+           }
         }
+
+        .logo-link {
+
+            img {
+                 width: rem(144);
+
+                @include media-breakpoint-down(md) {
+                    width: rem(128);
+                }
+            }
+        }
+
         .logo-checkout-text {
             font-family: $font-medium;
             color: $grey14;
@@ -338,9 +360,15 @@ header {
         }
     }
 
+    .logo-link {
+
+         img {
+             width: rem(128);
+         }
+     }
+
     @include media-breakpoint-up(md) {
         .checkout-logo {
-            width: rem(225);
             .logo-checkout-text {
                 font-size: rem(16);
             }
@@ -350,11 +378,6 @@ header {
     @include media-breakpoint-up(lg) {
         .checkout-header-wrapper {
             padding: 0 rem(80);
-            .logo-link {
-                img {
-                  width: rem(110);
-                }
-              }
         }
     }
 }
@@ -371,5 +394,11 @@ header {
 
     > .content-asset {
         display: inline-block;
+    }
+}
+
+.shipping-method-option {
+    .arrival-time {
+        white-space: pre-wrap;
     }
 }

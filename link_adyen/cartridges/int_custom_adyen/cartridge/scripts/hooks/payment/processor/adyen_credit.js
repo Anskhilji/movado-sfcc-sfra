@@ -9,7 +9,7 @@ var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 function Handle(basket, paymentInformation) {
     var currentBasket = basket;
@@ -20,8 +20,10 @@ function Handle(basket, paymentInformation) {
     var tokenID = AdyenHelper.getCardToken(creditCardForm.creditCardFields.selectedCardID.value, customer);
     var encryptedData = creditCardForm.creditCardFields.adyenEncryptedData.value;
     var adyenCseEnabled = AdyenHelper.getAdyenCseEnabled();
+    checkoutLogger.debug('(adyen_credit) -> Handle: Inside handle to validate the adyen token, adyenCSE and encrypted data');
 
     if (empty(tokenID) && (!adyenCseEnabled || empty(encryptedData))) {
+        checkoutLogger.error('(adyen_credit) -> Handle: Token id is empty and either adyenCse is not enabled or encryptedData is empty');
         return { error: true };
     }
 
@@ -65,7 +67,6 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var PaymentMgr = require('dw/order/PaymentMgr');
     var Transaction = require('dw/system/Transaction');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-    var Logger = require('dw/system/Logger');
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var result = {};
@@ -75,6 +76,8 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         orderNumber,
         paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+
+    checkoutLogger.debug('(adyen_credit) -> Authorize: Inside Authorize to validate the paymentInstrument and paymentProcessor against order with order number: ' + orderNumber);
 
     var creditCardForm = server.forms.getForm('billing').creditCardFields;
     var adyenCreditVerification = require('*/cartridge/scripts/adyenCreditVerification');
@@ -90,21 +93,23 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             SaveCreditCard: creditCardForm.saveCardAdyen.value
         });
     }
-    
+
     if (result.error || !response) {
+        checkoutLogger.error('(adyen_credit) -> Authorize: Error occurred while authorizing payment against order with order number: ' + orderNumber + ' and going to denied the checkout');
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
             orderNumber,
             paymentInstrument,
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
-        Logger.error('Riskified API Call failed for order number: {0}', orderNumber);
+        checkoutLogger.error('Riskified API Call failed for order number: {0}', orderNumber);
         return {
             error: true
         };
     }
 
     if (result.IssuerUrl != '') {
+        checkoutLogger.debug('(adyen_credit) -> Authorize: 3DS going to set the order, paymentInstrument and amount in the session and also going to validate the paymentInstrument against order with order number: ' + orderNumber);
         session.custom.order = order;
         session.custom.paymentInstrument = paymentInstrument;
         session.custom.amount = paymentInstrument.paymentTransaction.amount;
@@ -116,7 +121,8 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
         if (checkoutDecisionStatus.status === 'fail') {
         	// call hook for auth reverse using call cancelOrRefund api for safe side
-        	hooksHelper(
+            checkoutLogger.error('(adyen_credit) -> Authorize: Going to Cancel/Refund payment since a fraud has been detected by Riskified for order with order number: ' + orderNumber + ' and going to set the error status true');
+            hooksHelper(
                 'app.riskified.paymentrefund',
                 'paymentRefund',
                 order,
@@ -129,24 +135,29 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         }
         order.custom.Adyen_eventCode = 'AUTHORISATION';
         if ('PspReference' in result && !empty(result.PspReference)) {
+            checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the PspReference in the both paymentInstrument and order custom attributes and order number is: ' + orderNumber);
             paymentInstrument.paymentTransaction.transactionID = result.PspReference;
             order.custom.Adyen_pspReference = result.PspReference;
         }
 
         if ('AuthorizationCode' in result && !empty(result.AuthorizationCode)) {
+            checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AuthorizationCode in the paymentInstrument custom attribute and order number is: ' + orderNumber);
             paymentInstrument.paymentTransaction.custom.authCode = result.AuthorizationCode;
         }
 
         if ('AdyenAmount' in result && !empty(result.AdyenAmount)) {
+            checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AdyenAmount in the order custom attribute and order number is: ' + orderNumber);
             order.custom.Adyen_value = result.AdyenAmount;
         }
 
         if ('AdyenCardType' in result && !empty(result.AdyenCardType)) {
+            checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AdyenCardType in the order custom attribute and order number is: ' + orderNumber);
             order.custom.Adyen_paymentMethod = result.AdyenCardType;
         }
         
         if (result.Decision != 'ACCEPT') {
             Transaction.rollback();
+            checkoutLogger.error('(adyen_credit) -> Authorize: Going to call the Riskified checkoutDenied since adyen has been responded with Decision as not accepted against order number: ' + orderNumber + ' and going to set the error status true');
             hooksHelper(
                 'app.fraud.detection.checkoutdenied',
                 'checkoutDenied',
@@ -172,7 +183,8 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
                 require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
         if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
         	// call hook for auth reverse using call cancelOrRefund api for safe side
-        	hooksHelper(
+            checkoutLogger.error('(adyen_credit) -> Authorize: Going to call the hook for auth reverse using call cancelOrRefund api for order number: ' + orderNumber + ' and going to set the error status true');
+            hooksHelper(
                 'app.riskified.paymentrefund',
                 'paymentRefund',
                 order,
@@ -198,6 +210,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 
     if (result.Decision != 'ACCEPT') {
         Transaction.rollback();
+        checkoutLogger.error('(adyen_credit) -> Authorize: Going to call Riskified checkoutDenied since adyen has been responded with Decision as not accepted against order number: ' + orderNumber + ' and going to set the error status true');
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
@@ -211,19 +224,23 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 
     order.custom.Adyen_eventCode = 'AUTHORISATION';
     if ('PspReference' in result && !empty(result.PspReference)) {
+        checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the PspReference in the both paymentInstrument and order custom attribute and order number is: ' + orderNumber);
         paymentInstrument.paymentTransaction.transactionID = result.PspReference;
         order.custom.Adyen_pspReference = result.PspReference;
     }
 
     if ('AuthorizationCode' in result && !empty(result.AuthorizationCode)) {
+        checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AuthorizationCode in the paymentInstrument custom attribute and order number is: ' + orderNumber);
         paymentInstrument.paymentTransaction.custom.authCode = result.AuthorizationCode;
     }
 
     if ('AdyenAmount' in result && !empty(result.AdyenAmount)) {
+        checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AdyenAmount in the order custom attribute and order number is: ' + orderNumber);
         order.custom.Adyen_value = result.AdyenAmount;
     }
 
     if ('AdyenCardType' in result && !empty(result.AdyenCardType)) {
+        checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the AdyenCardType in the order custom attribute and order number is: ' + orderNumber);
         order.custom.Adyen_paymentMethod = result.AdyenCardType;
     }
     // Save full response to transaction custom attribute
@@ -242,7 +259,8 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
     if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
     	// call hook for auth reverse using call cancelOrRefund api for safe side
-    	hooksHelper(
+        checkoutLogger.error('(adyen_credit) -> Authorize: Going to call the hook for auth reverse using call cancelOrRefund api for order number: ' + orderNumber + ' and going to set the error status true');
+        hooksHelper(
             'app.riskified.paymentrefund',
             'paymentRefund',
             order,

@@ -5,6 +5,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var checkoutHelper = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var OrderModel = require('*/cartridge/models/order');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
 var Transaction = require('dw/system/Transaction');
 var Resource = require('dw/web/Resource');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
@@ -29,7 +30,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var orderPlacementStatus = checkoutHelper.placeOrder(order, fraudDetectionStatus);
 
     if (orderPlacementStatus.error) {
-        return next(new Error('Could not place order'));
+    	return next(new Error('Could not place order'));
     }
     //Check if order includes Pre-Order item
     var isPreOrder = orderCustomHelpers.isPreOrder(order);
@@ -44,9 +45,13 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
             }
         });
     }
+    if (!empty(session.custom.trackingCode)) {
+        SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, order.orderNo);
+    }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
     var URLUtils = require('dw/web/URLUtils');
+    session.custom.orderJustPlaced = true;
     res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken));
 
     return next();

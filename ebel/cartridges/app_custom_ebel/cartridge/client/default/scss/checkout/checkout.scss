@@ -317,12 +317,31 @@ header {
         }
     }
     .checkout-logo {
-        width: rem(200);
+        width: 100%;
+
+        p, span {
+            margin-bottom: 0;
+        }
+
         &:before {
             font-family: "FontAwesome";
             content: '\f023';
             font-size: rem(18);
+            padding-right: rem(5);
+            margin-top: rem(28);
+
+           @include media-breakpoint-down(md) {
+               margin-top: rem(25);
+           }
         }
+
+        .logo-link {
+
+            img {
+                 width: rem(120);
+            }
+        }
+
         .logo-checkout-text {
             font-family: $font-book;
             color: $grey14;
@@ -334,19 +353,18 @@ header {
                 text-decoration: none;
             }
         }
-
-        .logo-link {
-            margin-left: rem(4);
-            margin-right: rem(4);
-            img {
-                width: rem(76);
-            }
-        }
     }
+
+    .logo-link {
+
+         img {
+             width: rem(128);
+         }
+     }
 
     @include media-breakpoint-up(md) {
         .checkout-logo {
-            width: rem(225);
+
             .logo-checkout-text {
                 font-size: rem(19);
             }
@@ -372,5 +390,11 @@ header {
 
     > .content-asset {
         display: inline-block;
+    }
+}
+
+.shipping-method-option {
+    .arrival-time {
+        white-space: pre-wrap;
     }
 }

@@ -18,6 +18,42 @@ function appendToUrl(url, params) {
     return newUrl;
 }
 
+$(
+    function () {
+        var deliveryTimeSelector = $('.delivery-time');
+        var hours = deliveryTimeSelector.data('hours');
+        var minutes = deliveryTimeSelector.data('minutes');
+        var seconds = deliveryTimeSelector.data('seconds');
+        var remainingDate = new Date();
+        remainingDate.setHours(hours);
+        remainingDate.setMinutes(minutes);
+        remainingDate.setSeconds(seconds);
+        var countDown = setInterval(function () {
+            if (remainingDate.getHours() > 0 || remainingDate.getMinutes() > 0 || remainingDate.getSeconds() > 0) {
+                var displayHours = remainingDate.getHours().toString().length < 2 ? '0' + remainingDate.getHours() : remainingDate.getHours();
+                var displayMinutes = remainingDate.getMinutes().toString().length < 2 ? '0' + remainingDate.getMinutes() : remainingDate.getMinutes();
+                var displaySeconds = remainingDate.getSeconds().toString().length < 2 ? '0' + remainingDate.getSeconds() : remainingDate.getSeconds();
+                remainingDate.setSeconds(remainingDate.getSeconds() - 1);
+                $('.time-update-control').text(
+                        displayHours
+                        + ' Hours, ' +
+                        displayMinutes
+                        + ' Minutes ' +
+                        displaySeconds
+                        + ' Seconds'
+                );
+            } else if (typeof hours != 'undefined' && typeof minutes != 'undefined' && typeof seconds != 'undefined') {
+                clearInterval(countDown);
+                window.location.reload(true);
+            }
+        }, 1000);
+    }
+);
+
+$( document ).ready(function() {
+    $('.cart-page .bonus-product-line-item.product-card-wrapper > div.card.bonus-product-button').siblings('.item-info').css('border-bottom','none').children('.col-12:last').hide();
+});
+
 /**
  * Checks whether the basket is valid. if invalid displays error message and disables
  * checkout button
@@ -56,6 +92,13 @@ function validateBasket(data) {
  * @param {Object} data - AJAX response from the server
  */
 function updateCartTotals(data) {
+    if (typeof data.totals.deliveryTime != 'undefined' &&  typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
+        $('.delivery-time').removeClass('d-none');
+    } else {
+        $('.delivery-time').addClass('d-none');
+    }
+    
+    $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
     $('.tax-total').empty().append(data.totals.totalTax);
@@ -605,7 +648,7 @@ module.exports = function () {
         $productToRemoveSpan.empty().append(couponCode);
     });
 
-    $('body').on('click', '.cart-coupons-remove .delete-coupon-confirmation-btn', function (e) {
+    $('body').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
         e.preventDefault();
 
         var url = $(this).data('action');
@@ -629,6 +672,7 @@ module.exports = function () {
                 $('.coupon-uuid-' + uuid).remove();
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
+                $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $.spinner().stop();
             },

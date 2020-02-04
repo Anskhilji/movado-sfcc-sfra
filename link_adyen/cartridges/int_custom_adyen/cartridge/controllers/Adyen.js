@@ -8,7 +8,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-var Logger = require('dw/system/Logger');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.extend(module.superModule);
 
@@ -37,12 +37,17 @@ server.append('ShowConfirmation', function (req, res, next) {
 
 server.replace('AuthorizeWithForm', server.middleware.https, function (req, res, next) {
     var adyen3DVerification = require('int_adyen_overlay/cartridge/scripts/adyen3DVerification');
-    var order = session.custom.order;
-    var orderNo = order.getOrderNo();
-    var paymentInstrument = session.custom.paymentInstrument;
-    Logger.getLogger('Checkout').debug('AuthorizeWithForm: inside AuthorizeWithForm for order number: ' + orderNo);
+    var order = null;
+    var orderNo = null;
+    var paymentInstrument = null;
 
     try {
+        order = session.custom.order;
+        if (order !== null) {
+            orderNo = order.getOrderNo();
+        }
+        paymentInstrument = session.custom.paymentInstrument;
+        checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: inside AuthorizeWithForm for order number: ' + orderNo);
 
         if (session.custom.MD == req.form.MD) {
 
@@ -52,6 +57,7 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
             } else if (!empty(paymentInstrument)) {
                 amount = paymentInstrument.paymentTransaction.amount;
             } else {
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Invalid amount for order number: ' + orderNo + ' and going to the payment stage');
                 throw new Error('AuthorizeWithForm: invalid amount');
             }
 
@@ -63,16 +69,16 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 PaResponse: req.form.PaRes
             });
 
-            Logger.getLogger('Checkout').debug('AuthorizeWithForm: 3DS verification executed for order number: ' + orderNo + ' with result: ' + result.Decision);
+            checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: 3DS verification executed for order number: ' + orderNo + ' with result: ' + result.Decision);
 
             // if error, return to checkout page
             if (result.error || result.Decision != 'ACCEPT') {
 
-                Logger.getLogger('Checkout').error('AuthorizeWithForm: 3DS verification failed, going to fail the order for order number: ' + orderNo + ' with result: ' + result.Decision);
-
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: 3DS verification failed, going to fail the order for order number: ' + orderNo + ' and going to the payment stage');
                 Transaction.wrap(function () {
                     OrderMgr.failOrder(order);
                 });
+
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
             }
@@ -81,8 +87,7 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
             var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
             if (fraudDetectionStatus.status === 'fail') {
 
-                Logger.getLogger('Checkout').debug('AuthorizeWithForm: fraud decteced, going to fail the order for order number: ' + orderNo + ' with result: ' + fraudDetectionStatus.status);
-
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: fraud decteced, going to fail the order for order number: ' + orderNo + ' and going to the (Error-ErrorCode) error page');
                 Transaction.wrap(function () { OrderMgr.failOrder(order); });
 
                 // fraud detection failed
@@ -97,14 +102,13 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 return next();
             }
 
-            Logger.getLogger('Checkout').debug('AuthorizeWithForm: Going to place the order of order number: ' + orderNo);
+            checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Going to place the order of order number: ' + orderNo);
 
             // Places the order
             var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
             if (placeOrderResult.error) {
 
-                Logger.getLogger('Checkout').error('AuthorizeWithForm: order placement failed for order number: ' + orderNo);
-
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: order placement failed for order number: ' + orderNo + ' and going to the placeOrder stage');
                 Transaction.wrap(function () {
                     OrderMgr.failOrder(order);
                 });
@@ -115,13 +119,13 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
             Transaction.begin();
             //If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
             if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
-                Logger.getLogger('Checkout').debug('AuthorizeWithForm: Riskifed statuses is approved going to set the status for order number: ' + orderNo);
+                checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Riskifed statuses is approved going to set the status for order number: ' + orderNo);
                 order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
                 order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
                 order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_CONFIRMED);
                 COCustomHelpers.sendOrderConfirmationEmail(order, req.locale.id);
             } else {
-                Logger.getLogger('Checkout').debug('AuthorizeWithForm: Riskifed status is not approved going to set status to not paid and not confirmed for order number: ' + orderNo);
+                checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Riskifed status is not approved going to set status to not paid and not confirmed for order number: ' + orderNo);
                 order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
                 order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                 order.custom.is3DSecureTransactionAlreadyCompleted = true;
@@ -133,24 +137,23 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 
             Transaction.commit();
             clearForms();
-            Logger.getLogger('Checkout').debug('AuthorizeWithForm: Order placed going to redirect the user to order confirmation for order number: ' + orderNo);
+            checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Order placed going to redirect the user to order confirmation for order number: ' + orderNo);
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
             return next();
         }
 
-        Logger.getLogger('Checkout').error('AuthorizeWithForm: session MID and request MID mismatch for order number: ' + orderNo + ' going to redirect the user into checkout-Begin');
+        checkoutLogger.error('(Adyen) -> AuthorizeWithForm: session MID and request MID mismatch for order number: ' + orderNo + ' going to redirect the user into checkout-Begin');
 
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
         return next();
 
     } catch (ex) {
-        Logger.getLogger('Checkout').error('AuthorizeWithForm: error occured while verify the 3DS for order number: ' + orderNo + ' and exception is: ' + ex
+        checkoutLogger.error('(Adyen) -> AuthorizeWithForm: error occured while verify the 3DS for order number: ' + orderNo + ' and exception is: ' + ex
               + ' Going to redirect the user to Checkout-Begin?stage=payment and decline the order');
         COCustomHelpers.declineOrder(order);
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
         return next();
     }
-
 });
 
 /**
