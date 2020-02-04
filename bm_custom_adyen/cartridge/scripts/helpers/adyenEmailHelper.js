@@ -8,7 +8,7 @@ var Resource = require('dw/web/Resource');
 /**
  * Re-sends order confirmation to the user
  * @param {dw.order.Order} order - The current order
- * @returns {void}
+ * @returns {Object} orderObject -- Order details for email and email labels
  */
 function getOrderConfirmationObject(order) {
 
