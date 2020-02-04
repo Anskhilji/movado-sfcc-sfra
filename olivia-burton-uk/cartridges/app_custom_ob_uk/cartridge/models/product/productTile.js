@@ -1,8 +1,9 @@
 'use strict';
 
+var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+
 var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
-var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 /**
