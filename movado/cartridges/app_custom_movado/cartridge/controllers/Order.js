@@ -68,7 +68,7 @@ server.replace(
                 if (abTestParticipationSegment == '') {
                     abTestParticipationSegment = abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
                 } else {
-                    abTestParticipationSegment = ', ' + abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
+                    abTestParticipationSegment = abTestParticipationSegment + ', ' + abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
                 }
             }
         }
