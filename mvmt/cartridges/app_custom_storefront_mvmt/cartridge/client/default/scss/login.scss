@@ -1,2 +1,185 @@
 @import 'variables';
 @import '~movado/login';
+
+.login-page {
+
+    .login-welcome-back {
+        text-align: center;
+
+        h1 {
+            font-size: rem(36);
+            letter-spacing: rem(3.38);
+            text-transform: uppercase;
+            font-family: $font-medium;
+        }
+
+        p {
+            font-size: rem(16);
+            font-weight: 500;
+            line-height: rem(23);
+            color: $light-gray;
+            letter-spacing: rem(0.5);
+            margin: 0;
+            font-family: $font-medium;
+        }
+    }
+
+    .login-subtitle {
+
+        h1 {
+            font-size: rem(16);
+            font-weight: 500;
+            line-height: rem(23);
+            text-align: center;
+            font-family: $font-medium;
+            text-transform: uppercase;
+            letter-spacing: rem(2.5);
+        }
+    }
+
+    form {
+
+        &.login {
+
+            .submit-form-section {
+
+                button {
+                    width: 45%;
+                    font-size: rem(14);
+                    transition: all 0.25s ease-in-out;
+                    border-radius: rem(1);
+                    letter-spacing: rem(1.6);
+                    padding: rem(16) 0;
+                    line-height: 1;
+
+                    &.btn {
+                        border-width: rem(2);
+                    }
+
+                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                        box-shadow: none;
+                        transition: opacity 0.25s ease-in-out;
+                        background: $light-green;
+                        border: rem(2) solid $black;
+                    }
+                }
+            }
+
+            .forgot-password {
+                padding: rem(16) 0;
+                line-height: 1;
+
+                a {
+                    text-decoration: underline;
+                    letter-spacing: rem(1);
+                    text-transform: uppercase;
+                    font-size: rem(11);
+                    color: $black;
+                }
+            }
+
+            .form-group {
+
+                .form-control-label {
+                    font-size: rem(11);
+                    font-weight: 500;
+                    letter-spacing: rem(0.92);
+
+                    &::before {
+                        content: '';
+                    }
+                }
+
+                .form-control {
+                    width: 100%;
+                    display: block;
+                    padding: rem(16);
+                    font-size: rem(13);
+                    border: rem(1) solid $light-gray4;
+                    letter-spacing: rem(1);
+                    margin-bottom: rem(5);
+                    line-height: 1;
+
+                    &:focus {
+                        border-color: $light-gray4;
+                        box-shadow: none;
+                        color: $black;
+
+                        &::placeholder {
+                            color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .login-oauth {
+        display: block;
+
+        .oauth-facebook {
+            margin-right: 1%;
+            background-color: #3b5998;
+
+            &:hover {
+                background-color: #3b61b3;
+            }
+        }
+
+        .oauth-google {
+            background-color: #dd4b39;
+
+            &:hover {
+                background-color: #f74e38;
+            }
+        }
+
+        a {
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1;
+            font-size: rem(12);
+            padding: rem(16) rem(28);
+            transition: all .25s;
+            margin: rem(9.44) 0;
+
+            height: rem(51);
+            color: $white;
+            font-weight: 600;
+            border: none;
+            line-height: rem(18);
+            margin-bottom: 1%;
+            margin-top: 1%;
+            width: 49.5%;
+            float: left;
+
+            svg, img {
+                width: rem(24);
+                height: rem(24);
+                margin-right: rem(22);
+                margin-left: rem(10);
+                vertical-align: -50%;
+
+                @include media-breakpoint-down(xs) {
+                     margin-right: rem(16);
+                     margin-left: 0;
+                }
+
+                @include media-breakpoint-down(xss) {
+                     margin-right: 0;
+                     margin-left: 0;
+                }
+            }
+
+            span {
+                margin-left: rem(3);
+            }
+
+            &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                box-shadow: none;
+                border-color: none;
+                color: $white;
+            }
+        }
+    }
+}

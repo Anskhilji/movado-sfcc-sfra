@@ -1,0 +1,47 @@
+<isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account.login', 'eum', null))}"/>
+
+    <div class="hero container login-banner">
+        <isslot id="cs-account-login" description="Login banner Image" context="global" />
+    </div>
+
+
+    <div class="container login-page"> 
+        <iscomment> Custom Start: Breadcrumbs is not part of the mvmt account login section. </iscomment>
+        <!---Breadcrumbs--->
+        <iscomment>
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <div class="row justify-content-center equal-height">
+            <div class="col-sm-8 col-md-6"> 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="login-form-nav">
+                            <div class="login-welcome-back">
+                                <iscontentasset aid="login-page-welcome-content" />
+                            </div>
+                            <isinclude template="account/components/loginForm" />
+                            <isinclude template="account/password/requestPasswordResetModal"/>
+                            <div class="login-subtitle">
+                                <iscontentasset aid="login-page-sign-in-title" />
+                            </div>
+                            <isinclude template="account/components/oauth" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-6">
+                <div class="card">
+                    <isinclude template="account/components/trackOrderForm" />
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>
