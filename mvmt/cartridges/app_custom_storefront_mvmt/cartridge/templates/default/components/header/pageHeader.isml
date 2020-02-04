@@ -280,7 +280,7 @@
                     <a href="#" class="menu-item-link">${Resource.msg('label.header.find', 'common', null)}</a>
                 </li>
                 <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">MVMT Insider</a>
+                    <a href="#" class="menu-item-link">${Resource.msg('label.header.insider', 'common', null)}</a>
                 </li>
             </ul>
         </li>

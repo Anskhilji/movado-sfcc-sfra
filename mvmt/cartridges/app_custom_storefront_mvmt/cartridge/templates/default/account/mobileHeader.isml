@@ -31,8 +31,8 @@
       </li>
       <li class="dropdown-item my-wishlist" role="menuitem">
         <a href="${URLUtils.https('Wishlist-Show')}" class="dropdown-link" role="button">
-            <i class="fa fa-heart" aria-hidden="true"></i>
-            <span class="user-message">${Resource.msg('link.wishlist.login', 'account', null)}</span>
+          <i class="fa fa-heart" aria-hidden="true"></i>
+          <span class="user-message">${Resource.msg('link.wishlist.login', 'account', null)}</span>
         </a>
       </li>
       <li class="dropdown-item logout-login" role="menuitem">
