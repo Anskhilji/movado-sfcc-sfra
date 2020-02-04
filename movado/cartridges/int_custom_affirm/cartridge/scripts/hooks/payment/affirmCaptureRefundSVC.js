@@ -6,6 +6,7 @@ var Transaction = require('dw/system/Transaction');
 var adyenCustomHelper = require('*/cartridge/scripts/helpers/adyenCustomHelper');
 var Order = require('dw/order/Order');
 var orderStatusHelper = require('*/cartridge/scripts/lib/orderStatusHelper');
+var affirmLogger = require('dw/system/Logger').getLogger('Affirm', '');
 
 /**
  * calls the Affirm Capture API to capture order amount
@@ -76,8 +77,8 @@ function capture(order, amount, sendMail) {
 			}
 
 			/* Log the result of operation*/
-			Logger.getLogger('Affirm').debug('Service response for Capture : ' + result);
-			Logger.getLogger('Affirm').debug('Payment modification result for order #' + captureData + ': Capturing');
+			affirmLogger.debug('Service response for Capture : ' + result);
+			affirmLogger.debug('Payment modification result for order #' + captureData + ': Capturing');
 			response.captureResponse = callResult;
 			response.decision = decision;
 			return response;
@@ -85,8 +86,8 @@ function capture(order, amount, sendMail) {
 		decision = 'REFUSED';
 
 		/* Log the result of operation*/
-		Logger.getLogger('Affirm').info('Service response for Capture : ' + result);
-		Logger.getLogger('Affirm').info('Payment modification result for order #' + captureData + ': Capturing Refused');
+		affirmLogger.info('Service response for Capture : ' + result);
+		affirmLogger.info('Payment modification result for order #' + captureData + ': Capturing Refused');
 
 		Transaction.wrap(function () {
 			order.trackOrderChange('Amount Capturing Failed with value : ' + amount);
@@ -152,8 +153,8 @@ function voidAuth(order, amount, sendMail) {
 			}
 
 			/* Log the result of operation*/
-			Logger.getLogger('Affirm').debug('Service response for Void : ' + result);
-			Logger.getLogger('Affirm').debug('Payment modification result for order #' + order.orderNo + ': Cancelled');
+			affirmLogger.debug('Service response for Void : ' + result);
+			affirmLogger.debug('Payment modification result for order #' + order.orderNo + ': Cancelled');
 			response.voidResponse = callResult;
 			response.decision = decision;
 			return response;
@@ -161,8 +162,8 @@ function voidAuth(order, amount, sendMail) {
 		decision = 'REFUSED';
 
 		/* Log the result of operation*/
-		Logger.getLogger('Affirm').info('Service response for Void : ' + result);
-		Logger.getLogger('Affirm').info('Payment modification result for order #' + order.orderNo + ': Cancel Refused');
+		affirmLogger.info('Service response for Void : ' + result);
+		affirmLogger.info('Payment modification result for order #' + order.orderNo + ': Cancel Refused');
 
 		Transaction.wrap(function () {
 			order.trackOrderChange('Amount Void Failed with value : ' + amount);
@@ -232,8 +233,8 @@ function refund(order, amount, sendMail) {
 			}
 
 			/* Log the result of operation*/
-			Logger.getLogger('Affirm').debug('Service response for Refund : ' + result);
-			Logger.getLogger('Affirm').debug('Payment modification result for order #' + refundData + ': Refunding');
+			affirmLogger.debug('Service response for Refund : ' + result);
+			affirmLogger.debug('Payment modification result for order #' + refundData + ': Refunding');
 			response.captureResponse = callResult;
 			response.decision = decision;
 			return response;
@@ -241,8 +242,8 @@ function refund(order, amount, sendMail) {
 		decision = 'REFUSED';
 
 		/* Log the result of operation*/
-		Logger.getLogger('Affirm').info('Service response for Refund : ' + result);
-		Logger.getLogger('Affirm').info('Payment modification result for order #' + refundData + ': Refund Refused');
+		affirmLogger.info('Service response for Refund : ' + result);
+		affirmLogger.info('Payment modification result for order #' + refundData + ': Refund Refused');
 
 		Transaction.wrap(function () {
 			order.trackOrderChange('Amount Refunding Failed with value : ' + amount);

@@ -26,7 +26,7 @@ function createCookie(cookieName, cookieValue, duration) {
     var currentDate = new Date();
     currentDate.setTime(currentDate.getTime() + duration);
     var expires = 'expires=' + currentDate.toGMTString();
-    document.cookie = cookieName + '=' + cookieValue + ';' + expires;
+    document.cookie = cookieName + '=' + cookieValue + ';' + expires + '; SameSite=Lax';
 }
 
 

@@ -1,12 +1,12 @@
 <iscomment> Custom: menu-content div added</iscomment>
-<div class="dropdown-menu" role="menu" aria-hidden="true">
+<div class="dropdown-menu" data-disablesubcategories="${topCat.disableSubCategories}" role="menu" aria-hidden="true">
     <isif condition="${topCat.disableSubCategories}">
     
     <div class="shop-by-collection-slide">
         <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-            <isif condition="${topCat.staticContentAsset && topCat.staticContentAsset !== ''}">
-                <isprint value="${topCat.staticContentAsset}" encoding="off"/>
-            </isif>
+            <isloop items="${menuItem.subCategories}" var="category">
+                <p><a href="${category.url}"><img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span>${category.name}</span> </a></p>
+            </isloop>
         </div>
     </div>
     
@@ -43,13 +43,9 @@
               </isif>
             </isloop>
         </div>
-        <isif condition="${topCat.headerMenuBanner}">
-            <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
-                <div class="header-tiles">
-                <isprint value="${topCat.headerMenuBanner}" encoding="off"/>
-                </div>
-            </div>
-        </isif>
+        <div class="submenu-recommendations w-75" data-recomendationcategory="${topCat.id}">
+            <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
+        </div>
     </div>
     
     
