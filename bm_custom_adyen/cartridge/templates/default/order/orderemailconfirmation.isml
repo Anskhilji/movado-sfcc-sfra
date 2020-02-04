@@ -13,8 +13,8 @@
     var emailObject = emailHelpers.getOrderConfirmationObject(pdict.Order);
 </isscript>
 
-<subject>Confirmation of your Order
-    <isprint value="${pdict.Order.orderNo}">
+<subject>
+    <isprint value="${emailObject.subject}">
 </subject>
 
 <head>
