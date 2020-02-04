@@ -17,6 +17,7 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var Site = require('dw/system/Site');
         var currentBasket = BasketMgr.getCurrentBasket();
+        currentBasket.startCheckout();
 
         if (currentBasket && !req.currentCustomer.profile) {
 			var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');

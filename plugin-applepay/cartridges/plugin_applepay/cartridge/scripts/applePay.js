@@ -1,3 +1,4 @@
+var BasketMgr = require('dw/order/BasketMgr');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
@@ -76,12 +77,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
     if (deliveryValidationFail) {
         var sendMail = true;// send email is set to true
+        var isJob = false; // isJob is set to false because in case of job this hook is never called
         var refundResponse = hooksHelper(
 				'app.payment.adyen.refund',
 				'refund',
 				order,
 				order.getTotalGrossPrice().value,
 				sendMail,
+				isJob,
 				require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
         if (refundResponse.decision !== 'SUCCESS') {
             Logger.error('Ayden refund not processed : order failed due to PO BOX check : refundResponse.decision ' + refundResponse.decision);
@@ -119,6 +122,10 @@ exports.prepareBasket = function (basket, parameters) {
         updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage);
 		// sample data for testing
 		// updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
+    }
+    var currentBasket = BasketMgr.getCurrentBasket();
+    if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+        session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);

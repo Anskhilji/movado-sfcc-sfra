@@ -9,7 +9,6 @@ var Mail = require('dw/net/Mail');
 var Resource = require('dw/web/Resource');
 var Logger = require('dw/system/Logger');
 
-
 /**
  * for Send email notification service failure to support team
  * @returns
