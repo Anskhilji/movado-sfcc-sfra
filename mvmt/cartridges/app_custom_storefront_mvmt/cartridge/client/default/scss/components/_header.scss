@@ -93,7 +93,7 @@ header.new-header {
       }
 
       &::before {
-        content: unset;
+        content: none;
       }
 
       .button {
@@ -210,7 +210,7 @@ header.new-header {
         .logo-link {
 
           img {
-            filter: unset;
+            filter: none;
           }
         }
 
@@ -233,7 +233,7 @@ header.new-header {
       .logo-link {
 
         img {
-          filter: unset;
+          filter: none;
         }
       }
 
@@ -287,7 +287,7 @@ header.new-header {
     position: relative;
   }
 
-  .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon{
+  .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon {
     padding: rem(32) rem(24) rem(32);
     display: inline-block;
   }
@@ -506,7 +506,7 @@ header.new-header {
     letter-spacing: .8px;
     text-transform: uppercase;
     font-weight: 700;
-    padding: 0 20px;
+    padding: 0 rem(20);
     position: relative;
     color: $black;
     text-align: center;
@@ -722,8 +722,9 @@ header.new-header {
     list-style: none;
     padding: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around !important;
     border-top: rem(1) solid $alice-blue;
+    margin: 0;
     margin-top: rem(40);
     padding: rem(20) 0;
     li {
@@ -930,7 +931,7 @@ header.new-header {
   .desktop-side-search {
     display: block;
     height: 100%;
-    left: unset;
+    left: auto;
     padding: rem(30) rem(20) 0;
     position: fixed;
     right: -100%;

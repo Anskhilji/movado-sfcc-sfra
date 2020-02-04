@@ -1,5 +1,5 @@
 <isif condition="${pdict.name === null}">
-<iscomment> Custom: nav-item class removed, mt-5 added</iscomment>
+  <iscomment> Custom: nav-item class removed, mt-5 added</iscomment>
   <li class="mt-4 nav-item mobile-login  d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
       <i class="fa login" aria-hidden="true"></i>
@@ -19,7 +19,7 @@
     </a>
   </li>
 <iselse/>
-<iscomment> Custom: nav-item class removed, mobile-login, mt-5 added</iscomment>
+  <iscomment> Custom: nav-item class removed, mobile-login, mt-5 added</iscomment>
   <li class="mt-4 mobile-login d-lg-none dropdown" role="menuitem">
     <span class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
       <i class="fa fa-user" aria-hidden="true"></i>
@@ -43,11 +43,10 @@
       </li>
     </ul>
   </li>
-    <li class="nav-item my-stores d-lg-none" role="menuitem">
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
       <i class="fa stores-icon" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
     </a>
   </li>
 </isif>
-

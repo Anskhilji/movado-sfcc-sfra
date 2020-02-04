@@ -1,4 +1,4 @@
-<iscomment> Custom: HTML Structure change</iscomment>
+<iscomment> Custom: HTML Structure change, added dropdowns for login button</iscomment>
 <isif condition="${pdict.name === null}">
   <div class="user user-not-login hidden-md-down" tabindex="0" aria-label="dropdownMenu Account" role="button">
     <a href="${URLUtils.https('Login-Show')}"> ${Resource.msg('title.header.account', 'account', null)}

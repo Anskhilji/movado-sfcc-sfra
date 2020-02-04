@@ -17,7 +17,7 @@
     &.show {
 
       .nav-link {
-        background: unset;
+        background: none;
       }
     }
   }
@@ -25,7 +25,7 @@
   li {
 
     &:hover {
-      background: unset;
+      background: none;
     }
   }
 
@@ -143,11 +143,11 @@
     &::after {
       content: "";
       width: 100vw;
-      background-color: #fff;
+      background-color: $white;
       top: 1px;
       bottom: 0;
       z-index: -1;
-      border-bottom: 1px solid #f7f8f9;
+      border-bottom: 1px solid $white-gray;
       box-shadow: 0 10px 15px rgba(0,0,0,.075);
       position: absolute;
       left: 50%;
@@ -164,9 +164,11 @@
       .dropdown-menu {
         z-index: 0;
         opacity: 0;
-        transform: scaleX(1) translateX(-50%);
+        transform: scaleX(1) translateX(-50%)  translateY(-1%);
+        border-top: rem(1) solid $gray94;
+
         &::after {
-          transform: scaleX(1) translateX(-50%);
+          transform: scaleX(1) translateX(-50%)  translateY(-1%);
         }
       }
 
@@ -332,6 +334,8 @@
   .main-menu {
 
     .nav-item {
+      box-shadow: none;
+
       &.show {
         box-shadow: none;
       }

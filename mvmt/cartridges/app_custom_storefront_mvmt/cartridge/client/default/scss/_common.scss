@@ -4,7 +4,7 @@
 
 .slick-prev , .slick-next{
     &::before {
-        content: unset;
+        content: none;
     }
 }
 

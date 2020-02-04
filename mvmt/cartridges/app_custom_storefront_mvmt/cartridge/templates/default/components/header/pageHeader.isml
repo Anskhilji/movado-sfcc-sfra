@@ -274,10 +274,10 @@
             <button class="mobile-subnav-btn">${Resource.msg('label.button.about', 'common', null)}</button>
             <ul class="mobile-collapse-nav">
                 <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">Contact Us</a>
+                    <a href="#" class="menu-item-link">${Resource.msg('label.header.contact', 'common', null)}</a>
                 </li>
                 <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">Find a Store</a>
+                    <a href="#" class="menu-item-link">${Resource.msg('label.header.find', 'common', null)}</a>
                 </li>
                 <li class="menu-list-item">
                     <a href="#" class="menu-item-link">MVMT Insider</a>
