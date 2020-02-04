@@ -2,6 +2,7 @@
 
 var Site = require('dw/system/Site');
 var Logger = require('dw/system/Logger');
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var SortedMap = require('dw/util/SortedMap');
 var Mac = require('dw/crypto/Mac');
 var Encoding = require('dw/crypto/Encoding');
@@ -24,15 +25,15 @@ function getMethods(basket, CountryCode) {
     var locale = request.locale;
 
     if (merchantAccount == null) {
-        Logger.getLogger('Adyen').fatal('MERCHANTACCOUNT not set.');
+        adyenLogger.fatal('(getPaymentMethodsSHA256) -> getMethods: MERCHANTACCOUNT not set.');
         return [];
     }
     if (skinCode == null) {
-        Logger.getLogger('Adyen').fatal('skinCode not set.');
+        adyenLogger.fatal('(getPaymentMethodsSHA256) -> getMethods: skinCode not set.');
         return [];
     }
     if (HMACkey == null) {
-        Logger.getLogger('Adyen').fatal('HMACkey not set.');
+        adyenLogger.fatal('(getPaymentMethodsSHA256) -> getMethods: HMACkey not set.');
         return [];
     }
 
@@ -101,7 +102,7 @@ function getMethods(basket, CountryCode) {
     callResult = service.call(reqBody);
 
     if (callResult.isOk() === false) {
-        Logger.error('Adyen: Call error code' + callResult.getError().toString() + ' Error => ResponseStatus: ' + callResult.getStatus() + ' | ResponseErrorText: ' + callResult.getErrorMessage() + ' | ResponseText: ' + callResult.getMsg());
+        Logger.error('(getPaymentMethodsSHA256) -> getMethods: Adyen: Call error code' + callResult.getError().toString() + ' Error => ResponseStatus: ' + callResult.getStatus() + ' | ResponseErrorText: ' + callResult.getErrorMessage() + ' | ResponseText: ' + callResult.getMsg());
         return [];
     }
     resultObject = callResult.object;

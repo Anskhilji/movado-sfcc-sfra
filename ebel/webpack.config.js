@@ -81,12 +81,6 @@ if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_ebel/cartridge/c
         module: {
             rules: [
                 {
-                    enforce: "pre",
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: "eslint-loader"
-                },
-                {
                     test: /\.js$/,
                     use: {
                         loader: 'babel-loader',
