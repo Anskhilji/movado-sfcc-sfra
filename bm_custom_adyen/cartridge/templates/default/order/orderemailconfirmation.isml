@@ -26,15 +26,18 @@
 
         <tr>
             <td class="h1 center uppercase pad-40-top pad-40-btm" style="font-size:20px;text-align:center;text-transform:uppercase;padding-top:40px;padding-bottom:40px;color:#000001;vertical-align:top;">
-                ${emailObject.orderConfirmationHeading}</td>
+                ${emailObject.orderConfirmationHeading}
+            </td>
         </tr>
         <tr>
             <td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;">
-                ${emailObject.salution}</td>
+                ${emailObject.salution}
+            </td>
         </tr>
         <tr>
             <td class="p pad-40-btm" style="line-height:18px;font-size:12px;padding-bottom:40px;color:#000001;vertical-align:top;">
-                ${emailObject.thankYou}</td>
+                ${emailObject.thankYou}
+            </td>
         </tr>
         <tr>
             <td class="p center" style="line-height:18px;font-size:12px;text-align:center;color:#000001;vertical-align:top;">
@@ -42,7 +45,8 @@
                     <span class="strong uppercase" style="font-weight:700;text-transform:uppercase;">
                         ${emailObject.orderNumberHeading}
                     </span>
-                    <br/> ${emailObject.orderProcess}
+                    <br/>
+                    ${emailObject.orderProcess}
                 </div>
             </td>
         </tr>
