@@ -1,7 +1,188 @@
 @import 'variables';
 @import '~movado/login';
 
+.page {
+
+    header + div {
+        position: relative;
+    }
+
+    .login-background {
+
+        p {
+            margin: 0;
+        }
+
+        img {
+            object-fit: cover;
+            max-width: 100%;
+            min-height: rem(880);
+            object-position: 50%;
+        }
+    }
+}
+
 .login-page {
+    margin-top: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 55%;
+    left: 50%;
+    height: 100%;
+    padding: rem(70) 0;
+
+    .equal-height {
+        max-width: rem(1200);
+        margin: 0 auto;
+    }
+
+    .create-link, .login-link {
+
+        &.is-mobile-link-active {
+            border-bottom: rem(4) solid $black;
+        }
+    }
+
+    .mobile-links-section {
+        padding: rem(20) 0 rem(10);
+
+        a {
+            color: $black;
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.82);
+            line-height: rem(16);
+            padding-bottom: rem(5);
+            text-transform: uppercase;
+            margin: 0 rem(20);
+            width: auto;
+        }
+    }
+
+    .card {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .login-section-body {
+        padding: rem(50) rem(100) rem(90) rem(100);
+
+        @include media-breakpoint-down(md) {
+            padding: rem(20);
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        width: 100%;
+        padding: 0;
+        max-width: 100%;
+        position: relative;
+        transform: none;
+        top: 0;
+        left: 0;
+    }
+
+    .create-account-section {
+        margin: auto 0;
+
+        .card {
+            background-color: $white-gray;
+        }
+
+        .header-title-create-account {
+            text-align: center;
+            margin: 0 auto;
+            padding: rem(50) rem(20) rem(30);
+            width: 100%;
+
+            h1 {
+                font-size: rem(36);
+                letter-spacing: rem(3.38);
+                font-family: $font-medium;
+                font-weight: 500;
+                line-height: 1.2;
+                text-transform: uppercase;
+            }
+
+            p {
+                font-size: rem(16);
+                font-weight: 500;
+                line-height: rem(23);
+                color: $light-gray;
+                font-family: $font-medium;
+                letter-spacing: rem(0.5);
+            }
+        }
+
+        .login-logos {
+            display: flex;
+            padding-bottom: rem(20);
+
+            @include media-breakpoint-down(md) {
+                justify-content: space-between;
+                margin: auto;
+                width: rem(500);
+            }
+
+            @include media-breakpoint-down(xs) {
+                margin: 0;
+                width: auto;
+            }
+
+            .login-logo {
+                width: 100%;
+
+                .login-logo-wrap {
+                    align-items: center;
+                    background-color: $white;
+                    border-radius: rem(50);
+                    display: flex;
+                    height: rem(88);
+                    justify-content: center;
+                    margin: auto auto rem(10);
+                    overflow: hidden;
+                    padding: rem(10);
+                    width: rem(88);
+                }
+
+                p {
+                    color: $black;
+                    font-size: rem(12);
+                    font-weight: 500;
+                    line-height: rem(20);
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+            }
+        }
+
+        .create-btn {
+            padding-bottom: rem(70);
+
+            a {
+                width: auto;
+                font-size: rem(14);
+                transition: all 0.25s ease-in-out;
+                border-radius: rem(1);
+                letter-spacing: rem(1.6);
+                padding: rem(16);
+                line-height: 1;
+
+                &.btn {
+                    border-width: rem(2);
+                }
+
+                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                    box-shadow: none;
+                    transition: opacity 0.25s ease-in-out;
+                    background: $light-green;
+                    border: rem(2) solid $black;
+                }
+            }
+        }
+    }
 
     .login-welcome-back {
         text-align: center;
@@ -39,7 +220,65 @@
 
     form {
 
-        &.login {
+        &.login, &.reset-password-form {
+
+            .forget-password-header-title {
+                color: $black;
+                font-size: rem(16);
+                font-weight: 500;
+                line-height: rem(23);
+                margin-top: rem(32);
+                margin-bottom: rem(10);
+                text-transform: uppercase;
+                font-family: $font-medium;
+            }
+
+            .send-email-btn {
+                display: flex;
+                width: 100%;
+                vertical-align: middle;
+                align-items: center;
+                margin-bottom: rem(14);
+
+                button {
+                    font-size: rem(10.8);
+                    transition: all 0.25s ease-in-out;
+                    letter-spacing: rem(1.6);
+                    padding: rem(16);
+                    line-height: 1;
+                    margin-right: 26%;
+                    color: $black;
+                    background: $white;
+                    border: rem(1) solid $black;
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
+
+                    &.btn {
+                        border-width: rem(2);
+                    }
+
+                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                        box-shadow: none;
+                        transition: opacity 0.25s ease-in-out;
+                        color: $white;
+                        background: $black;
+                        border: rem(1) solid $black;
+                    }
+                }
+
+                a {
+                    text-decoration: underline;
+                    letter-spacing: rem(1);
+                    white-space: nowrap;
+                    font-size: rem(10.8);
+                    padding: rem(16) rem(28);
+                    text-transform: uppercase;
+                    transition: all 0.25s ease-in-out;
+                    cursor: pointer;
+                }
+            }
 
             .submit-form-section {
 
@@ -51,6 +290,10 @@
                     letter-spacing: rem(1.6);
                     padding: rem(16) 0;
                     line-height: 1;
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
 
                     &.btn {
                         border-width: rem(2);
@@ -75,6 +318,7 @@
                     text-transform: uppercase;
                     font-size: rem(11);
                     color: $black;
+                    cursor: pointer;
                 }
             }
 
@@ -118,7 +362,7 @@
         display: block;
 
         .oauth-facebook {
-            margin-right: 1%;
+            margin-right: 2%;
             background-color: #3b5998;
 
             &:hover {
@@ -138,27 +382,23 @@
             text-align: center;
             text-transform: uppercase;
             line-height: 1;
-            font-size: rem(12);
-            padding: rem(16) rem(28);
+            font-size: rem(14);
+            padding: rem(16) 0;
             transition: all .25s;
             margin: rem(9.44) 0;
-
-            height: rem(51);
             color: $white;
             font-weight: 600;
             border: none;
-            line-height: rem(18);
             margin-bottom: 1%;
             margin-top: 1%;
-            width: 49.5%;
+            width: 49%;
             float: left;
 
             svg, img {
                 width: rem(24);
                 height: rem(24);
-                margin-right: rem(22);
-                margin-left: rem(10);
-                vertical-align: -50%;
+                margin-right: rem(5);
+                vertical-align: -40%;
 
                 @include media-breakpoint-down(xs) {
                      margin-right: rem(16);

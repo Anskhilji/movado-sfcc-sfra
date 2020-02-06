@@ -7,10 +7,9 @@
     </isscript>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account.login', 'eum', null))}"/>
 
-    <div class="hero container login-banner">
+    <div class="login-background hidden-md-down">
         <isslot id="cs-account-login" description="Login banner Image" context="global" />
     </div>
-
 
     <div class="container login-page"> 
         <iscomment> Custom Start: Breadcrumbs is not part of the mvmt account login section. </iscomment>
@@ -19,16 +18,24 @@
         <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
         </iscomment>
         <iscomment> Custom End </iscomment>
-        <div class="row justify-content-center equal-height">
-            <div class="col-sm-8 col-md-6"> 
+        <div class="row justify-content-center equal-height no-gutters">
+            <div class="col-lg-7 col-md-12"> 
                 <div class="card">
-                    <div class="card-body">
+                    <div class="justify-content-center row mobile-links-section hidden-lg-up">
+                        <a href="#" class="is-mobile-link-active login-link">${Resource.msg('link.text.sign.in', 'cart', null)}</a>
+                        <a href="#" class="create-link">${Resource.msg('link.text.create.account', 'cart', null)}</a>
+                    </div>
+                    <div class="card-body login-section-body">
                         <div class="login-form-nav">
                             <div class="login-welcome-back">
                                 <iscontentasset aid="login-page-welcome-content" />
                             </div>
-                            <isinclude template="account/components/loginForm" />
-                            <isinclude template="account/password/requestPasswordResetModal"/>
+                            <div id="login-section">
+                                <isinclude template="account/components/loginForm" />
+                            </div>
+                            <div id="forget-password-section" class="d-none">
+                                <isinclude template="account/password/passwordResetForm"/>
+                            </div>
                             <div class="login-subtitle">
                                 <iscontentasset aid="login-page-sign-in-title" />
                             </div>
@@ -37,9 +44,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-6">
+            <div class="col-lg-5 col-md-12 create-account-section">
                 <div class="card">
-                    <isinclude template="account/components/trackOrderForm" />
+                    <div class="header-title-create-account">
+                        <iscontentasset aid="login-page-create-account-section-title-and-description" />
+                    </div>
+                    <div class="login-logos">
+                        <div class="login-logo">
+                            <iscontentasset aid="login-logo-first" />
+                        </div>
+                        <div class="login-logo">
+                            <iscontentasset aid="login-logo-second" />
+                        </div>
+                        <div class="login-logo">
+                            <iscontentasset aid="login-logo-third" />
+                        </div>
+                    </div>
+                    <div class="create-btn row justify-content-center">
+                        <a class="btn btn-block btn-primary" href="${}">${Resource.msg('button.createaccount.profile', 'forms', null)}</a>
+                    </div>
                 </div>
             </div>
         </div>

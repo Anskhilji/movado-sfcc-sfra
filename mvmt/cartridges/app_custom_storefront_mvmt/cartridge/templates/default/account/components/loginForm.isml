@@ -27,18 +27,7 @@
         <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
     </div>
     <div class="forgot-password text-center">
-        <a class="d-sm-none" href="${URLUtils.url('Account-PasswordReset')}">
-            ${Resource.msg('link.login.forgotpassword', 'login', null)}
-        </a>
-
-        <a
-            id="password-reset"
-            class="hidden-xs-down"
-            data-toggle="modal"
-            href="${URLUtils.url('Account-PasswordResetDialogForm')}"
-            data-target="#requestPasswordResetModal">
-            ${Resource.msg('link.login.forgotpassword', 'login', null)}
-        </a>
+        <a id="forget-password-btn">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
     </div>
 </form>
 <iscomment> Custom End </iscomment>
