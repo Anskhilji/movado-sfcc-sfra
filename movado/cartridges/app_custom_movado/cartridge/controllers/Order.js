@@ -25,7 +25,7 @@ server.replace(
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
 
-        var abTestSegments;
+        var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
 
@@ -60,21 +60,21 @@ server.replace(
         var passwordForm;
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
-        var abTestParticipationSegment = '';
+        var abTestParticipationSegments = '';
         var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
         while (assignedTestSegmentsIterator.hasNext()) {
-            abTestSegments = assignedTestSegmentsIterator.next();
-            if (abTestParticipationSegment == '') {
-                abTestParticipationSegment = abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
+            abTestSegment = assignedTestSegmentsIterator.next();
+            if (abTestParticipationSegments == '') {
+                abTestParticipationSegments = abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
             } else {
-                abTestParticipationSegment = abTestParticipationSegment + ', ' + abTestSegments.ABTest.ID + '-' + abTestSegments.ID;
+                abTestParticipationSegments = abTestParticipationSegments + ', ' + abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
             }
         }
 
-        // Save test segment in order custom attribute
-        if (!empty(abTestParticipationSegment)) {
+        // Save test segments in order custom attribute
+        if (!empty(abTestParticipationSegments)) {
             Transaction.wrap(function () {
-                order.custom.abTestParticipationSegment = abTestParticipationSegment;
+                order.custom.abTestParticipationSegment = abTestParticipationSegments;
             });
         }
 
