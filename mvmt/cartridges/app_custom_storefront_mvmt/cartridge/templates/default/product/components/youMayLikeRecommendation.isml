@@ -1,0 +1,25 @@
+<isif condition="${pdict.youMayLikeRecommendations && !!pdict.youMayLikeRecommendations.length}">
+  <div class="container cs-product-recommendation">
+    <div class="row">
+      <div class="col-12">
+        <div class="cs-carousel-wrapper">
+          <isif condition="${pdict.product.prefs.recommendationsTitle}">
+            <h3 class="carousel-title">${pdict.product.prefs.recommendationsTitle}</h3>
+          </isif>
+          <div class="js-carousel cs-carousel" data-carousel-config='${pdict.product.prefs.recommendationCarouselConfig}'>
+            <isloop items="${pdict.youMayLikeRecommendations}" var="product" status="loopState">
+              <div class="carousel-tile">
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productId, 'pview', 'tile')}"/>
+              </div>
+            </isloop>
+          </div>
+          <isif condition="${pdict.product.prefs.bottomSectionRecommendation}">
+            <div class="bottom-section">
+              <isprint value="${pdict.product.prefs.bottomSectionRecommendation}" encoding="off" />
+            </div>
+          </isif>
+        </div>
+      </div>
+    </div>
+  </div>
+</isif>
