@@ -13,7 +13,7 @@ $(document).ready(function () {
     
     
     function toggleIcon(e) {
-        $(e.target).prev('.panel-heading').find(".more-less").toggleClass('fa-plus fa-minus');
+        $(e.target).prev('.panel-heading').find(".more-less").toggleClass('expand shrink');
     }
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
@@ -42,10 +42,13 @@ $(document).ready(function () {
         if($id == '#'+$contactTab.attr('id')) {
             $helpContainer.hide();
             $footerHelpContainer.hide();
+            $(window).scrollTop();
         } else {
             $helpContainer.show();
             $footerHelpContainer.show();
+            $(window).scrollTop();
         }
+        
     });
     
     $(window).scroll(function (event) {
