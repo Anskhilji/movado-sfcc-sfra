@@ -15,7 +15,7 @@
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories}">
             <li class="nav-item dropdown gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" <isif condition="${!category.disableSubCategories}"> data-toggle="dropdown"</isif> aria-haspopup="true" aria-expanded="false">
                 ${category.name}
               </a>
              <isset name="topCat" value="${category}" scope="page"/>
