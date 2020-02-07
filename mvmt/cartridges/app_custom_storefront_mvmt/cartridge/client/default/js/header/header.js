@@ -63,10 +63,11 @@ $('.mobile-nav .mobile-subnav-btn').click(function() {
     $(this).toggleClass('active');
 });
 
-$('.header-search-field').focusout(function(){
+$('.header-search-field').focusout(function() {
     if (!$(".header-search-field").val()) {
         $(".search-recomendation").fadeIn();
     } else {
         $(".search-recomendation").fadeOut();
     }
 });
+

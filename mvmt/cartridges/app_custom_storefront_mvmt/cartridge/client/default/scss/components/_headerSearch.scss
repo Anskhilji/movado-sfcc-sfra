@@ -143,7 +143,7 @@
     position: absolute;
     top: rem(-55);
     right: 0;
-    background: #fff;
+    background: $white;
     width: calc(100vw - 133px);
     height: rem(54);
     text-align: right;
@@ -212,7 +212,7 @@
     &.desktop-search-active {
       opacity: 1;
       right: 0;
-      box-shadow: 8px 0 20px 0 #404040;
+      box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
     }
 
     .search-input-field {

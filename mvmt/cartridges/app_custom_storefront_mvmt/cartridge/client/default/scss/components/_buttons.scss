@@ -193,7 +193,7 @@ a.button {
 }
 
 .insider-card-button {
-  letter-spacing: 1.5px;
+  letter-spacing: rem(1.5);
   width: 90%;
   min-width: auto;
   max-width: rem(200);

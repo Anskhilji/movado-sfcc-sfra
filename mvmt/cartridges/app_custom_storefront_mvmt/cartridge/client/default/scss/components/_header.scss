@@ -301,7 +301,7 @@ header.new-header {
   .nav-left {
     flex-grow: 3;
     justify-content: flex-start;
-    background: #fff;
+    background: $white;
   }
 
   .nav-right {
@@ -713,7 +713,7 @@ header.new-header {
     padding: 0;
 
     .menu-list-item {
-      border-bottom: 2px solid #f7f8f9;
+      border-bottom: rem(2) solid $white-gray;
       transition: all .25s;
       width: 100%;
 
@@ -785,7 +785,6 @@ header.new-header {
 }
 
 @import "headerSearch";
-
 
 @include media-breakpoint-up(lg) {
   header.new-header {
