@@ -1,6 +1,11 @@
 'use strict';
 
+var baseLogin = require('base/login/login');
+
 module.exports = function () {
+
+    baseLogin.login();
+    baseLogin.resetPassword();
 
     $('#forget-password-btn').on('click', function (e) {
         $('#login-section').removeClass('d-block').addClass('d-none');

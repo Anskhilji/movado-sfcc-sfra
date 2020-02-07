@@ -249,14 +249,13 @@
                     margin-right: 26%;
                     color: $black;
                     background: $white;
-                    border: rem(1) solid $black;
 
                     @include media-breakpoint-down(sm) {
                         width: 100%;
                     }
 
                     &.btn {
-                        border-width: rem(2);
+                        border-width: rem(1);
                     }
 
                     &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
