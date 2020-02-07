@@ -5,7 +5,21 @@ $light-gray2: #929292;
 $light-gray3: #fafafa;
 $light-gray4: #e8e8e8;
 $light-gray5: #f6f6f6;
+$light-gray6: #bfbfbf;
+$light-gray7: #404040;
+$light-gray8: #D1D1D1;
 $light-green: #53c563;
+$gray1: #808080;
+$gray7: #777777;
+$gray8: #f3f3f3;
+$gray9: #8f8f8f;
+$gray10: #ddd; 
+$light-green: #53c563;
+$light-green2: #62c077;
+$light-green3: #57cb71;
+$light-green4: #6bd182;
+$white-gray: #f7f8f9;
+$dark-red: #a40000;
 $transparent-gray: rgba(0, 0, 0, 0.8);
 $gray94:#f0f0f0 !default;
 $white-grey:#eaeaea !default;
@@ -52,11 +66,15 @@ $gray36: #5c5c5c;
     font-style: normal;
 }
 
+$red1: #d9021b;
+$blue: #0051b2;
+
+
 //font Families:
 $font-medium : "futura-pt-medium", Arial, sans-serif !default;
 $font-book : "futura-pt-book", Arial, sans-serif !default;
 $font-bold : "futura-pt-bold", Arial, sans-serif !default;
-$font-primary: $font-book;
+$font-primary: "futura-pt", Arial, sans-serif !default;
 $font-sans-serif: sans-serif, futura-pt, Arial;
 
 $font-oswald-regular: "Oswald-Regular", futura-pt-book, Arial !default;
