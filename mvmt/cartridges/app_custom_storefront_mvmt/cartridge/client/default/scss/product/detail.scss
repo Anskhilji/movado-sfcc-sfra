@@ -2,6 +2,11 @@
 @import '~movado/product/detail';
 
 .gallery-slider {
+    .slick-slide {
+        > div {
+            padding: 0 rem(5);
+        }
+    }
     .slick-prev, .slick-next {
         border: rem(1) solid $chinese-silver;
         box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
@@ -17,5 +22,54 @@
 
     .slick-next {
         right: 0;
+    }
+}
+
+.pdp-vp {
+    padding: rem(20) 0;
+    border: none;
+    text-align: center;
+
+    .pdp-vp-item {
+        display: none;
+        padding: 0 rem(20);
+        color: $light-gray;
+        font-size: rem(14);
+        line-height: rem(25);
+        letter-spacing: .5px;
+
+        @include media-breakpoint-up(sm) {
+            display: inline-block;
+        }
+
+        .pdp-vp-copy-wrap {
+            display: inline-block;
+        }
+
+        .pdp-vp-copy {
+            padding-left: rem(10);
+            font-size: rem(11);
+            font-family: $font-medium;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: $black;
+        }
+
+        .pdp-vp-copy-mobile {
+            @include media-breakpoint-up(sm) {
+                display: none;
+            }
+        }
+
+        &:nth-child(-n+2) {
+            display: inline-block;
+        }
+
+        .pdp-vp-holder {
+            transform: translateY(2px);
+            display: inline-block;
+        }
     }
 }
