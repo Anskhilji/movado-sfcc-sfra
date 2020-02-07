@@ -21,22 +21,22 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 	  var order = OrderMgr.getOrder(session.custom.orderNo);
       checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
 
-	  if (!empty(session.custom.klarnaRiskifiedFlag)) {
-	      checkoutLogger.error('Riskified API Call failed for order number: {0}', order.orderNo);
-	      res.render('error', {
+      if (!empty(session.custom.klarnaRiskifiedFlag)) {
+          checkoutLogger.error('Riskified API Call failed for order number: {0}', order.orderNo);
+          res.render('error', {
               message: Resource.msg('subheading.error.general', 'error', null)
           });
           session.custom.klarnaRiskifiedFlag = '';
           return next();
-	  }
+      }
 
-	  var response = hooksHelper(
+	  var riskifiedCheckoutCreateResponse = hooksHelper(
 		        'app.fraud.detection.checkoutcreate',
 		        'checkoutCreate',
 		        order.orderNo,
 		        order.paymentInstrument,
 		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
-	  if (!response) {
+	  if (!riskifiedCheckoutCreateResponse) {
 	      checkoutLogger.error('Riskified API Call failed for order number: {0}', order.orderNo);
 	      res.render('error', {
 	          message: Resource.msg('subheading.error.general', 'error', null)

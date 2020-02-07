@@ -24,7 +24,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var order = OrderMgr.getOrder(orderNumber);
     var adyenPayPalToken = order.custom.adyenPayPalToken;
 
-    var response = hooksHelper(
+    var riskifiedCheckoutCreateResponse = hooksHelper(
 			'app.fraud.detection.checkoutcreate',
 			'checkoutCreate',
 			orderNumber,
@@ -32,11 +32,11 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 			require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 
     Transaction.begin();
-    if (response) { 
+    if (riskifiedCheckoutCreateResponse) { 
         result = expressPayPalAuthorisation.verify(order, adyenPayPalToken, paymentInstrument.paymentMethod, request);
     }
 
-    if (result.decision !== 'ACCEPT' || !response) { 
+    if (result.decision !== 'ACCEPT' || !riskifiedCheckoutCreateResponse) { 
         Transaction.rollback();
         hooksHelper(
 				'app.fraud.detection.checkoutdenied',

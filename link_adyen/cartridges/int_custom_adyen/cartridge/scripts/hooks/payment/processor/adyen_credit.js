@@ -70,7 +70,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var result = {};
-    var response = hooksHelper(
+    var riskifiedCheckoutCreateResponse = hooksHelper(
         'app.fraud.detection.checkoutcreate',
         'checkoutCreate',
         orderNumber,
@@ -82,7 +82,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var creditCardForm = server.forms.getForm('billing').creditCardFields;
     var adyenCreditVerification = require('*/cartridge/scripts/adyenCreditVerification');
     Transaction.begin();
-    if (response) {
+    if (riskifiedCheckoutCreateResponse) {
         var result = adyenCreditVerification.verify({
             Order: order,
             Amount: paymentInstrument.paymentTransaction.amount,
@@ -94,7 +94,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         });
     }
 
-    if (result.error || !response) {
+    if (result.error || !riskifiedCheckoutCreateResponse) {
         checkoutLogger.error('(adyen_credit) -> Authorize: Error occurred while authorizing payment against order with order number: ' + orderNumber + ' and going to denied the checkout');
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
