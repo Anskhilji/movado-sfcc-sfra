@@ -44,7 +44,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 				orderNumber,
 				paymentInstrument,
 				require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
-        checkoutLogger.error('Riskified API Call failed for order number: {0}', orderNumber);
+        checkoutLogger.error('Riskified API Call failed for order number: ' + orderNumber);
         return {
             error: true
         };
