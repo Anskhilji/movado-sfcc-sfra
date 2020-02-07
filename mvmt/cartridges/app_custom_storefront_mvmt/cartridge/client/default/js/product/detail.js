@@ -2,6 +2,7 @@
 var movadoDetail = require('movado/product/detail');
 
 module.exports = {
+
     gallerySlider: function () {
         $('.gallery-slider').slick({
             dots: true,
@@ -9,13 +10,14 @@ module.exports = {
             speed: 300,
             slidesToShow: 4,
             slidesToScroll: 1,
+            dots: false,
             arrows: true,
             autoplay: true,
             responsive: [
                 {
-                    breakpoint: 4000,
+                    breakpoint: 768,
                     settings: {
-                        slidesToShow: 10,
+                        slidesToShow: 2,
                     }
                 },
             ]
