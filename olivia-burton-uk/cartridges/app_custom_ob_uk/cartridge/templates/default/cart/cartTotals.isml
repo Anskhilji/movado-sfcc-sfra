@@ -1,16 +1,18 @@
-<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableActualShippingEstimations') == true}">
-    <div class="row">
-        <div class="col-12">
-            <p class="cost delivery-date">${pdict.totals.deliveryDate}</p>
+<isif condition="${!dw.campaign.ABTestMgr.isParticipant('EstimatedShippingDatesABTest', 'render-old-experience')}">
+    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableActualShippingEstimations') == true}">
+        <div class="row">
+            <div class="col-12">
+                <p class="cost delivery-date">${pdict.totals.deliveryDate}</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <p class="cost delivery-time ${pdict.totals.deliveryTime.isExpress ? '' : 'd-none'}" data-hours ="${pdict.totals.deliveryTime.hours}" data-minutes="${pdict.totals.deliveryTime.minutes}" data-seconds="${pdict.totals.deliveryTime.seconds}">
-                <span>${Resource.msg('order.within.callout.message','shipping',null)}</span> <span class="time-update-control font-weight-bold"></span>
-            </p>
+        <div class="row">
+            <div class="col-12">
+                <p class="cost delivery-time ${pdict.totals.deliveryTime.isExpress ? '' : 'd-none'}" data-hours ="${pdict.totals.deliveryTime.hours}" data-minutes="${pdict.totals.deliveryTime.minutes}" data-seconds="${pdict.totals.deliveryTime.seconds}">
+                    <span>${Resource.msg('order.within.callout.message','shipping',null)}</span> <span class="time-update-control font-weight-bold"></span>
+                </p>
+            </div>
         </div>
-    </div>
+    </isif>
 </isif>
 <div class="row">
     <div class="col-8">
