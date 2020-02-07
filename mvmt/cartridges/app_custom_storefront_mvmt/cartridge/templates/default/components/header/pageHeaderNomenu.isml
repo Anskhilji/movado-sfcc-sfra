@@ -1,0 +1,5 @@
+<header class="cart-and-checkout-header">
+    <div class="middle flex align-items-center justify-content-center checkout-logo">
+        <isslot id="cart-and-checkout-logo" description="Cart and checkout logo" context="global" />
+    </div>
+</header>

@@ -17,7 +17,6 @@ module.exports = function () {
     /**
      * It is used to off the movado event.
      */
-    $('body').off('click touchstart mouseenter focusin');
     $('.minicart').off('mouseenter focusin click touchstart mouseleave focusout');
 
     /**

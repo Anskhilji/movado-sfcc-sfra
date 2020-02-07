@@ -1,0 +1,17 @@
+<iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
+<div class="quantity-form">
+    <button type="button" class="quantity-btn hidden-sm-down decreased-btn" ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
+        <svg class="svg-icon" viewBox="0 0 8 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="0 7 0 9 8 9 8 7"></polygon></g></svg>
+    </button>
+    <input class="form-control quantity quantity-select custom-select pid-${lineItem.id}"
+        data-uuid="${lineItem.UUID}"
+        data-pid="${lineItem.id}"
+        data-action="${pdict.actionUrls.updateQuantityUrl}"
+        data-pre-select-qty="${lineItem.quantity}"
+        value="${Number(lineItem.quantity.toString()).toFixed()}"
+        name="quantity" type="text"/>
+    <button type="button" class="quantity-btn hidden-sm-down increased-btn" data-pid="pid-${lineItem.id}" id="${lineItem.id}">
+        <svg class="svg-icon" viewBox="0 0 12 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="12 9 7 9 7 14 5 14 5 9 0 9 0 7 5 7 5 2 7 2 7 7 12 7"></polygon></g></svg>
+    </button>
+</div>
+<iscomment> Custom End </iscomment>

@@ -63,7 +63,9 @@ function updateCartTotals(data) {
     /* Affirm block for refreshing promo message */
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
-    affirm.ui.refresh();
+    if ($('.affirm-as-low-as').length > 0) {
+        affirm.ui.refresh();
+    }
     $('.minicart-quantity').empty().append(data.numItems);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
@@ -235,9 +237,8 @@ function increaseQuantity (quantitySelector, id) {
 /**
  * updateCartQuantity function will update the quantity in the product and the cart.
  * quantitySelector param is used to get the selected product class and it data attributes.
- * isKeyEvent param is used to check the current event is fire from keys or mouse.
  * @param quantitySelector
- * @param isKeyEvent
+ * @param isKeyEvent is used to check the current event is fire from keys or mouse.
  */
 function updateCartQuantity (quantitySelector, isKeyEvent) {
     var preSelectQty = $(quantitySelector).data('pre-select-qty');
@@ -280,9 +281,6 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
             validateBasket(data);
             $(quantitySelector).data('pre-select-qty', quantity);
             $.spinner().stop();
-            if ($(quantitySelector).parents('.product-info').hasClass('bonus-product-line-item') && $('.cart-page').length) {
-                location.reload();
-            }
         },
         error: function (err) {
             if (err.responseJSON.redirectUrl) {
@@ -299,14 +297,91 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
 module.exports = function () {
 
     /**
+     * This is new click event function on the decreased quantity button.
+     * It will get the decreased-btn data attribute and builds the quantitySelector 
+     * class and it will call the decreaseQuantity function.
+     */
+    $('body').off('click', '.decreased-btn').on('click', '.decreased-btn', function (e) {
+        var pid = $(this).data('pid');
+        var quantitySelector = '.' + $(this).data('pid');
+        decreaseQuantity(quantitySelector, pid);
+    });
+
+    /**
+     * This is new click event function on the increased quantity button.
+     * It will get the increased-btn data attribute and builds the quantitySelector 
+     * class and it will call the increaseQuantity function.
+     */
+    $('body').off('click', '.increased-btn').on('click', '.increased-btn', function (e) {
+        var pid = $(this).data('pid');
+        var quantitySelector = '.' + $(this).data('pid');
+        increaseQuantity(quantitySelector, pid);
+    });
+
+    /**
+     * This is override click event function on the remove button from mini-cart.
+     * It is used to remove the product from the cart and if product is 
+     * successfully removed then it will add the new classes with div's according to
+     * the mvmt design.
+     */
+    $('body').off('click', '.remove-product-from-mini-cart').on('click', '.remove-product-from-mini-cart', function (e) {
+        var actionUrl = $(this).data('action');
+        var productID = $(this).data('pid');
+        var productName = $(this).data('name');
+        var uuid = $(this).data('uuid');
+        var gtmProdObj = $(this).data('gtm-cart');
+        var urlParams = {
+            pid: productID,
+            uuid: uuid
+        };
+
+        var url = appendToUrl(actionUrl, urlParams);
+        $('.gtm-cart').attr('data-gtm-cart', JSON.stringify(gtmProdObj));
+
+        $.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.basket.items.length === 0) {
+
+                } else {
+                    if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
+                        for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
+                            $('.uuid-' + data.toBeDeletedUUIDs[i]).remove();
+                        }
+                    }
+                    $('.uuid-' + uuid).remove();
+                    if (!data.basket.hasBonusProduct) {
+                        $('.bonus-product').remove();
+                    }
+                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    updateCartTotals(data.basket);
+                    updateApproachingDiscounts(data.basket.approachingDiscounts);
+                    $('body').trigger('setShippingMethodSelection', data.basket);
+                    validateBasket(data.basket);
+                }
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
+    });
+
+    /**
      * This is override click event function on the remove button.
      * It is used to remove the product from the cart and if product is 
      * successfully removed then it will add the new classes with div's according to
      * the mvmt design.
      */
-    $(document).off('click').on('click', '.remove-product', function (e) {
-        e.preventDefault();
-
+    $('body').off('click', '.remove-product').on('click', '.remove-product', function (e) {
         var actionUrl = $(this).data('action');
         var productID = $(this).data('pid');
         var productName = $(this).data('name');
@@ -334,9 +409,11 @@ module.exports = function () {
                         + '<h1 class="empty-cart-header empty-cart-msg">'
                         + window.Resources.CART_EMPTY_MESSAGE
                         + '</h1></div>'
-                        + '<div><a href= "' + data.homePage + '" class="btn btn-primary btn-block continue-shopping" role="button">' 
+                        + '<div><a href= "' + data.homePageURL + '" class="btn btn-primary btn-block continue-shopping" role="button">' 
                         + window.Resources.CONTINUE_SHOPPING + '</a>'
                         + '</div></div></div>';
+                    $('.cart-header-wrapper').remove();
+                    $('.promo-box').remove();
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();

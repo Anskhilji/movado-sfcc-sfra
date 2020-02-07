@@ -1,26 +1,40 @@
+$gray1: #808080;
+$gray7: #777777;
+$gray8: #f3f3f3;
+$gray9: #8f8f8f;
+$gray10: #ddd; 
 
-$white-gray: #f7f8f9;
-$dark-red: #a40000;
 $light-gray: #5c5c5c;
 $light-gray2: #929292;
 $light-gray3: #fafafa;
 $light-gray4: #e8e8e8;
 $light-gray5: #f6f6f6;
-$light-gray6: #c2c2c2;
+$light-gray6: #bfbfbf;
+$light-gray7: #404040;
+$light-gray8: #D1D1D1;
+
 $light-green: #53c563;
 $light-green2: #53c56e;
 $light-green3: #66cb74;
 $light-green4: #51C96D;
 $light-green5: #72cf7f;
+$light-green6: #62c077;
+$light-green7: #57cb71;
+$light-green8: #6bd182;
+
 $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
+$white-gray: #f7f8f9;
+$dark-red: #a40000;
 $red1: #d9021b;
+$blue: #0051b2;
 
 //font Families:
 $font-medium : "futura-pt-medium", Arial, sans-serif !default;
 $font-book : "futura-pt-book", Arial, sans-serif !default;
 $font-bold : "futura-pt-bold", Arial, sans-serif !default;
-$font-primary: $font-book;
+$font-primary: "futura-pt", Arial, sans-serif !default;
+$font-sans-serif: sans-serif, futura-pt, Arial;
 
 $font-oswald-regular: "Oswald-Regular", futura-pt-book, Arial !default;
 $font-oswald-bold: "Oswald-Bold", futura-pt-book, Arial !default;

@@ -8,6 +8,8 @@ var ShippingMgr = require('dw/order/ShippingMgr');
 
 var formatCurrency = require('*/cartridge/scripts/util/formatting').formatCurrency;
 
+var shippingMethodHelper = require('*/cartridge/scripts/helpers/shippingMethodHelper'); 
+
 /**
  * Returns shippingCost property for a specific Shipment / ShippingMethod pair
  * @param {dw.order.ShippingMethod} shippingMethod - the default shipment of the current basket

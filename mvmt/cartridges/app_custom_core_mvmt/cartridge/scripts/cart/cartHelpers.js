@@ -1,4 +1,5 @@
 'use strict';
+
 var cartHelpers = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Resource = require('dw/web/Resource');
