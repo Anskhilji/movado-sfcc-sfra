@@ -135,7 +135,6 @@ module.exports = {
         });
     }
 };
-
 $( document ).ready(function() {
     refreshAffirmUI();
 });
