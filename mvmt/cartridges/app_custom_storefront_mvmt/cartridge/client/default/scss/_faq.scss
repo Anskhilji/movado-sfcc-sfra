@@ -189,7 +189,7 @@
             font-size: rem(36);
             letter-spacing: rem(3.38);
             line-height: rem(42);
-            margin: 5rem 0;
+            margin: rem(80) 0;
         }
     }
     
@@ -221,7 +221,7 @@
         display: inline-table;
         
         td {
-            padding: 1.25rem;
+            padding: rem(20);
             text-align: left;
         }
     }
@@ -252,8 +252,8 @@
         letter-spacing: rem(3);
         position: relative;
         border: rem(2) solid $black;
-        padding: 1rem;
-        margin-top: 1.25rem;
+        padding: rem(16);
+        margin-top: rem(20);
         
         &:hover {
             background: $green;
@@ -273,7 +273,7 @@
         font-weight: 400;
         letter-spacing: rem(4.29);
         text-transform: uppercase;
-        margin: 2.5rem 0 1.25rem;
+        margin: rem(40) 0 rem(20);
     }
     
     .faq-accordion-block-header {
@@ -281,7 +281,7 @@
         font-size: rem(16);
         line-height: rem(20);
         font-weight: 400;
-        margin: 2.5rem 0 1.25rem;
+        margin: rem(40) 0 rem(20);
     }
     
     a {
@@ -313,10 +313,10 @@
                 content: " ";
                 display: block;
                 position: absolute;
-                width: 0.063rem;
-                height: 1rem;
-                right: 0.5rem;
-                top: 1rem;
+                width: rem(1.008);
+                height: rem(16);
+                right: rem(8);
+                top: rem(16);
                 background-color:$light-gray2;
             }
             
@@ -324,9 +324,9 @@
                 content: " ";
                 position: absolute;
                 right: 0;
-                top: 1.5rem;
-                width: 1rem;
-                height: 0.0625rem;
+                top: rem(24);
+                width: rem(16);
+                height: rem(1);
                 background-color: $light-gray2;
             }
         }
@@ -335,9 +335,9 @@
                 content: " ";
                 position: absolute;
                 right: 0;
-                top: 1.5rem;
-                width: 1rem;
-                height: 0.0625rem;
+                top: rem(24);
+                width: rem(16);
+                height: rem(1);
                 background-color: $light-gray2;
             }
         }
@@ -361,7 +361,7 @@
         line-height: 1.5;
         font-weight: bold;
         margin-bottom: rem(15);
-        font-family: "futura-pt", sans-serif;
+        font-family: $font-primary;
         margin-top: rem(48);
         
         @include media-breakpoint-up(sm) {
@@ -373,7 +373,7 @@
 .contact-us-form-wrapper h2 {
     font-size: rem(18);
     letter-spacing: rem(2.5);
-    margin-bottom: 1.25rem;
+    margin-bottom: rem(20);
 }
 
 .contact-us-form-wrapper {
@@ -387,9 +387,9 @@
     }
 }
 .contact-us-form-wrapper p {
-    margin: .59rem 0;
+    margin: rem(9.44) 0;
     line-height: 2em;
-    font-family: Futura-pt,arial,sans-serif;
+    font-family: $font-primary;
     color: $dark-orange1;
     font-size: rem(12);
     font-weight: bold;
@@ -407,7 +407,7 @@
         font-weight: bold;
         line-height: rem(23);
         letter-spacing: rem(.6);
-        font-family: Futura-pt,arial,sans-serif;
+        font-family: $font-primary;
     }
 }
 
@@ -424,13 +424,13 @@
     h2 {
         font-size: rem(18);
         letter-spacing: rem(2.5);
-        margin-bottom: 1.25rem;
+        margin-bottom: rem(20);
         color: $black;
         line-height: 1;
     }
     
     .chat-now-button {
-        font-family: Futura-pt,arial,sans-serif;
+        font-family: $font-primary;
         font-weight: 500;
         font-style: normal;
         border: rem(2) solid $black;
@@ -452,7 +452,7 @@
         text-size-adjust: 100%;
         outline: 0;
         overflow: visible;
-        padding: 1rem 1.75rem;
+        padding: rem(16) rem(28);
         min-width: rem(200);
         background-color: transparent;
         
@@ -468,7 +468,7 @@
     font-size: rem(12) !important;
     font-weight: 500 !important;
     letter-spacing: rem(1);
-    margin: .59rem 0;
+    margin: rem(9.44) 0;
     line-height: 2em;
     text-align: left;
     text-size-adjust: 100%;
@@ -476,37 +476,37 @@
 
 .contact-us-details {
     p {
-        margin: .59rem 0;
+        margin: rem(9.44) 0;
         line-height: 2em;
-        font-family: Futura-pt,arial,sans-serif;
+        font-family: $font-primary;
         font-weight: 400;
         font-style: normal;
         color: $light-gray;
-        font-size: .875rem;
+        font-size: rem(14);
         letter-spacing: rem(.5);
     }
 }
 
 .contactus-form .form-control {
     border: rem(1) solid $cyan-blue1;
-    padding: 1.25rem;
+    padding: rem(20);
 }
 
 .custom-select {
     border: rem(1) solid $cyan-blue1;
-    padding: 1.25rem;
+    padding: rem(20);
 }
 
 .myquestion-wrapper .fa-sort {
-    font-size: 0.75rem;
-    top: 0.80rem;
+    font-size: rem(12);
+    top: rem(12.8);
 }
 
 .btn-save {
     background: transparent;
     border: rem(1) solid $black;
     color: $black;
-    font-size: .675rem;
+    font-size: rem(10.8);
     height: rem(45);
     white-space: nowrap;
 }
@@ -613,7 +613,7 @@
     }
     .faq-main {
         max-width: 100%;
-        margin-left: 6.5rem;
+        margin-left: rem(104);
     }
     .col-md-control {
         flex-basis: 100%;
@@ -624,7 +624,13 @@
 
 @media only screen and (max-width: 1099px) {
     .faq-main {
-        margin-left: 4rem;
+        margin-left: rem(64);
+    }
+}
+
+.col-md-control {
+    > .content-asset {
+
     }
 }
 

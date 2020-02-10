@@ -30,6 +30,7 @@ $(document).ready(function () {
     });
     
     $('.faq-nav-control-bar-link').on('click', function(){
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
@@ -42,13 +43,11 @@ $(document).ready(function () {
         if($id == '#'+$contactTab.attr('id')) {
             $helpContainer.hide();
             $footerHelpContainer.hide();
-            $(window).scrollTop();
         } else {
             $helpContainer.show();
             $footerHelpContainer.show();
-            $(window).scrollTop();
         }
-        
+        return false;
     });
     
     $(window).scroll(function (event) {
