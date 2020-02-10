@@ -184,7 +184,9 @@ function updateShippingMethods(shipping) {
                     if (shippingMethod.deliveryDate) {
                         arrivalTime = '(' + shippingMethod.deliveryDate + ')';
                     } else {
-                        arrivalTime = '(' + shippingMethod.description + ')';
+                        if (shippingMethod.description) {
+                            arrivalTime = '(' + shippingMethod.description + ')';
+                        }
                     }
 
                     if (arrivalTime) {
