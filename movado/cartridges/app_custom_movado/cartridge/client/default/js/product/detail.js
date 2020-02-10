@@ -133,17 +133,3 @@ module.exports = {
         });
     }
 };
-
-$( document ).ready(function() {
-    refreshAffirmUI();
-});
-
-function refreshAffirmUI() {
-    if (document.readyState === "complete") {
-        affirm.ui.refresh();
-    } else {
-        setTimeout(function() {
-            refreshAffirmUI();
-        }, 200);
-    }
-}
