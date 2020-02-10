@@ -1,4 +1,4 @@
-<isif condition="${!dw.campaign.ABTestMgr.isParticipant('EstimatedShippingDatesABTest', 'render-old-experience')}">
+<isif condition="${pdict.totals.deliveryDate}">
     <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableActualShippingEstimations') == true}">
         <div class="row">
             <div class="col-12">
