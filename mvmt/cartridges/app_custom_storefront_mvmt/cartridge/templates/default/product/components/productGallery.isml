@@ -25,7 +25,7 @@
       </svg>
     </div>
     <div class="pdp-vp-copy-wrap">
-      <p class="pdp-vp-copy">Free Shipping Worldwide</p>
+      <p class="pdp-vp-copy">${Resource.msg('gallery.label.free.shipping', 'product', null)}</p>
     </div>
   </li>
 
@@ -53,7 +53,7 @@
       </svg>
     </div>
     <div class="pdp-vp-copy-wrap">
-      <p class="pdp-vp-copy">free returns worldwide</p>
+      <p class="pdp-vp-copy">${Resource.msg('gallery.label.free.return', 'product', null)}</p>
     </div>
   </li>
 
@@ -85,7 +85,7 @@
       </svg>
     </div>
     <div class="pdp-vp-copy-wrap">
-      <p class="pdp-vp-copy">24 month warranty</p>
+      <p class="pdp-vp-copy">${Resource.msg('gallery.label.warrenty', 'product', null)}</p>
     </div>
   </li>
 
@@ -113,13 +113,13 @@
       </svg>
     </div>
     <div class="pdp-vp-copy-wrap">
-      <p class="pdp-vp-copy">100% secure checkout</p>
+      <p class="pdp-vp-copy">${Resource.msg('gallery.label.secure', 'product', null)}</p>
     </div>
   </li>
 </ul>
 
 <div class="gallery-slider-wrapper">
-  <div class="gallery-slider" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+  <div class="gallery-slider">
     <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
       <div class="carousel-tile">
         <picture>
