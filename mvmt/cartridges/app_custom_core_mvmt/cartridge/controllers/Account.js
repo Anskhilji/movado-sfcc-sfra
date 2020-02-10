@@ -16,7 +16,7 @@ server.replace('Header', server.middleware.include, function (req, res, next) {
 });
 
 server.append('Login', server.middleware.https, function (req, res, next) {
-    var isMiniCart = req.querystring.isMiniCart;
+    var isMiniCart = empty(req.querystring.isMiniCart) ? false : true;
     var viewData = res.getViewData();
     var authenticatedCustomer = viewData.authenticatedCustomer;
     if (!empty(authenticatedCustomer) && isMiniCart) {

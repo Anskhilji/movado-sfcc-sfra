@@ -7,22 +7,6 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
-server.replace('MiniCart', server.middleware.include, function(req, res, next) {
-    var BasketMgr = require('dw/order/BasketMgr');
-
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var quantityTotal;
-
-    if (currentBasket) {
-        quantityTotal = currentBasket.productQuantityTotal;
-    } else {
-        quantityTotal = 0;
-    }
-
-    res.render('/components/header/miniCart', { quantityTotal: quantityTotal });
-    next();
-});
-
 server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
     function(req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
