@@ -4,6 +4,7 @@ var ContentMgr = require('dw/content/ContentMgr');
 var Locale = require('dw/util/Locale');
 var OrderModel = require('*/cartridge/models/order');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 
 /**
  * Re-sends order confirmation to the user
@@ -13,11 +14,12 @@ var Resource = require('dw/web/Resource');
 function getOrderConfirmationObject(order) {
 
     var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
-    var currentLocale = Locale.getLocale('default');
+    var currentSite = Site.getCurrent();
+    var currentLocale = Locale.getLocale(currentSite.getDefaultLocale());
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
-    var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
+    var orderModel = new OrderModel(order, { countryCode: currentLocale.country, containerView: 'order'});
 
     var orderObject = {
             applePay: Resource.msg('order.confirmation.email.payment.applepay', 'order', null),
