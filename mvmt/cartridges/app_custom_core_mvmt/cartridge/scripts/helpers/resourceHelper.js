@@ -15,6 +15,9 @@ function getResources(pageContext) {
     var Site = require('dw/system/Site');
 
     var resources = {
+        MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
+        CART_EMPTY_MESSAGE: Resource.msg('info.cart.empty.msg', 'cart', null),
+        CONTINUE_SHOPPING: Resource.msg('link.continue.shopping', 'cart', null),
         FOOTER_POPUP_DATE_OF_BIRTHDAY_DAY: Resource.msg('newsletter.form.input.day.placeholder', 'newsLetter', null),
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
         KLARNA_SLICE_IT_PAYMENT_METHOD_TEXT: Resource.msg('checkout.payment.method.klarna.slice.it.text', 'checkout', null),

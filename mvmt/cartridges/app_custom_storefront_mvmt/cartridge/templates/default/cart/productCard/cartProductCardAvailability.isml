@@ -1,4 +1,4 @@
-<iscomment>Custom Start: Removing mb-2 class from this div section </iscomment>
+<iscomment> Custom Start: Removing mb-2 class in section </iscomment>
 <div class="line-item-availability availability-${lineItem.UUID}">
     <isloop items="${lineItem.availability.messages}" var="message">
         <p class="line-item-attributes <isif condition="${!lineItem.available}"> out-of-stock </isif>">${message}</p>

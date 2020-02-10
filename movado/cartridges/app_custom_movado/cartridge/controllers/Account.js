@@ -210,7 +210,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     } else {
                         registrationForm.validForm = false;
                         registrationForm.form.customer.email.valid = false;
-                        registrationForm.form.customer.email.error = Resource.msg('form.email.address.already.exist', 'common', null);
+                        registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
                         if (!isMiniCart) {
                             registrationForm.form.customer.emailconfirm.valid = false;
                             registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);

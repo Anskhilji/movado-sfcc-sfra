@@ -1,51 +1,48 @@
 'use strict';
-var formHelpers = require('base/checkout/formErrors');
-var formValidation = require('base/components/formValidation');
-var createErrorNotification = require('base/components/errorNotification');
-var cart = require('../cart/cart');
+
+var $formValidation = require('base/components/formValidation');
+var $createErrorNotification = require('base/components/errorNotification');
+var $cart = require('../cart/cart');
 
 function setMiniCartProductSummaryHeight () {
-    var miniCartHeight = parseInt($('.minicart .popover').outerHeight(true));
-    var miniCartHeaderHeight = parseInt($('.minicart .popover .mini-cart-header').outerHeight(true)) + parseInt($('.minicart .popover .title-free-shipping').outerHeight(true));
-    var miniCartFooterHeight = isNaN(parseInt($('.minicart .minicart-footer').outerHeight(true))) ? 188 : parseInt($('.minicart .minicart-footer').outerHeight(true));
-    miniCartHeaderHeight = isNaN(miniCartHeaderHeight) ? 97 : miniCartHeaderHeight;
-    var productSummaryHeight = miniCartHeight - (miniCartFooterHeight + miniCartHeaderHeight);
-    $('.minicart .product-summary').css('max-height', productSummaryHeight);
+    var $miniCartHeight = parseInt($('.minicart .popover').outerHeight(true));
+    var $miniCartHeaderHeight = parseInt($('.minicart .popover .mini-cart-header').outerHeight(true)) + parseInt($('.minicart .popover .title-free-shipping').outerHeight(true));
+    var $miniCartFooterHeight = isNaN(parseInt($('.minicart .minicart-footer').outerHeight(true))) ? 188 : parseInt($('.minicart .minicart-footer').outerHeight(true));
+    $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
+    var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
+    $('.minicart .product-summary').css('max-height', $productSummaryHeight);
 }
 
 module.exports = function () {
-    cart();
+    $cart();
 
     /**
      * It is used to off the movado event.
      */
-    $('body').off('click touchstart mouseenter focusin');
     $('.minicart').off('mouseenter focusin click touchstart mouseleave focusout');
 
     /**
     * This event is override from movado and it is used to show miniCart on the click event.
     */
-    $('body').on('click touchstart', '.minicart', function (event) {
-        var url = $('.minicart').data('action-url');
-        var count = parseInt($('.minicart .minicart-quantity').text());
+    $('body').off('click touchstart', '.minicart').on('click touchstart', '.minicart', function (event) {
+        var $url = $('.minicart').data('action-url');
+        var $count = parseInt($('.minicart .minicart-quantity').text());
 
-        if (count !== 0 && $('.minicart .popover.show').length === 0) {
-            $.get(url, function (data) {
+        if ($count !== 0 && $('.minicart .popover.show').length === 0) {
+            $.get($url, function (data) {
                 $('.minicart .popover').empty();
                 $('.minicart .popover').append(data);
                 $('#overlay').addClass('footer-form-overlay');
                 setMiniCartProductSummaryHeight();
                 $('.minicart .popover').addClass('show');
             });
-        } else {
-            if (count === 0) {
-                $.get(url, function (data) {
-                    $('.minicart .popover').empty();
-                    $('.minicart .popover').append(data);
-                    $('#overlay').addClass('footer-form-overlay');
-                    $('.minicart .popover').addClass('show');
-                });
-            }
+        } else if ($count === 0 && $('.minicart .popover.show').length === 0) {
+            $.get($url, function (data) {
+                $('.minicart .popover').empty();
+                $('.minicart .popover').append(data);
+                $('#overlay').addClass('footer-form-overlay');
+                $('.minicart .popover').addClass('show');
+            });
         }
     });
 
@@ -63,8 +60,8 @@ module.exports = function () {
      * This event is used to show forget form and hide other forms from the mini cart.
      */
     $('.minicart').on('click touchstart', '#password-reset-btn', function (event) {
-        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
-        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+        var $checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if ($checkedRadioBtnValue !== '' && $checkedRadioBtnValue === 'account') {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
@@ -91,8 +88,8 @@ module.exports = function () {
      * This event is used to show login form and hide other forms from the mini cart.
      */
     $('.minicart').on('click touchstart', '.sign-in, #sign-in-account, #login-in', function (event) {
-        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
-        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+        var $checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if ($checkedRadioBtnValue !== '' && $checkedRadioBtnValue === 'account') {
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
@@ -119,9 +116,9 @@ module.exports = function () {
      * This event is used to show create form and hide other forms from the mini cart.
      */
     $('.minicart').on('click touchstart', '.create-account, #create-account', function (event) {
-        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        var $checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
         setMiniCartProductSummaryHeight();
-        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+        if ($checkedRadioBtnValue !== '' && $checkedRadioBtnValue === 'account') {
             $('.mini-cart-login').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
             $('.checkout-with-account').css('display', 'none');
@@ -148,8 +145,8 @@ module.exports = function () {
      * This event is used to check get the selected radio button value.
      */
     $('.minicart').on('change', '.cart-checkout-options input[type="radio"]', function (event) {
-        var checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
-        if (checkedRadioBtnValue !== '' && checkedRadioBtnValue === 'account') {
+        var $checkedRadioBtnValue = $('input[name="checkout"]:checked').val();
+        if ($checkedRadioBtnValue !== '' && $checkedRadioBtnValue === 'account') {
             $('.mini-cart-login').css('display', 'none');
             $('.mini-cart-registration').css('display', 'none');
             $('.continue-checkout-btn').css('display', 'none');
@@ -196,7 +193,7 @@ module.exports = function () {
             success: function (data) {
                 form.spinner().stop();
                 if (!data.success) {
-                    formValidation(form, data);
+                    $formValidation(form, data);
                     $('form.login').trigger('login:error', data);
                 } else {
                     $('form.login').trigger('login:success', data);
@@ -229,7 +226,7 @@ module.exports = function () {
             success: function (data) {
                 form.spinner().stop();
                 if (!data.success) {
-                    formValidation(form, data);
+                    $formValidation(form, data);
                 } else {
                     location.href = data.redirectUrl;
                 }
@@ -238,7 +235,7 @@ module.exports = function () {
                 if (err.responseJSON.redirectUrl) {
                     window.location.href = err.responseJSON.redirectUrl;
                 } else {
-                    createErrorNotification($('.error-messaging'), err.responseJSON.errorMessage);
+                    $createErrorNotification($('.error-messaging'), err.responseJSON.errorMessage);
                 }
 
                 form.spinner().stop();
@@ -261,7 +258,7 @@ module.exports = function () {
             success: function (data) {
                 form.spinner().stop();
                 if (!data.success) {
-                    formValidation(form, data);
+                    $formValidation(form, data);
                 } else {
                     $('.request-password-title').text(data.receivedMsgHeading);
                     $('.request-password-body').empty()
