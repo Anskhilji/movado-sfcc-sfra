@@ -182,15 +182,9 @@ function updateShippingMethods(shipping) {
                     // set or hide arrival time
                     var arrivalTime;
                     if (shippingMethod.deliveryDate) {
-                        arrivalTime = shippingMethod.deliveryDate;
+                        arrivalTime = '(' + shippingMethod.deliveryDate + ')';
                     } else {
-                        if (shippingMethod.estimatedArrivalTime && shippingMethod.description) {
-                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ', ' + shippingMethod.description + ')';
-                        } else if (shippingMethod.estimatedArrivalTime) {
-                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ')';
-                        } else if (shippingMethod.description) {
-                            arrivalTime = '(' + shippingMethod.description + ')';
-                        }
+                        arrivalTime = '(' + shippingMethod.description + ')';
                     }
 
                     if (arrivalTime) {
