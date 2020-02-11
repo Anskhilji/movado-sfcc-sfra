@@ -35,9 +35,10 @@
         .carousel-pagination {
             z-index: 9;
             height: 100%;
+            display: none;
 
-            @include media-breakpoint-down(sm) {
-                display: none;
+            @include media-breakpoint-up(md-down) {
+                display: block;
             }
 
             @include media-breakpoint-up(lg) {
@@ -50,7 +51,7 @@
             }
 
             .slick-track {
-                width: 100% !important;
+                width: 100%;
                 text-align: center;
             }
 
