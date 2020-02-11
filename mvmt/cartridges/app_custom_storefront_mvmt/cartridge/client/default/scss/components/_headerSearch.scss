@@ -8,6 +8,7 @@
     position: relative;
 
     .items-header {
+
       > div {
         color: $regent-grey;
         @include font-medium;
@@ -113,6 +114,7 @@
       outline: none;
 
       svg {
+
         g {
           fill: $black;
           fill-opacity: 1;
@@ -187,6 +189,7 @@
       outline: none;
 
       svg {
+
         g {
           fill: $black;
           fill-opacity: 1;

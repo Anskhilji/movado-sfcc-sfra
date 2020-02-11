@@ -443,7 +443,7 @@ header.new-header {
 
   .main-level-item {
 
-    > button, > a{
+    > button, > a {
       position: relative;
       display: block;
       @include font-book;
@@ -751,6 +751,7 @@ header.new-header {
     margin: 0;
     margin-top: rem(40);
     padding: rem(20) 0;
+
     li {
       display: inline-block;
 
