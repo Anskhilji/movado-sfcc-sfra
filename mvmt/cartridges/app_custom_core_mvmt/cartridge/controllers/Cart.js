@@ -7,6 +7,7 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
+var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
 server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
@@ -15,10 +16,15 @@ server.append('MiniCartShow', consentTracking.consent, server.middleware.https, 
     var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'isMiniCart', true);
     var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target, 'isMiniCart', true).toString();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
+    var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
+    var googleOauthProvider = Site.getCurrent().getCustomPreferenceValue('googleOauthProvider');
     var miniCartRegisterForm = server.forms.getForm('miniCartRegistrationForm');
     miniCartRegisterForm.clear();
 
     res.setViewData({
+        facebookOauthProvider: facebookOauthProvider,
+        googleOauthProvider: googleOauthProvider,
+        oAuthReentryEndpoint: 2,
         createAccountUrl: createAccountUrl,
         actionUrl: actionUrl,
         miniCartRegisterForm: miniCartRegisterForm,
