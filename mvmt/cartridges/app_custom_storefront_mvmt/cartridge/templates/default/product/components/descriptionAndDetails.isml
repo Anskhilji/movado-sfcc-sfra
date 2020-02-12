@@ -1,7 +1,12 @@
+<iscomment>Custom Start: Changed the HTML structure, makes tabs</iscomment>
 <div class="description-and-detail">
     <div class="pdp-tabs-nav">
-        <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>
-        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
+        <isif condition="${!pdict.isCompareableDisabled}">
+            <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>
+        </isif>
+        <isif condition="${product.longDescription}">
+            <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
+        </isif>
         <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)}</button>
     </div>
     <div class="pdp-tabs-body">
@@ -121,3 +126,4 @@
         </div>
     </div>
 </div>
+<iscomment>Custom End</iscomment>
