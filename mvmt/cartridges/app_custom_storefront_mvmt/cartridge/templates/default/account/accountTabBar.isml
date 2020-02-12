@@ -1,0 +1,28 @@
+<section class="tab-bar-main">
+    <button class="tab-bar-menu-open-btn" type="button">
+        <span>${Resource.msg('page.heading.dashboard', 'account', null)}</span>
+        <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page -1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="icon-plus" transform="translate(7.000000, 7.000000) rotate(-315.000000) translate(-7.000000, -7.000000) translate(2.000000, 2.000000)" fill="#2B2B2B" fill-rule="nonzero" stroke="#2B2B2B" stroke-width="0.5">
+                    <polygon id="Shape" points="10 1 9 0 5 4 1 0 0 1 4 5 0 9 1 10 5 6 9 10 10 9 6 5"></polygon>
+                </g>
+            </g>
+        </svg>
+    </button>
+    <div class="tab-bar-menu">
+        <div class="tab-bar-menu-close-btn">
+            ${Resource.msg('label.account.pages', 'common', null)}
+            <svg width="12" height="10" viewBox="0 0 12 10"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
+            </svg>
+        </div>
+        <a href="${URLUtils.https('Account-Show')}" class="tab-bar-menu-link is-tab-bar-menu-link-active" title="${Resource.msg('page.heading.dashboard', 'account', null)}">${Resource.msg('page.heading.dashboard', 'account', null)}</a>
+        <a href="#" class="tab-bar-menu-link" title="${Resource.msg('label.mvmt.insider', 'common', null)}">${Resource.msg('label.mvmt.insider', 'common', null)}</a>
+        <a href="${URLUtils.url('Order-History')}" class="tab-bar-menu-link" title="${Resource.msg('label.orderhistory', 'account', null)}">${Resource.msg('label.orderhistory', 'account', null)}</a>
+        <a href="${URLUtils.https('Page-Show','cid','ca-contact-us')}" class="tab-bar-menu-link" title="${Resource.msg('label.contact.us', 'common',null)}">${Resource.msg('label.contact.us', 'common', null)}</a>
+        <a href="${URLUtils.url('Login-Logout')}" class="tab-bar-menu-link tab-bar-sign-out">${Resource.msg('label.sign.out', 'common', null)}</a>
+    </div>
+</section>

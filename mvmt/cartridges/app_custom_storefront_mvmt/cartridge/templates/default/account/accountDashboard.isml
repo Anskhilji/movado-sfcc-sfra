@@ -17,7 +17,7 @@
     </div>
     <iscomment> Custom End </iscomment>
 
-    <isinclude template="account/accountTabPane"/>
+    <isinclude template="account/accountTabBar"/>
 
     <div class="container account-pages">
         <!---Breadcrumbs--->
@@ -26,6 +26,9 @@
         <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
         </iscomment>
         <iscomment> Custom End </iscomment>
+
+        <iscontentasset aid="dashboard-heading-box" />
+
         <isinclude template="account/dashboardProfileCards"/>
     </div>
 </isdecorate>
