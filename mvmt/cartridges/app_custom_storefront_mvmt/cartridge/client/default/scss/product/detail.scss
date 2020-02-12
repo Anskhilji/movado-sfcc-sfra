@@ -99,6 +99,18 @@
         position: relative;
         border-bottom: 1px solid $light-gray6;
 
+        &.Highlights {
+
+            .pdp-content-body {
+                .attribute-list {
+
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(65) 0;
+                    }
+                }
+            }
+        }
+
         &:last-child {
             border: none;
         }
@@ -149,7 +161,7 @@
                 padding: 0 0 rem(45);
 
                 @include media-breakpoint-up(sm) {
-                    padding: rem(65) 0;
+                    padding: rem(45) 0;
                 }
 
                 .attribute-detail {
