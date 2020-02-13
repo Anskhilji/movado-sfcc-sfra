@@ -1,41 +1,22 @@
 'use strict';
 
 $('.carousel-pagination').slick({
-  slidesToShow: 6,
-  slidesToScroll: 1,
-  asNavFor: '.primary-images .main-carousel',
-  focusOnSelect: true,
-  infinite: false,
-  vertical: true,
-  verticalSwiping: true,
-  arrows: false,
-  responsive: [
-    {
-      breakpoint: 992,
-      settings: {
-        vertical: false,
-        verticalSwiping: false,
-      }
-    },
-  ]
-});
-  $('.primary-images .main-carousel').slick({
-    slidesToShow: 1,
+    slidesToShow: 6,
     slidesToScroll: 1,
-    dots: false,
-    arrows:false,
+    asNavFor: '.primary-images .main-carousel',
     focusOnSelect: true,
-    asNavFor: '.carousel-pagination',
+    infinite: false,
+    vertical: true,
+    verticalSwiping: true,
+    arrows: false,
     responsive: [
-      {
-        breakpoint: 544,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots:true
-        }
-      },
+        {
+            breakpoint: 992,
+            settings: {
+                vertical: false,
+                verticalSwiping: false,
+            }
+        },
     ]
 });
 
@@ -56,21 +37,21 @@ $('.main-carousel .carousel-tile').zoom({
 });
 
 $('.primary-images .main-carousel').slick({
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  dots: false,
-  arrows:false,
-  focusOnSelect: true,
-  asNavFor: '.carousel-pagination',
-  responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        dots:true
-      }
-    },
-  ]
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: false,
+    arrows:false,
+    focusOnSelect: true,
+    asNavFor: '.carousel-pagination',
+    responsive: [
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots:true
+            }
+        },
+    ]
 });

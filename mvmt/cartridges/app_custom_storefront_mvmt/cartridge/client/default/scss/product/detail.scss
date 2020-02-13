@@ -90,22 +90,23 @@
     .carousel-pagination {
       z-index: 9;
       height: 100%;
+      display: none;
 
-      @include media-breakpoint-down(xs) {
-        display: none;
+      @include media-breakpoint-up(md-down) {
+        display: block;
       }
 
       @include media-breakpoint-up(lg) {
         float: left;
         position: absolute;
-        left: rem(25);
-        top: 30%;
+        left: rem(05);
+        top: rem(165);
         width: rem(102);
         transform: translateY(-30%);
       }
 
       .slick-track {
-        width: 100% !important;
+        width: 100%;
         text-align: center;
       }
 
@@ -119,65 +120,30 @@
           width: auto !important;
         }
 
-        .carousel-pagination {
-            z-index: 9;
-            height: 100%;
-            display: none;
+        > div {
+          display: inline-block;
+          height: rem(82);
+          width: rem(82);
+          border-radius: 100%;
+          overflow: hidden;
+          margin-bottom: rem(12);
+          cursor: pointer;
+          transition: all .4s;
+          box-shadow: 0 rem(2) rem(4) 0 hsla(0,0%,78%,.6);
+          border: rem(2) solid transparent;
 
-            @include media-breakpoint-up(md-down) {
-                display: block;
-            }
+          &:hover {
+            box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
+            border-color: $black;
+          }
+        }
 
-            @include media-breakpoint-up(lg) {
-                float: left;
-                position: absolute;
-                left: rem(05);
-                top: rem(165);
-                width: rem(102);
-                transform: translateY(-30%);
-            }
+        &.slick-current {
 
-            .slick-track {
-                width: 100%;
-                text-align: center;
-            }
-
-            .slick-slide {
-                text-align: center;
-
-                @include media-breakpoint-down(lg) {
-                    float: none;
-                    display: inline-block;
-                    margin: 0 rem(10);
-                    width: auto !important;
-                }
-
-                > div {
-                    display: inline-block;
-                    height: rem(82);
-                    width: rem(82);
-                    border-radius: 100%;
-                    overflow: hidden;
-                    margin-bottom: 12px;
-                    cursor: pointer;
-                    transition: all .4s;
-                    box-shadow: 0 rem(2) rem(4) 0 hsla(0,0%,78%,.6);
-                    border: rem(2) solid transparent;
-
-                    &:hover {
-                        box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
-                        border-color: $black;
-                    }
-                }
-
-                &.slick-current {
-
-                    > div {
-                        box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
-                        border-color: $black;
-                    }
-                }
-            }
+          > div {
+            box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
+            border-color: $black;
+          }
         }
       }
     }
