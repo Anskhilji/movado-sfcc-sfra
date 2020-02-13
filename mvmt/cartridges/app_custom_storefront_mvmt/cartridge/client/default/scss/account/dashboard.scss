@@ -6,6 +6,7 @@
     &.container {
         max-width: rem(1000);
         margin: 0 auto;
+        padding: 0;
     }
 
     .account-heading {
@@ -56,6 +57,7 @@
     .card {
         border-bottom: 1px solid $light-gray4;
         padding: 30px 15px 25px;
+        margin-bottom: 0;
         box-shadow: none;
         border-top: 0;
         border-left: 0;
@@ -85,7 +87,12 @@
                 font-size: 12px;
                 margin-left: 16px;
                 text-transform: uppercase;
-                float: left
+                float: left;
+
+                &.order-label {
+                    padding-left: 15px;
+                    border-left: 1px solid #979797;
+                }
             }
         }
 
@@ -99,6 +106,28 @@
                 margin: 0;
                 line-height: 1.767rem;
                 letter-spacing: 0.5px;
+            }
+
+            div {
+
+                div {
+                    color: $black;
+                }
+            }
+        }
+
+        .card-footer {
+            border-top: none;
+            padding: 0;
+
+            .card-link {
+                text-transform: uppercase;
+                text-decoration: underline;
+                outline: 0;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }

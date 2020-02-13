@@ -1,9 +1,7 @@
 <div class="card">
     <div class="card-header clearfix">
-        <h4 class="pull-left">${Resource.msg('label.addressbook','account',null)}</h4>
-        <isif condition="${pdict.account.preferredAddress}">
-            <a href="${URLUtils.url('Address-List')}" class="pull-right">${Resource.msg('link.view','account',null)}</a>
-        </isif>
+        <h4 class="pull-left">${Resource.msg('label.addressbook', 'account', null)}</h4>
+        <a href="${URLUtils.url('Address-List')}" class="pull-right">${Resource.msg('label.manage.address', 'account', null)}</a>
     </div>
     <isif condition="${pdict.account.preferredAddress}">
         <div class="card-body">
@@ -12,18 +10,22 @@
                 <div class="dashboard-info">${pdict.account.preferredAddress.address.ID}</div>
                 <div>${pdict.account.preferredAddress.address.firstName} ${pdict.account.preferredAddress.address.lastName}</div>
                 <isif condition="${pdict.account.preferredAddress.address.companyName != null}">
-                	<div>${pdict.account.preferredAddress.address.companyName}</div>
+                    <div>${pdict.account.preferredAddress.address.companyName}</div>
                 </isif>
                 <div>${pdict.account.preferredAddress.address.address1}</div>
-				<isif condition="${pdict.account.preferredAddress.address.address2 !== null}">
+                <isif condition="${pdict.account.preferredAddress.address.address2 !== null}">
                       <div>${pdict.account.preferredAddress.address.address2}</div>
                 </isif>
                 <div>${pdict.account.preferredAddress.address.city}, ${pdict.account.preferredAddress.address.stateCode} ${pdict.account.preferredAddress.address.postalCode}</div>
                 <div>${pdict.account.preferredAddress.address.phone}</div>
             </div>
         </div>
+    <iselse>
+        <div class="card-header clearfix">
+             <p>${Resource.msg('empty.address.book.msg', 'account', null)}</p>
+        </div>
     </isif>
-    <div class="card-footer card-footer-border text-center <isif condition="${empty(pdict.account.preferredAddress)}">no-card-body</isif>">
+    <div class="card-footer text-center <isif condition="${empty(pdict.account.preferredAddress)}">no-card-body</isif>">
         <a href="${URLUtils.url('Address-AddAddress')}" class="card-link">${Resource.msg('link.addnew','account',null)}</a>
     </div>
 </div>

@@ -1,5 +1,8 @@
 <div class="row justify-content-center">
-    <div class="col-12">
+    <div class="col-12 p-0">
+       <!---Order History--->
+       <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
+       <isinclude template="account/order/orderHistoryCard"/>
         <!---Profile--->
         <isinclude template="account/profileCard"/>
         <isif condition="${!pdict.account.isExternallyAuthenticated}">
@@ -8,11 +11,6 @@
         </isif>
         <!---Address Book--->
         <isinclude template="account/addressBookCard"/>
-       <!---Order History--->
-       <isif condition="${pdict.account.orderHistory}">
-           <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
-           <isinclude template="account/order/orderHistoryCard"/>
-       </isif>
        <isif condition="${pdict.account.wishlist}">
            <!---Wishlist--->
            <div class="wishlist-account-card" data-error-msg="${Resource.msg('wishlist.removefromwishlist.failure.msg','wishlist',null)}">
@@ -21,5 +19,10 @@
        </isif>
        <!---MyWatches--->
        <isinclude template="account/myWatches"/> 
+       <div class="card">
+           <div class="card-header clearfix">
+               <h4 class="pull-left">${Resource.msg('label.recommended.for.you', 'account', null)}</h4>
+           </div>
+       </div>
     </div>
 </div>
