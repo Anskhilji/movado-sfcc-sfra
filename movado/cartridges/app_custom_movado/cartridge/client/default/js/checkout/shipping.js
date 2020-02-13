@@ -181,12 +181,16 @@ function updateShippingMethods(shipping) {
                     $('.display-name', tmpl).text(shippingMethod.displayName);
                     // set or hide arrival time
                     var arrivalTime;
-                    if (shippingMethod.estimatedArrivalTime && shippingMethod.description) {
-                    	arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ', ' + shippingMethod.description + ')';
-                    } else if (shippingMethod.estimatedArrivalTime) {
-                    	arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ')';
-                    } else if (shippingMethod.description) {
-                    	arrivalTime = '(' + shippingMethod.description + ')';
+                    if (shippingMethod.deliveryDate) {
+                        arrivalTime = shippingMethod.deliveryDate;
+                    } else {
+                        if (shippingMethod.estimatedArrivalTime && shippingMethod.description) {
+                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ', ' + shippingMethod.description + ')';
+                        } else if (shippingMethod.estimatedArrivalTime) {
+                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ')';
+                        } else if (shippingMethod.description) {
+                            arrivalTime = '(' + shippingMethod.description + ')';
+                        }
                     }
 
                     if (arrivalTime) {

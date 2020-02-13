@@ -1,0 +1,43 @@
+
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isinclude template="/components/modules" sf-toolkit="off" />
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--[if gt IE 9]><!-->
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <!--<![endif]-->
+        <isinclude template="/common/htmlHead" />
+        <isactivedatahead/>
+        <div data-url-path-gtm="${dw.system.Site.current.preferences.custom.URLPath}">
+            <isif condition="${dw.system.Site.current.preferences.custom.gtmEnabled}">
+                <isinclude url="${URLUtils.url('GTM-LoadDataLayer', 'urlAction', pdict.action, 'urlQueryString', pdict.queryString)}" />
+            </isif>
+        </div>
+    </head>
+    <body>
+        <isinclude template="analyticsTracking/analyticsTrackingHeader.isml">
+        <isif condition="${dw.system.Site.current.preferences.custom.gtmEnabled}">
+            <isinclude url="${URLUtils.url('GTM-LoadGTMTag')}" />
+        </isif>
+        <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
+        <div class="page cart-and-checkout-bottom">
+            <isinclude template="/components/header/pageHeaderNomenu" />
+            <div id="mainContent">
+              <isreplace/>
+            </div>
+            <footer>
+                <div class="terms-and-conditions justify-content-center row">
+                    <iscontentasset aid="cart-and-checkout-footer" />
+                </div>
+            </footer>
+        </div>
+        <!--[if lt IE 10]>
+            <isinclude sf-toolkit="off" template="/common/scripts" />
+        <![endif]-->
+        <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
+        <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+        <isinclude template="resources/appresources"/>
+    </body>
+</html>
