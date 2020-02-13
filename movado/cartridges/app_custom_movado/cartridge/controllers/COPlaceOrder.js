@@ -29,7 +29,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var orderPlacementStatus = checkoutHelper.placeOrder(order, fraudDetectionStatus);
 
     if (orderPlacementStatus.error) {
-        return next(new Error('Could not place order'));
+    	return next(new Error('Could not place order'));
     }
     //Check if order includes Pre-Order item
     var isPreOrder = orderCustomHelpers.isPreOrder(order);

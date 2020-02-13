@@ -14,6 +14,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var Site = require('dw/system/Site');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 function parseRiskifiedResponse(order) {
     var body = request.httpParameterMap.requestBodyAsString;
@@ -26,12 +27,15 @@ function parseRiskifiedResponse(order) {
     var responseObject;
     var RESP_SUCCESS ='SUCCESS';
 
+    checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
 
     if (riskifiedStatus.displayValue === 'Declined') {
-		// void or reverse the payment if card payment or not paid
+         checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+    	// void or reverse the payment if card payment or not paid
 		// (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
 		// captured and send mail to customer
         if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
+            checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo);
         	responseObject = hooksHelper(
 					'app.riskified.paymentreversal',
 					'paymentReversal',
@@ -40,7 +44,8 @@ function parseRiskifiedResponse(order) {
 					false,
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
         } else {
-        	responseObject = hooksHelper(
+            checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo);
+            responseObject = hooksHelper(
 					'app.riskified.paymentrefund',
 					'paymentRefund',
 					order,
@@ -52,8 +57,10 @@ function parseRiskifiedResponse(order) {
         Transaction.wrap(function () {
         	//if order status is CREATED
         	if(order.getStatus() == Order.ORDER_STATUS_CREATED){
+            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
         		OrderMgr.failOrder(order);  //Order must be in status CREATED
         	}else{ //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
         		OrderMgr.cancelOrder(order);
         	}
         });
@@ -73,6 +80,7 @@ function parseRiskifiedResponse(order) {
     } else {
 		if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
 			// riskifiedStatus as approved then mark as confirmed
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
 			if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
 				Transaction.wrap(function () {
 					order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);

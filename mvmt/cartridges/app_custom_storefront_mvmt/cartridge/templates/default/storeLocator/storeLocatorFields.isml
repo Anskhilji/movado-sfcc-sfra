@@ -6,11 +6,11 @@
         </div>
         <div class="form-group-2">
             <isinclude template="storeLocator/storeLocatorRadius" />
-            <div class="button-align">
-                <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
-                    ${Resource.msg('button.find.stores','storeLocator',null)}
-                </button>
-            </div>
+       </div>
+       <div class="button-align">
+           <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
+               ${Resource.msg('button.find.stores','storeLocator',null)}
+           </button>
        </div>
     </${pdict.isForm === 'true' ? 'form' : 'div'}>
 </div>

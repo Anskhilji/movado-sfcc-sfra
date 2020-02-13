@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var RiskifiedService = require('int_riskified');
 var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.append('SubmitPayment',
 		server.middleware.https,
@@ -96,6 +97,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 	  var currentBasket = BasketMgr.getCurrentBasket();
+	  checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Inside PlaceOrder to validate the payment and order');
+
 	  if (!currentBasket) {
 	    res.json({
 	      error: true,
@@ -109,6 +112,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
 	  var validationOrderStatus = hooksHelper('app.validate.order', 'validateOrder', currentBasket, require('*/cartridge/scripts/hooks/validateOrder').validateOrder);
 	  if (validationOrderStatus.error) {
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Validation order status has error');
 	      res.json({
 	          error: true,
 	          errorMessage: validationOrderStatus.message
@@ -117,7 +121,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  }
 	  // Check to make sure there is a shipping address
 	  if (currentBasket.defaultShipment.shippingAddress === null) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Shipping address is not valid');
+		  res.json({
 	      error: true,
 	      errorStage: {
 	        stage: 'shipping',
@@ -130,7 +135,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
 	  // Check to make sure billing address exists
 	  if (!currentBasket.billingAddress) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Billing address is not valid');
+		  res.json({
 	      error: true,
 	      errorStage: {
 	        stage: 'payment',
@@ -149,7 +155,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  // Re-validates existing payment instruments
 	  var validPayment = adyenHelpers.validatePayment(req, currentBasket);
 	  if (validPayment.error) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Payment validation instruments is failed');
+		  res.json({
 	      error: true,
 	      errorStage: {
 	        stage: 'payment',
@@ -163,7 +170,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  // Re-calculate the payments.
 	  var calculatedPaymentTransactionTotal = COHelpers.calculatePaymentTransaction(currentBasket);
 	  if (calculatedPaymentTransactionTotal.error) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Calculated payment transaction total has error');
+		  res.json({
 	      error: true,
 	      errorMessage: Resource.msg('error.technical', 'checkout', null)
 	    });
@@ -174,12 +182,14 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  // Creates a new order.
 	  var order = COHelpers.createOrder(currentBasket);
 	  if (!order) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Order is not created');
+		  res.json({
 	      error: true,
 	      errorMessage: Resource.msg('error.technical', 'checkout', null)
 	    });
 	    return next();
 	  }
+      checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
 		Transaction.wrap(function () {
@@ -193,7 +203,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  // Handles payment authorization
 	  var handlePaymentResult = adyenHelpers.handlePayments(order, order.orderNo);
 	  if (handlePaymentResult.error) {
-	    res.json({
+          checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Payment authorization is failed and going to the payment stage and order number is: ' + order.orderNo);
+		  res.json({
 	      error: true,
 	      errorStage: {
 	      		stage: 'payment'
@@ -207,6 +218,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  //set order number in session to get order back after redirection
 	  session.custom.orderNo = order.orderNo;
 	  if (handlePaymentResult.issuerUrl != '' && handlePaymentResult.authorized3d) {
+        checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Going to set md value in the session and set the is3DSecureOrder to true in the order and going to the (Adyen-Adyen3D) and order number: ' + order.orderNo);
 		session.custom.MD = handlePaymentResult.md;
 		Transaction.wrap(function () { order.custom.is3DSecureOrder = true; });
 	    res.json({
@@ -218,7 +230,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
+    	Transaction.wrap(function () { OrderMgr.failOrder(order); });
 
 				// fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -229,7 +242,6 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
             redirectUrl: URLUtils.url('Error-ErrorCode', 'err', fraudDetectionStatus.errorCode).toString(),
             errorMessage: Resource.msg('error.technical', 'checkout', null)
         });
-
         return next();
     }
 
@@ -237,6 +249,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
     var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
 
 	  if (placeOrderResult.error) {
+        checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Place order result has error and going to the payment stage and order number is: ' + order.orderNo);
 	    res.json({
 	      error: true,
 	      errorStage: {
@@ -248,6 +261,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  }
 	  // If payment is redirected, order is created first
 	  if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
+        checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Going to set order value in the session and going to the (Adyen-Redirect) and order number: ' + order.orderNo);
 	    session.custom.orderNo = placeOrderResult.order.orderNo;
 	    res.json({
 	      error: false,

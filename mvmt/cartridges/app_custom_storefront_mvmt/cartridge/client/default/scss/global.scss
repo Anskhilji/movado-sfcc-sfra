@@ -1,7 +1,10 @@
 @charset "UTF-8";
-@import "utilities/fonts";
 @import "variables";
+@import "utilities/fonts";
 @import '~movado/global';
+@import "components/buttons";
+@import "components/header";
 @import "components/footer";
 @import "components/newsletterSignUp";
 @import 'common';
+@import 'components/header';
