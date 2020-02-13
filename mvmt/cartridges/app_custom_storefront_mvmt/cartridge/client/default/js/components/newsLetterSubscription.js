@@ -87,12 +87,12 @@ $('#newsletterSubscribe').submit(function (e) {
 
 $('#emailSubcriberBtn').click(function (e) {
     var topPercentage = top(false);
-    $('#overlay').addClass('footer-form-overlay');
+    $('#footer-overlay').addClass('footer-form-overlay');
     $('.footer-more-fields').addClass('is-active');
     $('.footer-more-fields').css('top', topPercentage);
 });
 
-$('.close-footer-more, #overlay').click(function (e) {
+$('.close-footer-more, #footer-overlay').click(function (e) {
     $('.footer-more-fields').removeClass('is-active');
-    $('#overlay').removeClass('footer-form-overlay');
+    $('#footer-overlay').removeClass('footer-form-overlay');
 });
