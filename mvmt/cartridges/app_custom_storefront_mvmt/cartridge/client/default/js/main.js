@@ -6,4 +6,6 @@ $(document).ready(function () {
     processInclude(require('./components/miniCart'));
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./faq-page'));
+    processInclude(require('./header/header'));
 });
+
