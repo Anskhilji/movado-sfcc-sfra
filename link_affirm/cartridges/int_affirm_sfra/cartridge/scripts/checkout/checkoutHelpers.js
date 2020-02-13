@@ -462,7 +462,7 @@ function createOrder(currentBasket) {
         order = Transaction.wrap(function () {
             return OrderMgr.createOrder(currentBasket);
         });
-    } catch (error) {
+    } catch (e) {
         affirmLogger.error('(checkoutHelpers) -> createOrder: While creating an order exception is occurred. Going to set the error result is true and exception is: ' + e);
         return null;
     }

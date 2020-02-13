@@ -7,6 +7,15 @@
         assets.addCss('/css/product/detail.css');
     </isscript>
 
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isif condition="${!empty(sitePref.enableSmartGift)}">
+        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
+            <script>
+                (function (d,g,e,c,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
+                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}');
+            </script>
+        </isif>
+    </isif>
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
@@ -108,13 +117,25 @@
                                 <isinclude template="product/components/pricing/main" />
                             </div>
 
+                            <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+	                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+	                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+	                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+	                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+	                                </isif>    
+	                            </isif>
+                            </div>
                         </div>
 
                         <div class="col-12">
                             <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
+                                </isif>
                                 <!-- Social Sharing Icons -->
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
