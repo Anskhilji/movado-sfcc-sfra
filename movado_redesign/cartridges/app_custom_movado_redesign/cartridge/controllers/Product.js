@@ -30,9 +30,18 @@ server.replace('ShowAvailability', function (req, res, next) {
 });
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var productMgr = require('dw/catalog/ProductMgr');
+    
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
+    var viewData = res.getViewData();
+    var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+
+    viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, showProductPageHelperResult.product.id);
+    
 
     var template;
     if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','Control')) {
@@ -51,6 +60,19 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         template = 'product/setDetails';
     }
 
+    var product = productMgr.getProduct(showProductPageHelperResult.product.id);
+    var isEmbossEnabled = product.custom.Emboss;
+    var isEngraveEnabled = product.custom.Engrave;
+    var isGiftWrapEnabled = product.custom.GiftWrap;
+    viewData = {
+        isEmbossEnabled: isEmbossEnabled,
+        isEngraveEnabled: isEngraveEnabled,
+        isGiftWrapEnabled: isGiftWrapEnabled
+    }
+    
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    res.setViewData(smartGift);
+    res.setViewData(viewData);
     if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
         res.setStatusCode(404);
         res.render('error/notFound');

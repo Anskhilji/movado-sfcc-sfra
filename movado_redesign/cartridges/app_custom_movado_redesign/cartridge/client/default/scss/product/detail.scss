@@ -17,7 +17,7 @@
 
     .dw-apple-pay-button {
         &.apple-pay-pdp {
-            min-width: auto;
+            min-width: 100%;
         }
     }
 
@@ -94,6 +94,7 @@
         @include font-demi;
         font-size: rem(16);
         letter-spacing: normal;
+        width: 100%;
     }
 
     .slick-slide {
@@ -714,7 +715,7 @@
 
     .cart-wishlist {
         display: flex;
-        align-items: center;
+        align-items: start;
 
         > div {
             text-align: center;
@@ -1146,8 +1147,8 @@
             }
 
             .add-to-cart {
-                max-width: rem(330);
                 margin: 0;
+                width: 100%;
             }
 
             .dw-apple-pay-button.apple-pay-pdp {
@@ -1356,4 +1357,8 @@ body {
 
 .cart-and-ipay {
     justify-content: flex-start;
+}
+
+.smartgift-btn-redesign {
+    width: 100%;
 }

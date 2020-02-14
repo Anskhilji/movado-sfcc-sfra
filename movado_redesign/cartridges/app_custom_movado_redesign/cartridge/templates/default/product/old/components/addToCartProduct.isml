@@ -12,7 +12,13 @@
                 </isif>
         </button>
 		<isif condition="${product.available && product.readyToOrder}">
-	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+	        <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
 	    </isif>
+           <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')}">
+               <isinclude template="product/old/components/smartGift" />
+           <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
+               <isinclude template="product/old/components/smartGift" />
+           </isif>
+	    
     </div>
 </div>
