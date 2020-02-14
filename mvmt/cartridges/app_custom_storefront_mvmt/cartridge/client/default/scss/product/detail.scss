@@ -90,22 +90,23 @@
     .carousel-pagination {
       z-index: 9;
       height: 100%;
+      display: none;
 
-      @include media-breakpoint-down(xs) {
-        display: none;
+      @include media-breakpoint-up(md-down) {
+        display: block;
       }
 
       @include media-breakpoint-up(lg) {
         float: left;
         position: absolute;
-        left: rem(25);
-        top: 30%;
+        left: rem(05);
+        top: rem(165);
         width: rem(102);
         transform: translateY(-30%);
       }
 
       .slick-track {
-        width: 100% !important;
+        width: 100%;
         text-align: center;
       }
 
@@ -125,7 +126,7 @@
           width: rem(82);
           border-radius: 100%;
           overflow: hidden;
-          margin-bottom: 12px;
+          margin-bottom: rem(12);
           cursor: pointer;
           transition: all .4s;
           box-shadow: 0 rem(2) rem(4) 0 hsla(0,0%,78%,.6);
