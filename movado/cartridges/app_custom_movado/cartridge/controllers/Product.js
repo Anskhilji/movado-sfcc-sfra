@@ -192,7 +192,11 @@ server.get('ShowAvailability', function (req, res, next) {
 
 server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    res.setViewData(smartGift);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,

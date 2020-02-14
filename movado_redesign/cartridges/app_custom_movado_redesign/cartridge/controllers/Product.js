@@ -31,6 +31,8 @@ server.replace('ShowAvailability', function (req, res, next) {
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var productMgr = require('dw/catalog/ProductMgr');
+    var Site = require('dw/system/Site');
+    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
     
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -64,10 +66,24 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
+    
+    var display = {};
+    display.wishlists = req.querystring.wishlists;
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
-        isGiftWrapEnabled: isGiftWrapEnabled
+        isGiftWrapEnabled: isGiftWrapEnabled,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        display: display
+    }
+    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        var pdpAnalyticsTrackingData;
+        pdpAnalyticsTrackingData = {
+            itemID: showProductPageHelperResult.product.id,
+            itemName: stringUtils.removeSingleQuotes(showProductPageHelperResult.product.name)
+        };
+        pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
+        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
     }
     
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);

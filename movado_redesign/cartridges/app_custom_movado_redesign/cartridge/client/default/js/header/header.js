@@ -2,9 +2,7 @@
 $(document).ready(function() {
     $(window).on("resize", function () {
         var width = $(".desktop-menu .navbar-nav").width();
-        var leftmargin = $(".header-menu-wrapper .desktop-menu > div").position().left - 15;
-        $(".desktop-menu .sub-dropdown .menu-content").width(width).css("margin-left", leftmargin + "px");
-
+        $(".desktop-menu .sub-dropdown .menu-content").width(width);
     }).resize();
 });
 $('.minicart .popover').keyup(function(event) {

@@ -10,6 +10,11 @@ $(function() {
         $('body, html').addClass('no-overflow');
         e.preventDefault();
     });
+    
+    $('.add-to-cart').on('click', function() {
+        $('.slick-slider').resize();
+        console.log('test');
+    });
 
     //----- CLOSE
     $('.pdp-v-one [pd-popup-close]').on('click', function(e) {
