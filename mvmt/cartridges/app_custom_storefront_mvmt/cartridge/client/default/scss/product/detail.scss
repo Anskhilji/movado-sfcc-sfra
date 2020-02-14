@@ -197,6 +197,17 @@
                 background: $light-green;
                 border-color: $light-green;
             }
+
+            .product-price-mobile {
+                float: right;
+                display: inline-block;
+                font-size: rem(11);
+                letter-spacing: rem(3);
+
+                @include media-breakpoint-up(md) {
+                    display: none;
+                }
+            }
         }
     }
 

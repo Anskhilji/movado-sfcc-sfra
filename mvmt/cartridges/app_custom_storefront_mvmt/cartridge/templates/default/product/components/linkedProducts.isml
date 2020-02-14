@@ -1,6 +1,6 @@
 <iscomment> Custom: Start new templated added for linkedin products </iscomment>
 <div class="linked-product-list">
-    <isif condition="${pdict.linkedProducts.length > 0}">
+    <isif condition="${pdict.explicitRecommendations && pdict.explicitRecommendations.length > 0}">
         <div class="linkend-head">
             <label>
                 ${Resource.msg('label.add.strap', 'product', null)}
@@ -11,18 +11,18 @@
             </button>
         </div>
         <div class="linked-products">
-            <isloop items="${pdict.linkedProducts}" var="productLink">
-                <isset name="linkedProduct" value="${productLink.getTargetProduct()}" scope="page" />
+            <isloop items="${pdict.explicitRecommendations}" var="recommendation">
+                <isset name="recommendationProduct" value="${recommendation.getRecommendedItem()}" scope="page" />
                 <div class="upsell_wrapper">
-                    <input type="checkbox" class="upsell_input" name="additionalProducts" value="${linkedProduct.getID()}">
-                    <img class="upsell_image" src="${linkedProduct.image.absURL}"/>
+                    <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendationProduct.getID()}">
+                    <img class="upsell_image" src="${recommendationProduct.image.absURL}"/>
                     <div class="upsell_meta">
                         <p class="upsell_price">
-                            ${linkedProduct.getPriceModel().getPrice()}
+                            ${recommendationProduct.getPriceModel().getPrice()}
                         </p>
                         <p class="upsell_status">${Resource.msg('label.added', 'product', null)}</p>
                     </div>
-                    <p class="upsell_description">${linkedProduct.getName()}</p>
+                    <p class="upsell_description">${recommendationProduct.getName()}</p>
                     <div class="upsell_checkbox">
                     </div>
                 </div>

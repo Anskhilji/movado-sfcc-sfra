@@ -63,9 +63,11 @@
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-4">
-                    <div class="product-tag-wrapper">
-                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
-                    </div>
+                    <isif condition="${product.availability.messages.toString().equals(Resource.msg('label.not.available', 'common', null))}">
+	                    <div class="product-tag-wrapper">
+	                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+	                    </div>
+                     </isif>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -93,6 +95,7 @@
                         <div class="col-12">
                             <isinclude template="product/components/linkedProducts" />
                         </div>
+                        <isinclude template="product/components/promotions" />
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">
                                <!-- Cart and [Optionally] Apple Pay -->

@@ -4,9 +4,8 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
-var productMgr = require('dw/catalog/ProductMgr');
 var page = module.superModule;
-var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+var productHelper = require('*/cartridge/scripts/helpers/customProductHelper');
 server.extend(page);
 
 /**
@@ -15,16 +14,15 @@ server.extend(page);
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var viewData = res.getViewData();
     var product = viewData.product;
-    var linkedProducts;
+    var explicitRecommendations;
 
 	/* get linkedProduts for product*/
     if (product) {
-        product = productMgr.getProduct(product.id);
-        linkedProducts = product.getAllProductLinks();
+        explicitRecommendations = productHelper.getExplicitRecommendations(product.id);
     }
 
     viewData = {
-            linkedProducts: linkedProducts
+            explicitRecommendations: explicitRecommendations
     };
 
     res.setViewData(viewData);
