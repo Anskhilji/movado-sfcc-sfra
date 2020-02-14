@@ -1,0 +1,47 @@
+<isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addCss('/css/search.css');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
+    <isif condition=${false}>
+        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+    </isif>
+    <div class="clp-banner">
+        <isslot id="cs-category-banner" description="Category Landing Page banner slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <iscontentasset aid="clp-men-banner-img" />
+        <div class="shop-all-hero-scroll-trigger">
+            <a class="js-smooth-scroll" href="#" data-target="shop-all-mini-nav-slider">
+                <p>${Resource.msg('label.button.shop.now','common',null)}</p>
+                <svg height="10px" viewBox="0 0 15 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="UI-Kit" transform="translate(-623.000000, -972.000000)" fill="#FFFFFF">
+                            <g id="Iconography" transform="translate(27.000000, 827.000000)">
+                                <g id="eCommerce---White" transform="translate(349.000000, 142.000000)">
+                                    <polygon id="down-arrow-white" transform="translate(254.454545, 8.000000) rotate(90.000000) translate(-254.454545, -8.000000) " points="251.685504 1 250 2.63333333 255.538084 8 250 13.3666667 251.685504 15 258.909091 8"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+            </div>
+        </div>
+    </div>
+    <div class="static-content-wrapper">
+        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs2" description="Category Landing Page content Slot 2." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs3" description="Category Landing Page content Slot 3." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs4" description="Category Landing Page content Slot 4." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs5" description="Category Landing Page content Slot 5." context="category" context-object="${pdict.category}"/>
+    </div>
+</isdecorate>

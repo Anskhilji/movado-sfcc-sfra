@@ -1,0 +1,47 @@
+.clp-banner {
+    position: relative;
+
+    .shop-all-hero-image {
+        &--mobile {
+            @include media-breakpoint-up(md) {
+                display: none;
+            }
+        }
+
+        &--desktop {
+            @include media-breakpoint-down(sm) {
+                display: none;
+            }
+        }
+    }
+
+    .shop-all-hero-scroll-trigger {
+        display: none;
+
+        @include media-breakpoint-up(lg) {
+            bottom: 0;
+            display: block;
+            left: 50%;
+            padding: rem(15);
+            position: absolute;
+            text-align: center;
+            transform: translateX(-50%);
+        }
+
+        .js-smooth-scroll {
+            text-decoration: none;
+        }
+
+        p {
+            font-size: rem(14);
+            margin: 0;
+            color: $white;
+            text-transform: uppercase;
+            font-family: $font-book;
+        }
+
+        svg {
+            width: rem(10);
+        }
+    }
+}
