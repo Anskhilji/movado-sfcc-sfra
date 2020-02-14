@@ -1,0 +1,6 @@
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+    <isloop items="${slotcontent.content}" var="markupText">
+        <isprint value="${markupText.markup}" encoding="off"/>
+    </isloop>
+</isif>
+
