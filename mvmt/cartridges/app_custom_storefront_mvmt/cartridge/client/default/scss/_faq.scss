@@ -42,14 +42,14 @@
     justify-content: center;
     border-top: rem(1) solid $light-gray4;
     border-bottom: rem(1) solid $light-gray4;
-    background: linear-gradient(0deg,$white,$light-gray3);
+    background: linear-gradient(0deg, $white, $light-gray3);
     width: 100%;
     z-index: 6;
     position: static;
     top: auto;
 
     .faq-nav-control-bar-btn {
-        background: linear-gradient(0deg,$white,$light-gray7);
+        background: linear-gradient(0deg, $white, $light-gray7);
         font-size: rem(12);
         line-height: 1;
         vertical-align: middle;
@@ -87,6 +87,7 @@
         transition: transform .35s,opacity .35s;
         z-index: 11;
         opacity: 0;
+        
         @include media-breakpoint-up(lg) {
             z-index: 1;
             opacity: 1;
@@ -103,7 +104,7 @@
         }
         
         .faq-nav-control-bar-inner-btn {
-            background: linear-gradient(0deg,$white,$light-gray3);
+            background: linear-gradient(0deg, $white, $light-gray3);
             border-bottom: rem(1) solid $light-gray4;
             padding: rem(20);
             color: $dark-gray;
@@ -144,6 +145,7 @@
         width: calc(100% - rem(50));
         color: $black !important;
         text-decoration: none;
+        
         @include media-breakpoint-up(lg) {
             border: 0;
             border-right: rem(1) solid $light-gray4;
@@ -155,6 +157,7 @@
             padding: 0 rem(25);
             transition: background-color .25s ease-out;
             width: auto;
+            
             &:first-of-type {
                 border-left: rem(1) solid $light-gray4;
             }
@@ -175,6 +178,23 @@
     margin: 0 auto rem(80) rem(10);
     max-width: rem(800);
     padding: 0;
+    
+    @media only screen and (max-width: 1280px){
+        margin-left: 0;
+    }
+    
+    @include media-breakpoint-down(lg) {
+        max-width: 100%;
+    }
+    
+    @media only screen and (max-width: 1099px) {
+        max-width: 100%;
+        margin-left: rem(64);
+    }
+    
+    @media only screen and (max-width: 991px) {
+        margin-left: 0;
+    }
     
     .faq-title {
         font-size: rem(24);
@@ -356,6 +376,11 @@
 }
 
 #faq-page-contact-tab {
+    
+    @media only screen and (max-width: 991px){
+        max-width: 95%;
+    }
+    
     h1 {
         letter-spacing: rem(4.69);
         line-height: 1.5;
@@ -368,122 +393,139 @@
             font-size: rem(50);
         }
     }
-}
-
-.contact-us-form-wrapper h2 {
-    font-size: rem(18);
-    letter-spacing: rem(2.5);
-    margin-bottom: rem(20);
-}
-
-.contact-us-form-wrapper {
-    padding-left: rem(80);
-    padding-right: rem(160);
-    padding-top: rem(80);
-    padding-bottom: rem(160);
     
-    @include media-breakpoint-down(md) {
-        padding: rem(48) rem(16) rem(32) rem(16);
-    }
-}
-.contact-us-form-wrapper p {
-    margin: rem(9.44) 0;
-    line-height: 2em;
-    font-family: $font-primary;
-    color: $dark-orange1;
-    font-size: rem(12);
-    font-weight: bold;
-    letter-spacing: rem(1);
-}
-
-.contact-us-callout-wrapper {
-    text-align: center;
-    margin: 0 auto;
-    max-width: rem(800);
-    width: 100%;
-    p {
-        color: $black;
-        font-size: rem(16);
-        font-weight: bold;
-        line-height: rem(23);
-        letter-spacing: rem(.6);
-        font-family: $font-primary;
-    }
-}
-
-.contact-us-left-wrapper {
-    background: $cyan-blue;
-    height: fit-content;
-    padding: rem(20);
-    text-align: left;
-    
-    @include media-breakpoint-down(md) {
-        margin: rem(16);
-    }
-    
-    h2 {
-        font-size: rem(18);
-        letter-spacing: rem(2.5);
-        margin-bottom: rem(20);
-        color: $black;
-        line-height: 1;
-    }
-    
-    .chat-now-button {
-        font-family: $font-primary;
-        font-weight: 500;
-        font-style: normal;
-        border: rem(2) solid $black;
-        font-size: rem(11);
-        letter-spacing: rem(1.5);
-        display: inline-block;
+    .contact-us-callout-wrapper {
         text-align: center;
-        line-height: 1;
-        border-radius: rem(1);
-        transition: all .25s ease-in-out;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        text-decoration: none;
-        white-space: nowrap;
-        user-select: none;
-        cursor: pointer;
-        text-size-adjust: 100%;
-        outline: 0;
-        overflow: visible;
-        padding: rem(16) rem(28);
-        min-width: rem(200);
-        background-color: transparent;
-        
-        &:hover {
-            color: $white;
-            background-color: $black;
+        margin: 0 auto;
+        max-width: rem(800);
+        width: 100%;
+    
+        p {
+            color: $black;
+            font-size: rem(16);
+            font-weight: bold;
+            line-height: rem(23);
+            letter-spacing: rem(.6);
+            font-family: $font-primary;
         }
     }
-}
-
-.contact-call-out {
-    color: $dark-orange1;
-    font-size: rem(12) !important;
-    font-weight: 500 !important;
-    letter-spacing: rem(1);
-    margin: rem(9.44) 0;
-    line-height: 2em;
-    text-align: left;
-    text-size-adjust: 100%;
-}
-
-.contact-us-details {
-    p {
-        margin: rem(9.44) 0;
-        line-height: 2em;
-        font-family: $font-primary;
-        font-weight: 400;
-        font-style: normal;
-        color: $light-gray;
-        font-size: rem(14);
-        letter-spacing: rem(.5);
+    
+    .contact-us-form-wrapper {
+        padding-left: rem(80);
+        padding-right: rem(160);
+        padding-top: rem(80);
+        padding-bottom: rem(160);
+        
+        @media only screen and (max-width: 991px){
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    
+        h2 {
+            font-size: rem(18);
+            letter-spacing: rem(2.5);
+            margin-bottom: rem(20);
+        }
+    
+        p {
+            margin: rem(9.44) 0;
+            line-height: 2em;
+            font-family: $font-primary;
+            color: $dark-orange1;
+            font-size: rem(12);
+            font-weight: bold;
+            letter-spacing: rem(1);
+        }
+    
+        @include media-breakpoint-down(md) {
+            padding: rem(48) rem(16) rem(32) rem(16);
+        }
+        
+        @media only screen and (max-width: 991px){
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+    }
+    
+    .contact-us-left-wrapper {
+        background: $cyan-blue;
+        height: fit-content;
+        padding: rem(20);
+        text-align: left;
+        
+        @include media-breakpoint-down(md) {
+            margin: rem(16);
+        }
+        
+        @media only screen and (max-width: 991px) { 
+            margin: 0;
+            margin-bottom: rem(16);
+        }
+        
+        h2 {
+            font-size: rem(18);
+            letter-spacing: rem(2.5);
+            margin-bottom: rem(20);
+            color: $black;
+            line-height: 1;
+        }
+        
+        p {
+            color: $dark-orange1;
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            margin: rem(9.44) 0;
+            line-height: 2em;
+            text-align: left;
+            text-size-adjust: 100%;
+        }
+        
+        button {
+            font-family: $font-primary;
+            font-weight: 500;
+            font-style: normal;
+            border: rem(2) solid $black;
+            font-size: rem(11);
+            letter-spacing: rem(1.5);
+            display: inline-block;
+            text-align: center;
+            line-height: 1;
+            border-radius: rem(1);
+            transition: all .25s ease-in-out;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            text-decoration: none;
+            white-space: nowrap;
+            user-select: none;
+            cursor: pointer;
+            text-size-adjust: 100%;
+            outline: 0;
+            overflow: visible;
+            padding: rem(16) rem(28);
+            min-width: rem(200);
+            background-color: transparent;
+            
+            &:hover {
+                color: $white;
+                background-color: $black;
+            }
+        }
+    }
+    
+    .contact-us-details {
+        p {
+            margin: rem(9.44) 0;
+            line-height: 2em;
+            font-family: $font-primary;
+            font-weight: 400;
+            font-style: normal;
+            color: $light-gray;
+            font-size: rem(14);
+            letter-spacing: rem(.5);
+        }
     }
 }
 
@@ -522,6 +564,10 @@
     left: rem(44);
     top: rem(221);
     height : auto;
+    
+    @media only screen and (max-width: 1280px){
+        left: 0;
+    }
     
     .help-heading h3 {
         font-size: 1.17em
@@ -572,21 +618,23 @@
 .scroll-warp {
     position: fixed;
     width: 100%;
-    max-width: 14%;
+    max-width: 14.5%;
+    margin-left: 1%;
+        
+    @include media-breakpoint-down(lg) {
+        position: fixed;
+         width: 14%;
+        max-width: 14%;
+        margin-left: 1.35%;
+    }
 }
 .need-help-menu {
     padding: 0;
 }
 
-@media only screen and (max-width: 1280px){
-    .help-wrapper{
-        left: 0;
-    }
+@media only screen and (max-width: 1280px) {
     .container-control {
         padding-left: 0;
-    }
-    .faq-main {
-        margin-left: 0;
     }
 }
 
@@ -594,11 +642,9 @@
     .col-md-control {
         margin-left: 0;
     }
+    
     .tab-pane-control, .container-control {
         padding-left: 0;
-        max-width: 100%;
-    }
-    .faq-main {
         max-width: 100%;
     }
 }
@@ -607,14 +653,12 @@
     .help-wrapper-control {
         display: none;
     }
+    
     .tab-pane-control, .container-control {
         max-width: 90%;
         margin: 0;
     }
-    .faq-main {
-        max-width: 100%;
-        margin-left: rem(104);
-    }
+    
     .col-md-control {
         flex-basis: 100%;
         max-width: 100%;
@@ -622,46 +666,26 @@
     }
 }
 
-@media only screen and (max-width: 1099px) {
-    .faq-main {
-        margin-left: rem(64);
-    }
-}
-
-.col-md-control {
-    > .content-asset {
-
-    }
-}
-
-@media only screen and (max-width: 991px){
+@media only screen and (max-width: 991px) {
     .tab-pane-control, .container-control {
         max-width: 100%;
     }
+    
     .container-control {
         padding-right: 0;
     }
-    #faq-page-contact-tab {
-        max-width: 95%;
-    }
-    .contact-us-form-wrapper, .contact-us-left-container{
+    .contact-us-left-container {
         flex-basis: 100%;
         max-width: 100%;
     }
-    .contact-us-left-wrapper {
-        margin: 0;
-        margin-bottom: rem(16);
-    }
+    
     .btn-contact {
         display: inline-block;
         width: auto;
         padding: rem(16) rem(56);
     }
-    .col-md-control{
-        margin-left: 0;
-    }
     
-    .faq-main {
+    .col-md-control{
         margin-left: 0;
     }
 }
