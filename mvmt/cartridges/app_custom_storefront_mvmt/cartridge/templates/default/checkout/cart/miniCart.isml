@@ -4,7 +4,7 @@
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
-    <div class="row">
+    <div class="row hidden-md-down">
         <div class="mini-cart-header">
             <div class="cart-img" aria-hidden="true">
                 <svg width="17" height="15" viewBox="0 0 17 15" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@
                    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                        <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                            <div class="card-body">
-                               <isinclude template="checkout/productCard/bonusProductCard" />
+                               <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                            </div>
                        </div>
                    <iselse/>

@@ -6,8 +6,13 @@
 }
 
 .minicart {
+    cursor: pointer;
+}
+
+.mini-cart-data {
 
     .popover {
+        left: auto;
         background-color: $white;
         border: 0;
         border-top: rem(1) solid $white-gray;
@@ -15,17 +20,22 @@
         position: fixed;
         width: rem(440);
         max-width: rem(440);
-        transform: translate(50%,-50%);
-        top: 49%;
         transition: 0.5s ease-in-out;
-        right: rem(-440);
+        right: -100%;
         display: block;
-        z-index: 99;
+        z-index: 99999;
         opacity: 1;
+        cursor: default;
+        border-radius: 0;
 
         @include media-breakpoint-down(md) {
             width: 90%;
             max-width: 90%;
+            height: calc(100vh - 70px);
+            bottom: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            top: rem(70);
         }
 
         @include media-breakpoint-down(xs) {
@@ -34,7 +44,6 @@
 
         &.show {
             right: 0;
-            transform: translate3d(0%, -49%, 0);
         }
 
         &:before, &:after {
@@ -84,6 +93,7 @@
                 justify-content: space-between;
                 border-bottom: rem(1) solid $light-gray4;
                 height: rem(41);
+                text-transform: uppercase;
 
                 .cart-img {
                     float: left;
@@ -201,6 +211,7 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
+                overflow: scroll;
                 /* Hide scrollbar for IE and Edge */
                 -ms-overflow-style: none;
 
@@ -364,6 +375,9 @@
                                     cursor: pointer;
                                     margin: 0;
                                     position: relative;
+                                    background: transparent;
+                                    border: transparent;
+                                    padding: 0;
 
                                     span {
                                         position: relative;
@@ -414,6 +428,13 @@
             position: absolute;
             width: 100%;
             background-color: $white;
+            display: block;
+            box-shadow: 0px rem(-5) rem(5) rem(-5) $light-gray9;
+
+            @include media-breakpoint-down(md) {
+                position: relative;
+                
+            }
 
             .cart-checkout-options {
                 width: 100%;
@@ -579,18 +600,18 @@
 
                 .oauth-facebook {
                     margin-right: 1%;
-                    background-color: #3b5998;
+                    background-color: $dark-blue;
 
                     &:hover {
-                        background-color: #3b61b3;
+                        background-color: $light-blue;
                     }
                 }
 
                 .oauth-google {
-                    background-color: #dd4b39;
+                    background-color: $dark-red2;
 
                     &:hover {
-                        background-color: #f74e38;
+                        background-color: $light-red;
                     }
                 }
 
