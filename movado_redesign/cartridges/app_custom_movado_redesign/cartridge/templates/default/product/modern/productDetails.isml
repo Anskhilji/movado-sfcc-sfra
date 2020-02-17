@@ -90,11 +90,16 @@
                             <div class="promotions">
                                 <isinclude template="product/components/promotions" />
                             </div>
+                            <div class = "d-block d-md-none">
+                                <isinclude template="util/affirmmodule_mf" />
+                                <isaffirmpromo context="pdp"
+                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            </div>
 
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/traditional/components/options" />
 	                        </isif>
-                            <div>
+                            <div class = "d-none d-md-block">
                                 <isinclude template="util/affirmmodule_mf" />
                                 <isaffirmpromo context="pdp"
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />

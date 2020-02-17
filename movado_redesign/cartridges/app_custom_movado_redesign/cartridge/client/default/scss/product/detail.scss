@@ -1362,3 +1362,18 @@ body {
 .smartgift-btn-redesign {
     width: 100%;
 }
+
+@include media-breakpoint-down(lg) {
+    .dw-apple-pay-button.apple-pay-pdp {
+        width: 100%;
+    }
+    
+    .prices-add-to-cart-actions {
+        padding: 0;
+        margin-left: rem(8);
+    }
+    
+    .add-to-cart {
+        width: 100%;
+    }
+}
