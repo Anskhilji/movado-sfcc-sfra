@@ -14,16 +14,11 @@
 		<isif condition="${product.available && product.readyToOrder}">
 			<isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
 		        <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
+		        <isinclude template="product/old/components/smartGift" />
 		    <iselse>
 		        <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
 		    </isif>
 	    </isif>
-           <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')}">
-               <isinclude template="product/old/components/smartGift" />
-           <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
-               <isinclude template="product/old/components/smartGift" />
-           </iselseif>
-           </isif>
 	    
     </div>
 </div>

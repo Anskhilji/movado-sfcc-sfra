@@ -79,7 +79,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
 
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+    if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
     	pdpAnalyticsTrackingData = {
             itemID: product.ID,
