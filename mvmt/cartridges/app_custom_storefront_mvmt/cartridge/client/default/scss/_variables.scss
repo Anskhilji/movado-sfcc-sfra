@@ -1,3 +1,5 @@
+$white-gray: #f7f8f9;
+$dark-red: #a40000;
 $light-gray: #5c5c5c;
 $light-gray2: #929292;
 $light-gray3: #fafafa;
@@ -11,14 +13,58 @@ $gray1: #808080;
 $gray7: #777777;
 $gray8: #f3f3f3;
 $gray9: #8f8f8f;
-$gray10: #ddd; 
+$gray10: #ddd;
 $light-green: #53c563;
 $light-green2: #62c077;
 $light-green3: #57cb71;
 $light-green4: #6bd182;
-$white-gray: #f7f8f9;
-$dark-red: #a40000;
+
 $transparent-gray: rgba(0, 0, 0, 0.8);
+$gray94: #f0f0f0 !default;
+$white-grey: #eaeaea !default;
+$gray-x11: #bcbec0 !default;
+$regent-grey: #787A8A !default;
+$gray90: #E5E5E5 !default;
+$gray91: #e8e8e8 !default;
+$gull-gray-light: rgba(160, 169, 186, 0.1) !default;
+$parrot-green: #99CB7F !default;
+$gray-green: rgba(102,152,76,0.1) !default;
+$dark-green: #66984C !default;
+$white-smoke: #F2F2F2 !default;
+$gray-overlay: rgba(242,242,242,0.89) !default;
+$dark-pink: #ead7dc !default;
+$grey9-light:  #d6d7d8 !default;
+$gray98: #fafafa !default;
+$zircon: #eaebeb;
+$black: #000;
+$apple-green: #53c563;
+$alice-blue: #F7F8F9;
+$gray36: #5c5c5c;
+
+@mixin font-bold {
+    font-family: futura-pt, FuturaStd-Bold, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+@mixin font-medium {
+    font-family: futura-pt, FuturaStd-Medium, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-light {
+    font-family: futura-pt, FuturaStd-Book, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: futura-pt, FuturaStd-Book, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 $red1: #d9021b;
 $blue: #0051b2;
 
@@ -51,3 +97,8 @@ $grid-breakpoints: (
     lg: 992px,
     xl: 1200px
 ) !default;
+
+$container-max-width: 1440px;
+$custom-xl: 1280px;
+$custom-lg: 1070px;
+$custom-sm: 800px;
