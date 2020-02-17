@@ -58,7 +58,7 @@ function create(orderNumber, paymentInstrument) {
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     var result = {status : 'success'};
-    if (isRiskifiedflag) {
+    if (true) {
         var serviceResult = RiskifiedService.sendCreateOrder(order);
         if (!serviceResult) {
             result.status = 'fail';        	

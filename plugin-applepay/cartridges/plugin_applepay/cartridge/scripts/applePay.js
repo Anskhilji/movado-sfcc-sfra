@@ -73,7 +73,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
     }
-
+    var checkoutDecisionStatus = hooksHelper(
+            'app.fraud.detection.create',
+            'create',
+            order.orderNo,
+            order.paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
     if (deliveryValidationFail) {
         var sendMail = true;// send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called

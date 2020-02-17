@@ -190,64 +190,64 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
  * @return {Boolean}
  */
 function sendCreateOrder(order) {
-    var logLocation = _moduleName + '.sendCreateOrder()',
-        OrderModel,
-        orderParams,
-        checkoutDeniedParams,
-        orderPaymInstrument,
-        response;
+//    var logLocation = _moduleName + '.sendCreateOrder()',
+//        OrderModel,
+//        orderParams,
+//        checkoutDeniedParams,
+//        orderPaymInstrument,
+//        response;
+//
+//    if (false) {
+//        return false;
+//    }
+//
+//    var hasGiftCert = false;
+//    var ordPaymInstIt = order.getPaymentInstruments().iterator();
+//
+//    while (ordPaymInstIt.hasNext()) {
+//        orderPaymInstrument = ordPaymInstIt.next();
+//        if (orderPaymInstrument.paymentMethod.equals(dw.order.PaymentInstrument.METHOD_GIFT_CERTIFICATE)) {
+//            hasGiftCert = true;
+//        }
+//    }
+//
+//    OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
+//
+//    if (empty(session.custom.paymentParams) && !hasGiftCert) {
+//        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
+//        return false;
+//    }
+//
+//    if (empty(session.custom.checkoutUUID)) {
+//        RCLogger.logMessage('checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation);
+//        return false;
+//    }
 
-    if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
-        return false;
-    }
-
-    var hasGiftCert = false;
-    var ordPaymInstIt = order.getPaymentInstruments().iterator();
-
-    while (ordPaymInstIt.hasNext()) {
-        orderPaymInstrument = ordPaymInstIt.next();
-        if (orderPaymInstrument.paymentMethod.equals(dw.order.PaymentInstrument.METHOD_GIFT_CERTIFICATE)) {
-            hasGiftCert = true;
-        }
-    }
-
-    OrderModel = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
-
-    if (empty(session.custom.paymentParams) && !hasGiftCert) {
-        RCLogger.logMessage('Payment related information is lost, therefore cannot proceed further', 'error', logLocation);
-        return false;
-    }
-
-    if (empty(session.custom.checkoutUUID)) {
-        RCLogger.logMessage('checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation);
-        return false;
-    }
-
-    orderParams = {
+    var orderParams = {
         sessionId     : session.getSessionID(),
         requestIp     : request.getHttpRemoteAddress(),
         paymentParams : session.custom.paymentParams,
         checkoutId    : session.custom.checkoutUUID
     };
 
-    checkoutDeniedParams = {
-        isCheckoutDenied: false
-    };
+//    checkoutDeniedParams = {
+//        isCheckoutDenied: false
+//    };
 
-    OrderModel.savePaymentInformationInOrder(order, orderParams, logLocation);
+    //OrderModel.savePaymentInformationInOrder(order, orderParams, logLocation);
     response = RiskifiedAPI.createOrder(order, orderParams);
 
-    if (response.error) {
-        RCLogger.logMessage('Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation);
-
-        if (response.recoveryNeeded) {
-            RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
-        }
-
-        return false;
-    }
-
-    return true;
+//    if (response.error) {
+//        RCLogger.logMessage('Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation);
+//
+//        if (response.recoveryNeeded) {
+//            RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
+//        }
+//
+//        return false;
+//    }
+//
+//    return true;
 }
 
 /**

@@ -10,6 +10,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var adyenPaymentCheckout = require('~/cartridge/scripts/adyen/klarna/adyenPaymentCheckout.js');
 var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var RiskifiedService = require('int_riskified');
 
 server.prepend('Redirect', server.middleware.https, function (req, res, next) {
     var order = OrderMgr.getOrder(session.custom.orderNo);
@@ -28,12 +29,19 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            hooksHelper(
-                'app.fraud.detection.checkoutcreate',
-                'checkoutCreate',
-                order.orderNo,
-                order.paymentInstrument,
-                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+//            hooksHelper(
+//                'app.fraud.detection.checkoutcreate',
+//                'checkoutCreate',
+//                order.orderNo,
+//                order.paymentInstrument,
+//                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+            RiskifiedService.storePaymentDetails({
+                avsResultCode: 'Y', // Street address and 5-digit ZIP code
+                // both
+                // match
+                cvvResultCode: 'M', // CVV2 Match
+                paymentMethod: 'Card'
+            });
 
             res.redirect(result.adyenPaymentResponse.redirectUrl);
             return next();
