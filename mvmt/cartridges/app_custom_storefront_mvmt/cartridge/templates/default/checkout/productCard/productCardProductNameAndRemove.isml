@@ -1,0 +1,18 @@
+<div class="line-item-name">
+    <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+    <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
+    <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+</div>
+<isif condition="${!lineItem.isBonusProductLineItem}"/>
+    <div class="remove-line-item">
+        <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                data-target="#removeProductModal" data-pid="${lineItem.id}"
+                data-name="${lineItem.productName}"
+                data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                data-uuid="${lineItem.UUID}"
+                aria-label="remove">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <isinclude template="cart/cartRemoveProductModal"/>
+</isif>

@@ -1,6 +1,6 @@
 'use strict';
 
-var movadoBase = require('movado/product/base');
+var $movadoBase = require('movado/product/base');
 
 /**
  * appends params to a url
@@ -8,13 +8,13 @@ var movadoBase = require('movado/product/base');
  * @param {Object} params - Parameters to append
  * @returns {string} result url with appended parameters
  */
-function appendToUrl(url, params) {
-    var newUrl = url;
-    newUrl += (newUrl.indexOf('?') !== -1 ? '&' : '?') + Object.keys(params).map(function (key) {
+function appendToUrl($url, params) {
+    var $newUrl = $url;
+    $newUrl += ($newUrl.indexOf('?') !== -1 ? '&' : '?') + Object.keys(params).map(function (key) {
         return key + '=' + encodeURIComponent(params[key]);
     }).join('&');
 
-    return newUrl;
+    return $newUrl;
 }
 
 /**
@@ -25,13 +25,13 @@ function appendToUrl(url, params) {
 function validateBasket(data) {
     if (data.valid.error) {
         if (data.valid.message) {
-            var errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
+            var $errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
                 'fade show" role="alert">' +
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                 '<span aria-hidden="true">&times;</span>' +
                 '</button>' + data.valid.message + '</div>';
 
-            $('.cart-error').empty().append(errorHtml);
+            $('.cart-error').empty().append($errorHtml);
         } else {
             $('.cart').empty().append('<div class="row"> ' +
                 '<div class="col-12 text-center"> ' +
@@ -63,7 +63,9 @@ function updateCartTotals(data) {
     /* Affirm block for refreshing promo message */
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
-    affirm.ui.refresh();
+    if ($('.affirm-as-low-as').length > 0) {
+        affirm.ui.refresh();
+    }
     $('.minicart-quantity').empty().append(data.numItems);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
@@ -93,13 +95,13 @@ function updateCartTotals(data) {
  * @param {Object} message - Error message to display
  */
 function createErrorNotification(message) {
-    var errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
+    var $errorHtml = '<div class="alert card alert-dismissible valid-cart-error ' +
         'fade show" role="alert">' +
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
         '<span aria-hidden="true">&times;</span>' +
         '</button>' + message + '</div>';
 
-    $('.cart-error').empty().append(errorHtml);
+    $('.cart-error').empty().append($errorHtml);
 }
 
 /**
@@ -107,15 +109,15 @@ function createErrorNotification(message) {
  * @param {Object} approachingDiscounts - updated approaching discounts for the cart
  */
 function updateApproachingDiscounts(approachingDiscounts) {
-    var html = '';
+    var $html = '';
     $('.approaching-discounts').empty();
     if (approachingDiscounts.length > 0) {
         approachingDiscounts.forEach(function (item) {
-            html += '<div class="single-approaching-discount text-center">'
+            $html += '<div class="single-approaching-discount text-center">'
                 + item.discountMsg + '</div>';
         });
     }
-    $('.approaching-discounts').append(html);
+    $('.approaching-discounts').append($html);
 }
 
 /**
@@ -124,33 +126,33 @@ function updateApproachingDiscounts(approachingDiscounts) {
  * @param {string} uuid - The uuid of the product line item to update
  */
 function updateAvailability(data, uuid) {
-    var lineItem;
-    var messages = '';
+    var $lineItem;
+    var $messages = '';
 
     for (var i = 0; i < data.items.length; i++) {
         if (data.items[i].UUID === uuid) {
-            lineItem = data.items[i];
+            $lineItem = data.items[i];
             break;
         }
     }
 
-    $('.availability-' + lineItem.UUID).empty();
+    $('.availability-' + $lineItem.UUID).empty();
 
-    if (lineItem.availability) {
-        if (lineItem.availability.messages) {
-            lineItem.availability.messages.forEach(function (message) {
-                messages += '<p class="line-item-attributes">' + message + '</p>';
+    if ($lineItem.availability) {
+        if ($lineItem.availability.messages) {
+            $lineItem.availability.messages.forEach(function (message) {
+                $messages += '<p class="line-item-attributes">' + message + '</p>';
             });
         }
 
-        if (lineItem.availability.inStockDate) {
-            messages += '<p class="line-item-attributes line-item-instock-date">'
-                + lineItem.availability.inStockDate
+        if ($lineItem.availability.inStockDate) {
+            $messages += '<p class="line-item-attributes line-item-instock-date">'
+                + $lineItem.availability.inStockDate
                 + '</p>';
         }
     }
 
-    $('.availability-' + lineItem.UUID).html(messages);
+    $('.availability-' + $lineItem.UUID).html($messages);
 }
 
 
@@ -163,25 +165,25 @@ function updateAvailability(data, uuid) {
 $('.quantity-form > .quantity').bind('keyup', function (e) {
     this.value = this.value.replace(/[^\d].+/, '');
 
-    var keyCode = (e.keyCode ? e.keyCode : e.which);
+    var $keyCode = (e.$keyCode ? e.$keyCode : e.which);
     //for down key arrow
-    if (keyCode == 40) {
+    if ($keyCode == 40) {
         decreaseQuantity(this);
     }
 
     //for up key arrow
-    if (keyCode == 38) {
+    if ($keyCode == 38) {
         increaseQuantity(this);
     }
 
-    if (keyCode != 8 && keyCode != 46) {
-        if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105)) {
+    if ($keyCode != 8 && $keyCode != 46) {
+        if (($keyCode >= 48 && $keyCode <= 57) || ($keyCode >= 96 && $keyCode <= 105)) {
             updateCartQuantity(this, true);
         }
     }
 
-    if (keyCode < 48 || keyCode > 57 || keyCode < 96 || keyCode > 105) {
-        event.preventDefault();
+    if ($keyCode < 48 || $keyCode > 57 || $keyCode < 96 || $keyCode > 105) {
+        e.preventDefault();
     }
 });
 
@@ -193,20 +195,20 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
  * @param id
  */
 function decreaseQuantity (quantitySelector, id) {
-    var quantity = parseInt($(quantitySelector).val());
-    if (isNaN(quantity)) {
+    var $quantity = parseInt($(quantitySelector).val());
+    if (isNaN($quantity)) {
         $('#decreased-' + id).attr('disabled', true);
-        quantity = 1;
+        $quantity = 1;
     }
 
-    quantity = (quantity > 1) ? quantity - 1 : quantity;
+    $quantity = ($quantity > 1) ? $quantity - 1 : $quantity;
 
-    if (quantity == 1) {
+    if ($quantity == 1) {
         $('#decreased-' + id).attr('disabled', true);
     } else {
         $('#decreased-' + id).attr('disabled', false);
     }
-    $(quantitySelector).val(quantity);
+    $(quantitySelector).val($quantity);
     updateCartQuantity(quantitySelector, false);
 }
 
@@ -218,16 +220,16 @@ function decreaseQuantity (quantitySelector, id) {
  * @param id
  */
 function increaseQuantity (quantitySelector, id) {
-    var quantity = parseInt($(quantitySelector).val());
-    if (isNaN(quantity)) {
+    var $quantity = parseInt($(quantitySelector).val());
+    if (isNaN($quantity)) {
         $(quantitySelector).val(1);
         $('#decreased-' + id).attr('disabled', true);
     }
 
-    if (quantity >= 1) {
+    if ($quantity >= 1) {
         $('#decreased-' + id).attr('disabled', false);
-        quantity = quantity + 1;
-        $(quantitySelector).val(quantity);
+        $quantity = $quantity + 1;
+        $(quantitySelector).val($quantity);
     }
     updateCartQuantity(quantitySelector, false);
 }
@@ -239,56 +241,53 @@ function increaseQuantity (quantitySelector, id) {
  * @param isKeyEvent is used to check the current event is fire from keys or mouse.
  */
 function updateCartQuantity (quantitySelector, isKeyEvent) {
-    var preSelectQty = $(quantitySelector).data('pre-select-qty');
-    var quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
-    var productID = $(quantitySelector).data('pid');
-    var url = $(quantitySelector).data('action');
-    var uuid = $(quantitySelector).data('uuid');
+    var $preSelectQty = $(quantitySelector).data('pre-select-qty');
+    var $quantity = isKeyEvent ? parseInt(quantitySelector.value) : parseInt($(quantitySelector).val());
+    var $productID = $(quantitySelector).data('pid');
+    var $url = $(quantitySelector).data('action');
+    var $uuid = $(quantitySelector).data('uuid');
 
-    if (isNaN(quantity) || quantity == 0) {
-        quantity = 1;
-        $(quantitySelector).val(quantity);
+    if (isNaN($quantity) || $quantity == 0) {
+        $quantity = 1;
+        $(quantitySelector).val($quantity);
     }
 
-    if (quantity == 1 || quantity == 0) {
-        $('#decreased-' + productID).attr('disabled', true);
+    if ($quantity == 1 || $quantity == 0) {
+        $('#decreased-' + $productID).attr('disabled', true);
     } else {
-        $('#decreased-' + productID).attr('disabled', false);
+        $('#decreased-' + $productID).attr('disabled', false);
     }
 
-    var urlParams = {
-        pid: productID,
-        quantity: quantity,
-        uuid: uuid
+    var $urlParams = {
+        pid: $productID,
+        quantity: $quantity,
+        uuid: $uuid
     };
 
-    url = appendToUrl(url, urlParams);
+    $url = appendToUrl($url, $urlParams);
     $(quantitySelector).parents('.card').spinner().start();
 
     $.ajax({
-        url: url,
+        url: $url,
         type: 'get',
         context: quantitySelector,
         dataType: 'json',
         success: function (data) {
-            $('.quantity[data-uuid="' + uuid + '"]').val(quantity);
+            $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
             $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
-            updateAvailability(data, uuid);
+            updateAvailability(data, $uuid);
             validateBasket(data);
-            $(quantitySelector).data('pre-select-qty', quantity);
+            $(quantitySelector).data('pre-select-qty', $quantity);
             $.spinner().stop();
-            if ($(quantitySelector).parents('.product-info').hasClass('bonus-product-line-item') && $('.cart-page').length) {
-                location.reload();
-            }
         },
         error: function (err) {
             if (err.responseJSON.redirectUrl) {
                 window.location.href = err.responseJSON.redirectUrl;
             } else {
                 createErrorNotification(err.responseJSON.errorMessage);
-                $(quantitySelector).val(parseInt(preSelectQty, 10));
+                $(quantitySelector).val(parseInt($preSelectQty, 10));
                 $.spinner().stop();
             }
         }
@@ -302,11 +301,10 @@ module.exports = function () {
      * It will get the decreased-btn data attribute and builds the quantitySelector 
      * class and it will call the decreaseQuantity function.
      */
-    $(document).on('click', '.decreased-btn', function (e) {
-        e.preventDefault();
-        var pid = $(this).data('pid');
-        var quantitySelector = '.' + $(this).data('pid');
-        decreaseQuantity(quantitySelector, pid);
+    $('body').off('click', '.decreased-btn').on('click', '.decreased-btn', function (e) {
+        var $pid = $(this).data('pid');
+        var $quantitySelector = '.' + $(this).data('pid');
+        decreaseQuantity($quantitySelector, $pid);
     });
 
     /**
@@ -314,11 +312,67 @@ module.exports = function () {
      * It will get the increased-btn data attribute and builds the quantitySelector 
      * class and it will call the increaseQuantity function.
      */
-    $(document).on('click', '.increased-btn', function (e) {
-        e.preventDefault();
-        var pid = $(this).data('pid');
-        var quantitySelector = '.' + $(this).data('pid');
-        increaseQuantity(quantitySelector, pid);
+    $('body').off('click', '.increased-btn').on('click', '.increased-btn', function (e) {
+        var $pid = $(this).data('pid');
+        var $quantitySelector = '.' + $(this).data('pid');
+        increaseQuantity($quantitySelector, $pid);
+    });
+
+    /**
+     * This is override click event function on the remove button from mini-cart.
+     * It is used to remove the product from the cart and if product is 
+     * successfully removed then it will add the new classes with div's according to
+     * the mvmt design.
+     */
+    $('body').off('click', '.remove-product-from-mini-cart').on('click', '.remove-product-from-mini-cart', function (e) {
+        var $actionUrl = $(this).data('action');
+        var $productID = $(this).data('pid');
+        var $productName = $(this).data('name');
+        var $uuid = $(this).data('uuid');
+        var $gtmProdObj = $(this).data('gtm-cart');
+        var $urlParams = {
+            pid: $productID,
+            uuid: $uuid
+        };
+
+        var $url = appendToUrl($actionUrl, $urlParams);
+        $('.gtm-cart').attr('data-gtm-cart', JSON.stringify($gtmProdObj));
+
+        $.spinner().start();
+        $.ajax({
+            url: $url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.basket.items.length === 0) {
+
+                } else {
+                    if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
+                        for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
+                            $('.uuid-' + data.toBeDeletedUUIDs[i]).remove();
+                        }
+                    }
+                    $('.uuid-' + $uuid).remove();
+                    if (!data.basket.hasBonusProduct) {
+                        $('.bonus-product').remove();
+                    }
+                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    updateCartTotals(data.basket);
+                    updateApproachingDiscounts(data.basket.approachingDiscounts);
+                    $('body').trigger('setShippingMethodSelection', data.basket);
+                    validateBasket(data.basket);
+                }
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
     });
 
     /**
@@ -328,35 +382,43 @@ module.exports = function () {
      * the mvmt design.
      */
     $('body').off('click', '.remove-product').on('click', '.remove-product', function (e) {
-        e.preventDefault();
-
-        var actionUrl = $(this).data('action');
-        var productID = $(this).data('pid');
-        var productName = $(this).data('name');
-        var uuid = $(this).data('uuid');
-        var gtmProdObj = $(this).data('gtm-cart');
-        var urlParams = {
-            pid: productID,
-            uuid: uuid
+        var $actionUrl = $(this).data('action');
+        var $productID = $(this).data('pid');
+        var $productName = $(this).data('name');
+        var $uuid = $(this).data('uuid');
+        var $gtmProdObj = $(this).data('gtm-cart');
+        var $urlParams = {
+            pid: $productID,
+            uuid: $uuid
         };
 
-        var url = appendToUrl(actionUrl, urlParams);
-        $('.gtm-cart').attr('data-gtm-cart', JSON.stringify(gtmProdObj));
+        var $url = appendToUrl($actionUrl, $urlParams);
+        $('.gtm-cart').attr('data-gtm-cart', JSON.stringify($gtmProdObj));
 
         $.spinner().start();
         $.ajax({
-            url: url,
+            url: $url,
             type: 'get',
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
+                    var htmlString = '<div class="container my-5 cart-empty order-1">'
+                        + '<div class="container my-5 cart-empty order-1">'
+                        + '<div class="row justify-content-center">'
+                        + '<div class="col-12 text-center">'
+                        + '<h1 class="empty-cart-header empty-cart-msg">'
+                        + window.Resources.CART_EMPTY_MESSAGE
+                        + '</h1></div>'
+                        + '<div><a href= "' + data.homePageURL + '" class="btn btn-primary btn-block continue-shopping" role="button">' 
+                        + window.Resources.CONTINUE_SHOPPING + '</a>'
+                        + '</div></div></div>';
                     $('.cart-header-wrapper').remove();
                     $('.promo-box').remove();
                     $('.cart-order-outer-box + br').remove();
                     $('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();
                     $('.product-info').remove();
-                    $('.cart-page > .row').append('<div class="container my-5 cart-empty order-1"><div class="row justify-content-center"><div class="col-12 text-center"><h1 class="empty-cart-header empty-cart-msg"> ' + window.Resources.CART_EMPTY_MESSAGE + '</h1></div><div><a href= "' + data.homePageURL + '" class="btn btn-primary btn-block continue-shopping" role="button">' + window.Resources.CONTINUE_SHOPPING + '</a></div></div></div>');
+                    $('.cart-page > .row').append(htmlString);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty();
@@ -369,7 +431,7 @@ module.exports = function () {
                             $('.uuid-' + data.toBeDeletedUUIDs[i]).remove();
                         }
                     }
-                    $('.uuid-' + uuid).remove();
+                    $('.uuid-' + $uuid).remove();
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
@@ -398,8 +460,16 @@ module.exports = function () {
      * the updateCartQuantity function that will handle the quantity update 
      * functionality.
      */
-    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form > .quantity', function () {
+    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form > .quantity', function (e) {
         e.preventDefault();
         updateCartQuantity(this, false);
     });
+
+    $movadoBase.selectAttribute();
+    $movadoBase.colorAttribute();
+    $movadoBase.removeBonusProduct();
+    $movadoBase.selectBonusProduct();
+    $movadoBase.enableBonusProductSelection();
+    $movadoBase.showMoreBonusProducts();
+    $movadoBase.addBonusProductsToCart();
 };
