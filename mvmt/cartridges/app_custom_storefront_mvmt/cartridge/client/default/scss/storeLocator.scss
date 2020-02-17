@@ -11,6 +11,7 @@
     }
 
     .search-form {
+        padding: rem(25) 0 rem(40);
         box-shadow: inherit;
         border-radius: 0;
         border: 0;
@@ -18,17 +19,22 @@
         margin-bottom: 0;
 
         .find-store-form {
+            padding: 0 rem(30);
             box-shadow: inherit;
             border-radius: 0;
             border: 0;
 
             form {
                 display: flex;
-                height: rem(50);
+                height: auto;
+                width: auto;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+
 
                 @include media-breakpoint-down(sm) {
                     height: auto;
-                    flex-direction: column;
                 }
 
                 > .form-group {
@@ -37,6 +43,7 @@
 
                     @include media-breakpoint-down(md) {
                         margin-bottom: rem(15);
+                        width: 50%;
                     }
 
                     @include media-breakpoint-down(sm) {
@@ -56,38 +63,53 @@
                         font-weight: 500;
                         width: 100%;
                         margin: 0;
-                        background-size: rem(18px);
+                        background-size: rem(18);
                         background-image: url(../images/search-icon.svg);
                         background-position: 0;
                         background-repeat: no-repeat;
+
+                        &:focus {
+
+                            &::placeholder {
+                                color: transparent;
+                            }
+                        }
+
+                        &::placeholder {
+                            color: $gray7;
+                        }
                     }
                 }
 
                 .form-group-2 {
-                    width: auto;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    margin-left: rem(10);
+                    margin-right: rem(10);
 
-                    @include media-breakpoint-down(sm) {
-                        width: 100%;
-                        flex-wrap: wrap;
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: rem(12);
+                        margin-left: rem(8);
+                        margin-right: rem(8);
                     }
 
                     @include media-breakpoint-down(xs) {
-                        padding: 0 rem(30);
+                        margin-left: 0;
+                        margin-right: rem(10);
                     }
                 }
 
                 .find-store-select {
-                    width: rem(135);
+                    width: rem(105);
+                    top: rem(-4);
+
+                    @include media-breakpoint-down(sm) {
+                        top: 0;
+                    }
 
                     select {
-                        align-items: normal;
-                        padding: rem(6);
+                        padding-right: 0;
+                        padding-left: 0;
                         font-family: $font-medium;
                         position: absolute;
-                        height: rem(50);
                         background-color: transparent;
                         border: 0;
                         border-radius: 0;
@@ -97,14 +119,13 @@
                         text-align: center;
                         white-space: nowrap;
                         display: inline-block;
-                        vertical-align: bottom;
                         box-shadow: inherit;
                         cursor: pointer;
                         text-transform: inherit;
+                        width: auto;
 
                         @include media-breakpoint-down(sm) {
                             position: relative;
-                            align-items: center;
                         }
                     }
 
@@ -112,33 +133,40 @@
                         display: inline-block;
                         width: 0;
                         height: 0;
-                        margin-top: rem(5);
+                        margin-top: rem(7);
                         margin-left: 0;
                         vertical-align: middle;
                         border-top: rem(4) solid;
                         border-right: rem(4) solid transparent;
                         border-left: rem(4) solid transparent;
                         pointer-events: none;
-                        right: rem(20);
+                        right: 0;
 
                         @include media-breakpoint-down(sm) {
-                            margin-top: rem(12);
-                            right: rem(25);
+                            margin-top: rem(8);
                         }
                     }
                 }
 
+                .button-align {
+                    margin-bottom: 0;
+
+                    @include media-breakpoint-down(md) {
+                        margin-bottom: rem(16);
+                    }
+                }
+
                 .btn-storelocator-search {
-                    font-family: $font-medium;
+                    font-family: $font-bold;
                     font-size: rem(13);
                     color: $white;
                     background-color: $black;
                     border-radius: 0;
-                    padding: 0 rem(35);
+                    padding: 0 rem(16);
                     line-height: rem(50);
                     letter-spacing: rem(1.6);
                     margin: 0;
-                    width: auto;
+                    width: rem(230);
                     box-shadow: inherit;
                 }
 

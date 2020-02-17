@@ -90,7 +90,9 @@ function exportGoogleFeed(args) {
             "brand" : 13,
             "color" : 14,
             "gender" : 15,
-            "ageGroup" : 16
+            "ageGroup" : 16,
+            "productLabel" : 17,
+            "fontFamily" : 18
                 }
     } else {
         feedColumnsGoogle = {
@@ -300,6 +302,14 @@ function buildCsvHeader(feedColumns) {
 
     if (!empty(feedColumns['rating'])) {
         csvFileHeader.push("rating");
+    }
+
+    if (!empty(feedColumns['productLabel'])) {
+        csvFileHeader.push("Label");
+    }
+
+    if (!empty(feedColumns['fontFamily'])) {
+        csvFileHeader.push("custom_label_1");
     }
 
     return csvFileHeader
@@ -531,6 +541,22 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         productDetails.push("");
     }
     
+    if (!empty(feedColumns['productLabel'])) {
+        if (product.label) {
+            productDetails.push(product.label);
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['fontFamily'])) {
+        if (product.familyName) {
+            productDetails.push(product.familyName)
+        } else {
+            productDetails.push("");
+        }
+    }
+
     fileArgs.csvStreamWriter.writeNext(productDetails);
     productDetails = [];
 }
@@ -550,6 +576,7 @@ function getProductAttributes(product, feedParameters) {
         producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
         description: product.getShortDescription(),
         decimalPrice : productDecimalPrice + " " + productCurrencyCode,
+        label : product.custom.label ? product.custom.label : "",
         price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,

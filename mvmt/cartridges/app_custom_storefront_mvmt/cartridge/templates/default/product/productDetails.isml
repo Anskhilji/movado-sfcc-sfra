@@ -21,7 +21,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
@@ -51,7 +51,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <!---Breadcrumbs--->
                     <div class="product-breadcrumb hidden-sm-down">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
@@ -74,7 +74,6 @@
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                 data-available="${product.available}">
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
                             </div>
 
                             <!-- Applicable Promotions -->
@@ -123,7 +122,7 @@
                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
 	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
 	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-	                               </isif>    
+	                               </isif>
                                </isif>
                             </div>
                         </div>
@@ -162,12 +161,15 @@
             <isinclude template="product/components/productGallery" />
         </div>
 
+
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
+
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
         <iscomment>
