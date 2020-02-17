@@ -66,8 +66,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
-    
     var display = {};
+    
     display.wishlists = req.querystring.wishlists;
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
