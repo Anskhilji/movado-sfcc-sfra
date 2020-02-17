@@ -13,10 +13,25 @@
         <isslot id="cs-category-landing-nav" description="Category Landing Page Nav" context="category" context-object="${pdict.category}"/>
     </div>
 
-    <div class="static-content-wrapper">
-        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
+    <iscomment> <div class="static-content-wrapper">
+        <div class="static-content-img">
+
+        </div>
+        <div class="static-content-info">
+            <div class="static-content-info-inner">
+                <h2 class="static-content-info-title">Mens Watches</h2>
+                <p class="static-content-info-line">Classic style meets modern design.</p>
+                <a href="" class="static-content-info-button">Shop all watches</a>
+            </div>
+        </div>
+    </div> </iscomment>
+
+    <div class="content-slots-container">
+        <isslot id="category-static-content-cs1" description="Category Landing Page static content Slot 1." context="category" context-object="${pdict.category}"/>
         <isslot id="cs-category-landing-cs2" description="Category Landing Page content Slot 2." context="category" context-object="${pdict.category}"/>
         <isslot id="cs-category-landing-cs3" description="Category Landing Page content Slot 3." context="category" context-object="${pdict.category}"/>
         <isslot id="cs-category-landing-cs4" description="Category Landing Page content Slot 4." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 4." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs66" description="Category Landing Page content Slot 666." context="category" context-object="${pdict.category}"/>
     </div>
 </isdecorate>

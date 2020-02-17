@@ -102,3 +102,102 @@
         }
     }
 }
+
+.static-content{
+
+    &-wrapper {
+        display: block;
+
+        @include media-breakpoint-up(lg) {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 rem(30);
+            max-width: rem(1300);
+        }
+    }
+
+    &-img {
+        padding: 0 rem(15);
+        width: 100%;
+
+        @include media-breakpoint-up(lg) {
+            padding: 0;
+            width: 50%;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &-info {
+        width: 100%;
+        text-align: center;
+        padding: rem(30) rem(20) 0;
+
+        @include media-breakpoint-up(lg) {
+            width: 50%;
+            display: flex;
+            padding: 30px 10% 0;
+            flex-direction: column;
+            margin: auto;
+            text-align: left;
+        }
+
+        &-inner {
+            @include media-breakpoint-up(lg) {
+                width: 80%;
+                margin: auto;
+            }
+        }
+
+        &-title {
+            color: $black;
+            font-size: rem(24);
+            line-height: rem(24);
+            margin-bottom: rem(20);
+            text-transform: uppercase;
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(60);
+                line-height: rem(60);
+                max-width: 50%;
+                letter-spacing: rem(5.62);
+                margin-bottom: rem(10);
+                @include font-medium;
+            }
+        }
+
+        &-line {
+            color: $black;
+            font-size: rem(12);
+            @include font-medium;
+            letter-spacing: rem(1);
+            line-height: 1.5;
+            margin-bottom: rem(20);
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 80%;
+            text-transform: uppercase;
+
+            @include media-breakpoint-up(lg) {
+                margin-left: 0;
+                margin-right: 0;
+                font-size: rem(14);
+                letter-spacing: rem(1.17);
+                max-width: 100%;
+            }
+        }
+
+        &-button {
+            max-width: rem(215);
+            border-width: rem(1);
+
+            &:hover {
+                background-color: $black;
+                color: $white;
+                text-decoration: none;
+            }
+        }
+    }
+}
