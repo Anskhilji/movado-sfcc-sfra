@@ -41,7 +41,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productType = showProductPageHelperResult.product.productType;
     var viewData = res.getViewData();
     var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
-    var ABTestAssignedSegment = {};
 
     viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, showProductPageHelperResult.product.id);
     
@@ -49,13 +48,10 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var template;
     if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','Control')) {
         template = 'product/old/productDetails';
-        ABTestAssignedSegment.control = true;
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')) {
         template = 'product/modern/productDetails';
-        ABTestAssignedSegment.modern = true;
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
         template = 'product/traditional/productDetails';
-        ABTestAssignedSegment.traditional = true;
     } else {
         template = 'product/old/productDetails';
     }
