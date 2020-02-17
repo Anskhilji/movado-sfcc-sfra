@@ -38,6 +38,7 @@
 
         .header-banner-title {
             color: $white;
+            font-family: $font-medium;
             font-size: rem(40);
             letter-spacing: rem(5);
             line-height: rem(49);
@@ -48,18 +49,12 @@
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(60);
-                font-weight: bold;
                 letter-spacing: rem(12.5);
                 width: 100%;
             }
 
             @include media-breakpoint-down(xs) {
                 font-size: rem(36);
-                width: 100%;
-            }
-
-            @include media-breakpoint-down(xss) {
-                font-size: rem(28);
                 width: 100%;
             }
         }

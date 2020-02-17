@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <div class="card">
     <isif condition="${pdict.accountlanding}">
         <div class="card-header clearfix">
@@ -18,7 +19,7 @@
                         ${Resource.msg('label.orderhistory.mostrecentorder', 'account', null)}
                     </div>
                 </isif>
-                <div class="col-4 hidden-xs-down">
+                <div class="col-4">
                     <img class="img-fluid" src="${order.firstLineItem.imageURL}" alt="${order.firstLineItem.alt}" title="${order.firstLineItem.title}">
                 </div>
                 <div class="col-sm-8 col-12">
@@ -37,20 +38,20 @@
                     </isif>
                 </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-7 dashboard-order-card-footer-columns card-info-group">
-                    <p class="field-label">${Resource.msg('label.orderhistory.totalitems','account',null)}</p>
-                    <p class="dashboard-order-card-footer-value field-value">
-                        <isprint value="${order.productQuantityTotal}" formatter="#"/>
-                    </p>
-                </div>
-                <div class="col-5 dashboard-order-card-footer-columns card-info-group">
-                    <p class="field-label">${Resource.msg('label.orderhistory.ordertotal','account',null)} </p>
-                    <p class="dashboard-order-card-footer-value field-value">
-                        ${order.priceTotal}
-                    </p>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-7 dashboard-order-card-footer-columns card-info-group">
+                        <p class="field-label">${Resource.msg('label.orderhistory.totalitems','account',null)}</p>
+                        <p class="dashboard-order-card-footer-value field-value">
+                            <isprint value="${order.productQuantityTotal}" formatter="#"/>
+                        </p>
+                    </div>
+                    <div class="col-5 dashboard-order-card-footer-columns card-info-group">
+                        <p class="field-label">${Resource.msg('label.orderhistory.ordertotal','account',null)} </p>
+                        <p class="dashboard-order-card-footer-value field-value">
+                            ${order.priceTotal}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,3 +61,4 @@
         </div>
     </isif>
 </div>
+<iscomment> Custom End </iscomment>
