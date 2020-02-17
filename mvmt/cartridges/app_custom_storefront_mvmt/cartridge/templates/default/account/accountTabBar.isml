@@ -1,3 +1,4 @@
+<iscomment> Custom Start: This is new template for account dashboard tab bar </iscomment>
 <section class="tab-bar-main">
     <button class="tab-bar-menu-open-btn" type="button">
         <span>${Resource.msg('page.heading.dashboard', 'account', null)}</span>
@@ -26,3 +27,4 @@
         <a href="${URLUtils.url('Login-Logout')}" class="tab-bar-menu-link tab-bar-sign-out">${Resource.msg('label.sign.out', 'common', null)}</a>
     </div>
 </section>
+<iscomment> Custom End </iscomment>

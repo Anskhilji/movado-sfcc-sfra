@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
 
@@ -32,3 +33,4 @@
         <isinclude template="account/dashboardProfileCards"/>
     </div>
 </isdecorate>
+<iscomment> Custom End </iscomment>

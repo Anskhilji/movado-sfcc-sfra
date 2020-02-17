@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <div class="card">
     <div class="card-header clearfix">
         <h4 class="pull-left">${Resource.msg('label.addressbook', 'account', null)}</h4>
@@ -29,3 +30,4 @@
         <a href="${URLUtils.url('Address-AddAddress')}" class="card-link">${Resource.msg('link.addnew','account',null)}</a>
     </div>
 </div>
+<iscomment> Custom End </iscomment>
