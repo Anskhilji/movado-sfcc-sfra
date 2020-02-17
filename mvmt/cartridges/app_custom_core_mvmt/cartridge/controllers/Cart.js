@@ -1,5 +1,6 @@
 'use strict';
 
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
