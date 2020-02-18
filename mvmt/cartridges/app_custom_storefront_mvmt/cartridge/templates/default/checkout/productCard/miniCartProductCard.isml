@@ -93,7 +93,7 @@
                 <div class="item-total-${lineItem.UUID} price">
                     <isinclude template="checkout/productCard/productCardProductTotalPrice" />
                 </div>
-                <iscomment> Custom Start: Removing unnecessary object attribute and adding needed object attribute in the data-action </iscomment>
+                <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
                 <div class="remove-line-item d-block mb-2">
                     <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"
                             data-pid="${lineItem.id}"

@@ -345,37 +345,37 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
-                    var $svg = '<svg width="17" height="15" viewBox="0 0 17 15" xmlns="http://www.w3.org/2000/svg">'
-                    + '<path d="M4.751 14.928c.746 0 1.352-.59 1.352-1.315 0-.726-.606-1.316-1.352-1.316-.745 0-1.352.59-1.352 1.316 0 .725.607 1.315 1.352 1.315zM13.2 14.928h.1c.358-.03.686-.184.924-.455.239-.26.348-.6.328-.957-.05-.716-.696-1.267-1.441-1.219-.746.049-1.302.687-1.253 1.403a1.34 1.34 0 0 0 1.342 1.228zM.596 1.853h1.71l2.435 8.568c.07.252.309.426.577.426h7.485a.598.598 0 0 0 .546-.348l2.724-6.093a.573.573 0 0 0-.05-.551.596.596 0 0 0-.497-.262h-8.27a.59.59 0 0 0-.596.58c0 .32.268.58.596.58h7.356l-2.207 4.933h-6.64L3.33 1.118a.594.594 0 0 0-.577-.426H.596a.59.59 0 0 0-.596.58c0 .32.268.58.596.58z"></path>'
-                    + '</svg>';
-                    var $header = '<div class="row hidden-md-down">'
-                    + '<div class="mini-cart-header">'
-                    + '<div class="cart-img" aria-hidden="true">'
-                    + $svg
-                    + '</div>'
-                    + '<h4>'
-                    + window.Resources.MINI_CART_HEADER_MESSAGE
-                    + '</h4>'
-                    + '<button class="close-cart-img" id="close-mini-cart" type="button">'
-                    + '<img src="' + data.crossImage + '"/>'
-                    + '</button>'
-                    + '</div>'
-                    + '</div>';
-                    var $image = '<div class="empty-mini-cart-image justify-content-center row">' 
-                    + '<div class="content-asset">'
-                    + data.emptyMiniContentAssetImage 
-                    + '</div>'
-                    + '</div>';
-                    var $description = '<div class="empty-mini-cart-descriptions justify-content-center row text-center">' 
-                    + '<div class="content-asset">'
-                    + data.emptyMiniContentAssetDescription 
-                    + '</div>'
-                    + '</div>';
-                    var $urls = '<div class="empty-mini-cart-urls justify-content-center row text-center">' 
-                    + '<div class="content-asset">'
-                    + data.emptyMiniContentAssetUrls 
-                    + '</div>'
-                    + '</div>';
+                    var $svg = `<svg width="17" height="15" viewBox="0 0 17 15" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.751 14.928c.746 0 1.352-.59 1.352-1.315 0-.726-.606-1.316-1.352-1.316-.745 0-1.352.59-1.352 1.316 0 .725.607 1.315 1.352 1.315zM13.2 14.928h.1c.358-.03.686-.184.924-.455.239-.26.348-.6.328-.957-.05-.716-.696-1.267-1.441-1.219-.746.049-1.302.687-1.253 1.403a1.34 1.34 0 0 0 1.342 1.228zM.596 1.853h1.71l2.435 8.568c.07.252.309.426.577.426h7.485a.598.598 0 0 0 .546-.348l2.724-6.093a.573.573 0 0 0-.05-.551.596.596 0 0 0-.497-.262h-8.27a.59.59 0 0 0-.596.58c0 .32.268.58.596.58h7.356l-2.207 4.933h-6.64L3.33 1.118a.594.594 0 0 0-.577-.426H.596a.59.59 0 0 0-.596.58c0 .32.268.58.596.58z"></path>
+                    </svg>`;
+                    var $header = `<div class="row hidden-md-down">
+                    <div class="mini-cart-header">
+                    <div class="cart-img" aria-hidden="true">
+                    ${$svg}
+                    </div>
+                    <h4>
+                    ${window.Resources.MINI_CART_HEADER_MESSAGE}
+                    </h4>
+                    <button class="close-cart-img" id="close-mini-cart" type="button">
+                    <img src="${data.crossImage}"/>
+                    </button>
+                    </div>
+                    </div>`;
+                    var $image = `<div class="empty-mini-cart-image justify-content-center row">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetImage}
+                    </div>
+                    </div>`;
+                    var $description = `<div class="empty-mini-cart-descriptions justify-content-center row text-center">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetDescription}
+                    </div>
+                    </div>`;
+                    var $urls = `<div class="empty-mini-cart-urls justify-content-center row text-center">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetUrls}
+                    </div>
+                    </div>`;
                     var $cartContainer = '<div class="container cart">' + $header + $image + $description + $urls + '</div>';
                     $('.mini-cart-data .popover').empty();
                     $('.mini-cart-data .popover').append($cartContainer);
