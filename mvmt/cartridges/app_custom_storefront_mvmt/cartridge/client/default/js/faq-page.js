@@ -2,18 +2,18 @@
 
 $(document).ready(function () {
     var $contactTab = $('#faq-page-contact-tab');
-    var $returnsTab = $('#faq-page-returns-tab');
-    var $helpContainer = $('.help-wrapper');
-    var $header = $('header');
-    var $headerHeight = $header.height();
     var $footer = $('footer');
+    var $footerHelpContainer = $('.help-wrapper-footer');
+    var $header = $('header');
+    var $helpContainer = $('.help-wrapper');
+    var $headerHeight = $header.height();
+    var $returnsTab = $('#faq-page-returns-tab');
+    
     $footer.addClass('position-relative');
     $footer.append($helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer'));
-    var $footerHelpContainer = $('.help-wrapper-footer');
-    
     
     function toggleIcon(e) {
-        $(e.target).prev('.panel-heading').find(".more-less").toggleClass('expand shrink');
+        $(e.target).prev('.faq-main-panel-heading').find('.faq-main-panel-title-more-less').toggleClass('faq-main-panel-title-expand faq-main-panel-title-shrink');
     }
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
@@ -29,8 +29,8 @@ $(document).ready(function () {
         $('.faq-nav-control-bar-inner').removeClass('active');
     });
     
-    $('.faq-nav-control-bar-link').on('click', function(){
-        $("html, body").animate({ scrollTop: 0 }, "fast");
+    $('.faq-nav-control-bar-link').on('click', function() {
+        $('html, body').animate({ scrollTop: 0 }, "fast");
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
@@ -40,29 +40,29 @@ $(document).ready(function () {
         
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($(this).text());
-        if($id == '#'+$contactTab.attr('id')) {
+        if ($id === '#' + $contactTab.attr('id')) {
             $helpContainer.hide();
             $footerHelpContainer.hide();
         } else {
             $helpContainer.show();
             $footerHelpContainer.show();
         }
-        return false;
     });
     
     $(window).scroll(function (event) {
-        if ($(this).width() >= 1100) {
+        var $helpWraperBreakPoint = 1100;
+        if ($(this).width() >= $helpWraperBreakPoint) {
             var $scroll = $(window).scrollTop();
             
             if(!$contactTab.is(':visible')) {
-                if ($helpContainer.hasClass('scroll-warp') == false  && (($helpContainer.offset().top - $(window).scrollTop()) < $headerHeight)) {
+                if ($helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
                     $helpContainer.addClass('scroll-warp');
                     $helpContainer.css({'top' : $headerHeight + 'px'});
-                } else if($helpContainer.offset().top <= ($('.tab-content').offset().top + $headerHeight)) {
+                } else if ($helpContainer.offset().top <= ($('.tab-content').offset().top + $headerHeight)) {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if(($helpContainer.offset().top + $helpContainer.outerHeight()) >= $footer.offset().top) {
+                if (($helpContainer.offset().top + $helpContainer.outerHeight()) >= $footer.offset().top) {
                     $helpContainer.hide();
                     $footerHelpContainer.show();
                 } else {
@@ -76,7 +76,7 @@ $(document).ready(function () {
         }
     });
     
-    $('.contact-page-link').on('click', function() {
+    $('.faq-main-contact-page-link').on('click', function() {
         var $controlBarLinks = $('.faq-nav-control-bar-link');
         $($controlBarLinks).siblings().removeClass('is-active');
         $($contactTab).addClass('is-active');
@@ -89,7 +89,7 @@ $(document).ready(function () {
         $footerHelpContainer.hide();
     });
     
-    $('.faq-return-page-link').on('click', function() {
+    $('.faq-main-return-page-link').on('click', function() {
         var $controlBarLinks = $('.faq-nav-control-bar-link');
         $($controlBarLinks).siblings().removeClass('is-active');
         $($returnsTab).addClass('is-active');

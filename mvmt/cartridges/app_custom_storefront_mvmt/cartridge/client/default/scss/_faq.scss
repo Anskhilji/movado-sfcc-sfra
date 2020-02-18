@@ -1,38 +1,40 @@
-.faq-hero_image {
-    pointer-events: none;
-    width: 100%;
-    display: block;
-}
-
-.faq-hero-content {
-    align-content: center;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    width: 100%;
+.faq-banner {
+    &-image {
+        pointer-events: none;
+        width: 100%;
+        display: block;
+    }
     
-    .faq-hero-title {
-        color: $white;
-        font-size: rem(40);
-        letter-spacing: rem(5.56);
-        line-height: rem(49);
-        font-weight: bold;
-        width: 80%;
-        margin: auto;
+    &-content {
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 100%;
     
-        @include media-breakpoint-only(xl) {
-            font-size: rem(60);
+        &-title {
+            color: $white;
+            font-size: rem(40);
+            letter-spacing: rem(5.56);
+            line-height: rem(49);
             font-weight: bold;
-            letter-spacing: rem(8.5);
-        }
+            width: 80%;
+            margin: auto;
+    
+            @include media-breakpoint-only(xl) {
+                font-size: rem(60);
+                font-weight: bold;
+                letter-spacing: rem(8.5);
+            }
         
-        @include media-breakpoint-only(lg) {
-            letter-spacing: rem(12.5);
-            width: 100%;
+            @include media-breakpoint-only(lg) {
+                letter-spacing: rem(12.5);
+                width: 100%;
+            }
         }
     }
 }
@@ -48,7 +50,7 @@
     position: static;
     top: auto;
 
-    .faq-nav-control-bar-btn {
+    &-btn {
         background: linear-gradient(0deg, $white, $light-gray7);
         font-size: rem(12);
         line-height: 1;
@@ -77,7 +79,7 @@
         }
     }
     
-    .faq-nav-control-bar-inner {
+    &-inner {
         position: fixed;
         transform: translateX(100%);
         height: 100vh;
@@ -103,7 +105,7 @@
             max-width: rem(800);
         }
         
-        .faq-nav-control-bar-inner-btn {
+        &-btn {
             background: linear-gradient(0deg, $white, $light-gray3);
             border-bottom: rem(1) solid $light-gray4;
             padding: rem(20);
@@ -123,13 +125,13 @@
         }
     }
     
-    .faq-nav-control-bar-inner.active {
+    &.active {
         z-index: 1015;
         transform: translateX(0);
         opacity: 1;
     }
     
-    .faq-nav-control-bar-link {
+    &-link {
         border: rem(1) solid $dark-gray;
         color: $light-gray6;
         cursor: pointer;
@@ -164,7 +166,7 @@
         }
     }
     
-    .faq-nav-control-bar-link.is-active {
+    &-link.is-active {
         @include media-breakpoint-up(lg) {
             background-color: $cyan-blue;
             border-bottom: rem(2) solid $black;
@@ -196,7 +198,7 @@
         margin-left: 0;
     }
     
-    .faq-title {
+    &-title {
         font-size: rem(24);
         letter-spacing: rem(1.53);
         line-height: rem(24);
@@ -213,7 +215,7 @@
         }
     }
     
-    .faq-sub-title {
+    &-sub-title {
         font-size: rem(34);
         line-height: rem(40);
         letter-spacing: rem(1.92);
@@ -228,14 +230,14 @@
         }
     }
     
-    .faq-body-content {
+    &-body-content {
         color: $light-gray;
         font-size: rem(14);
         line-height: rem(28.272);
         letter-spacing: rem(0.5);
     }
     
-    .faq-page-table {
+    &-page-table {
         font-size: rem(12);
         letter-spacing: rem(1.5);
         display: inline-table;
@@ -246,18 +248,18 @@
         }
     }
     
-    .highlight {
+    &-highlight {
         color: $red;
         font-size: rem(14);
     }
     
-    .contact-page-link {
+    &-contact-page-link {
         &:hover {
             cursor: pointer;
         }
     }
     
-    .btn-email {
+    &-btn-email {
         color: $white;
         background: $black;
         font-weight: 500;
@@ -280,13 +282,13 @@
         }
     }
     
-    .faq-return-page-link {
+    &-return-page-link {
         &:hover {
             cursor: pointer;
         }
     }
     
-    .faq-section-header {
+    &-section-header {
         color: $light-gray;
         font-size: rem(16);
         line-height: rem(20);
@@ -296,7 +298,7 @@
         margin: rem(40) 0 rem(20);
     }
     
-    .faq-accordion-block-header {
+    &-accordion-block-header {
         color: $light-gray;
         font-size: rem(16);
         line-height: rem(20);
@@ -310,7 +312,7 @@
         }
     }
     
-    .panel-title {
+    &-panel-title {
         font-size: rem(16);
         color: $black;
         font-weight: 400;
@@ -319,7 +321,7 @@
         position: relative;
         letter-spacing: rem(2.5);
         
-        .more-less {
+        &-more-less {
             float: right;
             color: $dark-gray1;
             position: relative;
@@ -327,7 +329,7 @@
             left: rem(12.8);
         }
         
-        .shrink {
+        &-shrink {
         
             &::before {
                 content: " ";
@@ -350,7 +352,7 @@
                 background-color: $light-gray2;
             }
         }
-        .expand {
+        &-expand {
             &::after {
                 content: " ";
                 position: absolute;
@@ -368,14 +370,14 @@
         }
     }
     
-    .panel-body {
+    &-panel-body {
          p {
             letter-spacing: rem(.5);
         }
     }
 }
 
-#faq-page-contact-tab {
+.contact-tab {
     
     @media only screen and (max-width: 991px){
         max-width: 95%;
@@ -394,7 +396,7 @@
         }
     }
     
-    .contact-us-callout-wrapper {
+    &-callout-wrapper {
         text-align: center;
         margin: 0 auto;
         max-width: rem(800);
@@ -410,7 +412,7 @@
         }
     }
     
-    .contact-us-form-wrapper {
+    &-form-wrapper {
         padding-left: rem(80);
         padding-right: rem(160);
         padding-top: rem(80);
@@ -447,7 +449,7 @@
         }
     }
     
-    .contact-us-left-wrapper {
+    &-right-wrapper {
         background: $cyan-blue;
         height: fit-content;
         padding: rem(20);
@@ -515,7 +517,7 @@
         }
     }
     
-    .contact-us-details {
+    &-details {
         p {
             margin: rem(9.44) 0;
             line-height: 2em;
@@ -527,30 +529,32 @@
             letter-spacing: rem(.5);
         }
     }
-}
-
-.contactus-form .form-control {
-    border: rem(1) solid $cyan-blue1;
-    padding: rem(20);
-}
-
-.custom-select {
-    border: rem(1) solid $cyan-blue1;
-    padding: rem(20);
-}
-
-.myquestion-wrapper .fa-sort {
-    font-size: rem(12);
-    top: rem(12.8);
-}
-
-.btn-save {
-    background: transparent;
-    border: rem(1) solid $black;
-    color: $black;
-    font-size: rem(10.8);
-    height: rem(45);
-    white-space: nowrap;
+    
+    &-form-control {
+        border: rem(1) solid $cyan-blue1;
+        padding: rem(20);
+    }
+    
+    &-custom-select {
+        border: rem(1) solid $cyan-blue1;
+        padding: rem(20);
+    }
+    
+    &-btn-save {
+        background: transparent;
+        border: rem(1) solid $black;
+        color: $black;
+        font-size: rem(10.8);
+        height: rem(45);
+        white-space: nowrap;
+    }
+    
+    &-question {
+        .fa-sort {
+            font-size: rem(12);
+            top: rem(12.8);
+        }
+    }
 }
 
 .help-wrapper {
@@ -573,7 +577,7 @@
         font-size: 1.17em
     }
     
-    .help-contact-box div a{
+    .help-contact-box div a {
         font-size: rem(10);
         margin-top: rem(6);
         text-decoration: underline;
@@ -603,7 +607,7 @@
         font-size: rem(18.72);
     }
     
-    .help-contact-box div a{
+    .help-contact-box div a {
         font-size: rem(10);
         margin-top: rem(6);
         text-decoration: underline;

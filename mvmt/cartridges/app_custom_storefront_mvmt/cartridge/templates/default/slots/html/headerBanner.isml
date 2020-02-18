@@ -1,7 +1,7 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
     <div class="slide-up">
         <div class="content">
-            <div class="html-slot-container">
+            <div class="html-slot-container faq-banner">
                 <isloop items="${slotcontent.content}" var="markupText">
                     <isprint value="${markupText.markup}" encoding="off"/>
                 </isloop>

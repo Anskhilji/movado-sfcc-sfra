@@ -16,74 +16,72 @@
                 <iscontentasset aid="faq-page-returns-tab" />
             </div>
         </div>
-        <div id="faq-page-contact-tab" class="tab-pane-control fade-in container d-none">
-            <div class="contact-us-callout-wrapper">
-                <h1 class="text-center text-uppercase">Contact Us</h1>
-                <p class="text-center">Get in touch! We're here to quickly provide you with the info and services you need & answer any question you may have.</p>
+        <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container d-none">
+            <div class="contact-tab-callout-wrapper">
+                <h1 class="text-center text-uppercase">${Resource.msg('contact.us.heading','contactUs',null)}</h1>
+                <p class="text-center">${Resource.msg('faq-contact-us-get-in-touch','contactUs',null)}</p>
                 <hr class="w-25"/>
             </div>
             <div class=row>
-                <div class="col-md-7 contact-us-form-wrapper">
-                    <h2 class="text-uppercase">Send us an email:</h2>
-                    <p class="text-uppercase">Ask us anything! We'll get back to you within 24-48 hours.</p>
-                    <div class="contactus-form">
-                        <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
-                            <div class="form-group">
-                                <label class="form-control-label" for="name">
-                                        ${Resource.msg('contact.form.name','contactUs',null)}
-                                </label>
-                                <input type="text" class="form-control" id="name"
-                                    <isprint value="${pdict.contactUsForm.name.attributes}" encoding="off" />>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="emailAddress">
-                                    ${Resource.msg('contact.form.email.address','contactUs',null)}
-                                </label>
-                                <input type="text" class="form-control" id="emailAddress"
-                                    <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="orderNumber">
-                                    ${Resource.msg('contact.form.order.number','contactUs',null)}
-                                </label>
-                                <input type="text" class="form-control" id="orderNumber"
-                                    <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="help">
-                                    ${Resource.msg('contact.form.help','contactUs',null)}
-                                </label>
-                                <div class="myquestion-wrapper row">
-                                    <div class="custom-select-wrapper col-12">
-                                        <select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
-	                                        <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
-	                                            <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
-	                                        </isloop>
-                                        </select>
-                                        <i class="fa fa-sort"></i>
-                                        <div class="invalid-feedback"></div>
-                                    </div>
+                <div class="col-md-7 contact-tab-form-wrapper">
+                    <h2 class="text-uppercase">${Resource.msg('faq-send-us-email','contactUs',null)}</h2>
+                    <p class="text-uppercase">${Resource.msg('faq-ask-us-anything','contactUs',null)}</p>
+                    <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
+                        <div class="form-group">
+                            <label class="form-control-label" for="name">
+                                ${Resource.msg('contact.form.name','contactUs',null)}
+                            </label>
+                            <input type="text" class="form-control contact-tab-form-control" id="name"
+                                <isprint value="${pdict.contactUsForm.name.attributes}" encoding="off" />>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="emailAddress">
+                                ${Resource.msg('contact.form.email.address','contactUs',null)}
+                            </label>
+                            <input type="text" class="form-control contact-tab-form-control" id="emailAddress"
+                                <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="orderNumber">
+                                ${Resource.msg('contact.form.order.number','contactUs',null)}
+                            </label>
+                            <input type="text" class="form-control contact-tab-form-control" id="orderNumber"
+                                <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="help">
+                                ${Resource.msg('contact.form.help','contactUs',null)}
+                            </label>
+                            <div class="contact-tab-question row">
+                                <div class="custom-select-wrapper col-12">
+                                    <select class="form-control custom-select contact-tab-custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+	                                    <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
+	                                        <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+	                                    </isloop>
+                                    </select>
+                                    <i class="fa fa-sort"></i>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" id="comment" rows="3"
-                                    <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />>
-                                </textarea>
-                                <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control contact-tab-form-control" id="comment" rows="3"
+                                <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />>
+                            </textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button type="submit" name="Send" class="btn-contact btn btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-5 contact-us-left-container">
-                    <div class="contact-us-left-wrapper">
+                <div class="col-md-5 contact-us-right-container">
+                    <div class="contact-tab-right-wrapper">
                         <iscontentasset aid="contact-us-address-wrapper"/>
                     </div>
                 </div>
