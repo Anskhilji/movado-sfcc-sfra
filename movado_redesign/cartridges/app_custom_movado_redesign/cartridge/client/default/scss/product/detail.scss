@@ -1377,3 +1377,9 @@ body {
         width: 100%;
     }
 }
+
+@include media-breakpoint-up(md) {
+    .modern-cart-wishlist {
+        padding-left: rem(56);
+}
+}
