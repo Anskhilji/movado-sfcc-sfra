@@ -111,7 +111,7 @@
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                             </div>
                                 <!-- Cart and [Optionally] Apple Pay -->
-                            <div class="cart-wishlist">
+                            <div class="modern-cart-wishlist cart-wishlist">
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             <div class="wishlist-row">
                                 <isif condition="${!('display' in pdict && 'wishlists' in pdict.display && pdict.display.wishlists == false) && pdict.loggedIn}">

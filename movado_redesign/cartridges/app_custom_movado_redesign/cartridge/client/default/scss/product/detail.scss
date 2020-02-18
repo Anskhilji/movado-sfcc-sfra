@@ -281,6 +281,7 @@
             padding-top: rem(0);
             color: $dark-green;
             letter-spacing: normal;
+            margin-bottom: rem(20);
         }
     }
 
@@ -1141,6 +1142,7 @@
             padding-bottom: 0;
             margin: 0;
             padding: 0;
+            margin-left: rem(14);
 
             > div {
                 padding:0;
@@ -1232,6 +1234,7 @@
 
         .wishlist-row {
             margin: 0;
+            margin-left: rem(-14);
         }
 
         .engraving-btn {
@@ -1375,5 +1378,11 @@ body {
     
     .add-to-cart {
         width: 100%;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .modern-cart-wishlist {
+        padding-left: rem(56);
     }
 }
