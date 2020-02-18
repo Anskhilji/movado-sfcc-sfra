@@ -1142,6 +1142,7 @@
             padding-bottom: 0;
             margin: 0;
             padding: 0;
+            margin-left: rem(14);
 
             > div {
                 padding:0;
@@ -1233,6 +1234,7 @@
 
         .wishlist-row {
             margin: 0;
+            margin-left: rem(-14);
         }
 
         .engraving-btn {
@@ -1382,17 +1384,5 @@ body {
 @include media-breakpoint-up(sm) {
     .modern-cart-wishlist {
         padding-left: rem(56);
-    }
-}
-
-@include media-breakpoint-down(md) {
-    .modern-cart-wishlist,.traditional-cart-wishlist {
-        .cart-and-ipay {
-            margin-left: rem(14) !important;
-        }
-    
-        .wishlist-row {
-            margin-left: rem(-14) !important;
-        }
     }
 }
