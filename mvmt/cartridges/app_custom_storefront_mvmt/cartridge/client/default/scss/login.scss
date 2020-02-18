@@ -16,7 +16,7 @@
         img {
             object-fit: cover;
             max-width: 100%;
-            min-height: rem(880);
+            height: 100%;
             object-position: 50%;
         }
     }
@@ -24,12 +24,11 @@
 
 .login-page {
     margin-top: 0;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 55%;
-    left: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    padding: rem(70) rem(50);
     height: 100%;
-    padding: rem(70) 0;
 
     .equal-height {
         max-width: rem(1200);
@@ -64,13 +63,59 @@
         border-radius: 0;
         border: none;
         margin-bottom: 0;
+
+        &.track-order {
+            margin: auto 0;
+        }
     }
 
     .login-section-body {
-        padding: rem(50) rem(100) rem(90) rem(100);
+        padding: rem(32) rem(100);
+
+        @include media-breakpoint-down(lg) {
+            padding: rem(32);
+        }
 
         @include media-breakpoint-down(md) {
             padding: rem(20);
+        }
+
+        .login-form-nav {
+
+            .tab-pane {
+
+                &-or {
+                    text-align: center;
+
+                    h1 {
+                        font-size: rem(19);
+                        letter-spacing: rem(1.23);
+                        font-weight: 500;
+                        line-height: rem(23);
+                        margin: rem(10) 0;
+                        font-family: $font-medium;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+            .nav-tabs {
+
+                .nav-item {
+
+                    .nav-link {
+                        text-transform: uppercase;
+                        letter-spacing: rem(0.82);
+                        line-height: rem(16);
+                        color: $black;
+                        padding-bottom: rem(12);
+
+                        &.active {
+                            border-bottom: rem(4) solid #000;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -87,6 +132,10 @@
     .create-account-section {
         margin: auto 0;
 
+        + .login-subtitle {
+            margin: rem(10) 0;
+        }
+
         .card {
             background-color: $white-gray;
         }
@@ -94,7 +143,7 @@
         .header-title-create-account {
             text-align: center;
             margin: 0 auto;
-            padding: rem(50) rem(20) rem(30);
+            padding: rem(32) rem(24);
             width: 100%;
 
             h1 {
@@ -118,7 +167,6 @@
 
         .login-logos {
             display: flex;
-            padding-bottom: rem(20);
 
             @include media-breakpoint-down(md) {
                 justify-content: space-between;
@@ -136,7 +184,7 @@
 
                 .login-logo-wrap {
                     align-items: center;
-                    background-color: $white;
+                    background-color: $white-gray;
                     border-radius: rem(50);
                     display: flex;
                     height: rem(88);
@@ -157,35 +205,11 @@
                 }
             }
         }
-
-        .create-btn {
-            padding-bottom: rem(70);
-
-            a {
-                width: auto;
-                font-size: rem(14);
-                transition: all 0.25s ease-in-out;
-                border-radius: rem(1);
-                letter-spacing: rem(1.6);
-                padding: rem(16);
-                line-height: 1;
-
-                &.btn {
-                    border-width: rem(2);
-                }
-
-                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
-                    box-shadow: none;
-                    transition: opacity 0.25s ease-in-out;
-                    background: $light-green;
-                    border: rem(2) solid $black;
-                }
-            }
-        }
     }
 
     .login-welcome-back {
         text-align: center;
+        padding: rem(50) rem(20) rem(30);
 
         h1 {
             font-size: rem(36);
@@ -220,7 +244,49 @@
 
     form {
 
-        &.login, &.reset-password-form {
+
+        &.trackorder {
+
+            .card-body {
+
+                @include media-breakpoint-down(md) {
+                    padding-top: 0;
+                }
+
+                .track-order-header {
+                    padding: rem(32) rem(20) rem(30);
+
+                    @include media-breakpoint-down(lg) {
+                        padding: rem(32) 0;
+                    }
+
+                    @include media-breakpoint-down(md) {
+                        padding: 0 rem(20) rem(30);
+                    }
+
+                    &-text {
+                        font-size: rem(36);
+                        letter-spacing: rem(3.38);
+                        text-transform: uppercase;
+                        font-family: $font-medium;
+                        text-align: center;
+                        border: 0;
+                    }
+
+                    &-description {
+                        font-size: rem(16);
+                        font-weight: 500;
+                        line-height: rem(23);
+                        color: $light-gray;
+                        font-family: $font-medium;
+                        letter-spacing: rem(0.5);
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        &.login, &.trackorder, &.registration, &.reset-password-form {
 
             .forget-password-header-title {
                 color: $black;
@@ -240,6 +306,10 @@
                 align-items: center;
                 margin-bottom: rem(14);
 
+                @include media-breakpoint-down(sm) {
+                    flex-wrap: wrap;
+                }
+
                 button {
                     font-size: rem(10.8);
                     transition: all 0.25s ease-in-out;
@@ -251,6 +321,10 @@
                     background: $white;
 
                     @include media-breakpoint-down(sm) {
+                        width: 50%;
+                    }
+
+                    @include media-breakpoint-down(xs) {
                         width: 100%;
                     }
 
@@ -283,27 +357,23 @@
 
                 button {
                     width: 45%;
-                    font-size: rem(14);
-                    transition: all 0.25s ease-in-out;
-                    border-radius: rem(1);
-                    letter-spacing: rem(1.6);
-                    padding: rem(16) 0;
-                    line-height: 1;
+                }
+            }
 
-                    @include media-breakpoint-down(sm) {
-                        width: 100%;
-                    }
+            .btn {
+                font-size: rem(14);
+                transition: all 0.25s ease-in-out;
+                border-radius: rem(1);
+                letter-spacing: rem(1.6);
+                padding: rem(16) 0;
+                line-height: 1;
+                border-width: rem(2);
 
-                    &.btn {
-                        border-width: rem(2);
-                    }
-
-                    &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
-                        box-shadow: none;
-                        transition: opacity 0.25s ease-in-out;
-                        background: $light-green;
-                        border: rem(2) solid $black;
-                    }
+                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                    box-shadow: none;
+                    transition: opacity 0.25s ease-in-out;
+                    background: $light-green;
+                    border: rem(2) solid $black;
                 }
             }
 
@@ -342,6 +412,10 @@
                     letter-spacing: rem(1);
                     margin-bottom: rem(5);
                     line-height: 1;
+
+                    &.custom-select {
+                        padding: 0 rem(32);
+                    }
 
                     &:focus {
                         border-color: $light-gray4;
