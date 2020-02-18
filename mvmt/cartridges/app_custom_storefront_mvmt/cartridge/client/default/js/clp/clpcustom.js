@@ -3,6 +3,6 @@ $(".js-smooth-scroll").click(function() {
     var $scrollTo = $(this).data('target');
 
     $('html, body').animate({
-        scrollTop: $('.'+$scrollTo+'').offset().top - 100
+        scrollTop: $('#'+$scrollTo+'').offset().top - 50
     }, 500);
 });
