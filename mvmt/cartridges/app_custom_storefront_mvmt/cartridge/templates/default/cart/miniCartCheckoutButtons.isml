@@ -9,14 +9,14 @@
 </div>
 <iscomment>Custom Start: These button are not required at this time </iscomment>
 <iscomment>
-<div class="row more-options">
-    <div class="col col-sm-12">
-        <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            <isprint value="${pdict.paypalButtonImg}" encoding="off" />
-        </a>
+    <div class="row more-options">
+        <div class="col col-sm-12">
+            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+            </a>
+        </div>
+        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
     </div>
-    <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
-</div>
 </iscomment>
 <iscomment> Custom End </iscomment>

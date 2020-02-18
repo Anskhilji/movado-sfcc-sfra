@@ -43,9 +43,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
 
     if (basketItems == 0 && isMiniCart) {
         var ContentMgr = require('dw/content/ContentMgr');
-        var emptyMiniContentAssetImage = ContentMgr.getContent('mini-cart-content-image').custom.body.markup;
-        var emptyMiniContentAssetDescription = ContentMgr.getContent('mini-cart-content-description').custom.body.markup;
-        var emptyMiniContentAssetUrls = ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup;
+        var emptyMiniContentAssetImage = empty(ContentMgr.getContent('mini-cart-content-image').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-image').custom.body.markup;
+        var emptyMiniContentAssetDescription = empty(ContentMgr.getContent('mini-cart-content-description').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-description').custom.body.markup;
+        var emptyMiniContentAssetUrls = empty(ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup) ? null : ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup;
         var staticCrossImage = URLUtils.staticURL('/images/cross.svg').toString();
         res.setViewData({
             emptyMiniContentAssetImage: emptyMiniContentAssetImage,

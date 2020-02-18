@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Adding classes and id in this template with some fields </iscomment>
 <div class="mini-cart-registration">
     <form class="registration" id="mini-cart-account-registration" action="${pdict.createAccountUrl}" method="POST" name="${pdict.miniCartRegisterForm.htmlName}">
         <div class="form-group
@@ -52,3 +53,4 @@
         <a id="sign-in-account">${Resource.msg('link.text.sign.in.account', 'common', null)}</a>
     </div>
 </div>
+<iscomment> Custom End </iscomment>

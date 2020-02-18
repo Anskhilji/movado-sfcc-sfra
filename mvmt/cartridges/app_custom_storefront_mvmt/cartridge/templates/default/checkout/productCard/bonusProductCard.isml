@@ -94,7 +94,7 @@
                     </button>
                 </div>
             </div>
-            <div class="">
+            <div>
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
         </div>
