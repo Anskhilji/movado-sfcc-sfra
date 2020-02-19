@@ -1,9 +1,11 @@
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
+var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 var collections = require('*/cartridge/scripts/util/collections');
+var RiskifiedService = require('int_riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
@@ -32,6 +34,16 @@ function comparePoBox(address) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
+    
+    RiskifiedService.sendCheckoutCreate(order);
+    RiskifiedService.storePaymentDetails({
+        avsResultCode: 'Y', // Street address and 5-digit ZIP code
+        // both
+        // match
+        cvvResultCode: 'M', // CVV2 Match
+        paymentMethod: 'Card'
+    });
+    
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -95,6 +107,11 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
         return addressError;
     }
+    var Order = OrderMgr.getOrder(order.orderNo);
+    Transaction.wrap(function () {
+        Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+    });
+    
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
 
 	// remove personalization details from session once order is authorized and placed
