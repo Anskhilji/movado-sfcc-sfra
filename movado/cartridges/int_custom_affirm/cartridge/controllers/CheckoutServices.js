@@ -29,14 +29,6 @@ server.append('SubmitPayment',
         value: paymentForm.creditCardFields.email.value
     };
 
-		// Subscribe to the movado email list: Starts.
-    viewData.subscribetomovado = paymentForm.subscribetomovado.checked;
-    if (viewData.subscribetomovado) {
-        var requestParams = {
-            email: viewData.email.value
-        }
-        SFMCApi.sendSubscriberToSFMC(requestParams);
-    }
 
     if (status.error) {
         res.json({

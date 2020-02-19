@@ -151,7 +151,16 @@ server.replace(
             checkoutLogger.error('(CheckoutShippingServices) -> SubmitShipping: Field validations errors');
         } else {
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
-
+            
+            // Subscribe to the movado email list: Starts.
+            var subscribeToMovado = false;
+            if (subscribeToMovado) {
+                var requestParams = {
+                    email: form.shippingAddress.addressFields.email.htmlValue
+                }
+                SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
+            
             result.address = {
                 firstName: form.shippingAddress.addressFields.firstName.value,
                 lastName: form.shippingAddress.addressFields.lastName.value,
@@ -163,6 +172,7 @@ server.replace(
                 countryCode: form.shippingAddress.addressFields.country.value,
                 phone: form.shippingAddress.addressFields.phone.value
             };
+            
             if (Object.prototype.hasOwnProperty
                 .call(form.shippingAddress.addressFields, 'states')) {
                 result.address.stateCode =
@@ -193,6 +203,10 @@ server.replace(
                     shippingData,
                     currentBasket.defaultShipment
                 );
+
+                Transaction.wrap(function () {
+                    currentBasket.setCustomerEmail(form.shippingAddress.addressFields.email.htmlValue || '');
+                });
 
                 var giftResult = COHelpers.setGift(
                     currentBasket.defaultShipment,
