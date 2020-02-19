@@ -140,7 +140,7 @@
             background-color: $white-gray;
         }
 
-        .header-title-create-account {
+        &-header-title {
             text-align: center;
             margin: 0 auto;
             padding: rem(32) rem(24);
@@ -165,7 +165,7 @@
             }
         }
 
-        .login-logos {
+        &-logo {
             display: flex;
 
             @include media-breakpoint-down(md) {
@@ -179,7 +179,7 @@
                 width: auto;
             }
 
-            .login-logo {
+            &-div {
                 width: 100%;
 
                 .login-logo-wrap {

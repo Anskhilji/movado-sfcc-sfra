@@ -38,17 +38,17 @@
                                 </div>
                                 <div class="tab-pane ${pdict.navTabValue === "register" ? 'active' : ''}" id="register" role="tabpanel">
                                     <div class="create-account-section">
-                                        <div class="header-title-create-account">
+                                        <div class="create-account-section-header-title">
                                             <iscontentasset aid="login-page-create-account-section-title-and-description" />
                                         </div>
-                                        <div class="login-logos">
-                                            <div class="login-logo">
+                                        <div class="create-account-section-logo">
+                                            <div class="create-account-section-logo-div">
                                                 <iscontentasset aid="login-logo-first" />
                                             </div>
-                                            <div class="login-logo">
+                                            <div class="create-account-section-logo-div">
                                                 <iscontentasset aid="login-logo-second" />
                                             </div>
-                                            <div class="login-logo">
+                                            <div class="create-account-section-logo-div">
                                                 <iscontentasset aid="login-logo-third" />
                                             </div>
                                         </div>
