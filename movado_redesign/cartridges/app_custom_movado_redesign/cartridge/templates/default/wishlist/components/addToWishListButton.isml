@@ -1,7 +1,7 @@
 <isif condition="${!('display' in pdict && 'wishlists' in pdict.display && pdict.display.wishlists == false) && pdict.loggedIn}">
-	<button type="submit" class="btn btn-link add-to-wish-list" data-href="${URLUtils.url('Wishlist-AddProduct')}" data-gtm-tracking='${JSON.stringify(pdict.wishlistGtmObj)}'>
-	    <iscomment> <i class="fa fa-heart"></i> </iscomment>${Resource.msg('button.add_to_wishlist.txt', 'wishlist', null)}
-	</button>
+    <button type="submit" class="btn btn-link add-to-wish-list" data-href="${URLUtils.url('Wishlist-AddProduct')}" data-gtm-tracking='${JSON.stringify(pdict.wishlistGtmObj)}'>
+        <iscomment> <i class="fa fa-heart"></i> </iscomment>${Resource.msg('button.add_to_wishlist.txt', 'wishlist', null)}
+    </button>
 <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
        <a class="btn ml-3 btn-link wishlist-login" href="${URLUtils.https('Login-Show')}"></a>
 </isif>
