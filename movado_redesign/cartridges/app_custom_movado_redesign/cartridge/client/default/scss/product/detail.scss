@@ -1097,6 +1097,21 @@
 
         .cart-wishlist {
             justify-content: center;
+            max-width: rem(385);
+            margin: 0 auto;
+            padding:0;
+            position: relative;
+            left: rem(15);
+
+            .wishlist-row {
+                > div {
+                    padding: 0;
+                }
+            }
+        }
+        
+        .product-options {
+            justify-content: center;
         }
 
         .container-fluid.pdp-v-two  {
@@ -1142,7 +1157,6 @@
             padding-bottom: 0;
             margin: 0;
             padding: 0;
-            margin-left: rem(14);
 
             > div {
                 padding:0;
@@ -1234,7 +1248,6 @@
 
         .wishlist-row {
             margin: 0;
-            margin-left: rem(-14);
         }
 
         .engraving-btn {
@@ -1288,7 +1301,7 @@
         }
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
 
         .detail-bottom-blocks {
             padding: 0;
@@ -1304,6 +1317,7 @@
                 }
             }
         }
+       
 
         .cart-and-ipay {
             flex-basis: 100%;
@@ -1311,6 +1325,11 @@
             .add-to-cart {
                 min-width: 100%;
                 margin: 0;
+            }
+
+            .smartgift-btn {
+                margin-left: 0;
+                width: 100%;
             }
 
             .dw-apple-pay-button.apple-pay-pdp {
@@ -1325,6 +1344,22 @@
             .description {
                 margin-bottom: rem(25);
                 padding: 0 rem(10);
+            }
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        .cart-wishlist {
+            max-width: auto;
+            padding:0;
+            position: static;
+
+            .wishlist-row {
+                max-width: rem(60);
+                margin-right: rem(10);
+                > div {
+                    padding: 0;
+                }
             }
         }
     }
@@ -1366,7 +1401,8 @@ body {
     width: 100%;
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(md) {
+
     .dw-apple-pay-button.apple-pay-pdp {
         width: 100%;
     }
@@ -1374,8 +1410,12 @@ body {
     .prices-add-to-cart-actions {
         padding: 0;
         margin-left: rem(8);
+
+        @include media-breakpoint-down(sm) {
+            margin-left: 0;
+        }
     }
-    
+
     .add-to-cart {
         width: 100%;
     }
@@ -1384,5 +1424,15 @@ body {
 @include media-breakpoint-up(sm) {
     .modern-cart-wishlist {
         padding-left: rem(56);
+    }
+}
+
+.pdp-old {
+    .dw-apple-pay-button.apple-pay-pdp, .add-to-cart {
+
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            margin-bottom: rem(5);
+        }
     }
 }

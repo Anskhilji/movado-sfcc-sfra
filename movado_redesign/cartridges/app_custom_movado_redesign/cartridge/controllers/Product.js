@@ -37,6 +37,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    
+    var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
     var viewData = res.getViewData();
@@ -66,15 +68,13 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
-    var display = {};
     
-    display.wishlists = req.querystring.wishlists;
+    
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
-        loggedIn: req.currentCustomer.raw.authenticated,
-        display: display
+        socialShareEnable: socialShareEnable
     }
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var pdpAnalyticsTrackingData;
