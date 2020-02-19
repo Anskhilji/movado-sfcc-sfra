@@ -3,7 +3,6 @@
 var server = require('server');
 server.extend(module.superModule);
 var RiskifiedService = require('int_riskified');
-var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.append('SubmitPayment',

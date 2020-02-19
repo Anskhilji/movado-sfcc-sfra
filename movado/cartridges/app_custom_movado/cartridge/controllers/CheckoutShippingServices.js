@@ -5,6 +5,7 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -153,7 +154,7 @@ server.replace(
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
             
             // Subscribe to the movado email list: Starts.
-            var subscribeToMovado = false;
+            var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.checked;
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue
