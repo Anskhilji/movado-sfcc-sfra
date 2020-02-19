@@ -1,0 +1,38 @@
+<div>
+    <div class="product-line-item-details item-info d-flex flex-row">
+        <div class="item-image">
+            <img class="product-image"
+                src="${nestedLineItem.images.tile150[0].url}"
+                alt="${nestedLineItem.images.tile150[0].alt}"
+                title="${nestedLineItem.images.tile150[0].title}">
+        </div>
+        <div class="item-attributes flex-column">
+            <div class="line-item-header">
+                <isif condition=${miniCart}>
+                    <div class="line-item-name">
+                        <span>${nestedLineItem.productName}</span>
+                    </div>
+                </isif>
+            </div>
+            <div class="item-model model-name">
+                ${lineItem.resources.Model} ${nestedLineItem.id}
+            </div>
+            <isloop items="${nestedLineItem.variationAttributes}" var="attribute">
+                <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+            </isloop>
+            <div class="item-options">
+                <isloop items="${nestedLineItem.options}" var="option">
+                    <div class="line-item-option">${option}</div>
+                </isloop>
+            </div>
+            <div class="item-model line-item-attributes">
+                ${Resource.msg('field.selectquantity','cart',null)}: <span class="line-item-value"><isprint value="${nestedLineItem.quantity}" formatter="##" /></span>
+            </div>
+            <isif condition="${lineItem.price}">
+                <div class="price line-item-total-price-amount total-amount"> 
+                    ${nestedLineItem.bonusUnitPrice}
+                </div>
+            </isif>
+        </div>
+    </div>
+</div>

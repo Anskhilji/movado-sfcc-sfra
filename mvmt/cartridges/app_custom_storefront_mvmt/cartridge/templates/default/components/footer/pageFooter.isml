@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Adding the overlay style for the footer popup.</iscomment> 
-<div id="overlay"></div>
+<div id="footer-overlay"></div>
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
 <footer>
