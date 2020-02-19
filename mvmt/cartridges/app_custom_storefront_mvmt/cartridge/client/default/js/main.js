@@ -7,5 +7,7 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./faq-page'));
     processInclude(require('./header/header'));
+    processInclude(require('./components/newsLetterSubscription'));
+    processInclude(require('./components/miniCart'));
 });
 

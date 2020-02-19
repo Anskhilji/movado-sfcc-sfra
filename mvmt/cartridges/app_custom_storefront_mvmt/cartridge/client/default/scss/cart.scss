@@ -31,10 +31,10 @@
 
         .continue-shopping {
             margin: 0;
-            border-color: $light-green3;
+            border-color: $light-green7;
             background-color: transparent;
             cursor: pointer;
-            color: $light-green3;
+            color: $light-green7;
             letter-spacing: 0;
             padding: 0 rem(14);
             font-size: rem(18);
@@ -42,14 +42,14 @@
             border-radius: rem(4);
 
             &:hover {
-                background-color: $light-green4;
-                border-color: $light-green4;
+                background-color: $light-green7;
+                border-color: $light-green7;
                 color: $white;
             }
 
             &:active {
-                background-color: $light-green2;
-                border-color: $light-green2;
+                background-color: $light-green6;
+                border-color: $light-green6;
                 opacity: 0.3;
             }
 
@@ -57,8 +57,8 @@
             &:not(:disabled):not(.disabled):active {
                 box-shadow: none;
                 outline: 0;
-                background-color: $light-green4;
-                border-color: $light-green4;
+                background-color: $light-green7;
+                border-color: $light-green7;
                 color: $white;
             }
         }
@@ -193,8 +193,8 @@
                     }
 
                     &:hover {
-                        background-color: $light-green2;
-                        border-color: $light-green2;
+                        background-color: $light-green6;
+                        border-color: $light-green6;
                     }
                 }
 
@@ -576,6 +576,20 @@
 
                     &:hover {
                         text-decoration: none;
+                    }
+
+                    &:focus, &:not(:disabled):not(.disabled):active:focus,
+                    &:not(:disabled):not(.disabled):active {
+                        box-shadow: none;
+                        outline: 0;
+                    }
+
+                    &.btn-light {
+
+                        &:focus {
+                            box-shadow: none;
+                            outline: 0;
+                        }
                     }
                 }
             }

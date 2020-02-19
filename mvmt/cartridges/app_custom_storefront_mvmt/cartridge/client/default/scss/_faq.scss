@@ -148,6 +148,10 @@
         color: $black !important;
         text-decoration: none;
         
+        &:hover {
+            text-decoration: none;
+        }
+        
         @include media-breakpoint-up(lg) {
             border: 0;
             border-right: rem(1) solid $light-gray4;

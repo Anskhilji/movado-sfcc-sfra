@@ -1,0 +1,43 @@
+<div class="mini-cart-registration">
+    <form action="${pdict.createAccountUrl}" method="POST" name="${pdict.profileForm.htmlName}">
+        <div class="form-group
+            <isif condition="${!!pdict.profileForm.customer.yourname.mandatory === true}">required</isif>">
+            <input
+                type="text"
+                class="form-control"
+                id="registration-form-yname"
+                placeholder="${Resource.msg('form.your.name.place.holder', 'common', null)}"
+                <isprint value=${pdict.profileForm.customer.yourname.attributes} encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${!!pdict.profileForm.customer.email.mandatory === true}">required</isif>">
+            <input
+                type="text"
+                class="form-control"
+                id="registration-form-email"
+                placeholder="${Resource.msg('form.password.place.holder', 'common', null)}"
+                <isprint value=${pdict.profileForm.customer.email.attributes} encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${!!pdict.profileForm.login.password.mandatory === true}">required</isif>">
+            <input
+                type="password"
+                class="form-control"
+                id="registration-form-password"
+                autocomplete="off"
+                placeholder="${Resource.msg('form.create.password.place.holder', 'common', null)}"
+                <isprint value=${pdict.profileForm.login.password.attributes} encoding="off">/>
+            <div class="invalid-feedback"></div>
+        </div>
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <button type="submit" class="btn btn-block btn-primary">
+            ${Resource.msg('button.text.loginform', 'cart', null)}
+        </button>
+    </form>
+    <isinclude template="account/components/oauth" />
+    <div class="forgot-password">
+        <a id="sign-in-account">${Resource.msg('link.text.sign.in.account', 'common', null)}</a>
+    </div>
+</div>
