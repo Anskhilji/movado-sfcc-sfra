@@ -129,60 +129,60 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         clearForms();
 
         try {
-	    Transaction.begin();
-	    var placeOrderStatus = OrderMgr.placeOrder(order);
-	    if (placeOrderStatus === Status.ERROR) {
-            checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
-	    	throw new Error();
-	    }
-	    if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
-	    	order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-	    }
-      order.setExportStatus(Order.EXPORT_STATUS_READY);
-      order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
-          ? klarnaPaymentStatus.toUpperCase()
-          : constants.PAYMENT_STATUS_CAPTURE;
-	    order.custom.Adyen_value = order.totalGrossPrice.value;
-      if ('pspReference' in req.querystring && req.querystring.pspReference) {
-          checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
-          order.custom.Adyen_pspReference = req.querystring.pspReference;
-      } else if (klarnaPaymentPspReference) {
-          checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
-          order.custom.Adyen_pspReference = klarnaPaymentPspReference;
-      }
-      if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
-          checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the paymentMethod in the order and order number is: ' + orderNumber);
-          order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
-      } else if (klarnaPaymentMethod) {
-         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
-         order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
-      }
-      Transaction.commit();
+            Transaction.begin();
+            var placeOrderStatus = OrderMgr.placeOrder(order);
+            if (placeOrderStatus === Status.ERROR) {
+                checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                throw new Error();
+            }
+            if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
+                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+            }
+            order.setExportStatus(Order.EXPORT_STATUS_READY);
+            order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
+                ? klarnaPaymentStatus.toUpperCase()
+            : constants.PAYMENT_STATUS_CAPTURE;
+            order.custom.Adyen_value = order.totalGrossPrice.value;
+            if ('pspReference' in req.querystring && req.querystring.pspReference) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_pspReference = req.querystring.pspReference;
+            } else if (klarnaPaymentPspReference) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_pspReference = klarnaPaymentPspReference;
+            }
+            if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the paymentMethod in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
+            } else if (klarnaPaymentMethod) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
+            }
+            Transaction.commit();
 
-      var checkoutDecisionStatus;
-      if (empty(session.custom.klarnaRiskifiedFlag)) {
-          checkoutDecisionStatus = hooksHelper(
-              'app.fraud.detection.create',
-              'create',
-              orderNumber,
-              paymentInstrument,
-              require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-      } else {
-          session.custom.klarnaRiskifiedFlag = '';
-      }
-      if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
-         // call hook for auth reverse using call cancelOrRefund api for safe side
-          hooksHelper(
-              'app.riskified.paymentrefund',
-              'paymentRefund',
-              order,
-              order.getTotalGrossPrice(),
-              true,
-              require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
-          checkoutLogger.error('(Adyen) -> ShowConfirmation: A fraud has been detected by Riskified thats why going to refund payment against order with order number: ' + orderNumber + ' and redirecting to Checkout-Begin and stage is payment ');
-          res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-          return next();
-      }
+            var checkoutDecisionStatus;
+            if (empty(session.custom.klarnaRiskifiedFlag)) {
+                checkoutDecisionStatus = hooksHelper(
+                    'app.fraud.detection.create',
+                    'create',
+                    orderNumber,
+                    paymentInstrument,
+                    require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+            } else {
+                session.custom.klarnaRiskifiedFlag = '';
+            }
+            if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
+                // call hook for auth reverse using call cancelOrRefund api for safe side
+                hooksHelper(
+                    'app.riskified.paymentrefund',
+                    'paymentRefund',
+                    order,
+                    order.getTotalGrossPrice(),
+                    true,
+                    require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
+                checkoutLogger.error('(Adyen) -> ShowConfirmation: A fraud has been detected by Riskified thats why going to refund payment against order with order number: ' + orderNumber + ' and redirecting to Checkout-Begin and stage is payment ');
+                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+                return next();
+          }
 	  } catch (e) {
 		  // put logger
   		  checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
