@@ -21,12 +21,28 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
 	  var order = OrderMgr.getOrder(session.custom.orderNo);
       checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
 
-	  hooksHelper(
+      if (!empty(session.custom.klarnaRiskifiedFlag)) {
+          checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
+          res.render('error', {
+              message: Resource.msg('subheading.error.general', 'error', null)
+          });
+          session.custom.klarnaRiskifiedFlag = '';
+          return next();
+      }
+
+	  var riskifiedCheckoutCreateResponse = hooksHelper(
 		        'app.fraud.detection.checkoutcreate',
 		        'checkoutCreate',
 		        order.orderNo,
 		        order.paymentInstrument,
 		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+	  if (!riskifiedCheckoutCreateResponse) {
+	      checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
+	      res.render('error', {
+	          message: Resource.msg('subheading.error.general', 'error', null)
+	      });
+	      return next();
+	  }
 
 
 	  var result;
@@ -67,6 +83,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var Order = require('dw/order/Order');  
     var Status = require('dw/system/Status');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var order = null;
 
     checkoutLogger.debug('(Adyen) -> ShowConfirmation: Inside ShowConfirmation to check order is placed or not and order number is: ' + session.custom.orderNo);
@@ -158,6 +175,10 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 		  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
 		  return next();
 	  }
+
+        if (!empty(session.custom.trackingCode)) {
+            smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
+        }
 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to send the order confirmation email to the user and order number is: ' + orderNumber);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
