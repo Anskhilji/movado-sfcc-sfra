@@ -28,13 +28,13 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 res.render('error');
                 return next();
             }
-            RiskifiedService.storePaymentDetails({
-                avsResultCode: 'Y', // Street address and 5-digit ZIP code
-                // both
-                // match
-                cvvResultCode: 'M', // CVV2 Match
-                paymentMethod: 'Card'
-            });
+//            RiskifiedService.storePaymentDetails({
+//                avsResultCode: 'Y', // Street address and 5-digit ZIP code
+//                // both
+//                // match
+//                cvvResultCode: 'M', // CVV2 Match
+//                paymentMethod: 'Card'
+//            });
 
             res.redirect(result.adyenPaymentResponse.redirectUrl);
             return next();
