@@ -24,11 +24,12 @@
    <field formid="subscribe" type="boolean" checked="false" default-value="false" mandatory="false" />
 
     <field formid="subscribetomovado"
+           binding="subscribetomovado"
            label="forms.sharewishlist.addtoemaillist"
            type="boolean"
            checked="false"
            default-value="false"
-           mandatory="false"
+           mandatory="true"
            />
      <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
            max-length="35" range-error="error.message.lessthan35"

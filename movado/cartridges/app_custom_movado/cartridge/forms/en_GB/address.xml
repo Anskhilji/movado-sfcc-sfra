@@ -24,6 +24,7 @@
    <field formid="subscribe" type="boolean" checked="false" default-value="false" mandatory="false" />
 
     <field formid="subscribetomovado"
+           binding="subscribetomovado"
            label="forms.sharewishlist.addtoemaillist"
            type="boolean"
            checked="false"

@@ -154,7 +154,7 @@ server.replace(
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
             
             // Subscribe to the movado email list: Starts.
-            var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.checked;
+            var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue
