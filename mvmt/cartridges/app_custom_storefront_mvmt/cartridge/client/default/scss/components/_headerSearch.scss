@@ -137,10 +137,6 @@
   background: $white;
   border-top: rem(1) solid $gray91;
 
-  &.active {
-    right: 0;
-  }
-
   .mobile-search-close {
     position: absolute;
     top: rem(-55);
