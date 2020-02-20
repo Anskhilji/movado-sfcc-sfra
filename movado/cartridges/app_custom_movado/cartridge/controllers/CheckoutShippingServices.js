@@ -159,7 +159,9 @@ server.replace(
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue
                 }
-                sfmcApi.sendSubscriberToSFMC(requestParams);
+                if (!empty(requestParams)) {
+                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                }
             }
             
             result.address = {
