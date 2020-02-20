@@ -81,9 +81,13 @@
 
         .cart-and-ipay {
             margin: 0;
+            
+            .product-price-mobile {
+                display: none;
+            }
         }
 
-        .add-to-cart {
+        .add-to-cart-mvmt {
             background: $white;
             text-transform: uppercase;
             font-size: rem(11);
@@ -173,7 +177,7 @@
     .cart-and-ipay {
         display: block;
 
-        .add-to-cart {
+        .add-to-cart-mvmt {
             display: inline-block;
             text-align: center;
             text-transform: uppercase;

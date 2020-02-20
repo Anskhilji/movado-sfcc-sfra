@@ -1,4 +1,5 @@
 'use strict';
+var base = require('./base');
 
 $(document).ready(function() {
     $('.linked-products').slick({

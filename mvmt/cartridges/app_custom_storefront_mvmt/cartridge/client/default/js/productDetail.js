@@ -3,5 +3,5 @@ processInclude(require('movado/productDetail'));
 
 $(document).ready(function () {
     processInclude(require('./product/productDetailCustom'));
-    processInclude(require('./product/base'));
+    processInclude(require('./product/detail'));
 });

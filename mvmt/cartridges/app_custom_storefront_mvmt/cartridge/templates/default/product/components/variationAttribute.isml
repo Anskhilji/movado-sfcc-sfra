@@ -49,7 +49,7 @@ Template Notes:
 
     <iselse>
         <isloop items="${attr.values}" var="attrValue">
-            <button class="product-size-options" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+            <button id="test-id" class="product-size-options select-variation-product" value="${attrValue.url}" data-attr-value="${attrValue.value}"
                 ${!attrValue.selectable ? 'disabled' : ''}
                 ${attrValue.selected ? 'selected' : ''}
             >
