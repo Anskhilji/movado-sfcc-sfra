@@ -28,13 +28,6 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 res.render('error');
                 return next();
             }
-
-//            hooksHelper(
-//                'app.fraud.detection.checkoutcreate',
-//                'checkoutCreate',
-//                order.orderNo,
-//                order.paymentInstrument,
-//                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
             RiskifiedService.storePaymentDetails({
                 avsResultCode: 'Y', // Street address and 5-digit ZIP code
                 // both
