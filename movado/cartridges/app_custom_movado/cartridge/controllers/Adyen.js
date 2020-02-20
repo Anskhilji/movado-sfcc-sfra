@@ -159,6 +159,30 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
       }
       Transaction.commit();
 
+      var checkoutDecisionStatus;
+      if (empty(session.custom.klarnaRiskifiedFlag)) {
+          checkoutDecisionStatus = hooksHelper(
+              'app.fraud.detection.create',
+              'create',
+              orderNumber,
+              paymentInstrument,
+              require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+      } else {
+          session.custom.klarnaRiskifiedFlag = '';
+      }
+      if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
+         // call hook for auth reverse using call cancelOrRefund api for safe side
+          hooksHelper(
+              'app.riskified.paymentrefund',
+              'paymentRefund',
+              order,
+              order.getTotalGrossPrice(),
+              true,
+              require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
+          checkoutLogger.error('(Adyen) -> ShowConfirmation: A fraud has been detected by Riskified thats why going to refund payment against order with order number: ' + orderNumber + ' and redirecting to Checkout-Begin and stage is payment ');
+          res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+          return next();
+      }
 	  } catch (e) {
 		  // put logger
   		  checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
@@ -175,6 +199,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to the order confirmation page and order number is: ' + orderNumber);
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
+        session.custom.klarnaRiskifiedFlag = '';
         return next();
     }
 

@@ -197,7 +197,7 @@ function sendCreateOrder(order) {
         orderPaymInstrument,
         response;
 
-    if (false) {
+    if (RCUtilities.riskifiedCartridgeDisabled(logLocation)) {
         return false;
     }
 
@@ -223,7 +223,7 @@ function sendCreateOrder(order) {
         return false;
     }
 
-    var orderParams = {
+    orderParams = {
         sessionId     : session.getSessionID(),
         requestIp     : request.getHttpRemoteAddress(),
         paymentParams : session.custom.paymentParams,

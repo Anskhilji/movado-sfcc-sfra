@@ -17,6 +17,7 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
     var orderNumber = session.custom.orderNo;
 
     var result;
+    
     checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect if payment is made from Klarna or Paypal and order number is: ' + orderNumber);
     // Custom Start: Klarna payment integration.
     var openInvoiceWhiteListMethods = Site.getCurrent().getCustomPreferenceValue('Adyen_Open_Invoice_Whitelist');
@@ -28,13 +29,7 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 res.render('error');
                 return next();
             }
-//            RiskifiedService.storePaymentDetails({
-//                avsResultCode: 'Y', // Street address and 5-digit ZIP code
-//                // both
-//                // match
-//                cvvResultCode: 'M', // CVV2 Match
-//                paymentMethod: 'Card'
-//            });
+            session.custom.klarnaRiskifiedFlag = true;
 
             res.redirect(result.adyenPaymentResponse.redirectUrl);
             return next();
