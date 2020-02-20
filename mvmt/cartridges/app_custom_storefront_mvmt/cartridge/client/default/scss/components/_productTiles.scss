@@ -1,0 +1,140 @@
+.product-tile-redesign {
+
+    &:hover {
+        .tile-content {
+            @include media-breakpoint-up(lg) {
+                top: rem(-30);
+            }
+        }
+
+        .cart-and-ipay  {
+
+            @include media-breakpoint-up(lg) {
+                bottom: 0;
+                opacity: 1;
+            }
+
+            .add-to-cart {
+                @include media-breakpoint-up(lg) {
+                    bottom: 0;
+                    opacity: 1;
+                    pointer-events: initial;
+                }
+            }
+        }
+    }
+
+    .tile-content {
+        position: relative;
+        top: 0;
+        transition: all .25s;
+    }
+
+    .image-container {
+        border: none;
+
+        .quickview {
+            display: none;
+        }
+    }
+
+    .tile-body {
+        padding: rem(20) 0;
+        margin-bottom: rem(30);
+
+        .price {
+            display: block;
+            float: initial;
+
+            span {
+                font-size: rem(10);
+                letter-spacing: rem(1.5);
+                line-height: 1;
+                color: $black;
+
+                @include media-breakpoint-up(md) {
+                    font-size: 12px;
+                }
+
+                @include media-breakpoint-up(xs) {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .product-brand-info {
+            font-size: rem(9);
+            color: $light-gray2;
+            line-height: rem(12);
+            min-height: rem(12);
+            @include font-medium;
+
+            @include media-breakpoint-up(md) {
+                font-size: rem(12);
+            }
+            @include media-breakpoint-up(xs) {
+                font-size: rem(10);
+            }
+        }
+
+        .pdp-link {
+            margin: rem(4) 0;
+
+            a {
+                margin: rem(5) 0;
+                font-size: rem(11);
+                line-height: 1.2;
+                letter-spacing: 1.5px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                padding: 0 rem(10);
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(16);
+                }
+                @include media-breakpoint-up(xs) {
+                    font-size: rem(14);
+                }
+            }
+        }
+    }
+
+    .cart-and-ipay  {
+        display: block;
+        transition: all .25s ease-in-out;
+
+        @include media-breakpoint-up(lg) {
+            position: relative;
+            bottom: 4px;
+            opacity: 0;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: rem(15) 0;
+            border-color: $black;
+            color: $white;
+            border-width: rem(2);
+            position: relative;
+
+            @include media-breakpoint-up(lg) {
+                color: $black;
+                bottom: rem(-54);
+                background-color: transparent;
+                color: $black;
+                border-width: 1px;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &:hover {
+                background: $light-green;
+                color: $white;
+                @include media-breakpoint-up(lg) {
+                    background: $black;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

@@ -42,7 +42,7 @@
                 font-family: $font-book;
             }
 
-            svg {
+            svg, img {
                 width: rem(10);
             }
         }
@@ -241,7 +241,7 @@
             padding: rem(5) rem(5) 0;
         }
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             padding: rem(35) 0 rem(30);
             flex-basis: 25%;
         }
