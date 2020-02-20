@@ -1,4 +1,4 @@
-<div class="ml-0 text-center ml-sm-0 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? 'd-none' : ''}">
+<div class="ml-2 text-center ml-sm-0 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? 'd-none' : ''}">
     <button type="button" class="btn btn-outline-dark smartgift-btn smartgift-btn-redesign mb-1" onclick="addSmartGiftCardToBasket();" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</button>
     <isif condition="${product.available && product.readyToOrder}">
         <script>

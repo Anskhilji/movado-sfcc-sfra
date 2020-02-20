@@ -1435,7 +1435,7 @@ body {
 
     .dw-apple-pay-button.apple-pay-pdp, .add-to-cart {
 
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(lg) {
             width: 100%;
             margin-bottom: rem(5);
         }
