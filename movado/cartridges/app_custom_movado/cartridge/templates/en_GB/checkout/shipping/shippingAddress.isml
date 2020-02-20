@@ -41,7 +41,7 @@
         <div class="form-group
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
-            <label class="form-control-label" for="email">${Resource.msg('field.customer.email','checkout',null)}</label>
+            <label class="form-control-label" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
             <span class="info-icon">
                 <span class="icon">i</span>
                 <div class="tooltip">

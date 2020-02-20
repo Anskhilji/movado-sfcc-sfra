@@ -5,7 +5,7 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+var sfmcApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -159,7 +159,7 @@ server.replace(
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue
                 }
-                SFMCApi.sendSubscriberToSFMC(requestParams);
+                sfmcApi.sendSubscriberToSFMC(requestParams);
             }
             
             result.address = {
