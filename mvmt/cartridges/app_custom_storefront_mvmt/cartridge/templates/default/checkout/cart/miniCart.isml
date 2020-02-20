@@ -1,5 +1,5 @@
 <isset name="miniCart" value="${true}" scope="page" />
-<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
+<isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
 <div class="row hidden-md-down">
@@ -17,19 +17,21 @@
     ${Resource.msg('title.earn.free.shipping','cart',null)}
 </span>
 <div class="minicart-error cart-error">
-    <isif condition="${pdict.valid.error && pdict.items.length !== 0}">
-        <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            ${pdict.valid.message}
-        </div>
+    <isif condition="${pdict.valid.error && !empty(pdict.items.length}">
+        <isif condition="${pdict.items.length !== 0}">
+	        <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
+	            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	            </button>
+	            ${pdict.valid.message}
+	        </div>
+        </isif>
     </isif>
 </div>
 <div class="product-summary">
     <isloop items="${pdict.items}" var="lineItem">
         <div class="row">
-           <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+           <isif condition="${lineItem.bonusProductLineItemUUID === Resource.msg('label.bonus', 'cart', null)}">
                <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                    <div class="card-body">
                        <isinclude template="checkout/productCard/miniCartBonusProductCard" />
