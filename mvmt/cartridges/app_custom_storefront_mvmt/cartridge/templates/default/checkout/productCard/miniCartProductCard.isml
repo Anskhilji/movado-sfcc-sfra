@@ -93,15 +93,18 @@
                 <div class="item-total-${lineItem.UUID} price">
                     <isinclude template="checkout/productCard/productCardProductTotalPrice" />
                 </div>
+                <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
                 <div class="remove-line-item d-block mb-2">
-                    <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light" data-pid="${lineItem.id}"
+                    <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"
+                            data-pid="${lineItem.id}"
                             data-name="${lineItem.productName}"
-                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-action="${pdict.removeProductLineItemUrl}"
                             data-uuid="${lineItem.UUID}"
                             aria-label="remove">
                         <span aria-hidden="true">${Resource.msg('label.cart.remove','cart',null)}</span>
                     </button>
                 </div>
+                <iscomment> Custom End </iscomment>
             </div>
             <div class="">
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
