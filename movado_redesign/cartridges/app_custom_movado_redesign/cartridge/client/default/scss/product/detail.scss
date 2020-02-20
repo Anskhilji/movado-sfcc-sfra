@@ -1104,6 +1104,7 @@
             left: rem(15);
 
             .wishlist-row {
+
                 > div {
                     padding: 0;
                 }
@@ -1349,6 +1350,7 @@
     }
 
     @include media-breakpoint-down(xs) {
+
         .cart-wishlist {
             max-width: auto;
             padding:0;
@@ -1357,6 +1359,7 @@
             .wishlist-row {
                 max-width: rem(60);
                 margin-right: rem(10);
+
                 > div {
                     padding: 0;
                 }
@@ -1422,12 +1425,14 @@ body {
 }
 
 @include media-breakpoint-up(sm) {
+
     .modern-cart-wishlist {
         padding-left: rem(56);
     }
 }
 
 .pdp-old {
+
     .dw-apple-pay-button.apple-pay-pdp, .add-to-cart {
 
         @include media-breakpoint-up(lg) {

@@ -39,6 +39,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
     
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
+
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
     var viewData = res.getViewData();
