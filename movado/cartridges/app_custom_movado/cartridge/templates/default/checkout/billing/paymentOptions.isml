@@ -34,8 +34,8 @@
         <div class="row d-none">
             <div class="col-sm-6 field-left">
                 <div class="form-group
-            <isif condition=${creditFields.email.mandatory === true}>required</isif>
-            ${creditFields.email.htmlName}">
+                <isif condition=${creditFields.email.mandatory === true}>required</isif>
+                ${creditFields.email.htmlName}">
                     <label class="form-control-label" for="email">${Resource.msg('field.customer.email','checkout',null)}</label>
                     <span class="info-icon">
                         <span class="icon">i</span>
@@ -50,8 +50,8 @@
             </div>
             <div class="col-sm-6 field-right">
                 <div class="form-group
-            <isif condition=${creditFields.phone.mandatory === true}>required</isif>
-            ${creditFields.phone.htmlName}">
+                <isif condition=${creditFields.phone.mandatory === true}>required</isif>
+                ${creditFields.phone.htmlName}">
                     <label class="form-control-label" for="phoneNumber">${Resource.msg('field.customer.phone.number','checkout',null)}</label>
                     <span class="info-icon">
                         <span class="icon">i</span>
