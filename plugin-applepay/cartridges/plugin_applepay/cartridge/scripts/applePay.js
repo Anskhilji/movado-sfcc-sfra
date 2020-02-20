@@ -47,6 +47,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
+        hooksHelper(
+            'app.fraud.detection.checkoutdenied',
+            'checkoutDenied',
+            orderNumber,
+            paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
         Logger.error('Unable to find Apple Pay payment instrument for order.');
         return new Status(Status.ERROR);
     }
