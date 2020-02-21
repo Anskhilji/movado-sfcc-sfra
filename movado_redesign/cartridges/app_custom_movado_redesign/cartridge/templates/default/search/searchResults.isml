@@ -139,14 +139,19 @@
     <div class="plp-discover plp-new-design">
         <isif condition="${pdict.productSearch.category}">
             <isslot id="cs_plp_bottom_slot-head" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
+    </div>
 
+        <iscomment>
         <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
             <isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <iselse>
             <isif condition="${pdict.productSearch.category}">
                 <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
             </isif>
-        </isif>
-    </div>
+        </isif></div>
+        </iscomment>
+        
+    
 </isdecorate>
