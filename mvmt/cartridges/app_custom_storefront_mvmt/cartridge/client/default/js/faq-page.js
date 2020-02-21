@@ -55,7 +55,7 @@ $(document).ready(function () {
             var $scroll = $(window).scrollTop();
             
             if(!$contactTab.is(':visible')) {
-                if ($helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
+                if (!$helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
                     $helpContainer.addClass('scroll-warp');
                     $helpContainer.css({'top' : $headerHeight + 'px'});
                 } else if ($helpContainer.offset().top <= ($('.tab-content').offset().top + $headerHeight)) {
@@ -78,26 +78,26 @@ $(document).ready(function () {
     
     $('.faq-main-contact-page-link').on('click', function() {
         var $controlBarLinks = $('.faq-nav-control-bar-link');
-        $($controlBarLinks).siblings().removeClass('is-active');
-        $($contactTab).addClass('is-active');
+        $controlBarLinks.siblings().removeClass('is-active');
+        $contactTab.addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
-        $($contactTab).show();
-        $($contactTab).removeClass('d-none');
+        $contactTab.show();
+        $contactTab.removeClass('d-none');
         $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($($contactTab).text());
+        $('.faq-nav-control-bar-btn span').text($contactTab).text());
         $helpContainer.hide();
         $footerHelpContainer.hide();
     });
     
     $('.faq-main-return-page-link').on('click', function() {
         var $controlBarLinks = $('.faq-nav-control-bar-link');
-        $($controlBarLinks).siblings().removeClass('is-active');
-        $($returnsTab).addClass('is-active');
+        $controlBarLinks.siblings().removeClass('is-active');
+        $returnsTab.addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
-        $($returnsTab).show();
-        $($returnsTab).removeClass('d-none');
+        $returnsTab.show();
+        $returnsTab.removeClass('d-none');
         $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($($returnsTab).text());
+        $('.faq-nav-control-bar-btn span').text($returnsTab.text());
     });
 });
 
