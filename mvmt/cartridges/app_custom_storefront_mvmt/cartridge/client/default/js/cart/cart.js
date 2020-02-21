@@ -67,12 +67,7 @@ function updateCartTotals(data) {
         affirm.ui.refresh();
     }
 
-    if (data.numItems !== 0) {
-        $('.minicart-quantity').empty().append(data.numItems);
-    } else {
-        $('.minicart-quantity').empty();
-    }
-
+    $('.minicart-quantity').empty().append(data.numItems);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
