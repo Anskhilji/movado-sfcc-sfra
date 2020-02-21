@@ -114,12 +114,7 @@
                             <div class="modern-cart-wishlist cart-wishlist">
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             <div class="wishlist-row">
-                                <isif condition="${!('display' in pdict && 'wishlists' in pdict.display && pdict.display.wishlists == false) && pdict.loggedIn}">
-                                    <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <iselse/>
-                                    <a class="btn ml-4 btn-link wishlist-login" href="${URLUtils.https('Login-Show')}">
-                                    </a>
-                                </isif>
+                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                             </div>
                             </div>
                         </div>
