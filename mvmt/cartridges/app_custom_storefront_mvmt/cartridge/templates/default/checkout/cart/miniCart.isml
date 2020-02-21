@@ -1,4 +1,6 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="miniCart" value="${true}" scope="page" />
+<isset name="items" value="${pdict.items}" scope="page"/>
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -13,97 +15,102 @@
         <button class="close-cart-img" id="close-mini-cart" type="button"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
     </div>
 </div>
-<span class="title-free-shipping"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>
-    ${Resource.msg('title.earn.free.shipping','cart',null)}
-</span>
-<div class="minicart-error cart-error">
-    <isif condition="${pdict.valid.error && !empty(pdict.items.length}">
-        <isif condition="${pdict.items.length !== 0}">
-	        <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
-	            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	                <span aria-hidden="true">&times;</span>
-	            </button>
-	            ${pdict.valid.message}
-	        </div>
-        </isif>
+<isif condition="${!empty(items)}">
+    <isif condition="${items.length === 0}">
+        <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
+        <div class="empty-mini-cart-image justify-content-center row">
+            <iscontentasset aid="mini-cart-content-image" />
+        </div>
+        <div class="empty-mini-cart-descriptions justify-content-center row text-center">
+            <iscontentasset aid="mini-cart-content-description" />
+        </div>
+        <div class="empty-mini-cart-urls justify-content-center row text-center">
+            <iscontentasset aid="empty-mini-cart-content-urls" />
+        </div>
+        <iscomment> Custom End </iscomment>
+    <iselse>
+        <div class="minicart-error cart-error">
+            <isif condition="${pdict.valid.error}">
+                <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    ${pdict.valid.message}
+                </div>
+            </isif>
+        </div>
+        <span class="title-free-shipping"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>
+            ${Resource.msg('title.earn.free.shipping','cart',null)}
+        </span>
+        <div class="product-summary">
+            <isloop items="${items}" var="lineItem">
+                <div class="row">
+                   <isif condition="${lineItem.bonusProductLineItemUUID === Resource.msg('label.bonus', 'cart', null)}">
+                       <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                           <div class="card-body">
+                               <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+                           </div>
+                       </div>
+                   <iselse/>
+                       <div class="card uuid-${lineItem.UUID}">
+                           <div class="card-body">
+                               <isinclude template="checkout/productCard/miniCartProductCard" />
+                           </div>
+                       </div>
+                   </isif>
+                </div>
+            </isloop>
+        </div>
+        <div class="minicart-footer">
+            <isif condition="${!customer.isAuthenticated()}" >
+                <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
+                <form class="cart-checkout-options">
+                    <div class="cart-checkout row guest">
+                        <input class="checkout-radio-btn" checked="" type="radio" id="checkoutGuest" value="guest" name="checkout"/>
+                        <label for="checkoutGuest" class="checkout-btn-label">${Resource.msg('button.checkout.as.guest', 'checkout', null)}</label>
+                    </div>
+                    <div class="cart-checkout row login">
+                        <input class="checkout-radio-btn" type="radio" id="checkoutAccount" value="account" name="checkout"/>
+                        <label for="checkoutAccount" class="checkout-btn-label">
+                            ${Resource.msg('label.checkout.as.account', 'checkout', null)}
+                            <small class="checkout-sub">${Resource.msg('label.checkout.earn.reward', 'checkout', null)}</small>
+                        </label>
+                    </div>
+                </form>
+                <iscomment> Custom End </iscomment>
+
+                <iscomment>Custom Start: Adding account login, create and forget password form </iscomment>
+                <isinclude template="account/components/miniCartLoginForm" />
+                <isinclude template="account/components/miniCartRegisterForm" />
+                <isinclude template="account/components/miniCartForgetPasswordForm" />
+                <iscomment> Custom End </iscomment>
+            </isif>
+
+            <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
+            <div class="row continue-checkout-btn">
+                <div class="checkout-continue">
+                    <isinclude template="cart/miniCartCheckoutButtons" />
+                </div>
+            </div>
+            <iscomment> Custom End </iscomment>
+
+            <isif condition="${!customer.isAuthenticated()}" >
+                <iscomment>Custom Start: Adding the checkout account buttons like sign in and create account buttons</iscomment>
+                <div class="row checkout-with-account">
+                    <div class="col-12 checkout-continue">
+                        <button type="button" class="btn btn-block sign-in hidden-md-up">
+                            ${Resource.msg('link.text.sign.in', 'cart', null)}
+                        </button>
+                        <button type="button" class="btn btn-block sign-in hidden-sm-down">
+                            ${Resource.msg('button.text.loginform', 'cart', null)}
+                        </button>
+                        <button type="button" class="btn btn-block create-account">
+                            ${Resource.msg('link.text.create.account2', 'cart', null)}
+                        </button>
+                    </div>
+                </div>
+                <iscomment> Custom End </iscomment>
+            </isif>
+        </div>
     </isif>
-</div>
-<div class="product-summary">
-    <isloop items="${pdict.items}" var="lineItem">
-        <div class="row">
-           <isif condition="${lineItem.bonusProductLineItemUUID === Resource.msg('label.bonus', 'cart', null)}">
-               <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
-                   <div class="card-body">
-                       <isinclude template="checkout/productCard/miniCartBonusProductCard" />
-                   </div>
-               </div>
-           <iselse/>
-               <div class="card uuid-${lineItem.UUID}">
-                   <div class="card-body">
-                       <isinclude template="checkout/productCard/miniCartProductCard" />
-                   </div>
-               </div>
-           </isif>
-        </div>
-    </isloop>
-</div>
-<div class="minicart-footer">
-    <iscomment>Custom Start: Estimated total is not in the mvmt design </iscomment>
-    <iscomment>
-    <div class="row estimated-total">
-        <div class="col-8">
-            <p class="sub-total-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
-        </div>
-        <div class="col-4">
-            <p class="text-right sub-total">${pdict.totals.subTotal}</p>
-        </div>
-    </div>
-    </iscomment>
-    <iscomment> Custom End </iscomment>
-
-    <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
-    <form class="cart-checkout-options">
-        <div class="cart-checkout row guest">
-            <input class="checkout-radio-btn" checked="" type="radio" id="checkoutGuest" value="guest" name="checkout"/>
-            <label for="checkoutGuest" class="checkout-btn-label">${Resource.msg('button.checkout.as.guest', 'checkout', null)}</label>
-        </div>
-        <div class="cart-checkout row login">
-            <input class="checkout-radio-btn" type="radio" id="checkoutAccount" value="account" name="checkout"/>
-            <label for="checkoutAccount" class="checkout-btn-label">
-                ${Resource.msg('label.checkout.as.account', 'checkout', null)}
-                <small class="checkout-sub">${Resource.msg('label.checkout.earn.reward', 'checkout', null)}</small>
-            </label>
-        </div>
-    </form>
-    <iscomment> Custom End </iscomment>
-
-    <iscomment>Custom Start: Adding account login, create and forget password form </iscomment>
-    <isinclude template="account/components/miniCartLoginForm" />
-    <isinclude template="account/components/miniCartRegisterForm" />
-    <isinclude template="account/components/miniCartForgetPasswordForm" />
-    <iscomment> Custom End </iscomment>
-
-    <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
-    <div class="row continue-checkout-btn">
-        <div class="checkout-continue">
-            <isinclude template="cart/miniCartCheckoutButtons" />
-        </div>
-    </div>
-    <iscomment> Custom End </iscomment>
-
-    <iscomment>Custom Start: Adding the checkout account buttons like sign in and create account buttons</iscomment>
-    <div class="row checkout-with-account">
-        <div class="col-12 checkout-continue">
-            <button type="button" class="btn btn-block sign-in hidden-md-up">
-                ${Resource.msg('link.text.sign.in', 'cart', null)}
-            </button>
-            <button type="button" class="btn btn-block sign-in hidden-sm-down">
-                ${Resource.msg('button.text.loginform', 'cart', null)}
-            </button>
-            <button type="button" class="btn btn-block create-account">
-                ${Resource.msg('link.text.create.account2', 'cart', null)}
-            </button>
-        </div>
-    </div>
-    <iscomment> Custom End </iscomment>
-</div>
+</isif>
