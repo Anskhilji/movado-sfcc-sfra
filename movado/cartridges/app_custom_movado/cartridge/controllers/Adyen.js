@@ -169,6 +169,9 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                     require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
             } else {
                 session.custom.klarnaRiskifiedFlag = '';
+                Transaction.wrap(function () {
+                    Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                });
             }
             if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
                 // call hook for auth reverse using call cancelOrRefund api for safe side
@@ -182,8 +185,8 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 checkoutLogger.error('(Adyen) -> ShowConfirmation: A fraud has been detected by Riskified thats why going to refund payment against order with order number: ' + orderNumber + ' and redirecting to Checkout-Begin and stage is payment ');
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
-          }
-	  } catch (e) {
+            }
+        } catch (e) {
 		  // put logger
   		  checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
 		  checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);

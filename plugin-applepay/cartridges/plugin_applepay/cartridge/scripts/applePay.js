@@ -93,11 +93,11 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	deliveryValidationFail = true;
     }
     var checkoutDecisionStatus = hooksHelper(
-            'app.fraud.detection.create',
-            'create',
-            order.orderNo,
-            order.paymentInstrument,
-            require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+        'app.fraud.detection.create',
+        'create',
+        order.orderNo,
+        order.paymentInstrument,
+        require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
     if (deliveryValidationFail) {
         var sendMail = true;// send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
