@@ -1,8 +1,8 @@
 'use strict';
 var server = require('server');
 
-var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
+var Logger = require('dw/system/Logger');
 var checkoutHelper = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var OrderModel = require('*/cartridge/models/order');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
@@ -34,13 +34,13 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
 
     if (orderPlacementStatus.error) {
         var refundResponse = hooksHelper(
-            'app.payment.adyen.refund',
-            'refund',
-            order,
-            order.getTotalGrossPrice().value,
-            sendMail,
-            isJob,
-            require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+                'app.payment.adyen.refund',
+                'refund',
+                order,
+                order.getTotalGrossPrice().value,
+                sendMail,
+                isJob,
+                require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
     	return next(new Error('Could not place order'));
     }
     //Check if order includes Pre-Order item

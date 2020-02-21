@@ -16,58 +16,58 @@ var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.replace('Redirect', server.middleware.https, function (req, res, next) {
-      var    adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
+	  var	adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
 
-      var order = OrderMgr.getOrder(session.custom.orderNo);
+	  var order = OrderMgr.getOrder(session.custom.orderNo);
       checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
 
-      var riskifiedCheckoutCreateResponse = hooksHelper(
-                'app.fraud.detection.checkoutcreate',
-                'checkoutCreate',
-                order.orderNo,
-                order.paymentInstrument,
-                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
-      if (!riskifiedCheckoutCreateResponse) {
-          checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
-          res.render('error', {
-              message: Resource.msg('subheading.error.general', 'error', null)
-          });
-          return next();
-      }
+	  var riskifiedCheckoutCreateResponse = hooksHelper(
+		        'app.fraud.detection.checkoutcreate',
+		        'checkoutCreate',
+		        order.orderNo,
+		        order.paymentInstrument,
+		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+	  if (!riskifiedCheckoutCreateResponse) {
+	      checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
+	      res.render('error', {
+	          message: Resource.msg('subheading.error.general', 'error', null)
+	      });
+	      return next();
+	  }
 
 
-      var result;
+	  var result;
 
-      Transaction.wrap(function () {
-        result = adyenVerificationSHA256.verify({
-          Order: order,
-          OrderNo: order.orderNo,
-          CurrentSession: session,
-          CurrentUser: customer,
-          PaymentInstrument: order.paymentInstrument,
-          brandCode: session.custom.brandCode,
-          issuerId: session.custom.issuerId
-        });
-      });
+	  Transaction.wrap(function () {
+	    result = adyenVerificationSHA256.verify({
+	      Order: order,
+	      OrderNo: order.orderNo,
+	      CurrentSession: session,
+	      CurrentUser: customer,
+	      PaymentInstrument: order.paymentInstrument,
+	      brandCode: session.custom.brandCode,
+	      issuerId: session.custom.issuerId
+	    });
+	  });
 
-      if (result === PIPELET_ERROR) {
-        res.render('error');
-        return next();
-      }
+	  if (result === PIPELET_ERROR) {
+	    res.render('error');
+	    return next();
+	  }
 
-      var pdict = {
-        merchantSig:    result.merchantSig,
-        Amount100: result.Amount100,
-        shopperEmail: result.shopperEmail,
-        shopperReference: result.shopperReference,
-        ParamsMap: result.paramsMap,
-        SessionValidity: result.sessionValidity,
-        Order: order,
-        OrderNo: order.orderNo
-      };
+	  var pdict = {
+	    merchantSig:	result.merchantSig,
+	    Amount100: result.Amount100,
+	    shopperEmail: result.shopperEmail,
+	    shopperReference: result.shopperReference,
+	    ParamsMap: result.paramsMap,
+	    SessionValidity: result.sessionValidity,
+	    Order: order,
+	    OrderNo: order.orderNo
+	  };
 
-      res.render('redirectHPP', pdict);
-      return next();
+	  res.render('redirectHPP', pdict);
+	  return next();
 });
 
 server.replace('ShowConfirmation', server.middleware.https, function (req, res, next) {
@@ -115,7 +115,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     // AUTHORISED: The payment authorisation was successfully completed.
     if (req.querystring.authResult === constants.PAYMENT_STATUS_AUTHORISED || (klarnaPaymentStatus && klarnaPaymentStatus.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED)) {
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Payment is authorized and going to place the order and order number is: ' + orderNumber);
-        var OrderModel = require('*/cartridge/models/order');
+    	var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
 
         var currentLocale = Locale.getLocale(req.locale.id);
@@ -169,9 +169,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                     require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
             } else {
                 session.custom.klarnaRiskifiedFlag = '';
-                Transaction.wrap(function () {
-                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                });
             }
             if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
                 // call hook for auth reverse using call cancelOrRefund api for safe side
@@ -186,13 +183,13 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
           }
-      } catch (e) {
-          // put logger
-            checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
-          checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
-          res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-          return next();
-      }
+	  } catch (e) {
+		  // put logger
+  		  checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
+		  checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
+		  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+		  return next();
+	  }
 
         if (!empty(session.custom.trackingCode)) {
             smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
