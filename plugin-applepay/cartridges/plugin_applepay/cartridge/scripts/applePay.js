@@ -5,6 +5,8 @@ var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
+
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
 var Site = require('dw/system/Site');
@@ -36,15 +38,6 @@ function comparePoBox(address) {
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
     
-    RiskifiedService.sendCheckoutCreate(order);
-    RiskifiedService.storePaymentDetails({
-        avsResultCode: 'Y', // Street address and 5-digit ZIP code
-        // both
-        // match
-        cvvResultCode: 'M', // CVV2 Match
-        paymentMethod: 'Card'
-    });
-    
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -54,7 +47,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             orderNumber,
             paymentInstrument,
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
-        Logger.error('Unable to find Apple Pay payment instrument for order.');
+        checkoutLogger.error('Unable to find Apple Pay payment instrument for order:' + order.orderNo);
         return new Status(Status.ERROR);
     }
 
@@ -208,6 +201,29 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
     });// end of Trasaction
     }
 }
+
+exports.beforeAuthorization = function (order, payment, custom) {
+
+    var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
+    RiskifiedService.storePaymentDetails({
+        avsResultCode: 'Y', // Street address and 5-digit ZIP code
+        // both
+        // match
+        cvvResultCode: 'M', // CVV2 Match
+        paymentMethod: 'Card'
+    });
+
+    if (riskifiedCheckoutCreateResponse && riskifiedCheckoutCreateResponse.error) {
+        hooksHelper(
+            'app.fraud.detection.checkoutdenied',
+            'checkoutDenied',
+            orderNumber,
+            paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+        Logger.error('Unable to find Apple Pay payment instrument for order.');
+        checkoutLogger.error('(applePay) -> beforeAuthorization: Riskified checkout create call failed for order:' + order.orderNo);
+    }
+};
 
 /**
  *  check for AllowedCountryCodes
