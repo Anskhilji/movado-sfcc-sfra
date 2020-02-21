@@ -84,7 +84,7 @@ $(document).ready(function () {
         $contactTab.show();
         $contactTab.removeClass('d-none');
         $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($contactTab).text());
+        $('.faq-nav-control-bar-btn span').text($contactTab).text();
         $helpContainer.hide();
         $footerHelpContainer.hide();
     });
@@ -97,7 +97,7 @@ $(document).ready(function () {
         $returnsTab.show();
         $returnsTab.removeClass('d-none');
         $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($returnsTab.text());
+        $('.faq-nav-control-bar-btn span').text($returnsTab).text();
     });
 });
 
