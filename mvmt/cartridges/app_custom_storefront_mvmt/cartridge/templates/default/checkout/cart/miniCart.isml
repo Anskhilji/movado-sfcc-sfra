@@ -45,7 +45,7 @@
         <div class="product-summary">
             <isloop items="${items}" var="lineItem">
                 <div class="row">
-                   <isif condition="${lineItem.bonusProductLineItemUUID === Resource.msg('label.bonus', 'cart', null)}">
+                   <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                        <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                            <div class="card-body">
                                <isinclude template="checkout/productCard/miniCartBonusProductCard" />
