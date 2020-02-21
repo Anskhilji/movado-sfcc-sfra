@@ -244,7 +244,6 @@
 
     form {
 
-
         &.trackorder {
 
             .card-body {
@@ -436,18 +435,18 @@
 
         .oauth-facebook {
             margin-right: 2%;
-            background-color: #3b5998;
+            background-color: $dark-blue;
 
             &:hover {
-                background-color: #3b61b3;
+                background-color: $light-blue;
             }
         }
 
         .oauth-google {
-            background-color: #dd4b39;
+            background-color: $dark-red2;
 
             &:hover {
-                background-color: #f74e38;
+                background-color: $light-red;
             }
         }
 

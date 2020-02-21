@@ -36,7 +36,7 @@
                                     </div>
                                     <isinclude template="account/components/oauth" />
                                 </div>
-                                <div class="tab-pane ${pdict.navTabValue === "register" ? 'active' : ''}" id="register" role="tabpanel">
+                                <div class="tab-pane ${pdict.navTabValue === 'register' ? 'active' : ''}" id="register" role="tabpanel">
                                     <div class="create-account-section">
                                         <div class="create-account-section-header-title">
                                             <iscontentasset aid="login-page-create-account-section-title-and-description" />
