@@ -13,19 +13,21 @@
         <div class="linked-products">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isset name="recommendationProduct" value="${recommendation.getRecommendedItem()}" scope="page" />
-                <div class="upsell_wrapper">
-                    <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendationProduct.getID()}">
-                    <img class="upsell_image" src="${recommendationProduct.image.absURL}"/>
-                    <div class="upsell_meta">
-                        <p class="upsell_price">
-                            ${recommendationProduct.getPriceModel().getPrice()}
-                        </p>
-                        <p class="upsell_status">${Resource.msg('label.added', 'product', null)}</p>
-                    </div>
-                    <p class="upsell_description">${recommendationProduct.getName()}</p>
-                    <div class="upsell_checkbox">
-                    </div>
-                </div>
+                <isif condition="${recommendationProduct.available}" >
+	                <div class="upsell_wrapper">
+	                    <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendationProduct.getID()}">
+	                    <img class="upsell_image" src="${recommendationProduct.image.absURL}"/>
+	                    <div class="upsell_meta">
+	                        <p class="upsell_price">
+	                            ${recommendationProduct.getPriceModel().getPrice()}
+	                        </p>
+	                        <p class="upsell_status">${Resource.msg('label.added', 'product', null)}</p>
+	                    </div>
+	                    <p class="upsell_description">${recommendationProduct.getName()}</p>
+	                    <div class="upsell_checkbox">
+	                    </div>
+	                </div>
+	            </isif>
             </isloop>
         </div>
     </isif>
