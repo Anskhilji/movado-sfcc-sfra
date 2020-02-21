@@ -5,6 +5,7 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -151,7 +152,18 @@ server.replace(
             checkoutLogger.error('(CheckoutShippingServices) -> SubmitShipping: Field validations errors');
         } else {
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
-
+            
+            // Subscribe to the movado email list: Starts.
+            var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
+            if (subscribeToMovado) {
+                var requestParams = {
+                    email: form.shippingAddress.addressFields.email.htmlValue
+                }
+                if (!empty(requestParams) && !empty(requestParams.email)) {
+                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                }
+            }
+            
             result.address = {
                 firstName: form.shippingAddress.addressFields.firstName.value,
                 lastName: form.shippingAddress.addressFields.lastName.value,
@@ -163,6 +175,7 @@ server.replace(
                 countryCode: form.shippingAddress.addressFields.country.value,
                 phone: form.shippingAddress.addressFields.phone.value
             };
+            
             if (Object.prototype.hasOwnProperty
                 .call(form.shippingAddress.addressFields, 'states')) {
                 result.address.stateCode =
@@ -193,6 +206,10 @@ server.replace(
                     shippingData,
                     currentBasket.defaultShipment
                 );
+
+                Transaction.wrap(function () {
+                    currentBasket.setCustomerEmail(form.shippingAddress.addressFields.email.htmlValue || '');
+                });
 
                 var giftResult = COHelpers.setGift(
                     currentBasket.defaultShipment,

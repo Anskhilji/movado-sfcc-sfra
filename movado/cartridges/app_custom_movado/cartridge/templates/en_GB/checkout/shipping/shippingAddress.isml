@@ -37,6 +37,35 @@
 </div>
 
 <div class="row">
+    <div class="col-12">
+        <div class="form-group
+        <isif condition=${addressFields.email.mandatory === true}>required</isif>
+        ${addressFields.email.htmlName}">
+            <label class="form-control-label" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
+            <span class="info-icon">
+                <span class="icon">i</span>
+                <div class="tooltip">
+                    ${Resource.msg('tooltip.email','creditCard',null)}
+                </div>
+            </span>
+            <input type="text" class="form-control email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
+                <isprint value="${addressFields.email.attributes}" encoding="off" />> 
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
+        <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
+        <label class="form-control-label text-transform-reset" for="subscribeToMovado">
+            ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
+            <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
+                ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
+            </a>
+        </label>
+    </div>
+</div>
+
+<div class="row">
 	<div class="col-sm-12">
 		<!-- companyName -->
 	    <div class="form-group
