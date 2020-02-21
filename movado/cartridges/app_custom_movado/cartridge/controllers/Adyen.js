@@ -170,7 +170,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             } else {
                 session.custom.klarnaRiskifiedFlag = '';
                 Transaction.wrap(function () {
-                    Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                 });
             }
             if (checkoutDecisionStatus && checkoutDecisionStatus.status === 'fail') {
