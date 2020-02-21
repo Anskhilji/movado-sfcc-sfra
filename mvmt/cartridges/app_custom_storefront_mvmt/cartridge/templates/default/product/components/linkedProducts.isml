@@ -13,7 +13,7 @@
         <div class="linked-products">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isset name="recommendationProduct" value="${recommendation.getRecommendedItem()}" scope="page" />
-                <isif condition="${recommendationProduct.available}" >
+                <isif condition="${recommendationProduct.available}">
 	                <div class="upsell_wrapper">
 	                    <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendationProduct.getID()}">
 	                    <img class="upsell_image" src="${recommendationProduct.image.absURL}"/>

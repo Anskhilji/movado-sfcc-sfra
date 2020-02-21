@@ -623,6 +623,12 @@ function validateOptions($el) {
     }
 }
 
+/**
+ * Retrieve recommended products
+ *
+ * @param {Link} addToCartUrl - link of add to cart URL of recommended product
+ * 
+ */
 function variationProductToCart(addToCartUrl) {
     var checkBox = document.getElementsByClassName("upsell_input");
     for (var i = 0; i < checkBox.length; i++) {
@@ -637,6 +643,13 @@ function variationProductToCart(addToCartUrl) {
     }
 }
 
+/**
+ * Add recommended products to cart
+ *
+ * @param {Object} variationForm - contains selected recommended product
+ * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
+ * 
+ */
 function addVariationProductToCartAjax(variationForm, addToCartUrl) {
     if (addToCartUrl) {
         $.ajax({
