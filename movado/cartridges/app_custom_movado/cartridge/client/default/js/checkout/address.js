@@ -194,10 +194,10 @@ module.exports = {
                 $newEl.prop('selected', 'selected');
                 $newEl.parent().trigger('change');
             }
-            var $emailField = $('.dwfrm_billing_creditCardFields_email >#email');
-            $emailField.val($emailField.attr("value"));
-            var $phoneField = $('.dwfrm_billing_creditCardFields_phone >#phoneNumber');
-            $phoneField.val($phoneField.attr("value"));
+            var $emailField = $('.dwfrm_billing_creditCardFields_email > #email');
+            $emailField.val($('.shipping-address-block  #email').val());
+            var $phoneField = $('.dwfrm_billing_creditCardFields_phone > #phoneNumber');
+            $phoneField.val($('.dwfrm_shipping_shippingAddress_addressFields_phone > #shippingPhoneNumber').val());
         });
     }
 };
