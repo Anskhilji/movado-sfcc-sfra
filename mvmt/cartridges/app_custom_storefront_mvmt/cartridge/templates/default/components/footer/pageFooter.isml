@@ -1,0 +1,71 @@
+<iscomment> Custom Start: Adding the overlay style for the footer popup.</iscomment> 
+<div id="footer-overlay"></div>
+<iscomment> Custom End </iscomment>
+<iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
+<footer>
+    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+
+    <div class="banner-with-contents">
+        <iscontentasset aid="footer-banner" />
+    </div>
+
+    <div class="container-fluid">
+        <div class="footer-container row">
+            <div class="footer-left-contents footer-item col-md-4 col-lg-3">
+                <iscontentasset aid="company-info" />
+                <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+            </div>
+            <div class="footer-center-contents col-lg-6 col-md-8">
+                <div class="row">
+                    <div class="footer-item col-md-4 desktop-view">
+                        <iscontentasset aid="mvmt-shop" />
+                    </div>
+                    <div class="footer-item col-md-4 desktop-view">
+                        <iscontentasset aid="ca-footer-account" />
+                    </div>
+                    <div class="footer-item col-md-4 desktop-view">
+                        <iscontentasset aid="join-the-mvmt" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-1" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-2" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-3" />
+                    </div>
+                    <div class="footer-item col-md-4 mobile-view">
+                        <iscontentasset aid="footer-menu-4" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 footer-item footer-right-contents home-email-signup">
+                <h4 class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</h4>
+                <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                    ${Resource.msg('newsletter.email.error', 'common', null)}
+                </div>
+                <isinclude template="components/newsLetter.isml">
+                <div class="footer-social-links">
+                    <div class="justify-content-center row">
+                        <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="terms-and-conditions justify-content-center row">
+        <iscontentasset aid="ca-footer-copy" />
+    </div>
+    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+
+    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+
+    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
+    <isinclude template="resources/appresources"/>
+
+    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
+    <isinclude template="include/yotpofooter"/>
+</footer>
+<iscomment> Custom End</iscomment>

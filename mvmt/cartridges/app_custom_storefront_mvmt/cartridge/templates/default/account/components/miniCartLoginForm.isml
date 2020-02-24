@@ -1,0 +1,27 @@
+<div class="mini-cart-login">
+    <form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
+        <div class="form-group required">
+            <input type="email" id="login-form-email" class="form-control" name="loginEmail" placeholder="${Resource.msg('form.email.place.holder', 'common', null)}">
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group required">
+            <input type="password" id="login-form-password" class="form-control" name="loginPassword" placeholder="${Resource.msg('form.password.place.holder', 'common', null)}" autocomplete="off">
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group custom-control custom-checkbox pull-left remember-me">
+            <input type="checkbox" class="custom-control-input" id="rememberMe" name="loginRememberMe" value="true"
+                <isif condition="${pdict.rememberMe}">checked</isif>>
+            <label class="custom-control-label" for="rememberMe">
+                ${Resource.msg('label.checkbox.login.rememberme', 'login', null)}
+            </label>
+        </div>
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('button.text.loginform', 'cart', null)}</button>
+    </form>
+    <isinclude template="account/components/oauth" />
+    <div class="forgot-password">
+        <a id="password-reset-btn">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
+        <span>&#32;&#124;&#32;</span>
+        <a id="create-account">${Resource.msg('link.text.create.account', 'cart', null)}</a>
+    </div>
+</div>
