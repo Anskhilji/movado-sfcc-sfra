@@ -10,12 +10,14 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var adyenPaymentCheckout = require('~/cartridge/scripts/adyen/klarna/adyenPaymentCheckout.js');
 var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var RiskifiedService = require('int_riskified');
 
 server.prepend('Redirect', server.middleware.https, function (req, res, next) {
     var order = OrderMgr.getOrder(session.custom.orderNo);
     var orderNumber = session.custom.orderNo;
 
     var result;
+    
     checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect if payment is made from Klarna or Paypal and order number is: ' + orderNumber);
     // Custom Start: Klarna payment integration.
     var openInvoiceWhiteListMethods = Site.getCurrent().getCustomPreferenceValue('Adyen_Open_Invoice_Whitelist');
@@ -27,20 +29,10 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 res.render('error');
                 return next();
             }
+            session.custom.klarnaRiskifiedFlag = true;
 
-            var riskifiedCheckoutCreateResponse = hooksHelper(
-                'app.fraud.detection.checkoutcreate',
-                'checkoutCreate',
-                order.orderNo,
-                order.paymentInstrument,
-                require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
-
-            if (riskifiedCheckoutCreateResponse) {
-                res.redirect(result.adyenPaymentResponse.redirectUrl);
-                return next();
-            } else {
-                session.custom.klarnaRiskifiedFlag = true;
-            }
+            res.redirect(result.adyenPaymentResponse.redirectUrl);
+            return next();
         }
         res.render('error');
         return next();
