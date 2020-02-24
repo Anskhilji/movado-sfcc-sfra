@@ -136,16 +136,6 @@
 	</div>
 	</div>
 	
-
-    <iscomment>
-	    <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-	        <isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-	    <iselse>
-	        <isif condition="${pdict.productSearch.category}">
-	            <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-	        </isif>
-	    </isif>
-    </iscomment>
     
     <isif condition="${pdict.productSearch.category}">
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
