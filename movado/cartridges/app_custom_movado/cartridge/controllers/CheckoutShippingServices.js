@@ -209,6 +209,9 @@ server.replace(
 
                 Transaction.wrap(function () {
                     currentBasket.setCustomerEmail(form.shippingAddress.addressFields.email.htmlValue || '');
+                    if (!empty(currentBasket.billingAddress)) {
+                        currentBasket.billingAddress.setPhone(form.shippingAddress.addressFields.phone.htmlValue || '');
+                    }
                 });
 
                 var giftResult = COHelpers.setGift(

@@ -48,7 +48,7 @@
                     ${Resource.msg('tooltip.email','creditCard',null)}
                 </div>
             </span>
-            <input type="text" class="form-control email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
+            <input type="text" class="form-control email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
             <div class="invalid-feedback"></div>
         </div>
