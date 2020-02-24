@@ -351,7 +351,13 @@ module.exports = {
     toggleWishlistStatus: function () {
         $('#isPublicList').on('click', function () {
             var listID = $('#isPublicList').data('id');
-            updatePublicStatus(listID, null, null);
+            if ($(this).is(':checked')) {
+                $('.wl-social-sharing').hide();  
+            }
+            else if ($(this).is(':not(:checked)')) {
+                $('.wl-social-sharing').show();
+            }
+                updatePublicStatus(listID, null, null);
         });
     },
 
