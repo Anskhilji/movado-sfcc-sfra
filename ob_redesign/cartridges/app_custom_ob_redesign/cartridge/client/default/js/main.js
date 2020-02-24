@@ -1,5 +1,5 @@
 var processInclude = require('base/util');
-processInclude(require('custom_oliviaburton_uk/main'));
+processInclude(require('olivia-burton-uk/main'));
 
 $(document).ready(function () {
     processInclude(require('./header/header'));
