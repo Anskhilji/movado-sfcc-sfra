@@ -93,7 +93,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         order.orderNo,
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-    if (true) {
+    if (deliveryValidationFail) {
         var sendMail = true;// send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
         var refundResponse = hooksHelper(
