@@ -37,18 +37,6 @@
     position: static;
   }
 
-  @include media-breakpoint-down(lg){
-
-    .shop-by-collection-slide {
-
-      .featured-promotion {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-    }
-  }
-
   .dropdown-menu {
 
     .menu-pane {
@@ -71,18 +59,6 @@
           border-bottom: 1px solid $black;
           margin-top: rem(10);
         }
-      }
-    }
-
-    .featured-promotion {
-      h3 {
-        color: $regent-grey;
-        @include font-medium;
-        font-size: rem(15);
-        letter-spacing: normal;
-        margin-bottom: rem(15);
-        font-weight: 600;
-        text-transform: capitalize;
       }
     }
   }
@@ -128,14 +104,6 @@
         &::after {
           width: 100%;
         }
-      }
-    }
-
-    .featured-promotion{
-
-      p {
-        margin-left: 1.875rem;
-        margin-right: 0;
       }
     }
 
@@ -188,7 +156,7 @@
     .nav-link {
       color: $white;
       font-size: rem(12);
-      @include font-book;
+      @include font-medium;
       letter-spacing: normal;
       letter-spacing: rem(1.5);
       text-transform: uppercase;
@@ -266,7 +234,12 @@
 
     .browse-collection {
       margin: 0;
-      min-width: 330px;
+      min-width: rem(330);
+      flex:1;
+
+      &:not(.no-static-content) {
+        max-width: rem(380);
+      }
 
       .third-level-menu {
 
@@ -324,6 +297,10 @@
           }
         }
       }
+    }
+
+    .featured-promotion {
+      flex:1;
     }
   }
 }
@@ -436,7 +413,7 @@
           .third-level-menu {
 
             .submenu-item {
-              width: 33.33%;
+              width: 25%;
             }
           }
         }

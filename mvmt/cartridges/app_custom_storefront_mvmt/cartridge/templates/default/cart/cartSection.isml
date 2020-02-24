@@ -65,7 +65,7 @@
             <isif condition="${itemsLength > 0}">
                 <div class="promo-box">
                     <isinclude template="cart/cartPromoCode" />
-                    <div class="coupons-and-promos coupons-wrapper mb-3">
+                    <div class="coupons-and-promos coupons-wrapper">
                         <isinclude template="cart/cartCouponDisplay" />
                     </div>
                     <div class="row">
