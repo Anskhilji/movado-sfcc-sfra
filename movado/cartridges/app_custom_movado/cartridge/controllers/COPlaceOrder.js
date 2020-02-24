@@ -12,6 +12,7 @@ var Resource = require('dw/web/Resource');
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
+var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 
 server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var order = OrderMgr.getOrder(req.querystring.order_id);
@@ -32,6 +33,8 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var orderPlacementStatus = adyenHelpers.placeOrder(order, fraudDetectionStatus);
 
     if (orderPlacementStatus.error) {
+        var sendMail = true;
+        var isJob = false;
         var refundResponse = hooksHelper(
             'app.payment.adyen.refund',
             'refund',
@@ -40,6 +43,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
             sendMail,
             isJob,
             require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+        Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
     	return next(new Error('Could not place order'));
     }
     //Check if order includes Pre-Order item
