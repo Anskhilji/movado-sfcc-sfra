@@ -108,7 +108,7 @@
     }
 }
 
-.static-content{
+.static-content {
 
     &-wrapper {
         display: block;
@@ -232,7 +232,7 @@
         padding: rem(50) rem(45) rem(25);
     }
 
-    li{
+    li {
         width: 50%;
 
         @include media-breakpoint-up(sm) {
@@ -242,7 +242,7 @@
         }
 
         @include media-breakpoint-up(lg) {
-            padding: rem(35) 0 rem(30);
+            padding: rem(35) 0 0;
             flex-basis: 25%;
         }
     }

@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
 <div class="product-tile product-tile-redesign" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
     <div class="tile-content">

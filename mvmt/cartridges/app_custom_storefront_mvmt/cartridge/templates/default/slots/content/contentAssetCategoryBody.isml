@@ -1,5 +1,0 @@
-<isif condition="${slotcontent && !!slotcontent.content.length}">
-    <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
-        <isprint value="${contentAsset.custom.body}" encoding="off"/>
-    </isloop>
-</isif>

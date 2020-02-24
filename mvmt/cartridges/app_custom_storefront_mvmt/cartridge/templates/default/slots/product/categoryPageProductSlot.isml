@@ -1,9 +1,0 @@
-<isinclude template="/components/modules" />
-
-<ul class="category-product-listing">
-    <isloop items="${slotcontent.content}" var="product" status="loopState">
-        <li>
-            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
-        </li>
-    </isloop>
-</ul>
