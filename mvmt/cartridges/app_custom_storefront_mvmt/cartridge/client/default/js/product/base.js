@@ -624,7 +624,7 @@ function validateOptions($el) {
 }
 
 /**
- * Retrieve recommended products
+ * Custom Start: Retrieve recommended products
  *
  * @param {Link} addToCartUrl - link of add to cart URL of recommended product
  * 
@@ -644,7 +644,7 @@ function variationProductToCart(addToCartUrl) {
 }
 
 /**
- * Add recommended products to cart
+ * Custom Start: Add recommended products to cart
  *
  * @param {Object} variationForm - contains selected recommended product
  * @param {Link}  addToCartUrl -link of add to cart URL of recommended product

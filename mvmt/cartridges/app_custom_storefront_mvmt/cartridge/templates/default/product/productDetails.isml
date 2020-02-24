@@ -63,7 +63,7 @@
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-4">
-                    <isif condition="${product.availability.messages.toString().equals(Resource.msg('label.not.available', 'common', null))}">
+                    <isif condition="${!product.available}">
 	                    <div class="product-tag-wrapper">
 	                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
 	                    </div>
