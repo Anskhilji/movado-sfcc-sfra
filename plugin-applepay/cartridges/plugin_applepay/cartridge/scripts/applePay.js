@@ -87,7 +87,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
     }
-    var checkoutDecisionStatus = hooksHelper(
+    hooksHelper(
         'app.fraud.detection.create',
         'create',
         order.orderNo,
