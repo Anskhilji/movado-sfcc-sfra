@@ -1,24 +1,23 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <div class="col-12 p-0">
     <!---Order History--->
-    <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
+    <isset name="account" value="${!empty(pdict.account) ? pdict.account : ''}" scope="page"/>
+    <isset name="order" value="${!empty(account.orderHistory) ? account.orderHistory : ''}" scope="page"/>
     <isinclude template="account/order/orderHistoryCard"/>
     <!---Profile--->
     <isinclude template="account/profileCard"/>
-    <isif condition="${!pdict.account.isExternallyAuthenticated}">
+    <isif condition="${!empty(account.isExternallyAuthenticated) && !account.isExternallyAuthenticated}">
         <!---Password--->
         <isinclude template="account/passwordCard"/>
     </isif>
     <!---Address Book--->
     <isinclude template="account/addressBookCard"/>
-    <isif condition="${pdict.account.wishlist}">
+    <isif condition="${!empty(account.wishlist) && account.wishlist}">
         <!---Wishlist--->
         <div class="wishlist-account-card" data-error-msg="${Resource.msg('wishlist.removefromwishlist.failure.msg','wishlist',null)}">
             <isinclude template="account/wishlist/listCards"/>
         </div>
     </isif>
-    <!---MyWatches--->
-    <isinclude template="account/myWatches"/> 
     <div class="card">
         <div class="card-header clearfix">
             <h4 class="pull-left">${Resource.msg('label.recommended.for.you', 'account', null)}</h4>

@@ -1,15 +1,16 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <isdecorate template="common/layout/page">
-<isinclude template="/components/modules" sf-toolkit="off" />
-
-    <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
-        <isinclude template="reporting/reportingUrls" />
-    </isif>
-
+    <isset name="isPage" value="dashboard" scope="page" />
+    <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/account/dashboard.css');
     </isscript>
+
+    <isif condition="${!empty(pdict.reportingURLs)}">
+        <isinclude template="reporting/reportingUrls" />
+    </isif>
+
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
 
     <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>

@@ -2,11 +2,11 @@
 
 module.exports = function () {
 
-    $('.tab-bar-menu-open-btn').on('click', function () {
+    $('.tab-bar-main').on('click', '.tab-bar-menu-open-btn', function () {
         $('.tab-bar-menu').addClass('dashboard-active');
     });
 
-    $('.tab-bar-menu-close-btn > svg').on('click', function () {
+    $('.tab-bar-main').on('click', '.tab-bar-menu-close-btn > svg', function () {
         $('.tab-bar-menu').removeClass('dashboard-active');
     });
 };
