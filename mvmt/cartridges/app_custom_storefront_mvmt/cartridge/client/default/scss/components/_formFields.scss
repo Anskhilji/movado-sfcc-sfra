@@ -1,0 +1,7 @@
+
+.form-group {
+    &.required .form-control-label::after {
+        content: "*";
+        color: $black;
+    }
+}
