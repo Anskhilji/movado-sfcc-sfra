@@ -7,8 +7,8 @@
       </svg>
     </a>
     <ul class="popover popover-bottom">
-      <li><a class="button button__outline button__outline--white" tabindex="0" href="${URLUtils.https('Login-Show')}">${Resource.msg('title.button.login', 'account', null)}</a></li>
-      <li><a class="button button__outline button__outline--white" tabindex="0" href="${URLUtils.https('Login-Show')}">${Resource.msg('title.button.signup', 'account', null)}</a></li>
+      <li><a class="button button__outline button__outline--white" tabindex="0" href="${URLUtils.https('Login-Show', 'action', 'login')}">${Resource.msg('title.button.login', 'account', null)}</a></li>
+      <li><a class="button button__outline button__outline--white" tabindex="0" href="${URLUtils.https('Login-Show', 'action', 'register')}">${Resource.msg('title.button.signup', 'account', null)}</a></li>
     </ul>
   </div>
 <iselse/>

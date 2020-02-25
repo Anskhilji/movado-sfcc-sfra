@@ -66,6 +66,7 @@ function updateCartTotals(data) {
     if ($('.affirm-as-low-as').length > 0) {
         affirm.ui.refresh();
     }
+
     $('.minicart-quantity').empty().append(data.numItems);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
@@ -378,6 +379,7 @@ module.exports = function () {
                     </div>`;
                     var $cartContainer = '<div class="container cart">' + $header + $image + $description + $urls + '</div>';
                     $('.mini-cart-data .popover').empty();
+                    updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
