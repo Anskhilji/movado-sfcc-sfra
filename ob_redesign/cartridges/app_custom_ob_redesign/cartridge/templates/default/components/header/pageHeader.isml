@@ -1,10 +1,10 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
-<header>
+<header class="redesign-header">
   <nav>
     <div class="sticky-header-wrapper">
       <div class="sticky-header-placeholder"></div>
-      <div class="header-menu-wrapper">
-        <div class="header-wrapper d-none">
+      <div class="header-menu-wrapper col">
+        <div class="header-wrapper">
           <div class="container">
             <div class="row">
               <div class="col-12 header-container">
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown" id="sg-navbar-collapse">
-          <div class="container">
+          <div class="container redesign-header-container ">
             <div class="row">
               <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
             </div>
