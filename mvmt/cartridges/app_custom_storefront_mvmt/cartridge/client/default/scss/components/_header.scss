@@ -2,23 +2,23 @@
 @import '~movado/components/header';
 
 .cart-and-checkout-header {
-    width: 100%;
-    background-color: $black;
+  width: 100%;
+  background-color: $black;
 
 
-    > .checkout-logo {
-        height: rem(56);
+  > .checkout-logo {
+    height: rem(56);
 
-        a {
-            display: block;
-            line-height: 0;
+    a {
+      display: block;
+      line-height: 0;
 
-            svg {
-                fill: $white;
-                color: $white;
-            }
-        }
+      svg {
+        fill: $white;
+        color: $white;
+      }
     }
+  }
 }
 
 header.new-header {
@@ -111,7 +111,7 @@ header.new-header {
     .popover {
       padding: rem(20);
       min-height: auto;
-      min-width: 160%;
+      width: 160%;
       left: -29%;
       top: 100%;
       box-shadow: none;
@@ -318,7 +318,7 @@ header.new-header {
   }
 
   .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon {
-    padding: rem(32) rem(24) rem(32);
+    padding: rem(33) rem(24) ;
     display: inline-block;
   }
 
