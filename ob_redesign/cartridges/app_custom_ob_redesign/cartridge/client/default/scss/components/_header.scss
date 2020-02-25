@@ -1,75 +1,86 @@
 .redesign-header {
 
-    .sticky-header-wrapper {
-        height: rem(80);
+    @include media-breakpoint-up(lg) {
 
-        .header-wrapper {
-            display: none;
-    
-            @include media-breakpoint-down(md) {
-                display: block;
-            }
-        }
-    
-        .main-menu {
-            height: auto;
-
-            .nav-item {
-
-                .nav-link {
-                    font-weight: 600;
-                    letter-spacing: 0.5px;
-                    font-size: 12px;
-                    text-transform: capitalize;
-                }
-            } 
-        }
-    
-        .navbar {
+        .sticky-header-wrapper {
             height: rem(80);
-            width: 100%;
     
-            .right {
-                display: flex;
-
-                .site-search {
-
-                    .search-field {
-                        width: 160px;
-                        height: 25px;
-                    }
-
-                    .fa-search {
-                        top: rem(4);
-                        right: rem(6.4);
-                    }
-                }
-                
-                &-fa {
-                    font-size: rem(24);
-                    margin-right: rem(20);
-                }
+            .header-wrapper {
+                display: none;
             }
-        }
-    }
-
-    &-container {
-            margin: 0;
-            max-width: 100%;
-
-        &-menu {
-            width: 100%;
-
-            &-group {
-                display: flex;
-                justify-content: center;
-            }
-        }
         
-        .navbar-expand-lg {
-            max-width: 100%;
+            .main-menu {
+                height: auto;
+    
+                .navbar-nav {
+                    position: static;
+    
+                    .dropdown-menu {
+                        width: calc(100% + 30px);
+                        padding-right: 0;
+                        padding-left: 0;
+                        margin: rem(-15);
+                    }
+                }
+                .nav-item {
+                    &.show, &:hover {
+                        box-shadow: 0 rem(2) 0 0 $grey10;
+                    }
+
+                    .nav-link {
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                        font-size: 12px;
+                        text-transform: capitalize;
+                    }
+                } 
+            }
+        
+            .navbar {
+                height: rem(80);
+                width: 100%;
+        
+                .right {
+                    display: flex;
+                    justify-content: flex-end;
+    
+                    .site-search {
+    
+                        .search-field {
+                            width: 160px;
+                            height: 25px;
+                        }
+    
+                        .fa-search {
+                            top: rem(4);
+                            right: rem(6.4);
+                        }
+                    }
+                    
+                    &-fa {
+                        font-size: rem(24);
+                        margin-right: rem(20);
+                    }
+                }
+            }
+        }
+    
+        &-container {
+                margin: 0;
+                max-width: 100%;
+    
+            &-menu {
+                width: 100%;
+    
+                &-group {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+            
+            .navbar-expand-lg {
+                max-width: 100%;
+            }
         }
     }
-
-
 }
