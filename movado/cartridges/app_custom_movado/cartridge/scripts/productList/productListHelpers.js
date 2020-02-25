@@ -207,16 +207,18 @@ function itemExists(list, pid, config) {
         var optionModel = found.productOptionModel;
         var option = optionModel.getOption(config.optionId);
         var optionValue = optionModel.getSelectedOptionValue(option);
-        if (optionValue.ID !== config.optionValue) {
-            var Transaction = require('dw/system/Transaction');
-            try {
-                Transaction.wrap(function () {
-                    list.removeItem(found);
-                });
-            } catch (e) {
-                return found;
+        if (optionValue) {
+            if (optionValue.ID !== config.optionValue) {
+                var Transaction = require('dw/system/Transaction');
+                try {
+                    Transaction.wrap(function () {
+                        list.removeItem(found);
+                    });
+                } catch (e) {
+                    return found;
+                }
+                found = false;
             }
-            found = false;
         }
     }
     return found;

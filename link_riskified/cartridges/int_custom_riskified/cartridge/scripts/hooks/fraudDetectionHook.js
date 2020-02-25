@@ -13,7 +13,10 @@ function checkoutCreate(orderNumber, paymentInstrument) {
 			.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     if (isRiskifiedflag) {
-        RiskifiedService.sendCheckoutCreate(order);
+        var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
+        if (riskifiedCheckoutCreateResponse.error) {
+            return false;
+        }
         if(paymentMethod.ID === 'PayPal' || (paymentMethod.ID === 'Adyen' && session.custom.adyenPaymentMethod ==='PayPal')){
         	RiskifiedService.storePaymentDetails({
                 avsResultCode: 'Y', // Street address and 5-digit ZIP code
@@ -33,6 +36,7 @@ function checkoutCreate(orderNumber, paymentInstrument) {
             });
         }
     }
+    return true;
 }
 
 function checkoutDenied(orderNumber, paymentInstrument) {
