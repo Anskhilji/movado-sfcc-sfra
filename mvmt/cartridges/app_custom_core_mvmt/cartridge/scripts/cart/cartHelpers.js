@@ -1,14 +1,11 @@
 'use strict';
-var arrayHelper = require('*/cartridge/scripts/util/array');
+
 var cartHelpers = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Resource = require('dw/web/Resource');
-var Transaction = require('dw/system/Transaction');
-var URLUtils = require('dw/web/URLUtils');
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var BONUS_PRODUCTS_PAGE_SIZE = 6;
 
 /**
  * This function is copied from storefront base cartridge to override Movado specific changes and restore SFRA functionality.
