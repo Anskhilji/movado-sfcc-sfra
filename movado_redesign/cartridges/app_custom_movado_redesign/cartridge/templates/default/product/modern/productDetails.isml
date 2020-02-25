@@ -113,7 +113,7 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="modern-cart-wishlist cart-wishlist">
                             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                            <div class="wishlist-row">
+                            <div class="modern-wishlist-row wishlist-row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                             </div>
                             </div>
