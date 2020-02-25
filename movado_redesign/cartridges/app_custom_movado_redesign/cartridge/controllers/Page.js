@@ -20,15 +20,7 @@ server.replace(
             var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
                     siteRootCategory.getOnlineSubCategories() : null;
     
-            var menuTemplate = null;
-            // A/B testing for header design
-            if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-                menuTemplate = '/components/header/old/menu';
-            } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
-                menuTemplate = '/components/header/menu';
-            } else {
-                menuTemplate = '/components/header/old/menu';
-            }
+            var menuTemplate = '/components/header/menu';
             res.render(menuTemplate, new Categories(topLevelCategories));
             next();
         }
@@ -41,15 +33,7 @@ server.get(
     function (req, res, next) {
         var ABTestMgr = require('dw/campaign/ABTestMgr');
 
-        var headerTemplate = null;
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-            headerTemplate = '/components/header/old/pageHeader';
-        } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
-            headerTemplate = '/components/header/pageHeader';
-        } else {
-            headerTemplate = '/components/header/old/pageHeader';
-        }
+        var headerTemplate = '/components/header/pageHeader';
         res.render(headerTemplate);
         next();
     }

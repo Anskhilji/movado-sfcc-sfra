@@ -18,15 +18,8 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
         quantityTotal = 0;
     }
 
-    var miniCartTemplate = null;
-    // A/B testing for header design
-    if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-        miniCartTemplate = '/components/header/old/miniCart';
-    } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')) {
-        miniCartTemplate = '/components/header/miniCart';
-    } else {
-        miniCartTemplate = '/components/header/old/miniCart';
-    }
+    var miniCartTemplate = '/components/header/miniCart';
+
     res.render(miniCartTemplate, { quantityTotal: quantityTotal });
     next();
 });

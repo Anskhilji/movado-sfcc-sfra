@@ -29,47 +29,21 @@ server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (r
         CatalogMgr.getSortingOptions(),
         CatalogMgr.getSiteCatalog().getRoot()
     );
-    if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-        res.render('/search/old/searchRefineBar', {
-            productSearch: productSearch,
-            querystring: req.querystring
-        });
-    } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')){
-        res.render('/search/searchRefineBar', {
-            productSearch: productSearch,
-            querystring: req.querystring
-        });
-    } else {
-        res.render('/search/old/searchRefineBar', {
-            productSearch: productSearch,
-            querystring: req.querystring
-        });
-    }
+    
+    res.render('/search/searchRefineBar', {
+        productSearch: productSearch,
+        querystring: req.querystring
+    });
 
     next();
 });
 
 server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
 
-    var categoryTemplate = '';
+    var categoryTemplate = 'search/searchResults';
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    var resultsTemplate;
-    if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-        resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/old/searchResults';
-    } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')){
-        resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
-    } else {
-        resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/old/searchResults';
-    }
-    
-    if (ABTestMgr.isParticipant('MovadoRedesignABTest','Control')) {
-        categoryTemplate = 'search/old/searchResults';
-    } else if (ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')){
-        categoryTemplate = 'search/searchResults';
-    } else {
-        categoryTemplate = 'search/old/searchResults';
-    }
+    var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     
     res.setViewData({resultsTemplate: resultsTemplate, categoryTemplate: categoryTemplate})
     return next();
