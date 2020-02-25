@@ -1,16 +1,21 @@
 @import '../variables';
 @import '~movado/account/profile';
+@import 'account';
 
 .address-form {
     .form-control {
         border: rem(1) solid $cyan-blue1;
-        padding: rem(20);
+        padding: rem(16);
         font-family: $font-primary;
         letter-spacing: rem(1.5);
         color: $light-gray;
         line-height: 1;
         font-size: rem(14);
         width: 100%;
+        
+        &:focus {
+            box-shadow: unset;
+        }
     }
     
     .form-control-label {
@@ -42,6 +47,10 @@
             background-color: $light-green;
             border: rem(2) solid $black;
         }
+        
+        &:focus {
+            box-shadow: unset;
+        }
     }
     
     a {
@@ -50,6 +59,10 @@
         &:hover {
             background-color: $black;
             color: $white;
+        }
+        
+        &:focus {
+            box-shadow: unset;
         }
     }
 }

@@ -1,2 +1,25 @@
 @import '../variables';
 @import '~movado/account/addressBook';
+
+.account-pages {
+    .card-body.card-body-positioning {
+        > div {
+            font-size: rem(14);
+            line-height: rem(21);
+            letter-spacing: rem(2);
+            color: $grey-dark-1;
+            font-family: $font-primary;
+        }
+    }
+    
+    .btn-save {
+        &:hover {
+            background-color: $light-green;
+            border: 0.125rem solid #000;
+        }
+        
+        &:focus {
+            box-shadow: unset;
+        }
+    }
+}
