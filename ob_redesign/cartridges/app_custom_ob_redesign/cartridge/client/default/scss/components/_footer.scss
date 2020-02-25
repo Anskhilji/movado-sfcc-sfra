@@ -1,0 +1,21 @@
+@import "~olivia-burton-uk/components/footer";
+
+footer {
+background-color: blue;
+    .content {
+
+        li {
+            padding-left: 100px;
+        }a {
+           padding-left: 100px;
+        }
+    }
+    
+    .social-links{
+         max-width: 0%; 
+         
+         a {
+        font-size: 1.50em;
+    }
+    } 
+}
