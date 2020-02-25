@@ -393,6 +393,18 @@
 
             .form-group {
 
+                &.required {
+                     .form-control-label {
+                        &::after {
+                            content: "";
+                        }
+                        
+                        &::before {
+                            content: "";
+                        }
+                    }
+                }
+
                 .form-control-label {
                     font-size: rem(11);
                     font-weight: 500;
@@ -496,4 +508,3 @@
         }
     }
 }
->>>>>>> develop-mvmt
