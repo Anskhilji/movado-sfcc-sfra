@@ -22,7 +22,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
@@ -52,7 +52,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <!---Breadcrumbs--->
                     <div class="product-breadcrumb hidden-sm-down">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
@@ -159,7 +159,6 @@
             </div>
         </div>
 
-
         <div class="container-fluid">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
@@ -182,6 +181,7 @@
                 </div>
             </div>
         </div>
+
         <div class="size-guide">
             <div class="size-guide-content" style="${dw.content.ContentMgr.getContent('watch-wrist-desktop').custom.body}">
                 <button class="size-guide-close" aria-label="close modal" data-close-modal>

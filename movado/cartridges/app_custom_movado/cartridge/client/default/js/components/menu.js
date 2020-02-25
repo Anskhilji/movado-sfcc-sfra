@@ -97,7 +97,9 @@ module.exports = function () {
         if (!isDesktop(this)) {
             $('.modal-background').show();
         // copy parent element into current UL
-            var li = $('<li class="dropdown-item top-category" role="button"></li>');
+            var disableSubCategories = $(this).parent().children('.dropdown-menu').data('disablesubcategories');
+            var borderClass = disableSubCategories == true ? 'border-0' : '';
+            var li = $('<li class="dropdown-item top-category ' + borderClass + '" role="button"></li>');
             var link = $(this).clone().removeClass('dropdown-toggle')
           .removeAttr('data-toggle')
           .removeAttr('aria-expanded')

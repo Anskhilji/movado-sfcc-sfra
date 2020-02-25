@@ -7,6 +7,7 @@ var Transaction = require('dw/system/Transaction');
 // Script includes
 var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 var collections = require('*/cartridge/scripts/util/collections');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * This method is used to get Shipping/Product/price-adjustment line item quantity.
@@ -16,6 +17,7 @@ var collections = require('*/cartridge/scripts/util/collections');
  */
 function getQuantity(lineItem) {
     var itemQty;
+    checkoutLogger.debug('(adyenHelpers) -> getQuantity: Inside getQuantity trying to get the line item quantity');
 
     if (lineItem instanceof dw.order.ShippingLineItem) {
         itemQty = '1';
@@ -35,7 +37,7 @@ function getQuantity(lineItem) {
  */
 function getId(lineItem) {
     var itemId;
-
+    checkoutLogger.debug('(adyenHelpers) -> getId: Inside getId trying to get the line item id');
     if (lineItem instanceof dw.order.ShippingLineItem || lineItem instanceof dw.order.PriceAdjustment) {
         itemId = lineItem.UUID;
     } else if (lineItem instanceof dw.order.ProductLineItem) {
@@ -52,7 +54,7 @@ function getId(lineItem) {
  */
 function getItemAmount(lineItem) {
     var itemAmount;
-
+    checkoutLogger.debug('(adyenHelpers) -> getItemAmount: Inside getItemAmount trying to get the line item amount');
     if (lineItem instanceof dw.order.ProductLineItem || lineItem instanceof dw.order.ShippingLineItem) {
         itemAmount = lineItem.adjustedNetPrice;
     } else if (lineItem instanceof dw.order.PriceAdjustment) {
@@ -69,7 +71,7 @@ function getItemAmount(lineItem) {
  */
 function getDescription(lineItem) {
     var itemDescrition;
-
+    checkoutLogger.debug('(adyenHelpers) -> getDescription: Inside getDescription trying to get the line item description');
     if (lineItem instanceof dw.order.ShippingLineItem) {
         itemDescrition = lineItem.getID();
     } else if (lineItem instanceof dw.order.ProductLineItem) {
@@ -92,7 +94,7 @@ function getDescription(lineItem) {
  */
 function getVatAmount(lineItem) {
     var vatAmount;
-
+    checkoutLogger.debug('(adyenHelpers) -> getVatAmount: Inside getVatAmount trying to get the line item vat amount');
     if (lineItem instanceof dw.order.ProductLineItem || lineItem instanceof dw.order.ShippingLineItem) {
         vatAmount = lineItem.getAdjustedTax();
     } else if (lineItem instanceof dw.order.PriceAdjustment) {
@@ -109,7 +111,7 @@ function getVatAmount(lineItem) {
  */
 function getVatPercentage(lineItem) {
     var vatPercentage = 0;
-
+    checkoutLogger.debug('(adyenHelpers) -> getVatPercentage: Inside getVatPercentage trying to get the line item vat percentage');
     if (getVatAmount(lineItem) !== 0) {
         vatPercentage = lineItem.getTaxRate();
     }
@@ -125,8 +127,9 @@ function getVatPercentage(lineItem) {
 function getOrderDeliveryAdress(args) {
     var deliveryAdress = {};
     var shipments = args.Order.getShipments();
+    var orderNumber = args.Order.orderNo;
     var shippingAddr = shipments[0].getShippingAddress();
-
+    checkoutLogger.debug('(adyenHelpers) -> getOrderDeliveryAdress: Inside getOrderDeliveryAdress trying to get the order delivery address and order number is: ' + orderNumber);
     deliveryAdress.city = shippingAddr.city;
     deliveryAdress.country = shippingAddr.countryCode.value.toString().toUpperCase();
     deliveryAdress.houseNumberOrName = !empty(args.houseNumber) ? args.houseNumber : 'NA';
@@ -146,7 +149,7 @@ function getShopperBrowserInfo() {
     var browserUserAgent = request.getHttpHeaders().get('user-agent');
     var requestAcceptHeader = request.getHttpHeaders().get('accept');
     var requestAcceptLanguage = request.getHttpHeaders().get('accept-language');
-
+    checkoutLogger.debug('(adyenHelpers) -> getShopperBrowserInfo: Inside getShopperBrowserInfo trying to get the shopper browser info and browser info is: browserUserAgent is: ' + browserUserAgent + ', requestAcceptHeader is: ' + requestAcceptHeader + ', requestAcceptLanguage is: ' + requestAcceptLanguage);
     var browserInfo = {
         acceptHeader: requestAcceptHeader,
         language: requestAcceptLanguage,
@@ -164,10 +167,11 @@ function getShopperBrowserInfo() {
  */
 function buildGetPaymentDetailsRequestPayload(args) {
     var order;
-
+    checkoutLogger.debug('(adyenHelpers) -> buildGetPaymentDetailsRequestPayload: Inside buildGetPaymentDetailsRequestPayload build request payload for GetPaymentDetails API');
     if (!empty(args.Order)) {
         order = args.Order;
     } else {
+        checkoutLogger.error('(adyenHelpers) -> buildGetPaymentDetailsRequestPayload: Order is null and going to return the error');
         return { error: true };
     }
 
@@ -247,6 +251,7 @@ function buildGetPaymentDetailsRequestPayload(args) {
  */
 function updateOrderCustomAttibutes(args) {
     var order = args.Order;
+    checkoutLogger.debug('(adyenHelpers) -> updateOrderCustomAttibutes: Inside updateOrderCustomAttibutes to update the order custom attribute of klarna payment data and order number is: ' + args.Order.orderNo);
     Transaction.wrap(function () {
         order.custom.klarnaPaymentdata = args.Paymentdata;
     });
@@ -260,17 +265,20 @@ function updateOrderCustomAttibutes(args) {
  */
 function parseGetPaymentDetailsResponse(args) {
     var order = args.Order;
+    var orderNumber = args.Order.orderNo;
+    checkoutLogger.debug('(adyenHelpers) -> parseGetPaymentDetailsResponse: Inside parseGetPaymentDetailsResponse to parse the service response and order number is: ' + orderNumber);
     var result = { error: false };
     var serviceResponse = args.ServiceResponse;
-
     if (serviceResponse && serviceResponse.hasOwnProperty('resultCode') && serviceResponse.resultCode === 'RedirectShopper') {
         if (serviceResponse.hasOwnProperty('paymentData') && serviceResponse.hasOwnProperty('redirect') && serviceResponse.redirect.hasOwnProperty('url')) {
             result.redirectUrl = serviceResponse.redirect.url;
             updateOrderCustomAttibutes({ Order: order, Paymentdata: serviceResponse.paymentData });
         } else {
+            checkoutLogger.error('(adyenHelpers) -> parseGetPaymentDetailsResponse: Error occurred while trying to validate the service response and order number is: ' + orderNumber + ' and going to set the error');
             result.error = true;
         }
     } else {
+        checkoutLogger.error('(adyenHelpers) -> parseGetPaymentDetailsResponse: Error occurred because service not have the resultCode and redirectShopper property and order number is: ' + orderNumber + ' and going to set the error');
         result.error = true;
     }
 
@@ -285,7 +293,7 @@ function parseGetPaymentDetailsResponse(args) {
  */
 function getPaymentData(order) {
     var paymentData;
-
+    checkoutLogger.debug('(adyenHelpers) -> getPaymentData: Inside getPaymentData to update the order custom attribute of klarna payment data and order number is: ' + order.orderNo);
     Transaction.wrap(function () {
         paymentData = order.custom.klarnaPaymentdata;
         order.custom.klarnaPaymentdata = null;
@@ -301,6 +309,7 @@ function getPaymentData(order) {
  * @returns {Object} requestPayload - request object holding necessary data.
  */
 function buildVerifyPaymentDetailsRequestPayload(args) {
+    checkoutLogger.debug('(adyenHelpers) -> buildVerifyPaymentDetailsRequestPayload: Inside buildVerifyPaymentDetailsRequestPayload trying to get the requestPayload and orderNumber is: ' + args.Order.orderNo);
     var requestPayload = {
         paymentData: getPaymentData(args.Order),
         details: {

@@ -1,10 +1,43 @@
 @import "variables";
 
+.cart-and-checkout-bottom {
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: rem(40);
+}
+
+.cart-and-checkout-header {
+
+    ~ footer {
+        display: flex;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+
+        .terms-and-conditions {
+            height: rem(38);
+            align-items: center;
+            width: 100%;
+
+            .copyright {
+                margin: 0;
+
+                > ul {
+                    letter-spacing: rem(0.5);
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
 footer {
     background-color: $white;
     line-height: normal;
     padding: 0rem;
     overflow: hidden;
+    position: relative;
 
     div, p, section, ul, a {
         letter-spacing: rem(1.5);
@@ -123,6 +156,7 @@ footer {
 
                 .desktop-view {
                     display: block;
+                    padding-left: 0;
 
                     .footer-item {
 
@@ -247,31 +281,57 @@ footer {
     }
 
     .terms-and-conditions {
-        margin: 0rem;
+        margin: 0;
         box-shadow: inset 0rem rem(1) 0rem 0rem $white-gray;
         height: rem(54);
+
+        @include media-breakpoint-down(xs) {
+            height: auto;
+        }
 
         .copyright {
             color: $light-gray2;
             font-size: rem(11);
             text-transform: uppercase;
 
+            @include media-breakpoint-down(xs) {
+                margin: 0;
+            }
+
             a {
                 color: $light-gray2;
             }
 
+            .cart-and-checkout-copyrights {
+
+               > li {
+                    font-size: rem(12);
+                    color: $light-gray8;
+                }
+            }
+
             .policy-copyright-list {
+
+               > li {
+                    font-size: rem(11);
+                    color: $light-gray2;
+                }
+            }
+
+            .policy-copyright-list, .cart-and-checkout-copyrights {
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
                 align-items: center;
                 padding: rem(10) 0;
 
+                @include media-breakpoint-down(xs) {
+                    margin: 0;
+                }
+
                 li {
                     font-weight: 400;
-                    font-size: rem(11);
                     text-transform: uppercase;
-                    color: $light-gray2;
                     line-height: 1;
                     width: 100%;
                     max-width: 100%;
