@@ -122,6 +122,7 @@ $(document).ready(function() {
     if ($(window).width() > 786) {
         $('.primary-images .main-carousel img').click(function() {
             $('#zoomProduct').modal('show');
+            $('.slick-slider').slick('refresh');
                setTimeout(function(){
                $('.slick-slider').resize();
                slickHeight();

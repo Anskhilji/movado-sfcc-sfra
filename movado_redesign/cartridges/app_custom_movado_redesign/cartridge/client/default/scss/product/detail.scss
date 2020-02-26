@@ -220,7 +220,7 @@
                 img {
 
                     @include media-breakpoint-up(sm) {
-                        min-width: rem(800);
+                        min-width: 100%;
                     }
                 }
             }
@@ -1439,5 +1439,12 @@ body {
             width: 100%;
             margin-bottom: rem(5);
         }
+    }
+}
+
+.traditional-wishlist-row, .modern-wishlist-row {
+
+    .add-to-wish-list {
+        text-decoration: none;
     }
 }
