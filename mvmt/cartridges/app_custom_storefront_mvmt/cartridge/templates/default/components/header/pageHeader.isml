@@ -1,6 +1,9 @@
 <iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
-<isslot id="header-banner-m" description="Slot above the site header" context="global" />
+<div class="header-banner-desktop">
+    <isslot id="header-banner-m" description="Slot above the site header" context="global" />
+</div>
+
 <header class="new-header">
     <nav>
         <div class="sticky-header-wrapper">
@@ -8,7 +11,7 @@
             <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="container-fluid px-0">
-                    <div class="row overlay"></div>
+                        <div class="row overlay"></div>
                         <div class="row header-container">
                             <div class="p-0 nav-left main-menu desktop-menu">
                                 <div class="d-none d-lg-inline-block">
@@ -102,6 +105,9 @@
                                     <a href="javascript:void(0);" class="search-icon header-icon" ></a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="header-banner-mobile">
+                            <isslot id="header-banner-m" description="Slot above the site header" context="global" />
                         </div>
                     </div>
                 </div>
