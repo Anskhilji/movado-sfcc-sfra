@@ -1,5 +1,83 @@
 @import '../variables';
 @import '~movado/product/detail';
+
+.gallery-slider {
+  
+  .slick-slide {
+    > div {
+      padding: 0 rem(5);
+    }
+  }
+
+  .slick {
+    &-arrow {
+      border: rem(1) solid $chinese-silver;
+      box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
+      cursor: pointer;
+      font-size: rem(10);
+      padding: rem(23) rem(25);
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      background: $white;
+      transform: translateY(-50%);
+    }
+
+    &-next {
+      right: 0;
+    }
+  }
+}
+
+.pdp-vp {
+  padding: rem(20) 0;
+  border: none;
+  text-align: center;
+
+  &-item {
+    display: none;
+    padding: 0 rem(20);
+    color: $light-gray;
+    font-size: rem(14);
+    line-height: rem(25);
+    letter-spacing: .5px;
+
+    @include media-breakpoint-up(sm) {
+      display: inline-block;
+    }
+
+    &:nth-child(-n+2) {
+      display: inline-block;
+    }
+  }
+
+  &-holder {
+    transform: translateY(2px);
+    display: inline-block;
+  }
+
+  &-copy-wrap {
+    display: inline-block;
+  }
+
+  &-copy {
+    padding-left: rem(10);
+    font-size: rem(11);
+    font-family: $font-medium;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: $black;
+  }
+
+  &-copy-mobile {
+    @include media-breakpoint-up(sm) {
+      display: none;
+    }
+  }
+}
+
 .product-detail {
   padding: rem(45) rem(32) rem(32);
   max-width: $custom-xl;
