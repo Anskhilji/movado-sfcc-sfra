@@ -8,28 +8,21 @@
                 position: static;
     
                 .dropdown-menu {
-                    width: calc(100% + 30px);
-                    padding-right: 0;
-                    padding-left: 0;
+                    padding-left: rem(180);
+                    padding-right: rem(147);
                     margin: rem(-15) rem(-15) 0;
-                    background: transparent;
                     box-shadow: none;
 
-                    &-container {
-                        width: 100%;
-                        display: flex;
-                        justify-content: space-between;
-                        background: white;
-                        padding-left: rem(180);
-                        padding-right: rem(147);
-                    }
                     .dropdown-item {
-                        margin-bottom: rem(4);
-                        padding: 0.25rem 1.5rem;
+                        margin-bottom: rem(20);
+                        padding: 0;
                     }
-                    
-                    .menu-pane {
-                      
+
+                    .browse-collection {
+                        .dropdown-menu { 
+                            padding-left: rem(20);
+                            padding-right: 0;
+                        }
                     }
                 }
             }
@@ -40,7 +33,7 @@
                 }
                 a {
                     border-bottom: 3px solid transparent;
-                    &:hover {
+                    &.show, &:hover {
                         border-color: #E9D7D5;
                     }
                 }

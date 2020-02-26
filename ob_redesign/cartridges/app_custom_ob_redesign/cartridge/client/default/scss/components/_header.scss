@@ -1,48 +1,60 @@
 .redesign-header {
 
-    @include media-breakpoint-down(lg) {
-      .header-menu-wrapper {
-        position: initial;
-        padding: 0;
-      }
-    
+    .logo-link {
+        img {
+            width: rem(170);
+            height: rem(70);
+        }
     }
+
+    @include media-breakpoint-down(lg) {
+        .header-menu-wrapper {
+            position: initial;
+            padding: 0;
+        }
+    }
+
     @include media-breakpoint-up(lg) {
 
-        .sticky-header-wrapper {
-            height: rem(80);
+        .header-wrapper {
+            .middle-menu {
+                width: 100%;
+            }
+            
+            .right {
+                display: flex;
+                justify-content: flex-end;
+
+                .site-search {
     
-            .header-wrapper {
-                display: none;
+                    .search-field {
+                        width: 160px;
+                        height: rem(19);
+                    }
+
+                    .fa-search {
+                        top: rem(4);
+                        right: rem(6.4);
+                    }
+                }
+                
+                &-icon {
+                    height: rem(19);
+                    margin-right: rem(20);
+                }
             }
 
             .navbar {
                 height: rem(80);
                 width: 100%;
-        
-                .right {
-                    display: flex;
-                    justify-content: flex-end;
-    
-                    .site-search {
-    
-                        .search-field {
-                            width: 160px;
-                            height: rem(19);
-                        }
-    
-                        .fa-search {
-                            top: rem(4);
-                            right: rem(6.4);
-                        }
-                    }
-                    
-                    &-icon {
-                        height: rem(19);
-                        margin-right: rem(20);
-                    }
-                }
+                position: static;
             }
+
+        }
+
+        .sticky-header-wrapper {
+            height: rem(80);
+    
         }
 
         &-container {
