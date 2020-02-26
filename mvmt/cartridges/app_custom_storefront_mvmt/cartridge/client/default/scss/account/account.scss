@@ -63,7 +63,21 @@
             }
         }
 
+        .card-body {
+
+            &.card-info-group {
+                padding-bottom: rem(8);
+            }
+        }
+
         .card-footer {
+
+            .dashboard-order-card-footer-columns {
+
+                &.card-info-group {
+                    margin-bottom: 0;
+                }
+            }
 
             .field-label {
                 text-transform: uppercase;
