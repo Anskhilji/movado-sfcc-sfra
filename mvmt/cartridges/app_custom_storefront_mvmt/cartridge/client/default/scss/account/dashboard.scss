@@ -66,6 +66,11 @@
         .card-header {
             border: 0;
 
+            p {
+                color: $light-gray;
+                font-size: rem(14);
+            }
+
             @include media-breakpoint-down(xs) {
                 overflow-wrap: break-word;
                 word-wrap: break-word;
