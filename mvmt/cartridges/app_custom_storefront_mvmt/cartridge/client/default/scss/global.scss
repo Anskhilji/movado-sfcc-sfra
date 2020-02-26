@@ -1,12 +1,12 @@
-@charset "UTF-8";
-@import "variables";
-@import "utilities/fonts";
+@charset 'UTF-8';
+@import 'variables';
+@import 'utilities/fonts';
 @import '~movado/global';
-@import "components/buttons";
-@import "components/header";
-@import "components/footer";
-@import "components/newsletterSignUp";
+@import 'components/buttons';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/newsletterSignUp';
 @import 'common';
 @import 'components/recommendationSlider';
 @import 'components/productTiles';
-
+@import 'miniCart';
