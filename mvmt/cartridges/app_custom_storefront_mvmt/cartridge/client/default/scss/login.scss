@@ -66,11 +66,13 @@
 
         &.track-order {
             margin: auto 0;
+            align-self: center;
         }
     }
 
     .login-section-body {
         padding: rem(32) rem(100);
+        min-height: rem(655);
 
         @include media-breakpoint-down(lg) {
             padding: rem(32);
@@ -244,12 +246,31 @@
 
     form {
 
+        &.registration {
+
+            button {
+                width: 45%;
+
+                @include media-breakpoint-down(sm) {
+                    width: 100%;
+                }
+            }
+        }
+
         &.trackorder {
 
             .card-body {
 
                 @include media-breakpoint-down(md) {
                     padding-top: 0;
+                }
+
+                button {
+                    width: 45%;
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
                 }
 
                 .track-order-header {
@@ -356,6 +377,10 @@
 
                 button {
                     width: 45%;
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
                 }
             }
 
@@ -396,6 +421,7 @@
                     font-size: rem(11);
                     font-weight: 500;
                     letter-spacing: rem(0.92);
+                    display: block;
 
                     &::before {
                         content: '';
@@ -411,6 +437,10 @@
                     letter-spacing: rem(1);
                     margin-bottom: rem(5);
                     line-height: 1;
+
+                    &.is-invalid {
+                        border-color: $red;
+                    }
 
                     &.custom-select {
                         padding: 0 rem(32);
