@@ -5,7 +5,7 @@
 
     &.container {
         max-width: rem(1000);
-        margin: 0 auto;
+        margin: rem(20px) auto;
         padding: 0;
     }
 
@@ -51,6 +51,40 @@
             @include media-breakpoint-up(lg) {
                 width: 45%
             }
+        }
+    }
+
+    .card {
+
+        .card-header {
+
+            a {
+                text-transform: uppercase;
+            }
+        }
+
+        .card-footer {
+
+            .field-label {
+                text-transform: uppercase;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .card-msg {
+        border: 0;
+
+        h4 {
+            font-family: $font-book;
+            font-size: rem(20);
+            line-height: rem(20);
+            font-weight: 400;
+            letter-spacing: normal;
+        }
+
+        .empty-order-msg {
+            color: $light-gray;
         }
     }
 }
