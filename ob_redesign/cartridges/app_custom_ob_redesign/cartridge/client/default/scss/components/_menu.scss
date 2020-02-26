@@ -19,6 +19,11 @@
                     }
 
                     .browse-collection {
+
+                        .dropdown-toggle {
+                            margin-bottom: rem(36);
+                        }
+
                         .dropdown-menu { 
                             padding-left: rem(20);
                             padding-right: 0;
@@ -32,7 +37,7 @@
                     box-shadow: none;
                 }
                 a {
-                    border-bottom: 3px solid transparent;
+                    border-bottom: rem(1) solid transparent;
                     &.show, &:hover {
                         border-color: #E9D7D5;
                     }
@@ -40,11 +45,12 @@
     
                 .nav-link {
                     font-weight: 600;
-                    letter-spacing: 0.5px;
-                    font-size: 12px;
+                    font-size: rem(14);
                     text-transform: capitalize;
                     padding: 0rem;
-                    margin: 0.9375rem 0.75rem;
+                    margin: rem(30) rem(20);
+                    font-family: $font-gill-std;
+                    line-height: rem(20);
                 }
             } 
         }

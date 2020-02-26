@@ -17,6 +17,10 @@
     @include media-breakpoint-up(lg) {
 
         .header-wrapper {
+            .header-container {
+                height: rem(80);
+            }
+
             .middle-menu {
                 width: 100%;
             }
