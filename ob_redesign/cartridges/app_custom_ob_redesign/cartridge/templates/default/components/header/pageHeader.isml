@@ -5,7 +5,7 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper col">
         <div class="header-wrapper">
-          <div class="">
+          <div class="col">
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">

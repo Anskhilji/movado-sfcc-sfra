@@ -1,0 +1,18 @@
+<iscomment> Custom: HTML Structure change</iscomment>
+<isif condition="${pdict.name === null}">
+  <div class="user user-not-login hidden-md-down" tabindex="0" aria-label="dropdownMenu Account" role="button">
+    <i class="user-icon" aria-hidden="true"></i>
+    <div class="popover popover-bottom">
+      <a class="btn btn-outline-dark" tabindex="0" href="${URLUtils.https('Login-Show')}">${Resource.msg('label.button.login', 'common', null)}</a>
+    </div>
+  </div>
+<iselse/>
+  <div class="user user-login hidden-md-down" tabindex="0" aria-label="dropdownMenu Account" role="button">
+    <i class="user-icon" aria-hidden="true"></i>
+    <div class="popover popover-bottom" >
+      <a href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a>
+      <a href="${URLUtils.https('Wishlist-Show')}">${Resource.msg('link.wishlist.login', 'account', null)}</a>
+      <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
+    </div>
+  </div>
+</isif>

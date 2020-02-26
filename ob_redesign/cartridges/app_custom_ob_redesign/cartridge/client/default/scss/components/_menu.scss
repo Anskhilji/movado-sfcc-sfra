@@ -6,7 +6,13 @@
     
             .navbar-nav {
                 position: static;
-    
+
+                .dropdown-toggle {
+
+                    &:after {
+                        display: none;
+                    }
+                }
                 .dropdown-menu {
                     padding-left: rem(180);
                     padding-right: rem(147);
@@ -38,6 +44,7 @@
                 }
                 a {
                     border-bottom: rem(1) solid transparent;
+                    width: fit-content;
                     &.show, &:hover {
                         border-color: #E9D7D5;
                     }
