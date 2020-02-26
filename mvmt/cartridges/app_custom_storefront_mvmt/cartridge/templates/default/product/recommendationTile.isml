@@ -1,9 +1,8 @@
 <iscomment> Custom: Created new template for to show recommendation tile</iscomment>
 <div class="product-tile recommendationTile" itemscope itemtype="http://schema.org/Product">
-    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
-    	<isset name="outOfStock" value="${false}" scope="page"/>
+       	<isset name="outOfStock" value="${false}" scope="page"/>
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
         	<isset name="outOfStock" value="${true}" scope="page"/>
         </isif>
@@ -33,14 +32,14 @@
             <isinclude template="product/components/compare" />
         </isif>
         <isif condition="${product.promotions}">
-		    <div class="promotions">
-			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+	 	    <div class="promotions">
+                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.calloutMsg !== ''}">
                         <div class="callout promo-msg" title="${promotion.details}">
                             <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
                         </div>
                     </isif>
-			    </isloop>
+                </isloop>
 		    </div>
 		</isif>
         <isif condition="${pdict.display.selectBonusProductsButton}">
@@ -54,6 +53,4 @@
             <isinclude template="product/components/ratings" />
         </div>
     </div>
-    
-    <!-- END_dwmarker -->
 </div>

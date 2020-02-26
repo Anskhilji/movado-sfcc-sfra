@@ -7,7 +7,7 @@
             <isif condition="${slotcontent.custom.carouselTitle}">
               <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
             </isif>
-            <ul class="">
+            <ul>
               <li class="prev slick-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
               <li class="next slick-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
             </ul>
