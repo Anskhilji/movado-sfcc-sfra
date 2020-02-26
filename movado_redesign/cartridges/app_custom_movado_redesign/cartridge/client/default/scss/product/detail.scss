@@ -222,6 +222,11 @@
                     @include media-breakpoint-up(sm) {
                         min-width: rem(800);
                     }
+
+                    @include media-breakpoint-up(xl) {
+                        min-width: auto;
+                        max-width: 70%;
+                    }
                 }
             }
         }
@@ -643,7 +648,7 @@
     .detail-bottom-blocks {
 
         .bottom-block {
-            width: rem(200);
+            width: rem(235);
             height: rem(70);
             border-radius: rem(5);
             background: $slate-grey-light;
