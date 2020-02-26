@@ -1,0 +1,38 @@
+<div class="bundled-line-item clearfix">
+    <div class="row">
+        <div class="align-items-center col-8 col-sm-8 d-flex">
+            <div class="item-image">
+            <img class="product-image"
+                src="${productLineItem.images.tile150[0].url}"
+                alt="${productLineItem.images.tile150[0].alt}"
+                title="${productLineItem.images.tile150[0].title}"
+            >
+            </div>
+            <div class="line-item-name">${productLineItem.productName}</div>
+            <div class="item-attributes d-flex flex-column">
+                <isloop items="${productLineItem.variationAttributes}" var="attribute">
+                    <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                </isloop>
+                <div class="item-options">
+                    <isloop items="${productLineItem.options}" var="option">
+                        <div class="line-item-option">${option}</div>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-sm-4 product-card-footer">
+            <div class="row">
+                <div class="line-item-total-price">
+                    <p class="line-item-price-info">
+                        ${Resource.msg('label.total.price','cart',null)}
+                    </p>
+                    <div class="price">
+                        <div class="pricing line-item-total-price-amount item-total-${productLineItem.UUID}">
+                            ${productLineItem.priceTotal.price}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

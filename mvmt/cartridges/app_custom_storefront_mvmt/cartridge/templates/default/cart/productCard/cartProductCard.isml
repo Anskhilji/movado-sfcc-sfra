@@ -1,0 +1,104 @@
+<isset name="hasEmbeddedBonusProducts" value="${lineItem.bonusProductLineItemUUID === 'bonus'}"  scope="page"/>
+<isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
+<isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
+
+<div class="card product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
+    <!--- name and remove buttons --->
+    <div class="row ${bonuslineitemrow} item-info">
+        <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+            <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+            <div class="align-items-center col-7 col-sm-6 d-flex">
+                <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                <div class="item-name-and-price">
+                    <isinclude template="cart/productCard/cartProductCardHeader" />
+                    <div class="hidden-sm-up">
+                        <isset name="price" value="${lineItem.price}" scope="page"/>
+                        <isinclude template="/product/components/pricing/main" />
+                    </div>
+                    <div class="item-attributes">
+                        <isloop items="${lineItem.variationAttributes}" var="attribute">
+                            <isif condition="${option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
+                            <iselse>
+                                <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                            </isif>
+                        </isloop>
+                        <p class="line-item-attributes model-name">${lineItem.resources.Model} ${lineItem.id}</p>
+                        <isloop items="${lineItem.options}" var="option">
+                            <isif condition="${!!option && option.selectedValueId != 0}" />
+                                <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
+                                    <p class="line-item-attributes personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
+                                </isif>
+                                <isif condition="${option.optionId === 'Engraved' && lineItem.customAttributes.engrave}">
+                                    <div class="mb-2">
+                                        <p class="line-item-attributes personalize-price">${option.optionId} (${lineItem.customAttributes.engrave.price}):</p>
+                                        <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine1}</div>
+                                        <isif condition="${lineItem.customAttributes.engrave.msgLine2}">
+                                            <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine2}</div>
+                                        </isif>
+                                    </div>
+                                </isif>
+                            </isif>
+                        </isloop>
+                        <isinclude template="cart/productCard/cartProductCardAvailability" />
+	                    <div class="item-total-${lineItem.UUID} price">
+	                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+	                    </div>
+                        <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
+                            <div class="product-edit">
+                                <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
+                            </div>
+                        </isif>
+                        <isif condition="${pdict.loggedIn}">
+                             <div class="hidden-xs-down edit-add-to-wishlist">
+                                  <isinclude template="cart/productCard/cartProductCardEdit" />
+                             </div>
+                        </isif>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <!--- quantity --->
+        <iscomment> Custom Start: Removed the d-none class </iscomment>
+        <div class="col-2 line-item-quantity">
+            <isinclude template="checkout/productCard/productCardQuantitySelector" />
+        </div>
+        <iscomment> Custom End </iscomment>
+        <div class="col-2 hidden-xs-down p-0 p-lg-2">
+            <isset name="price" value="${lineItem.price}" scope="page"/>
+            <isinclude template="/product/components/pricing/main" />
+        </div>
+        <div class="col-3 col-sm-2 col-xs-3">
+            <isif condition="${!lineItem.isBonusProductLineItem}"/>
+                <div class="remove-line-item">
+                    <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                            data-target="#removeProductModal" data-pid="${lineItem.id}"
+                            data-name="${lineItem.productName}"
+                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-uuid="${lineItem.UUID}"
+                            aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                        <span class="hidden-sm-down">${Resource.msg('label.cart.remove', 'cart', null)}</span>
+                        <span class="hidden-md-up"><img src="${URLUtils.staticURL('/images/cartCross.svg')}"/></span>
+                    </button>
+                </div>
+                <iscomment> <div class="hidden-md-down">
+                    <button type="button" class="remove-btn-lg remove-product btn btn-light" data-toggle="modal"
+                            data-target="#removeProductModal" data-pid="${lineItem.id}"
+                            data-name="${lineItem.productName}"
+                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-uuid="${lineItem.UUID}"
+                            aria-label="remove">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> </iscomment>
+            </isif>
+        </div>
+        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+            <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
+        </isif>
+    </div>
+    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+        <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
+    </isif>
+    <isinclude template="cart/productCard/cartGiftMessaging" />
+</div>
