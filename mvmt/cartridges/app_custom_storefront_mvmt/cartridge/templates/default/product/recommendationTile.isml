@@ -32,7 +32,7 @@
             <isinclude template="product/components/compare" />
         </isif>
         <isif condition="${product.promotions}">
-	 	    <div class="promotions">
+            <div class="promotions">
                 <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.calloutMsg !== ''}">
                         <div class="callout promo-msg" title="${promotion.details}">
