@@ -1,5 +1,12 @@
 .redesign-header {
 
+    @include media-breakpoint-down(lg) {
+      .header-menu-wrapper {
+        position: initial;
+        padding: 0;
+      }
+    
+    }
     @include media-breakpoint-up(lg) {
 
         .sticky-header-wrapper {
@@ -8,34 +15,7 @@
             .header-wrapper {
                 display: none;
             }
-        
-            .main-menu {
-                height: auto;
-    
-                .navbar-nav {
-                    position: static;
-    
-                    .dropdown-menu {
-                        width: calc(100% + 30px);
-                        padding-right: 0;
-                        padding-left: 0;
-                        margin: rem(-15);
-                    }
-                }
-                .nav-item {
-                    &.show, &:hover {
-                        box-shadow: 0 rem(2) 0 0 $grey10;
-                    }
 
-                    .nav-link {
-                        font-weight: 600;
-                        letter-spacing: 0.5px;
-                        font-size: 12px;
-                        text-transform: capitalize;
-                    }
-                } 
-            }
-        
             .navbar {
                 height: rem(80);
                 width: 100%;
@@ -48,7 +28,7 @@
     
                         .search-field {
                             width: 160px;
-                            height: 25px;
+                            height: rem(19);
                         }
     
                         .fa-search {
@@ -57,14 +37,14 @@
                         }
                     }
                     
-                    &-fa {
-                        font-size: rem(24);
+                    &-icon {
+                        height: rem(19);
                         margin-right: rem(20);
                     }
                 }
             }
         }
-    
+
         &-container {
                 margin: 0;
                 max-width: 100%;
@@ -77,7 +57,7 @@
                     justify-content: center;
                 }
             }
-            
+
             .navbar-expand-lg {
                 max-width: 100%;
             }

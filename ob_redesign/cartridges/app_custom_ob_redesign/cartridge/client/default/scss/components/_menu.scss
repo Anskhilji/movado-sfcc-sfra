@@ -1,0 +1,59 @@
+.redesign-header {
+
+    @include media-breakpoint-up(lg) {
+        .main-menu {
+            height: auto;
+    
+            .navbar-nav {
+                position: static;
+    
+                .dropdown-menu {
+                    width: calc(100% + 30px);
+                    padding-right: 0;
+                    padding-left: 0;
+                    margin: rem(-15) rem(-15) 0;
+                    background: transparent;
+                    box-shadow: none;
+
+                    &-container {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        background: white;
+                        padding-left: rem(180);
+                        padding-right: rem(147);
+                    }
+                    .dropdown-item {
+                        margin-bottom: rem(4);
+                        padding: 0.25rem 1.5rem;
+                    }
+                    
+                    .menu-pane {
+                      
+                    }
+                }
+            }
+            .nav-item {
+    
+                &.show, &:hover {
+                    box-shadow: none;
+                }
+                a {
+                    border-bottom: 3px solid transparent;
+                    &:hover {
+                        border-color: #E9D7D5;
+                    }
+                }
+    
+                .nav-link {
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                    font-size: 12px;
+                    text-transform: capitalize;
+                    padding: 0rem;
+                    margin: 0.9375rem 0.75rem;
+                }
+            } 
+        }
+    }
+}
