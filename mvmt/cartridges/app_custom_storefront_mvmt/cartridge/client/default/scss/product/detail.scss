@@ -55,10 +55,11 @@
     background: $black;
     transition: top .6s cubic-bezier(.645,.045,.355,1);
     color: $white;
-    top: rem(-25);
+    top: rem(-45);
     font-size: rem(14);
     font-family: $font-book;
     text-transform: uppercase;
+    z-index: 999;
 
     @include media-breakpoint-up(md) {
         display: block;
@@ -96,6 +97,12 @@
             display: inline-flex;
             border: none;
             color: $black;
+            min-width: rem(200);
+
+            &:hover {
+                background-color: $light-green;
+                color: $white;
+            }
         }
     }
 }
@@ -329,7 +336,7 @@
             font-size: rem(16);
             padding: rem(16) rem(20);
             background-color: $black;
-            color: #fff;
+            color: $white;
             width: 100%;
             letter-spacing: rem(3);
             margin: 0 auto;
@@ -427,7 +434,7 @@
                     margin: 0 auto;
                     border-radius: 50%;
                     border: rem(2) solid $black;
-                    background-color: #fff;
+                    background-color: $white;
                     background-repeat: no-repeat;
                     background-position: 50%;
                     background-size: 12px auto;
@@ -741,71 +748,71 @@
             cursor: pointer;
             transition: color .2s;
         }
+    }
 
-        .straps-guide-title {
-            font-size: rem(25);
-            font-family: $font-book;
-            font-weight: 400;
-            letter-spacing: rem(4.2);
-            text-transform: uppercase;
+    .straps-guide-title {
+        font-size: rem(25);
+        font-family: $font-book;
+        font-weight: 400;
+        letter-spacing: rem(4.2);
+        text-transform: uppercase;
+    }
+
+    .straps-guide-info {
+        font-family: $font-book;
+        color: $light-gray2;
+        font-size: rem(20);
+        line-height: rem(25);
+        margin: 1rem auto 1.5rem;
+        max-width: 90%;
+        letter-spacing: 1.5px;
+    }
+
+    @include media-breakpoint-up(md) {
+        .straps-guide-images {
+            display: flex;
+            justify-content: space-around;
         }
+    }
 
-        .straps-guide-info {
-            font-family: $font-book;
-            color: $light-gray2;
-            font-size: rem(20);
-            line-height: rem(25);
-            margin: 1rem auto 1.5rem;
-            max-width: 90%;
-            letter-spacing: 1.5px;
+    .straps-step {
+        letter-spacing: 1.5px;
+        text-align: center;
+
+        &:first-of-type {
+            margin-bottom: rem(25);
         }
 
         @include media-breakpoint-up(md) {
-            .straps-guide-images {
-                display: flex;
-                justify-content: space-around;
-            }
-        }
-
-        .straps-step {
-            letter-spacing: 1.5px;
-            text-align: center;
+            width: 30%;
 
             &:first-of-type {
-                margin-bottom: rem(25);
-            }
-
-            @include media-breakpoint-up(md) {
-                width: 30%;
-
-                &:first-of-type {
-                    margin-bottom: 0;
-                }
+                margin-bottom: 0;
             }
         }
+    }
 
-        .straps-step-title {
-            display: block;
-            text-transform: uppercase;
-            font-size: rem(24);
-            letter-spacing: 2px;
-            padding-top: 1rem;
-            margin-bottom: rem(8px);
-            font-family: $font-book;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
+    .straps-step-title {
+        display: block;
+        text-transform: uppercase;
+        font-size: rem(24);
+        letter-spacing: 2px;
+        padding-top: 1rem;
+        margin-bottom: rem(8px);
+        font-family: $font-book;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
 
-        .straps-step-instructions {
-            display: block;
-            font-size: rem(14);
-            max-width: rem(350);
-            color: $black;
-            display: inline-block;
-            line-height: rem(18);
-            font-family: $font-book;
-            font-weight: 400;
-            letter-spacing: .5px;
-        }
+    .straps-step-instructions {
+        display: block;
+        font-size: rem(14);
+        max-width: rem(350);
+        color: $black;
+        display: inline-block;
+        line-height: rem(18);
+        font-family: $font-book;
+        font-weight: 400;
+        letter-spacing: .5px;
     }
 }
