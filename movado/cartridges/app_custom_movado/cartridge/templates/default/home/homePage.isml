@@ -6,11 +6,7 @@
     <div class="static-content-wrapper">
         <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
         <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
-        <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-            <isslot id="einstein-recommendations-homepage" description="Einstein recommendations for homepage" context="global" />
-        <iselse>
-            <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
-        </isif>
+        <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
         <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" />
         <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
         <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" />
