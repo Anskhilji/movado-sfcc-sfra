@@ -442,6 +442,11 @@ header.new-header {
         border: none;
         outline: none;
         padding: 0 rem(15);
+
+          .minicart-quantity {
+              position: absolute;
+              top: rem(-28);
+          }
       }
 
       svg {
