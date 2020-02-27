@@ -1,5 +1,13 @@
-<isif condition="${!topCat.disableSubCategories}">
-    <div class="dropdown-menu" role="menu" aria-hidden="true">
+<div class="dropdown-menu" role="menu" aria-hidden="true">
+    <isif condition="${topCat.disableSubCategories}">
+        <div class="shop-by-collection-slide">
+            <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
+                <isloop items="${menuItem.subCategories}" var="category">
+                    <p><a href="${category.url}"><img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span>${category.name}</span> </a></p>
+                </isloop>
+            </div>
+        </div>
+    <iselse>
         <div class="menu-pane">
             <ul>
                 <isloop items="${menuItem.subCategories}" var="category">
@@ -17,22 +25,23 @@
                 </isloop>
             </ul>
             <isloop items="${menuItem.subCategories}" var="category">
-                <isif condition="${category.subCategories}">
-                    <ul class="browse-collection">
-                        <li class="dropdown-item dropdown" role="menuitem" >
-                            <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
-                            <isset name="categoryItem" value="${category}" scope="page"/>
-                            <isinclude template="components/header/menuItemList"/>
-                        </li>
-                    </ul>
+                <isif condition="${category.name !== Resource.msg('shop.by.color', 'common', null)}">
+                    <isif condition="${category.subCategories}">
+                        <ul class="browse-collection">
+                            <li class="dropdown-item dropdown" role="menuitem" >
+                                <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
+                                <isset name="categoryItem" value="${category}" scope="page"/>
+                                <isinclude template="components/header/menuItemList"/>
+                            </li>
+                        </ul>
+                    </isif>
+                <iselse>
+                    <isinclude template="components/header/colorRefinements"/>
                 </isif>
             </isloop>
-        </div>
-        <div class="color-swatches">
-        
         </div>
         <div class="submenu-recommendations w-75" data-recomendationcategory="${topCat.id}">
             <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
-    </div>
-</isif>
+    </isif>
+</div>

@@ -34,6 +34,12 @@
                             padding-right: 0;
                             margin: rem(-15) rem(-15) 0;
                         }
+
+                        .circle {
+                            border-radius: 1000%;
+                            width: rem(40);
+                            height: rem(40); 
+                        }
                     }
                 }
             }

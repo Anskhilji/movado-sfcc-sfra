@@ -8,12 +8,12 @@ server.replace('Header', server.middleware.include, function (req, res, next) {
     var headerTemplate = null;
 
     // A/B testing for header design
-    if (ABTestMgr.isParticipant('OBRedesignABTest','Control')) {
-        headerTemplate = 'account/old/header';
-    } else if (ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
-        headerTemplate = 'account/header';
+    if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
+        headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';
+    } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
+        headerTemplate = req.querystring.mobile ? 'account/mobileHeader' : 'account/header';
     } else {
-        headerTemplate = 'account/old/header';
+        headerTemplate = req.querystring.mobile ? 'account/old/mobileHeader' : 'account/old/header';
     }
     res.render(headerTemplate, { name:
         req.currentCustomer.profile ? req.currentCustomer.profile.firstName : null

@@ -63,6 +63,10 @@ function categoryToObject(category) {
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
     }
+    
+    if (!empty(category.custom.hexColor)) {
+        result.hexColor = category.custom.hexColor;
+    }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;
 
