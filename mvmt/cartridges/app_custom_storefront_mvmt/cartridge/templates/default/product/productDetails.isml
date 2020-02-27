@@ -2,6 +2,7 @@
 
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
+
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -92,6 +93,7 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
+
                         <div class="col-12">
                             <isinclude template="product/components/linkedProducts" />
                         </div>
@@ -104,7 +106,6 @@
                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- Size Chart -->
@@ -161,7 +162,6 @@
             </div>
         </div>
 
-        <div class=""
         <!-- The Modal: Ends-->
 
     </isobject>

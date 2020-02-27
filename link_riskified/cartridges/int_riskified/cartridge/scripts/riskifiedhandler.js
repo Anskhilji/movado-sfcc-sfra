@@ -6,7 +6,6 @@ var Site = require('dw/system/Site');
 
 var restService = require('int_riskified/cartridge/scripts/riskified/export/api/models/RestApiModel');
 
-
 /**
  * Send a new order to Riskified.
  * Depending on your current plan, the newly created order might not be submitted automatically for review.

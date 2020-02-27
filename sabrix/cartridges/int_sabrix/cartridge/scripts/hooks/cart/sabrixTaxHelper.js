@@ -8,6 +8,7 @@ var ShippingLineItem = require('dw/order/ShippingLineItem');
 var Resource = require('dw/web/Resource');
 var System = require('dw/system/System');
 var Transaction = require('dw/system/Transaction');
+
 /**
  * prepare Sabrix SOAP service request object
  * @param :basket
