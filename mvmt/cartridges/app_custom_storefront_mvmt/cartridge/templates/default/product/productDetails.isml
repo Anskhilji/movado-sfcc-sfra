@@ -75,7 +75,6 @@
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                 data-available="${product.available}">
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
                             </div>
 
                             <!-- Applicable Promotions -->
@@ -124,7 +123,7 @@
                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
 	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
 	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-	                               </isif>    
+	                               </isif>
                                </isif>
                             </div>
                         </div>
@@ -159,9 +158,19 @@
             </div>
         </div>
 
-        <div class="container-fluid">
+        <div class="container">
+            <isinclude template="product/components/productGallery" />
+        </div>
+
+        <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
+
+        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+
+        <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">
@@ -203,26 +212,27 @@
                 <div class="size-guide-mobile-image">
                     <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
                 </div>
-                <div class="size-guide-scales ">
+
+                <div class="size-guide-scales">
                     <div class="size-guide-scale">
-                        <p class="size-guide-scale-label">CASE THICKNESS:</p>
+                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.thickness', 'product', null)}</p>
                         <div class="size-guide-scale-bar">
                             <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
                         </div>
                         <div class="size-guide-scale-range-labels">
-                            <span>FLAT</span>
-                            <span>TALL</span>
+                            <span>${Resource.msg('label.guide.scale.flate', 'product', null)}</span>
+                            <span>${Resource.msg('label.guide.scale.tall', 'product', null)}</span>
                         </div>
                     </div>
 
                     <div class="size-guide-scale">
-                        <p class="size-guide-scale-label">CASE THICKNESS:</p>
+                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.size', 'product', null)}</p>
                         <div class="size-guide-scale-bar">
                             <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
                         </div>
                         <div class="size-guide-scale-range-labels">
-                            <span>FLAT</span>
-                            <span>TALL</span>
+                            <span>${Resource.msg('label.guide.scale.small', 'product', null)}</span>
+                            <span>${Resource.msg('label.guide.scale.large', 'product', null)}</span>
                         </div>
                     </div>
                 </div>

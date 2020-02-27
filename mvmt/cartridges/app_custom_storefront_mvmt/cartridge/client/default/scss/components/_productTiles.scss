@@ -1,0 +1,57 @@
+.recommendationTile {
+    .image-container {
+        border: 0;
+
+        .quickview {
+            display: none;
+        }
+    }
+
+    .tile-body {
+
+        .pdp-link {
+            margin-bottom: 0;
+        }
+
+        .product-name {
+            line-height: 1.2;
+            letter-spacing: 1.5px;
+            color: $black;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding: 0 rem(10);
+            display: block;
+            text-transform: uppercase;
+            font-size: rem(16);
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-family: $font-medium;
+            margin-bottom: rem(5);
+        }
+
+        .price {
+            font-family: $font-medium;
+            font-size: rem(11);
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            padding: 0;
+            line-height: 1;
+            color: $black;
+            margin-bottom: rem(5);
+
+            @include media-breakpoint-up(sm) {
+                font-size: rem(12);
+            }
+        }
+
+        .vat-duty-label {
+            font-family: $font-medium;
+            font-weight: 500;
+            text-transform: capitalize;
+            font-size: rem(11);
+            color: $light-gray2;
+            margin: 0;
+        }
+    }
+}

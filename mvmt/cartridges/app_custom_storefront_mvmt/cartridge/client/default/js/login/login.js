@@ -6,6 +6,7 @@ module.exports = function () {
 
     baseLogin.login();
     baseLogin.resetPassword();
+    baseLogin.register();
 
     $('#forget-password-btn').on('click', function (e) {
         $('#login-section').removeClass('d-block').addClass('d-none');
