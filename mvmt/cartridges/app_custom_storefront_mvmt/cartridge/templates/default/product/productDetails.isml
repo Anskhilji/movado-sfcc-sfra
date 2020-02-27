@@ -99,7 +99,6 @@
                                 <isinclude template="product/components/quantity" />
                             </div>
                         </isif>
-                        <hr />
                     </div>
 
                     <isif condition="${product.options && product.options.length > 0}">
@@ -113,19 +112,18 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
-                    <div class="col-12">
-                        <isinclude template="product/components/linkedProducts" />
-                    </div>
-                    <div class="col-12 prices-add-to-cart-actions">
-                        <div class="d-block">
-                            <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    <div class="row">
+                        <div class="col-12 prices-add-to-cart-actions">
+                            <div class="d-block">
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
 
-                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
                                 </isif>
-                            </isif>
+                            </div>
                         </div>
                     </div>
                 </div>
