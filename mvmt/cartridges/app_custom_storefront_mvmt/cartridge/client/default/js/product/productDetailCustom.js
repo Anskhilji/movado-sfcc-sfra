@@ -22,7 +22,7 @@ $(function() {
         }
 
         else {
-            $stickybar.css("top","-45px")
+            $stickybar.css('top','-45px')
         }
     });
 });

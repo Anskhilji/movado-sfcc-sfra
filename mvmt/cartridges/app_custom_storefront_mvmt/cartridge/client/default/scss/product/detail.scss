@@ -4,28 +4,28 @@
 .gallery-slider {
   
   .slick-slide {
-  > div {
-    padding: 0 rem(5);
-  }
+    > div {
+      padding: 0 rem(5);
+    }
   }
 
   .slick {
-  &-arrow {
-    border: rem(1) solid $chinese-silver;
-    box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
-    cursor: pointer;
-    font-size: rem(10);
-    padding: rem(23) rem(25);
-    position: absolute;
-    top: 50%;
-    z-index: 5;
-    background: $white;
-    transform: translateY(-50%);
-  }
+    &-arrow {
+      border: rem(1) solid $chinese-silver;
+      box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
+      cursor: pointer;
+      font-size: rem(10);
+      padding: rem(23) rem(25);
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      background: $white;
+      transform: translateY(-50%);
+    }
 
-  &-next {
-    right: 0;
-  }
+    &-next {
+      right: 0;
+    }
   }
 }
 
@@ -35,46 +35,46 @@
   text-align: center;
 
   &-item {
-  display: none;
-  padding: 0 rem(20);
-  color: $light-gray;
-  font-size: rem(14);
-  line-height: rem(25);
-  letter-spacing: .5px;
+    display: none;
+    padding: 0 rem(20);
+    color: $light-gray;
+    font-size: rem(14);
+    line-height: rem(25);
+    letter-spacing: .5px;
 
-  @include media-breakpoint-up(sm) {
-    display: inline-block;
-  }
+    @include media-breakpoint-up(sm) {
+      display: inline-block;
+    }
 
-  &:nth-child(-n+2) {
-    display: inline-block;
-  }
+    &:nth-child(-n+2) {
+      display: inline-block;
+    }
   }
 
   &-holder {
-  transform: translateY(2px);
-  display: inline-block;
+    transform: translateY(2px);
+    display: inline-block;
   }
 
   &-copy-wrap {
-  display: inline-block;
+    display: inline-block;
   }
 
   &-copy {
-  padding-left: rem(10);
-  font-size: rem(11);
-  font-family: $font-medium;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: $black;
+    padding-left: rem(10);
+    font-size: rem(11);
+    font-family: $font-medium;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: $black;
   }
 
   &-copy-mobile {
-  @include media-breakpoint-up(sm) {
-    display: none;
-  }
+    @include media-breakpoint-up(sm) {
+      display: none;
+    }
   }
 }
 
@@ -85,42 +85,42 @@
   padding: rem(9) rem(16) rem(8);
 
   .social-container {
-  display: flex;
-  align-items: center;
-
-  > span {
-    font-family: $font-book;
-    color: $black;
-    font-size: rem(11);
-    text-transform: uppercase;
-  }
-
-  .social-icons {
     display: flex;
-  }
+    align-items: center;
 
-  a {
-    font-size: rem(16);
-    margin: 0;
-    padding-left: 25px;
-
-    &:hover {
-    color: $dark-red;
+    > span {
+      font-family: $font-book;
+      color: $black;
+      font-size: rem(11);
+      text-transform: uppercase;
     }
-  }
+
+    .social-icons {
+      display: flex;
+    }
+
+    a {
+      font-size: rem(16);
+      margin: 0;
+      padding-left: 25px;
+
+      &:hover {
+      color: $dark-red;
+      }
+    }
   }
 
   .breadcrumb {
-  padding-bottom: 0;
+    padding-bottom: 0;
   }
 
   .breadcrumb-item {
-  a {
-    font: $font-book;
-    font-size: rem(11);
-    letter-spacing: 1.5;
-    text-transform: uppercase;
-  }
+    a {
+      font: $font-book;
+      font-size: rem(11);
+      letter-spacing: 1.5;
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -140,7 +140,7 @@
   z-index: 999;
 
   @include media-breakpoint-up(md) {
-  display: block;
+    display: block;
   }
 
   .sticky-bar-container {
@@ -178,8 +178,8 @@
       min-width: rem(200);
 
       &:hover {
-      background-color: $light-green;
-      color: $white;
+        background-color: $light-green;
+        color: $white;
       }
     }
   }
@@ -626,6 +626,7 @@
 
     .attribute {
       margin: 0;
+
       > label {
         display: block;
         color: $transparent-gray;
@@ -662,6 +663,7 @@
   }
 
   .product-variations {
+
     > div {
       padding: 0;
     }
