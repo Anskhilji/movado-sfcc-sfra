@@ -750,24 +750,6 @@
         }
     }
 
-    .straps-guide-title {
-        font-size: rem(25);
-        font-family: $font-book;
-        font-weight: 400;
-        letter-spacing: rem(4.2);
-        text-transform: uppercase;
-    }
-
-    .straps-guide-info {
-        font-family: $font-book;
-        color: $light-gray2;
-        font-size: rem(20);
-        line-height: rem(25);
-        margin: 1rem auto 1.5rem;
-        max-width: 90%;
-        letter-spacing: 1.5px;
-    }
-
     @include media-breakpoint-up(md) {
         .straps-guide-images {
             display: flex;
@@ -775,44 +757,64 @@
         }
     }
 
-    .straps-step {
-        letter-spacing: 1.5px;
-        text-align: center;
-
-        &:first-of-type {
-            margin-bottom: rem(25);
+    .straps {
+        &-guide-info {
+            font-family: $font-book;
+            color: $light-gray2;
+            font-size: rem(20);
+            line-height: rem(25);
+            margin: 1rem auto 1.5rem;
+            max-width: 90%;
+            letter-spacing: 1.5px;
+        }
+    
+        &-guide-title {
+            font-size: rem(25);
+            font-family: $font-book;
+            font-weight: 400;
+            letter-spacing: rem(4.2);
+            text-transform: uppercase;
         }
 
-        @include media-breakpoint-up(md) {
-            width: 30%;
-
+        &-step {
+            letter-spacing: 1.5px;
+            text-align: center;
+    
             &:first-of-type {
-                margin-bottom: 0;
+                margin-bottom: rem(25);
+            }
+    
+            @include media-breakpoint-up(md) {
+                width: 30%;
+    
+                &:first-of-type {
+                    margin-bottom: 0;
+                }
             }
         }
-    }
 
-    .straps-step-title {
-        display: block;
-        text-transform: uppercase;
-        font-size: rem(24);
-        letter-spacing: 2px;
-        padding-top: 1rem;
-        margin-bottom: rem(8px);
-        font-family: $font-book;
-        font-weight: 400;
-        text-transform: uppercase;
-    }
+        &-step-title {
+            display: block;
+            text-transform: uppercase;
+            font-size: rem(24);
+            letter-spacing: 2px;
+            padding-top: 1rem;
+            margin-bottom: rem(8px);
+            font-family: $font-book;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
 
-    .straps-step-instructions {
-        display: block;
-        font-size: rem(14);
-        max-width: rem(350);
-        color: $black;
-        display: inline-block;
-        line-height: rem(18);
-        font-family: $font-book;
-        font-weight: 400;
-        letter-spacing: .5px;
+        &-step-instructions {
+            display: block;
+            font-size: rem(14);
+            max-width: rem(350);
+            color: $black;
+            display: inline-block;
+            line-height: rem(18);
+            font-family: $font-book;
+            font-weight: 400;
+            letter-spacing: .5px;
+        }
     }
 }

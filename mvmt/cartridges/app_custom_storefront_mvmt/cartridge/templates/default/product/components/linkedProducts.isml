@@ -5,7 +5,6 @@
             <label>
                 ${Resource.msg('label.add.strap', 'product', null)}
             </label>
-
             <button class="strap-guid" data-toggle="modal" data-target="#strapguid">
                 <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
             </button>
