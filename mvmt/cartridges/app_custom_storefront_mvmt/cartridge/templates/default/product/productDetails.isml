@@ -196,8 +196,8 @@
                         </g>
                     </svg>
                 </button>
-                <div class="size-guid-right">
-                    <div class="size-guid-title">${product.productName}</div>
+                <div class="size-guide-right">
+                    <div class="size-guide-title">${product.productName}</div>
                     <p class="size-guide-description"><isprint value="${product.shortDescription}" encoding="off"/></p>
 
                     <table class="size-guide-content-details">

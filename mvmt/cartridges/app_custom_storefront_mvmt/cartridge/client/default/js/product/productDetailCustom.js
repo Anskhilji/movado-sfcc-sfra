@@ -1,10 +1,10 @@
 'use strict';
 
 $('.pdp-tabs-nav button').on('click', function(e) {
-    var thistab = $(this).data("tab");
+    var thistab = $(this).data('tab');
     $('.'+thistab+'').addClass('active').siblings().removeClass('active');
     $(this).addClass('active').siblings().removeClass('active');
-    console.log($(window).width());
+
     if ($(window).width() < 786) {
         $('.pdp-mobile-accordian').removeClass('active');
         $(this).find('.pdp-mobile-accordian').addBack('active')
