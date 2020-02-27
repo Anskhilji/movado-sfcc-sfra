@@ -13,6 +13,7 @@ var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var affirmHelper = require('*/cartridge/scripts/utils/affirmHelper');
 var OrderModel = require('*/cartridge/models/order');
+var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
 var Transaction = require('dw/system/Transaction');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
@@ -77,6 +78,9 @@ server.replace(
 
         affirmHelper.PostProcess(order);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+        if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
+            SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
+        }
         //set custom attirbute in session to avoid order confirmation page reload
         session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');

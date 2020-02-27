@@ -28,15 +28,19 @@ server.prepend('Redirect', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            hooksHelper(
+            var riskifiedCheckoutCreateResponse = hooksHelper(
                 'app.fraud.detection.checkoutcreate',
                 'checkoutCreate',
                 order.orderNo,
                 order.paymentInstrument,
                 require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 
-            res.redirect(result.adyenPaymentResponse.redirectUrl);
-            return next();
+            if (riskifiedCheckoutCreateResponse) {
+                res.redirect(result.adyenPaymentResponse.redirectUrl);
+                return next();
+            } else {
+                session.custom.klarnaRiskifiedFlag = true;
+            }
         }
         res.render('error');
         return next();
