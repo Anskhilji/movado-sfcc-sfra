@@ -1,6 +1,6 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <isdecorate template="common/layout/page">
-<isinclude template="/components/modules" sf-toolkit="off" />
+    <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addJs('/js/orderHistory.js');
