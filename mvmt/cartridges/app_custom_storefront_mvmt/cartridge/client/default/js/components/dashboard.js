@@ -5,9 +5,9 @@ module.exports = function () {
     $(window).scroll( function (event) {
         var $headerSize = $('.header-menu-wrapper').height();
         var $headerBannerSize = $('.account-dashboard-banner').height();
-        var $totalHeaderSize = $headerSize + $headerBannerSize;
+        var $totalHeaderSize = $headerBannerSize - 30;
         if (!$('.tab-bar-menu').hasClass('dashboard-active')) {
-            if (window.pageYOffset > $totalHeaderSize) {
+            if ($(this).scrollTop() > $totalHeaderSize) {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() : $headerSize;
                 $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
                 $('.tab-bar-main').css('top', $headerSize);
