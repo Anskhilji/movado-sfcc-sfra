@@ -33,7 +33,8 @@
                 <isinclude template="product/components/compare" />
             </isif>
         </div>
-        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
-
+        <isif condition="${pdict.display.showAddToCart}">
+            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+        </isif>
     </div>
 </div>
