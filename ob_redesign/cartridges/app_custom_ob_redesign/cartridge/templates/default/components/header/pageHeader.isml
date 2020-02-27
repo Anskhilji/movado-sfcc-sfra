@@ -23,7 +23,7 @@
                     </span>
                   </button>
                 </div>
-                <div class="middle-menu">
+                <div class="middle-menu desktop-view">
                     <div class="account-wrapper d-block d-lg-none">
                         <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
                     </div>

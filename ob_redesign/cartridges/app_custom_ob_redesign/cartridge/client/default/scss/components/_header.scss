@@ -8,95 +8,105 @@
     }
 
     @include media-breakpoint-down(lg) {
+
         .header-menu-wrapper {
-            position: initial;
-            padding: 0;
+            position: absolute;
+            top: 0;
         }
     }
 
     @include media-breakpoint-up(lg) {
 
-    .user {
-        margin-right: rem(20);
-        padding: rem(18) rem(4) rem(16) rem(3);
-        outline: none;
-        border-bottom: 2px solid transparent;
-
-        &:hover {
-          border-color: $black;
+        .header-menu-wrapper { 
+            padding: 0;
         }
 
-        .popover {
-            padding: rem(10) rem(20);
-            padding-bottom: rem(20);
-            width: rem(150);
-            left: rem(-48);
-            top: rem(60);
-            box-shadow: unset;
-            border-radius: unset;
-
-            a {
-                font: rem(15) $font-primary;
-            }
+        .user {
+            margin-right: rem(20);
+            padding: rem(18) rem(4) rem(16) rem(3);
+            outline: none;
+            border-bottom: 2px solid transparent;
     
-            &::before {
-                content: unset;
+            &:hover {
+              border-color: $black;
             }
-        }
-    
-        &.user-not-login {
 
             .popover {
-                padding: rem(20) rem(13);
-                min-height: auto;
+                padding: rem(10) rem(20);
+                padding-bottom: rem(20);
+                width: rem(150);
+                left: rem(-48);
+                top: rem(60);
+                box-shadow: unset;
+                border-radius: unset;
     
-                .btn {
-                    padding: rem(12) 0;
-                    text-transform: uppercase;
-                    font-size: rem(16);
-                    border-radius: 0;
+                a {
+                    font: rem(15) $font-primary;
+                }
+        
+                &::before {
+                    content: unset;
+                }
+            }
     
-                    &:hover {
-                        color: $white;
-                    }
+            &.user-not-login {
     
-                    &:focus {
-                        box-shadow: none;
-                        outline: -webkit-focus-ring-color auto 1px;
+                .popover {
+                    padding: rem(20) rem(13);
+                    min-height: auto;
+        
+                    .btn {
+                        padding: rem(12) 0;
+                        text-transform: uppercase;
+                        font-size: rem(16);
+                        border-radius: 0;
+        
+                        &:hover {
+                            color: $white;
+                        }
+        
+                        &:focus {
+                            box-shadow: none;
+                            outline: -webkit-focus-ring-color auto 1px;
+                        }
                     }
                 }
             }
-        }
 
-        &:focus {
-            outline: -webkit-focus-ring-color auto 1px;
-        }
+            &:focus {
+                outline: -webkit-focus-ring-color auto 1px;
+            }
+        
+            &:hover {
     
-        &:hover {
-
-            .popover {
-                display: block;
+                .popover {
+                    display: block;
+                }
             }
-        }
-
-        .user-icon {
-            height: rem(20);
-            width: rem(20);
-            display: inline-block;
-            background: url("../images/user-icon-white.svg") center center no-repeat;
-            cursor: pointer;
-        }
-
-        &.user-login {
-
+    
             .user-icon {
-                background: url("../images/user-icon-white-fill.svg") center center no-repeat;
+                height: rem(20);
+                width: rem(20);
+                display: inline-block;
+                background: url("../images/user-icon-white.svg") center center no-repeat;
+                cursor: pointer;
+            }
+
+            &.user-login {
+    
+                .user-icon {
+                    background: url("../images/user-icon-white-fill.svg") center center no-repeat;
+                }
             }
         }
-    }
         .header-wrapper {
+
             .header-container {
                 height: rem(80);
+            }
+
+            .left {
+                width: 25%;
             }
 
             .middle-menu {
@@ -105,6 +115,7 @@
             
             .right {
                 display: flex;
+                width: 25%;
                 justify-content: flex-end;
 
                 .site-search {

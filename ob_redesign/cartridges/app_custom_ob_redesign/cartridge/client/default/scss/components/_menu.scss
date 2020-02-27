@@ -1,6 +1,6 @@
 .redesign-header {
 
-    @include media-breakpoint-up(lg) {
+    .desktop-view {
         .main-menu {
             height: auto;
     
@@ -16,7 +16,6 @@
                 .dropdown-menu {
                     padding-left: rem(180);
                     padding-right: rem(147);
-                    margin: rem(-15) rem(-15) 0;
                     box-shadow: none;
 
                     .dropdown-item {
@@ -33,6 +32,7 @@
                         .dropdown-menu { 
                             padding-left: rem(20);
                             padding-right: 0;
+                            margin: rem(-15) rem(-15) 0;
                         }
                     }
                 }
@@ -41,6 +41,10 @@
     
                 &.show, &:hover {
                     box-shadow: none;
+
+                    .dropdown-toggle.nav-link {
+                        border-color: #E9D7D5;
+                    }
                 }
                 a {
                     border-bottom: rem(1) solid transparent;
@@ -55,11 +59,16 @@
                     font-size: rem(14);
                     text-transform: capitalize;
                     padding: 0rem;
-                    margin: rem(30) rem(20);
+                    margin: rem(30) rem(6.4);
                     font-family: $font-gill-std;
                     line-height: rem(20);
+
+                    @include media-breakpoint-up (xl) {
+                        margin: rem(30) rem(20);
+                    }
                 }
             } 
         }
     }
+
 }
