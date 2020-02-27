@@ -69,16 +69,16 @@
       <ul class="mobile-category-list" data-mobile-category="${category.name}">
         <isloop items="${category.subCategories}" var="subCategory">
           <isif condition="${!subCategory.subCategories}">
-            <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.id}</a></li>
+            <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.name}</a></li>
           <iselse>
             <li class="mobile-category-item">
-              <button class="mobile-subnav-btn">${subCategory.id}</button>
+              <button class="mobile-subnav-btn">${subCategory.name}</button>
               <ul class="mobile-collapse-nav">
                 <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
                   <li class="menu-list-item">
                     <a href="${thirdLevelCategory.url}" class="menu-item-link">
                       <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'd-none' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL}" title="${thirdLevelCategory.name}" />
-                      <span>${thirdLevelCategory.id}</span>
+                      <span>${thirdLevelCategory.name}</span>
                     </a>
                   </li>
                 </isloop>

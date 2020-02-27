@@ -1,0 +1,77 @@
+<isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account.login', 'eum', null))}"/>
+
+    <div class="login-page" style="${dw.content.ContentMgr.getContent('login-page-background-image').custom.body}"> 
+        <iscomment> Custom Start: Breadcrumbs is not part of the mvmt account login section. </iscomment>
+        <!---Breadcrumbs--->
+        <iscomment>
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <div class="row justify-content-center equal-height no-gutters">
+            <div class="col-lg-7 col-md-12"> 
+                <div class="card">
+                    <div class="card-body login-section-body">
+                        <div class="login-form-nav">
+                            <isinclude template="account/components/navTabs" />
+                            <div class="tab-content">
+                                <div class="tab-pane ${pdict.navTabValue === 'login' ? 'active' : ''}" id="login" role="tabpanel">
+                                    <div class="login-welcome-back">
+                                        <iscontentasset aid="login-page-welcome-content" />
+                                    </div>
+                                    <div id="login-section">
+                                        <isinclude template="account/components/loginForm" />
+                                    </div>
+                                    <div id="forget-password-section" class="d-none">
+                                        <isinclude template="account/password/passwordResetForm"/>
+                                    </div>
+                                    <div class="login-subtitle">
+                                        <iscontentasset aid="login-page-sign-in-title" />
+                                    </div>
+                                    <isinclude template="account/components/oauth" />
+                                </div>
+                                <div class="tab-pane ${pdict.navTabValue === 'register' ? 'active' : ''}" id="register" role="tabpanel">
+                                    <div class="create-account-section">
+                                        <div class="create-account-section-header-title">
+                                            <iscontentasset aid="login-page-create-account-section-title-and-description" />
+                                        </div>
+                                        <div class="create-account-section-logo">
+                                            <div class="create-account-section-logo-div">
+                                                <iscontentasset aid="login-logo-first" />
+                                            </div>
+                                            <div class="create-account-section-logo-div">
+                                                <iscontentasset aid="login-logo-second" />
+                                            </div>
+                                            <div class="create-account-section-logo-div">
+                                                <iscontentasset aid="login-logo-third" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="login-subtitle">
+                                        <iscontentasset aid="login-page-sign-up-title" />
+                                    </div>
+                                    <isinclude template="account/components/oauth" />
+                                    <div class="tab-pane-or">
+                                        <h1>${Resource.msg('label.text.or', 'account', null)}</h1>
+                                    </div>
+                                    <isinclude template="account/components/registerForm" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div class="card track-order">
+                    <isinclude template="account/components/trackOrderForm" />
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

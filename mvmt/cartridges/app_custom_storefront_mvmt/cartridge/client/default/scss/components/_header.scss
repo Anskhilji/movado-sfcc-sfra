@@ -2,23 +2,58 @@
 @import '~movado/components/header';
 
 .cart-and-checkout-header {
-    width: 100%;
-    background-color: $black;
+  width: 100%;
+  background-color: $black;
 
 
-    > .checkout-logo {
-        height: rem(56);
+  > .checkout-logo {
+    height: rem(56);
 
-        a {
-            display: block;
-            line-height: 0;
+    a {
+      display: block;
+      line-height: 0;
 
-            svg {
-                fill: $white;
-                color: $white;
-            }
-        }
+      svg {
+        fill: $white;
+        color: $white;
+      }
     }
+  }
+}
+
+.header-banner {
+
+  &-desktop {
+    display: none;
+
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+  }
+
+  &-mobile {
+    display: block;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  .html-slot-container {
+    font-family: $font-medium;
+    font-size: rem(13);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+    
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+  }
 }
 
 header.new-header {
@@ -72,9 +107,12 @@ header.new-header {
       height: auto;
       max-width: $container-max-width;
 
+      @include media-breakpoint-down(lg) {
+        padding: 0;
+      }
+
       @include media-breakpoint-down(sm) {
-        padding: 0 rem(10);
-        padding-right: 0;
+
         > div {
           padding: 0;
         }
@@ -86,12 +124,31 @@ header.new-header {
     height: auto;
   }
 
+  .mobile-logo {
+
+    .logo-link {
+
+      svg {
+        @include media-breakpoint-down(lg) {
+          width: 70%;
+        }
+
+        @include media-breakpoint-down(xs) {
+          width: 75%;
+          margin-top: rem(5);
+        }
+      }
+    }
+  }
+
   .user {
     outline: none;
+    height: 100%;
+    padding-top: rem(3);
 
     > a {
       font-size: rem(12);
-      @include font-book;
+      @include font-medium;
       letter-spacing: rem(1.5);
       line-height: 1;
       color: $black;
@@ -100,12 +157,15 @@ header.new-header {
       svg {
         height: rem(13);
         width: rem(20);
+        vertical-align: top;
       }
     }
 
     .popover {
       padding: rem(20);
       min-height: auto;
+      width: 160%;
+      left: -29%;
       top: 100%;
       box-shadow: none;
       border-radius: 0;
@@ -204,7 +264,7 @@ header.new-header {
 
   .minicart-link {
     background: none;
-    @include font-book;
+    @include font-medium;
     font-size: rem(12);
     text-transform: uppercase;
     letter-spacing: rem(1.5);
@@ -268,8 +328,6 @@ header.new-header {
         }
       }
     }
-
-
   }
 
   .navbar-nav {
@@ -302,6 +360,14 @@ header.new-header {
     flex-grow: 3;
     justify-content: flex-start;
     background: $white;
+
+    @include media-breakpoint-down(md) {
+      flex-grow: 1;
+      max-width: rem(150);
+    }
+    @include media-breakpoint-down(xs) {
+      max-width: rem(120);
+    }
   }
 
   .nav-right {
@@ -311,14 +377,14 @@ header.new-header {
   }
 
   .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon {
-    padding: rem(32) rem(24) rem(32);
+    padding: rem(33) rem(24) ;
     display: inline-block;
   }
 
   .header-nav-cart-icon {
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 
     svg {
       height: rem(13);
@@ -344,6 +410,7 @@ header.new-header {
     }
   }
 
+
   .header-nav-right-mobile {
     padding: 0;
     margin: 0;
@@ -356,7 +423,19 @@ header.new-header {
     }
 
     li {
-      padding: rem(15) rem(10);
+      padding: rem(14) rem(11);
+      position: relative;
+      border-color: transparent;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: rem(1);
+        height: 102%;
+        left: 0;
+        background: $gray91;
+        top: rem(-1);
+      }
 
       button {
         background: none;
@@ -389,7 +468,7 @@ header.new-header {
       &.active {
         color: $white;
         background-color: $black;
-        padding: rem(11) 0;
+        padding: rem(10) 0;
 
         .header-mobile-category-text {
           font-size: rem(32);
@@ -400,7 +479,7 @@ header.new-header {
 
       span {
         @include font-book;
-        font-size: rem(12);
+        font-size: rem(11);
         margin: auto;
       }
     }
@@ -417,6 +496,8 @@ header.new-header {
       svg {
         height: rem(13);
         width: rem(20);
+        position: relative;
+        top: rem(4);
       }
     }
 
@@ -464,6 +545,7 @@ header.new-header {
   }
 
   .desktop-menu {
+
     .mobile-view-category {
       display: none;
     }
@@ -476,9 +558,9 @@ header.new-header {
   position: fixed;
   max-width: 90%;
   max-height: 100%;
-  height: calc(100vh - 54px);
+  height: calc(100vh - 52px);
   overflow: auto;
-  top: rem(54);
+  top: rem(52);
   transition: right .25s;
   right: -100%;
   width: 90%;
@@ -843,16 +925,6 @@ header.new-header {
       position: relative;
     }
 
-    .mobile-logo {
-
-      .logo-link {
-
-        svg {
-          width: 70%;
-        }
-      }
-    }
-
     .header-mobile-categories, .header-nav-right-mobile {
       display: flex;
       height: 100%;
@@ -881,10 +953,6 @@ header.new-header {
       }
     }
 
-    .nav-left {
-      flex-grow: 1;
-    }
-
     .mobile-navigation {
       display: block;
       width: 100%;
@@ -906,7 +974,7 @@ header.new-header {
     }
   }
 
-  .mobile-nav  {
+  .mobile-nav, .mobile-side-search  {
     &.active {
       right: 0;
     }
@@ -994,4 +1062,8 @@ header.new-header {
 .show-overlay {
   display: block;
   z-index: 99;
+}
+
+.page {
+  overflow: hidden;
 }

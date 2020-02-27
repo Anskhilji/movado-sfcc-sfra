@@ -125,8 +125,8 @@
 }
 
 .mobile-side-search {
-  height: calc(100vh - 54px);
-  top: rem(54);
+  height: calc(100vh - 52px);
+  top: rem(52);
   overflow-y: visible;
   padding: rem(20) 0 rem(120);
   position: fixed;
@@ -136,10 +136,6 @@
   z-index: 2002;
   background: $white;
   border-top: rem(1) solid $gray91;
-
-  &.active {
-    right: 0;
-  }
 
   .mobile-search-close {
     position: absolute;

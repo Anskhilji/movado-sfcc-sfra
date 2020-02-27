@@ -1,9 +1,3 @@
-<script>
-$(document).ready(function() {
-    window.slickSlider.initCarousel($('.pdp-product-recommendation'));
-});
-</script>
-
 <isif condition="${slotcontent && !!slotcontent.content.length}">
   <div class="container pdp-product-recommendation">
     <div class="row">

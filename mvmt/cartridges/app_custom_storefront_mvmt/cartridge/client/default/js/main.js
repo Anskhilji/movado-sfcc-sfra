@@ -7,5 +7,6 @@ $(document).ready(function () {
     processInclude(require('./clp/clpcustom'));
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./components/miniCart'));
+    processInclude(require('./components/dashboard'));
 });
 

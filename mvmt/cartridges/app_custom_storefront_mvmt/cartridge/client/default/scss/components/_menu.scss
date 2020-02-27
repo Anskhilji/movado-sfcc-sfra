@@ -37,18 +37,6 @@
     position: static;
   }
 
-  @include media-breakpoint-down(lg){
-
-    .shop-by-collection-slide {
-
-      .featured-promotion {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-    }
-  }
-
   .dropdown-menu {
 
     .menu-pane {
@@ -71,18 +59,6 @@
           border-bottom: 1px solid $black;
           margin-top: rem(10);
         }
-      }
-    }
-
-    .featured-promotion {
-      h3 {
-        color: $regent-grey;
-        @include font-medium;
-        font-size: rem(15);
-        letter-spacing: normal;
-        margin-bottom: rem(15);
-        font-weight: 600;
-        text-transform: capitalize;
       }
     }
   }
@@ -131,14 +107,6 @@
       }
     }
 
-    .featured-promotion{
-
-      p {
-        margin-left: 1.875rem;
-        margin-right: 0;
-      }
-    }
-
     &::after {
       content: "";
       width: 100vw;
@@ -163,11 +131,13 @@
       .dropdown-menu {
         z-index: 0;
         opacity: 0;
-        transform: scaleX(1) translateX(-50%)  translateY(-1%);
+        transform: scaleX(1) translateX(-50%);
         border-top: rem(1) solid $gray94;
+        margin-top: rem(-1);
 
         &::after {
-          transform: scaleX(1) translateX(-50%)  translateY(-1%);
+          transform: scaleX(1) translateX(-50%) ;
+          margin-top: rem(-1);
         }
       }
 
@@ -188,7 +158,7 @@
     .nav-link {
       color: $white;
       font-size: rem(12);
-      @include font-book;
+      @include font-medium;
       letter-spacing: normal;
       letter-spacing: rem(1.5);
       text-transform: uppercase;
@@ -266,7 +236,12 @@
 
     .browse-collection {
       margin: 0;
-      min-width: 330px;
+      min-width: rem(330);
+      flex:1;
+
+      &:not(.no-static-content) {
+        max-width: rem(380);
+      }
 
       .third-level-menu {
 
@@ -299,6 +274,7 @@
                 height: rem(62);
                 width: rem(62);
                 border-radius: 50%;
+                margin-right: rem(15);
               }
             }
 
@@ -307,7 +283,6 @@
               font-size: rem(12);
               line-height: 1.4;
               letter-spacing: normal;
-              margin-left: rem(15);
               text-transform: uppercase;
             }
           }
@@ -324,6 +299,10 @@
           }
         }
       }
+    }
+
+    .featured-promotion {
+      flex:1;
     }
   }
 }
@@ -436,7 +415,7 @@
           .third-level-menu {
 
             .submenu-item {
-              width: 33.33%;
+              width: 25%;
             }
           }
         }
