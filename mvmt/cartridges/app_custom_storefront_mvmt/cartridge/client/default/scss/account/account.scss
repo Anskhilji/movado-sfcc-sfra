@@ -17,7 +17,7 @@
         width: 100%;
         font-family: $font-medium;
 
-        .account-heading-title {
+        &-title {
             text-transform: uppercase;
             font-family: $font-medium;
             font-size: rem(36);
@@ -33,7 +33,7 @@
             }
         }
 
-        .account-heading-copy {
+        &-copy {
             color: $black;
             font-size: rem(16);
             font-weight: 500;
@@ -41,7 +41,7 @@
             letter-spacing: rem(0.5);
         }
 
-        .account-heading-divider {
+        &-divider {
             border-color: $gray91;
             border-style: inset;
             border-bottom: 0;
@@ -56,14 +56,14 @@
 
     .card {
 
-        .card-header {
+        &-header {
 
             a {
                 text-transform: uppercase;
             }
         }
 
-        .card-body {
+        &-body {
 
             &.card-info-group {
                 padding-bottom: rem(8);

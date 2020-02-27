@@ -21,44 +21,44 @@
         <!---Breadcrumbs--->
         <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
         <iscomment>
-        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
         </iscomment>
         <iscomment> Custom End </iscomment>
         <isif condition="${pdict.orders.length > 0}">
-	        <div class="row justify-content-center">
-	            <div class="col-12 col-sm-4 col-md-3">
-	                <h2 class="heading-three">${Resource.msg('label.orderhistory','account',null)}</h2>
-	            </div>
-	            <div class="col-12 col-sm-4 col-md-3">
-	                <div class="form-group">
-	                    <select class="form-control custom-select order-history-select">
-	                        <isloop items="${pdict.filterValues}" var="filterValue">
-	                            <option
-	                                value="${filterValue.optionValue}"
-	                                <isif condition="${pdict.orderFilter === filterValue.displayValue
-	                                    || pdict.filterValues === Resource.msg('orderhistory.sixmonths.option','order',null)
-	                                    || pdict.filterValues === Resource.msg('orderhistory.twelvemonths.option','order',null)}"> selected</isif>>
-	                                    ${filterValue.displayValue}
-	                            </option>
-	                        </isloop>
-	                    </select>
-	                    <i class="fa fa-angle-down"></i>
-	                </div>
-	            </div>
-	        </div>
-	        </isif>
-	        <iscomment>Custom Start: Adding Content asstet for no order history </iscomment>
-	        <isif condition="${empty(pdict.orders)}">
-                <div class="row justify-content-center">
-                    <iscontentasset aid="order-history-heading-box" />
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-4 col-md-3">
+                    <h2 class="heading-three">${Resource.msg('label.orderhistory','account',null)}</h2>
                 </div>
-           </isif>
-           <iscomment>Custom End </iscomment>
-	        <div class="row justify-content-center">
-	            <div class="container order-list-container">
-	                <isinclude template="account/order/orderList"/>
-	            </div>
-	        </div>
+                <div class="col-12 col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <select class="form-control custom-select order-history-select">
+                            <isloop items="${pdict.filterValues}" var="filterValue">
+                                <option
+                                    value="${filterValue.optionValue}"
+                                    <isif condition="${pdict.orderFilter === filterValue.displayValue
+                                        || pdict.filterValues === Resource.msg('orderhistory.sixmonths.option','order',null)
+                                        || pdict.filterValues === Resource.msg('orderhistory.twelvemonths.option','order',null)}"> selected</isif>>
+                                        ${filterValue.displayValue}
+                                </option>
+                            </isloop>
+                        </select>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <iscomment>Custom Start: Adding Content asstet for no order history </iscomment>
+        <isif condition="${empty(pdict.orders)}">
+            <div class="row justify-content-center">
+                <iscontentasset aid="order-history-heading-box" />
+            </div>
+        </isif>
+        <iscomment>Custom End </iscomment>
+        <div class="row justify-content-center">
+            <div class="container order-list-container">
+                <isinclude template="account/order/orderList"/>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-sm-8 col-md-6 text-center">
                 <a href="${URLUtils.url('Account-Show')}" class="normal profile-back-to-account-link">
