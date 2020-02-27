@@ -1,6 +1,5 @@
 <iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
 <div class="product-tile product-tile-redesign" itemscope itemtype="http://schema.org/Product">
-    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
     <div class="tile-content">
 
         <isloop items="${product.availability.messages}" var="message">
@@ -37,5 +36,4 @@
         <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
 
     </div>
-    <!-- END_dwmarker -->
 </div>

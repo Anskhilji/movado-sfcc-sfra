@@ -1,9 +1,9 @@
 <isdecorate template="common/layout/page">
-<isscript>
-    var assets = require('*/cartridge/scripts/assets');
-    assets.addJs('/js/productDetail.js');
-</isscript>
-<isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/productDetail.js');
+    </isscript>
+    <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addCss('/css/search.css');
