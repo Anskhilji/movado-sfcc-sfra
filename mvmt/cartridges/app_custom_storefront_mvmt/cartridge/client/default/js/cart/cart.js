@@ -377,7 +377,7 @@ module.exports = function () {
                     ${data.emptyMiniContentAssetUrls}
                     </div>
                     </div>`;
-                    var $cartContainer = '<div class="container cart">' + $header + $image + $description + $urls + '</div>';
+                    var $cartContainer =  $header + $image + $description + $urls;
                     $('.mini-cart-data .popover').empty();
                     updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);

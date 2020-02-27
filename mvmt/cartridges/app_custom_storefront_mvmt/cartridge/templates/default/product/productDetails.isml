@@ -81,51 +81,77 @@
                     <div class="row m-0 product-variations">
                         <!-- Attributes and Quantity -->
 
-                        <isif condition="${product.options && product.options.length > 0}">
-                            <isinclude template="product/components/options" />
-                        </isif>
-                        <div class="col-md-10 col-12">
-                            <isinclude template="product/components/mainAttributes" />
+                        <isinclude template="product/components/badges" />
+
+                        <!-- Product Availability -->
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                         </div>
 
-                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                            <isinclude template="product/components/variationAttributes" />
-                        </isif>
-
-                        <div class="col-12">
-                            <isinclude template="product/components/linkedProducts" />
+                        <!-- Applicable Promotions -->
+                        <div class="promotions">
+                            <isinclude template="product/components/promotions" />
                         </div>
-                        <div class="col-12 prices-add-to-cart-actions">
-                            <div class="d-block">
-                               <!-- Cart and [Optionally] Apple Pay -->
-                               <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+
+                        <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                            <div class="simple-quantity">
+                                <isinclude template="product/components/quantity" />
                             </div>
-                        </div>
+                        </isif>
+                        <hr />
                     </div>
 
-                    <!-- Size Chart -->
-                    <isif condition="${product.variationAttributes && product.sizeChartId}">
-                        <div class="size-chart col-md-10 col-12">
-                            <isinclude template="product/components/sizeChart" />
-                        </div>
+                    <isif condition="${product.options && product.options.length > 0}">
+                        <isinclude template="product/components/options" />
                     </isif>
+                    <div class="col-md-10 col-12">
+                        <isinclude template="product/components/mainAttributes" />
+                    </div>
+
+                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                        <isinclude template="product/components/variationAttributes" />
+                    </isif>
+
+                    <div class="col-12">
+                        <isinclude template="product/components/linkedProducts" />
+                    </div>
+                    <div class="col-12 prices-add-to-cart-actions">
+                        <div class="d-block">
+                            <!-- Cart and [Optionally] Apple Pay -->
+                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+
+                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                </isif>
+                            </isif>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Size Chart -->
+                <isif condition="${product.variationAttributes && product.sizeChartId}">
+                    <div class="size-chart col-md-10 col-12">
+                        <isinclude template="product/components/sizeChart" />
+                    </div>
+                </isif>
             </div>
+        </div>
+
+        <div class="container">
+            <isinclude template="product/components/productGallery" />
         </div>
 
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
-        <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-            <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-            <isinclude template="product/components/contentAssets" />
-        <iselse>
-            <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
-                <isinclude template="product/components/youMayLikeRecommendation" />
-            </isif>
-        </isif>
+
+        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+
+        <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">
