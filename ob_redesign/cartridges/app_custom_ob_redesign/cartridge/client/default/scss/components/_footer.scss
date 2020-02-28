@@ -1,21 +1,239 @@
 @import "~olivia-burton-uk/components/footer";
+@import "components/countrySelector";
 
 footer {
-background-color: blue;
-    .content {
+    overflow: hidden;
+    padding-bottom: 0;
+    max-width: 1439px;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include media-breakpoint-up(sm) {
+        margin-top: 30px;
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+    }
+
+    .copyright {
+
+        @include media-breakpoint-down(sm) {
+            text-align: center;
+        }
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .social-links {
+        max-width: 100%;
+        float: left;
 
         li {
-            padding-left: 100px;
-        }a {
-           padding-left: 100px;
+
+            @include media-breakpoint-down(sm) {
+                width: auto;
+                margin: 5px 14px 5px 5px;
+            }
+        }
+
+        a {
+            font-size: rem(26);
+            
+            &.title {
+               color: #000000;
+               font-family: "Gill Sans";
+               font-size: 17px;
+               font-weight: 600;
+               line-height: 22px;
+            
+            
+            }
+        }
+    }
+
+    .footer-item {
+
+        &-sub-items {
+
+            @include media-breakpoint-down(sm) {
+                padding: 16px;
+                background-color: #ead7d5;
+            }
+        }
+
+        &-social-icons {
+            margin-left: -5px;
+            margin-bottom: rem(24);
+
+            @include media-breakpoint-down(sm) {
+
+                .social-links {
+                    width: 100%;
+                    text-align: center;
+
+                    li {
+                        float: none;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        &-mobile-menu-footer {
+            width: 100%;
+            display: inline-block;
+            float: left;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 0 20px;
+
+            li {
+                display: inline-block;
+                text-align: center;
+                padding-left: 4px;
+                padding-right: 4px;
+                letter-spacing: 3px;
+            }
+        }
+
+        &-social-icons, &-news-letter, &-country-selector {
+            display: block;
+            width: 100%;
+            float: left;
+        }
+
+        &-news-letter{
+
+            @include media-breakpoint-down(sm) {
+                text-align: center;
+                background: inherit;
+                padding-top: 12px;
+            }
+
+        a {
+           font-family: "Gill Sans";
+           font-weight: 600;
+           line-height: 22px;
+           font-size: 17px;
+
+          p {
+              color: #333333;
+              font-family: "Gill Sans";
+              font-size: 15px;
+              font-weight: 300;
+              line-height: 20px;
+          }
+      }
+}
+
+        &-country-selector { 
+
+            @include media-breakpoint-down(sm) {
+                margin-top: 16px;
+            }
+
+            .country-selector-wrapper {
+                display: inline;
+                margin-left: 0;
+                width: 130px;
+
+                @include media-breakpoint-down(sm) {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                select {
+                    color: #333333;
+                    font-family: "Gill Sans";
+                    font-size: 15px;
+                    font-weight: 600;
+                    line-height: 21px;
+                    padding-right: 0;
+                    vertical-align: bottom;
+                }
+            }
+        }
+
+        .home-email-signup {
+            background-color: $white;
+
+            @include media-breakpoint-down(sm) {
+                margin: 16px;
+            }
+
+            form {
+
+                .input-group {
+                    width: rem(300);
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
+
+                    .form-control {
+                        height: rem(45);
+                        border: 2px solid #666;
+                        border-right-width: 0;
+                    }
+                }
+            }
+        }
+
+    }
+
+    h3 {
+
+        a {
+
+            &.title {
+                  color: #333333;
+                  font-size: 15px;
+                  font-weight: 600;
+                  line-height: 21px;
+            }
+        }
+    }
+
+    .content{
+
+        li{
+
+            a {
+              color: #333333;
+              font-size: 12px;
+              line-height: 20px;
+            }
         }
     }
     
-    .social-links{
-         max-width: 0%; 
-         
-         a {
-        font-size: 1.50em;
+    
+    .html-content-container{
+    
+   .content-item{
+       height:180px;
     }
-    } 
+    
+    }
+    
+    .email-signup-arrow {
+        font-size: 40px;
+        width: 35px;
+        background-color: black;
+        color: white;
+    }
+   
+    @include media-breakpoint-only(sm) {
+
+    }
 }
+
+
