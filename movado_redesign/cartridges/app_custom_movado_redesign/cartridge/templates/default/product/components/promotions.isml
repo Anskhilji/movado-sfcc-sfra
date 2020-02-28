@@ -1,0 +1,16 @@
+<isif condition="${product.promotions}">
+    <isloop items="${product.promotions}" var="promotion">
+        <div class="callout" title="${promotion.details}">
+            <isprint value="${promotion.calloutMsg}" encoding="off" />
+                <label class="form-group
+                    <label class="form-control-label" for="email"></label>
+                    <label class="promo-detail-popover">
+                        <span class="icon">Test</span>
+                        <label class="tooltip">
+                            ${Resource.msg('tooltip.email','creditCard',null)}
+                        </label>
+                    </label>
+                </label>
+        </div>
+    </isloop>
+</isif>

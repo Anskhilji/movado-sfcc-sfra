@@ -220,8 +220,16 @@
                 img {
 
                     @include media-breakpoint-up(sm) {
-                        min-width: rem(800);
+                        min-width: 100%;
                     }
+                }
+            }
+        }
+        
+        .traditional-main-carousel {
+            .slick-slide {
+
+                img {
 
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
@@ -287,6 +295,11 @@
             color: $dark-green;
             letter-spacing: normal;
             margin-bottom: rem(20);
+            
+            span {
+                text-decoration: underline;
+                margin-left: rem(5);
+            }
         }
     }
 
@@ -648,6 +661,7 @@
     .detail-bottom-blocks {
 
         .bottom-block {
+        
             width: rem(235);
             height: rem(70);
             border-radius: rem(5);
@@ -1444,5 +1458,16 @@ body {
             width: 100%;
             margin-bottom: rem(5);
         }
+    }
+}
+
+.product-attributes {
+
+    @include media-breakpoint-up(md) {
+        margin-left: rem(48);
+    }
+
+    @include media-breakpoint-up(lg) {
+        margin-left: rem(80);
     }
 }

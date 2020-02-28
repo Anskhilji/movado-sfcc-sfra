@@ -69,13 +69,19 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
+    var productWarrantyDetail = product.custom.productWarrantyDetail;
+    var productSwissDetail = product.custom.productSwissDetail;
+    var productShippingDetail = product.custom.productShippingDetail;
     
     
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
-        socialShareEnable: socialShareEnable
+        socialShareEnable: socialShareEnable,
+        productWarrantyDetail: productWarrantyDetail,
+        productSwissDetail: productSwissDetail,
+        productShippingDetail: productShippingDetail
     }
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var pdpAnalyticsTrackingData;
