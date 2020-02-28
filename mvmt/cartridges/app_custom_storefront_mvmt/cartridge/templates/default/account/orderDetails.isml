@@ -1,0 +1,33 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/orderTrack.css');
+        assets.addCss('/css/account/profile.css');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+
+    <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <iscomment> Custom End </iscomment>
+
+    <div class="container receipt order-detail-container <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
+        <!---Breadcrumbs--->
+        <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
+        <iscomment>
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6">
+                <isinclude template="checkout/confirmation/confirmationDetails" />
+                <div class="my-account">
+                    <a href="${pdict.exitLinkUrl}" class="profile-back-to-account-link" title="${Resource.msg('link.orderdetails.myaccount','account',null)}">
+                        ${pdict.exitLinkText}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

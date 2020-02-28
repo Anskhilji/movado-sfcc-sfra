@@ -25,7 +25,7 @@
         </iscomment>
         <iscomment> Custom End </iscomment>
         <isif condition="${pdict.orders.length > 0}">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center order-list-card">
                 <div class="col-12 col-sm-4 col-md-3">
                     <h2 class="heading-three">${Resource.msg('label.orderhistory','account',null)}</h2>
                 </div>
@@ -54,7 +54,7 @@
             </div>
         </isif>
         <iscomment>Custom End </iscomment>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center order-list-card">
             <div class="container order-list-container">
                 <isinclude template="account/order/orderList"/>
             </div>
