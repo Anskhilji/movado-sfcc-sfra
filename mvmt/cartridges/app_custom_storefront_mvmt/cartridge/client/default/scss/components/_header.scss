@@ -377,7 +377,10 @@ header.new-header {
   }
 
   .desktop-menu .nav-item .nav-link, .user > a, .desktop-search-icon {
-    padding: rem(33) rem(24) ;
+    padding: rem(33) rem(14);
+    @include media-breakpoint-up(xl) { 
+      padding: rem(33) rem(24);
+    }
     display: inline-block;
   }
 
@@ -490,18 +493,18 @@ header.new-header {
     border: none;
     outline: none;
 
-    .desktop-search-icon__search {
+    &-search {
       vertical-align: middle;
 
       svg {
         height: rem(13);
         width: rem(20);
         position: relative;
-        top: rem(4);
+        top: rem(3);
       }
     }
 
-    .desktop-search-icon__close {
+    &-close {
       display: none;
 
       svg {
@@ -512,11 +515,11 @@ header.new-header {
 
     &.active {
 
-      .desktop-search-icon__close {
+      .desktop-search-icon-close {
         display: inline-block;
       }
 
-      .desktop-search-icon__search {
+      .desktop-search-icon-search {
         display: none;
       }
     }
