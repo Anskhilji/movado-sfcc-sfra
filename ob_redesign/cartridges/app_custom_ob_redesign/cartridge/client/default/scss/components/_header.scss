@@ -2,24 +2,54 @@
 
     .logo-link {
         img {
-            width: rem(170);
+            width: rem(110);
             height: rem(70);
+
+            @include media-breakpoint-up(lg) {
+                width: rem(170);
+            }
         }
     }
+    .header-wrapper { 
+        .right {
+            display: flex;
+            width: 25%;
+            justify-content: flex-end;
 
-    @include media-breakpoint-down(lg) {
+            .site-search {
 
-        .header-menu-wrapper {
-            position: absolute;
-            top: 0;
+                .search-field {
+                    width: rem(180);
+                    height: rem(19);
+
+                    &::placeholder {
+                        font-size: rem(10);
+                        color: lightgray;
+                    }
+                }
+
+                .fa-search {
+                    right: rem(6.4);
+                    top: 50%;
+                    right: 0.4rem;
+                    font-size: rem(10);
+                    transform: translateY(-50%);
+                }
+            }
+            
+            &-icon {
+
+                img {
+                    margin-right: rem(15);
+                    @include media-breakpoint-up(lg) {
+                        margin-right: rem(20);
+                    }
+                }
+            }
         }
     }
 
     @include media-breakpoint-up(lg) {
-
-        .header-menu-wrapper { 
-            padding: 0;
-        }
 
         .header-wrapper {
 
@@ -35,30 +65,6 @@
                 width: 100%;
             }
             
-            .right {
-                display: flex;
-                width: 25%;
-                justify-content: flex-end;
-
-                .site-search {
-    
-                    .search-field {
-                        width: 160px;
-                        height: rem(19);
-                    }
-
-                    .fa-search {
-                        top: rem(4);
-                        right: rem(6.4);
-                    }
-                }
-                
-                &-icon {
-                    height: rem(19);
-                    margin-right: rem(20);
-                }
-            }
-
             .navbar {
                 height: rem(80);
                 width: 100%;
@@ -90,4 +96,9 @@
             }
         }
     }
+
+    .header-menu-wrapper { 
+        padding: 0;
+    }
 }
+

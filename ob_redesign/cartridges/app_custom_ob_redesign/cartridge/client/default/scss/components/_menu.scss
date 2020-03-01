@@ -1,80 +1,286 @@
 .redesign-header {
 
     .desktop-view {
+        
         .main-menu {
             height: auto;
     
             .navbar-nav {
                 position: static;
 
-                .dropdown-toggle {
-
-                    &:after {
-                        display: none;
-                    }
-                }
                 .dropdown-menu {
                     padding-left: rem(180);
                     padding-right: rem(147);
                     box-shadow: none;
+                    padding-bottom: rem(60);
+
+                    .menu-pane {
+                        > ul {
+                            margin-right: rem(80);
+                        }
+
+                        .browse-collection {
+
+                            @include media-breakpoint-up(lg) {
+                                margin: 0;
+                                margin-right: rem(40);
+                            }
+    
+                            .dropdown-toggle {
+                                margin-bottom: rem(15);
+                            }
+    
+                            .dropdown-menu { 
+                                padding: 0;
+                                margin: 0;
+                            }
+    
+                            .circle {
+                                border-radius: 100%;
+                                width: rem(40);
+                                height: rem(40); 
+                            }
+                        }
+                    }
+
+                    .submenu-recommendations {
+                        
+                        .dropdown-static-content {
+                            display: inline-block;
+                            margin-right: rem(30);
+                            max-width: rem(300);
+                            border-radius: rem(5);
+                            overflow: hidden;
+                            background-color: $white-smoke;
+                            text-align: center;
+                            
+                            img {
+                                height: rem(300);
+                                width: rem(300);
+                                object-fit: cover;
+                            }
+
+                            span {
+                                color: $black;
+                                display: block;
+                                padding: rem(20) 0;
+                                font-family: $font-gill-std;
+                                font-size: rem(15);
+                                font-style: italic;
+                                font-weight: 600;
+                                letter-spacing: normal;
+                            }
+                        }
+                    }
 
                     .dropdown-item {
                         margin-bottom: rem(20);
                         padding: 0;
+
+                        .dropdown-link {
+                            font-family: $font-gill-std;
+                            font-size: rem(13);
+                            font-weight: 600;
+                            color: $gray20;
+                            letter-spacing: normal;
+
+                            &.dropdown-toggle {
+                                @include media-breakpoint-up(lg) {
+                                    color: $dark-gray;
+                                    font-style: italic;
+                                }
+                            }
+                        }
                     }
 
-                    .browse-collection {
+                    .color-swatches {
 
-                        .dropdown-toggle {
-                            margin-bottom: rem(36);
+                        ul {
+                            padding: 0;
+                            display: flex;
+                            flex-wrap: wrap;
+                            width: rem(205);
+
+                            .dropdown-item {
+                                flex-basis: 25%;
+
+                                .circle {
+                                    font-size: 0;
+                                    height: rem(35);
+                                    width: rem(35);
+                                    float: left;
+                                }
+                            }
                         }
 
-                        .dropdown-menu { 
-                            padding-left: rem(20);
-                            padding-right: 0;
-                            margin: rem(-15) rem(-15) 0;
-                        }
-
-                        .circle {
-                            border-radius: 1000%;
-                            width: rem(40);
-                            height: rem(40); 
-                        }
                     }
                 }
             }
-            .nav-item {
-    
-                &.show, &:hover {
-                    box-shadow: none;
 
-                    .dropdown-toggle.nav-link {
-                        border-color: #E9D7D5;
-                    }
-                }
-                a {
-                    border-bottom: rem(1) solid transparent;
-                    width: fit-content;
-                    &.show, &:hover {
-                        border-color: #E9D7D5;
-                    }
-                }
-    
+            .nav-item {
+
                 .nav-link {
+                    width: fit-content;
                     font-weight: 600;
                     font-size: rem(14);
                     text-transform: capitalize;
                     padding: 0rem;
-                    margin: rem(30) rem(6.4);
+                    margin: rem(30) rem(15);
                     font-family: $font-gill-std;
                     line-height: rem(20);
+                    position: relative;
+                    background-color: transparent;
+                    
+                    &:after {
+                        display: none;
+                    }
+                    
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: rem(2);
+                        border-radius: rem(20);
+                        bottom: rem(-5);
+                        left: rem(-1);
+                    }
+                }
 
-                    @include media-breakpoint-up (xl) {
-                        margin: rem(30) rem(20);
+                &.show, &:hover {
+                    box-shadow: none;
+                }
+
+                &.show{
+                    
+                    .nav-link {
+                        &:before {
+                            background-color: $pink-rose;
+                        }
                     }
                 }
             } 
         }
+
+        .shop-by-collection-slide {
+            width: 100%;
+
+            .featured-promotion {
+                justify-content: center;
+
+                a {
+
+                    display: inline-block;
+                    margin-right: rem(30);
+                    max-width: rem(150);
+                    border-radius: rem(5);
+                    overflow: hidden;
+                    background-color: $white-smoke;
+                    text-align: center;
+                    
+                    span {
+                        display: block;
+                        padding: rem(11) 0;
+                        font-family: $font-gill-std;
+                        font-size: rem(14);
+                        font-style: italic;
+                        color: $gray20;
+                        font-weight: 600;
+                        letter-spacing: normal;
+                    }
+
+                    img {
+                        height: rem(150);
+                    }
+                }
+            }
+        }
+
+        .account-wrapper {
+            margin-right: rem(-10);
+            p {
+                margin: 0;
+            }
+        }
     }
 
+    
+    .navbar-toggleable-sm {
+        overflow: auto;
+        &.main-menu.menu-toggleable-left{
+            margin-right: rem(75);
+        }
+
+        .navbar-expand-md {
+            @include media-breakpoint-up(sm) {
+                flex-flow: wrap;
+                .navbar-nav {
+                    flex-direction: column;
+                }
+            }
+
+            .close-menu {
+                background: $white;
+                border: none;
+                
+                .close-button {
+                    a {
+                        font-size: 0;
+                    }
+
+                    span {
+                        font-size: rem(24);
+                    }
+                }
+
+                .back {
+                    .caret-left {
+                        vertical-align: middle;
+                        padding: 0;
+                        position: relative;
+                        top: rem(-1);
+                    }
+                }
+            }
+
+            .menu-group {
+                .nav-item, .dropdown-item {
+                    border: none;
+                    .nav-link, .dropdown-link {
+                        font-family: $font-gill-std;
+                        font-size: rem(12);
+                        font-weight: 600;
+                        color: $gray20;
+                        letter-spacing: normal;
+                        text-transform: capitalize;
+
+                        &.dropdown-toggle {
+                            &:after {
+                                width: rem(6);
+                                height: rem(6);
+                                background-size: contain;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
+                        }
+                    }
+                }
+
+                .dropdown-link {
+                    padding-left: rem(15);
+                
+                }
+
+                .top-category {
+                    .nav-link {
+                        font-family: $font-gill-std;
+                        font-size: rem(17);
+                        font-weight: bold;
+                        color: $dark-gray;
+                        font-style: italic;
+                        letter-spacing: 1.5px;
+                    }
+                }
+            }
+        }
+    }
 }

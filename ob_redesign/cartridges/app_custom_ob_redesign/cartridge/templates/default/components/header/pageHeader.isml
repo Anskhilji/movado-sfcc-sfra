@@ -3,7 +3,7 @@
   <nav>
     <div class="sticky-header-wrapper">
       <div class="sticky-header-placeholder"></div>
-      <div class="header-menu-wrapper col">
+      <div class="header-menu-wrapper">
         <div class="header-wrapper">
           <div class="col">
             <div class="row">
@@ -27,7 +27,7 @@
                     <div class="account-wrapper d-block d-lg-none">
                         <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
                     </div>
-                    <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown d-none d-lg-block" id="sg-navbar-collapse">
+                    <div class="main-menu multilevel-dropdown d-none d-lg-block" id="sg-navbar-collapse">
                         <div class="container redesign-header-container ">
                             <div class="row">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
