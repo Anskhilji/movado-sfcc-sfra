@@ -25,6 +25,7 @@
             letter-spacing: rem(3.38);
             line-height: rem(42);
             margin-bottom: rem(15);
+            display: inline-flex;
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(50);

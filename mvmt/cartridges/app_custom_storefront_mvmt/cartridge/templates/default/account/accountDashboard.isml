@@ -1,6 +1,7 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <isdecorate template="common/layout/page">
     <isset name="isPage" value="dashboard" scope="page" />
+    <isset name="account" value="${!empty(pdict.account) ? pdict.account : ''}" scope="page"/>
     <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
@@ -29,7 +30,14 @@
         </iscomment>
         <iscomment> Custom End </iscomment>
 
-        <iscontentasset aid="dashboard-heading-box" />
+        <section class="account-heading">
+            <h1 class="account-heading-title">
+                <iscontentasset aid="dashboard-heading-title" /> 
+                ${!empty(account.profile.firstName) ? account.profile.firstName : ''} 
+                ${!empty(account.profile.lastName) ? account.profile.lastName : ''}
+            </h1>
+            <iscontentasset aid="dashboard-heading-box" />
+        </section>
 
         <isinclude template="account/dashboardProfileCards"/>
     </div>

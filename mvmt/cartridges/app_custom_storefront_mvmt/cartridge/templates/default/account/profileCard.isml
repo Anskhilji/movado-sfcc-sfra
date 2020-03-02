@@ -3,7 +3,7 @@
     <isif condition="${!empty(account)}" >
         <div class="card-header clearfix">
             <h4 class="pull-left">${Resource.msg('label.my.information', 'account', null)}</h4>
-            <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <isif condition="${!account.isExternallyAuthenticated}">
                 <a href="${URLUtils.url('Account-EditProfile')}">${Resource.msg('link.manage.information', 'account', null)}</a>
             </isif>
         </div>
@@ -11,7 +11,7 @@
             <h3>${Resource.msg('label.personal.information', 'account', null)}</h3>
         </div>
         <div class="card-body">
-            <p>${Resource.msg('label.profile.fullname', 'account', null)}: ${account.profile.firstName + " " + account.profile.lastName}</p>
+            <p>${Resource.msg('label.profile.name', 'account', null)}: ${account.profile.firstName + " " + account.profile.lastName}</p>
                 <isif condition="${account.birthmonth != null && account.birthdate != null}">
                     <p>${Resource.msg('label.profile.dateOfBirth', 'forms', null)}: ${account.birthmonth + " " + account.birthdate}</p>
                 </isif>
