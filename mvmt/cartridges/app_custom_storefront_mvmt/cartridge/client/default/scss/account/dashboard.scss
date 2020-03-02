@@ -27,6 +27,14 @@
             margin-bottom: rem(15);
             display: inline-flex;
 
+            .content-asset {
+                display: contents;
+
+                p {
+                    display: contents;
+                }
+            }
+
             @include media-breakpoint-up(lg) {
                 font-size: rem(50);
                 letter-spacing: rem(4.69);
@@ -51,6 +59,18 @@
 
             @include media-breakpoint-up(lg) {
                 width: 45%
+            }
+        }
+    }
+
+    .profile {
+
+        .card-header {
+            padding-bottom: 0;
+
+            h3 {
+                margin-top: rem(20);
+                margin-bottom: 0;
             }
         }
     }

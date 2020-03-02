@@ -3,7 +3,9 @@
 <div class="card">
     <div class="card-header clearfix">
         <h4 class="pull-left">${Resource.msg('label.addressbook', 'account', null)}</h4>
-        <a href="${URLUtils.url('Address-List')}" class="pull-right">${Resource.msg('label.manage.address', 'account', null)}</a>
+        <a href="${URLUtils.url('Address-List')}" class="pull-right">
+            ${Resource.msg('label.manage.address', 'account', null)}&#40;${!empty(account.addresses.length) ? Number(account.addresses.length).toFixed() : 0}&#41;
+        </a>
     </div>
     <isif condition="${!empty(address)}">
         <div class="card-body">
