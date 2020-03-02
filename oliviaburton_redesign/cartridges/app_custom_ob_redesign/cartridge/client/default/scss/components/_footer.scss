@@ -99,7 +99,6 @@ footer {
                 display: inline-block;
                 text-align: center;
                 padding: 0 rem(4);
-                
                 letter-spacing: rem(3);
             }
         }
@@ -190,7 +189,9 @@ footer {
     }
     
     h3 {
+    
         a {
+        
             &.title {
                 color: $gray20;
                 font-size: rem(15);
@@ -200,8 +201,10 @@ footer {
         }
     }
 
-    .content{
-        li{
+    .content {
+    
+        li {
+        
             a {
               color: $gray20;
               font-size: rem(12);
