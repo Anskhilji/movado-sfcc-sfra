@@ -7,14 +7,14 @@ $arrow-height: 1.25em; /* 20/16 */
 
     .icon {
         //border-radius: 100%;
-        background-color: #f5f6f8;
+        background-color: $slate-grey-light;
         width: rem(21);
         height: rem(21);
         line-height: rem(21);
         display: inline-block;
         text-align: center;
         text-transform: lowercase;
-        color: #7d984c;
+        color: $dark-green;
         padding-left: rem(0.8);
         vertical-align: middle;
         font-weight: bold;
@@ -31,7 +31,7 @@ $arrow-height: 1.25em; /* 20/16 */
         bottom: 100%;
         padding: rem(5);
         border-radius: $border-radius;
-        background-color: $white;
+        background-color: $slate-grey-light;
         color: $grey14;
         font-size: rem(15);
         width: rem(400);
@@ -68,7 +68,7 @@ $arrow-height: 1.25em; /* 20/16 */
             bottom: 100%;
             padding: 0.312rem;
             border-radius: $border-radius;
-            background-color: $white;
+            background-color: $slate-grey-light;
             color: $grey14;
             font-size: 0.928rem;
             width: rem(240);
@@ -101,6 +101,10 @@ $arrow-height: 1.25em; /* 20/16 */
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+        @include media-breakpoint-down(md){
+            width: rem(336);
+            margin-left: rem(-50);
+        }
 
         &::after, &::before {
             border-left: solid transparent $arrow-height/2; /* 10/16 */
@@ -118,6 +122,10 @@ $arrow-height: 1.25em; /* 20/16 */
         &::before {
             border-bottom: solid $border-color rem(10);
             top: rem(-10);
+            
+            @include media-breakpoint-down(md){
+                margin-left: rem(51);
+            }
         }
 
         &::after {
@@ -125,6 +133,10 @@ $arrow-height: 1.25em; /* 20/16 */
             top: rem(-8);
             //border-top: unset;
             //bottom: unset;
+
+            @include media-breakpoint-down(md){
+                margin-left: rem(51);
+            }
         }
     }
 }

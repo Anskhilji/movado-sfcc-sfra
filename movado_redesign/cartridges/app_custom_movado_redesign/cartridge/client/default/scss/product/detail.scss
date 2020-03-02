@@ -299,6 +299,12 @@
             span {
                 text-decoration: underline;
                 margin-left: rem(5);
+                text-transform: capitalize;
+                font-weight: 500;
+                font-style: normal;
+                font-size: rem(13);
+                padding-top: 0;
+                margin-left: rem(-3);
             }
         }
     }
@@ -1469,5 +1475,28 @@ body {
 
     @include media-breakpoint-up(lg) {
         margin-left: rem(80);
+    }
+}
+
+.pdp-v-one {
+
+    .modal-header-options {
+        justify-content: flex-end;
+        margin-top: rem(-16);
+    }
+
+    .close-option-popup {
+        text-align: center;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.popup {
+    .cancel {
+        background: $white;
+        color: $black;
     }
 }

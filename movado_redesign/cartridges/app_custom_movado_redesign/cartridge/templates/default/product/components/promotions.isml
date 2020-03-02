@@ -5,9 +5,12 @@
                 <label class="form-group
                     <label class="form-control-label" for="email"></label>
                     <label class="promo-detail-popover">
-                        <span class="icon">Test</span>
+                        <span class="icon">${Resource.msg('label.product.promotion', 'product', 'null')}</span>
                         <label class="tooltip">
-                            ${Resource.msg('tooltip.email','creditCard',null)}
+                        <div class="d-block d-md-none modal-header-promotion-close p-2 mr-2">
+                            <button class="close-option-popup pull-right">x</button>
+                        </div>
+                            ${promotion.calloutMsg}
                         </label>
                     </label>
                 </label>
