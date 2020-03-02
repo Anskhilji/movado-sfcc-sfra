@@ -1,5 +1,4 @@
 <footer>
-<h1>Old footer</h1>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
     <div class="home-email-signup"> 
         <div class="container">

@@ -1,16 +1,17 @@
-.sub-footer{
+.sub-footer {
     line-height: 1em;
-        p{
-            margin-top:20px;
-            font-size: smaller;
-            padding-left: rem(5);
-     
-        }
+    p {
+        margin-top: rem(20);
+        font-size: smaller;
+        padding-left: rem(5);
+    }
+    
     .sub-footer-content {
         display: flex;
         margin-top: rem(20);
     }
-    .hp-icon{
+    
+    .hp-icon {
         width: rem(70);
     }
 }

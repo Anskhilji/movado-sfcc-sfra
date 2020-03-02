@@ -2,14 +2,14 @@
 @import "components/countrySelector";
 
 footer {
-        overflow: hidden;
-        padding-bottom: 0;
-        max-width: rem(1439);
-        width: 100%;
-        padding-right: rem(15);
-        padding-left: rem(15);
-        margin-right: auto;
-        margin-left: auto;
+    overflow: hidden;
+    padding-bottom: 0;
+    max-width: $custom-xl;
+    width: 100%;
+    padding-right: rem(15);
+    padding-left: rem(15);
+    margin-right: auto;
+    margin-left: auto;
 
     @include media-breakpoint-up(sm) {
         margin-top: rem(30);
@@ -98,8 +98,8 @@ footer {
             li {
                 display: inline-block;
                 text-align: center;
-                padding-left: rem(4);
-                padding-right: rem(4);
+                padding: 0 rem(4);
+                
                 letter-spacing: rem(3);
             }
         }
@@ -118,21 +118,21 @@ footer {
                 padding-top: rem(12);
             }
 
-        a {
-           font-family: $gill-sans-font-stack;
-           font-weight: 600;
-           line-height: rem(22);
-           font-size: rem(17);
+            a {
+                font-family: $gill-sans-font-stack;
+                font-weight: 600;
+                line-height: rem(22);
+                font-size: rem(17);
 
-          p {
-              color: $gray20;
-              font-family: $gill-sans-font-stack;
-              font-size: rem(15);
-              font-weight: 300;
-              line-height: rem(20);
-          }
-      }
-}
+                p {
+                    color: $gray20;
+                    font-family: $gill-sans-font-stack;
+                    font-size: rem(15);
+                    font-weight: 300;
+                    line-height: rem(20);
+                }
+            }
+        }
 
         &-country-selector { 
 
@@ -187,26 +187,21 @@ footer {
                 }
             }
         }
-
     }
-
+    
     h3 {
-
         a {
-
             &.title {
-                  color: $gray20;
-                  font-size: rem(15);
-                  font-weight: 600;
-                  line-height: rem(21);
+                color: $gray20;
+                font-size: rem(15);
+                font-weight: 600;
+                line-height: rem(21);
             }
         }
     }
 
     .content{
-
         li{
-
             a {
               color: $gray20;
               font-size: rem(12);
@@ -215,11 +210,10 @@ footer {
         }
     }
     
-    
     .html-content-container {
     
        .content-item {
-           height:rem(180);
+           height: rem(180);
         }
     }
 

@@ -1,7 +1,6 @@
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
         <div class="footer-container row">
-
             <div class="footer-item col-sm-12 col-md-6 store ">
                 <div class="footer-item-sub-items">
                     <div class="footer-item-social-icons hidden-sm-down">
@@ -15,7 +14,6 @@
                     <isslot id="country-selector" description="country selector" context="global" />
                 </div>
             </div>
-
             <div class="footer-item col-sm-2 collapsible-xs hidden-sm-down">
                 <iscontentasset aid="ca-footer-about" />
             </div>
@@ -34,7 +32,6 @@
                 <iscontentasset aid="ca-footer-social-email" />
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg-8 col-sm-12 order-sm-1 copyright-notice">
                 <iscontentasset aid="ca-footer-copy" />
@@ -49,7 +46,6 @@
                 <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
             </div>
         </div>
-
     <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
