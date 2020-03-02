@@ -9,9 +9,8 @@ var productTile = require('*/cartridge/models/product/productTile');
  * @param {string} productID : The ID of Product
  * @returns {Collection} explicitRecommendations : Recommendations associated with products
  */
-function getExplicitRecommendations(params) {
-    var productId = params.product.id;
-    var apiProduct = ProductMgr.getProduct(productId);
+function getExplicitRecommendations(pid) {
+    var apiProduct = ProductMgr.getProduct(pid);
     var recommendation;
     var productRecommendations;
     productRecommendations = apiProduct.getRecommendations();

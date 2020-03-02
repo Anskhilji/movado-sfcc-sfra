@@ -12,7 +12,7 @@
         </div>
         <div class="linked-products">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
-                <isif condition="${product.available && recommendation != null}">
+                <isif condition="${recommendation != null}">
                     <div class="upsell_wrapper">
                         <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendation.id}">
                         <img class="upsell_image" src="${recommendation.images.tile150[0].url}"/>
