@@ -2,17 +2,17 @@
 @import "components/countrySelector";
 
 footer {
-    overflow: hidden;
-    padding-bottom: 0;
-    max-width: 1439px;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+        overflow: hidden;
+        padding-bottom: 0;
+        max-width: rem(1439);
+        width: 100%;
+        padding-right: rem(15);
+        padding-left: rem(15);
+        margin-right: auto;
+        margin-left: auto;
 
     @include media-breakpoint-up(sm) {
-        margin-top: 30px;
+        margin-top: rem(30);
     }
 
     @include media-breakpoint-down(sm) {
@@ -38,7 +38,7 @@ footer {
 
             @include media-breakpoint-down(sm) {
                 width: auto;
-                margin: 5px 14px 5px 5px;
+                margin: rem(5) rem(14) rem(5) rem(5);
             }
         }
 
@@ -46,13 +46,13 @@ footer {
             font-size: rem(26);
             
             &.title {
-               color: #000000;
-               font-family: "Gill Sans";
-               font-size: 17px;
+               color: $black;
+               font-family: $gill-sans-font-stack;
+               font-size: rem(17);
                font-weight: 600;
-               line-height: 22px;
-            
-            
+               line-height: rem(22);
+               text-decoration: none;
+               pointer-events: none;
             }
         }
     }
@@ -62,13 +62,13 @@ footer {
         &-sub-items {
 
             @include media-breakpoint-down(sm) {
-                padding: 16px;
-                background-color: #ead7d5;
+                padding: rem(16);
+                background-color: $pink-grey;
             }
         }
 
         &-social-icons {
-            margin-left: -5px;
+            margin-left: rem(-5);
             margin-bottom: rem(24);
 
             @include media-breakpoint-down(sm) {
@@ -89,18 +89,18 @@ footer {
             width: 100%;
             display: inline-block;
             float: left;
-            margin: 20px 0;
+            margin: rem(20) 0;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
-            padding: 0 20px;
+            font-size: rem(14);
+            padding: 0 rem(20);
 
             li {
                 display: inline-block;
                 text-align: center;
-                padding-left: 4px;
-                padding-right: 4px;
-                letter-spacing: 3px;
+                padding-left: rem(4);
+                padding-right: rem(4);
+                letter-spacing: rem(3);
             }
         }
 
@@ -110,26 +110,26 @@ footer {
             float: left;
         }
 
-        &-news-letter{
+        &-news-letter {
 
             @include media-breakpoint-down(sm) {
                 text-align: center;
                 background: inherit;
-                padding-top: 12px;
+                padding-top: rem(12);
             }
 
         a {
-           font-family: "Gill Sans";
+           font-family: $gill-sans-font-stack;
            font-weight: 600;
-           line-height: 22px;
-           font-size: 17px;
+           line-height: rem(22);
+           font-size: rem(17);
 
           p {
-              color: #333333;
-              font-family: "Gill Sans";
-              font-size: 15px;
+              color: $gray20;
+              font-family: $gill-sans-font-stack;
+              font-size: rem(15);
               font-weight: 300;
-              line-height: 20px;
+              line-height: rem(20);
           }
       }
 }
@@ -137,13 +137,13 @@ footer {
         &-country-selector { 
 
             @include media-breakpoint-down(sm) {
-                margin-top: 16px;
+                margin-top: rem(16);
             }
 
             .country-selector-wrapper {
                 display: inline;
                 margin-left: 0;
-                width: 130px;
+                width: rem(130);
 
                 @include media-breakpoint-down(sm) {
                     display: inline-block;
@@ -152,11 +152,11 @@ footer {
                 }
 
                 select {
-                    color: #333333;
-                    font-family: "Gill Sans";
-                    font-size: 15px;
+                    color: $gray20;
+                    font-family: $gill-sans-font-stack;
+                    font-size: rem(15);
                     font-weight: 600;
-                    line-height: 21px;
+                    line-height: rem(21);
                     padding-right: 0;
                     vertical-align: bottom;
                 }
@@ -167,7 +167,7 @@ footer {
             background-color: $white;
 
             @include media-breakpoint-down(sm) {
-                margin: 16px;
+                margin: rem(16);
             }
 
             form {
@@ -181,7 +181,7 @@ footer {
 
                     .form-control {
                         height: rem(45);
-                        border: 2px solid #666;
+                        border: rem(2) solid $dim-grey;
                         border-right-width: 0;
                     }
                 }
@@ -195,10 +195,10 @@ footer {
         a {
 
             &.title {
-                  color: #333333;
-                  font-size: 15px;
+                  color: $gray20;
+                  font-size: rem(15);
                   font-weight: 600;
-                  line-height: 21px;
+                  line-height: rem(21);
             }
         }
     }
@@ -208,32 +208,26 @@ footer {
         li{
 
             a {
-              color: #333333;
-              font-size: 12px;
-              line-height: 20px;
+              color: $gray20;
+              font-size: rem(12);
+              line-height: rem(20);
             }
         }
     }
     
     
-    .html-content-container{
+    .html-content-container {
     
-   .content-item{
-       height:180px;
+       .content-item {
+           height:rem(180);
+        }
     }
-    
-    }
-    
+
     .email-signup-arrow {
-        font-size: 40px;
-        width: 35px;
-        background-color: black;
+        font-size: rem(40);
+        width: rem(35);
+        background-color: $black;
         color: white;
     }
-   
-    @include media-breakpoint-only(sm) {
-
-    }
 }
-
 

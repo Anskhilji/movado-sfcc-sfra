@@ -4,29 +4,15 @@
 
             <div class="footer-item col-sm-12 col-md-6 store ">
                 <div class="footer-item-sub-items">
-	                <div class="footer-item-social-icons hidden-sm-down">
-	                    <iscontentasset aid="ca-footer-social-email" />
-	                </div>
-	                <div class= "footer-item-news-letter">
-	                <isslot id="ca-footer-news-letter" description="News letter" context="global" />
-	                </div>
-	                    <div class="home-email-signup">
-					            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
-					                        <div class="input-group">
-					                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-					                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
-					                            <span class="input-group-btn">
-					                                <i class="fa fa-arrow-right email-signup-arrow" type="submit" ></i>
-					                            </span>
-					                        </div>
-					                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-					                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
-					                        </div>
-					            </form>
-					    </div>
-				    </div>
+                    <div class="footer-item-social-icons hidden-sm-down">
+                        <iscontentasset aid="ca-footer-social-email" />
+                    </div>
+                    <div class= "footer-item-news-letter">
+                        <isslot id="ca-footer-news-letter" description="News letter Content Slot" context="global" />
+                    </div>
+                </div>
                 <div class="footer-item-country-selector">
-                <isslot id="country-selector" description="country selector" context="global" />
+                    <isslot id="country-selector" description="country selector" context="global" />
                 </div>
             </div>
 
@@ -42,7 +28,7 @@
             </div>
             
             <div class="footer-item hidden-md-up">
-            <iscontentasset aid="mb-footer-account" />
+                <iscontentasset aid="mb-footer-account" />
             </div>
             <div class="footer-item-social-icons hidden-md-up">
                 <iscontentasset aid="ca-footer-social-email" />
@@ -51,7 +37,7 @@
 
         <div class="row">
             <div class="col-lg-8 col-sm-12 order-sm-1 copyright-notice">
-              <iscontentasset aid="ca-footer-copy" />
+                <iscontentasset aid="ca-footer-copy" />
             </div>
             <div class="col-lg-4 col-sm-6 order-sm-2 social hidden-sm-down">
                 <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
