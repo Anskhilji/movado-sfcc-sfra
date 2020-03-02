@@ -1,0 +1,9 @@
+<isset name="showQuickView" value="${true}" scope="page" />
+<isset name="product" value="${pdict.product}" scope="page" />
+<div class="product" data-pid="${product.id}">
+    <isif condition="${pdict.display.plpTile === true}">
+        <isinclude template="product/productSlotTile" />
+    <iselse>
+        <isinclude template="product/productTile" />
+    </isif>
+</div>
