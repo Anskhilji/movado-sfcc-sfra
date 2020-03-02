@@ -8,7 +8,7 @@
     <iselse/>
         <div class="card-header clearfix">
             <h4 class="pull-left">${Resource.msg('label.orderhistory.orderno', 'account', null)} ${order.orderNumber}</h4>
-            <a href="${URLUtils.url('Order-Details', 'orderID', order.orderNumber, 'orderFilter', pdict.orderFilter)}">${Resource.msg('label.view.orders', 'account', null)}</a>
+            <a href="${URLUtils.url('Order-Details', 'orderID', order.orderNumber, 'orderFilter', pdict.orderFilter)}">${Resource.msg('label.view.orders.title', 'account', null)}</a>
         </div>
     </isif>
     <isif condition="${!empty(order)}" >
@@ -38,20 +38,20 @@
                     </isif>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-7 dashboard-order-card-footer-columns card-info-group">
-                        <p class="field-label">${Resource.msg('label.orderhistory.totalitems','account',null)}</p>
-                        <p class="dashboard-order-card-footer-value field-value">
-                            <isprint value="${order.productQuantityTotal}" formatter="#"/>
-                        </p>
-                    </div>
-                    <div class="col-5 dashboard-order-card-footer-columns card-info-group">
-                        <p class="field-label">${Resource.msg('label.orderhistory.ordertotal','account',null)} </p>
-                        <p class="dashboard-order-card-footer-value field-value">
-                            ${order.priceTotal}
-                        </p>
-                    </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-7 dashboard-order-card-footer-columns card-info-group">
+                    <p class="field-label">${Resource.msg('label.orderhistory.totalitems','account',null)}</p>
+                    <p class="dashboard-order-card-footer-value field-value">
+                        <isprint value="${order.productQuantityTotal}" formatter="#"/>
+                    </p>
+                </div>
+                <div class="col-5 dashboard-order-card-footer-columns card-info-group">
+                    <p class="field-label">${Resource.msg('label.orderhistory.ordertotal','account',null)} </p>
+                    <p class="dashboard-order-card-footer-value field-value">
+                        ${order.priceTotal}
+                    </p>
                 </div>
             </div>
         </div>
