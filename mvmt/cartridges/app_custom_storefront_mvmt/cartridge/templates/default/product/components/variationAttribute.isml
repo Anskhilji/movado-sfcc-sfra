@@ -16,12 +16,11 @@ Template Notes:
             ${attr.displayName} ${Resource.msg('label.size.unit', 'product', null)}
             <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 
             <span class="selected-variation">
-                28 ${Resource.msg('label.size.unit.small', 'product', null)}
             </span>
             <iscomment> Custom: End </iscomment>
         </label>
     <iscomment> Custom: Start see fit button added </iscomment>
-        <button class="seefit-text">
+        <button class="seefit-text call-see-fit-popup">
             ${Resource.msg('label.seefit', 'product', null)}
         </button>
     <iscomment> Custom: End </iscomment>
