@@ -48,8 +48,7 @@ $(function() {
     $('.pdp-v-one .debossing-cancel').on('click', function(e) {
         if ($('.pdp-v-one .debossing-text').text() === '') {
             e.stopPropagation();
-            var targeted_popup_class = jQuery(this).attr('pd-popup-close');
-            $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
+            $('.pdp-v-one .debossing-form .text-area .debossing-input').val('');
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
@@ -64,6 +63,7 @@ $(function() {
 
         $('.pdp-v-one .debossing-text').text('');
         $('.pdp-v-one .debossing-form .text-on-watch span').text('');
+        $('.pdp-v-one .debossing-form .text-area .debossing-input').val('');
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
         $('body, html').removeClass('no-overflow');
@@ -74,8 +74,7 @@ $(function() {
     $('.pdp-v-one .engraving-cancel').on('click', function(e) {
         if ($('.pdp-v-one .engraved-text').text() === '') {
             e.stopPropagation();
-            var targeted_popup_class = jQuery(this).attr('pd-popup-close');
-            $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
+            $('.pdp-v-one .debossing-form .text-area .engraving-input').val('');
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
@@ -90,6 +89,7 @@ $(function() {
 
         $('.pdp-v-one .engraved-text').text('');
         $('.pdp-v-one .engraving-form .text-on-watch pre').text('');
+        $('.pdp-v-one .debossing-form .text-area .engraving-input').val('');
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
         $('body, html').removeClass('no-overflow');
