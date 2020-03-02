@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-md bg-inverse col-12">
+<nav class="navbar mobile-main-navigaiton navbar-expand-md bg-inverse col-12">
     <div class="close-menu clearfix d-lg-none">
         <div class="back pull-left">
             <a href="${'#'}" role="button">
                 <span class="caret-left"></span>
-                ${Resource.msg('link.header.menu.back', 'common', null)}
+                ${Resource.msg('link.mobile.header.menu.back', 'common', null)}
             </a>
         </div>
         <div class="close-button pull-right">
@@ -31,8 +31,14 @@
                     </isif>
                 </isloop>
             </isif>
-            <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+            <div class="divider"><hr /></div>
+            <a class="store-locator" href="${URLUtils.httpsUrl('Stores-Find', 'showMap', true, 'horizontalView', true, 'isForm', true)}">${Resource.msg('label.store.locator', 'common', null)}</a>
             <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+        </ul>
+    </div>
+    <div class="menu-group sticky-account">
+        <ul class="nav navbar-nav">
+            <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
         </ul>
     </div>
 </nav>

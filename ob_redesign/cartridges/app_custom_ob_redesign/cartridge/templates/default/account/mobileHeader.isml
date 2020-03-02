@@ -1,12 +1,11 @@
 <isif condition="${pdict.name === null}">
-  <li class="nav-item d-lg-none" role="menuitem">
+  <li class="nav-item mobile-sign-in d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
-      <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
+      <span class="user-message">${Resource.msg('link.mobile-header.login', 'account', null)}</span>
     </a>
   </li>
 <iselse/>
-  <li class="nav-item d-lg-none dropdown" role="menuitem">
+  <li class="nav-item mobile-sign-in d-lg-none dropdown" role="menuitem">
     <span class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
       <i class="fa fa-user" aria-hidden="true"></i>
       <span class="user-message">${pdict.name}</span>

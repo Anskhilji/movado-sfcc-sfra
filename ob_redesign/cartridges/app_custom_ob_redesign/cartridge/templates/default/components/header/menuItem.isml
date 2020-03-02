@@ -40,7 +40,7 @@
                 </isif>
             </isloop>
         </div>
-        <div class="submenu-recommendations w-75" data-recomendationcategory="${topCat.id}">
+        <div class="submenu-recommendations" data-recomendationcategory="${topCat.id}">
             <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
     </isif>

@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <div class="minicart-total hide-link-med">
     <a class="minicart-link" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('minicart.viewcart','common',null)}">
         <iscontentasset aid="shopping-bag-icon"/>

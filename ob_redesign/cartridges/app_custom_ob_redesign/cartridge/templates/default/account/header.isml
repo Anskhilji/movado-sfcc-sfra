@@ -1,5 +1,26 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="d-flex">
-    <iscontentasset aid="header-store-locator-and-account-section"/>
+    <iscontentasset aid="header-store-locator"/>
 </div>
+<isif condition="${pdict.name === null}">
+  <div class="user">
+    <a href="${URLUtils.https('Login-Show')}">
+        <iscontentasset aid="header-account-section"/>
+    </a>
+  </div>
+<iselse/>
+    <div class="user user-logged-in" tabindex="0">
+        <div class="user-logged-in-icon">
+            <iscontentasset aid="header-account-section"/>
+        </div>
 
+        <div class="popover popover-bottom  hidden-md-down">
+            <a href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a>
+            <a href="${URLUtils.https('Wishlist-Show')}">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span class="user-message">${Resource.msg('link.wishlist.login', 'account', null)}</span>
+            </a>
+            <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
+        </div>
+  </div>
+</isif>

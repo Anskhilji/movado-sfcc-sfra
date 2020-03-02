@@ -1,16 +1,35 @@
 .redesign-header {
+    
+    .account-wrapper {
+        
+        p {
+            margin: 0;
+        }
 
-    .logo-link {
-        img {
-            width: rem(110);
-            height: rem(70);
-
-            @include media-breakpoint-up(lg) {
-                width: rem(170);
+        .logo-link {
+            
+            img {
+                width: rem(130);
+                height: rem(70);
+    
+                @include media-breakpoint-up(lg) {
+                    width: rem(170);
+                }
             }
         }
     }
+
+    .mobile-search {
+        background: url("../images/round-search-24px.png") center center no-repeat;
+        border: none;
+        width: rem(20);
+        height: rem(20);
+        margin-left: rem(10);
+        padding: 0;
+    }
+
     .header-wrapper { 
+
         .right {
             display: flex;
             width: 25%;
@@ -21,6 +40,7 @@
                 .search-field {
                     width: rem(180);
                     height: rem(19);
+                    padding-bottom: rem(11);
 
                     &::placeholder {
                         font-size: rem(10);
@@ -38,13 +58,22 @@
             }
             
             &-icon {
-
                 img {
                     margin-right: rem(15);
+                    max-width: initial;
                     @include media-breakpoint-up(lg) {
                         margin-right: rem(20);
                     }
                 }
+            }
+        }
+    }
+
+    .minicart {
+        a.minicart-link {
+            display: inline-block;
+            img {
+                max-width: initial;
             }
         }
     }
@@ -100,5 +129,35 @@
     .header-menu-wrapper { 
         padding: 0;
     }
+
+    .left {
+        button {
+            .menu-icon {
+                background: url("../images/round-menu-24px.png") center center no-repeat;
+                top: rem(3);
+            }
+        }
+    }
+
+    .navbar-header {
+        @include media-breakpoint-down(md) {
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
+.header-banner {
+
+    .html-slot-container {
+
+        color: $black;
+        font-family: $font-gill-std;
+        font-size: rem(14);
+        font-weight: 600;
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(12);
+        }
+    }
+}
