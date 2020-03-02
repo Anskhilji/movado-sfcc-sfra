@@ -1467,6 +1467,7 @@ body {
     }
 }
 
+<<<<<<< HEAD
 .product-attributes {
 
     @include media-breakpoint-up(md) {
@@ -1500,3 +1501,11 @@ body {
         color: $black;
     }
 }
+=======
+.traditional-wishlist-row, .modern-wishlist-row {
+
+    .add-to-wish-list {
+        text-decoration: none;
+    }
+}
+>>>>>>> feature/MSS-234-pdp-redesign-clean

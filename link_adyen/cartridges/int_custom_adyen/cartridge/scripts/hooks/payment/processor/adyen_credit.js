@@ -70,7 +70,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var result = {};
-    hooksHelper(
+    var riskifiedCheckoutCreateResponse = hooksHelper(
         'app.fraud.detection.checkoutcreate',
         'checkoutCreate',
         orderNumber,
@@ -82,17 +82,19 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var creditCardForm = server.forms.getForm('billing').creditCardFields;
     var adyenCreditVerification = require('*/cartridge/scripts/adyenCreditVerification');
     Transaction.begin();
-    var result = adyenCreditVerification.verify({
-        Order: order,
-        Amount: paymentInstrument.paymentTransaction.amount,
-        CurrentSession: session,
-        CurrentRequest: request,
-        PaymentInstrument: paymentInstrument,
-        CreditCardForm: creditCardForm,
-        SaveCreditCard: creditCardForm.saveCardAdyen.value
-    });
+    if (riskifiedCheckoutCreateResponse) {
+        result = adyenCreditVerification.verify({
+            Order: order,
+            Amount: paymentInstrument.paymentTransaction.amount,
+            CurrentSession: session,
+            CurrentRequest: request,
+            PaymentInstrument: paymentInstrument,
+            CreditCardForm: creditCardForm,
+            SaveCreditCard: creditCardForm.saveCardAdyen.value
+        });
+    }
 
-    if (result.error) {
+    if (result.error || !riskifiedCheckoutCreateResponse) {
         checkoutLogger.error('(adyen_credit) -> Authorize: Error occurred while authorizing payment against order with order number: ' + orderNumber + ' and going to denied the checkout');
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -100,6 +102,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             orderNumber,
             paymentInstrument,
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+        checkoutLogger.error('Riskified API Call failed for order number: ' + orderNumber);
         return {
             error: true
         };
