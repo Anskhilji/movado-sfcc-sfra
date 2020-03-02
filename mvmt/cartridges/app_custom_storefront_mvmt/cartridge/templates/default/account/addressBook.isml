@@ -8,8 +8,8 @@
     <isinclude template="account/deleteAddressModal"/>
 
     <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
-    <div class="hero account-banner floating-header-banner">
-        <isslot id="cs-account-addressbook-banner" description="addressbook banner Image" context="global" />
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
     </div>
     <iscomment> Custom End </iscomment>
 

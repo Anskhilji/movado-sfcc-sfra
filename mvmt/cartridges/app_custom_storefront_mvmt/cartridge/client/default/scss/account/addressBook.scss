@@ -12,14 +12,29 @@
         }
     }
     
-    .btn-save {
-        &:hover {
-            background-color: $light-green;
-            border: 0.125rem solid #000;
+        .btn-save {
+            &:hover {
+                background-color: $light-green;
+                border: 0.125rem solid $black;
+            }
+
+            &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                background-color: $light-green;
+                border: 0.125rem solid $black;
+                box-shadow: none;
+                outline: 0;
+                line-height: normal;
+            }
+
+            &.btn-primary {
+
+                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                    background-color: $light-green;
+                    border: 0.125rem solid $black;
+                    box-shadow: none;
+                    outline: 0;
+                    line-height: normal;
+                }
+            }
         }
-        
-        &:focus {
-            box-shadow: unset;
-        }
-    }
 }

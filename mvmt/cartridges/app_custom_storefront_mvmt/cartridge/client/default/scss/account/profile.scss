@@ -14,7 +14,7 @@
         width: 100%;
         
         &:focus {
-            box-shadow: unset;
+            box-shadow: none;
         }
     }
     
@@ -46,11 +46,17 @@
         &:hover {
             background-color: $light-green;
             border: rem(2) solid $black;
+            box-shadow: none;
         }
         
         &:focus {
-            box-shadow: unset;
-            outline: unset;
+            box-shadow: none;
+            outline: none;
+            box-shadow: none;
+        }
+        
+        &:not(:disabled):not(.disabled):active:focus, &:focus {
+            box-shadow: none;
         }
     }
     
@@ -60,11 +66,17 @@
         &:hover {
             background-color: $black;
             color: $white;
+            box-shadow: none;
         }
         
         &:focus {
-            box-shadow: unset;
-            outline: unset;
+            box-shadow: none;
+            outline: none;
+            box-shadow: none;
+        }
+        
+        &:not(:disabled):not(.disabled):active:focus {
+            box-shadow: none;
         }
     }
 }
