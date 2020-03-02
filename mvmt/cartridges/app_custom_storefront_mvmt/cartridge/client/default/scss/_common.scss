@@ -1,3 +1,66 @@
+
+.floating-header-banner {
+    height: 100%;
+    position: relative;
+    width: 100%;
+
+    .desktop-image {
+        display: none;
+
+        @include media-breakpoint-up(lg) {
+            display: block;
+        }
+    }
+
+    .mobile-image {
+        display: none;
+
+        @include media-breakpoint-down(md) {
+            display: block;
+        }
+    }
+
+    img {
+        pointer-events: none;
+        width: 100%;
+    }
+
+    .header-banner-content {
+        align-content: center;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 100%;
+
+        .header-banner-title {
+            color: $white;
+            font-family: $font-medium;
+            font-size: rem(40);
+            letter-spacing: rem(5);
+            line-height: rem(49);
+            font-weight: normal;
+            text-transform: uppercase;
+            width: 80%;
+            margin: auto;
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(60);
+                letter-spacing: rem(12.5);
+                width: 100%;
+            }
+
+            @include media-breakpoint-down(xs) {
+                font-size: rem(36);
+                width: 100%;
+            }
+        }
+    }
+}
+
 .section-locations-hero {
     margin-bottom: 0;
     position: relative;
@@ -51,6 +114,7 @@
     }
 }
 
+
 .opacity-0 {
     opacity: 0;
 }
@@ -61,4 +125,190 @@
 
 .m-0-auto {
     margin: 0 auto;
+}
+
+.tab-bar-main {
+    font-family: $font-medium;
+    display: flex;
+    justify-content: center;
+    border-top: rem(1) solid $light-gray4;
+    border-bottom: rem(1) solid $light-gray4;
+    background: linear-gradient(0deg, $white, $light-gray3);
+    width: 100%;
+    z-index: 6;
+    position: static;
+    top: auto;
+
+    .tab-bar-menu-open-btn {
+        background: linear-gradient(0deg, $white, $white-smoke2);
+        border: 0;
+        padding: rem(20);
+        color: $dark-gray;
+        font-size: rem(12);
+        line-height: 1;
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        letter-spacing: rem(1);
+        text-align: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        outline: 0;
+
+        svg {
+            right: 0;
+            float: right;
+        }
+
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+    }
+
+    .tab-bar-menu-close-btn {
+        text-align: center;
+        background: linear-gradient(0deg, $white, $white-smoke2);
+        border-bottom: rem(1) solid $light-gray4;
+        font-size: rem(12);
+        line-height: 1;
+        vertical-align: middle;
+        padding: rem(20);
+        display: inline-block;
+        width: 100%;
+        text-transform: uppercase;
+        position: relative;
+        letter-spacing: rem(1);
+        cursor: pointer;
+        outline: 0;
+        margin-bottom: rem(25);
+
+        @include media-breakpoint-up(lg) {
+            display: none;
+        }
+
+        svg {
+            position: absolute;
+            top: 50%;
+            right: rem(20);
+            transform: translateY(-50%);
+            width: rem(10);
+            height: rem(10);
+        }
+    }
+
+    .tab-bar-menu {
+        position: fixed;
+        transform: translateX(100%);
+        height: 100%;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: $white;
+        transition: transform 0.35s,opacity 0.35s;
+        z-index: 11;
+        opacity: 0;
+        left: 0;
+        right: 0;
+
+        @include media-breakpoint-down(md) {
+
+            &.dashboard-active {
+                z-index: 1015;
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @include media-breakpoint-up(lg) {
+            z-index: 1;
+            opacity: 1;
+            position: static;
+            border-left: rem(0) solid $light-gray4;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            background-color: transparent;
+            transform: none;
+            transition: none;
+            height: auto;
+            max-width: rem(800);
+        }
+    }
+
+    .tab-bar-menu-link {
+        border: rem(1) solid $dark-gray;
+        color: $light-gray6;
+        cursor: pointer;
+        display: block;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: rem(1.5);
+        margin: 0 auto rem(15);
+        font-size: rem(12);
+        text-align: center;
+        text-transform: uppercase;
+        padding: 0 rem(25);
+        width: auto;
+        color: $black;
+        text-decoration: none;
+
+        &.tab-bar-sign-out {
+            display: none;
+            text-decoration: underline;
+            color: $dark-red;
+            border: rem(1) solid $dark-red;
+
+            @include media-breakpoint-down(md) {
+                display: block;
+            }
+        }
+
+        &.is-tab-bar-menu-link-active {
+
+            @include media-breakpoint-up(lg) {
+                background-color: $white-gray;
+            }
+        }
+
+        &:hover, &:focus {
+            background-color: $white-gray;
+        }
+
+        @include media-breakpoint-up(lg) {
+            border: 0;
+            border-right: rem(1) solid $light-gray4;
+            display: inline-block;
+            font-size: rem(11);
+            line-height: rem(48);
+            margin: 0;
+            padding: 0 rem(25);
+            transition: background-color .25s ease-out;
+            width: auto;
+
+            &:first-of-type {
+                border-left: rem(1) solid $light-gray4;
+            }
+        }
+
+        @include media-breakpoint-down(md) {
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: rem(1.5);
+            display: block;
+            margin: 0 auto rem(15);
+            font-size: rem(12);
+            color: $black;
+            text-transform: uppercase;
+            padding: rem(25);
+            text-align: center;
+            cursor: pointer;
+            border: rem(1) solid $grey7;
+            width: calc(100% - 50px);
+        }
+    }
+}
+
+.account-dashboard-tab-sticky {
+    position: fixed;
+    width: 100%;
 }

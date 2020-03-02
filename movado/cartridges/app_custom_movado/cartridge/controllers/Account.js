@@ -73,6 +73,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var registrationFormObj = null;
     var redirectUrl = null;
     var isMiniCart = empty(req.querystring.isMiniCart) ? false : req.querystring.isMiniCart;
+    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
 
     // setting variables for the BeforeComplete function
     if (isMiniCart) {

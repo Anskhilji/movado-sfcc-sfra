@@ -15,7 +15,7 @@
         <button class="close-cart-img" id="close-mini-cart" type="button"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
     </div>
 </div>
-<isif condition="${!empty(items)}">
+<isif condition="${!empty(items.length)}">
     <isif condition="${items.length === 0}">
         <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
         <div class="empty-mini-cart-image justify-content-center row">

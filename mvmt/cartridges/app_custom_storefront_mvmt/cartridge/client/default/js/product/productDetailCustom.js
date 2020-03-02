@@ -11,21 +11,20 @@ $('.linked-products').slick({
 });
 
 $(function() {
-    var header = $('header').height();
-    var productdetail = $('.product-detail').height();
-    var stickybar = $('.sticky-bar');
+    var $header = $('header').height();
+    var $productdetail = $('.product-detail').height();
+    var $stickybar = $('.sticky-bar');
     $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
+        var $scroll = $(window).scrollTop();
 
-
-        if (scroll >= productdetail) {
-            stickybar.css({
-                top: header +'px'
+        if ($scroll >= $productdetail) {
+            $stickybar.css({
+                top: $header +'px'
             });
         }
 
         else {
-            stickybar.css("top","-25px")
+            $stickybar.css('top','-45px')
         }
     });
 });

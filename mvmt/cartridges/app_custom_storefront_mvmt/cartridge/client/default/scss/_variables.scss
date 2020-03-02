@@ -4,6 +4,7 @@ $gray7: #777777;
 $gray8: #f3f3f3;
 $gray9: #8f8f8f;
 $gray10: #ddd; 
+$gray11: #979797;
 
 $light-gray: #5c5c5c;
 $light-gray2: #929292;
@@ -13,6 +14,11 @@ $light-gray5: #f6f6f6;
 $light-gray6: #bfbfbf;
 $light-gray7: #404040;
 $light-gray8: #D1D1D1;
+
+$chinese-silver: #cbcbcb;
+$transparent-gray: rgba(0, 0, 0, 0.8);
+$mardi-gras: #060506;
+
 $light-gray9: #c2c2c2;
 
 $light-green: #53c563;
@@ -85,6 +91,12 @@ $gray36: #5c5c5c;
 $red1: #d9021b;
 $blue: #0051b2;
 
+$dark-gray: #222222;
+$dark-gray1: #212121;
+$cyan-blue: #f7f8f9;
+$cyan-blue1: #ced4da;
+$dark-orange1: #231103;
+$white-smoke2: #efefef;
 
 //font Families:
 $font-medium : "futura-pt-medium", Arial, sans-serif !default;
@@ -108,7 +120,7 @@ $grid-breakpoints: (
     md-down: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1200px
+    xl: 1280px
 ) !default;
 
 $container-max-width: 1440px;
