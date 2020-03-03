@@ -32,7 +32,7 @@
 
         <section class="account-heading">
             <h1 class="account-heading-title">
-                <iscontentasset aid="dashboard-heading-title" /> 
+                <iscontentasset aid="dashboard-heading-title" />
                 ${!empty(account.profile.firstName) ? account.profile.firstName : ''}
                 ${!empty(account.profile.lastName) ? account.profile.lastName : ''}
             </h1>
