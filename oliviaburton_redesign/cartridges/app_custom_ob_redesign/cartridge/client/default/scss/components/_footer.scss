@@ -1,0 +1,230 @@
+@import "~olivia-burton-uk/components/footer";
+@import "components/countrySelector";
+
+footer {
+    overflow: hidden;
+    padding-bottom: 0;
+    max-width: $custom-xl;
+    width: 100%;
+    padding-right: rem(15);
+    padding-left: rem(15);
+    margin-right: auto;
+    margin-left: auto;
+
+    @include media-breakpoint-up(sm) {
+        margin-top: rem(30);
+    }
+
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+    }
+
+    .copyright {
+
+        @include media-breakpoint-down(sm) {
+            text-align: center;
+        }
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .social-links {
+        max-width: 100%;
+        float: left;
+
+        li {
+
+            @include media-breakpoint-down(sm) {
+                width: auto;
+                margin: rem(5) rem(14) rem(5) rem(5);
+            }
+        }
+
+        a {
+            font-size: rem(26);
+            
+            &.title {
+               color: $black;
+               font-family: $gill-sans-font-stack;
+               font-size: rem(17);
+               font-weight: 600;
+               line-height: rem(22);
+               text-decoration: none;
+               pointer-events: none;
+            }
+        }
+    }
+
+    .footer-item {
+
+        &-sub-items {
+
+            @include media-breakpoint-down(sm) {
+                padding: rem(16);
+                background-color: $pink-grey;
+            }
+        }
+
+        &-social-icons {
+            margin-left: rem(-5);
+            margin-bottom: rem(24);
+
+            @include media-breakpoint-down(sm) {
+
+                .social-links {
+                    width: 100%;
+                    text-align: center;
+
+                    li {
+                        float: none;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        &-mobile-menu-footer {
+            width: 100%;
+            display: inline-block;
+            float: left;
+            margin: rem(20) 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: rem(14);
+            padding: 0 rem(20);
+
+            li {
+                display: inline-block;
+                text-align: center;
+                padding: 0 rem(4);
+                letter-spacing: rem(3);
+            }
+        }
+
+        &-social-icons, &-news-letter, &-country-selector {
+            display: block;
+            width: 100%;
+            float: left;
+        }
+
+        &-news-letter {
+
+            @include media-breakpoint-down(sm) {
+                text-align: center;
+                background: inherit;
+                padding-top: rem(12);
+            }
+
+            a {
+                font-family: $gill-sans-font-stack;
+                font-weight: 600;
+                line-height: rem(22);
+                font-size: rem(17);
+
+                p {
+                    color: $gray20;
+                    font-family: $gill-sans-font-stack;
+                    font-size: rem(15);
+                    font-weight: 300;
+                    line-height: rem(20);
+                }
+            }
+        }
+
+        &-country-selector { 
+
+            @include media-breakpoint-down(sm) {
+                margin-top: rem(16);
+            }
+
+            .country-selector-wrapper {
+                display: inline;
+                margin-left: 0;
+                width: rem(130);
+
+                @include media-breakpoint-down(sm) {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                select {
+                    color: $gray20;
+                    font-family: $gill-sans-font-stack;
+                    font-size: rem(15);
+                    font-weight: 600;
+                    line-height: rem(21);
+                    padding-right: 0;
+                    vertical-align: bottom;
+                }
+            }
+        }
+
+        .home-email-signup {
+            background-color: $white;
+
+            @include media-breakpoint-down(sm) {
+                margin: rem(16);
+            }
+
+            form {
+
+                .input-group {
+                    width: rem(300);
+
+                    @include media-breakpoint-down(sm) {
+                        width: 100%;
+                    }
+
+                    .form-control {
+                        height: rem(45);
+                        border: rem(2) solid $dim-grey;
+                        border-right-width: 0;
+                    }
+                }
+            }
+        }
+    }
+    
+    h3 {
+    
+        a {
+        
+            &.title {
+                color: $gray20;
+                font-size: rem(15);
+                font-weight: 600;
+                line-height: rem(21);
+            }
+        }
+    }
+
+    .content {
+    
+        li {
+        
+            a {
+              color: $gray20;
+              font-size: rem(12);
+              line-height: rem(20);
+            }
+        }
+    }
+    
+    .html-content-container {
+    
+       .content-item {
+           height: rem(180);
+        }
+    }
+
+    .email-signup-arrow {
+        font-size: rem(40);
+        width: rem(35);
+        background-color: $black;
+        color: white;
+    }
+}
+

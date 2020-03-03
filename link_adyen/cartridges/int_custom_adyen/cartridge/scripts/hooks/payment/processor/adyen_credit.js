@@ -83,7 +83,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var adyenCreditVerification = require('*/cartridge/scripts/adyenCreditVerification');
     Transaction.begin();
     if (riskifiedCheckoutCreateResponse) {
-        var result = adyenCreditVerification.verify({
+        result = adyenCreditVerification.verify({
             Order: order,
             Amount: paymentInstrument.paymentTransaction.amount,
             CurrentSession: session,

@@ -19,7 +19,7 @@
         </isif>
         <span class="wishlistItemCardsData" data-uuid="${pdict.wishlist.UUID}" data-href="${URLUtils.url('Wishlist-MoreList')}" data-page-number="${pdict.wishlist.pageNumber || 1}"  data-public-view=${pdict.wishlist.publicView}></span>
     </div>
-    <div>
+    <div class="${!empty(pdict.wishlist) && pdict.wishlist.publicList ? 'd-none' : 'd-block' } socialsharing">
         <isset name="shareLinks" value="${pdict.socialLinks}" scope="page"/>
         <isinclude template="wishlist/components/socialsharing" />
     </div>

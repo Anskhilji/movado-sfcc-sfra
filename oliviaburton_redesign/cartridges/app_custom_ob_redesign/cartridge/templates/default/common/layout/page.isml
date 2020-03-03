@@ -9,7 +9,6 @@
         <isactivedatahead/>
     </head>
     <body>
-        
         <isscript>
             session.setTrackingAllowed(true);
         </isscript>
@@ -22,9 +21,16 @@
             </iscomment>
             <isinclude url="${URLUtils.url('EmailPopUp-Show')}">
             <div id="mainContent">
-              <isreplace/>
+                <isreplace/>
             </div>
-            <isinclude template="/components/footer/pageFooter" />
+            
+            <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignABTest','Control')}">
+                <isinclude template="/components/footer/old/pageFooter" />
+            <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')}" >
+                <isinclude template="/components/footer/pageFooter" />
+            <iselse>
+                <isinclude template="/components/footer/old/pageFooter" />
+            </isif>
         </div>
         <div class="error-messaging"></div>
         <div class="modal-background"></div>
