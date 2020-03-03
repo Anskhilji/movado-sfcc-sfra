@@ -28,7 +28,6 @@
                       ${Resource.msg('link.header.menu', 'common', null)}
                     </span>
                   </button>
-                  <button class="mobile-search d-lg-none"></button>
                 </div>
                 <div class="middle-menu desktop-view">
                   <div class="account-wrapper d-block d-lg-none">
