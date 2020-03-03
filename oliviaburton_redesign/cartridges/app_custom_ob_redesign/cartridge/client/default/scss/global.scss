@@ -1,6 +1,7 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 
-@import "~olivia-burton-uk/global";
-@import "variables";
-@import "home/homeSlot";
-@import "components/footer";
+@import '~olivia-burton-uk/global';
+@import 'variables';
+@import 'home/homeSlot';
+@import 'components/footer';
+@import 'components/newsletterSignUp';

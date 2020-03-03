@@ -103,13 +103,15 @@ footer {
             }
         }
 
-        &-social-icons, &-news-letter, &-country-selector {
+        &-social-icons, &-country-selector {
             display: block;
             width: 100%;
             float: left;
         }
 
         &-news-letter {
+            display: block;
+            width: 100%;
 
             @include media-breakpoint-down(sm) {
                 text-align: center;
@@ -122,6 +124,7 @@ footer {
                 font-weight: 600;
                 line-height: rem(22);
                 font-size: rem(17);
+                pointer-events: none;
 
                 p {
                     color: $gray20;
