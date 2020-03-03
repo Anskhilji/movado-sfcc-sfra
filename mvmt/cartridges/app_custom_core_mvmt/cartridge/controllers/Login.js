@@ -88,6 +88,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
                 lastName = externalProfile.name.familyName;
             } else {
                 // The other providers use one of these, GitHub has just a 'name'.
+                // Custom Start : Changes in the first name and last name for the gmail account
                 firstName = externalProfile['first-name']
                     || externalProfile.first_name
                     || externalProfile.given_name
@@ -97,6 +98,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
                     || externalProfile.last_name
                     || externalProfile.family_name
                     || externalProfile.name;
+                // Custom End
             }
 
             email = externalProfile['email-address'] || externalProfile.email;
