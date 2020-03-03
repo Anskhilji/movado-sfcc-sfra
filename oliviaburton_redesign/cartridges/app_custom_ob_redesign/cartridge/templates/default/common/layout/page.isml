@@ -15,10 +15,13 @@
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
         <isinclude url="${URLUtils.url('Page-IncludeHeader')}" />
-        <iscomment>
-            This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeHeader.
+
+            <iscomment> Custom Start: This template should be included when A/B testing is finishied. 
+                Then above remote include should be removed along with the controller Page-IncludeHeader.
+            </iscomment>
             <isinclude template="/components/header/pageHeader" />
-        </iscomment>
+            <iscomment> Custom End </iscomment>
+
         <isinclude url="${URLUtils.url('EmailPopUp-Show')}">
         <div id="mainContent">
             <isreplace/>
