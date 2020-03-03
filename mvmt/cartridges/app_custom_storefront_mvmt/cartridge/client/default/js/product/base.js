@@ -724,7 +724,9 @@ module.exports = function() {
         attributeSelect(value, $productContainer);
     });
     
-
+    $('#strapguide').on('click', function (e) {
+        $('#strapguid').modal();
+    });
     
     $(document).off('click.add-to-cart-mvmt').on('click.add-to-cart-mvmt', 'button.add-to-cart-mvmt, button.add-to-cart-global', function (e) {
         e.preventDefault();
