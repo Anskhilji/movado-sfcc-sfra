@@ -1,0 +1,82 @@
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/contactus.js');
+        assets.addCss('/css/staticContent.css');
+    </isscript>
+    <isset name="isPage" value="contactUs" scope="page" />
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.company.info', 'eum', null))}"/>
+    <main role="main" id="main" class="pt_customerservice">
+    <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
+    <div class="account-dashboard-banner floating-header-banner">
+        <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <iscomment> Custom End </iscomment>
+    <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
+    <iscomment>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 hidden-xs-down">
+          <ol class="breadcrumb">
+            <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
+              <li class="breadcrumb-item">
+                <a href="${breadcrumbValue.url}">
+                  ${breadcrumbValue.htmlValue} </a>
+              </li>
+            </isloop>
+          </ol>
+        </div>
+      </div>
+    </div>
+    </iscomment>
+    <div class="container">
+      <div class="row">
+      <iscomment>Remove nav 
+      <aside class="col-md-3">
+        <nav>
+          <div class="secondary-navigation">
+            <ul>
+              <li>
+                <a href="${URLUtils.url('Search-ShowContent', 'fdid', pdict.foldersearch.folder.ID)}">
+                  <isprint value="${pdict.foldersearch.folder.displayName}" />
+                </a>
+              </li>
+              <isloop items="${pdict.foldersearch.folder.onlineContent}" var="contentAsset" status="loopcounter">
+                <li>
+
+                  <a href="${URLUtils.url('Page-Show', 'cid', contentAsset.ID)}"	<isif
+                    condition=" ${pdict.content.ID === contentAsset.ID}">
+                    class="is-selected"
+                    </isif>>
+                    <isprint value="${contentAsset.name}" />
+                  </a>
+                </li>
+              </isloop>
+            </ul>
+          </div>
+        </nav>
+        <isprint value="${pdict.helpContent}" encoding="off" />
+      </aside>
+      </iscomment>
+            <div class="contact-tab-callout-wrapper">
+                <h1 class="text-center text-uppercase">${Resource.msg('contact.us.heading','contactUs',null)}</h1>
+                <p class="text-center">${Resource.msg('faq-contact-us-get-in-touch','contactUs',null)}</p>
+                <hr class="w-50"/>
+            </div>
+      <div class="col-md-6">
+
+
+        <isinclude url="${URLUtils.url('ContactUs-Load')}">
+
+      </div>
+      <div class="col-md-6 contact-us-right-container">
+          <div class="contact-tab-right-wrapper">
+             <iscontentasset aid="contact-us-address-wrapper"/>
+          </div>
+        </div>
+
+    </div>
+    </div>
+  </main>
+</isdecorate>
