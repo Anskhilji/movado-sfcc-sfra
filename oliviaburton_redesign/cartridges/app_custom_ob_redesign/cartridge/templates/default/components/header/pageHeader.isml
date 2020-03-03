@@ -1,4 +1,7 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
+<iscomment>
+  Changed HTML Structure and added css classes as required. 
+</iscomment>
 <header class="redesign-header">
   <nav>
     <div class="sticky-header-wrapper">
@@ -7,6 +10,9 @@
         <div class="header-wrapper">
           <div class="col">
             <div class="row">
+              <iscomment>
+                Changed HTML Structure and added css classes as required of this block. 
+              </iscomment>
               <div class="col-12 header-container">
                 <div class="left navbar-header">
                   <div class="hidden-md-down account-wrapper">
@@ -25,16 +31,16 @@
                   <button class="mobile-search d-lg-none"></button>
                 </div>
                 <div class="middle-menu desktop-view">
-                    <div class="account-wrapper d-block d-lg-none">
-                        <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                  <div class="account-wrapper d-block d-lg-none">
+                    <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                  </div>
+                  <div class="main-menu multilevel-dropdown d-none d-lg-block" id="sg-navbar-collapse">
+                    <div class="container redesign-header-container ">
+                      <div class="row">
+                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                      </div>
                     </div>
-                    <div class="main-menu multilevel-dropdown d-none d-lg-block" id="sg-navbar-collapse">
-                        <div class="container redesign-header-container ">
-                            <div class="row">
-                                <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
                 <div class="right">
                   <div class="hidden-sm-down search">
