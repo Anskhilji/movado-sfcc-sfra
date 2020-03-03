@@ -21,9 +21,9 @@ $(function() {
             } else {
                 $('.pdp-v-one .engraved-text').text(showText);
                 $('.pdp-v-one .engraving-form .text-on-watch pre').text(showText);
-                $('.cancel').addClass('submitted');
-                $('.cancel').attr('form', 'embossingForm');
-                $('.cancel').attr('type', 'submit');
+                $('.engraving-cancel').addClass('submitted');
+                $('.engraving-cancel').attr('form', 'embossingForm');
+                $('.engraving-cancel').attr('type', 'submit');
             }
         }, 300);
     });
@@ -38,9 +38,9 @@ $(function() {
             } else {
                 $('.pdp-v-one .debossing-text').text(debossingtext);
                 $('.pdp-v-one .debossing-form .text-on-watch span').text(debossingtext);
-                $('.cancel').addClass('submitted');
-                $('.cancel').attr('form', 'embossingForm');
-                $('.cancel').attr('type', 'submit');
+                $('.debossing-cancel').addClass('submitted');
+                $('.debossing-cancel').attr('form', 'embossingForm');
+                $('.debossing-cancel').attr('type', 'submit');
             }
         }, 100);
     });
@@ -56,9 +56,9 @@ $(function() {
             e.preventDefault();
             return;
         } else {
-            $('.cancel').removeClass('submitted');
-            $('.cancel').removeAttr('form');
-            $('.cancel').removeAttr('type');
+            $('.debossing-cancel').removeClass('submitted');
+            $('.debossing-cancel').removeAttr('form');
+            $('.debossing-cancel').removeAttr('type');
         }
 
         $('.pdp-v-one .debossing-text').text('');
@@ -74,7 +74,7 @@ $(function() {
     $('.pdp-v-one .engraving-cancel').on('click', function(e) {
         if ($('.pdp-v-one .engraved-text').text() === '') {
             e.stopPropagation();
-            $('.pdp-v-one .debossing-form .text-area .engraving-input').val('');
+            $('.pdp-v-one .engraving-form .text-area .engraving-input').val('');
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
@@ -82,14 +82,14 @@ $(function() {
             e.preventDefault();
             return;
         } else {
-            $('.cancel').removeClass('submitted');
-            $('.cancel').removeAttr('form');
-            $('.cancel').removeAttr('type');
+            $('.engraving-cancel').removeClass('submitted');
+            $('.engraving-cancel').removeAttr('form');
+            $('.engraving-cancel').removeAttr('type');
         }
 
         $('.pdp-v-one .engraved-text').text('');
         $('.pdp-v-one .engraving-form .text-on-watch pre').text('');
-        $('.pdp-v-one .debossing-form .text-area .engraving-input').val('');
+        $('.pdp-v-one .engraving-form .text-area .engraving-input').val('');
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
         $('body, html').removeClass('no-overflow');
