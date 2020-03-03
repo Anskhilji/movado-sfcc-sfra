@@ -44,7 +44,7 @@
 
                     &::placeholder {
                         font-size: rem(10);
-                        color: lightgray;
+                        color: $white-smoke;
                     }
                 }
 
@@ -58,6 +58,7 @@
             }
             
             &-icon {
+                
                 img {
                     margin-right: rem(15);
                     max-width: initial;
@@ -70,10 +71,15 @@
     }
 
     .minicart {
-        a.minicart-link {
-            display: inline-block;
-            img {
-                max-width: initial;
+        
+        a {
+            
+            &.minicart-link {
+                display: inline-block;
+            
+                img {
+                    max-width: initial;
+                }
             }
         }
     }
@@ -131,7 +137,9 @@
     }
 
     .left {
+        
         button {
+            
             .menu-icon {
                 background: url("../images/round-menu-24px.png") center center no-repeat;
                 top: rem(3);

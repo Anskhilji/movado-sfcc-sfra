@@ -3,11 +3,11 @@
     <iscontentasset aid="header-store-locator"/>
 </div>
 <isif condition="${pdict.name === null}">
-  <div class="user">
-    <a href="${URLUtils.https('Login-Show')}">
-        <iscontentasset aid="header-account-section"/>
-    </a>
-  </div>
+    <div class="user">
+        <a href="${URLUtils.https('Login-Show')}">
+            <iscontentasset aid="header-account-section"/>
+        </a>
+    </div>
 <iselse/>
     <div class="user user-logged-in" tabindex="0">
         <div class="user-logged-in-icon">

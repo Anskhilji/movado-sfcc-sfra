@@ -47,14 +47,17 @@
                                 margin: 0;
                                 margin-right: rem(40);
                             }
-    
-                            .dropdown-toggle {
-                                margin-bottom: rem(15);
-                            }
-    
-                            .dropdown-menu { 
-                                padding: 0;
-                                margin: 0;
+
+                            .dropdown {
+                                
+                                &-toggle {
+                                    margin-bottom: rem(15);
+                                }
+        
+                                &-menu { 
+                                    padding: 0;
+                                    margin: 0;
+                                }
                             }
     
                             .circle {
@@ -65,22 +68,27 @@
                         }
                     }
 
-                    .dropdown-item {
-                        margin-bottom: rem(20);
-                        padding: 0;
+                    .dropdown {
+                        
+                        &-item {
+                            margin-bottom: rem(20);
+                            padding: 0;
+                        }
 
-                        .dropdown-link {
+                        &-link {
                             font-family: $font-gill-std;
                             font-size: rem(13);
                             font-weight: 600;
                             color: $gray20;
                             letter-spacing: normal;
 
-                            &.dropdown-toggle {
-                                @include media-breakpoint-up(lg) {
-                                    color: $dark-gray;
-                                    font-style: italic;
-                                }
+                        }
+                        
+                        &-toggle {
+                                
+                            @include media-breakpoint-up(lg) {
+                                color: $dark-gray;
+                                font-style: italic;
                             }
                         }
                     }
@@ -91,10 +99,11 @@
                             padding: 0;
                             display: flex;
                             flex-wrap: wrap;
-                            width: rem(205);
+                            width: rem(170);
 
                             .dropdown-item {
-                                flex-basis: 25%;
+                                flex-basis: 30%;
+                                margin-bottom: rem(15);
 
                                 .circle {
                                     font-size: 0;
@@ -104,7 +113,6 @@
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -122,9 +130,11 @@
                     line-height: rem(20);
                     position: relative;
                     background-color: transparent;
+                    
                     @include media-breakpoint-down(lg) {
                         margin: rem(30) rem(5);
                     }
+                    
                     &:after {
                         display: none;
                     }
@@ -144,9 +154,10 @@
                     box-shadow: none;
                 }
 
-                &.show{
+                &.show {
                     
                     .nav-link {
+                        
                         &:before {
                             background-color: $pink-rose;
                         }
@@ -161,11 +172,14 @@
     }
 
     .user-logged-in {
+        
         &:hover {
+        
             .popover {
                 display: block;
             }
         }
+        
         .popover {
             top: rem(40);
             left: auto;
@@ -177,7 +191,7 @@
             }
         }
         
-        .user-logged-in-icon {
+        &-icon {
             padding: rem(10) 0;
         }
     }
@@ -351,6 +365,7 @@
         }
 
         .navbar-expand-md {
+            
             @include media-breakpoint-up(sm) {
                 flex-flow: wrap;
 
@@ -401,10 +416,6 @@
                         width: rem(11);
                         height: rem(11);
                     }
-
-                    a {
-
-                    }
                 }
             }
 
@@ -412,6 +423,7 @@
             
                 .nav-item, .dropdown-item {
                     border: none;
+                    
                     .nav-link, .dropdown-link {
                         font-family: $font-gill-std;
                         font-size: rem(12);
@@ -421,6 +433,7 @@
                         text-transform: capitalize;
 
                         &.dropdown-toggle {
+                            
                             &:after {
                                 width: rem(6);
                                 height: rem(6);

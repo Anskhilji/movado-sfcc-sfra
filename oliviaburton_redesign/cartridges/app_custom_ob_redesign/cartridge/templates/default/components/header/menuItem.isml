@@ -1,3 +1,6 @@
+<iscomment>
+    Changed HTML Structure and added css classes as required. 
+</iscomment>
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <isif condition="${topCat.disableSubCategories}">
         <div class="shop-by-collection-slide">
@@ -36,10 +39,16 @@
                         </ul>
                     </isif>
                 <iselse>
+                    <iscomment>
+                        Color refinements added. 
+                    </iscomment>
                     <isinclude template="components/header/colorRefinements"/>
                 </isif>
             </isloop>
         </div>
+        <iscomment>
+            recommendations added. 
+        </iscomment>        
         <div class="submenu-recommendations" data-recomendationcategory="${topCat.id}">
             <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
