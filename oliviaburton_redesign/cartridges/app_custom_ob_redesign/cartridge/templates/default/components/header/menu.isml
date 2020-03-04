@@ -32,8 +32,6 @@
                 </isloop>
             </isif>
             <div class="divider"><hr /></div>
-            <a class="store-locator" href="${URLUtils.httpsUrl('Stores-Find', 'showMap', true, 'horizontalView', true, 'isForm', true)}">${Resource.msg('label.store.locator', 'common', null)}</a>
-            <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
         </ul>
     </div>
     <div class="menu-group sticky-account">
