@@ -71,7 +71,7 @@
                     .dropdown {
                         
                         &-item {
-                            margin-bottom: rem(20);
+                            margin-bottom: rem(10);
                             padding: 0;
                         }
 
@@ -81,9 +81,31 @@
                             font-weight: 600;
                             color: $gray20;
                             letter-spacing: normal;
+                            padding-bottom: rem(5);
+                            overflow: hidden;
+                            position: relative;
+                            display: inline-block;
 
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                transition: transform .3s ease;
+                                left: 0;
+                                bottom: 0;
+                                width: 100%;
+                                height: rem(2);
+                                background: $pink-rose;
+                                transform:  translateX(-100%);
+                            }
+
+                            &:hover {
+                            
+                                &:before {
+                                    transform:  translateX(0);
+                                }
+                            }
                         }
-                        
+
                         &-toggle {
                                 
                             @include media-breakpoint-up(lg) {
