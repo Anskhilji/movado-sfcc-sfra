@@ -134,6 +134,7 @@
 
     .header-menu-wrapper { 
         padding: 0;
+        box-shadow: rem(1) rem(2) rem(5) 0 $grey-transparent-7;
     }
 
     .left {
@@ -167,5 +168,12 @@
         @include media-breakpoint-down(sm) {
             font-size: rem(12);
         }
+    }
+}
+
+.checkout-header {
+
+    .redesign-quantity {
+        right: rem(-25);
     }
 }
