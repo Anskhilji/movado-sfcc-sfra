@@ -1,3 +1,82 @@
 @import '../variables';
 @import '~movado/account/profile';
 @import 'account';
+
+.address-form {
+    .form-control {
+        border: rem(1) solid $cyan-blue1;
+        padding: rem(16);
+        font-family: $font-primary;
+        letter-spacing: rem(1.5);
+        color: $light-gray;
+        line-height: 1;
+        font-size: rem(14);
+        width: 100%;
+        
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    
+    .form-control-label {
+        color: $dark-orange1;
+        font-size: rem(11);
+        font-weight: 500;
+        letter-spacing: rem(1);
+        padding: 0;
+        
+    }
+    
+    .custom-select {
+        border: rem(1) solid $cyan-blue1;
+        padding: rem(20);
+        font-family: $font-primary;
+        letter-spacing: rem(1.5);
+        color: $light-gray;
+        line-height: 1;
+        font-size: rem(14);
+        width: 100%;
+    }
+    
+    button {
+        color: $white;
+        background-color: $black;
+        border: rem(2) solid $black;
+        
+        &:hover {
+            background-color: $light-green;
+            border: rem(2) solid $black;
+            box-shadow: none;
+        }
+        
+        &:focus {
+            box-shadow: none;
+            outline: none;
+            box-shadow: none;
+        }
+        
+        &:not(:disabled):not(.disabled):active:focus, &:focus {
+            box-shadow: none;
+        }
+    }
+    
+    a {
+        border: rem(2) solid $black;
+        
+        &:hover {
+            background-color: $black;
+            color: $white;
+            box-shadow: none;
+        }
+        
+        &:focus {
+            box-shadow: none;
+            outline: none;
+            box-shadow: none;
+        }
+        
+        &:not(:disabled):not(.disabled):active:focus {
+            box-shadow: none;
+        }
+    }
+}

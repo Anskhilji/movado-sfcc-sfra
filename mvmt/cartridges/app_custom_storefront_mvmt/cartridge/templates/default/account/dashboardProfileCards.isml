@@ -1,7 +1,6 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <div class="col-12 p-0">
     <!---Order History--->
-    <isset name="account" value="${!empty(pdict.account) ? pdict.account : ''}" scope="page"/>
     <isset name="order" value="${!empty(account.orderHistory) ? account.orderHistory : ''}" scope="page"/>
     <isinclude template="account/order/orderHistoryCard"/>
     <!---Profile--->

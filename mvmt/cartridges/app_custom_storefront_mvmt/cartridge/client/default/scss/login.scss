@@ -1,5 +1,6 @@
 @import 'variables';
 @import '~movado/login';
+@import 'components/formFields';
 
 .page {
 
@@ -78,10 +79,6 @@
             padding: rem(32);
         }
 
-        @include media-breakpoint-down(md) {
-            padding: rem(20);
-        }
-
         .login-form-nav {
 
             .tab-pane {
@@ -111,6 +108,12 @@
                         line-height: rem(16);
                         color: $black;
                         padding-bottom: rem(12);
+
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(12);
+                            font-weight: 500;
+                            padding-bottom: rem(5);
+                        }
 
                         &.active {
                             border-bottom: rem(4) solid $black;
@@ -260,6 +263,8 @@
         &.trackorder {
 
             .card-body {
+                padding-left: rem(32);
+                padding-right: rem(32);
 
                 @include media-breakpoint-down(md) {
                     padding-top: 0;
@@ -416,6 +421,18 @@
             }
 
             .form-group {
+
+                &.required {
+                     .form-control-label {
+                        &::after {
+                            content: "";
+                        }
+                        
+                        &::before {
+                            content: "";
+                        }
+                    }
+                }
 
                 .form-control-label {
                     font-size: rem(11);

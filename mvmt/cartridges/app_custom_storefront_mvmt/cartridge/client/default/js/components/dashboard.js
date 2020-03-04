@@ -8,7 +8,7 @@ module.exports = function () {
         var $totalHeaderSize = $headerBannerSize - 30;
         if (!$('.tab-bar-menu').hasClass('dashboard-active')) {
             if ($(this).scrollTop() > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() : $headerSize;
+                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
                 $('.tab-bar-main').css('top', $headerSize);
             } else {
@@ -31,7 +31,7 @@ module.exports = function () {
         var $headerSize = $('.sticky-header-wrapper').height();
         if (window.pageYOffset > $headerSize) {
             $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
-            $('.tab-bar-main').css('top', $headerSize);
+            $('.tab-bar-main').css('top', $headerSize -2);
         }
         $('.tab-bar-menu').removeClass('dashboard-active');
     });
