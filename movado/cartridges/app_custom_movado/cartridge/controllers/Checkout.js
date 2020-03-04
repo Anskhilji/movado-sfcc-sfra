@@ -19,6 +19,16 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
+        // Custom Start: ESW logic 
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var session = req.session.raw;
+        if (eswHelper.getEShopWorldModuleEnabled()) {
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
+                res.redirect(URLUtils.https('Cart-Show').toString());
+            }
+        }
+        // Custom End
+
         if (currentBasket && !req.currentCustomer.profile) {
 			var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
             var googleOauthProvider = Site.getCurrent().getCustomPreferenceValue('googleOauthProvider');

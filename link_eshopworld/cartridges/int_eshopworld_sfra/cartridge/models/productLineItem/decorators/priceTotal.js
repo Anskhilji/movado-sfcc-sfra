@@ -4,9 +4,7 @@ var formatMoney = require('dw/util/StringUtils').formatMoney;
 
 var collections = require('*/cartridge/scripts/util/collections');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
-var priceHelper = require('*/cartridge/scripts/helpers/priceHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
-
 /**
  * get the total price for the product line item
  * @param {dw.order.ProductLineItem} lineItem - API ProductLineItem instance
@@ -17,14 +15,10 @@ function getTotalPrice(lineItem) {
     var price;
     var result = {};
     var template = 'checkout/productCard/productCardProductRenderedTotalPrice';
-    var savingsPrice;
 
-    // Custom Start: ESW Logic
     if (lineItem.priceAdjustments.getLength() > 0) {
-//      result.nonAdjustedPrice = formatMoney(lineItem.getPrice());
-        eswHelper.getMoneyObject(lineItem.getPrice(), false);
+        result.nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.getPrice(), false);
     }
-    // Custom End
 
     price = lineItem.adjustedPrice;
 
@@ -33,28 +27,19 @@ function getTotalPrice(lineItem) {
     collections.forEach(lineItem.optionProductLineItems, function (item) {
         price = price.add(item.adjustedNetPrice);
     });
-    // Custom Start: ESW Login
     if (lineItem.quantityValue !== 1) {
         result.price = formatMoney(eswHelper.getSubtotalObject(lineItem, false));
     } else {
         result.price = formatMoney(eswHelper.getUnitPriceCost(lineItem));
     }
-    // Custom End
-
-    // Not needed because ESW will set the result price
-    // result.price = formatMoney(price);
-
-    savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
-    if (savingsPrice) {
-        result.formattedSavingPrice = formatMoney(savingsPrice);
-        result.savingPrice = savingsPrice;
-    }
 
     context = { lineItem: { priceTotal: result } };
+
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
 
     return result;
 }
+
 
 module.exports = function (object, lineItem) {
     Object.defineProperty(object, 'priceTotal', {
