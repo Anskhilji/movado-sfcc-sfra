@@ -301,7 +301,7 @@
          .form-control-label {
     
             &::after {
-                content: "";
+                content: "*";
                 color: $black;
             }
 
