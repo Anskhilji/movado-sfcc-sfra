@@ -27,6 +27,7 @@
         opacity: 1;
         cursor: default;
         border-radius: 0;
+        outline: 0;
 
         @include media-breakpoint-down(md) {
             display: flex;
@@ -142,6 +143,7 @@
 
         .empty-mini-cart-descriptions {
             line-height: rem(20);
+            padding-bottom: rem(30);
 
             p {
                 margin-bottom: 0;
@@ -169,7 +171,13 @@
         .empty-mini-cart-urls {
             padding-left: rem(40);
             padding-right: rem(40);
-            display: inline;
+            display: inline-block;
+            width: 100%;
+
+            @include media-breakpoint-down(xss) {
+                padding-left: rem(24);
+                padding-right: rem(24);
+            }
 
             p {
                 margin-bottom: 0;
@@ -186,7 +194,8 @@
                 color: $black;
                 border: rem(2) solid $black;
                 margin-bottom: rem(15);
-                width: rem(190);
+                width: 48%;
+                max-width: rem(190);
                 height: rem(49);
                 line-height: rem(49);
                 padding: 0;
