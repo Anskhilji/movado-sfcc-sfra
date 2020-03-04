@@ -27,9 +27,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var product;
     var productUrl;
     var quickViewUrl;
-    var requestQuerystring = {
-        pid: product.id
-    };
 
     // TODO: remove this logic once the Product factory is
     // able to handle the different product types
@@ -46,6 +43,11 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
     }
+    
+    var requestQuerystring = {
+        pid: product.id
+    };
+    
     var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
