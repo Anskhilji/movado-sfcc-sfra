@@ -1,5 +1,6 @@
 @import 'variables';
 @import '~movado/login';
+@import 'components/formFields';
 
 .page {
 
@@ -416,6 +417,18 @@
             }
 
             .form-group {
+
+                &.required {
+                     .form-control-label {
+                        &::after {
+                            content: "";
+                        }
+                        
+                        &::before {
+                            content: "";
+                        }
+                    }
+                }
 
                 .form-control-label {
                     font-size: rem(11);
