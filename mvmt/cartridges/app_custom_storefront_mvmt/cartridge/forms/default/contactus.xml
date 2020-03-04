@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19">
 
-    <field formid="firstname" label="label.input.firstname.profile" type="string" mandatory="true" binding="firstName"
+    <field formid="firstname" label="label.input.firstname.profile.contactus" type="string" mandatory="true" binding="firstName"
            max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"
@@ -13,7 +13,7 @@
            />
     <field
         formid="email" 
-        label="label.input.email.profile" 
+        label="label.input.email.profile.contactus" 
         mandatory="true" 
         max-length="50" 
         missing-error="error.message.required"
@@ -32,7 +32,7 @@
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"
            />
-    <field formid="myquestion" label="label.input.myquestion" type="string" mandatory="false">
+    <field formid="myquestion" label="label.input.myquestion.contactus" type="string" mandatory="false">
         <options>
             <option optionid="General Information" value="General Information" label="label.contactus.generalinformation"/>
             <option optionid="Order Status" value="Order Status" label="label.contactus.orderstatus"/>
