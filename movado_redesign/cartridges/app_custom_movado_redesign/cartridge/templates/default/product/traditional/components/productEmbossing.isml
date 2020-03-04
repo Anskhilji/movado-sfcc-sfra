@@ -21,9 +21,9 @@
 
         <div class="popup" pd-popup="debossing-popup">
             <div class="popup-inner pb-4">
-            <div class="modal-header-options p-2 mr-2">
-                <a class="close-option-popup pull-right">${Resource.msg('label.product.close.popup.symbol', 'product', 'null')}</a>
-            </div>
+                <div class="modal-header modal-header-options p-2 mr-2">
+                    <button type="button" class="close-option-popup close" data-dismiss="modal"></button>
+                </div>
                 <div class="popup-head mb-3">
                     <h1>${Resource.msg('label.product.add.debossing', 'product', 'null')}</h1>
                 </div>

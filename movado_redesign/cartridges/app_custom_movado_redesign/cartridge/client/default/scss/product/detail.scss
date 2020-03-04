@@ -668,7 +668,7 @@
 
         .bottom-block {
         
-            width: rem(235);
+            width: rem(267);
             height: rem(70);
             border-radius: rem(5);
             background: $slate-grey-light;
@@ -689,6 +689,14 @@
                 padding-left: rem(55);
                 margin: 0;
             }
+
+            svg {
+                width: rem(37);
+            }
+
+            img {
+                width: rem(37);
+            }
         }
 
         .free-shipping-block {
@@ -701,6 +709,13 @@
 
         .warranty-block {
             background: $slate-grey-light url("../../images/badge.png") left rem(15) center no-repeat;
+        }
+
+        .product-placeholder-block {
+
+            p {
+                padding-left: rem(20);
+            }
         }
     }
 
@@ -1489,12 +1504,30 @@ body {
 
     .modal-header-options {
         justify-content: flex-end;
-        margin-top: rem(-16);
+        border-bottom: 0;
+        
+        .close-option-popup {
+            background: url("../../images/zoom-close.png") center center no-repeat;
+            background-size: rem(18);
+            right: rem(20);
+            position: relative;
+            top: rem(-5);
+        }
     }
 
-    .close-option-popup {
-        text-align: center;
-    }
+    .close-promotion-popover {
+            display: block;
+            background: url("../../images/zoom-close.png") center center no-repeat;
+            background-size: rem(10);
+            width: rem(15);
+            height: rem(15);
+            background-color: $white;
+            border: 0;
+            margin-bottom: rem(-10);
+            position: absolute;
+            right: 6px;
+            top: 5px;
+        }
 
     &:hover {
         cursor: pointer;

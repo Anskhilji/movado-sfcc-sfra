@@ -48,7 +48,7 @@ $(function() {
     $('.pdp-v-one .debossing-cancel').on('click', function(e) {
         if ($('.pdp-v-one .debossing-text').text() === '') {
             e.stopPropagation();
-            $('.pdp-v-one .debossing-form .text-area .debossing-input').val('');
+            $('.pdp-v-one .debossing-input').val('');
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
@@ -63,7 +63,7 @@ $(function() {
 
         $('.pdp-v-one .debossing-text').text('');
         $('.pdp-v-one .debossing-form .text-on-watch span').text('');
-        $('.pdp-v-one .debossing-form .text-area .debossing-input').val('');
+        $('.pdp-v-one .debossing-input').val('');
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
         $('body, html').removeClass('no-overflow');
@@ -74,7 +74,7 @@ $(function() {
     $('.pdp-v-one .engraving-cancel').on('click', function(e) {
         if ($('.pdp-v-one .engraved-text').text() === '') {
             e.stopPropagation();
-            $('.pdp-v-one .engraving-form .text-area .engraving-input').val('');
+            $('.pdp-v-one .engraving-input').val('');
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
@@ -89,7 +89,7 @@ $(function() {
 
         $('.pdp-v-one .engraved-text').text('');
         $('.pdp-v-one .engraving-form .text-on-watch pre').text('');
-        $('.pdp-v-one .engraving-form .text-area .engraving-input').val('');
+        $('.pdp-v-one .engraving-input').val('');
         var targeted_popup_class = jQuery(this).attr('pd-popup-close');
         $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
         $('body, html').removeClass('no-overflow');

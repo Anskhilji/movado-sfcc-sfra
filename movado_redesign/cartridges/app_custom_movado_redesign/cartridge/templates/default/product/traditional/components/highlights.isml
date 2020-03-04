@@ -14,13 +14,33 @@
 </isif>
 
 <div class="detail-bottom-blocks col-sm-12">
-    <div class="bottom-block free-shipping-block">
-        <p>${pdict.productShippingDetail}</p>
-    </div>
-    <div class="bottom-block swiss-movement-block">
-        <p>${pdict.productSwissDetail}</p>
-    </div>
-    <div class="bottom-block warranty-block">
-        <p>${pdict.productWarrantyDetail}</p>
-    </div>
+    <isif condition="${pdict.productPlaceholderFirst}"> 
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderFirst}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block free-shipping-block">
+            <p>${Resource.msg('label.product.detail.shipping', 'product', null)}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productPlaceholderSecond}"> 
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderSecond}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block swiss-movement-block">
+            <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productPlaceholderThird}">
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderThird}" encoding="off" />
+        </div>
+     <iselse>
+         <div class="bottom-block warranty-block">
+             <p>${Resource.msg('label.product.detail.warranty', 'product', 'null')}</p>
+         </div>
+    </isif>
 </div>

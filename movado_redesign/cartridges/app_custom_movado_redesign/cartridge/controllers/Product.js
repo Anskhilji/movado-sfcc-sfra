@@ -69,9 +69,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
-    var productWarrantyDetail = product.custom.productWarrantyDetail;
-    var productSwissDetail = product.custom.productSwissDetail;
-    var productShippingDetail = product.custom.productShippingDetail;
+    var productPlaceholderFirst = product.custom.productPlaceholderFirst;
+    var productPlaceholderSecond = product.custom.productPlaceholderSecond;
+    var productPlaceholderThird = product.custom.productPlaceholderThird;
     
     
     viewData = {
@@ -79,9 +79,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
         socialShareEnable: socialShareEnable,
-        productWarrantyDetail: productWarrantyDetail,
-        productSwissDetail: productSwissDetail,
-        productShippingDetail: productShippingDetail
+        productPlaceholderFirst: productPlaceholderFirst,
+        productPlaceholderSecond: productPlaceholderSecond,
+        productPlaceholderThird: productPlaceholderThird
     }
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var pdpAnalyticsTrackingData;

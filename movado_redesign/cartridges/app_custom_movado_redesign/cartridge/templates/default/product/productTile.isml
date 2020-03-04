@@ -91,19 +91,16 @@
             <isif condition="${!pdict.isCompareableDisabled}"> 
                 <isinclude template="product/components/compare" />
             </isif>
-            <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
-            <iselse>
-	            <isif condition="${product.promotions}">
-	                <div class="promotions">
-	                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-	                        <isif condition="${promotion.calloutMsg !== ''}">
-	                            <div class="callout promo-msg" title="${promotion.details}">
-	                                <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
-	                            </div>
-	                        </isif>
-	                    </isloop>
-	                </div>
-	            </isif>
+            <isif condition="${product.promotions}">
+                <div class="promotions">
+                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                        <isif condition="${promotion.calloutMsg !== ''}">
+                            <div class="callout promo-msg" title="${promotion.details}">
+                                <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
+                            </div>
+                        </isif>
+                    </isloop>
+                </div>
             </isif>
             <isif condition="${pdict.display.selectBonusProductsButton}">
                 <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
