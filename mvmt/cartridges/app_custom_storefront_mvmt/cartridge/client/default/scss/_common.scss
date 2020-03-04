@@ -330,13 +330,6 @@
         display: inline-block;
         text-transform: uppercase;
     }
-  &.required {
-  .form-control-label{
-    &:before {
-        content: unset;
-     }
-   }
- }
 }
 
 .custom-select-wrapper {
