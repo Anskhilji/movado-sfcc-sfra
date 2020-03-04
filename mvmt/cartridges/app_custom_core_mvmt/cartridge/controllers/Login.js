@@ -120,7 +120,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
     if (credentials.isEnabled()) {
         Transaction.wrap(function () {
             CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, true);
-            if(firstTimeUser){
+            if (firstTimeUser) {
                 accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
             }
         });
