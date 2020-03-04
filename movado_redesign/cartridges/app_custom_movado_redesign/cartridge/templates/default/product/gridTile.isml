@@ -1,9 +1,9 @@
 <isset name="showQuickView" value="${true}" scope="page" />
 <isset name="product" value="${pdict.product}" scope="page" />
 <div data-pid="${product.id}" class ="product">
-    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design')}">
-        <isinclude template="product/productTile" />
-    <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
+    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','Control')}">
+        <isinclude template="product/old/productTile" />
+    <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
         <isinclude template="product/productTile" />
      <iselse> 
          <isinclude template="product/old/productTile" />

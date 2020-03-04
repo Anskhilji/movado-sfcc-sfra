@@ -146,7 +146,9 @@
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
             <isinclude template="product/traditional/components/youMayLikeRecommendation" />
         </isif>
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
+            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"/>
+        </div>
         <isinclude template="product/components/contentAssets" />
 
         <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">
