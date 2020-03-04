@@ -1,42 +1,43 @@
 <div class="container contactus-page">
     <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
-
         <div class="form-group
             <isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
             <label class="form-control-label" for="firstName">
                 <isprint value="${pdict.contactUsForm.firstname.label}" encoding="htmlcontent" />
             </label>
-            <input type="text" class="form-control" id="firstName"
+            <input type="text" class="form-control contact-tab-form-control" id="firstName" placeholder="Name"
                 <isprint value="${pdict.contactUsForm.firstname.attributes}" encoding="off" />>
             <div class="invalid-feedback"></div>
         </div>
-
-        <div class="form-group
-            <isif condition="${pdict.contactUsForm.lastname.mandatory === true}">required</isif>">
-            <label class="form-control-label" for="lastName">
-                <isprint value="${pdict.contactUsForm.lastname.label}" encoding="htmlcontent" />
-            </label>
-            <input type="text" class="form-control" id="lastName"
-                <isprint value="${pdict.contactUsForm.lastname.attributes}" encoding="off" />>
-            <div class="invalid-feedback"></div>
-        </div>
-        
-        <div class="form-group
-            <isif condition="${pdict.contactUsForm.phone.mandatory === true}">required</isif>">
-            <label class="form-control-label" for="phone">
-                <isprint value="${pdict.contactUsForm.phone.label}" encoding="htmlcontent" />
-            </label>
-            <input type="text" class="form-control" id="phone"
-                <isprint value="${pdict.contactUsForm.phone.attributes}" encoding="off" />>
-            <div class="invalid-feedback"></div>
-        </div>
+        <iscomment>Csutom start:Remove last name and Phone number field that is not required in MVMT Form </iscomment>
+        <iscomment>
+            <div class="form-group
+                <isif condition="${pdict.contactUsForm.lastname.mandatory === true}">required</isif>">
+                <label class="form-control-label" for="lastName">
+                    <isprint value="${pdict.contactUsForm.lastname.label}" encoding="htmlcontent" />
+                </label>
+                <input type="text" class="form-control contact-tab-form-control" id="lastName"
+                    <isprint value="${pdict.contactUsForm.lastname.attributes}" encoding="off" />>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group
+                <isif condition="${pdict.contactUsForm.phone.mandatory === true}">required</isif>">
+                <label class="form-control-label" for="phone">
+                    <isprint value="${pdict.contactUsForm.phone.label}" encoding="htmlcontent" />
+                </label>
+                <input type="text" class="form-control contact-tab-form-control" id="phone"
+                    <isprint value="${pdict.contactUsForm.phone.attributes}" encoding="off" />>
+                <div class="invalid-feedback"></div>
+            </div>
+        </iscomment>
+        <iscomment>Custom End</iscomment>
 
         <div class="form-group
             <isif condition="${pdict.contactUsForm.email.mandatory === true}">required</isif>">
             <label class="form-control-label" for="email">
                 <isprint value="${pdict.contactUsForm.email.label}" encoding="htmlcontent" />
             </label>
-            <input type="email" class="form-control" id="email"
+            <input type="email" class="form-control contact-tab-form-control" id="email" placeholder="Email"
                 <isprint value="${pdict.contactUsForm.email.attributes}" encoding="off" />>
             <div class="invalid-feedback"></div>
         </div>
@@ -46,7 +47,7 @@
             <label class="form-control-label" for="ordernumber">
                 <isprint value="${pdict.contactUsForm.ordernumber.label}" encoding="htmlcontent" />
             </label>
-            <input type="text" class="form-control" id="ordernumber"
+            <input type="text" class="form-control contact-tab-form-control" id="ordernumber" placeholder="Oder Number"
                 <isprint value="${pdict.contactUsForm.ordernumber.attributes}" encoding="off" />>
             <div class="invalid-feedback"></div>
         </div>
@@ -58,12 +59,12 @@
             
              <div class="myquestion-wrapper row">
                 <div class="custom-select-wrapper col-12">
-                    <select class="form-control custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+                    <select class="form-control custom-select custom-select-form-wrapper" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
                        <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
                         <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
                        </isloop>
                     </select>
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-sort"></i>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
@@ -74,7 +75,7 @@
             <label class="form-control-label" for="comment">
                 <isprint value="${pdict.contactUsForm.comment.label}" encoding="htmlcontent" />
             </label>
-            <textarea class="form-control" id="comment" rows="3"
+            <textarea class="form-control contact-tab-form-control" id="comment" rows="5" placeholder="Message..."
             <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />></textarea>
             <div class="invalid-feedback"></div>
         </div>
@@ -82,7 +83,7 @@
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 pt-2">
                 <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
             </div>
         </div>
