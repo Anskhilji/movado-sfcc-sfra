@@ -1,5 +1,8 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <header>
+  <iscomment>Custom Start: Adding ESW Logic </iscomment>
+  <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+  <iscomment> Custom End </iscomment>
   <nav>
     <div class="sticky-header-wrapper">
       <div class="sticky-header-placeholder"></div>
@@ -11,6 +14,9 @@
                 <div class="left navbar-header">
                   <div class="hidden-md-down account-wrapper">
                     <isinclude url="${URLUtils.url('Account-Header')}"/>
+                    <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                    <iscomment> Custom End </iscomment>
                     <isslot id="country-selector" description="country selector" context="global" />
                   </div>
                   <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false">

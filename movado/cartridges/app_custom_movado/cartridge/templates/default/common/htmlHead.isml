@@ -17,6 +17,10 @@
 <meta name="description" content="${pdict.CurrentPageMetaData.description ? pdict.CurrentPageMetaData.description : Resource.msg('global.storename','common',null)}"/>
 <meta name="keywords" content="${pdict.CurrentPageMetaData.keywords ? pdict.CurrentPageMetaData.keywords : Resource.msg('global.storename','common',null)}"/>
 <link rel="stylesheet" href="${URLUtils.staticURL('/css/global.css')}" />
+<iscomment> Custom Start: Adding ESW Logic </iscomment>
+<isinclude template="js/eswClientSideJS">
+<isinclude template="css/eswClientSideCSS">
+<iscomment> Custom End </iscomment>
 <isloop items="${ require('*/cartridge/scripts/assets.js').styles }" var="style">
     <link rel="stylesheet" href="${style}" />
 </isloop>

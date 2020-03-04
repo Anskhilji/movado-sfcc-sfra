@@ -1,32 +1,58 @@
 <span>
     <isset name="finalOrigPrice" value="${price}" scope="page" />
+    <iscomment> </iscomment>
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+    <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
+    <isif condition="${empty(pdict.product)}"> 
+        <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(lineItem)}" scope="page" />
+    <iselse>
+        <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
+    </isif>
+    <iscomment> </iscomment>
 
     <isif condition="${finalOrigPrice.list !== null}">
-    <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
-        <isset name="price" value="${finalOrigPrice.list}" scope="page" />
-        <meta itemprop="priceCurrency" content="${price.currency}" />
-        <span class="strike-through list">
-            <span class="value" itemprop="price" content="${price.decimalPrice}">
-                <isinclude template="/product/components/pricing/formatted" />
+        <iscomment> </iscomment>
+        <isif condition="${!empty(matchingLineItem)}">
+            <isset name="price" value="${finalOrigPrice.list.decimalPrice}" scope="page" />
+        <iselse>
+            <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+        </isif>
+        <iscomment> </iscomment>
+        <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
+            <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+            <meta itemprop="priceCurrency" content="${price.currency}" />
+            <span class="strike-through list">
+                <span class="value" itemprop="price" content="${price.decimalPrice}">
+                    <isinclude template="/product/components/pricing/formatted" />
+                </span>
             </span>
-        </span>
         </isif>
     </isif>
+
+    <iscomment> </iscomment>
+    <isif condition="${!empty(matchingLineItem)}">
+        <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
+    <iselse>
+        <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+    </isif>
+    <iscomment> </iscomment>
 
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
     <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
         <meta itemprop="priceCurrency" content="${price.currency}" />
         <span class="sales">
+            <iscomment> Custom Start: Adding ESW Logic </iscomment>
             <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == null}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
+            <iscomment> Custom End </iscomment>
         </span>
     </isif>
 </span>

@@ -3,6 +3,9 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/cart.css');
     </isscript>
+    <iscomment> Custom Start: Adding ESW variable </iscomment>
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+    <iscomment> Custom End </iscomment>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.cart', 'eum', null))}"/>
     <div class="cart-section-wrapper">
         <isinclude template="cart/cartSection"/>

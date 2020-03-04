@@ -7,10 +7,12 @@
         </span>
     </div>
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <iscomment> Custom Start: Adding ESW Logic </iscomment>
+        <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="btnCheckout btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
         </a>
+        <iscomment> Custom End </iscomment>
     </div>
 </div>
 <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
