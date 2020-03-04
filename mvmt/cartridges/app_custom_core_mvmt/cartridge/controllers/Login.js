@@ -121,7 +121,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
         Transaction.wrap(function () {
             CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, true);
             if(firstTimeUser){
-                //accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
+                accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
             }
         });
     } else {
