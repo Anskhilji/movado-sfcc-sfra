@@ -4,14 +4,13 @@
             <isprint value="${promotion.calloutMsg}" encoding="off" />${promotion.details}
             <iscomment>Promotion PopOver to display the description of promotion</iscomment>
             <isif condition="${promotion.details !== ''}">
-                <label class="form-group <label class="form-control-label" for="email"></label>
-                <label class="promo-detail-popover">
-                    <span class="icon">${Resource.msg('label.product.promotion', 'product', 'null')}</span>
-                        <label class="tooltip">
-                           ${promotion.details}
-                       </label>
-                   </label>
-               </label>
+                    <span class="promo-icon">
+                        <span class="icon">Details</span>
+                        <div class="tooltip">
+                        <button class="d-block d-md-none close-promo"></button>
+                        <p>${promotion.details}</p>
+                        </div>
+                    </span>
            </isif>
         </div>
     </isloop>

@@ -1405,6 +1405,13 @@
                 }
             }
         }
+
+        .detail-bottom-blocks {
+
+            .bottom-block {
+                width: 100%;
+            }
+        }
     }
 }
 
@@ -1515,19 +1522,19 @@ body {
         }
     }
 
-    .close-promotion-popover {
-            display: block;
-            background: url("../../images/zoom-close.png") center center no-repeat;
-            background-size: rem(10);
-            width: rem(15);
-            height: rem(15);
-            background-color: $white;
-            border: 0;
-            margin-bottom: rem(-10);
-            position: absolute;
-            right: 6px;
-            top: 5px;
-        }
+    .close-promotion-popover, .close-promo {
+        display: block;
+        background: url("../../images/zoom-close.png") center center no-repeat;
+        background-size: rem(10);
+        width: rem(15);
+        height: rem(15);
+        background-color: $white;
+        border: 0;
+        margin-bottom: rem(-10);
+        position: absolute;
+        right: 6px;
+        top: 5px;
+    }
 
     &:hover {
         cursor: pointer;

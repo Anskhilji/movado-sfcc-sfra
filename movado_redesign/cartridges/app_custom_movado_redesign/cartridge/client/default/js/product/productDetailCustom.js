@@ -106,8 +106,15 @@ $(function() {
         $('body, html').removeClass('no-overflow');
         $('.popup-opened').hide();
         e.preventDefault();
-        
     });
+    
+    $('.promotions button').bind('click', function(e) {
+        e.stopPropagation();
+         $(this).parents('.tooltip').hide();
+     });
+    $('.promotions .icon').on('click mouseover', function(e) {
+         $('.tooltip').show();
+     });
 
 });
 

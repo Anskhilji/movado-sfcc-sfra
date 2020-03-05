@@ -1,6 +1,6 @@
 $arrow-height: 1.25em;
 
-.promo-detail-popover {
+.promo-icon {
     position: relative;
     cursor: pointer;
     display: inline-block;
@@ -17,6 +17,12 @@ $arrow-height: 1.25em;
         padding-left: rem(0.8);
         vertical-align: middle;
         font-weight: bold;
+        padding-left: rem(5);
+        margin-top: rem(-3);
+    }
+
+    p {
+        margin-top: rem(10);
     }
 
     &:hover .tooltip, &:hover .left-tooltip {
@@ -89,10 +95,11 @@ $arrow-height: 1.25em;
         background-color: $white;
         color: $grey14;
         font-size: 0.928rem;
-        width: rem(150);
+        width: rem(336);
+        height: rem(100);
         transform: translate(-50%, -$arrow-height/2);
         left: 50%;
-        margin-left: 4px;
+        margin-left: rem(45);
         animation: fade-in 0.5s linear forwards;
         border: rem(1) solid $border-color;
 
@@ -100,8 +107,15 @@ $arrow-height: 1.25em;
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+
         @include media-breakpoint-down(md){
-            width: rem(336);
+            width: rem(352);
+            margin-left: rem(-50);
+        }
+
+        @include media-breakpoint-down(xs){
+            width: rem(320);
+            height: rem(116);
             margin-left: rem(-50);
         }
 
@@ -119,6 +133,7 @@ $arrow-height: 1.25em;
         &::before {
             border-bottom: solid $border-color rem(10);
             top: rem(-10);
+            margin-left: rem(-40);
             
             @include media-breakpoint-down(md){
                 margin-left: rem(51);
@@ -128,6 +143,7 @@ $arrow-height: 1.25em;
         &::after {
             border-bottom: solid $white $arrow-height/2;
             top: rem(-8);
+            margin-left: rem(-40);
 
             @include media-breakpoint-down(md){
                 margin-left: rem(51);
