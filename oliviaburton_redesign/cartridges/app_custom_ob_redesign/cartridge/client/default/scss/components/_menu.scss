@@ -10,12 +10,17 @@
             position: relative;
         }
 
+        @include media-breakpoint-down(xs) {
+            flex-basis: 40%;
+            left: 0;
+        }
+
         .main-menu {
             height: auto;
             
             .menu-group {
                     
-                @include media-breakpoint-down(md) {
+                @include media-breakpoint-down(lg) {
                     position: relative;
                     right: rem(15);
                 }
@@ -29,7 +34,6 @@
                     padding-right: rem(147);
                     box-shadow: none;
                     padding-bottom: rem(60);
-                    justify-content: normal;
 
                     .menu-pane {
 
@@ -137,41 +141,40 @@
 
             .nav-item {
 
-                 @include media-breakpoint-down(lg) {
-                    padding-left: rem(5);
-                    padding-right: rem(5);
-                }
-
                 .nav-link {
                     width: fit-content;
                     font-weight: 600;
                     font-size: rem(14);
                     text-transform: capitalize;
-                    padding: 0rem;
-                    margin: rem(30) rem(15);
+                    padding: rem(30) rem(10);
+                    margin: 0 rem(5);
                     font-family: $font-gill-std;
                     line-height: rem(20);
-                    position: relative;
                     background-color: transparent;
                     
                     @include media-breakpoint-down(lg) {
-                        margin: rem(30) rem(4);
-                        letter-spacing: normal;
+                        padding: rem(30) rem(5);
                     }
                     
+                    span {
+                        position: relative;
+                        
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            width: 100%;
+                            height: rem(2);
+                            border-radius: rem(20);
+                            bottom: rem(-5);
+                            left: rem(-1);
+                        }
+                    }
+
                     &:after {
                         display: none;
                     }
                     
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        width: 100%;
-                        height: rem(2);
-                        border-radius: rem(20);
-                        bottom: rem(-5);
-                        left: rem(-1);
-                    }
+
                 }
 
                 &.show, &:hover {
@@ -182,8 +185,11 @@
                     
                     .nav-link {
                         
-                        &:before {
-                            background-color: $pink-rose;
+                        span {
+                            
+                            &:before {
+                                background-color: $pink-rose;
+                            }
                         }
                     }
                 }
@@ -226,8 +232,10 @@
         min-height: 100%;
 
         .featured-promotion {
+            display: block;
             justify-content: center;
-            
+            text-align: center;
+
             @include media-breakpoint-down(lg) {
                 justify-content: normal;
                 display: flex;
@@ -235,18 +243,65 @@
                 padding: 0 rem(15);
             }
 
+            .slick-track {
+                @include media-breakpoint-up(xl) {
+                    text-align: center;
+                }
+            }
+
+            .slick-dots {
+                list-style: none;
+
+                li {
+                    width: 4%;
+                    height: rem(2);
+                    background: $pink-rose;
+                    margin: 0;
+                    margin-top: rem(4);
+                    display: inline-block;
+
+                    
+                    &.slick-active {
+                        background: $black;
+                    }
+
+                    button {
+                        border: 0;
+                        background: transparent;
+                        display: block;
+                        outline: none;
+                        line-height: 0;
+                        font-size: 0;
+                        color: transparent;
+                        padding: rem(5);
+
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+            
+            .slick-slide {
+                width: rem(170);
+
+                > div {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+
             a {
                 display: inline-block;
-                margin-right: rem(30);
-                width: rem(150);
+                margin: 0 10.5px;
+                max-width: rem(150);
                 border-radius: rem(5);
                 overflow: hidden;
                 background-color: $white-smoke;
                 text-align: center;
-                margin-bottom: rem(15);
 
                 @include media-breakpoint-down(md) {
                     margin-right: rem(15);
+                    margin-bottom: rem(15);
                 }
 
                 @include media-breakpoint-down(xs) {
@@ -273,13 +328,36 @@
 
                 img {
                     height: rem(150);
-                    width: 100%;
+                    width: rem(150);
 
                     @include media-breakpoint-down(xs) {
                         height: rem(100);
                         width: 100%;
                     }
                 }
+            }
+        }
+    }
+
+    .feature-list {
+
+        &-mobile {
+            display: block;
+            
+            ul {
+                padding: 0;
+            }
+            
+            @include media-breakpoint-up(lg) {
+                display: none;
+            }
+        }
+
+        &-desktop {
+            display: none;
+            
+            @include media-breakpoint-up(lg) {
+                display: block;
             }
         }
     }
@@ -560,5 +638,15 @@
 
     .navbar-toggler {
         padding: 0;
+    }
+}
+
+@media only screen and (min-width: $custom-xl) {
+    .redesign-header {
+        
+        .shop-by-collection-slide {
+            width: 77%;
+            margin: 0 auto;
+        }
     }
 }
