@@ -131,10 +131,12 @@ function updatePublicStatus(listID, itemID, callback) {
         success: function (data) {
             if (callback && !data.success) { callback(); }
             showResponseMsg(data, null);
+            showHideSocialLinks();
         },
         error: function (err) {
             if (callback) { callback(); }
             showResponseMsg(err);
+            showHideSocialLinks();
         }
     });
 }
@@ -190,6 +192,26 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
         $('.more-wl-items').remove();
     });
     $.spinner().stop();
+}
+
+function showHideSocialLinks(){
+	var globalCheckbox = $('.wishlist-checkbox').siblings('input');
+	if (globalCheckbox.prop("checked") == true) {
+		$('.socialsharing').hide();
+	} else {
+		var hideSocialLinks = true;
+	    $('.wishlist-item-checkbox').each( function (index, el) { 
+	    	var checkboxInput = $(el).siblings('input');
+	    	if (checkboxInput.prop("checked") == false) {
+	    		hideSocialLinks = false;
+	        }
+	    });
+	    if (hideSocialLinks) {
+	    	$('.socialsharing').hide();
+	    } else {
+	    	$('.socialsharing').show();
+	    }
+	}
 }
 
 module.exports = {
@@ -361,12 +383,6 @@ module.exports = {
     toggleWishlistStatus: function () {
         $('#isPublicList').on('click', function () {
             var listID = $('#isPublicList').data('id');
-            if ($(this).is(':checked')) {
-                $('.wl-social-sharing').hide();  
-            }
-            else if ($(this).is(':not(:checked)')) {
-                $('.wl-social-sharing').show();
-            }
             updatePublicStatus(listID, null, null);
         });
     },
@@ -376,25 +392,14 @@ module.exports = {
             var itemID = $(this).closest('.wishlist-hide').find('.custom-control-input').data('id');
             var el = $(this).siblings('input');
             
-            $('.wishlist-item-checkbox').each( function (el) { 
-            	
-            	if ($(this).is(':checked')) {
-                    $('.wl-social-sharing').hide();  
-                   
-                }
-                else if ($(this).is(':not(:checked)')) {
-                    $('.wl-social-sharing').show();
-                    
-                }
-            });
-            
             var resetCheckBox = function () {
-                return el.prop('checked')
+            	return el.prop('checked')
                     ? el.prop('checked', false)
-                    : el.prop('checked', true);
+                        : el.prop('checked', true);
             };
 
             updatePublicStatus(null, itemID, resetCheckBox);
+            
         });
     },
 
