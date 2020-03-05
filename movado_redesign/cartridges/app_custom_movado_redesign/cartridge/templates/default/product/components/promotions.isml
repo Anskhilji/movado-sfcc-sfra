@@ -1,11 +1,11 @@
 <isif condition="${product.promotions}">
     <isloop items="${product.promotions}" var="promotion">
         <div class="callout" title="${promotion.details}">
-            <isprint value="${promotion.calloutMsg}" encoding="off" />${promotion.details}
+            <isprint value="${promotion.calloutMsg}" encoding="off" />
             <iscomment>Promotion PopOver to display the description of promotion</iscomment>
             <isif condition="${promotion.details !== ''}">
                     <span class="promo-icon">
-                        <span class="icon">Details</span>
+                        <span class="icon">${Resource.msg('label.product.tile.details', 'product', null)}</span>
                         <div class="tooltip">
                         <button class="d-block d-md-none close-promo"></button>
                         <p>${promotion.details}</p>
