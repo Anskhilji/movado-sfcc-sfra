@@ -161,7 +161,7 @@
                     font-weight: 300;
                     line-height: rem(20);
                     width: rem(300);
-                    letter-spacing: 0.5px;
+                    letter-spacing: rem(0.5);
     
                     @include media-breakpoint-down(lg) {
                         width: rem(280);
