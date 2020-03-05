@@ -3,18 +3,44 @@
     <!-- TODO: Title BM Configurable -->
     <div class="title text-capitalize p-0 shadow-none">${Resource.msg('label.product.detail.highlights2', 'product', null)}</div>
 </h2>
-<div class="col-sm-12 bottom-detail mb-4">
-    <isprint value="${product.longDescription}" encoding="off"/>
-</div>
+<isif condition="${product.longDescription}">
+    <div class="col-sm-12 bottom-detail mb-4">
+        <isprint value="${product.longDescription}" encoding="off"/>
+    </div>
+<iselse>
+    <div class="col-sm-12 bottom-detail mb-4">
+        <isprint value="${product.shortDescription}" encoding="off" />
+    </div>
+</isif>
 
 <div class="detail-bottom-blocks col-sm-12">
-    <div class="bottom-block free-shipping-block">
-        <p>${Resource.msg('label.product.detail.shipping', 'product', null)}:</p>
-    </div>
-    <div class="bottom-block swiss-movement-block">
-        <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
-    </div>
-    <div class="bottom-block warranty-block">
-        <p>${Resource.msg('label.product.detail.warranty', 'product', 'null')}</p>
-    </div>
+    <isif condition="${pdict.productPlaceholderFirst}"> 
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderFirst}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block free-shipping-block">
+            <p>${Resource.msg('label.product.detail.shipping', 'product', null)}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productPlaceholderSecond}"> 
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderSecond}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block swiss-movement-block">
+            <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productPlaceholderThird}">
+        <div class="bottom-block product-placeholder-block">
+            <isprint value="${pdict.productPlaceholderThird}" encoding="off" />
+        </div>
+     <iselse>
+         <div class="bottom-block warranty-block">
+             <p>${Resource.msg('label.product.detail.warranty', 'product', 'null')}</p>
+         </div>
+    </isif>
 </div>

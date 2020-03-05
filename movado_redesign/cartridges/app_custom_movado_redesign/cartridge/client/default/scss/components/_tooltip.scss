@@ -1,0 +1,153 @@
+$arrow-height: 1.25em;
+
+.promo-icon {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+
+    .icon {
+        background-color: transparent;
+        width: rem(21);
+        height: rem(21);
+        line-height: rem(21);
+        display: inline-block;
+        text-align: center;
+        text-transform: lowercase;
+        color: $dark-green;
+        padding-left: rem(0.8);
+        vertical-align: middle;
+        font-weight: bold;
+        padding-left: rem(5);
+        margin-top: rem(-3);
+    }
+
+    p {
+        margin-top: rem(10);
+    }
+
+    &:hover .tooltip, &:hover .left-tooltip {
+        display: block;
+    }
+
+    .left-tooltip {
+        display: none;
+        text-transform: initial;
+        position: absolute;
+        bottom: 100%;
+        padding: rem(5);
+        border-radius: $border-radius;
+        background-color: $slate-grey-light;
+        color: $grey14;
+        font-size: rem(15);
+        width: rem(400);
+        transform: translate(5%, 50%);
+        left: 50%;
+        margin-left: rem(4);
+        animation: fade-in 0.5s linear forwards;
+        border: rem(1) solid $border-color;
+        z-index: 9999;
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        &::after, &::before {
+            content: " ";
+            height: 0;
+            top: 50%;
+            margin-left: rem(-13);
+            position: absolute;
+            width: 0;
+        }
+
+        > b {
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        @include media-breakpoint-down(sm) {
+            display: none;
+            text-transform: initial;
+            position: absolute;
+            bottom: 100%;
+            padding: rem(5);
+            border-radius: $border-radius;
+            background-color: $slate-grey-light;
+            color: $grey14;
+            font-size: rem(14.848);
+            width: rem(240);
+            transform: translate(-35%, -$arrow-height/2);
+            left: 50%;
+            margin-left: rem(4);
+            animation: fade-in 0.5s linear forwards;
+            border: rem(1) solid $border-color;
+        }
+    }
+
+    .tooltip {
+        display: none;
+        text-transform: initial;
+        position: absolute;
+        top: rem(40);
+        padding: rem(5);
+        border-radius: $border-radius;
+        background-color: $white;
+        color: $grey14;
+        font-size: rem(14.848);
+        width: rem(336);
+        height: rem(100);
+        transform: translate(-50%, -$arrow-height/2);
+        left: 50%;
+        margin-left: rem(45);
+        animation: fade-in 0.5s linear forwards;
+        border: rem(1) solid $border-color;
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @include media-breakpoint-down(md) {
+            width: rem(352);
+            margin-left: rem(-50);
+        }
+
+        @include media-breakpoint-down(xs) {
+            width: rem(320);
+            height: rem(116);
+            margin-left: rem(-50);
+        }
+
+        &::after, &::before {
+            border-left: solid transparent $arrow-height/2;
+            border-right: solid transparent $arrow-height/2;
+            content: " ";
+            height: 0;
+            left: 50%;
+            margin-left: rem(-13);
+            position: absolute;
+            width: 0;
+        }
+
+        &::before {
+            border-bottom: solid $border-color rem(10);
+            top: rem(-10);
+            margin-left: rem(-40);
+            
+            @include media-breakpoint-down(md){
+                margin-left: rem(51);
+            }
+        }
+
+        &::after {
+            border-bottom: solid $white $arrow-height/2;
+            top: rem(-8);
+            margin-left: rem(-40);
+
+            @include media-breakpoint-down(md) {
+                margin-left: rem(51);
+            }
+        }
+    }
+}

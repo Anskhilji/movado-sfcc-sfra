@@ -14,7 +14,7 @@
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
   <div class="cs-carousel-wrapper">
-      <div class="js-carousel main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="js-carousel main-carousel traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
               <div class="carousel-tile">
                   <picture>

@@ -19,6 +19,9 @@
     </div>
         <div class="popup" pd-popup="popupNew">
             <div class="popup-inner">
+                <div class="modal-header modal-header-options p-2 mr-2">
+                    <button type="button" class="close-option-popup close" data-dismiss="modal"></button>
+                </div>
                 <div class="popup-head mb-3">
                     <h1>${Resource.msg('label.product.add.engraving', 'product', 'null')}</h1>
                 </div>
@@ -48,7 +51,7 @@ ${Resource.msg('text.placeholder2', 'product', null)}
                                 <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
                                 <span class="edit">${Resource.msg('buttom.option.text.edit', 'product', null)}</span>
                             </button>
-                            <a pd-popup-close="popupNew" href="#" class="btn cancel ">${Resource.msg('buttom.button.text.cancel', 'product', null)}</a>
+                            <button type="button" class="btn btn-primary engraving-cancel cancel">${Resource.msg('buttom.button.text.cancel', 'product', null)}</button>
                         </div>
                     </div>
                     <label for="${'input_' + option.id}" class="hidden-label">${product.resources.engravingPlaceholder}</label>

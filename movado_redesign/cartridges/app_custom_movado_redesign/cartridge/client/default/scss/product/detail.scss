@@ -225,6 +225,19 @@
                 }
             }
         }
+        
+        .traditional-main-carousel {
+            .slick-slide {
+
+                img {
+
+                    @include media-breakpoint-up(xl) {
+                        min-width: auto;
+                        max-width: 70%;
+                    }
+                }
+            }
+        }
 
         .carousel-nav {
 
@@ -282,6 +295,17 @@
             color: $dark-green;
             letter-spacing: normal;
             margin-bottom: rem(20);
+            
+            span {
+                text-decoration: underline;
+                margin-left: rem(5);
+                text-transform: capitalize;
+                font-weight: 500;
+                font-style: normal;
+                font-size: rem(13);
+                padding-top: 0;
+                margin-left: rem(-3);
+            }
         }
     }
 
@@ -643,7 +667,8 @@
     .detail-bottom-blocks {
 
         .bottom-block {
-            width: rem(200);
+        
+            width: rem(267);
             height: rem(70);
             border-radius: rem(5);
             background: $slate-grey-light;
@@ -664,6 +689,14 @@
                 padding-left: rem(55);
                 margin: 0;
             }
+
+            svg {
+                width: rem(37);
+            }
+
+            img {
+                width: rem(37);
+            }
         }
 
         .free-shipping-block {
@@ -676,6 +709,13 @@
 
         .warranty-block {
             background: $slate-grey-light url("../../images/badge.png") left rem(15) center no-repeat;
+        }
+
+        .product-placeholder-block {
+
+            p {
+                padding-left: rem(20);
+            }
         }
     }
 
@@ -1365,6 +1405,13 @@
                 }
             }
         }
+
+        .detail-bottom-blocks {
+
+            .bottom-block {
+                width: 100%;
+            }
+        }
     }
 }
 
@@ -1448,3 +1495,56 @@ body {
         text-decoration: none;
     }
 }
+
+.product-attributes {
+
+    @include media-breakpoint-up(md) {
+        margin-left: rem(48);
+    }
+
+    @include media-breakpoint-up(lg) {
+        margin-left: rem(80);
+    }
+}
+
+.pdp-v-one {
+
+    .modal-header-options {
+        justify-content: flex-end;
+        border-bottom: 0;
+        
+        .close-option-popup {
+            background: url("../../images/zoom-close.png") center center no-repeat;
+            background-size: rem(18);
+            right: rem(20);
+            position: relative;
+            top: rem(-5);
+        }
+    }
+
+    .close-promotion-popover, .close-promo {
+        display: block;
+        background: url("../../images/zoom-close.png") center center no-repeat;
+        background-size: rem(10);
+        width: rem(15);
+        height: rem(15);
+        background-color: $white;
+        border: 0;
+        margin-bottom: rem(-10);
+        position: absolute;
+        right: rem(6);
+        top: rem(5);
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.popup {
+    .cancel {
+        background: $white;
+        color: $black;
+    }
+}
+
