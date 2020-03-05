@@ -1,7 +1,7 @@
 .redesign-header {
-    
+
     .account-wrapper {
-        
+
         p {
             margin: 0;
         }
@@ -34,14 +34,23 @@
             display: flex;
             width: 25%;
             justify-content: flex-end;
-
+            
+            @include media-breakpoint-down(md) {
+                width: 30%;
+            }
+            
             .site-search {
 
                 .search-field {
                     width: rem(180);
                     height: rem(19);
-                    padding-bottom: rem(11);
+                    padding-bottom: rem(10);
+                    line-height: 21px;
 
+                    @include media-breakpoint-up(lg) {
+                        width: rem(140);
+                    }
+                    
                     &::placeholder {
                         font-size: rem(10);
                         color: $dark-gray;
@@ -68,6 +77,14 @@
                 }
             }
         }
+
+        .middle-menu {
+            
+            @include media-breakpoint-down(md) {
+                position: relative;
+                left: 4%
+            } 
+        }
     }
 
     .minicart {
@@ -93,11 +110,11 @@
             }
 
             .left {
-                width: 25%;
+                width: 20%;
             }
 
             .middle-menu {
-                width: 100%;
+                width: 50%;
             }
             
             .navbar {
@@ -173,7 +190,7 @@
 
 .checkout-header {
 
-    .redesign-quantity {
-        right: rem(-25);
+    .minicart-link {
+        display: inline-block;
     }
 }

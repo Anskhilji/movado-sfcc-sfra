@@ -3,12 +3,22 @@
 </iscomment>
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <isif condition="${topCat.disableSubCategories}">
-        <div class="shop-by-collection-slide">
+        <div class="shop-by-collection-slide feature-list-desktop">
             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                 <isloop items="${menuItem.subCategories}" var="category">
                     <a href="${category.url}"><img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span>${category.name}</span> </a>
                 </isloop>
             </div>
+        </div>
+
+        <div class="menu-pane feature-list-mobile">
+            <ul>
+                <isloop items="${menuItem.subCategories}" var="category">
+                    <li class="dropdown-item  gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                        <a href="${category.url}" role="button" class="dropdown-link" >${category.name}</a>
+                    </li>
+                </isloop>
+            </ul>
         </div>
     <iselse>
         <div class="menu-pane">
