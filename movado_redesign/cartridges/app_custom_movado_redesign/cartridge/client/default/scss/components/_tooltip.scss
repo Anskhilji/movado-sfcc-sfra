@@ -66,20 +66,20 @@ $arrow-height: 1.25em;
             text-transform: capitalize;
         }
 
-        @include media-breakpoint-down(sm){
+        @include media-breakpoint-down(sm) {
             display: none;
             text-transform: initial;
             position: absolute;
             bottom: 100%;
-            padding: 0.312rem;
+            padding: rem(5);
             border-radius: $border-radius;
             background-color: $slate-grey-light;
             color: $grey14;
-            font-size: 0.928rem;
+            font-size: rem(14.848);
             width: rem(240);
             transform: translate(-35%, -$arrow-height/2);
             left: 50%;
-            margin-left: 4px;
+            margin-left: rem(4);
             animation: fade-in 0.5s linear forwards;
             border: rem(1) solid $border-color;
         }
@@ -90,11 +90,11 @@ $arrow-height: 1.25em;
         text-transform: initial;
         position: absolute;
         top: rem(40);
-        padding: 0.312rem;
+        padding: rem(5);
         border-radius: $border-radius;
         background-color: $white;
         color: $grey14;
-        font-size: 0.928rem;
+        font-size: rem(14.848);
         width: rem(336);
         height: rem(100);
         transform: translate(-50%, -$arrow-height/2);
@@ -108,12 +108,12 @@ $arrow-height: 1.25em;
             100% { opacity: 1; }
         }
 
-        @include media-breakpoint-down(md){
+        @include media-breakpoint-down(md) {
             width: rem(352);
             margin-left: rem(-50);
         }
 
-        @include media-breakpoint-down(xs){
+        @include media-breakpoint-down(xs) {
             width: rem(320);
             height: rem(116);
             margin-left: rem(-50);
@@ -145,7 +145,7 @@ $arrow-height: 1.25em;
             top: rem(-8);
             margin-left: rem(-40);
 
-            @include media-breakpoint-down(md){
+            @include media-breakpoint-down(md) {
                 margin-left: rem(51);
             }
         }

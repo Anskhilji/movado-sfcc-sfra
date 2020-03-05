@@ -69,9 +69,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
-    var productPlaceholderFirst = product.custom.productPlaceholderFirst;
-    var productPlaceholderSecond = product.custom.productPlaceholderSecond;
-    var productPlaceholderThird = product.custom.productPlaceholderThird;
+    var productPlaceholderFirst = !empty(product.custom.productPlaceholderFirst) ? product.custom.productPlaceholderFirst : null;
+    var productPlaceholderSecond = !empty(product.custom.productPlaceholderSecond) ? product.custom.productPlaceholderSecond : null;
+    var productPlaceholderThird = !empty(product.custom.productPlaceholderThird) ? product.custom.productPlaceholderThird : null;
     
     
     viewData = {
