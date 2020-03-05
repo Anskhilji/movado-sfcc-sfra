@@ -12,7 +12,11 @@
         </isif>
     </isloop>
 
-    <isinclude template="product/old/components/productTileImage" />
+    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
+        <isinclude template="product/components/productTileImage" />
+    <iselse>
+        <isinclude template="product/old/components/productTileImage" />
+    </isif>
 
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false}">
@@ -65,11 +69,13 @@
             </button>
         </isif>
     </div>
-    <div class="row m-10">
-        <div class="col d-flex align-items-center justify-content-center">
-            <isinclude template="product/components/ratings" />
+    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')}">
+    <iselse>
+        <div class="row m-10">
+            <div class="col d-flex align-items-center justify-content-center">
+                <isinclude template="product/components/ratings" />
+            </div>
         </div>
-    </div>
-    
+    </isif>
     <!-- END_dwmarker -->
 </div>

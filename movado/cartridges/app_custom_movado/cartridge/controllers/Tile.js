@@ -7,6 +7,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     
@@ -22,7 +23,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     Object.keys(req.querystring).forEach(function (key) {
         productTileParams[key] = req.querystring[key];
     });
-
+    
     var product;
     var productUrl;
     var quickViewUrl;
@@ -42,6 +43,12 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
     }
+    
+    var requestQuerystring = {
+        pid: product.id
+    };
+    
+    var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
@@ -51,6 +58,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
+        apiProduct: showProductPageHelperResult.product,
         urls: {
             product: productUrl,
             quickView: quickViewUrl
