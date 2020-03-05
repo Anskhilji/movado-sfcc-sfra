@@ -230,6 +230,16 @@ module.exports = {
                     success: function (data) {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
                         renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
+
+                        if ($(this).is(':empty')) {
+                        	$('.wl-social-sharing').hide(); 
+                        } else {
+                        	$('.wl-social-sharing').show();
+                        }
+                        var isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
+                        if (isEmptyList) {
+                        	$('.wl-social-sharing').hide(); 
+                        }
                     },
                     error: function () {
                         $.spinner().stop();
@@ -357,7 +367,7 @@ module.exports = {
             else if ($(this).is(':not(:checked)')) {
                 $('.wl-social-sharing').show();
             }
-                updatePublicStatus(listID, null, null);
+            updatePublicStatus(listID, null, null);
         });
     },
 
@@ -365,6 +375,19 @@ module.exports = {
         $('body').on('click', '.wishlist-item-checkbox', function () {
             var itemID = $(this).closest('.wishlist-hide').find('.custom-control-input').data('id');
             var el = $(this).siblings('input');
+            
+            $('.wishlist-item-checkbox').each( function (el) { 
+            	
+            	if ($(this).is(':checked')) {
+                    $('.wl-social-sharing').hide();  
+                   
+                }
+                else if ($(this).is(':not(:checked)')) {
+                    $('.wl-social-sharing').show();
+                    
+                }
+            });
+            
             var resetCheckBox = function () {
                 return el.prop('checked')
                     ? el.prop('checked', false)
