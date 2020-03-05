@@ -1532,8 +1532,8 @@ body {
         border: 0;
         margin-bottom: rem(-10);
         position: absolute;
-        right: 6px;
-        top: 5px;
+        right: rem(6);
+        top: rem(5);
     }
 
     &:hover {
