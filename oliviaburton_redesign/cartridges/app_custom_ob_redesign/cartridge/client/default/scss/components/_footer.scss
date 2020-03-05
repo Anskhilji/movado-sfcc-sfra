@@ -233,7 +233,7 @@
             }
     
             .home-email-signup {
-                background-color: $white;
+                background-color: transparent;
                 border-radius: rem(5);
     
                 @include media-breakpoint-down(sm) {
@@ -245,7 +245,8 @@
     
                     .input-group {
                         width: rem(300);
-                        
+                        background-color: $white;
+
                         @include media-breakpoint-down(lg) {
                             width: rem(260);
                         }
@@ -406,16 +407,29 @@
         display: flex;
         padding: rem(5);
         letter-spacing: 0.05em;
+        text-align: center;
 
+        @include media-breakpoint-down(md) {
+            display: block;
+        }
+        
         &-text {
             padding-right: rem(25);
-
+            
+            @include media-breakpoint-down(md) {
+                padding: rem(0) re(10);
+            }
+            
             p, h3 {
                 font-family: $font-gills-light;
                 font-size: rem(14);
                 color: $black-pearl;
                 line-height: rem(22);
                 text-align: left;
+
+                @include media-breakpoint-down(md) {
+                    text-align: center;
+                }
             }
 
             p {
