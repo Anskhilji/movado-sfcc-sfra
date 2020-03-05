@@ -4,6 +4,3 @@ $(document).ready(function () {
     processInclude(require('olivia-burton-uk/main'));
     processInclude(require('./header/header'));
 });
-
-
-
