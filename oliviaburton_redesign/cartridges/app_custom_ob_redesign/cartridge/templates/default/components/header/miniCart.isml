@@ -5,7 +5,7 @@
              font awesome icon removed, icon within content asset placed
         </iscomment>
         <iscontentasset aid="shopping-bag-icon"/>
-        <span class="minicart-quantity">
+        <span class="minicart-quantity redesign-quantity">
             <isprint value="${pdict.quantityTotal}" formatter="##" />
         </span>
     </a>
@@ -16,7 +16,7 @@
             font awesome icon removed, icon within content asset placed
     </iscomment>
     <iscontentasset aid="shopping-bag-icon"/>
-    <span class="minicart-quantity">
+    <span class="minicart-quantity redesign-quantity">
         <isprint value="${pdict.quantityTotal}" formatter="##" />
     </span>
 </div>
