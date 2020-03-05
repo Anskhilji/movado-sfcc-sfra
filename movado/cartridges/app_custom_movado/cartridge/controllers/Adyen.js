@@ -168,7 +168,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                     paymentInstrument,
                     require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
             } else {
-                session.custom.klarnaRiskifiedFlag = '';
                 Transaction.wrap(function () {
                     order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                 });
