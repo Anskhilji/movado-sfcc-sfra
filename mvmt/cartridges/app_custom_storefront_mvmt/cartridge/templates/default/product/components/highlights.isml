@@ -1,4 +1,4 @@
-<iscomment>Custom Start: Changed the HTML structure</iscomment>
+<iscomment>Attribute list added, Heading added</iscomment>
 <div class="row w-100 justify-content-md-center">
     <div class="col-12 col-sm-8">
         <h3 class="detals-heading mb-sm-0">${Resource.msg('label.spec.care', 'product', null)}</h3>
@@ -13,4 +13,3 @@
         </div>
     </div>
 </div>
-<iscomment>Custom End</iscomment>

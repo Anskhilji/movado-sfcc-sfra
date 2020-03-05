@@ -1,10 +1,11 @@
-<iscomment>Custom Start: Changed the HTML structure, Product picture placed</iscomment>
+<iscomment>Custom Start: Changed the HTML structure of whole file</iscomment>
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
     <div class="col-12 value content">
         <div class="row">
             <div class="col-12 col-sm-6 hidden-sm-down">
                 <isloop items="${product.images['pdp533']}" end="0" var="image" status="loopStatus">
                     <div class="carousel-tile">
+                        <iscomment> Product picture added</iscomment>
                         <picture>
                             <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
                             <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
@@ -15,6 +16,7 @@
                 </isloop>
             </div>
             <div class="col-12 col-sm-6 p-0">
+                <iscomment> Product name and see fit popup button added</iscomment>
                 <h3 class="detals-heading">${Resource.msg('label.details.know', 'product', null)} ${product.productName}</h3>
                 <div class="see-fit-button">
                     <button class="button-outline button call-see-fit-popup">${Resource.msg('button.see.fit', 'product', null)}</button>
@@ -38,7 +40,6 @@
                             </div>
                         </isif>
                     </isloop>
-
                 </div>
             </div>
         </div>
