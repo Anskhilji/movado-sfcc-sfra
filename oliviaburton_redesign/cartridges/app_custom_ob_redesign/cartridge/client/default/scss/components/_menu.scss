@@ -12,15 +12,15 @@
 
         @include media-breakpoint-down(xs) {
             flex-basis: 40%;
-            left: 0;
+            left: 7%;
         }
 
         .main-menu {
             height: auto;
             
             .menu-group {
-                    
-                @include media-breakpoint-down(lg) {
+   
+                @include media-breakpoint-down(md) {
                     position: relative;
                     right: rem(15);
                 }
@@ -76,7 +76,7 @@
                         }
 
                         &-link {
-                            font-family: $font-gill-std;
+                            font-family: $font-gill-std-semibold;
                             font-size: rem(13);
                             font-weight: 600;
                             color: $gray20;
@@ -141,24 +141,34 @@
 
             .nav-item {
 
+                &:not(.feature-dropdown) {
+                    
+                    .dropdown-menu {
+                        justify-content: flex-start;
+                    }
+                }
+                
                 .nav-link {
                     width: fit-content;
+                    font-family: $font-gill-std-semibold;
                     font-weight: 600;
                     font-size: rem(14);
                     text-transform: capitalize;
                     padding: rem(30) rem(10);
-                    margin: 0 rem(5);
-                    font-family: $font-gill-std;
+                    margin: 0 rem(3);
                     line-height: rem(20);
                     background-color: transparent;
+                    letter-spacing: 0.5px;
                     
                     @include media-breakpoint-down(lg) {
                         padding: rem(30) rem(5);
+                        margin: 0 rem(1);
+                        letter-spacing: normal;
                     }
                     
                     span {
                         position: relative;
-                        
+
                         &:before {
                             content: '';
                             position: absolute;
@@ -293,6 +303,7 @@
             a {
                 display: inline-block;
                 margin: 0 10.5px;
+                margin-bottom: rem(5);
                 max-width: rem(150);
                 border-radius: rem(5);
                 overflow: hidden;
@@ -388,13 +399,18 @@
             }
             
             img {
-                height: rem(200);
-                width: rem(200);
+                height: rem(300);
+                width: rem(300);
                 object-fit: cover;
 
+                @include media-breakpoint-down(lg) {
+                    height: rem(150);
+                    width: rem(150);
+                }
+
                 @include media-breakpoint-up(lg) {
-                    height: rem(300);
-                    width: rem(300);
+                    height: rem(200);
+                    width: rem(200);
                 }
             }
 
@@ -402,7 +418,7 @@
                 color: $black;
                 display: block;
                 padding: rem(20) 0;
-                font-family: $font-gill-std;
+                font-family: $font-gill-std-semibold;
                 font-size: rem(15);
                 font-style: italic;
                 font-weight: 600;
@@ -483,7 +499,7 @@
 
                 a {
                     color: $gray20;
-                    font-family: $font-gill-std;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(15);
                     font-weight: 600;
                     text-transform: capitalize;
@@ -498,10 +514,16 @@
  
                     a {
                         font-size: 0;
+                        width: rem(20);
+                        height: rem(20);
                     }
 
                     span {
-                        font-size: rem(24);
+                        background: url("../images/round-close-24.svg") center center no-repeat;
+                        font-size: rem(0);
+                        width: 100%;
+                        height: 100%;
+                        display: inline-block;
                     }
                 }
 
@@ -514,6 +536,7 @@
                         padding: 0;
                         position: relative;
                         top: rem(-1);
+                        background: url("../images/down.svg") center center no-repeat;
                         background-size: rem(6);
                         width: rem(11);
                         height: rem(11);
@@ -527,7 +550,7 @@
                     border: none;
                     
                     .nav-link, .dropdown-link {
-                        font-family: $font-gill-std;
+                        font-family: $font-gill-std-semibold;
                         font-size: rem(12);
                         font-weight: 600;
                         color: $gray20;
@@ -539,6 +562,7 @@
                             &:after {
                                 width: rem(6);
                                 height: rem(6);
+                                background: url("../images/Down-toggle.svg") center center no-repeat;
                                 background-size: contain;
                                 top: 50%;
                                 transform: translateY(-50%);
@@ -556,10 +580,11 @@
                 }
 
                 .top-category {
+
                     .nav-link {
-                        font-family: $font-gill-std;
+                        font-family: $font-gill-std-semibold;
                         font-size: rem(17);
-                        font-weight: bold;
+                        font-weight: 600;
                         color: $dark-gray;
                         font-style: italic;
                         letter-spacing: 1.5px;
@@ -568,27 +593,6 @@
             }
         }
 
-        .country-selector-mobile {
-            padding: 0 rem(20);
-
-            .country-selector-wrapper {
-                padding: 0;
-                border: none;
-
-                i {
-                    display: none;
-                }
-
-                select {
-                    flex: 0 1 40%;
-                    color: $gray20;
-                    font-family: $font-gill-std;
-                    font-size: rem(12);
-                    font-weight: 600;
-                    background-size: rem(11);
-                }
-            }
-        }
 
         .menu-pane {
             background-color: $white;
@@ -626,11 +630,13 @@
                 
                 .user-message {
                     color: $gray20;
-                    font-family: $font-gill-std;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(14);
                     font-weight: 600;
                     margin-top: rem(15);
                     margin-bottom: rem(20);
+                    background: url("../images/round-arrow_right_alt-24.svg") right center no-repeat;
+                    padding-right: rem(25);
                 }
             }
         }
