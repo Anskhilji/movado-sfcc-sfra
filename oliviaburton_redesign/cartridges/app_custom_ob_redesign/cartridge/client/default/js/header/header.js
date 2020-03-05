@@ -4,6 +4,7 @@ $('.desktop-view .feature-dropdown').hover(
         var $imagesLength = $(this).find('.featured-promotion a img').length;
 
         if ($imagesLength > 4) {
+
             $('.shop-by-collection-slide .featured-promotion').slick({
                 speed: 300,
                 autoplay: true,
@@ -13,9 +14,10 @@ $('.desktop-view .feature-dropdown').hover(
                 arrows: false,
                 variableWidth: true,
                 infinite: true,
+                
                 responsive: [
                     {
-                        breakpoint: 4000,
+                        breakpoint: 3000,
                         settings: {
                             slidesToShow: 7,
                         }
@@ -37,7 +39,7 @@ $('.desktop-view .feature-dropdown').hover(
             });
         }
     },
-    
+
     function() {
         $('.shop-by-collection-slide .featured-promotion').slick("unslick");
     },

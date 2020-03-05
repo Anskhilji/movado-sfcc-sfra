@@ -16,8 +16,9 @@
     
         &-container {
             padding: rem(60) 0;
+            padding-top: rem(0);
             justify-content: space-between;
-    
+
             @include media-breakpoint-down(sm) {
                 padding: 0;
             }
@@ -38,17 +39,16 @@
         @include media-breakpoint-up(sm) {
             margin-top: rem(30);
         }
-    
+
         @include media-breakpoint-down(sm) {
             padding: 0;
             overflow: hidden;
         }
-    
+
         .copyright {
             color: $gray20;
-            font-family: $font-gill-std;
+            font-family: $font-gill-std-normal;
             font-size: rem(14);
-            font-weight: 600;
             line-height: rem(22);
     
             @include media-breakpoint-down(sm) {
@@ -81,7 +81,7 @@
                 
                 &.title {
                    color: $black;
-                   font-family: $gill-sans-font-stack;
+                   font-family: $font-gill-std-semibold;
                    font-size: rem(17);
                    font-weight: 600;
                    line-height: rem(22);
@@ -111,7 +111,7 @@
                     .social-links {
                         width: 100%;
                         text-align: center;
-    
+
                         li {
                             float: none;
                             display: inline-block;
@@ -119,11 +119,10 @@
                     }
                 }
             }
-    
+
             &-mobile-menu-footer {
                 width: 100%;
                 display: inline-block;
-                float: left;
                 margin: rem(20) 0;
                 text-align: center;
                 font-weight: bold;
@@ -156,7 +155,7 @@
     
                 p {
                     color: $gray20;
-                    font-family: $font-gill-std;
+                    font-family: $font-gills-light;
                     font-size: rem(15);
                     font-weight: 300;
                     line-height: rem(20);
@@ -178,7 +177,7 @@
             }
     
             &-title {
-                font-family: $font-gill-std;
+                font-family: $font-gill-std-semibold;
                 font-weight: 600;
                 line-height: rem(22);
                 font-size: rem(17);
@@ -332,7 +331,7 @@
             
                 &.title {
                     color: $gray20;
-                    font-family: $font-gill-std;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(15);
                     font-weight: 600;
                     line-height: rem(21);
@@ -349,8 +348,8 @@
                   color: $gray20;
                   font-size: rem(12);
                   line-height: rem(20);
-                  font-family: $font-gill-std;
-                  font-weight: 600;
+                  font-family: $font-gill-std-normal;
+                  font-weight: 400;
                 }
             }
         }
@@ -395,7 +394,8 @@
     .html-content-container {
         
         .hp-icon {
-            width: rem(93);
+            min-width: rem(93);
+            max-width: rem(93) !important;
             height: rem(93) !important;
             margin: 0;
             margin-right: rem(20);
@@ -409,7 +409,7 @@
             padding-right: rem(25);
 
             p, h3 {
-                font-family: $font-gill-std;
+                font-family: $font-gills-light;
                 font-size: rem(14);
                 color: $black-pearl;
                 line-height: rem(22);
@@ -421,6 +421,7 @@
             }
 
             h3 {
+                font-family: $font-gill-std-semibold;
                 line-height: initial;
                 font-weight: 600;
                 margin-bottom: rem(8);
@@ -430,8 +431,10 @@
 }
 
 .footer-bottom {
+    margin: 0;
     justify-content: space-between;
-    
+    position: relative;
+
     @include media-breakpoint-down(sm) {
         justify-content: center;
     }

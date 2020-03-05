@@ -1,3 +1,6 @@
+<iscomment>Footer content slot added</iscomment>
+<isslot id="cs-footer-slot1" description="Content in column 1 of the Footer" context="global" />
+
 <footer class="ob-footer">
     <div class="footer-redesign">
         <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
@@ -40,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="row footer-bottom">
                 <div class=" order-sm-1 copyright-notice">
