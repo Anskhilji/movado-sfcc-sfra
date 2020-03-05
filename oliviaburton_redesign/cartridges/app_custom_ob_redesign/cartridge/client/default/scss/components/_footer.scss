@@ -404,7 +404,9 @@
 
     .content-item {
         display: flex;
- 
+        padding: rem(5);
+        letter-spacing: 0.05em;
+
         &-text {
             padding-right: rem(25);
 
