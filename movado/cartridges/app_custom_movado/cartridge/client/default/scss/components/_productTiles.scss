@@ -218,6 +218,9 @@
       clear: both;
       width: 100%;
       padding-top: rem(10);
+          .icon {
+              display: none;
+          }
     }
     .out-of-stock{
       text-transform: uppercase;

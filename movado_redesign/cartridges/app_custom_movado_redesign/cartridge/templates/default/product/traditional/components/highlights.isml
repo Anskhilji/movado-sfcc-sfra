@@ -14,9 +14,9 @@
 </isif>
 
 <div class="detail-bottom-blocks col-sm-12">
-    <isif condition="${pdict.productPlaceholderFirst}"> 
+    <isif condition="${pdict.productDetailAttribute1}"> 
         <div class="bottom-block product-placeholder-block">
-            <isprint value="${pdict.productPlaceholderFirst}" encoding="off" />
+            <isprint value="${pdict.productDetailAttribute1}" encoding="off" />
         </div>
     <iselse>
         <div class="bottom-block free-shipping-block">
@@ -24,9 +24,9 @@
         </div>
     </isif>
     
-    <isif condition="${pdict.productPlaceholderSecond}"> 
+    <isif condition="${pdict.productDetailAttribute2}"> 
         <div class="bottom-block product-placeholder-block">
-            <isprint value="${pdict.productPlaceholderSecond}" encoding="off" />
+            <isprint value="${pdict.productDetailAttribute2}" encoding="off" />
         </div>
     <iselse>
         <div class="bottom-block swiss-movement-block">
@@ -34,9 +34,9 @@
         </div>
     </isif>
     
-    <isif condition="${pdict.productPlaceholderThird}">
+    <isif condition="${pdict.productDetailAttribute3}">
         <div class="bottom-block product-placeholder-block">
-            <isprint value="${pdict.productPlaceholderThird}" encoding="off" />
+            <isprint value="${pdict.productDetailAttribute3}" encoding="off" />
         </div>
      <iselse>
          <div class="bottom-block warranty-block">

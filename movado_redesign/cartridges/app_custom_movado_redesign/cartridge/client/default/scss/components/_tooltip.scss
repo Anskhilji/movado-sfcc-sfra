@@ -29,62 +29,6 @@ $arrow-height: 1.25em;
         display: block;
     }
 
-    .left-tooltip {
-        display: none;
-        text-transform: initial;
-        position: absolute;
-        bottom: 100%;
-        padding: rem(5);
-        border-radius: $border-radius;
-        background-color: $slate-grey-light;
-        color: $grey14;
-        font-size: rem(15);
-        width: rem(400);
-        transform: translate(5%, 50%);
-        left: 50%;
-        margin-left: rem(4);
-        animation: fade-in 0.5s linear forwards;
-        border: rem(1) solid $border-color;
-        z-index: 9999;
-
-        @keyframes fade-in {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        &::after, &::before {
-            content: " ";
-            height: 0;
-            top: 50%;
-            margin-left: rem(-13);
-            position: absolute;
-            width: 0;
-        }
-
-        > b {
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-
-        @include media-breakpoint-down(sm) {
-            display: none;
-            text-transform: initial;
-            position: absolute;
-            bottom: 100%;
-            padding: rem(5);
-            border-radius: $border-radius;
-            background-color: $slate-grey-light;
-            color: $grey14;
-            font-size: rem(14.848);
-            width: rem(240);
-            transform: translate(-35%, -$arrow-height/2);
-            left: 50%;
-            margin-left: rem(4);
-            animation: fade-in 0.5s linear forwards;
-            border: rem(1) solid $border-color;
-        }
-    }
-
     .tooltip {
         display: none;
         text-transform: initial;
@@ -95,11 +39,11 @@ $arrow-height: 1.25em;
         background-color: $white;
         color: $grey14;
         font-size: rem(14.848);
-        width: rem(336);
+        width: rem(352);
         height: rem(100);
         transform: translate(-50%, -$arrow-height/2);
         left: 50%;
-        margin-left: rem(45);
+        margin-left: rem(93);
         animation: fade-in 0.5s linear forwards;
         border: rem(1) solid $border-color;
 
@@ -109,14 +53,16 @@ $arrow-height: 1.25em;
         }
 
         @include media-breakpoint-down(md) {
-            width: rem(352);
-            margin-left: rem(-50);
+            margin-left: 0;
         }
 
         @include media-breakpoint-down(xs) {
-            width: rem(320);
+            width: rem(352);
             height: rem(116);
-            margin-left: rem(-50);
+        }
+
+        @media (min-width: $custom-sm1) and (max-width: $custom-sm2) {
+            width: rem(308);
         }
 
         &::after, &::before {
@@ -147,6 +93,17 @@ $arrow-height: 1.25em;
 
             @include media-breakpoint-down(md) {
                 margin-left: rem(51);
+            }
+        }
+        
+        p {
+            font-size: rem(12);
+            padding-left: rem(30);
+            padding-right: rem(30);
+
+            @include media-breakpoint-down(xs) {
+                padding-left: rem(10);
+                padding-right: rem(10);
             }
         }
     }

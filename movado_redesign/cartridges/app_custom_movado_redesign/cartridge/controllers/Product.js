@@ -69,9 +69,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var isEmbossEnabled = product.custom.Emboss;
     var isEngraveEnabled = product.custom.Engrave;
     var isGiftWrapEnabled = product.custom.GiftWrap;
-    var productPlaceholderFirst = !empty(product.custom.productPlaceholderFirst) ? product.custom.productPlaceholderFirst : null;
-    var productPlaceholderSecond = !empty(product.custom.productPlaceholderSecond) ? product.custom.productPlaceholderSecond : null;
-    var productPlaceholderThird = !empty(product.custom.productPlaceholderThird) ? product.custom.productPlaceholderThird : null;
+    var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
+    var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
+    var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
     
     
     viewData = {
@@ -79,9 +79,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
         socialShareEnable: socialShareEnable,
-        productPlaceholderFirst: productPlaceholderFirst,
-        productPlaceholderSecond: productPlaceholderSecond,
-        productPlaceholderThird: productPlaceholderThird
+        productDetailAttribute1: productDetailAttribute1,
+        productDetailAttribute2: productDetailAttribute2,
+        productDetailAttribute3: productDetailAttribute3
     }
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var pdpAnalyticsTrackingData;
