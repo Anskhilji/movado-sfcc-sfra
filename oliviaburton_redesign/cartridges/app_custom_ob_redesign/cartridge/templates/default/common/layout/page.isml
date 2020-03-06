@@ -23,14 +23,12 @@
             <div id="mainContent">
                 <isreplace/>
             </div>
-            
-            <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignABTest','Control')}">
-                <isinclude template="/components/footer/old/pageFooter" />
-            <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')}" >
+            <isinclude url="${URLUtils.url('Page-IncludeFooter')}" />
+            <iscomment>
+                This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeFooter.
                 <isinclude template="/components/footer/pageFooter" />
-            <iselse>
-                <isinclude template="/components/footer/old/pageFooter" />
-            </isif>
+            </iscomment>
+
         </div>
         <div class="error-messaging"></div>
         <div class="modal-background"></div>
