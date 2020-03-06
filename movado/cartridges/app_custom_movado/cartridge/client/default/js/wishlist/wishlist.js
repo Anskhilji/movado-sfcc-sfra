@@ -195,11 +195,11 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
 }
 
 function showHideSocialLinks(checkLastItemInTheLoop) {
+    var $socialIcons = $('.socialsharing');
     var $globalCheckbox = $('.wishlist-checkbox').siblings('input');
-    if ($globalCheckbox.prop("checked") == true) {
-        $('.socialsharing').hide();
+    if ($globalCheckbox.prop('checked') == true) {
+        $socialIcons.hide();
     } else {
-        var $socialIcons = $('.socialsharing');
         var $hideSocialLinks = true;
         if (checkLastItemInTheLoop) {
             var $total = $('.wishlist-item-checkbox').length;
@@ -218,7 +218,7 @@ function showHideSocialLinks(checkLastItemInTheLoop) {
         } else {
             $('.wishlist-item-checkbox').each(function(index, el) {
                 var $checkboxInput = $(el).siblings('input');
-                if ($checkboxInput.prop("checked") == false) {
+                if ($checkboxInput.prop('checked') == false) {
                     $hideSocialLinks = false;
                 }
             });
