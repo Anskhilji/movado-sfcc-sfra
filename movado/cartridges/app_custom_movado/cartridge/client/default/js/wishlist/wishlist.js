@@ -131,10 +131,12 @@ function updatePublicStatus(listID, itemID, callback) {
         success: function (data) {
             if (callback && !data.success) { callback(); }
             showResponseMsg(data, null);
+            showHideSocialLinks(false);
         },
         error: function (err) {
             if (callback) { callback(); }
             showResponseMsg(err);
+            showHideSocialLinks(false);
         }
     });
 }
@@ -192,6 +194,44 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
     $.spinner().stop();
 }
 
+function showHideSocialLinks(checkLastItemInTheLoop) {
+    var $socialIcons = $('.socialsharing');
+    var $globalCheckbox = $('.wishlist-checkbox').siblings('input');
+    if ($globalCheckbox.prop('checked') == true) {
+        $socialIcons.hide();
+    } else {
+        var $hideSocialLinks = true;
+        if (checkLastItemInTheLoop) {
+            var $total = $('.wishlist-item-checkbox').length;
+            $('.wishlist-item-checkbox').each(function(index, el) {
+                var $checkboxInput = $(el).siblings('input');
+                if (index === $total - 1) {
+                    if ($checkboxInput.prop('checked') == true) {
+                        $hideSocialLinks = true;
+                    }
+                } else {
+                    if ($checkboxInput.prop('checked') == false) {
+                        $hideSocialLinks = false;
+                    }
+                }
+            });
+        } else {
+            $('.wishlist-item-checkbox').each(function(index, el) {
+                var $checkboxInput = $(el).siblings('input');
+                if ($checkboxInput.prop('checked') == false) {
+                    $hideSocialLinks = false;
+                }
+            });
+        }
+        if ($hideSocialLinks) {
+            $socialIcons.hide();
+        } else {
+            $socialIcons.show();
+            $socialIcons.removeClass('d-none');
+        }
+    }
+}
+
 module.exports = {
     removeFromWishlist: function () {
         $('body').on('click', '.remove-from-wishlist', function (e) {
@@ -230,6 +270,12 @@ module.exports = {
                     success: function (data) {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
                         renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
+                        var $isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
+                        if ($isEmptyList) {
+                            $('.wl-social-sharing').hide(); 
+                        } else {
+                            showHideSocialLinks(true);
+                        }
                     },
                     error: function () {
                         $.spinner().stop();
@@ -351,13 +397,7 @@ module.exports = {
     toggleWishlistStatus: function () {
         $('#isPublicList').on('click', function () {
             var listID = $('#isPublicList').data('id');
-            if ($(this).is(':checked')) {
-                $('.wl-social-sharing').hide();  
-            }
-            else if ($(this).is(':not(:checked)')) {
-                $('.wl-social-sharing').show();
-            }
-                updatePublicStatus(listID, null, null);
+            updatePublicStatus(listID, null, null);
         });
     },
 
@@ -365,13 +405,15 @@ module.exports = {
         $('body').on('click', '.wishlist-item-checkbox', function () {
             var itemID = $(this).closest('.wishlist-hide').find('.custom-control-input').data('id');
             var el = $(this).siblings('input');
+            
             var resetCheckBox = function () {
                 return el.prop('checked')
                     ? el.prop('checked', false)
-                    : el.prop('checked', true);
+                        : el.prop('checked', true);
             };
 
             updatePublicStatus(null, itemID, resetCheckBox);
+            
         });
     },
 
