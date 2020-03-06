@@ -24,19 +24,19 @@
             <iselse>
                 <isinclude template="product/components/pricing/main" />
             </isif>
-            <isif condition="${product.promotions}">
-                <div class="promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.calloutMsg !== ''}">
-                            <div class="callout promo-msg">
-                                <isprint value="${promotion.calloutMsg}" encoding="off">
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
-            </isif>
         </div>
         <isinclude template="product/components/productTileName" />
+        <isif condition="${product.promotions}">
+            <div class="promotions">
+                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                    <isif condition="${promotion.calloutMsg !== ''}">
+                        <div class="callout promo-msg">
+                            <isprint value="${promotion.calloutMsg}" encoding="off">
+                        </div>
+                    </isif>
+                </isloop>
+            </div>
+        </isif>
         <p class="tile-discription" tabindex="0">
            <isprint value="${dw.catalog.ProductMgr.getProduct(product.id).shortDescription}"  encoding="off"/>
         </p>
