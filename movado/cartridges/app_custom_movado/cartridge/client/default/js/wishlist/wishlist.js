@@ -131,12 +131,12 @@ function updatePublicStatus(listID, itemID, callback) {
         success: function (data) {
             if (callback && !data.success) { callback(); }
             showResponseMsg(data, null);
-            showHideSocialLinks();
+            showHideSocialLinks(false);
         },
         error: function (err) {
             if (callback) { callback(); }
             showResponseMsg(err);
-            showHideSocialLinks();
+            showHideSocialLinks(false);
         }
     });
 }
@@ -194,24 +194,42 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
     $.spinner().stop();
 }
 
-function showHideSocialLinks() {
-	var globalCheckbox = $('.wishlist-checkbox').siblings('input');
-	if (globalCheckbox.prop("checked") == true) {
-		$('.socialsharing').hide();
-	} else {
-		var hideSocialLinks = true;
-		$('.wishlist-item-checkbox').each(function(index, el) {
-			var checkboxInput = $(el).siblings('input');
-			if (checkboxInput.prop("checked") == false) {
-				hideSocialLinks = false;
-			}
-		});
-		if (hideSocialLinks) {
-			$('.socialsharing').hide();
-		} else {
-			$('.socialsharing').show();
-		}
-	}
+function showHideSocialLinks(checkLastItemInTheLoop) {
+    var $globalCheckbox = $('.wishlist-checkbox').siblings('input');
+    if ($globalCheckbox.prop("checked") == true) {
+        $('.socialsharing').hide();
+    } else {
+        var $socialIcons = $('.socialsharing');
+        var $hideSocialLinks = true;
+        if (checkLastItemInTheLoop) {
+            var $total = $('.wishlist-item-checkbox').length;
+            $('.wishlist-item-checkbox').each(function(index, el) {
+                var $checkboxInput = $(el).siblings('input');
+                if (index === $total - 1) {
+                    if ($checkboxInput.prop('checked') == true) {
+                        $hideSocialLinks = true;
+                    }
+                } else {
+                    if ($checkboxInput.prop('checked') == false) {
+                        $hideSocialLinks = false;
+                    }
+                }
+            });
+        } else {
+            $('.wishlist-item-checkbox').each(function(index, el) {
+                var $checkboxInput = $(el).siblings('input');
+                if ($checkboxInput.prop("checked") == false) {
+                    $hideSocialLinks = false;
+                }
+            });
+        }
+        if ($hideSocialLinks) {
+            $socialIcons.hide();
+        } else {
+            $socialIcons.show();
+            $socialIcons.removeClass('d-none');
+        }
+    }
 }
 
 module.exports = {
@@ -252,31 +270,12 @@ module.exports = {
                     success: function (data) {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
                         renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
-                        var isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
-                        if (isEmptyList) {
-                        	$('.wl-social-sharing').hide(); 
+                        var $isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
+                        if ($isEmptyList) {
+                            $('.wl-social-sharing').hide(); 
                         } else {
-                            var hideSocialLinks = true;
-                            var $total = $('.wishlist-item-checkbox').length;
-                    		$('.wishlist-item-checkbox').each(function(index, el) {
-                    			var checkboxInput = $(el).siblings('input');
-                    			if (index === $total - 1) {
-                        			if (checkboxInput.prop("checked") == true) {
-                        				hideSocialLinks = true;
-                        			}
-                    			} else {
-	                    			if (checkboxInput.prop("checked") == false) {
-	                    				hideSocialLinks = false;
-	                    			}
-                    			}
-                    		});
-                    		if (hideSocialLinks) {
-                    			$('.socialsharing').hide();
-                    		} else {
-                    			$('.socialsharing').show();
-                    		}
+                            showHideSocialLinks(true);
                         }
-                        
                     },
                     error: function () {
                         $.spinner().stop();
@@ -408,7 +407,7 @@ module.exports = {
             var el = $(this).siblings('input');
             
             var resetCheckBox = function () {
-            	return el.prop('checked')
+                return el.prop('checked')
                     ? el.prop('checked', false)
                         : el.prop('checked', true);
             };
