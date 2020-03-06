@@ -1634,6 +1634,12 @@ body {
     }
 }
 
+.pdp-modern-design {
+    .promotions {
+        text-align: center;
+    }
+}
+
 @media (min-width: $custom-lg1) and (max-width: $custom-lg2) {
     .product-attributes {
         margin-left: rem(74);
