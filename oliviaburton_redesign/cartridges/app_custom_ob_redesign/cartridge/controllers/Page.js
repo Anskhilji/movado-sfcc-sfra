@@ -55,4 +55,25 @@ server.get(
     }
 );
 
+server.get(
+    'IncludeFooter',
+    server.middleware.include,
+    cache.applyPromotionSensitiveCache,
+    function (req, res, next) {
+        var ABTestMgr = require('dw/campaign/ABTestMgr');
+
+        var footerTemplate = null;
+        // A/B testing for header design
+        if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
+            footerTemplate = '/components/footer/old/pageFooter';
+        } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
+            footerTemplate = '/components/footer/pageFooter';
+        } else {
+            footerTemplate = '/components/footer/old/pageFooter';
+        }
+        res.render(footerTemplate);
+        next();
+    }
+);
+
 module.exports = server.exports();
