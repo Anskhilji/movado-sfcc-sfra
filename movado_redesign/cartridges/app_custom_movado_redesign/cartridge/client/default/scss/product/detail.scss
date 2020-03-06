@@ -668,7 +668,7 @@
 
         .bottom-block {
         
-            width: rem(267);
+            width: rem(240);
             height: rem(70);
             border-radius: rem(5);
             background: $slate-grey-light;
@@ -1433,7 +1433,7 @@
     @media (min-width: $custom-sm3) and (max-width: $custom-sm4) {
         .detail-bottom-blocks {
             .bottom-block {
-                width: rem(176);
+                width: rem(160);
             }
         }
     }
@@ -1458,6 +1458,14 @@
         .detail-bottom-blocks {
             .bottom-block {
                 width: rem(256);
+            }
+        }
+    }
+
+    @media (min-width: $custom-sm11) and (max-width: $custom-sm12) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(176);
             }
         }
     }
