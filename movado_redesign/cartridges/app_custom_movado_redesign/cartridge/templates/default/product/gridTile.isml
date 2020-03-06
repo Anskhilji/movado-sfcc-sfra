@@ -6,6 +6,10 @@
     <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
         <isinclude template="product/productTile" />
      <iselse> 
-         <isinclude template="product/old/productTile" />
+         <isif condition="${pdict.isTopSearch}">
+            <isinclude template="product/productTile" />
+         <iselse>
+             <isinclude template="product/old/productTile" />
+         </isif>
     </isif>
 </div>
