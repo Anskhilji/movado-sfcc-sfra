@@ -68,7 +68,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productClickGtmObj: productClickGtmObj,
         productGtmObj: productGtmObj,
         qvGtmObj: qvGtmObj,
-        loggedIn: req.currentCustomer.raw.authenticated
+        loggedIn: req.currentCustomer.raw.authenticated,
+        isTopSearch: req.querystring.isTopSearch
     };
 
     Object.keys(req.querystring).forEach(function (key) {

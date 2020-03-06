@@ -668,7 +668,7 @@
 
         .bottom-block {
         
-            width: rem(267);
+            width: rem(240);
             height: rem(70);
             border-radius: rem(5);
             background: $slate-grey-light;
@@ -1166,7 +1166,7 @@
             padding: 0;
 
             .bottom-block {
-                width: rem(160);
+                width: rem(140);
                 margin-right: rem(5);
                 margin-bottom: rem(5);
                 padding: rem(10);
@@ -1348,7 +1348,6 @@
             padding: 0;
 
             .bottom-block {
-                width: rem(160);
                 margin-right: 0;
                 margin-bottom: rem(10);
                 padding: rem(10);
@@ -1405,11 +1404,68 @@
                 }
             }
         }
+    }
 
+    @media (min-width: $custom-sm1) and (max-width: $custom-sm2) {
         .detail-bottom-blocks {
-
             .bottom-block {
-                width: 100%;
+                width: 100%
+            }
+        }
+    }
+
+    @media (min-width: $custom-lg1) and (max-width: $custom-lg2) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(187.2);
+            }
+        }
+    }
+
+    @media (min-width: $custom-md1) and (max-width: $custom-md2) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(156);
+            }
+        }
+    }
+
+    @media (min-width: $custom-sm3) and (max-width: $custom-sm4) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(160);
+            }
+        }
+    }
+
+    @media (min-width: $custom-sm7) and (max-width: $custom-sm8) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(224);
+            }
+        }
+    }
+
+    @media (min-width: $custom-sm5) and (max-width: $custom-sm6) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(144);
+            }
+        }
+    }
+    
+    @media (min-width: $custom-sm9) and (max-width: $custom-sm10) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(256);
+            }
+        }
+    }
+
+    @media (min-width: $custom-sm11) and (max-width: $custom-sm12) {
+        .detail-bottom-blocks {
+            .bottom-block {
+                width: rem(176);
             }
         }
     }
@@ -1539,12 +1595,53 @@ body {
     &:hover {
         cursor: pointer;
     }
+
+    .promotions {
+        text-align: left;
+
+        @include media-breakpoint-down(md) {
+            text-align: center;
+        }
+    }
 }
 
 .popup {
+
     .cancel {
         background: $white;
         color: $black;
     }
 }
 
+.promo-msg {
+
+    .icon {
+        display: none;
+    }
+}
+
+.pdp-old-design {
+
+    .promotions {
+        text-align: left;
+
+        .promo-icon {
+    
+            .icon {
+                display: none;
+            }
+        }
+    }
+}
+
+.pdp-modern-design {
+    .promotions {
+        text-align: center;
+    }
+}
+
+@media (min-width: $custom-lg1) and (max-width: $custom-lg2) {
+    .product-attributes {
+        margin-left: rem(74);
+    }
+}
