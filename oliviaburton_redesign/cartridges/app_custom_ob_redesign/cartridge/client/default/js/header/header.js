@@ -1,5 +1,4 @@
 $('.desktop-view .feature-dropdown').hover(
- 
     function() {
         var $imagesLength = $(this).find('.featured-promotion a img').length;
 
@@ -14,7 +13,7 @@ $('.desktop-view .feature-dropdown').hover(
                 arrows: false,
                 variableWidth: true,
                 infinite: true,
-                
+
                 responsive: [
                     {
                         breakpoint: 3000,
@@ -43,4 +42,9 @@ $('.desktop-view .feature-dropdown').hover(
     function() {
         $('.shop-by-collection-slide .featured-promotion').slick("unslick");
     },
-)
+);
+
+$(window).on('resize', function () {
+    var $leftMargin = $('.desktop-view .navbar-nav').position().left;
+    $('.desktop-view .categories-dropdown').css('padding-left', $leftMargin + 'px');
+}).resize();
