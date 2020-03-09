@@ -131,12 +131,12 @@ function updatePublicStatus(listID, itemID, callback) {
         success: function (data) {
             if (callback && !data.success) { callback(); }
             showResponseMsg(data, null);
-            showHideSocialLinks(false);
+            showHideSocialLinks();
         },
         error: function (err) {
             if (callback) { callback(); }
             showResponseMsg(err);
-            showHideSocialLinks(false);
+            showHideSocialLinks();
         }
     });
 }
@@ -187,6 +187,7 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
             $('.checkbox-wishlist-hide').remove();
         }
         $('body .wishlistItemCards').append(data);
+        showHideSocialLinks();
         document.documentElement.scrollTop = scrollPosition;
     }).fail(function () {
         $('.more-wl-items').remove();
@@ -194,35 +195,22 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
     $.spinner().stop();
 }
 
-function showHideSocialLinks(checkLastItemInTheLoop) {
+function showHideSocialLinks() {
     var $socialIcons = $('.socialsharing');
     var $globalCheckbox = $('.wishlist-checkbox').siblings('input');
     if ($globalCheckbox.prop('checked') == true) {
         $socialIcons.hide();
     } else {
         var $hideSocialLinks = true;
-        if (checkLastItemInTheLoop) {
-            var $total = $('.wishlist-item-checkbox').length;
-            $('.wishlist-item-checkbox').each(function(index, el) {
-                var $checkboxInput = $(el).siblings('input');
-                if (index === $total - 1) {
-                    if ($checkboxInput.prop('checked') == true) {
-                        $hideSocialLinks = true;
-                    }
-                } else {
-                    if ($checkboxInput.prop('checked') == false) {
-                        $hideSocialLinks = false;
-                    }
-                }
-            });
-        } else {
-            $('.wishlist-item-checkbox').each(function(index, el) {
-                var $checkboxInput = $(el).siblings('input');
-                if ($checkboxInput.prop('checked') == false) {
-                    $hideSocialLinks = false;
-                }
-            });
-        }
+        $('.wishlist-item-checkbox').each(function(index, el) {
+            var $checkboxInput = $(el).siblings('input');
+            if ($checkboxInput.prop('checked') == true) {
+                $hideSocialLinks = true;
+            } else if ($checkboxInput.prop('checked') == false) {
+                $hideSocialLinks = false;
+                return false;
+            }
+        });
         if ($hideSocialLinks) {
             $socialIcons.hide();
         } else {
@@ -271,11 +259,6 @@ module.exports = {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
                         renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
                         var $isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
-                        if ($isEmptyList) {
-                            $('.wl-social-sharing').hide(); 
-                        } else {
-                            showHideSocialLinks(true);
-                        }
                     },
                     error: function () {
                         $.spinner().stop();

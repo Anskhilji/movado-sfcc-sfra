@@ -1,6 +1,6 @@
 <isif condition="${pdict.wishlist.items.length > 0}">
     <!---product cards--->
-    
+    <isset name="isPublicItem" value="false" scope="page" />
     <div class="wishlistItemCards" data-error-msg="${Resource.msg('wishlist.remove.error','wishlist',null)}">
         <isloop items="${pdict.wishlist.items}" var="item" status=loopStatus>
             <isif condition=${(pdict.wishlist.publicView && item.publicItem) || (!pdict.wishlist.publicView)}>
@@ -10,6 +10,7 @@
                    <isinclude template="wishlist/components/wishlistProductCard" />
                 </isif>
             </isif>
+            <isset name="isPublicItem" value="${item.publicItem}" scope="page" />
         </isloop>
         <isif condition="${pdict.wishlist.showMore}">
              <div class="my-account col-12">
@@ -20,7 +21,7 @@
         </isif>
         <span class="wishlistItemCardsData" data-uuid="${pdict.wishlist.UUID}" data-href="${URLUtils.url('Wishlist-MoreList')}" data-page-number="${pdict.wishlist.pageNumber || 1}"  data-public-view=${pdict.wishlist.publicView}></span>
     </div>
-    <div class="${!empty(pdict.wishlist) && pdict.wishlist.publicList ? 'd-none' : ''} socialsharing">
+    <div class="${!empty(pdict.wishlist) && pdict.wishlist.publicList && isPublicItem ? '' : 'd-none'} socialsharing">
         <isset name="shareLinks" value="${pdict.socialLinks}" scope="page"/>
         <isinclude template="wishlist/components/socialsharing" />
     </div>
