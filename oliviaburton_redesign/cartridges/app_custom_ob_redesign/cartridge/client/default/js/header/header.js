@@ -1,5 +1,4 @@
 $('.desktop-view .feature-dropdown').hover(
-
     function() {
         var $imagesLength = $(this).find('.featured-promotion a img').length;
 
@@ -48,6 +47,4 @@ $('.desktop-view .feature-dropdown').hover(
 $(window).on('resize', function () {
     var leftmargin = $('.desktop-view .navbar-nav').position().left;
     $('.desktop-view .categories-dropdown').css('padding-left', leftmargin + 'px');
-    console.log(width);
-    console.log(leftmargin);
 }).resize();
