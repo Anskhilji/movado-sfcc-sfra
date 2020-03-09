@@ -206,6 +206,7 @@
     
                 .country-selector-wrapper {
                     margin-left: 0;
+                    display: flex;
     
                     @include media-breakpoint-down(sm) {
                         display: inline-block;
