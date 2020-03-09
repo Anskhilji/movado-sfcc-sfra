@@ -19,9 +19,7 @@ $(function() {
             $stickybar.css({
                 top: $header +'px'
             });
-        }
-
-        else {
+        }else {
             $stickybar.css('top','-45px')
         }
     });

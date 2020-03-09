@@ -2,7 +2,7 @@
 @import '~movado/product/detail';
 
 .gallery-slider {
-  
+
   .slick-slide {
     > div {
       padding: 0 rem(5);
@@ -105,7 +105,7 @@
       padding-left: 25px;
 
       &:hover {
-      color: $dark-red;
+        color: $dark-red;
       }
     }
   }
