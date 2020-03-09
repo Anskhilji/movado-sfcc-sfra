@@ -12,8 +12,11 @@
                     ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
                 <iselse>
                     <isloop items="${product.availability.messages}" var="message">
-                        <span class="availability-msg-text">${message}</span> | ${Resource.msgf('label.product.detail.shipping2', 'product', null)}
+                        <span class="availability-msg-text">${message}</span> 
                     </isloop>
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                        <span class="availability-msg-text">| ${Resource.msgf('label.product.detail.shipping2', 'product', null)} </span>
+                    </isif>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
                         |  ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
