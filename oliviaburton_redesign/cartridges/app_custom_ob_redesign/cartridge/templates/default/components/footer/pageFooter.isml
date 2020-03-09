@@ -20,7 +20,7 @@
                             <isslot id="country-selector" description="country selector" context="global" />
                         </div>
                         <div class="footer-item-country-selector">
-                            <isslot id="language-selector" description="country selector" context="global" />
+                            <isslot id="language-selector" description="language selector" context="global" />
                         </div>
                     </div>
                     <iscontentasset aid="ca-footer-mobile-links" />
