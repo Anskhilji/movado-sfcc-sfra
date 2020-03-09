@@ -90,6 +90,17 @@
                 }
             }
         }
+
+        .selector-wrapper {
+        
+            @include media-breakpoint-down(md) {
+                margin-right: rem(-70);
+            }
+            @include media-breakpoint-down(sm) {
+                margin-right: rem(0);
+            }
+
+        }
     
         .footer-item {
     
@@ -217,6 +228,8 @@
                     .flag-icon {
                         width: rem(28);
                         height: rem(20);
+                        min-width: rem(28);
+                        min-height: rem(20);
                     }
     
                     select {

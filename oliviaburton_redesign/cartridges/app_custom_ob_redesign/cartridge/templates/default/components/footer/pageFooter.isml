@@ -15,7 +15,7 @@
                             <isslot id="ca-footer-news-letter" description="News letter Content Slot" context="global" />
                         </div>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex selector-wrapper">
                         <div class="footer-item-country-selector">
                             <isslot id="country-selector" description="country selector" context="global" />
                         </div>
