@@ -53,3 +53,38 @@
 }(jQuery));
 
 $('.header-menu-wrapper').pinElement();
+
+$(document).ready(function () {
+    $('.language-selector').on('change', function (e) {
+        var $country = $('option:selected', $(this)).text();
+        var $currency = $('option:selected', $(this)).data('value');
+        var $endPointUrl = $('option:selected', $(this)).data('action-url');
+        $.ajax({
+            url: $endPointUrl + '?currency=' + $currency + "&country=" + $country,
+            method: 'GET',
+            success: function () {
+                location.reload();
+            },
+            error: function () { 
+                console.log(e);
+            }
+        });
+    });
+    
+    $('.country-selector-wrapper').on('change', function(e) {
+        var $endPointUrl = $('option:selected', $(this)).data('action-url');
+        var $localeId = $('option:selected', $(this)).data('value');
+        $.ajax({
+            url: $endPointUrl + '?localeid=' + $localeId,
+            method: 'GET',
+            success: function (data) {
+//                alert(data.url);
+//                console.log(data);
+                window.location.replace(data.url);
+            },
+            error: function () { 
+                console.log(e);
+            }
+        });
+    });
+});
