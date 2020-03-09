@@ -45,6 +45,6 @@ $('.desktop-view .feature-dropdown').hover(
 );
 
 $(window).on('resize', function () {
-    var leftmargin = $('.desktop-view .navbar-nav').position().left;
-    $('.desktop-view .categories-dropdown').css('padding-left', leftmargin + 'px');
+    var $leftMargin = $('.desktop-view .navbar-nav').position().left;
+    $('.desktop-view .categories-dropdown').css('padding-left', $leftMargin + 'px');
 }).resize();

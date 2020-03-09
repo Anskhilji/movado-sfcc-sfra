@@ -26,7 +26,7 @@
                 <ul>
                     <isloop items="${menuItem.subCategories}" var="category">
                         <isif condition="${category.subCategories}">
-                            <li class="dropdown-item dropdown <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem">
+                            <li class="dropdown-item dropdown gtm-customEvent <isif condition="${category.subCategories}"> third-level-category</isif>" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                                 <a href="${category.url}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                                 <isset name="categoryItem" value="${category}" scope="page"/>
                                 <isinclude template="components/header/menuItemList"/>
