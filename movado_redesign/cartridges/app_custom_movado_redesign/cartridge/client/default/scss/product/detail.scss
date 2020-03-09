@@ -578,7 +578,7 @@
 
         .tile-body {
             text-align: left;
-            padding: rem(10);
+            padding: rem(10) 0;
             overflow: auto;
 
             .pdp-link , .price {
@@ -617,7 +617,7 @@
     .cs-carousel-wrapper {
 
         .slick-slide {
-            margin: 0 rem(3);
+            margin: 0 rem(8);
         }
 
         .slick-list {
