@@ -1,6 +1,6 @@
 <iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
-<div class="header-banner-desktop">
+<div class="header-banner header-banner-desktop">
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 </div>
 
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="header-banner-mobile">
+                        <div class="header-banner header-banner-mobile">
                             <isslot id="header-banner-m" description="Slot above the site header" context="global" />
                         </div>
                     </div>

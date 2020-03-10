@@ -39,24 +39,28 @@
     }
   }
 
-  .html-slot-container {
-    font-family: $font-medium;
-    font-size: rem(13);
-    line-height: 1.5;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+  &-mvmt {
 
-    @include media-breakpoint-up(xs) {
-      font-size: rem(14);
-    }
-    
-    @include media-breakpoint-up(xs) {
-      font-size: rem(14);
+    .html-slot-container {
+      font-family: $font-medium;
+      font-size: rem(13);
+      line-height: 1.5;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+
+      @include media-breakpoint-up(xs) {
+        font-size: rem(14);
+      }
+
+      @include media-breakpoint-up(xs) {
+        font-size: rem(14);
+      }
     }
   }
 }
 
 header.new-header {
+  color: green;
 
   @import "menu";
 
@@ -170,6 +174,7 @@ header.new-header {
       box-shadow: none;
       border-radius: 0;
       background: $black;
+      list-style: none;
 
       a {
         font: rem(15) $font-primary;
