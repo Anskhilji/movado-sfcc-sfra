@@ -1099,6 +1099,25 @@
     .cart-wishlist {
         justify-content: center;
     }
+
+    .cart-wishlist-out-of-stock {
+
+        @include media-breakpoint-up(sm) {
+            padding-left: 0;  
+            left: 0;
+        }
+
+        .wishlist-row {
+
+            .btn-link {
+
+                @include media-breakpoint-up(sm) {
+                    margin-left: 0 !important;
+                }
+            }
+        }
+
+    }
 }
 
 [data-action="Product-Show"] {
@@ -1469,6 +1488,21 @@
             }
         }
     }
+
+    .cart-wishlist-out-of-stock {
+
+        padding-left: 0;
+        left: 0;
+
+        .wishlist-row {
+
+            .btn-link {
+                margin-left: 0 !important;
+            }
+        }
+
+    }
+
 }
 
 @media only screen and (min-width: $custom-xll) {
@@ -1643,5 +1677,15 @@ body {
 @media (min-width: $custom-lg1) and (max-width: $custom-lg2) {
     .product-attributes {
         margin-left: rem(74);
+    }
+}
+
+.container-fluid.pdp-v-one {
+
+    .cart-wishlist-out-of-stock {
+
+        @include media-breakpoint-up(lg) { 
+            padding-left: rem(12);  
+        }
     }
 }
