@@ -1,5 +1,6 @@
 $('.desktop-view .feature-dropdown').hover(
     function() {
+        $('.slick-slider').slick("refresh");
         var $imagesLength = $(this).find('.featured-promotion a img').length;
 
         if ($imagesLength > 4) {
@@ -40,7 +41,10 @@ $('.desktop-view .feature-dropdown').hover(
     },
 
     function() {
-        $('.shop-by-collection-slide .featured-promotion').slick("unslick");
+        var $imagesLength = $(this).find('.featured-promotion a img').length;
+        if ($imagesLength > 4) {
+            $('.shop-by-collection-slide .featured-promotion').slick('unslick');
+        }
     },
 );
 

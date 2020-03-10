@@ -26,7 +26,7 @@
                         </li>
                     <iselse/>
                         <li class="nav-item" role="menuitem">
-                            <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">${category.name}</a>
+                            <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link"><span>${category.name}</span></a>
                         </li>
                     </isif>
                 </isloop>
