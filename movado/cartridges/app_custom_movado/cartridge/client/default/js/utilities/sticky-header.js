@@ -56,6 +56,7 @@ $('.header-menu-wrapper').pinElement();
 
 $(document).ready(function () {
     $('.language-selector').on('change', function (e) {
+        var $selectedOption = $('option:selected', $(this));
         var $country = $('option:selected', $(this)).text();
         var $currency = $('option:selected', $(this)).data('value');
         var $endPointUrl = $('option:selected', $(this)).data('action-url');
@@ -64,11 +65,18 @@ $(document).ready(function () {
             method: 'GET',
             success: function () {
                 location.reload();
+//                $('option:selected', $(this)).attr("selected","selected");
+//                $selectedOption.attr('selected','selected');
+//                $("#selectbox").val(optionValue)
+//                .find("option[value=" + optionValue +"]").attr('selected', true);
+                
+                $(this).find('option[value=' + $currency + ']').attr('selected', true);
             },
             error: function () { 
                 console.log(e);
             }
         });
+//        alert($currency);
     });
     
     $('.country-selector-wrapper').on('change', function(e) {

@@ -14,7 +14,7 @@
                     <isslot id="country-selector" description="country selector" context="global" />
                     <span>
                         <select title="Language Selector" class="language-selector">
-                            <option>Select Currency</option>
+                            <option>Select Country</option>
                             <option data-value="EUR" data-action-url="${URLUtils.url('CurrencySelector-Select')}">Austria</option>
                             <option data-value="CAD" data-action-url="${URLUtils.url('CurrencySelector-Select')}">Canada</option>
                             <option data-value="EUR" data-action-url="${URLUtils.url('CurrencySelector-Select')}">France</option>
