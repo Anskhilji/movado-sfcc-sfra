@@ -1,6 +1,6 @@
 $('.desktop-view .feature-dropdown').hover(
     function() {
-        $('.slick-slider').slick("refresh");
+        $('.slick-slider').slick('refresh');
         var $imagesLength = $(this).find('.featured-promotion a img').length;
 
         if ($imagesLength > 4) {
