@@ -198,7 +198,7 @@
                     box-shadow: none;
                 }
 
-                &.show {
+                &.show, &:hover {
 
                     .nav-link {
 
