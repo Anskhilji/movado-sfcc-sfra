@@ -39,7 +39,7 @@
                     </isloop>
                 </ul>
                 <isloop items="${menuItem.subCategories}" var="category">
-                    <isif condition="${category.name !== Resource.msg('shop.by.color', 'common', null)}">
+                    <isif condition="${!category.showColorSwatchForSubcategories}">
                         <isif condition="${category.subCategories}">
                             <ul class="browse-collection">
                                 <li class="dropdown-item dropdown" role="menuitem" >
