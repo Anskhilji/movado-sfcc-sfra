@@ -56,7 +56,6 @@ $(window).on('resize', function () {
 $('.redesign-header .desktop-view .sub-ob-dropdown').mouseenter( function () {
     $('.modal-background').addClass('show-overlay');
     $('.header-banner').addClass('ob-redesign-header-banner');
-    
 });
 
 $('.redesign-header .desktop-view .sub-ob-dropdown').mouseleave( function () {
