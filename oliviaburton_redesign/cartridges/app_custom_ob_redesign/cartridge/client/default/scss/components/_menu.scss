@@ -678,3 +678,24 @@
         }
     }
 }
+
+.show-overlay {
+    display: block;
+    z-index: 99;
+}
+
+.ob-redesign-overlay {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: rem(80);
+    box-shadow: 0 rem(8) 14px rem(-8) $storm-gray;
+    z-index: 999;
+    margin: 0;
+    opacity: 1;
+}
+
+.ob-redesign-header-banner {
+    position: relative;
+    z-index: 999;
+}
