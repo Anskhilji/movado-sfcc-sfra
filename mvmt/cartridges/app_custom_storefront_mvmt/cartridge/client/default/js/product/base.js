@@ -660,15 +660,16 @@ function validateOptions($el) {
 /**
  * Custom Start: Retrieve recommended products
  *
- * @param {Link} addToCartUrl - link of add to cart URL of recommended product
+ * @param {Link} addToCartUrl - link of add to cart URL for variation product
  * 
  */
-function variationProductToCart(addToCartUrl) {
-    var checkBox = document.getElementsByClassName("upsell_input");
-    for (var i = 0; i < checkBox.length; i++) {
-        if (checkBox[i].checked) {
+function addVariationProductToCart(addToCartUrl) {
+    var $variationProductSelector = $('.upsell_input');
+    for (var i = 0; i < $variationProductSelector.length; i++) {
+        var $currentVariationProduct = $variationProductSelector[i];
+        if ($currentVariationProduct.checked) {
             var form = {
-                pid: checkBox[i].value,
+                pid: $currentVariationProduct.value,
                 quantity: 1
             };
             
@@ -680,7 +681,7 @@ function variationProductToCart(addToCartUrl) {
 /**
  * Custom Start: Add recommended products to cart
  *
- * @param {Object} variationForm - contains selected recommended product
+ * @param {Object} variationForm - holds form attributes for selected variation product
  * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
  * 
  */
@@ -802,6 +803,6 @@ module.exports = function() {
                 }
             });
         }
-        variationProductToCart(addToCartUrl);
+        addVariationProductToCart(addToCartUrl);
     });
 };

@@ -17,13 +17,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var viewData = res.getViewData();
     var product = viewData.product;
     
-	/* get linkedProduts for product*/
+    /* get linkedProduts for product*/
     if (product) {
         explicitRecommendations = customProductHelper.getExplicitRecommendations(product.id);
     }
 
     viewData = {
-            explicitRecommendations: explicitRecommendations
+        explicitRecommendations: explicitRecommendations
     };
 
     res.setViewData(viewData);
@@ -34,15 +34,15 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
-    var attributeContext
-    var attributeTemplateLinked
+    var attributeContext;
+    var attributeTemplateLinked;
     var explicitRecommendations = [];
     var linkedProductTemplate;
-    var pid = req.querystring;
+    var pid = req.querystring.pid;
     
     /* get linkedProduts for product*/
     if (pid) {
-        explicitRecommendations = customProductHelper.getExplicitRecommendations(req.querystring.pid);
+        explicitRecommendations = customProductHelper.getExplicitRecommendations(pid);
     }
     
     attributeContext = {explicitRecommendations : explicitRecommendations};

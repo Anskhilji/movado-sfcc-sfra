@@ -6,19 +6,18 @@ var productTile = require('*/cartridge/models/product/productTile');
 
 /**
  * Get explicit recommendations for product
- * @param {string} productID : The ID of Product
- * @returns {Collection} explicitRecommendations : Recommendations associated with products
+ * @param {string} pid : The ID of Product
+ * @returns {Collection} recommendationTilesList : Recommendations associated with products
  */
 function getExplicitRecommendations(pid) {
     var apiProduct = ProductMgr.getProduct(pid);
-    var recommendation;
-    var productRecommendations;
-    productRecommendations = apiProduct.getRecommendations();
-    var productTileParams = {};
     var product = {};
+    var productRecommendations = apiProduct ? apiProduct.getRecommendations() : null;
+    var productTileParams = {};
     var productType = {};
-    var recommenadationProduct = {};
-    var recommendationList = [];
+    var recommendation;
+    var recommendationTilesList = [];
+    var productRecommendationTile = {};
     
     if (productRecommendations) {
         for (var i = 0; i < productRecommendations.length; i++) {
@@ -27,11 +26,11 @@ function getExplicitRecommendations(pid) {
             product = Object.create(null);
             apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
             productType = productHelper.getProductType(apiProduct);
-            recommenadationProduct = productTile(product, apiProduct, productType, productTileParams);
-            recommendationList.push(recommenadationProduct);
+            productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+            recommendationTilesList.push(productRecommendationTile);
         }
     }
-    return recommendationList;
+    return recommendationTilesList;
 }
 
 module.exports = {

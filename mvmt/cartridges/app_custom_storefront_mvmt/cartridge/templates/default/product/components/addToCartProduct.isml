@@ -8,14 +8,14 @@
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselseif condition="${product.available}" >
-	                ${Resource.msg('button.addtocart', 'common', null)} 
-	                <span class="product-price-mobile"> 
-	                   ${product.price.sales.formatted}
-	                </span>
-	            <iselse>
-	               ${Resource.msg('label.soldout', 'product', null)}
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselseif condition="${product.available}">
+                    ${Resource.msg('button.addtocart', 'common', null)} 
+                    <span class="product-price-mobile"> 
+                        ${product.price.sales.formatted}
+                    </span>
+                <iselse>
+                    ${Resource.msg('label.soldout', 'product', null)}
                 </isif>
         </button>
     </div>
