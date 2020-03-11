@@ -259,7 +259,7 @@
     
                     .input-group {
                         width: rem(300);
-                        background-color: $white;
+                        background-color: inherit;
 
                         @include media-breakpoint-down(lg) {
                             width: rem(260);
