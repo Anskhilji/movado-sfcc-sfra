@@ -52,3 +52,13 @@ $(window).on('resize', function () {
     var $leftMargin = $('.desktop-view .navbar-nav').position().left;
     $('.desktop-view .categories-dropdown').css('padding-left', $leftMargin + 'px');
 }).resize();
+
+$('.redesign-header .desktop-view .sub-ob-dropdown').mouseenter( function () {
+    $('.modal-background').addClass('show-overlay');
+    $('.header-banner').addClass('ob-redesign-header-banner');
+});
+
+$('.redesign-header .desktop-view .sub-ob-dropdown').mouseleave( function () {
+    $('.modal-background').removeClass('show-overlay');
+    $('.header-banner').removeClass('ob-redesign-header-banner');
+});

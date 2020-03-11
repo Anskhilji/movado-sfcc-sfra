@@ -18,7 +18,7 @@
             <isif condition="${pdict.categories}">
                 <isloop items="${pdict.categories}" var="category">
                     <isif condition="${category.subCategories}">
-                        <li class="nav-item dropdown ${category.disableSubCategories ? 'feature-dropdown' : ''}" role="menuitem">
+                        <li class="nav-item dropdown sub-ob-dropdown ${category.disableSubCategories ? 'feature-dropdown' : ''}" role="menuitem">
                             <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle desktop-menu-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>${category.name}</span></a>
                             <isset name="menuItem" value="${category}" scope="page" />
                             <isset name="topCat" value="${category}" scope="page"/>
