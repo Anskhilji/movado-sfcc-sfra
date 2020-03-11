@@ -39,10 +39,10 @@
            parse-error="error.message.invalid"
            />
     <!--  postal code -->
-    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
-           regexp="^(?:(?:(?:0[1-9]|[1-8]\d|9[0-5])(?:\d{3})?)|97[1-8]|98[4-9]|2[abAB])$"
+    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="7"
+           regexp="(^\d{5}(-\d{4})?$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)"
            binding="postalCode"
-           range-error="error.message.between5and10"
+           range-error="error.message.between5and7"
            missing-error="error.message.required"
            parse-error="error.message.parse.zip"/>
 
@@ -72,7 +72,7 @@
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="10" max-length="20"
-           regexp="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$"
+           regexp="(^[0-9\\s-]+$)"
            missing-error="error.message.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>
