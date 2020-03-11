@@ -581,6 +581,10 @@
             padding: rem(10) 0;
             overflow: auto;
 
+            @include media-breakpoint-down(md) {
+                background: $white-smoke;
+            }
+
             .pdp-link , .price {
                 display: block;
                 float: unset;
