@@ -1280,7 +1280,7 @@
                 display: none;
             }
 
-            justify-content: space-between;
+            justify-content: center;
         }
 
         .ratings {
@@ -1644,4 +1644,14 @@ body {
     .product-attributes {
         margin-left: rem(74);
     }
+}
+
+.yotpo {
+    .text-m {
+        padding-top: rem(3);
+    }
+}
+
+.drop-hint {
+    padding-top: rem(3);
 }
