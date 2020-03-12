@@ -46,6 +46,11 @@
                                     </li>
                                 </ul>
                                 <div class="hidden-md-down d-lg-flex">
+                                    <isif condition="${customer.isAuthenticated()}">
+	                                    <div class="main-level-item navbar-header account-wrapper search">
+	                                        <isslot id="swell-compaign-total-points-header" description="total number of points in header" context="global" />
+	                                    </div>
+                                    </isif>
                                     <div class="main-level-item navbar-header account-wrapper search">
                                         <isinclude url="${URLUtils.url('Account-Header')}" />
                                     </div>

@@ -1,0 +1,57 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/orderHistory.js');
+    </isscript>
+
+    <isset name="isPage" value="mvmtInsider" scope="page" />
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <isinclude template="account/accountTabBar"/>
+
+    <div class="container account-pages">
+        <iscomment> Adding Content asstet for MVMT Insider </iscomment>
+            <div class="row justify-content-center">
+                <iscontentasset aid="mvmt-insider-heading-box" />
+            </div>
+    </div>
+
+    <div class="container account-pages">
+        <div class="row justify-content-center">
+            <h3>${Resource.msg('label.points','account',null)}</h3>
+        </div>
+    <div class="row justify-content-center">
+        <isslot id="swell-compaign-total-points" description="total number of points" context="global" />
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-3">
+            <button type="button" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('earn.more.button','account',null)}</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('get.rewards.button','account',null)}</button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <isslot id="swell-compaign-list" description="only select campaigns" context="global" />
+    </div>
+    <div class="row justify-content-center">
+        <isslot id="swell-referral-campaign" description="navigate to eeferral page" context="global" />
+    </div>
+    <div class="row justify-content-center">
+        <isslot id="swell-campaign-selected-list" description="only selected list compaigns" context="global" />
+    </div>
+    <div class="row justify-content-center">
+        <isslot id="swell-campaign-rewards-list" description="swell rewards list" context="global" />
+    </div>
+    <div class="row justify-content-center">
+        <isslot id="how-to-redeem-static" description="static text slot" context="global" />
+    </div>
+    </div>
+    
+</isdecorate>
+<iscomment> Custom End </iscomment>
