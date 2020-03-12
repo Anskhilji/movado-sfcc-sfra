@@ -583,6 +583,9 @@
 
             @include media-breakpoint-down(md) {
                 background: $white-smoke;
+                padding-top: rem(25);
+                padding-left: rem(10);
+                padding-right: rem(10);
             }
 
             .pdp-link , .price {
@@ -590,6 +593,12 @@
                 float: unset;
                 padding: 0;
                 margin: 0;
+            }
+
+            .pdp-link {
+                @include media-breakpoint-down(md) {
+                    padding-top: rem(5);
+                }
             }
 
             .price {
@@ -1590,6 +1599,13 @@ body {
     }
 }
 
+.traditional-wishlist-row {
+
+    @include media-breakpoint-up(md) {
+        margin-left: rem(14);
+    }
+}
+
 .product-attributes {
 
     @include media-breakpoint-up(md) {
@@ -1692,14 +1708,4 @@ body {
 
 .drop-hint {
     padding-top: rem(3);
-}
-
-.container-fluid.pdp-v-one {
-
-    .cart-wishlist-out-of-stock {
-
-        @include media-breakpoint-up(lg) { 
-            padding-left: rem(12);  
-        }
-    }
 }
