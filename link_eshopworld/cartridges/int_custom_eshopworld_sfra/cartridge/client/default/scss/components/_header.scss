@@ -1,0 +1,33 @@
+@import '~movado/components/header';
+
+.header-container {
+
+    .account-wrapper {
+
+        .headerDropdown {
+
+            .dropdown {
+                display: inline-block;
+            }
+
+            .selectCountry {
+
+                .dropdown-menu {
+                    height: rem(400);
+                    min-width: auto;
+                    margin: 0;
+                    overflow-x: hidden;
+                    overflow-y: scroll;
+                }
+
+                .dropdown-item {
+                    padding: rem(2) rem(12.8) rem(2) 0;
+
+                    .flag-icon {
+                        padding: 0 rem(16) 0 rem(32);
+                    }
+                }
+            }
+        }
+    }
+}

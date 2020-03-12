@@ -17,7 +17,12 @@
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
                     <iscomment> Custom End </iscomment>
+                    <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+                    <iscomment>Custom Start:  Not needed for country selector from content slot </iscomment>
+                    <iscomment> 
                     <isslot id="country-selector" description="country selector" context="global" />
+                    </iscomment>
+                    <iscomment> Custom End </iscomment>
                   </div>
                   <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false">
                     <i class="fa fa-bars"></i>

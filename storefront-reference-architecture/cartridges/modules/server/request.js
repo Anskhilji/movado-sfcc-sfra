@@ -300,7 +300,10 @@ function getPageMetaData(pageMetaData) {
 function Request(request, customer, session) {
     // Avoid currency check for remote includes
     if (!request.includeRequest) {
-        setCurrency(request, session);
+        var eswHelper = require('int_eshopworld_sfra/cartridge/scripts/helper/eswHelper').getEswHelper();
+        if (!eswHelper.getEShopWorldModuleEnabled()) {
+            setCurrency(request, session);
+        }
     }
 
     this.httpMethod = request.httpMethod;

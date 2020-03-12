@@ -74,7 +74,7 @@ server.get('GetEswHeader', function (req, res, next) {
         'enabledCountriesInHeader': eswHelper.getEnableCountryHeaderBar(),
         'enabledLanguagesInHeader': eswHelper.getEnableLanguageHeaderBar(),
         'selectedCountry': eswHelper.getAvailableCountry(),
-        'selectedCountryName': eswHelper.getNameFromLocale(language),
+        //'selectedCountryName': eswHelper.getNameFromLocale(language),
         'selectedCurrency': currency,
         'selectedLanguage': language,
         'selectorUrl': URLUtils.https('Page-SetLocale').toString(),
@@ -94,7 +94,7 @@ server.get('GetEswHeader', function (req, res, next) {
  * Get footer bar of ESW and render template for it in response
  */
 server.get('GetEswFooter', function (req, res, next) {
-    setInitialCookies(req);
+    //setInitialCookies(req);
     var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
     var ESWFooterObject = {
@@ -105,7 +105,7 @@ server.get('GetEswFooter', function (req, res, next) {
         'enabledCountriesInFooter': eswHelper.getEnableCountryFooterBar(),
         'enabledLanguagesInFooter': eswHelper.getEnableLanguageFooterBar(),
         'selectedCountry': eswHelper.getAvailableCountry(),
-        'selectedCountryName': eswHelper.getNameFromLocale(language),
+        //'selectedCountryName': eswHelper.getNameFromLocale(language),
         'selectedCurrency': currency,
         'selectorUrl': URLUtils.https('Page-SetLocale').toString(),
         'currencies': eswHelper.getCurrenciesOptions(),
@@ -127,7 +127,7 @@ server.get('GetEswLandingPage', function (req, res, next) {
         var eswLandingCookie = new Cookie('esw.Landing.Played', true);
         eswLandingCookie.setPath('/');
         response.addHttpCookie(eswLandingCookie);
-        setInitialCookies(req);
+        //setInitialCookies(req);
 
         //var overridePricebooks = eswHelper.getOverridePriceBook();
         var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
@@ -141,7 +141,7 @@ server.get('GetEswLandingPage', function (req, res, next) {
             'enabledCountriesInLandingPage': eswHelper.getEnableCountryLandingBar(),
             'enabledLanguagesInLandingPage': eswHelper.getEnableLanguageLandingBar(),
             'selectedCountry': eswHelper.getAvailableCountry(),
-            'selectedCountryName': eswHelper.getNameFromLocale(language),
+            //'selectedCountryName': eswHelper.getNameFromLocale(language),
             'selectedCurrency': currency,
             'currencies': eswHelper.getCurrenciesOptions(),
             'enabledCurrencyInLandingPage': eswHelper.getEnableCurrencyLandingBar()
