@@ -5,6 +5,7 @@ server.extend(module.superModule);
 
 var HashMap = require('dw/util/HashMap');
 var ArrayList = require('dw/util/ArrayList');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 
 server.append('GetEswHeader', function (req, res, next) {
     var allCountries = new HashMap();
