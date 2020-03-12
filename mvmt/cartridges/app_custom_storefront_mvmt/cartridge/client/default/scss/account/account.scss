@@ -3,11 +3,11 @@
 @import '../components/formFields';
 
 .account-pages {
+    margin: rem(20px) auto;
+    padding: 0;
 
-    &.container {
+    &.dashboard {
         max-width: rem(1000);
-        margin: rem(20px) auto;
-        padding: 0;
     }
 
     .account-heading {
