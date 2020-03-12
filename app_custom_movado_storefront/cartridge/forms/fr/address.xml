@@ -40,7 +40,7 @@
            />
     <!--  postal code -->
     <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="7"
-           regexp="(^\d{5}(-\d{4})?$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)"
+           regexp="(^[a-zA-Z0-9 ]+$)"
            binding="postalCode"
            range-error="error.message.between5and7"
            missing-error="error.message.required"
