@@ -104,24 +104,7 @@
             <div class="invalid-feedback"><isprint value="${addressFields.country.error}" ></div>
         </div>
     </div>
-        <div class="col-sm-6 field-right">
-        <div class="form-group
-            ${addressFields.city.mandatory === true ? 'required' : ''}
-            ${addressFields.city.htmlName}">
-            <label class="form-control-label" for="shippingAddressCity">
-               <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
-            </label>
-            <input type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
-                value="${shippingAddress.city||''}" <isprint value=${addressFields.city.attributes} encoding="off"/>
-                autocomplete="shipping address-level2">
-            <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-    <div class="col-sm-6 field-left">
+    <div class="col-sm-6 field-right">
         <div class="form-group
             ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}
             ">
@@ -134,6 +117,23 @@
                 autocomplete="shipping address-level1">
             </input>
             <div class="invalid-feedback"><isprint value="${addressFields.states.stateCode.error}" ></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 field-left">
+        <div class="form-group
+            ${addressFields.city.mandatory === true ? 'required' : ''}
+            ${addressFields.city.htmlName}">
+            <label class="form-control-label" for="shippingAddressCity">
+               <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
+            </label>
+            <input type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
+                value="${shippingAddress.city||''}" <isprint value=${addressFields.city.attributes} encoding="off"/>
+                autocomplete="shipping address-level2">
+            <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
         </div>
     </div>
     <div class="col-sm-6 field-right">
