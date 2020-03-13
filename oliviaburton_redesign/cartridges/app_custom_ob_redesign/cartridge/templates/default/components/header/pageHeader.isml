@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <iscomment>
   Changed HTML Structure and added css classes as required. 
@@ -24,7 +25,7 @@
                       custom: Change icons class
                     </iscomment>
                     <i class="menu-icon-ob-redesign">
-                        <isprint value="${dw.content.ContentMgr.getContent('ob-redesign-hamburger-icon').custom.body}" encoding="off"/>
+                        <iscontentasset aid="ob-redesign-hamburger-icon" />
                     </i>
                     <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
                     <span class="menu-text d-none d-md-inline-block d-lg-none">
