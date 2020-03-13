@@ -22,7 +22,7 @@
                         </div>
                         <div class="nav-center navbar-header header-logo">
                             <div class="d-none d-lg-inline-block">
-                            <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
                             </div>
                         </div>
 

@@ -357,7 +357,11 @@ header.new-header {
   .header-logo {
 
     p {
-        margin: 0;
+      margin: 0;
+    }
+
+    svg {
+      height: rem(25);
     }
   }
 
