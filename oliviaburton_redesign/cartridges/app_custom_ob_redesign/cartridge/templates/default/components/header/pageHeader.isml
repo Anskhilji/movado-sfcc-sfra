@@ -23,7 +23,9 @@
                     <iscomment>
                       custom: Change icons class
                     </iscomment>
-                    <i class="menu-icon"></i>
+                    <i class="menu-icon-ob-redesign">
+                        <isprint value="${dw.content.ContentMgr.getContent('ob-redesign-hamburger-icon').custom.body}" encoding="off"/>
+                    </i>
                     <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
                     <span class="menu-text d-none d-md-inline-block d-lg-none">
                       ${Resource.msg('link.header.menu', 'common', null)}
