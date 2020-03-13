@@ -444,5 +444,69 @@
 }
 }
 
+.point-alter-image {
+    width: rem(30);
+    height: rem(30);
+}
+ul.swell-redemption-list-holder.swell-redemption-option-list li {
+    width: 20%;
+}
 
-    
+.swell-redemption-list-holder {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+section.swell-redemption-list-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.swell-redemption-list-container ul {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    min-height: 10rem;
+    margin-bottom: 5rem;
+}
+
+.swell-redemption-list-title {
+    width: 100%;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 2rem;
+
+}
+
+.swell-redemption-desc {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+.swell-static-redemption-option {
+    width: 15%;
+    min-height: 7rem;
+    border: 3px dashed #51c6e4;
+    margin: 1rem;
+}
+
+.swell-static-redemption-option-title {
+    width: 100%;
+    margin: 0;
+    font-size: 24px;
+}
+    .get-reward-btn {
+        background: transparent;
+        border: rem(1) solid $black;
+        color: $black;
+        font-size: rem(10.8);
+        height: rem(45);
+        white-space: nowrap;
+    }

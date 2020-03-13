@@ -112,3 +112,11 @@
     padding-left: rem(15);
     padding-right: rem(15);
 }
+    .earn-more-btn {
+        background: transparent;
+        border: rem(1) solid $black;
+        color: $black;
+        font-size: rem(10.8);
+        height: rem(45);
+        white-space: nowrap;
+    }
