@@ -50,6 +50,17 @@ body {
   }
 }
 
+.btn-btn-primary {
+  background: $pink-grey;
+  border: rem(1) solid $pink-grey;
+  color: $black;
+
+  &:hover {
+    background: $pink-grey;
+    border: rem(1) solid $pink-grey;
+    color: $black;
+  }
+}
 .custom-select {
   color: $black;
   font-family: $font-gills-light;
