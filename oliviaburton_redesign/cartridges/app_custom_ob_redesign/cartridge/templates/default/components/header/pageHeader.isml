@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <iscomment>
   Changed HTML Structure and added css classes as required. 
@@ -23,7 +24,9 @@
                     <iscomment>
                       custom: Change icons class
                     </iscomment>
-                    <i class="menu-icon"></i>
+                    <i class="menu-icon-ob-redesign">
+                        <iscontentasset aid="ob-redesign-hamburger-icon" />
+                    </i>
                     <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
                     <span class="menu-text d-none d-md-inline-block d-lg-none">
                       ${Resource.msg('link.header.menu', 'common', null)}
