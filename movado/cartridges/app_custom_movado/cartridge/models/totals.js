@@ -131,7 +131,7 @@ function totals(lineItemContainer) {
     var shippingMethod = lineItemContainer.defaultShipment.shippingMethod;
     var deliveryDate;
     var deliveryTime;
-    if (Site.current.getCustomPreferenceValue('enableActualShippingEstimations')) {
+    if (session.customer && Site.current.getCustomPreferenceValue('enableActualShippingEstimations')) {
         deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);
         deliveryTime = shippingMethodHelper.getShippingTime(shippingMethod);
     }
