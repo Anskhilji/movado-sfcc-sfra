@@ -2,7 +2,7 @@
 <div class="card">
     <isif condition="${pdict.accountlanding}">
         <div class="card-header clearfix">
-            <h4 class="pull-left">${Resource.msg('label.my.orders', 'account', null)}</h4>
+            <h4 class="pull-left">${Resource.msg('label.recent.orders', 'account', null)}</h4>
             <a href="${URLUtils.url('Order-History')}" class="order-label">${Resource.msg('label.view.orders', 'account', null)}</a>
         </div>
     <iselse/>

@@ -22,7 +22,7 @@
 
     <isinclude template="account/accountTabBar"/>
 
-    <div class="container account-pages">
+    <div class="container dashboard account-pages">
         <!---Breadcrumbs--->
         <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
         <iscomment>

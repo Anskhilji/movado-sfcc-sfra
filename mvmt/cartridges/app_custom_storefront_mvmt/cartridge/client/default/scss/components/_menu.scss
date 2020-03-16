@@ -1,13 +1,6 @@
 .main-menu {
   height: auto;
 
-  .nav-item.show  {
-
-    .nav-link {
-      position: relative;
-    }
-  }
-
   .nav-item {
 
     .nav-link {
@@ -17,6 +10,7 @@
     &.show {
 
       .nav-link {
+        position: relative;
         background: none;
       }
     }
@@ -270,6 +264,11 @@
             .dropdown-menu-item-img-wrap {
               border-radius: 50%;
 
+              &.no-img {
+                opacity: 0;
+                width: 0;
+              }
+
               img {
                 height: rem(62);
                 width: rem(62);
@@ -434,7 +433,6 @@
       height: rem(12);
       padding: 0;
       width: rem(6);
-      top: rem(18);
       border: 0;
     }
   }
