@@ -10,7 +10,7 @@
                     ${pdict.EswHeaderObject.selectedCountryName}
                 </span>
                 <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
-                   <isloop items="${allCountries.get('en')}" var="countryCode">
+                   <isloop items="${allCountries}" var="countryCode">
                         <a class="dropdown-item selected-link" href="${'#'}" data-country="${countryCode}" data-locale="${request.getLocale()}" data-currency="${pdict.EswHeaderObject.selectedCurrency}" data-url="${pdict.EswHeaderObject.selectorUrl}" >
                             <i class="flag-icon flag-icon-${countryCode.toLowerCase()}"></i>${Resource.msg('country.code.' + countryCode.toLowerCase(), 'countries', null)}
                         </a>

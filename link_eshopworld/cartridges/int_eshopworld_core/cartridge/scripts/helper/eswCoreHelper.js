@@ -170,7 +170,7 @@ var getEswHelper = {
 		delete session.privacy.fxRate;
         delete session.privacy.countryAdjustment;
         delete session.privacy.rounding;
-		var fxRates = JSON.parse(this.getFxRates()),
+		/*var fxRates = JSON.parse(this.getFxRates()),
 			countryAdjustment = JSON.parse(this.getCountryAdjustments()),
 			roundingRules = JSON.parse(this.getRoundingRules()),
 			selectedFxRate = fxRates.filter(function(rates) {
@@ -190,7 +190,7 @@ var getEswHelper = {
 		}
 		session.privacy.fxRate = JSON.stringify(selectedFxRate[0]);
 		session.privacy.countryAdjustment = !empty(selectedCountryAdjustment[0])? JSON.stringify(selectedCountryAdjustment[0]) : "";
-		session.privacy.rounding = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : "";
+		session.privacy.rounding = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : "";*/
 		this.setCustomerCookies();
 	},
 	/*

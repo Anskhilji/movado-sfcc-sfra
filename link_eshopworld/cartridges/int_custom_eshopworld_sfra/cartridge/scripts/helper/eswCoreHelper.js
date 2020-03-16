@@ -23,5 +23,5 @@ getEswHelper.getLanguagesOptions = function() {
 };
 
 module.exports = {
-        getEswHelper : getEswHelper
+    getEswHelper : getEswHelper
 }

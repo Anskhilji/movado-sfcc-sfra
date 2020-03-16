@@ -50,11 +50,11 @@ function setInitialCookies(req) {
         }
         if (eswHelper.checkIsEswAllowedCountry(eswHelper.getAvailableCountry()) != null) {
             var locale = eswHelper.getLanguageFromCountryJson(eswHelper.getAvailableCountry()).locales;
-            /*if (request.httpCookies['esw.currency'] == null) {
+            if (request.httpCookies['esw.currency'] == null) {
                 eswHelper.selectCountry(eswHelper.getAvailableCountry(), currencyCode, locale[0]);
             } else {
                 eswHelper.selectCountry(eswHelper.getAvailableCountry(), request.httpCookies['esw.currency'].value, locale[0]);
-            }*/
+            }
         }
     }
 }
@@ -94,7 +94,7 @@ server.get('GetEswHeader', function (req, res, next) {
  * Get footer bar of ESW and render template for it in response
  */
 server.get('GetEswFooter', function (req, res, next) {
-    //setInitialCookies(req);
+    setInitialCookies(req);
     var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
     var ESWFooterObject = {

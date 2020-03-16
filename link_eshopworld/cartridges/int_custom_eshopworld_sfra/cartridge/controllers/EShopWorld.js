@@ -69,7 +69,7 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.languages = languages;
     }
 
-    res.viewData.EswHeaderObject.allCountries = allCountries;
+    res.viewData.EswHeaderObject.allCountries = allCountries.get(language);
     return next();
 });
 
