@@ -30,7 +30,7 @@
                         </p>
                         <a
                             href="${URLUtils.https('Checkout-Begin')}"
-                            class="btn btn-block btn-btn-primary checkout-as-guest">
+                            class="btn btn-block btn-primary checkout-as-guest">
                             ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
                         </a>
                     </div>

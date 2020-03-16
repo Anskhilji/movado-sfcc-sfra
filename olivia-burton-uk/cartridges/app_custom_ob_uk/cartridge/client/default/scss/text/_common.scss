@@ -39,18 +39,6 @@ body {
 }
 
 .btn-primary {
-  background: $pink-hot;
-  border: rem(1) solid $pink-hot;
-  color: $black;
-
-  &:hover {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
-    color: $black;
-  }
-}
-
-.btn-btn-primary {
   background: $pink-grey;
   border: rem(1) solid $pink-grey;
   color: $black;
@@ -61,6 +49,19 @@ body {
     color: $black;
   }
 }
+
+.cta-primary {
+    background: $pink-hot;
+    border: rem(1) solid $pink-hot;
+    color: $black;
+
+    &:hover {
+        background: $pink-hot;
+        border: rem(1) solid $pink-hot;
+        color: $black;
+    }
+}
+
 .custom-select {
   color: $black;
   font-family: $font-gills-light;
