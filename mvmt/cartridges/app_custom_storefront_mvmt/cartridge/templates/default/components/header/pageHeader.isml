@@ -45,6 +45,13 @@
                                 </li>
                             </ul>
                             <div class="hidden-md-down d-lg-flex">
+                                <iscomment>Custom Start: Added sweel point slot in page header for login user </iscomment>
+                                <isif condition="${customer.isAuthenticated()}">
+                                    <div class="main-level-item navbar-header account-wrapper search">
+                                        <isslot id="swell-compaign-total-points-header" description="total number of points in header" context="global" />
+                                    </div>
+                                </isif>
+                                <iscomment>Custom End</iscomment>
                                 <div class="main-level-item navbar-header account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
                                 </div>
