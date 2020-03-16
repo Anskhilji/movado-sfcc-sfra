@@ -1,4 +1,10 @@
 'use strict';
+function copyText() {
+    var $text = $('.promotions .promo-icon .icon').text();
+    $('.promotions .showtooltip').text($text);
+}
+
+copyText();
 
 $(function() {
     //----- OPEN
@@ -12,7 +18,7 @@ $(function() {
     });
 
     $('.pdp-v-one .engraving-form .popup-action-btns .save').on('click', function() {
-    	setTimeout(function() { 
+        setTimeout(function() { 
             var getText=$.trim($('.pdp-v-one .engraving-form .text-area .engraving-input.valid').val());
             var showText = getText.replace("/<br\s*\/?>/mg","\n");
 
@@ -29,8 +35,8 @@ $(function() {
     });
 
     $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-    	var a = $.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
-        setTimeout(function() { 
+        var a = $.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
+        setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             console.log(debossingtext);
             if(debossingtext == undefined || debossingtext == "") {
@@ -107,16 +113,44 @@ $(function() {
         $('.popup-opened').hide();
         e.preventDefault();
     });
-    
+
     $('.promotions button').bind('click', function(e) {
         e.stopPropagation();
-         $(this).parents('.tooltip').hide();
-     });
-    $('.promotions .icon').on('click mouseover', function(e) {
-         $('.tooltip').show();
-     });
+        $(this).parents('.custom-tooltip').hide();
+        $('.showtooltip').removeClass('active');
+    });
 
+    $('.promotions .showtooltip').on('click', function(e) {
+        var $windowWidth = $(window).width();
+
+        if ($windowWidth < 992) {
+            $(this).addClass('active');
+            $('.custom-tooltip').show();
+        }
+    });
+
+
+    $('.promotions .detail-btn').hover(
+
+        function () {
+            var $windowWidth = $(window).width();
+
+            if ($windowWidth > 992){
+                $('.showtooltip').addClass('active');
+                $('.custom-tooltip').show();
+            }
+        },
+
+        function () {
+            var $windowWidth = $(window).width();
+            if ($windowWidth > 992){
+                $('.showtooltip').removeClass('active');
+                $('.custom-tooltip').hide();
+            }
+        }
+    );
 });
+
 
 $(document).mouseup(function(e) {
     var container = $(".custom-options .popup .popup-inner");
@@ -213,4 +247,6 @@ setTimeout(function(){
         }
     });
 }, 100);
+
+
 
