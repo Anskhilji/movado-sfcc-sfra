@@ -47,6 +47,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.refine-wrapper',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -394,6 +395,8 @@ module.exports = {
                         updatePageURLForFacets(e.currentTarget.href);
                         // edit end
                         $.spinner().stop();
+                        $('.search-results.plp-new-design #sort-order').customSelect();
+                        $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
