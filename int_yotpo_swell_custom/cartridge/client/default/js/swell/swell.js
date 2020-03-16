@@ -76,3 +76,25 @@ var onSuccess = function(redemption) {
           );
       })
   });
+
+  $("#coupon-code-submit-btn").on('click', function (e) {
+      e.preventDefault();
+      var redemptionContainer = $('.swell-redemption');
+      var $button = $(this);
+      var url = $button.attr('href');
+      var couponCode = $("#coupon-code-input-element").val();
+      var data = {couponCode: couponCode};
+      redemptionContainer.spinner().start();
+      $.ajax({
+          url: url,
+          type: 'post',
+          dataType: 'json',
+          data: data,
+          success: function (data) {
+              redemptionContainer.spinner().stop();
+          },
+          error: function (err) {
+              redemptionContainer.spinner().stop();
+          }
+      });
+  });
