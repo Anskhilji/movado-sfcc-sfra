@@ -396,10 +396,10 @@ module.exports = {
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
-                        $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
                     },
                     error: function () {
                         $.spinner().stop();
