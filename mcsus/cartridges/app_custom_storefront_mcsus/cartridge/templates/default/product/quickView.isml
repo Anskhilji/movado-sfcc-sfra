@@ -60,22 +60,19 @@
                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
                     <isinclude template="klarna/klarnaPromotionMessage" />
                 </isif>
-                <isif condition="${pdict.loggedIn}">
-	                <div class="col-12 prices-add-to-cart-actions">
-	                    <!-- Prices -->
-	                    <div class="prices">
-	                        <isset name="price" value="${product.price}" scope="page" />
-	                        <isinclude template="product/components/pricing/main" />
-	                    </div>
-	
-		                    <!-- Cart and [Optionally] Apple Pay -->
-		                    <isif condition="${pdict.addToCartUrl}">
-		                        <isinclude template="product/components/addToCartGlobal" />
-		                    <iselse>
-		                        <isinclude template="product/components/updateProduct" />
-		                    </isif>
-	                </div>
-                </isif>
+                <div class="col-12 prices-add-to-cart-actions mcs-add-to-cart">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+	                    <!-- Cart and [Optionally] Apple Pay -->
+	                    <isif condition="${pdict.addToCartUrl}">
+	                        <isinclude template="product/components/addToCartGlobal" />
+	                    <iselse>
+	                        <isinclude template="product/components/updateProduct" />
+	                    </isif>
+                </div>
 
             </div>
 

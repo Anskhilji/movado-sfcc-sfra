@@ -113,15 +113,24 @@
                         
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
-                            <isif condition="${pdict.loggedIn}">
-	                            <div class="prices">
-	                                <isset name="price" value="${product.price}" scope="page" />
-	                                <isinclude template="product/components/pricing/main" />
-	                            </div>
-	                        </isif>
+	                        <div class="prices">
+		                        <isset name="price" value="${product.price}" scope="page" />
+		                        <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+                                    <isif condition="${pdict.loggedIn == true}">
+		                                <isinclude template="product/components/pricing/main" />
+	                                </isif>
+	                            <iselse>
+                                    <isinclude template="product/components/pricing/main" />
+                                </isif>
+	                        </div>
+	                        
                             <div class="d-block d-md-flex">
                                <!-- Cart and [Optionally] Apple Pay -->
-                               <isif condition="${pdict.loggedIn}">
+                               <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+                                   <isif condition="${pdict.loggedIn == true}">
+                                       <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                   </isif>
+                               <iselse>
                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                </isif>
                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">

@@ -63,6 +63,8 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
         success: function (data) {
         	$('body').trigger('qv:success', gtmProdObj);
             var parsedHtml = parseHtml(data.renderedTemplate);
+            var loggedIn = data.loggedIn;
+            var restrictAnonymousUsersOnSalesSites = data.restrictAnonymousUsersOnSalesSites;
 
             $('#quickViewModal .modal-body').empty();
             $('#quickViewModal .modal-body').html(parsedHtml.body);
@@ -70,6 +72,11 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
+            if(restrictAnonymousUsersOnSalesSites) {
+                if (!loggedIn) {
+                    $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
+                }
+            }
             
             $('#quickViewModal').modal('show');
             setTimeout(function () {

@@ -27,7 +27,6 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -36,6 +35,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var viewData = res.getViewData();
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
+    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
     var product = viewData.product;
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
@@ -74,7 +74,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             socialShareEnable: socialShareEnable,
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
-            klarnaProductPrice: klarnaProductPrice
+            klarnaProductPrice: klarnaProductPrice,
+            restrictAnonymousUsersOnSalesSites: restrictAnonymousUsersOnSalesSites
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -128,7 +129,6 @@ server.replace('Variation', function (req, res, next) {
 });
 
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
@@ -176,7 +176,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         productGtmArray: productGtmArray,
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
-        klarnaProductPrice: klarnaProductPrice
+        klarnaProductPrice: klarnaProductPrice,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
     });
     next();
 });
@@ -196,7 +198,9 @@ server.get('ShowCartButton', function (req, res, next) {
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
-        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
     });
     next();
 });
