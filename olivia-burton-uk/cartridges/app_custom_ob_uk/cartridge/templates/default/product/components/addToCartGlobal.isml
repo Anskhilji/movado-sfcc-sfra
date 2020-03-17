@@ -1,0 +1,23 @@
+<div class="row cart-and-ipay">
+    <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
+        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <iscomment>Applied hot pink color on cart global in scss using cta-primary class </iscomment>
+        <button class="add-to-cart-global btn cta-primary gtm-addtocart"
+                data-pid="${product.id}">
+            <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                    ${Resource.msg('button.preorder.all.now', 'common', null)} </br>
+                 <iselse/>
+                    ${Resource.msg('button.addalltocart', 'common', null)}
+                 </isif>
+            <iselse>
+                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                    ${Resource.msg('button.preorder.now', 'common', null)}
+                 <iselse/>
+                    ${Resource.msg('button.addtocart', 'common', null)}
+                 </isif>
+            </isif>
+        </button>
+	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+    </div>
+</div>
