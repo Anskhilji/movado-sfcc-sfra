@@ -10,8 +10,8 @@ $(document).ready(function () {
 
     $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
 
-    $(".search-results.plp-new-design .custom-select__dropdown .custom-select__option").click(function(){
-        $('.selected-value').prepend("<span>Sort By</span> ");
+    $('.plp-new-design .refine-wrapper .custom-select .custom-select__option').click( function() {
+        $('.refinement-bar .selected-value').prepend("<span>Sort By</span> ");
     });
 
     $('.search-results.plp-new-design .refinement li:last-Child').focusout(function(event) {
