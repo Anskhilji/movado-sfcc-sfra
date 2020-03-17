@@ -54,13 +54,7 @@
 								<div class="row grid-header justify-content-center">
 									<div class="result-count col">
 				</isif>
-                <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','Control')}">
-                    <isinclude template="search/old/resultsCount" />
-                <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignABTest','render-new-header')}">
-                    <isinclude template="search/resultsCount" />
-                <iselse> 
-                    <isinclude template="search/old/resultsCount" />
-                </isif>
+				<isinclude template="search/resultsCount" />
 			</div>
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<div class="col-6 col-sm-3 order-sm-1 sort-col">
