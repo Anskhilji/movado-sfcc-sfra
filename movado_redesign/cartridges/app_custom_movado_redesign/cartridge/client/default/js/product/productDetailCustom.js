@@ -1,4 +1,6 @@
 'use strict';
+var mediumWidth = 992;
+
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
     $('.promotions .showtooltip').text($text);
@@ -18,7 +20,7 @@ $(function() {
     });
 
     $('.pdp-v-one .engraving-form .popup-action-btns .save').on('click', function() {
-        setTimeout(function() { 
+        setTimeout(function() {
             var getText=$.trim($('.pdp-v-one .engraving-form .text-area .engraving-input.valid').val());
             var showText = getText.replace("/<br\s*\/?>/mg","\n");
 
@@ -35,7 +37,7 @@ $(function() {
     });
 
     $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-        var a = $.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
+        var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
         setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             console.log(debossingtext);
@@ -123,7 +125,7 @@ $(function() {
     $('.promotions .showtooltip').on('click', function(e) {
         var $windowWidth = $(window).width();
 
-        if ($windowWidth < 992) {
+        if ($windowWidth < mediumWidth) {
             $(this).addClass('active');
             $('.custom-tooltip').show();
         }
@@ -135,7 +137,7 @@ $(function() {
         function () {
             var $windowWidth = $(window).width();
 
-            if ($windowWidth > 992){
+            if ($windowWidth > mediumWidth){
                 $('.showtooltip').addClass('active');
                 $('.custom-tooltip').show();
             }
@@ -143,7 +145,7 @@ $(function() {
 
         function () {
             var $windowWidth = $(window).width();
-            if ($windowWidth > 992){
+            if ($windowWidth > mediumWidth){
                 $('.showtooltip').removeClass('active');
                 $('.custom-tooltip').hide();
             }
@@ -247,6 +249,3 @@ setTimeout(function(){
         }
     });
 }, 100);
-
-
-
