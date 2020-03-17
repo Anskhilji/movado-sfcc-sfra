@@ -30,7 +30,7 @@ server.prepend(
 });
 
 server.prepend('MiniCartShow',
-    userLoggedInMCS.validateLoggedInMCS,
+    userLoggedInMCS.validateLoggedInAjaxMCS,
     function(req, res, next){
 
     next();

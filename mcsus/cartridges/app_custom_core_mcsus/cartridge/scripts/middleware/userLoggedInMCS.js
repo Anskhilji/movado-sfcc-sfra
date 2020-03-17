@@ -27,6 +27,31 @@ function validateLoggedInMCS(req, res, next) {
     next();
 }
 
+function validateLoggedInAjaxMCS(req, res, next) {
+    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
+    if (restrictAnonymousUsersOnSalesSites) {
+        if (!req.currentCustomer.profile) {
+            if (req.querystring.args) {
+                req.session.privacyCache.set('args', req.querystring.args);
+            }
+    
+            var target = req.querystring.rurl || 1;
+    
+            res.setStatusCode(500);
+            res.setViewData({
+                loggedin: false,
+                redirectUrl: URLUtils.url('Login-Show', 'rurl', target).toString()
+            });
+        } else {
+            res.setViewData({
+                loggedin: true
+            });
+        }
+    }
+    next();
+}
+
 module.exports = {
-        validateLoggedInMCS: validateLoggedInMCS
+    validateLoggedInMCS: validateLoggedInMCS,
+    validateLoggedInAjaxMCS: validateLoggedInAjaxMCS
 };
