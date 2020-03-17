@@ -1,3 +1,230 @@
 @import '../variables';
 @import '~movado/checkout/checkout';
 @import '../components/formFields';
+
+.mvmt-checkout {
+
+    .card-header {
+
+        h4 {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: rem(22);
+            letter-spacing: normal;
+        }
+    }
+
+    .summary-section-label {
+        letter-spacing: normal;
+        text-transform: capitalize;
+    }
+
+    .form-group {
+
+        .form-control {
+            box-sizing: border-box;
+            height: rem(56);
+            border-radius: rem(5);
+            border: rem(1) solid $light-gray6;
+            color: $light-gray7;
+            background-color: $white;
+            padding: 0 rem(20);
+
+            &:focus {
+                box-shadow: none;
+                border-width: rem(2);
+                border-color: $blue;
+                padding-left: rem(19);
+            }
+
+            &.is-invalid {
+                border-width: rem(2);
+                border-color: $red1;
+                color: $red1;
+                padding-left: rem(19);
+            }
+
+            .cardNumber {
+                padding-right: 50px;
+            }
+        }
+
+        .card-number-wrapper {
+
+            &:after {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .form-control-label {
+            color: $gray1;
+            font-size: rem(14);
+            text-transform: capitalize;
+        }
+
+        .invalid-feedback {
+            color: $red1;
+            font-weight: 500;
+            font-size: rem(14);
+            letter-spacing: 0;
+        }
+
+        select {
+
+            &.form-control {
+
+                &:not([size]):not([multiple]) {
+                    height: rem(56);
+                    padding: rem(10) rem(20);
+                    padding-right: 35px;
+                    color: $gray1;
+                    text-transform: capitalize;
+                    color: $gray1;
+
+                    &:focus {
+                        box-shadow: none;
+                        border-width: rem(2);
+                        border-color: $blue;
+                        padding: rem(9) rem(19);
+                    }
+                }
+            }
+
+            & + i {
+                right: 0;
+                height: rem(36);
+                width: rem(36);
+                top: rem(34);
+                font-size: 0;
+                color: $light-gray6;
+                border-left: rem(1) solid $light-gray6;
+                background: url("../../images/arrow-down.svg") center center no-repeat;
+                background-size: rem(12);
+            }
+        }
+    }
+
+    .submit-shipping {
+        display: inline-block;
+        width: auto;
+        border-radius: rem(5);
+        letter-spacing: 1px;
+        white-space: nowrap;
+        float: right;
+        min-width: rem(200);
+        padding: 0 rem(14);
+        height: rem(48);
+        line-height: rem(48);
+    }
+
+    .shipping-method {
+
+        &-header {
+            font-family: $font-book;
+            font-weight: 500;
+            font-size: rem(22);
+            letter-spacing: normal;
+            margin-bottom: rem(15);
+        }
+
+        &-list, &-list span {
+            letter-spacing: normal;
+        }
+    }
+
+    .form-check-label {
+        letter-spacing: normal;
+        font-family: $font-book;
+        font-size: rem(14);
+        position: relative;
+        padding-left: rem(7);
+
+        &:after, &::before {
+            content: '';
+            position: absolute;
+        }
+
+        &:before {
+            top: rem(-1);
+            left: rem(-25);
+            width: rem(22);
+            height: rem(22);
+            margin: rem(1);
+            border: rem(2) solid $light-gray6;
+            border-radius: rem(4);
+            background: transparent;
+        }
+
+        &:after {
+            z-index: 9;
+            top: rem(5);
+            left: rem(-19);
+            width: rem(12);
+            height: rem(12);
+            border-radius: 1px;
+            opacity: 0;
+            font-size: 0;
+        }
+    }
+
+    input[type="radio"] {
+
+        & + label {
+
+            &:before, &:after {
+                border-radius: 100%;
+            }
+        }
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+
+        &:checked {
+
+            & + label {
+
+                &:before {
+                    border: 2px solid $light-gray6;
+                    background: transparent;
+                    box-shadow: none;
+                }
+
+                &:after {
+                    opacity: 1;
+                    background-color: $blue;
+                }
+            }
+        }
+    }
+
+    .order-total-summary {
+
+        .leading-lines {
+
+            span {
+                letter-spacing: normal;
+                font-family: $font-medium;
+            }
+        }
+    }
+
+    .payment-form {
+
+        .payment-information {
+
+            .accordion-link + label {
+
+                &:after {
+                    content: '';
+                    top: 54%;
+                    border-radius: 100%;
+                }
+
+                &:before {
+                    border-radius: 100%;
+                }
+            }
+        }
+    }
+}
