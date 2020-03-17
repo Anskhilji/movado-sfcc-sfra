@@ -4,12 +4,16 @@
     </div>
 </div>
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<div class="row">
-    <div class="col-12">
-        <p class="optional-promo">${Resource.msg('label.swell.promo.code','cart',null)}</p>
-        <isslot id="swell-total-points-cart" description="total number of points availabel on cart" context="global" />
+<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+    <div class="row">
+        <div class="col-12">
+            <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code','cart',null)}</p>
+            <isslot id="swell-total-points-cart" description="total number of points availabel on cart" context="global" />
+            <div class="d-none redemption-point-error-message" id="error"></div>
+        </div>
     </div>
-</div>
+</isif>
 <iscomment>Custom End</iscomment>
 <div class="row">
     <div class="col-12 collapsible-promo-wrapper mb-2" tabindex="0">
