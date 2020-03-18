@@ -48,6 +48,8 @@
                 <iselse>
                     <isinclude template="product/components/pricing/main" />
                 </isif>
+            <iselse>
+                ${Resource.msg('global.price.loggedin', 'common', null)}
             </isif>
         <iselse>
            <isif condition="${product.productType === 'set'}">

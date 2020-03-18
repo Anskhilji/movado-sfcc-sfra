@@ -132,6 +132,8 @@
                                <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
                                    <isif condition="${pdict.loggedIn == true}">
                                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                   <iselse>
+                                       ${Resource.msg('global.price.loggedin', 'common', null)}
                                    </isif>
                                <iselse>
                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
