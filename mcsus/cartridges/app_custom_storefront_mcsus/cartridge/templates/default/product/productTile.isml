@@ -40,21 +40,23 @@
 		    </isloop>
 
         <isset name="price" value="${product.price}" scope="page" />
+        <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
         <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
-	        <isif condition="${pdict.loggedIn == true}">
-		        <isif condition="${product.productType === 'set'}">
-		            <isinclude template="product/components/pricing/setPrice" />
-		        <iselse>
-		            <isinclude template="product/components/pricing/main" />
-		        </isif>
-	        </isif>
-	    <iselse>
-	       <isif condition="${product.productType === 'set'}">
+            <isif condition="${pdict.loggedIn == true}">
+                <isif condition="${product.productType === 'set'}">
+                   <isinclude template="product/components/pricing/setPrice" />
+                <iselse>
+                    <isinclude template="product/components/pricing/main" />
+                </isif>
+            </isif>
+        <iselse>
+           <isif condition="${product.productType === 'set'}">
                <isinclude template="product/components/pricing/setPrice" />
            <iselse>
                <isinclude template="product/components/pricing/main" />
            </isif>
-	    </isif>
+        </isif>
+        <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>

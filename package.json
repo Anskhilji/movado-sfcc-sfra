@@ -110,11 +110,11 @@
     "productCompare": "./plugin_productcompare",
     "wishlist": "./plugin_wishlists",
     "base": "./storefront-reference-architecture",
-	"mcsus": "./mcsus"
+    "mcsus": "./mcsus"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
-	"mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
+    "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/js",
@@ -131,7 +131,7 @@
   },
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
-	"mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/scss",
+    "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/scss",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/scss",
     "hourtime": "./hourtime/cartridges/app_custom_storefront_hourtime/cartridge/client/default/scss",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss",

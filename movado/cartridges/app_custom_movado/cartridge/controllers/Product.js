@@ -35,7 +35,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var viewData = res.getViewData();
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
     var product = viewData.product;
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
@@ -75,7 +74,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
-            restrictAnonymousUsersOnSalesSites: restrictAnonymousUsersOnSalesSites
+            restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

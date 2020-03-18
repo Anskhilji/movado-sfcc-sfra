@@ -47,15 +47,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         return null;
     }
     var options = productHelper.getConfig(apiProduct, { pid: product.id });
+    // added this line of code to make prices strike through on plp
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
 
 
     if (!params.base || params.base == true) {
         decorators.base(product, apiProduct, productType);
     }
-//    if (!params.searchPrice || params.searchPrice == true) {
-//        decorators.searchPrice(product, productSearchHit, promotionCache.promotions, getProductSearchHit);
-//    }
     if (!params.ratings || params.ratings == true) {
         decorators.ratings(product);
     }

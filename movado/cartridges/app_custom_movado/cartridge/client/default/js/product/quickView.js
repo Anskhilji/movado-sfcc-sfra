@@ -72,7 +72,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
-            if(restrictAnonymousUsersOnSalesSites) {
+            if (restrictAnonymousUsersOnSalesSites) {
                 if (!loggedIn) {
                     $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
                 }

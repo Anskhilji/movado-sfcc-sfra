@@ -115,17 +115,20 @@
                             <!-- Prices -->
 	                        <div class="prices">
 		                        <isset name="price" value="${product.price}" scope="page" />
-		                        <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+		                        <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                                <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
                                     <isif condition="${pdict.loggedIn == true}">
-		                                <isinclude template="product/components/pricing/main" />
-	                                </isif>
-	                            <iselse>
+                                        <isinclude template="product/components/pricing/main" />
+                                    </isif>
+                                <iselse>
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
+                                <iscomment> Custom: End </iscomment>
 	                        </div>
 	                        
                             <div class="d-block d-md-flex">
                                <!-- Cart and [Optionally] Apple Pay -->
+                               <iscomment> Custom: Start [AddToCart shows only when following requirements meet] </iscomment>
                                <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
                                    <isif condition="${pdict.loggedIn == true}">
                                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
@@ -133,6 +136,7 @@
                                <iselse>
                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                </isif>
+                               <iscomment> Custom: End </iscomment>
                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
 	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
 	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>

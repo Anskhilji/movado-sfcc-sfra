@@ -23,7 +23,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     Object.keys(req.querystring).forEach(function (key) {
         productTileParams[key] = req.querystring[key];
     });
-    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
 
     var product;
     var productUrl;
@@ -63,7 +62,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productGtmObj: productGtmObj,
         qvGtmObj: qvGtmObj,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: restrictAnonymousUsersOnSalesSites
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
     };
 
     Object.keys(req.querystring).forEach(function (key) {
