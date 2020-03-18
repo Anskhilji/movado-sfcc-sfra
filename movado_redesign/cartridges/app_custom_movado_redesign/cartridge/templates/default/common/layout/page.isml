@@ -14,7 +14,7 @@
         </isscript>
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
-        <isinclude url="${URLUtils.url('Page-IncludeHeader')}" />
+        <isinclude template="/components/header/pageHeader" />
         <iscomment>
             This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeHeader.
             <isinclude template="/components/header/pageHeader" />
