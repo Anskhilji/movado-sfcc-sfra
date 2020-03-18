@@ -17,6 +17,8 @@
 
     .dw-apple-pay-button {
         &.apple-pay-pdp {
+            margin-left: 0 !important;
+            margin-top: rem(5);
             min-width: 100%;
         }
     }
@@ -1198,7 +1200,7 @@
             padding: 0;
 
             .bottom-block {
-                width: rem(140);
+                width: rem(224);
                 margin-right: rem(5);
                 margin-bottom: rem(5);
                 padding: rem(10);
@@ -1242,6 +1244,7 @@
 
             .dw-apple-pay-button.apple-pay-pdp {
                 margin: 0;
+                margin-top: rem(5);
             }
         }
 
@@ -1481,7 +1484,7 @@
     @media (min-width: $custom-sm5) and (max-width: $custom-sm6) {
         .detail-bottom-blocks {
             .bottom-block {
-                width: rem(144);
+                width: rem(130);
             }
         }
     }
