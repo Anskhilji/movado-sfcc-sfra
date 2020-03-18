@@ -235,17 +235,18 @@ $(document).ready(function() {
         }
     });
 }
-  $(window).on("load resize", function() {
+
+$(window).on("load resize", function() {
     if ($(window).width() > 786) {
         $('.primary-images .main-carousel img').click(function() {
             $('#zoomProduct').modal('show');
             $('.slick-slider').slick('refresh');
-                setTimeout(function(){
-                    $('.slick-slider').resize();
-                    slickHeight();
-                    zoom();
-                }, 100);
+            setTimeout(function(){
+                $('.slick-slider').resize();
+                slickHeight();
+                zoom();
+            }, 100);
         });
     }
-  });
+});
 });
