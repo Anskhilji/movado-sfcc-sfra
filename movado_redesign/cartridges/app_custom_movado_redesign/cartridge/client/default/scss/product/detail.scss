@@ -17,7 +17,6 @@
 
     .dw-apple-pay-button {
         &.apple-pay-pdp {
-            margin-left: 0 !important;
             margin-top: rem(5);
             min-width: 100%;
         }
@@ -1592,6 +1591,7 @@ body {
         @include media-breakpoint-down(lg) {
             width: 100%;
             margin-bottom: rem(5);
+            margin-left: rem(5px) !important;
         }
     }
 }
@@ -1630,9 +1630,9 @@ body {
         .close-option-popup {
             background: url("../../images/zoom-close.png") center center no-repeat;
             background-size: rem(18);
-            right: rem(20);
-            position: relative;
-            top: rem(-5);
+            right: rem(30);
+            position: absolute;
+            top: rem(20);
         }
     }
 
