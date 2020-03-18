@@ -1,9 +1,10 @@
+<iscomment> Reverted deletion of Template </iscomment>
 <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
 <div class="cta-add-to-cart">
     <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
     <button class='add-to-cart btn btn-primary'
         data-pid="${product.id}"
-        ${!product.readyToOrder ? "disabled" : ""}  >
+        ${!product.readyToOrder ? 'disabled' : ''}  >
             <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
             <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
