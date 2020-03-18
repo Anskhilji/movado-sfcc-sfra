@@ -92,7 +92,7 @@
         }
 
         .selector-wrapper {
-        
+
             @include media-breakpoint-down(md) {
                 margin-right: rem(-70);
             }
@@ -148,7 +148,7 @@
                 }
             }
     
-            &-social-icons, &-country-selector {
+            &-social-icons, &-country-selector, &-language-selector {
                 display: block;
                 width: 100%;
                 float: left;
@@ -209,7 +209,7 @@
                 }
             }
     
-            &-country-selector { 
+            &-country-selector, &-language-selector { 
     
                 @include media-breakpoint-down(sm) {
                     margin-top: rem(16);
@@ -245,6 +245,25 @@
                     }
                 }
             }
+
+            &-language-selector {
+
+                .country-selector-wrapper {
+
+                    @include media-breakpoint-down(md) {
+                        margin-top: rem(10);
+
+                        select {
+                            margin-left: rem(0);
+                        }
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        margin-top: rem(0);
+                    }
+
+                }
+            }
     
             .home-email-signup {
                 background-color: transparent;
@@ -259,7 +278,7 @@
     
                     .input-group {
                         width: rem(300);
-                        background-color: $white;
+                        background-color: inherit;
 
                         @include media-breakpoint-down(lg) {
                             width: rem(260);
