@@ -145,6 +145,7 @@ $(function() {
 
         function () {
             var $windowWidth = $(window).width();
+
             if ($windowWidth > mediumWidth){
                 $('.showtooltip').removeClass('active');
                 $('.custom-tooltip').hide();
