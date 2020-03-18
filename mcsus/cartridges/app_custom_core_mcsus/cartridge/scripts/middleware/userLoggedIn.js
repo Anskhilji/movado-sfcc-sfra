@@ -1,5 +1,6 @@
 'use strict';
 
+var userLoggedIn = module.superModule;
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
@@ -11,7 +12,7 @@ var URLUtils = require('dw/web/URLUtils');
  * @returns {void}
  */
 function validateLoggedInMCS(req, res, next) {
-    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
+    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites;
     if (restrictAnonymousUsersOnSalesSites) {
         if (!req.currentCustomer.profile) {
             if (req.querystring.args) {
@@ -28,7 +29,7 @@ function validateLoggedInMCS(req, res, next) {
 }
 
 function validateLoggedInAjaxMCS(req, res, next) {
-    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites');
+    var restrictAnonymousUsersOnSalesSites = Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites;
     if (restrictAnonymousUsersOnSalesSites) {
         if (!req.currentCustomer.profile) {
             if (req.querystring.args) {
@@ -51,7 +52,8 @@ function validateLoggedInAjaxMCS(req, res, next) {
     next();
 }
 
-module.exports = {
-    validateLoggedInMCS: validateLoggedInMCS,
-    validateLoggedInAjaxMCS: validateLoggedInAjaxMCS
-};
+userLoggedIn.validateLoggedInMCS = validateLoggedInMCS;
+userLoggedIn.validateLoggedInAjaxMCS= validateLoggedInAjaxMCS;
+
+module.exports = userLoggedIn;
+

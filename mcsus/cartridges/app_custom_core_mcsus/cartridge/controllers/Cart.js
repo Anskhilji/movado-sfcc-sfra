@@ -4,7 +4,7 @@ var server = require('server');
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var userLoggedInMCS = require('*/cartridge/scripts/middleware/userLoggedInMCS');
+var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 
 var page = module.superModule;
 server.extend(page);
@@ -13,7 +13,7 @@ server.prepend(
     'Show',
     server.middleware.https,
     consentTracking.consent,
-    userLoggedInMCS.validateLoggedInMCS,
+    userLoggedIn.validateLoggedInMCS,
     csrfProtection.generateToken,
     function (req, res, next) {
 
@@ -23,14 +23,14 @@ server.prepend(
 
 server.prepend(
     'AddProduct',
-    userLoggedInMCS.validateLoggedInMCS,
+    userLoggedIn.validateLoggedInMCS,
     function (req, res, next) {
 
     next();
 });
 
 server.prepend('MiniCartShow',
-    userLoggedInMCS.validateLoggedInAjaxMCS,
+    userLoggedIn.validateLoggedInAjaxMCS,
     function(req, res, next){
 
     next();

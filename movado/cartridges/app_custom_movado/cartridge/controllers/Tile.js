@@ -62,7 +62,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productGtmObj: productGtmObj,
         qvGtmObj: qvGtmObj,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
 
     Object.keys(req.querystring).forEach(function (key) {

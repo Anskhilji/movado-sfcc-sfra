@@ -74,7 +74,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
-            restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
+            restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -177,7 +177,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
         klarnaProductPrice: klarnaProductPrice,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
     next();
 });
@@ -199,7 +199,7 @@ server.get('ShowCartButton', function (req, res, next) {
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().getCustomPreferenceValue('restrictAnonymousUsersOnSalesSites')
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
     next();
 });
