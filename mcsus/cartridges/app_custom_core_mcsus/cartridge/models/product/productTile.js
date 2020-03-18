@@ -50,7 +50,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     // added this line of code to make prices strike through on plp
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
 
-
     if (!params.base || params.base == true) {
         decorators.base(product, apiProduct, productType);
     }
