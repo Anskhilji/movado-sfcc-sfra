@@ -60,11 +60,17 @@ function categoryToObject(category) {
         disableSubCategories: category.custom.disableSubCategories,
         staticContentAsset: staticContentAsset
     };
-
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
     }
+    
+    if (!empty(category.custom.hexColor)) {
+        result.hexColor = category.custom.hexColor;
+    }
 
+    if (!empty(category.custom.showColorSwatchForSubcategories)) {
+        result.showColorSwatchForSubcategories = category.custom.showColorSwatchForSubcategories;
+    }
     var subCategories = category.hasOnlineSubCategories() ?
             category.getOnlineSubCategories() : null;
 

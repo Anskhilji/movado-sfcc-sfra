@@ -1,9 +1,15 @@
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
+var OrderMgr = require('dw/order/OrderMgr');
+var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
+
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
+var RiskifiedService = require('int_riskified');
+var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
@@ -32,10 +38,17 @@ function comparePoBox(address) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
+    
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
-        Logger.error('Unable to find Apple Pay payment instrument for order.');
+        hooksHelper(
+            'app.fraud.detection.checkoutdenied',
+            'checkoutDenied',
+            orderNumber,
+            paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+        checkoutLogger.error('Unable to find Apple Pay payment instrument for order:' + order.orderNo);
         return new Status(Status.ERROR);
     }
 
@@ -73,7 +86,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
     }
-
+    hooksHelper(
+        'app.fraud.detection.create',
+        'create',
+        order.orderNo,
+        order.paymentInstrument,
+        require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
     if (deliveryValidationFail) {
         var sendMail = true;// send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
@@ -85,11 +103,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 				sendMail,
 				isJob,
 				require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+        Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
         if (refundResponse.decision !== 'SUCCESS') {
             Logger.error('Ayden refund not processed : order failed due to PO BOX check : refundResponse.decision ' + refundResponse.decision);
         }
         return addressError;
     }
+    var Order = OrderMgr.getOrder(order.orderNo);
+    Transaction.wrap(function () {
+        Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+    });
+    
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
 
 	// remove personalization details from session once order is authorized and placed
@@ -175,6 +199,33 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
     });// end of Trasaction
     }
 }
+
+exports.beforeAuthorization = function (order, payment, custom) {
+
+    var Status = require('dw/system/Status');
+
+    var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
+    RiskifiedService.storePaymentDetails({
+        avsResultCode: 'Y', // Street address and 5-digit ZIP code
+        // both
+        // match
+        cvvResultCode: 'M', // CVV2 Match
+        paymentMethod: 'Card'
+    });
+
+    if (riskifiedCheckoutCreateResponse && riskifiedCheckoutCreateResponse.error) {
+        hooksHelper(
+            'app.fraud.detection.checkoutdenied',
+            'checkoutDenied',
+            orderNumber,
+            paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+        Logger.error('Unable to find Apple Pay payment instrument for order.');
+        checkoutLogger.error('(applePay) -> beforeAuthorization: Riskified checkout create call failed for order:' + order.orderNo);
+        return new Status(Status.ERROR);
+    }
+    return new Status(Status.OK);
+};
 
 /**
  *  check for AllowedCountryCodes
