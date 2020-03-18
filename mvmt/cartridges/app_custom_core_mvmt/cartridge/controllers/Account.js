@@ -21,9 +21,7 @@ server.append('Login', server.middleware.https, function (req, res, next) {
 
 server.get(
     'MvmtInsider',
-    csrfProtection.generateToken,
     function (req, res, next) {
-        var URLUtils = require('dw/web/URLUtils');
         res.render('account/mvmtInsider');
 
         next();

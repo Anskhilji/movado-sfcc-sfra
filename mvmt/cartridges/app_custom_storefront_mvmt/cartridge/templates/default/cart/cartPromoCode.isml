@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-12">
             <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code','cart',null)}</p>
-            <isslot id="swell-total-points-cart" description="total number of points availabel on cart" context="global" />
+            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
+            <isslot id="swell-total-points-cart" description="Total number of points available on cart" context="global" />
             <div class="d-none redemption-point-error-message" id="error"></div>
         </div>
     </div>

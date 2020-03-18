@@ -45,10 +45,10 @@
                                 </li>
                             </ul>
                             <div class="hidden-md-down d-lg-flex">
-                                <iscomment>Custom Start: Added sweel point slot in page header for login user </iscomment>
+                                <iscomment>Custom Start: Added swell point slot in page header for login user </iscomment>
                                 <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
                                     <div class="main-level-item navbar-header account-wrapper search">
-                                        <isslot id="swell-compaign-total-points-header" description="total number of points in header" context="global" />
+                                        <isslot id="swell-compaign-total-points-header" description="Total number of points in header" context="global" />
                                     </div>
                                 </isif>
                                 <iscomment>Custom End</iscomment>

@@ -40,10 +40,10 @@
         </section>
         <iscomment>Custom Start: Adding content slot to render Swell compaign points in dashboard </iscomment>
         <div class="row justify-content-center">
-            <h3>${Resource.msg('label.points','account',null)}</h3>
+            <h3>${Resource.msg('label.points','account', null)}</h3>
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-compaign-total-points" description="total number of points" context="global" />
+            <isslot id="swell-compaign-total-points" description="Total number of Swell points" context="global" />
         </div>
         <div class="row justify-content-center">
             <a href="${URLUtils.url('Account-MvmtInsider')}" class="redeem-point-label">${Resource.msg('label.earn.redeem.points', 'account', null)}</a>

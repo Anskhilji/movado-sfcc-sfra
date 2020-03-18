@@ -15,7 +15,7 @@
     </div>
     <isinclude template="account/accountTabBar"/>
     <div class="container account-pages">
-        <iscomment> Adding Content asstet for MVMT Insider Ttile text </iscomment>
+        <iscomment>Adding contant asset for MVMT insider title text </iscomment>
         <div class="row justify-content-center">
             <iscontentasset aid="mvmt-insider-heading-box" />
         </div>
@@ -25,30 +25,30 @@
             <h3>${Resource.msg('label.points','account',null)}</h3>
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-compaign-total-points" description="total number of points" context="global" />
+            <isslot id="swell-compaign-total-points" description="Total number of Swell points" context="global" />
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-3">
-                <button type="button" class="earn-more-btn btn-block btn-primary">${Resource.msg('earn.more.button','account',null)}</button>
+                <button type="button" class="earn-more-btn btn-block btn-primary">${Resource.msg('earn.more.button', 'account',null)}</button>
             </div>
             <div class="col-sm-3">
-                <button type="button" class="get-reward-btn btn-block btn-primary">${Resource.msg('get.rewards.button','account',null)}</button>
+                <button type="button" class="get-reward-btn btn-block btn-primary">${Resource.msg('get.rewards.button', 'account',null)}</button>
             </div>
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-compaign-list" description="only select campaigns" context="global" />
+            <isslot id="swell-compaign-list" description="Only selected campaigns" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-referral-campaign" description="navigate to eeferral page" context="global" />
+            <isslot id="swell-referral-campaign" description="Navigate to referral page" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-campaign-selected-list" description="only selected list compaigns" context="global" />
+            <isslot id="swell-campaign-selected-list" description="Only selected list compaigns" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-campaign-rewards-list" description="swell rewards list" context="global" />
+            <isslot id="swell-campaign-rewards-list" description="Swell rewards list" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="how-to-redeem-static" description="static text slot" context="global" />
+            <isslot id="how-to-redeem-static" description="Static text slot" context="global" />
         </div>
     </div>
 </isdecorate>
