@@ -1626,9 +1626,9 @@ body {
         .close-option-popup {
             background: url("../../images/zoom-close.png") center center no-repeat;
             background-size: rem(18);
-            right: rem(20);
-            position: relative;
-            top: rem(-5);
+            right: rem(30);
+            position: absolute;
+            top: rem(20);
         }
     }
 
