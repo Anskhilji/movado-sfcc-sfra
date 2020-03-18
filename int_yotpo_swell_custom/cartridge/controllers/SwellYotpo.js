@@ -35,7 +35,6 @@ server.get(
                         Transaction.wrap(function () {
                             currentBasket.removePriceAdjustment(orderPriceAdjustment);
                         });
-                        break;
                     }
                 }
                 Transaction.wrap(function () {
