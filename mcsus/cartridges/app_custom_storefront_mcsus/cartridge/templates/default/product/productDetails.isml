@@ -113,9 +113,9 @@
                         
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
-	                        <div class="prices">
-		                        <isset name="price" value="${product.price}" scope="page" />
-		                        <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
                                 <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
                                     <isif condition="${pdict.loggedIn == true}">
                                         <isinclude template="product/components/pricing/main" />
@@ -124,7 +124,7 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                                 <iscomment> Custom: End </iscomment>
-	                        </div>
+                            </div>
 	                        
                             <div class="d-block d-md-flex">
                                <!-- Cart and [Optionally] Apple Pay -->
