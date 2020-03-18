@@ -1,0 +1,23 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="minicart-total hide-link-med">
+    <a class="minicart-link" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('minicart.viewcart','common',null)}">
+        <iscomment>
+             font awesome icon removed, icon within content asset placed
+        </iscomment>
+        <iscontentasset aid="shopping-bag-icon"/>
+        <span class="minicart-quantity redesign-quantity">
+            <isprint value="${pdict.quantityTotal}" formatter="##" />
+        </span>
+    </a>
+</div>
+
+<div class="minicart-total hide-no-link">
+    <iscomment>
+            font awesome icon removed, icon within content asset placed
+    </iscomment>
+    <iscontentasset aid="shopping-bag-icon"/>
+    <span class="minicart-quantity redesign-quantity">
+        <isprint value="${pdict.quantityTotal}" formatter="##" />
+    </span>
+</div>
+<div class="popover popover-bottom"></div>

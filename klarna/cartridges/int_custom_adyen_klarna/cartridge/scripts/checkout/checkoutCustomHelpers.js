@@ -81,8 +81,11 @@ checkoutCustomHelpers.sendConfirmationEmail = function (order, locale) {
         var paymentInstruments = order.paymentInstruments;
         if (paymentInstruments.length !== 0) {
 		  for (var i = 0; i < paymentInstruments.length; i++) {
-      riskifiedEnabled = checkoutCustomHelpers.isRiskified(paymentInstruments[i]);
+              riskifiedEnabled = checkoutCustomHelpers.isRiskified(paymentInstruments[i]);
 		  }
+        }
+        if (!empty(session.custom.klarnaRiskifiedFlag)) {
+            riskifiedEnabled = false;
         }
         if (!riskifiedEnabled) {
             checkoutCustomHelpers.sendOrderConfirmationEmail(order, locale);
