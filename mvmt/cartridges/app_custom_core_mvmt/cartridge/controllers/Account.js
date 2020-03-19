@@ -4,7 +4,6 @@ var server = require('server');
 server.extend(module.superModule);
 
 var URLUtils = require('dw/web/URLUtils');
-var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 
 server.append('Login', server.middleware.https, function (req, res, next) {
     var isMiniCart = empty(req.querystring.isMiniCart) ? false : req.querystring.isMiniCart;
