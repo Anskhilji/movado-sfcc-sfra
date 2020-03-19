@@ -23,7 +23,8 @@
                                 <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                             </isif>
                         </isloop>
-                        <p class="line-item-attributes model-name">${lineItem.resources.Model} ${lineItem.id}</p>
+                        <iscomment> added class d-none </iscomment>
+                        <p class="line-item-attributes d-none model-name">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
                             <isif condition="${!!option && option.selectedValueId != 0}" />
                                 <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
@@ -41,7 +42,8 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-	                    <div class="item-total-${lineItem.UUID} price">
+	                    <iscomment> added class d-none </iscomment>
+                        <div class="d-none item-total-${lineItem.UUID} price">
 	                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
 	                    </div>
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >

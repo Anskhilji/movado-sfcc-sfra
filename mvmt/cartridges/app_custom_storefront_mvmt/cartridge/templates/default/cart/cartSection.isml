@@ -26,7 +26,8 @@
         </div>
     </div>
 </isif>
-<div class="container cart-header-wrapper">
+<iscomment> Added class d-non </iscomment>
+<div class="container d-none cart-header-wrapper">
     <isif condition="${itemsLength > 0}">
         <div class="estimate-price-wrapper">
             <div class="row estimated-total justify-content-center">
@@ -42,10 +43,12 @@
     </isif>
 </div>
 <div class="container cart cart-page">
-    <div class="row">
+    <iscomment> remove bootstrap row class, added custom classes </iscomment>
+    <div class="main-cart-block">
         <!---product cards--->
-        <div class="col-lg-8 col-md-12">
-            <h1 class="page-title cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
+        <iscomment> remove bootstrap columns classes, added custom classes </iscomment>
+        <div class="product-list-block">
+            <h1 class="page-title d-none cart-header">${Resource.msg('title.cart', 'cart', null)}</h1>
             <isif condition="${itemsLength > 0}">
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
@@ -61,36 +64,40 @@
             </isif>
         </div>
         <!---totals, and checkout actions--->
-        <div class="col-lg-4 col-md-12 totals order-2 order-lg-0">
-            <isif condition="${itemsLength > 0}">
-                <div class="promo-box">
-                    <isinclude template="cart/cartPromoCode" />
-                    <div class="coupons-and-promos coupons-wrapper">
-                        <isinclude template="cart/cartCouponDisplay" />
-                    </div>
-                    <div class="row">
-                        <isinclude template="cart/cartShippingMethodSelection" />
-                    </div>
-                </div>
-            </isif>
-            <isif condition="${itemsLength > 0}">
-                <div class="no-gutters row cart-order-outer-box">
-                    <div class="cart-order-box">
-                        <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>
-                        <isinclude template="cart/cartTotals" />
-                        <div class="col-12 checkout-continue">
-                            <isinclude template="cart/checkoutButtons" />
-                            <iscontentasset aid="cart-tax-message" />
+        <iscomment> remove bootstrap columns classes, added custom classes </iscomment>
+        <div class="totals continue-checkout-block">
+        <iscomment> added div continue-checkout-block-inside </iscomment>
+            <div class="continue-checkout-block-inside">
+                <isif condition="${itemsLength > 0}">
+                    <div class="promo-box">
+                        <isinclude template="cart/cartPromoCode" />
+                        <div class="coupons-and-promos coupons-wrapper">
+                            <isinclude template="cart/cartCouponDisplay" />
+                        </div>
+                        <div class="row">
+                            <isinclude template="cart/cartShippingMethodSelection" />
                         </div>
                     </div>
+                </isif>
+                <isif condition="${itemsLength > 0}">
+                    <div class="no-gutters row cart-order-outer-box">
+                        <div class="cart-order-box">
+                            <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>
+                            <isinclude template="cart/cartTotals" />
+                            <div class="col-12 checkout-buttons checkout-continue">
+                                <isinclude template="cart/checkoutButtons" />
+                                <iscontentasset aid="cart-tax-message" />
+                            </div>
+                        </div>
+                    </div>
+                </isif>
+                <br/>
+                <div class="no-gutters row cart-customer-service-outer-box d-none">
+                    <iscontentasset aid="cart-customer-service-contact"/>
                 </div>
-            </isif>
-            <br/>
-            <div class="no-gutters row cart-customer-service-outer-box">
-                <iscontentasset aid="cart-customer-service-contact"/>
-            </div>
-            <div class="container">
-                <isprint value="${pdict.assets.needHelp}" encoding="off" />
+                <div class="container">
+                    <isprint value="${pdict.assets.needHelp}" encoding="off" />
+                </div>
             </div>
         </div>
         <isif condition="${itemsLength === 0}">

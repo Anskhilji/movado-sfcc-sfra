@@ -13,6 +13,7 @@
 }
 
 .cart-page {
+    padding: rem(80) 0;
 
     .cart-empty {
 
@@ -73,12 +74,16 @@
 
     .page-title {
         margin: 0;
-        padding: rem(14) 0;
+        padding: rem(10);
         text-transform: uppercase;
-        font-weight: 800;
-        font-size: rem(22);
-        letter-spacing: 0;
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(14);
+        line-height: rem(42);
+        letter-spacing: rem(1.17);
         color: $black;
+        text-align: center;
+        background-color: $white-gray;
     }
 
     .totals {
@@ -107,12 +112,7 @@
             }
         }
 
-        .page-title {
-            border-bottom: rem(1) solid $light-gray6;
-        }
-
         .cart-order-outer-box {
-            background-color: $gray8;
             border-radius: rem(6);
 
             @include media-breakpoint-down(md) {
@@ -124,7 +124,6 @@
             .cart-order-box {
                 width: 100%;
                 float: left;
-                margin: 0 rem(20);
                 padding: 0 0 rem(32) 0;
                 margin-bottom: rem(16);
 
@@ -142,12 +141,12 @@
             }
 
             .grand-total-label, .grand-total {
-                font-family: $font-primary;
-                font-size: rem(23);
-                margin: 0;
-                padding: rem(16) rem(10);
-                min-height: rem(60);
+                font-family: $font-medium;
+                font-size: rem(14);
+                letter-spacing: rem(1.17);
                 font-weight: 500;
+                line-height: rem(20);
+                margin: 0;
 
                 @include media-breakpoint-down(md) {
                     font-weight: 600;
@@ -156,12 +155,9 @@
                 @include media-breakpoint-down(xss) {
                     font-size: rem(22);
                 }
-
             }
 
             .checkout-continue {
-                padding-left: rem(10);
-                padding-right: rem(10);
 
                 .btn-primary:not(:disabled):not(.disabled):active:focus, 
                 .btn-primary:not(:disabled):not(.disabled):focus {
@@ -169,6 +165,9 @@
                 }
 
                 .more-ways-text {
+                    font-family: $font-book;
+                    font-size: rem(14);
+                    letter-spacing: normal;
 
                     @include media-breakpoint-down(xs) {
                         border: none;
@@ -176,11 +175,28 @@
                 }
 
                 .checkout-btn {
+                    margin-bottom: rem(16);
+                    line-height: rem(44);
+                    background-color: $light-green;
+                    box-shadow: none;
+                    cursor: pointer;
+                    padding: rem(20);
+                    font-size: rem(14);
+                    font-family: $font-bold;
+                    font-weight: 600;
+                    letter-spacing: rem(1.87);
+                    border: none;
+                    line-height: rem(18);
+
+                    @include media-breakpoint-only(lg) {
+
+                    }
 
                     &.paypal-btn {
                         background-color: $yellow;
                         border-color: $yellow;
-    
+                        padding: rem(16) rem(20);
+
                         &:not(:disabled):not(.disabled):active, &:hover {
                             background-color: $yellow;
                             border-color: $yellow;
@@ -193,7 +209,7 @@
                     }
 
                     &:hover {
-                        background-color: $light-green6;
+                        background-color: $light-green8;
                         border-color: $light-green6;
                     }
                 }
@@ -210,35 +226,6 @@
                     &:hover {
                         background-color: $light-gray6;
                         border-color: $light-gray6;
-                    }
-                }
-
-                a {
-                    font-size: rem(18);
-                    font-weight: 500;
-                    margin-bottom: rem(16);
-                    padding: 0 rem(14px);
-                    height: rem(48);
-                    line-height: rem(44);
-                    background-color: $light-green;
-                    border-color: $light-green;
-                    box-shadow: none;
-                    border-radius: rem(4);
-
-                    @include media-breakpoint-up(xl) {
-                        letter-spacing: rem(3);
-                    }
-
-                    @include media-breakpoint-only(lg) {
-                        letter-spacing: rem(1);
-                    }
-
-                    @include media-breakpoint-down(md) {
-                        letter-spacing: rem(3);
-                    }
-
-                    @include media-breakpoint-down(xss) {
-                        letter-spacing: rem(1);
                     }
                 }
 
@@ -349,6 +336,8 @@
 
     .product-info {
         padding: 0;
+        border: rem(1) solid $light-gray4;
+        padding: rem(15);
         margin-bottom: rem(10);
 
         .bonus-product-button {
@@ -402,7 +391,7 @@
                         line-height: normal;
                     }
 
-                    .model-name, line-item-availability {
+                    .model-name, .line-item-availability {
                         color: $light-gray7;
                         font-size: rem(12);
                         text-decoration: none;
@@ -416,10 +405,8 @@
 
             .product-image {
                 margin-right: rem(5);
-                height: rem(98);
-                width: rem(98);
-                border: rem(1) solid $light-gray6;
-                border-radius: rem(4);
+                height: rem(73);
+                width: rem(73);
                 transition-duration: 0.3s;
 
                 @include media-breakpoint-down(xs) {
@@ -430,25 +417,37 @@
 
             .line-item-quantity {
 
-                .quantity-form {
-                    display: flex;
-                    align-items: center;
-                    margin: 0;
+                .quantity {
 
-                    .quantity {
-                        font-size: rem(18);
+                    &-form  {
+                        display: flex;
+                        align-items: center;
+                        margin: 0;
+                    }
+
+                    &-field {
+                        padding: 2px 15px 2px 2px;
+                        box-shadow: inset 0 0 2px 1px $light-gray4;
+                        width: rem(76);
+                        height: rem(54);
+                    }
+
+                    &-select {
+                        font-family: $font-book;
+                        font-size: rem(14);
                         display: inline-block;
-                        width: rem(56);
-                        height: rem(24);
+                        height: 100%;
+                        width: 100%;
                         padding: 0;
+                        min-width: auto;
                         border: 0;
                         text-align: center;
-                        vertical-align: middle;
-                        box-shadow: none;
-                        min-width: auto;
                         letter-spacing: rem(1.5);
                         color: $light-gray;
-                        line-height: 1;
+
+                        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+                            opacity: 1;
+                        }
 
                         @include media-breakpoint-down(sm) {
                             width: rem(48);
@@ -471,7 +470,8 @@
                         }
                     }
 
-                    .quantity-btn {
+                    &-btn {
+                        display: none;
                         width: rem(24);
                         height: rem(24);
                         border-radius: rem(2);
@@ -531,7 +531,7 @@
                     width: auto;
                     margin: 0;
                     font-size: rem(16);
-                    font-family: $font-primary;
+                    font-family: $font-medium;
 
                     > a {
                         color: $light-gray7;
@@ -539,43 +539,43 @@
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         letter-spacing: 0;
+                        margin-left: rem(50);
                     }
                 }
             }
 
             .price {
+                font-family: $font-medium;
+                font-size: rem(15);
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                font-size: rem(18);
                 color: $light-gray7;
                 transition: font-size 0.3s;
                 letter-spacing: rem(1.5);
 
                 @include media-breakpoint-down(sm) {
-                    font-size: rem(16);
+                    font-size: rem(14);
                 }
 
                 @include media-breakpoint-down(xs) {
-                    font-size: rem(14);
-                    font-weight: 900;
-                    font-family: $font-medium;
+                    font-size: rem(12);
                 }
             }
 
             .remove-line-item {
 
                 .remove-btn {
-                    font-size: rem(14);
+                    font-size: rem(12);
                     padding: 0 rem(10);
-                    text-decoration: underline;
                     color: $red1;
                     background: $white;
                     border-color: $white;
-                    letter-spacing: rem(3);
+                    letter-spacing: rem(1);
+                    text-transform: uppercases;
 
                     &:hover {
-                        text-decoration: none;
+                        text-decoration: underline;
                     }
 
                     &:focus, &:not(:disabled):not(.disabled):active:focus,
@@ -591,6 +591,49 @@
                             outline: 0;
                         }
                     }
+                }
+            }
+        }
+    }
+
+    .grand-total-section, .checkout-buttons {
+        border: 1px solid $light-gray4;
+        padding: rem(20);
+    }
+
+    .checkout-buttons {
+        border-top: none;
+    }
+
+    .main-cart-block {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+
+        .product-list-block {
+            width: 70%;
+        }
+
+        .continue-checkout-block {
+            width: 100%;
+            margin: rem(30) auto 0;
+
+            @include media-breakpoint-up(lg) {
+                width: 40%;
+                margin: 0 auto;
+            }
+
+            @include media-breakpoint-up(sm) {
+                max-width: rem(350);
+            }
+
+            .continue-checkout-block-inside {
+                width: 100%;
+
+                @include media-breakpoint-up(lg) {
+                    margin-left: rem(20);
+                    width: rem(330);
+                    max-width: rem(330);
                 }
             }
         }
