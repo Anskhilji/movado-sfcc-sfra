@@ -1,6 +1,12 @@
 'use strict';
 
-$(document).ready(function () {
+var $formValidation = require('base/components/formValidation');
+
+function toggleIcon(e) {
+    $(e.target).prev('.faq-main-panel-heading').find('.faq-main-panel-title-more-less').toggleClass('faq-main-panel-title-expand faq-main-panel-title-shrink');
+}
+
+module.exports = function () {
     var $contactTab = $('#faq-page-contact-tab');
     var $footer = $('footer');
     var $footerHelpContainer = $('.help-wrapper-footer');
@@ -12,9 +18,6 @@ $(document).ready(function () {
     $footer.addClass('position-relative');
     $footer.append($helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer'));
     
-    function toggleIcon(e) {
-        $(e.target).prev('.faq-main-panel-heading').find('.faq-main-panel-title-more-less').toggleClass('faq-main-panel-title-expand faq-main-panel-title-shrink');
-    }
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
     
@@ -99,5 +102,39 @@ $(document).ready(function () {
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($returnsTab).text();
     });
-});
+    
+    $('.contact-tab').on('submit', 'form.contactus', function (e) {
+        e.preventDefault();
+        var $form = $(this);
+        var url = $form.attr('action');
+        var method = $form.attr('method');
+        var data = $form.serialize();
+        var $messageContainer = $('.contact-tab-form-message');
+        $messageContainer.hide();
+        $form.spinner().start();
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: method,
+            data: data,
+            success: function (data) {
+                $form.spinner().stop();
+                if (!data.success) {
+                    $formValidation(form, data);
+                }
+                $messageContainer.show().html(data.message);
+                $form.hide();
+            },
+            error: function (data) {
+                $form.spinner().stop();
+                if (data.responseJSON.redirectUrl) {
+                    window.location.href = data.responseJSON.redirectUrl;
+                } else {
+                    $messageContainer.show().html(data.responseText);
+                }
+                $form.hide();
+            }
+        });
+    });
+};
 
