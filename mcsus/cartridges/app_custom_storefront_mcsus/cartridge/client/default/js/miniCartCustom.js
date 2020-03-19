@@ -16,6 +16,7 @@ module.exports = function () {
                 method: 'GET',
                 success: function (data) {
                     if (data && data.redirectUrl) {
+                        $('.minicart .popover').removeClass('show');
                         window.location.href = data.redirectUrl;
                     } else {
                         $('.minicart .popover').empty();
