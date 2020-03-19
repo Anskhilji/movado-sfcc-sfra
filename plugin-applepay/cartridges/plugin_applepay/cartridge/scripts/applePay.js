@@ -1,3 +1,4 @@
+var BasketMgr = require('dw/order/BasketMgr');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
@@ -146,6 +147,10 @@ exports.prepareBasket = function (basket, parameters) {
 		// sample data for testing
 		// updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
+        var currentBasket = BasketMgr.getCurrentBasket();
+        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+        }
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
