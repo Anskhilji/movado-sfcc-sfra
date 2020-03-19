@@ -38,7 +38,7 @@ server.replace('MiniCartShow', userLoggedIn.validateLoggedInAjaxMCS, function (r
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var currentBasket = BasketMgr.getCurrentBasket();
-    var viewDataMCS = res.getViewData();
+    var viewData = res.getViewData();
     var reportingURLs;
 
     if (currentBasket) {
@@ -60,11 +60,11 @@ server.replace('MiniCartShow', userLoggedIn.validateLoggedInAjaxMCS, function (r
     var basketModel = new CartModel(currentBasket);
     var URLUtils = require('dw/web/URLUtils');
     
-    if (viewDataMCS && (viewDataMCS.loggedin == false)) {
+    if (viewData && viewData.restrictAnonymousUsersOnSalesSites && (viewData.loggedin == false)) {
         res.json({
             loggedin: false,
-            restrictAnonymousUsersOnSalesSites: viewDataMCS.restrictAnonymousUsersOnSalesSites,
-            redirectUrl: viewDataMCS.redirectUrl
+            restrictAnonymousUsersOnSalesSites: viewData.restrictAnonymousUsersOnSalesSites,
+            redirectUrl: viewData.redirectUrl
         });
     } else {
         res.render('checkout/cart/miniCart', basketModel);

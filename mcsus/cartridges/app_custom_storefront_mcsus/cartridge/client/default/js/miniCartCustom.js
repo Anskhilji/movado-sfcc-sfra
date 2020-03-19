@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function () {
+module.exports = function () {
     $('.minicart').off('mouseenter focusin touchstart').on('mouseenter focusin touchstart', function () {
         if ($('.search:visible').length === 0) {
             return;
@@ -29,5 +29,5 @@ $(document).ready(function () {
             });
         } 
     });    
-});
+}
 
