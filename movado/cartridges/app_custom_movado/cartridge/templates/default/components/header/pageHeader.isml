@@ -8,7 +8,7 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
-          <div class="container">
+          <div class="container-fluid">
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
@@ -17,9 +17,9 @@
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
                     <iscomment> Custom End </iscomment>
-                    <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
-                    <iscomment>Custom Start:  Not needed for country selector from content slot </iscomment>
+                    <iscomment>Custom Start:  Not needed old country selector logic </iscomment>
                     <iscomment> 
+                    <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
                     <isslot id="country-selector" description="country selector" context="global" />
                     </iscomment>
                     <iscomment> Custom End </iscomment>

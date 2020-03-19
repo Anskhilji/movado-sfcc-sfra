@@ -299,12 +299,14 @@ function getPageMetaData(pageMetaData) {
  */
 function Request(request, customer, session) {
     // Avoid currency check for remote includes
+    // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
         var eswHelper = require('int_eshopworld_sfra/cartridge/scripts/helper/eswHelper').getEswHelper();
         if (!eswHelper.getEShopWorldModuleEnabled()) {
             setCurrency(request, session);
         }
     }
+    // Custom End
 
     this.httpMethod = request.httpMethod;
     this.host = request.httpHost;
