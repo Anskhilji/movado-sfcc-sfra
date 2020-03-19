@@ -11,6 +11,5 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./components/miniCart'));
     processInclude(require('./components/dashboard'));
-    processInclude(require('custom-yotpo-swell/swell/swell'));
 });
 

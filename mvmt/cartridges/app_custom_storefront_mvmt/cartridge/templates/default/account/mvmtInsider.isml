@@ -25,7 +25,7 @@
             <h3>${Resource.msg('label.points','account',null)}</h3>
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-compaign-total-points" description="Total number of Swell points" context="global" />
+            <isslot id="swell-compaign-total-points" description="Swell Total Points" context="global" />
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-3">
@@ -36,19 +36,20 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-compaign-list" description="Only selected campaigns" context="global" />
+            <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-referral-campaign" description="Navigate to referral page" context="global" />
+            <isslot id="swell-referral-campaign" description="Swell Referral Campaign" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-campaign-selected-list" description="Only selected list compaigns" context="global" />
+            <isslot id="swell-campaign-selected-list" description="Swell Campaign Selected List" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="swell-campaign-rewards-list" description="Swell rewards list" context="global" />
+            <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
         </div>
         <div class="row justify-content-center">
             <isslot id="how-to-redeem-static" description="Static text slot" context="global" />
+            <isslot id="swell-how-to-redeem-static" description="Swell How To Redeem Static Slot" context="global" />
         </div>
     </div>
 </isdecorate>

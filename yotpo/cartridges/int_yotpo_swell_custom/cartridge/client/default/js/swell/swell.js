@@ -145,15 +145,13 @@ var onSuccess = function(redemption) {
 };
 
 var onError = function(err) {
-    $('#error').show();
+    $('#error').removeClass('d-none');
 };
 
 // depending on your cart/checkout markup the selectors will need to be updated
 var fillAndSubmitCouponCodeForm = function(couponCode) {
     // set the value for the coupon code input
     $("#coupon-code-input-element").val(couponCode);
-    // trigger a click on the submit button
-    $("#coupon-code-submit-btn").click();
 };
 
 $(document).on("swell:initialized", () => {
@@ -164,25 +162,21 @@ $(document).on("swell:initialized", () => {
             )
         }
     });
-
-    $("#swell-redemption-dropdown").change(() => {
-        swellAPI.makeRedemption(
-          { redemptionOptionId: $("#swell-redemption-dropdown option:selected").val(), delayPointDeduction: true },
-          onSuccess,
-          onError
-        );
-    })
 });
 
 $('#coupon-code-submit-btn').on('click', function (e) {
     e.preventDefault();
-    applySwellDiscount ();
+    applySwellDiscount (redemption);
+    swellAPI.makeRedemption(
+        { redemptionOptionId: $("#swell-redemption-dropdown option:selected").val(), delayPointDeduction: true },
+        onSuccess,
+        onError
+    );
 });
 
-function applySwellDiscount () {
-    var couponCode = $('#coupon-code-input-element').val();
+function applySwellDiscount (redemption) {
     var $csrfInput = $('.swell-crf-token');
-    var data = {amount: 70, redemptionOptId: 80};
+    var data = {amount: redemption.pointsUsed, redemptionOptId: redemption.redemptionOptionId};
     var $redemptionContainer = $('.swell-redemption');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');

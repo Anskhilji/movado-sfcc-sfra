@@ -20,8 +20,7 @@ server.get(
     userLoggedIn.validateLoggedInAjax,
     function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentBasket();
-        var data = request.httpParameterMap;
-        var amount = parseFloat(data.get('amount'));
+        var amount = parseFloat(req.querystring.amount);
         var redemptionOptId = req.querystring.redemptionOptId;
 
         try {
