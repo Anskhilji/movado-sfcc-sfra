@@ -29,11 +29,49 @@ server.prepend(
     next();
 });
 
-server.prepend('MiniCartShow',
-    userLoggedIn.validateLoggedInAjaxMCS,
-    function(req, res, next){
+server.replace('MiniCartShow', userLoggedIn.validateLoggedInAjaxMCS, function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+    var CartModel = require('*/cartridge/models/cart');
+    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+    var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var viewDataMCS = res.getViewData();
+    var reportingURLs;
+
+    if (currentBasket) {
+        Transaction.wrap(function () {
+            if (currentBasket.currencyCode !== req.session.currency.currencyCode) {
+                currentBasket.updateCurrency();
+            }
+            cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+    }
+
+    if (currentBasket && currentBasket.allLineItems.length) {
+        reportingURLs = reportingUrlsHelper.getBasketOpenReportingURLs(currentBasket);
+    }
+
+    res.setViewData({ reportingURLs: reportingURLs });
+
+    var basketModel = new CartModel(currentBasket);
+    var URLUtils = require('dw/web/URLUtils');
+    
+    if (viewDataMCS && (viewDataMCS.loggedin == false)) {
+        res.json({
+            loggedin: false,
+            restrictAnonymousUsersOnSalesSites: viewDataMCS.restrictAnonymousUsersOnSalesSites,
+            redirectUrl: viewDataMCS.redirectUrl
+        });
+    } else {
+        res.render('checkout/cart/miniCart', basketModel);
+    }
+    
     next();
 });
+
 
 module.exports = server.exports();

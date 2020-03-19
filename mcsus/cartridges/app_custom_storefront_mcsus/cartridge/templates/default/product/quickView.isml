@@ -60,7 +60,8 @@
                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
                     <isinclude template="klarna/klarnaPromotionMessage" />
                 </isif>
-                <iscomment> Custom: Change [Here, just 'mcs-add-to-cart' class is added] </iscomment>
+                <iscomment> Custom: Change [Here, just span tag 'mcs-add-to-cart' class is added in following first div] </iscomment>
+                <span class="d-none prices-add-to-cart-actions mcs-show-price-message">${Resource.msg('global.price.loggedin', 'common', null)}</span>
                 <div class="col-12 prices-add-to-cart-actions mcs-add-to-cart">
                     <!-- Prices -->
                     <div class="prices">

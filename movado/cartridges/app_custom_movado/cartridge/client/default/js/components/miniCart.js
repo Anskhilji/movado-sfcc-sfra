@@ -24,8 +24,8 @@ module.exports = function () {
             $.get(url, function (data) {
                 $('.minicart .popover').empty();
                 $('.minicart .popover').append(data);
+                $.spinner().stop()
             });
-            $.spinner().stop()
         }
     });
     $('body').on('touchstart click', function (e) {

@@ -38,10 +38,10 @@ function validateLoggedInAjaxMCS(req, res, next) {
     
             var target = req.querystring.rurl || 1;
     
-            res.setStatusCode(500);
             res.setViewData({
                 loggedin: false,
-                redirectUrl: URLUtils.url('Login-Show', 'rurl', target).toString()
+                redirectUrl: URLUtils.url('Login-Show', 'rurl', target).toString(),
+                restrictAnonymousUsersOnSalesSites: restrictAnonymousUsersOnSalesSites
             });
         } else {
             res.setViewData({
