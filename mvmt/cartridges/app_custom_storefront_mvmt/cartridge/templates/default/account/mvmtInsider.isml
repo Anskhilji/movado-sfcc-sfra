@@ -48,7 +48,6 @@
             <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
         </div>
         <div class="row justify-content-center">
-            <isslot id="how-to-redeem-static" description="Static text slot" context="global" />
             <isslot id="swell-how-to-redeem-static" description="Swell How To Redeem Static Slot" context="global" />
         </div>
     </div>
