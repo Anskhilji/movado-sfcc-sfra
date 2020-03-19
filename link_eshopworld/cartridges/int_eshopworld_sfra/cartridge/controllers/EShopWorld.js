@@ -396,6 +396,10 @@ server.post('NotifyV2', function (req, res, next) {
                         OrderMgr.placeOrder(order);
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                         order.setExportStatus(Order.EXPORT_STATUS_READY);
+                        
+                        if (eswHelper.isUpdateOrderPaymentStatusToPaidAllowed()){
+                        	order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
+                        }
 
                         responseJSON = {
                             "OrderNumber": obj.retailerCartId.toString(),

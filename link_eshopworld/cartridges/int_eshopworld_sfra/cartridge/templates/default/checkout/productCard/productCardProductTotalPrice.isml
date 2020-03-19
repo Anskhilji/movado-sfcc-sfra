@@ -12,7 +12,7 @@
 <div class="strike-through
 <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>"
 >
-    ${lineItem.priceTotal.nonAdjustedPrice}
+    ${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}
 </div>
 <isif condition="${!empty(matchingLineItem)}">
 	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>

@@ -23,7 +23,7 @@ server.prepend(
             var currentBasket = BasketMgr.getCurrentBasket();
             if (currentBasket) {
                 Transaction.wrap(function () {
-                    if (eswHelper.getShippingServiceType() === 'POST') {
+                    if (eswHelper.getShippingServiceType(currentBasket) === 'POST') {
                         eswServiceHelper.applyShippingMethod(currentBasket, 'POST', eswHelper.getAvailableCountry(), true);
                     } else {
                         eswServiceHelper.applyShippingMethod(currentBasket, 'EXP2', eswHelper.getAvailableCountry(), true);

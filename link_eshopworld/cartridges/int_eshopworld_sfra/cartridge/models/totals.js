@@ -54,7 +54,7 @@ function getShippingLevelDiscountTotal(lineItemContainer) {
 
     return {
         value: shippingDiscount.value,
-        formatted: formatMoney(eswHelper.getMoneyObject(shippingDiscount, true, false))
+        formatted: formatMoney(eswHelper.getMoneyObject(shippingDiscount, true, false, true))
     };
 }
 

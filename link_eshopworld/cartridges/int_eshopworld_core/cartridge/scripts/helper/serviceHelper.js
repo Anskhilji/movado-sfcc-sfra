@@ -193,16 +193,11 @@ function getShopperCheckoutExperience() {
 function getExpansionPairs() {
 	var URLUtils = require('dw/web/URLUtils'),
 		urlExpansionPairs = eswHelper.getUrlExpansionPairs(),
-		additionalExpansionPairs = eswHelper.getAdditionalExpansionPairs(),
 		obj = {},
 		i = 0;
 	for (var index in urlExpansionPairs) {
 		i = urlExpansionPairs[index].indexOf('|');
 		obj[urlExpansionPairs[index].substring(0, i)] = URLUtils.https(new dw.web.URLAction(urlExpansionPairs[index].substring(i+1),Site.ID,request.httpCookies['esw.LanguageIsoCode'].value)).toString();
-	}
-	for (var index in additionalExpansionPairs) {
-		i = additionalExpansionPairs[index].indexOf('|');
-		obj[additionalExpansionPairs[index].substring(0, i)] = additionalExpansionPairs[index].substring(i+1);
 	}
 	obj.metadataItems = getRetailerCheckoutMetadataItems();
 	return obj;
@@ -386,7 +381,7 @@ function getApplicableDefaultShippingMethod(cart) {
 	var ShippingMgr = require('dw/order/ShippingMgr'),
 		shipment = cart.getShipment(cart.getDefaultShipment().getID()),
 		shippingMethods = ShippingMgr.getShipmentShippingModel(shipment).getApplicableShippingMethods(),
-		shippingType = eswHelper.getShippingServiceType();
+		shippingType = eswHelper.getShippingServiceType(cart);
 		isOverrideCountry = JSON.parse(eswHelper.getOverrideShipping()).filter(function (item) {
 			return item.countryCode == eswHelper.getAvailableCountry();
 		});

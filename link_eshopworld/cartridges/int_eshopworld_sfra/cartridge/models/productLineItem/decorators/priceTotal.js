@@ -17,7 +17,8 @@ function getTotalPrice(lineItem) {
     var template = 'checkout/productCard/productCardProductRenderedTotalPrice';
 
     if (lineItem.priceAdjustments.getLength() > 0) {
-        result.nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.getPrice(), false);
+        var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
+        result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
     }
 
     price = lineItem.adjustedPrice;

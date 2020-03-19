@@ -21,8 +21,8 @@ function getTotalPrice(lineItem) {
 
     // Custom Start: ESW Logic
     if (lineItem.priceAdjustments.getLength() > 0) {
-//      result.nonAdjustedPrice = formatMoney(lineItem.getPrice());
-        eswHelper.getMoneyObject(lineItem.getPrice(), false);
+        var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
+        result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
     }
     // Custom End
 

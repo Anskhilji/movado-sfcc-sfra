@@ -90,9 +90,6 @@ var getEswHelper = {
 	getEShopWorldModuleEnabled : function () {
 		return Site.getCustomPreferenceValue("eswEshopworldModuleEnabled");
 	},
-	getExp2EnabledCountries : function () {
-		return Site.getCustomPreferenceValue("eswExp2EnabledCountries");
-	},	
 	getFixedPriceModelCountries : function () {
 		return Site.getCustomPreferenceValue("eswFixedEnabledCountries");
 	},
@@ -105,9 +102,6 @@ var getEswHelper = {
 	getOverrideShipping : function () {
 		return Site.getCustomPreferenceValue("eswOverrideShipping");
 	},
-	getPostEnabledCountries : function () {
-		return Site.getCustomPreferenceValue("eswPostEnabledCountries");
-	},	
 	getFxRates : function () {
 		return Site.getCustomPreferenceValue("eswFxRatesJson");
 	},
@@ -119,12 +113,6 @@ var getEswHelper = {
 	},
 	getGeoLookup : function() {
 		return Site.getCustomPreferenceValue("enableGeoLookup");
-	},	
-	getPostEnabledCountries : function () {
-		return Site.getCustomPreferenceValue("eswPostEnabledCountries");
-	},
-	getExp2EnabledCountries : function () {
-		return Site.getCustomPreferenceValue("eswExp2EnabledCountries");
 	},
 	getUrlExpansionPairs : function () {
 		return Site.getCustomPreferenceValue("eswUrlExpansionPairs");
@@ -137,7 +125,10 @@ var getEswHelper = {
 	},
 	getRoundingRules : function () {
 		return Site.getCustomPreferenceValue("eswRounding");
-	},	
+	},
+	isUpdateOrderPaymentStatusToPaidAllowed : function () {
+		return Site.getCustomPreferenceValue("eswUpdateOrderPaymentStatusToPaid");
+	},
 	/*
 	 * Function to get corresponding languages from countries.json
 	 */
@@ -170,7 +161,7 @@ var getEswHelper = {
 		delete session.privacy.fxRate;
         delete session.privacy.countryAdjustment;
         delete session.privacy.rounding;
-		/*var fxRates = JSON.parse(this.getFxRates()),
+		var fxRates = JSON.parse(this.getFxRates()),
 			countryAdjustment = JSON.parse(this.getCountryAdjustments()),
 			roundingRules = JSON.parse(this.getRoundingRules()),
 			selectedFxRate = fxRates.filter(function(rates) {
@@ -190,7 +181,7 @@ var getEswHelper = {
 		}
 		session.privacy.fxRate = JSON.stringify(selectedFxRate[0]);
 		session.privacy.countryAdjustment = !empty(selectedCountryAdjustment[0])? JSON.stringify(selectedCountryAdjustment[0]) : "";
-		session.privacy.rounding = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : "";*/
+		session.privacy.rounding = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : "";
 		this.setCustomerCookies();
 	},
 	/*
@@ -301,7 +292,7 @@ var getEswHelper = {
 				}
 			}
 			// applying the rounding model
-			if (!noRounding && empty(isFixedPriceCountry)) {
+			if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
 				billingPrice = this.applyRoundingModel(billingPrice);
 			}			
 			billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
@@ -667,20 +658,27 @@ var getEswHelper = {
 	/*
 	 * Function to check shipping service type 
 	 */
-	getShippingServiceType: function () {
+	getShippingServiceType: function (cart) {
+		var ShippingMgr = require('dw/order/ShippingMgr');
 		var country = this.getAvailableCountry();
-		var countryFound = this.getExp2EnabledCountries().filter(function(item){
-			if(country == item.value){
+		var countryFound = JSON.parse(this.getOverrideShipping()).filter(function(item) {
+			if(item.countryCode == country) {
 				return item;
 			}
 		});
-		if(empty(countryFound)){
-			countryFound = this.getPostEnabledCountries().filter(function(item){
-				if(country == item.value){
-					return item;
+		if (countryFound[0] != null) {
+			var shippingMethodIDsOfCountry = countryFound[0].shippingMethod.ID;
+			if (shippingMethodIDsOfCountry.length > 0) {
+				var applicableShippingMethodsOnCart = ShippingMgr.getShipmentShippingModel(cart.shipments[0]).applicableShippingMethods.toArray();
+				var shippingservice = applicableShippingMethodsOnCart.filter(function(ship) {
+					if(shippingMethodIDsOfCountry[0] == ship.ID) {
+						return ship;
+					}
+				});
+				if (shippingservice[0] != null && shippingservice[0].displayName == 'POST') {
+					return 'POST';
 				}
-			});
-			return 'POST';
+			}
 		}
 		return 'EXP2';
 	},
