@@ -48,18 +48,17 @@ body {
     border: rem(1) solid $pink-grey;
     color: $black;
   }
-}
-
-.cta-primary {
+  
+  &-cta {
     background: $pink-hot;
     border: rem(1) solid $pink-hot;
     color: $black;
 
-    &:hover {
-        background: $pink-hot;
-        border: rem(1) solid $pink-hot;
-        color: $black;
-    }
+      &:hover {
+          background: $pink-hot;
+          border: rem(1) solid $pink-hot;
+      }
+  }
 }
 
 .custom-select {

@@ -1,8 +1,8 @@
 <div class="row cart-and-ipay">
     <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-        <iscomment>Applied hot pink color on cart global in scss using cta-primary class </iscomment>
-        <button class="add-to-cart-global btn cta-primary gtm-addtocart"
+        <iscomment>Custom start: Applied hot pink color on cart global in scss using cta-primary class </iscomment>
+        <button class="add-to-cart-global btn btn-primary-cta gtm-addtocart"
                 data-pid="${product.id}">
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">

@@ -62,8 +62,8 @@
         <div class="row checkout-button-wrapper">
 
             <div class="col-12">
-                  <iscomment>Applied hot pink color on mini cart in scss using cta-primary class</iscomment>
-                  <a class="btn cta-primary view-cart btn-block" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
+                  <iscomment> Custom start: Applied hot pink color on mini cart in scss using cta-primary class</iscomment>
+                  <a class="btn btn-primary-cta view-cart btn-block" href="${URLUtils.https('Cart-Show')}" title="${Resource.msg('link.view.cart','cart',null)}">
                     ${Resource.msg('link.view.cart','cart',null)}
                 </a>
             </div>
