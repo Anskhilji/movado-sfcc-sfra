@@ -19,7 +19,7 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
-        // Custom Start: ESW logic 
+        // Custom Start: Adding ESW cartridge integration 
         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
         var session = req.session.raw;
         if (eswHelper.getEShopWorldModuleEnabled()) {

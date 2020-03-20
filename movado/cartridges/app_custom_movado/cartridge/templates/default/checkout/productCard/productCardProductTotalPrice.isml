@@ -1,4 +1,4 @@
-<iscomment> Custom Start: Adding ESW Logic </iscomment>
+<iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
 <isscript>  
     var collections = require('*/cartridge/scripts/util/collections');
     var formatMoney = require('dw/util/StringUtils').formatMoney;

@@ -117,7 +117,7 @@ server.append(
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
 
-        // Custom Start: ESW required changes
+        // Custom Start: Adding ESW cartridge integration
         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
         var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
 

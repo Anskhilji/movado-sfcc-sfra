@@ -19,7 +19,7 @@ function getTotalPrice(lineItem) {
     var template = 'checkout/productCard/productCardProductRenderedTotalPrice';
     var savingsPrice;
 
-    // Custom Start: ESW Logic
+    // Custom Start: Adding ESW cartridge integration
     if (lineItem.priceAdjustments.getLength() > 0) {
         var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
         result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
@@ -33,7 +33,7 @@ function getTotalPrice(lineItem) {
     collections.forEach(lineItem.optionProductLineItems, function (item) {
         price = price.add(item.adjustedNetPrice);
     });
-    // Custom Start: ESW Login
+    // Custom Start: Adding ESW cartridge integration
     if (lineItem.quantityValue !== 1) {
         result.price = formatMoney(eswHelper.getSubtotalObject(lineItem, false));
     } else {

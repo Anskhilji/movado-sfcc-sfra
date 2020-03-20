@@ -1,6 +1,6 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <header>
-  <iscomment>Custom Start: Adding ESW Logic </iscomment>
+  <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
   <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
   <iscomment> Custom End </iscomment>
   <nav>
