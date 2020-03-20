@@ -182,13 +182,9 @@ function updateShippingMethods(shipping) {
                     // set or hide arrival time
                     var arrivalTime;
                     if (shippingMethod.deliveryDate) {
-                        arrivalTime = shippingMethod.deliveryDate;
+                        arrivalTime = '(' + shippingMethod.deliveryDate + ')';
                     } else {
-                        if (shippingMethod.estimatedArrivalTime && shippingMethod.description) {
-                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ', ' + shippingMethod.description + ')';
-                        } else if (shippingMethod.estimatedArrivalTime) {
-                            arrivalTime = '(' + shippingMethod.estimatedArrivalTime + ')';
-                        } else if (shippingMethod.description) {
+                        if (shippingMethod.description) {
                             arrivalTime = '(' + shippingMethod.description + ')';
                         }
                     }
@@ -535,7 +531,7 @@ function shippingFormResponse(defer, data) {
         });
 
         if (data.customer && data.customer.profile && data.customer.profile.email) {
-        	$('#email').val(data.customer.profile.email);
+            $('#email').val(data.customer.profile.email);
         }
 
         defer.resolve(data);
