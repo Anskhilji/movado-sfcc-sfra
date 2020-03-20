@@ -13,6 +13,9 @@
                                 <div class="d-none d-lg-inline-block">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                <iscomment> Custom End </iscomment>
                                 <button class="navbar-toggler-custom navbar-toggler d-lg-none"
                                     role="tab" type="button" aria-controls="sg-navbar-collapse"
                                     aria-expanded="false">
