@@ -89,6 +89,7 @@
         }
     </script>
 </isif>
+
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('uniDaysEnabled')}">
     <script>
         var triggerUniDays;
@@ -100,5 +101,11 @@
             dataLayer.push({'event': triggerUniDays, 'uniDaysData': uniDaysData});
             triggerUniDays = null;
         }
+    </script>
+</isif>
+
+<isif condition="${!empty(pdict.selectedPaymentMethod)}">
+    <script>
+        dataLayer.push({'paymentType': '<isprint value="${pdict.selectedPaymentMethod}"/>'});
     </script>
 </isif>

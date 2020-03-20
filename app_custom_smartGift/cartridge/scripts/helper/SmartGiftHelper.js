@@ -29,5 +29,40 @@ var getSmartGiftCardBasket = function(productID) {
     }
 }
 
-exports.getSmartGiftCardBasket = getSmartGiftCardBasket;
+var sendSmartGiftDetails = function(trackingCode, orderID) {
+    var Logger = require('dw/system/Logger');
+    var OrderMgr = require('dw/order/OrderMgr');
 
+    var collections = require('*/cartridge/scripts/util/collections');
+    var smartGiftService = require('*/cartridge/scripts/smartGiftService/smartGiftService');
+
+    var requestPayload;
+    try {
+        if (!empty(trackingCode) && !empty(orderID)) {
+            var currentOrder = OrderMgr.getOrder(orderID);
+            var productLineItems = currentOrder.getProductLineItems();
+            var items = [];
+            collections.forEach(productLineItems, function (pli) {
+                var obj = {
+                    skuCode: pli.productID,
+                    paidAmount: pli.getNetPrice().value
+                };
+                items.push(obj);
+            });
+            requestPayload = {
+                trackingCode: trackingCode,
+                merchantOrderId: orderID,
+                paidAmount: currentOrder.getTotalGrossPrice().value,
+                items: items
+            }
+            smartGiftService.sendOrderDetails(requestPayload);
+            session.custom.trackingCode = '';
+        }
+    } catch (e) {
+        session.custom.trackingCode = '';
+        Logger.error("Error occurred while trying to send order details to smart gift, order number is: {0} and error is: {1}", orderID, e);
+    }
+}
+
+exports.getSmartGiftCardBasket = getSmartGiftCardBasket;
+exports.sendSmartGiftDetails = sendSmartGiftDetails;

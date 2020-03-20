@@ -62,6 +62,17 @@
             </isloop>
         </div>
         <div class="minicart-footer">
+            <div class="subtotal">
+                <div class="subtotal-payment-summary">
+                    <div class="subtotal-label grand-total-label price-label">
+                        ${Resource.msg('label.minicart.estimatedtotal', 'cart', null)}
+                    </div>
+                    <div class="subtotal-total">
+                        <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.subTotal)? '0' : pdict.totals.subTotal}</span>
+                    </div>
+                </div>
+            </div>
+
             <isif condition="${!customer.isAuthenticated()}" >
                 <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
                 <form class="cart-checkout-options">
