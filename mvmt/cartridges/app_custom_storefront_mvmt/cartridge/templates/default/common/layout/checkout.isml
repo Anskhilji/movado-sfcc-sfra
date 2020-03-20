@@ -27,11 +27,13 @@
             <div id="mainContent">
               <isreplace/>
             </div>
+         <iscomment>
             <footer>
                 <div class="terms-and-conditions justify-content-center row">
                     <iscontentasset aid="cart-and-checkout-footer" />
                 </div>
             </footer>
+        </iscomment>
         </div>
         <!--[if lt IE 10]>
             <isinclude sf-toolkit="off" template="/common/scripts" />
