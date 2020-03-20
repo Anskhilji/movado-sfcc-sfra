@@ -71,6 +71,15 @@ server.append('RemoveProductLineItem', function (req, res, next) {
             crossImage: staticCrossImage
         });
     } else {
+        var ContentMgr = require('dw/content/ContentMgr');
+        var emptyMiniContentAssetImage = empty(ContentMgr.getContent('mini-cart-content-image').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-image').custom.body.markup;
+        var emptyMiniContentAssetDescription = empty(ContentMgr.getContent('mini-cart-content-description').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-description').custom.body.markup;
+        var emptyMiniContentAssetUrls = empty(ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup) ? null : ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup;
+        res.setViewData({
+            emptyMiniContentAssetImage: emptyMiniContentAssetImage,
+            emptyMiniContentAssetDescription: emptyMiniContentAssetDescription,
+            emptyMiniContentAssetUrls: emptyMiniContentAssetUrls
+        });
         res.setViewData({homePageURL: homePageURL});
     }
     next();

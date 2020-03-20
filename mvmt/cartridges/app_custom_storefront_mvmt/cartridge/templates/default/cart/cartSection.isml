@@ -5,7 +5,7 @@
     <isinclude template="reporting/reportingUrls" />
 </isif>
 <isif condition="${itemsLength > 0}">
-    <div class="container cart-error-messaging cart-error mt-2">
+    <div class="container cart-error-messaging cart-error">
         <isif condition="${pdict.valid.error}">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

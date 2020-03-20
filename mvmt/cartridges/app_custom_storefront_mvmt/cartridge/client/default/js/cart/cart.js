@@ -437,23 +437,35 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.basket.items.length === 0) {
-                    var htmlString = '<div class="container my-5 cart-empty order-1">'
-                        + '<div class="container my-5 cart-empty order-1">'
-                        + '<div class="row justify-content-center">'
-                        + '<div class="col-12 text-center">'
-                        + '<h1 class="empty-cart-header empty-cart-msg">'
-                        + window.Resources.CART_EMPTY_MESSAGE
-                        + '</h1></div>'
-                        + '<div><a href= "' + data.homePageURL + '" class="btn btn-primary btn-block continue-shopping" role="button">' 
-                        + window.Resources.CONTINUE_SHOPPING + '</a>'
-                        + '</div></div></div>';
+                    var $image = `<div class="empty-mini-cart-image justify-content-center row">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetImage}
+                    </div>
+                    </div>`;
+                    var $description = `<div class="empty-mini-cart-descriptions justify-content-center row text-center">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetDescription}
+                    </div>
+                    </div>`;
+                    var $urls = `<div class="empty-mini-cart-urls justify-content-center row text-center">
+                    <div class="content-asset">
+                    ${data.emptyMiniContentAssetUrls}
+                    </div>
+                    </div>`;
+                    var $emptyCartContent =  $image + $description + $urls;
+                    var $productDiv = `<div class="empty-mini-cart">`
+                    +$emptyCartContent+
+                    `</div>`;
+                    $('.product-list-block').append($productDiv);
+                    $('.checkout-btn').addClass('disabled');
+                    $('.grand-total-section .grand-total').empty().text(data.basket.totals.grandTotal);
                     $('.cart-header-wrapper').remove();
                     $('.promo-box').remove();
-                    $('.cart-order-outer-box + br').remove();
-                    $('.cart-order-outer-box').remove();
+                    //$('.cart-order-outer-box + br').remove();
+                    //$('.cart-order-outer-box').remove();
                     $('.product-info + .row').remove();
                     $('.product-info').remove();
-                    $('.cart-page > .row').append(htmlString);
+                    //$('.cart-page > .row').append(htmlString);
                     $('.number-of-items').empty().append(data.basket.resources.numberOfItems);
                     $('.minicart-quantity').empty().append(data.basket.numItems);
                     $('.minicart .popover').empty();
