@@ -7,11 +7,13 @@
     <div class="row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-            <div class="align-items-center col-7 col-sm-6 d-flex">
+            <iscomment> bootstrap columns classes changed </iscomment>
+            <div class="align-items-center col-8 col-lg-6 d-flex">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
                 <div class="item-name-and-price">
                     <isinclude template="cart/productCard/cartProductCardHeader" />
-                    <div class="hidden-sm-up">
+                    <iscomment> cart-mobile class added </iscomment>
+                    <div class="hidden-lg-up cart-mobile-price mt-1">
                         <isset name="price" value="${lineItem.price}" scope="page"/>
                         <isinclude template="/product/components/pricing/main" />
                     </div>
@@ -42,10 +44,7 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-	                    <iscomment> added class d-none </iscomment>
-                        <div class="d-none item-total-${lineItem.UUID} price">
-	                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
-	                    </div>
+
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
@@ -57,20 +56,30 @@
                              </div>
                         </isif>
                     </div>
+                    <div class="remove-line-item remove-line-item-mobile d-lg-none">
+                        <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                                data-target="#removeProductModal" data-pid="${lineItem.id}"
+                                data-name="${lineItem.productName}"
+                                data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                                data-uuid="${lineItem.UUID}"
+                                aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                            <span>${Resource.msg('label.cart.remove', 'cart', null)}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </isif>
         <!--- quantity --->
         <iscomment> Custom Start: Removed the d-none class </iscomment>
-        <div class="col-2 line-item-quantity">
+        <div class="col-4 col-lg-2 line-item-quantity">
             <isinclude template="checkout/productCard/productCardQuantitySelector" />
         </div>
         <iscomment> Custom End </iscomment>
-        <div class="col-2 hidden-xs-down p-0 p-lg-2">
+        <div class="col-2 hidden-md-down p-0 p-lg-2">
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
-        <div class="col-3 col-sm-2 col-xs-3">
+        <div class="col-3 col-sm-2 hidden-md-down">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
                 <div class="remove-line-item">
                     <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
