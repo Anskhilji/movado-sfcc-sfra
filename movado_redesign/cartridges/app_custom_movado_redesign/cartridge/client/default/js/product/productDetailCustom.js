@@ -246,7 +246,7 @@ $(document).ready(function() {
                     $('#zoomProduct').modal('show');
                     if (zoomSlick) {
                         $('.zoom-carousel .slick-slider').slick('refresh');
-                        setTimeout(function(){
+                        setTimeout(function() {
                             $('.zoom-carousel .slick-slider').slick('refresh');
                             $('.zoom-carousel-nav .slick-slider').slick('refresh');
                         }, 300);
