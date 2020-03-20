@@ -19,7 +19,7 @@
                 <iscontentasset aid="faq-page-returns-tab" />
             </div>
         </div>
-        <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container d-none">
+        <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container">
             <div class="contact-tab-callout-wrapper">
                 <h1 class="text-center text-uppercase">${Resource.msg('contact.us.heading','contactUs',null)}</h1>
                 <p class="text-center">${Resource.msg('faq-contact-us-get-in-touch','contactUs',null)}</p>

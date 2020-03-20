@@ -45,14 +45,18 @@
     justify-content: center;
     border-top: rem(1) solid $light-gray4;
     border-bottom: rem(1) solid $light-gray4;
-    background: linear-gradient(0deg, $white, $light-gray3);
+    background: linear-gradient(0deg,#fff,#fafafa);
     width: 100%;
     z-index: 6;
     position: static;
     top: auto;
+    
+    &.sticky {
+        position: fixed;
+    }
 
     &-btn {
-        background: linear-gradient(0deg, $white, $light-gray7);
+        background: linear-gradient(0deg, #fff, #efefef);
         font-size: rem(12);
         line-height: 1;
         vertical-align: middle;
@@ -120,9 +124,25 @@
             text-transform: uppercase;
             cursor: pointer;
             margin-bottom: rem(25);
+            letter-spacing: rem(1.5);
             @include media-breakpoint-up(lg) {
                 display: none;
             }
+            
+            svg {
+                width: rem(10);
+                height: rem(10);
+                position: absolute;
+                right: rem(20);
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+        
+        &.active {
+            z-index: 1015;
+            transform: translateX(0);
+            opacity: 1;
         }
     }
     
@@ -145,7 +165,7 @@
         text-align: center;
         text-transform: uppercase;
         padding: rem(25);
-        width: calc(100% - rem(50));
+        width: calc(100% - 50px);
         color: $black !important;
         text-decoration: none;
         
@@ -243,13 +263,29 @@
     }
     
     &-page-table {
-        font-size: rem(12);
+        color: $black;
+        font-size: rem(10.8);
         letter-spacing: rem(1.5);
         display: inline-table;
-        
+
+        thead {
+            th {
+                line-height: rem(28.272);
+                padding: rem(20);
+                border-bottom: 1px solid $light-gray4;
+                font-weight: 500;
+            }
+        }
+
         td {
             padding: rem(20);
             text-align: left;
+            line-height: rem(28.272);
+            font-weight: 500;
+        }
+        
+        th, td {
+            border: 1px solid $light-gray4;
         }
     }
     
@@ -445,7 +481,7 @@
         }
     
         @include media-breakpoint-down(md) {
-            padding: rem(48) rem(16) rem(32) rem(16);
+            padding: rem(48) rem(32) rem(32) rem(32);
         }
         
         @media only screen and (max-width: 991px){
@@ -653,7 +689,8 @@
     }
     
     .tab-pane-control, .container-control {
-        padding-left: 0;
+        padding-left: rem(2);
+        padding-right: rem(2);
         max-width: 100%;
     }
 }

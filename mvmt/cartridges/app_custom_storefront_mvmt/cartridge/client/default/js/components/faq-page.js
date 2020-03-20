@@ -9,14 +9,17 @@ function toggleIcon(e) {
 module.exports = function () {
     var $contactTab = $('#faq-page-contact-tab');
     var $footer = $('footer');
-    var $footerHelpContainer = $('.help-wrapper-footer');
+    
     var $header = $('header');
     var $helpContainer = $('.help-wrapper');
+    var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
     var $headerHeight = $header.height();
     var $returnsTab = $('#faq-page-returns-tab');
+    var headerHeight = $('header').height();
+    var heroBannerWidth = $('.hero').height();
     
     $footer.addClass('position-relative');
-    $footer.append($helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer'));
+    $footer.append($footerHelpContainer);
     
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
@@ -38,24 +41,25 @@ module.exports = function () {
         $(this).addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
         var $id = $(this).attr('href');
-        $($id).show();
+//        $($id).show();
         $($id).removeClass('d-none');
         
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($(this).text());
-        if ($id === '#' + $contactTab.attr('id')) {
-            $helpContainer.hide();
-            $footerHelpContainer.hide();
+        var showHelpContainer = $(this).data('show-help');
+        if (showHelpContainer) {
+            $helpContainer.removeClass('d-none');
+            $footerHelpContainer.removeClass('d-none');
         } else {
-            $helpContainer.show();
-            $footerHelpContainer.show();
+            $helpContainer.addClass('d-none');
+            $footerHelpContainer.addClass('d-none');
         }
     });
     
     $(window).scroll(function (event) {
         var $helpWraperBreakPoint = 1100;
+        var $scroll = $(window).scrollTop();
         if ($(this).width() >= $helpWraperBreakPoint) {
-            var $scroll = $(window).scrollTop();
             
             if(!$contactTab.is(':visible')) {
                 if (typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && !$helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
@@ -77,30 +81,24 @@ module.exports = function () {
             $helpContainer.hide();
             $footerHelpContainer.hide();
         }
+
+        var top = $('.faq-nav-control-bar').position();
+        if ($scroll >= top.top) {
+            console.log($scroll);
+            var top = $('.faq-nav-control-bar').position();
+            console.log(headerHeight + heroBannerWidth);
+            console.log(top.top);
+            $('.faq-nav-control-bar').addClass('sticky');
+            $('.faq-nav-control-bar').css('top', headerHeight);
+        } else {
+            $('.faq-nav-control-bar').removeClass('sticky');
+        }
     });
     
-    $('.faq-main-contact-page-link').on('click', function() {
-        var $controlBarLinks = $('.faq-nav-control-bar-link');
-        $controlBarLinks.siblings().removeClass('is-active');
-        $contactTab.addClass('is-active');
-        $('.tab-pane-control').addClass('d-none');
-        $contactTab.show();
-        $contactTab.removeClass('d-none');
-        $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($contactTab).text();
-        $helpContainer.hide();
-        $footerHelpContainer.hide();
-    });
-    
-    $('.faq-main-return-page-link').on('click', function() {
-        var $controlBarLinks = $('.faq-nav-control-bar-link');
-        $controlBarLinks.siblings().removeClass('is-active');
-        $returnsTab.addClass('is-active');
-        $('.tab-pane-control').addClass('d-none');
-        $returnsTab.show();
-        $returnsTab.removeClass('d-none');
-        $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($returnsTab).text();
+    $('.faq-tab-activator').on('click', function(e) {
+        e.preventDefault();
+        var $activatingTab = $($(this).data('tab-selector'));
+        $activatingTab.trigger('click');
     });
     
     $('.contact-tab').on('submit', 'form.contactus', function (e) {
