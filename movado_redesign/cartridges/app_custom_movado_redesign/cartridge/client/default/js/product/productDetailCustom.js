@@ -1,5 +1,6 @@
 'use strict';
 var mediumWidth = 992;
+var zoomSlick = true;
 
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
@@ -238,15 +239,22 @@ $(document).ready(function() {
     }   
 
     $(window).on("load resize", function() {
+        zoomSlick = true;
         if ($(window).width() > 786) {
             $('.primary-images .main-carousel img').click(function() {
-                $('#zoomProduct').modal('show');
-                $('.slick-slider').slick('refresh');
-                setTimeout(function(){
-                    $('.slick-slider').resize();
-                    slickHeight();
-                    zoom();
-                }, 100);
+                if ($(this).parents('.slick-active.slick-center').length > 0) {
+                    $('#zoomProduct').modal('show');
+                    if (zoomSlick) {
+                        $('.zoom-carousel .slick-slider').slick('refresh');
+                        setTimeout(function(){
+                            $('.zoom-carousel .slick-slider').slick('refresh');
+                            $('.zoom-carousel-nav .slick-slider').slick('refresh');
+                        }, 300);
+                        slickHeight();
+                        zoom();
+                        zoomSlick = false;
+                    }
+                }
             });
         }
     });
