@@ -1,15 +1,10 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row">
-    <div class="col-md-6 col-lg-12">
+<iscomment> continue Shopping button removed </iscomment>
+    <div class="col-sm-12">
         <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
-        </a>
-    </div>
-    <div class="col-md-6 hidden-lg-up">
-        <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block home-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            ${Resource.msg('link.continue.shopping', 'cart', null)}
         </a>
     </div>
 </div>

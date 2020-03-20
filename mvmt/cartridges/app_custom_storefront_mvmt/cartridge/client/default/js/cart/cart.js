@@ -495,7 +495,7 @@ module.exports = function () {
      * the updateCartQuantity function that will handle the quantity update 
      * functionality.
      */
-    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form > .quantity', function (e) {
+    $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
         e.preventDefault();
         updateCartQuantity(this, false);
     });
