@@ -1,6 +1,6 @@
 'use strict';
 var mediumWidth = 992;
-var zoomSlick = true;
+var $zoomSlick = true;
 
 function copyText() {
     var $text = $('.promotions .promo-icon .icon').text();
@@ -239,12 +239,12 @@ $(document).ready(function() {
     }   
 
     $(window).on("load resize", function() {
-        zoomSlick = true;
+        $zoomSlick = true;
         if ($(window).width() > 786) {
             $('.primary-images .main-carousel img').click(function() {
                 if ($(this).parents('.slick-active.slick-center').length > 0) {
                     $('#zoomProduct').modal('show');
-                    if (zoomSlick) {
+                    if ($zoomSlick) {
                         $('.zoom-carousel .slick-slider').slick('refresh');
                         setTimeout(function() {
                             $('.zoom-carousel .slick-slider').slick('refresh');
@@ -252,7 +252,7 @@ $(document).ready(function() {
                         }, 300);
                         slickHeight();
                         zoom();
-                        zoomSlick = false;
+                        $zoomSlick = false;
                     }
                 }
             });
