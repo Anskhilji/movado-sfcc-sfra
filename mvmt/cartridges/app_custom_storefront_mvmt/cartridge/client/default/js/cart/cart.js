@@ -458,6 +458,7 @@ module.exports = function () {
                     `</div>`;
                     $('.product-list-block').append($productDiv);
                     $('.checkout-btn').addClass('disabled');
+                    $('.dw-apple-pay-button, .apple-pay-cart').addClass('d-none');
                     $('.grand-total-section .grand-total').empty().text(data.basket.totals.grandTotal);
                     $('.cart-header-wrapper').remove();
                     $('.promo-box').remove();
