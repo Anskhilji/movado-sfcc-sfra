@@ -160,13 +160,13 @@
     .checkout-promo-code-btn {
         height: rem(45);
         border-radius: rem(5);
-        border-color: $gray1;
-        background-color: $gray1;
+        border-color: $light-green;
+        background-color: $light-green;
         color: $white;
 
-        &:hover {
-            border-color: $gray9;
-            background-color: $gray9;
+        &:hover, &:focus {
+            border-color: $gossamer;
+            background-color: $gossamer;
         }
     }
 
