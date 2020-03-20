@@ -23,8 +23,15 @@
                 ${Resource.msg('label.checkbox.login.rememberme', 'login', null)}
             </label>
         </div>
-        <div class="forgot-password">
-            <a id="forget-password-btn" class="float-right">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
+        <div class="pull-right forgot-password text-right">
+            <a
+                id="password-reset"
+                class="float-right"
+                data-toggle="modal"
+                href="${URLUtils.url('Account-PasswordResetDialogForm')}"
+                data-target="#requestPasswordResetModal">
+                ${Resource.msg('link.login.forgotpassword', 'login', null)}
+            </a>
         </div>
     </div>
 
