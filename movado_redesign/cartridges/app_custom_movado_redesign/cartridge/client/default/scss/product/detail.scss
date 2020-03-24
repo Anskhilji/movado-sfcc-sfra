@@ -249,10 +249,13 @@
 
         .main-carousel {
 
-            img {
+            .slick-center {
 
-                &:hover {
-                    cursor: zoom-in;
+                img {
+
+                    &:hover {
+                        cursor: zoom-in;
+                    }
                 }
             }
         }
