@@ -1,7 +1,12 @@
 <isdecorate template="common/layout/page">
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/cart.css');
+        if (sitePreferences.amzPayEnabled) {
+            assets.addJs('https://static-eu.payments-amazon.com/checkout.js');
+            assets.addJs('/js/amazonPay.js');
+        }
     </isscript>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.cart', 'eum', null))}"/>
     <div class="cart-section-wrapper">

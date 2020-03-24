@@ -6,6 +6,7 @@
 <iselse/>
     <isset name="shippingAddress" value="${{}}" scope="page" />
 </isif>
+<isset name="isAmazonPay" value="${!empty(pdict.order.amzPayRedirectURL)}" scope="page" />
 
 <div class="row">
     <div class="col-sm-6 field-left">
@@ -15,7 +16,7 @@
             <label class="form-control-label" for="shippingFirstName"  >
                 <isprint value="${addressFields.firstName.label}" encoding="htmlcontent" />
             </label>
-            <input autofocus type="text" class="form-control shippingFirstName" id="shippingFirstName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> autofocus type="text" class="form-control shippingFirstName" id="shippingFirstName"
                 value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
                 autocomplete="shipping given-name" >
             <div class="invalid-feedback"><isprint value="${addressFields.firstName.error}" ></div>
@@ -28,7 +29,7 @@
             <label class="form-control-label" for="shippingLastName">
                 <isprint value="${addressFields.lastName.label}" encoding="htmlcontent" />
             </label>
-            <input type="text" class="form-control shippingLastName" id="shippingLastName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingLastName" id="shippingLastName"
                 value="${shippingAddress.lastName||''}" <isprint value="${addressFields.lastName.attributes}" encoding="off"/>
                 autocomplete="shipping family-name">
             <div class="invalid-feedback"><isprint value="${addressFields.lastName.error}" ></div>
