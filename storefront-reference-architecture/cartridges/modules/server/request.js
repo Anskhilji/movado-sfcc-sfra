@@ -301,8 +301,8 @@ function Request(request, customer, session) {
     // Avoid currency check for remote includes
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
-        var eswHelper = require('int_eshopworld_sfra/cartridge/scripts/helper/eswHelper').getEswHelper();
-        if (!eswHelper.getEShopWorldModuleEnabled()) {
+        var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
+        if (!eswEnabled) {
             setCurrency(request, session);
         }
     }
