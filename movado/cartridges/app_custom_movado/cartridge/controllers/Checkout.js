@@ -55,6 +55,23 @@ server.append(
         var actionUrls = viewData.order.checkoutCouponUrls;
         var totals = viewData.order.totals;
 
+        // Custom Start: Adding ESW cartridge integration 
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var session = req.session.raw;
+        if (eswHelper.getEShopWorldModuleEnabled()) {
+            var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
+                eswServiceHelper.failOrder();
+            }
+
+            if (eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)) { // eslint-disable-line no-undef
+                session.privacy.guestCheckout = true;
+                res.redirect(URLUtils.https('EShopWorld-PreOrderRequest').toString());
+                return next();
+            }
+        }
+        // Custom End
+
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         	var userTracking;
             if (viewData.customer.profile) {

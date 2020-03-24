@@ -118,6 +118,7 @@ function getDiscountsHtml(discounts) {
  * @returns
  */
 function totals(lineItemContainer) {
+    Totals.call(this, lineItemContainer);
     var totalsModel = new Totals(lineItemContainer);
     var totalsObj;
     var KlarnaGrandTotal = lineItemContainer.totalGrossPrice;
