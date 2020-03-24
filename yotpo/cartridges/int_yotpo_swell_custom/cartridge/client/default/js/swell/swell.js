@@ -166,7 +166,6 @@ $(document).on("swell:initialized", () => {
 
 $('#coupon-code-submit-btn').on('click', function (e) {
     e.preventDefault();
-    applySwellDiscount (redemption);
     swellAPI.makeRedemption(
         { redemptionOptionId: $("#swell-redemption-dropdown option:selected").val(), delayPointDeduction: true },
         onSuccess,
