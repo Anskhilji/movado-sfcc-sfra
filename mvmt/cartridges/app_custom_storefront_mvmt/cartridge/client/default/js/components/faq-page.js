@@ -15,8 +15,7 @@ module.exports = function () {
     var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
     var $headerHeight = $header.height();
     var $returnsTab = $('#faq-page-returns-tab');
-    var headerHeight = $('header').height();
-    var heroBannerWidth = $('.hero').height();
+
     
     $footer.addClass('position-relative');
     $footer.append($footerHelpContainer);
@@ -36,6 +35,7 @@ module.exports = function () {
     });
     
     $('.faq-nav-control-bar-link').on('click', function() {
+        // $e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, "fast");
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
@@ -43,7 +43,7 @@ module.exports = function () {
         var $id = $(this).attr('href');
 //        $($id).show();
         $($id).removeClass('d-none');
-        
+
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($(this).text());
         var showHelpContainer = $(this).data('show-help');
@@ -59,13 +59,17 @@ module.exports = function () {
     $(window).scroll(function (event) {
         var $helpWraperBreakPoint = 1100;
         var $scroll = $(window).scrollTop();
+        var $headerSize = $('.header-menu-wrapper').height();
+        var $headerBannerSize = $('.hero').height();
+        var $totalHeaderSize = $headerBannerSize - 70;
+        var $helpTop = $headerBannerSize;
+
         if ($(this).width() >= $helpWraperBreakPoint) {
-            
             if(!$contactTab.is(':visible')) {
                 if (typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && !$helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
                     $helpContainer.addClass('scroll-warp');
-                    $helpContainer.css({'top' : $headerHeight + 'px'});
-                } else if (typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && $helpContainer.offset().top <= ($('.tab-content').offset().top + $headerHeight)) {
+                    $helpContainer.css({'top' : $helpTop + 'px'});
+                } else if (typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && $helpContainer.offset().top <= ($('.tab-content').offset().top + $helpTop)) {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
@@ -82,25 +86,25 @@ module.exports = function () {
             $footerHelpContainer.hide();
         }
 
-        var top = $('.faq-nav-control-bar').position();
-        if ($scroll >= top.top) {
-            console.log($scroll);
-            var top = $('.faq-nav-control-bar').position();
-            console.log(headerHeight + heroBannerWidth);
-            console.log(top.top);
+        if ($scroll >= $totalHeaderSize) {
+            $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
+
             $('.faq-nav-control-bar').addClass('sticky');
-            $('.faq-nav-control-bar').css('top', headerHeight);
+            $('.tab-content').addClass('sticky-padding');
+            $('.faq-nav-control-bar').css('top', $headerSize + 1);
         } else {
             $('.faq-nav-control-bar').removeClass('sticky');
+            $('.tab-content').removeClass('sticky-padding');
+            $('.faq-nav-control-bar').css('top', 'auto');
         }
     });
-    
+
     $('.faq-tab-activator').on('click', function(e) {
         e.preventDefault();
         var $activatingTab = $($(this).data('tab-selector'));
         $activatingTab.trigger('click');
     });
-    
+
     $('.contact-tab').on('submit', 'form.contactus', function (e) {
         e.preventDefault();
         var $form = $(this);

@@ -1,11 +1,13 @@
 .faq-banner {
+    max-height: rem(181);
+    overflow: hidden;
 
     &-image {
         pointer-events: none;
         width: 100%;
         display: block;
     }
-    
+
     &-content {
         align-content: center;
         display: flex;
@@ -16,22 +18,23 @@
         text-align: center;
         top: 0;
         width: 100%;
-    
+
         &-title {
             color: $white;
             font-size: rem(40);
             letter-spacing: rem(5.56);
             line-height: rem(49);
             font-weight: bold;
-            width: 80%;
+            width: 100;
+            padding: 0 10%;
+            height: auto;
             margin: auto;
-    
+
             @include media-breakpoint-only(xl) {
                 font-size: rem(60);
                 font-weight: bold;
-                letter-spacing: rem(8.5);
             }
-        
+
             @include media-breakpoint-only(lg) {
                 letter-spacing: rem(12.5);
                 width: 100%;
@@ -50,7 +53,7 @@
     z-index: 6;
     position: static;
     top: auto;
-    
+
     &.sticky {
         position: fixed;
     }
@@ -199,6 +202,13 @@
     }
 }
 
+.tab-content {
+
+    &.sticky-padding {
+        padding-top: rem(53);
+    }
+}
+
 .faq-main {
     position: relative;
     width: 100%;
@@ -229,7 +239,8 @@
         line-height: rem(24);
         margin: rem(40) 0;
         text-transform: uppercase;
-        font-weight: bold;
+        font-family: $font-medium;
+        font-weight: 500;
         padding: 0;
         
         @media (min-width: 992px) {
@@ -267,6 +278,7 @@
         font-size: rem(10.8);
         letter-spacing: rem(1.5);
         display: inline-table;
+        margin-bottom: 0;
 
         thead {
             th {
@@ -346,13 +358,13 @@
         font-weight: 400;
         margin: rem(40) 0 rem(20);
     }
-    
+
     a {
         &:hover {
             text-decoration: none;
         }
     }
-    
+
     &-panel-title {
         font-size: rem(16);
         color: $black;
@@ -361,7 +373,8 @@
         padding-right: rem(17);
         position: relative;
         letter-spacing: rem(2.5);
-        
+        margin: 0;
+
         &-more-less {
             float: right;
             color: $dark-gray1;
@@ -369,9 +382,9 @@
             bottom: rem(12.8);
             left: rem(12.8);
         }
-        
+
         &-shrink {
-        
+
             &::before {
                 content: " ";
                 display: block;
@@ -393,6 +406,7 @@
                 background-color: $light-gray2;
             }
         }
+
         &-expand {
             &::after {
                 content: " ";
@@ -404,16 +418,24 @@
                 background-color: $light-gray2;
             }
         }
-        
+
         a {
             width: 100%;
             display: block;
         }
     }
-    
+
     &-panel-body {
-         p {
+        padding: rem(17) 0 rem(3) 0;
+        p {
             letter-spacing: rem(.5);
+            font-size: rem(14);
+            font-family: $font-book;
+            color: $light-gray;
+
+            &:last-child {
+                margin: 0;
+            }
         }
     }
 }
@@ -446,10 +468,10 @@
         p {
             color: $black;
             font-size: rem(16);
-            font-weight: bold;
+            font-weight: 500;
             line-height: rem(23);
             letter-spacing: rem(.6);
-            font-family: $font-primary;
+            font-family: $font-medium;
         }
     }
     
@@ -458,25 +480,29 @@
         padding-right: rem(160);
         padding-top: rem(80);
         padding-bottom: rem(160);
-        
+
         @media only screen and (max-width: 991px){
             flex-basis: 100%;
             max-width: 100%;
         }
-    
+
+        .form-group {
+            margin-bottom: rem(9.5);
+        }
+
         h2 {
             font-size: rem(18);
             letter-spacing: rem(2.5);
             margin-bottom: rem(20);
         }
-    
+
         p {
             margin: rem(9.44) 0;
             line-height: 2em;
             font-family: $font-primary;
             color: $dark-orange1;
             font-size: rem(12);
-            font-weight: bold;
+            font-weight: 500;
             letter-spacing: rem(1);
         }
     
@@ -570,17 +596,47 @@
             letter-spacing: rem(.5);
         }
     }
-    
+
     &-form-control {
         border: rem(1) solid $cyan-blue1;
         padding: rem(20);
+        height: rem(57);
+        font-family: $font-book;
+        font-size: rem(14);
+        letter-spacing: 1.5px;
+        text-transform: capitalize;
     }
-    
-    &-custom-select {
-        border: rem(1) solid $cyan-blue1;
-        padding: rem(20);
+
+    textarea {
+        &.form-control {
+            height: rem(180);
+            resize: none;
+        }
     }
-    
+
+    select {
+
+        &.form-control {
+            border: rem(1) solid $cyan-blue1;
+            padding: rem(20);
+            font-family: $font-book;
+            font-size: rem(14);
+            letter-spacing: 1.5px;
+            text-transform: capitalize;
+
+            &:not([size]):not([multiple]) {
+                height: rem(57);
+            }
+        }
+    }
+
+    .form-control-label {
+        font-family: $font-book;
+        letter-spacing: normal;
+        font-size: rem(11);
+        text-transform: capitalize;
+    }
+
     &-btn-save {
         background: transparent;
         border: rem(1) solid $black;
@@ -593,7 +649,8 @@
     &-question {
         .fa-sort {
             font-size: rem(12);
-            top: rem(12.8);
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }
