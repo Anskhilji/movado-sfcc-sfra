@@ -19,11 +19,12 @@ var payPalHelper = require('../../../helper/aydenExpressPaypalHelper');
  */
 function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var result = {};
+    var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var adyenPayPalToken = order.custom.adyenPayPalToken;
 
-    hooksHelper(
+    var riskifiedCheckoutCreateResponse = hooksHelper(
 			'app.fraud.detection.checkoutcreate',
 			'checkoutCreate',
 			orderNumber,
@@ -31,9 +32,11 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 			require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 
     Transaction.begin();
-    result = expressPayPalAuthorisation.verify(order, adyenPayPalToken, paymentInstrument.paymentMethod, request);
+    if (riskifiedCheckoutCreateResponse) {
+        result = expressPayPalAuthorisation.verify(order, adyenPayPalToken, paymentInstrument.paymentMethod, request);
+    }
 
-    if (result.decision !== 'ACCEPT') {
+    if (result.decision !== 'ACCEPT' || !riskifiedCheckoutCreateResponse) {
         Transaction.rollback();
         hooksHelper(
 				'app.fraud.detection.checkoutdenied',
@@ -41,6 +44,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 				orderNumber,
 				paymentInstrument,
 				require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
+        checkoutLogger.error('Riskified API Call failed for order number: ' + orderNumber);
         return {
             error: true
         };

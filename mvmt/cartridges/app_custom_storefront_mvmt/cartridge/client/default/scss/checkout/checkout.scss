@@ -7,41 +7,63 @@
     .card-header {
 
         h4 {
-            font-family: $font-medium;
+            font-family: $font-book;
             font-weight: 500;
-            font-size: rem(22);
+            font-size: rem(18);
             letter-spacing: normal;
+            letter-spacing: 1.5px;
         }
+    }
+
+    .order-thank-you-msg {
+        font-family: $font-medium;
+        font-weight: 500;
+        letter-spacing: normal;
+        letter-spacing: 1.5px;
+    }
+
+    .shipping-method-block {
+
+        .ship-method-header {
+            font-family: $font-book;
+            font-weight: 500;
+            font-size: rem(18);
+            letter-spacing: normal;
+            letter-spacing: 1.5px;
+         }
     }
 
     .summary-section-label {
         letter-spacing: normal;
         text-transform: capitalize;
+        font-family: $font-book;
     }
 
     .form-group {
 
         .form-control {
             box-sizing: border-box;
-            height: rem(56);
+            height: rem(45);
             border-radius: rem(5);
-            border: rem(1) solid $light-gray6;
+            border: rem(1) solid $light-silver;
+            font-size: rem(14);
+            font-family: $font-book;
             color: $light-gray7;
             background-color: $white;
-            padding: 0 rem(20);
+            padding: 0 rem(10);
+            transition: all 0.2s ease-out;
 
             &:focus {
                 box-shadow: none;
                 border-width: rem(2);
-                border-color: $blue;
-                padding-left: rem(19);
+                border-color: $pelorous;
+                padding-left: rem(9);
             }
 
             &.is-invalid {
                 border-width: rem(2);
                 border-color: $red1;
-                color: $red1;
-                padding-left: rem(19);
+                padding-left: rem(9);
             }
 
             .cardNumber {
@@ -61,6 +83,8 @@
             color: $gray1;
             font-size: rem(14);
             text-transform: capitalize;
+            padding-bottom: 0;
+            margin-bottom: rem(5);
         }
 
         .invalid-feedback {
@@ -73,12 +97,12 @@
         select {
 
             &.form-control {
-                padding: rem(10) rem(20);
+                padding: rem(10);
                 padding-right: rem(38);
                 letter-spacing: normal;
 
                 &:not([size]):not([multiple]) {
-                    height: rem(56);
+                    height: rem(45);
                     color: $gray1;
                     text-transform: capitalize;
                     color: $gray1;
@@ -87,16 +111,16 @@
                         box-shadow: none;
                         border-width: rem(2);
                         border-color: $blue;
-                        padding: rem(9) rem(19);
+                        padding: rem(9) rem(9);
                     }
                 }
             }
 
             & + i {
                 right: 0;
-                height: rem(36);
+                height: rem(20);
                 width: rem(36);
-                top: rem(34);
+                top: rem(38);
                 font-size: 0;
                 color: $light-gray6;
                 border-left: rem(1) solid $light-gray6;
@@ -106,17 +130,23 @@
         }
     }
 
-    .submit-shipping, .submit-payment, .place-order, .checkout-as-guest, .submit-form-section button {
-        display: inline-block;
-        width: auto;
-        border-radius: rem(5);
+    .submit-shipping, .submit-payment, .order-confirmation-continue-shopping, .place-order, .checkout-as-guest, .submit-form-section button, .order-confirm-create-account .btn-block {
         letter-spacing: 1px;
         white-space: nowrap;
-        float: right;
-        min-width: rem(200);
         padding: 0 rem(14);
-        height: rem(48);
-        line-height: rem(48);
+        height: rem(52);
+        line-height: rem(52);
+        transition: opacity 0.3s ease-in-out;
+        border: rem(1) solid $black;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(2);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $gossamer;
+            color: $white;
+        }
 
         @include media-breakpoint-down(sm) {
             width: 100%;
@@ -128,36 +158,15 @@
     }
 
     .checkout-promo-code-btn {
-        height: rem(56);
+        height: rem(45);
         border-radius: rem(5);
-        border-color: $gray1;
-        background-color: $gray1;
+        border-color: $light-green;
+        background-color: $light-green;
         color: $white;
-
-        &:hover {
-            border-color: $gray9;
-            background-color: $gray9;
-        }
-    }
-
-    .submit-payment {
-        border-color: $light-green7;
-        background-color: $light-green7;
-        color: $white;
-        letter-spacing: rem(3);
-        min-width: rem(300);
 
         &:hover, &:focus {
-            background-color: $light-green8;
-            border-color: $light-green8;
-        }
-    }
-
-    .order-confirm-create-account {
-
-        .btn-block {
-            border-radius: rem(5);
-            height: rem(56);
+            border-color: $gossamer;
+            background-color: $gossamer;
         }
     }
 
@@ -181,97 +190,34 @@
         }
     }
 
-    input[type="radio"], input[type="checkbox"] {
-        opacity: 0;
-
-        & + label, & ~ .custom-control-label {
-            letter-spacing: normal;
-            font-family: $font-book;
-            font-size: rem(14);
-            position: relative;
-            padding-left: rem(7);
-
-            &:after, &::before {
-                content: '';
-                position: absolute;
-            }
-
-            &:before {
-                top: rem(-1);
-                left: rem(-25);
-                width: rem(22);
-                height: rem(22);
-                margin: rem(1);
-                border: rem(2) solid $light-gray6;
-                border-radius: rem(4);
-                background: transparent;
-            }
-    
-            &:after {
-                z-index: 9;
-                top: rem(5);
-                left: rem(-19);
-                width: rem(12);
-                height: rem(12);
-                border-radius: 1px;
-                opacity: 0;
-                font-size: 0;
-            }
-        }
-
-        &:checked {
-
-            & + label {
-
-                &:before {
-                    border: 2px solid $light-gray6;
-                    background: transparent;
-                    box-shadow: none;
-                }
-
-                &:after {
-                    opacity: 1;
-                    background-color: $blue;
-                }
-            }
-        }
-    }
-
-    .custom-checkbox {
-
-        .custom-control-input {
-
-            & ~ .custom-control-label {
-
-                &:before {
-                    background-color: transparent;
-                    box-shadow: none;
-                }
-
-                &:after {
-                    background-image: none;
-                }
-            }
-        }
-    }
-
-    input[type="radio"] {
-
-        & + label {
-
-            &:before, &:after {
-                border-radius: 100%;
-            }
-        }
-    }
-
     .order-total-summary {
 
         .leading-lines {
 
-            span {
+            span, p {
                 letter-spacing: normal;
+                font-family: $font-book;
+                text-transform: uppercase;
+                font-size: rem(14);
+                letter-spacing: rem(1);
+            }
+        }
+    }
+
+    .order-product-summary {
+
+        .leading-lines {
+
+            .order-receipt-label {
+                font-size: rem(14);
+                font-family: $font-book;
+            }
+
+            .grand-total-price {
                 font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                letter-spacing: -0.04em;
             }
         }
     }
@@ -283,9 +229,11 @@
             .accordion-link + label {
 
                 &:after {
-                    content: '';
-                    top: 54%;
-                    border-radius: 100%;
+                    content: "\F107";
+                    position: absolute;
+                    font-family: "FontAwesome";
+                    font-size: rem(18);
+                    right: 0;
                 }
 
                 &:before {
@@ -314,16 +262,56 @@
         letter-spacing: normal;
         font-family: $font-book;
     }
+
+    .right-section {
+        font-family: $font-book;
+        font-size: rem(14);
+    }
+
+    .payment-options, #forget-password-btn {
+        font-family: $font-book;
+        font-size: rem(14);
+    }
 }
 
 .checkout-page {
 
     .btn-outline-primary {
-        width: 100%;
-        float: none;
-        background-color: transparent;
-        border-color: $black;
-        color: $black;
+
+        &:not(:disabled):not(.disabled) {
+            white-space: nowrap;
+            padding: 0 rem(14);
+            height: rem(52);
+            line-height: rem(52);
+            border: rem(1) solid $black;
+            font-family: $font-book;
+            font-size: rem(11);
+            letter-spacing: rem(2);
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+            svg {
+                width: rem(26);
+                vertical-align: middle;
+                margin-top: rem(-7);
+
+                path {
+                    fill: $black;
+                }
+            }
+
+            &:active, &:focus, &:hover {
+                background-color: $gossamer;
+                color: $white;
+                box-shadow: none;
+
+                svg {
+
+                    path {
+                        fill: $white;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -336,10 +324,36 @@
     .confirm-details {
         margin-bottom: rem(30);
     }
+}
 
-    .order-confirmation-continue-shopping {
-        height: rem(56);
-        line-height: rem(48);
-        border-radius: rem(5);
+#requestPasswordResetModal {
+
+    .request-password-title, .forget-password-header-title {
+        font-family: $font-medium;
+        letter-spacing: rem(1);
+    }
+
+    .forget-password-header-para {
+        font-family: $font-book;
+        letter-spacing: rem(1);
+    }
+
+    .btn-block {
+        letter-spacing: 1px;
+        white-space: nowrap;
+        padding: 0 rem(14);
+        height: rem(52);
+        line-height: rem(52);
+        transition: opacity 0.3s ease-in-out;
+        border: rem(1) solid $black;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(2);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $gossamer;
+            color: $white;
+        }
     }
 }

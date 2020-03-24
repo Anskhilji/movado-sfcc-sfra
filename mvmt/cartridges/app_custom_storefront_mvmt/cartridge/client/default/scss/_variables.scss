@@ -15,6 +15,7 @@ $light-gray7: #404040;
 $light-gray8: #D1D1D1;
 $light-gray10: #efefef;
 $light-gray9: #c2c2c2;
+$light-silver: #d9d9d9;
 
 $light-green: #53c563;
 $light-green2: #53c56e;
@@ -24,6 +25,7 @@ $light-green5: #72cf7f;
 $light-green6: #62c077;
 $light-green7: #57cb71;
 $light-green8: #6bd182;
+$gossamer: #3aab4a;
 
 $light-blue: #3b61b3;
 $light-red: #f74e38;
@@ -32,6 +34,7 @@ $white-gray: #f7f8f9;
 $dark-blue: #3b5998;
 $dark-red: #a40000;
 $dark-red2: #dd4b39;
+$pelorous: #1990c6;
 
 $dark-gray: #222222;
 $dark-gray1: #212121;
@@ -135,3 +138,45 @@ $container-max-width: 1440px;
 $custom-xl: 1280px;
 $custom-lg: 1070px;
 $custom-sm: 800px;
+
+/* Button Mixins */
+
+@mixin btn-outline-primary {
+
+    &:not(:disabled):not(.disabled) {
+        white-space: nowrap;
+        padding: 0 rem(14);
+        height: rem(52);
+        line-height: rem(52);
+        border: rem(1) solid $black;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(2);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        &:active, &:focus, &:hover {
+            background-color: $gossamer;
+            color: $white;
+            box-shadow: none;
+        }
+    }
+}
+
+@mixin  btn-primary {
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding: 0 rem(14);
+    height: rem(52);
+    line-height: rem(52);
+    transition: opacity 0.3s ease-in-out;
+    border: rem(1) solid $black;
+    font-family: $font-book;
+    font-size: rem(11);
+    letter-spacing: rem(2);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+    &:hover {
+        background-color: $gossamer;
+        color: $white;
+    }
+}

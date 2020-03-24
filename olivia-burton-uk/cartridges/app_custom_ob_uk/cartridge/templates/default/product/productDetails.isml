@@ -178,6 +178,7 @@
                                 <isinclude template="product/components/description" />
                             </div>
                         </div>
+                        <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                         <isinclude template="product/components/moreStyles" />
                     </div>
 
