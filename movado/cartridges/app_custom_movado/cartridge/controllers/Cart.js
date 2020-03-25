@@ -116,19 +116,18 @@ server.append(
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
+        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
         // Custom Start: Adding ESW cartridge integration
-        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-        var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+        if (isEswEnabled) {
+            var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+            var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+            var Transaction = require('dw/system/Transaction');
+            var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+            var session = req.session.raw;
 
-        var BasketMgr = require('dw/order/BasketMgr');
-        var Transaction = require('dw/system/Transaction');
-        var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-        var session = req.session.raw;
-
-        var viewData = res.getViewData();
-        // ESW fail order if order no is set in session
-        if (eswHelper.getEShopWorldModuleEnabled()) {
+            var viewData = res.getViewData();
+            // ESW fail order if order no is set in session
             if (session.privacy.eswfail || (session.privacy.orderNo && !empty(session.privacy.orderNo))) { // eslint-disable-line no-undef
                 eswServiceHelper.failOrder();
             }
@@ -143,8 +142,8 @@ server.append(
                     basketCalculationHelpers.calculateTotals(currentBasket);
                 });
             }
+            res.setViewData(viewData);
         }
-        res.setViewData(viewData);
         // Custom End
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
