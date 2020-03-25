@@ -129,6 +129,39 @@ server.replace('Variation', function (req, res, next) {
     });
     next();
 });
+/**
+ * replaced the base product route to save the personalization data in context object
+ */
+server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var URLUtils = require('dw/web/URLUtils');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+
+    var params = req.querystring;
+    var product = ProductFactory.get(params);
+    var viewData = res.getViewData();
+    var addToCartUrl = URLUtils.url('Cart-AddProduct');
+    var template = product.productType === 'set'
+        ? 'product/setQuickView.isml'
+        : 'product/quickView.isml';
+
+    var context = {
+        product: product,
+        addToCartUrl: addToCartUrl,
+        resources: productHelper.getResources(),
+        productPrice: product.price
+    };
+
+    var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
+
+    res.json({
+        renderedTemplate: renderedTemplate,
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+    });
+
+    next();
+});
 
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
