@@ -9,13 +9,10 @@ function toggleIcon(e) {
 module.exports = function () {
     var $contactTab = $('#faq-page-contact-tab');
     var $footer = $('footer');
-    
     var $header = $('header');
     var $helpContainer = $('.help-wrapper');
     var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
     var $headerHeight = $header.height();
-    var $returnsTab = $('#faq-page-returns-tab');
-
     
     $footer.addClass('position-relative');
     $footer.append($footerHelpContainer);
@@ -40,9 +37,8 @@ module.exports = function () {
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
         $('.tab-pane-control').addClass('d-none');
-        var $id = $(this).attr('href');
-//        $($id).show();
-        $($id).removeClass('d-none');
+        var $id = $($(this).attr('href'));
+        $id.removeClass('d-none');
 
         $('.faq-nav-control-bar-inner').removeClass('active');
         $('.faq-nav-control-bar-btn span').text($(this).text());

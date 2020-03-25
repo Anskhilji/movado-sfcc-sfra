@@ -48,7 +48,7 @@
     justify-content: center;
     border-top: rem(1) solid $light-gray4;
     border-bottom: rem(1) solid $light-gray4;
-    background: linear-gradient(0deg,#fff,#fafafa);
+    background: linear-gradient(0deg, $white, $gray98);
     width: 100%;
     z-index: 6;
     position: static;
@@ -59,7 +59,7 @@
     }
 
     &-btn {
-        background: linear-gradient(0deg, #fff, #efefef);
+        background: linear-gradient(0deg, $white, $white-smoke2);
         font-size: rem(12);
         line-height: 1;
         vertical-align: middle;
@@ -621,7 +621,7 @@
             padding: rem(20);
             font-family: $font-book;
             font-size: rem(14);
-            letter-spacing: 1.5px;
+            letter-spacing: rem(1.5);
             text-transform: capitalize;
 
             &:not([size]):not([multiple]) {
