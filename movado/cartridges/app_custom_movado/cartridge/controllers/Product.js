@@ -145,12 +145,14 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
     var template = product.productType === 'set'
         ? 'product/setQuickView.isml'
         : 'product/quickView.isml';
-
+    /**
+     * Added productPrice to context object
+     */
     var context = {
         product: product,
         addToCartUrl: addToCartUrl,
         resources: productHelper.getResources(),
-        productPrice: product.price
+        productPrice: product.price 
     };
 
     var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);

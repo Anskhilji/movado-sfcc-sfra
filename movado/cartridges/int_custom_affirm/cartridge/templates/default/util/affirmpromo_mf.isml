@@ -38,6 +38,7 @@
 		</isif>
 		<isif condition="${(!Product.productSet || psTop) && affirmData.getAffirmMinTotal() <= price.getValue()}">
 			<iscomment>
+				Custom Start
 				Custom Changes: set sales price in affirm instead of retail price. 
 			</iscomment>
 			<isset name="productMoadalPrice" value="${pdict.productPrice}" scope="page"/>
@@ -46,6 +47,9 @@
 			<iselse>
 				<isset name="affirmPrice" value="${price}" scope="page"/>
 			</isif>
+			<iscomment>
+				Custom End
+			</iscomment>
 			
 			<p class="affirm-as-low-as"
 				<isif condition="${!empty(promoModal) && !empty(promoModal.promoID)}">data-promo-id="${promoModal.promoID}"</isif>
@@ -56,11 +60,15 @@
 					<isif condition="${Product.classificationCategory}"> data-category="${Product.classificationCategory.ID}" </isif>
 				</isif>
 				<iscomment>
+					Custom Start
 					Custom Changes: Removed replaced block of data-attribute 'data-amount'
 					Old Logic: data-amount="${price.multiply(100).getValue().toFixed()}" 
 				</iscomment>
 				<isif condition="${Product.brand}">data-brand="${Product.brand}"</isif>
 				data-amount="${(affirmPrice * 100).toFixed()}" data-affirm-color="black" data-page-type="product" data-sku="${Product.ID}"></p>
+				<iscomment>
+					Custom End
+				</iscomment>
 		</isif>
 	</isif>
 <iselseif condition="${pdict.context == 'plp' && affirmData.getPLPPromoMessageStatus()}">
