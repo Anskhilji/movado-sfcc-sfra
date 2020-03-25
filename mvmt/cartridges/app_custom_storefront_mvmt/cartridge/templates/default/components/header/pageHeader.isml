@@ -2,6 +2,9 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 
 <header class="new-header">
+    <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
+    <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+    <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
@@ -25,7 +28,9 @@
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                             </div>
                         </div>
-
+                        <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                        <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                        <iscomment> Custom End </iscomment>
                         <div class="nav-right justify-content-end right">
                             <div class="mobile-navigation">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />

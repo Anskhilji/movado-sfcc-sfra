@@ -46,6 +46,9 @@
                     ${Resource.msg('newsletter.email.error', 'common', null)}
                 </div>
                 <isinclude template="components/newsLetter.isml">
+                <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                <iscomment> Custom End </iscomment>
                 <div class="footer-social-links">
                     <div class="justify-content-center row">
                         <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
