@@ -104,11 +104,21 @@
                         <!-- Affirm Text -->
                         
                         <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
+                            <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+                                <isif condition="${pdict.loggedIn == true}">
+                                    <div>
+                                        <isinclude template="util/affirmmodule_mf" />
+                                        <isaffirmpromo context="pdp"
+                                            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                    </div>
+                                </isif>
+                            <iselse>  
+                                <div>
+                                    <isinclude template="util/affirmmodule_mf" />
+                                    <isaffirmpromo context="pdp"
+                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                </div>
+                            </isif> 
                         </div>
                         
                         <div class="col-12 prices-add-to-cart-actions">

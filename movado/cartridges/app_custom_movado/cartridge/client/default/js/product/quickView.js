@@ -76,6 +76,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 if (!loggedIn) {
                     $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
                     $('.prices-add-to-cart-actions.mcs-show-price-message').removeClass('d-none');
+                    $('.mcs-restrict-anonymous-user').hide();
                 }
             }
             

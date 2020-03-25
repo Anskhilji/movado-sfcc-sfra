@@ -36,6 +36,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var product = viewData.product;
+    var productPrice = product.price;
+
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
@@ -74,7 +76,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
-            restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+            restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+            productPrice: productPrice
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -124,6 +127,41 @@ server.replace('Variation', function (req, res, next) {
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved
     });
+    next();
+});
+/**
+ * replaced the base product route to save the personalization data in context object
+ */
+server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var URLUtils = require('dw/web/URLUtils');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+
+    var params = req.querystring;
+    var product = ProductFactory.get(params);
+    var viewData = res.getViewData();
+    var addToCartUrl = URLUtils.url('Cart-AddProduct');
+    var template = product.productType === 'set'
+        ? 'product/setQuickView.isml'
+        : 'product/quickView.isml';
+    /**
+     * Added productPrice to context object
+     */
+    var context = {
+        product: product,
+        addToCartUrl: addToCartUrl,
+        resources: productHelper.getResources(),
+        productPrice: product.price 
+    };
+
+    var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
+
+    res.json({
+        renderedTemplate: renderedTemplate,
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+    });
+
     next();
 });
 
