@@ -50,7 +50,8 @@
                 </isif>
 
                 <!-- Affirm Text -->
-                <div class="col-12">
+                <iscomment> Custom: Change [Here 'mcs-restrict-anonymous-user' class is added in following first div] </iscomment>
+                <div class="col-12 mcs-restrict-anonymous-user">
                     <div>
                         <isinclude template="util/affirmmodule_mf" />
                         <isaffirmpromo context="pdp"
