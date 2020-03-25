@@ -19,8 +19,8 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                 var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
-	        var registrationForm = server.forms.getForm('profile');
-	        // Custom: Start [added the registration limit on this controller]
+            var registrationForm = server.forms.getForm('profile');
+            // Custom: Start [added the registration limit on this controller]
             var blockRegistrationOnSalesSites = Site.current.preferences.custom.blockRegistrationOnSalesSites;
 
             if (blockRegistrationOnSalesSites) {

@@ -47,17 +47,17 @@
                 </div>
                 <iscomment> Custom: Change [put just following div element into limit registration check] </iscomment>
                 <isif condition="${!dw.system.Site.current.preferences.custom.blockRegistrationOnSalesSites}">
-	                <div class="card">
-	                    <div class="card-header">
-	                        <h4 class="heading-three">${Resource.msg('heading.create.account', 'checkout', null)}</h4>
-	                    </div>
-	                    <div class="card-body">
-	                        <a href="${URLUtils.https('Login-Show', 'action', 'register')}" class="btn btn-block btn-outline-primary">
-	                            ${Resource.msg('button.create.customer.account', 'checkout', null)}
-	                        </a>
-	                    </div>
-	                </div>
-	           </isif>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="heading-three">${Resource.msg('heading.create.account', 'checkout', null)}</h4>
+                        </div>
+                        <div class="card-body">
+                            <a href="${URLUtils.https('Login-Show', 'action', 'register')}" class="btn btn-block btn-outline-primary">
+                                ${Resource.msg('button.create.customer.account', 'checkout', null)}
+                            </a>
+                        </div>
+                    </div>
+               </isif>
             </div>
         </div>
     </div>
