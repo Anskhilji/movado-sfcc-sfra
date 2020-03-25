@@ -141,7 +141,7 @@ $(document).on("swell:initialized", () => {
 
 var onSuccess = function(redemption) {
     fillAndSubmitCouponCodeForm(redemption.couponCode);
-    applySwellDiscount(redemption);
+    applySwellDiscount();
 };
 
 var onError = function(err) {
@@ -173,9 +173,8 @@ $('#coupon-code-submit-btn').on('click', function (e) {
     );
 });
 
-function applySwellDiscount (redemption) {
+function applySwellDiscount () {
     var $csrfInput = $('.swell-crf-token');
-    var data = {amount: redemption.pointsUsed, redemptionOptId: redemption.redemptionOptionId};
     var $redemptionContainer = $('.swell-redemption');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
