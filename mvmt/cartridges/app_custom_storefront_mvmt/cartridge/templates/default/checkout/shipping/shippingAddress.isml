@@ -16,7 +16,7 @@
                 <isprint value="${addressFields.firstName.label}" encoding="htmlcontent" />
             </label>
             <input autofocus type="text" class="form-control shippingFirstName" id="shippingFirstName"
-                value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
+                value="${shippingAddress.firstName||''}" <isprint value=${addressFields.firstName.attributes} encoding="off"/>
                 autocomplete="shipping given-name" >
             <div class="invalid-feedback"><isprint value="${addressFields.firstName.error}" ></div>
         </div>
@@ -29,13 +29,12 @@
                 <isprint value="${addressFields.lastName.label}" encoding="htmlcontent" />
             </label>
             <input type="text" class="form-control shippingLastName" id="shippingLastName"
-                value="${shippingAddress.lastName||''}" <isprint value="${addressFields.lastName.attributes}" encoding="off"/>
+                value="${shippingAddress.lastName||''}" <isprint value=${addressFields.lastName.attributes} encoding="off"/>
                 autocomplete="shipping family-name">
             <div class="invalid-feedback"><isprint value="${addressFields.lastName.error}" ></div>
         </div>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-12">
@@ -49,7 +48,7 @@
                     ${Resource.msg('tooltip.email','creditCard',null)}
                 </div>
             </span>
-            <input type="text" class="form-control email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
+            <input type="text" class="form-control email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
             <div class="invalid-feedback"></div>
         </div>
@@ -65,7 +64,6 @@
         </label>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-sm-12">
@@ -95,14 +93,14 @@
                     <iscontentasset aid="calloutMsgAddress1"/>
                 </isif>
             </label>
-            <span><input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
-                value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
+            <input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
+                value="${shippingAddress.address1||''}" <isprint value=${addressFields.address1.attributes} encoding="off"/>
                 autocomplete="shipping address-line1">
-                <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
-            </span>
+            <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
         </div>
     </div>
- </div>
+</div>
+
 
 <div class="row">
     <div class="col-sm-12">
@@ -110,13 +108,13 @@
             ${addressFields.address2.mandatory === true ? 'required' : ''}
             ${addressFields.address2.htmlName}">
             <label class="form-control-label" for="shippingAddressTwo">
-                <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
+               <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
                 <isif condition="${sitePref.custom.enableCalloutMsgAddress2 === true}">
                     <iscontentasset aid="calloutMsgAddress2"/>
                 </isif>
             </label>
             <input type="text" class="form-control shippingAddressTwo" id="shippingAddressTwo"
-                value="${shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
+                value="${shippingAddress.address2||''}" <isprint value=${addressFields.address2.attributes} encoding="off"/>
                 autocomplete="shipping address-line2">
             <div class="invalid-feedback"><isprint value="${addressFields.address2.error}" ></div>
         </div>
@@ -143,28 +141,7 @@
             <div class="invalid-feedback"><isprint value="${addressFields.country.error}" ></div>
         </div>
     </div>
-    <div class="col-sm-6 field-right">
-        <div class="form-group
-            ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}
-            ${addressFields.states.stateCode.htmlName} relative">
-            <label class="form-control-label" for="shippingState">
-                <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
-            </label>
-            <select class="form-control shippingState custom-select" id="shippingState"
-                <isprint value=${addressFields.states.stateCode.attributes} encoding="off"/>
-                autocomplete="shipping address-level1">
-                <isloop items=${addressFields.states.stateCode.options} var="state">
-                    <option id="${state.id}" value="${state.htmlValue}" ${state.id===shippingAddress.stateCode ? 'selected' : ''}>${state.label || ' '}</option>
-                </isloop>
-            </select>
-            <i class="fa fa-angle-down"></i>
-            <div class="invalid-feedback"><isprint value="${addressFields.states.stateCode.error}" ></div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6 field-left">
+        <div class="col-sm-6 field-right">
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
             ${addressFields.city.htmlName}">
@@ -172,9 +149,28 @@
                 <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
             </label>
             <input type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
-                value="${shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
+                value="${shippingAddress.city||''}" <isprint value=${addressFields.city.attributes} encoding="off"/>
                 autocomplete="shipping address-level2">
             <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 field-left">
+        <div class="form-group
+            ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}
+            ">
+            <label class="form-control-label" for="shippingState">
+                ${Resource.msg('field.shipping.address.state','address',null)}
+            </label>
+            <input class="form-control shippingState" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
+                value="${shippingAddress.stateCode||''}"
+                <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
+                autocomplete="shipping address-level1">
+            </input>
+            <div class="invalid-feedback"><isprint value="${addressFields.states.stateCode.error}" ></div>
         </div>
     </div>
     <div class="col-sm-6 field-right">
@@ -182,13 +178,13 @@
             ${addressFields.postalCode.mandatory === true ? 'required' : ''}
             ${addressFields.postalCode.htmlName}">
             <label class="form-control-label" for="shippingZipCode">
-                <isprint value="${addressFields.postalCode.label}" encoding="htmlcontent" />
+                ${Resource.msg('field.shipping.address.zip.code','address',null)}
                 <isif condition="${sitePref.custom.enableCalloutMsgPostalCode === true}">
                     <iscontentasset aid="calloutMsgPostalCode"/>
                 </isif>
             </label>
             <input type="text" class="form-control shippingZipCode" id="shippingZipCode"
-                value="${shippingAddress.postalCode||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
+                value="${shippingAddress.postalCode||''}" <isprint value=${addressFields.postalCode.attributes} encoding="off"/>
                 autocomplete="shipping postal-code">
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
         </div>
@@ -201,13 +197,13 @@
             ${addressFields.phone.mandatory === true ? 'required' : ''}
             ${addressFields.phone.htmlName}">
             <label class="form-control-label" for="shippingPhoneNumber">
-                <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
+               <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
                 <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
                     <iscontentasset aid="calloutMsgMobileNumber"/>
                 </isif>
             </label>
             <input type="tel" class="form-control shippingPhoneNumber" id="shippingPhoneNumber"
-                value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
+                value="${shippingAddress.phone||''}" <isprint value=${addressFields.phone.attributes} encoding="off"/>
                    autocomplete="tel">
             <div class="invalid-feedback"><isprint value="${addressFields.phone.error}" ></div>
         </div>
