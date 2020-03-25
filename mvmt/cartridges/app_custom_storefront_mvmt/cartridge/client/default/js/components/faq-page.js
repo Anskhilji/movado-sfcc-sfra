@@ -10,9 +10,9 @@ module.exports = function () {
     var $contactTab = $('#faq-page-contact-tab');
     var $footer = $('footer');
     var $header = $('header');
+    var $headerHeight = $header.height();
     var $helpContainer = $('.help-wrapper');
     var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
-    var $headerHeight = $header.height();
     
     $footer.addClass('position-relative');
     $footer.append($footerHelpContainer);
@@ -32,7 +32,6 @@ module.exports = function () {
     });
     
     $('.faq-nav-control-bar-link').on('click', function() {
-        // $e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, "fast");
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
@@ -53,14 +52,14 @@ module.exports = function () {
     });
     
     $(window).scroll(function (event) {
-        var $helpWraperBreakPoint = 1100;
-        var $scroll = $(window).scrollTop();
-        var $headerSize = $('.header-menu-wrapper').height();
         var $headerBannerSize = $('.hero').height();
-        var $totalHeaderSize = $headerBannerSize - 70;
+        var $headerSize = $('.header-menu-wrapper').height();
         var $helpTop = $headerBannerSize;
+        var $helpWrapperBreakPoint = 1100;
+        var $scroll = $(window).scrollTop();
+        var $totalHeaderSize = $headerBannerSize - 70;
 
-        if ($(this).width() >= $helpWraperBreakPoint) {
+        if ($(this).width() >= $helpWrapperBreakPoint) {
             if(!$contactTab.is(':visible')) {
                 if (typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && !$helpContainer.hasClass('scroll-warp')  && (($helpContainer.offset().top - $scroll) < $headerHeight)) {
                     $helpContainer.addClass('scroll-warp');

@@ -43,7 +43,7 @@ server.post(
         
         if (contactUsForm.valid) {
             var result = {
-                firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value :!empty(contactUsForm.name) ? contactUsForm.name.value : '',
+                firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value : !empty(contactUsForm.name) ? contactUsForm.name.value : '',
                 lastName: !empty(contactUsForm.lastname) ? contactUsForm.lastname.value : '',
                 phone: !empty(contactUsForm.phone) ? contactUsForm.phone.value : '',
                 email: !empty(contactUsForm.email) ? contactUsForm.email.value : '',
