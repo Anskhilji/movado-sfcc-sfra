@@ -178,13 +178,29 @@ function updatePaymentInformation(order) {
             htmlToAppend += '<span>'
         + order.billing.payment.selectedPaymentInstruments[0].selectedAdyenPM
         + '</span>';
-        } else {
+        } else if (order.billing.payment.selectedPaymentInstruments[0].paymentMethod === 'AMAZON_PAY' && $('.amazon-pay-tab .amazon-pay-option').length) {
+                htmlToAppend += '<div class="amazon-pay-option">'
+                + '<span>' + pi.paymentDescriptor + '</span>'
+                + ' <span class="change-payment">' + pi.paymentEdit + '</span>'
+                + '</div>';
+            } else {
         	$('body').trigger('checkOutPayment:success', order.billing.payment.selectedPaymentInstruments[0].paymentMethod);
             htmlToAppend += '<span><div>' + order.billing.payment.selectedPaymentInstruments[0].paymentMethod + '</div></span>';
         }
     }
 
     $paymentSummary.empty().append(htmlToAppend);
+
+    if (order.billing.payment && order.billing.payment.selectedPaymentInstruments && order.billing.payment.selectedPaymentInstruments.length > 0) {
+            if (order.billing.payment.selectedPaymentInstruments[0].paymentMethod === 'AMAZON_PAY' && $('.amazon-pay-tab .amazon-pay-option').length) {
+                if ($('.change-payment').length) {
+                    amazon.Pay.bindChangeAction('.change-payment', {
+                    amazonCheckoutSessionId: order.amzPayCheckoutSessionId,
+                    changeAction: 'changePayment'
+                });
+            }
+        }
+    }
 }
 
 /**
