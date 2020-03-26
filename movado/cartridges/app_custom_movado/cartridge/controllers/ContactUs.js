@@ -43,13 +43,13 @@ server.post(
         
         if (contactUsForm.valid) {
             var result = {
-                firstName: contactUsForm.firstname.value,
-                lastName: contactUsForm.lastname.value,
-                phone: contactUsForm.phone.value || '',
-                email: contactUsForm.email.value,
-                comment: contactUsForm.comment.value || '',
-                ordernumber: contactUsForm.ordernumber.value || '',
-                myquestion: contactUsForm.myquestion.value || '',
+                firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value : !empty(contactUsForm.name) ? contactUsForm.name.value : '',
+                lastName: !empty(contactUsForm.lastname) ? contactUsForm.lastname.value : '',
+                phone: !empty(contactUsForm.phone) ? contactUsForm.phone.value : '',
+                email: !empty(contactUsForm.email) ? contactUsForm.email.value : '',
+                comment: !empty(contactUsForm.comment) ? contactUsForm.comment.value : '',
+                ordernumber: !empty(contactUsForm.ordernumber) ? contactUsForm.ordernumber.value : '',
+                myquestion: !empty(contactUsForm.myquestion) ? contactUsForm.myquestion.value : '',
                 contactUsForm: contactUsForm
             };
             

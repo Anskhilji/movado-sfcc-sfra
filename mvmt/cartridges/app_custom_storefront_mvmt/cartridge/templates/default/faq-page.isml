@@ -1,4 +1,7 @@
 <isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+    </isscript>
     <isinclude template="/components/modules" sf-toolkit="off" />
     <div class="hero p-0">
         <isslot id="faq-top-banner" context="global" description="slot to show faq page banner" />
@@ -16,7 +19,7 @@
                 <iscontentasset aid="faq-page-returns-tab" />
             </div>
         </div>
-        <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container d-none">
+        <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container">
             <div class="contact-tab-callout-wrapper">
                 <h1 class="text-center text-uppercase">${Resource.msg('contact.us.heading','contactUs',null)}</h1>
                 <p class="text-center">${Resource.msg('faq-contact-us-get-in-touch','contactUs',null)}</p>
@@ -26,6 +29,7 @@
                 <div class="col-md-7 contact-tab-form-wrapper">
                     <h2 class="text-uppercase">${Resource.msg('faq-send-us-email','contactUs',null)}</h2>
                     <p class="text-uppercase">${Resource.msg('faq-ask-us-anything','contactUs',null)}</p>
+                    <p class="contact-tab-form-message"></p>
                     <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
                         <div class="form-group">
                             <label class="form-control-label" for="name">
@@ -40,7 +44,7 @@
                                 ${Resource.msg('contact.form.email.address','contactUs',null)}
                             </label>
                             <input type="text" class="form-control contact-tab-form-control" id="emailAddress"
-                                <isprint value="${pdict.contactUsForm.emailAddress.attributes}" encoding="off" />>
+                                <isprint value="${pdict.contactUsForm.email.attributes}" encoding="off" />>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
@@ -48,7 +52,7 @@
                                 ${Resource.msg('contact.form.order.number','contactUs',null)}
                             </label>
                             <input type="text" class="form-control contact-tab-form-control" id="orderNumber"
-                                <isprint value="${pdict.contactUsForm.orderNumber.attributes}" encoding="off" />>
+                                <isprint value="${pdict.contactUsForm.ordernumber.attributes}" encoding="off" />>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
@@ -59,7 +63,7 @@
                                 <div class="custom-select-wrapper col-12">
                                     <select class="form-control custom-select contact-tab-custom-select" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
 	                                    <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
-	                                        <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+	                                        <option value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
 	                                    </isloop>
                                     </select>
                                     <i class="fa fa-sort"></i>
@@ -78,6 +82,7 @@
                                 <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                             </div>
                         </div>
+                        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
                     </form>
                 </div>
                 <div class="col-md-5 contact-us-right-container">
