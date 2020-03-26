@@ -185,3 +185,34 @@ header {
     }
   }
 }
+
+header {
+
+    .modalBg {
+        z-index: 1016;
+    }
+
+    .eswModalWrapper {
+
+        .eswModal {
+            z-index: 1017;
+        }
+    }
+
+    .account-wrapper {
+
+        .selectors {
+            width: auto;
+
+            .dropdown {
+                width: auto;
+
+                &-menu {
+                    overflow-y: auto;
+                    height: auto;
+                    max-height: rem(300);
+                }
+            }
+        }
+    }
+}

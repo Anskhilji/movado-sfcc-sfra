@@ -1,0 +1,17 @@
+<isif condition="${category.subCategories}">
+    <ul class="browse-collection color-swatches d-none d-lg-block"> 
+        <li class="dropdown-item dropdown" role="menuitem" >
+            <a href="${category.url}" id="${category.id+'list'}" class="dropdown-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
+            <isset name="categoryItem" value="${category}" scope="page"/>
+            <div class="color-swatches">
+                <ul>
+                    <isloop items="${categoryItem.subCategories}" var="category">
+                        <li class="dropdown-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <a href="${category.url}" role="button" class="circle" style="background: ${category.hexColor}">${category.hexColor}</a>
+                        </li>
+                    </isloop>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</isif>

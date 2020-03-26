@@ -1,0 +1,71 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/orderHistory.js');
+        assets.addCss('/css/account/profile.css');
+    </isscript>
+
+    <isset name="isPage" value="orderHistory" scope="page" />
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <iscomment> Custom End </iscomment>
+
+    <isinclude template="account/accountTabBar"/>
+
+    <div class="container account-pages">
+        <!---Breadcrumbs--->
+        <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
+        <iscomment>
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <isif condition="${pdict.orders.length > 0}">
+            <div class="row justify-content-center order-list-card">
+                <div class="col-12 col-sm-4 col-md-3">
+                    <h2 class="heading-three">${Resource.msg('label.orderhistory','account',null)}</h2>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <select class="form-control custom-select order-history-select">
+                            <isloop items="${pdict.filterValues}" var="filterValue">
+                                <option
+                                    value="${filterValue.optionValue}"
+                                    <isif condition="${pdict.orderFilter === filterValue.displayValue
+                                        || pdict.filterValues === Resource.msg('orderhistory.sixmonths.option','order',null)
+                                        || pdict.filterValues === Resource.msg('orderhistory.twelvemonths.option','order',null)}"> selected</isif>>
+                                        ${filterValue.displayValue}
+                                </option>
+                            </isloop>
+                        </select>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <iscomment>Custom Start: Adding Content asstet for no order history </iscomment>
+        <isif condition="${empty(pdict.orders)}">
+            <div class="row justify-content-center">
+                <iscontentasset aid="order-history-heading-box" />
+            </div>
+        </isif>
+        <iscomment>Custom End </iscomment>
+        <div class="row justify-content-center order-list-card">
+            <div class="container order-list-container">
+                <isinclude template="account/order/orderList"/>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6 text-center">
+                <a href="${URLUtils.url('Account-Show')}" class="normal profile-back-to-account-link">
+                    ${Resource.msg('link.profile.backtomyaccount','account',null)}
+                </a>
+            </div>
+        </div>
+    </div>
+</isdecorate>
+<iscomment> Custom End </iscomment>

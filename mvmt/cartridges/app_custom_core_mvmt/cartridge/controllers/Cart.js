@@ -11,6 +11,23 @@ server.extend(page);
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
+server.replace('MiniCart', server.middleware.include, function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+
+    var isMobile = req.querystring.isMobile;
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var quantityTotal;
+
+    if (currentBasket) {
+        quantityTotal = currentBasket.productQuantityTotal;
+    } else {
+        quantityTotal = 0;
+    }
+
+    res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal });
+    next();
+});
+
 server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
     function(req, res, next) {
     var target = req.querystring.rurl || 1;
@@ -54,6 +71,15 @@ server.append('RemoveProductLineItem', function (req, res, next) {
             crossImage: staticCrossImage
         });
     } else {
+        var ContentMgr = require('dw/content/ContentMgr');
+        var emptyMiniContentAssetImage = empty(ContentMgr.getContent('mini-cart-content-image').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-image').custom.body.markup;
+        var emptyMiniContentAssetDescription = empty(ContentMgr.getContent('mini-cart-content-description').custom.body.markup) ? null : ContentMgr.getContent('mini-cart-content-description').custom.body.markup;
+        var emptyMiniContentAssetUrls = empty(ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup) ? null : ContentMgr.getContent('empty-mini-cart-content-urls').custom.body.markup;
+        res.setViewData({
+            emptyMiniContentAssetImage: emptyMiniContentAssetImage,
+            emptyMiniContentAssetDescription: emptyMiniContentAssetDescription,
+            emptyMiniContentAssetUrls: emptyMiniContentAssetUrls
+        });
         res.setViewData({homePageURL: homePageURL});
     }
     next();

@@ -28,7 +28,7 @@ function checkRedirect() {
         }
     }
     var localeRedirect = Site.current.getCustomPreferenceValue('showWelcomeMat');
-    if (localeRedirect && request.geolocation.countryCode !== Locale.getLocale(request.locale).country) {
+    if (localeRedirect && request.geolocation && request.geolocation.countryCode !== Locale.getLocale(request.locale).country) {
         return true;
     }
     return false;
