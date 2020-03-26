@@ -16,11 +16,9 @@ $(function() {
         var $scroll = $(window).scrollTop();
 
         if ($scroll >= $productdetail) {
-            $stickybar.css({
-                top: $header +'px'
-            });
-        }else {
-            $stickybar.css('top','-45px')
+            $stickybar.css('top', $header +'px');
+        } else {
+            $stickybar.css('top','-45px');
         }
     });
 });

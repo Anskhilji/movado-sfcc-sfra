@@ -112,14 +112,15 @@
 
   .breadcrumb {
     padding-bottom: 0;
-  }
 
-  .breadcrumb-item {
-    a {
-      font: $font-book;
-      font-size: rem(11);
-      letter-spacing: 1.5;
-      text-transform: uppercase;
+    &-item {
+
+      a {
+        font: $font-book;
+        font-size: rem(11);
+        letter-spacing: 1.5;
+        text-transform: uppercase;
+      }
     }
   }
 }
@@ -131,7 +132,7 @@
   padding: rem(1) rem(1) rem(1) rem(20);
   z-index: 6;
   background: $black;
-  transition: top .6s cubic-bezier(.645,.045,.355,1);
+  transition: top .6s cubic-bezier(.645, .045, .355, 1);
   color: $white;
   top: rem(-45);
   font-size: rem(14);
@@ -143,7 +144,7 @@
     display: block;
   }
 
-  .sticky-bar-container {
+  &-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,13 +153,8 @@
       color: $white;
     }
 
-    .sticky-bar-price {
-      font-size: rem(14);
-      text-transform: uppercase;
-      padding-right: rem(15);
-    }
-
     .cart-and-ipay {
+      width: auto !important;
       margin: 0;
     }
 
@@ -182,6 +178,12 @@
         color: $white;
       }
     }
+  }
+
+  &-price {
+    font-size: rem(14);
+    text-transform: uppercase;
+    padding-right: rem(15);
   }
 }
 
@@ -336,22 +338,13 @@
     }
   }
 
-  .product-tag-wrapper {
-    height: rem(26);
-    margin-bottom: rem(15);
-
-    @include media-breakpoint-down(sm) {
-      text-align: center;
-    }
-  }
-
   .product-tag {
     text-align: center;
     text-transform: uppercase;
     font-family: $font-medium;
     font-size: rem(8);
     font-weight: 500;
-    letter-spacing: 1px;
+    letter-spacing: rem(1);
     display: inline-block;
     margin-bottom: rem(10);
     line-height: 1;
@@ -366,9 +359,18 @@
 
     @include media-breakpoint-up(sm) {
       font-size: rem(12);
-      letter-spacing: 1.5px;
+      letter-spacing: rem(1.5);
       padding: rem(7) rem(17);
       height: rem(26);
+    }
+
+    &-wrapper {
+      height: rem(26);
+      margin-bottom: rem(15);
+
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+      }
     }
   }
 
@@ -378,30 +380,33 @@
     }
   }
 
-  .product-name {
-    text-align: center;
-    letter-spacing: 3px;
+  .product {
 
-    @include media-breakpoint-up(md) {
-      text-align: left;
-    }
-  }
+    &-name {
+      text-align: center;
+      letter-spacing: rem(3);
 
-  .product-price-rating {
-    display: flex;
-    margin-top: rem(15);
-    padding-bottom: rem(15);
-
-    .prices {
-      padding: 0;
-      font-family: $font-medium;
-      letter-spacing: 1.5;
-      color: $black;
-      margin-right: rem(10);
+      @include media-breakpoint-up(md) {
+        text-align: left;
+      }
     }
 
-    .ratings {
-      margin: 0;
+    &-price-rating {
+      display: flex;
+      margin-top: rem(15);
+      padding-bottom: rem(15);
+
+      .prices {
+        padding: 0;
+        font-family: $font-medium;
+        letter-spacing: 1.5;
+        color: $black;
+        margin-right: rem(10);
+      }
+
+      .ratings {
+        margin: 0;
+      }
     }
   }
 
@@ -435,12 +440,15 @@
     }
   }
 
-  .linked-product-list {
-    margin-bottom: rem(20);
-    padding-top: rem(15);
-    border-top: rem(2) solid $white-gray;
+  .linked {
 
-    .linkend-head {
+    &-product-list {
+      margin-bottom: rem(20);
+      padding-top: rem(15);
+      border-top: rem(2) solid $white-gray;
+    }
+
+    &-head {
       margin-bottom: rem(15);
       display: flex;
       justify-content: space-between;
@@ -463,14 +471,14 @@
         font-family: $font-medium;
         font-weight: 500;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: rem(1);
         border: none;
         background: none;
         cursor: pointer;
       }
     }
 
-    .linked-products {
+    &-products {
       .slick-slide {
         padding: 0 rem(10);
       }
@@ -502,7 +510,7 @@
           line-height: 1.2;
           font-family: $font-medium;
           font-weight: 500;
-          letter-spacing: .2px;
+          letter-spacing: rem(.2);
 
           @include media-breakpoint-up(sm) {
             font-size: rem(11);
@@ -555,7 +563,8 @@
           z-index: 1;
           cursor: pointer;
 
-          &:checked ~{
+          &:checked ~ {
+
             .upsell_description {
               color: $light-green;
             }
@@ -633,7 +642,7 @@
         font-family: $font-medium;
         font-size: rem(12);
         font-weight: 500;
-        letter-spacing: .5px;
+        letter-spacing: rem(.5);
         text-transform: uppercase;
         margin-right: rem(4);
         margin-bottom: rem(20);
@@ -646,7 +655,7 @@
     height: rem(37);
     max-width: 100%;
     border-radius: 50%;
-    padding: 1px;
+    padding: rem(1);
     cursor: pointer;
     margin: 0 rem(10) rem(14) 0;
     color: $black;
@@ -654,11 +663,11 @@
     border: 1px solid $white-gray;
     font-size: rem(12);
     font-weight: 500;
-    letter-spacing: 1.2px;
+    letter-spacing: rem(1.2);
     text-transform: uppercase;
 
     &.active {
-      border: 1px solid $black;
+      border: rem(1) solid $black;
     }
   }
 
@@ -703,7 +712,7 @@
       font-family: $font-medium;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: rem(1);
       border: none;
       background: none;
       cursor: pointer;
@@ -748,10 +757,11 @@
       border: none;
 
       > div {
-        border-top: 1px solid $light-gray4;
-        border-bottom: 1px solid $light-gray4;
+        border-top: rem(1) solid $light-gray4;
+        border-bottom: rem(1) solid $light-gray4;
         background-color: $white-gray;
       }
+
       .attribute {
         margin: 0;
         text-align: center;
@@ -800,7 +810,7 @@
         top: calc(50% - 3px);
         right: rem(15);
         font-size: rem(11);
-        letter-spacing: 1px;
+        letter-spacing: rem(1);
         vertical-align: middle;
       }
     }
@@ -839,6 +849,7 @@
   }
 
   @include media-breakpoint-up(md) {
+
     .straps-guide-images {
       display: flex;
       justify-content: space-around;
@@ -846,6 +857,7 @@
   }
 
   .straps {
+
     &-guide-info {
       font-family: $font-book;
       color: $light-gray2;

@@ -25,7 +25,7 @@ Template Notes:
             ${Resource.msg('label.seefit', 'product', null)}
         </button>
     <iscomment> Custom: End </iscomment>
-    </diV>
+    </div>
 
     <isif condition="${attr.swatchable}">
         <!-- Circular Swatch Image Attribute Values -->

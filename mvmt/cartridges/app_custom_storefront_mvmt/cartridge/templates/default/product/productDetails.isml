@@ -1,4 +1,4 @@
-<iscomment> Custom: Start [Change classes and structure as per requirments] </iscomment> 
+<iscomment> Custom: Start [Change classes and structure as per requirment] </iscomment> 
 
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
