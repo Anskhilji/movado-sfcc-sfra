@@ -68,7 +68,7 @@ module.exports = function () {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if ((typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && $helpContainer.offset().top + $helpContainer.outerHeight()) >= $footer.offset().top) {
+                if ($scroll >= $footer.offset().top - 400) {
                     $helpContainer.hide();
                     $footerHelpContainer.show();
                 } else {
