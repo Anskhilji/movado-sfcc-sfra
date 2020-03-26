@@ -23,6 +23,11 @@
                         ${Resource.msg('label.soldout', 'common', null)}
                     </div>
                 </isif>
+                <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+                    <div class="out-of-stock product-tag black-tag">
+                        ${Resource.msg('label.new', 'common', null)}
+                    </div>
+                </isloop>
             </div>
 
             <div class="product-brand-info">
@@ -47,7 +52,7 @@
         <isif condition="${outOfStock}">
             <div class="cart-and-ipay ">
                 <div class="cta-add-to-cart">
-                    <button class="add-to-cart btn btn-primary out-of-stock-btn disabled" data-pid="0607389">
+                    <button class="add-to-cart btn btn-primary out-of-stock-btn disabled" disabled data-pid="0607389">
                         ${Resource.msg('label.not.available', 'common', null)}
                     </button>
                 </div>
