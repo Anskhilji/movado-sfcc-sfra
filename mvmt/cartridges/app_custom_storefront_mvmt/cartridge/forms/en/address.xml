@@ -16,6 +16,19 @@
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"
            />
+    <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
+           max-length="254" missing-error="error.card.info.missing.email"
+           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+           parse-error="error.message.invalid"
+           /> 
+    <field formid="subscribetomovado"
+           binding="subscribetomovado"
+           label="forms.sharewishlist.addtoemaillist"
+           type="boolean"
+           checked="false"
+           default-value="false"
+           mandatory="true"
+           />
     <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
            max-length="35" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
@@ -39,10 +52,10 @@
            parse-error="error.message.invalid"
            />
     <!--  postal code -->
-    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
+    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="4" max-length="10"
            regexp="(^[a-zA-Z0-9 ]+$)"
            binding="postalCode"
-           range-error="error.message.between5and10"
+           range-error="error.message.between4and10"
            missing-error="error.message.required"
            parse-error="error.message.parse.zip"/>
 
@@ -180,7 +193,7 @@
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="10" max-length="20"
-           regexp="(^[0-9\\s-]+$)"
+           regexp="^[0-9\\s-]+$" 
            missing-error="error.message.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>
