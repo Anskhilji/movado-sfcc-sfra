@@ -102,7 +102,7 @@
     a {
       font-size: rem(16);
       margin: 0;
-      padding-left: 25px;
+      padding-left: rem(25);
 
       &:hover {
         color: $dark-red;
@@ -164,7 +164,7 @@
       font-size: rem(11);
       padding: rem(13) rem(42);
       height: 100%;
-      letter-spacing: 1.5px;
+      letter-spacing: rem(1.5);
       transition: all .4s;
       position: relative;
       border-radius: 0;
@@ -492,7 +492,7 @@
 
         &_price {
           font-family: $font-book;
-          font-size: 10px;
+          font-size: rem(10);
           line-height: 1.1;
           color: $light-gray;
           padding: 0;
