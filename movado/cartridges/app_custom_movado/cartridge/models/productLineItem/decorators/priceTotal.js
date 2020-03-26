@@ -1,11 +1,12 @@
 'use strict';
 
+var Site = require('dw/system/Site');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 
 var collections = require('*/cartridge/scripts/util/collections');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 var priceHelper = require('*/cartridge/scripts/helpers/priceHelper');
-var eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
+
 
 /**
  * get the total price for the product line item
@@ -18,11 +19,16 @@ function getTotalPrice(lineItem) {
     var result = {};
     var template = 'checkout/productCard/productCardProductRenderedTotalPrice';
     var savingsPrice;
+    var eswHelper;
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
     // Custom Start: Adding ESW cartridge integration
-    if (lineItem.priceAdjustments.getLength() > 0) {
-        var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
-        result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
+    if (isEswEnabled) {
+        eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
+        if (lineItem.priceAdjustments.getLength() > 0) {
+            var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
+            result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
+        }
     }
     // Custom End
 
@@ -34,15 +40,16 @@ function getTotalPrice(lineItem) {
         price = price.add(item.adjustedNetPrice);
     });
     // Custom Start: Adding ESW cartridge integration
-    if (lineItem.quantityValue !== 1) {
-        result.price = formatMoney(eswHelper.getSubtotalObject(lineItem, false));
+    if (isEswEnabled) {
+        if (lineItem.quantityValue !== 1) {
+            result.price = formatMoney(eswHelper.getSubtotalObject(lineItem, false));
+        } else {
+            result.price = formatMoney(eswHelper.getUnitPriceCost(lineItem));
+        }
     } else {
-        result.price = formatMoney(eswHelper.getUnitPriceCost(lineItem));
+        result.price = formatMoney(price);
     }
     // Custom End
-
-    // Not needed because ESW will set the result price
-    // result.price = formatMoney(price);
 
     savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
     if (savingsPrice) {
