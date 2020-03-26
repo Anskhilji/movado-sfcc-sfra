@@ -1,0 +1,21 @@
+<isscript>	
+    var collections = require('*/cartridge/scripts/util/collections');
+	var formatMoney = require('dw/util/StringUtils').formatMoney;
+
+	var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+	var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+	var matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+        return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+    });
+</isscript>
+
+<div class="strike-through
+<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>"
+>
+    ${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}
+</div>
+<isif condition="${!empty(matchingLineItem)}">
+	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+<iselse>
+	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
+</isif>

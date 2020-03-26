@@ -1,9 +1,11 @@
 <iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
 <isset name="address" value="${!empty(pdict.account) && !empty(pdict.account.preferredAddress) ? pdict.account.preferredAddress.address : ''}" scope="page" >
-<div class="card">
+<div class="card address">
     <div class="card-header clearfix">
         <h4 class="pull-left">${Resource.msg('label.addressbook', 'account', null)}</h4>
-        <a href="${URLUtils.url('Address-List')}" class="pull-right">${Resource.msg('label.manage.address', 'account', null)}</a>
+        <a href="${URLUtils.url('Address-List')}" class="pull-right">
+            ${Resource.msg('label.manage.address', 'account', null)}&#40;${!empty(account.addresses.length) ? Number(account.addresses.length).toFixed() : 0}&#41;
+        </a>
     </div>
     <isif condition="${!empty(address)}">
         <div class="card-body">

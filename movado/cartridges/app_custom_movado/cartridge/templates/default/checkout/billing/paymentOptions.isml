@@ -31,11 +31,11 @@
 		<input type="hidden" class="form-control" id="creditBin" name="creditBin" value="">
         <isset name="creditFields" value="${pdict.forms.billingForm.creditCardFields}" scope="page" />
 
-        <div class="row">
+        <div class="row d-none">
             <div class="col-sm-6 field-left">
                 <div class="form-group
-            <isif condition=${creditFields.email.mandatory === true}>required</isif>
-            ${creditFields.email.htmlName}">
+                <isif condition=${creditFields.email.mandatory === true}>required</isif>
+                ${creditFields.email.htmlName}">
                     <label class="form-control-label" for="email">${Resource.msg('field.customer.email','checkout',null)}</label>
                     <span class="info-icon">
                         <span class="icon">i</span>
@@ -43,15 +43,15 @@
                             ${Resource.msg('tooltip.email','creditCard',null)}
                         </div>
                     </span>
-                    <input type="text" class="form-control email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
+                    <input type="text" class="form-control email billing-email" id="email" value="${pdict.order.orderEmail}" autocomplete="off"
                         ${creditFields.email.attributes}>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>
             <div class="col-sm-6 field-right">
                 <div class="form-group
-            <isif condition=${creditFields.phone.mandatory === true}>required</isif>
-            ${creditFields.phone.htmlName}">
+                <isif condition=${creditFields.phone.mandatory === true}>required</isif>
+                ${creditFields.phone.htmlName}">
                     <label class="form-control-label" for="phoneNumber">${Resource.msg('field.customer.phone.number','checkout',null)}</label>
                     <span class="info-icon">
                         <span class="icon">i</span>
@@ -59,10 +59,10 @@
                             ${Resource.msg('tooltip.phone.number','creditCard',null)}
                         </div>
                     </span>
-                    <input type="tel" class="form-control phone" id="phoneNumber" value="${pdict.order.billing.billingAddress.address
+                    <input type="tel" class="form-control phone billing-phone" id="phoneNumber" value="${pdict.order.billing.billingAddress.address
                 ? pdict.order.billing.billingAddress.address.phone||''
                 : ''}"
-                        ${creditFields.phone.attributes}>
+                        ${creditFields.phone.attributes} autocomplete="off" >
                     <div class="invalid-feedback"></div>
                 </div>
             </div>

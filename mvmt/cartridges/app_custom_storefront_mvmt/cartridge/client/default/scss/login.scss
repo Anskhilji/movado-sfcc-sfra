@@ -1,5 +1,6 @@
 @import 'variables';
 @import '~movado/login';
+@import 'components/formFields';
 
 .page {
 
@@ -78,8 +79,8 @@
             padding: rem(32);
         }
 
-        @include media-breakpoint-down(md) {
-            padding: rem(20);
+        @include media-breakpoint-down(sm) {
+            padding: rem(16);
         }
 
         .login-form-nav {
@@ -111,6 +112,12 @@
                         line-height: rem(16);
                         color: $black;
                         padding-bottom: rem(12);
+
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(12);
+                            font-weight: 500;
+                            padding-bottom: rem(5);
+                        }
 
                         &.active {
                             border-bottom: rem(4) solid $black;
@@ -148,6 +155,10 @@
             padding: rem(32) rem(24);
             width: 100%;
 
+            @include media-breakpoint-down(md) {
+                padding: rem(32) rem(4);
+            }
+
             h1 {
                 font-size: rem(36);
                 letter-spacing: rem(3.38);
@@ -155,6 +166,7 @@
                 font-weight: 500;
                 line-height: 1.2;
                 text-transform: uppercase;
+                margin-bottom: 0;
             }
 
             p {
@@ -213,6 +225,10 @@
         text-align: center;
         padding: rem(50) rem(20) rem(30);
 
+        @include media-breakpoint-down(sm) {
+            padding: rem(50) rem(0) rem(30);
+        }
+
         h1 {
             font-size: rem(36);
             letter-spacing: rem(3.38);
@@ -260,13 +276,16 @@
         &.trackorder {
 
             .card-body {
+                padding-left: rem(32);
+                padding-right: rem(32);
 
                 @include media-breakpoint-down(md) {
                     padding-top: 0;
                 }
 
                 button {
-                    width: 45%;
+                    width: 46%;
+                    margin: 0 auto;
 
                     @include media-breakpoint-down(sm) {
                         width: 100%;
@@ -282,6 +301,11 @@
 
                     @include media-breakpoint-down(md) {
                         padding: 0 rem(20) rem(30);
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        margin-top: rem(2);
+                        padding: 0 rem(0) rem(30);
                     }
 
                     &-text {
@@ -302,6 +326,14 @@
                         letter-spacing: rem(0.5);
                         text-align: center;
                     }
+                }
+            }
+
+            .check-order {
+
+                @include media-breakpoint-down(md) {
+                    padding: rem(15) rem(20);
+                    border-top: 1px solid $cyan-blue1;
                 }
             }
         }
@@ -401,6 +433,15 @@
                 }
             }
 
+            .create-account {
+
+                @include media-breakpoint-down(md) {
+                    display: inline-block;
+                    width: auto;
+                    padding: rem(16) rem(25);
+                }
+            }
+
             .forgot-password {
                 padding: rem(16) 0;
                 line-height: 1;
@@ -416,6 +457,18 @@
             }
 
             .form-group {
+
+                &.required {
+                     .form-control-label {
+                        &::after {
+                            content: "";
+                        }
+
+                        &::before {
+                            content: "";
+                        }
+                    }
+                }
 
                 .form-control-label {
                     font-size: rem(11);
@@ -503,12 +556,7 @@
                 vertical-align: -40%;
 
                 @include media-breakpoint-down(xs) {
-                     margin-right: rem(16);
-                     margin-left: 0;
-                }
-
-                @include media-breakpoint-down(xss) {
-                     margin-right: 0;
+                     margin-right: rem(0);
                      margin-left: 0;
                 }
             }

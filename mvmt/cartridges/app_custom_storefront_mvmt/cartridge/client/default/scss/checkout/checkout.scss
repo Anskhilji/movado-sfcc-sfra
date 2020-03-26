@@ -1,2 +1,359 @@
 @import '../variables';
 @import '~movado/checkout/checkout';
+@import '../components/formFields';
+
+.mvmt-checkout, .checkout-page, .receipt {
+
+    .card-header {
+
+        h4 {
+            font-family: $font-book;
+            font-weight: 500;
+            font-size: rem(18);
+            letter-spacing: normal;
+            letter-spacing: 1.5px;
+        }
+    }
+
+    .order-thank-you-msg {
+        font-family: $font-medium;
+        font-weight: 500;
+        letter-spacing: normal;
+        letter-spacing: 1.5px;
+    }
+
+    .shipping-method-block {
+
+        .ship-method-header {
+            font-family: $font-book;
+            font-weight: 500;
+            font-size: rem(18);
+            letter-spacing: normal;
+            letter-spacing: 1.5px;
+         }
+    }
+
+    .summary-section-label {
+        letter-spacing: normal;
+        text-transform: capitalize;
+        font-family: $font-book;
+    }
+
+    .form-group {
+
+        .form-control {
+            box-sizing: border-box;
+            height: rem(45);
+            border-radius: rem(5);
+            border: rem(1) solid $light-silver;
+            font-size: rem(14);
+            font-family: $font-book;
+            color: $light-gray7;
+            background-color: $white;
+            padding: 0 rem(10);
+            transition: all 0.2s ease-out;
+
+            &:focus {
+                box-shadow: none;
+                border-width: rem(2);
+                border-color: $pelorous;
+                padding-left: rem(9);
+            }
+
+            &.is-invalid {
+                border-width: rem(2);
+                border-color: $red1;
+                padding-left: rem(9);
+            }
+
+            .cardNumber {
+                padding-right: rem(50);
+            }
+        }
+
+        .card-number-wrapper {
+
+            &:after {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .form-control-label {
+            color: $gray1;
+            font-size: rem(14);
+            text-transform: capitalize;
+            padding-bottom: 0;
+            margin-bottom: rem(5);
+        }
+
+        .invalid-feedback {
+            color: $red1;
+            font-weight: 500;
+            font-size: rem(14);
+            letter-spacing: 0;
+        }
+
+        select {
+
+            &.form-control {
+                padding: rem(10);
+                padding-right: rem(38);
+                letter-spacing: normal;
+
+                &:not([size]):not([multiple]) {
+                    height: rem(45);
+                    color: $gray1;
+                    text-transform: capitalize;
+                    color: $gray1;
+
+                    &:focus {
+                        box-shadow: none;
+                        border-width: rem(2);
+                        border-color: $blue;
+                        padding: rem(9) rem(9);
+                    }
+                }
+            }
+
+            & + i {
+                right: 0;
+                height: rem(20);
+                width: rem(36);
+                top: rem(38);
+                font-size: 0;
+                color: $light-gray6;
+                border-left: rem(1) solid $light-gray6;
+                background: url("../../images/arrow-down.svg") center center no-repeat;
+                background-size: rem(12);
+            }
+        }
+    }
+
+    .submit-shipping, .submit-payment, .order-confirmation-continue-shopping, .place-order, .checkout-as-guest, .submit-form-section button, .order-confirm-create-account .btn-block {
+        letter-spacing: 1px;
+        white-space: nowrap;
+        padding: 0 rem(14);
+        height: rem(52);
+        line-height: rem(52);
+        transition: opacity 0.3s ease-in-out;
+        border: rem(1) solid $black;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(2);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $gossamer;
+            color: $white;
+        }
+
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
+    }
+
+    .checkout-promo-code-submit {
+        padding-left: rem(15) !important;
+    }
+
+    .checkout-promo-code-btn {
+        height: rem(45);
+        border-radius: rem(5);
+        border-color: $light-green;
+        background-color: $light-green;
+        color: $white;
+
+        &:hover, &:focus {
+            border-color: $gossamer;
+            background-color: $gossamer;
+        }
+    }
+
+    .checkout-as-guest, .submit-form-section button {
+        width: 100%;
+        float: none;
+    }
+
+    .shipping-method {
+
+        &-header {
+            font-family: $font-book;
+            font-weight: 500;
+            font-size: rem(22);
+            letter-spacing: normal;
+            margin-bottom: rem(15);
+        }
+
+        &-list, &-list span {
+            letter-spacing: normal;
+        }
+    }
+
+    .order-total-summary {
+
+        .leading-lines {
+
+            span, p {
+                letter-spacing: normal;
+                font-family: $font-book;
+                text-transform: uppercase;
+                font-size: rem(14);
+                letter-spacing: rem(1);
+            }
+        }
+    }
+
+    .order-product-summary {
+
+        .leading-lines {
+
+            .order-receipt-label {
+                font-size: rem(14);
+                font-family: $font-book;
+            }
+
+            .grand-total-price {
+                font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                letter-spacing: -0.04em;
+            }
+        }
+    }
+
+    .payment-form {
+
+        .payment-information {
+
+            .accordion-link + label {
+
+                &:after {
+                    content: "\F107";
+                    position: absolute;
+                    font-family: "FontAwesome";
+                    font-size: rem(18);
+                    right: 0;
+                }
+
+                &:before {
+                    border-radius: 100%;
+                }
+            }
+        }
+    }
+
+    .single-shipping {
+
+        span {
+            letter-spacing: 0;
+        }
+    }
+
+    .address-summary, .payment-details, .confirm-details {
+
+        div, span, p {
+            letter-spacing: normal;
+            font-family: $font-book;
+        }
+    }
+
+    .edit-button, .order-thank-you-email-msg {
+        letter-spacing: normal;
+        font-family: $font-book;
+    }
+
+    .right-section {
+        font-family: $font-book;
+        font-size: rem(14);
+    }
+
+    .payment-options, #forget-password-btn {
+        font-family: $font-book;
+        font-size: rem(14);
+    }
+}
+
+.checkout-page {
+
+    .btn-outline-primary {
+
+        &:not(:disabled):not(.disabled) {
+            white-space: nowrap;
+            padding: 0 rem(14);
+            height: rem(52);
+            line-height: rem(52);
+            border: rem(1) solid $black;
+            font-family: $font-book;
+            font-size: rem(11);
+            letter-spacing: rem(2);
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+            svg {
+                width: rem(26);
+                vertical-align: middle;
+                margin-top: rem(-7);
+
+                path {
+                    fill: $black;
+                }
+            }
+
+            &:active, &:focus, &:hover {
+                background-color: $gossamer;
+                color: $white;
+                box-shadow: none;
+
+                svg {
+
+                    path {
+                        fill: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.receipt {
+
+    .order-total-summary {
+        padding: 0 !important;
+    }
+
+    .confirm-details {
+        margin-bottom: rem(30);
+    }
+}
+
+#requestPasswordResetModal {
+
+    .request-password-title, .forget-password-header-title {
+        font-family: $font-medium;
+        letter-spacing: rem(1);
+    }
+
+    .forget-password-header-para {
+        font-family: $font-book;
+        letter-spacing: rem(1);
+    }
+
+    .btn-block {
+        letter-spacing: 1px;
+        white-space: nowrap;
+        padding: 0 rem(14);
+        height: rem(52);
+        line-height: rem(52);
+        transition: opacity 0.3s ease-in-out;
+        border: rem(1) solid $black;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(2);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $gossamer;
+            color: $white;
+        }
+    }
+}
