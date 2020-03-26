@@ -208,6 +208,22 @@
     }
 }
 
+
+.contact-tab-details {
+
+    a {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(14);
+        letter-spacing: rem(1);
+
+        &:hover {
+            text-decoration: none;
+            color: $dark-red;
+        }
+    }
+}
+
 .faq-main {
     position: relative;
     width: 100%;
@@ -617,6 +633,13 @@
         &.form-control {
             height: rem(180);
             resize: none;
+        }
+
+        &:focus {
+
+            &::placeholder {
+                display: none;
+            }
         }
     }
 
