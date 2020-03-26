@@ -173,7 +173,7 @@ $('#coupon-code-submit-btn').on('click', function (e) {
     );
 });
 
-function applySwellDiscount () {
+function applySwellDiscount() {
     var $csrfInput = $('.swell-crf-token');
     var $redemptionContainer = $('.swell-redemption');
     var $swellDiscount = $('.swell-discount');
@@ -183,7 +183,6 @@ function applySwellDiscount () {
         url: url,
         type: 'get',
         dataType: 'json',
-        data: data,
         success: function (data) {
             if (data.error) {
                 $('#error').empty().append(data.errorMessage);
