@@ -4,7 +4,7 @@
         assets.addCss('/css/cart.css');
     </isscript>
     <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-    <isset name="isEswEnabled" value="${dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled}" scope="page" />
+    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
     <isif condition="${isEswEnabled}" >
         <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
     </isif>
