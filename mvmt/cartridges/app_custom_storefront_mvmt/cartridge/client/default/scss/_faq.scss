@@ -9,15 +9,12 @@
     }
 
     &-content {
-        align-content: center;
-        display: flex;
-        justify-content: center;
-        height: 100%;
-        left: 0;
         position: absolute;
         text-align: center;
-        top: 0;
         width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateY(-50%);
 
         &-title {
             color: $white;
