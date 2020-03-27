@@ -178,7 +178,8 @@ server.prepend(
             'Shipping'
         );
 
-        res.render('checkout/checkout', {
+        // Custom Start: Comment Poor Logic of Amazon Pay cartridge
+       /* res.render('checkout/checkout', {
             order: orderModel,
             customer: accountModel,
             forms: {
@@ -192,7 +193,10 @@ server.prepend(
 
         this.emit('route:Complete', req, res);
         return; // eslint-disable-line consistent-return
-    }
+        */
+        // Custom End
+        return next();
+        }
 );
 
 module.exports = server.exports();

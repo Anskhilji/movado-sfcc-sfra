@@ -7,7 +7,7 @@
         assets.addCss('/css/checkout/checkoutLogin.css');
         assets.addJs('/js/login.js');
         if (sitePreferences.amzPayEnabled) {
-            assets.addJs('https://static-eu.payments-amazon.com/checkout.js');
+            assets.addJs('https://static-na.payments-amazon.com/checkout.js');
             assets.addJs('/js/amazonPay.js');
         }
     </isscript>

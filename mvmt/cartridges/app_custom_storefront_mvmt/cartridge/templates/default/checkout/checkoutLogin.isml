@@ -7,7 +7,7 @@
         assets.addCss('/css/checkout/checkoutLogin.css');
         assets.addJs('/js/login.js');
         if (sitePreferences.amzPayEnabled) {
-            assets.addJs('https://static-eu.payments-amazon.com/checkout.js');
+            assets.addJs('https://static-na.payments-amazon.com/checkout.js');
             assets.addJs('/js/amazonPay.js');
         }
     </isscript>
@@ -41,7 +41,7 @@
                         </a>
                         <iscomment> Amazon Pay Button </iscomment>
                         <isif condition="${sitePreferences.amzPayEnabled}">
-                            <div class="col-12">
+                            <div class="col-12 pt-4">
                                 <div id="AmazonPayButtonCheckout"></div>
                             </div>
                         </isif>

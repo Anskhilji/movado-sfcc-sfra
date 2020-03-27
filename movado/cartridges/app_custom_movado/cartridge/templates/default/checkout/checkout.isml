@@ -9,7 +9,7 @@
         assets.addJs('/js/checkout.js');
         assets.addCss('/css/checkout/checkout.css');
         if (sitePreferences.amzPayEnabled) {
-            assets.addJs('https://static-eu.payments-amazon.com/checkout.js');
+            assets.addJs('https://static-na.payments-amazon.com/checkout.js');
             assets.addJs('/js/amazonPay.js');
         }
     </isscript>
@@ -74,7 +74,7 @@
                                 ${Resource.msg('button.next.place.order', 'checkout', null)}
                             </button>
 
-                            <button class="btn btn-primary btn-block place-order" data-action="${URLUtils.url('CheckoutServices-PlaceOrder')}"
+                            <button class="btn btn-primary btn-block place-order" data-action="${pdict.order.amzPayRedirectURL || URLUtils.url('CheckoutServices-PlaceOrder')}"
                                     type="submit" name="submit" value="place-order">${Resource.msg('button.place.order', 'checkout', null)}
                             </button>
                         </div>

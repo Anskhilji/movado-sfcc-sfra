@@ -968,7 +968,8 @@ server.post(
 
         // verify billing form data
         var billingFormErrors = COHelpers.validateBillingForm(paymentForm.addressFields);
-        var contactInfoFormErrors = COHelpers.validateFields(paymentForm.contactInfoFields);
+        // Custom: Change contactInfoFields to creditCardFields
+        var contactInfoFormErrors = COHelpers.validateFields(paymentForm.creditCardFields);
 
         var formFieldErrors = [];
         if (Object.keys(billingFormErrors).length) {
@@ -992,11 +993,13 @@ server.post(
         if (Object.keys(contactInfoFormErrors).length) {
             formFieldErrors.push(contactInfoFormErrors);
         } else {
+            // Custom: Change contactInfoFields to creditCardFields
             viewData.email = {
-                value: paymentForm.contactInfoFields.email.value
+                value: paymentForm.creditCardFields.email.value
             };
 
-            viewData.phone = { value: paymentForm.contactInfoFields.phone.value };
+            // Custom: Change contactInfoFields to creditCardFields
+            viewData.phone = { value: paymentForm.creditCardFields.phone.value };
         }
 
         var paymentMethodIdValue = paymentForm.paymentMethod.value;
@@ -1215,7 +1218,8 @@ server.post(
                 usingMultiShipping = false;
             }
 
-            hooksHelper('app.customer.subscription', 'subscribeTo', [paymentForm.subscribe.checked, paymentForm.contactInfoFields.email.htmlValue], function () {});
+            // Custom: Change contactInfoFields to creditCardFields
+            hooksHelper('app.customer.subscription', 'subscribeTo', [paymentForm.subscribe.checked, paymentForm.creditCardFields.email.htmlValue], function () {});
 
             var currentLocale = Locale.getLocale(req.locale.id);
 
