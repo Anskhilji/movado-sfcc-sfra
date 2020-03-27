@@ -64,14 +64,16 @@
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-sm-4">
-                    <div class="product-tag-wrapper">
+
+                    <!-- Product Availability -->
+                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                        data-available="${product.available}">
+                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                    </div>
+
+                    <div class="product-tag-wrapper d-none">
                         <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
                     </div>
-                    <isif condition="${!product.readyToOrder}">
-                        <div class="out-of-stock">
-                            not
-                        </div>
-                    </isif>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -87,12 +89,6 @@
                         <!-- Attributes and Quantity -->
 
                         <isinclude template="product/components/badges" />
-
-                        <!-- Product Availability -->
-                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                            data-available="${product.available}">
-                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                        </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions">
