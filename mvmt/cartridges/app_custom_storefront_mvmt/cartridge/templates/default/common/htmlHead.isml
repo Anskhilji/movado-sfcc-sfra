@@ -19,8 +19,8 @@
 <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <isif condition="${isEswEnabled}" > 
-    <isinclude template="js/eswClientSideJS">
-    <isinclude template="css/eswClientSideCSS">
+    <script defer type="text/javascript" src="${URLUtils.staticURL('/js/EswHooks.js')}"></script>
+    <link rel="stylesheet" href="${URLUtils.staticURL('/css/EswCss.css')}" />
 </isif>
 <iscomment> Custom End </iscomment>
 <isloop items="${ require('*/cartridge/scripts/assets.js').styles }" var="style">

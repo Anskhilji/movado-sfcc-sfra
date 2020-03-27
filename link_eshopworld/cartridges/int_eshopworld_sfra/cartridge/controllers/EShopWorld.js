@@ -39,7 +39,7 @@ function setInitialCookies(req) {
         eswHelper.createCookie('esw.LanguageIsoCode', locale, '/');
     }
     eswHelper.setCustomerCookies();
-    var selectedFxRate = JSON.parse(session.privacy.fxRate);
+    var selectedFxRate = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate) : '';
     if (!selectedFxRate && selectedFxRate !== 'null') {
 
         var country = eswHelper.getAvailableCountry();
@@ -171,54 +171,14 @@ server.get('GetConvertedPrice', function (req, res, next) {
 });
 
 /*
- * Functions for both API versions and controller function to call pre-order request based on Active API Version
- */
-
-/**
- * Handle Pre-Order V2. It prepares Pre-Order service request and calls it.
- */
-function handlePreOrderRequestV2() {
-    var eswCoreService = require('*/cartridge/scripts/services/EswCoreService').getEswServices(),
-        preorderServiceObj = eswCoreService.getPreorderServiceV2(),
-        oAuthObj = eswCoreService.getOAuthService(),
-        eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper'),
-        redirectPreference = eswHelper.getRedirect();
-    if (redirectPreference.value !== 'Cart' && session.privacy.guestCheckout == null) {
-        if (!customer.authenticated) {
-            session.privacy.TargetLocation = URLUtils.https('EShopWorld-PreOrderRequest').toString();
-
-            return {
-                'status': 'REDIRECT'
-            };
-        }
-    }
-    var formData = {
-        'grant_type': 'client_credentials',
-        'scope': 'checkout.preorder.api.all'
-    }
-    formData.client_id = eswHelper.getClientID();
-    formData.client_secret = eswHelper.getClientSecret();
-    var oAuthResult = oAuthObj.call(formData);
-    if (oAuthResult.status == 'ERROR' || empty(oAuthResult.object)) {
-        logger.error('ESW Service Error: {0}', oAuthResult.errorMessage);
-    }
-    session.privacy.eswOAuthToken = JSON.parse(oAuthResult.object).access_token;
-
-    var requestObj = eswServiceHelper.preparePreOrderV2();
-    requestObj.retailerCartId = eswServiceHelper.createOrder();
-    var result = preorderServiceObj.call(JSON.stringify(requestObj));
-    return result;
-}
-
-/*
  * This is the preorder request which is generating at time of redirection from cart page to ESW checkout
  */
 server.get('PreOrderRequest', function (req, res, next) {
     var result;
     var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with');
     try {
-
-        result = handlePreOrderRequestV2();
+    	var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
+        result = preOrderrequestHelper.handlePreOrderRequestV2();
 
         if (result.status == 'REDIRECT') {
             res.json({

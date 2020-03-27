@@ -30,8 +30,10 @@
 <link rel="icon" type="image/png" href="${URLUtils.staticURL('/images/favicons/favicon-128.png')}" sizes="128x128" />
 
 <link rel="stylesheet" href="${URLUtils.staticURL('/css/global.css')}" />
-<isinclude template="js/eswClientSideJS">
-<isinclude template="css/eswClientSideCSS">
+
+<script defer type="text/javascript" src="${URLUtils.staticURL('/js/EswHooks.js')}"></script>
+<link rel="stylesheet" href="${URLUtils.staticURL('/css/EswCss.css')}" />
+
 <isloop items="${ require('*/cartridge/scripts/assets.js').styles }" var="style">
     <link rel="stylesheet" href="${style}" />
 </isloop>
