@@ -1,26 +1,29 @@
 .product-tile-redesign {
 
-    &:hover {
+    &.hover-animation {
 
-        .tile-content {
+        &:hover {
 
-            @include media-breakpoint-up(lg) {
-                top: rem(-30);
-            }
-        }
+            .tile-content {
 
-        .cart-and-ipay  {
-
-            @include media-breakpoint-up(lg) {
-                bottom: 0;
-                opacity: 1;
+                @include media-breakpoint-up(lg) {
+                    top: rem(-30);
+                }
             }
 
-            .add-to-cart {
+            .cart-and-ipay  {
+
                 @include media-breakpoint-up(lg) {
                     bottom: 0;
                     opacity: 1;
-                    pointer-events: initial;
+                }
+    
+                .add-to-cart {
+                    @include media-breakpoint-up(lg) {
+                        bottom: 0;
+                        opacity: 1;
+                        pointer-events: initial;
+                    }
                 }
             }
         }
