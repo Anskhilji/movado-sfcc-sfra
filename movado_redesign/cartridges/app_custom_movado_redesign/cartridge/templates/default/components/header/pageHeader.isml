@@ -1,6 +1,9 @@
 <iscomment> Custom: HTML Structure change</iscomment>
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 <header class="new-header">
+    <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
+    <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+    <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
@@ -13,6 +16,9 @@
                                 <div class="d-none d-lg-inline-block">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                <iscomment> Custom End </iscomment>
                                 <button class="navbar-toggler-custom navbar-toggler d-lg-none"
                                     role="tab" type="button" aria-controls="sg-navbar-collapse"
                                     aria-expanded="false">

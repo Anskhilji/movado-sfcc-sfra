@@ -126,6 +126,7 @@ function createList(customer, config) {
  * @return {dw.customer.ProductList} list - target productList
  */
 function getList(customer, config) {
+    var Transaction = require('dw/system/Transaction');
     var productListMgr = require('dw/customer/ProductListMgr');
     var type = config.type;
     var list;
@@ -139,6 +140,11 @@ function getList(customer, config) {
         list = productListMgr.getProductList(config.id);
     } else {
         list = null;
+    }
+    if (list && list.items && list.items.length == 0) {
+        Transaction.wrap(function () {
+            list.setPublic(true);
+        });
     }
     return list;
 }
@@ -207,16 +213,18 @@ function itemExists(list, pid, config) {
         var optionModel = found.productOptionModel;
         var option = optionModel.getOption(config.optionId);
         var optionValue = optionModel.getSelectedOptionValue(option);
-        if (optionValue.ID !== config.optionValue) {
-            var Transaction = require('dw/system/Transaction');
-            try {
-                Transaction.wrap(function () {
-                    list.removeItem(found);
-                });
-            } catch (e) {
-                return found;
+        if (optionValue) {
+            if (optionValue.ID !== config.optionValue) {
+                var Transaction = require('dw/system/Transaction');
+                try {
+                    Transaction.wrap(function () {
+                        list.removeItem(found);
+                    });
+                } catch (e) {
+                    return found;
+                }
+                found = false;
             }
-            found = false;
         }
     }
     return found;

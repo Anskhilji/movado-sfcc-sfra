@@ -5,10 +5,10 @@ module.exports = function () {
     $(window).scroll( function (event) {
         var $headerSize = $('.header-menu-wrapper').height();
         var $headerBannerSize = $('.account-dashboard-banner').height();
-        var $totalHeaderSize = $headerSize + $headerBannerSize;
+        var $totalHeaderSize = $headerBannerSize - 30;
         if (!$('.tab-bar-menu').hasClass('dashboard-active')) {
-            if (window.pageYOffset > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() : $headerSize;
+            if ($(this).scrollTop() > $totalHeaderSize) {
+                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
                 $('.tab-bar-main').css('top', $headerSize);
             } else {
@@ -31,7 +31,7 @@ module.exports = function () {
         var $headerSize = $('.sticky-header-wrapper').height();
         if (window.pageYOffset > $headerSize) {
             $('.tab-bar-main').addClass('account-dashboard-tab-sticky');
-            $('.tab-bar-main').css('top', $headerSize);
+            $('.tab-bar-main').css('top', $headerSize -2);
         }
         $('.tab-bar-menu').removeClass('dashboard-active');
     });

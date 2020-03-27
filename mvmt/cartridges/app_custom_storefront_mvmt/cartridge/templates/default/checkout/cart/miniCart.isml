@@ -17,15 +17,18 @@
 </div>
 <isif condition="${!empty(items.length)}">
     <isif condition="${items.length === 0}">
-        <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
-        <div class="empty-mini-cart-image justify-content-center row">
-            <iscontentasset aid="mini-cart-content-image" />
-        </div>
-        <div class="empty-mini-cart-descriptions justify-content-center row text-center">
-            <iscontentasset aid="mini-cart-content-description" />
-        </div>
-        <div class="empty-mini-cart-urls justify-content-center row text-center">
-            <iscontentasset aid="empty-mini-cart-content-urls" />
+    <iscomment> Wraped content asset into empty-min-cart div </iscomment>
+        <div class="empty-mini-cart">
+            <iscomment>Custom Start: Adding empty mini cart content assets </iscomment>
+            <div class="empty-mini-cart-image justify-content-center row">
+                <iscontentasset aid="mini-cart-content-image" />
+            </div>
+            <div class="empty-mini-cart-descriptions justify-content-center row text-center">
+                <iscontentasset aid="mini-cart-content-description" />
+            </div>
+            <div class="empty-mini-cart-urls justify-content-center row text-center">
+                <iscontentasset aid="empty-mini-cart-content-urls" />
+            </div>
         </div>
         <iscomment> Custom End </iscomment>
     <iselse>
@@ -62,6 +65,17 @@
             </isloop>
         </div>
         <div class="minicart-footer">
+            <div class="subtotal">
+                <div class="subtotal-payment-summary">
+                    <div class="subtotal-label grand-total-label price-label">
+                        ${Resource.msg('label.minicart.estimatedtotal', 'cart', null)}
+                    </div>
+                    <div class="subtotal-total">
+                        <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.subTotal)? '0' : pdict.totals.subTotal}</span>
+                    </div>
+                </div>
+            </div>
+
             <isif condition="${!customer.isAuthenticated()}" >
                 <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
                 <form class="cart-checkout-options">

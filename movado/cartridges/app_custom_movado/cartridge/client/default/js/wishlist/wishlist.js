@@ -131,10 +131,12 @@ function updatePublicStatus(listID, itemID, callback) {
         success: function (data) {
             if (callback && !data.success) { callback(); }
             showResponseMsg(data, null);
+            showHideSocialLinks();
         },
         error: function (err) {
             if (callback) { callback(); }
             showResponseMsg(err);
+            showHideSocialLinks();
         }
     });
 }
@@ -185,11 +187,37 @@ function renderNewPageOfItems(pageNumber, isListEmpty, spinner) {
             $('.checkbox-wishlist-hide').remove();
         }
         $('body .wishlistItemCards').append(data);
+        showHideSocialLinks();
         document.documentElement.scrollTop = scrollPosition;
     }).fail(function () {
         $('.more-wl-items').remove();
     });
     $.spinner().stop();
+}
+
+function showHideSocialLinks() {
+    var $socialIcons = $('.socialsharing');
+    var $globalCheckbox = $('.wishlist-checkbox').siblings('input');
+    if ($globalCheckbox.prop('checked') == true) {
+        $socialIcons.hide();
+    } else {
+        var $hideSocialLinks = true;
+        $('.wishlist-item-checkbox').each(function(index, el) {
+            var $checkboxInput = $(el).siblings('input');
+            if ($checkboxInput.prop('checked') == true) {
+                $hideSocialLinks = true;
+            } else if ($checkboxInput.prop('checked') == false) {
+                $hideSocialLinks = false;
+                return false;
+            }
+        });
+        if ($hideSocialLinks) {
+            $socialIcons.hide();
+        } else {
+            $socialIcons.show();
+            $socialIcons.removeClass('d-none');
+        }
+    }
 }
 
 module.exports = {
@@ -230,6 +258,7 @@ module.exports = {
                     success: function (data) {
                         var pageNumber = $('.wishlistItemCardsData').data('page-number') - 1;
                         renderNewPageOfItems(pageNumber, data.listIsEmpty, false);
+                        var $isEmptyList = data.listIsEmpty === undefined ? false : data.listIsEmpty;
                     },
                     error: function () {
                         $.spinner().stop();
@@ -359,13 +388,15 @@ module.exports = {
         $('body').on('click', '.wishlist-item-checkbox', function () {
             var itemID = $(this).closest('.wishlist-hide').find('.custom-control-input').data('id');
             var el = $(this).siblings('input');
+            
             var resetCheckBox = function () {
                 return el.prop('checked')
                     ? el.prop('checked', false)
-                    : el.prop('checked', true);
+                        : el.prop('checked', true);
             };
 
             updatePublicStatus(null, itemID, resetCheckBox);
+            
         });
     },
 

@@ -5,10 +5,14 @@ var OrderMgr = require('dw/order/OrderMgr');
 var checkoutHelper = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var OrderModel = require('*/cartridge/models/order');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
 var Transaction = require('dw/system/Transaction');
 var Resource = require('dw/web/Resource');
+
+var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
+var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 
 server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var order = OrderMgr.getOrder(req.querystring.order_id);
@@ -26,9 +30,20 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
         var fraudError = Resource.msg('error.technical', 'checkout', null);
         return next(new Error(fraudError));
     }
-    var orderPlacementStatus = checkoutHelper.placeOrder(order, fraudDetectionStatus);
+    var orderPlacementStatus = adyenHelpers.placeOrder(order, fraudDetectionStatus);
 
     if (orderPlacementStatus.error) {
+        var sendMail = true;
+        var isJob = false;
+        var refundResponse = hooksHelper(
+            'app.payment.adyen.refund',
+            'refund',
+            order,
+            order.getTotalGrossPrice().value,
+            sendMail,
+            isJob,
+            require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+        Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
     	return next(new Error('Could not place order'));
     }
     //Check if order includes Pre-Order item
@@ -44,9 +59,13 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
             }
         });
     }
+    if (!empty(session.custom.trackingCode)) {
+        SmartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, order.orderNo);
+    }
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
     var URLUtils = require('dw/web/URLUtils');
+    session.custom.orderJustPlaced = true;
     res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken));
 
     return next();
