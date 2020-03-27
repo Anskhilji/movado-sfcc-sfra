@@ -18,7 +18,7 @@ function importCustomers() {
     var inputFilePath = options.filePath;
 
     /* Mandatory param validation check*/
-    if (inputFilePath == null)	{
+    if (empty(inputFilePath))	{
         Logger.error('ImportCustomerForMovadoSales : error : required job parameters are missing : filePath');
         return new Status(Status.ERROR);
     }
@@ -73,12 +73,12 @@ function processCutomerFile(inputFilePath) {
                     Logger.debug('ImportCustomerForMovadoSales : Cutomer created for line number: {0} and line: {1}', lineCounter, line);
 
                 } catch (e) {
-                    Logger.error('ImportCustomerForMovadoSales : Error : Failed to create customer for line number: {0} and line: {1} \n {2} \n {3} ', lineCounter, line, e, e.stack);
+                    Logger.error('ImportCustomerForMovadoSales : Error : Failed to create customer for line number: {0} and line: {1} \n Error: {2} \n Stack Trace: {3} ', lineCounter, line, e, e.stack);
                 }
             }
         });
     } catch (e) {
-        Logger.error('ImportCustomerForMovadoSales : Failed to process file with Error : {0} \n {1}', e, e.stack);
+        Logger.error('ImportCustomerForMovadoSales : Failed to process file with Error : {0} \n Stack Trace:  {1}', e, e.stack);
     }
 
 }
