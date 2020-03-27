@@ -704,6 +704,7 @@
       .cs-carousel-wrapper {
           position: relative;
           cursor: zoom-in;
+          margin-bottom: 0;
 
           .zoom-icon {
               transition: all .25s ease;
@@ -786,9 +787,8 @@
               float: left;
               position: absolute;
               left: rem(05);
-              top: rem(165);
+              top: 0;
               width: rem(102);
-              transform: translateY(-30%);
           }
 
           .slick-track {
@@ -868,12 +868,6 @@
       @include media-breakpoint-down(sm) {
         text-align: center;
       }
-    }
-  }
-
-  .pdp-desktop {
-    @include media-breakpoint-up(sm) {
-      padding: rem(65) 0;
     }
   }
 

@@ -9,7 +9,7 @@ $('.linked-products').slick({
 });
 
 $(function() {
-    var $header = $('header').height();
+    var $header = $('.header-menu-wrapper').height();
     var $productdetail = $('.product-detail').height();
     var $stickybar = $('.sticky-bar');
     $(window).scroll(function() {
