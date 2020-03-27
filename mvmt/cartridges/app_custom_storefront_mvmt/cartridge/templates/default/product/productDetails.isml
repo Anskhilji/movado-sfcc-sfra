@@ -145,6 +145,24 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
+        <div>
+            <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
+            <div class="related-details">
+                <div class="related-details-left">
+                    <img class="related-details-thumbnail" src="//cdn.shopify.com/s/files/1/0377/2037/files/icon-watch-avenue-collection.svg?v=12146802754732510798" alt="Avenue watch illustration">
+                </div>
+                <div class="related-details-right">
+                    <h3 class="related-details-heading">Avenue Series Compatible</h3>
+                    <p class="related-details-copy">
+                        This interchangeable strap is
+                        compatible with ALL Avenue Series
+                        watches. Easily swap your strap out at home - no tools required. Comes with easy to understand step-by-step instructions.
+                    </p>
+                    <a class="related-details-btn" href="">Shop Avenue Series Watches</a>
+                </div>
+            </div>
+        </div>
+
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
