@@ -71,3 +71,7 @@ $('.header-search-field').focusout(function() {
     }
 });
 
+$(window).on('load resize', function() {
+    var $headerHeight = $('.new-header').height();
+    $('.mobile-nav').css('top', $headerHeight + 'px');
+});

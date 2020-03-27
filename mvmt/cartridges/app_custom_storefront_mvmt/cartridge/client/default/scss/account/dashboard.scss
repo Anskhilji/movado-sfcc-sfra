@@ -25,6 +25,15 @@
             letter-spacing: rem(3.38);
             line-height: rem(42);
             margin-bottom: rem(15);
+            display: inline-flex;
+
+            .content-asset {
+                display: contents;
+
+                p {
+                    display: contents;
+                }
+            }
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(50);
@@ -54,6 +63,18 @@
         }
     }
 
+    .profile {
+
+        .card-header {
+            padding-bottom: 0;
+
+            h3 {
+                margin-top: rem(20);
+                margin-bottom: 0;
+            }
+        }
+    }
+
     .card {
         border-bottom: rem(1) solid $light-gray4;
         padding: rem(30) rem(15) rem(25);
@@ -62,6 +83,17 @@
         border-top: 0;
         border-left: 0;
         border-right: 0;
+
+        &.address {
+
+            .card-header {
+
+                p {
+                    color: $black;
+                    font-size: rem(16);
+                }
+            }
+        }
 
         .card-header {
             border: 0;
@@ -99,6 +131,7 @@
                 margin-left: rem(16);
                 text-transform: uppercase;
                 float: left;
+                line-height: 1.5;
 
                 &.order-label {
                     padding-left: rem(15);

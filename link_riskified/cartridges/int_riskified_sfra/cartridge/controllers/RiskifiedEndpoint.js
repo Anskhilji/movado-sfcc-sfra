@@ -41,6 +41,10 @@ server.post('AnalysisNotificationEndpoint', function (req, res, next){
 			AnalysisErrorMessage: response.message
 			
 		});
+		res.setViewData({
+		    isError: true,
+		    responseMessage: response.message
+		});
 		return next();
 		
 	} else {

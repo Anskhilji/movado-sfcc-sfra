@@ -2,12 +2,13 @@
 @import 'variables';
 @import 'utilities/fonts';
 @import '~movado/global';
+@import 'common';
 @import 'components/buttons';
 @import 'components/header';
 @import 'miniCart';
 @import 'components/footer';
 @import 'components/newsletterSignUp';
-@import 'common';
 @import 'components/recommendationSlider';
 @import 'components/productTiles';
-
+@import "faq";
+@import 'components/clp';

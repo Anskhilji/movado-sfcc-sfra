@@ -23,9 +23,6 @@
                 <div class="item-model model-name">
                     ${lineItem.resources.Model} ${lineItem.id}
                 </div>
-                <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
-                    <isinclude template="cart/productCard/cartProductCardAvailability" />
-                </isif>
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
@@ -74,6 +71,9 @@
                         </div>
                     </isif>
                 </div>
+                <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
+                    <isinclude template="cart/productCard/cartProductCardAvailability" />
+                </isif>
                 <isif condition="${lineItem.price}">
                     <p class="line-item-pricing-info">
                         <isset name="price" value="${lineItem.price}" scope="page"/>

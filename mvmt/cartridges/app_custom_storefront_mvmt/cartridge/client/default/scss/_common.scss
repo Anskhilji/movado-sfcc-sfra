@@ -25,13 +25,13 @@
     }
 
     .header-banner-content {
-        align-content: center;
         display: flex;
         justify-content: center;
         height: 100%;
         left: 0;
         position: absolute;
         text-align: center;
+        align-items: center;
         top: 0;
         width: 100%;
 
@@ -340,8 +340,31 @@
         }
     }
 }
+.form-group {
+
+    &.required {
+
+         .form-control-label {
+    
+            &::after {
+                content: "*";
+                color: $black;
+            }
+
+            &::before {
+                content: "";
+                color: $black;
+            }
+        }
+    }
+}
 
 .account-dashboard-tab-sticky {
     position: fixed;
     width: 100%;
 }
+
+.heading-three {
+    text-transform: uppercase;
+}
+

@@ -217,6 +217,48 @@ function getPaymentMethod(order) {
     return paymentMethod;
 }
 
+/**
+ * Fetches the selected payment method from order
+ * @param {orderModel} order model.
+ * @returns {String} order selected payment method
+ */
+function getSelectedPaymentMethod(orderModel) {
+    var constants = require('*/cartridge/scripts/helpers/constants');
+    var selectedPaymentMethod;
+    var paymentInstrument;
+    
+    if (orderModel && orderModel.billing && orderModel.billing.payment && orderModel.billing.payment.selectedPaymentInstruments) {
+        var selectedPaymentInstruments = orderModel.billing.payment.selectedPaymentInstruments;
+        for (var i = 0; i < selectedPaymentInstruments.length; i++) {
+            paymentInstrument = selectedPaymentInstruments[i];
+            
+            switch (paymentInstrument.paymentMethod) {
+                case constants.PAYMENT_METHOD_AFFIRM:
+                    selectedPaymentMethod = constants.PAYMENT_METHOD_AFFIRM;
+                    break;
+                case constants.PAYMENT_METHOD_DW_APPLE_PAY:
+                    selectedPaymentMethod = constants.SELECTED_PAYMENT_METHOD_APPLE_PAY;
+                    break;
+                case constants.PAYMENT_METHOD_CREDIT_CARD:
+                    selectedPaymentMethod = constants.SELECTED_PAYMENT_METHOD_CREDIT_CARD;
+                    break;
+                case constants.PAYMENT_METHOD_EXPRESS_PAY_PAL:
+                    selectedPaymentMethod = constants.SELECTED_PAYMENT_METHOD_EXPRESS_PAY_PAL;
+                    break;
+                case constants.PAYMENT_METHOD_ADYEN:
+                    selectedPaymentMethod = paymentInstrument.selectedAdyenPM;
+                    break;
+                default:
+                    selectedPaymentMethod = '';
+                    break;
+            }
+        }
+    }
+
+    return selectedPaymentMethod;
+}
+
+
 module.exports = {
     formatOrderDate: formatOrderDate,
     getTrackingURL: getTrackingURL,
@@ -229,7 +271,8 @@ module.exports = {
     getShippingAddressId: getShippingAddressId,
     getCustomerNo: getCustomerNo,
     isPreOrder: isPreOrder,
-    getPaymentMethod: getPaymentMethod
+    getPaymentMethod: getPaymentMethod,
+    getSelectedPaymentMethod: getSelectedPaymentMethod
 };
 
 function getTrackingURL(trackingUrl, vendorCode, trackingNum) {
