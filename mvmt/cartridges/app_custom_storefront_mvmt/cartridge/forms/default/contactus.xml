@@ -7,7 +7,7 @@
            parse-error="error.message.invalid"
            />
     <field
-        formid="emailAddress" 
+        formid="email" 
         label="label.input.emailAddress" 
         mandatory="true" 
         max-length="50" 
