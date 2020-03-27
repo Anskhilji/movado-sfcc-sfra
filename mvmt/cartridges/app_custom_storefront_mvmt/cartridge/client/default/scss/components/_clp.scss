@@ -234,11 +234,12 @@
     li {
         width: 50%;
         margin: 0 0 rem(20);
+        padding: rem(3) rem(4) 0;
 
         @include media-breakpoint-up(sm) {
             width: 25%;
             flex-basis: 33%;
-            padding: rem(5) rem(5) 0;
+            padding: rem(5) rem(15) 0;
         }
 
         @include media-breakpoint-up(lg) {
