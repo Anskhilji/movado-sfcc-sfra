@@ -920,11 +920,17 @@
 }
 
 .related-details {
-    display: flex;
-    text-align: left;
-    max-width: rem(750);
-    margin: 0 auto;
-    padding: rem(120) 0;
+    text-align: center;
+    margin-top: rem(55);
+    padding: rem(10);
+
+    @include media-breakpoint-up(md-down) {
+        display: flex;
+        text-align: left;
+        max-width: rem(750);
+        margin: 0 auto;
+        padding: rem(120) 0;
+    }
 
     &-left {
         margin-bottom: 25px;
