@@ -58,11 +58,6 @@ function processCutomerFile(inputFilePath) {
                     password = passwordPrefix + (Math.random() * 1000).toFixed();
 
                     newCustomer = CustomerMgr.createCustomer(login, password, customerNo);
-                    authenticateCustomerResult = CustomerMgr.authenticateCustomer(login, password);
-                    if (authenticateCustomerResult.status !== 'AUTH_OK') {
-                        error = { authError: true, status: authenticateCustomerResult.status };
-                        throw error;
-                    }
 
                     // assign values to the profile
                     newCustomerProfile = newCustomer.getProfile();
