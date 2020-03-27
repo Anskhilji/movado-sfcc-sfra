@@ -1,4 +1,27 @@
 'use strict';
+$('.linked-products').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    infinite: false,
+    dots: false,
+    arrows: true,
+});
+
+$(function() {
+    var $header = $('header').height();
+    var $productdetail = $('.product-detail').height();
+    var $stickybar = $('.sticky-bar');
+    $(window).scroll(function() {
+        var $scroll = $(window).scrollTop();
+
+        if ($scroll >= $productdetail) {
+            $stickybar.css('top', $header +'px');
+        } else {
+            $stickybar.css('top','-45px');
+        }
+    });
+});
 
 $('.carousel-pagination').slick({
     slidesToShow: 6,
@@ -55,3 +78,4 @@ $('.primary-images .main-carousel').slick({
         },
     ]
 });
+
