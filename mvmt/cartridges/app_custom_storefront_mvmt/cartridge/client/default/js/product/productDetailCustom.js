@@ -23,6 +23,33 @@ $(function() {
     });
 });
 
+$('.pdp-tabs-nav button').on('click', function(e) {
+    var thistab = $(this).data('tab');
+    $('.'+thistab+'').addClass('active').siblings().removeClass('active');
+    $(this).addClass('active').siblings().removeClass('active');
+
+    if ($(window).width() < 786) {
+        $('.pdp-mobile-accordian').removeClass('active');
+        $(this).find('.pdp-mobile-accordian').addBack('active')
+    }
+
+    setTimeout(function(){
+        $('.'+thistab+'').addClass('fadeIn').siblings().removeClass('fadeIn');
+     }, 300);
+});
+
+$('.pdp-mobile-accordian').on('click', function(e) {
+    $(this).toggleClass('active').siblings().slideToggle();
+});
+
+$('.call-see-fit-popup').on('click', function(e) {
+    $('.size-guide, #overlay').addClass('active');
+});
+
+$('.size-guide-close').on('click', function(e) {
+    $('.size-guide, #overlay').removeClass('active');
+});
+
 $('.carousel-pagination').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
