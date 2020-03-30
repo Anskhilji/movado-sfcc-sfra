@@ -16,7 +16,11 @@ module.exports = function () {
     
     $footer.addClass('position-relative');
     $footer.append($footerHelpContainer);
-    
+
+    $('.form-control-textarea').val(function(_, v){
+        return v.replace(/\s+/g, '');
+    });
+
     $('.panel-group').on('hidden.bs.collapse', toggleIcon);
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
     
@@ -50,7 +54,7 @@ module.exports = function () {
             $footerHelpContainer.addClass('d-none');
         }
     });
-    
+
     $(window).scroll(function (event) {
         var $headerBannerSize = $('.hero').height();
         var $headerSize = $('.header-menu-wrapper').height();
@@ -68,7 +72,7 @@ module.exports = function () {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if ((typeof $helpContainer !== 'undefined' && typeof $helpContainer.offset() !== 'undefined' && $helpContainer.offset().top + $helpContainer.outerHeight()) >= $footer.offset().top) {
+                if ($scroll >= $footer.offset().top - 400) {
                     $helpContainer.hide();
                     $footerHelpContainer.show();
                 } else {
