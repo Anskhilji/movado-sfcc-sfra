@@ -135,7 +135,7 @@
             <label class="form-control-label" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
-            <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingCountry custom-select" id="shippingCountry"
+            <select <isif condition="${isAmazonPay}">disabled</isif> class="form-control shippingCountry custom-select" id="shippingCountry"
                 <isprint value=${addressFields.country.attributes} encoding="off"/>
                 autocomplete="shipping country">
                     <isloop items=${addressFields.country.options} var="country">
@@ -153,7 +153,7 @@
             <label class="form-control-label" for="shippingState">
                 <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
             </label>
-            <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingState custom-select" id="shippingState"
+            <select <isif condition="${isAmazonPay}">disabled</isif> class="form-control shippingState custom-select" id="shippingState"
                 <isprint value=${addressFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="shipping address-level1">
                 <isloop items=${addressFields.states.stateCode.options} var="state">
