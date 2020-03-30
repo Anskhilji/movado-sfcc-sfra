@@ -7,6 +7,7 @@ var ProductMgr = require('dw/catalog/ProductMgr')
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Promotion = require('dw/campaign/Promotion');
 var Money = require('dw/value/Money');
+var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
