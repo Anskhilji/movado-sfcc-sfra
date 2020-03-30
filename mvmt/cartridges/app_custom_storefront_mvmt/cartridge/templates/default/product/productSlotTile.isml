@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
-<div class="product-tile product-tile-redesign ${pdict.display.showAddToCart ? 'hover-animation' : ''}" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile product-tile-redesign" itemscope itemtype="http://schema.org/Product">
     <div class="tile-content">
 
         <isloop items="${product.availability.messages}" var="message">
@@ -17,7 +17,7 @@
 
         <div class="tile-body">
 
-            <div class="product-tag-content">
+            <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
                 <isif condition="${outOfStock}">
                     <div class="out-of-stock product-tag red-tag">
                         ${Resource.msg('label.soldout', 'common', null)}
@@ -29,10 +29,11 @@
                     ${Resource.msg('label.new', 'common', null)}
                 </div>
             </div>
-
-            <div class="product-brand-info">
-                <span>${product.brand}</span>
-            </div>
+            <isif condition="${pdict.display.showAddToCart}">
+                <div class="product-brand-info">
+                    <span>${product.brand}</span>
+                </div>
+            </isif>
             <isinclude template="product/components/productTileName" />
 
             <isset name="price" value="${product.price}" scope="page" />
@@ -44,6 +45,9 @@
             </isif>
             <isif condition="${!pdict.isCompareableDisabled}"> 
                 <isinclude template="product/components/compare" />
+            </isif>
+            <isif condition="${pdict.display.recommendattionTile}">
+                <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
             </isif>
         </div>
         <isif condition="${pdict.display.showAddToCart}">

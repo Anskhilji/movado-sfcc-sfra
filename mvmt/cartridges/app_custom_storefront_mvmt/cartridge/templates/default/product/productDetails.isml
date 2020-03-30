@@ -58,12 +58,12 @@
                     </div>
                 </div>
             </div>
-            <hr class="hidden-xs-down d-md-none"/>
+            <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-sm-4">
+                <div class="col-12 col-md-6 col-lg-4 product-side-details">
 
                     <!-- Product Availability -->
                     <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
@@ -138,18 +138,17 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container p-0">
             <isinclude template="product/components/productGallery" />
         </div>
 
-        <div class="container">
+        <div class="container p-md-0">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
@@ -191,6 +190,33 @@
                 </div>
                 <div class="size-guide-mobile-image">
                     <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
+                </div>
+                <div class="size-guide-scales">
+
+                    <div class="size-guide-scale">
+                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.thickness', 'product', null)}</p>
+                        <div class="size-guide-scale-bar">
+                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
+                        </div>
+                        <div class="size-guide-scale-range-labels">
+                            <span>${Resource.msg('label.guide.scale.flate', 'product', null)}</span>
+                            <span>${Resource.msg('label.guide.scale.tall', 'product', null)}</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="size-guide-scale">
+                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.size', 'product', null)}</p>
+                        <div class="size-guide-scale-bar">
+                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
+                        </div>
+
+                        <div class="size-guide-scale-range-labels">
+                            <span>${Resource.msg('label.guide.scale.small', 'product', null)}</span>
+                            <span>${Resource.msg('label.guide.scale.large', 'product', null)}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
