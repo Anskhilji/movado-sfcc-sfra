@@ -6,6 +6,8 @@
 <iselse/>
     <isset name="shippingAddress" value="${{}}" scope="page" />
 </isif>
+
+<iscomment> Custom Start: Add Amazon Pay Integeration and make fields read only if it returns from Amazon</iscomment>
 <isset name="isAmazonPay" value="${!empty(pdict.order.amzPayRedirectURL)}" scope="page" />
 
 <div class="row">
@@ -233,5 +235,5 @@
 		</div>
 	</div>
 </isif>
-
+<iscomment> Custom End </iscomment>
 <input type="hidden" class="form-control shippingAddressId" id="shippingAddressId" value="" <isprint value="${addressFields.shippingAddressId.attributes}" encoding="off">>

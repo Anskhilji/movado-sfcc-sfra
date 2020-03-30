@@ -53,7 +53,8 @@ server.prepend(
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
 
-        if (!req.currentCustomer.profile) {
+        // Custom Start: Comment Poor Logic of Amazon Pay
+        /*if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
             passwordForm.clear();
             res.render('checkout/confirmation/confirmation', {
@@ -68,12 +69,13 @@ server.prepend(
                 returningCustomer: true,
                 reportingURLs: reportingURLs
             });
-        }
+        }*/
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
 
-        this.emit('route:Complete', req, res);
-        return; // eslint-disable-line consistent-return
-    }
+        /*this.emit('route:Complete', req, res);
+        return; // eslint-disable-line consistent-return*/
+        return next();
+      }
 );
 
 module.exports = server.exports();

@@ -577,6 +577,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
     var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+    // Custom Start: Add custom Helper to trigger emails
+    var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
 
     var currentBasket = BasketMgr.getCurrentBasket();
@@ -832,7 +834,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            COHelpers.sendConfirmationEmail(order, req.locale.id);
+            // Custom Start: Change email helper to trigger confirmation email
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
@@ -868,7 +871,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            COHelpers.sendConfirmationEmail(order, req.locale.id);
+            // Custom Start: Change email helper to trigger confirmation email
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 

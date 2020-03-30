@@ -1,11 +1,12 @@
 <iscomment> Custom Start: Amazon Pay Integeration </iscomment>
-<div class="express-checkout">
-    <isif condition="${sitePreferences.amzPayEnabled && !pdict.order.amzPayRedirectURL}">
-        <div class="col-12">
+<isif condition="${sitePreferences.amzPayEnabled && !pdict.order.amzPayRedirectURL}">
+    <div class="shipping-express-checkout">
+        <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
+        <div class="col-12 col-sm-12">
             <div id="AmazonPayButtonCheckout"></div>
         </div>
-    </isif>
-</div>
+    </div>
+</isif>
 <iscomment> Custom End </iscomment>
 <div class="shipping-section">
     <div class="single-shipping">

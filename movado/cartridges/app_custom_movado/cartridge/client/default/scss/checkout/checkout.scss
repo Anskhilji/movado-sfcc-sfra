@@ -382,3 +382,19 @@ header {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.shipping-express-checkout {
+    border: rem(1) solid;
+    position: relative;
+    padding: rem(14) 0;
+    margin: rem(11) 0 rem(11) 0;
+
+    &_label {
+        padding: rem(10);
+        position: absolute;
+        top: rem(-20);
+        background: white;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
