@@ -1,26 +1,29 @@
 .product-tile-redesign {
 
-    &:hover {
+    &.hover-animation {
 
-        .tile-content {
+        &:hover {
 
-            @include media-breakpoint-up(lg) {
-                top: rem(-30);
-            }
-        }
+            .tile-content {
 
-        .cart-and-ipay  {
-
-            @include media-breakpoint-up(lg) {
-                bottom: 0;
-                opacity: 1;
+                @include media-breakpoint-up(lg) {
+                    top: rem(-30);
+                }
             }
 
-            .add-to-cart {
+            .cart-and-ipay  {
+
                 @include media-breakpoint-up(lg) {
                     bottom: 0;
                     opacity: 1;
-                    pointer-events: initial;
+                }
+    
+                .add-to-cart {
+                    @include media-breakpoint-up(lg) {
+                        bottom: 0;
+                        opacity: 1;
+                        pointer-events: initial;
+                    }
                 }
             }
         }
@@ -36,6 +39,10 @@
         border: none;
 
         .quickview {
+            display: none;
+        }
+
+        .product-badge {
             display: none;
         }
     }
@@ -57,12 +64,12 @@
                 line-height: 1;
                 color: $black;
 
-                @include media-breakpoint-up(md) {
-                    font-size: rem(12);
+                @include media-breakpoint-up(sm) {
+                    font-size: rem(11);
                 }
 
-                @include media-breakpoint-up(xs) {
-                    font-size: rem(11);
+                @include media-breakpoint-up(md) {
+                    font-size: rem(12);
                 }
             }
         }
@@ -78,13 +85,13 @@
                 font-size: rem(12);
             }
 
-            @include media-breakpoint-up(xs) {
-                font-size: rem(10);
+            @include media-breakpoint-up(sm) {
+                font-size: rem(11);
             }
         }
 
         .pdp-link {
-
+            margin: 0;
 
             @include media-breakpoint-up(lg) {
                 margin: rem(4) 0;
@@ -100,12 +107,13 @@
                 overflow: hidden;
                 padding: 0 rem(10);
 
-                @include media-breakpoint-up(lg) {
-                    font-size: rem(16);
+                @include media-breakpoint-up(sm) {
+                    font-size: rem(14);
+                    margin: 0;
                 }
 
-                @include media-breakpoint-up(xs) {
-                    font-size: rem(14);
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(16);
                 }
             }
         }
@@ -122,13 +130,13 @@
         }
 
         @include media-breakpoint-down(sm) {
-            padding: 0 rem(5);
+            padding: 0;
         }
 
         .add-to-cart {
             width: 100%;
-            font-family: $font-medium;
-            font-weight: 500;
+            font-family: $font-bold;
+            font-weight: 600;
             font-size: rem(9);
             padding: rem(15) 0;
             border-color: $black;
@@ -148,12 +156,14 @@
                 pointer-events: none;
             }
 
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-down(md) {
                 font-size: rem(11);
+                line-height: rem(14);
             }
 
-            @include media-breakpoint-up(sm) {
-                font-size: rem(10);
+            @include media-breakpoint-down(xs) {
+                line-height: rem(11);
+                font-size: rem(9);
             }
 
             &:hover {
@@ -170,6 +180,7 @@
                 background: linear-gradient($gray13,$gray12);
                 border-color: $gray13;
                 color: $white;
+                cursor: auto;
 
                 &:hover {
                     background: linear-gradient($gray13,$gray12);
@@ -204,6 +215,15 @@
             &.red-tag {
                 background-color: $speech-red;
                 color: $white;
+            }
+
+            &.black-tag {
+                background-color: $black;
+                color: $white;
+
+                @include media-breakpoint-up(md) {
+                    padding: rem(7) rem(10);
+                }
             }
 
             @include media-breakpoint-up(md) {

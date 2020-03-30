@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-<isinclude template="/components/modules" sf-toolkit="off" />
-=======
 <iscomment> Custom: Start [Change classes and structure as per requirment] </iscomment> 
 
->>>>>>> feature/MSS-265-mvmt-design-pdp
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
 
@@ -73,6 +69,12 @@
 	                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
 	                    </div>
                      </isif>
+
+                    <!-- Product Availability -->
+                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                        data-available="${product.available}">
+                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                    </div>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -88,12 +90,6 @@
                         <!-- Attributes and Quantity -->
 
                         <isinclude template="product/components/badges" />
-
-                        <!-- Product Availability -->
-                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                            data-available="${product.available}">
-                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                        </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions">
