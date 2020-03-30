@@ -80,7 +80,7 @@ module.exports = {
             var $stickybar = $('.sticky-bar');
             $(window).scroll(function() {
                 var $scroll = $(window).scrollTop();
-                console.log('w')
+
                 if ($scroll >= $productdetail) {
                     $stickybar.css('top', $header +'px');
                 } else {
