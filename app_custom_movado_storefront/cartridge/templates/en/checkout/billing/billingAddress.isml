@@ -33,21 +33,21 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
-        <!-- companyName -->
-        <div class="form-group
-            ${billingFields.companyName.mandatory === true ? 'required' : ''}
-            ${billingFields.companyName.htmlName}">
-            <label class="form-control-label" for="billingCompanyName">
-                <isprint value="${billingFields.companyName.label}" encoding="htmlcontent" />
-            </label>
-            <input type="text" class="form-control billingCompanyName" id="billingCompanyName"
-                value="${pdict.order.billing.billingAddress.address
+   <div class="col-sm-12">
+       <!-- companyName -->
+       <div class="form-group
+           ${billingFields.companyName.mandatory === true ? 'required' : ''}
+           ${billingFields.companyName.htmlName}">
+           <label class="form-control-label" for="billingCompanyName">
+               <isprint value="${billingFields.companyName.label}" encoding="htmlcontent" />
+           </label>
+           <input type="text" class="form-control billingCompanyName" id="billingCompanyName"
+               value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.companyName ?
                     pdict.order.billing.billingAddress.address.companyName : ''}" <isprint value="${billingFields.companyName.attributes}" encoding="off" />
-                autocomplete="billing company-name">
-            <div class="invalid-feedback"><isprint value="${billingFields.companyName.error}" ></div>
-        </div>
+               autocomplete="billing company-name">
+           <div class="invalid-feedback"><isprint value="${billingFields.companyName.error}" ></div>
+       </div>
     </div>
 </div>
 
@@ -92,11 +92,12 @@
     <div class="col-sm-6 field-left">
         <div class="form-group
             ${billingFields.country.mandatory === true ? 'required' : ''}
-            ${billingFields.country.htmlName} relative">
+            ${billingFields.country.htmlName}">
             <label class="form-control-label" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
             <select class="form-control billingCountry custom-select" id="billingCountry"
                 <isprint value=${billingFields.country.attributes} encoding="off"/>
-                autocomplete="billing country">
+                autocomplete="billing country"
+                data-update-payment-methods="${URLUtils.https('Checkout-UpdatePaymentMethods')}">
                     <option label=" "></option>
                     <isloop items=${billingFields.country.options} var="country">
                         <option id="${country.id}" value="${country.htmlValue}"
@@ -117,23 +118,16 @@
     <div class="col-sm-6 field-right">
         <div class="form-group
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
-            ${billingFields.states.stateCode.htmlName} relative">
+            ${billingFields.states.stateCode.htmlName}">
             <label class="form-control-label" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
-            <select class="form-control billingState custom-select" id="billingState"
-                <isprint value=${billingFields.states.stateCode.attributes} encoding="off"/>
-                autocomplete="billing address-level1">
-                    <isloop items=${billingFields.states.stateCode.options} var="state">
-                        <option id="${state.id}"  value="${state.htmlValue}"
-                            ${pdict.order.billing.billingAddress.address
-                                && state.id === pdict.order.billing.billingAddress.address.stateCode
-                                ? "selected"
-                                : "" }
-                        >
-                            ${state.label}
-                        </option>
-                    </isloop>
-            </select>
-            <i class="fa fa-angle-down"></i>
+            <input class="form-control billingState" id="billingState" name="${billingFields.states.stateCode.htmlName}"
+                value="${pdict.order.billing.billingAddress.address
+                    && pdict.order.billing.billingAddress.address.stateCode
+                    ? pdict.order.billing.billingAddress.address.stateCode
+                    : ''}"
+                <isprint value="${pdict.addressForm.states.stateCode}" encoding="off" />
+                autocomplete="shipping address-level1">
+            </input>
             <div class="invalid-feedback"></div>
         </div>
     </div>

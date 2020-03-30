@@ -2,37 +2,24 @@
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19">
 
     <field formid="addressId" label="label.input.addressid" type="string" mandatory="true"
-           max-length="20" missing-error="error.message.required" range-error="error.message.lessthan20"
-           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
-           parse-error="error.message.invalid"
-           />
+    	   max-length="20" missing-error="error.message.required" range-error="error.message.lessthan20"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
     <field formid="firstName" label="label.input.firstname.profile" type="string" mandatory="true" binding="firstName"
            max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-           parse-error="error.message.invalid"
+    	   parse-error="error.message.invalid"
            />
     <field formid="lastName" label="label.input.lastname.profile" type="string" mandatory="true" binding="lastName" max-length="35"
            missing-error="error.message.required" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-           parse-error="error.message.invalid"
-           />
-    <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
-           max-length="254" missing-error="error.card.info.missing.email"
-           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
-           parse-error="error.message.invalid"
-           /> 
-    <field formid="subscribetomovado"
-           binding="subscribetomovado"
-           label="forms.sharewishlist.addtoemaillist"
-           type="boolean"
-           checked="false"
-           default-value="false"
-           mandatory="false"
+    	   parse-error="error.message.invalid"
            />
     <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
            max-length="35" range-error="error.message.lessthan35"
-           regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-           parse-error="error.message.invalid"
+    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+    	   parse-error="error.message.invalid"
            />
     <field formid="address1" label="label.input.address1" type="string" mandatory="true" binding="address1" max-length="35"
            regexp="(^((?!(([\\'\\\\\\>\\&lt;])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)" 
@@ -46,8 +33,8 @@
            parse-error="error.message.parse.addressPObox"/>
     <field formid="city" label="label.input.city" type="string" mandatory="true" binding="city" min-length="2"
             max-length="25" missing-error="error.message.required" range-error="error.message.lessthan25"
-       regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-           parse-error="error.message.invalid"/>
+    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+    	   parse-error="error.message.invalid"/>
     <!--  postal code -->
     <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
            regexp="(^([A-PR-UWYZa-pr-uwyz0-9][A-HK-Ya-hk-y0-9][AEHMNPRTVXYaehmnprtvxy0-9]?[ABEHMNPRVWXYabehmnprvwxy0-9]? ?[0-9][ABD-HJLN-UW-Zabd-hjln-uw-z]{2}|GIR 0AA|gir 0aa)$)"

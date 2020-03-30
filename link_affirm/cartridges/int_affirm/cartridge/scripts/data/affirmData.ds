@@ -10,32 +10,11 @@
     var system = require('dw/system');
     var web = require('dw/web');
     var currentSite = system.Site.getCurrent();
-    var Locale = require('dw/util/Locale');
     var Site = require('dw/system/Site').getCurrent();
     var test = Site.getCustomPreferenceValue('AffirmMode');
     var mode = !empty(currentSite.getCustomPreferenceValue('AffirmMode')) ?
                     currentSite.getCustomPreferenceValue('AffirmMode').getValue() :
                     'sandbox';
-         /**
-         * Return if promo banner should be visible or not
-         *
-         * @returns {boolean} promo banner visibility
-         */
-        this.isPromoBannerAllowed = function () {
-            var currentCountryCode = Locale.getLocale(request.locale).getCountry();
-            
-            var promoBannerAllowedCountries = !empty(currentSite.getCustomPreferenceValue('localeConfigAllowedCountries')) ?
-                    currentSite.getCustomPreferenceValue('localeConfigAllowedCountries') :
-                    '';
-           var isPromoVisible = false;
-           for (i = 0; i <promoBannerAllowedCountries.length; i++) {
-                if (currentCountryCode == promoBannerAllowedCountries[i]) {
-                    isPromoVisible = true;
-                }
-           }
-           
-           return isPromoVisible;
-        }
         /**
          * Return Affirm public key
          *
