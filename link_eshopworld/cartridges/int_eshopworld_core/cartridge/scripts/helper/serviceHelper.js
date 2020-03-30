@@ -89,6 +89,9 @@ function getCartItemsV2() {
         totalQuantity = 0,
         remainingDiscount = totalDiscount;
 
+    //Custom Variable for product image
+    var ImageModel = require('*/cartridge/models/product/productImages');
+
     forEach(currentBasket.productLineItems, function (item) {
         if (!item.bonusProductLineItem) {
             totalQuantity += item.quantity.value;
@@ -131,6 +134,13 @@ function getCartItemsV2() {
         var productVariationModel = item.product.variationModel;
         var color = productVariationModel.getProductVariationAttribute('color') ? productVariationModel.getSelectedValue(productVariationModel.getProductVariationAttribute('color')).displayValue : null;
         var size = productVariationModel.getProductVariationAttribute('size') ? productVariationModel.getSelectedValue(productVariationModel.getProductVariationAttribute('size')).displayValue : null;
+
+        // Custom Start: Adding custom dynamic image code
+        var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
+        ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
+        var imageUrl = ImageModel[tile][0].url;
+        //Custom End
+
         var cartItem = {
             'quantity': item.quantity.value,
             'estimatedDeliveryDate': null,
@@ -146,7 +156,7 @@ function getCartItemsV2() {
                     'beforeDiscount': currencyCode + beforeDiscount,
                     'discountPercentage': null
                 },
-                'imageUrl': item.product.getImage('small', 0).httpURL.toString(),
+                'imageUrl': imageUrl.toString(),
                 'color': color,
                 'size': size,
                 'isNonStandardCatalogItem': false,
