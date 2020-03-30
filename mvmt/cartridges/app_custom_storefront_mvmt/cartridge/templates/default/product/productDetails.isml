@@ -71,7 +71,7 @@
                         <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                     </div>
 
-                    <div class="product-tag-wrapper d-none">
+                    <div class="product-tag-wrapper opcaity-0">
                         <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
                     </div>
                     <!-- Product Name -->
