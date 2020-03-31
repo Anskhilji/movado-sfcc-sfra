@@ -1,8 +1,13 @@
 <iscomment>Custom Start: Added new template for mvmt cart and checkout header design </iscomment>
 <isdecorate template="common/layout/cartAndCheckout">
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/cart.css');
+        if (sitePreferences.amzPayEnabled) {
+            assets.addJs('https://static-na.payments-amazon.com/checkout.js');
+            assets.addJs('/js/amazonPay.js');
+        }
     </isscript>
     <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />

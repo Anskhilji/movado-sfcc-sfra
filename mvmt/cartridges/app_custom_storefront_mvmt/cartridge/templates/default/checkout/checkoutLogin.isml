@@ -1,9 +1,15 @@
 <isdecorate template="common/layout/checkout">
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/checkout/checkout.css');
         assets.addCss('/css/checkout/checkoutLogin.css');
         assets.addJs('/js/login.js');
+        if (sitePreferences.amzPayEnabled) {
+            assets.addJs('https://static-na.payments-amazon.com/checkout.js');
+            assets.addJs('/js/amazonPay.js');
+        }
     </isscript>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.checkout.login', 'eum', null))}"/>
 
@@ -33,6 +39,12 @@
                             class="btn btn-block btn-primary checkout-as-guest">
                             ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
                         </a>
+                        <iscomment> Amazon Pay Button </iscomment>
+                        <isif condition="${sitePreferences.amzPayEnabled}">
+                            <div class="col-12 pt-4">
+                                <div id="AmazonPayButtonCheckout"></div>
+                            </div>
+                        </isif>
                     </div>
                 </div>
                 <div class="card">
