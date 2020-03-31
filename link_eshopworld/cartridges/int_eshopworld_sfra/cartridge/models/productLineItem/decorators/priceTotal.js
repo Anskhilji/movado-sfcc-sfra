@@ -1,6 +1,7 @@
 'use strict';
 
 var formatMoney = require('dw/util/StringUtils').formatMoney;
+var Money = require('dw/value').Money;
 
 var collections = require('*/cartridge/scripts/util/collections');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
@@ -18,7 +19,7 @@ function getTotalPrice(lineItem) {
 
     if (lineItem.priceAdjustments.getLength() > 0) {
         var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
-        result.nonAdjustedPrice = new dw.value.Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value); // eslint-disable-line
+        result.nonAdjustedPrice = new Money(nonAdjustedPrice, lineItem.basePrice.currencyCode);
     }
 
     price = lineItem.adjustedPrice;

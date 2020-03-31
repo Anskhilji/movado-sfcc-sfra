@@ -76,7 +76,8 @@
                     <isinclude template="cart/cartCouponDisplay" />
                 </div>
                 <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-                <isif condition="${!isEswEnabled}">
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+                <isif condition="${eswHelper.showShippingMethodDropdown()}">
                     <div class="row">
                         <isinclude template="cart/cartShippingMethodSelection" />
                     </div>

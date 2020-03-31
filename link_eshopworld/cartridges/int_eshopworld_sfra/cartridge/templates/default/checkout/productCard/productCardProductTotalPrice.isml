@@ -4,15 +4,19 @@
 
 	var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 	var currentBasket = dw.order.BasketMgr.getCurrentBasket();
-	var matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-        return item.productID === lineItem.id && item.UUID === lineItem.UUID;
-    });
+	var matchingLineItem;
+	
+	if(currentBasket != null) {
+		matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+        	return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+    	});
+    }
 </isscript>
 
 <div class="strike-through
 <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>"
 >
-    ${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}
+    <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}</isif>
 </div>
 <isif condition="${!empty(matchingLineItem)}">
 	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>

@@ -8,6 +8,9 @@ var DefaultPrice = require('*/cartridge/models/price/default');
 var RangePrice = require('*/cartridge/models/price/range');
 var eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
 
+var request = require('dw/system/Request');
+var session = require('dw/system/Session');
+
 /**
  * Retrieve promotions that apply to current product
  * @param {dw.catalog.ProductSearchHit} searchHit - current product returned by Search API.
@@ -58,7 +61,7 @@ function getListPrices(hit, getSearchHit) {
         // price books which have the wrong currency.
         if (eswHelper.getEShopWorldModuleEnabled()) {
             var arrPricebooks = [];
-            var overrideCountry = eswHelper.getOverrideCountry(request.httpCookies['esw.location'].value, session.currency.currencyCode); // eslint-disable-line no-undef
+            var overrideCountry = eswHelper.getOverrideCountry(request.httpCookies['esw.location'].value, session.currency.currencyCode);
             if (overrideCountry != null && overrideCountry[0].priceBooks != null) {
                 overrideCountry[0].priceBooks.map(function (pricebookId) { // eslint-disable-line array-callback-return
                     arrPricebooks.push(PriceBookMgr.getPriceBook(pricebookId));
