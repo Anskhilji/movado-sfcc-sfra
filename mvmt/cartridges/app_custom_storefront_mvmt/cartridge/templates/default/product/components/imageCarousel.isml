@@ -1,4 +1,4 @@
-<div class="primary-images col-12 col-sm-6 col-lg-8">
+<div class="primary-images col-12 col-md-6 col-lg-8">
     <div class="product-badges">
       <isinclude template="product/components/newnessBadge"/>
     </div>
@@ -66,7 +66,7 @@
             </g>
           </svg>
         </div>
-        <div class="js-carousel main-carousel  cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+        <div class="js-carousel main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
             <div class="carousel-tile">
               <img class="normal-zoom" src="${product.images.zoom1660[loopStatus.count-1].url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />

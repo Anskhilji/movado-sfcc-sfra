@@ -141,10 +141,6 @@
             <isinclude template="product/components/productGallery" />
         </div>
 
-        <div class="container">
-            <isinclude template="product/components/descriptionAndDetails" />
-        </div>
-
         <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
