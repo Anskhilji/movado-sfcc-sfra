@@ -8,7 +8,9 @@
     </div>
     <div class="col-12">
         <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-        <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="btnCheckout btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+        <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
         </a>
