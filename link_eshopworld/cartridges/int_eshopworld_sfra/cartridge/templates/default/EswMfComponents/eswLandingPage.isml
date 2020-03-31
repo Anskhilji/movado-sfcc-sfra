@@ -14,7 +14,7 @@
 				<isif condition=${pdict.EswLandingObject.enabledCountriesInLandingPage}>
 			
 					<div class="esw-country-selector selectCountry">
-						<label>Your Shipping Country : </label>
+						<label>${Resource.msg('esw.shipping.country','esw',null)}</label>
 						<div class="select-field">
 							<div class="current-country">
 								<i class="fa fa-angle-right fa-fw selector-icon"></i>
@@ -34,7 +34,7 @@
 				</isif>
 				<isif condition=${pdict.EswLandingObject.enabledLanguagesInLandingPage}>				
 					<div class="esw-country-selector selectLanguage">
-						<label>Your Language : </label>
+						<label>${Resource.msg('esw.shipping.lang','esw',null)}</label>
 						<div class="select-field">
 						<div class="current-country">
 							<i class="fa fa-angle-right fa-fw selector-icon"></i>
@@ -53,7 +53,7 @@
 				
 				<isif condition=${pdict.EswLandingObject.enabledCurrencyInLandingPage}>
 					<div class="esw-country-selector selectCurrency">
-						<label>Your Currency : </label>
+						<label>${Resource.msg('esw.shipping.currency','esw',null)} </label>
 						<div class="select-field">
 						<div class="current-country">
 							<i class="fa fa-angle-right fa-fw selector-icon"></i>
