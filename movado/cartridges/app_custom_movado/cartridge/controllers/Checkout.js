@@ -23,7 +23,7 @@ server.append(
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
         var session = req.session.raw;
         if (isEswEnabled) {
-            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
                 res.redirect(URLUtils.https('Cart-Show').toString());
             }
         }
