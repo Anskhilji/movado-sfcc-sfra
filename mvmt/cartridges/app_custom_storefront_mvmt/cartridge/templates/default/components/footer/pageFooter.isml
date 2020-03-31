@@ -52,7 +52,9 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                <isif condition="${isEswEnabled}" > 
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                </isif>
                 <iscomment> Custom End </iscomment>
             </div>
         </div>
