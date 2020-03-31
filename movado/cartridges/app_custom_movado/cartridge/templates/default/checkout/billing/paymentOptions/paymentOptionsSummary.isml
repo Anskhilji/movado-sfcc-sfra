@@ -12,5 +12,13 @@
         <isif condition="${payment.paymentMethod === 'DW_APPLE_PAY'}">
             <isinclude template="checkout/billing/paymentOptions/applePaySummary" />
         </isif>
+        <isif condition="${payment.paymentMethod === 'AMAZON_PAY'}">
+            <div class="amazon-pay-option">
+                <span><isprint value="${payment.paymentDescriptor}" encoding="on" /></span>
+                <isif condition="${pdict.currentStage !== null}">
+                    <span class="change-payment text_underline">${Resource.msg('change.payment.button', 'amazon', null)}</span>
+                </isif>
+            </div>
+        </isif>
     </isloop>
 </div>

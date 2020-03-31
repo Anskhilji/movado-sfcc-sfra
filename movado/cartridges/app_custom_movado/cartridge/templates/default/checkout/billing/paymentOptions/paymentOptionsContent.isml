@@ -14,4 +14,7 @@
     <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
         <isinclude template="checkout/billing/paymentOptions/applePayContent" />
     </isif>
+    <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
+        <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
+    </isif>
 </isloop>
