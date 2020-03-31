@@ -6,6 +6,7 @@
     <isset name="promoModal" value="${affirmUtils.getPromoModalByFinProgramName(pdict.fpname)}" scope="page"/>
 </isif>
 ${pdict.fpname}
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <isif condition="${pdict.context == 'cart' && affirmData.getCartPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
     <isif condition="${pdict.Basket.totalGrossPrice.available}">
         <isset name="basketTotal" value="${pdict.Basket.totalGrossPrice}" scope="page" />
@@ -18,6 +19,7 @@ ${pdict.fpname}
             <isif condition="${!empty(promoModal) && !empty(promoModal.modalID)}">data-modal-id="${promoModal.modalID}"</isif>
             data-amount="${basketTotal.multiply(100).getValue().toFixed()}" data-affirm-type="text" data-affirm-color="blue" data-page-type="cart"></p>
     </isif>
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
     <isset name="psTop" value="${typeof product == 'undefined' && !empty(pdict.Product) && (pdict.Product.productSet || pdict.Product.bundle)}" scope="page"/>
     <isif condition="${psTop}">
@@ -45,6 +47,7 @@ ${pdict.fpname}
                 data-amount="${price.multiply(100).getValue().toFixed()}" data-affirm-type="text" data-affirm-color="blue" data-page-type="product" data-sku="${Product.ID}"></p>
         </isif>
     </isif>
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'plp' && affirmData.getPLPPromoMessageStatus() && affirmData.isPromoBannerAllowed()}"> 
     <isif condition="${Product.productSet}">
         <isset name="price" value="${affirmUtils.calculateProductSetPrice(Product)}" scope="page"/>

@@ -5,6 +5,7 @@
 <isif condition="${pdict.fpname}">
     <isset name="promoModal" value="${affirmUtils.getPromoModalByFinProgramName(pdict.fpname)}" scope="page"/>
 </isif>
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <isif condition="${pdict.context == 'cart' && affirmData.getCartPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
     <isif condition="${Basket.totalGrossPrice.available}">
         <isset name="basketTotal" value="${Basket.totalGrossPrice}" scope="page" />
@@ -18,6 +19,7 @@
             <isif condition="${!empty(promoModal) && !empty(promoModal.modalID)}">data-modal-id="${promoModal.modalID}"</isif>
             data-amount="${basketTotal.multiply(100).getValue().toFixed()}" data-affirm-color="black" data-page-type="cart"></p>
     </isif>
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
 
     <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
@@ -49,6 +51,7 @@
                 data-amount="${price.multiply(100).getValue().toFixed()}" data-affirm-color="black" data-page-type="product" data-sku="${Product.ID}"></p>
         </isif>
     </isif>
+<iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'plp' && affirmData.getPLPPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
     <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
     <isif condition="${Product.productSet}">
