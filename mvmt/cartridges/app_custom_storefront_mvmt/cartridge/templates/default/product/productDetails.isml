@@ -145,13 +145,9 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
-        <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
-
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-
-        <isslot id="cs_pdp_strap_guide" description="CS PDP Strap Guide" context="global" />
 
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
