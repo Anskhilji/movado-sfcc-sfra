@@ -146,26 +146,28 @@ function getDiscountsHtml(discounts) {
 function totals(lineItemContainer) {
     base.call(this, lineItemContainer);
 
-    if (lineItemContainer) {
-        this.subTotal = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
-        this.totalShippingCost = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.adjustedShippingTotalPrice, true, false, true)) : getTotals(lineItemContainer.shippingTotalPrice);
-        if (this.totalShippingCost === '-') {
-            this.totalTax = '-';
-            this.grandTotal = '-';
-        } else {
-            this.grandTotal = eswHelper.getOrderTotalWithShippingCost();
-            this.totalTax = getTotals(lineItemContainer.totalTax, false);
-        }
-        this.orderLevelDiscountTotal = getOrderLevelDiscountTotal(lineItemContainer);
-        this.shippingLevelDiscountTotal = getShippingLevelDiscountTotal(lineItemContainer);
-    } else {
-        this.subTotal = '-';
-        this.grandTotal = '-';
-        this.totalTax = '-';
-        this.totalShippingCost = '-';
-        this.orderLevelDiscountTotal = '-';
-        this.shippingLevelDiscountTotal = '-';
-        this.priceAdjustments = null;
+    if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)) {
+	    if (lineItemContainer) {
+	        this.subTotal = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
+	        this.totalShippingCost = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.adjustedShippingTotalPrice, true, false, true)) : getTotals(lineItemContainer.shippingTotalPrice);
+	        if (this.totalShippingCost === '-') {
+	            this.totalTax = '-';
+	            this.grandTotal = '-';
+	        } else {
+	            this.grandTotal = !lineItemContainer.customer.authenticated ? eswHelper.getOrderTotalWithShippingCost() : getTotals(lineItemContainer.totalGrossPrice);
+	            this.totalTax = getTotals(lineItemContainer.totalTax, false);
+	        }
+	        this.orderLevelDiscountTotal = getOrderLevelDiscountTotal(lineItemContainer);
+	        this.shippingLevelDiscountTotal = getShippingLevelDiscountTotal(lineItemContainer);
+	    } else {
+	        this.subTotal = '-';
+	        this.grandTotal = '-';
+	        this.totalTax = '-';
+	        this.totalShippingCost = '-';
+	        this.orderLevelDiscountTotal = '-';
+	        this.shippingLevelDiscountTotal = '-';
+	        this.priceAdjustments = null;
+	    }
     }
 }
 
