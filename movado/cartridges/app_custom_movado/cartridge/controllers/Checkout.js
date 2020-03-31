@@ -83,9 +83,11 @@ server.append(
             res.setViewData({userTracking: JSON.stringify(userTracking)});
         }
 
+        // Custom Start: Add email for Amazon Pay
         res.setViewData({
             actionUrls: actionUrls,
-            totals: totals
+            totals: totals,
+            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null
         });
 
         next();

@@ -36,10 +36,6 @@
                 border: none;
             }
 
-            @include media-breakpoint-up(md) {
-                width: 20%;
-            }
-
             @include media-breakpoint-up(lg) {
                 width: 20%;
                 margin-right: rem(20);
@@ -79,22 +75,11 @@
             }
         }
 
-        .slick-slide {
-            margin: 0;
-        }
-
-        .slick-list {
-            margin: 0;
-            @include media-breakpoint-down(md-down) {
-                padding: rem(0) rem(50) !important;
-            }
-        }
-
         .js-carousel {
             margin: 0;
             padding: 0;
 
-            @include media-breakpoint-up(sm) {
+            @include media-breakpoint-up(md-down) {
                 width: 70%;
                 padding-left: rem(30);
             }
@@ -119,25 +104,51 @@
                 z-index: 9;
                 top: 50%;
                 transform: translateY(-50%);
-                
+                width: auto;
+                height: auto;
+
+                &:hover {
+                    background: $white-smoke;
+                }
+
                 @include media-breakpoint-down(md-down) {
                     position: absolute;
+                    z-index: 1;
                 }
 
                 &.prev {
                     margin-right: rem(10);
-        
+
                     @include media-breakpoint-down(md-down) {
                         left: 0;
                     }
                 }
-    
+
                 &.next {
                     margin-left: rem(10);
-        
+
                     @include media-breakpoint-down(md-down) {
                         right: 0;
                     }
+                }
+            }
+
+            &-slide {
+                margin: 0;
+
+                .tile-img {
+                    max-width: rem(280);
+                    margin: 0 auto;
+                }
+            }
+
+            &-list {
+                margin: 0;
+                padding-top: rem(25) !important;
+                margin-top: rem(-25);
+
+                @include media-breakpoint-down(md-down) {
+                    padding: rem(0) rem(50) !important;
                 }
             }
         }

@@ -1,3 +1,10 @@
+<isif condition="${empty(pdict.order.amzPayRedirectURL)}">
+    <isset name="action" value="${URLUtils.url('CheckoutServices-SubmitPayment')}" scope="page" />
+    <isset name="addressMode" value="${!pdict.order.billing.billingAddress.address ? 'new' : 'edit'}" scope="page" />
+<iselse/>
+    <isset name="action" value="${URLUtils.url('AmazonPay-SubmitPayment')}" scope="page" />
+    <isset name="addressMode" value="${'new'}" scope="page" />
+</isif>
 <div class="card ghost payment">
     <div class="card-header">
         <span class="checkout-card-header">${Resource.msg('heading.payment', 'checkout', null)}</span>
@@ -9,8 +16,8 @@
         <h4>${Resource.msg('heading.payment', 'checkout', null)}</h4>
     </div>
     <div class="card-body">
-        <form autocomplete="on" method="POST" action="${URLUtils.url('CheckoutServices-SubmitPayment')}"
-            data-address-mode="${!pdict.order.billing.billingAddress.address ? 'new' : 'edit'}"
+        <form autocomplete="on" method="POST" action="${action}"
+            data-address-mode="${addressMode}"
             <isprint value=${pdict.forms.billingForm.attributes} encoding="htmlsinglequote" /> novalidate>
 
             <!-------------------------------------------------------------------------->

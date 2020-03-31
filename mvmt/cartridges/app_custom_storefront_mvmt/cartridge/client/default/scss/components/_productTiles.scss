@@ -1,29 +1,26 @@
 .product-tile-redesign {
 
-    &.hover-animation {
+    &:hover {
 
-        &:hover {
+        .tile-content {
 
-            .tile-content {
+            @include media-breakpoint-up(lg) {
+                top: rem(-30);
+            }
+        }
 
-                @include media-breakpoint-up(lg) {
-                    top: rem(-30);
-                }
+        .cart-and-ipay  {
+
+            @include media-breakpoint-up(lg) {
+                bottom: 0;
+                opacity: 1;
             }
 
-            .cart-and-ipay  {
-
+            .add-to-cart {
                 @include media-breakpoint-up(lg) {
                     bottom: 0;
                     opacity: 1;
-                }
-    
-                .add-to-cart {
-                    @include media-breakpoint-up(lg) {
-                        bottom: 0;
-                        opacity: 1;
-                        pointer-events: initial;
-                    }
+                    pointer-events: initial;
                 }
             }
         }
@@ -233,5 +230,15 @@
                 height: rem(26);
             }
         }
+    }
+
+    .vat-duty-label {
+        color: $light-gray2;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(.8);
+        text-transform: none;
+        padding-top: rem(3);
+        margin: 0;
     }
 }

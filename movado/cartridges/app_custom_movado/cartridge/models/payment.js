@@ -2,6 +2,7 @@
 var base = module.superModule;
 var PaymentMgr = require('dw/order/PaymentMgr');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
+var Resource = require('dw/web/Resource');
 var collections = require('*/cartridge/scripts/util/collections');
 
 /**
@@ -64,8 +65,12 @@ function getSelectedPaymentInstruments(selectedPaymentInstruments) {
             results.maskedGiftCertificateCode = paymentInstrument.maskedGiftCertificateCode;
         } else if (paymentInstrument.paymentMethod === 'PayPal') {
             results.selectedAdyenPM = paymentInstrument.paymentMethod;
+            // Custom Start: Amazon Pay Integration
+        } else if (paymentInstrument.paymentMethod === 'AMAZON_PAY') {
+            results.paymentDescriptor = paymentInstrument.custom.amzPayPaymentDescriptor;
+            results.paymentEdit = Resource.msg('change.payment.button', 'amazon', null);
         }
-
+            // Custom End
         return results;
     });
 }
