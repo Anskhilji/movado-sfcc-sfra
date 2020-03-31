@@ -2,7 +2,9 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 <header class="new-header">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
-    <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+    <isif condition="${isEswEnabled}" >
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+    </isif>
     <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
@@ -17,7 +19,9 @@
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
-                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                <isif condition="${isEswEnabled}" >
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                </isif>
                                 <iscomment> Custom End </iscomment>
                                 <button class="navbar-toggler-custom navbar-toggler d-lg-none"
                                     role="tab" type="button" aria-controls="sg-navbar-collapse"
