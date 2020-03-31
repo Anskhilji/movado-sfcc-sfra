@@ -1,16 +1,25 @@
 <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopSate">
-    <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
-        <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
-        <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
+    <iscomment>Custom: check order url is not redrict from amazon</iscomment>
+    <isif condition="${!pdict.order.amzPayRedirectURL}">
+        <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+            <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
+            <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
+        </isif>
+        <isif condition="${paymentOption.ID === 'Adyen'}">
+            <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
+        </isif>
+        <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
+           <isinclude template="affirm/affirmpaymethodli" />
+        </isif>
+        <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
+            <isinclude template="checkout/billing/paymentOptions/applePayTab" />
+        </isif>
+    <iscomment>Custom Start: include amazon pay tab</iscomment>
+    <iselse/>
+        <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
+            <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
+        </isif>
     </isif>
-    <isif condition="${paymentOption.ID === 'Adyen'}">
-        <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
-    </isif>
-    <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
-       <isinclude template="affirm/affirmpaymethodli" />
-    </isif>
-    <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
-        <isinclude template="checkout/billing/paymentOptions/applePayTab" />
-    </isif>
+    <iscomment>Custom End</iscomment>
 </isloop>
 

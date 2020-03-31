@@ -282,7 +282,12 @@ var formHelpers = require('base/checkout/formErrors');
 
                   return defer;
               } else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
-            	  $('.checkout-promo-section').addClass('d-none');
+                  $('.checkout-promo-section').addClass('d-none');
+
+                  if ($('.payment-details .amazon-pay-option').length) {
+                      window.location.replace($('.place-order').data('action'));
+                  }
+
                   $.ajax({
                       beforeSend: function() {
                         $.spinner().start();
