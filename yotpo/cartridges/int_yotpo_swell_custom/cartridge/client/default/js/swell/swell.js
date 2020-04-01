@@ -145,6 +145,8 @@ var onSuccess = function(redemption) {
 };
 
 var onError = function(err) {
+    var $redemptionContainer = $('.swell-redemption');
+    $redemptionContainer.spinner().stop();
     $('#error').removeClass('d-none');
 };
 
@@ -166,6 +168,8 @@ $(document).on("swell:initialized", () => {
 
 $('#coupon-code-submit-btn').on('click', function (e) {
     e.preventDefault();
+    var $redemptionContainer = $('.swell-redemption');
+    $redemptionContainer.spinner().start();
     swellAPI.makeRedemption(
         { redemptionOptionId: $("#swell-redemption-dropdown option:selected").val(), delayPointDeduction: true },
         onSuccess,
@@ -178,7 +182,6 @@ function applySwellDiscount() {
     var $redemptionContainer = $('.swell-redemption');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
-    $redemptionContainer.spinner().start();
     $.ajax({
         url: url,
         type: 'get',

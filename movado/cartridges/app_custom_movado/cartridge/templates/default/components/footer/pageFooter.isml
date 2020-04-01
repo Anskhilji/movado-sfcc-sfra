@@ -26,7 +26,9 @@
             <div class="footer-item col-sm-3 store">
                 <iscontentasset aid="ca-footer-locate-store" />
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                <isif condition="${isEswEnabled}" > 
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                </isif>
                 <iscomment> Custom End </iscomment>
             </div>
             <div class="footer-item col-sm-3 collapsible-xs">
