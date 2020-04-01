@@ -8,13 +8,14 @@
                ${Resource.msg('enable.accessibility', 'common', null)}</u></span></a>                      
           </isif>
         </div>
-             <div class="col-sm-3 mt-1 mb-1">
-          </div>
-          <div class="col-sm-6 mt-1 mb-1 text-center text-white">
-              <isloop items="${slotcontent.content}" var="markupText">
-                    <isprint value="${markupText.markup}" encoding="off"/>
-              </isloop>
-          </div>
+        <div class="col-sm-3 mt-1 mb-1">
         </div>
-     </div>
+        <div class="col-sm-6 mt-1 mb-1 text-center text-white">
+          <isloop items="${slotcontent.content}" var="markupText">
+            <isprint value="${markupText.markup}" encoding="off"/>
+          </isloop>
+        </div>
+      </div>
+    </div>
+  </div>
 </isif>
