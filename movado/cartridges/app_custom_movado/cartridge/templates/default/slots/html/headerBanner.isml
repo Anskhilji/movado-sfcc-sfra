@@ -1,17 +1,20 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
   <div class="header-banner slide-up">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
-          <div class="content">
-            <div class="html-slot-container">
+        <div class="col-sm-3 mt-1 mb-1 text-center text-white">
+          <isif condition="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}">                      
+            <a href="#" onclick="return enableUsableNetAssistive()"><span class="text-white"><u>
+               ${Resource.msg('enable.accessibility', 'common', null)}</u></span></a>                      
+          </isif>
+        </div>
+             <div class="col-sm-3 mt-1 mb-1">
+          </div>
+          <div class="col-sm-6 mt-1 mb-1 text-center text-white">
               <isloop items="${slotcontent.content}" var="markupText">
-                <isprint value="${markupText.markup}" encoding="off"/>
+                    <isprint value="${markupText.markup}" encoding="off"/>
               </isloop>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+     </div>
 </isif>
