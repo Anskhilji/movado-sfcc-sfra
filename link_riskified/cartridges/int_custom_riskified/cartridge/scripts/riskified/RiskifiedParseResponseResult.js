@@ -95,6 +95,13 @@ function parseRiskifiedResponse(order) {
 				order.custom.is3DSecureTransactionAlreadyCompleted = false;
 			});
 		}
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+            SwellExporter.exportOrder({
+                orderNo: orderNo,
+                orderState: 'created'
+            });
+        }
 	}
 }
 
