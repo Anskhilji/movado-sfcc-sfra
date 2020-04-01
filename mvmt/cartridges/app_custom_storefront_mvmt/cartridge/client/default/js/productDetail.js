@@ -7,4 +7,5 @@ $(document).ready(function () {
     processInclude(require('./product/detail'));
     processInclude(require('./product/zoom'));
     processInclude(require('./product/productDetailCustom'));
+    processInclude(require('./product/base'));
 });

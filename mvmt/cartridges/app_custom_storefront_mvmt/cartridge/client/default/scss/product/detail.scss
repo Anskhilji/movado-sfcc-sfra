@@ -173,7 +173,7 @@
       display: block !important;
     }
 
-    .add-to-cart-mvmt {
+    .add-to-cart {
       background: $white;
       text-transform: uppercase;
       font-size: rem(11);
@@ -819,20 +819,6 @@
                     width: auto !important;
                 }
 
-    .add-to-cart-mvmt {
-      display: inline-block;
-      text-align: center;
-      text-transform: uppercase;
-      line-height: 1;
-      font-size: rem(16);
-      padding: rem(16) rem(20);
-      background-color: $black;
-      color: $white;
-      width: 100%;
-      letter-spacing: rem(3);
-      margin: 0 auto;
-      transition: all .4s;
-
                 > div {
                     display: inline-block;
                     height: rem(82);
@@ -853,22 +839,6 @@
 
                 &.slick-current {
 
-                    &:hover {
-                        background: $light-green;
-                        border-color: $light-green;
-                    }
-
-                    .product-price-mobile {
-                        float: right;
-                        display: inline-block;
-                        font-size: rem(11);
-                        letter-spacing: rem(3);
-
-                        @include media-breakpoint-up(md) {
-                            display: none;
-                        }
-                    }
-
                     > div {
                         box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
                         border-color: $black;
@@ -876,7 +846,6 @@
                 }
             }
         }
-
     }
 
     .product-side-details {
@@ -1476,4 +1445,15 @@
 .product-slot-slider {
     border-top: rem(2) solid $white-gray;
     padding-top: rem(80);
+}
+
+.product-price-mobile {
+    float: right;
+    display: inline-block;
+    font-size: rem(11);
+    letter-spacing: rem(3);
+
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
 }

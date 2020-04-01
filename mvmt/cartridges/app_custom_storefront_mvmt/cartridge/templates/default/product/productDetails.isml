@@ -63,23 +63,27 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-sm-4">
-                    <isif condition="${!product.available}">
-	                    <div class="product-tag-wrapper">
-	                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
-	                    </div>
-                     </isif>
                 <div class="col-12 col-md-6 col-lg-4 product-side-details">
+                    <isif condition="${!product.available}">
+                        <div class="product-tag-wrapper">
+                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                        </div>
+                    </isif>
+
                     <div class="product-tag-wrapper opacity-0">
                         <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
                     </div>
 
                     <!-- Product Availability -->
-                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                        data-available="${product.available}">
-                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                    </div>
-
+                    <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
+                    <iscomment> 
+                        <isif condition="${product.available}"> </isif>
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+                    </iscomment>
+                    <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -107,12 +111,10 @@
                             </div>
                         </isif>
                     </div>
-                        <div class="col-12">
-                            <isinclude template="product/components/linkedProducts" />
-                        </div>
-                        <isinclude template="product/components/promotions" />
-                        <isinclude template="product/components/options" />
-                        <isinclude template="product/components/quantity" />
+                    <div class="col-12">
+                        <isinclude template="product/components/linkedProducts" />
+                    </div>
+
                     <isif condition="${product.options && product.options.length > 0}">
                         <isinclude template="product/components/options" />
                     </isif>
