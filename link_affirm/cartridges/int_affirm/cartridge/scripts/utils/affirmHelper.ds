@@ -147,7 +147,7 @@ function init(basket, applicablePaymentMethods) {
 
 function isAffirmApplicable(){
 	var basket = BasketMgr.getCurrentBasket();
-	if (!basket.getGiftCertificateLineItems().empty || !affirm.data.getAffirmOnlineStatus() || affirm.data.getAffirmPaymentOnlineStatus() || !affirm.utils.checkBasketTotalRange('object' in basket ? basket.object : basket)) {
+	if (!basket.getGiftCertificateLineItems().empty || !affirm.data.getAffirmOnlineStatus() || affirm.data.getAffirmPaymentOnlineStatus() || !affirm.utils.checkBasketTotalRange('object' in basket ? basket.object : basket) || !affirm.data.isPromoBannerAllowed()) {
 		return false;	
 	}
 
