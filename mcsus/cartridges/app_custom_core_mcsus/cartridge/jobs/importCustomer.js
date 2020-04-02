@@ -44,34 +44,33 @@ function processCutomerFile(inputFilePath) {
         var newCustomer;
         var newCustomerProfile;
         var password;
-        Transaction.wrap(function () {
-            while ((line = fileReader.readLine()) != null) {
-                lineCounter += 1;
-                try {
-                    // Spliting line using tab delimiter 
-                    customerArrayObject = line.split('\t');
-                    login = customerArrayObject[0];
-                    customerNo = customerArrayObject[1];
-                    firstName = customerArrayObject[2];
-                    lastName = customerArrayObject[3];
-                    storeNumber = customerArrayObject[4];
-                    password = passwordPrefix + (Math.random() * 1000).toFixed();
+        while ((line = fileReader.readLine()) != null) {
+            lineCounter += 1;
+            try {
+                // Spliting line using tab delimiter 
+                customerArrayObject = line.split('\t');
+                login = customerArrayObject[0];
+                customerNo = customerArrayObject[1];
+                firstName = customerArrayObject[2];
+                lastName = customerArrayObject[3];
+                storeNumber = customerArrayObject[4];
+                password = passwordPrefix + (Math.random() * 1000).toFixed();
+                Transaction.begin();
+                newCustomer = CustomerMgr.createCustomer(login, password, customerNo);
+                // assign values to the profile
+                newCustomerProfile = newCustomer.getProfile();
+                newCustomerProfile.firstName = firstName;
+                newCustomerProfile.lastName = lastName;
+                newCustomerProfile.email = login;
+                newCustomerProfile.custom.storeNumber = storeNumber;
+                Transaction.commit();
+                Logger.debug('ImportCustomerForMovadoSales : Cutomer created for line number: {0} and line: {1}', lineCounter, line);
 
-                    newCustomer = CustomerMgr.createCustomer(login, password, customerNo);
-
-                    // assign values to the profile
-                    newCustomerProfile = newCustomer.getProfile();
-                    newCustomerProfile.firstName = firstName;
-                    newCustomerProfile.lastName = lastName;
-                    newCustomerProfile.email = login;
-                    newCustomerProfile.custom.storeNumber = storeNumber;
-                    Logger.debug('ImportCustomerForMovadoSales : Cutomer created for line number: {0} and line: {1}', lineCounter, line);
-
-                } catch (e) {
-                    Logger.error('ImportCustomerForMovadoSales : Error : Failed to create customer for line number: {0} and line: {1} \n Error: {2} \n Stack Trace: {3} ', lineCounter, line, e, e.stack);
-                }
+            } catch (e) {
+                Transaction.rollback();
+                Logger.error('ImportCustomerForMovadoSales : Error : Failed to create customer for line number: {0} and line: {1} \n Error: {2} \n Stack Trace: {3} ', lineCounter, line, e, e.stack);
             }
-        });
+        }
     } catch (e) {
         Logger.error('ImportCustomerForMovadoSales : Failed to process file with Error : {0} \n Stack Trace:  {1}', e, e.stack);
     }
