@@ -5,6 +5,7 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
@@ -60,7 +61,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productClickGtmObj: productClickGtmObj,
         productGtmObj: productGtmObj,
         qvGtmObj: qvGtmObj,
-        loggedIn: req.currentCustomer.raw.authenticated
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
 
     Object.keys(req.querystring).forEach(function (key) {

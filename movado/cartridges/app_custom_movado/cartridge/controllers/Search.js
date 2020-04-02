@@ -27,7 +27,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var productSearch;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     res.setViewData({
-        compareBoxEnabled: compareBoxEnabled
+        compareBoxEnabled: compareBoxEnabled,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
