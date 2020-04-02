@@ -46,6 +46,7 @@ function processCutomerFile(inputFilePath) {
         var password;
         while ((line = fileReader.readLine()) != null) {
             lineCounter += 1;
+            Transaction.begin();
             try {
                 // Spliting line using tab delimiter 
                 customerArrayObject = line.split('\t');
@@ -55,7 +56,6 @@ function processCutomerFile(inputFilePath) {
                 lastName = customerArrayObject[3];
                 storeNumber = customerArrayObject[4];
                 password = passwordPrefix + (Math.random() * 1000).toFixed();
-                Transaction.begin();
                 newCustomer = CustomerMgr.createCustomer(login, password, customerNo);
                 // assign values to the profile
                 newCustomerProfile = newCustomer.getProfile();
