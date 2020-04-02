@@ -277,7 +277,14 @@ function prepareOrderJSON(order) {
         var orderCreationDate = order.creationDate.toISOString();
         var orderTotalPrice = YotpoUtils.convertPriceIntoCents(order.totalGrossPrice.value);
 
-        var customerEmail = empty(order.customerEmail) ? null : YotpoUtils.escape(order.customerEmail, Constants.REGEX_FOR_YOTPO_DATA, '');
+        // Custom Start: Check if customer is logged in then user its email
+        var customerEmail;
+        if (customer.isAuthenticated()) {
+            customerEmail = empty(customer.profile.email) ? null : YotpoUtils.escape(customer.profile.email, Constants.REGEX_FOR_YOTPO_DATA, '');
+        } else {
+            customerEmail = empty(order.customerEmail) ? null : YotpoUtils.escape(order.customerEmail, Constants.REGEX_FOR_YOTPO_DATA, '');
+        }
+        // Custom End
 
         if (!order.orderNo || !customerEmail || !order.currencyCode || !orderTotalPrice) {
             throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
