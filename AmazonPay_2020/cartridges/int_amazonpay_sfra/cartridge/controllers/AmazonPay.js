@@ -871,9 +871,16 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Custom Start: Change email helper to trigger confirmation email
+            // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                SwellExporter.exportOrder({
+                    orderNo: order.orderNo,
+                    orderState: 'created'
+                });
+            }
+            // Custom End 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();

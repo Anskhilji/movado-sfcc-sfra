@@ -23,7 +23,7 @@ server.append(
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
         var session = req.session.raw;
         if (isEswEnabled) {
-            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
                 res.redirect(URLUtils.https('Cart-Show').toString());
             }
         }
@@ -61,13 +61,14 @@ server.append(
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
             var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
-            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
                 eswServiceHelper.failOrder();
             }
 
-            if (eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)) { // eslint-disable-line no-undef
+            if (eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)) {
                 session.privacy.guestCheckout = true;
-                res.redirect(URLUtils.https('EShopWorld-PreOrderRequest').toString());
+                var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
+                preOrderrequestHelper.preOrderRequest(req, res);
                 return next();
             }
         }

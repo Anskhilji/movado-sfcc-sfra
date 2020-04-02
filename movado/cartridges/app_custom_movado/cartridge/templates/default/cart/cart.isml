@@ -8,12 +8,6 @@
             assets.addJs('/js/amazonPay.js');
         }
     </isscript>
-    <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-    <isset name="isEswEnabled" value="${dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled}" scope="page" />
-    <isif condition="${isEswEnabled}" >
-        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-    </isif>
-    <iscomment> Custom End </iscomment>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.cart', 'eum', null))}"/>
     <div class="cart-section-wrapper">
         <isinclude template="cart/cartSection"/>
