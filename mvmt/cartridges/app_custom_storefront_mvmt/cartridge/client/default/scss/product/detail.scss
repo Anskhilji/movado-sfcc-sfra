@@ -104,6 +104,13 @@
     justify-content: space-between;
     padding: rem(9) rem(16) rem(8);
 
+    .row {
+
+        > div {
+            flex-basis: auto;
+        }
+    }
+
     .social-container {
         display: flex;
         align-items: center;
@@ -843,6 +850,7 @@
                     overflow-y: hidden;
                     overflow-x: hidden;
                     width: 100%;
+                    background-color: $white;
                     position: static;
                     margin-right: rem(12);
 
