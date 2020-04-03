@@ -61,10 +61,9 @@
             <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarousel" />
+                <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
-
 
                     <div class="product-tag-wrapper opacity-0">
                         <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
