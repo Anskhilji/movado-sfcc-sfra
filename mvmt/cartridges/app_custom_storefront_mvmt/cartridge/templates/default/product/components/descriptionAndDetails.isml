@@ -7,7 +7,7 @@
         <isif condition="${product.longDescription}">
             <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
         </isif>
-        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)}</button>
+        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-tab-reviews"><isinclude template="widget/yotporatingswidget" /> <span></button>
     </div>
     <div class="pdp-tabs-body">
         <isif condition="${!pdict.isCompareableDisabled}">
