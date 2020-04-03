@@ -22,7 +22,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     decorators.mgattributes(product, apiProduct);
 
     if (options.variationModel) {
-        decorators.images(product, options.variationModel, { types: ['pdp533'], quantity: 'all' });
+        decorators.images(product, options.variationModel, { types: ['pdp533', 'zoom830', 'zoom1660'], quantity: 'all' });
     } else {
         decorators.images(product, apiProduct, { types: ['pdp533', 'zoom830', 'zoom1660'], quantity: 'all' });
     }
