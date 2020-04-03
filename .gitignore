@@ -10,3 +10,4 @@
 **/dw.json
 **/.DS_Store
 **/tmp/
+!yotpo/cartridges/bm_yotpo/**/static/**

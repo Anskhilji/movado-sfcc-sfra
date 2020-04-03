@@ -231,4 +231,14 @@
             }
         }
     }
+
+    .vat-duty-label {
+        color: $light-gray2;
+        font-family: $font-book;
+        font-size: rem(11);
+        letter-spacing: rem(.8);
+        text-transform: none;
+        padding-top: rem(3);
+        margin: 0;
+    }
 }
