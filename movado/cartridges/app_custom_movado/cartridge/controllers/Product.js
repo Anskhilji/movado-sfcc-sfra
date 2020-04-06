@@ -27,7 +27,6 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -37,6 +36,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var product = viewData.product;
+    var productPrice = product.price;
+
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
@@ -74,7 +75,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             socialShareEnable: socialShareEnable,
             moreStyleGtmArray: moreStyleGtmArray,
             wishlistGtmObj: wishlistGtmObj,
-            klarnaProductPrice: klarnaProductPrice
+            klarnaProductPrice: klarnaProductPrice,
+            restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+            productPrice: productPrice
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -126,9 +129,43 @@ server.replace('Variation', function (req, res, next) {
     });
     next();
 });
+/**
+ * replaced the base product route to save the personalization data in context object
+ */
+server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var URLUtils = require('dw/web/URLUtils');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+
+    var params = req.querystring;
+    var product = ProductFactory.get(params);
+    var viewData = res.getViewData();
+    var addToCartUrl = URLUtils.url('Cart-AddProduct');
+    var template = product.productType === 'set'
+        ? 'product/setQuickView.isml'
+        : 'product/quickView.isml';
+    /**
+     * Added productPrice to context object
+     */
+    var context = {
+        product: product,
+        addToCartUrl: addToCartUrl,
+        resources: productHelper.getResources(),
+        productPrice: product.price 
+    };
+
+    var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
+
+    res.json({
+        renderedTemplate: renderedTemplate,
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+    });
+
+    next();
+});
 
 server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var Site = require('dw/system/Site');
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
@@ -176,7 +213,9 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         productGtmArray: productGtmArray,
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
-        klarnaProductPrice: klarnaProductPrice
+        klarnaProductPrice: klarnaProductPrice,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
     next();
 });
@@ -200,7 +239,9 @@ server.get('ShowCartButton', function (req, res, next) {
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
-        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     });
     next();
 });

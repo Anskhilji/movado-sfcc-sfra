@@ -5,6 +5,7 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -69,7 +70,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productGtmObj: productGtmObj,
         qvGtmObj: qvGtmObj,
         loggedIn: req.currentCustomer.raw.authenticated,
-        isTopSearch: req.querystring.isTopSearch
+        isTopSearch: req.querystring.isTopSearch,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
 
     Object.keys(req.querystring).forEach(function (key) {
