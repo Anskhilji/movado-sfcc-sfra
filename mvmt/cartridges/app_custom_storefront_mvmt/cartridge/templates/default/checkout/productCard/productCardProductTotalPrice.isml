@@ -1,3 +1,31 @@
+<iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<isif condition="${isEswEnabled}" >
+    <isscript>
+        var collections = require('*/cartridge/scripts/util/collections');
+        var formatMoney = require('dw/util/StringUtils').formatMoney;
+
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+        var matchingLineItem;
+        
+        if(currentBasket != null) {
+            matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+                return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+            });
+        }
+    </isscript>
+    <div class="strike-through <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>">
+        <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}</isif>
+    </div>
+    <isif condition="${!empty(matchingLineItem)}">
+        <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+    <iselse>
+        <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
+    </isif>
+</isif>
+<iscomment> Custom End </iscomment>
+
 <iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
     <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} ${lineItem.priceTotal.nonAdjustedPrice}</div>

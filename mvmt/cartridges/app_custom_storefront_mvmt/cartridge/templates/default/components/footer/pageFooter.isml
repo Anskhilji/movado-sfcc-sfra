@@ -51,6 +51,11 @@
                         <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
                     </div>
                 </div>
+                <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                <isif condition="${isEswEnabled}" > 
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                </isif>
+                <iscomment> Custom End </iscomment>
             </div>
         </div>
     </div>
