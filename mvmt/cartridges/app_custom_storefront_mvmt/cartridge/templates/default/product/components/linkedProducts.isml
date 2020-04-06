@@ -1,7 +1,7 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
 <div class="linked-product-list">
     <isif condition="${pdict.explicitRecommendations && pdict.explicitRecommendations.length > 0}">
-        <div class="linkend-head">
+        <div class="linked-head">
             <label>
                 ${Resource.msg('label.add.strap', 'product', null)}
             </label>
