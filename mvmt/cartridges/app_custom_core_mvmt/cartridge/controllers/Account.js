@@ -18,4 +18,12 @@ server.append('Login', server.middleware.https, function (req, res, next) {
     next();
 });
 
+server.get(
+    'MvmtInsider',
+    function (req, res, next) {
+        res.render('account/mvmtInsider');
+
+        next();
+    }
+);
 module.exports = server.exports();

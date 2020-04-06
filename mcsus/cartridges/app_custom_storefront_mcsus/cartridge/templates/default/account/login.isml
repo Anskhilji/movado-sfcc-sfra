@@ -1,0 +1,47 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/login.css');
+        assets.addJs('/js/login.js');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account.login', 'eum', null))}"/>
+
+    <div class="hero container login-banner">
+        <isslot id="cs-account-login" description="Login banner Image" context="global" />
+    </div>
+   
+
+    <div class="container login-page"> 
+        <!---Breadcrumbs--->
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <div class="row justify-content-center equal-height">
+            <div class="col-sm-8 col-md-6"> 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="login-form-nav">
+                            <isinclude template="account/components/navTabs" />
+                            <div class="tab-content">
+                                <div class="tab-pane ${pdict.navTabValue === 'login' ? 'active' : ''}" id="login" role="tabpanel">
+                                    <isinclude template="account/components/loginForm" />
+                                    <isinclude template="account/password/requestPasswordResetModal"/>
+                                    <isinclude template="account/components/oauth" />
+                                </div>
+                                <iscomment> Custom: Change [put just following div into limit registration check] </iscomment>
+                                <isif condition="${!dw.system.Site.current.preferences.custom.blockRegistrationOnSalesSites}">
+	                                <div class="tab-pane ${pdict.navTabValue === "register" ? 'active' : ''}" id="register" role="tabpanel">
+	                                    <isinclude template="account/components/registerForm" />
+	                                </div>
+                                </isif>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-6">
+                <div class="card">
+                    <isinclude template="account/components/trackOrderForm" />
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

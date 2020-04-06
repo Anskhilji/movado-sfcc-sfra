@@ -1552,5 +1552,475 @@
 				}
 			}
 		}
-	}
+	},
+	{
+        "countryCode": "CH",
+        "name": {
+            "en_US": "Switzerland",
+            "en_GB": "Switzerland",
+            "fr_CA": "Switzerland",
+            "fr": "Switzerland"
+        },
+        "continent": "europe",
+        "locales": ["en_US", "en_GB","fr","fr_CA"],
+        "languages": ["en","fr"],
+        "currencyCode": "CHF",
+        "taxation": {
+            "type": "net"
+        },
+        "priceBooks": [
+            "cad-m-ca-list-prices"
+        ],
+        "dynamicForms": {
+            "addressDetails": {
+                "country": {
+                    "type": "select"
+                },
+                "states": [{
+                    "fieldName": "state",
+                    "type": "select",
+                    "required": true
+                }],
+                "address2": {
+                    "help": {
+                        "cid": "apo-fpo",
+                        "label": {
+                            "property": "singleshipping.apofpo",
+                            "file": "checkout"
+                        }
+                    }
+                },
+                "phone": {
+                    "help": {
+                        "cid": "help-telephone",
+                        "label": {
+                            "property": "singleshipping.phonerequired",
+                            "file": "checkout"
+                        }
+                    }
+                }
+            },
+            "giftRegistryEvent": {
+                "eventaddress": [{
+                    "fieldName": "country",
+                    "type": "select"
+                }, {
+                    "fieldName": "states.state",
+                    "type": "select",
+                    "required": true
+                }],
+                "type": {
+                    "type": "select"
+                }
+            },
+            "giftRegistrySearch": {
+                "simple": {
+                    "eventType": {
+                        "type": "select"
+                    }
+                },
+                "advanced": {
+                    "eventMonth": {
+                        "type": "select"
+                    },
+                    "eventYear": {
+                        "type": "select"
+                    },
+                    "eventAddress": [{
+                        "fieldName": "states.state",
+                        "type": "select"
+                    }, {
+                        "fieldName": "country",
+                        "type": "select"
+                    }]
+                }
+            },
+            "expirationInfo": {
+                "year": {
+                    "type": "select",
+                    "rowclass": "year"
+                },
+                "month": {
+                    "type": "select",
+                    "rowclass": "month"
+                }
+            }
+        }
+    },
+    {
+        "countryCode": "SG",
+        "name": {
+            "en_US": "Singapore",
+            "en_GB": "Singapore",
+            "fr_CA": "Singapore",
+            "fr": "Singapore"
+        },
+        "continent": "asia",
+        "locales": ["en_US", "en_GB","fr","fr_CA"],
+        "languages": ["en","fr"],
+        "currencyCode": "SGD",
+        "taxation": {
+            "type": "net"
+        },
+        "priceBooks": [
+            "cad-m-ca-list-prices"
+        ],
+        "dynamicForms": {
+            "addressDetails": {
+                "country": {
+                    "type": "select"
+                },
+                "states": [{
+                    "fieldName": "state",
+                    "type": "select",
+                    "required": true
+                }],
+                "address2": {
+                    "help": {
+                        "cid": "apo-fpo",
+                        "label": {
+                            "property": "singleshipping.apofpo",
+                            "file": "checkout"
+                        }
+                    }
+                },
+                "phone": {
+                    "help": {
+                        "cid": "help-telephone",
+                        "label": {
+                            "property": "singleshipping.phonerequired",
+                            "file": "checkout"
+                        }
+                    }
+                }
+            },
+            "giftRegistryEvent": {
+                "eventaddress": [{
+                    "fieldName": "country",
+                    "type": "select"
+                }, {
+                    "fieldName": "states.state",
+                    "type": "select",
+                    "required": true
+                }],
+                "type": {
+                    "type": "select"
+                }
+            },
+            "giftRegistrySearch": {
+                "simple": {
+                    "eventType": {
+                        "type": "select"
+                    }
+                },
+                "advanced": {
+                    "eventMonth": {
+                        "type": "select"
+                    },
+                    "eventYear": {
+                        "type": "select"
+                    },
+                    "eventAddress": [{
+                        "fieldName": "states.state",
+                        "type": "select"
+                    }, {
+                        "fieldName": "country",
+                        "type": "select"
+                    }]
+                }
+            },
+            "expirationInfo": {
+                "year": {
+                    "type": "select",
+                    "rowclass": "year"
+                },
+                "month": {
+                    "type": "select",
+                    "rowclass": "month"
+                }
+            }
+        }
+    },
+    {
+        "countryCode": "MY",
+        "name": {
+            "en_US": "Malaysia",
+            "en_GB": "Malaysia",
+            "fr_CA": "Malaysia",
+            "fr": "Malaysia"
+        },
+        "continent": "asia",
+        "locales": ["en_US", "en_GB","fr","fr_CA"],
+        "languages": ["en","fr"],
+        "currencyCode": "MYR",
+        "taxation": {
+            "type": "net"
+        },
+        "priceBooks": [
+            "cad-m-ca-list-prices"
+        ],
+        "dynamicForms": {
+            "addressDetails": {
+                "country": {
+                    "type": "select"
+                },
+                "states": [{
+                    "fieldName": "state",
+                    "type": "select",
+                    "required": true
+                }],
+                "address2": {
+                    "help": {
+                        "cid": "apo-fpo",
+                        "label": {
+                            "property": "singleshipping.apofpo",
+                            "file": "checkout"
+                        }
+                    }
+                },
+                "phone": {
+                    "help": {
+                        "cid": "help-telephone",
+                        "label": {
+                            "property": "singleshipping.phonerequired",
+                            "file": "checkout"
+                        }
+                    }
+                }
+            },
+            "giftRegistryEvent": {
+                "eventaddress": [{
+                    "fieldName": "country",
+                    "type": "select"
+                }, {
+                    "fieldName": "states.state",
+                    "type": "select",
+                    "required": true
+                }],
+                "type": {
+                    "type": "select"
+                }
+            },
+            "giftRegistrySearch": {
+                "simple": {
+                    "eventType": {
+                        "type": "select"
+                    }
+                },
+                "advanced": {
+                    "eventMonth": {
+                        "type": "select"
+                    },
+                    "eventYear": {
+                        "type": "select"
+                    },
+                    "eventAddress": [{
+                        "fieldName": "states.state",
+                        "type": "select"
+                    }, {
+                        "fieldName": "country",
+                        "type": "select"
+                    }]
+                }
+            },
+            "expirationInfo": {
+                "year": {
+                    "type": "select",
+                    "rowclass": "year"
+                },
+                "month": {
+                    "type": "select",
+                    "rowclass": "month"
+                }
+            }
+        }
+    },
+    {
+        "countryCode": "AT",
+        "name": {
+            "en_US": "Austria",
+            "en_GB": "Austria",
+            "fr_CA": "Austria",
+            "fr": "Austria"
+        },
+        "continent": "europe",
+        "locales": ["en_US", "en_GB","fr","fr_CA"],
+        "languages": ["en","fr"],
+        "currencyCode": "EUR",
+        "taxation": {
+            "type": "net"
+        },
+        "priceBooks": [
+            "cad-m-ca-list-prices"
+        ],
+        "dynamicForms": {
+            "addressDetails": {
+                "country": {
+                    "type": "select"
+                },
+                "states": [{
+                    "fieldName": "state",
+                    "type": "select",
+                    "required": true
+                }],
+                "address2": {
+                    "help": {
+                        "cid": "apo-fpo",
+                        "label": {
+                            "property": "singleshipping.apofpo",
+                            "file": "checkout"
+                        }
+                    }
+                },
+                "phone": {
+                    "help": {
+                        "cid": "help-telephone",
+                        "label": {
+                            "property": "singleshipping.phonerequired",
+                            "file": "checkout"
+                        }
+                    }
+                }
+            },
+            "giftRegistryEvent": {
+                "eventaddress": [{
+                    "fieldName": "country",
+                    "type": "select"
+                }, {
+                    "fieldName": "states.state",
+                    "type": "select",
+                    "required": true
+                }],
+                "type": {
+                    "type": "select"
+                }
+            },
+            "giftRegistrySearch": {
+                "simple": {
+                    "eventType": {
+                        "type": "select"
+                    }
+                },
+                "advanced": {
+                    "eventMonth": {
+                        "type": "select"
+                    },
+                    "eventYear": {
+                        "type": "select"
+                    },
+                    "eventAddress": [{
+                        "fieldName": "states.state",
+                        "type": "select"
+                    }, {
+                        "fieldName": "country",
+                        "type": "select"
+                    }]
+                }
+            },
+            "expirationInfo": {
+                "year": {
+                    "type": "select",
+                    "rowclass": "year"
+                },
+                "month": {
+                    "type": "select",
+                    "rowclass": "month"
+                }
+            }
+        }
+    },
+    {
+        "countryCode": "MC",
+        "name": {
+            "en_US": "Monaco",
+            "en_GB": "Monaco",
+            "fr_CA": "Monaco",
+            "fr": "Monaco"
+        },
+        "continent": "europe",
+        "locales": ["en_US", "en_GB","fr","fr_CA"],
+        "languages": ["en","fr"],
+        "currencyCode": "EUR",
+        "taxation": {
+            "type": "net"
+        },
+        "priceBooks": [
+            "cad-m-ca-list-prices"
+        ],
+        "dynamicForms": {
+            "addressDetails": {
+                "country": {
+                    "type": "select"
+                },
+                "states": [{
+                    "fieldName": "state",
+                    "type": "select",
+                    "required": true
+                }],
+                "address2": {
+                    "help": {
+                        "cid": "apo-fpo",
+                        "label": {
+                            "property": "singleshipping.apofpo",
+                            "file": "checkout"
+                        }
+                    }
+                },
+                "phone": {
+                    "help": {
+                        "cid": "help-telephone",
+                        "label": {
+                            "property": "singleshipping.phonerequired",
+                            "file": "checkout"
+                        }
+                    }
+                }
+            },
+            "giftRegistryEvent": {
+                "eventaddress": [{
+                    "fieldName": "country",
+                    "type": "select"
+                }, {
+                    "fieldName": "states.state",
+                    "type": "select",
+                    "required": true
+                }],
+                "type": {
+                    "type": "select"
+                }
+            },
+            "giftRegistrySearch": {
+                "simple": {
+                    "eventType": {
+                        "type": "select"
+                    }
+                },
+                "advanced": {
+                    "eventMonth": {
+                        "type": "select"
+                    },
+                    "eventYear": {
+                        "type": "select"
+                    },
+                    "eventAddress": [{
+                        "fieldName": "states.state",
+                        "type": "select"
+                    }, {
+                        "fieldName": "country",
+                        "type": "select"
+                    }]
+                }
+            },
+            "expirationInfo": {
+                "year": {
+                    "type": "select",
+                    "rowclass": "year"
+                },
+                "month": {
+                    "type": "select",
+                    "rowclass": "month"
+                }
+            }
+        }
+    }
 ]

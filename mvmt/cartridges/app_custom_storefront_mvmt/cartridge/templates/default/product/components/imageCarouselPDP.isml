@@ -1,4 +1,4 @@
-<div class="primary-images col-12 col-md-6 col-lg-8">
+<div class="primary-images">
     <div class="product-badges">
       <isinclude template="product/components/newnessBadge"/>
     </div>
@@ -10,7 +10,6 @@
         "asNavFor": ".carousel-pagination",
         "centerMode": true,
         "arrows":false,
-        "dots":false,
         "fade": true,
         responsive: [
           {
@@ -22,7 +21,7 @@
               dots:false
             }
           },
-        ]
+        ],
       }
       <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
     </isscript>
@@ -42,7 +41,7 @@
               </g>
           </svg>
         </div>
-        <div class="zoom-icon">
+        <div class="zoom-icon zoom-in">
           <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="Product-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g id="Zoom---Original" transform="translate(-799.000000, -209.000000)" fill="#2B2B2B">
@@ -66,26 +65,17 @@
             </g>
           </svg>
         </div>
-        <div class="js-carousel main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+        <div class="main-mvmt-carousel">
           <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
-            <div class="carousel-tile">
+            <div class="carousel-tile" data-thumb="${product.images.zoom1660[loopStatus.count-1].url}">
               <img class="normal-zoom" src="${product.images.zoom1660[loopStatus.count-1].url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />
               <isset name="isImageExist" value="true" scope="page" />
             </div>
           </isloop>
         </div>
-        <iscomment>Added pagination slider</iscomment>
-        <div class="carousel-nav carousel-pagination" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
-            <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
-                <div class="carousel-tile">
-                    <picture>
-                        <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                        <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                        <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />
-                        <isset name="isImageExist" value="true" scope="page" />
-                    </picture>
-                </div>
-            </isloop>
+        <iscomment>Added zomm box</iscomment>
+        <div class="zoom-box">
+
         </div>
     </div>
 </div>
