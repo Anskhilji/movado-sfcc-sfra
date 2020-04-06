@@ -1,0 +1,51 @@
+<!--- TEMPLATENAME: headerCountrySelector.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isif condition=${pdict.EswFooterObject.enabledFooterBar && pdict.EswFooterObject.enabledESWModule}>
+
+    <div class="selectors selector-container footerDropdown">
+        		<isif condition=${pdict.EswFooterObject.enabledCountriesInFooter}>
+                    <div class="dropdown esw-country-selector selectCountry" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+				        <span class="btn dropdown-toggle" id="dropdownCountrySelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				            <i class="flag-icon flag-icon-${pdict.EswFooterObject.selectedCountry.toLowerCase()}"></i>
+				            ${pdict.EswFooterObject.selectedCountryName}
+				        </span>
+				        <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
+				           <isloop iterator="${pdict.EswFooterObject.allCountries}" var="object" status="loopStatus">
+				                <a class="dropdown-item selected-link" href="${'#'}" data-country="${object.value}" data-locale="${request.getLocale()}" data-currency="${pdict.EswFooterObject.selectedCurrency}" data-url="${pdict.EswFooterObject.selectorUrl}" >
+				                    <i class="flag-icon flag-icon-${object.value.toLowerCase()}"></i>${object.displayValue}
+				                </a>
+				            </isloop>
+				        </div>
+				    </div>
+            
+                </isif>
+                <isif condition=${pdict.EswFooterObject.enabledLanguagesInFooter}>
+                    
+                    <div class="dropdown esw-country-selector selectLanguage" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+				        <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				            ${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}
+				        </span>
+				        <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
+				           <isloop items="${pdict.EswFooterObject.languages}" var="object" status="loopStatus">
+				                <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswFooterObject.selectedCountry}" data-locale="${object.value}" data-currency="${pdict.EswFooterObject.selectedCurrency}" data-url="${pdict.EswFooterObject.selectorUrl}">${Resource.msg('esw.locale.'+object.value,'esw',null)}</a>
+				            </isloop>
+				        </div>
+				    </div>
+                </isif>
+                
+                <isif condition=${pdict.EswFooterObject.enabledCurrencyInFooter}>
+                   
+                    <div class="dropdown esw-country-selector selectCurrency" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+				        <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				           ${pdict.EswFooterObject.selectedCurrency}
+				        </span>
+				        <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCurrencySelector">
+				            <isloop iterator="${pdict.EswFooterObject.currencies}" var="object" status="loopStatus">
+                                <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswFooterObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswFooterObject.selectorUrl}">${object.value}</a>
+                            </isloop>
+				        </div>
+				    </div>
+                
+                </isif>
+    </div>
+</isif>

@@ -15,7 +15,6 @@
         left: auto;
         background-color: $white;
         border: 0;
-        border-top: rem(1) solid $white-gray;
         height: 100vh;
         position: fixed;
         width: rem(440);
@@ -93,6 +92,8 @@
             .cart-img {
                 float: left;
                 line-height: rem(10);
+                position: relative;
+                top: rem(2);
             }
 
             h4 {
@@ -126,95 +127,11 @@
             }
         }
 
-        .empty-mini-cart-image {
-
-            p {
-                margin-bottom: 0;
-            }
-
-            img {
-                background: transparent;
-                width: rem(150);
-                max-width: rem(150);
-                border-radius: 100%;
-                margin-top: rem(50);
-            }
-        }
-
-        .empty-mini-cart-descriptions {
-            line-height: rem(20);
-            padding-bottom: rem(30);
-
-            p {
-                margin-bottom: 0;
-                font-size: rem(12);
-                text-transform: uppercase;
-                text-align: center;
-                color: $grey7;
-                padding-bottom: 0;
-                letter-spacing: rem(1);
-            }
-
-            .empty-cart-title {
-                font-size: rem(16);
-                text-align: center;
-                padding-top: rem(25);
-                letter-spacing: rem(1.6);
-                color: $black;
-                font-family: $font-bold;
-                font-weight: 500;
-                text-transform: uppercase;
-                font-style: normal;
-            }
-        }
-
-        .empty-mini-cart-urls {
-            padding-left: rem(40);
-            padding-right: rem(40);
-            display: inline-block;
-            width: 100%;
-
-            @include media-breakpoint-down(xss) {
-                padding-left: rem(24);
-                padding-right: rem(24);
-            }
-
-            p {
-                margin-bottom: 0;
-            }
-
-            a {
-                background-color: transparent;
-                font-family: $font-bold;
-                font-weight: 500;
-                text-transform: uppercase;
-                font-style: normal;
-                font-size: rem(11);
-                letter-spacing: rem(1.5);
-                color: $black;
-                border: rem(2) solid $black;
-                margin-bottom: rem(15);
-                width: 48%;
-                max-width: rem(190);
-                height: rem(49);
-                line-height: rem(49);
-                padding: 0;
-                display: inline-block;
-
-                &:hover, &:focus {
-                    background-color: $black;
-                    color: $white;
-                    text-decoration: none;
-                    outline: 0;
-                }
-            }
-        }
-
         .product-summary {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: scroll;
+            overflow: auto;
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
 
@@ -445,6 +362,34 @@
 
             @include media-breakpoint-down(md) {
                 position: relative;
+            }
+
+            .subtotal {
+                position: relative;
+
+                &-payment-summary {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: rem(15) rem(18) rem(15) rem(35);
+                    border-bottom: 1px solid $light-gray4;
+                }
+
+                &-label, &-value {
+                    font-family: $font-book;
+                    letter-spacing: rem(1);
+                    font-weight: 500;
+                    color: $black;
+                    text-transform: uppercase;
+                }
+
+                &-label {
+                    font-size: rem(9);
+                }
+
+                &-total {
+                    font-size: rem(11);
+                }
             }
 
             .cart-checkout-options {
@@ -792,6 +737,93 @@
                 &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
                     box-shadow: none;
                 }
+            }
+        }
+    }
+}
+
+.empty-mini-cart {
+
+    &-image {
+
+        p {
+            margin-bottom: 0;
+        }
+
+        img {
+            background: transparent;
+            width: rem(150);
+            max-width: rem(150);
+            border-radius: 100%;
+            margin-top: rem(50);
+        }
+    }
+
+    &-descriptions {
+        line-height: rem(20);
+        padding-bottom: rem(30);
+
+        p {
+            margin-bottom: 0;
+            font-size: rem(12);
+            text-transform: uppercase;
+            text-align: center;
+            color: $grey7;
+            padding-bottom: 0;
+            letter-spacing: rem(1);
+        }
+
+        .empty-cart-title {
+            font-size: rem(16);
+            text-align: center;
+            padding-top: rem(25);
+            letter-spacing: rem(1.6);
+            color: $black;
+            font-family: $font-bold;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-style: normal;
+        }
+    }
+
+    &-urls {
+        padding-left: rem(40);
+        padding-right: rem(40);
+        display: inline-block;
+        width: 100%;
+
+        @include media-breakpoint-down(xss) {
+            padding-left: rem(24);
+            padding-right: rem(24);
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        a {
+            background-color: transparent;
+            font-family: $font-bold;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-style: normal;
+            font-size: rem(11);
+            letter-spacing: rem(1.5);
+            color: $black;
+            border: rem(2) solid $black;
+            margin-bottom: rem(15);
+            width: 48%;
+            max-width: rem(190);
+            height: rem(49);
+            line-height: rem(49);
+            padding: 0;
+            display: inline-block;
+
+            &:hover, &:focus {
+                background-color: $black;
+                color: $white;
+                text-decoration: none;
+                outline: 0;
             }
         }
     }

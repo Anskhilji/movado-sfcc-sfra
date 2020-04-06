@@ -1,0 +1,211 @@
+.redesign-header {
+
+    .account-wrapper {
+
+        p {
+            margin: 0;
+        }
+
+        .logo-link {
+
+            img {
+                width: rem(130);
+                height: rem(70);
+
+                @include media-breakpoint-up(lg) {
+                    width: rem(170);
+                }
+            }
+        }
+    }
+
+    .mobile-search {
+        background: url("../images/round-search-24px.png") center center no-repeat;
+        border: none;
+        width: rem(20);
+        height: rem(20);
+        margin-left: rem(10);
+        padding: 0;
+    }
+
+    .header-wrapper {
+
+        .right {
+            display: flex;
+            width: 25%;
+            justify-content: flex-end;
+            max-width: rem(400);
+
+            @include media-breakpoint-down(md) {
+                width: 30%;
+            }
+
+            @include media-breakpoint-down(sm) {
+                width: 20%;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .site-search {
+
+                .search-field {
+                    width: 100%;
+                    height: rem(30);
+                    padding: 0 rem(10);
+                    line-height: 21px;
+
+                    &::placeholder {
+                        font-size: rem(10);
+                        color: $dark-gray;
+                    }
+                }
+
+                .fa-search {
+                    right: rem(6.4);
+                    top: 50%;
+                    right: rem(10);
+                    font-size: rem(0);
+                    transform: translateY(-50%);
+                    width: rem(15);
+                    height: rem(15);
+                    background: url("../images/round-search-24px.svg") center center no-repeat;
+                    background-size: contain;
+                }
+            }
+
+            &-icon {
+
+                img {
+                    margin-right: rem(15);
+                    max-width: initial;
+                    @include media-breakpoint-up(lg) {
+                        margin-right: rem(20);
+                    }
+                }
+            }
+        }
+
+        .middle-menu {
+
+            @include media-breakpoint-down(md) {
+                position: relative;
+            }
+        }
+    }
+
+    .minicart {
+
+        a {
+
+            &.minicart-link {
+                display: inline-block;
+
+                img {
+                    max-width: initial;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+
+        .header-wrapper {
+
+            .header-container {
+                height: rem(80);
+            }
+
+            .left {
+                width: 15%;
+            }
+
+            .middle-menu {
+                width: 60%;
+            }
+
+            .navbar {
+                height: rem(80);
+                width: 100%;
+                position: static;
+            }
+        }
+
+        .sticky-header-wrapper {
+            height: rem(80);
+        }
+
+        &-container {
+                margin: 0;
+                max-width: 100%;
+
+            &-menu {
+                width: 100%;
+
+                &-group {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+
+            .navbar-expand-lg {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .header-menu-wrapper {
+        padding: 0;
+        box-shadow: rem(1) rem(2) rem(5) 0 $grey-transparent-7;
+    }
+
+    .left {
+
+        button {
+
+            .menu-icon {
+                background: url("../images/round-menu-24px.png") center center no-repeat;
+                top: rem(3);
+            }
+        }
+    }
+
+    .navbar-header {
+        @include media-breakpoint-down(md) {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.header-banner {
+
+    .html-slot-container {
+        color: $black;
+        font-family: $font-gill-std;
+        font-size: rem(14);
+        font-weight: 600;
+
+        @include media-breakpoint-down(sm) {
+            font-size: rem(12);
+        }
+    }
+}
+
+.checkout-header {
+
+    .minicart-link {
+        display: inline-block;
+    }
+}
+
+.menu-icon-ob-redesign {
+    background: 0 50% no-repeat;
+    width: rem(20);
+    height: rem(20);
+    display: inline-block;
+    margin-right: rem(3);
+    position: relative;
+    top: rem(3);
+}

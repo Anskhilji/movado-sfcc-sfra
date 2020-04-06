@@ -7,6 +7,9 @@
     <isset name="shippingAddress" value="${{}}" scope="page" />
 </isif>
 
+<iscomment> Custom Start: Add Amazon Pay Integeration and make fields read only if it returns from Amazon</iscomment>
+<isset name="isAmazonPay" value="${!empty(pdict.order.amzPayRedirectURL)}" scope="page" />
+
 <div class="row">
     <div class="col-sm-6 field-left">
         <div class="form-group
@@ -15,7 +18,7 @@
             <label class="form-control-label" for="shippingFirstName"  >
                 <isprint value="${addressFields.firstName.label}" encoding="htmlcontent" />
             </label>
-            <input autofocus type="text" class="form-control shippingFirstName" id="shippingFirstName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> autofocus type="text" class="form-control shippingFirstName" id="shippingFirstName"
                 value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
                 autocomplete="shipping given-name" >
             <div class="invalid-feedback"><isprint value="${addressFields.firstName.error}" ></div>
@@ -28,13 +31,44 @@
             <label class="form-control-label" for="shippingLastName">
                 <isprint value="${addressFields.lastName.label}" encoding="htmlcontent" />
             </label>
-            <input type="text" class="form-control shippingLastName" id="shippingLastName"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingLastName" id="shippingLastName"
                 value="${shippingAddress.lastName||''}" <isprint value="${addressFields.lastName.attributes}" encoding="off"/>
                 autocomplete="shipping family-name">
             <div class="invalid-feedback"><isprint value="${addressFields.lastName.error}" ></div>
         </div>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="form-group
+        <isif condition=${addressFields.email.mandatory === true}>required</isif>
+        ${addressFields.email.htmlName}">
+            <label class="form-control-label" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
+            <span class="info-icon">
+                <span class="icon">i</span>
+                <div class="tooltip">
+                    ${Resource.msg('tooltip.email','creditCard',null)}
+                </div>
+            </span>
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control email shipping-email" id="email" value="${pdict.customerEmail ? pdict.customerEmail : (pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
+                <isprint value="${addressFields.email.attributes}" encoding="off" />> 
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
+        <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
+        <label class="form-control-label text-transform-reset" for="subscribeToMovado">
+            ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
+            <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
+                ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
+            </a>
+        </label>
+    </div>
+</div>
+
 
 <div class="row">
 	<div class="col-sm-12">
@@ -64,7 +98,7 @@
                     <iscontentasset aid="calloutMsgAddress1"/>
                 </isif>
             </label>
-            <span><input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
+            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
@@ -84,7 +118,7 @@
                     <iscontentasset aid="calloutMsgAddress2"/>
                 </isif>
             </label>
-            <input type="text" class="form-control shippingAddressTwo" id="shippingAddressTwo"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingAddressTwo" id="shippingAddressTwo"
                 value="${shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
             <div class="invalid-feedback"><isprint value="${addressFields.address2.error}" ></div>
@@ -101,7 +135,7 @@
             <label class="form-control-label" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
-            <select class="form-control shippingCountry custom-select" id="shippingCountry"
+            <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingCountry custom-select" id="shippingCountry"
                 <isprint value=${addressFields.country.attributes} encoding="off"/>
                 autocomplete="shipping country">
                     <isloop items=${addressFields.country.options} var="country">
@@ -119,14 +153,11 @@
             <label class="form-control-label" for="shippingState">
                 <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
             </label>
-            <select class="form-control shippingState custom-select" id="shippingState"
-                <isprint value=${addressFields.states.stateCode.attributes} encoding="off"/>
+            <input <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingState" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
+                value="${shippingAddress.stateCode||''}"
+                <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
                 autocomplete="shipping address-level1">
-                <isloop items=${addressFields.states.stateCode.options} var="state">
-                    <option id="${state.id}" value="${state.htmlValue}" ${state.id===shippingAddress.stateCode ? 'selected' : ''}>${state.label || ' '}</option>
-                </isloop>
-            </select>
-            <i class="fa fa-angle-down"></i>
+            </input>
             <div class="invalid-feedback"><isprint value="${addressFields.states.stateCode.error}" ></div>
         </div>
     </div>
@@ -140,7 +171,7 @@
             <label class="form-control-label" for="shippingAddressCity">
                 <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
             </label>
-            <input type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
                 value="${shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
             <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
@@ -156,7 +187,7 @@
                     <iscontentasset aid="calloutMsgPostalCode"/>
                 </isif>
             </label>
-            <input type="text" class="form-control shippingZipCode" id="shippingZipCode"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingZipCode" id="shippingZipCode"
                 value="${shippingAddress.postalCode||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
                 autocomplete="shipping postal-code">
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
@@ -175,7 +206,7 @@
                     <iscontentasset aid="calloutMsgMobileNumber"/>
                 </isif>
             </label>
-            <input type="tel" class="form-control shippingPhoneNumber" id="shippingPhoneNumber"
+            <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control shippingPhoneNumber" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
                    autocomplete="tel">
             <div class="invalid-feedback"><isprint value="${addressFields.phone.error}" ></div>
@@ -201,5 +232,5 @@
 		</div>
 	</div>
 </isif>
-
+<iscomment> Custom End </iscomment>
 <input type="hidden" class="form-control shippingAddressId" id="shippingAddressId" value="" <isprint value="${addressFields.shippingAddressId.attributes}" encoding="off">>

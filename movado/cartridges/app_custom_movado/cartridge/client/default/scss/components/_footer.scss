@@ -6,6 +6,64 @@ footer {
     color:$light-black;
     line-height: rem(25);
 
+    .store {
+
+        .selectors {
+            width: auto;
+
+            &.footerDropdown {
+                width: auto;
+                margin: 0;
+                display: block;
+
+                .dropdown {
+                    width: auto;
+                    display: block;
+
+                    @include media-breakpoint-down(xs) {
+                        border-bottom: rem(1) solid $grey10;
+                    }
+
+                    &-toggle {
+                        padding: rem(6) 0;
+
+                        @include media-breakpoint-down(xs) {
+                            width: 100%;
+                            text-align: left;
+                            line-height: rem(24);
+
+                            &::after {
+                                content: "\F107";
+                                font-size: rem(25);
+                                font-family: "FontAwesome";
+                                border: 0;
+                                float: right;
+                                margin-left: 0;
+                                vertical-align: 0;
+                                margin-right: rem(16);
+                            }
+                        }
+                    }
+
+                    &-menu {
+                        overflow-y: auto;
+                    }
+
+                    &.selectCurrency {
+
+                        .dropdown {
+
+                            &-menu {
+                                max-height: rem(128);
+                                overflow-y: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     h3 {
         font-size: rem(14);
         margin-bottom: 0;

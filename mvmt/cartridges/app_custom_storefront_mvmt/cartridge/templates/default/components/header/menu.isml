@@ -1,14 +1,4 @@
 <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
-  <div class="close-menu clearfix hidden-lg-up">
-    <a class="back" href="${'#'}" role="button">
-      <span class="caret-left"></span>
-      ${Resource.msg('link.header.menu.back', 'common', null)}
-    </a>
-    <a class="close-button" href="${'#'}" role="button">
-      ${Resource.msg('link.header.menu.close', 'common', null)}
-      <span class="close-icon"></span>
-    </a>
-  </div>
   <div class="menu-group" aria-label="Main menu" role="navigation">
     <ul class="nav navbar-nav" role="menu">
       <isif condition="${pdict.categories}">
@@ -33,6 +23,7 @@
           </isif>
         </isloop>
       </isif>
+
       <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
@@ -77,7 +68,7 @@
                 <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
                   <li class="menu-list-item">
                     <a href="${thirdLevelCategory.url}" class="menu-item-link">
-                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'd-none' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL}" title="${thirdLevelCategory.name}" />
+                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL}" title="${thirdLevelCategory.name}" />
                       <span>${thirdLevelCategory.name}</span>
                     </a>
                   </li>

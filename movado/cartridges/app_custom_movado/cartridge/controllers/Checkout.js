@@ -19,6 +19,16 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
+        // Custom Start: Adding ESW cartridge integration 
+        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var session = req.session.raw;
+        if (isEswEnabled) {
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
+                res.redirect(URLUtils.https('Cart-Show').toString());
+            }
+        }
+        // Custom End
+
         if (currentBasket && !req.currentCustomer.profile) {
 			var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
             var googleOauthProvider = Site.getCurrent().getCustomPreferenceValue('googleOauthProvider');
@@ -45,6 +55,25 @@ server.append(
         var actionUrls = viewData.order.checkoutCouponUrls;
         var totals = viewData.order.totals;
 
+        // Custom Start: Adding ESW cartridge integration 
+        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var session = req.session.raw;
+        if (isEswEnabled) {
+            var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+            var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
+                eswServiceHelper.failOrder();
+            }
+
+            if (eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)) {
+                session.privacy.guestCheckout = true;
+                var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
+                preOrderrequestHelper.preOrderRequest(req, res);
+                return next();
+            }
+        }
+        // Custom End
+
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         	var userTracking;
             if (viewData.customer.profile) {
@@ -55,9 +84,11 @@ server.append(
             res.setViewData({userTracking: JSON.stringify(userTracking)});
         }
 
+        // Custom Start: Add email for Amazon Pay
         res.setViewData({
             actionUrls: actionUrls,
-            totals: totals
+            totals: totals,
+            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null
         });
 
         next();

@@ -3,11 +3,11 @@
 @import '../components/formFields';
 
 .account-pages {
+    margin: rem(20px) auto;
+    padding: 0;
 
-    &.container {
+    &.dashboard {
         max-width: rem(1000);
-        margin: rem(20px) auto;
-        padding: 0;
     }
 
     .account-heading {
@@ -111,4 +111,13 @@
 .order-list-card {
     padding-left: rem(15);
     padding-right: rem(15);
+}
+
+.earn-more-btn, .get-reward-btn {
+    background: transparent;
+    border: rem(1) solid $black;
+    color: $black;
+    font-size: rem(10.8);
+    height: rem(45);
+    white-space: nowrap;
 }

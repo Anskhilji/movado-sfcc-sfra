@@ -84,16 +84,16 @@
             margin-right: 0;
         }
 
-        &:hover {
-            transform: translateY(-15px);
-        }
-
         @include media-breakpoint-up(sm) {
             margin: 0 rem(25);
         }
 
         @include media-breakpoint-up(lg) {
             margin: 0 rem(50);
+
+            &:hover {
+                transform: translateY(-15px);
+            }
         }
 
         &-label {
@@ -220,7 +220,6 @@
     max-width: $container-max-width;
     margin: 0 auto;
     list-style: none;
-    margin: 0 0 rem(20);
     overflow: hidden;
     box-sizing: border-box;
 
@@ -234,11 +233,13 @@
 
     li {
         width: 50%;
+        margin: 0 0 rem(20);
+        padding: rem(3) rem(4) 0;
 
         @include media-breakpoint-up(sm) {
             width: 25%;
             flex-basis: 33%;
-            padding: rem(5) rem(5) 0;
+            padding: rem(5) rem(15) 0;
         }
 
         @include media-breakpoint-up(lg) {

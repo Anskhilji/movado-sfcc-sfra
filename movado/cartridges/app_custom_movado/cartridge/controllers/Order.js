@@ -7,6 +7,7 @@ var ProductMgr = require('dw/catalog/ProductMgr')
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Promotion = require('dw/campaign/Promotion');
 var Money = require('dw/value/Money');
+var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -17,11 +18,15 @@ server.replace(
     server.middleware.https,
     csrfProtection.generateToken,
     function (req, res, next) {
-        var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-        var OrderMgr = require('dw/order/OrderMgr');
-        var OrderModel = require('*/cartridge/models/order');
+        var ABTestMgr = require('dw/campaign/ABTestMgr');
         var Locale = require('dw/util/Locale');
+        var OrderMgr = require('dw/order/OrderMgr');
+        var Transaction = require('dw/system/Transaction');
 
+        var OrderModel = require('*/cartridge/models/order');
+        var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
+
+        var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
 
@@ -56,6 +61,23 @@ server.replace(
         var passwordForm;
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
+        var abTestParticipationSegments = '';
+        var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
+        while (assignedTestSegmentsIterator.hasNext()) {
+            abTestSegment = assignedTestSegmentsIterator.next();
+            if (abTestParticipationSegments == '') {
+                abTestParticipationSegments = abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
+            } else {
+                abTestParticipationSegments = abTestParticipationSegments + ', ' + abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
+            }
+        }
+
+        // Save test segments in order custom attribute
+        if (!empty(abTestParticipationSegments)) {
+            Transaction.wrap(function () {
+                order.custom.abTestParticipationSegment = abTestParticipationSegments;
+            });
+        }
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
@@ -89,6 +111,7 @@ server.append('Confirm', function (req, res, next) {
     var productLineItem;
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+    var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -183,6 +206,10 @@ server.append('Confirm', function (req, res, next) {
     }
 
     viewData.checkoutPage = true;
+    if (viewData.order) {
+        var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);
+        viewData.selectedPaymentMethod = selectedPaymentMethod;
+    }
     res.setViewData(viewData);
     next();
 });

@@ -1,32 +1,85 @@
 <span>
+    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
     <isset name="finalOrigPrice" value="${price}" scope="page" />
-
-    <isif condition="${finalOrigPrice.list !== null}">
-    <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
-        <isset name="price" value="${finalOrigPrice.list}" scope="page" />
-        <meta itemprop="priceCurrency" content="${price.currency}" />
-        <span class="strike-through list">
-            <span class="value" itemprop="price" content="${price.decimalPrice}">
-                <isinclude template="/product/components/pricing/formatted" />
-            </span>
-        </span>
+    <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
+    <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+    <isif condition="${isEswEnabled}" >
+        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+        <isif condition="${empty(pdict.product)}"> 
+            <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(lineItem)}" scope="page" />
+        <iselse>
+            <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
         </isif>
     </isif>
+    <iscomment> Custom End </iscomment>
 
-    <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+    <isif condition="${finalOrigPrice.list !== null}">
+        <iscomment> Custom Start: Adding ESW cartridge Integeration </iscomment>
+        <isif condition="${isEswEnabled}" >
+            <isif condition="${!empty(matchingLineItem)}">
+                <isset name="price" value="${finalOrigPrice.list.decimalPrice}" scope="page" />
+            <iselse>
+                <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+            </isif>
+            <meta itemprop="priceCurrency" content="${finalOrigPrice.list.currency}" />
+            <span class="strike-through list">
+                <span class="value" itemprop="price" content="${price.decimalPrice}">
+                    <isinclude template="/product/components/pricing/formatted" />
+                </span>
+            </span>
+        <iselse>
+            <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
+                <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+                <meta itemprop="priceCurrency" content="${price.currency}" />
+                <span class="strike-through list">
+                    <span class="value" itemprop="price" content="${price.decimalPrice}">
+                        <isinclude template="/product/components/pricing/formatted" />
+                    </span>
+                </span>
+            </isif>
+        </isif>
+        <iscomment> Custom End </iscomment>
+    </isif>
+
+    <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+    <isif condition="${isEswEnabled}" >
+        <isif condition="${!empty(matchingLineItem)}">
+            <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
+        <iselse>
+            <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+        </isif>
+    </isif>
+    <iscomment> Custom End </iscomment>
+
     <isif condition="${!('display' in pdict && 'showPrice' in pdict.display && pdict.display.showPrice == false)}">
-        <meta itemprop="priceCurrency" content="${price.currency}" />
         <span class="sales">
-            <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
-            </isif>
-            <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
-            </isif>
-            <isif condition="${isLowPrice == null}">
-                <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+            <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+            <isif condition="${isEswEnabled}" >
+                <meta itemprop="priceCurrency" content="${finalOrigPrice.sales.currency}" />
+                <isif condition="${isLowPrice == 'range-low'}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == 'range-high'}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == null}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                </isif>
+            <iselse>
+                <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+                <meta itemprop="priceCurrency" content="${price.currency}" />
+                <isif condition="${isLowPrice == 'range-low'}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == 'range-high'}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                </isif>
+                <isif condition="${isLowPrice == null}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                </isif>
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
+            <iscomment> Custom End </iscomment>
         </span>
     </isif>
 </span>
