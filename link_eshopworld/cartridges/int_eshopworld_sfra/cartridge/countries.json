@@ -1557,9 +1557,9 @@
         "countryCode": "CH",
         "name": {
             "en_US": "Switzerland",
-            "fr_CH": "Switzerland",
-            "de_CH": "Switzerland",
-            "it_CH": "Switzerland"
+            "en_GB": "Switzerland",
+            "fr_CA": "Switzerland",
+            "fr": "Switzerland"
         },
         "continent": "europe",
         "locales": ["en_US", "en_GB","fr","fr_CA"],
@@ -1651,8 +1651,9 @@
         "countryCode": "SG",
         "name": {
             "en_US": "Singapore",
-            "zh_SG": "Singapore",
-            "en_SG": "Singapore"
+            "en_GB": "Singapore",
+            "fr_CA": "Singapore",
+            "fr": "Singapore"
         },
         "continent": "asia",
         "locales": ["en_US", "en_GB","fr","fr_CA"],
@@ -1744,7 +1745,9 @@
         "countryCode": "MY",
         "name": {
             "en_US": "Malaysia",
-            "ms_MY": "Malaysia"
+            "en_GB": "Malaysia",
+            "fr_CA": "Malaysia",
+            "fr": "Malaysia"
         },
         "continent": "asia",
         "locales": ["en_US", "en_GB","fr","fr_CA"],
@@ -1836,7 +1839,9 @@
         "countryCode": "AT",
         "name": {
             "en_US": "Austria",
-            "de_AT": "Austria"
+            "en_GB": "Austria",
+            "fr_CA": "Austria",
+            "fr": "Austria"
         },
         "continent": "europe",
         "locales": ["en_US", "en_GB","fr","fr_CA"],
@@ -1927,7 +1932,10 @@
     {
         "countryCode": "MC",
         "name": {
-            "en_US": "Monaco"
+            "en_US": "Monaco",
+            "en_GB": "Monaco",
+            "fr_CA": "Monaco",
+            "fr": "Monaco"
         },
         "continent": "europe",
         "locales": ["en_US", "en_GB","fr","fr_CA"],
