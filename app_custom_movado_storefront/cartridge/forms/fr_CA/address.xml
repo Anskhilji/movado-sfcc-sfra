@@ -49,10 +49,10 @@
        regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"/>
     <!--  postal code -->
-    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
-           regexp="(^([A-PR-UWYZa-pr-uwyz0-9][A-HK-Ya-hk-y0-9][AEHMNPRTVXYaehmnprtvxy0-9]?[ABEHMNPRVWXYabehmnprvwxy0-9]? ?[0-9][ABD-HJLN-UW-Zabd-hjln-uw-z]{2}|GIR 0AA|gir 0aa)$)"
+    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="7"
+           regexp="(^\d{5}(-\d{4})?$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)"
            binding="postalCode"
-           range-error="error.message.between5and10"
+           range-error="error.message.between5and7"
            missing-error="error.message.required"
            parse-error="error.message.parse.zip"/>
 
@@ -60,7 +60,7 @@
     <field formid="country" label="label.input.country" type="string" mandatory="true" binding="countryCode"
            missing-error="error.message.required">
         <options>
-            <option optionid="GB" label="select.option.country.unitedkingdom" value="GB"/>
+            <option optionid="CA" label="select.option.country.canada" value="CA"/>
         </options>
     </field>
 
@@ -69,11 +69,11 @@
 
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
-           binding="phone" min-length="10" max-length="20"
+           binding="phone" min-length="8" max-length="20"
            missing-error="error.message.required"
-           range-error="error.message.between10and20"
+           range-error="error.message.between8and20"
            parse-error="error.message.parse.phone"
-           regexp="(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)" />
+           regexp="(^[0-9\\s-]+$)" />
 
     <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
     <field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>

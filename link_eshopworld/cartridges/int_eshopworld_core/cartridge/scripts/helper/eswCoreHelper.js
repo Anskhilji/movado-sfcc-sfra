@@ -586,6 +586,9 @@ var getEswHelper = {
      * This function is used to get locale name
      */
     getNameFromLocale: function (language) {
+        //Adding esw helper variable
+        var eswHelper = this;
+
         var localeCountry = this.getAllCountryFromCountryJson(this.getAvailableCountry());
         var cookieCountry = this.getAvailableCountry();
         var allESWCountryName = this.getAllCountries().filter(function (value) {
