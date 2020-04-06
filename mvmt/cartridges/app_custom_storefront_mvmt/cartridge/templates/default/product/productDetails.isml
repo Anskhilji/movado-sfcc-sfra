@@ -64,6 +64,9 @@
                 <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-md-6 col-lg-4 product-side-details">
+                    <div class="product-brand-info">
+                        <span>${product.brand}</span>
+                    </div>
                     <isif condition="${!product.available}">
                         <div class="product-tag-wrapper">
                             <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
