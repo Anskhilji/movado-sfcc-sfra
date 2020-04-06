@@ -13,6 +13,23 @@ var page = module.superModule;
 server.extend(page);
 
 /**
+ * Find route : Searches for stores calling getStores method from storeHelpers using the geo location.
+ * It renders the storelocator.
+ */
+server.append('Find', function (req, res, next) {
+
+    var viewData = res.getViewData();
+
+    viewData = {
+        findPage: true
+    };
+
+    res.setViewData(viewData);
+    res.render('storeLocator/storeLocator', viewData);
+    next();
+});
+
+/**
  * FindStores route : Searches for stores calling getStores method from storeHelpers
  * using the longitude & latitude returned by the Google GeoCode API.
  * It returns the store data as JSON.
@@ -22,6 +39,8 @@ server.replace('FindStores', function (req, res, next) {
     var showMap = req.querystring.showMap;
     var queryCountryCode = req.querystring.countryCode;
     var queryAddress = req.querystring.address;
+    var viewData = res.getViewData();
+
     var stores = null;
     var status = null;
 
@@ -67,6 +86,12 @@ server.replace('FindStores', function (req, res, next) {
         stores = storeHelpers.getStores(radius, req.querystring.lat, req.querystring.long, req.geolocation, null, showMap, null, status);
         res.json(stores);
     }
+
+    viewData = {
+        findPage: false
+    };
+
+    res.setViewData(viewData);
     next();
 });
 

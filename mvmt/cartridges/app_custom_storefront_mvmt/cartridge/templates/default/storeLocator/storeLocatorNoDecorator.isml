@@ -4,7 +4,9 @@
         <div class="col-sm-12 d-flex flex-column order-2 order-md-0">
             <div class="card search-form">
                 <isinclude template="storeLocator/storeLocatorFields" />
-                <p class="text-center store-locator-no-results">${Resource.msg('error.no.results','storeLocator',null)}</p>
+                <isif condition="${pdict.findPage == 'false' && pdict.stores.stores.length <= 0}" > 
+                    <p class="text-center store-locator-no-results">${Resource.msg('error.no.results','storeLocator',null)}</p>
+                </isif>
             </div>
         </div>
         <div class="col-md-4 order-3 order-md-1 pl-lg-5">
