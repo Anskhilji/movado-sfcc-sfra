@@ -173,7 +173,7 @@
       display: block !important;
     }
 
-    .add-to-cart {
+    .add-to-cart, .add-to-cart-mvmt {
       background: $white;
       text-transform: uppercase;
       font-size: rem(11);
@@ -924,7 +924,7 @@
     .cart-and-ipay {
         display: block !important;
 
-        .add-to-cart {
+        .add-to-cart, .add-to-cart-mvmt {
             display: inline-block;
             text-align: center;
             text-transform: uppercase;

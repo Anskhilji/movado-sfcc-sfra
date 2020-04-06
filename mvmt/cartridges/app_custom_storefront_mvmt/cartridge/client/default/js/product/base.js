@@ -727,8 +727,8 @@ $(document).off('click').on('click', selector, function (e) {
 $('#strapguide').on('click', function (e) {
     $('#strapguid').modal();
 });
-
-$(document).off('click.add-to-cart-mvmt').on('click.add-to-cart-mvmt', 'button.add-to-cart-mvmt, button.add-to-cart-global', function (e) {
+$('button.add-to-cart', 'click.add-to-cart').off();
+$(document).off('click.add-to-cart').on('click.add-to-cart-mvmt', 'button.add-to-cart-mvmt, button.add-to-cart-global', function (e) {
     e.preventDefault();
     var addToCartUrl;
     var pid;
@@ -804,5 +804,6 @@ $(document).off('click.add-to-cart-mvmt').on('click.add-to-cart-mvmt', 'button.a
     }
     addVariationProductToCart(addToCartUrl);
 });
+
 
 
