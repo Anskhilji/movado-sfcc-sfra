@@ -35,7 +35,7 @@ var TWO_DECIMAL_PLACES = 2;
 var ORDER_EXPORT_STATUS = '2';
 var DATE_FORMAT = 'yyyyMMdd';
 var TIME_FORMAT = 'yyyyMMddhhmmss';
-var BILLINGCURRENCY = Site.current.getID() == 'OliviaBurtonUK' ? 'GBP' : 'USD';
+//var BILLINGCURRENCY = Site.current.getID() == 'OliviaBurtonUK' ? 'GBP' : 'USD';
 var FIXEDFREIGHT = 'FIXEDFREIGHT';
 
 var orderFailedArray = new ArrayList();
@@ -1434,6 +1434,425 @@ function isShippingCharged(order) {
 }
 
 /**
+* To check if order is cross border send vat entity
+* @param {String} eswOrderNo or null.
+* @returns {string} vat entity amount or null
+*/
+function getVatEntity(eswOrderNo) {
+    var vatEntity = eswOrderNo ? Site.getCurrent().getCustomPreferenceValue('vatEntity') : '';
+    return vatEntity;
+}
+
+/**
+* To check if order is cross border send shipping cost
+* @param {String} eswOrderNo or null.
+* @returns {Decimal} shipping cost
+*/
+function getShippingCost(eswOrderNo) {
+    var shippingCost = eswOrderNo ? Site.getCurrent().getCustomPreferenceValue('shippingCost') : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return shippingCost;
+}
+
+/**
+* To get billing currency from order
+* @param {Order} order Order container.
+* @returns {String} billing currency
+*/
+function getBillingCurrency(order) {
+    var billingCurrency = !empty(order.custom.eswRetailerCurrencyCode) ? order.custom.eswRetailerCurrencyCode
+            : order.getCurrencyCode();
+    return billingCurrency;
+}
+
+/**
+* get commercial entity of an order
+* @param {String} eswOrderNo or null.
+* @returns {String} ESW or null
+*/
+function getCommercialEntity(eswOrderNo) {
+    var commercialEntity = eswOrderNo ? 'ESW' : '';
+    return commercialEntity;
+}
+
+/**
+* get consumer exchange rate of an order
+* @param {Order} order Order container.
+* @returns {Number} consumer exchange rate
+*/
+function getConsumerExchangeRate(order) {
+    var consumerExchangeRate = !empty(order.custom.eswFxrate) ? order.custom.eswFxrate 
+            : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return consumerExchangeRate;
+}
+
+/**
+* To get billing currency from order
+* @param {Order} order Order container.
+* @returns {String} billing currency
+*/
+function getConsumerCurrency(order) {
+    var consumerCurrency = !empty(order.custom.eswShopperCurrencyCode) ? order.custom.eswShopperCurrencyCode
+            : order.getCurrencyCode();
+    return consumerCurrency;
+}
+
+/**
+* get sub total of an order
+* @param {Order} order Order container.
+* @returns {Number} sub total
+*/
+function getSubTotal(order) {
+    var subTotal = !empty(order.custom.eswRetailerCurrencyTotal)? order.custom.eswRetailerCurrencyTotal
+            : (order.adjustedMerchandizeTotalPrice.value + order.adjustedShippingTotalPrice.value);
+    return parseFloat(subTotal).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* get total tax of an order
+* @param {Order} order Order container.
+* @returns {Number} total tax
+*/
+function getTotalTax(order) {
+    var totalTax;
+    if (!empty(order.custom.eswRetailerCurrencyDeliveryTaxes) || !empty(order.custom.eswRetailerCurrencyTaxes) 
+            || !empty(order.custom.eswRetailerCurrencyOtherTaxes)) {
+        var eswRetailerCurrencyDeliveryTaxes = !empty(order.custom.eswRetailerCurrencyDeliveryTaxes) ? 
+                order.custom.eswRetailerCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyTaxes = !empty(order.custom.eswRetailerCurrencyTaxes) ?
+                order.custom.eswRetailerCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyOtherTaxes = !empty(order.custom.eswRetailerCurrencyOtherTaxes) ?
+                order.custom.eswRetailerCurrencyOtherTaxes :  parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        totalTax = eswRetailerCurrencyDeliveryTaxes + eswRetailerCurrencyTaxes + eswRetailerCurrencyOtherTaxes;
+    } else {
+        totalTax = order.getTotalTax();
+    }
+    return parseFloat(totalTax).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* get net amount of an order
+* @param {Order} order Order container.
+* @returns {Number} net amount
+*/
+function getNetAmount(order) {
+    var netAmount = !empty(order.custom.eswRetailerCurrencyTotal)? order.custom.eswRetailerCurrencyTotal
+            : order.getTotalGrossPrice();
+    return parseFloat(netAmount).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* get auth amount of an order
+* @param {Order} order Order container.
+* @returns {Number} total tax
+*/
+function getAuthAmount(order) {
+    var authAmount;
+    if (!empty(order.custom.eswRetailerCurrencyTotal) || !empty(order.custom.eswRetailerCurrencyDelivery)
+            || !empty(order.custom.eswRetailerCurrencyDeliveryDuty) || !empty(order.custom.eswRetailerCurrencyDeliveryTaxes)
+            || !empty(order.custom.eswRetailerCurrencyTaxes) || !empty(order.custom.eswRetailerCurrencyOtherTaxes)
+            || !empty(order.custom.eswRetailerCurrencyAdministration) || !empty(order.custom.eswRetailerCurrencyDuty)
+            || !empty(order.custom.eswRetailerCurrencyUplift)) {
+        var eswRetailerCurrencyTotal = !empty(order.custom.eswRetailerCurrencyTotal) ?
+                order.custom.eswRetailerCurrencyTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDelivery = !empty(order.custom.eswRetailerCurrencyDelivery) ?
+                order.custom.eswRetailerCurrencyDelivery : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDeliveryDuty = !empty(order.custom.eswRetailerCurrencyDeliveryDuty) ?
+                order.custom.eswRetailerCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDeliveryTaxes = !empty(order.custom.eswRetailerCurrencyDeliveryTaxes) ?
+                order.custom.eswRetailerCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyTaxes = !empty(order.custom.eswRetailerCurrencyTaxes) ?
+                order.custom.eswRetailerCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyOtherTaxes = !empty(order.custom.eswRetailerCurrencyOtherTaxes) ?
+                order.custom.eswRetailerCurrencyOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyAdministration = !empty(order.custom.eswRetailerCurrencyAdministration) ?
+                order.custom.eswRetailerCurrencyAdministration : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDuty = !empty(order.custom.eswRetailerCurrencyDuty) ?
+                order.custom.eswRetailerCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyUplift = !empty(order.custom.eswRetailerCurrencyUplift) ?
+                order.custom.eswRetailerCurrencyUplift : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        authAmount = eswRetailerCurrencyTotal + eswRetailerCurrencyDelivery + eswRetailerCurrencyDeliveryDuty
+                   + eswRetailerCurrencyDeliveryTaxes + eswRetailerCurrencyTaxes + eswRetailerCurrencyOtherTaxes
+                   + eswRetailerCurrencyAdministration + eswRetailerCurrencyDuty + eswRetailerCurrencyUplift;
+    } else {
+        authAmount = order.getTotalGrossPrice();
+    }
+    return parseFloat(authAmount).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* get total duty amount of an order
+* @param {Order} order Order container.
+* @returns {Number} total duty amount
+*/
+function getTotalDutyAmount(order) {
+    var totalDutyAmount;
+    if (!empty(order.custom.eswRetailerCurrencyDeliveryDuty) || !empty(order.custom.eswRetailerCurrencyDuty)) {
+        var eswRetailerCurrencyDeliveryDuty = !empty(order.custom.eswRetailerCurrencyDeliveryDuty) 
+                ? order.custom.eswRetailerCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDuty = !empty(order.custom.eswRetailerCurrencyDuty)
+                ? order.custom.eswRetailerCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        totalDutyAmount = parseFloat(eswRetailerCurrencyDeliveryDuty + eswRetailerCurrencyDuty).toFixed(TWO_DECIMAL_PLACES);
+    } else {
+        totalDutyAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    }
+    return totalDutyAmount;
+}
+
+/**
+* get total duty amount of an order
+* @param {Order} order Order container.
+* @returns {Number} total duty amount
+*/
+function getTotalDutyAmount(order) {
+    var totalDutyAmount;
+    if (!empty(order.custom.eswRetailerCurrencyDeliveryDuty) || !empty(order.custom.eswRetailerCurrencyDuty)) {
+        var eswRetailerCurrencyDeliveryDuty = !empty(order.custom.eswRetailerCurrencyDeliveryDuty) 
+                ? order.custom.eswRetailerCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswRetailerCurrencyDuty = !empty(order.custom.eswRetailerCurrencyDuty)
+                ? order.custom.eswRetailerCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        totalDutyAmount = parseFloat(eswRetailerCurrencyDeliveryDuty + eswRetailerCurrencyDuty).toFixed(TWO_DECIMAL_PLACES);
+    } else {
+        totalDutyAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    }
+    return totalDutyAmount;
+}
+
+/**
+* To find if the shipping is charged by MGI
+* @param {Order} order Order container.
+* @returns {string} Y or N value
+*/
+function isShippingChargedByMGI(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'N';
+    }
+    return 'Y';
+}
+
+/**
+* To find if duty is charge by MGI
+* @param {Order} order Order container.
+* @returns {string} Y or N value
+*/
+function isDutyByMGI(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'N';
+    }
+    return 'Y';
+}
+
+/**
+* To find if duty is charge by MGI
+* @param {Order} order Order container.
+* @returns {string} Y or N value
+*/
+function isInsuranceByMGI(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'N';
+    }
+    return 'Y';
+}
+
+/**
+* To find if consumer tax by MGI
+* @param {Order} order Order container.
+* @returns {string} Y or N value
+*/
+function isConsumerTaxByMGI(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'Y';
+    }
+    return 'N';
+}
+
+/**
+* To find if total consumer tax by MGI
+* @param {Order} order Order container.
+* @returns {string} Y or N value
+*/
+function isTotalConsumerTaxByMGI(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'Y';
+    }
+    return 'N';
+}
+
+/**
+* To get the duty amount
+* @param {Order} order Order container.
+* @returns {Number} total duty amount
+*/
+function getDutyAmount(order) {
+    var eswRetailerCurrencyItemDeliveryDuty = !empty(order.custom.eswRetailerCurrencyItemDeliveryDuty)
+        ? order.custom.eswRetailerCurrencyItemDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemDuty = !empty(order.custom.eswRetailerCurrencyItemDuty) 
+        ? order.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var dutyAmount = eswRetailerCurrencyItemDeliveryDuty + eswRetailerCurrencyItemDuty;
+    return dutyAmount;
+}
+
+/**
+* To get consumer tax by MGI
+* @param {Order} order Order container.
+* @returns {String} Y or N value
+*/
+function getDutyAmount(eswOrderNo) {
+    if (eswOrderNo) {
+        return 'N';
+    }
+    return 'Y';
+}
+
+/**
+* To get consumer gross value
+* @param {Order} order Order container.
+* @returns {Number} total consumer gross value
+*/
+function getConsumerGrossValue(order) {
+    var eswShopperCurrencyItemPriceInfoBeforeDiscount = !empty(order.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) 
+        ? order.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return eswShopperCurrencyItemPriceInfoBeforeDiscount;
+}
+
+/**
+* To get consumer sub total
+* @param {Order} order Order container.
+* @returns {Number} consume sub total value
+*/
+function getConsumerGrossValue(order) {
+    if (order.custom.eswShopperCurrencyItemSubTotal) {
+        return (order.custom.eswShopperCurrencyItemSubTotal).toFixed(TWO_DECIMAL_PLACES)
+    }
+    
+    return (order.adjustedMerchandizeTotalPrice.value + order.adjustedShippingTotalPrice.value).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* To get consumer net amount
+* @param {Order} order Order container.
+* @returns {Number} consume net amount value
+*/
+function getConsumerNetAmount(order) {
+    var eswShopperCurrencyItemPriceInfo = !empty(order.custom.eswShopperCurrencyItemPriceInfo) 
+        ? order.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) 
+        ? order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
+        ? order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) 
+        ? order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) 
+        ? order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var totalConsumerNetAmount = eswShopperCurrencyItemPriceInfo + eswShopperCurrencyTaxes 
+        + eswShopperCurrencyDeliveryTaxes + eswShopperCurrencyDuty + eswShopperCurrencyDeliveryDuty;
+    return totalConsumerNetAmount;
+}
+
+/**
+* To get consumer sub total
+* @param {Order} order Order container.
+* @returns {Number} consumer sub total value
+*/
+function getConsumerSubTotal(order) {
+    if (order.custom.eswShopperCurrencyTotal) {
+        return (order.custom.eswShopperCurrencyTotal).toFixed(TWO_DECIMAL_PLACES);
+    }
+    return (order.adjustedMerchandizeTotalPrice.value + order.adjustedShippingTotalPrice.value).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* To get consumer total tax
+* @param {Order} order Order container.
+* @returns {Number} value of consumer total tax
+*/
+function getConsumerTotalTax(order) {
+    var consumerTotalTax;
+    if (!empty(order.custom.eswShopperCurrencyTaxes) || !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
+            || !empty(order.custom.eswShopperCurrencyOtherTaxes)) {
+        var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) 
+            ? order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
+            ? order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyOtherTaxes = !empty(order.custom.eswShopperCurrencyOtherTaxes) 
+            ? order.custom.eswShopperCurrencyOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        consumerTotalTax = parseFloat(eswShopperCurrencyTaxes + eswShopperCurrencyDeliveryTaxes 
+                + eswShopperCurrencyOtherTaxes).toFixed(TWO_DECIMAL_PLACES);
+    } else {
+        consumerTotalTax = parseFloat(order.getTotalTax()).toFixed(TWO_DECIMAL_PLACES);
+    }
+    return consumerTotalTax;
+}
+
+/**
+* To get consumer total duty amount
+* @param {Order} order Order container.
+* @returns {Number} value of consumer total duty amount
+*/
+function getConsumerTotalDutyAmount(order) {
+    var consumerTotalDutyAmount;
+    if (!empty(order.custom.eswShopperCurrencyDuty) || !empty(order.custom.eswShopperCurrencyDeliveryDuty)) {
+        var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) 
+            ? order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) 
+            ? order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        consumerTotalDutyAmount = parseFloat(eswShopperCurrencyDuty + eswShopperCurrencyDeliveryDuty).toFixed(TWO_DECIMAL_PLACES);
+    } else {
+        consumerTotalDutyAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    }
+    return consumerTotalDutyAmount;
+}
+
+/**
+* To get consumer net amount
+* @param {Order} order Order container.
+* @returns {Number} value of consumer net amount
+*/
+function getConsumerNetAmount(order) {
+    var consumerNetAmount;
+    if (!empty(order.custom.eswShopperCurrencyTotal) || !empty(order.custom.eswShopperCurrencyDelivery) || 
+            !empty(order.custom.eswShopperCurrencyDeliveryDuty) || !empty(order.custom.eswShopperCurrencyDeliveryTaxes) || 
+            !empty(order.custom.eswShopperCurrencyTaxes) || !empty(order.custom.eswShopperCurrencyOtherTaxes) ||
+            !empty(order.custom.eswShopperCurrencyAdministration) || !empty(order.custom.eswShopperCurrencyDuty) ||
+            !empty(order.custom.eswShopperCurrencyUplift)) {
+        var eswShopperCurrencyTotal = !empty(order.custom.eswShopperCurrencyTotal)
+            ? order.custom.eswShopperCurrencyTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDelivery = !empty(order.custom.eswShopperCurrencyDelivery) 
+            ? order.custom.eswShopperCurrencyDelivery : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) 
+            ? order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
+            ? order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) 
+            ? order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyOtherTaxes = !empty(order.custom.eswShopperCurrencyOtherTaxes) 
+            ? order.custom.eswShopperCurrencyOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyAdministration = !empty(order.custom.eswShopperCurrencyAdministration) 
+            ? order.custom.eswShopperCurrencyAdministration : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) 
+            ? order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyUplift = !empty(order.custom.eswShopperCurrencyUplift) 
+            ? order.custom.eswShopperCurrencyUplift : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        consumerNetAmount = parseFloat(eswShopperCurrencyTotal + eswShopperCurrencyDelivery 
+                + eswShopperCurrencyDeliveryDuty + eswShopperCurrencyDeliveryTaxes 
+                + eswShopperCurrencyTaxes + eswShopperCurrencyOtherTaxes 
+                + eswShopperCurrencyAdministration + eswShopperCurrencyDuty 
+                + eswShopperCurrencyUplift).toFixed(TWO_DECIMAL_PLACES)
+    } else {
+        consumerNetAmount =parseFloat(order.getTotalGrossPrice()).toFixed(TWO_DECIMAL_PLACES)
+    }
+    return consumerNetAmount;
+}
+
+/**
+* To get consumer tax amount
+* @param {Order} order Order container.
+* @returns {Number} value of consumer tax amount
+*/
+//function getConsumerTaxAmount(order) {
+//    var consumerTaxAmount;
+//    if ()
+//}
+/**
 * Generates the order xml provided by the processOrders
 * @param {Order} order Order container.
 */
@@ -1454,6 +1873,7 @@ function generateOrderXML(order) {
         var paymentMethodData;
 
         try {
+            var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
             exportLogger.info('Starting feed file generation for order number {0}', order.getOrderNo());
             FileHelper.createDirectory(impexFilePath);
             paymentMethodData = getPaymentMethodData(order);
@@ -1609,23 +2029,23 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATEntity');
-//                streamWriter.writeCharacters(shippingAddress.carrier);
+                streamWriter.writeCharacters(getVatEntity(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('CommercialEntity');
-//                streamWriter.writeCharacters(shippingAddress.carrier);
+                streamWriter.writeCharacters(getCommercialEntity(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BillingCurrency');
-                streamWriter.writeCharacters(BILLINGCURRENCY);
+                streamWriter.writeCharacters(getBillingCurrency(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerExchangeRate');
-//                streamWriter.writeCharacters(BILLINGCURRENCY);
+                streamWriter.writeCharacters(getConsumerExchangeRate(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerCurrency');
-//                streamWriter.writeCharacters(fecthPriceBookId(order));
+                streamWriter.writeCharacters(getConsumerCurrency(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PriceBookId');
@@ -1637,27 +2057,27 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('CrossBorderSystemReference');
-//                streamWriter.writeCharacters(order.getCurrencyCode());
+                streamWriter.writeCharacters(eswOrderNo);
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('SubTotal');
-                streamWriter.writeCharacters((order.adjustedMerchandizeTotalPrice.value + order.adjustedShippingTotalPrice.value).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(getSubTotal(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalTax');
-                streamWriter.writeCharacters(parseFloat(order.getTotalTax()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(getTotalTax(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalDutyAmount');
-//                streamWriter.writeCharacters(parseFloat(order.getTotalTax()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(getTotalDutyAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalInsAmount');
-//                streamWriter.writeCharacters(parseFloat(order.getTotalTax()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('GiftCardAmount');
-//                streamWriter.writeCharacters(parseFloat(order.getTotalTax()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalLoyaltyAmount');
@@ -1665,11 +2085,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('NetAmount');
-                streamWriter.writeCharacters(parseFloat(order.getTotalGrossPrice()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(getNetAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('AuthAmount');
-                streamWriter.writeCharacters(parseFloat(order.getTotalGrossPrice()).toFixed(TWO_DECIMAL_PLACES));
+                streamWriter.writeCharacters(getAuthAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ChargingShipping');
@@ -1677,19 +2097,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShippingCost');
-                streamWriter.writeCharacters(order.getShippingTotalPrice());
+                streamWriter.writeCharacters(getShippingCost(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShippingByMGI');
-//                streamWriter.writeCharacters(order.getShippingTotalPrice());
+                streamWriter.writeCharacters(isShippingChargedByMGI(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyByMGI');
-//                streamWriter.writeCharacters(order.getShippingTotalPrice());
+                streamWriter.writeCharacters(isDutyByMGI(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('InsByMGI');
-//                streamWriter.writeCharacters(order.getShippingTotalPrice());
+                streamWriter.writeCharacters(isInsuranceByMGI(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
@@ -1701,7 +2121,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PaymentMethod');
-                streamWriter.writeCharacters(paymentMethodData.paymentMethod);
+                streamWriter.writeCharacters(!empty(order.custom.eswPaymentMethod) ? order.custom.eswPaymentMethod : paymentMethodData.paymentMethod);
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('AuthExpirationDate');
@@ -1709,19 +2129,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerSubTotal');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(getConsumerSubTotal(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalTax');
-                streamWriter.writeCharacters(order.getTotalTax());
+                streamWriter.writeCharacters(getConsumerTotalTax(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalDutyAmount');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(getConsumerTotalDutyAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalInsAmount');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerGiftCardAmount');
@@ -1733,7 +2153,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerNetAmount');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(getConsumerNetAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerAuthAmount');
@@ -1749,11 +2169,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsTaxByMGI');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(isConsumerTaxByMGI(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalConsTaxByMGI');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(isTotalConsumerTaxByMGI(eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ReturnTrackingNumber');
@@ -1835,11 +2255,11 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('VATEntity');
-//                    streamWriter.writeCharacters(commerceItem.IsThisBillable);
+                    streamWriter.writeCharacters(getVatEntity(eswOrderNo));
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('CommercialEntity');
-//                    streamWriter.writeCharacters(commerceItem.IsThisBillable);
+                    streamWriter.writeCharacters(getCommercialEntity(eswOrderNo));
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('InventoryLocation');
