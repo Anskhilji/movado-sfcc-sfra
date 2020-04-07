@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19">
 
-    <field formid="firstname" label="label.input.firstname.profile.contactus" type="string" mandatory="true" binding="firstName"
+    <field formid="firstname" label="label.input.firstname.profile" type="string" mandatory="true" binding="firstName"
            max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"

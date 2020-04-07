@@ -29,10 +29,6 @@
     }
 }
 
-.contact-tab-form-control {
-    resize: none;
-}
-
 .account-heading {
     text-align: center;
     margin: 0 auto;
@@ -80,4 +76,15 @@
 
 .form-control-label {
     font-size: rem(11);
+}
+.comment-textarea {
+    height: rem(180);
+    resize: none;
+
+    &:focus {
+
+        &::placeholder {
+            display: none;
+        }
+    }
 }

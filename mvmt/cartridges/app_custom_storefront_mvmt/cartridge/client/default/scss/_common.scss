@@ -388,12 +388,13 @@
         text-transform: none;
         font-family: $font-book;;
     }
-}
+
     .fa-sort {
         font-size: rem(12);
-        top: rem(20);
-        padding-right: rem(10);
+        top: 50%;
+        transform: translateY(-50%);
     }
+}
 
 .widgets-title {
     margin: rem(20);
