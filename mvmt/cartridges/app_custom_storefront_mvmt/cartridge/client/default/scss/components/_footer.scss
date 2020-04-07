@@ -360,6 +360,38 @@ footer {
             }
         }
     }
+
+    .selectors {
+
+        &.footerDropdown {
+            display: block;
+            width: 100%;
+
+            @include media-breakpoint-down(sm) {
+                margin: 0;
+            }
+
+            .dropdown {
+                width: 100%;
+                display: block;
+
+                &.selectCurrency {
+
+                    .dropdown {
+
+                        &-menu {
+                            max-height: rem(128);
+                            overflow-y: auto;
+                        }
+                    }
+                }
+
+                @include media-breakpoint-down(md) {
+                    text-align: center;
+                }
+            }
+        }
+    }
 }
 
 @include media-breakpoint-down(sm) {
