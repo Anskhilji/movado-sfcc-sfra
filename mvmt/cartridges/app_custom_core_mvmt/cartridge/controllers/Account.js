@@ -15,6 +15,7 @@ server.append('Login', server.middleware.https, function (req, res, next) {
             redirectUrl: URLUtils.url('Checkout-Login').toString()
         });
     }
+    res.setViewData(viewData);
     next();
 });
 

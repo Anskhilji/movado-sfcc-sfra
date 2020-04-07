@@ -98,7 +98,7 @@ function parseRiskifiedResponse(order) {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
-                orderNo: orderNo,
+                orderNo: order.orderNo,
                 orderState: 'created'
             });
         }
