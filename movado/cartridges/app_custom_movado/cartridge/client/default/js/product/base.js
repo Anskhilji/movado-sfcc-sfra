@@ -277,6 +277,60 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
     }
 }
 
+$('#strapguide').on('click', function (e) {
+    $('#strapguid').modal();
+});
+
+var updateCartPage = function(data) {
+    $('.cart-section-wrapper').html(data.cartPageHtml);
+    affirm.ui.refresh();
+};
+
+/**
+ * Custom Start: Retrieve recommended products
+ *
+ * @param {Link} addToCartUrl - link of add to cart URL for variation product
+ * 
+ */
+function addRecommendationProducts(addToCartUrl) {
+    var $variationProductSelector = $('.upsell_input');
+    for (var i = 0; i < $variationProductSelector.length; i++) {
+        var $currentVariationProduct = $variationProductSelector[i];
+        if ($currentVariationProduct.checked) {
+            var form = {
+                pid: $currentVariationProduct.value,
+                quantity: 1
+            };
+            
+            addRecommendationProductToCartAjax(form, addToCartUrl);
+        }
+    }
+}
+/**
+ * Custom Start: Add recommended products to cart
+ *
+ * @param {Object} variationForm - holds form attributes for selected variation product
+ * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
+ * 
+ */
+function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
+    if (addToCartUrl) {
+        $.ajax({
+            url: addToCartUrl,
+            method: 'POST',
+            data: variationForm,
+            success: function (data) {
+                updateCartPage(data);
+                handlePostCartAdd(data);
+                $.spinner().stop();
+            },
+            error: function () {
+                $.spinner().stop();
+            }
+        });
+    }
+}
+
 /**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
  * @param {Object} response - response from Ajax call
@@ -320,6 +374,46 @@ function handleVariantResponse(response, $productContainer) {
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
         $priceSelector.replaceWith(response.product.price.html);
+        if ($('.pdp-mvmt')) {
+            debugger;
+            var $barSalePriceSelector = $('.sticky-bar-price .price');
+            $barSalePriceSelector.replaceWith(response.product.price.html);
+            var $productNameSelector = $('.product-name');
+            $productNameSelector.text(response.product.productName);
+            var $selectedVariation = $('.selected-variation');
+            var $variationAttributes = response.product.variationAttributes;
+            
+            for (var i = 0; i < $variationAttributes.length; i++) {
+                $variationAttributes[i].values.forEach(function (item) {
+                    if (item.selected === true) {
+                        $selectedVariation.text(item.displayValue + 'mm');
+                    }
+                });
+            }
+            
+            var $variationProductURL = '/on/demandware.store/Sites-MVMTUS-Site/default/Product-Variation?pid=' + response.product.id;
+            
+            $.ajax({
+                url: $variationProductURL,
+                method: 'GET',
+                success: function (data) {
+                    var $linkedProductList = $('.linked-product-list');
+                    $linkedProductList.replaceWith(data.linkedProductTemplate);
+                    $('.linked-products').slick({
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        focusOnSelect: true,
+                        infinite: false,
+                        dots: false,
+                        arrows: true,
+                    });
+                    $.spinner().stop();
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
+        }
     }
 
     // Update promotions
@@ -645,7 +739,7 @@ module.exports = {
     },
 
     selectAttribute: function () {
-        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"]';
+        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
         $(document).off('change', selector);
         $(document).on('change', selector, function (e) {
             e.preventDefault();
@@ -658,6 +752,20 @@ module.exports = {
             }
             attributeSelect(value, $productContainer);
         });
+        if ($('.pdp-mvmt')) {
+            $(document).off('click').on('click', selector, function (e) {
+                e.preventDefault();
+                $('.select-variation-product').removeClass('active');
+                $(this).addClass('active');
+                var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
+    
+                var $productContainer = $(this).closest('.set-item');
+                if (!$productContainer.length) {
+                    $productContainer = $(this).closest('.product-detail');
+                }
+                attributeSelect(value, $productContainer);
+            });
+        }
     },
 
     setOptionsAttribute: function() {
@@ -754,6 +862,14 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
+            if ($('.pdp-mvmt')) {
+                form = {
+                    pid: pid,
+                    pidsObj: pidsObj,
+                    childProducts: getChildProducts(),
+                    quantity: 1
+                };
+            }
 
             $productContainer.find('input[type="text"], textarea').filter('[required]')
             .each(function() {
@@ -777,6 +893,9 @@ module.exports = {
                     success: function (data) {
                         updateCartPage(data);
                         handlePostCartAdd(data);
+                        if ($('.pdp-mvmt')) {
+                            addRecommendationProducts(addToCartUrl); 
+                        }
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                     },

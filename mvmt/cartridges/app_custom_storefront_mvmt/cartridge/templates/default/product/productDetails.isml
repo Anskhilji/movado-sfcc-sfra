@@ -48,7 +48,7 @@
                 <isinclude template="product/components/socialIcons" />
             </isif>
         </div>
-        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <div class="row ratings-mobile pb-2">
