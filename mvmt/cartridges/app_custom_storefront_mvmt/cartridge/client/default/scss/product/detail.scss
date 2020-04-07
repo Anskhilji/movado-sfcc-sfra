@@ -1108,13 +1108,16 @@
                 }
 
                 &_price {
-                    font-family: $font-book;
-                    font-size: rem(10);
-                    line-height: 1.1;
-                    color: $light-gray;
-                    padding: 0;
-                    padding-bottom: rem(2);
-                    margin: 0;
+
+                    .price {
+                        font-family: $font-book;
+                        font-size: rem(10);
+                        line-height: 1.1;
+                        color: $light-gray;
+                        padding: 0;
+                        padding-bottom: rem(2);
+                        margin: 0;
+                    }
                 }
 
                 &_description {
@@ -1540,6 +1543,12 @@
             font-weight: 400;
             letter-spacing: .5px;
         }
+    }
+
+    .fade {
+        opacity: 0;
+        -webkit-transition: opacity .15s linear;
+        transition: opacity .15s linear;
     }
 }
 

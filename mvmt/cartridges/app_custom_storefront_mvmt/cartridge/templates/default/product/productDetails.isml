@@ -64,19 +64,16 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
-
-                    <div class="product-tag-wrapper opacity-0">
-                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                    <div class="product-tag-wrapper ${!product.available ? '' : 'opacity-0'}">
+                        <isif condition="${!product.available}">
+                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                        </isif>
                     </div>
 
                     <div class="product-brand-info">
                         <span>${product.brand}</span>
                     </div>
-                    <isif condition="${!product.available}">
-                        <div class="product-tag-wrapper">
-                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
-                        </div>
-                    </isif>
+
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
                     <iscomment> 
@@ -103,18 +100,18 @@
 
                         <isinclude template="product/components/badges" />
 
-                        <!-- Applicable Promotions -->
-                        <div class="promotions">
-                            <isinclude template="product/components/promotions" />
-                        </div>
-
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">
                                 <isinclude template="product/components/quantity" />
                             </div>
                         </isif>
                     </div>
-                    <div class="col-12">
+
+                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                        <isinclude template="product/components/variationAttributes" />
+                    </isif>
+
+                    <div class="linked-product-container">
                         <isinclude template="product/components/linkedProducts" />
                     </div>
 
@@ -124,10 +121,6 @@
                     <div class="col-md-10 col-12">
                         <isinclude template="product/components/mainAttributes" />
                     </div>
-
-                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                        <isinclude template="product/components/variationAttributes" />
-                    </isif>
 
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
@@ -142,6 +135,11 @@
                                 </isif>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Applicable Promotions -->
+                    <div class="promotions">
+                        <isinclude template="product/components/promotions" />
                     </div>
                 </div>
 
@@ -237,7 +235,7 @@
             </div>
         </div>
 
-        <div class="modal fade strap-guid-popup" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade strap-guid-popup fade" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

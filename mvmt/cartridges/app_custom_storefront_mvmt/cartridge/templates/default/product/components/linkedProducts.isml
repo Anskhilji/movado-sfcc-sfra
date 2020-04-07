@@ -17,14 +17,14 @@
                         <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendation.id}">
                         <img class="upsell_image" src="${recommendation.images.tile150[0].url}"/>
                         <div class="upsell_meta">
-                            <p class="upsell_price">
+                            <div class="upsell_price">
                                 <isset name="price" value="${recommendation.price}" scope="page" />
                                 <isif condition="${recommendation.productType === 'set'}">
                                     <isinclude template="product/components/pricing/setPrice" />
                                 <iselse>
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
-                            </p>
+                            </div>
                             <p class="upsell_status">${Resource.msg('label.added', 'product', null)}</p>
                         </div>
                         <p class="upsell_description">${recommendation.productName}</p>
