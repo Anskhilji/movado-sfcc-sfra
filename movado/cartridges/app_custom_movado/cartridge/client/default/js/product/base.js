@@ -386,7 +386,7 @@ function handleVariantResponse(response, $productContainer) {
             for (var i = 0; i < $variationAttributes.length; i++) {
                 $variationAttributes[i].values.forEach(function (item) {
                     if (item.selected === true) {
-                        $selectedVariation.text(item.displayValue + 'mm');
+                        $selectedVariation.text(item.displayValue);
                     }
                 });
             }
@@ -755,7 +755,7 @@ module.exports = {
         if ($('.pdp-mvmt')) {
             $(document).off('click').on('click', selector, function (e) {
                 e.preventDefault();
-                $('.select-variation-product').removeClass('active');
+                $(this).siblings().removeClass('active');
                 $(this).addClass('active');
                 var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
     

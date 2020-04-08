@@ -11,7 +11,7 @@ Template Notes:
 
 <div class="attribute pdp-select-variations">
     <label class="select-size-head-label ${attr.id}">
-        ${attr.displayName} ${Resource.msg('label.size.unit', 'product', null)}
+        ${attr.displayName} 
         <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 
         <span class="selected-variation">
         </span>
