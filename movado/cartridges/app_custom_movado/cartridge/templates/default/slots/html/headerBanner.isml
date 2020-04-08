@@ -1,16 +1,17 @@
+<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <isif condition="${slotcontent && !!slotcontent.content.length}">
   <div class="header-banner slide-up">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 mt-1 mb-1 text-center text-white">
-          <isif condition="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}">                      
+        <isif condition="${enableUsablenetAccessibility}"> 
+          <div class="col-sm-3 mt-1 mb-1 text-center text-white">                
             <a href="#" onclick="return enableUsableNetAssistive()"><span class="text-white"><u>
                ${Resource.msg('enable.accessibility', 'common', null)}</u></span></a>                      
-          </isif>
-        </div>
-        <div class="col-sm-3 mt-1 mb-1">
-        </div>
-        <div class="col-sm-6 mt-1 mb-1 text-center text-white">
+          </div>
+          <div class="col-sm-3 mt-1 mb-1">
+          </div>
+        </isif>
+        <div class="${enableUsablenetAccessibility ? 'col-sm-6' : 'col-12'} mt-1 mb-1 text-center text-white">
           <isloop items="${slotcontent.content}" var="markupText">
             <isprint value="${markupText.markup}" encoding="off"/>
           </isloop>
