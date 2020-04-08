@@ -52,9 +52,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (!params.base || params.base == true) {
         decorators.base(product, apiProduct, productType);
     }
-    if (!params.searchPrice || params.searchPrice == true) {
-        decorators.searchPrice(product, productSearchHit, promotionCache.promotions, getProductSearchHit);
-    }
+
+    /** 
+     * Replaced searchPrice decorator with price decorator.
+    */
+    decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
+
     if (!params.ratings || params.ratings == true) {
         decorators.ratings(product);
     }
