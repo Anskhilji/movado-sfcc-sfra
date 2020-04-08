@@ -25,7 +25,6 @@ function showStoreDialog(markers, e) {
     }
     var marker = markers[$(e.currentTarget).data('itemindex')];
     google.maps.event.trigger(marker, 'click');
-    $('html, body').scrollTop(0);
 }
 
 /* handling store click and enter */
@@ -139,7 +138,7 @@ function updateStoresResults(data) {
 
     if (data.storesResultsHtml) {
         $resultsDiv.append(data.storesResultsHtml);
-        $('html, body').scrollTop(0);
+        $('.stores-list .store-marker').first().addClass('store-marker-black-background');
     }
 }
 
@@ -196,6 +195,9 @@ module.exports = {
         } else {
             $('.store-locator-no-apiKey').show();
         }
+        if ($('.results').data('has-results')) {
+            $('.stores-list .store-marker').first().addClass('store-marker-black-background');
+        }
     },
 
     search: function () {
@@ -247,6 +249,13 @@ module.exports = {
                     spinner.stop();
                 }
             });
+        });
+    },
+
+    changeBackground: function () {
+        $('body').on('click','.stores-list .store-marker', function (e) {
+            $('.store-marker').removeClass('store-marker-black-background');
+            $(this).addClass('store-marker-black-background');
         });
     },
 
