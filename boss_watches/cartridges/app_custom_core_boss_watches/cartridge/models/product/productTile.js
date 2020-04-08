@@ -48,9 +48,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         return null;
     }
     var options = productHelper.getConfig(apiProduct, { pid: product.id });
-    /**
-     * Replaced searchPrice decorator with price decorator.
-     */
+    
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
 
     if (!params.base || params.base == true) {
