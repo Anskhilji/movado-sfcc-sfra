@@ -25,7 +25,6 @@ server.append('Find', function (req, res, next) {
     };
 
     res.setViewData(viewData);
-    res.render('storeLocator/storeLocator', viewData);
     next();
 });
 
@@ -45,7 +44,9 @@ server.replace('FindStores', function (req, res, next) {
     var status = null;
 
     if (queryAddress) {
+        //Custom Start: Updated the regex of the queryAddress
         queryAddress = queryAddress.replace(/[\s,]+/g, '+').trim();
+        //Custom End
     }
 
     if (queryAddress && queryCountryCode) {
@@ -58,8 +59,10 @@ server.replace('FindStores', function (req, res, next) {
         googleServiceObject.setURL(googleServiceObject.getURL() + '&address=' + params.address);
         var googleServiceResultObj = googleServiceObject.call(params);
 
+        //Custom Start: Initialize the status variable
         status = googleServiceResultObj.object.status;
-        
+        //Custom End
+
         if (googleServiceResultObj.status === 'OK' && googleServiceResultObj.object.status !== ZERO_RESULTS) {
             var googleServiceResult = googleServiceResultObj.object.results[0];
 
@@ -87,9 +90,11 @@ server.replace('FindStores', function (req, res, next) {
         res.json(stores);
     }
 
+    //Custom Start: Adding the custom attribute to check its page stage
     viewData = {
         findPage: false
     };
+    //Custom End
 
     res.setViewData(viewData);
     next();

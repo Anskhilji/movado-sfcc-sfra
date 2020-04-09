@@ -1,6 +1,6 @@
 /* globals google */
 'use strict';
-var $movadostoreLocator = require('movado/storeLocator/storeLocator');
+var $movadoStoreLocator = require('movado/storeLocator/storeLocator');
 
 /**
  * appends params to a url
@@ -115,7 +115,9 @@ function maps() {
 function updateStoresResults(data) {
     var $resultsDiv = $('.results');
     var $mapDiv = $('.map-canvas');
+    //Custom Start: Checking the store locator page stage and updating the logic of conditions
     var $findPage = data.findPage == undefined ? false : data.findPage;
+    //Custom End
     var hasResults = data.stores.length > 0;
     if (!hasResults && $findPage === false) {
         $('.store-locator-no-results').show();
@@ -138,7 +140,9 @@ function updateStoresResults(data) {
 
     if (data.storesResultsHtml) {
         $resultsDiv.append(data.storesResultsHtml);
+        //Custom Start: Adding the logic to change background color of first store box
         $('.stores-list .store-marker').first().addClass('store-marker-black-background');
+        //Custom End
     }
 }
 
@@ -189,6 +193,7 @@ function search(element) {
 
 module.exports = {
 
+    //Custom Start: Overriding the initialization method of store locator.
     init: function () {
         if ($('.map-canvas').data('has-google-api')) {
             maps();
@@ -196,10 +201,14 @@ module.exports = {
             $('.store-locator-no-apiKey').show();
         }
         if ($('.results').data('has-results')) {
+            //Custom Start: Adding the logic to change background color of first store box
             $('.stores-list .store-marker').first().addClass('store-marker-black-background');
+            //Custom End
         }
     },
+    //Custom End
 
+    //Custom Start: Overriding the submit and click events of store locator
     search: function () {
         $('body').off('submit', '.store-locator-container form.store-locator').on('submit', '.store-locator-container form.store-locator', function (e) {
             e.preventDefault();
@@ -211,7 +220,9 @@ module.exports = {
             search($(this));
         });
     },
+    //Custom End
 
+  //Custom Start: Overriding the change radius event of store locator
     changeRadius: function () {
         $('body').off('change', '.store-locator-container .radius').on('change', '.store-locator-container .radius', function () {
             var radius = $(this).val();
@@ -251,15 +262,18 @@ module.exports = {
             });
         });
     },
+    //Custom End
 
+    //Custom Start: Adding the custom method to change background color of selected store box.
     changeBackground: function () {
         $('body').on('click','.stores-list .store-marker', function (e) {
             $('.store-marker').removeClass('store-marker-black-background');
             $(this).addClass('store-marker-black-background');
         });
     },
+    //Custom End
 
-    detectLocation: $movadostoreLocator.detectLocation(),
-    selectStore: $movadostoreLocator.selectStore(),
-    updateSelectStoreButton: $movadostoreLocator.updateSelectStoreButton()
+    detectLocation: $movadoStoreLocator.detectLocation(),
+    selectStore: $movadoStoreLocator.selectStore(),
+    updateSelectStoreButton: $movadoStoreLocator.updateSelectStoreButton()
 };
