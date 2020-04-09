@@ -739,7 +739,7 @@ module.exports = {
     },
 
     selectAttribute: function () {
-        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
+        var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"]';
         $(document).off('change', selector);
         $(document).on('change', selector, function (e) {
             e.preventDefault();
@@ -752,20 +752,6 @@ module.exports = {
             }
             attributeSelect(value, $productContainer);
         });
-        if ($('.pdp-mvmt')) {
-            $(document).off('click').on('click', selector, function (e) {
-                e.preventDefault();
-                $(this).siblings().removeClass('active');
-                $(this).addClass('active');
-                var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
-    
-                var $productContainer = $(this).closest('.set-item');
-                if (!$productContainer.length) {
-                    $productContainer = $(this).closest('.product-detail');
-                }
-                attributeSelect(value, $productContainer);
-            });
-        }
     },
 
     setOptionsAttribute: function() {

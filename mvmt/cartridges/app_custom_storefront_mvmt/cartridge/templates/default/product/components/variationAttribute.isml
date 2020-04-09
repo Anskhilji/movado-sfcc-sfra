@@ -23,22 +23,16 @@ Template Notes:
     </button>
     <div class="product-size-select-list">
         <isif condition="${attr.swatchable}">
-            <!-- Circular Swatch Image Attribute Values -->
+            <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
-                    <a href="${attrValue.url}" ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-                        <span data-attr-value="${attrValue.value}"
-                            class="
-                                ${attr.id}-value
-                                swatch-circle
-                                swatch-value
-                                ${attrValue.selected ? 'selected' : ''}
-                                ${attrValue.selectable ? 'selectable' : 'unselectable'}
-                            "
-                            style="background-image: url(${attrValue.images['swatch'][0].url})"
-                        >
-                        </span>
-                    </a>
+                    <button class="product-size-options select-variation-product" value="${attrValue.url}" ${ product.productType === "variant" && isBundle ? "disabled" : "" } data-attr-value="${attrValue.value}"
+                        ${!attrValue.selectable ? 'disabled' : ''}
+                        ${attrValue.selected ? 'selected' : ''}
+                        style="background-image: url(${attrValue.images['swatch'][0].url})"
+                    >
+                        ${attrValue.displayValue}
+                    </button>
                 </isif>
             </isloop>
 
