@@ -105,6 +105,130 @@ function isThisBillableItem(lineItem) {
 }
 
 /**
+* Calculate the duty amount for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} duty amount
+*/
+function getLineItemDutyAmount(lineItem) {
+    var eswRetailerCurrencyItemDeliveryDuty = !empty(lineItem.custom.eswRetailerCurrencyItemDeliveryDuty) ?
+            lineItem.custom.eswRetailerCurrencyItemDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemDuty = !empty(lineItem.custom.eswRetailerCurrencyItemDuty) ?
+            lineItem.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var dutyAmount = parseFloat(eswRetailerCurrencyItemDeliveryDuty + eswRetailerCurrencyItemDuty).toFixed(TWO_DECIMAL_PLACES);
+    return dutyAmount;
+}
+
+/**
+* find if line item consumer tax by MGI or esw.
+* @param {String} esw order no.
+* @returns {String} Y or N
+*/
+function isLineItemConsTaxByMGI(eswOrderNo) {
+    var isLineItemConsTaxByMGI = !empty(eswOrderNo) ? 'N' : 'Y';
+    return isLineItemConsTaxByMGI;
+}
+
+/**
+* Calculate the consumer gross value for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} consumer gross value
+*/
+function getLineItemConsumerGrossValue(lineItem) {
+    var consumerGrossValue = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) ?
+            lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return consumerGrossValue;
+}
+
+/**
+* Calculate the consumer sub total for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} consumer gross value
+*/
+function getLineItemConsumerSubTotal(lineItem) {
+    var consumerSubTotal = !empty(lineItem.custom.eswShopperCurrencyItemSubTotal) ? 
+            lineItem.custom.eswShopperCurrencyItemSubTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return consumerSubTotal;
+}
+
+/**
+* Calculate the consumer tax amount for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} consumer tax amount
+*/
+function getLineItemConsumerTaxAmount(lineItem) {
+    var eswShopperCurrencyItemTaxes = !empty(lineItem.custom.eswShopperCurrencyItemTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemOtherTaxes = !empty(lineItem.custom.eswShopperCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemAdministration = !empty(lineItem.custom.eswShopperCurrencyItemAdministration) ?
+            lineItem.custom.eswShopperCurrencyItemAdministration : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemDeliveryTaxes = !empty(lineItem.custom.eswShopperCurrencyItemDeliveryTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var consumerTaxAmount = parseFloat(eswShopperCurrencyItemTaxes + eswShopperCurrencyItemOtherTaxes
+            + eswShopperCurrencyItemAdministration + eswShopperCurrencyItemDeliveryTaxes).toFixed(TWO_DECIMAL_PLACES);
+    return consumerTaxAmount;
+}
+
+/**
+* Calculate the consumer duty amount for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} consumer duty amount
+*/
+function getLineItemConsumerDutyAmount(lineItem) {
+    var eswShopperCurrencyItemDeliveryDuty = !empty(lineItem.custom.eswShopperCurrencyItemDeliveryDuty) ?
+            lineItem.custom.eswShopperCurrencyItemDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemDuty = !empty(lineItem.custom.eswShopperCurrencyItemDuty) ?
+            lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var consumerDutyAmount = parseFloat(eswShopperCurrencyItemDeliveryDuty + eswShopperCurrencyItemDuty).toFixed(TWO_DECIMAL_PLACES);
+    return consumerDutyAmount;
+}
+
+/**
+* Calculate the consumer net amount for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} consumer net amount
+*/
+function getLineItemConsumerNetAmount(order, lineItem) {
+    var eswShopperCurrencyItemPriceInfo = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfo) ?
+            lineItem.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) ?
+            order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) ?
+            order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) ?
+            order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) ?
+            order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var consumerNetAmount = parseFloat(eswShopperCurrencyItemPriceInfo + eswShopperCurrencyTaxes
+            + eswShopperCurrencyDeliveryTaxes + eswShopperCurrencyDuty
+            + eswShopperCurrencyDeliveryDuty).toFixed(TWO_DECIMAL_PLACES);
+    return consumerNetAmount;
+}
+
+/**
+* Calculate the tax1 for cross border orders for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} tax1 for corss border orders
+*/
+function getLineItemCrossBorderTax1(lineItem) {
+    var eswRetailerCurrencyItemDeliveryTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemDeliveryTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemOtherTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var crossBorderTax1 = parseFloat(eswRetailerCurrencyItemDeliveryTaxes + eswRetailerCurrencyItemTaxes
+            + eswRetailerCurrencyItemOtherTaxes).toFixed(TWO_DECIMAL_PLACES);
+    return crossBorderTax1;
+}
+
+function getLineItemCrossBorderNetAmount(lineItem) {
+    var crossBorderNetAmount = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfo) ?
+            lineItem.custom.eswRetailerCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    return crossBorderNetAmount;
+}
+
+/**
 * Fetches the shipping address data from an Order
 * @param {Order} order Order container.
 * @returns {json} Shipping Address JSON
@@ -250,9 +374,11 @@ function getBillingAddress(order) {
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Gift Wrap JSON.
 */
-function populateGiftMessageObject(productLineItem, optionPrice, totalObject, language) {
+function populateGiftMessageObject(productLineItem, optionPrice, totalObject, language, order) {
     var Site = require('dw/system/Site');
     var giftMessageLimit = Site.getCurrent().getCustomPreferenceValue('giftMessageLimit');
+    
+    var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
 
     var OrderGiftMessage = {};
     OrderGiftMessage.PersonalizationType = GIFTWRAPMESSAGE;
@@ -285,6 +411,15 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
     OrderGiftMessage.Tax6 = totalObject.Tax6;
     OrderGiftMessage.TaxAmount = totalObject.personalizationTaxAmount;
     OrderGiftMessage.NetAmount = totalObject.personalizationSubTotal;
+    
+//    OrderGiftMessage.DutyAmount = getLineItemDutyAmount(productLineItem);
+//    OrderGiftMessage.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+//    OrderGiftMessage.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+//    OrderGiftMessage.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+//    OrderGiftMessage.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+//    OrderGiftMessage.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+//    OrderGiftMessage.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+//    OrderGiftMessage.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return OrderGiftMessage;
 }
@@ -297,7 +432,8 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Gift Message JSON.
 */
-function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalObject, language) {
+function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+    var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var GiftWrap = {};
     GiftWrap.UUID = optionUUID;
     GiftWrap.LanguageID = language;
@@ -320,6 +456,15 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
     GiftWrap.Tax6 = totalObject.Tax6;
     GiftWrap.TaxAmount = totalObject.personalizationTaxAmount;
     GiftWrap.NetAmount = totalObject.personalizationSubTotal;
+    
+//    GiftWrap.DutyAmount = getLineItemDutyAmount(productLineItem);
+//    GiftWrap.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+//    GiftWrap.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+//    GiftWrap.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+//    GiftWrap.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+//    GiftWrap.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+//    GiftWrap.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+//    GiftWrap..CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return GiftWrap;
 }
@@ -332,7 +477,8 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Engraved Personalization JSON.
 */
-function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalObject, language) {
+function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+    var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var Engraving = {};
     Engraving.UUID = optionUUID;
     Engraving.Text = {};
@@ -370,6 +516,15 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
     Engraving.Tax6 = totalObject.Tax6;
     Engraving.TaxAmount = totalObject.personalizationTaxAmount;
     Engraving.NetAmount = totalObject.personalizationSubTotal;
+    
+//    Engraving.DutyAmount = getLineItemDutyAmount(productLineItem);
+//    Engraving.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+//    Engraving.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+//    Engraving.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+//    Engraving.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+//    Engraving.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+//    Engraving.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+//    Engraving.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return Engraving;
 }
@@ -382,7 +537,8 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Embossed Personalization JSON.
 */
-function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalObject, language) {
+function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+    var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var Embossing = {};
     Embossing.UUID = optionUUID;
     Embossing.PersonalizationType = EMBOSSING;
@@ -425,6 +581,15 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
     Embossing.Tax6 = totalObject.Tax6;
     Embossing.TaxAmount = totalObject.personalizationTaxAmount;
     Embossing.NetAmount = totalObject.personalizationSubTotal;
+    
+//    Embossing.DutyAmount = getLineItemDutyAmount(productLineItem);
+//    Embossing.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+//    Embossing.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+//    Embossing.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+//    Embossing.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+//    Embossing.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+//    Embossing.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+//    Embossing.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return Embossing;
 }
@@ -468,7 +633,7 @@ function createPOItemPersonalizations(order, productLineItem) {
         };
 
         if ('GiftWrapMessage' in productLineItem.custom && productLineItem.custom.GiftWrapMessage) {
-            personalizations.OrderGiftMessage = populateGiftMessageObject(productLineItem, optionPrice, total, language);
+            personalizations.OrderGiftMessage = populateGiftMessageObject(productLineItem, optionPrice, total, language, order);
         } else {
             personalizations.OrderGiftMessage = '';
         }
@@ -485,13 +650,13 @@ function createPOItemPersonalizations(order, productLineItem) {
                 total.personalizationGrossValue = parseFloat(optionPrice).toFixed(TWO_DECIMAL_PLACES);
 
                 if ((option && option.getID() === GIFTWRAPPED) && ('isGiftWrapped' in productLineItem.custom) && productLineItem.custom.isGiftWrapped) {
-                    personalizations.GiftWrap = populateGiftWrapObject(productLineItem, optionPrice, optionUUID, total, language);
+                    personalizations.GiftWrap = populateGiftWrapObject(productLineItem, optionPrice, optionUUID, total, language, order);
                 }
                 if (option && option.getID() === ENGRAVED) {
-                    personalizations.Engraving = populateEngravedObject(productLineItem, optionPrice, optionUUID, total, language);
+                    personalizations.Engraving = populateEngravedObject(productLineItem, optionPrice, optionUUID, total, language, order);
                 }
                 if (option && option.getID() === EMBOSSED) {
-                    personalizations.Embossing = populateEmbossedObject(productLineItem, optionPrice, optionUUID, total, language);
+                    personalizations.Embossing = populateEmbossedObject(productLineItem, optionPrice, optionUUID, total, language, order);
                 }
             }
         }
@@ -1181,6 +1346,8 @@ function getPOItemsInfo(order) {
     var allShipments = order.getShipments();
     var sequenceNumber = 1;
     var commerceItems = new ArrayList();
+    
+    var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
 
     var tax1 = ZERO;
     var tax2 = ZERO;
@@ -1217,6 +1384,15 @@ function getPOItemsInfo(order) {
         obj.RequestedDeliveryDate = requestedDeliveryDate ? requestedDeliveryDate : formatDate(new Date(), DATE_FORMAT);
         obj.IsThisBillable = isThisBillableItem(productLineItem);
         obj.InventoryLocation = inventoryLocation;
+        obj.DutyAmount = getLineItemDutyAmount(productLineItem);
+        obj.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+        obj.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+        obj.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+        obj.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+        obj.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+        obj.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+        obj.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
+        obj.CrossBorderNetAmount = getLineItemCrossBorderNetAmount(productLineItem);
 
         var personalizationsInfo = createPOItemPersonalizations(order, productLineItem);
 
@@ -1678,32 +1854,6 @@ function isTotalConsumerTaxByMGI(eswOrderNo) {
 }
 
 /**
-* To get the duty amount
-* @param {Order} order Order container.
-* @returns {Number} total duty amount
-*/
-function getDutyAmount(order) {
-    var eswRetailerCurrencyItemDeliveryDuty = !empty(order.custom.eswRetailerCurrencyItemDeliveryDuty)
-        ? order.custom.eswRetailerCurrencyItemDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var eswRetailerCurrencyItemDuty = !empty(order.custom.eswRetailerCurrencyItemDuty) 
-        ? order.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var dutyAmount = eswRetailerCurrencyItemDeliveryDuty + eswRetailerCurrencyItemDuty;
-    return dutyAmount;
-}
-
-/**
-* To get consumer tax by MGI
-* @param {Order} order Order container.
-* @returns {String} Y or N value
-*/
-function getDutyAmount(eswOrderNo) {
-    if (eswOrderNo) {
-        return 'N';
-    }
-    return 'Y';
-}
-
-/**
 * To get consumer gross value
 * @param {Order} order Order container.
 * @returns {Number} total consumer gross value
@@ -1748,6 +1898,23 @@ function getConsumerNetAmount(order) {
     return totalConsumerNetAmount;
 }
 
+/**
+* To get Incoterms
+* @param {Order} order Order container.
+* @returns {Number} consume net amount value
+*/
+function getIncoterms(countryCode) {
+    var dduCountyCodes = !empty(Site.getCurrent().getCustomPreferenceValue('incoTerms')) ?
+            Site.getCurrent().getCustomPreferenceValue('incoTerms') : '';
+    if (dduCountyCodes.length > 0) {
+        for (i = 0; i < dduCountyCodes.length; i++) {
+            if (countryCode == dduCountyCodes[i]) {
+                return 'DDU';
+            }
+        }
+    }
+    return 'DDP';
+}
 /**
 * To get consumer sub total
 * @param {Order} order Order container.
@@ -1844,15 +2011,6 @@ function getConsumerNetAmount(order) {
 }
 
 /**
-* To get consumer tax amount
-* @param {Order} order Order container.
-* @returns {Number} value of consumer tax amount
-*/
-//function getConsumerTaxAmount(order) {
-//    var consumerTaxAmount;
-//    if ()
-//}
-/**
 * Generates the order xml provided by the processOrders
 * @param {Order} order Order container.
 */
@@ -1864,6 +2022,7 @@ function generateOrderXML(order) {
     var orderType = Site.getCurrent().getCustomPreferenceValue('orderType');
     var WebOrderCreationTimeZone = Site.getCurrent().getCustomPreferenceValue('webOrderCreationTimeZone');
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
+    var isEswEnabled = Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
 
     if (order) {
         var billingAddress = getBillingAddress(order);
@@ -2157,15 +2316,13 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerAuthAmount');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                streamWriter.writeCharacters(getConsumerNetAmount(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('Incoterms');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
-                streamWriter.writeEndElement();
-                streamWriter.writeRaw('\r\n');
-                streamWriter.writeStartElement('PaymentID');
-//                streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
+                if (eswOrderNo) {
+                    streamWriter.writeCharacters(getIncoterms(shippingAddress.countryKey));
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsTaxByMGI');
@@ -2291,7 +2448,13 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('SubTotal');
-                    streamWriter.writeCharacters(commerceItem.SubTotal);
+                    if (eswOrderNo) {
+                        !empty(order.custom.eswRetailerCurrencyTotal) ? 
+                                streamWriter.writeCharacters(parseFloat(order.custom.eswRetailerCurrencyTotal).toFixed(TWO_DECIMAL_PLACES)) 
+                                : streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                    } else {
+                        streamWriter.writeCharacters(commerceItem.SubTotal);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('TaxAmount');
@@ -2299,39 +2462,45 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Tax1');
-                    streamWriter.writeCharacters(commerceItem.Tax1);
+                    if (eswOrderNo) {
+                        streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
+                    } else {
+                        streamWriter.writeCharacters(commerceItem.Tax1);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('Tax2');
-                    streamWriter.writeCharacters(commerceItem.Tax2);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('Tax3');
-                    streamWriter.writeCharacters(commerceItem.Tax3);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('Tax4');
-                    streamWriter.writeCharacters(commerceItem.Tax4);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('Tax5');
-                    streamWriter.writeCharacters(commerceItem.Tax5);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('Tax6');
-                    streamWriter.writeCharacters(commerceItem.Tax6);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
+                    if (!eswOrderNo) {
+                        streamWriter.writeStartElement('Tax2');
+                        streamWriter.writeCharacters(commerceItem.Tax2);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                        streamWriter.writeStartElement('Tax3');
+                        streamWriter.writeCharacters(commerceItem.Tax3);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                        streamWriter.writeStartElement('Tax4');
+                        streamWriter.writeCharacters(commerceItem.Tax4);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                        streamWriter.writeStartElement('Tax5');
+                        streamWriter.writeCharacters(commerceItem.Tax5);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                        streamWriter.writeStartElement('Tax6');
+                        streamWriter.writeCharacters(commerceItem.Tax6);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
                     streamWriter.writeStartElement('DutyAmount');
-                    streamWriter.writeCharacters(commerceItem.Tax6);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('InsAmount');
-//                    streamWriter.writeCharacters(commerceItem.Tax6);
+                    streamWriter.writeCharacters(commerceItem.DutyAmount);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('NetAmount');
-                    streamWriter.writeCharacters(commerceItem.NetAmount);
+                    if (eswOrderNo) {
+                        streamWriter.writeCharacters(commerceItem.CrossBorderNetAmount)
+                    } else {
+                        streamWriter.writeCharacters(commerceItem.NetAmount);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     if (isShippingByMGI() === 'N') {
@@ -2341,13 +2510,19 @@ function generateOrderXML(order) {
                         streamWriter.writeRaw('\r\n');
                     }
                     streamWriter.writeStartElement('ConsTaxByMGI');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
+                    streamWriter.writeCharacters(commerceItem.ConsTaxByMGI);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ConsumerGrossValue');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
+                    if (isEswEnabled) {
+                        streamWriter.writeStartElement('ConsumerGrossValue');
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.ConsumerGrossValue);
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.GrossValue);
+                        }
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
                     streamWriter.writeStartElement('ConsumerMarkDownAmount');
 //                    streamWriter.writeCharacters(commerceItem.NetAmount);
                     streamWriter.writeEndElement();
@@ -2364,30 +2539,49 @@ function generateOrderXML(order) {
 //                    streamWriter.writeCharacters(commerceItem.NetAmount);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ConsumerSubTotal');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ConsumerTaxAmount');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ConsumerDutyAmount');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
+                    if (isEswEnabled) {
+                        streamWriter.writeStartElement('ConsumerSubTotal');
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.ConsumerSubTotal);
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.SubTotal);
+                        }
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
+                    if (isEswEnabled) {
+                        streamWriter.writeStartElement('ConsumerTaxAmount');
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.ConsumerTaxAmount);
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.TaxAmount);
+                        }
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
+                    if (isEswEnabled) {
+                        streamWriter.writeStartElement('ConsumerDutyAmount');
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.ConsumerDutyAmount);
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.DutyAmount);
+                        }
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
                     streamWriter.writeStartElement('ConsumerInsAmount');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ConsumerNetAmount');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    streamWriter.writeStartElement('ReturnProcessCode');
-//                    streamWriter.writeCharacters(commerceItem.NetAmount);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
+                    if (isEswEnabled) {
+                        streamWriter.writeStartElement('ConsumerNetAmount');
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.ConsumerNetAmount);
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.NetAmount);
+                        }
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
                     if (commerceItem.SKUNumber !== shippingLineItemSKU) {
                         /* EcommercePOItemPersonalization Elements: starts*/
                         if (commerceItem.giftMessageObj) {
@@ -2453,40 +2647,42 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.giftMessageObj.SubTotal);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax1');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax1);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax2');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax2);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax3');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax3);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax4');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax4);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax5');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax5);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax6');
-                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('DutyAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('InsAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('TaxAmount');
                             streamWriter.writeCharacters(commerceItem.giftMessageObj.TaxAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('Tax1');
+                            if (eswOrderNo) {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.CrossBorderTax1);
+                            } else {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax1);
+                            }
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if(!eswOrderNo) {
+                                streamWriter.writeStartElement('Tax2');
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax2);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax3');
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax3);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax4');
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax4);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax5');
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax5);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax6');
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.Tax6);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('DutyAmount');
+                            streamWriter.writeCharacters(commerceItem.giftMessageObj.DutyAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('NetAmount');
@@ -2494,49 +2690,78 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsTaxByMGI');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+                            streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsTaxByMGI);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('ConsumerGrossValue');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerGrossValue');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerGrossValue);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.GrossValue);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                             streamWriter.writeStartElement('ConsumerMarkDownAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerGrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerPromoAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerGrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerGrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerGrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('ConsumerSubTotal');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('ConsumerTaxAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('ConsumerDutyAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerSubTotal');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerSubTotal);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.SubTotal);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerTaxAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerTaxAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.TaxAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerDutyAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerDutyAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.DutyAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                             streamWriter.writeStartElement('ConsumerInsAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('ConsumerNetAmount');
-//                            streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerNetAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerNetAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftMessageObj.NetAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                                 // Iterating over the Text object : Starts
                             for (var c = 0; c < Object.keys(commerceItem.giftMessageObj.Text.SequenceNumber).length; c++) {
                                 streamWriter.writeStartElement('Text');
@@ -2596,49 +2821,144 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('GrossValue');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.GrossValue);
+//                            streamWriter.writeCharacters(commerceItem.giftWrapObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('MarkDownAmount');
+//                            streamWriter.writeCharacters(commerceItem.giftWrapObj.GrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('PromoAmount');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
+//                            streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('RoundingAmount');
+//                          streamWriter.writeCharacters(commerceItem.giftMessageObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('LoyaltyAmount');
+//                          streamWriter.writeCharacters(commerceItem.giftMessageObj.PromoAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
                             streamWriter.writeCharacters(commerceItem.giftWrapObj.SubTotal);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax1');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax1);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax2');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax2);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax3');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax3);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax4');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax4);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax5');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax5);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax6');
-                            streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('TaxAmount');
                             streamWriter.writeCharacters(commerceItem.giftWrapObj.TaxAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('Tax1');
+                            if (eswOrderNo) {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.CrossBorderTax1);
+                            } else {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax1);
+                            }
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (!eswOrderNo) {
+                                streamWriter.writeStartElement('Tax2');
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax2);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax3');
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax3);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax4');
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax4);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax5');
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax5);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax6');
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.Tax6);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('DutyAmount');
+                            streamWriter.writeCharacters(commerceItem.giftWrapObj.DutyAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('NetAmount');
                             streamWriter.writeCharacters(commerceItem.giftWrapObj.NetAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsTaxByMGI');
+                            streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsTaxByMGI);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerGrossValue');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerGrossValue);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.GrossValue);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerMarkDownAmount');
+//                          streamWriter.writeCharacters(commerceItem.giftWrapObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerPromoAmount');
+                            streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerRoundingAmount');
+//                          streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+//                          streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerSubTotal');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerSubTotal);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.SubTotal);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerTaxAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerTaxAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.TaxAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerDutyAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerDutyAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.DutyAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerInsAmount');
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerNetAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerNetAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.giftWrapObj.NetAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                                 // Iterating over the Text object : Starts
                             streamWriter.writeEndElement();
                             streamWriter.writeCharacters(''); streamWriter.writeRaw('\r\n');
@@ -2687,46 +3007,141 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.engravingObj.GrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('MarkDownAmount');
+//                            streamWriter.writeCharacters(commerceItem.engravingObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('PromoAmount');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+//                            streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('RoundingAmount');
+//                            streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('LoyaltyAmount');
+//                            streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
                             streamWriter.writeCharacters(commerceItem.engravingObj.SubTotal);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax1');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax1);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax2');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax2);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax3');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax3);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax4');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax4);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax5');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax5);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax6');
-                            streamWriter.writeCharacters(commerceItem.engravingObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('TaxAmount');
                             streamWriter.writeCharacters(commerceItem.engravingObj.TaxAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('Tax1');
+                            if (eswOrderNo) {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.CrossBorderTax1);
+                            } else {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax1);
+                            }
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (!eswOrderNo) {
+                                streamWriter.writeStartElement('Tax2');
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax2);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax3');
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax3);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax4');
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax4);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax5');
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax5);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax6');
+                                streamWriter.writeCharacters(commerceItem.engravingObj.Tax6);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('DutyAmount');
+                            streamWriter.writeCharacters(commerceItem.engravingObj.DutyAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('NetAmount');
                             streamWriter.writeCharacters(commerceItem.engravingObj.NetAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsTaxByMGI');
+                            streamWriter.writeCharacters(commerceItem.engravingObj.ConsTaxByMGI);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerGrossValue');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerGrossValue);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.GrossValue);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerMarkDownAmount');
+//                          streamWriter.writeCharacters(commerceItem.engravingObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerPromoAmount');
+//                            streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerRoundingAmount');
+//                          streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+//                          streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerSubTotal');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerSubTotal);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.SubTotal);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerTaxAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerTaxAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.TaxAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerDutyAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerDutyAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.DutyAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerInsAmount');
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerNetAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerNetAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.engravingObj.NetAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                                 // Iterating over the Text object : Starts
                             if (commerceItem.engravingObj.Text.SequenceNumber[0]) {
                                 streamWriter.writeStartElement('Text');
@@ -2803,7 +3218,19 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.embossingObj.GrossValue);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('MarkDownAmount');
+                            streamWriter.writeCharacters(commerceItem.embossingObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('PromoAmount');
+                            streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('RoundingAmount');
+                            streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('LoyaltyAmount');
                             streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
@@ -2811,38 +3238,121 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.embossingObj.SubTotal);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax1');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax1);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax2');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax2);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax3');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax3);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax4');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax4);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax5');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax5);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
-                            streamWriter.writeStartElement('Tax6');
-                            streamWriter.writeCharacters(commerceItem.embossingObj.Tax6);
-                            streamWriter.writeEndElement();
-                            streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('TaxAmount');
                             streamWriter.writeCharacters(commerceItem.embossingObj.TaxAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('Tax1');
+                            if (eswOrderNo) {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.CrossBorderTax1);
+                            } else {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax1);
+                            }
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (!eswOrderNo) {
+                                streamWriter.writeStartElement('Tax2');
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax2);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax3');
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax3);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax4');
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax4);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax5');
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax5);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                                streamWriter.writeStartElement('Tax6');
+                                streamWriter.writeCharacters(commerceItem.embossingObj.Tax6);
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('DutyAmount');
+                            streamWriter.writeCharacters(commerceItem.embossingObj.DutyAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('NetAmount');
                             streamWriter.writeCharacters(commerceItem.embossingObj.NetAmount);
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsTaxByMGI');
+                            streamWriter.writeCharacters(commerceItem.embossingObj.ConsTaxByMGI);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerGrossValue');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerGrossValue);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.GrossValue);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerMarkDownAmount');
+//                          streamWriter.writeCharacters(commerceItem.embossingObj.GrossValue);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerPromoAmount');
+//                            streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerRoundingAmount');
+//                          streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+//                          streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerSubTotal');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerSubTotal);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.SubTotal);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerTaxAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerTaxAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.TaxAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerDutyAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerDutyAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.DutyAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
+                            streamWriter.writeStartElement('ConsumerInsAmount');
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                            if (isEswEnabled) {
+                                streamWriter.writeStartElement('ConsumerNetAmount');
+                                if (eswOrderNo) {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerNetAmount);
+                                } else {
+                                    streamWriter.writeCharacters(commerceItem.embossingObj.NetAmount);
+                                }
+                                streamWriter.writeEndElement();
+                                streamWriter.writeRaw('\r\n');
+                            }
                                 // Iterating over the Text objects
                             if (commerceItem.embossingObj.Text.SequenceNumber) {
                                 streamWriter.writeStartElement('Text');
