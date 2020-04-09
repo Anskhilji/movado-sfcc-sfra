@@ -412,14 +412,14 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
     OrderGiftMessage.TaxAmount = totalObject.personalizationTaxAmount;
     OrderGiftMessage.NetAmount = totalObject.personalizationSubTotal;
     
-//    OrderGiftMessage.DutyAmount = getLineItemDutyAmount(productLineItem);
-//    OrderGiftMessage.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
-//    OrderGiftMessage.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
-//    OrderGiftMessage.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
-//    OrderGiftMessage.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
-//    OrderGiftMessage.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
-//    OrderGiftMessage.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
-//    OrderGiftMessage.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
+    OrderGiftMessage.DutyAmount = getLineItemDutyAmount(productLineItem);
+    OrderGiftMessage.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+    OrderGiftMessage.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+    OrderGiftMessage.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+    OrderGiftMessage.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+    OrderGiftMessage.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+    OrderGiftMessage.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+    OrderGiftMessage.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return OrderGiftMessage;
 }
@@ -457,14 +457,14 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
     GiftWrap.TaxAmount = totalObject.personalizationTaxAmount;
     GiftWrap.NetAmount = totalObject.personalizationSubTotal;
     
-//    GiftWrap.DutyAmount = getLineItemDutyAmount(productLineItem);
-//    GiftWrap.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
-//    GiftWrap.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
-//    GiftWrap.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
-//    GiftWrap.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
-//    GiftWrap.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
-//    GiftWrap.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
-//    GiftWrap..CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
+    GiftWrap.DutyAmount = getLineItemDutyAmount(productLineItem);
+    GiftWrap.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+    GiftWrap.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+    GiftWrap.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+    GiftWrap.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+    GiftWrap.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+    GiftWrap.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+    GiftWrap.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return GiftWrap;
 }
@@ -517,14 +517,14 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
     Engraving.TaxAmount = totalObject.personalizationTaxAmount;
     Engraving.NetAmount = totalObject.personalizationSubTotal;
     
-//    Engraving.DutyAmount = getLineItemDutyAmount(productLineItem);
-//    Engraving.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
-//    Engraving.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
-//    Engraving.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
-//    Engraving.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
-//    Engraving.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
-//    Engraving.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
-//    Engraving.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
+    Engraving.DutyAmount = getLineItemDutyAmount(productLineItem);
+    Engraving.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+    Engraving.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+    Engraving.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+    Engraving.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+    Engraving.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+    Engraving.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+    Engraving.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return Engraving;
 }
@@ -582,14 +582,14 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
     Embossing.TaxAmount = totalObject.personalizationTaxAmount;
     Embossing.NetAmount = totalObject.personalizationSubTotal;
     
-//    Embossing.DutyAmount = getLineItemDutyAmount(productLineItem);
-//    Embossing.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
-//    Embossing.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
-//    Embossing.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
-//    Embossing.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
-//    Embossing.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
-//    Embossing.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
-//    Embossing.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
+    Embossing.DutyAmount = getLineItemDutyAmount(productLineItem);
+    Embossing.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo);
+    Embossing.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem);
+    Embossing.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem);
+    Embossing.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem);
+    Embossing.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem);
+    Embossing.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem);
+    Embossing.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem);
 
     return Embossing;
 }
