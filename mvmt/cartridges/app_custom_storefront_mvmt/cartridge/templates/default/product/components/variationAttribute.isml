@@ -18,22 +18,23 @@ Template Notes:
         <iscomment> Custom: End </iscomment>
     </label>
     <iscomment> Custom: Start see fit button added </iscomment>
-    <button class="select-size-head-seefit-text call-see-fit-popup">
-        ${Resource.msg('label.seefit', 'product', null)}
-    </button>
+    <isif condition="${attributeStatus.first}">
+        <button class="select-size-head-seefit-text call-see-fit-popup">
+            ${Resource.msg('label.seefit', 'product', null)}
+        </button>
+    </isif>
+
     <div class="product-size-select-list">
         <isif condition="${attr.swatchable}">
             <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
-                <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
-                    <button class="product-size-options select-variation-product" value="${attrValue.url}" ${ product.productType === "variant" && isBundle ? "disabled" : "" } data-attr-value="${attrValue.value}"
+                    <button class="product-size-options select-variation-product" value="${attrValue.url}" data-attr-value="${attrValue.value}"
                         ${!attrValue.selectable ? 'disabled' : ''}
                         ${attrValue.selected ? 'selected' : ''}
                         style="background-image: url(${attrValue.images['swatch'][0].url})"
                     >
                         ${attrValue.displayValue}
                     </button>
-                </isif>
             </isloop>
 
         <iselse>

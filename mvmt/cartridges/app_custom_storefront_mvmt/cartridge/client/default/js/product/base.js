@@ -326,23 +326,21 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     //  Remove Zoom and slick slider
+    $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
-    $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy');
-
     // Update primary images
     var primaryImageUrls = response.product.images;
     primaryImageUrls.zoom1660.forEach(function (imageUrl, idx) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
-            .data('thumb', imageUrl.url);
+            .attr('data-thumb', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
-
     // Attach Slider and Zoom
+    zoomfeature(); 
     initializePDPMainSlider();
-    zoomfeature();
 
     // Update pricing
     if (!isChoiceOfBonusProducts) {
