@@ -322,7 +322,6 @@ function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
             success: function (data) {
                 updateCartPage(data);
                 handlePostCartAdd(data);
-                $.spinner().stop();
             },
             error: function () {
                 $.spinner().stop();
@@ -374,46 +373,6 @@ function handleVariantResponse(response, $productContainer) {
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
         $priceSelector.replaceWith(response.product.price.html);
-        if ($('.pdp-mvmt')) {
-            debugger;
-            var $barSalePriceSelector = $('.sticky-bar-price .price');
-            $barSalePriceSelector.replaceWith(response.product.price.html);
-            var $productNameSelector = $('.product-name');
-            $productNameSelector.text(response.product.productName);
-            var $selectedVariation = $('.selected-variation');
-            var $variationAttributes = response.product.variationAttributes;
-            
-            for (var i = 0; i < $variationAttributes.length; i++) {
-                $variationAttributes[i].values.forEach(function (item) {
-                    if (item.selected === true) {
-                        $selectedVariation.text(item.displayValue);
-                    }
-                });
-            }
-            
-            var $variationProductURL = '/on/demandware.store/Sites-MVMTUS-Site/default/Product-Variation?pid=' + response.product.id;
-            
-            $.ajax({
-                url: $variationProductURL,
-                method: 'GET',
-                success: function (data) {
-                    var $linkedProductList = $('.linked-product-list');
-                    $linkedProductList.replaceWith(data.linkedProductTemplate);
-                    $('.linked-products').slick({
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                        focusOnSelect: true,
-                        infinite: false,
-                        dots: false,
-                        arrows: true,
-                    });
-                    $.spinner().stop();
-                },
-                error: function () {
-                    $.spinner().stop();
-                }
-            });
-        }
     }
 
     // Update promotions

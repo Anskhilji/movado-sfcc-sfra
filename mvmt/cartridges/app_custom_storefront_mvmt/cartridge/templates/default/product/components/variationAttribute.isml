@@ -28,7 +28,7 @@ Template Notes:
         <isif condition="${attr.swatchable}">
             <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
-                    <button class="product-size-options select-variation-product" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                    <button class="product-size-options select-variation-product color-variation" value="${attrValue.url}" data-attr-value="${attrValue.value}"
                         ${!attrValue.selectable ? 'disabled' : ''}
                         ${attrValue.selected ? 'selected' : ''}
                         style="background-image: url(${attrValue.images['swatch'][0].url})"

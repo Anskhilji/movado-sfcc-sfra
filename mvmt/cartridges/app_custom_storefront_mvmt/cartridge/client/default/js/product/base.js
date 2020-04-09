@@ -349,8 +349,18 @@ function handleVariantResponse(response, $productContainer) {
             : $('.prices .price');
         $priceSelector.replaceWith(response.product.price.html);
         // Custom Start
+        var $readyToOrder = response.product.readyToOrder;
         var $barSalePriceSelector = $('.sticky-bar-price .price');
+        var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder');
+        $mobilePrice.replaceWith(response.product.price.html);
         $barSalePriceSelector.replaceWith(response.product.price.html);
+        if ($readyToOrder) {
+            $mobilePrice.removeClass('d-none');
+            $barSalePriceSelector.removeClass('d-none');
+        } else {
+            $mobilePrice.addClass('d-none');
+            $barSalePriceSelector.addClass('d-none');
+        }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
         var $selectedVariation = $('.selected-variation');
@@ -686,6 +696,9 @@ $(document).off('change', selector);
 $(document).off('click').on('click', selector, function (e) {
     e.preventDefault();
     $(this).siblings().removeClass('active');
+    if ( $(this).hasClass('color-variation') ) {
+        $(selector).removeClass('active');
+    }
     $(this).addClass('active');
     var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 

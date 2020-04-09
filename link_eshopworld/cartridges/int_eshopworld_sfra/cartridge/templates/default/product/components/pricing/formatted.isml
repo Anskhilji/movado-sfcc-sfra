@@ -1,4 +1,4 @@
-<isif condition="${!empty(matchingLineItem)}">
+<isif condition="${isEswEnabled && !empty(matchingLineItem)}">
 	${price}
 <iselse>
 	${price.decimalPrice}

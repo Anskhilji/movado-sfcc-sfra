@@ -11,8 +11,10 @@
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselseif condition="${product.available}">
                     ${Resource.msg('button.addtocart', 'common', null)} 
-                    <span class="product-price-mobile"> 
-                        ${product.price.sales.formatted}
+                    <span class="product-price-mobile "> 
+                        <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
                     </span>
                 <iselse>
                     ${Resource.msg('label.soldout', 'product', null)}

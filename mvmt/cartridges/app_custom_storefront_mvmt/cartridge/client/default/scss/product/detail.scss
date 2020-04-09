@@ -1462,7 +1462,8 @@
         .product-size-options {
             background: $white;
             border-color: $white;
-
+            background-size: cover;
+            
             &.active {
                 border-color: $black;
                 background: $white-gray;
@@ -1630,5 +1631,12 @@
 
     @include media-breakpoint-up(md) {
         display: none;
+    }
+
+    .price {
+        color: $white;
+        .strike-through {
+            color: $white;
+        }
     }
 }
