@@ -1,12 +1,7 @@
 <isif condition="${product.promotions}">
     <isloop items="${product.promotions}" var="promotion">
-        <div class="d-flex">
-            <div class="col-md-5">
-                <img src="${promotion.image.absURL}"/>
-            </div>
-            <div class="">
-                <isprint value="${promotion.details}" encoding="off" />
-            </div>
+        <div class="row">
+            <isprint value="${promotion.details}" encoding="off" />
         </div>
     </isloop>
 </isif>

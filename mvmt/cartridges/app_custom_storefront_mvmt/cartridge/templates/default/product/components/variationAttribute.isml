@@ -33,7 +33,6 @@ Template Notes:
                         ${attrValue.selected ? 'selected' : ''}
                         style="background-image: url(${attrValue.images['swatch'][0].url})"
                     >
-                        ${attrValue.displayValue}
                     </button>
             </isloop>
 
@@ -43,7 +42,7 @@ Template Notes:
                     ${!attrValue.selectable ? 'disabled' : ''}
                     ${attrValue.selected ? 'selected' : ''}
                 >
-                    ${attrValue.displayValue}
+                    ${attrValue.value}
                 </button>
             </isloop>
         </isif>

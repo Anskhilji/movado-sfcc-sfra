@@ -141,7 +141,7 @@ function getPromotionsHtml(promotions) {
     var html = '';
 
     promotions.forEach(function (promotion) {
-        html += '<div class="callout promo-msg" title="' + promotion.details + '">' + promotion.calloutMsg +
+        html += '<div class="row" >' + promotion.details + 
             '</div>';
     });
 
@@ -363,7 +363,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
-        var $selectedVariation = $('.selected-variation');
+        var $selectedVariation = $('.current-selected-variation');
         var $variationAttributes = response.product.variationAttributes;
         
         for (var i = 0; i < $variationAttributes.length; i++) {
@@ -374,6 +374,7 @@ function handleVariantResponse(response, $productContainer) {
             });
         }
         
+        $selectedVariation.removeClass('current-selected-variation');
         var $variationProductURL = '/on/demandware.store/Sites-MVMTUS-Site/default/Product-Variation?pid=' + response.product.id;
         
         $.ajax({
@@ -390,10 +391,8 @@ function handleVariantResponse(response, $productContainer) {
                     dots: false,
                     arrows: true,
                 });
-                $.spinner().stop();
             },
             error: function () {
-                $.spinner().stop();
             }
         });
         // Custom End
@@ -420,15 +419,6 @@ function handleVariantResponse(response, $productContainer) {
     $productContainer.find('.main-attributes').empty()
         .html(getAttributesHtml(response.product.attributes));
 }
-
-/**
- * @typespec UpdatedQuantity
- * @type Object
- * @property {boolean} selected - Whether the quantity has been selected
- * @property {string} value - The number of products to purchase
- * @property {string} url - Compiled URL that specifies variation attributes, product ID, options,
- *     etc.
- */
 
 /**
  * Updates the quantity DOM elements post Ajax call
@@ -488,159 +478,6 @@ function attributeSelect(selectedValueUrl, $productContainer) {
     }
 }
 
-
-/**
- * Parses the html for a modal window
- * @param {string} html - representing the body and footer of the modal window
- *
- * @return {Object} - Object with properties body and footer.
- */
-function parseHtml(html) {
-    var $html = $('<div>').append($.parseHTML(html));
-
-    var body = $html.find('.bonus-product-wrapper');
-    var footer = $html.find('.modal-footer').children();
-
-    return { body: body, footer: footer };
-}
-
-/**
- * Retrieves url to use when adding a product to the cart
- *
- * @param {Object} data - data object used to fill in dynamic portions of the html
- */
-function chooseBonusProducts(data) {
-    $('.modal-body').spinner().start();
-
-    if ($('#chooseBonusProductModal').length !== 0) {
-        $('#chooseBonusProductModal').remove();
-    }
-    var bonusUrl;
-    if (data.bonusChoiceRuleBased) {
-        bonusUrl = data.showProductsUrlRuleBased;
-    } else {
-        bonusUrl = data.showProductsUrlListBased;
-    }
-
-    var htmlString = '<!-- Modal -->'
-        + '<div class="modal fade" id="chooseBonusProductModal" role="dialog">'
-        + '<div class="modal-dialog choose-bonus-product-dialog" '
-        + 'data-total-qty="' + data.maxBonusItems + '"'
-        + 'data-UUID="' + data.uuid + '"'
-        + 'data-pliUUID="' + data.pliUUID + '"'
-        + 'data-addToCartUrl="' + data.addToCartUrl + '"'
-        + 'data-pageStart="0"'
-        + 'data-pageSize="' + data.pageSize + '"'
-        + 'data-moreURL="' + data.showProductsUrlRuleBased + '"'
-        + 'data-bonusChoiceRuleBased="' + data.bonusChoiceRuleBased + '">'
-        + '<!-- Modal content-->'
-        + '<div class="modal-content">'
-        + '<div class="modal-header">'
-        + '<span class="">' + data.labels.selectprods + '</span>'
-        +'<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">'
-        +'<span class="text-uppercase close-icon">Close</span>'
-        +'</button>'
-        + '</div>'
-        + '<div class="modal-body"></div>'
-        + '<div class="modal-footer"></div>'
-        + '</div>'
-        + '</div>'
-        + '</div>';
-    $('body').append(htmlString);
-    $('.modal-body').spinner().start();
-
-    $.ajax({
-        url: bonusUrl,
-        method: 'GET',
-        dataType: 'html',
-        success: function (html) {
-            var parsedHtml = parseHtml(html);
-            $('#chooseBonusProductModal .modal-body').empty();
-            $('#chooseBonusProductModal .modal-body').html(parsedHtml.body);
-            $('#chooseBonusProductModal .modal-footer').html(parsedHtml.footer);
-            $('#chooseBonusProductModal').modal('show');
-            $.spinner().stop();
-        },
-        error: function () {
-            $.spinner().stop();
-        }
-    });
-}
-
-
-
-/**
- * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
- * @param {string} response - ajax response from clicking the add to cart button
- */
-function handlePostCartAdd(response) {
-    $('.minicart').trigger('count:update', response);
-    var messageType = response.error ? 'text-danger' : 'text-success';
-    // show add to cart modal
-    $('#addToCartModal .modal-body').html(response.message);
-    $('#addToCartModal .modal-body p').addClass(messageType);
-    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
-        if(response.cartAnalyticsTrackingData !== undefined) {
-            setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
-            window.dispatchEvent(setAnalyticsTrackingByAJAX);
-        }
-        if(response.addCartGtmArray !== undefined){
-        	 $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-        }	
-    }
-    if (response.newBonusDiscountLineItem
-        && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
-        chooseBonusProducts(response.newBonusDiscountLineItem);
-    } else {
-        $('#addToCartModal').modal('show');
-    }
-}
-
-/**
- * Retrieves the bundle product item ID's for the Controller to replace bundle master product
- * items with their selected variants
- *
- * @return {string[]} - List of selected bundle product item ID's
- */
-function getChildProducts() {
-    var childProducts = [];
-    $('.bundle-item').each(function () {
-        childProducts.push({
-            pid: $(this).find('.product-id').text(),
-            quantity: parseInt($(this).find('label.quantity').data('quantity'), 10)
-        });
-    });
-
-    return childProducts.length ? JSON.stringify(childProducts) : [];
-}
-
-/**
- * Retrieve product options
- *
- * @param {jQuery} $productContainer - DOM element for current product
- * @return {string} - Product options and their selected values
- */
-function getOptions($productContainer) {
-    var options = $productContainer
-        .find('.product-option')
-        .map(function () {
-            var $elOption = $(this).find('.options-select, input[type="radio"]:checked');
-            var urlValue = $elOption.val();
-            var selectedValueId;
-            if ($elOption.is("input")) {
-                selectedValueId = $elOption.data('value-id');
-            } else {
-                selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
-                .data('value-id');
-            }
-            return {
-                optionId: $(this).data('option-id'),
-                selectedValueId: selectedValueId
-            };
-        }).toArray();
-
-    return JSON.stringify(options);
-}
 /**
  * Retrieve product options
  *
@@ -695,10 +532,13 @@ var selector = '.set-item select[class*="select-"], .product-detail select[class
 $(document).off('change', selector);
 $(document).off('click').on('click', selector, function (e) {
     e.preventDefault();
+    var selectedVariation = ('span.selected-variation');
     $(this).siblings().removeClass('active');
     if ( $(this).hasClass('color-variation') ) {
         $(selector).removeClass('active');
+        $(selectedVariation).empty();
     }
+    $(this).parents('.attribute').find(selectedVariation).addClass('current-selected-variation');
     $(this).addClass('active');
     var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 

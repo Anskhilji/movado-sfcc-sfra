@@ -576,7 +576,9 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        $('#addToCartModal').modal('show');
+        if (!$('#addToCartModal').is(':visible')) {
+            $('#addToCartModal').modal('show');
+        }
     }
 }
 

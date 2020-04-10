@@ -1297,6 +1297,7 @@
                 margin-right: rem(4);
             }
         }
+
     }
 
     .product-size-options {
@@ -1457,13 +1458,26 @@
                 margin: 0;
                 text-align: center;
             }
+
+            .color-Attribute {
+                background-color: $white;
+                border-top: none;
+
+                .pdp-select-variations {
+                    background-color: $white;
+
+                    .select-size-head-label {
+                        display: none;
+                    }
+                }
+            }
         }
 
         .product-size-options {
             background: $white;
             border-color: $white;
             background-size: cover;
-            
+
             &.active {
                 border-color: $black;
                 background: $white-gray;
