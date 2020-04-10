@@ -2,13 +2,6 @@
 @import '~movado/search';
 
 .search-banner {
-
-    img {
-        width: 100%;
-    }
-}
-
-.search-banner {
     position: relative;
     overflow: hidden;
 
@@ -67,5 +60,12 @@
         @include media-breakpoint-up(lg) {
             display: block;
         }
+    }
+}
+
+.mvmt-plp {
+
+    .product-price-mobile {
+        display: none;
     }
 }

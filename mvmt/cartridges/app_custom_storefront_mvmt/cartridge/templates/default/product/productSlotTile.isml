@@ -43,9 +43,7 @@
             <iselse>
                 <isinclude template="product/components/pricing/main" />
             </isif>
-            <isif condition="${!pdict.isCompareableDisabled}"> 
-                <isinclude template="product/components/compare" />
-            </isif>
+
             <isif condition="${pdict.display.recommendattionTile}">
                 <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
             </isif>
