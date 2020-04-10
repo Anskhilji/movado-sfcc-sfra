@@ -220,6 +220,11 @@ $('#strapguide').on('click', function (e) {
     $('#strapguid').modal();
 });
 
+var updateCartPage = function(data) {
+    $('.cart-section-wrapper').html(data.cartPageHtml);
+    affirm.ui.refresh();
+};
+
 /**
  * Add zoom in functionality in PDP Primary images
  */

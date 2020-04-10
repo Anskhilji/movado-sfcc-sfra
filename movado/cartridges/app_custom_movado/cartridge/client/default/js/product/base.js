@@ -277,15 +277,6 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
     }
 }
 
-$('#strapguide').on('click', function (e) {
-    $('#strapguid').modal();
-});
-
-var updateCartPage = function(data) {
-    $('.cart-section-wrapper').html(data.cartPageHtml);
-    affirm.ui.refresh();
-};
-
 /**
  * Custom Start: Retrieve recommended products
  *
@@ -293,12 +284,12 @@ var updateCartPage = function(data) {
  * 
  */
 function addRecommendationProducts(addToCartUrl) {
-    var $variationProductSelector = $('.upsell_input');
-    for (var i = 0; i < $variationProductSelector.length; i++) {
-        var $currentVariationProduct = $variationProductSelector[i];
-        if ($currentVariationProduct.checked) {
+    var $recommendedProductSelector = $('.upsell_input');
+    for (var i = 0; i < $recommendedProductSelector.length; i++) {
+        var $currentRecommendedProduct = $recommendedProductSelector[i];
+        if ($currentRecommendedProduct.checked) {
             var form = {
-                pid: $currentVariationProduct.value,
+                pid: $currentRecommendedProduct.value,
                 quantity: 1
             };
             
