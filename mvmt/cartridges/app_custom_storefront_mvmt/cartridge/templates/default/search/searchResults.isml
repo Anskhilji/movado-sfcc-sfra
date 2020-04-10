@@ -34,7 +34,7 @@
                     </isif>
                   </a>
                 </li>
-                
+
                 <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
                     <li class="nav-item">
                       <a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab" aria-expanded="false"
@@ -51,8 +51,26 @@
         <div class="row">
             <div class="tab-content col-12">
                 <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
-    
+
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
+                        <div class="plp-filter-bar">
+                            <div class="plp-filter-bar-inner ">
+                                <div class="plp-filter-options">
+                                    <div class="plp-bar-filter">
+                                        <div class="plp-filter-lists">
+                                            <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                                                <div class="plp-filter-list">
+                                                    <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                                                        ${refinement.displayName}
+                                                    </button>
+                                                </div>
+                                            </isloop>
+                                            <isinclude template="search/sortOrderMenu" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row grid-header">
                             <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
                                 <iselse>
@@ -63,7 +81,7 @@
                 </div>
                 <isif condition="${pdict.productSearch.productIds.length > 0}">
                     <div class="col-6 col-sm-3 order-sm-1 sort-col">
-                        <isinclude template="search/sortOrderMenu" />
+
                     </div>
     
                     <div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
@@ -73,13 +91,13 @@
                     </div>
                 </isif>
             </div>
-    
+
             <isif condition="${pdict.productSearch.productIds.length > 0}">
                 <!--- Refinement bar --->
-                <div class="row">
-                    <iscomment> <div class="refinement-bar col-md-3 d-none">
+                <div class="col-sm-12 d-none">
+                    <div class="refinement-bar col-md-3 d-none">
                         <isinclude url="${pdict.refineurl}" />
-                    </div> </iscomment>
+                    </div>
 
                 </div>
 
