@@ -2,6 +2,11 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 
 <header class="new-header">
+    <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
+    <isif condition="${isEswEnabled}" >
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+    </isif>
+    <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
@@ -15,6 +20,11 @@
                         <div class="p-0 nav-left main-menu desktop-menu">
                             <div class="d-none d-lg-inline-block">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <isif condition="${isEswEnabled}" >
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                </isif>
+                                <iscomment> Custom End </iscomment>
                             </div>
                             <div class="d-block w-100 mobile-logo text-center d-lg-none">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
@@ -25,7 +35,6 @@
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                             </div>
                         </div>
-
                         <div class="nav-right justify-content-end right">
                             <div class="mobile-navigation">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
@@ -45,6 +54,13 @@
                                 </li>
                             </ul>
                             <div class="hidden-md-down d-lg-flex">
+                                <iscomment>Custom Start: Added swell point slot in page header for login user </iscomment>
+                                <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+                                    <div class="main-level-item navbar-header account-wrapper search">
+                                        <isslot id="swell-compaign-total-points-header" description="Swell Points" context="global" />
+                                    </div>
+                                </isif>
+                                <iscomment>Custom End</iscomment>
                                 <div class="main-level-item navbar-header account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
                                 </div>

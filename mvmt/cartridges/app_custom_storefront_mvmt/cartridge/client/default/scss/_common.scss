@@ -368,3 +368,23 @@
     text-transform: uppercase;
 }
 
+.widgets-title {
+    margin: rem(20);
+    overflow :hidden;
+    text-align: left;
+    line-height: 1.6em;
+
+    &::before {
+        display: block;
+        float: right;
+        margin-top: .8em; 
+        border-top: 1px solid $light-gray4;
+        width: 50%;
+        content: "";
+    }
+}
+
+.point-alter-image {
+    width: rem(30);
+    height: rem(30);
+}

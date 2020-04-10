@@ -15,7 +15,16 @@ server.append('Login', server.middleware.https, function (req, res, next) {
             redirectUrl: URLUtils.url('Checkout-Login').toString()
         });
     }
+    res.setViewData(viewData);
     next();
 });
 
+server.get(
+    'MvmtInsider',
+    function (req, res, next) {
+        res.render('account/mvmtInsider');
+
+        next();
+    }
+);
 module.exports = server.exports();

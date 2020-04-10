@@ -3,6 +3,57 @@ var movadoDetail = require('movado/product/detail');
 
 module.exports = {
 
+    zooom : function() {
+        function zoomfeature () {
+            var t = ".main-mvmt-carousel .carousel-tile";
+            $(t).trigger("zoom.destroy");
+            var n = $(".main-mvmt-carousel .slick-active").find("img").attr("src");
+            $(window).width() > 767 ? ($(t).trigger("zoom.destroy"), $(t).zoom({
+                url: n,
+                magnify: 1.1,
+                on: "click",
+                target: $(".zoom-box"),
+                onZoomIn: function() {
+                    $(".zoom-box").addClass("zoom-active");
+                    $(".zoom-out").addClass("active");
+                },
+                onZoomOut: function() {
+                    $(".zoom-box").removeClass("zoom-active");
+                    $(".zoom-out").removeClass("active");
+                }
+            })) : (
+            $(t).addClass("disabled"),
+            $(t).trigger("zoom.destroy"),
+            $(document).on("click", ".zoom-icon.zoom-in", (function(a) {
+                $(t).hasClass("disabled") && ($(".zoom-icon.zoom-out").addClass("is-active"),
+                $(t).removeClass("disabled"),
+                $(t).zoom({
+                    url: n,
+                    magnify: 1.1,
+                    on: "click",
+                    target: $(".zoom-box"),
+                    onZoomIn: function() {
+                        $(".zoom-box").addClass("zoom-active");
+                    },
+                    onZoomOut: function() {
+                        $(".zoom-box").removeClass("zoom-active")
+                    }
+                }))
+            })),
+            $(document).on("click", ".zoom-icon.zoom-out", (function(n) {
+                $(".zoom-icon.zoom-out").hasClass("is-active") && ($(t).addClass("disabled"),
+                $(".zoom-icon.zoom-out").removeClass("is-active"),
+                $(t).trigger("zoom.destroy"))
+            })));
+        };
+
+        zoomfeature();
+
+        $(window).resize((function() {
+            zoomfeature();
+        }));
+    },
+
     clickEvents: function () {
 
         $('.pdp-tabs-nav button').on('click', function(e) {
@@ -42,7 +93,7 @@ module.exports = {
             slidesToScroll: 1,
             dots: false,
             arrows: true,
-            autoplay: true,
+            autoplay: false,
             prevArrow: '<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
             responsive: [
@@ -75,14 +126,14 @@ module.exports = {
 
     stickybar: function () {
         $(function() {
-            var $header = $('.header-menu-wrapper').height();
+            var $header = $('.header-menu-wrapper .header-wrapper').height();
             var $productdetail = $('.product-detail').height();
             var $stickybar = $('.sticky-bar');
             $(window).scroll(function() {
                 var $scroll = $(window).scrollTop();
 
                 if ($scroll >= $productdetail) {
-                    $stickybar.css('top', $header +'px');
+                    $stickybar.css('top', $header + 1 +'px');
                 } else {
                     $stickybar.css('top','-45px');
                 }
@@ -112,44 +163,29 @@ module.exports = {
         });
     },
 
-    zoomFeature: function () {
-        $('.main-carousel .carousel-tile').zoom({
-            onZoomIn:function(){
-                $('.normal-zoom, .carousel-pagination').addClass('opacity-0');
-                $('.zoom-img').addClass('zoomed-img');
-                $('.main-carousel').addClass('pl-0');
-                $('.zoom-out, .main-carousel .carousel-tile').addClass('active');
-            },
-
-            onZoomOut:function(){
-                $('.normal-zoom, .carousel-pagination').removeClass('opacity-0');
-                $('.zoom-img').removeClass('zoomed-img');
-                $('.main-carousel').removeClass('pl-0');
-                $('.zoom-out, .main-carousel .carousel-tile').removeClass('active');
-            }
-        });
-    },
-
     primarySlider: function () {
-
-        $('.primary-images .main-carousel').slick({
+        $('.primary-images .main-mvmt-carousel').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: false,
+            dots: true,
             arrows:false,
             focusOnSelect: true,
-            asNavFor: '.carousel-pagination',
+            fade: true,
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
             responsive: [
                 {
                     breakpoint: 768,
                     settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        arrows: false,
-                        dots:true
+                        arrows: true,
+                        dots:false
                     }
                 },
-            ]
+            ],
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').data('thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
         });
     },
 };

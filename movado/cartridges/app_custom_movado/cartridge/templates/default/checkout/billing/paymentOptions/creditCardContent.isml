@@ -4,7 +4,9 @@
 <iselse/>
     <isset name="show" value="" scope="page"/>
 </isif>
-<div class="panel-collapse collapse ${show}" id="credit-card-content" data-parent="#accordion">
+<iscomment>Custom Start:Adds the class show if there is no Amazon Pay Redirect URL in the basket</iscomment>
+<div class="panel-collapse ${empty(pdict.order.amzPayRedirectURL) ? 'show' : ''}" id="credit-card-content" data-parent="#accordion">
+<iscomment>Custom End</iscomment>
 <div class="panel-body">
     <!--- payment method is credit card --->
 

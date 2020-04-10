@@ -118,10 +118,12 @@ eswHelper.getOrderTotalWithShippingCost = function () {
  */
 eswHelper.getMatchingLineItem = function (lineItem) {
     var currentBasket = dw.order.BasketMgr.getCurrentBasket();
-
-    var matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-        return item.productID === lineItem.id && item.UUID === lineItem.UUID;
-    });
+    var matchingLineItem;
+    if (currentBasket != null) {
+        matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+            return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+        });
+    }
     return matchingLineItem;
 };
 

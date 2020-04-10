@@ -1,13 +1,13 @@
 <iscomment>Custom Start: Changed the HTML structure, makes tabs</iscomment>
 <div class="description-and-detail">
     <div class="pdp-tabs-nav">
-        <isif condition="${!pdict.isCompareableDisabled}">
+        <isif condition="${!pdict.isCompareableDisabled || product.attributes && product.attributes.length}">
             <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>
         </isif>
-        <isif condition="${product.longDescription}">
-            <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
+        <isif condition="${product.attributes && product.attributes.length}">
+            <button class="pdp-tab-button" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
         </isif>
-        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)}</button>
+        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-tab-reviews"><isinclude template="widget/yotporatingswidget" /> <span></button>
     </div>
     <div class="pdp-tabs-body">
         <isif condition="${!pdict.isCompareableDisabled}">
@@ -45,7 +45,7 @@
             </isif>
         </isif>
 
-        <isif condition="${product.longDescription}">
+        <isif condition="${product.attributes && product.attributes.length}">
             <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${product.resources.Highlight}">
                 <div class="pdp-mobile-accordian">
                     <div class="pdp-mobile-accordian-label">${product.resources.Highlight}</div>

@@ -18,6 +18,7 @@
               <isreplace/>
             </div>
             <isinclude template="/components/footer/pageFooter" />
+            <isinclude template="/resources/appresources" />
         </div>
         <div class="error-messaging"></div>
         <div class="modal-background"></div>

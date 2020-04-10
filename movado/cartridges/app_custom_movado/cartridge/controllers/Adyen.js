@@ -8,6 +8,7 @@ var Transaction = require('dw/system/Transaction');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Status = require('dw/system/Status');
@@ -137,6 +138,13 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             }
             if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+                    var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                    SwellExporter.exportOrder({
+                        orderNo: orderNumber,
+                        orderState: 'created'
+                    });
+                }
             }
             order.setExportStatus(Order.EXPORT_STATUS_READY);
             order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
