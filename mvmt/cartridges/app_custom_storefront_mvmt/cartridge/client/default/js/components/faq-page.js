@@ -6,6 +6,15 @@ function toggleIcon(e) {
     $(e.target).prev('.faq-main-panel-heading').find('.faq-main-panel-title-more-less').toggleClass('faq-main-panel-title-expand faq-main-panel-title-shrink');
 }
 
+function activTabOnLoad() {
+    var $activeTabSelector = $('#active-tab-selector').val();
+    if ($activeTabSelector && $activeTabSelector.length) {
+        $($activeTabSelector).trigger('click');
+    } else {
+        $('.tab-1').trigger('click');
+    }
+}
+
 module.exports = function () {
     var $contactTab = $('#faq-page-contact-tab');
     var $footer = $('footer');
@@ -25,7 +34,6 @@ module.exports = function () {
     $('.panel-group').on('shown.bs.collapse', toggleIcon);
     
     $('.tab-pane-control').addClass('d-none');
-    $('.tab-pane-control:first').removeClass('d-none');
     
     $('.faq-nav-control-bar-btn').on('click', function() {
         $('.faq-nav-control-bar-inner').addClass('active');
@@ -137,5 +145,6 @@ module.exports = function () {
             }
         });
     });
+    activTabOnLoad();
 };
 
