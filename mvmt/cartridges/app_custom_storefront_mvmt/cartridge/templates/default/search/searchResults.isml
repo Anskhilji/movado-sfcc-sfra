@@ -1,3 +1,4 @@
+<iscomment> Custom Start: HTML structure change for result show </iscomment>
 <isdecorate template="common/layout/page">
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
