@@ -222,10 +222,24 @@ function getLineItemCrossBorderTax1(lineItem) {
     return crossBorderTax1;
 }
 
+/**
+* Calculate the net amount for cross border orders for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} net amount for corss border orders
+*/
 function getLineItemCrossBorderNetAmount(lineItem) {
     var crossBorderNetAmount = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfo) ?
             lineItem.custom.eswRetailerCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     return crossBorderNetAmount;
+}
+
+/**
+* Gets the taxation type of country based on order.
+* @param {String} shipping country.
+* @returns {String} taxation type of country
+*/
+function getTaxationType(country) {
+    var countries = require('./countries.json');
 }
 
 /**
@@ -2272,7 +2286,8 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
-                streamWriter.writeCharacters(isDutyInclusive(order));
+//                streamWriter.writeCharacters(isDutyInclusive(order));
+                streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATInclusive');
