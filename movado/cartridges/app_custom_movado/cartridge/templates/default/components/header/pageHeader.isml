@@ -1,5 +1,10 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <header>
+  <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
+  <isif condition="${isEswEnabled}" >
+      <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+  </isif>
+  <iscomment> Custom End </iscomment>
   <nav>
     <div class="sticky-header-wrapper">
       <div class="sticky-header-placeholder"></div>
@@ -11,7 +16,17 @@
                 <div class="left navbar-header">
                   <div class="hidden-md-down account-wrapper">
                     <isinclude url="${URLUtils.url('Account-Header')}"/>
+                    <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                    <isif condition="${isEswEnabled}" >
+                        <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                    </isif>
+                    <iscomment> Custom End </iscomment>
+                    <iscomment>Custom Start:  Not needed old country selector logic </iscomment>
+                    <iscomment> 
+                    <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
                     <isslot id="country-selector" description="country selector" context="global" />
+                    </iscomment>
+                    <iscomment> Custom End </iscomment>
                   </div>
                   <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false">
                     <i class="fa fa-bars"></i>

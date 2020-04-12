@@ -194,6 +194,10 @@ module.exports = {
                 $newEl.prop('selected', 'selected');
                 $newEl.parent().trigger('change');
             }
+            var $emailField = $('.billing-email');
+            $emailField.val($('.shipping-email').val());
+            var $phoneField = $('.billing-phone');
+            $phoneField.val($('.shippingPhoneNumber').val());
         });
     }
 };

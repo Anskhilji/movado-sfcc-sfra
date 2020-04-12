@@ -75,9 +75,14 @@
                 <div class="coupons-and-promos coupons-wrapper mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
                 </div>
-                <div class="row">
-                    <isinclude template="cart/cartShippingMethodSelection" />
-                </div>
+                <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+                <isif condition="${eswHelper.showShippingMethodDropdown()}">
+                    <div class="row">
+                        <isinclude template="cart/cartShippingMethodSelection" />
+                    </div>
+                </isif>
+                <iscomment> Custom End </iscomment>
                 <isinclude template="cart/cartTotals" />
                 <div class="row">
                     <div class="col-12 checkout-continue">
