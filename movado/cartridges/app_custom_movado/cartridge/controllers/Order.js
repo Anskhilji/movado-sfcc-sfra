@@ -103,16 +103,22 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
     var viewData = res.getViewData();
     var orderAnalyticsTrackingData;
     var uniDaysTrackingLineItems;
     var order = OrderMgr.getOrder(viewData.order.orderNumber);
     var orderLineItems = order.getAllProductLineItems();
     var productLineItem;
+    var userIPAddress = request.httpRemoteAddress || '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
+
+    Transaction.wrap(function () {
+        order.custom.userIPAddress = userIPAddress;
+    });
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var queryStringIntoParts = viewData.queryString.split('&');
