@@ -668,7 +668,7 @@
         color: $light-gray;
         font-size: rem(14);
         line-height: rem(25);
-        letter-spacing: .5px;
+        letter-spacing: rem(0.5);
         display: none;
 
         @include media-breakpoint-up(md-down) {
@@ -1106,7 +1106,7 @@
                 font-family: $font-medium;
                 font-size: rem(12);
                 font-weight: 500;
-                letter-spacing: .5px;
+                letter-spacing: rem(0.5);
                 text-transform: uppercase;
                 margin-right: rem(4);
                 margin-bottom: 0;
@@ -1310,7 +1310,7 @@
         margin: 0 rem(10) rem(14) 0;
         color: $black;
         background-color: $white-gray;
-        border: 1px solid $white-gray;
+        border: rem(1) solid $white-gray;
         font-size: rem(12);
         font-weight: 500;
         letter-spacing: rem(1.2);
@@ -1354,7 +1354,7 @@
             &-label {
                 font-size: rem(12);
                 font-weight: 500;
-                letter-spacing: .5px;
+                letter-spacing: rem(0.5);
                 text-transform: uppercase;
 
                 span {
@@ -1572,7 +1572,7 @@
             line-height: rem(25);
             margin: 1rem auto 1.5rem;
             max-width: 90%;
-            letter-spacing: 1.5px;
+            letter-spacing: rem(1.5);
         }
 
         &-guide-title {
@@ -1584,7 +1584,7 @@
         }
 
         &-step {
-            letter-spacing: 1.5px;
+            letter-spacing: rem(1.5);
             text-align: center;
 
             &:first-of-type {
@@ -1606,7 +1606,7 @@
             font-size: rem(24);
             letter-spacing: rem(2);
             padding-top: 1rem;
-            margin-bottom: rem(8px);
+            margin-bottom: rem(8);
             font-family: $font-book;
             font-weight: 400;
             text-transform: uppercase;
@@ -1621,7 +1621,7 @@
             line-height: rem(18);
             font-family: $font-book;
             font-weight: 400;
-            letter-spacing: .5px;
+            letter-spacing: rem(0.5);
         }
     }
 

@@ -112,7 +112,7 @@
                     </isif>
 
                     <div class="linked-product-container">
-                        <isinclude template="product/components/linkedProducts" />
+                        <isinclude template="product/components/recommendedProducts" />
                     </div>
 
                     <isif condition="${product.options && product.options.length > 0}">

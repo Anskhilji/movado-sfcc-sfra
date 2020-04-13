@@ -17,7 +17,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var viewData = res.getViewData();
     var product = viewData.product;
     
-    /* get linkedProduts for product*/
+    /* get recommendedProducts for product*/
     if (product) {
         explicitRecommendations = customProductHelper.getExplicitRecommendations(product.id);
     }
@@ -37,23 +37,23 @@ server.prepend('Variation', function (req, res, next) {
     var attributeContext;
     var attributeTemplateLinked;
     var explicitRecommendations = [];
-    var linkedProductTemplate;
+    var recommendedProductTemplate;
     var pid = req.querystring.pid;
     
-    /* get linkedProduts for product*/
+    /* get recommendedProducts for product*/
     if (pid) {
         explicitRecommendations = customProductHelper.getExplicitRecommendations(pid);
     }
     
     attributeContext = {explicitRecommendations : explicitRecommendations};
-    attributeTemplateLinked = 'product/components/linkedProducts';
+    attributeTemplateLinked = 'product/components/recommendedProducts';
     
-    linkedProductTemplate = renderTemplateHelper.getRenderedHtml(
+    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,
             attributeTemplateLinked
         );
     res.json({
-        linkedProductTemplate: linkedProductTemplate
+        recommendedProductTemplate: recommendedProductTemplate
     });
     next();
 });

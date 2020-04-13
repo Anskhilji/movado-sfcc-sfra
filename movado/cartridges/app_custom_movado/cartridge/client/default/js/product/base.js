@@ -312,7 +312,7 @@ function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
             data: variationForm,
             success: function (data) {
                 updateCartPage(data);
-                handlePostCartAdd(data);
+                $('.minicart').trigger('count:update', data);
             },
             error: function () {
                 $.spinner().stop();
@@ -567,9 +567,7 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        if (!$('#addToCartModal').is(':visible')) {
-            $('#addToCartModal').modal('show');
-        }
+        $('#addToCartModal').modal('show');
     }
 }
 
@@ -800,6 +798,9 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
+            /**
+             * Custom Start: Add to cart form for MVMT
+             */
             if ($('.pdp-mvmt')) {
                 form = {
                     pid: pid,
@@ -808,7 +809,9 @@ module.exports = {
                     quantity: 1
                 };
             }
-
+            /**
+             *  Custom End
+             */
             $productContainer.find('input[type="text"], textarea').filter('[required]')
             .each(function() {
                 if($(this).val() && $(this).closest("form.submitted").length) {
@@ -831,9 +834,14 @@ module.exports = {
                     success: function (data) {
                         updateCartPage(data);
                         handlePostCartAdd(data);
+                        // Custom Start: Add recommended Products for MVMT Add To Cart
                         if ($('.pdp-mvmt')) {
                             addRecommendationProducts(addToCartUrl); 
                         }
+                        /**
+                         Custom End:
+                         */
+
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                     },

@@ -380,14 +380,14 @@ function handleVariantResponse(response, $productContainer) {
         }
         
         $selectedVariation.removeClass('current-selected-variation');
-        var $variationProductURL = '/on/demandware.store/Sites-MVMTUS-Site/default/Product-Variation?pid=' + response.product.id;
+        var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
         
         $.ajax({
             url: $variationProductURL,
             method: 'GET',
             success: function (data) {
-                var $linkedProductList = $('.linked-product-list');
-                $linkedProductList.replaceWith(data.linkedProductTemplate);
+                var $recommendedProductList = $('.linked-product-list');
+                $recommendedProductList.replaceWith(data.recommendedProductTemplate);
                 $('.linked-products').slick({
                     slidesToShow: 3,
                     slidesToScroll: 1,
