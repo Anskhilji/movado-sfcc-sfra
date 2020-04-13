@@ -3,7 +3,7 @@
 module.exports = function (object, apiProduct) {
     var productTemplate;
     if (!empty(apiProduct.custom.renderingTemplate)) {
-        productTemplate = 'product/' + apiProduct.custom.renderingTemplate;
+        productTemplate = apiProduct.custom.renderingTemplate;
     } else {
         productTemplate = apiProduct.template;
     }
