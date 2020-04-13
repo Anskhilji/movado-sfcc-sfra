@@ -4,6 +4,7 @@ var OrderManager = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var ProductLineItem = require('dw/order/ProductLineItem');
+var PriceBookMgr = require('dw/catalog/PriceBookMgr');
 var ShippingLineItem = require('dw/order/ShippingLineItem');
 var Order = require('dw/order/Order');
 var Logger = require('dw/system/Logger');
@@ -17,6 +18,7 @@ var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var constants = require('app_custom_movado/cartridge/scripts/helpers/constants.js');
+var countries = require('int_eshopworld_sfra/cartridge/countries.json');
 var Resource = require('dw/web/Resource');
 
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
@@ -239,7 +241,18 @@ function getLineItemCrossBorderNetAmount(lineItem) {
 * @returns {String} taxation type of country
 */
 function getTaxationType(country) {
-    var countries = require('./countries.json');
+    var taxationType = '';
+    for (i = 0; i < countries.length; i++) {
+        if (countries[i].countryCode == country.value) {
+            taxationType = countries[i].taxation.type;
+            break;
+        }
+    }
+    if (taxationType == 'net') {
+        return 'N'
+    } else {
+        return 'Y';
+    }
 }
 
 /**
@@ -735,6 +748,25 @@ function fecthPriceBookId(order) {
         var model = product.getPriceModel();
         var priceBook = PriceHelper.getRootPriceBook(model.priceInfo.priceBook);
         if (priceBook) {
+            return priceBook.ID;
+        }
+    }
+    return '';
+}
+
+/**
+* Fetches the PriceBook ID from the Order.
+* @param {Order} order Order
+* @returns {string} PriceBookID
+*/
+function getPriceBookId(order) {
+    var currencyCode = order.getCurrencyCode();
+    var sitePriceBooks = PriceBookMgr.getSitePriceBooks();
+    var sitePriceBooksItr = sitePriceBooks.iterator();
+    var priceBook;
+    while (sitePriceBooksItr.hasNext()) {
+        priceBook = sitePriceBooksItr.next();
+        if (priceBook.currencyCode == currencyCode) {
             return priceBook.ID;
         }
     }
@@ -1509,6 +1541,7 @@ function getPOItemsInfo(order) {
 
                 shipObj.NetAmount = (parseFloat(shippingLineItem.adjustedPrice.value) + parseFloat(shipObj.TaxAmount)).toFixed(TWO_DECIMAL_PLACES);
                 shipObj.IsThisBillable = isThisBillableItem(shippingLineItem);
+                shipObj.CrossBorderNetAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
                 commerceItems[sequenceNumber - 1] = shipObj;
                 sequenceNumber++;
             }
@@ -2036,7 +2069,8 @@ function generateOrderXML(order) {
     var orderType = Site.getCurrent().getCustomPreferenceValue('orderType');
     var WebOrderCreationTimeZone = Site.getCurrent().getCustomPreferenceValue('webOrderCreationTimeZone');
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
-    var isEswEnabled = Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? 
+            Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
     if (order) {
         var billingAddress = getBillingAddress(order);
@@ -2222,7 +2256,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PriceBookId');
-                streamWriter.writeCharacters(fecthPriceBookId(order));
+                if (isEswEnabled) {
+                    streamWriter.writeCharacters(getPriceBookId(order));
+                } else {
+                    streamWriter.writeCharacters(fecthPriceBookId(order));
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PriceBookCurrency');
@@ -2286,12 +2324,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
-//                streamWriter.writeCharacters(isDutyInclusive(order));
-                streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
+                if (isEswEnabled) {
+                    streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
+                } else {
+                    streamWriter.writeCharacters(isDutyInclusive(order));
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATInclusive');
-                streamWriter.writeCharacters(isVATInclusive(order));
+                if (isEswEnabled) {
+                    streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
+                } else {
+                    streamWriter.writeCharacters(isVATInclusive(order));
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PaymentMethod');
@@ -2477,7 +2522,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Tax1');
-                    if (eswOrderNo) {
+                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
                     } else {
                         streamWriter.writeCharacters(commerceItem.Tax1);
@@ -2507,7 +2552,9 @@ function generateOrderXML(order) {
                         streamWriter.writeRaw('\r\n');
                     }
                     streamWriter.writeStartElement('DutyAmount');
-                    streamWriter.writeCharacters(commerceItem.DutyAmount);
+                    if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(commerceItem.DutyAmount);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('NetAmount');
@@ -2524,11 +2571,13 @@ function generateOrderXML(order) {
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
-                    streamWriter.writeStartElement('ConsTaxByMGI');
-                    streamWriter.writeCharacters(commerceItem.ConsTaxByMGI);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                    if (isEswEnabled) {
+                    if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeStartElement('ConsTaxByMGI');
+                        streamWriter.writeCharacters(commerceItem.ConsTaxByMGI);
+                        streamWriter.writeEndElement();
+                        streamWriter.writeRaw('\r\n');
+                    }
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsumerGrossValue');
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerGrossValue);
@@ -2554,7 +2603,7 @@ function generateOrderXML(order) {
 //                    streamWriter.writeCharacters(commerceItem.NetAmount);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsumerSubTotal');
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerSubTotal);
@@ -2564,7 +2613,7 @@ function generateOrderXML(order) {
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsumerTaxAmount');
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerTaxAmount);
@@ -2574,7 +2623,7 @@ function generateOrderXML(order) {
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsumerDutyAmount');
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerDutyAmount);
@@ -2587,7 +2636,7 @@ function generateOrderXML(order) {
                     streamWriter.writeStartElement('ConsumerInsAmount');
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsumerNetAmount');
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerNetAmount);
