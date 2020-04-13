@@ -457,13 +457,15 @@ function saveUserInfoInOrder(order) {
     var Transaction = require('dw/system/Transaction');
 
     var userAgent = request.httpUserAgent || '';
-    var userIPAddress = request.httpRemoteAddress || '';
+  //  Custom Start: Commented IP saving logic as its already in Order-Confirm
+  //  var userIPAddress = request.httpRemoteAddress || '';
 
     var currentOrder = order;
     Transaction.wrap(function () {
         if (currentOrder) {
             currentOrder.custom.userAgent = userAgent;
-            currentOrder.custom.userIPAddress = userIPAddress;
+          //  Custom Start: Commented IP saving logic as its already in Order-Confirm
+         //   currentOrder.custom.userIPAddress = userIPAddress;
         }
     });
 
