@@ -242,3 +242,23 @@
         margin: 0;
     }
 }
+
+.mvmt-plp-container {
+    background-color: $white-grey;
+    
+    p.plp_bottom_slot {
+        width: 257px;
+        height: 119px;
+              
+        span {
+            display: flex;
+            
+            img {
+                width: 45px;
+                padding: 5px;
+            }
+        }
+    }
+    
+}
+    
