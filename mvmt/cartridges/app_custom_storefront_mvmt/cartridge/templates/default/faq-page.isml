@@ -93,4 +93,5 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="active-tab-selector" value="${!empty(pdict.activetab) ? '.' + pdict.activetab : '.tab-1'}"/>
 </isdecorate>
