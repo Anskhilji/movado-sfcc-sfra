@@ -110,13 +110,13 @@ server.append('Confirm', function (req, res, next) {
     var order = OrderMgr.getOrder(viewData.order.orderNumber);
     var orderLineItems = order.getAllProductLineItems();
     var productLineItem;
+    var userIPAddress = request.httpRemoteAddress || '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
 
     Transaction.wrap(function () {
-        var userIPAddress = request.httpRemoteAddress || '';
         order.custom.userIPAddress = userIPAddress;
     });
 
