@@ -15,7 +15,7 @@
                 ${Resource.msg('label.checkbox.login.rememberme', 'login', null)}
             </label>
         </div>
-        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <input type="hidden" class="minicart-csrf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
         <button type="submit" class="btn btn-block btn-primary">${Resource.msg('button.text.loginform', 'cart', null)}</button>
     </form>
     <isinclude template="account/components/oauth" />
