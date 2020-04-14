@@ -134,7 +134,9 @@
     </div>
     </div>
     
-    
+    <div class="seo-content-footer">
+        <isprint value="${dw.content.ContentMgr.getContent('seo-content-footer').custom.body}" encoding="off"/>
+    </div>
     <isif condition="${pdict.productSearch.category}">
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>

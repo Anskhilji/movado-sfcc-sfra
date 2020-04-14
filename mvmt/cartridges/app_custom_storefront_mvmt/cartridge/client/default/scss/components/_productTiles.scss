@@ -242,21 +242,106 @@
         margin: 0;
     }
 }
+.seo-content-footer {
+    max-width: 940px;
+    padding: 50px 20px;
+    text-align: center;
+    line-height: 22px;
+    letter-spacing: normal;
+    margin: 0;
+    font-weight: 500;
+    color: #5c5c5c;
+    margin: 0 auto;
+    
+    p {
+        color: #5c5c5c;
+        font-size: 14px;
+        line-height: 28px;
+        letter-spacing: .5px;
+        font-weight: 400;
+        font-style: normal;
+    }
+}
 
 .mvmt-plp-container {
-    background-color: $white-grey;
+    background-color: $cyan-blue;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     
-    p.plp_bottom_slot {
-        width: 257px;
-        height: 119px;
+    .cs-carousel-wrapper {
+
+        margin-left: 50px;
+        margin-right: 50px;
+
+        .slick-slide { 
+            margin: 0 20px;
+            width: 217px;
+        }
+        
+        .carousel-title {
+            margin-top: 56px;
+            margin-bottom: 40px;
+        }
+        
+        .slick-arrow {
+            background-size: 5px;
+            background-color: $white; 
+            border: 1px solid #cbcbcb;
+            box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
+        }
+    }
+
+    .plp-bottom-slot {
+        
+        height: 100%; 
               
-        span {
-            display: flex;
+        a {
+            &:hover {
+                text-decoration: none;
+            }
             
             img {
-                width: 45px;
-                padding: 5px;
+                height: 190px; 
             }
+        }
+         
+ 
+        .collection-related-tile-bottom {
+            display: flex;
+            background-color: $white;
+            height: 53px;
+            
+            .bottom-slot-image {
+                margin: 15px 5px;
+                border-right: 1px solid #929292;
+            }
+            
+            img {
+                padding-right: 15px;
+                width: 43px;
+                margin-left: 23px;
+                height: 25px;
+            }
+             
+            span {
+                margin:15px 5px;
+                white-space: nowrap;
+                height: 35px; 
+                overflow: hidden; 
+                text-overflow: ellipsis;
+                width: 95px;
+                display: inline-block;
+            
+            }
+            
+            svg {
+                width: 9px;
+                height: 9px; 
+                margin-top: 25px;
+                transform: translateY(-50%);
+            }
+            
         }
     }
     
