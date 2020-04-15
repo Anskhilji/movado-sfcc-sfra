@@ -140,7 +140,7 @@ function getLineItemConsumerGrossValue(lineItem, isEswEnabled) {
     if (isEswEnabled) {
         var consumerGrossValue = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) ?
                 lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        return parseFloat(consumerGrossValue).toFixed(TWO_DECIMAL_PLACES);;
+        return parseFloat(consumerGrossValue).toFixed(TWO_DECIMAL_PLACES);
     }
     return '';
 }
