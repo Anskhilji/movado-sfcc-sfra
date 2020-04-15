@@ -104,21 +104,7 @@
                         <!-- Affirm Text -->
                         
                         <div class="col-md-10 col-12">
-                            <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
-                                <isif condition="${pdict.loggedIn == true}">
-                                    <div>
-                                        <isinclude template="util/affirmmodule_mf" />
-                                        <isaffirmpromo context="pdp"
-                                            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                    </div>
-                                </isif>
-                            <iselse>  
-                                <div>
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </div>
-                            </isif> 
+                            <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
                         </div>
                         
                         <div class="col-12 prices-add-to-cart-actions">
@@ -126,34 +112,17 @@
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
-                                    <isif condition="${pdict.loggedIn == true}">
-                                        <isinclude template="product/components/pricing/main" />
-                                    </isif>
-                                <iselse>
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
+                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id, 'isPLPProduct', false)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-	                        
                             <div class="d-block d-md-flex">
-                               <!-- Cart and [Optionally] Apple Pay -->
-                               <iscomment> Custom: Start [AddToCart shows only when following requirements meet] </iscomment>
-                               <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
-                                   <isif condition="${pdict.loggedIn == true}">
-                                       <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                                   <iselse>
-                                       ${Resource.msg('global.price.loggedin', 'common', null)}
-                                   </isif>
-                               <iselse>
-                                   <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                               </isif>
-                               <iscomment> Custom: End </iscomment>
-                               <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-	                               </isif>    
-                               </isif>
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>    
+                                </isif>
                             </div>
                         </div>
 

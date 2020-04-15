@@ -41,23 +41,7 @@
 
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-        <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
-            <isif condition="${pdict.loggedIn == true}">
-                <isif condition="${product.productType === 'set'}">
-                   <isinclude template="product/components/pricing/setPrice" />
-                <iselse>
-                    <isinclude template="product/components/pricing/main" />
-                </isif>
-            <iselse>
-                ${Resource.msg('global.price.loggedin', 'common', null)}
-            </isif>
-        <iselse>
-           <isif condition="${product.productType === 'set'}">
-               <isinclude template="product/components/pricing/setPrice" />
-           <iselse>
-               <isinclude template="product/components/pricing/main" />
-           </isif>
-        </isif>
+            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id, 'isPLPProduct', true)}"/>
         <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
