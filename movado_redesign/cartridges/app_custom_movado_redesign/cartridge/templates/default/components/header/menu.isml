@@ -35,6 +35,12 @@
       </isif>
       <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
-    </ul>
+    </ul> 
   </div>
 </nav>
+<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
+<isif condition="${enableUsablenetAccessibility}"> 
+    <div class="d-block d-lg-none secondary-menu-accessible">
+        <a href="#" onclick="return enableUsableNetAssistive()">${Resource.msg('enable.accessibility', 'common', null)}</a>
+    </div>
+</isif>

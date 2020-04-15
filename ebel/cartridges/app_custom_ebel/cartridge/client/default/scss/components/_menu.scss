@@ -364,3 +364,11 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     }
   }
 }
+
+.secondary-menu-accessible {
+    background: #f2f2f2;
+    padding: rem(7) 0; 
+    padding: rem(15) 0 rem(15) rem(25);
+    text-align: left;
+    width: 100%;
+}
