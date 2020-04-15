@@ -7,7 +7,7 @@
     padding-top: rem(65);
     padding-bottom: rem(160);
 
-    @media only screen and (max-width: 991px) {
+    @media only screen and (max-width: $custom-md-width) {
         flex-basis: 100%;
         max-width: 100%;
     }
