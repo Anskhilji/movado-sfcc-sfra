@@ -18,7 +18,7 @@
         <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
     </isif>
     </div>
-    <div class="container-fluid mvmt-plp search-results">
+    <div class="mvmt-plp container-fluid p-0 search-results">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
           <div class="search-nav">
@@ -51,26 +51,9 @@
         <div class="row">
             <div class="tab-content col-12">
                 <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
-
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
-                        <div class="plp-filter-bar">
-                            <div class="plp-filter-bar-inner ">
-                                <div class="plp-filter-options">
-                                    <div class="plp-bar-filter">
-                                        <div class="plp-filter-lists">
-                                            <isloop items="${pdict.productSearch.refinements}" var="refinement">
-                                                <div class="plp-filter-list">
-                                                    <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
-                                                        ${refinement.displayName}
-                                                    </button>
-                                                </div>
-                                            </isloop>
-                                            <isinclude template="search/sortOrderMenu" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <isinclude url="${pdict.refineurl}" />
+
                         <div class="row grid-header">
                             <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
                                 <iselse>
@@ -96,7 +79,7 @@
                 <!--- Refinement bar --->
                 <div class="col-sm-12 d-none">
                     <div class="refinement-bar col-md-3 d-none">
-                        <isinclude url="${pdict.refineurl}" />
+
                     </div>
 
                 </div>
@@ -111,7 +94,7 @@
                     </div>
 
                     <!--- Product Grid --->
-                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+                    <div class="row p-4 product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
                         <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
                                 <div class="col-6 col-sm-3">
@@ -123,7 +106,6 @@
                             <iselse>
                                 <div class="col-6 col-sm-3" data-gtm-refinements='${product.productSearchHit.productID}'>
                                     <isobject object="${product.productSearchHit}" view="searchhit">
-                                    
                                         <isif condition="${pdict.productSearch.category}">
                                             <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
                                         <iselse>
