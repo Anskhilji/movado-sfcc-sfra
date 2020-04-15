@@ -136,21 +136,28 @@
                 text-decoration: none;
             }
         }
-  }
-
-  .breadcrumb {
-    padding-bottom: 0;
-
-    &-item {
-
-      a {
-        font: $font-book;
-        font-size: rem(11);
-        letter-spacing: 1.5;
-        text-transform: uppercase;
-      }
     }
-  }
+
+    .breadcrumb {
+        padding-bottom: 0;
+
+        &-item {
+
+            a {
+                font-family: $font-book;
+                font-size: rem(11);
+                letter-spacing: 1.5;
+                text-transform: uppercase;
+            }
+
+            &:last-child {
+
+                a {
+                    font-family: $font-bold;
+                }
+            }
+        }
+    }
 }
 
 .sticky-bar {
@@ -650,15 +657,14 @@
 }
 
 .pdp-vp {
-    padding: rem(20) 0;
-    border: none;
     text-align: center;
+    padding: rem(10) 0;
+    border-top: rem(1) solid $light-gray4;
+    border-bottom: rem(1) solid $light-gray4;
 
-    @include media-breakpoint-down(md-down) {
-        padding: rem(10) 0;
-        border-top: rem(1) solid $light-gray4;
-        border-bottom: rem(1) solid $light-gray4;
-        text-align: center;
+    @include media-breakpoint-up(md-down) {
+        padding: rem(20) 0;
+        border: none;
     }
 
     &-item {
@@ -1067,6 +1073,11 @@
 
             &:hover {
                 background: $light-green;
+                border-color: $light-green;
+            }
+
+            &.mobileBtn {
+                background-color: $light-green;
                 border-color: $light-green;
             }
         }
@@ -1739,4 +1750,11 @@
 .product-slot-slider {
     border-top: rem(2) solid $white-gray;
     padding-top: rem(80);
+}
+
+.pdp-alternate {
+
+    .gallery-slider-wrapper {
+        display: none;
+    }
 }
