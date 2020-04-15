@@ -112,7 +112,7 @@
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id, 'isPLPProduct', false)}"/>
+                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
                             <div class="d-block d-md-flex">

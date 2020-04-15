@@ -41,7 +41,7 @@
 
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id, 'isPLPProduct', true)}"/>
+            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
         <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />

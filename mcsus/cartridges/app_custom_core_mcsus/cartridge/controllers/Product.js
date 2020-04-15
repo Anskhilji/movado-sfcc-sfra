@@ -9,7 +9,6 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 server.get('ShowMcsProdutPrice', function (req, res, next) { 
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/mcsProductPrice', {
-        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         product: showProductPageHelperResult.product,
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
@@ -20,7 +19,6 @@ server.get('ShowMcsProdutPrice', function (req, res, next) {
 server.get('ShowMcsAffirmText', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/mcsAffirmText', {
-        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
         product: showProductPageHelperResult.product,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
