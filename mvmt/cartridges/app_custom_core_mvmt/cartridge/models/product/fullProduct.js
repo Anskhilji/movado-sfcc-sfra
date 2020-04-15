@@ -18,11 +18,21 @@ var baseFullProduct = module.superModule;
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     if (!empty(apiProduct.custom.shopStrapUrl)) {
         Object.defineProperty(product, 'shopStrapUrl', {
             enumerable: true,
             value: apiProduct.custom.shopStrapUrl
         });
     }
+
+    var seeTheFitSpecs = productCustomHelper.getProductAttributes(product);
+    if (!empty(seeTheFitSpecs)) {
+        Object.defineProperty(product, 'seeTheFitSpecs', {
+            enumerable: true,
+            value: seeTheFitSpecs
+        });
+    }
+
     return product;
 };
