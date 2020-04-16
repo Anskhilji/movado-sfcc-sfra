@@ -457,6 +457,14 @@ server.append(
     }
 );
 
+server.get('LoggedInStatus', function (req, res, next) {
+    res.json({
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+    });
+    next();
+});
+
 server.replace('SaveNewPassword', server.middleware.https, function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var Resource = require('dw/web/Resource');
