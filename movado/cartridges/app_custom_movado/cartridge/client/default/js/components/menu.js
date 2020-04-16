@@ -11,13 +11,13 @@ var clearSelection = function (element) {
 };
 
 $(document).ready(function() {
-    var flag = true;
+    var visitAccessibility = true;
     $(document).keydown(function(e) {
-        if (e.keyCode == 9 && flag == true) {
-            $('.accessible-link').attr('tabindex', '0');
+        if (e.keyCode == 9 && visitAccessibility == true) {
+            e.preventDefault();
             $('.accessible-link').focus();
             console.log('tab once');
-            flag = false;
+            visitAccessibility = false;
         }
     });
 });
