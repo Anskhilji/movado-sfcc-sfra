@@ -10,6 +10,18 @@ var clearSelection = function (element) {
     $(element).closest('li').detach();
 };
 
+$(document).ready(function() {
+    var flag = true;
+    $(document).keydown(function(e) {
+        if (e.keyCode == 9 && flag == true) {
+            $('.accessible-link').attr('tabindex', '0');
+            $('.accessible-link').focus();
+            console.log('tab once');
+            flag = false;
+        }
+    });
+});
+
 module.exports = function () {
     var isDesktop = function (element) {
         return $(element).parents('.menu-toggleable-left').css('position') !== 'fixed';

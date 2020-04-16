@@ -62,3 +62,4 @@ $('.redesign-header .desktop-view .sub-ob-dropdown').mouseleave( function () {
     $('.modal-background').removeClass('show-overlay');
     $('.header-banner').removeClass('ob-redesign-header-banner');
 });
+

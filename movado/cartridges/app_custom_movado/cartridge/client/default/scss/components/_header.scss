@@ -13,6 +13,18 @@
   }
 }
 
+.accessible-link {
+  position: absolute;
+  z-index: 9999999999999999999;
+  color: white;
+  top: 4px;
+  right: 20px;
+
+  &:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+}
+
 header {
   letter-spacing: rem(2);
   .logo-link {
