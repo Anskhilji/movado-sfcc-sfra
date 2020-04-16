@@ -77,6 +77,10 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                     $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
                     $('.prices-add-to-cart-actions.mcs-show-price-message').removeClass('d-none');
                     $('.mcs-restrict-anonymous-user').hide();
+                } else {
+                    $('.prices-add-to-cart-actions.mcs-add-to-cart').show();
+                    $('.prices-add-to-cart-actions.mcs-show-price-message').addClass('d-none');
+                    $('.mcs-restrict-anonymous-user').show();
                 }
             }
             

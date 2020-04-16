@@ -132,7 +132,7 @@ server.replace('Variation', function (req, res, next) {
 /**
  * replaced the base product route to save the personalization data in context object
  */
-server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+server.replace('ShowQuickView', function (req, res, next) {
     var URLUtils = require('dw/web/URLUtils');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -165,7 +165,7 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
     next();
 });
 
-server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+server.append('ShowQuickView', function (req, res, next) { 
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
