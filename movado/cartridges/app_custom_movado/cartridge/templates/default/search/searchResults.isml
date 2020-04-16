@@ -17,7 +17,7 @@
         <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
     </isif>
 	</div>
-	<div class="container search-results" data-loggedinstatusurl="${URLUtils.url('Account-LoggedInStatus')}" >
+	<div class="container search-results" >
 	   <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 			<isif condition="${!pdict.productSearch.isCategorySearch}">
 	    <div class="row">

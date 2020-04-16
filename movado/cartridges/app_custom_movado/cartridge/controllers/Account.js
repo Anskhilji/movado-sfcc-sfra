@@ -457,7 +457,9 @@ server.append(
     }
 );
 
-server.get('LoggedInStatus', function (req, res, next) {
+server.get('LoggedInStatus',
+server.middleware.https,
+function (req, res, next) {
     res.json({
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
