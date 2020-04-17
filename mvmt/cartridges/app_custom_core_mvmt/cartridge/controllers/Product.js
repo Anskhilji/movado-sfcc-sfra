@@ -5,7 +5,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var page = module.superModule;
-var customProductHelper = require('*/cartridge/scripts/helpers/customProductHelper');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 server.extend(page);
 
@@ -19,7 +19,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     
     /* get recommendedProducts for product*/
     if (product) {
-        explicitRecommendations = customProductHelper.getExplicitRecommendations(product.id);
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.id);
     }
 
     viewData = {
@@ -42,7 +42,7 @@ server.prepend('Variation', function (req, res, next) {
     
     /* get recommendedProducts for product*/
     if (pid) {
-        explicitRecommendations = customProductHelper.getExplicitRecommendations(pid);
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
     
     attributeContext = {explicitRecommendations : explicitRecommendations};
