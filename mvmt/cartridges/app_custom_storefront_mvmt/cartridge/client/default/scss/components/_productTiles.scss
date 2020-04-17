@@ -271,25 +271,36 @@
     
     .cs-carousel-wrapper {
 
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-left: rem(50);
+        margin-right: rem(50);
 
         .slick-slide { 
-            margin: 0 20px;
-            width: 217px;
+            margin: 0 rem(20);
+            width: rem(217);
         }
         
         .carousel-title {
-            margin-top: 56px;
-            margin-bottom: 40px;
+            margin-top: rem(56);
+            margin-bottom: rem(40);
         }
         
         .slick-arrow {
-            background-size: 5px;
-            background-color: $white; 
-            border: 1px solid #cbcbcb;
-            box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
+            background-size: rem(5);
+            background-color: $white;
+            width: rem(60);
+            height: rem(60);
+            border: 1px solid $chinese-silver;
+            box-shadow: 0 rem(32) rem(80) rem(-40) rgba(0,0,0,.25), 0 rem(4.8) rem(16) 0 rgba(0,0,0,.3);
         }
+        
+        .slick-arrow.slick-prev {
+            left: rem(-35);
+        }
+        
+        .slick-arrow.slick-next {
+            right: rem(-40);
+        }
+        
     }
 
     .plp-bottom-slot {
@@ -302,7 +313,7 @@
             }
             
             img {
-                height: 190px; 
+                height: rem(190); 
             }
         }
          
@@ -310,35 +321,35 @@
         .collection-related-tile-bottom {
             display: flex;
             background-color: $white;
-            height: 53px;
+            height: rem(53);
             
             .bottom-slot-image {
-                margin: 15px 5px;
-                border-right: 1px solid #929292;
+                margin: rem(15) rem(5);
+                border-right: rem(1) solid $light-gray2;
             }
             
             img {
-                padding-right: 15px;
-                width: 43px;
-                margin-left: 23px;
-                height: 25px;
+                padding-right: rem(15);
+                width: rem(43);
+                margin-left: rem(23);
+                height: rem(25);
             }
              
             span {
-                margin:15px 5px;
+                margin: rem(15) rem(5);
                 white-space: nowrap;
-                height: 35px; 
+                height: rem(35); 
                 overflow: hidden; 
                 text-overflow: ellipsis;
-                width: 95px;
+                width: rem(95);
                 display: inline-block;
             
             }
             
             svg {
-                width: 9px;
-                height: 9px; 
-                margin-top: 25px;
+                width: rem(9);
+                height: rem(9); 
+                margin-top: rem(25);
                 transform: translateY(-50%);
             }
             
@@ -346,4 +357,3 @@
     }
     
 }
-    

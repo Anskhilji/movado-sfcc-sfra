@@ -10,6 +10,25 @@ var initCarousel = function ($container) {
         var test1 = $carousel.data();
         console.log(test1);
         var config = $carousel.data() && $carousel.data().carouselConfig || {};
+        $carousel.slick(config);
+        $carousel.show();
+        if ($carousel.hasClass('banner-carousel')) {
+            $carousel.on('afterChange', function () {
+                if ($carousel.slick('slickCurrentSlide') === 0) {
+                    $carousel.slick('slickPause');
+                }
+            });
+        }
+    }); 
+}; 
+
+var initCarouselBottomSlot = function ($container) {
+    var $parent = $container || $body;
+    $parent.find('.js-carousel-bottom-slot').each(function () {
+        var $carousel = $(this);
+        var test1 = $carousel.data();
+        console.log(test1);
+        var config = $carousel.data() && $carousel.data().carouselConfig || {};
         config = atob(config);
         config = JSON.parse(config);
         console.log(config);
@@ -22,9 +41,10 @@ var initCarousel = function ($container) {
                 }
             });
         }
-    });
-};
+    }); 
+}; 
 
 module.exports = {
-    initCarousel: initCarousel
+    initCarousel: initCarousel,
+    initCarouselBottomSlot: initCarouselBottomSlot
 };

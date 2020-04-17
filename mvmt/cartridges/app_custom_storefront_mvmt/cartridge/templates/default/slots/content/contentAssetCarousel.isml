@@ -1,0 +1,23 @@
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+  <div class="mvmt-plp-container container full-width-max-1300">
+    <div class="row">
+      <div class="col-12">
+      <isset name="abase64Encod" value="${dw.crypto.Encoding.toBase64(dw.util.Bytes(slotcontent.custom.carouselConfig))}" scope="page"/>
+        <div class="cs-carousel-wrapper">
+          <isif condition="${slotcontent.custom.carouselTitle}">
+              <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>          </isif>
+          <div class="js-carousel-bottom-slot cs-carousel" data-carousel-config='${abase64Encod}'>
+            <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
+                <isprint value="${contentAsset.custom.body}" encoding="off"/>
+            </isloop> 
+          </div>
+          <isif condition="${slotcontent.custom.bottomSectionCarousel}">
+            <div class="bottom-section">
+              <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
+            </div>
+          </isif>
+        </div>
+      </div>
+    </div>
+  </div>
+</isif>
