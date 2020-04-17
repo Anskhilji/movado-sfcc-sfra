@@ -165,7 +165,7 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
     next();
 });
 
-server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) { 
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
     var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
@@ -213,9 +213,7 @@ server.append('ShowQuickView', cache.applyPromotionSensitiveCache, function (req
         productGtmArray: productGtmArray,
         isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
         isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
-        klarnaProductPrice: klarnaProductPrice,
-        loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        klarnaProductPrice: klarnaProductPrice
     });
     next();
 });
