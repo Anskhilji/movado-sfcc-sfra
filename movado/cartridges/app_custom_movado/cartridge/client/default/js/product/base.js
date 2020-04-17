@@ -12,7 +12,7 @@ function getPidValue($el) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
-    } else if($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt clp
+    } else if($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
         pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
@@ -38,7 +38,7 @@ function getQuantitySelector($el) {
  * @return {string} - value found in the quantity input
  */
 function getQuantitySelected($el) {
-    if ($($el).parents('.product-tile').length) {
+    if ($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
         return 1;
     } else {
         return getQuantitySelector($el).val();

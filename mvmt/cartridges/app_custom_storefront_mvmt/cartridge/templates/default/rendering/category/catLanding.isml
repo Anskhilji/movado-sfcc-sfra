@@ -18,7 +18,7 @@
         <isslot id="cs-category-landing-nav" description="Category Landing Page Nav" context="category" context-object="${pdict.category}"/>
     </div>
 
-    <div class="content-slots-container clp-mvmt">
+    <div class="content-slots-container">
         <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
         <isslot id="cs-category-landing-cs2" description="Category Landing Page content Slot 2." context="category" context-object="${pdict.category}"/>
         <isslot id="cs-category-landing-cs3" description="Category Landing Page content Slot 3." context="category" context-object="${pdict.category}"/>
