@@ -162,7 +162,8 @@
         </div>
 
         <div class="size-guide">
-            <div class="size-guide-content" style="${dw.content.ContentMgr.getContent('watch-wrist-desktop').custom.body}" encoding="off">
+            <div class="size-guide-content">
+                <div class="size-guide-content-primary-image" style="background-image:url('${!empty(product.seeTheFitPrimaryImg) ? product.seeTheFitPrimaryImg.url : ''}')"></div>
                 <button class="size-guide-close" aria-label="close modal" data-close-modal>
                     <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -177,23 +178,29 @@
                     </svg>
                 </button>
                 <div class="size-guide-right">
-                    <div class="size-guide-title">${product.productName}</div>
-                    <p class="size-guide-description"><isprint value="${product.shortDescription}" encoding="off"/></p>
+                    <div class="size-guide-title">${product.seeTheFitHeading}</div>
+                    <p class="size-guide-description"><isprint value="${product.seeTheFitDescription}" encoding="off"/></p>
 
                     <table class="size-guide-content-details">
-                        <isloop items="${product.pdpAttributesList}" begin="0" end="1" var="attr">
+                        <isloop items="${product.seeTheFitSpecs}" var="seeTheFitSpec">
                             <tr>
-                                <td class="size-guide-detail-label">${attr.name}</td>
-                                <td class="size-guide-detail-value">${attr.value}</td>
+                                <td class="size-guide-detail-label">${seeTheFitSpec.displayName}</td>
+                                <td class="size-guide-detail-value">${seeTheFitSpec.value}</td>
                             </tr>
                         </isloop>
                     </table>
+                    <isset name="seeTheFitSecondaryImg" value="${product.seeTheFitSecondaryImg}" scope="page" />
+                    <isif condition="${!empty(seeTheFitSecondaryImg)}"> 
+                        <img class="size-guide-right-secondary-image" src="${seeTheFitSecondaryImg.url}" alt="${seeTheFitSecondaryImg.alt}"/>
+                    </isif>
                 </div>
                 <div class="size-guide-mobile-image">
                     <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
                 </div>
-                <div class="size-guide-scales">
 
+                <iscomment>Custom Start: Scale div is not needed inside the size-guide therefore its commented </iscomment>
+                <iscomment>
+                <div class="size-guide-scales">
                     <div class="size-guide-scale">
                         <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.thickness', 'product', null)}</p>
                         <div class="size-guide-scale-bar">
@@ -204,21 +211,19 @@
                             <span>${Resource.msg('label.guide.scale.tall', 'product', null)}</span>
                         </div>
                     </div>
-
-
-
                     <div class="size-guide-scale">
                         <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.size', 'product', null)}</p>
                         <div class="size-guide-scale-bar">
                             <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
                         </div>
-
                         <div class="size-guide-scale-range-labels">
                             <span>${Resource.msg('label.guide.scale.small', 'product', null)}</span>
                             <span>${Resource.msg('label.guide.scale.large', 'product', null)}</span>
                         </div>
                     </div>
                 </div>
+                </iscomment>
+                <iscomment>Custom End</iscomment>
             </div>
         </div>
 
