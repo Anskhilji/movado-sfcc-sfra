@@ -1,0 +1,20 @@
+<isset name="product" value="${pdict.product}" scope="page" />
+<isset name="price" value="${product.price}" scope="page" />
+<isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+    <isif condition="${pdict.loggedIn == true}">
+        <isif condition="${product.productType === 'set'}">
+            <isinclude template="product/components/pricing/setPrice" />
+        <iselse>
+            <isinclude template="product/components/pricing/main" />
+        </isif>
+    <iselse>
+        ${Resource.msg('global.price.loggedin', 'common', null)}
+    </isif>
+<iselse>
+    <isif condition="${product.productType === 'set'}">
+        <isinclude template="product/components/pricing/setPrice" />
+    <iselse>
+        <isinclude template="product/components/pricing/main" />
+    </isif>
+</isif>    
+
