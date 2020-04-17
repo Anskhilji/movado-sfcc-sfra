@@ -243,7 +243,8 @@ module.exports = function () {
     $('.mini-cart-data').on('submit', 'form.login', function (e) {
         var form = $(this);
         e.preventDefault();
-        var url = form.attr('action');
+        var $csrfInput = $('.minicart-csrf-token');
+        var url = form.attr('action') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
         form.spinner().start();
         $('form.login').trigger('login:submit', e);
         $.ajax({
