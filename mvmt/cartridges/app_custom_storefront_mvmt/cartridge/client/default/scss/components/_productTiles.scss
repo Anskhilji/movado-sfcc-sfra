@@ -242,22 +242,23 @@
         margin: 0;
     }
 }
+
 .seo-content-footer {
-    max-width: 940px;
-    padding: 50px 20px;
+    max-width: rem(940);
+    padding: rem(50) rem(20);
     text-align: center;
-    line-height: 22px;
+    line-height: rem(22);
     letter-spacing: normal;
     margin: 0;
     font-weight: 500;
-    color: #5c5c5c;
+    color: $gray36;
     margin: 0 auto;
     
     p {
-        color: #5c5c5c;
-        font-size: 14px;
-        line-height: 28px;
-        letter-spacing: .5px;
+        color: $gray36;
+        font-size: rem(14);
+        line-height: rem(28);
+        letter-spacing: rem(0.5);
         font-weight: 400;
         font-style: normal;
     }
@@ -269,10 +270,16 @@
     margin-left: 0;
     margin-right: 0;
     
-    .cs-carousel-wrapper {
+    .cs-bottom-carousel-wrapper {
 
-        margin-left: rem(50);
-        margin-right: rem(50);
+        margin-left: rem(20);
+        margin-right: rem(20);
+        margin-bottom: rem(20);
+        
+        @include media-breakpoint-down(md) {
+            margin-left: rem(-15);
+            margin-right: rem(-15);
+        }
 
         .slick-slide { 
             margin: 0 rem(20);
@@ -280,11 +287,25 @@
         }
         
         .carousel-title {
-            margin-top: rem(56);
+            margin-top: rem(56); 
             margin-bottom: rem(40);
+            margin-left: rem(20);
+            
+            @include media-breakpoint-down(md) {
+                text-align: center;
+            }
         }
         
         .slick-arrow {
+            font-size: 0;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: inline-block;
+            padding: rem(5) rem(8);
+            cursor: pointer;
+            top: 28%;
+            position: absolute;
+            z-index: 1;
             background-size: rem(5);
             background-color: $white;
             width: rem(60);
@@ -294,11 +315,11 @@
         }
         
         .slick-arrow.slick-prev {
-            left: rem(-35);
+            left: rem(-6);
         }
         
         .slick-arrow.slick-next {
-            right: rem(-40);
+            right: rem(-6);
         }
         
     }
@@ -311,10 +332,6 @@
             &:hover {
                 text-decoration: none;
             }
-            
-            img {
-                height: rem(190); 
-            }
         }
          
  
@@ -322,38 +339,39 @@
             display: flex;
             background-color: $white;
             height: rem(53);
+            padding: rem(10) rem(5) rem(10) rem(15);
             
             .bottom-slot-image {
-                margin: rem(15) rem(5);
-                border-right: rem(1) solid $light-gray2;
-            }
-            
-            img {
-                padding-right: rem(15);
-                width: rem(43);
-                margin-left: rem(23);
-                height: rem(25);
+                margin: 0;
+                padding-right: rem(10);
+                width: rem(35);
+                max-height: rem(40);
+                vertical-align: middle;
+                padding: 0;
+                margin-right: rem(10);
+                margin-top: rem(2);
+                height: rem(30);
             }
              
-            span {
-                margin: rem(15) rem(5);
+            .bottom-slot-text {
+                overflow: hidden;
                 white-space: nowrap;
-                height: rem(35); 
-                overflow: hidden; 
                 text-overflow: ellipsis;
-                width: rem(95);
-                display: inline-block;
-            
+                text-transform: uppercase;
+                text-align: justify;
+                vertical-align: middle;
+                width: calc(100% - 73px);
+                padding: 0 rem(5) 0 rem(13);
+                padding-top: rem(7);
+                border-left: rem(1) solid $light-gray2;
             }
             
             svg {
+                margin-top: rem(11);
                 width: rem(9);
-                height: rem(9); 
-                margin-top: rem(25);
-                transform: translateY(-50%);
+                height: rem(9);
             }
             
         }
     }
-    
 }

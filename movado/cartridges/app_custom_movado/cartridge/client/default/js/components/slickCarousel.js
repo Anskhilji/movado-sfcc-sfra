@@ -7,8 +7,6 @@ var initCarousel = function ($container) {
     var $parent = $container || $body;
     $parent.find('.js-carousel').each(function () {
         var $carousel = $(this);
-        var test1 = $carousel.data();
-        console.log(test1);
         var config = $carousel.data() && $carousel.data().carouselConfig || {};
         $carousel.slick(config);
         $carousel.show();
@@ -26,8 +24,6 @@ var initCarouselBottomSlot = function ($container) {
     var $parent = $container || $body;
     $parent.find('.js-carousel-bottom-slot').each(function () {
         var $carousel = $(this);
-        var test1 = $carousel.data();
-        console.log(test1);
         var config = $carousel.data() && $carousel.data().carouselConfig || {};
         config = atob(config);
         config = JSON.parse(config);
