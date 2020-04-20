@@ -176,7 +176,9 @@
 
         <div class="size-guide">
             <div class="size-guide-content">
+                <iscomment> Custom Start: Adding seeTheFitPopup primary image </iscomment>
                 <div class="size-guide-content-primary-image" style="background-image:url('${!empty(product.seeTheFitPrimaryImg) ? product.seeTheFitPrimaryImg.url : ''}')"></div>
+                <iscomment>Custom End </iscomment>
                 <button class="size-guide-close" aria-label="close modal" data-close-modal>
                     <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
