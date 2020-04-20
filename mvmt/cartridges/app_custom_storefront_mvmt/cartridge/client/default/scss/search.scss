@@ -78,6 +78,11 @@
             background: linear-gradient(0deg,$white,$light-gray3);
             z-index: 6;
             position: relative;
+            display: none;
+
+            @include media-breakpoint-up(lg) {
+                display: block;
+            }
 
             &.sticky {
                 position: fixed;
@@ -424,6 +429,154 @@
 
     .tab-content.sticky-padding {
         padding-top: 0;
+    }
+
+    .mobile {
+
+        &-filter {
+            &-bar {
+                background: $white;
+                display: block;
+                border-top: rem(1) solid $white-gray;
+                background: linear-gradient(0deg, $white, $light-gray3);
+                z-index: 9;
+
+                @include media-breakpoint-up(lg) {
+                    display: none;
+                }
+            }
+
+            &-btn-list {
+                display: flex;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+
+                li {
+                    width: 50%;
+                    border: rem(1) solid $light-gray4;
+
+                    button {
+                        display: block;
+                        text-align: center;
+                        padding: rem(17.5) rem(10);
+                        font-size: rem(10);
+                        color: $black;
+                        line-height: 1;
+                        letter-spacing: rem(1);
+                        text-transform: uppercase;
+                        width: 100%;
+                        border: none;
+                        box-shadow: inset 0 0 0 0 $white, inset 0 -1px 0 0 $ivory, inset 0 1px 0 0 $ivory, inset 0 -1px 0 0 $light-gray5;
+                        background: linear-gradient(0deg,$white,$light-gray10);
+                    }
+                }
+            }
+
+            &-container {
+                > div {
+                    opacity: 0;
+                    visibility: hidden;
+                    z-index: 101;
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    transform: scale(.95);
+                    border-radius: 50%;
+                    overflow: hidden;
+                    transition: opacity .5s,transform .5s,border-radius .5s;
+                        z-index: 9999;
+
+                    &.active {
+                        opacity: 1;
+                        visibility: visible;
+                        border-radius: 0;
+                        transform: scale(1);
+                        background: $white;
+                    }
+                }
+            }
+
+            &-options {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                height: calc(100% - 51px);
+
+                &-list {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    transition: opacity .5s,transform .5s;
+                    transform: translateY(80px);
+                    opacity: 0;
+                    overflow: auto;
+
+                    &.loaded {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                &-btn {
+                    background: linear-gradient(0deg,$white,$light-gray10);
+                    width: 50%;
+                    border: none;
+                    border-bottom: rem(1) solid $light-gray4;
+                    height: 50vw;
+                    text-align: center;
+                    box-sizing: border-box;
+
+                    &:nth-child(odd) {
+                        border-right: 1px solid $light-gray4;
+                    }
+                }
+            }
+
+            &-actions {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                left: 0;
+                transition: transform .5s;
+                transform: translateY(100%);
+
+                &.loaded {
+                    transform: translateY(0);
+                }
+
+                button {
+                    text-align: center;
+                    text-transform: uppercase;
+                    background: linear-gradient(0deg,$white,$light-gray10);
+                    border: none;
+                    border-bottom: 1px solid #e8e8e8;
+                    font-size: rem(14);
+                    padding: rem(20);
+                    width: 100%;
+                }
+            }
+        }
+
+        &-sort-close {
+            background: linear-gradient(0deg,$white,$light-gray3);
+            border-bottom: 1px solid $light-gray4;
+            padding: rem(20);
+            color: $black;
+            font-size: rem(11);
+            line-height: 1;
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
+
+    .plp {
+        
     }
 }
 

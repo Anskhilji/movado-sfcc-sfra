@@ -496,16 +496,22 @@ module.exports = {
 
     mobileSortMenu: function () {
 
-        $(document).on("click", '.test', function(e) {
-            $('.mobile-sort-menu').addClass('active');
+        $(document).on("click", '.mobile-filter-btn-list button', function(e) {
+            var  menu = $(this).data('menu');
+            console.log(menu);
+            $(''+ menu +'').addClass('active');
             setTimeout (function (){
-                $('.mobile-sort-order').addClass('loaded')
+                $(''+ menu +' .mobile-sort-order').addClass('loaded');
+                $(''+ menu +' .mobile-filter-actions').addClass('loaded');
+                $(''+ menu +' .mobile-filter-options-list').addClass('loaded');
             }, 500);
         });
 
-        $(document).on("click", '.mobile-sort-close', function(e) {
-            $('.mobile-sort-menu').removeClass('active');
-            $('.mobile-sort-order').removeClass('loaded');
+        $(document).on("click", '.mobile-close-menu', function(e) {
+            var  menuClose = $(this).data('close-menu');
+            $(''+ menuClose +'').removeClass('active');
         });
+
+        
     }
 };
