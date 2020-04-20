@@ -368,6 +368,40 @@
     text-transform: uppercase;
 }
 
+.custom-select-wrapper {
+
+    .custom-select-form-wrapper {
+        border: rem(1) solid $cyan-blue1;
+        padding: rem(20);
+        color:$light-gray;
+        text-transform: none;
+        font-family: $font-book;
+
+        &:not([size]):not([multiple]) {
+            height: rem(57);
+
+            &:focus {
+                box-shadow: 0 0 0 rem(1) $pale-blue;
+                border-color: $pale-blue;
+            }
+
+            @include media-breakpoint-down(lg) {
+
+                &:focus {
+                    box-shadow: 0 0 0 rem(1) $corvette;
+                    border-color: $corvette;
+                }
+            }
+        }
+    }
+
+    .fa-sort {
+        font-size: rem(12);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
 .widgets-title {
     margin: rem(20);
     overflow :hidden;

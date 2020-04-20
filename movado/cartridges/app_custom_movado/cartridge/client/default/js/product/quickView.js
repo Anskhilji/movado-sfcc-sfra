@@ -63,8 +63,9 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
         success: function (data) {
         	$('body').trigger('qv:success', gtmProdObj);
             var parsedHtml = parseHtml(data.renderedTemplate);
-            var loggedIn = data.loggedIn;
-            var restrictAnonymousUsersOnSalesSites = data.restrictAnonymousUsersOnSalesSites;
+            var loggedInStatusUrl = $('.product-tile').data('loggedin-status-url'); 
+            var loggedIn;
+            var restrictAnonymousUsersOnSalesSites;
 
             $('#quickViewModal .modal-body').empty();
             $('#quickViewModal .modal-body').html(parsedHtml.body);
@@ -72,15 +73,33 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
             $('#quickViewModal .size-chart').attr('href', data.productUrl);
             $('#quickViewModal .gtm-addtocart').attr('data-gtm-addtocart', JSON.stringify(data.productGtmArray));
-            if (restrictAnonymousUsersOnSalesSites) {
-                if (!loggedIn) {
-                    $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
-                    $('.prices-add-to-cart-actions.mcs-show-price-message').removeClass('d-none');
-                    $('.mcs-restrict-anonymous-user').hide();
-                }
+            if (loggedInStatusUrl) {
+                $.ajax({
+                    url: loggedInStatusUrl,
+                    success: function (data){
+                        loggedIn = data.loggedIn;
+                        restrictAnonymousUsersOnSalesSites = data.restrictAnonymousUsersOnSalesSites;
+                        if (restrictAnonymousUsersOnSalesSites) {
+                            if (!loggedIn) {
+                                $('.prices-add-to-cart-actions.mcs-add-to-cart').hide();
+                                $('.prices-add-to-cart-actions.mcs-show-price-message').removeClass('d-none');
+                                $('.mcs-restrict-anonymous-user').hide();
+                            } else {
+                                $('.prices-add-to-cart-actions.mcs-add-to-cart').show();
+                                $('.prices-add-to-cart-actions.mcs-show-price-message').addClass('d-none');
+                                $('.mcs-restrict-anonymous-user').show();
+                            }
+                        }
+                        $('#quickViewModal').modal('show');
+                    },
+                    error: function (error) {
+                        $('#quickViewModal').modal('show');
+                    }
+                });
+            } else {
+                $('#quickViewModal').modal('show');
             }
-            
-            $('#quickViewModal').modal('show');
+
             setTimeout(function () {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);

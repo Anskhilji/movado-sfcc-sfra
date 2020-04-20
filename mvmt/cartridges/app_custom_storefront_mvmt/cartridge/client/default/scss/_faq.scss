@@ -478,6 +478,8 @@
         margin: 0 auto;
         max-width: rem(800);
         width: 100%;
+        padding-left: rem(20);
+        padding-right: rem(21);
     
         p {
             color: $black;
@@ -608,6 +610,14 @@
             color: $light-gray;
             font-size: rem(14);
             letter-spacing: rem(.5);
+
+            a {
+                font-weight: 600;
+                &:hover {
+                    color: $dark-red;
+                    text-decoration: none;
+                }
+            }
         }
     }
 
