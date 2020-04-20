@@ -19,3 +19,11 @@
 </isif>
 
 <isinclude template="riskified/riskifedstorefrontbeacon.isml" sf-toolkit="off" />
+
+<iscomment> Custom Start: Adding Marketing Cloud cartridge integration </iscomment>
+<isset name="isMarketingCloudEnabled" value="${!empty(dw.system.Site.current.preferences.custom.marketingCloudModuleEnabled) ? dw.system.Site.current.preferences.custom.marketingCloudModuleEnabled : false}" scope="page" />
+<isscript>
+    var hookHelper = require('*/cartridge/scripts/template/hookHelper');
+    hookHelper.callHook('app.template.htmlHead', null, {pdict: pdict});
+</isscript>
+<iscomment> Custom End </iscomment>
