@@ -1,9 +1,10 @@
 'use strict';
 
+var baseProductCustomHelper = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
+var Site = require('dw/system/Site').getCurrent();
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
-var baseProductCustomHelper = module.superModule;
 
 /**
  * Get explicit recommendations for product
@@ -35,14 +36,13 @@ function getExplicitRecommendations(pid) {
 }
 
 /**
- * It is used to read json data from site preferences for category object after json categoryID pass in the CatalogMgr method 
- * to get the category. Category will pass in the apiProduct method for getting category assignment.
- * @param {Object} productID - ProductID is used to get
- * @returns {Object} category - Category type object
+ * It is used to read json data from site preferences for category object then json categoryID pass in the CatalogMgr method 
+ * to get the category. Category object will pass in the apiProduct method for getting category assignment.
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Object} - Category object
  */
 function getProductCustomAttribute(apiProduct) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var Site = require('dw/system/Site').getCurrent();
     var categories = !empty(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) ? JSON.parse(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) : '';
     var category = null;
     if (!empty(categories) && !empty(apiProduct)) {
@@ -62,32 +62,68 @@ function getProductCustomAttribute(apiProduct) {
 /**
  * It is used to get productCustomAttribute from getProductCustomAttribute method and adding these attributes into the array 
  * list of seeTheFitSpecs.
- * @param {Object} apiProduct - apiProduct is used to get sfcc product
- * @returns {ArrayList} - seeTheFitSpecs array list
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Object} - seeTheFitPopup object
  */
 function getProductAttributes(apiProduct) {
     var ArrayList = require('dw/util/ArrayList');
-    var categoryObj = getProductCustomAttribute(apiProduct);
+    var isEnableSeeTheFitPopup = Site.getCustomPreferenceValue('enableSeeTheFitPopUp');
+    var seeTheFitPopup = {};
+    var seeTheFitDescription = '';
+    var seeTheFitHeading = '';
+    var seeTheFitPrimaryImg = null;
+    var seeTheFitSecondaryImg = null;
     var seeTheFitSpecs = new ArrayList();
-    if (!empty(categoryObj)) {
-        var ids = categoryObj.attributes.IDs;
-        var displayNames = categoryObj.attributes.displayNames;
-        if (!empty(ids) && !empty(displayNames)) {
-            for (var idIndex = 0; idIndex < ids.length; idIndex++) {
-                var id = ids[idIndex];
-                var displayName = displayNames[idIndex];
-                var idValue = !empty(apiProduct.custom[id]) ? apiProduct.custom[id] : '';
-                if (!empty(idValue)) {
-                    var attribute = {
-                        displayName: displayName,
-                        value: idValue
-                    };
-                    seeTheFitSpecs.push(attribute);
+
+    if (isEnableSeeTheFitPopup) {
+        var categoryObj = getProductCustomAttribute(apiProduct);
+        var masterProduct = apiProduct.getVariationModel().getMaster();
+        var seeTheFitImageViewType = Site.getCustomPreferenceValue('seeTheFitImageViewTypeName');
+
+        if (!empty(masterProduct)) {
+            seeTheFitHeading = masterProduct.name;
+            seeTheFitDescription = masterProduct.shortDescription;
+        } else {
+            seeTheFitHeading = apiProduct.name;
+            seeTheFitDescription = apiProduct.shortDescription;
+        }
+
+        if (!empty(categoryObj)) {
+            var attributes = categoryObj.attributes;
+            if (!empty(attributes)) {
+                for (var attributesIndex = 0; attributesIndex < attributes.length; attributesIndex++) {
+                    var id = attributes[attributesIndex].ID;
+                    var displayName = attributes[attributesIndex].displayName;
+                    var isCustom =  attributes[attributesIndex].custom;
+                    var value = null;
+
+                    if (isCustom) {
+                        value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                    } else {
+                        value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct[id] : '';
+                    }
+
+                    if (!empty(value)) {
+                        var attribute = {
+                            displayName: displayName,
+                            value: value
+                        };
+                        seeTheFitSpecs.push(attribute);
+                    }
                 }
             }
         }
+        if (!empty(seeTheFitImageViewType) && seeTheFitImageViewType.equalsIgnoreCase('size-guide')) {
+            seeTheFitPrimaryImg =  apiProduct.getImage(seeTheFitImageViewType, 0);
+            seeTheFitSecondaryImg =  apiProduct.getImage(seeTheFitImageViewType, 1);
+        }
     }
-    return seeTheFitSpecs;
+    seeTheFitPopup.seeTheFitHeading = seeTheFitHeading;
+    seeTheFitPopup.seeTheFitDescription = seeTheFitDescription;
+    seeTheFitPopup.seeTheFitSpecs = seeTheFitSpecs;
+    seeTheFitPopup.seeTheFitPrimaryImg = seeTheFitPrimaryImg;
+    seeTheFitPopup.seeTheFitSecondaryImg =  seeTheFitSecondaryImg;
+    return seeTheFitPopup;
 }
 
 module.exports = {

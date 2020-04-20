@@ -1,6 +1,5 @@
 'use strict';
 
-var Site = require('dw/system/Site').getCurrent();
 var baseFullProduct = module.superModule;
 
 /**
@@ -20,10 +19,7 @@ var baseFullProduct = module.superModule;
 module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-    var seeTheFitDescription = '';
-    var seeTheFitHeading = '';
-    var seeTheFitImageViewType = Site.getCustomPreferenceValue('seeTheFitImageViewTypeName');
-    var masterProduct = apiProduct.getVariationModel().getMaster();
+    var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
 
     if (!empty(apiProduct.custom.shopStrapUrl)) {
         Object.defineProperty(product, 'shopStrapUrl', {
@@ -32,46 +28,38 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(masterProduct)) {
-        seeTheFitHeading = masterProduct.name;
-        seeTheFitDescription = masterProduct.shortDescription;
-    } else {
-        seeTheFitHeading = apiProduct.name;
-        seeTheFitDescription = apiProduct.shortDescription;
+    if (!empty(seeTheFitPopup.seeTheFitHeading)) {
+        Object.defineProperty(product, 'seeTheFitHeading', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitHeading
+        });
     }
 
-    Object.defineProperty(product, 'seeTheFitHeading', {
-        enumerable: true,
-        value: seeTheFitHeading
-    });
-
-    Object.defineProperty(product, 'seeTheFitDescription', {
-        enumerable: true,
-        value: seeTheFitDescription
-    });
-
-    if (!empty(seeTheFitImageViewType) && seeTheFitImageViewType.equalsIgnoreCase('size-guide')) {
-        var seeTheFitPrimaryImg =  apiProduct.getImage(seeTheFitImageViewType, 0);
-        if (!empty(seeTheFitPrimaryImg)) {
-            Object.defineProperty(product, 'seeTheFitPrimaryImg', {
-                enumerable: true,
-                value: seeTheFitPrimaryImg
-            });
-        }
-        var seeTheFitSecondaryImg =  apiProduct.getImage(seeTheFitImageViewType, 1);
-        if (!empty(seeTheFitSecondaryImg)) {
-            Object.defineProperty(product, 'seeTheFitSecondaryImg', {
-                enumerable: true,
-                value: seeTheFitSecondaryImg
-            });
-        }
+    if (!empty(seeTheFitPopup.seeTheFitDescription)) {
+        Object.defineProperty(product, 'seeTheFitDescription', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitDescription
+        });
     }
 
-    var seeTheFitSpecs = productCustomHelper.getProductAttributes(apiProduct);
-    if (!empty(seeTheFitSpecs)) {
+    if (!empty(seeTheFitPopup.seeTheFitPrimaryImg)) {
+        Object.defineProperty(product, 'seeTheFitPrimaryImg', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitPrimaryImg
+        });
+    }
+    if (!empty(seeTheFitPopup.seeTheFitSecondaryImg)) {
+        Object.defineProperty(product, 'seeTheFitSecondaryImg', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitSecondaryImg
+        });
+    }
+
+
+    if (!empty(seeTheFitPopup.seeTheFitSpecs)) {
         Object.defineProperty(product, 'seeTheFitSpecs', {
             enumerable: true,
-            value: seeTheFitSpecs
+            value: seeTheFitPopup.seeTheFitSpecs
         });
     }
 

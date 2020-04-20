@@ -18,9 +18,11 @@
             <div class="col-12 col-sm-6 p-0">
                 <iscomment> Product name and see fit popup button added</iscomment>
                 <h3 class="detals-heading">${Resource.msg('label.details.know', 'product', null)} ${product.productName}</h3>
-                <div class="see-fit-button">
-                    <button class="button-outline button call-see-fit-popup">${Resource.msg('button.see.fit', 'product', null)}</button>
-                </div>
+                <isif condition="${sitePref.enableSeeTheFitPopUp}">
+                    <div class="see-fit-button">
+                        <button class="button-outline button call-see-fit-popup">${Resource.msg('button.see.fit', 'product', null)}</button>
+                    </div>
+                </isif>
                 <div class="attribute-list">
                     <isloop items="${product.pdpAttributesList}" begin="2" end="7" var="attr">
                         <div class="attribute-detail">
