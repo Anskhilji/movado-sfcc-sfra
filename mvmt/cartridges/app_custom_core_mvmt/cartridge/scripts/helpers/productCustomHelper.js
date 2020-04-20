@@ -113,7 +113,7 @@ function getProductAttributes(apiProduct) {
                 }
             }
         }
-        if (!empty(seeTheFitImageViewType) && seeTheFitImageViewType.equalsIgnoreCase('size-guide')) {
+        if (!empty(seeTheFitImageViewType)) {
             seeTheFitPrimaryImg =  apiProduct.getImage(seeTheFitImageViewType, 0);
             seeTheFitSecondaryImg =  apiProduct.getImage(seeTheFitImageViewType, 1);
         }

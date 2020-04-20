@@ -44,7 +44,7 @@
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
             <!-- Social Sharing Icons -->
-            <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
+            <isif condition="${sitePref.addthis_enabled}">
                 <isinclude template="product/components/socialIcons" />
             </isif>
         </div>
@@ -128,7 +128,7 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
 
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                <isif condition="${sitePref.enableSmartGift}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
@@ -165,6 +165,7 @@
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
+        <iscomment> Custom Start: Adding condition for check enableSeeTheFitPopUp is enable/disable </iscomment>
         <isif condition="${sitePref.enableSeeTheFitPopUp}">
             <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
             <div class="modal fade share-via-email-overlay" id="sendtofriendform">
@@ -209,38 +210,10 @@
                         </isif>
                     </div>
                     <iscomment>Custom End </iscomment>
-                    <div class="size-guide-mobile-image">
-                        <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
-                    </div>
-                    <iscomment>Custom Start: Scale div is not needed inside the size-guide therefore its commented </iscomment>
-                    <iscomment>
-                    <div class="size-guide-scales">
-                        <div class="size-guide-scale">
-                            <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.thickness', 'product', null)}</p>
-                            <div class="size-guide-scale-bar">
-                                <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
-                            </div>
-                            <div class="size-guide-scale-range-labels">
-                                <span>${Resource.msg('label.guide.scale.flate', 'product', null)}</span>
-                                <span>${Resource.msg('label.guide.scale.tall', 'product', null)}</span>
-                            </div>
-                        </div>
-                        <div class="size-guide-scale">
-                            <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.size', 'product', null)}</p>
-                            <div class="size-guide-scale-bar">
-                                <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
-                            </div>
-                            <div class="size-guide-scale-range-labels">
-                                <span>${Resource.msg('label.guide.scale.small', 'product', null)}</span>
-                                <span>${Resource.msg('label.guide.scale.large', 'product', null)}</span>
-                            </div>
-                        </div>
-                    </div>
-                    </iscomment>
-                    <iscomment>Custom End</iscomment>
                 </div>
             </div>
         </isif>
+        <iscomment>Custom End </iscomment>
         <div class="modal fade strap-guid-popup fade" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
