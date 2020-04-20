@@ -1,0 +1,16 @@
+<isset name="product" value="${pdict.product}" scope="page" />
+<isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+    <isif condition="${pdict.loggedIn == true}">
+        <div>
+            <isinclude template="util/affirmmodule_mf" />
+            <isaffirmpromo context="pdp"
+                fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+        </div>
+    </isif>
+<iselse>  
+    <div>
+        <isinclude template="util/affirmmodule_mf" />
+        <isaffirmpromo context="pdp"
+            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+    </div>
+</isif> 

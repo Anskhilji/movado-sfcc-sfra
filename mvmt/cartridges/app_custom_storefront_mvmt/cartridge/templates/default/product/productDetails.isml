@@ -48,7 +48,7 @@
                 <isinclude template="product/components/socialIcons" />
             </isif>
         </div>
-        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <div class="row ratings-mobile pb-2">
@@ -64,17 +64,26 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
+                    <div class="product-tag-wrapper ${!product.available ? '' : 'opacity-0'}">
+                        <isif condition="${!product.available}">
+                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                        </isif>
+                    </div>
 
-                    <div class="product-tag-wrapper opacity-0">
-                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                    <div class="product-brand-info">
+                        <span>${product.brand}</span>
                     </div>
 
                     <!-- Product Availability -->
-                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                        data-available="${product.available}">
-                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                    </div>
-
+                    <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
+                    <iscomment> 
+                        <isif condition="${product.available}"> </isif>
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+                    </iscomment>
+                    <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
                     <h1 class="product-name text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -91,16 +100,19 @@
 
                         <isinclude template="product/components/badges" />
 
-                        <!-- Applicable Promotions -->
-                        <div class="promotions">
-                            <isinclude template="product/components/promotions" />
-                        </div>
-
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">
                                 <isinclude template="product/components/quantity" />
                             </div>
                         </isif>
+                    </div>
+
+                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                        <isinclude template="product/components/variationAttributes" />
+                    </isif>
+
+                    <div class="linked-product-container">
+                        <isinclude template="product/components/recommendedProducts" />
                     </div>
 
                     <isif condition="${product.options && product.options.length > 0}">
@@ -109,10 +121,6 @@
                     <div class="col-md-10 col-12">
                         <isinclude template="product/components/mainAttributes" />
                     </div>
-
-                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                        <isinclude template="product/components/variationAttributes" />
-                    </isif>
 
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
@@ -127,6 +135,11 @@
                                 </isif>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Applicable Promotions -->
+                    <div class="promotions">
+                        <isinclude template="product/components/promotions" />
                     </div>
                 </div>
 
@@ -228,7 +241,7 @@
             </div>
         </div>
 
-        <div class="modal fade strap-guid-popup" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade strap-guid-popup fade" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

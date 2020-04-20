@@ -1,5 +1,6 @@
 'use strict';
 var movadoDetail = require('movado/product/detail');
+var base = require('./base');
 
 module.exports = {
 
@@ -139,6 +140,27 @@ module.exports = {
                 }
             });
         });
+
+        function mobileCartButton () {
+            var windowWidth = $(window).width();
+
+            if (windowWidth < 768) {
+
+                $(window).on('scroll', function(e) {
+                    if ($(window).scrollTop() > 300) {
+                        $('.add-to-cart').addClass('mobileBtn');
+                    }
+                });
+            } else {
+                $('.add-to-cart').removeClass('mobileBtn');
+            }
+        }
+
+        mobileCartButton();
+
+        $(window).resize((function() {
+            mobileCartButton ();
+        }));
     },
 
     carouselPagination: function () {
@@ -183,9 +205,10 @@ module.exports = {
                 },
             ],
             customPaging: function (slick, index) {
-                var thumb = $(slick.$slides[index]).find('.carousel-tile').data('thumb');
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
     },
+    base: base
 };

@@ -80,7 +80,7 @@ module.exports = function () {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if ($scroll >= $footer.offset().top - 400) {
+                if (typeof $footer !== 'undefined' && typeof $footer.offset() !== 'undefined' && $scroll >= $footer.offset().top - 400) {
                     $helpContainer.hide();
                     $footerHelpContainer.show();
                 } else {

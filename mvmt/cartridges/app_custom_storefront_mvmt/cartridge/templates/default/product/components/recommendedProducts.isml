@@ -1,0 +1,39 @@
+<iscomment> Custom: Start new template added for recommendation products </iscomment>
+<div class="linked-product-list">
+    <isif condition="${pdict.explicitRecommendations && pdict.explicitRecommendations.length > 0}">
+        <div class="linked-head">
+            <label>
+                ${Resource.msg('label.add.strap', 'product', null)}
+            </label>
+
+            <button class="strap-guid" data-toggle="modal" data-target="#strapguid" id="strapguide">
+                <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
+            </button>
+        </div>
+        <div class="linked-products">
+            <isloop items="${pdict.explicitRecommendations}" var="recommendation">
+                <isif condition="${recommendation != null}">
+                    <div class="upsell_wrapper">
+                        <input type="checkbox" class="upsell_input" name="additionalProducts" value="${recommendation.id}">
+                        <img class="upsell_image" src="${recommendation.images.tile150[0].url}"/>
+                        <div class="upsell_meta">
+                            <div class="upsell_price">
+                                <isset name="price" value="${recommendation.price}" scope="page" />
+                                <isif condition="${recommendation.productType === 'set'}">
+                                    <isinclude template="product/components/pricing/setPrice" />
+                                <iselse>
+                                    <isinclude template="product/components/pricing/main" />
+                                </isif>
+                            </div>
+                            <p class="upsell_status">${Resource.msg('label.added', 'product', null)}</p>
+                        </div>
+                        <p class="upsell_description">${recommendation.productName}</p>
+                        <div class="upsell_checkbox">
+                        </div>
+                    </div>
+                </isif>
+            </isloop>
+        </div>
+    </isif>
+</div>
+<iscomment> Custom: End </iscomment>
