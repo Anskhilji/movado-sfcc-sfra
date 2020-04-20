@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        <div class="container pdp-alternate">
+        <div class="container-fluid pdp-alternate">
             <isinclude template="product/components/productGallery" />
         </div>
 
