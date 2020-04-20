@@ -12,7 +12,7 @@
                     <isprint value="${contentAsset.custom.body}" encoding="off"/>
                 </div>
             </isloop>
-          </div> 
+          </div>
           <isif condition="${slotcontent.custom.bottomSectionCarousel}">
             <div class="bottom-section">
               <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />

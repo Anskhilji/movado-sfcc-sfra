@@ -17,8 +17,8 @@ var initCarousel = function ($container) {
                 }
             });
         }
-    }); 
-}; 
+    });
+};
 
 module.exports = {
     initCarousel: initCarousel
