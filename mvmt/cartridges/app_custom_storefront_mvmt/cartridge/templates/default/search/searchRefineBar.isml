@@ -1,27 +1,4 @@
-<!--- Close button --->
-<div class="filter-header">
-    <div class="header-bar d-md-none clearfix">
-        <div class="pull-left d-md-none result-count">
-            <isinclude template="search/resultsCount" />
-        </div>
-        <button class="pull-right close">
-            <span>${Resource.msg('button.close', 'search', null)}</span>
-            <i class="fa fa-close"></i>
-        </button>
-    </div>
-</div>
-
-<!--- Results count and Reset button --->
-<isif condition="${pdict.productSearch.productIds.length > 0}">
-    <div class="reset-container">
-        <div class="secondary-bar">
-            <a class="reset btn btn-outline-primary" href="${pdict.productSearch.resetLink}">
-                ${Resource.msg('link.reset', 'search', null)}
-            </a>
-        </div>
-    </div>
-</isif>
-
+<button type="" class="test"></button>
 <div class="refine-wrapper">
     <div class="plp-filter-bar">
         <div class="plp-filter-bar-inner ">
@@ -52,11 +29,47 @@
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
                                     </div>
+                                    <div class="plp-active-filter">
+                                        <div class="plp-active-filter-list">
+                                            <div class="filter-result-count">
+                                                <div class="grid-header">
+                                                    <div class="result-count">
+                                                        <isinclude template="search/resultsCount" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="active-filters">
+                                                <div class="row m-0 filter-bar">
+                                                    <isinclude template="search/filterBar" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="filter-close-btn">
+                                            ${Resource.msgf('label.button.close', 'common', null, pdict.productSearch.count)}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </isloop>
                     </div>
                     <isinclude template="search/sortOrderMenu" />
+                </div>
+            </div>
+        </div>
+        <div class="plp-active-filter sticky">
+            <div class="plp-active-filter-list">
+                <div class="filter-result-count">
+                    <div class="grid-header">
+                        <div class="result-count">
+                            <isinclude template="search/resultsCount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="active-filters">
+                    <div class="row m-0 filter-bar">
+                        <isinclude template="search/filterBar" />
+                    </div>
                 </div>
             </div>
         </div>

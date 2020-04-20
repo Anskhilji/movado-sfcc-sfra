@@ -10,13 +10,13 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <div class="hero search-banner">
-    <isif condition="${pdict.productSearch.isCategorySearch}">
-        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
-        <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-    <iselse>
-        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
-        <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
-    </isif>
+        <isif condition="${pdict.productSearch.isCategorySearch}">
+            <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
+            <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+        <iselse>
+            <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+            <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
+        </isif>
     </div>
     <div class="mvmt-plp container-fluid p-0 search-results">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
@@ -54,7 +54,7 @@
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <isinclude url="${pdict.refineurl}" />
 
-                        <div class="row grid-header">
+                        <div class="row grid-header d-none">
                             <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
                                 <iselse>
                                     <div class="row grid-header justify-content-center">
@@ -63,10 +63,7 @@
                     <isinclude template="search/resultsCount" />
                 </div>
                 <isif condition="${pdict.productSearch.productIds.length > 0}">
-                    <div class="col-6 col-sm-3 order-sm-1 sort-col">
 
-                    </div>
-    
                     <div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
                         <button type="button" class="btn btn-primary filter-results col-12">
                             ${Resource.msg('button.filter', 'search', null)}
@@ -76,22 +73,8 @@
             </div>
 
             <isif condition="${pdict.productSearch.productIds.length > 0}">
-                <!--- Refinement bar --->
-                <div class="col-sm-12 d-none">
-                    <div class="refinement-bar col-md-3 d-none">
-
-                    </div>
-
-                </div>
 
                 <div class="col-sm-12">
-                        <!--- Selected filters bar --->
-                    <div class="row filter-bar d-md-none">
-                        <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-                            <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
-                        </isif>
-                        <isinclude template="search/filterBar" />
-                    </div>
 
                     <!--- Product Grid --->
                     <div class="row p-4 product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
@@ -133,8 +116,30 @@
     </div>
     </div>
     </div>
-    
-    
+
+    <isif condition="${pdict.productSearch.productIds.length > 0}">
+        <div class="mobile-sort-menu">
+            <div data-mobile-close-filters="" class="mobile-sort-close">
+                <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
+                </svg>
+                Sort By
+            </div>
+            <ul name="sort-order" id="sort-order" class="mobile-sort-order" title="${Resource.msg('label.sortby', 'search', null)}">
+                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                    <li>
+                        <a class="${option.id}" href="javascript:void(0);" value="${option.url}"
+                            data-id="${option.id}"
+                            ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                        >
+                            ${option.displayName}
+                        </a>
+                    </li>
+                </isloop>
+            </ul>
+        </div>
+    </isif>
+
     <isif condition="${pdict.productSearch.category}">
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
