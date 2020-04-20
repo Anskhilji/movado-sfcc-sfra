@@ -22,7 +22,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var seeTheFitDescription = '';
     var seeTheFitHeading = '';
-    var seeTheFitImageViewType = Site.getCustomPreferenceValue('seeTheFitImageViewType');
+    var seeTheFitImageViewType = Site.getCustomPreferenceValue('seeTheFitImageViewTypeName');
     var masterProduct = apiProduct.getVariationModel().getMaster();
 
     if (!empty(apiProduct.custom.shopStrapUrl)) {

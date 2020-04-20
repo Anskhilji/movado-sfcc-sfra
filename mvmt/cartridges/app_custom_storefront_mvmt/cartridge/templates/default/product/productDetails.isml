@@ -177,10 +177,10 @@
                         </g>
                     </svg>
                 </button>
+                <iscomment>Custom Start: Adding seeFitPopup data from the product and adding defensive check for secondary image </iscomment>
                 <div class="size-guide-right">
                     <div class="size-guide-title">${product.seeTheFitHeading}</div>
                     <p class="size-guide-description"><isprint value="${product.seeTheFitDescription}" encoding="off"/></p>
-
                     <table class="size-guide-content-details">
                         <isloop items="${product.seeTheFitSpecs}" var="seeTheFitSpec">
                             <tr>
@@ -194,6 +194,7 @@
                         <img class="size-guide-right-secondary-image" src="${seeTheFitSecondaryImg.url}" alt="${seeTheFitSecondaryImg.alt}"/>
                     </isif>
                 </div>
+                <iscomment>Custom End </iscomment>
                 <div class="size-guide-mobile-image">
                     <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
                 </div>
@@ -247,10 +248,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="overlay">
-        </div>
-
         <!-- The Modal: Ends-->
 
     </isobject>

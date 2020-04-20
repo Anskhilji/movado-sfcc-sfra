@@ -2,18 +2,22 @@
 
 var baseProductCustomHelper = module.superModule;
 
-function getProductCustomAttribute(productID) {
+/**
+ * It is used to read json data from site preferences for category object after json categoryID pass in the CatalogMgr method 
+ * to get the category. Category will pass in the apiProduct method for getting category assignment.
+ * @param {Object} productID - ProductID is used to get
+ * @returns {Object} category - Category type object
+ */
+function getProductCustomAttribute(apiProduct) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
     var Site = require('dw/system/Site').getCurrent();
-    var ProductMgr = require('dw/catalog/ProductMgr');
-    var orignalProduct = ProductMgr.getProduct(productID);
-    var categories = !empty(Site.getCustomPreferenceValue('seeTheFitCatagoryJSON')) ? JSON.parse(Site.getCustomPreferenceValue('seeTheFitCatagoryJSON')) : '';
+    var categories = !empty(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) ? JSON.parse(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) : '';
     var category = null;
-    if (!empty(categories) && !empty(orignalProduct)) {
+    if (!empty(categories) && !empty(apiProduct)) {
         for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
             var categoryObj = categories[categoryIndex];
             var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-            var categoryAssignment = !empty(gettingCategoryFromCatelog) ? orignalProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
+            var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
             if (!empty(categoryAssignment)) {
                 category = categoryObj;
                 break;
@@ -23,9 +27,15 @@ function getProductCustomAttribute(productID) {
     return category;
 }
 
+/**
+ * It is used to get productCustomAttribute from getProductCustomAttribute method and adding these attributes into the array 
+ * list of seeTheFitSpecs.
+ * @param {Object} apiProduct - apiProduct is used to get sfcc product
+ * @returns {ArrayList} - seeTheFitSpecs array list
+ */
 function getProductAttributes(apiProduct) {
     var ArrayList = require('dw/util/ArrayList');
-    var categoryObj = getProductCustomAttribute(apiProduct.ID);
+    var categoryObj = getProductCustomAttribute(apiProduct);
     var seeTheFitSpecs = new ArrayList();
     if (!empty(categoryObj)) {
         var ids = categoryObj.attributes.IDs;
