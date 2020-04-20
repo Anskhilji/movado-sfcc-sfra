@@ -17,13 +17,13 @@
             </div>
             <div class="footer-center-contents col-lg-6 col-sm-8">
                 <div class="row">
-                    <div class="footer-item col-md-4 desktop-view">
+                    <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="mvmt-shop" />
                     </div>
-                    <div class="footer-item col-md-4 desktop-view">
+                    <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="ca-footer-account" />
                     </div>
-                    <div class="footer-item col-md-4 desktop-view">
+                    <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="join-the-mvmt" />
                     </div>
                     <div class="footer-item col-md-4 mobile-view">
