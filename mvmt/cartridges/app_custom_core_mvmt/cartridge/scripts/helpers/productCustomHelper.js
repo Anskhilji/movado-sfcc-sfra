@@ -100,7 +100,7 @@ function getProductAttributes(apiProduct) {
                     if (isCustom) {
                         value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
                     } else {
-                        value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct[id] : '';
+                        value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                     }
 
                     if (!empty(value)) {
