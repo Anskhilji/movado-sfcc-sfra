@@ -6,7 +6,7 @@
         <div class="cs-bottom-carousel-wrapper">
           <isif condition="${slotcontent.custom.carouselTitle}">
               <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>          </isif>
-          <div class="js-carousel-bottom-slot cs-carousel" data-carousel-config='${abase64Encod}'>
+          <div class="js-carousel cs-carousel" data-carousel-config='${slotcontent.custom.carouselConfig}'>
             <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
                 <isprint value="${contentAsset.custom.body}" encoding="off"/>
             </isloop> 
