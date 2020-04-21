@@ -32,21 +32,21 @@ function processSwatchValues(attr, $productContainer) {
         var $swatchAnchor = $attrValue.parent();
 
         if (attrValue.selected) {
-            $attrValue.addClass('selected');
+            $swatchAnchor.addClass('active');
         } else {
-            $attrValue.removeClass('selected');
+            $swatchAnchor.removeClass('active');
         }
 
         if (attrValue.url) {
             $swatchAnchor.attr('href', attrValue.url);
         } else {
             $swatchAnchor.removeAttr('href');
-        }
+        } 
 
         // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
+        $attrValue.removeClass('disabled');
+ 
+        $attrValue.addClass(attrValue.selectable ? '' : 'disabled');
     });
 }
 
@@ -73,9 +73,19 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
+        var $valueContainer = $attrValue.find('span');
 
         if (!attrValue.selectable) {
             $attrValue.attr('disabled', true);
+            $valueContainer.addClass('disabled');
+        } else {
+            $valueContainer.removeClass('disabled')
+        }
+
+        if (attrValue.selected) {
+            $attrValue.addClass('active');
+        } else { 
+            $attrValue.removeClass('active');
         }
     });
 }
@@ -552,5 +562,29 @@ $(document).off('click').on('click', selector, function (e) {
         $productContainer = $(this).closest('.product-detail');
     }
     attributeSelect(value, $productContainer);
+});
+
+$('[data-attr="color"] a').off('click').on('click', function (e) {
+    e.preventDefault();
+
+    if ($(this).attr('disabled')) {
+        return;
+    }
+
+    var selectedVariation = ('span.selected-variation');
+    $(this).siblings().removeClass('active');
+    if ( $(this).hasClass('color-variation') ) {
+        $(selector).removeClass('active');
+        $(selectedVariation).empty();
+    }
+    $(this).parents('.attribute').find(selectedVariation).addClass('current-selected-variation');
+    $(this).addClass('active');
+
+    var $productContainer = $(this).closest('.set-item');
+    if (!$productContainer.length) {
+        $productContainer = $(this).closest('.product-detail');
+    }
+
+    attributeSelect(e.currentTarget.href, $productContainer);
 });
 

@@ -1312,6 +1312,7 @@
     }
 
     .product-size-options {
+        position: relative;
         width: rem(37);
         height: rem(37);
         max-width: 100%;
@@ -1330,6 +1331,27 @@
 
         &.active {
             border: rem(1) solid $black;
+        }
+
+        .disabled {
+            cursor: not-allowed;
+
+            &:before {
+                content: "";
+                position: absolute;
+                background: #000;
+                left: 18px;
+                top: 1px;
+                width: 2px;
+                height: 36px;
+                transform: rotate(45deg);
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                background: #000;
+            }
         }
     }
 
@@ -1485,6 +1507,7 @@
         }
 
         .product-size-options {
+            position: relative;
             background: $white;
             border-color: $white;
             background-size: cover;
@@ -1492,6 +1515,27 @@
             &.active {
                 border-color: $black;
                 background: $white-gray;
+            }
+
+            .disabled {
+                cursor: not-allowed;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background: #000;
+                    left: 18px;
+                    top: 1px;
+                    width: 2px;
+                    height: 36px;
+                    transform: rotate(45deg);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    background: #000;
+                }
             }
         }
 
