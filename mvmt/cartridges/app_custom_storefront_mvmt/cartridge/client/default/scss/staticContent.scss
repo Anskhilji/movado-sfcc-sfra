@@ -2,10 +2,11 @@
 @import '~movado/staticContent';
 
 .contact-us-form-wrapper {
-    padding-left: rem(20);
-    padding-right: rem(70);
-    padding-top: rem(65);
-    padding-bottom: rem(160);
+    padding: 0rem rem(120) rem(120);
+
+    @include media-breakpoint-down(lg) {
+        padding-bottom: rem(120);
+    }
 
     @media only screen and (max-width: $custom-md-width) {
         flex-basis: 100%;

@@ -1,4 +1,4 @@
-<div class="container contactus-page">
+<div class="contactus-page">
     <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
         <div class="form-group
             <isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
@@ -58,7 +58,6 @@
                        </isloop>
                     </select>
                     <iscomment>Custom: added icon in selector field</iscomment>
-                    <i class="fa fa-sort"></i>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>

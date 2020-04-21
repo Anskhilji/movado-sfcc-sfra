@@ -31,7 +31,7 @@
                 </div>
             </div>
         </iscomment>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <iscomment>Custom Start: Removing Navigation </iscomment>
                 <iscomment>
@@ -64,14 +64,14 @@
                 <div class="row justify-content-center contact-tab-callout-wrapper">
                     <iscontentasset aid="contact-us-heading-box" />
                 </div>
-                <div class="col-md-6 contact-us-form-wrapper">
+                <div class="col-lg-7 contact-us-form-wrapper">
                     <div class="container">
                         <h2 class="text-uppercase">${Resource.msg('faq-send-us-email','contactUs',null)}</h2>
                         <p class="text-uppercase">${Resource.msg('faq-ask-us-anything','contactUs',null)}</p>
                     </div>
                     <isinclude url="${URLUtils.url('ContactUs-Load')}">
                 </div>
-                <div class="col-md-6 contact-us-right-container">
+                <div class="col-lg-5 contact-us-right-container">
                     <div class="contact-tab-right-wrapper">
                         <iscontentasset aid="contact-us-address-wrapper"/>
                     </div>

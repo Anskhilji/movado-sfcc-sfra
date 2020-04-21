@@ -376,6 +376,9 @@
         color:$light-gray;
         text-transform: none;
         font-family: $font-book;
+        background: $white url(../images/up-and-down-arrows.svg) 95% 50% no-repeat;
+        font-size: rem(14);
+        line-height: rem(13);
 
         &:not([size]):not([multiple]) {
             height: rem(57);
@@ -393,12 +396,6 @@
                 }
             }
         }
-    }
-
-    .fa-sort {
-        font-size: rem(12);
-        top: 50%;
-        transform: translateY(-50%);
     }
 }
 
