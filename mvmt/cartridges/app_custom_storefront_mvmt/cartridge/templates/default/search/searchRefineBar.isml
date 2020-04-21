@@ -72,13 +72,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mobile-selection-active-option">
-                            <div class="mobile-selection-active-filters">
+                        <div class="mobile-active-option">
+                            <div class="mobile-active-filters">
                                 <isloop items="${pdict.productSearch.refinements}" var="refinement">
-                                    <button class="mobile-selection-filter-btn" data-option-select="mobile-${refinement.displayName}">
+                                    <button class="mobile-filter-btn" data-option-select="mobile-${refinement.displayName}">
                                         ${refinement.displayName}
                                     </button>
                                 </isloop>
+                            </div>
+                            <div class="mobile-active-actions">
+                                <button type="button" class="mobile-active-clear-btn"></button>
+                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">Shop (<span data-filter-results-count="">999</span>) Products</button>
                             </div>
                         </div>
                     </div>
