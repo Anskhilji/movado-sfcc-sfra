@@ -1042,6 +1042,15 @@
                 .strike-through {
                     display: block;
                 }
+
+                .price {
+
+                    span:not(.range){
+                        &:nth-child(2) {
+                            display: flex;
+                        }
+                    }
+                }
             }
 
             .ratings {
@@ -1333,25 +1342,28 @@
             border: rem(1) solid $black;
         }
 
-        .disabled {
+        &.disabled {
             cursor: not-allowed;
+            
+            span {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background: #000;
+                    left: 18px;
+                    top: 1px;
+                    width: 2px;
+                    height: 36px;
+                    transform: rotate(45deg);
+                }
 
-            &:before {
-                content: "";
-                position: absolute;
-                background: #000;
-                left: 18px;
-                top: 1px;
-                width: 2px;
-                height: 36px;
-                transform: rotate(45deg);
+                &:after {
+                    content: "";
+                    position: absolute;
+                    background: #000;
+                }
             }
 
-            &:after {
-                content: "";
-                position: absolute;
-                background: #000;
-            }
         }
     }
 
@@ -1517,25 +1529,28 @@
                 background: $white-gray;
             }
 
-            .disabled {
+            &.disabled {
                 cursor: not-allowed;
 
-                &:before {
-                    content: "";
-                    position: absolute;
-                    background: #000;
-                    left: 18px;
-                    top: 1px;
-                    width: 2px;
-                    height: 36px;
-                    transform: rotate(45deg);
+                span {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        background: #000;
+                        left: 18px;
+                        top: 1px;
+                        width: 2px;
+                        height: 36px;
+                        transform: rotate(45deg);
+                    }
+    
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        background: #000;
+                    }
                 }
 
-                &:after {
-                    content: "";
-                    position: absolute;
-                    background: #000;
-                }
             }
         }
 

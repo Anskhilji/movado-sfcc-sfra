@@ -26,6 +26,9 @@ function getQuantitySelector($el) {
  * @param {jQuery} $productContainer - DOM container for a given product
  */
 function processSwatchValues(attr, $productContainer) {
+    var $selectedValueContainer = $productContainer.find('[data-selected-variation-attr="' + attr.id + '"]');
+    $selectedValueContainer.empty();
+
     attr.values.forEach(function (attrValue) {
         var $attrValue = $productContainer.find('[data-attr="' + attr.id + '"] [data-attr-value="' +
             attrValue.value + '"]');
@@ -33,6 +36,7 @@ function processSwatchValues(attr, $productContainer) {
 
         if (attrValue.selected) {
             $swatchAnchor.addClass('active');
+            $selectedValueContainer.text(attrValue.displayValue);
         } else {
             $swatchAnchor.removeClass('active');
         }
@@ -42,11 +46,14 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         } 
-
         // Disable if not selectable
-        $attrValue.removeClass('disabled');
- 
-        $attrValue.addClass(attrValue.selectable ? '' : 'disabled');
+        if (!attrValue.selectable) {
+            $swatchAnchor.attr('disabled', true);
+            $swatchAnchor.addClass('disabled');
+        } else {
+            $swatchAnchor.attr('disabled', false);
+            $swatchAnchor.removeClass('disabled')
+        }
     });
 }
 
@@ -64,6 +71,8 @@ function processSwatchValues(attr, $productContainer) {
  * @param {jQuery} $productContainer - DOM container for a given product
  */
 function processNonSwatchValues(attr, $productContainer) {
+    var $selectedValueContainer = $productContainer.find('[data-selected-variation-attr="' + attr.id + '"]');
+    $selectedValueContainer.empty();
     var $attr = '[data-attr="' + attr.id + '"]';
     var $defaultOption = $productContainer.find($attr + ' .select-' + attr.id + ' option:first');
     $defaultOption.attr('value', attr.resetUrl);
@@ -73,17 +82,18 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-        var $valueContainer = $attrValue.find('span');
 
         if (!attrValue.selectable) {
             $attrValue.attr('disabled', true);
-            $valueContainer.addClass('disabled');
+            $attrValue.addClass('disabled');
         } else {
-            $valueContainer.removeClass('disabled')
+            $attrValue.attr('disabled', false);
+            $attrValue.removeClass('disabled')
         }
 
         if (attrValue.selected) {
             $attrValue.addClass('active');
+            $selectedValueContainer.text(attrValue.displayValue);
         } else { 
             $attrValue.removeClass('active');
         }
@@ -378,18 +388,7 @@ function handleVariantResponse(response, $productContainer) {
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
-        var $selectedVariation = $('.current-selected-variation');
-        var $variationAttributes = response.product.variationAttributes;
-        
-        for (var i = 0; i < $variationAttributes.length; i++) {
-            $variationAttributes[i].values.forEach(function (item) {
-                if (item.selected === true) {
-                    $selectedVariation.text(item.displayValue);
-                }
-            });
-        }
-        
-        $selectedVariation.removeClass('current-selected-variation');
+
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
         
         $.ajax({
@@ -547,14 +546,7 @@ var selector = '.set-item select[class*="select-"], .product-detail select[class
 $(document).off('change', selector);
 $(document).off('click').on('click', selector, function (e) {
     e.preventDefault();
-    var selectedVariation = ('span.selected-variation');
-    $(this).siblings().removeClass('active');
-    if ( $(this).hasClass('color-variation') ) {
-        $(selector).removeClass('active');
-        $(selectedVariation).empty();
-    }
-    $(this).parents('.attribute').find(selectedVariation).addClass('current-selected-variation');
-    $(this).addClass('active');
+
     var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
     var $productContainer = $(this).closest('.set-item');
@@ -570,15 +562,6 @@ $('[data-attr="color"] a').off('click').on('click', function (e) {
     if ($(this).attr('disabled')) {
         return;
     }
-
-    var selectedVariation = ('span.selected-variation');
-    $(this).siblings().removeClass('active');
-    if ( $(this).hasClass('color-variation') ) {
-        $(selector).removeClass('active');
-        $(selectedVariation).empty();
-    }
-    $(this).parents('.attribute').find(selectedVariation).addClass('current-selected-variation');
-    $(this).addClass('active');
 
     var $productContainer = $(this).closest('.set-item');
     if (!$productContainer.length) {

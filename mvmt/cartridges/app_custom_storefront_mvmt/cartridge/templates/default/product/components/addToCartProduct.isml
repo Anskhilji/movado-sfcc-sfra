@@ -12,6 +12,7 @@
                 <iselseif condition="${product.available}">
                     ${Resource.msg('button.addtocart', 'common', null)} 
                     <span class="product-price-mobile "> 
+                        <isset name="price" value="${product.price}" scope="page" />
                         <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
                             <isinclude template="product/components/pricing/main" />
                         </div>
