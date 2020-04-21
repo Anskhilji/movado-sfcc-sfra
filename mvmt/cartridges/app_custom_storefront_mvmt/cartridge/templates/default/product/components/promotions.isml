@@ -1,0 +1,13 @@
+<isif condition="${product.promotions}">
+    <isloop items="${product.promotions}" var="promotion">
+        <iscomment>
+            Custom Start: Added Class row to parent dive. Removed promotion.details from title and printed its value
+        </iscomment>
+        <div class="row">
+            <isprint value="${promotion.details}" encoding="off" />
+        </div>
+        <iscomment>
+            Custom End:
+        </iscomment>
+    </isloop>
+</isif>

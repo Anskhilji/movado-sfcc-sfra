@@ -4,12 +4,20 @@
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <button class='add-to-cart btn btn-primary'
             data-pid="${product.id}"
+            ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "disabled" : ""}
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                <iselse/>
-                     ${Resource.msg('button.addtocart', 'common', null)}
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselseif condition="${product.available}">
+                    ${Resource.msg('button.addtocart', 'common', null)} 
+                    <span class="product-price-mobile "> 
+                        <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                    </span>
+                <iselse>
+                    ${Resource.msg('label.soldout', 'product', null)}
                 </isif>
         </button>
     </div>

@@ -44,11 +44,11 @@
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
             <!-- Social Sharing Icons -->
-            <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
+            <isif condition="${sitePref.addthis_enabled}">
                 <isinclude template="product/components/socialIcons" />
             </isif>
         </div>
-        <div class="container-fluid product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <div class="row ratings-mobile pb-2">
@@ -64,17 +64,26 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
+                    <div class="product-tag-wrapper ${!product.available ? '' : 'opacity-0'}">
+                        <isif condition="${!product.available}">
+                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                        </isif>
+                    </div>
 
-                    <div class="product-tag-wrapper opacity-0">
-                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                    <div class="product-brand-info">
+                        <span>${product.brand}</span>
                     </div>
 
                     <!-- Product Availability -->
-                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                        data-available="${product.available}">
-                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                    </div>
-
+                    <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
+                    <iscomment> 
+                        <isif condition="${product.available}"> </isif>
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+                    </iscomment>
+                    <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
                     <h1 class="product-name text-uppercase">${product.productName}</h1>
                     <div class="prices price-mobile">
@@ -91,16 +100,19 @@
 
                         <isinclude template="product/components/badges" />
 
-                        <!-- Applicable Promotions -->
-                        <div class="promotions">
-                            <isinclude template="product/components/promotions" />
-                        </div>
-
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">
                                 <isinclude template="product/components/quantity" />
                             </div>
                         </isif>
+                    </div>
+
+                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                        <isinclude template="product/components/variationAttributes" />
+                    </isif>
+
+                    <div class="linked-product-container">
+                        <isinclude template="product/components/recommendedProducts" />
                     </div>
 
                     <isif condition="${product.options && product.options.length > 0}">
@@ -110,23 +122,24 @@
                         <isinclude template="product/components/mainAttributes" />
                     </div>
 
-                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                        <isinclude template="product/components/variationAttributes" />
-                    </isif>
-
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
 
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                <isif condition="${sitePref.enableSmartGift}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Applicable Promotions -->
+                    <div class="promotions">
+                        <isinclude template="product/components/promotions" />
                     </div>
                 </div>
 
@@ -152,77 +165,56 @@
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
-        <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
-        <div class="modal fade share-via-email-overlay" id="sendtofriendform">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
+        <iscomment> Custom Start: Adding condition for check enableSeeTheFitPopUp is enable/disable </iscomment>
+        <isif condition="${sitePref.enableSeeTheFitPopUp}">
+            <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
+            <div class="modal fade share-via-email-overlay" id="SeeTheFitPopUp">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="size-guide">
-            <div class="size-guide-content" style="${dw.content.ContentMgr.getContent('watch-wrist-desktop').custom.body}" encoding="off">
-                <button class="size-guide-close" aria-label="close modal" data-close-modal>
-                    <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
-                                <g id="Iconography" transform="translate(27.000000, 827.000000)">
-                                    <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
-                                        <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
+            <div class="size-guide">
+                <div class="size-guide-content">
+                    <iscomment> Custom Start: Adding seeTheFitPopup primary image </iscomment>
+                    <div class="size-guide-content-primary-image" style="background-image:url('${!empty(product.seeTheFitPrimaryImg) ? product.seeTheFitPrimaryImg.url : ''}')"></div>
+                    <iscomment>Custom End </iscomment>
+                    <button class="size-guide-close" aria-label="close modal" data-close-modal>
+                        <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
+                                    <g id="Iconography" transform="translate(27.000000, 827.000000)">
+                                        <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
+                                            <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
+                                        </g>
                                     </g>
                                 </g>
                             </g>
-                        </g>
-                    </svg>
-                </button>
-                <div class="size-guide-right">
-                    <div class="size-guide-title">${product.productName}</div>
-                    <p class="size-guide-description"><isprint value="${product.shortDescription}" encoding="off"/></p>
-
-                    <table class="size-guide-content-details">
-                        <isloop items="${product.pdpAttributesList}" begin="0" end="1" var="attr">
-                            <tr>
-                                <td class="size-guide-detail-label">${attr.name}</td>
-                                <td class="size-guide-detail-value">${attr.value}</td>
-                            </tr>
-                        </isloop>
-                    </table>
-                </div>
-                <div class="size-guide-mobile-image">
-                    <iscontentasset class="size-guide-mobile-image" aid="watch-wrist-mobile" />
-                </div>
-                <div class="size-guide-scales">
-
-                    <div class="size-guide-scale">
-                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.thickness', 'product', null)}</p>
-                        <div class="size-guide-scale-bar">
-                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
-                        </div>
-                        <div class="size-guide-scale-range-labels">
-                            <span>${Resource.msg('label.guide.scale.flate', 'product', null)}</span>
-                            <span>${Resource.msg('label.guide.scale.tall', 'product', null)}</span>
-                        </div>
+                        </svg>
+                    </button>
+                    <iscomment>Custom Start: Adding seeFitPopup data from the product and adding defensive check for secondary image </iscomment>
+                    <div class="size-guide-right">
+                        <div class="size-guide-title">${product.seeTheFitHeading}</div>
+                        <p class="size-guide-description"><isprint value="${product.seeTheFitDescription}" encoding="off"/></p>
+                        <table class="size-guide-content-details">
+                            <isloop items="${product.seeTheFitSpecs}" var="seeTheFitSpec">
+                                <tr>
+                                    <td class="size-guide-detail-label">${seeTheFitSpec.displayName}</td>
+                                    <td class="size-guide-detail-value">${seeTheFitSpec.value}</td>
+                                </tr>
+                            </isloop>
+                        </table>
+                        <isset name="seeTheFitSecondaryImg" value="${product.seeTheFitSecondaryImg}" scope="page" />
+                        <isif condition="${!empty(seeTheFitSecondaryImg)}"> 
+                            <img class="size-guide-right-secondary-image" src="${seeTheFitSecondaryImg.url}" alt="${seeTheFitSecondaryImg.alt}"/>
+                        </isif>
                     </div>
-
-
-
-                    <div class="size-guide-scale">
-                        <p class="size-guide-scale-label">${Resource.msg('label.guide.scale.size', 'product', null)}</p>
-                        <div class="size-guide-scale-bar">
-                            <div class="size-guide-scale-bar-fill" data-scale-min="10" data-scale-value="12 " data-scale-max="35"></div>
-                        </div>
-
-                        <div class="size-guide-scale-range-labels">
-                            <span>${Resource.msg('label.guide.scale.small', 'product', null)}</span>
-                            <span>${Resource.msg('label.guide.scale.large', 'product', null)}</span>
-                        </div>
-                    </div>
+                    <iscomment>Custom End </iscomment>
                 </div>
             </div>
-        </div>
-
-        <div class="modal fade strap-guid-popup" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        </isif>
+        <iscomment>Custom End </iscomment>
+        <div class="modal fade strap-guid-popup fade" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -242,10 +234,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="overlay">
-        </div>
-
         <!-- The Modal: Ends-->
 
     </isobject>

@@ -138,6 +138,8 @@ footer {
 
                 @include media-breakpoint-down(sm) {
                     width: 100%;
+                    max-width: 100%;
+                    flex-basis: 100%;
                     padding: rem(32) rem(32) rem(8);
                     text-align: center;
 
@@ -193,7 +195,10 @@ footer {
                 }
 
                 @include media-breakpoint-down(sm) {
-                    padding: 0rem;
+                    padding: 0;
+                    width: 100%;
+                    max-width: 100%;
+                    flex-basis: 100%;
                 }
             }
 

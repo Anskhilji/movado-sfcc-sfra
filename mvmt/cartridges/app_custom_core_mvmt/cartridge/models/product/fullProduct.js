@@ -18,11 +18,50 @@ var baseFullProduct = module.superModule;
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
+
     if (!empty(apiProduct.custom.shopStrapUrl)) {
         Object.defineProperty(product, 'shopStrapUrl', {
             enumerable: true,
             value: apiProduct.custom.shopStrapUrl
         });
     }
+
+    if (!empty(seeTheFitPopup.seeTheFitHeading)) {
+        Object.defineProperty(product, 'seeTheFitHeading', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitHeading
+        });
+    }
+
+    if (!empty(seeTheFitPopup.seeTheFitDescription)) {
+        Object.defineProperty(product, 'seeTheFitDescription', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitDescription
+        });
+    }
+
+    if (!empty(seeTheFitPopup.seeTheFitPrimaryImg)) {
+        Object.defineProperty(product, 'seeTheFitPrimaryImg', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitPrimaryImg
+        });
+    }
+    if (!empty(seeTheFitPopup.seeTheFitSecondaryImg)) {
+        Object.defineProperty(product, 'seeTheFitSecondaryImg', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitSecondaryImg
+        });
+    }
+
+
+    if (!empty(seeTheFitPopup.seeTheFitSpecs)) {
+        Object.defineProperty(product, 'seeTheFitSpecs', {
+            enumerable: true,
+            value: seeTheFitPopup.seeTheFitSpecs
+        });
+    }
+
     return product;
 };
