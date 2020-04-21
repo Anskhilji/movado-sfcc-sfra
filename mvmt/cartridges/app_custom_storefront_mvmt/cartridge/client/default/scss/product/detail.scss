@@ -367,13 +367,11 @@
 
     &.active {
         left: 0;
+        background: transparent;
     }
 
     &-content {
-        background-size: cover;
-        background-position: 50%;
         background-color: $flash-white;
-        background-repeat: no-repeat;
         padding-bottom: rem(20);
         position: relative;
         overflow: scroll;
@@ -384,7 +382,22 @@
         overflow-y: scroll;
 
         @include media-breakpoint-down(md) {
-            background-image: none !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-primary-image {
+            width: 60%;
+            background-size: cover;
+            background-position: 0;
+            background-repeat: no-repeat;
+            height: 100%;
+
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                min-height: 100%;
+                order: 2;
+            }
         }
 
         @include media-breakpoint-up(lg) {
@@ -415,6 +428,12 @@
 
     &-right {
         padding: rem(22) rem(25) 0 rem(18);
+        order: 1;
+
+        &-secondary-image {
+            padding: rem(40) 0;
+            height: auto;
+        }
 
         @include media-breakpoint-up(lg) {
             padding: 0;
