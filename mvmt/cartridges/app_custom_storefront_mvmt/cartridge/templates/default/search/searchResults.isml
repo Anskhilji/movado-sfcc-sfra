@@ -133,9 +133,12 @@
     </div>
     </div>
     </div>
-    
-    
+
     <isif condition="${pdict.productSearch.category}">
+        <div class="search-bottom-text">
+            <isslot id="cs_plp_bottom_text_slot" context="category" description="Category text slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        </div>
+        <isslot id="cs_plp_collection_bottom_slot" context="category" description="Collection content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
     
