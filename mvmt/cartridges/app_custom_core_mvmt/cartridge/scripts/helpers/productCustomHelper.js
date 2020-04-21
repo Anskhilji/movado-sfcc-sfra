@@ -2,6 +2,7 @@
 
 var baseProductCustomHelper = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
+var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
@@ -42,19 +43,23 @@ function getExplicitRecommendations(pid) {
  * @returns {Object} - Category object
  */
 function getProductCustomAttribute(apiProduct) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var categories = !empty(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) ? JSON.parse(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) : '';
     var category = null;
-    if (!empty(categories) && !empty(apiProduct)) {
-        for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-            var categoryObj = categories[categoryIndex];
-            var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-            var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
-            if (!empty(categoryAssignment)) {
-                category = categoryObj;
-                break;
+    try {
+        var CatalogMgr = require('dw/catalog/CatalogMgr');
+        var categories = !empty(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) ? JSON.parse(Site.getCustomPreferenceValue('seeTheFitCatagoryAttributesMappingJSON')) : '';
+        if (!empty(categories) && !empty(apiProduct)) {
+            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
+                var categoryObj = categories[categoryIndex];
+                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
+                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
+                if (!empty(categoryAssignment)) {
+                    category = categoryObj;
+                    break;
+                }
             }
         }
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getProductCustomAttribute) Error occured while reading json from site preferences: ' + e);
     }
     return category;
 }
@@ -92,23 +97,25 @@ function getProductAttributes(apiProduct) {
             var attributes = categoryObj.attributes;
             if (!empty(attributes)) {
                 for (var attributesIndex = 0; attributesIndex < attributes.length; attributesIndex++) {
-                    var id = attributes[attributesIndex].ID;
-                    var displayName = attributes[attributesIndex].displayName;
-                    var isCustom =  attributes[attributesIndex].custom;
-                    var value = null;
-
-                    if (isCustom) {
-                        value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
-                    } else {
-                        value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
-                    }
-
-                    if (!empty(value)) {
-                        var attribute = {
-                            displayName: displayName,
-                            value: value
-                        };
-                        seeTheFitSpecs.push(attribute);
+                    try {
+                        var id = attributes[attributesIndex].ID;
+                        var displayName = attributes[attributesIndex].displayName;
+                        var isCustom =  attributes[attributesIndex].custom;
+                        var value = null;
+                        if (isCustom) {
+                            value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                        } else {
+                            value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
+                        }
+                        if (!empty(value)) {
+                            var attribute = {
+                                displayName: displayName,
+                                value: value
+                            };
+                            seeTheFitSpecs.push(attribute);
+                        }
+                    } catch (e) {
+                        Logger.error('(productCustomHepler.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
                     }
                 }
             }

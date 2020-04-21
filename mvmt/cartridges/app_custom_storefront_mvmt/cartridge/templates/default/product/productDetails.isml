@@ -168,7 +168,7 @@
         <iscomment> Custom Start: Adding condition for check enableSeeTheFitPopUp is enable/disable </iscomment>
         <isif condition="${sitePref.enableSeeTheFitPopUp}">
             <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
-            <div class="modal fade share-via-email-overlay" id="sendtofriendform">
+            <div class="modal fade share-via-email-overlay" id="SeeTheFitPopUp">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     </div>
