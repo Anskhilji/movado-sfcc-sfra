@@ -573,10 +573,114 @@
             text-transform: uppercase;
             cursor: pointer;
         }
-    }
 
-    .plp {
-        
+        &-selection {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 11;
+            visibility: hidden;
+            transition: opacity .3s,transform .3s,border-radius .3s;
+            overflow: hidden;
+            background-color: #f7f8f9;
+
+            &.skip-animation {
+                border-radius: 0!important;
+                transform: scale(1)!important;
+            }
+
+            &.border-radius-transform-transition {
+                border-radius: 50%;
+                transform: scale(.95);
+            }
+
+            .active {
+                transform: scale(1);
+                opacity: 1;
+                visibility: visible;
+                border-radius: 0;
+            }
+
+            &-group {
+                display: block;
+                height: calc(100% - 52px);
+                max-height: none;
+                z-index: 10;
+                position: static;
+                padding-top: 25px;
+                padding-bottom: 187px;
+                overflow: scroll;
+                top: 47px;
+                left: 0;
+                width: 100%;
+                background-color: #f7f8f9;
+                border-bottom: 1px solid #e8e8e8;
+            }
+
+            &-outer {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1;
+                align-items: center;
+                opacity: 0;
+                height: auto;
+                transition: opacity .5s,transform .5s;
+                transform: translateY(80px);
+
+                &-loaded {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            &-inner {
+                ul {
+                    margin: 0 auto;
+                    display: flex;
+                    flex-wrap: wrap;
+                    max-width: 85%;
+                    width: 100%;
+                    justify-content: space-around;
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        text-align: center;
+                        padding: 0 10px;
+                        line-height: 24px;
+                        margin-bottom: 25px;
+                        flex-basis: 33.33333%;
+                        width: 33.33333%;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+
+            &-active {
+
+                &-option {
+                    position: absolute;
+                    width: 100%;
+                    left: 0;
+                    bottom: 0;
+                }
+
+                &-filters {
+                    display: flex;
+                    transform: translateX(-100%);
+                    transition: transform .6s;
+
+                    button {
+                        width: 25%;
+                        height: 25vw;
+                    }
+                }
+            }
+        }
     }
 }
 
