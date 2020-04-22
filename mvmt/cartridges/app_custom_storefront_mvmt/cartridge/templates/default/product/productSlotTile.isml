@@ -52,15 +52,6 @@
         </div>
         <isif condition="${pdict.display.showAddToCart}">
             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
-            <isif condition="${outOfStock}">
-                <div class="cart-and-ipay ">
-                    <div class="cta-add-to-cart">
-                        <button class="add-to-cart btn btn-primary out-of-stock-btn disabled" disabled data-pid="0607389">
-                            ${Resource.msg('label.not.available', 'common', null)}
-                        </button>
-                    </div>
-                </div>
-            </isif>
         </isif>
     </div>
 </div>
