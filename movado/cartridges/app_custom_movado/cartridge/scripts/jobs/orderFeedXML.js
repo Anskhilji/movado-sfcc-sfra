@@ -125,7 +125,7 @@ function getLineItemDutyAmount(lineItem) {
 */
 function isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) {
     if (isEswEnabled) {
-        var isLineItemConsTaxByMGI = !empty(eswOrderNo) ? 'N' : 'Y';
+        var isLineItemConsTaxByMGI = empty(eswOrderNo) ? 'Y' : 'N';
         return isLineItemConsTaxByMGI;
     }
     return '';
@@ -1906,24 +1906,9 @@ function isInsuranceByMGI(eswOrderNo, isEswEnabled) {
 function isConsumerTaxByMGI(eswOrderNo, isEswEnabled) {
     if (isEswEnabled) {
         if (eswOrderNo) {
-            return 'Y';
+            return 'N';
         }
-        return 'N';
-    }
-    return '';
-}
-
-/**
-* To find if total consumer tax by MGI
-* @param {Order} order Order container.
-* @returns {string} Y or N value
-*/
-function isTotalConsumerTaxByMGI(eswOrderNo, isEswEnabled) {
-    if (isEswEnabled) {
-        if (eswOrderNo) {
-            return 'Y';
-        }
-        return 'N';
+        return 'Y';
     }
     return '';
 }
@@ -2432,7 +2417,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalConsTaxByMGI');
-                streamWriter.writeCharacters(isTotalConsumerTaxByMGI(eswOrderNo, isEswEnabled));
+                if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
+                    streamWriter.writeCharacters(order.getTotalTax());
+                } else {
+                    streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ReturnTrackingNumber');
@@ -2557,7 +2546,11 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('TaxAmount');
-                    streamWriter.writeCharacters(commerceItem.TaxAmount);
+                    if (eswOrderNo) {
+                        streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
+                    } else {
+                        streamWriter.writeCharacters(commerceItem.TaxAmount);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Tax1');
