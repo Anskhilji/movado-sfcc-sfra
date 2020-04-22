@@ -12,6 +12,8 @@ function getPidValue($el) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
+    } else if($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -36,7 +38,11 @@ function getQuantitySelector($el) {
  * @return {string} - value found in the quantity input
  */
 function getQuantitySelected($el) {
-    return getQuantitySelector($el).val();
+    if ($($el).parents('.product-tile').length) { // Custom Start: Added this extra condition for mvmt tile
+        return 1;
+    } else {
+        return getQuantitySelector($el).val();
+    }
 }
 
 /**
@@ -273,6 +279,50 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         optionForm.find('input[type="radio"]').eq(0).prop('checked', true);
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
+        });
+    }
+}
+
+/**
+ * Custom Start: Retrieve recommended products
+ *
+ * @param {Link} addToCartUrl - link of add to cart URL for variation product
+ * 
+ */
+function addRecommendationProducts(addToCartUrl) {
+    var $recommendedProductSelector = $('.upsell_input');
+    for (var i = 0; i < $recommendedProductSelector.length; i++) {
+        var $currentRecommendedProduct = $recommendedProductSelector[i];
+        if ($currentRecommendedProduct.checked) {
+            var form = {
+                pid: $currentRecommendedProduct.value,
+                quantity: 1
+            };
+            
+            addRecommendationProductToCartAjax(form, addToCartUrl);
+        }
+    }
+}
+/**
+ * Custom Start: Add recommended products to cart
+ *
+ * @param {Object} variationForm - holds form attributes for selected variation product
+ * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
+ * 
+ */
+function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
+    if (addToCartUrl) {
+        $.ajax({
+            url: addToCartUrl,
+            method: 'POST',
+            data: variationForm,
+            success: function (data) {
+                updateCartPage(data);
+                $('.minicart').trigger('count:update', data);
+            },
+            error: function () {
+                $.spinner().stop();
+            }
         });
     }
 }
@@ -754,7 +804,20 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
-
+            /**
+             * Custom Start: Add to cart form for MVMT
+             */
+            if ($('.pdp-mvmt')) {
+                form = {
+                    pid: pid,
+                    pidsObj: pidsObj,
+                    childProducts: getChildProducts(),
+                    quantity: 1
+                };
+            }
+            /**
+             *  Custom End
+             */
             $productContainer.find('input[type="text"], textarea').filter('[required]')
             .each(function() {
                 if($(this).val() && $(this).closest("form.submitted").length) {
@@ -777,6 +840,14 @@ module.exports = {
                     success: function (data) {
                         updateCartPage(data);
                         handlePostCartAdd(data);
+                        // Custom Start: Add recommended Products for MVMT Add To Cart
+                        if ($('.pdp-mvmt')) {
+                            addRecommendationProducts(addToCartUrl); 
+                        }
+                        /**
+                         Custom End:
+                         */
+
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                     },

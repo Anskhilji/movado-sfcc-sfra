@@ -1,4 +1,5 @@
-<isif condition="${!empty(matchingLineItem)}">
+<iscomment>Custom Start: Add a check to see if ESW cartridge is enabled</iscomment>
+<isif condition="${isEswEnabled && !empty(matchingLineItem)}">
 	${price}
 <iselse>
 	${price.decimalPrice}

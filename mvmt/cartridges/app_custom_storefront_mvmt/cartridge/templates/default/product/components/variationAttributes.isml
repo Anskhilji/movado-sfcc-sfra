@@ -1,8 +1,8 @@
 <iscomment> Custom: Start [Change classes and remove div as per requirment] </iscomment> 
-<div class="col-12 variationAttribute">
+<div class="col-12 variationAttribute" data-url="${URLUtils.url('Product-Variation')}">
     <isset name="isBundle" value="${false}" scope="page" />
     <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
-        <div data-attr="${attr.id}">
+        <div class="${attr.swatchable ? "color-Attribute" : ""}" data-attr="${attr.id}">
             <isinclude template="product/components/variationAttribute" />
         </div>
     </isloop>

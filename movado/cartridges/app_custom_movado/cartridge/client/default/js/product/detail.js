@@ -69,6 +69,9 @@ module.exports = {
             $('button.add-to-cart-global').parent().toggleClass('d-none', !enable);
 
             if (response.product.readyToOrder) {
+                // Custom Start: Enable Add to  Cart if product Ready To Order
+                $('button.add-to-cart').attr('disabled', false);
+                // Custom End
                 var applePayButton = $('.apple-pay-pdp', response.$productContainer);
                 if (applePayButton.length !== 0) {
                     applePayButton.attr('sku', response.product.id);

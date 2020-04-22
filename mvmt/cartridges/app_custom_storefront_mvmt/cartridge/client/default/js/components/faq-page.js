@@ -80,7 +80,7 @@ module.exports = function () {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if ($scroll >= $footer.offset().top - 400) {
+                if (typeof $footer !== 'undefined' && typeof $footer.offset() !== 'undefined' && $scroll >= $footer.offset().top - 400) {
                     $helpContainer.hide();
                     $footerHelpContainer.show();
                 } else {
@@ -132,6 +132,9 @@ module.exports = function () {
                     $formValidation(form, data);
                 }
                 $messageContainer.show().html(data.message);
+                $('html, body').animate({
+                    scrollTop: $('.contact-tab-callout-wrapper').offset().top
+                }, 250);
                 $form.hide();
             },
             error: function (data) {
@@ -141,6 +144,9 @@ module.exports = function () {
                 } else {
                     $messageContainer.show().html(data.responseText);
                 }
+                $('html, body').animate({
+                    scrollTop: $('.contact-tab-callout-wrapper').offset().top
+                }, 250);
                 $form.hide();
             }
         });
