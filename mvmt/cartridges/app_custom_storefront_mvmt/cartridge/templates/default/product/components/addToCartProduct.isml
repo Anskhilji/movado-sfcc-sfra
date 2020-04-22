@@ -4,6 +4,7 @@
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <button class='add-to-cart btn btn-primary'
             data-pid="${product.id}"
+            data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
             ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "disabled" : ""}
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -11,14 +12,16 @@
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselseif condition="${product.available}">
                     ${Resource.msg('button.addtocart', 'common', null)} 
-                    <span class="product-price-mobile "> 
-                        <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                    </span>
                 <iselse>
-                    ${Resource.msg('label.soldout', 'product', null)}
+                    ${Resource.msg('button.out.of.stock', 'product', null)}
                 </isif>
+
+                <span class="product-price-mobile "> 
+                    <isset name="price" value="${product.price}" scope="page" />
+                    <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+                </span>
         </button>
     </div>
 </div>

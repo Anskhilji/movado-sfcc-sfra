@@ -1066,6 +1066,16 @@
                 .strike-through {
                     display: block;
                 }
+
+                .price {
+
+                    .sales{
+
+                        span {
+                            display: block;
+                        }
+                    }
+                }
             }
 
             .ratings {
@@ -1336,6 +1346,7 @@
     }
 
     .product-size-options {
+        position: relative;
         width: rem(37);
         height: rem(37);
         max-width: 100%;
@@ -1354,6 +1365,30 @@
 
         &.active {
             border: rem(1) solid $black;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+
+            span {
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background: $black;
+                    left: rem(18);
+                    top: rem(1);
+                    width: rem(2);
+                    height: rem(36);
+                    transform: rotate(45deg);
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    background: $black;
+                }
+            }
+
         }
     }
 
@@ -1509,6 +1544,7 @@
         }
 
         .product-size-options {
+            position: relative;
             background: $white;
             border-color: $white;
             background-size: cover;
@@ -1516,6 +1552,31 @@
             &.active {
                 border-color: $black;
                 background: $white-gray;
+                background-size: cover;
+            }
+
+            &.disabled {
+                cursor: not-allowed;
+
+                span {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                        left: rem(18);
+                        top: rem(1);
+                        width: rem(2);
+                        height: rem(36);
+                        transform: rotate(45deg);
+                    }
+    
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                    }
+                }
+
             }
         }
 
