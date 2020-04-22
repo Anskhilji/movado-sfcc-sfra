@@ -405,6 +405,9 @@ function handleVariantResponse(response, $productContainer) {
                     dots: false,
                     arrows: true,
                 });
+                $('#strapguide').click(function() {
+                    $('#strapguid').modal('toggle');
+                });
             },
             error: function () {
             }
