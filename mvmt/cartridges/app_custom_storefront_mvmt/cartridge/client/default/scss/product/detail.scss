@@ -393,9 +393,13 @@
 
             @include media-breakpoint-down(lg) {
                 min-height: 100%;
-                order: 2;
-                background-position: center center;
+                background-position: left center;
                 background-size: contain;
+            }
+
+            @include media-breakpoint-down(md) {
+                order: 2;
+                background-position: top center;
             }
         }
 
