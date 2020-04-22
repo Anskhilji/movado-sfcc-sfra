@@ -132,6 +132,9 @@ module.exports = function () {
                     $formValidation(form, data);
                 }
                 $messageContainer.show().html(data.message);
+                $('html, body').animate({
+                    scrollTop: $('.contact-tab-callout-wrapper').offset().top
+                }, 250);
                 $form.hide();
             },
             error: function (data) {
@@ -141,6 +144,9 @@ module.exports = function () {
                 } else {
                     $messageContainer.show().html(data.responseText);
                 }
+                $('html, body').animate({
+                    scrollTop: $('.contact-tab-callout-wrapper').offset().top
+                }, 250);
                 $form.hide();
             }
         });
