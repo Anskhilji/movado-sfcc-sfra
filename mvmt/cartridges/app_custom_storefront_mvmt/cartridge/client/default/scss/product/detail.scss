@@ -356,8 +356,7 @@
     height: 100%;
     position: fixed;
     top: 0;
-    left: -150%;
-    z-index: 10;
+    left: -100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -367,7 +366,6 @@
 
     &.active {
         left: 0;
-        background: transparent;
     }
 
     &-content {
@@ -387,16 +385,21 @@
         }
 
         &-primary-image {
-            width: 60%;
+            width: 100%;
             background-size: cover;
             background-position: 0;
             background-repeat: no-repeat;
             height: 100%;
 
-            @include media-breakpoint-down(md) {
-                width: 100%;
+            @include media-breakpoint-down(lg) {
                 min-height: 100%;
+                background-position: left center;
+                background-size: contain;
+            }
+
+            @include media-breakpoint-down(md) {
                 order: 2;
+                background-position: top center;
             }
         }
 
@@ -436,6 +439,7 @@
         }
 
         @include media-breakpoint-up(lg) {
+            overflow: auto;
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -444,7 +448,6 @@
             width: 100%;
             max-width: rem(575);
             max-height: rem(700);
-            overflow: visible;
         }
 
         @include media-breakpoint-up(xl) {
@@ -464,6 +467,7 @@
     }
 
     &-description {
+        font-family: $font-medium;
         font-size: rem(14);
         font-weight: 500;
         letter-spacing: rem(1.17);
@@ -481,6 +485,7 @@
             border: none;
             border-bottom: rem(1) solid $light-gray4;
             color: $black;
+            font-family: $font-medium;
             font-size: rem(14);
             letter-spacing: rem(1.17);
             text-transform: uppercase;

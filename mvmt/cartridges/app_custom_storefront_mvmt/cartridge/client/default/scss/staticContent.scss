@@ -26,6 +26,10 @@
             margin-left: auto;
             max-width: rem(420);
         }
+
+        .form-control-label {
+            font-family: $font-medium;
+        }
     }
 
     @media only screen and (max-width: $custom-md-width) {
