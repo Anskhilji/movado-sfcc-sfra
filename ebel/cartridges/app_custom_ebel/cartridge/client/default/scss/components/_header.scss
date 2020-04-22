@@ -21,7 +21,7 @@
   right: rem(20);
 
   &:focus {
-    outline: -webkit-focus-ring-color auto rem(1);
+    outline: $white dashed rem(2);
   }
 
   &:hover {

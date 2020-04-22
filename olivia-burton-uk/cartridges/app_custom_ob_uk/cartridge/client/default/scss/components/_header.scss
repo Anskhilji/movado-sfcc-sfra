@@ -18,10 +18,6 @@
 
 .header-banner {
   background-color: $pink;
-
-  .html-slot-container {
-    color: $black;
-  }
 }
 .accessible-link {
   position: absolute;
@@ -31,7 +27,7 @@
   right: rem(20);
 
   &:focus {
-    outline: -webkit-focus-ring-color auto rem(1);
+    outline: $black dashed rem(2);
   }
 
   &:hover {
