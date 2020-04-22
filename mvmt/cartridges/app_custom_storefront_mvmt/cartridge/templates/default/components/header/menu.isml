@@ -1,14 +1,25 @@
-<nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
-  <div class="menu-group" aria-label="Main menu" role="navigation">
+<nav class="navbar navbar-expand-lg bg-inverse col-12">
+  <div class="close-menu clearfix hidden-lg-up">
+     <div class="new-header-menu-logo">
+         <isslot id="brand-logo" description="Brand Logo" context="global" />
+     </div>
+    <a class="back" href="${'#'}" role="button">
+      <span class="caret-left"></span>
+      ${Resource.msg('link.header.menu.back', 'common', null)}
+    </a>
+    <a class="close-button" href="${'#'}" role="button">
+      ${Resource.msg('link.header.menu.close', 'common', null)}
+      <span class="close-icon"></span>
+    </a>
+  </div>
+  <div class="menu-group mvmt-menu-group" aria-label="Main menu" role="navigation">
     <ul class="nav navbar-nav" role="menu">
       <isif condition="${pdict.categories}">
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories || category.disableSubCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ${category.name}
-              </a>
+              <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span class="image-text">${category.name}</span> 
              <isset name="topCat" value="${category}" scope="page"/>
              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
@@ -23,60 +34,11 @@
           </isif>
         </isloop>
       </isif>
-
       <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
+    <div class="register-btn-menu">
+        <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
+    </div>
   </div>
 </nav>
-
-<iscomment> Custom: added div mobile-view-design for custom mobile menu</iscomment>
-  <div class="mobile-view-design">
-    <isif condition="${pdict.categories}">
-      <ul class="header-mobile-categories">
-        <isloop items="${pdict.categories}" begin="0" end="1" var="category">
-          <isif condition="${category.subCategories || category.disableSubCategories}">
-            <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
-                ${category.name}
-              </span>
-            </li>
-          <iselse/>
-            <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-                ${category.name}
-              </a>
-            </li>
-          </isif>
-        </isloop>
-      </ul>
-    </isif>
-  </div>
-
-<iscomment> Custom: added div mobile-view-category for custom mobile menu</iscomment>
-  <div class="mobile-view-category">
-    <div class="mobile-menu-section-header">${Resource.msg('title.header.dropdown', 'common', null)}</div>
-    <isloop items="${pdict.categories}" begin="0" end="1" var="category">
-      <ul class="mobile-category-list" data-mobile-category="${category.name}">
-        <isloop items="${category.subCategories}" var="subCategory">
-          <isif condition="${!subCategory.subCategories}">
-            <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.name}</a></li>
-          <iselse>
-            <li class="mobile-category-item">
-              <button class="mobile-subnav-btn">${subCategory.name}</button>
-              <ul class="mobile-collapse-nav">
-                <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
-                  <li class="menu-list-item">
-                    <a href="${thirdLevelCategory.url}" class="menu-item-link">
-                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL}" title="${thirdLevelCategory.name}" />
-                      <span>${thirdLevelCategory.name}</span>
-                    </a>
-                  </li>
-                </isloop>
-              </ul>
-            </li>
-          </isif>
-        </isloop>
-      </ul>
-    </isloop>
-  </div>
