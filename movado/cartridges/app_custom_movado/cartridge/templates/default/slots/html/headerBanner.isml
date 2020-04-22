@@ -8,12 +8,16 @@
   <div class="header-banner slide-up">
     <div class="container-fluid">
       <div class="row">
-      <div class="col-12 mt-1 mb-1 text-center text-white">
-        <isloop items="${slotcontent.content}" var="markupText">
-          <isprint value="${markupText.markup}" encoding="off"/>
-        </isloop>
+        <div class="col-12">
+          <div class="content">
+            <div class="html-slot-container">
+              <isloop items="${slotcontent.content}" var="markupText">
+                <isprint value="${markupText.markup}" encoding="off"/>
+              </isloop>
+            </div>
+          </div>
+        </div>
       </div>
       </div>
     </div>
-  </div>
 </isif>

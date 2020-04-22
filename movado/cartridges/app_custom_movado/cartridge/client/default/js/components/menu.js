@@ -16,7 +16,6 @@ $(document).ready(function() {
         if (e.keyCode == 9 && visitAccessibility == true) {
             e.preventDefault();
             $('.accessible-link').focus();
-            console.log('tab once');
             visitAccessibility = false;
         }
     });
