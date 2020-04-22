@@ -467,7 +467,11 @@
         margin-bottom: rem(15);
         font-family: $font-primary;
         margin-top: rem(48);
-        
+
+        @include media-breakpoint-down(md) {
+            margin-top: 0;
+        }
+
         @include media-breakpoint-up(sm) {
             font-size: rem(50);
         }
@@ -480,7 +484,15 @@
         width: 100%;
         padding-left: rem(20);
         padding-right: rem(21);
-    
+
+        .account-heading-divider {
+            width: 80%;
+
+            @include media-breakpoint-up(lg) {
+                width: 45%
+            }
+        }
+
         p {
             color: $black;
             font-size: rem(16);
@@ -492,14 +504,25 @@
     }
     
     &-form-wrapper {
-        padding-left: rem(80);
-        padding-right: rem(160);
-        padding-top: rem(80);
-        padding-bottom: rem(160);
+        padding: rem(64) rem(16) rem(120) rem(16);
+
+        @include media-breakpoint-down(lg) {
+            padding: rem(16) rem(16) rem(32) rem(16);
+        }
 
         @media only screen and (max-width: 991px){
             flex-basis: 100%;
             max-width: 100%;
+        }
+
+        .contactus-page {
+            width: 90%;
+            margin: 0 auto;
+        
+            @include media-breakpoint-up(lg) {
+                margin-left: auto;
+                max-width: rem(420);
+            }
         }
 
         .form-group {
@@ -521,11 +544,7 @@
             font-weight: 500;
             letter-spacing: rem(1);
         }
-    
-        @include media-breakpoint-down(md) {
-            padding: rem(48) rem(32) rem(32) rem(32);
-        }
-        
+
         @media only screen and (max-width: 991px){
             flex-basis: 100%;
             max-width: 100%;
@@ -537,16 +556,14 @@
         height: fit-content;
         padding: rem(20);
         text-align: left;
-        
-        @include media-breakpoint-down(md) {
-            margin: rem(16);
-        }
-        
-        @media only screen and (max-width: 991px) { 
-            margin: 0;
+        margin-bottom: rem(16);
+
+        @include media-breakpoint-down(lg) {
+            width: 90%;
+            margin: 0 auto;
             margin-bottom: rem(16);
         }
-        
+
         h2 {
             font-size: rem(18);
             letter-spacing: rem(2.5);
@@ -624,11 +641,11 @@
     &-form-control {
         border: rem(1) solid $cyan-blue1;
         padding: rem(20);
-        height: rem(57);
+        height: rem(60);
         font-family: $font-book;
         font-size: rem(14);
         letter-spacing: 1.5px;
-        text-transform: capitalize;
+        text-transform: none;
 
         &:focus {
             border-color: $cyan-blue1;
@@ -658,7 +675,8 @@
             font-family: $font-book;
             font-size: rem(14);
             letter-spacing: rem(1.5);
-            text-transform: capitalize;
+            text-transform: none;
+            background: $white url(../images/up-and-down-arrows.svg) 95% 50% no-repeat;
             line-height: 1;
 
             &:not([size]):not([multiple]) {
@@ -813,7 +831,6 @@
     
     .tab-pane-control, .container-control {
         max-width: 90%;
-        margin: 0;
     }
     
     .col-md-control {

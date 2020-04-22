@@ -210,5 +210,43 @@ module.exports = {
             },
         });
     },
+    updateAddToCart: function () {
+        $('body').off('product:updateAddToCart').on('product:updateAddToCart', function (e, response) {
+            // update local add to cart (for sets)
+            $('button.add-to-cart', response.$productContainer).attr('disabled',
+                (!response.product.readyToOrder || !response.product.available));
+
+            var enable = $('.product-availability').toArray().every(function (item) {
+                return $(item).data('available') && $(item).data('ready-to-order');
+            });
+
+            $('button.add-to-cart-global').parent().toggleClass('d-none', !enable);
+            // Custom Start: Enable Add to  Cart if product Ready To Order
+            var $addToCartButton = $('button.add-to-cart');
+            if (response.product.readyToOrder || response.product.available) {
+                $addToCartButton.each(function(index, button) {
+                    $(button).contents().first().replaceWith($addToCartButton.data('add-to-cart-text'));
+                });
+            }
+
+            // Custom End
+            if (response.product.readyToOrder) {
+                // Custom Start: Enable Add to  Cart if product Ready To Order
+                $('button.add-to-cart').attr('disabled', false);
+                // Custom End
+                var applePayButton = $('.apple-pay-pdp', response.$productContainer);
+                if (applePayButton.length !== 0) {
+                    applePayButton.attr('sku', response.product.id);
+                } else {
+                    if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
+                        $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
+                            'sku=' + response.product.id + '></isapplepay>');
+                    }
+                }
+            } else {
+                $('.apple-pay-pdp').remove();
+            }
+        });
+    },
     base: base
 };
