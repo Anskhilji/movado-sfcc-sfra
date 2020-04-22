@@ -1044,10 +1044,9 @@
                 }
 
                 .price {
-
-                    span:not(.range){
-                        &:nth-child(2) {
-                            display: flex;
+                    .sales{
+                        span {
+                            display: block;
                         }
                     }
                 }
@@ -1344,23 +1343,23 @@
 
         &.disabled {
             cursor: not-allowed;
-            
+
             span {
                 &:before {
                     content: "";
                     position: absolute;
-                    background: #000;
-                    left: 18px;
-                    top: 1px;
-                    width: 2px;
-                    height: 36px;
+                    background: $black;
+                    left: rem(18);
+                    top: rem(1);
+                    width: rem(2);
+                    height: rem(36);
                     transform: rotate(45deg);
                 }
 
                 &:after {
                     content: "";
                     position: absolute;
-                    background: #000;
+                    background: $black;
                 }
             }
 
@@ -1527,6 +1526,7 @@
             &.active {
                 border-color: $black;
                 background: $white-gray;
+                background-size: cover;
             }
 
             &.disabled {
@@ -1536,18 +1536,18 @@
                     &:before {
                         content: "";
                         position: absolute;
-                        background: #000;
-                        left: 18px;
-                        top: 1px;
-                        width: 2px;
-                        height: 36px;
+                        background: $black;
+                        left: rem(18);
+                        top: rem(1);
+                        width: rem(2);
+                        height: rem(36);
                         transform: rotate(45deg);
                     }
     
                     &:after {
                         content: "";
                         position: absolute;
-                        background: #000;
+                        background: $black;
                     }
                 }
 
