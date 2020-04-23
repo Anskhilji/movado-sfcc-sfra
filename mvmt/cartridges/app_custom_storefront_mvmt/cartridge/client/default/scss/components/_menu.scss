@@ -460,6 +460,10 @@
         .country-selector-mobile { 
             .country-selector-wrapper { 
                 border: none;
+                
+                select {
+                    background-color: $light-gray11;
+                }
             }
         }
         
@@ -469,10 +473,19 @@
                  right: rem(-30);
                  margin-top: rem(-7);
              }
+             
+             .back {
+                 .caret-left {
+                      background: url("../images/back-arrow.svg") center center no-repeat;
+                 }
+             }
+                 
+             
         }
     }
 
     .mvmt-menu-group {
+        background-color: $light-gray11;
     
         li {
         
@@ -490,8 +503,9 @@
             
             .image-text {
                 position: absolute;
-                top: 50%;
+                margin-top: rem(32);
                 left: 10%;
+                color: $white;
             }
             
         }
@@ -527,3 +541,22 @@
         
     
 }
+
+.mvmt-header-dropdown {
+    background-color: $light-gray11;
+    
+    .top-category-heading {
+        margin-left: rem(35);
+        margin-top: rem(22);
+    }
+    
+    li {
+        .grey-arrow-right {
+            background: url("../images/Grey.svg") center center no-repeat;
+            display: inline-block;
+            width: 60%;
+            height: rem(10);
+        }
+    }
+}
+

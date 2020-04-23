@@ -12,3 +12,10 @@
 @import 'components/productTiles';
 @import "faq";
 @import 'components/clp';
+header.new-header {
+        .multilevel-dropdown {
+            .close-menu {
+                background-color: $light-gray11;
+            } 
+        }
+    }
