@@ -24,7 +24,7 @@
     <iscomment>
         <iselse>
             <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
-     </iscomment>
+    </iscomment>
     <iscomment>Custom end</iscomment>
     </isif>
 </isif>
