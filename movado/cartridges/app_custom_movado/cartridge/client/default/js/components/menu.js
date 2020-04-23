@@ -10,6 +10,17 @@ var clearSelection = function (element) {
     $(element).closest('li').detach();
 };
 
+$(document).ready(function() {
+    var visitAccessibility = true;
+    $(document).keydown(function(e) {
+        if (e.keyCode == 9 && visitAccessibility == true) {
+            e.preventDefault();
+            $('.accessible-link').focus();
+            visitAccessibility = false;
+        }
+    });
+});
+
 module.exports = function () {
     var isDesktop = function (element) {
         return $(element).parents('.menu-toggleable-left').css('position') !== 'fixed';

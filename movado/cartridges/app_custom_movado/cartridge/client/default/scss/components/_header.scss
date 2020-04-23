@@ -13,6 +13,27 @@
   }
 }
 
+.accessible-link {
+  position: absolute;
+  z-index: 100001;
+  color: $white;
+  top: rem(10);
+  right: rem(20);
+
+  &:focus {
+    outline: $white dashed rem(2);
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
 header {
   letter-spacing: rem(2);
   .logo-link {

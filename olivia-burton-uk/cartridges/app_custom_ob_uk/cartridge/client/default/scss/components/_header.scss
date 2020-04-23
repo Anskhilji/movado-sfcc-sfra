@@ -16,6 +16,26 @@
   }
 }
 
+.header-banner {
+  background-color: $pink;
+}
+.accessible-link {
+  position: absolute;
+  z-index: 100001;
+  color: $black;
+  top: rem(10);
+  right: rem(20);
+
+  &:focus {
+    outline: $black dashed rem(2);
+  }
+
+  &:hover {
+    color: $black;
+    text-decoration: underline;
+  }
+}
+
 header {
   .logo {
     &-link {
