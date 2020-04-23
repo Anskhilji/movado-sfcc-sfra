@@ -19,6 +19,9 @@ var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var constants = require('app_custom_movado/cartridge/scripts/helpers/constants.js');
 var Resource = require('dw/web/Resource');
+var crossBorderUtils = require('~/cartridge/scripts/helpers/utils/crossborderUtils.js');
+
+//var vatEntity = crossBorderUtils.getCountryVATEntity('GB');
 
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
 var GIFTWRAP = 'GIFTWRAP';
@@ -2260,7 +2263,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATEntity');
-                streamWriter.writeCharacters(getVatEntity(eswOrderNo, isEswEnabled));
+                if (eswOrderNo) {
+                    streamWriter.writeCharacters(crossBorderUtils.getCountryVATEntity('GB'));
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('CommercialEntity');
@@ -2503,7 +2510,11 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('VATEntity');
-                    streamWriter.writeCharacters(getVatEntity(eswOrderNo, isEswEnabled));
+                    if (eswOrderNo) {
+                        streamWriter.writeCharacters(crossBorderUtils.getCountryVATEntity('GB'));
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('CommercialEntity');
@@ -2546,7 +2557,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('TaxAmount');
-                    if (eswOrderNo) {
+                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
                     } else {
                         streamWriter.writeCharacters(commerceItem.TaxAmount);
@@ -2593,7 +2604,7 @@ function generateOrderXML(order) {
                     }
                     streamWriter.writeStartElement('NetAmount');
                     if (eswOrderNo) {
-                        streamWriter.writeCharacters(commerceItem.CrossBorderNetAmount)
+                        streamWriter.writeCharacters(commerceItem.CrossBorderNetAmount);
                     } else {
                         streamWriter.writeCharacters(commerceItem.NetAmount);
                     }
