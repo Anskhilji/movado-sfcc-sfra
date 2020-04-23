@@ -20,7 +20,7 @@
     </div>
     <isif condition="${!empty(matchingLineItem)}">
         <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
-    <iscomment>Custom start remove duplication price no need pricetotal</iscomment>
+    <iscomment>Custom Start: Removed duplication price no need pricetotal</iscomment>
     <iscomment>
         <iselse>
             <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
@@ -35,7 +35,7 @@
     <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} ${lineItem.priceTotal.nonAdjustedPrice}</div>
     <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
     <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} <span class="line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</span></div>
-<iscomment>Custom start remove duplication price no need pricetotal</iscomment>
+<iscomment>Custom Start: Removed duplication price no need pricetotal</iscomment>
     <iscomment>
         <iselse>
             <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
