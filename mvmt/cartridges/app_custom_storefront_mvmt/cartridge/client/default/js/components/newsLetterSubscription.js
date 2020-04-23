@@ -68,14 +68,23 @@ $('#newsletterSubscribe').submit(function (e) {
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
     if (inputValue !== '') {
-        $.spinner().start();
-        $.ajax({
-            url: endPointUrl,
-            method: 'POST',
-            data: { email: inputValue },
-            success: processSubscription,
-            error: function () { $.spinner().stop(); }
-        });
+        var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+            if(!pattern.test(inputValue)) {
+                wrapperContainer.removeClass('d-none');
+                $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+                $('.submission-status').text(Resources.MVMT_EMAIL_EMAIL_ERROR_INVALID);
+                $('.submission-status').removeClass('success').addClass('error');
+                $('.footer-more-fields').css('top', topPercentage);
+            } else {
+                $.spinner().start();
+                $.ajax({
+                    url: endPointUrl,
+                    method: 'POST',
+                    data: { email: inputValue },
+                    success: processSubscription,
+                    error: function () { $.spinner().stop(); }
+                });
+            }
     } else {
         wrapperContainer.removeClass('d-none');
         $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
