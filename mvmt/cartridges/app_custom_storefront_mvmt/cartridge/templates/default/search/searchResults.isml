@@ -77,17 +77,17 @@
                 <div class="col-sm-12">
 
                     <!--- Product Grid --->
-                    <div class="row p-4 product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
+                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
                         <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
-                                <div class="col-6 col-sm-3">
+                                <div class="col-6 col-md-4 col-lg-3">
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
                                 </div>
                             </isif>
                             
                             <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
                             <iselse>
-                                <div class="col-6 col-sm-3" data-gtm-refinements='${product.productSearchHit.productID}'>
+                                <div class="col-6 col-md-4 col-lg-3" data-gtm-refinements='${product.productSearchHit.productID}'>
                                     <isobject object="${product.productSearchHit}" view="searchhit">
                                         <isif condition="${pdict.productSearch.category}">
                                             <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
@@ -118,25 +118,8 @@
     </div>
 
     <isif condition="${pdict.productSearch.productIds.length > 0}">
-        <div class="mobile-sort-menu">
-            <div data-mobile-close-filters="" class="mobile-menu-close"  data-close-menu=".mobile-sort-menu">
-                <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
-                </svg>
-                ${Resource.msgf('lable.filter.sort', 'search', null, pdict.productSearch.count)}
-            </div>
-            <ul name="sort-order" id="sort-order" class="mobile-sort-order" title="${Resource.msg('label.sortby', 'search', null)}">
-                <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                    <li>
-                        <a class="${option.id}" href="javascript:void(0);" value="${option.url}"
-                            data-id="${option.id}"
-                            ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
-                        >
-                            ${option.displayName}
-                        </a>
-                    </li>
-                </isloop>
-            </ul>
+        <div class="plp-grid-overlay">
+            
         </div>
     </isif>
 

@@ -15,7 +15,7 @@
     </div>
     <div class="mobile-filter-container">
         <div class="mobile-filter-menu">
-            <div class="mobile-sort-close mobile-close-menu" data-close-menu=".mobile-filter-menu">
+            <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
                 <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
                 </svg>
@@ -68,8 +68,10 @@
                                 </isloop>
                             </div>
                             <div class="mobile-active-actions">
-                                <button type="button" class="mobile-active-clear-btn">${Resource.msgf('lable.btn.clear', 'search', null)}</button>
-                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">Shop (<span data-filter-results-count="">999</span>) Products</button>
+                                <a href="${pdict.productSearch.resetLink}" class="mobile-active-clear-btn">
+                                    ${Resource.msgf('lable.btn.clear', 'search', null)}
+                                </a>
+                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)} <isinclude template="search/resultsCount" /></button>
                             </div>
                         </div>
                     </div>
@@ -80,6 +82,26 @@
                     </button>
                 </div>
             </div>
+        </div>
+        <div class="mobile-sort-menu">
+            <div data-mobile-close-filters="" class="mobile-menu-close"  data-close-menu=".mobile-sort-menu">
+                <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
+                </svg>
+                ${Resource.msgf('lable.filter.sort', 'search', null, pdict.productSearch.count)}
+            </div>
+            <ul name="sort-order" id="sort-order" class="mobile-sort-order" title="${Resource.msg('label.sortby', 'search', null)}">
+                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                    <li>
+                        <a class="${option.id}" href="${option.url}"
+                            data-id="${option.id}"
+                            ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                        >
+                            ${option.displayName}
+                        </a>
+                    </li>
+                </isloop>
+            </ul>
         </div>
     </div>
 </div>

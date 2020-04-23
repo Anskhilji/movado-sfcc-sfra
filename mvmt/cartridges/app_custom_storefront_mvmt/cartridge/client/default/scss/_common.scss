@@ -392,3 +392,42 @@
 ul {
     list-style: none;
 }
+
+
+.plp-grid-overlay {
+
+    @include media-breakpoint-up(lg) {
+        display: block;
+        background-color: rgba(0,0,0,.4);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        opacity: 0;
+        transition: opacity .35s;
+        pointer-events: none;
+
+        &.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+.veil {
+    z-index: 9999;
+}
+
+body {
+
+    &.lock-bg {
+        height: 100%;
+        overflow: hidden;
+
+        @include media-breakpoint-up(lg) {
+            overflow: auto;
+        }
+    }
+}
