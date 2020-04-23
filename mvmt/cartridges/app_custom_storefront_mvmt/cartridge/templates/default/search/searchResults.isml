@@ -119,14 +119,17 @@
 
     <isif condition="${pdict.productSearch.productIds.length > 0}">
         <div class="plp-grid-overlay">
-            
         </div>
     </isif>
 
     <isif condition="${pdict.productSearch.category}">
+        <div class="search-bottom-text">
+            <isslot id="cs_plp_bottom_text_slot" context="category" description="Category text slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        </div>
+        <isslot id="cs_plp_collection_bottom_slot" context="category" description="Collection content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
-    
+
     <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
         <div class="d-none" id="color-swatch-images">
             <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
