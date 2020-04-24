@@ -16,7 +16,9 @@
         <isinclude template="product/components/productTileImage" />
 
         <div class="tile-body">
-
+            <isif condition="${pdict.display.swatches !== false}">
+                <isinclude template="product/components/productTileSwatch" />
+            </isif>
             <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
                 <isif condition="${outOfStock}">
                     <div class="out-of-stock product-tag red-tag">
