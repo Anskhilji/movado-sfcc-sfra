@@ -524,6 +524,7 @@ function handlePostCartAdd(response) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         $('#addToCartModal').modal('show');
+        $('.slick-slider').slick('refresh');
     }
 }
 
@@ -938,6 +939,7 @@ module.exports = {
     	$(document).on('hidden.bs.modal','#chooseBonusProductModal', function () {
             if($.trim($('#addToCartModal .modal-body').html())) {
             	$('#addToCartModal').modal('show');
+            	$('.slick-slider').slick('refresh');
             }
     	});
     },
