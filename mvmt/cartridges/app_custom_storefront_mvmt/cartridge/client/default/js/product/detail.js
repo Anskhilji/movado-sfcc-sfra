@@ -248,5 +248,43 @@ module.exports = {
             }
         });
     },
+    updateAvailability: function () {
+        $('body').off('product:updateAvailability').on('product:updateAvailability', function (e, response) {
+            $('div.availability', response.$productContainer)
+                .data('ready-to-order', response.product.readyToOrder)
+                .data('available', response.product.available);
+
+            $('.availability-msg', response.$productContainer)
+                .empty().html(response.message);
+
+            if ($('.global-availability').length) {
+                var allAvailable = $('.product-availability').toArray()
+                    .every(function (item) { return $(item).data('available'); });
+
+                var allReady = $('.product-availability').toArray()
+                    .every(function (item) { return $(item).data('ready-to-order'); });
+
+                $('.global-availability')
+                    .data('ready-to-order', allReady)
+                    .data('available', allAvailable);
+
+                $('.global-availability .availability-msg').empty()
+                    .html(allReady ? response.message : response.resources.info_selectforstock);
+            }
+
+            // Custom Start: Handle out of stock label on PDP
+
+            var $availibilityContainer = $('.mvmt-avilability');
+            if ($availibilityContainer) {
+                
+                $availibilityContainer.hide();
+                if (!response.product.available) {
+                    $availibilityContainer.show();
+                }
+            }
+
+            // Custom End
+        });
+    },
     base: base
 };
