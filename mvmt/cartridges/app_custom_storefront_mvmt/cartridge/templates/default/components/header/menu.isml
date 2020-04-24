@@ -92,7 +92,6 @@
       ${Resource.msg('link.header.menu.back', 'common', null)}
     </a>
     <a class="close-button" href="${'#'}" role="button">
-      ${Resource.msg('link.header.menu.close', 'common', null)}
       <span class="close-icon"></span>
     </a>
   </div>
@@ -103,7 +102,8 @@
           <isif condition="${category.subCategories || category.disableSubCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span class="image-text">${category.name}</span> 
+              <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
+              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span> 
              <isset name="topCat" value="${category}" scope="page"/>
              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
@@ -122,7 +122,10 @@
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
     <div class="register-btn-menu">
-        <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
+        ${dw.system.Request.currentCustomer.profile}
+        <a href="${URLUtils.https('Login-Show')}">
+            <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
+        </a>
     </div>
   </div>
 </nav>

@@ -473,6 +473,10 @@
                  right: rem(-30);
                  margin-top: rem(-7);
              }
+             .close-icon {
+                  background: url("../images/White-cross.svg") center center no-repeat;
+                  margin-right: rem(-28);
+             }
              
              .back {
                  .caret-left {
@@ -535,7 +539,7 @@
             
             .register-button {
                 height: rem(45);
-                width: rem(225);
+                width: 94%;
             }
         }
         
