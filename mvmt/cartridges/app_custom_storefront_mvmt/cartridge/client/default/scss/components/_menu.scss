@@ -552,13 +552,14 @@
     .top-category-heading {
         margin-left: rem(35);
         margin-top: rem(22);
+        color: $light-gray12;
     }
     
     li {
         .grey-arrow-right {
             background: url("../images/Grey.svg") center center no-repeat;
             display: inline-block;
-            width: 60%;
+            width: 40%;
             height: rem(10);
         }
     }
