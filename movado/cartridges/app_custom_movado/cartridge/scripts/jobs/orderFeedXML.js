@@ -483,7 +483,7 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Gift Message JSON.
 */
-function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalObject, language, order, isEswEnabled) {
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var GiftWrap = {};
     GiftWrap.UUID = optionUUID;
@@ -528,7 +528,7 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Engraved Personalization JSON.
 */
-function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order, isEswEnabled) {
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var Engraving = {};
     Engraving.UUID = optionUUID;
@@ -588,7 +588,7 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
 * @param {string} language Language as per the user browser.
 * @returns {JSON} Embossed Personalization JSON.
 */
-function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order) {
+function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalObject, language, order, isEswEnabled) {
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
     var Embossing = {};
     Embossing.UUID = optionUUID;
