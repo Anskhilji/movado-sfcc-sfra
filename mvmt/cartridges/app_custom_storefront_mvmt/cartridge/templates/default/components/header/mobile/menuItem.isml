@@ -12,7 +12,7 @@
                 </a>
               </div>
               <div class="close-menu clearfix hidden-lg-up">
-			    <a class="back" href="${'#'}" role="button">
+			    <a class="back-menu" href="${'#'}" role="button">
 			      <span class="caret-left"></span>
 			      ${Resource.msg('label.header.menu.back', 'common', null)}
 			    </a>
@@ -31,7 +31,7 @@
 				                </div>
 				            </div>
 				            <div class="close-menu clearfix hidden-lg-up">
-				                <a class="back" href="${'#'}" role="button">
+				                <a class="back-submenu" href="${'#'}" role="button">
 				                    <span class="caret-left"></span> ${Resource.msg('label.header.menu.back', 'common', null)}
 				                </a>
 				            </div>
