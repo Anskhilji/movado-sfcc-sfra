@@ -24,9 +24,7 @@ function handleRefinements($results) {
     $('.refinement.active').each(function () {
         $(this).removeClass('active');
 
-        $results
-            .find('.' + $(this)[0].className.replace(/ /g, '.'))
-            .addClass('active');
+        $results.find('.' + $(this)[0].className.replace(/ /g, '.')).addClass('active');
     });
 
     updateDom($results, '.refinements');
@@ -61,7 +59,8 @@ function parseResults(response) {
         specialHandlers[selector]($results);
     });
 }
-// Makes this function for mobile filter
+
+//Custom Start Makes this function for mobile filter
 function parseMobileResults(response) {
     var $results = $(response);
     var specialHandlers = {
@@ -84,7 +83,7 @@ function parseMobileResults(response) {
         specialHandlers[selector]($results);
     });
 }
-
+// Custom End
 /**
  * This function retrieves another page of content to display in the content search grid
  * @param {JQuery} $element - the jquery element that has the click event attached
@@ -466,7 +465,7 @@ module.exports = {
                 });
             });
     },
-    // Make this fucntion for mobile filter
+    //Custom Start: Make this fucntion for mobile filter
     applyFilterMobile: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
@@ -506,7 +505,7 @@ module.exports = {
                 });
             });
     },
-
+    // Custom End
     showContentTab: function () {
         // Display content results from the search
         $('.container, .container-fluid').on('click', '.content-search', function () {
@@ -522,14 +521,12 @@ module.exports = {
         });
     },
 
-    // Make these fucntions for custom events
-
+    // Custom Start: Make these fucntions for custom events
     sortMenuDesktop: function () {
         $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
             var button = this
             $(button).next().toggleClass('active');
             $(button).toggleClass('active');
-            // $('.plp-grid-overlay').toggleClass('active');
             setTimeout(function(){
                 $(button).next().toggleClass('loaded');
             }, 300);
@@ -548,7 +545,6 @@ module.exports = {
             $(".plp-filter-bar .plp-filter-btn").not($(this)).removeClass('active');
             $(".filter-group").not($(this).next()).removeClass('active loaded');
             $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
-            // $('.plp-grid-overlay').not($('.plp-filter-bar .plp-filter-btn').hasClass(active)).removeClass('active');
         });
 
         $(document).on("click", '.filter-close-btn', function(e) {
@@ -635,4 +631,5 @@ module.exports = {
             }, 500);
         });
     }
+    // Custom End
 };
