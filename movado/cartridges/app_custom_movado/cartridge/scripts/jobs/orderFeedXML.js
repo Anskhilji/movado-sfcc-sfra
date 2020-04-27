@@ -350,6 +350,7 @@ function getShippingAddress(order) {
 
         shippingObject.phoneNumber = address.phone.replace(/\D/g, '');
         shippingObject.carrier = shipment.getShippingMethod().ID;
+        shippingObject.carrierName = shipment.getShippingMethod().displayName;
     }
     return shippingObject;
 }
@@ -2257,7 +2258,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('CarrierCode');
-                streamWriter.writeCharacters(shippingAddress.carrier);
+                if (eswOrderNo) {
+                    streamWriter.writeCharacters(shippingAddress.carrierName);
+                } else {
+                    streamWriter.writeCharacters(shippingAddress.carrier);
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATEntity');
@@ -2650,7 +2655,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerSubTotal');
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerSubTotal);
                         } else {
@@ -2683,7 +2688,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerNetAmount');
-                    if (isEswEnabled) {
+                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(commerceItem.ConsumerNetAmount);
                         } else {
