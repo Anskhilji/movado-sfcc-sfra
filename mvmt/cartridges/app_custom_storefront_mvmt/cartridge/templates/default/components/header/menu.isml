@@ -83,7 +83,7 @@
   </div>
 </div>
 <nav class="d-block d-lg-none navbar navbar-expand-lg bg-inverse col-12">
-  <div class="close-menu clearfix hidden-lg-up">
+  <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
      <div class="new-header-menu-logo">
          <isslot id="brand-logo" description="Brand Logo" context="global" />
      </div>

@@ -13,9 +13,13 @@
 @import "faq";
 @import 'components/clp';
 header.new-header {
-        .multilevel-dropdown {
-            .close-menu {
-                background-color: $light-gray11;
-            } 
+    .multilevel-dropdown {
+        .grey-sub-menu {
+            background-color: $light-gray11;
         }
+        
+        .grey-sub-menu-unset {
+            background-color: unset;
+        } 
     }
+}

@@ -2,7 +2,7 @@
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <div class="menu-content mvmt-header-dropdown">
         <div class="menu-pane">
-            <div class="close-menu clearfix hidden-lg-up">
+            <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
                  <div class="new-header-menu-logo">
                      <isslot id="brand-logo" description="Brand Logo" context="global" />
                  </div>
@@ -11,7 +11,7 @@
                   <span class="close-icon"></span>
                 </a>
               </div>
-              <div class="close-menu clearfix hidden-lg-up">
+              <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
 			    <a class="back-menu" href="${'#'}" role="button">
 			      <span class="caret-left"></span>
 			      ${Resource.msg('label.header.menu.back', 'common', null)}
@@ -25,20 +25,20 @@
 				        <span href="${category.url}" role="button" class="dropdown-link">${category.name}</span>
 				        <div class="grey-arrow-right"></div>
 				        <div class="dropdown-menu">
-				            <div class="close-menu clearfix hidden-lg-up">
+				            <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
 				                <div class="new-header-menu-logo">
 				                    <isslot id="brand-logo" description="Brand Logo" context="global" />
 				                </div>
 				            </div>
-				            <div class="close-menu clearfix hidden-lg-up">
+				            <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
 				                <a class="back-submenu" href="${'#'}" role="button">
-				                    <span class="caret-left"></span> ${Resource.msg('label.header.menu.back', 'common', null)}
+				                    <span class="caret-left"></span> ${topCat.name}
 				                </a>
 				            </div>
 				            <div class="top-category-heading">
-				                <h4>${topCat.name}</h4></div>
+				                <h4>${category.name}</h4></div>
 				            <isset name="categoryItem" value="${category}" scope="page" />
-				            <isinclude template="components/header/menuItemList" />
+				            <isinclude template="components/header/menuItemCollection" />
 				        </div>
 				    </li>
 				  <iselse>

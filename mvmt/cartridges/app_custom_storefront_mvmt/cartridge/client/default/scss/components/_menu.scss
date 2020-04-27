@@ -454,21 +454,32 @@
     .main-menu.menu-toggleable-left.navbar-toggleable-sm.in {
         width: 70%;
     }
+    
+    main-menu.menu-toggleable-left.main-menu {
+        background-color: $light-gray11;
+    }
 
     .main-menu {
     
-        .country-selector-mobile { 
-            .country-selector-wrapper { 
+        .country-selector-mobile {
+        
+            padding: rem(7) rem(4);
+
+            .country-selector-wrapper {
                 border: none;
                 
                 select {
-                    background-color: $light-gray11;
+                    background-color: unset;
+                    background-size: rem(11);
+                    background-position: center;
                 }
             }
         }
         
         .close-menu {
              border-bottom: none;
+             justify-content: left;
+             margin-left: rem(25);
              .close-button {
                  right: rem(-30);
                  margin-top: rem(-7);
@@ -501,11 +512,11 @@
             border-bottom: none;
             
             img {
-                border-radius: 7%;
+                border-radius: 10%;
                 width: 100%;
                 height: 75px;
-                padding-left: 5%;
-                padding-right: 5%;
+                padding-left: 10%;
+                padding-right: 10%;
                 margin-bottom: rem(10);
             }
             
@@ -530,11 +541,13 @@
             &.login {
                 background: url("../images/MyAccount.svg") center center no-repeat;
                 background-size: cover;
+                margin-left: rem(41);
             }
 
             &.stores-icon {
                 background: url("../images/StoreLocator.svg") center center no-repeat;
                 background-size: contain;
+                margin-left: rem(41);
             }
         }
         
@@ -543,7 +556,7 @@
             
             .register-button {
                 height: rem(45);
-                width: 94%;
+                width: 90%;
             }
         }
         
