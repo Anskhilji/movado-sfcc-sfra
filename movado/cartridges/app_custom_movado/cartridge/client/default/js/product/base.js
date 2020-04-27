@@ -780,6 +780,7 @@ module.exports = {
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
+                        $(window).resize(); // This is used to fix zoom feature after add to cart
                     },
                     error: function () {
                         $.spinner().stop();
