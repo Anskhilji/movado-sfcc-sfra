@@ -468,6 +468,9 @@
             .country-selector-wrapper {
                 border: none;
                 
+                .flag-icon {
+                    margin-left: rem(25);
+                }
                 select {
                     background-color: unset;
                     background-size: rem(11);
