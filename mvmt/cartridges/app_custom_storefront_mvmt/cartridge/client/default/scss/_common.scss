@@ -398,7 +398,7 @@ ul {
 
     @include media-breakpoint-up(lg) {
         display: block;
-        background-color: rgba(0,0,0,.4);
+        background-color: $transparent-black;
         position: fixed;
         top: 0;
         left: 0;

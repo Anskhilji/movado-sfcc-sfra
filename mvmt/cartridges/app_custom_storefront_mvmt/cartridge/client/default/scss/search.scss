@@ -224,7 +224,7 @@
                     font-weight: 500;
                     color: $black;
                     line-height: 1.767rem;
-                    letter-spacing: .5px;
+                    letter-spacing: rem(0.5);
                     border: none;
                     border-bottom: rem(1) solid $light-gray4;
                     cursor: pointer;
@@ -411,7 +411,7 @@
             padding: 0;
             background: transparent;
             margin: 0;
-            margin-left: 25px;
+            margin-left: rem(25);
 
             a {
                 font-family: $font-book;

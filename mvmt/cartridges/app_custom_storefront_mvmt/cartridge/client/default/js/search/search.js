@@ -61,7 +61,7 @@ function parseResults(response) {
         specialHandlers[selector]($results);
     });
 }
-
+// Makes this function for mobile filter
 function parseMobileResults(response) {
     var $results = $(response);
     var specialHandlers = {
@@ -279,6 +279,8 @@ function moveFocusToTop() {
     }, 500);
 }
 
+// Added container-fluid class alongside container
+
 module.exports = {
 
     filter: function () {
@@ -464,7 +466,7 @@ module.exports = {
                 });
             });
     },
-
+    // Make this fucntion for mobile filter
     applyFilterMobile: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
@@ -519,6 +521,8 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
+
+    // Make these fucntions for custom events
 
     sortMenuDesktop: function () {
         $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
