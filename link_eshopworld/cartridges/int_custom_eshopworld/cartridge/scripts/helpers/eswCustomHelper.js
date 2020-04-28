@@ -14,7 +14,7 @@ function getCustomCountriesJsonFromSitePreferences() {
 }
 
 /**
- * This method is used to get selected language from the getCustomLanguages() method.
+ * This method is used to get selected language from the customLanguages.
  * @param {Map} customLanguages : Map of Custom Languages
  * @param {string} locale : Locale name
  * @returns {Object} selectedLanguage : Object of selectedLanguage
