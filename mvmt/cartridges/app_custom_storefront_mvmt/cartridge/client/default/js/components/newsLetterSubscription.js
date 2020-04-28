@@ -67,15 +67,27 @@ $('#newsletterSubscribe').submit(function (e) {
     var topPercentage = top(true);
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
+    var $submisstionStatus = $('.submission-status');
+    var $submisstionStatusDiv = $('.submission-status div');
+    var $footermorefields = $('.footer-more-fields');
     if (inputValue !== '') {
-        $.spinner().start();
-        $.ajax({
-            url: endPointUrl,
-            method: 'POST',
-            data: { email: inputValue },
-            success: processSubscription,
-            error: function () { $.spinner().stop(); }
-        });
+        var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+            if(!pattern.test(inputValue)) {
+                wrapperContainer.removeClass('d-none');
+                $submisstionStatusDiv.text(wrapperContainer.data('errormsg')).attr('class', 'error');
+                $submisstionStatus.text(Resources.MVMT_EMAIL_EMAIL_ERROR_INVALID);
+                $submisstionStatus.removeClass('success').addClass('error');
+                $footermorefields.css('top', topPercentage);
+            } else {
+                $.spinner().start();
+                $.ajax({
+                    url: endPointUrl,
+                    method: 'POST',
+                    data: { email: inputValue },
+                    success: processSubscription,
+                    error: function () { $.spinner().stop(); }
+                });
+            }
     } else {
         wrapperContainer.removeClass('d-none');
         $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
