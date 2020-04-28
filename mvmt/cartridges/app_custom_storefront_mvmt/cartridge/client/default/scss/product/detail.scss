@@ -1935,3 +1935,13 @@
         display: none;
     }
 }
+
+.promotions {
+
+     .row:first-child {
+         margin: 0;
+         padding: 0;
+         text-align: center;
+         justify-content: center;
+     }
+}
