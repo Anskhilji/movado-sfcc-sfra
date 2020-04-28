@@ -35,17 +35,24 @@ function create(order) {
     } else {
         Calendar = new Calendar(order.getCreationDate());
         orderCreationDate = StringUtils.formatCalendar(Calendar, Constants.RISKIFIED_DATE_FORMAT);
+        /**
+         * Custom: Start Setting first_name  and last_name from Billing Address 
+         */
         customerModel = {
             created_at     : orderCreationDate,
             email          : RCUtilities.escape(order.customerEmail, regExp, '', true),
-            first_name     : RCUtilities.escape(order.customerName, regExp, '', true),
+            first_name     : RCUtilities.escape(order.billingAddress.firstName, regExp, '', true),
             id             : UUIDUtils.createUUID(),
-            last_name      : '',
+            last_name      : RCUtilities.escape(order.billingAddress.lastName, regExp, '', true),
             note           : customerNote,
             orders_count   : 0,
             verified_email : false,
             account_type   : 'guest'
         };
+
+        /**
+         * Custom: End
+         */
     }
 
     return customerModel;
