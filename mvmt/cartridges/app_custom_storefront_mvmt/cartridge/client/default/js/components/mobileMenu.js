@@ -14,4 +14,13 @@ module.exports = function () {
     $(".mvmt-menu-group .dropdown" ).click(function() {
         $(this).addClass('show');
     });
+    
+    $(".third-level-menu-tab .btn" ).click(function() {
+        var tablink = $(this).data('tab');
+        $('.tab-content').removeClass('show');
+        $('.third-level-menu-tab .btn').removeClass('active');
+        $(''+tablink+'').addClass('show');
+        $(this).addClass('active');
+    });
+    
 };
