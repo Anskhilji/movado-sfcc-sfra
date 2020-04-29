@@ -30,7 +30,15 @@
   }
 
   @include media-breakpoint-down(md) {
-    display: none;
+    position: relative;
+    width: 100%;
+    right: 0;
+    text-align: center;
+    display: block;
+    top: 0;
+    height: rem(28);
+    padding-top: rem(6);
+    background-color: $black;
   }
 }
 

@@ -1,7 +1,7 @@
 <isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <isif condition="${slotcontent && !!slotcontent.content.length}"> 
   <isif condition="${enableUsablenetAccessibility}"> 
-    <a class="accessible-link" tabindex="0"  href="#" onclick="return enableUsableNetAssistive()">
+    <a class="accessible-link UsableNetAssistive" tabindex="0"  href="#" onclick="return enableUsableNetAssistive()">
         ${Resource.msg('enable.accessibility', 'common', null)}
     </a>                      
   </isif>
