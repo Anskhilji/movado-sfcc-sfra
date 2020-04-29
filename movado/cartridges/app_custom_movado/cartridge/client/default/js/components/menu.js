@@ -26,7 +26,7 @@ module.exports = function () {
         return $(element).parents('.menu-toggleable-left').css('position') !== 'fixed';
     };
 
-    $('.navbar-toggleable-sm .close-button').click(function(){
+    $('.navbar-toggleable-sm .close-button').click(function() {
         $('.accessible-link').css('z-index', 100001);
     });
 
