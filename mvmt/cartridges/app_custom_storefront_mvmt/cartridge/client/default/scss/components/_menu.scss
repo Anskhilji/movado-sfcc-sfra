@@ -611,13 +611,22 @@
             padding-top: rem(5);
             padding-bottom: rem(15);
             margin-left: rem(35);
+            display: flex;
+            
+            .btn-men-tab {
+                border-radius: rem(5) 0 0 rem(5);
+            }
+            
+            .btn-women-tab {
+                border-radius: 0 rem(5) rem(5) 0;
+            }
             
             .btn {
                 width: rem(94);
                 height: rem(30);
-                border-radius: rem(5);
                 letter-spacing: 0;
                 text-transform: capitalize;
+                padding: 0;
                 
                 &:focus {
                     outline: none;

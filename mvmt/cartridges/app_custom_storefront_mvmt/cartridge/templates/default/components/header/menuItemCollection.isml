@@ -1,6 +1,6 @@
 <div class="third-level-menu-tab">
-    <button data-tab=".third-level-men-menu" class="btn btn-outline-dark active">MEN</button>
-    <button data-tab=".third-level-women-menu" class="btn btn-outline-dark">WOMEN</button>
+    <button data-tab=".third-level-men-menu" class="btn btn-outline-dark btn-men-tab active">MEN</button>
+    <button data-tab=".third-level-women-menu" class="btn btn-outline-dark btn-women-tab">WOMEN</button>
 </div>
 <div class="third-level-menu tab-content third-level-men-menu show" role="menu" aria-hidden="true">
     <ul>

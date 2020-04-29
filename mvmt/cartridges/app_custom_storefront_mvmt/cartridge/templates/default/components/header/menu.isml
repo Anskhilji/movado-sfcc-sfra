@@ -83,13 +83,14 @@
   </div>
 </div>
 <nav class="d-block d-lg-none navbar navbar-expand-lg bg-inverse col-12">
-  <a class="close-button" href="${'#'}" role="button">
-      <span class="close-icon"></span>
-    </a>
+  
   <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
      <div class="new-header-menu-logo">
          <isslot id="brand-logo" description="Brand Logo" context="global" />
      </div>
+     <a class="close-button" href="${'#'}" role="button">
+      <span class="close-icon"></span>
+    </a>
     <a class="back" href="${'#'}" role="button">
       <span class="caret-left"></span>
       ${Resource.msg('link.header.menu.back', 'common', null)}
