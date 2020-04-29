@@ -12,14 +12,4 @@
 @import 'components/productTiles';
 @import "faq";
 @import 'components/clp';
-header.new-header {
-    .multilevel-dropdown {
-        .grey-sub-menu {
-            background-color: $light-gray11;
-        }
-        
-        .grey-sub-menu-unset {
-            background-color: unset;
-        } 
-    }
-}
+@import 'components/mobileMenu';

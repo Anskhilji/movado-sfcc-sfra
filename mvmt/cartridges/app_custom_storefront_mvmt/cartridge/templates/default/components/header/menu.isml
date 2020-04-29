@@ -82,7 +82,7 @@
     </isloop>
   </div>
 </div>
-<nav class="d-block d-lg-none navbar navbar-expand-lg bg-inverse col-12">
+<nav class="d-block d-lg-none navbar navbar-expand-lg col-12">
   
   <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
      <div class="new-header-menu-logo">

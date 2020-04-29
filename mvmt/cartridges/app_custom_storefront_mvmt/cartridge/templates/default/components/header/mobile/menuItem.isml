@@ -20,9 +20,8 @@
               <div class="top-category-heading"><h4>${topCat.name}</h4></div>
               <isloop items="${menuItem.subCategories}" var="category">
                   <isif condition="${category.subCategories}">
-				    <li class="dropdown dropdown-item-mvmt third-level-menu-dropdown gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+				    <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
 				        <span href="${category.url}" role="button" class="dropdown-link">${category.name}</span>
-				        <div class="grey-arrow-right"></div>
 				        <div class="dropdown-menu">
 				            <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
 				                <div class="new-header-menu-logo">
@@ -34,7 +33,7 @@
 				                    <span class="caret-left"></span> ${topCat.name}
 				                </a>
 				            </div>
-				            <div class="third-level-menu grey-sub-menu">
+				            <div class="d-block d-lg-none third-level-menu grey-sub-menu">
 					            <div class="top-category-heading">
 	                                <h4>${category.name}</h4></div>
 	                            <isset name="categoryItem" value="${category}" scope="page" />
