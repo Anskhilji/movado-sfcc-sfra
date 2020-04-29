@@ -15,7 +15,7 @@ $(document).ready(function() {
     $(document).keydown(function(e) {
         if (e.keyCode == 9 && visitAccessibility == true) {
             e.preventDefault();
-            $('.UsableNetAssistive').focus();
+            $('.accessible-link').focus();
             visitAccessibility = false;
         }
     });
