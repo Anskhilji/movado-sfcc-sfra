@@ -10,117 +10,119 @@
 }
 
 
-.main-menu.menu-toggleable-left.navbar-toggleable-sm.in {
-    width: 70%;
-    background-color: $light-gray11;
+.main-menu.menu-toggleable-left.navbar-toggleable-sm {
+    left: -115%;
+    
+    &.in {
+        width: 70%;
+        background-color: $light-gray11;
+    }
 }
 
-    .main-menu {
-        background-color: $light-gray11;
+.main-menu {
+    background-color: $light-gray11;
+
+    .country-selector-mobile {
     
-        .country-selector-mobile {
-        
-            padding: rem(7) rem(4);
+        padding: rem(7) rem(4);
 
-            .country-selector-wrapper {
-                border: none;
-                
-                .flag-icon {
-                    margin-left: rem(10);
-                }
-                select {
-                    background-color: unset;
-                    background-size: rem(11);
-                    background-position: center;
-                }
+        .country-selector-wrapper {
+            border: none;
+            
+            .flag-icon {
+                margin-left: rem(10);
             }
-        }
-        
-        .close-icon {
-            background: url("../images/White-cross.svg") center center no-repeat;
-            margin-right: rem(-28);
-         }
-             
-        .close-menu {
-             border-bottom: none;
-             background-color: transparent;
-
-             .close-button {
-                 right: rem(-30);
-                 margin-top: rem(-7);
-             }
-             
-             .back-menu,.back-submenu {
-                 .caret-left {
-                      background: url("../images/back-arrow.svg") left center no-repeat;
-                      display: inline-block;
-                      height: rem(25);
-                      width: rem(25);
-                      margin-left: rem(20);
-                 }
-             }
-                 
-             
+            select {
+                background-color: unset;
+                background-size: rem(11);
+                background-position: center;
+            }
         }
     }
-
-    .mvmt-menu-group {
     
-        li {
-        
-            height: 100%;
-            border-bottom: none;
-            
-            img {
-                border-radius: 7%;
-                width: 100%;
-                height: 75px;
-                padding-left: 5%;
-                padding-right: 5%;
-                margin-bottom: rem(10);
-            }
-            
-            .image-text {
-                position: absolute;
-                margin-top: rem(32);
-                left: 15%;
-                color: $white;
-            }
-            
-        }
-        
-        .fa {
-            vertical-align: text-bottom;
-            height: rem(20);
-            width: rem(20);
+    .close-menu {
+         border-bottom: none;
+         background-color: transparent;
 
-            &::before {
-                content: unset;
-            }
+         .close-button {
+             right: rem(-30);
+             margin-top: rem(-7);
+             
+             .close-icon {
+                 background: url("../images/White-cross.svg") center center no-repeat;
+                 margin-right: rem(-28);
+             }
+         }
+         
+         .back-menu,.back-submenu {
+             .caret-left {
+                  background: url("../images/back-arrow.svg") left center no-repeat;
+                  display: inline-block;
+                  height: rem(25);
+                  width: rem(25);
+                  margin-left: rem(20);
+             }
+         }
+             
+         
+    }
+}
 
-            &.login {
-                background: url("../images/MyAccount.svg") center center no-repeat;
-                background-size: cover;
-                margin-left: rem(10);
-            }
+.mvmt-menu-group {
 
-            &.stores-icon {
-                background: url("../images/StoreLocator.svg") center center no-repeat;
-                background-size: contain;
-                margin-left: rem(10);
-            }
-        }
-        
-        .register-btn-menu {
-            text-align: center;
-            
-            .register-button {
-                height: rem(45);
-                width: 90%;
-            }
-        }
-        
+    li {
     
+        height: 100%;
+        border-bottom: none;
+        
+        img {
+            border-radius: 7%;
+            width: 100%;
+            height: 75px;
+            padding-left: 5%;
+            padding-right: 5%;
+            margin-bottom: rem(10);
+        }
+        
+        .image-text {
+            position: absolute;
+            margin-top: rem(32);
+            left: 15%;
+            color: $white;
+        }
+        
+    }
+    
+    .fa {
+        vertical-align: text-bottom;
+        height: rem(20);
+        width: rem(20);
+
+        &::before {
+            content: unset;
+        }
+
+        &.login {
+            background: url("../images/MyAccount.svg") center center no-repeat;
+            background-size: cover;
+            margin-left: rem(10);
+        }
+
+        &.stores-icon {
+            background: url("../images/StoreLocator.svg") center center no-repeat;
+            background-size: contain;
+            margin-left: rem(10);
+        }
+    }
+    
+    .register-btn-menu {
+        text-align: center;
+        
+        .register-button {
+            height: rem(45);
+            width: 90%;
+        }
+    } 
 }
 
 .mvmt-header-dropdown {
@@ -223,36 +225,6 @@
     }
 }
 
-@include media-breakpoint-down(md) {
-
-    header.new-header {
-       .sticky-header-wrapper {
-           min-height: rem(40);
-       }
-       
-       .nav-left,.nav-right {
-            flex-grow: 0;
-        }
-        
-        .header-nav-right-mobile {
-            color: black;
-            
-            .header-border-right {
-                padding-top: rem(8);
-                padding-left: 0;
-                padding-right: rem(3);
-            }
-            
-            li:before {
-                background: none;
-            }
-        }
-        .nav-center {
-            text-align: center;
-        }
-    }
-}
-
 header.new-header {
     .multilevel-dropdown {
         .grey-sub-menu {
@@ -263,4 +235,34 @@ header.new-header {
             background-color: unset;
         } 
     }
+
+    @include media-breakpoint-down(md) {
+
+       .sticky-header-wrapper {
+           min-height: rem(40);
+       }
+       
+       .nav-left,.nav-right {
+            flex-grow: 0;
+        }
+        
+        .header-nav-right-mobile {
+            color: black;
+
+            .header-border-right {
+                padding-top: rem(8);
+                padding-left: 0;
+                padding-right: rem(3);
+            }
+
+            li:before {
+                background: none;
+            }
+        }
+
+        .nav-center {
+            text-align: center;
+        }
+    }
 }
+

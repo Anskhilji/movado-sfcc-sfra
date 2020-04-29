@@ -1,12 +1,6 @@
 'use strict';
 
 module.exports = function () {
-    $('.navbar > .close-button').on('click', function (e) {
-        e.preventDefault();
-        $('.menu-toggleable-left').removeClass('in');
-        $('.modal-background').hide();
-    });
-    
     $('.navbar-nav').on('click', '.back-menu', function (e) {
         e.preventDefault();
         $('.mvmt-menu-group .sub-dropdown').removeClass('show');
