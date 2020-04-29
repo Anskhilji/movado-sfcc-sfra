@@ -2,19 +2,20 @@
 
 var server = require('server');
 server.extend(module.superModule);
+var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+var Logger = require('dw/system/Logger');
 
 server.append('GetEswHeader', function (req, res, next) {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var allCountries = null;
-    var customCountriesAndLanguagesFromSession = session.custom.customCountriesAndLanguages;
+    var customCountriesJSONFromSession = session.custom.customCountriesJSON;
     var customLanguages = null;
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
 
-    if (!empty(customCountriesAndLanguagesFromSession)) {
-        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesAndLanguagesFromSession.customCountries, locale);
-        customLanguages = customCountriesAndLanguagesFromSession.customLanguages;
+    if (!empty(customCountriesJSONFromSession)) {
+        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
+        customLanguages = customCountriesJSONFromSession.customLanguages;
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     } else {
         var customCountries = eswCustomHelper.getCustomCountries();
@@ -24,11 +25,11 @@ server.append('GetEswHeader', function (req, res, next) {
         var firstCountry = allCountries.get(0);
         res.viewData.EswHeaderObject.selectedCountry = firstCountry.value;
         res.viewData.EswHeaderObject.selectedCountryName = firstCountry.displayValue;
-        var customCountriesAndLanguages = {
+        var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages
         };
-        session.custom.customCountriesAndLanguages = customCountriesAndLanguages;
+        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -39,17 +40,16 @@ server.append('GetEswHeader', function (req, res, next) {
 });
 
 server.append('GetEswFooter', function (req, res, next) {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var allCountries = null;
-    var customCountriesAndLanguagesFromSession = session.custom.customCountriesAndLanguages;
+    var customCountriesJSONFromSession = session.custom.customCountriesJSON;
     var customLanguages = null;
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
 
-    if (!empty(customCountriesAndLanguagesFromSession)) {
-        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesAndLanguagesFromSession.customCountries, locale);
-        customLanguages = customCountriesAndLanguagesFromSession.customLanguages;
+    if (!empty(customCountriesJSONFromSession)) {
+        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
+        customLanguages = customCountriesJSONFromSession.customLanguages;
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     } else {
         var customCountries = eswCustomHelper.getCustomCountries();
@@ -59,11 +59,11 @@ server.append('GetEswFooter', function (req, res, next) {
         var firstCountry = allCountries.get(0);
         res.viewData.EswFooterObject.selectedCountry = firstCountry.value;
         res.viewData.EswFooterObject.selectedCountryName = firstCountry.displayValue;
-        var customCountriesAndLanguages = {
+        var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages
         };
-        session.custom.customCountriesAndLanguages = customCountriesAndLanguages;
+        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -74,17 +74,16 @@ server.append('GetEswFooter', function (req, res, next) {
 });
 
 server.append('GetEswLandingPage', function (req, res, next) {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var allCountries = null;
-    var customCountriesAndLanguagesFromSession = session.custom.customCountriesAndLanguages;
+    var customCountriesJSONFromSession = session.custom.customCountriesJSON;
     var customLanguages = null;
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
 
-    if (!empty(customCountriesAndLanguagesFromSession)) {
-        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesAndLanguagesFromSession.customCountries, locale);
-        customLanguages = customCountriesAndLanguagesFromSession.customLanguages;
+    if (!empty(customCountriesJSONFromSession)) {
+        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
+        customLanguages = customCountriesJSONFromSession.customLanguages;
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     } else {
         var customCountries = eswCustomHelper.getCustomCountries();
@@ -94,11 +93,11 @@ server.append('GetEswLandingPage', function (req, res, next) {
         var firstCountry = allCountries.get(0);
         res.viewData.EswLandingObject.selectedCountry = firstCountry.value;
         res.viewData.EswLandingObject.selectedCountryName = firstCountry.displayValue;
-        var customCountriesAndLanguages = {
+        var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages
         };
-        session.custom.customCountriesAndLanguages = customCountriesAndLanguages;
+        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);

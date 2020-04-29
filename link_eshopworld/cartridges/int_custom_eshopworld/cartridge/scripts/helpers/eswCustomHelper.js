@@ -9,7 +9,7 @@ var Site = require('dw/system/Site').getCurrent();
  * This method is used to get the custom countries json from the site preferences.
  * @returns {ArrayList} languages : Array list of languages
  */
-function getCustomCountriesJsonFromSitePreferences() {
+function getCustomCountriesJson() {
     return !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
 }
 
@@ -60,7 +60,7 @@ function getAlphabeticallySortedLanguages(customLanguages) {
 function getCustomLanguages() {
     var languagesMap = new HashMap();
     try {
-        var customCountries = getCustomCountriesJsonFromSitePreferences();
+        var customCountries = getCustomCountriesJson();
         if (!empty(customCountries)) {
             for (var countryIndex = 0; countryIndex < customCountries.length; countryIndex++) {
                 var languages = customCountries[countryIndex].lang;
@@ -90,7 +90,7 @@ function getCustomLanguages() {
 function getCustomCountries() {
     var countriesMap = new HashMap();
     try {
-        var customCountries = getCustomCountriesJsonFromSitePreferences();
+        var customCountries = getCustomCountriesJson();
         if (!empty(customCountries)) {
             for (var countryIndex = 0; countryIndex < customCountries.length; countryIndex++) {
                 var customCountry = customCountries[countryIndex];
@@ -125,7 +125,7 @@ function getSelectedCountry(countryCode) {
     var countriesMap = new HashMap();
     var countryObj =  null;
     try {
-        var customCountries = getCustomCountriesJsonFromSitePreferences();
+        var customCountries = getCustomCountriesJson();
         if (!empty(customCountries)) {
             for (var countryIndex = 0; countryIndex < customCountries.length; countryIndex++) {
                 var customCountry = customCountries[countryIndex];
