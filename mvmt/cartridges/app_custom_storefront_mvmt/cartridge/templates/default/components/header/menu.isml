@@ -83,19 +83,17 @@
   </div>
 </div>
 <nav class="d-block d-lg-none navbar navbar-expand-lg col-12">
-  
   <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
-     <div class="new-header-menu-logo">
-         <isslot id="brand-logo" description="Brand Logo" context="global" />
-     </div>
-     <a class="close-button" href="${'#'}" role="button">
+    <div class="new-header-menu-logo">
+      <isslot id="brand-logo" description="Brand Logo" context="global" />
+    </div>
+    <a class="close-button" href="${'#'}" role="button">
       <span class="close-icon"></span>
     </a>
     <a class="back" href="${'#'}" role="button">
       <span class="caret-left"></span>
       ${Resource.msg('link.header.menu.back', 'common', null)}
     </a>
-    
   </div>
   <div class="menu-group mvmt-menu-group" aria-label="Main menu" role="navigation">
     <ul class="nav navbar-nav" role="menu">
@@ -124,10 +122,10 @@
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
     <div class="register-btn-menu">
-        <isif condition="${!pdict.loggedIn}">
-	        <a href="${URLUtils.https('Login-Show')}">
-	            <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
-	        </a>
+      <isif condition="${!pdict.loggedIn}">
+        <a href="${URLUtils.https('Login-Show')}">
+          <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
+        </a>
         </isif>
     </div>
   </div>
