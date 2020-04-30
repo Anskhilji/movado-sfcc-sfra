@@ -534,7 +534,6 @@ module.exports = {
         });
 
         $(window).scroll(function() {
-            console.log('scroll')
             var scroll = $(window).scrollTop();
 
             if (scroll >= 300) {
@@ -554,6 +553,7 @@ module.exports = {
             $(this).find('.sort-dropdown-toggle').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
         });
+
         $(document).on('click', function(event){
             var $trigger = $(".sort-dropdown");
             if($trigger !== event.target && !$trigger.has(event.target).length){
@@ -635,6 +635,24 @@ module.exports = {
                 $(''+ optionMenu +' .mobile-active-filters, '+ optionMenu +' .mobile-active-actions').addClass('loaded skip-animation');
             }, 500);
         });
-    }
+    },
+
+    swatchesSlider: function () {
+        $('.product-tile-redesign .swatches').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            infinite: false,
+            dots: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 544,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+            ]
+        });
+    },
     // Custom End
 };
