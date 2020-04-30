@@ -72,76 +72,54 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var registrationForm = null;
     var registrationFormObj = null;
     var redirectUrl = null;
-    var isMiniCart = empty(req.querystring.isMiniCart) ? false : req.querystring.isMiniCart;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
 
     // setting variables for the BeforeComplete function
-    if (isMiniCart) {
-        registrationForm = server.forms.getForm('miniCartRegistrationForm');
-        redirectUrl = URLUtils.url('Checkout-Login').toString();
-        if (registrationForm.login.password.valid) {
-            if (!CustomerMgr.isAcceptablePassword(registrationForm.login.password.value)) {
-                registrationForm.login.password.valid = false;
-                registrationForm.login.password.error = Resource.msg('login.password.description', 'common', null);
-                registrationForm.valid = false;
-            }
-        }
-        registrationFormObj = {
-            firstName: registrationForm.customer.firstname.value,
-            lastName: registrationForm.customer.lastname.value,
-            email: registrationForm.customer.email.value,
-            password: registrationForm.login.password.value,
-            validForm: registrationForm.valid,
-            form: registrationForm
-        };
-    } else {
-        registrationForm = server.forms.getForm('profile');
-        redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
-        if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
-            registrationForm.customer.email.valid = false;
-            registrationForm.customer.emailconfirm.valid = false;
-            registrationForm.customer.emailconfirm.error =
-                Resource.msg('error.message.mismatch.email', 'forms', null);
-            registrationForm.valid = false;
-        }
+    registrationForm = server.forms.getForm('profile');
+    redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
+    if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
+        registrationForm.customer.email.valid = false;
+        registrationForm.customer.emailconfirm.valid = false;
+        registrationForm.customer.emailconfirm.error =
+            Resource.msg('error.message.mismatch.email', 'forms', null);
+        registrationForm.valid = false;
+    }
 
-        if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
+    if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
+        registrationForm.login.password.valid = false;
+        registrationForm.login.passwordconfirm.valid = false;
+        registrationForm.login.passwordconfirm.error =
+            Resource.msg('error.message.mismatch.password', 'forms', null);
+        registrationForm.valid = false;
+    }
+    if (registrationForm.login.password.valid) {
+        if (!CustomerMgr.isAcceptablePassword(registrationForm.login.password.value)) {
             registrationForm.login.password.valid = false;
             registrationForm.login.passwordconfirm.valid = false;
             registrationForm.login.passwordconfirm.error =
-                Resource.msg('error.message.mismatch.password', 'forms', null);
+                Resource.msg('error.message.password.constraints.not.matched', 'forms', null);
             registrationForm.valid = false;
         }
-        if (registrationForm.login.password.valid) {
-            if (!CustomerMgr.isAcceptablePassword(registrationForm.login.password.value)) {
-                registrationForm.login.password.valid = false;
-                registrationForm.login.passwordconfirm.valid = false;
-                registrationForm.login.passwordconfirm.error =
-                    Resource.msg('error.message.password.constraints.not.matched', 'forms', null);
-                registrationForm.valid = false;
-            }
-        }
-        if (!customAccountHelper.isValidatebirthDay(registrationForm.customer.birthdate.value, registrationForm.customer.birthmonth.selectedOption)) {
-            registrationForm.customer.birthdate.valid = false;
-            registrationForm.customer.birthdate.error = Resource.msg('error.message.invalid.birthdate', 'forms', null);
-            registrationForm.valid = false;
-        }
-        registrationFormObj = {
-            firstName: registrationForm.customer.firstname.value,
-            lastName: registrationForm.customer.lastname.value,
-            birthdate: registrationForm.customer.birthdate.value,
-            birthmonth: registrationForm.customer.birthmonth.value,
-            phone: registrationForm.customer.phone.value,
-            email: registrationForm.customer.email.value,
-            emailConfirm: registrationForm.customer.emailconfirm.value,
-            password: registrationForm.login.password.value,
-            passwordConfirm: registrationForm.login.passwordconfirm.value,
-            addToEmailList: registrationForm.customer.addtoemaillist.value,
-            validForm: registrationForm.valid,
-            form: registrationForm
-        };
     }
-
+    if (!customAccountHelper.isValidatebirthDay(registrationForm.customer.birthdate.value, registrationForm.customer.birthmonth.selectedOption)) {
+        registrationForm.customer.birthdate.valid = false;
+        registrationForm.customer.birthdate.error = Resource.msg('error.message.invalid.birthdate', 'forms', null);
+        registrationForm.valid = false;
+    }
+    registrationFormObj = {
+        firstName: registrationForm.customer.firstname.value,
+        lastName: registrationForm.customer.lastname.value,
+        birthdate: registrationForm.customer.birthdate.value,
+        birthmonth: registrationForm.customer.birthmonth.value,
+        phone: registrationForm.customer.phone.value,
+        email: registrationForm.customer.email.value,
+        emailConfirm: registrationForm.customer.emailconfirm.value,
+        password: registrationForm.login.password.value,
+        passwordConfirm: registrationForm.login.passwordconfirm.value,
+        addToEmailList: registrationForm.customer.addtoemaillist.value,
+        validForm: registrationForm.valid,
+        form: registrationForm
+    };
     if (registrationForm.valid) {
         res.setViewData(registrationFormObj);
 
@@ -179,29 +157,25 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             // assign values to the profile
                             var newCustomerProfile = newCustomer.getProfile();
 
-                            if (!isMiniCart) {
-                                var newsletterSignupProssesed;
-                                if (registrationForm.addToEmailList) {
-                                    var requestParams = {
-                                        email: registrationForm.email
-                                    }
-                                    SFMCApi.sendSubscriberToSFMC(requestParams);
-                                    newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
-                                } else {
-                                    newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
+                            var newsletterSignupProssesed;
+                            if (registrationForm.addToEmailList) {
+                                var requestParams = {
+                                    email: registrationForm.email
                                 }
+                                SFMCApi.sendSubscriberToSFMC(requestParams);
+                                newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
+                            } else {
+                                newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
                             }
 
                             newCustomerProfile.firstName = registrationForm.firstName;
                             newCustomerProfile.lastName = registrationForm.lastName;
                             newCustomerProfile.email = registrationForm.email;
-                            if (!isMiniCart) {
-                                newCustomerProfile.phoneHome = registrationForm.phone;
-                                newCustomerProfile.custom.birthdate = registrationForm.birthdate;
-                                newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
-                                if (newsletterSignupProssesed.success) {
-                                    newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
-                                }
+                            newCustomerProfile.phoneHome = registrationForm.phone;
+                            newCustomerProfile.custom.birthdate = registrationForm.birthdate;
+                            newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            if (newsletterSignupProssesed.success) {
+                                newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }
                         }
                     });
@@ -212,18 +186,14 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                         registrationForm.validForm = false;
                         registrationForm.form.customer.email.valid = false;
                         registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
-                        if (!isMiniCart) {
-                            registrationForm.form.customer.emailconfirm.valid = false;
-                            registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
-                        }
+                        registrationForm.form.customer.emailconfirm.valid = false;
+                        registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
                     }
                 }
             }
 
             delete registrationForm.password;
-            if (!isMiniCart) {
-                delete registrationForm.passwordConfirm;
-            }
+            delete registrationForm.passwordConfirm;
             formErrors.removeFormValues(registrationForm.form);
 
             if (serverError) {
