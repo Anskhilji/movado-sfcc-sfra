@@ -126,46 +126,6 @@
 
     <isif condition="${pdict.productSearch.category}">
         <div class="search-bottom-content extra-large-container">
-            <div class="bottom-content-block">
-                <a  href="" class="bottom-content-img">
-                    <picture>
-                        <img src="https://cdn.shopify.com/s/files/1/0377/2037/t/144/assets/fa3d43fa088d--MensSunglasses-21a55b.jpg?v=1583176252" alt="Mens Sunglasses image">
-                    </picture>
-                </a>
-                <div class="bottom-content-text">
-                    <a href="" class="bottom-content-text-link"></a>
-                    <div class="bottom-content-text-wrapper">
-                        <a href="" class="bottom-content-text-link">
-                        </a>
-                        <div class="bottom-content-text-title">
-                            <h2>Mens Sunglasses</h2>
-                        </div>
-                        <div class="bottom-content-text-link-btn">
-                            <a href="" class="btn btn-primary">Shop All</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom-content-block">
-                <a  href="" class="bottom-content-img">
-                    <picture>
-                        <img src="https://cdn.shopify.com/s/files/1/0377/2037/t/144/assets/fa3d43fa088d--MensSunglasses-21a55b.jpg?v=1583176252" alt="Mens Sunglasses image">
-                    </picture>
-                </a>
-                <div class="bottom-content-text">
-                    <a href="" class="bottom-content-text-link"></a>
-                    <div class="bottom-content-text-wrapper">
-                        <a href="" class="bottom-content-text-link">
-                        </a>
-                        <div class="bottom-content-text-title">
-                            <h2>Mens Jewelry</h2>
-                        </div>
-                        <div class="bottom-content-text-link-btn">
-                            <a href="" class="btn btn-primary">Shop All</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <isslot id="cs_plp_bottom_content_slot1" context="category" description="Category text slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </div>
         <div class="search-bottom-text">
