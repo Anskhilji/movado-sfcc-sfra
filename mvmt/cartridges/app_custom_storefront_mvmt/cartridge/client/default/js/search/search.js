@@ -50,7 +50,9 @@ function parseResults(response) {
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.mobile-filter-menu'
+        '.mobile-filter-menu',
+        '.sort-dropdown',
+        '.mobile-sort-order'
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -74,7 +76,9 @@ function parseMobileResults(response) {
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.mobile-filter-menu'
+        '.mobile-filter-menu',
+        '.sort-dropdown',
+        '.mobile-sort-order'
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -304,37 +308,11 @@ module.exports = {
     },
 
     sort: function () {
-        // Handle sort order menu selection
-        $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
-            var url = this.value;
-            e.preventDefault();
-
-            $.spinner().start();
-            $(this).trigger('search:sort', this.value);
-            $.ajax({
-                url: this.value,
-                data: { selectedUrl: this.value },
-                method: 'GET',
-                success: function (response) {
-                    var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                    $('body').trigger('facet:success', [gtmFacetArray]);
-                    $('.product-grid').empty().html(response);
-                    // edit
-                    updatePageURLForSortRule(url);
-                    // edit
-                    $.spinner().stop();
-                },
-                error: function () {
-                    $.spinner().stop();
-                }
-            });
-        });
 
         // Handle sort order menu selection for mobile
-        $(document).on('click', '.mobile-sort-order a', function (e) {
+        $(document).on('click', '.mobile-sort-order a, .sort-dropdown .sort-dropdown-item', function (e) {
             var url = $(this).attr('href');
             e.preventDefault();
-
             $.spinner().start();
             $(this).trigger('search:sort', url);
             $.ajax({
@@ -452,12 +430,13 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
+
                         $('.mobile-filter-menu').removeClass('active');
                         $('body').removeClass('lock-bg');
                         $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('.mvmt-plp .grid-header .sort-col').remove();
-                        $('.mvmt-plp .grid-header .filter-col').remove()
+                        $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
+                        $('.plp-grid-overlay').removeClass('active');
                     },
                     error: function () {
                         $.spinner().stop();
@@ -551,10 +530,36 @@ module.exports = {
             $(".filter-group").removeClass('active loaded');
             $(".plp-active-filter").removeClass('loaded');
             $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
         });
 
-        $(".mvmt-plp .refine-wrapper #sort-order").customSelect({
-            block: "plp-sort",
+        $(window).scroll(function() {
+            console.log('scroll')
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 300) {
+                $('.scroll-top').addClass('active');
+            } else {
+                $('.scroll-top').removeClass('active');
+            }
+        });
+
+        $('.scroll-top').click(function(){
+            $('html, body').animate({scrollTop:0}, 'fast');
+            return false;
+        });
+
+        // Show hide popover
+        $('.sort-dropdown').click(function() {
+            $(this).find('.sort-dropdown-toggle').toggleClass('active');
+            $(this).find('.dropdown-menu').slideToggle('fast');
+        });
+        $(document).on('click', function(event){
+            var $trigger = $(".sort-dropdown");
+            if($trigger !== event.target && !$trigger.has(event.target).length){
+                $(this).find('.sort-dropdown-toggle').removeClass('active');
+                $(".dropdown-menu").slideUp("fast").removeClass('active');
+            }
         });
     },
 

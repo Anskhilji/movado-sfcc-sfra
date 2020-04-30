@@ -1,12 +1,17 @@
 <isif condition="${pdict.productSearch.productIds.length > 0}">
-    <select name="sort-order" id="sort-order" class="custom-select" title="${Resource.msg('label.sortby', 'search', null)}">
-        <isloop items="${pdict.productSearch.productSort.options}" var="option">
-            <option class="${option.id}" value="${option.url}"
-                data-id="${option.id}"
-                ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
-            >
-                ${option.displayName}
-            </option>
-        </isloop>
-    </select>
+    <div class="sort-dropdown">
+        <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${Resource.msgf('lable.btn.filter.sort', 'search', null)}
+        </button>
+        <div class="sort-dropdown-menu dropdown-menu">
+            <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                <a class="${option.id} sort-dropdown-item" href="${option.url}"
+                    data-id="${option.id}"
+                    ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                >
+                    ${option.displayName}
+                </a>
+            </isloop>
+        </div>
+    </div>
 </isif>

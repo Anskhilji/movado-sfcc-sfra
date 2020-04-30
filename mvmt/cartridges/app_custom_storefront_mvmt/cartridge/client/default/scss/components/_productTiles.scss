@@ -51,6 +51,34 @@
             margin-bottom: rem(30);
         }
 
+        .plp-swatches {
+            min-height: rem(25);
+        }
+
+        .color-swatches {
+            transition: all .25s;
+            padding: 1px;
+            -ms-flex-pack: center;
+            justify-content: center;
+            max-width: rem(250);
+            margin: auto auto rem(20);
+
+            @include media-breakpoint-up(md-down) {
+                margin-bottom: rem(10);
+            }
+
+            a {
+
+                span {
+
+                    img {
+                        width: rem(24);
+                        height: rem(24);
+                    }
+                }
+            }
+        }
+
         .price {
             display: block;
             float: initial;

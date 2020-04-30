@@ -55,9 +55,11 @@
     &__copy {
         display: none;
         color: $light-gray2;
-        font-size: rem(12);
         line-height: rem(16);
         word-break: break-word;
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(12);
 
         @include media-breakpoint-up(lg) {
             display: block;
@@ -187,7 +189,7 @@
 
         &-lists {
 
-            .plp-sort {
+            .sort-dropdown {
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -201,9 +203,11 @@
                 transition: max-height .3s;
                 z-index: 99999;
 
-                &__dropdown {
+                &-menu {
                     position: absolute;
+                    margin: 0;
                     right: 0;
+                    left: rem(-1);
                     top: rem(47);
                     width: rem(200);
                     z-index: 10;
@@ -215,10 +219,14 @@
                     overflow: hidden;
                     max-height: rem(250);
                     transition: max-height .3s;
+                    margin: 0;
+                    border-top: 0;
+                    border-radius: 0;
                 }
 
-                &__option {
+                &-item {
                     padding: rem(5.5) rem(25);
+                    display: block;
                     font-family: $font-medium;
                     font-size: rem(12);
                     font-weight: 500;
@@ -233,44 +241,54 @@
 
                     &:hover {
                         background-color: $white-gray;
-                    }
-
-                    &--value {
-                        font-family: $font-medium;
-                        font-size: rem(11);
-                        font-weight: 500;
-                        line-height: rem(46);
-                        letter-spacing: rem(1.5);
-                        text-transform: uppercase;
-                        transition: background-color .25s ease-out;
-                        background-color: transparent;
-                        border: none;
-                        border-right: rem(1) solid $light-gray4;
-                        border-left: rem(1) solid $light-gray4;
-                        position: absolute;
-                        right: 0;
-                        width: rem(200);
-                        text-align: left;
-                        padding: 0 rem(22);
-
-                        &::after {
-                            content: '';
-                            background:url("../images/dropdownArrowDown.svg") center center no-repeat;
-                            width: rem(6);
-                            height: rem(10);
-                            position: absolute;
-                            right: rem(15);
-                            top: rem(15);
-                            transform: rotate(270deg);
-                            transition: transform .3s;
-                            background-size: 100%;
-                        }
+                        text-decoration: none;
                     }
                 }
 
-                &--active {
+                &-toggle {
+                    font-family: $font-medium;
+                    font-size: rem(11);
+                    font-weight: 500;
+                    line-height: rem(46);
+                    letter-spacing: rem(1.5);
+                    text-transform: uppercase;
+                    transition: background-color .25s ease-out;
+                    background-color: transparent;
+                    border: none;
+                    border-right: rem(1) solid $light-gray4;
+                    border-left: rem(1) solid $light-gray4;
+                    position: absolute;
+                    right: 0;
+                    width: rem(200);
+                    text-align: left;
+                    padding: 0 rem(22);
 
-                    .plp-sort__option--value {
+                    &::after {
+                        content: '';
+                        background:url("../images/dropdownArrowDown.svg") center center no-repeat;
+                        width: rem(6);
+                        height: rem(10);
+                        position: absolute;
+                        right: rem(15);
+                        top: rem(15);
+                        transform: rotate(270deg);
+                        transition: transform .3s;
+                        background-size: 100%;
+                        margin: 0;
+                        border: 0;
+                    }
+
+                    &:focus {
+                        box-shadow: none;
+                        outline: none;
+                    }
+
+                    &:hover {
+                        background-color: $white-gray;
+                    }
+
+                    &.active {
+
                         &::after {
                             transform: rotate(90deg);
                         }
@@ -841,6 +859,33 @@
     .disable-events {
         pointer-events: none;
     }
+
+    .show-more {
+
+        button {
+            font-family: $font-medium;
+            font-weight: 500;
+            background-color: transparent;
+            text-transform: uppercase;
+            font-size: rem(11);
+            letter-spacing: rem(1.5);
+            color: $black;
+            border: rem(2) solid $black;
+            margin: rem(20) auto rem(80);
+            transition: .3s ease-in;
+            min-width: rem(200);
+            padding: rem(14) rem(20);
+            line-height: rem(18);
+            text-align: center;
+
+            &:hover, &:focus {
+                color: $white;
+                background-color: $black;
+                box-shadow: none;
+                outline: none;
+            }
+        }
+    }
 }
 
 .mobile {
@@ -1012,5 +1057,36 @@
                 height: rem(9);
             }
         }
+    }
+}
+
+.scroll-top {
+    border: none;
+    outline: none;
+    width: rem(55);
+    height: rem(55);
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease-in-out;
+    background:url("../images/scroll-top.svg") center center no-repeat;
+
+    &.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    @include media-breakpoint-up(lg) {
+        text-align: center;
+        width: rem(73);
+        height: rem(73);
     }
 }
