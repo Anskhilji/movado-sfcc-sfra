@@ -4,6 +4,7 @@ var baseProductCustomHelper = module.superModule;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
+var URLUtils = require('dw/web/URLUtils');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
 
@@ -133,7 +134,29 @@ function getProductAttributes(apiProduct) {
     return seeTheFitPopup;
 }
 
+/**
+ * It is used to generate swatch image url from refinement values.
+ * @param {String} presentationID - presentationID from refinement values
+ * @returns {String} - swatchImageURL
+ */
+function getRefinementSwatches(presentationID) {
+    var swatchImageURL = '';
+    try {
+        var isSwatchImagesEnabled = Site.getCustomPreferenceValue('enableSwatchFilterImg');
+        var swatchFilterImgBasePath = Site.getCustomPreferenceValue('swatchFilterImgBasePath');
+        if (isSwatchImagesEnabled && !empty(swatchFilterImgBasePath)) {
+            var relPath = swatchFilterImgBasePath + presentationID;
+            var imageUrl = URLUtils.httpsImage(URLUtils.CONTEXT_LIBRARY, URLUtils.CONTEXT_CATALOG, relPath, null);
+            swatchImageURL = imageUrl.toString();
+        }
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
+    }
+    return swatchImageURL;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
-    getExplicitRecommendations: getExplicitRecommendations
+    getExplicitRecommendations: getExplicitRecommendations,
+    getRefinementSwatches: getRefinementSwatches
 };
