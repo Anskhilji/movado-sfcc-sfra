@@ -156,6 +156,18 @@ var fillAndSubmitCouponCodeForm = function(couponCode) {
     $("#coupon-code-input-element").val(couponCode);
 };
 
+$(document).ready(function () {
+    setTimeout(function () {
+        var $swellPoints = parseInt($('.swell-points-total').text());
+        var $swellPointsContainar = $('.swell-redemption-containar');
+        if ($swellPoints > 250) {
+            $swellPointsContainar.removeClass('d-none');
+        } else {
+            $swellPointsContainar.addClass('d-none');
+        }
+    }, 5000);
+});
+
 $(document).on("swell:initialized", () => {
     swellAPI.getActiveRedemptionOptions().forEach(option => {
         if (option.discountType === "price_adjustment_fixed_amount") {
