@@ -871,7 +871,7 @@
             letter-spacing: rem(1.5);
             color: $black;
             border: rem(2) solid $black;
-            margin: rem(20) auto rem(80);
+            margin: rem(20) auto rem(10);
             transition: .3s ease-in;
             min-width: rem(200);
             padding: rem(14) rem(20);
@@ -1092,8 +1092,7 @@
 }
 
 .search-bottom-content {
-
-    padding: 20px 0;
+    padding: rem(20) 0;
 
     @include media-breakpoint-up(md-down) {
         display: flex;
@@ -1116,7 +1115,7 @@
             width: calc(50% - 12.5px);
             display: flex;
             margin-bottom: 0;
-            height: 485px;
+            height: rem(485);
             position: relative;
             box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 0.5rem -0.4rem rgba(0,0,0,.4);
 
@@ -1188,20 +1187,20 @@
 
             &-title {
                 position: relative;
-                margin-bottom: 20px;
+                margin-bottom: rem(20);
 
                 h2 {
                     font-family: $font-book;
                     font-weight: 400;
-                    font-size: 34px;
-                    line-height: 40px;
-                    letter-spacing: 1.92px;
+                    font-size: rem(34);
+                    line-height: rem(40);
+                    letter-spacing: rem(1.92);
                     text-transform: uppercase;
                     margin: 0;
 
                     @include media-breakpoint-up(lg) {
-                        font-size: 32px;
-                        line-height: 38px;
+                        font-size: rem(32);
+                        line-height: rem(38);
                     }
                 }
             }

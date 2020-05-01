@@ -526,7 +526,7 @@ module.exports = {
             $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
         });
 
-        $(document).on("click", '.filter-close-btn', function(e) {
+        $(document).on('click', '.filter-close-btn', function(e) {
             $(".filter-group").removeClass('active loaded');
             $(".plp-active-filter").removeClass('loaded');
             $(".plp-filter-bar .plp-filter-btn").removeClass('active');
@@ -558,7 +558,7 @@ module.exports = {
             var $trigger = $(".sort-dropdown");
             if($trigger !== event.target && !$trigger.has(event.target).length){
                 $(this).find('.sort-dropdown-toggle').removeClass('active');
-                $(".dropdown-menu").slideUp("fast").removeClass('active');
+                $('.dropdown-menu').slideUp('fast').removeClass('active');
             }
         });
     },

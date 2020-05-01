@@ -5,6 +5,7 @@
 >
     <!--- More button --->
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
+    <iscomment> Custom Start: Remove the bootstrap columns classes </iscomment>
         <div class="show-more">
             <div class="text-center">
                 <button class="btn btn-outline-primary"
@@ -14,6 +15,7 @@
                 </button>
             </div>
         </div>
+    <iscomment> Custom End</iscomment>
     </isif>
 
     <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
