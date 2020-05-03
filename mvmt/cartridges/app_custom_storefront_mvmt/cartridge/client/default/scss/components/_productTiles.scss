@@ -1,4 +1,5 @@
 .product-tile-redesign {
+    margin-bottom: rem(20);
 
     &:hover {
 
@@ -53,6 +54,7 @@
 
         .plp-swatches {
             min-height: rem(25);
+            margin: auto auto rem(10);
 
             .swatches {
                 max-width: 100%;
@@ -131,11 +133,6 @@
             -ms-flex-pack: center;
             justify-content: center;
             max-width: rem(250);
-            margin: auto auto rem(20);
-
-            @include media-breakpoint-up(md-down) {
-                margin-bottom: rem(10);
-            }
 
             a {
 
