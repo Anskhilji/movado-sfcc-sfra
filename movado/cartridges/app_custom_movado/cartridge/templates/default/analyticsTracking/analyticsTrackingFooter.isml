@@ -12,7 +12,6 @@
         </script>
     </isif>
     <script>
-        dataLayer = window.dataLayer = window.dataLayer || [];
         var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');
         var triggerEvent;
 
