@@ -16,9 +16,6 @@
         <isinclude template="product/components/productTileImage" />
 
         <div class="tile-body">
-            <isif condition="${pdict.display.swatches !== false}">
-                <isinclude template="product/components/productTileSwatch" />
-            </isif>
             <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
                 <isif condition="${outOfStock}">
                     <div class="out-of-stock product-tag red-tag">
@@ -31,6 +28,13 @@
                     ${Resource.msg('label.new', 'common', null)}
                 </div>
             </div>
+
+            <isif condition="${pdict.display.swatches !== false}">
+                <div class="plp-swatches ${product.variationAttributes[0].values.length > 0 ? '':'0-opacity'}">
+                    <isinclude template="product/components/productTileSwatch" />
+                </div>
+            </isif>
+
             <isif condition="${pdict.display.showAddToCart}">
                 <div class="product-brand-info">
                     <span>${product.brand}</span>
