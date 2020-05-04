@@ -170,7 +170,7 @@ function handleSwellPointContainer() {
             $swellPointsContainar.addClass('d-none');
         }
     } else {
-        setTimeout(function(){
+        setTimeout(function() {
             handleSwellPointContainer();
         }, 200);
     }

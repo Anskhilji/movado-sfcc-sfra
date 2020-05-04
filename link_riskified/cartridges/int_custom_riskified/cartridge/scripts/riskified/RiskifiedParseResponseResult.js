@@ -87,22 +87,22 @@ function parseRiskifiedResponse(order) {
                 orderState: 'created'
             });
         }
-		if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
-			// riskifiedStatus as approved then mark as confirmed
+        if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
+            // riskifiedStatus as approved then mark as confirmed
             checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
-			if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
-				Transaction.wrap(function () {
-					order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-					order.setExportStatus(Order.EXPORT_STATUS_READY);
-				});
-			}
-			var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-			COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
-			Transaction.wrap(function () {
-				order.custom.is3DSecureTransactionAlreadyCompleted = false;
-			});
-		}
-	}
+            if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
+                Transaction.wrap(function () {
+                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                    order.setExportStatus(Order.EXPORT_STATUS_READY);
+                });
+            }
+            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+            COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+            Transaction.wrap(function () {
+                order.custom.is3DSecureTransactionAlreadyCompleted = false;
+            });
+        }
+    }
 }
 
 module.exports.parseRiskifiedResponse = parseRiskifiedResponse;
