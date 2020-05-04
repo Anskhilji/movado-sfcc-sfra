@@ -544,7 +544,7 @@ module.exports = {
         });
 
         $('.scroll-top').click(function(){
-            $('html, body').animate({scrollTop:0}, 'fast');
+            $('html, body').animate({scrollTop:0}, 1000);
             return false;
         });
 
