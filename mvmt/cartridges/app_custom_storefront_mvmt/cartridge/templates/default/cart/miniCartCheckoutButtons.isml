@@ -1,11 +1,37 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row checkout-button-wrapper">
-    <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Begin')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            ${Resource.msg('button.mini.cart.checkout','cart',null)}
-        </a>
-    </div>
+    <iscomment> Custom Start: Adding Amazon Pay Button </iscomment>
+    <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
+    <iscomment> Custom End </iscomment>
+    <iscomment> Custom Start: Adding Amazon Pay Button </iscomment>
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isif condition="${sitePreferences.amzPayEnabled}">
+        <div class="col-6">
+            <div id="AmazonPayButtonCart"></div>
+        </div>
+        <div class="col-6">
+            <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+            <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                ${Resource.msg('button.mini.cart.checkout','cart',null)}
+            </a>
+            <iscomment> Custom End </iscomment>
+        </div>
+    <iselse>
+        <div class="col-12">
+            <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+            <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                ${Resource.msg('button.mini.cart.checkout','cart',null)}
+            </a>
+            <iscomment> Custom End </iscomment>
+        </div>
+    </isif>
+    <iscomment> Custom End </iscomment>
 </div>
 <iscomment>Custom Start: These button are not required at this time </iscomment>
 <iscomment>
@@ -16,7 +42,6 @@
                 <isprint value="${pdict.paypalButtonImg}" encoding="off" />
             </a>
         </div>
-        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
     </div>
 </iscomment>
 <iscomment> Custom End </iscomment>

@@ -65,6 +65,11 @@
             </isloop>
         </div>
         <div class="minicart-footer">
+            <iscomment>Custom Start: Adding promo code template </iscomment>
+            <div class="mini-cart-promo-box">
+                <isinclude template="cart/cartPromoCode" />
+            </div>
+            <iscomment> Custom End </iscomment>
             <div class="subtotal">
                 <div class="subtotal-payment-summary">
                     <div class="subtotal-label grand-total-label price-label">
@@ -76,8 +81,9 @@
                 </div>
             </div>
 
+            <iscomment>Custom Start: Updating the mini cart design this section is not needed</iscomment>
+            <iscomment> 
             <isif condition="${!customer.isAuthenticated()}" >
-                <iscomment>Custom Start: Adding new form according to mvmt design </iscomment>
                 <form class="cart-checkout-options">
                     <div class="cart-checkout row guest">
                         <input class="checkout-radio-btn" checked="" type="radio" id="checkoutGuest" value="guest" name="checkout"/>
@@ -91,14 +97,12 @@
                         </label>
                     </div>
                 </form>
-                <iscomment> Custom End </iscomment>
-
-                <iscomment>Custom Start: Adding account login, create and forget password form </iscomment>
                 <isinclude template="account/components/miniCartLoginForm" />
                 <isinclude template="account/components/miniCartRegisterForm" />
                 <isinclude template="account/components/miniCartForgetPasswordForm" />
-                <iscomment> Custom End </iscomment>
             </isif>
+            </iscomment>
+            <iscomment> Custom End </iscomment>
 
             <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
             <div class="row continue-checkout-btn">
@@ -108,8 +112,9 @@
             </div>
             <iscomment> Custom End </iscomment>
 
+            <iscomment>Custom Start: Updating the mini cart design this section is not needed</iscomment>
+            <iscomment> 
             <isif condition="${!customer.isAuthenticated()}" >
-                <iscomment>Custom Start: Adding the checkout account buttons like sign in and create account buttons</iscomment>
                 <div class="row checkout-with-account">
                     <div class="col-12 checkout-continue">
                         <button type="button" class="btn btn-block sign-in hidden-md-up">
@@ -123,8 +128,9 @@
                         </button>
                     </div>
                 </div>
-                <iscomment> Custom End </iscomment>
             </isif>
+            <iscomment> 
+            <iscomment> Custom End </iscomment>
         </div>
     </isif>
 </isif>

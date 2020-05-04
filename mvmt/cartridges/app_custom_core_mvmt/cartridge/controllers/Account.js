@@ -8,7 +8,7 @@ var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
 
-server.replace('Login', server.middleware.https, function (req, res, next) {
+server.replace('Login', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
@@ -102,7 +102,7 @@ server.replace('Login', server.middleware.https, function (req, res, next) {
     return next();
 });
 
-server.replace('SubmitRegistration', server.middleware.https, function (req, res, next) {
+server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');

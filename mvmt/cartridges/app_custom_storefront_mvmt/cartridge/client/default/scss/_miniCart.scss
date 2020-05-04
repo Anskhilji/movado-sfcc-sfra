@@ -285,6 +285,10 @@
 
                         .price {
 
+                            .strike-through {
+                                color: $red1;
+                            }
+
                             .total-amount {
                                 font-family: $font-book;
                                 font-size: rem(11);
@@ -297,6 +301,7 @@
 
                         .remove-line-item {
                             float: left;
+                            line-height: 1;
 
                             .remove-btn {
                                 font-size: rem(9);
@@ -364,6 +369,58 @@
 
             @include media-breakpoint-down(md) {
                 position: relative;
+            }
+
+            .collapsible-promo-wrapper, .mini-cart-promo-box {
+                outline: 0;
+            }
+
+            .mini-cart-promo-box {
+                padding: rem(16);
+                border-bottom: rem(1) solid $light-gray4;
+
+                .promo-code-form {
+
+                    .coupon-code-field {
+                        line-height: 1;
+                        border: rem(1) solid $cyan-blue1;
+                        border-radius: rem(3);
+                        height: rem(45);
+                        max-width: rem(250);
+                        box-shadow: none;
+                    }
+
+                    .promo-code-btn {
+                        max-width: rem(130);
+                        margin-left: rem(16);
+                        height: rem(45);
+                        background-color: $black;
+                    }
+
+                    .form-group {
+
+                        &.active {
+
+                            .title {
+                                font-family: $font-bold;
+
+                                &:after {
+                                    content: "-";
+                                    font-family: $font-book;
+                                }
+                            }
+                        }
+
+                        .title {
+                            font-family: $font-bold;
+
+                            &:after {
+                                content: "+";
+                                font-family: $font-book;
+                            }
+                        }
+                    }
+                }
             }
 
             .subtotal {
