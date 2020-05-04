@@ -16,6 +16,20 @@ function getCountryVATEntity(countryCode) {
     return vatEntityCode;
 }
 
+/*
+ * To get fx rates of an order
+ * @param {Order} order Order container.
+ * @returns calculated fx rates
+ */
+
+function getFXRates(order) {
+    var eswShopperCurrencyPaymentAmount = !empty(order.custom.eswShopperCurrencyPaymentAmount) ? order.custom.eswShopperCurrencyPaymentAmount : 0.00;
+    var eswRetailerCurrencyPaymentAmount = !empty(order.custom.eswRetailerCurrencyPaymentAmount) ? order.custom.eswRetailerCurrencyPaymentAmount : 0.00;
+    var fxRate = eswShopperCurrencyPaymentAmount / eswRetailerCurrencyPaymentAmount;
+    return fxRate;
+}
+
 module.exports = {
-    getCountryVATEntity: getCountryVATEntity
+    getCountryVATEntity: getCountryVATEntity,
+    getFXRates : getFXRates
 };
