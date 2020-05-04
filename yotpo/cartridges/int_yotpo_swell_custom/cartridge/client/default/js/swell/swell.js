@@ -156,17 +156,25 @@ var fillAndSubmitCouponCodeForm = function(couponCode) {
     $("#coupon-code-input-element").val(couponCode);
 };
 
-$(document).ready(function () {
-    setTimeout(function () {
-        var $swellPoints = parseInt($('.swell-points-total').text());
+$(document).ready(function() {
+    handleSwellPointContainer();
+});
+
+function handleSwellPointContainer() {
+    var $swellPoints = parseInt($('.swell-points-total').text());
+    if (document.readyState === "complete" && $swellPoints) {
         var $swellPointsContainar = $('.swell-redemption-containar');
         if ($swellPoints > 250) {
             $swellPointsContainar.removeClass('d-none');
         } else {
             $swellPointsContainar.addClass('d-none');
         }
-    }, 5000);
-});
+    } else {
+        setTimeout(function(){
+            handleSwellPointContainer();
+        }, 200);
+    }
+}
 
 $(document).on("swell:initialized", () => {
     swellAPI.getActiveRedemptionOptions().forEach(option => {
