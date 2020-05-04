@@ -5,7 +5,7 @@
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
     <div class="content-slot-wrapper home-slots">
         <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
-        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
         <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
         <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" />
         <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
