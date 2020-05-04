@@ -88,6 +88,17 @@
         } else {
         	dataLayer.push({'analyticsTracking': analyticsTracking});
         }
+        
+        var orderConfirmation;
+        var orderConfirmationObj = '';
+        if ('${pdict.orderConfirmationObj}' != 'null') {
+            orderConfirmationObj = JSON.parse('<isprint value="${pdict.orderConfirmationObj}" encoding="htmlsinglequote"/>');
+            orderConfirmation = 'order_confirmation';
+        }
+        if (orderConfirmation) {
+            dataLayer.push({'event': orderConfirmation, 'orderConfirmationObj': orderConfirmationObj});
+            orderConfirmation = null;
+        }
     </script>
 </isif>
 

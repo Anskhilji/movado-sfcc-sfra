@@ -123,10 +123,12 @@ server.append('Confirm', function (req, res, next) {
         var analyticsTrackingLineItems = [];
         var orderLineItemsIterator = orderLineItems.iterator();
         var orderDiscount = 0.00;
+        var orderDiscountValue = 0.00;
         if (order.getMerchandizeTotalNetPrice() && order.getAdjustedMerchandizeTotalNetPrice()) {
             orderDiscount = order.getMerchandizeTotalNetPrice().subtract(order.getAdjustedMerchandizeTotalNetPrice());
             if (orderDiscount.getDecimalValue() !== null && orderDiscount.getDecimalValue().get() !== null) {
                 orderDiscount = orderDiscount.getDecimalValue().get().toFixed(2);
+                orderDiscountValue = orderDiscount;
             }
         }
         while (orderLineItemsIterator.hasNext()) {
@@ -203,7 +205,28 @@ server.append('Confirm', function (req, res, next) {
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
     }
+    var loggedIn = req.currentCustomer.raw.authenticated;
+    var customerID = '';
+    
+    if (loggedIn) {
+        customerID = req.currentCustomer.profile.customerNo;
+    }
 
+    var discountCode = '';
+    var couponLineItemsItr = order.getCouponLineItems().iterator();
+    while (couponLineItemsItr.hasNext()) {
+        var couponLineItem = couponLineItemsItr.next();
+        discountCode = couponLineItem.getCouponCode();
+    }
+    var orderConfirmationObj = {
+        customerID: customerID,
+        orderDiscount: orderDiscountValue,
+        couponCode: discountCode ? discountCode : ''
+    };
+    res.setViewData({
+        orderConfirmationObj: JSON.stringify(orderConfirmationObj)
+    });
+    
     viewData.checkoutPage = true;
     if (viewData.order) {
         var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);
