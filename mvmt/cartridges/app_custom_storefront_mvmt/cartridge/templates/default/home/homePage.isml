@@ -4,103 +4,17 @@
     </isscript>
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
     <div class="content-slot-wrapper home-slots">
-        <div class="content-slot-container">
-            <div class="home-content-block home-content-block-2 home-content-top">
-                <a class="home-content-img" href="">
-                    <picture>
-                        <img  alt="Mens Sunglasses image" src="//mvmt.imgix.net/s/files/1/0377/2037/files/SilverBlue_3333efb5-9e37-4e87-8aa4-d5f759dc28dc_900x.progressive.jpg" /> 
-                    </picture>
-                </a>
-                <div class="home-content-text">
-                    <div class="home-content-text-wrapper">
-                        <a class="home-content-text-link" href=""> </a>
-                         <div class="home-content-text-title">
-                            <h2></h2>
-                         </div>
-                        <div class="home-content-text-link-btn"><a class="btn btn-primary" href="">Shop Mens Sale</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="home-content-block home-content-block-2 home-content-bottom">
-                <a class="home-content-img" href="">
-                    <picture>
-                        <img  alt="Mens Sunglasses image" src="//mvmt.imgix.net/s/files/1/0377/2037/files/SilverBlue_3333efb5-9e37-4e87-8aa4-d5f759dc28dc_900x.progressive.jpg" /> 
-                    </picture>
-                </a>
-                <div class="home-content-text">
-                    <div class="home-content-text-wrapper">
-                        <a class="home-content-text-link" href=""> </a>
-                        <div class="home-content-text-title">
-                            <h2></h2>
-                        </div>
-                        <div class="home-content-text-link-btn"><a class="btn btn-primary" href="">Shop Mens Sale</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <isslot id="cs_home_recommendation_slot" context="global" description="Recommendation slot at the Home page"
-            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-
-        <div class="content-slot-container">
-            <div class="home-content-block home-content-block-2 home-content-top">
-                <a class="home-content-img" href="">
-                    <picture>
-                        <img  alt="Mens Sunglasses image" src="//mvmt.imgix.net/s/files/1/0377/2037/files/SilverBlue_3333efb5-9e37-4e87-8aa4-d5f759dc28dc_900x.progressive.jpg" /> 
-                    </picture>
-                </a>
-                <div class="home-content-text">
-                    <div class="home-content-text-wrapper">
-                        <a class="home-content-text-link" href=""> </a>
-                         <div class="home-content-text-title">
-                            <h2>Sunglasses</h2>
-                         </div>
-                        <div class="home-content-text-link-btn"><a class="btn btn-primary" href="">Shop Mens Sale</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="home-content-block home-content-block-2 home-content-bottom">
-                <a class="home-content-img" href="">
-                    <picture>
-                        <img  alt="Mens Sunglasses image" src="//mvmt.imgix.net/s/files/1/0377/2037/files/SilverBlue_3333efb5-9e37-4e87-8aa4-d5f759dc28dc_900x.progressive.jpg" /> 
-                    </picture>
-                </a>
-                <div class="home-content-text">
-                    <div class="home-content-text-wrapper">
-                        <a class="home-content-text-link" href=""> </a>
-                        <div class="home-content-text-title">
-                            <h2>Watches</h2>
-                        </div>
-                        <div class="home-content-text-link-btn"><a class="btn btn-primary" href="">Shop Mens Sale</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-slot-container">
-            <div class="home-content-block home-content-block-full block-bottom-right">
-                <a class="home-content-img" href="">
-                    <picture>
-                        <img  alt="Mens Sunglasses image" src="//mvmt.imgix.net/s/files/1/0377/2037/files/SilverBlue_3333efb5-9e37-4e87-8aa4-d5f759dc28dc_900x.progressive.jpg" /> 
-                    </picture>
-                </a>
-                <div class="home-content-text">
-                    <div class="home-content-text-wrapper">
-                        <a class="home-content-text-link" href=""> </a>
-                         <div class="home-content-text-title">
-                            <h2>MOTHERS DAY SALE</h2>
-                         </div>
-                        <div class="home-content-text-link-btn"><a class="btn btn-primary" href="">Shop Mens Sale</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <iscomment> <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
-        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
+        <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
+        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
         <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
-        <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" /> </iscomment>
+        <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" />
         <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
-        <iscomment> <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" /> </iscomment>
+        <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" />
+        <isslot id="cs-homepage-slot7" description="Homepage content Slot 7." context="global" />
+        <isslot id="cs-homepage-slot8" description="Homepage content Slot 8." context="global" />
+        <isslot id="cs-homepage-slot9" description="Homepage content Slot 9." context="global" />
+        <isslot id="cs-homepage-slot10" description="Homepage content Slot 10." context="global" />
+        <isslot id="cs-homepage-slot11" description="Homepage content Slot 11." context="global" />
+        <isslot id="cs-homepage-slot12" description="Homepage content Slot 12." context="global" />
     </div>
 </isdecorate>
