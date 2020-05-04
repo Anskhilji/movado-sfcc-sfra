@@ -122,10 +122,14 @@ function get(productSearch, refinementDefinition, refinementValues) {
     return collections.map(refinementValues, function (value) {
         var model = new Model(productSearch, refinementDefinition, value);
         if (!empty(value.presentationID)) {
-            var swatchImageUrl = productCustomHelper.getRefinementSwatches(value.presentationID);
+            var swatchImages = productCustomHelper.getRefinementSwatches(value.presentationID);
+            Object.defineProperty(model, 'isSwatchImagesEnabled', {
+                enumerable: true,
+                value: swatchImages.isSwatchImagesEnabled
+            });
             Object.defineProperty(model, 'swatchImageURL', {
                 enumerable: true,
-                value: swatchImageUrl
+                value: swatchImages.swatchImageURL
             });
         }
         return model;

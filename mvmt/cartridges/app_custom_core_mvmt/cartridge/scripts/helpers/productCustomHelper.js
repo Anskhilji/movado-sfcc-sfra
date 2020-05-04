@@ -140,19 +140,20 @@ function getProductAttributes(apiProduct) {
  * @returns {String} - swatchImageURL
  */
 function getRefinementSwatches(presentationID) {
-    var swatchImageURL = '';
+    var swatchImages = {};
     try {
         var isSwatchImagesEnabled = Site.getCustomPreferenceValue('enableSwatchFilterImg');
         var swatchFilterImgBasePath = Site.getCustomPreferenceValue('swatchFilterImgBasePath');
         if (isSwatchImagesEnabled && !empty(swatchFilterImgBasePath)) {
             var relPath = swatchFilterImgBasePath + presentationID;
-            var imageUrl = URLUtils.httpsImage(URLUtils.CONTEXT_LIBRARY, URLUtils.CONTEXT_CATALOG, relPath, null);
-            swatchImageURL = imageUrl.toString();
+            var imageUrl = URLUtils.httpsImage(URLUtils.CONTEXT_LIBRARY, null, relPath, null);
+            swatchImages.isSwatchImagesEnabled = isSwatchImagesEnabled;
+            swatchImages.swatchImageURL = imageUrl.toString();
         }
     } catch (e) {
         Logger.error('(productCustomHepler.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
     }
-    return swatchImageURL;
+    return swatchImages;
 }
 
 module.exports = {
