@@ -9,6 +9,7 @@ server.append(
         var OrderMgr = require('dw/order/OrderMgr');
         var action = req.querystring.urlAction.toLowerCase();
         var customerID = '';
+        var couponCode = '';
         var loggedIn = req.currentCustomer.raw.authenticated;
         var orderDiscount = 0;
         
@@ -22,12 +23,19 @@ server.append(
             var orderID = orderToken[1];
             var Order = OrderMgr.getOrder(orderID);
             orderDiscount = Order.getMerchandizeTotalNetPrice().subtract(Order.getAdjustedMerchandizeTotalNetPrice());
-            
+            var couponLineItemsItr = Order.getCouponLineItems().iterator();
+            while (couponLineItemsItr.hasNext()) {
+                var couponLineItem = couponLineItemsItr.next();
+                couponCode = couponLineItem.getCouponCode();
+            }
         }
+        
         var orderTrackingObj = {
             customerID: customerID,
-            orderDiscount: orderDiscount
+            orderDiscount: orderDiscount,
+            couponCode: couponCode
         }
+        
         res.setViewData({ orderTrackingObj: orderTrackingObj });
         next();
     }

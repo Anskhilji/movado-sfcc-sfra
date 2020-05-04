@@ -1,5 +1,4 @@
 <script>
-debugger;
 	dataLayer = window.dataLayer = window.dataLayer || [];
 	pageDataGTM = {};
 	checkoutDataLayer = [];
@@ -98,6 +97,7 @@ debugger;
 				'currencyCode': "${orderProdutsArray[0].productObj.currency}",			
 				'orderDiscount': "${pdict.orderTrackingObj.orderDiscount}",
 				'customerID': "${pdict.orderTrackingObj.customerID}",
+				'couponCode': "${pdict.orderTrackingObj.couponCode}"
 				'purchase':{
 					'actionField':
 						<isloop items="${orderProdutsArray}" var="orderObj">
