@@ -1060,6 +1060,99 @@
     }
 }
 
+.mobile-selection-outer {
+
+    .values {
+
+        li {
+
+            a {
+
+                .rounded-image {
+                    max-width: rem(50);
+                    width: rem(50);
+                    height: rem(50);
+
+                    &.fa-check-square, &.fa-square-o {
+                        content: "";
+                    }
+                }
+            }
+        }
+    }
+}
+
+.filter-group-outer {
+
+    .values {
+
+        li {
+
+            a {
+                outline: 0;
+                text-decoration: none;
+
+                &.swatch-image {
+                    width: rem(70);
+                    height: rem(70);
+                    border-radius: 50%;
+                    border: rem(1) solid $light-gray9;
+                    margin: auto auto rem(10);
+
+                    &.selected-swatch-image {
+                        border: rem(1) solid $black;
+                    }
+
+                    &:hover {
+                        border: rem(1) solid $black;
+                    }
+                }
+
+                .rounded-image {
+                    width: rem(54);
+                    height: rem(54);
+                    border: rem(3) solid $white;
+                }
+            }
+        }
+    }
+}
+
+
+.filter-group-outer, .mobile-selection-outer {
+
+    .values {
+
+        li {
+
+            a {
+                outline: 0;
+                text-decoration: none;
+
+                &.swatch-image {
+                    display: inline-block;
+                }
+
+                .rounded-image {
+                    font-size: 0;
+                    outline: 0;
+                    display: block;
+                    background-size: cover;
+                    background-position: 50%;
+                    margin: rem(7) rem(8) rem(12);
+                    padding: 0;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                    &.fa-check-square, &.fa-square-o {
+                        content: "";
+                    }
+                }
+            }
+        }
+    }
+}
+
 .scroll-top {
     border: none;
     outline: none;
