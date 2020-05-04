@@ -2441,12 +2441,6 @@ function generateOrderXML(order) {
                 }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
-                if (!isEswEnabled) {
-                    streamWriter.writeStartElement('ReturnTrackingNumber');
-                    streamWriter.writeCharacters(paymentMethodData.AuthExpirationDate);
-                    streamWriter.writeEndElement();
-                    streamWriter.writeRaw('\r\n');
-                }
                 streamWriter.writeStartElement('UserField1');
                 streamWriter.writeCharacters('');
                 streamWriter.writeEndElement();
