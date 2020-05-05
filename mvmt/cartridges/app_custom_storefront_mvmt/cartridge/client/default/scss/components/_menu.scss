@@ -179,7 +179,7 @@
         }
       }
 
-      &:hover {
+      &:active {
 
         .nav-link {
 
@@ -204,26 +204,19 @@
     }
 
     .sub-menu-title {
-      @include font-medium;
+      font-family: $font-medium;
+      font-weight: 500;
       font-size: rem(12);
       text-transform: uppercase;
       letter-spacing: .8px;
       margin-bottom: rem(15);
       line-height: 1;
-      color: $black;
+      color: $night-rider;
       white-space: nowrap;
       margin-bottom: rem(15);
       line-height: 1;
       display: block;
-
-      &::after {
-        content: "";
-        display: block;
-        width: rem(80);
-        white-space: nowrap;
-        border-bottom: rem(1) solid $black;
-        margin-top: rem(10);
-      }
+      opacity: 50%;
     }
 
     .browse-collection {
