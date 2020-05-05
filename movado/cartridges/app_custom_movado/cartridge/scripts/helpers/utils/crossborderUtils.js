@@ -22,7 +22,6 @@ function getCountryVATEntity(countryCode) {
 * @param {Order} order Order
 * @return {Number} Loyalty RetailerDiscountAmount.
 */
-
 function getSwellDiscountAmount(order) {
     order = OrderMgr.getOrder('180002417');
     var eswRetailerCurrencyRoundingDigits = Site.current.getCustomPreferenceValue('eswRetailerCurrencyRoundingDigits');
@@ -41,7 +40,20 @@ function getSwellDiscountAmount(order) {
     return loyaltyRetailerDiscountAmount;
 }
 
+/**
+ * To get fx rates of an order
+ * @param {Order} order Order container.
+ * @returns calculated fx rates
+ */
+function getFXRates(order) {
+    var eswShopperCurrencyPaymentAmount = !empty(order.custom.eswShopperCurrencyPaymentAmount) ? order.custom.eswShopperCurrencyPaymentAmount : 0.00;
+    var eswRetailerCurrencyPaymentAmount = !empty(order.custom.eswRetailerCurrencyPaymentAmount) ? order.custom.eswRetailerCurrencyPaymentAmount : 0.00;
+    var fxRate = eswShopperCurrencyPaymentAmount / eswRetailerCurrencyPaymentAmount;
+    return fxRate;
+}
+
 module.exports = {
     getCountryVATEntity: getCountryVATEntity,
-    getSwellDiscountAmount : getSwellDiscountAmount
+    getSwellDiscountAmount : getSwellDiscountAmount,
+    getFXRates : getFXRates
 };
