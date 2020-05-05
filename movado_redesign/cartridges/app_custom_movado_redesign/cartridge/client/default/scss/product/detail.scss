@@ -718,15 +718,18 @@
         }
 
         .free-shipping-block {
-            background: $slate-grey-light url("../../images/box.png") left rem(15) center no-repeat;
+            background: $slate-grey-light url("../../images/box.svg") left rem(15) center no-repeat;
+            background-size: rem(37);
         }
 
         .swiss-movement-block {
-            background: $slate-grey-light url("../../images/swiss.png") left rem(15) center no-repeat;
+            background: $slate-grey-light url("../../images/swiss.svg") left rem(15) center no-repeat;
+            background-size: rem(37);
         }
 
         .warranty-block {
-            background: $slate-grey-light url("../../images/badge.png") left rem(15) center no-repeat;
+            background: $slate-grey-light url("../../images/badge.svg") left rem(15) center no-repeat;
+            background-size: rem(37);
         }
 
         .product-placeholder-block {
