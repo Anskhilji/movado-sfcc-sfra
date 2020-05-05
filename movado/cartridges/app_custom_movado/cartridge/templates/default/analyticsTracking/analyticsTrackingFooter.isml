@@ -96,7 +96,7 @@
         }
         if (orderConfirmationTriggerEvent) {
             dataLayer.push({'event': orderConfirmationTriggerEvent, 'orderConfirmationObj': orderConfirmationObj});
-            orderConfirmation = null;
+            orderConfirmationTriggerEvent = null;
         }
     </script>
 </isif>
