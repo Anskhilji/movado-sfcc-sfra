@@ -6,12 +6,12 @@ const shell = require('shelljs');
 
 var configs = [];
 
-if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/client/default/scss/'))) {
-    var cssFiles = shell.ls(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/client/default/scss/**/*.scss'));
+if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/client/default/scss/'))) {
+    var cssFiles = shell.ls(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/client/default/scss/**/*.scss'));
     cssFiles = cssFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
     var cssEntries = {};
     cssFiles.forEach(filename => {
-        var location = path.relative(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/client/default/scss/'), filename);
+        var location = path.relative(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/client/default/scss/'), filename);
         var basename = location.substr(0, location.length - (location.length - location.indexOf('.scss')));
         cssEntries[basename] = path.resolve(filename);
     });
@@ -21,7 +21,7 @@ if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/
         name: 'scss',
         entry: cssEntries,
         output: {
-            path: path.resolve(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/static/default/css')),
+            path: path.resolve(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/static/default/css')),
         },
         module: {
             rules: [{
@@ -61,8 +61,8 @@ if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/
     });
 }
 
-if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/client/default/js/'))) {
-    var jsFiles = shell.ls(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/client/default/js/*.js'));
+if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/client/default/js/'))) {
+    var jsFiles = shell.ls(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/client/default/js/*.js'));
     jsFiles = jsFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
     var jsEntries = {};
     jsFiles.forEach(filename => {
@@ -75,7 +75,7 @@ if (fs.existsSync(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/
         name: 'js',
         entry: jsEntries,
         output: {
-            path: path.resolve(path.join(__dirname, './cartridges/int_custom_eshopworld_sfra/cartridge/static/default/js')),
+            path: path.resolve(path.join(__dirname, './cartridges/int_custom_eshopworld/cartridge/static/default/js')),
             filename: '[name].js'
         },
         module: {
