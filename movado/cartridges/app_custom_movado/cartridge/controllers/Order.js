@@ -123,12 +123,10 @@ server.append('Confirm', function (req, res, next) {
         var analyticsTrackingLineItems = [];
         var orderLineItemsIterator = orderLineItems.iterator();
         var orderDiscount = 0.00;
-        var orderDiscountValue = 0.00;
         if (order.getMerchandizeTotalNetPrice() && order.getAdjustedMerchandizeTotalNetPrice()) {
             orderDiscount = order.getMerchandizeTotalNetPrice().subtract(order.getAdjustedMerchandizeTotalNetPrice());
             if (orderDiscount.getDecimalValue() !== null && orderDiscount.getDecimalValue().get() !== null) {
                 orderDiscount = orderDiscount.getDecimalValue().get().toFixed(2);
-                orderDiscountValue = orderDiscount;
             }
         }
         while (orderLineItemsIterator.hasNext()) {
@@ -220,7 +218,7 @@ server.append('Confirm', function (req, res, next) {
     }
     var orderConfirmationObj = {
         customerID: customerID,
-        orderDiscount: orderDiscountValue,
+        orderDiscount: orderDiscount,
         couponCode: discountCode ? discountCode : ''
     };
     res.setViewData({
