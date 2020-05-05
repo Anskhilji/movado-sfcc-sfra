@@ -276,6 +276,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
             $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
             updateAvailability(data, $uuid);

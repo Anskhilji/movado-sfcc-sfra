@@ -28,11 +28,9 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-server.append('MiniCartShow', function(req, res, next) {
+server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function(req, res, next) {
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
-    res.setViewData({
-      removeProductLineItemUrl: removeProductLineItemUrl
-  });
+    res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
 
     //Custom Start: Checkout create and login account forms are not needed in the mini cart.
     /*

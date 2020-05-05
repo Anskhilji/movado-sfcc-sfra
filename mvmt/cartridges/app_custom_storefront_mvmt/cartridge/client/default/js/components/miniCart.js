@@ -12,7 +12,7 @@ function setMiniCartProductSummaryHeight () {
     if ($('.mini-cart-header').is(':visible')) {
         $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle;
     }
-    var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 188 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
+    var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
     $('.mini-cart-data .product-summary').css('padding-bottom', '');
@@ -32,7 +32,7 @@ module.exports = function () {
             if ($('.mini-cart-header').is(':visible')) {
                 $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle;
             }
-            var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 188 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
+            var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
             $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
             var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
             $('.mini-cart-data .product-summary').css('max-height', '');

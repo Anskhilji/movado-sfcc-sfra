@@ -1,0 +1,63 @@
+<iscomment>Custom Start: Add Client side Js in cart page</iscomment>
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addJs('/js/swell.js');
+</isscript>
+<iscomment>Custom End</iscomment>
+<div class="row">
+    <div class="col-12 d-none">
+        <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
+    </div>
+</div>
+<iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
+<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+    <div class="row">
+        <div class="col-12">
+            <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
+            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
+            <span class="swell-point-balance"></span>
+            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
+            <section class="swell-redemption">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <select id="swell-redemption-dropdown">
+                            <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block ">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
+                    </div>
+                </div>
+            </section>
+            <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
+        </div>
+    </div>
+</isif>
+<iscomment>Custom End</iscomment>
+<div class="row">
+    <div class="col-12 collapsible-promo-wrapper" tabindex="0">
+        <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="promo-code-form" method="GET" name="promo-code-form">
+            <div class="form-group collapsible-xl">
+                <label class="title" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
+                <div class="row content value">
+                    <div class="col-9">
+                        <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
+                        <div class="coupon-error">
+                            <span class="coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
+                            <span class="coupon-error-message"></span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+                    <div class="col-3 promo-code-submit pl-0">
+                        <button type="submit" class="btn btn-outline-primary btn-block promo-code-btn">
+                            ${Resource.msg('button.promo.text','cart',null)}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
