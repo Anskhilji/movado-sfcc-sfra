@@ -143,8 +143,8 @@ server.append('Confirm', function (req, res, next) {
                 orderLineItemArray.push ({
                     productName: stringUtils.removeSingleQuotes(productLineItem.productName),
                     quantity: productLineItem.quantityValue,
-                    unitPrice: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
-                    unitPriceLessTax: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
+                    unitPrice: productLineItem.getGrossPrice().getDecimalValue().toString(),
+                    unitPriceLessTax: productLineItem.getNetPrice().getDecimalValue().toString(),
                     SKU: productLineItem.productID
                 });
             }
@@ -225,6 +225,9 @@ server.append('Confirm', function (req, res, next) {
     while (couponLineItemsItr.hasNext()) {
         couponLineItem = couponLineItemsItr.next();
         discountCode = couponLineItem.getCouponCode();
+        if (!empty(discountCode)) {
+            break;
+        }
     }
     
     var orderConfirmationObj = {
