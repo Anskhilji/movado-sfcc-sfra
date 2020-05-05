@@ -1,6 +1,6 @@
 'use strict';
 
-var OrderMgr = require('dw/order/OrderMgr');
+var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site');
 
 function getCountryVATEntity(countryCode) {
@@ -23,21 +23,31 @@ function getCountryVATEntity(countryCode) {
 * @return {Number} Loyalty RetailerDiscountAmount.
 */
 function getSwellDiscountAmount(order) {
-    order = OrderMgr.getOrder('180002417');
-    var eswRetailerCurrencyRoundingDigits = Site.current.getCustomPreferenceValue('eswRetailerCurrencyRoundingDigits');
-    var fxRate = (parseFloat(order.custom.eswShopperCurrencyPaymentAmount / order.custom.eswRetailerCurrencyPaymentAmount)
-            .toFixed(eswRetailerCurrencyRoundingDigits));
-    var discountAmountShopperCurrency = 0.00;
-    var PriceAdjustmentsItr = order.getPriceAdjustments().iterator();
-    while (PriceAdjustmentsItr.hasNext()) {
-        var currentPriceAdjustment = PriceAdjustmentsItr.next();
-        discountAmountShopperCurrency += currentPriceAdjustment.netPrice.decimalValue;
+    try {
+        var eswRetailerCurrencyRoundingDigits = Site.current.getCustomPreferenceValue('eswRetailerCurrencyRoundingDigits');
+        var fxRate = parseFloat(getFXRates(order)).toFixed(eswRetailerCurrencyRoundingDigits);
+        var discountAmountShopperCurrency = 0.00;
+        var PriceAdjustmentsItr = order.getPriceAdjustments().iterator();
+        var calculatedRetailerDiscountAmount = 0.00;
+        var loyaltyRetailerDiscountAmount = 0.00;
+        while (PriceAdjustmentsItr.hasNext()) {
+            var currentPriceAdjustment = PriceAdjustmentsItr.next();
+            discountAmountShopperCurrency += currentPriceAdjustment.netPrice.decimalValue;
+            if (!empty(currentPriceAdjustment.custom.swellPointsUsed) && !empty(currentPriceAdjustment.custom.swellRedemptionId)) {
+                loyaltyRetailerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
+            } else {
+                calculatedRetailerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
+            }
+        }
+        var retailerDiscountAmount = (discountAmountShopperCurrency * -1) * fxRate;
+        var totalCalculatedRetailerAmount = ((loyaltyRetailerDiscountAmount * -1) * fxRate) + ((calculatedRetailerDiscountAmount * -1) * fxRate);
+        
+        if (retailerDiscountAmount == totalCalculatedRetailerAmount) {
+            return loyaltyRetailerDiscountAmount;
+        }
+    } catch (e) {
+        Logger.error('(crossborderUtils.js -> getSwellDiscountAmount) Error occured while getting the swell discount amount: ' + e);
     }
-    var retailerDiscountAmount = (discountAmountShopperCurrency * -1) * fxRate;
-    
-    var calculatedRetailerDiscountAmount;
-    
-    return loyaltyRetailerDiscountAmount;
 }
 
 /**
