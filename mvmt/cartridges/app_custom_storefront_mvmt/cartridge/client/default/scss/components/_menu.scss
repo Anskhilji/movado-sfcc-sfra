@@ -166,18 +166,16 @@
 
         &::after {
           content: "";
-          display: block;
-          background: url("../images/nav-hover-icon.svg")  center bottom no-repeat;
           position: absolute;
           bottom: -1px;
           right: 0;
           left: 0;
           margin: 0 auto;
           opacity: 0;
-          transform: rotateY(90deg);
           transition: opacity .3s ease 0s,transform .24s ease 0s;
-          width: 30px;
-          height: 10px;
+          width: 75%;
+          height: rem(2);
+          background: $black;
         }
       }
 
@@ -345,12 +343,12 @@
         position: relative;
         line-height: 1.4;
         margin: rem(6) 0;
-        overflow: hidden;
+        overflow: initial;
         display: inline-block;
         background: transparent;
-        padding-right: rem(15);
         white-space: nowrap;
         width: auto;
+        position: relative;
 
         .dropdown-link {
           @include font-medium;
@@ -360,28 +358,22 @@
 
         &::before {
           content: "";
-          display: block;
-          background-image: url(../images/nav-icon-hover-right.svg);
-          background-repeat: no-repeat;
-          background-position: 50%;
-          background-size: cover;
           position: absolute;
-          top: 0;
+          bottom: rem(-4);
+          right: 0;
           left: 0;
-          width: rem(4.5);
-          height: rem(14);
-          transition: transform .24s ease 0s;
-          transform: translateX(-6px);
+          margin: 0 auto;
+          opacity: 0;
+          transition: opacity .3s ease 0s,transform .24s ease 0s;
+          width: 100%;
+          height: rem(1);
+          background: $black;
         }
 
-        &.active {
-
-          .dropdown-link {
-            transform: translateX(15px);
-          }
+        &:hover {
 
           &::before {
-            transform: translateX(0);
+            opacity: 1;
           }
         }
       }

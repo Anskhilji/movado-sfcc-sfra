@@ -2,7 +2,6 @@
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <div class="menu-content movado-header-dropdown">
         <div class="menu-pane">
-            <h3>${Resource.msgf('title.header.dropdown', 'common', null)} ${category.name}</h3>
             <ul>
               <isloop items="${menuItem.subCategories}" var="category">
                   <li class="dropdown-item gtm-customEvent submenu-control" role="menuitem" data-category = ${category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
