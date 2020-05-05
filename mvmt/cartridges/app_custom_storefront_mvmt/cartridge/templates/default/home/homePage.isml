@@ -1,0 +1,20 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
+    <div class="content-slot-wrapper home-slots">
+        <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
+        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
+        <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
+        <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" />
+        <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
+        <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" />
+        <isslot id="cs-homepage-slot7" description="Homepage content Slot 7." context="global" />
+        <isslot id="cs-homepage-slot8" description="Homepage content Slot 8." context="global" />
+        <isslot id="cs-homepage-slot9" description="Homepage content Slot 9." context="global" />
+        <isslot id="cs-homepage-slot10" description="Homepage content Slot 10." context="global" />
+        <isslot id="cs-homepage-slot11" description="Homepage content Slot 11." context="global" />
+        <isslot id="cs-homepage-slot12" description="Homepage content Slot 12." context="global" />
+    </div>
+</isdecorate>
