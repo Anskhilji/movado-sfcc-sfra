@@ -88,14 +88,14 @@
         	dataLayer.push({'analyticsTracking': analyticsTracking});
         }
         
-        var orderConfirmation;
+        var orderConfirmationTriggerEvent;
         var orderConfirmationObj = '';
         if ('${pdict.orderConfirmationObj}' != 'null') {
             orderConfirmationObj = JSON.parse('<isprint value="${pdict.orderConfirmationObj}" encoding="htmlsinglequote"/>');
-            orderConfirmation = 'order_confirmation';
+            orderConfirmationTriggerEvent = 'order_confirmation';
         }
-        if (orderConfirmation) {
-            dataLayer.push({'event': orderConfirmation, 'orderConfirmationObj': orderConfirmationObj});
+        if (orderConfirmationTriggerEvent) {
+            dataLayer.push({'event': orderConfirmationTriggerEvent, 'orderConfirmationObj': orderConfirmationObj});
             orderConfirmation = null;
         }
     </script>

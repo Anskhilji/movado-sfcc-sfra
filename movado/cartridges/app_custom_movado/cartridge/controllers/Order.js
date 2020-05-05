@@ -121,6 +121,7 @@ server.append('Confirm', function (req, res, next) {
         var token = urltoken[1];
         var thankYouPageUrl = URLUtils.abs('Order-Confirm', 'ID', id, 'token', token).toString();
         var analyticsTrackingLineItems = [];
+        var orderLineItemArray = [];
         var orderLineItemsIterator = orderLineItems.iterator();
         var orderDiscount = 0.00;
         if (order.getMerchandizeTotalNetPrice() && order.getAdjustedMerchandizeTotalNetPrice()) {
@@ -138,6 +139,13 @@ server.append('Confirm', function (req, res, next) {
                     quantity: productLineItem.quantityValue,
                     price: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
                     unique_id: productLineItem.productID
+                });
+                orderLineItemArray.push ({
+                    productName: stringUtils.removeSingleQuotes(productLineItem.productName),
+                    quantity: productLineItem.quantityValue,
+                    unitPrice: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
+                    unitPriceLessTax: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
+                    SKU: productLineItem.productID
                 });
             }
         }
@@ -212,14 +220,18 @@ server.append('Confirm', function (req, res, next) {
 
     var discountCode = '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
+    var couponLineItem;
+    
     while (couponLineItemsItr.hasNext()) {
-        var couponLineItem = couponLineItemsItr.next();
+        couponLineItem = couponLineItemsItr.next();
         discountCode = couponLineItem.getCouponCode();
     }
+    
     var orderConfirmationObj = {
         customerID: customerID,
         orderDiscount: orderDiscount,
-        couponCode: discountCode ? discountCode : ''
+        couponCode: discountCode ? discountCode : '',
+        orderLineItemArray: orderLineItemArray
     };
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
