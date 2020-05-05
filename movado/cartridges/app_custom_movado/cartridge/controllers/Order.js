@@ -211,16 +211,17 @@ server.append('Confirm', function (req, res, next) {
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
     }
-    var loggedIn = req.currentCustomer.raw.authenticated;
+    
     var customerID = '';
+    var loggedIn = req.currentCustomer.raw.authenticated;
     
     if (loggedIn) {
         customerID = req.currentCustomer.profile.customerNo;
     }
 
-    var discountCode = '';
-    var couponLineItemsItr = order.getCouponLineItems().iterator();
     var couponLineItem;
+    var couponLineItemsItr = order.getCouponLineItems().iterator();
+    var discountCode = '';
     
     while (couponLineItemsItr.hasNext()) {
         couponLineItem = couponLineItemsItr.next();
@@ -233,7 +234,7 @@ server.append('Confirm', function (req, res, next) {
     var orderConfirmationObj = {
         customerID: customerID,
         orderDiscount: orderDiscount,
-        couponCode: discountCode ? discountCode : '',
+        couponCode: discountCode,
         orderLineItemArray: orderLineItemArray
     };
     res.setViewData({
