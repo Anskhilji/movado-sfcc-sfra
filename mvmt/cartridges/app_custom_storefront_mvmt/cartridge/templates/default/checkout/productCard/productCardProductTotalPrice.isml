@@ -15,9 +15,13 @@
             });
         }
     </isscript>
-    <div class="strike-through <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>">
-        <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}</isif>
-    </div>
+    <iscomment>Custom Start:Removed Strike-though price duplication</iscomment>
+    <iscomment>
+        <div class="strike-through <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>">
+            <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}</isif>
+        </div>
+    </iscomment>
+    <iscomment>Custom End</iscomment>
     <iscomment>Custom Start:Removed Total amount of item no need to show total price in minicart</iscomment>
     <iscomment>
         <isif condition="${!empty(matchingLineItem)}">
