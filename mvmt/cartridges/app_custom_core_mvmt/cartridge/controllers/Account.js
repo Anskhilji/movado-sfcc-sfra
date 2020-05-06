@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var customAccountHelper = require('*/cartridge/scripts/helpers/customAccountHelpers');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
