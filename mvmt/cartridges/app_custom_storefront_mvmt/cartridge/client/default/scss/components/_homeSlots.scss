@@ -421,7 +421,7 @@
             font-family: FontAwesome;
 
             @include media-breakpoint-up(sm) {
-                display: block;
+                display: block !important;
             }
 
             &:before {
