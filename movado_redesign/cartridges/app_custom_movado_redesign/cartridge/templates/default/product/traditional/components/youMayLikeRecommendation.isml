@@ -9,7 +9,7 @@
           <div class="js-carousel cs-carousel" data-carousel-config='${pdict.product.prefs.recommendationCarouselConfig}'>
             <isloop items="${pdict.youMayLikeRecommendations}" var="product" status="loopState">
               <div class="carousel-tile">
-                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productId, 'pview', 'tile')}"/>
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productId, 'pview', 'tile','isTopSearch', true)}"/>
               </div>
             </isloop>
           </div>
