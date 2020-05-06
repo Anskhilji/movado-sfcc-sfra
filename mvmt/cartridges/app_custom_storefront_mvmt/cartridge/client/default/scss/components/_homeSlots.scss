@@ -145,6 +145,48 @@
                     }
                 }
             }
+
+            .home-content-text-title {
+
+                h2 {
+
+                    @include media-breakpoint-up(lg) {
+                        font-size: rem(40);
+                        line-height: rem(42);
+                        letter-spacing: rem(4.2);
+                    }
+                }
+            }
+
+            .home-content-text-link-btn {
+
+                .btn {
+                    background-color: $black;
+                    color: $white;
+                    padding: rem(12) rem(8);
+                    max-width: rem(200);
+                    white-space: normal;
+                    min-width: auto;
+
+                    @include media-breakpoint-up(md-down) {
+                        padding: rem(14) rem(20);
+                        white-space: nowrap;
+                        min-width: rem(200);
+                        max-width: none;
+                    }
+
+                    @include media-breakpoint-down(md-down) {
+                        color: $black;
+                        background-color: $white;
+                        border-color: $black;
+                    }
+
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                    }
+                }
+            }
         }
 
         &-img {
@@ -278,13 +320,35 @@
             .product-slider-aside {
 
                 .carousel-title {
-                    font-size: rem(36);
+                    font-size: rem(26);
+
+                    @include media-breakpoint-up(xl) {
+                        font-size: rem(36);
+                    }
+                }
+
+                .prev, .next {
+
+                    @include media-breakpoint-down(sm) {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        display: inline-block;
+                    }
                 }
             }
         }
     }
 
     .product-tile-redesign {
+
+        .tile-body {
+
+            .color-swatches {
+                margin: 0 auto;
+            }
+        }
 
         &:hover {
 
@@ -296,6 +360,7 @@
 }
 
 .homepage-carousel {
+    padding: rem(40) 0;
 
     @include media-breakpoint-up(sm) {
         padding: rem(40) rem(25);
@@ -364,11 +429,11 @@
             z-index: 5;
             background: $white;
             transform: translateY(-50%);
-            display: none;
+            display: none !important;
             font-family: FontAwesome;
 
             @include media-breakpoint-up(sm) {
-                display: block;
+                display: block !important;
             }
 
             &:before {
@@ -394,6 +459,10 @@
 
         &-slide {
             margin: 0 rem(5);
+
+            a {
+                text-decoration: none;
+            }
         }
     }
 }
