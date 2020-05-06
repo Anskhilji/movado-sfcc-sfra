@@ -320,10 +320,21 @@
             .product-slider-aside {
 
                 .carousel-title {
-                    font-size: rem(36);
+                    font-size: rem(26);
 
                     @include media-breakpoint-up(xl) {
-                        font-size: rem(26);
+                        font-size: rem(36);
+                    }
+                }
+
+                .prev, .next {
+
+                    @include media-breakpoint-down(sm) {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        display: inline-block;
                     }
                 }
             }
@@ -350,6 +361,7 @@
 
 .homepage-carousel {
     padding: rem(40) 0;
+
     @include media-breakpoint-up(sm) {
         padding: rem(40) rem(25);
     }
@@ -447,7 +459,7 @@
 
         &-slide {
             margin: 0 rem(5);
-            
+
             a {
                 text-decoration: none;
             }
