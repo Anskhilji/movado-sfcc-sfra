@@ -129,6 +129,13 @@
         padding-top: rem(6);
         color: $light-gray12;
         opacity: 50%;
+
+        h4 {
+            font-size: rem(15);
+            letter-spacing: rem(1.02);
+            line-height: rem(20);
+            text-transform: uppercase;
+        }
     }
     
     li.grey-arrow-right {
@@ -178,8 +185,10 @@
                 text-transform: capitalize;
                 padding: 0;
                 
-                &:focus {
+                &:focus, &:not(:disabled):not(.disabled).active, &:not(:disabled):not(.disabled):active {
                     box-shadow: none;
+                    background-color: $black;
+                    border-color: $black;
                 }
             }
         }
