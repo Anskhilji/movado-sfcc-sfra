@@ -13,8 +13,11 @@
             <isset name="preOrder" value="${true}" scope="page"/>
         </isif>
     </isloop>
-
-    <isinclude template="product/components/productTileImage" />
+    <isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-traditional-design')}">
+        <isinclude template="product/components/productTileImage" />
+    <iselse>
+        <isinclude template="product/old/components/productTileImage" />
+    </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
