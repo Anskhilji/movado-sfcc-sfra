@@ -8,6 +8,8 @@ const sendTrigger = require('./util/send').sendTrigger;
 const hookPath = 'app.communication.order.';
 const helpers = require('../util/helpers');
 
+var OrderMgr = require('dw/order/OrderMgr')
+
 /**
  * Trigger an order confirmation notification
  * @param {SynchronousPromise} promise
@@ -15,7 +17,9 @@ const helpers = require('../util/helpers');
  * @returns {SynchronousPromise}
  */
 function confirmation(promise, data) {
-    data.orderAsXML = helpers.stripXmlNS( data.params.Order.getOrderExportXML(null, null) );
+    //Custom Start: Get order from OrderMgr to avoid null object exception on line 22
+    var Order = OrderMgr.getOrder(data.context.order.orderNumber);
+    data.orderAsXML = helpers.stripXmlNS( Order.getOrderExportXML(null, null) );
     return sendTrigger(hookPath + 'confirmation', promise, data);
 }
 
