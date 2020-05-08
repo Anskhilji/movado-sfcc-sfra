@@ -31,7 +31,7 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
     function(req, res, next) {
     var target = req.querystring.rurl || 1;
-    var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'isMiniCart', true);
+    var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'isMiniCart', true).toString();
     var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target, 'isMiniCart', true).toString();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
@@ -54,7 +54,7 @@ server.append('MiniCartShow', consentTracking.consent, server.middleware.https, 
 
 server.append('RemoveProductLineItem', function (req, res, next) {
     var homePageURL = URLUtils.url('Home-Show').toString();
-    var isMiniCart = empty(req.querystring.isMiniCart) ? false : true;
+    var isMiniCart = empty(req.querystring.isMiniCart) ? false : req.querystring.isMiniCart;
     var basket = empty(res.getViewData().basket) ? '' : res.getViewData().basket;
     var basketItems = empty(basket) ? 0 : basket.items.length;
 

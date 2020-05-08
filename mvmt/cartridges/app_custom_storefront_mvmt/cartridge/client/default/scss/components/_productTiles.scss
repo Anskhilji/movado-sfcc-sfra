@@ -1,4 +1,5 @@
 .product-tile-redesign {
+    margin-bottom: rem(20);
 
     &:hover {
 
@@ -51,6 +52,100 @@
             margin-bottom: rem(30);
         }
 
+        .plp-swatches {
+            min-height: rem(25);
+            margin: auto auto rem(10);
+
+            .swatches {
+                max-width: 100%;
+                overflow: hidden;
+
+                &.slick-initialized {
+                    max-width: rem(150);
+                    margin: 0 auto;
+                    overflow: hidden;
+                }
+            }
+
+            .slick {
+
+                &-arrow {
+                    position: absolute;
+                    display: block;
+                    height: rem(20);
+                    width: rem(20);
+                    line-height: 0;
+                    font-size: 0;
+                    cursor: pointer;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    padding: 0;
+                    border: none;
+                    background: transparent;
+                    outline: none;
+
+                    &::before, &::after{
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                        height: rem(7);
+                        width: rem(2);
+                    }
+                }
+
+                &-next {
+                    right: rem(-25);
+
+                    &:before {
+                        transform: rotate(135deg);
+                        left: rem(5);
+                        top: rem(5);
+                    }
+
+                    &::after {
+                        transform: rotate(45deg);
+                        left: rem(5);
+                        top: rem(9);
+                    }
+                }
+
+                &-prev {
+                    left: rem(-30);
+
+                    &:before {
+                        transform: rotate(45deg);
+                        left: rem(15);
+                        top: rem(5);
+                    }
+
+                    &::after {
+                        transform: rotate(135deg);
+                        left: rem(15);
+                        top: rem(9);
+                    }
+                }
+            }
+        }
+
+        .color-swatches {
+            transition: all .25s;
+            padding: 1px;
+            -ms-flex-pack: center;
+            justify-content: center;
+            max-width: rem(250);
+
+            a {
+
+                span {
+
+                    img {
+                        width: rem(24);
+                        height: rem(24);
+                    }
+                }
+            }
+        }
+
         .price {
             display: block;
             float: initial;
@@ -89,6 +184,10 @@
 
         .pdp-link {
             margin: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
 
             @include media-breakpoint-up(lg) {
                 margin: rem(4) 0;

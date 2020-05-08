@@ -16,7 +16,6 @@
         <isinclude template="product/components/productTileImage" />
 
         <div class="tile-body">
-
             <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
                 <isif condition="${outOfStock}">
                     <div class="out-of-stock product-tag red-tag">
@@ -29,6 +28,13 @@
                     ${Resource.msg('label.new', 'common', null)}
                 </div>
             </div>
+
+            <isif condition="${pdict.display.swatches !== false}">
+                <div class="plp-swatches ${product.variationAttributes[0].values.length > 0 ? '':'0-opacity'}">
+                    <isinclude template="product/components/productTileSwatch" />
+                </div>
+            </isif>
+
             <isif condition="${pdict.display.showAddToCart}">
                 <div class="product-brand-info">
                     <span>${product.brand}</span>
@@ -43,24 +49,13 @@
             <iselse>
                 <isinclude template="product/components/pricing/main" />
             </isif>
-            <isif condition="${!pdict.isCompareableDisabled}"> 
-                <isinclude template="product/components/compare" />
-            </isif>
+
             <isif condition="${pdict.display.recommendattionTile}">
                 <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
             </isif>
         </div>
         <isif condition="${pdict.display.showAddToCart}">
             <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
-            <isif condition="${outOfStock}">
-                <div class="cart-and-ipay ">
-                    <div class="cta-add-to-cart">
-                        <button class="add-to-cart btn btn-primary out-of-stock-btn disabled" disabled data-pid="0607389">
-                            ${Resource.msg('label.not.available', 'common', null)}
-                        </button>
-                    </div>
-                </div>
-            </isif>
         </isif>
     </div>
 </div>

@@ -1,11 +1,36 @@
 @import 'variables';
 @import '~movado/staticContent';
 
+.contact-us-right-container {
+    padding: 0 rem(120) 0 0;
+
+    @include media-breakpoint-down(md) {
+        padding: 0;
+        margin-bottom: rem(16);
+    }
+}
+
 .contact-us-form-wrapper {
-    padding-left: rem(20);
-    padding-right: rem(70);
-    padding-top: rem(65);
-    padding-bottom: rem(160);
+    padding: rem(64) rem(152) rem(120);
+
+    @include media-breakpoint-down(lg) {
+        padding: 0;
+        margin-bottom: rem(28);
+    }
+
+    .contactus-page {
+        width: 90%;
+        margin: 0 auto;
+
+        @include media-breakpoint-up(lg) {
+            margin-left: auto;
+            max-width: rem(420);
+        }
+
+        .form-control-label {
+            font-family: $font-medium;
+        }
+    }
 
     @media only screen and (max-width: $custom-md-width) {
         flex-basis: 100%;
@@ -36,6 +61,10 @@
     padding: rem(40) 0;
     width: 100%;
     font-family: $font-medium;
+
+    @include media-breakpoint-up(lg) {
+        padding: rem(16) 0;
+    }
 
     &-title {
         text-transform: uppercase;
