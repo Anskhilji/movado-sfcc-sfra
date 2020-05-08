@@ -1369,7 +1369,9 @@
 
         .bottom-detail {
             padding: 0;
-            text-align: center;
+            @include media-breakpoint-down(xs) {
+                text-align: center;
+            }
         }
 
         .bottom-detail-mobile {
