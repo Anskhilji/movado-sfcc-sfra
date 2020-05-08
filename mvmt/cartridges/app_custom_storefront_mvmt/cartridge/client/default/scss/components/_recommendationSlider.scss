@@ -148,7 +148,10 @@
 
             &-list {
                 margin: 0;
-                margin-top: rem(-25);
+
+                @include media-breakpoint-up(sm) {
+                    margin-top: rem(-25);
+                }
 
                 @include media-breakpoint-up(md-down) {
                     padding-top: rem(25) !important;
