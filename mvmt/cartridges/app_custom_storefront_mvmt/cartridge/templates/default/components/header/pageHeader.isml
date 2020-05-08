@@ -84,19 +84,6 @@
                                     </div>
                                 </isif>
                                 <iscomment>Custom End</iscomment>
-                                <div class="main-level-item navbar-header account-wrapper search">
-                                    <isinclude url="${URLUtils.url('Account-Header')}" />
-                                </div>
-                                <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                                    <isinclude url="${URLUtils.url('Cart-MiniCart', 'isMobile', 'false')}" />
-                                </div>
-                                <div class="main-level-item header-nav-dots-icon">
-                                    <span class="header-dots">
-                                        <svg width="1" height="16" viewBox="0 0 1 16" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M0 3h1v1H0zM0 0h1v1H0zM0 6h1v1H0zM0 9h1v1H0zM0 12h1v1H0zM0 15h1v1H0z"></path>
-                                        </svg>
-                                    </span>
-                                </div>
                                 <div class="main-level-item">
                                     <button class="desktop-search-icon" tabindex="0" aria-label="Search" role="search">
                                         <span class="desktop-search-icon-search">
@@ -119,7 +106,20 @@
                                         </span>
                                     </button>
                                 </div>
+                                <div class="main-level-item header-nav-dots-icon">
+                                    <span class="header-dots">
+                                        <svg width="1" height="16" viewBox="0 0 1 16" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 3h1v1H0zM0 0h1v1H0zM0 6h1v1H0zM0 9h1v1H0zM0 12h1v1H0zM0 15h1v1H0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
                                 <a href="javascript:void(0);" class="search-icon header-icon" ></a>
+                                <div class="main-level-item navbar-header account-wrapper search">
+                                    <isinclude url="${URLUtils.url('Account-Header')}" />
+                                </div>
+                                <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                    <isinclude url="${URLUtils.url('Cart-MiniCart', 'isMobile', 'false')}" />
+                                </div>
                             </div>
                         </div>
                     </div>
