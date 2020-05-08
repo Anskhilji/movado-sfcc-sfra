@@ -11,7 +11,7 @@ module.exports = function () {
         $('.dropdown-item-mvmt').removeClass('show');
     });
 
-    $(".mvmt-menu-group .dropdown" ).click(function() {
+    $('.mvmt-menu-group .dropdown' ).click(function() {
         $(this).addClass('show');
     });
     
@@ -19,7 +19,7 @@ module.exports = function () {
         $('.third-level-men-menu').addClass('show');
     });
     
-    $(".third-level-menu-tab .btn" ).click(function() {
+    $('.third-level-menu-tab .btn' ).click(function() {
         var tablink = $(this).data('tab');
         $('.tab-content').removeClass('show');
         $('.third-level-menu-tab .btn').removeClass('active');

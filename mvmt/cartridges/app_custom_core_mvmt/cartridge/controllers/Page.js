@@ -1,7 +1,5 @@
 'use strict';
-/**
- * This controller is for breadcrumb Implementation on content asset pages
- */
+
 var server = require('server');
 var page = module.superModule;
 server.extend(page);

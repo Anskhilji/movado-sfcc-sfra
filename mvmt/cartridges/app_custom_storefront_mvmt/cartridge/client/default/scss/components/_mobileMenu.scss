@@ -33,7 +33,7 @@
             }
 
             select {
-                background-color: unset;
+                background-color: transparent;
                 background-size: rem(11);
                 background-position: center;
             }
@@ -96,7 +96,7 @@
         width: rem(20);
 
         &::before {
-            content: unset;
+            content: "";
         }
 
         &.login {
@@ -240,7 +240,7 @@ header.new-header {
         }
         
         .grey-sub-menu-unset {
-            background-color: unset;
+            background-color: transparent;
         } 
     }
 
