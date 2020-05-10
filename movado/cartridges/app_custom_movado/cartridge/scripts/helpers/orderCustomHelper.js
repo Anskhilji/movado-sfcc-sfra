@@ -40,7 +40,7 @@ function getTrackingUrlsAndNumbers(lineItems) {
         	var vendorCode = lineItem.custom.sapCarrierCode;
             var trackingNumber = lineItem.custom.sapTrackingNumber;
             if (!empty(trackingNumber) && !empty(vendorCode)) {
-            	var val = getTrackingURL(trackingUrlsObj, vendorCode, trackingNumber);
+                var val = getTrackingURL(trackingUrlsObj, vendorCode, trackingNumber);
                 if (empty(trackingNumbers.get(trackingNumber))) {
                     trackingNumbers.put(trackingNumber, trackingNumber);
                     var trackingInfo = {

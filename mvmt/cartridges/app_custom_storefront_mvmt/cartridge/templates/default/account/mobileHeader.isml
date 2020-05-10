@@ -1,0 +1,30 @@
+<isif condition="${pdict.name === null}">
+  <iscomment> Custom: nav-item class removed, mt-5 added</iscomment>
+  <li class="nav-item mobile-login  d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Login-Show')}" class="nav-link">
+      <i class="fa login" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('title.header.account', 'account', null)}</span>
+    </a>
+  </li>
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+<iselse/>
+  <iscomment> Custom: nav-item class removed, mobile-login, mt-5 added</iscomment>
+  <li class="mobile-login d-lg-none" role="menuitem">
+  <a href="${URLUtils.https('Account-Show')}" class="dropdown-link" role="button">
+    <span class="nav-link" role="button">
+      <i class="fa login" aria-hidden="true"></i>
+      <span class="user-message">${pdict.name}</span>
+    </span></a>
+  </li>
+    <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+</isif>
