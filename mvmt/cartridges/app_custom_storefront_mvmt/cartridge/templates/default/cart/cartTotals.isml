@@ -1,9 +1,10 @@
+<isset name="totals" value="${pdict.totals}" scope="page" />
 <div class="row d-none">
     <div class="col-6">
         <p class="price-label">${Resource.msg('label.shipping.cost','cart',null)}</p>
     </div>
     <div class="col-6">
-        <p class="text-right cost shipping-cost">${pdict.totals.totalShippingCost}</p>
+        <p class="text-right cost shipping-cost">${empty(totals) || empty(totals.totalShippingCost) ? '0.00' : totals.totalShippingCost}</p>
     </div>
 </div>
 <!-- Sales Tax -->
@@ -17,19 +18,20 @@
             <isif condition="${pdict.totalTaxVal == '-'}">
             	<p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
             <iselse>
-            	<p class="text-right cost tax-total">${pdict.totals.totalTax}</p>
+            	<p class="text-right cost tax-total">${empty(totals) || empty(totals.totalTax) ? '0.00' : totals.totalTax}</p>
             </isif>
         </div>
     </div>
 </isif>
 <iscomment> added div grand-total-section </iscomment>
+
 <div class="grand-total-section">
     <div class="row">
         <div class="col-6">
             <p class="grand-total-label price-label">${Resource.msg('label.cart.grandtotal','cart',null)}</p>
         </div>
         <div class="col-6">
-            <p class="text-right grand-total cost">${pdict.totals.grandTotal}</p>
+            <p class="text-right grand-total cost">${empty(totals) || empty(totals.grandTotal) ? '0.00' : totals.grandTotal}</p>
         </div>
     </div>
 </div>

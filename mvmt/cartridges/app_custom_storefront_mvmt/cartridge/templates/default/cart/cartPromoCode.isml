@@ -11,12 +11,12 @@
 </div>
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
 <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
-    <div class="row">
+    <div class="row swell-redemption-containar d-none">
         <div class="col-12">
             <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
             <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
             <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
-            <span class="swell-point-balance"></span>
+            <span class="swell-point-balance swell-points-total"></span>
             <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
             <section class="swell-redemption">
                 <div class="row">

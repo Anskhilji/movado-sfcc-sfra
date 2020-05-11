@@ -17,7 +17,7 @@ function checkoutCreate(orderNumber, paymentInstrument) {
         if (riskifiedCheckoutCreateResponse.error) {
             return false;
         }
-        if(paymentMethod.ID === 'PayPal' || (paymentMethod.ID === 'Adyen' && session.custom.adyenPaymentMethod ==='PayPal')){
+        if(paymentMethod.ID === 'PayPal' || (paymentMethod.ID === 'Adyen' && session.custom.adyenPaymentMethod ==='Paypal')){
         	RiskifiedService.storePaymentDetails({
                 avsResultCode: 'Y', // Street address and 5-digit ZIP code
     			// both

@@ -13,7 +13,12 @@ Template Notes:
     <label class="select-size-head-label ${attr.id}">
         ${attr.displayName} 
         <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 
-        <span class="selected-variation">
+        <span class="selected-variation" data-selected-variation-attr="${attr.id}">
+            <isloop items="${attr.values}" var="attrValue">
+                <isif condition="${attrValue.selected}">
+                    ${attrValue.displayValue} 
+                </isif>
+            </isloop>
         </span>
         <iscomment> Custom: End </iscomment>
     </label>
@@ -28,21 +33,29 @@ Template Notes:
         <isif condition="${attr.swatchable}">
             <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
-                    <button class="product-size-options select-variation-product color-variation" value="${attrValue.url}" data-attr-value="${attrValue.value}"
-                        ${!attrValue.selectable ? 'disabled' : ''}
-                        ${attrValue.selected ? 'selected' : ''}
+                <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
+                    <a  href="${attrValue.url}" 
+                        class=" product-size-options color-variation 
+                                ${attrValue.selected ? 'active' : ''}
+                                ${!attrValue.selectable ? 'disabled' : ''} "
                         style="background-image: url(${attrValue.images['swatch'][0].url})"
-                    >
-                    </button>
+                        ${!attrValue.selectable ? 'disabled' : ''} 
+                        ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
+                            <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
+                            </span>
+                    </a>
+                </isif>
             </isloop>
-
         <iselse>
             <isloop items="${attr.values}" var="attrValue">
-                <button class="product-size-options select-variation-product" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                    ${ product.productType === "variant" && isBundle ? "disabled" : "" }
                     ${!attrValue.selectable ? 'disabled' : ''}
                     ${attrValue.selected ? 'selected' : ''}
                 >
-                    ${attrValue.value}
+                    <span class="${attrValue.selectable ? '' : 'disabled'}">
+                        ${attrValue.value}
+                    </span>
                 </button>
             </isloop>
         </isif>
