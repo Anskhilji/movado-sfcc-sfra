@@ -13,6 +13,35 @@
   }
 }
 
+.accessible-link {
+  position: absolute;
+  z-index: 100001;
+  color: $white;
+  top: rem(10);
+  right: rem(20);
+
+  &:focus {
+    outline: $white dashed rem(2);
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  @include media-breakpoint-down(md) {
+    position: relative;
+    width: 100%;
+    right: 0;
+    text-align: center;
+    display: block;
+    top: 0;
+    height: rem(28);
+    padding-top: rem(6);
+    background-color: $maroon;
+  }
+}
+
 header {
   letter-spacing: rem(0.4);
   .logo-link {

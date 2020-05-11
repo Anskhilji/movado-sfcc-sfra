@@ -87,6 +87,17 @@
         } else {
         	dataLayer.push({'analyticsTracking': analyticsTracking});
         }
+        
+        var orderConfirmationTriggerEvent;
+        var orderConfirmationObj = '';
+        if ('${pdict.orderConfirmationObj}' != 'null') {
+            orderConfirmationObj = JSON.parse('<isprint value="${pdict.orderConfirmationObj}" encoding="htmlsinglequote"/>');
+            orderConfirmationTriggerEvent = 'order_confirmation';
+        }
+        if (orderConfirmationTriggerEvent) {
+            dataLayer.push({'event': orderConfirmationTriggerEvent, 'orderConfirmationObj': orderConfirmationObj});
+            orderConfirmationTriggerEvent = null;
+        }
     </script>
 </isif>
 
