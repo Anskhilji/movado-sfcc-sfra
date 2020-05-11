@@ -125,7 +125,7 @@
       "script": "~/cartridge/scripts/communication/order"
     },
     {
-      "name": "app.customer.email",
+      "name": "app.sfmc.customer.email",
       "script": "~/cartridge/scripts/hookProxy/emailProxy"
     }
   ]

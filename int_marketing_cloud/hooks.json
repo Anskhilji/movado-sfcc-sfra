@@ -1,39 +1,39 @@
 {
   "hooks": [
     {
-      "name": "app.communication.handler.registerHandler",
+      "name": "app.sfmc.communication.handler.registerHandler",
       "script": "~/cartridge/scripts/communication/handler"
     },
     {
-      "name": "app.communication.account.created",
+      "name": "app.sfmc.communication.account.created",
       "script": "~/cartridge/scripts/communication/account"
     },
     {
-      "name": "app.communication.account.updated",
+      "name": "app.sfmc.communication.account.updated",
       "script": "~/cartridge/scripts/communication/account"
     },
     {
-      "name": "app.communication.account.passwordChanged",
+      "name": "app.sfmc.communication.account.passwordChanged",
       "script": "~/cartridge/scripts/communication/account"
     },
     {
-      "name": "app.communication.account.passwordReset",
+      "name": "app.sfmc.communication.account.passwordReset",
       "script": "~/cartridge/scripts/communication/account"
     },
     {
-      "name": "app.communication.account.lockedOut",
+      "name": "app.sfmc.communication.account.lockedOut",
       "script": "~/cartridge/scripts/communication/account"
     },
     {
-      "name": "app.communication.customerService.contactUs",
+      "name": "app.sfmc.communication.customerService.contactUs",
       "script": "~/cartridge/scripts/communication/customerService"
     },
     {
-      "name": "app.communication.giftCertificate.sendCertificate",
+      "name": "app.sfmc.communication.giftCertificate.sendCertificate",
       "script": "~/cartridge/scripts/communication/giftCertificate"
     },
     {
-      "name": "app.communication.order.confirmation",
+      "name": "app.sfmc.communication.order.confirmation",
       "script": "~/cartridge/scripts/communication/order"
     },
     {

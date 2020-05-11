@@ -26,7 +26,14 @@ module.exports = {
     send: send,
     sendEmail: function (emailObj, template, context) {
         var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-        return hooksHelper('app.customer.email', 'sendEmail', [emailObj, template, context], send);
+        var Site = require('dw/system/Site');
+      
+        var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
+        if (isMarketingCloudEnabled) {
+            return hooksHelper('app.sfmc.customer.email', 'sendEmail', [emailObj, template, context], send);
+        } else {
+           return hooksHelper('app.customer.email', 'sendEmail', [emailObj, template, context], send);
+        }
     },
     emailTypes: {
         registration: 1,
