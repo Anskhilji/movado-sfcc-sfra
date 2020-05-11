@@ -23,7 +23,7 @@
         </isif>
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.available}">
-            <div class="col-6">
+            <div class="col-6 suggested-products-tiles">
             <div class="row items-header d-none d-lg-block">
                 <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
