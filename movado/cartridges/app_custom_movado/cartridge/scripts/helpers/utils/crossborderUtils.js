@@ -42,7 +42,7 @@ function getSwellDiscountAmount(order) {
         var retailerDiscountAmount = (discountAmountShopperCurrency * -1) * fxRate;
         var totalCalculatedRetailerAmount = ((loyaltyRetailerDiscountAmount * -1) * fxRate) + ((calculatedRetailerDiscountAmount * -1) * fxRate);
         
-        if (retailerDiscountAmount == totalCalculatedRetailerAmount) {
+        if (retailerDiscountAmount === totalCalculatedRetailerAmount) {
             return loyaltyRetailerDiscountAmount;
         }
     } catch (e) {
