@@ -12,6 +12,7 @@
             <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
         </a>
     <iselse>
+        <label class="elements">
         <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
             <isif condition="${refinementValue.selected && refinementValue.selectable}">
                 <div class="fa fa-check-square rounded-image" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
@@ -20,6 +21,7 @@
             </isif>
         </a>
         <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+        </label>
     </isif>
 </li>
 <iscomment>Custom End</iscomment>

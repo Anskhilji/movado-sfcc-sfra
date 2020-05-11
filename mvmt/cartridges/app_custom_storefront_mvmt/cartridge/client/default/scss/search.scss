@@ -397,14 +397,24 @@
                     padding: 0;
                     margin: 0;
                     list-style: none;
+                    display: flex;
+                    flex-wrap: wrap;
+                    max-width: 90%;
 
                     li {
                         display: inline-block;
                         text-align: center;
-                        margin-bottom: rem(15);
-                        padding: 0 rem(10);
+                        margin-bottom: rem(20);
                         width: rem(120);
+                        height: rem(70);
                         line-height: rem(24);
+                        flex: 1;
+
+                        .elements {
+                            height: rem(70);
+                            margin: auto auto rem(15);
+                            display: block;
+                        }
 
                         span {
                             display: block;
@@ -1129,6 +1139,25 @@
             a {
                 outline: 0;
                 text-decoration: none;
+
+                &:not(.swatch-image) {
+
+                    i {
+
+                        &.fa {
+                            width: rem(54);
+                            height: rem(61);
+                            margin: rem(7) rem(8) rem(16) rem(16);
+                            justify-content: center;
+                            align-items: center;
+                            display: flex;
+
+                            &.fa-check-square, &.fa-square-o, .fa-circle-o, .fa-check-circle {
+                                font-size: rem(24);
+                            }
+                        }
+                    }
+                }
 
                 &.swatch-image {
                     display: inline-block;
