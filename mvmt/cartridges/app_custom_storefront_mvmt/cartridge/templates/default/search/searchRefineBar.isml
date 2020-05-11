@@ -66,10 +66,12 @@
                         <div class="mobile-active-option">
                             <div class="mobile-active-filters">
                                 <isloop items="${refinements}" var="refinement">
-                                    <isif condition="${!empty(refinement.values[0].swatchImageURL)}"> 
-                                       <img src="${refinement.values[0].swatchImageURL}"/>
-                                   </isif>
-                                   <span>${refinement.displayName}</span>
+                                    <button class="mobile-filter-options-btn-2" data-option-select=".mobile-${refinement.displayName}">
+                                        <isif condition="${!empty(refinement.values[0].swatchImageURL)}"> 
+                                           <img src="${refinement.values[0].swatchImageURL}"/>
+                                       </isif>
+                                       <span>${refinement.displayName}</span>
+                                   </button>
                                 </isloop>
                             </div>
                             <div class="mobile-active-actions">

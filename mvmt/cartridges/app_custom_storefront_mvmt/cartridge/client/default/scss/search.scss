@@ -642,7 +642,7 @@
                     }
                 }
 
-                &-btn {
+                &-btn, &-btn-2 {
                     background: linear-gradient(0deg,$white,$light-gray10);
                     width: 50%;
                     border: none;
@@ -659,6 +659,43 @@
 
                     &:nth-child(odd) {
                         border-right: 1px solid $light-gray4;
+                    }
+
+                    img {
+                        border-radius: 50%;
+                    }
+
+                    span {
+                        display: block;
+                    }
+                }
+
+                &-btn {
+
+                    &:last-child {
+                        margin-bottom: rem(60);
+                    }
+
+                    img {
+                        width: rem(40);
+                        height: rem(40);
+                    }
+
+                    span {
+                        margin-top: rem(25);
+                    }
+                }
+
+                &-btn-2 {
+
+                    img {
+                        width: rem(51);
+                        height: rem(51);
+                        margin-bottom: rem(10);
+                    }
+
+                    span {
+                        font-size: rem(9);
                     }
                 }
             }
@@ -775,6 +812,10 @@
                         flex-basis: 33.33333%;
                         width: 33.33333%;
                         box-sizing: border-box;
+
+                        @include media-breakpoint-down(md) {
+                            height: 25vw;
+                        }
 
                         span {
                             display: block;
@@ -1151,6 +1192,12 @@
                             justify-content: center;
                             align-items: center;
                             display: flex;
+
+                            @include media-breakpoint-down(md) {
+                                margin: rem(28) 0 0 0;
+                                height: rem(50);
+                                display: inline-block;
+                            }
 
                             &.fa-check-square, &.fa-square-o, .fa-circle-o, .fa-check-circle {
                                 font-size: rem(24);
