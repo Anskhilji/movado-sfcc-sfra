@@ -1,12 +1,14 @@
 <isset name="hasEmbeddedBonusProducts" value="${lineItem.bonusProductLineItemUUID === 'bonus'}"  scope="page"/>
 <isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
 <isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
+<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+
 
 <div class="card product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
     <isinclude template="cart/productCard/cartProductCardHeader" />
 
-    <div class="row ${bonuslineitemrow} item-info">
+    <div class="row ${bonuslineitemrow} item-info ${enableGiftMessage ? '' : 'border-bottom-0'}">
         <div class="col-12">
             <div class="row">
                 <div class="col-lg-12 d-flex flex-row mb-2">
@@ -61,9 +63,10 @@
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>
     </div>
-
-    <isif condition="${!lineItem.isBonusProductLineItem}"> 
-        <isinclude template="cart/productCard/cartGiftMessaging" />
+    <isif condition="${enableGiftMessage}">
+        <isif condition="${!lineItem.isBonusProductLineItem}"> 
+            <isinclude template="cart/productCard/cartGiftMessaging" />
+        </isif>
     </isif>
 
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
