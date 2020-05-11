@@ -665,6 +665,9 @@
         letter-spacing: normal;
         color: $grey8;
         margin-bottom: rem(5);
+        span:nth-child(2) {
+          display: flex;
+        }
 
         @include media-breakpoint-down(xs) {
           font-size: rem(12);
