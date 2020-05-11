@@ -164,36 +164,36 @@
   z-index: 2002;
   background: $white;
   border-top: rem(1) solid $gray91;
-  
-  .search-recomendation {
-    padding-left: rem(5);
-  }
-  
-  .search-suggestions { 
-    margin-top: rem(10);
+
+    .search-recomendation {
+        padding-left: rem(5);
+    }
+
+    .search-suggestions { 
+        margin-top: rem(10);
 
     ul {
-      padding: 0;
-      list-style-type: none;
+        padding: 0;
+        list-style-type: none;
 
-      li {
-        border-radius: 2px;
-        padding: 0 rem(17);
+        li {
+            border-radius: 2px;
+            padding: 0 rem(17);
 
-        a {
-          color: $black;
-          padding: rem(10) 0;
-          @include font-medium;
-          font-size: rem(12);
-          display: block;
-          line-height: rem(16);
-          letter-spacing: rem(0.82);
+            a {
+                color: $black;
+                padding: rem(10) 0;
+                @include font-medium;
+                font-size: rem(12);
+                display: block;
+                line-height: rem(16);
+                letter-spacing: rem(0.82);
+            }
         }
-      }
     }
-  }
+}
 
-  .mobile-search-close {
+.mobile-search-close {
     position: absolute;
     right: 0;
     background: $white;
@@ -208,13 +208,13 @@
     letter-spacing: rem(0.82);
 
     .mobile-search-icon {
-      padding: rem(17);
-      border: none;
-      background: none;
+        padding: rem(17);
+        border: none;
+        background: none;
     }
-  }
+}
 
-  .search-input-field {
+.search-input-field {
     margin: 0 auto rem(24);
     padding: 0;
     position: relative;
@@ -241,67 +241,68 @@
     }
 
     .side-search-icon {
-      left: rem(5);
-      position: absolute;
-      top: rem(15);
-      width: rem(20);
-      background: none;
-      border: none;
-      outline: none;
+        left: rem(5);
+        position: absolute;
+        top: rem(15);
+        width: rem(20);
+        background: none;
+        border: none;
+        outline: none;
 
-      svg {
+        svg {
 
-        g {
-          fill: $black;
-          fill-opacity: 1;
+            g {
+                fill: $black;
+                fill-opacity: 1;
+            }
         }
-      }
     }
   }
 }
 
 @include media-breakpoint-up(lg) {
-  .desktop-side-search {
-    display: block;
-    left: auto;
-    padding: rem(70) rem(20) 0;
-    padding-top: rem(30);
-    position: fixed;
-    right: -100%;
-    top: rem(80);
-    transition: all .25s ease;
-    width: rem(400);
-    z-index: 8;
 
-    &.desktop-search-active {
-      opacity: 1;
-      right: 0;
-      z-index: 40;
-      box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
-    }
+    .desktop-side-search {
+        display: block;
+        left: auto;
+        padding: rem(70) rem(20) 0;
+        padding-top: rem(30);
+        position: fixed;
+        right: -100%;
+        top: rem(80);
+        transition: all .25s ease;
+        width: rem(400);
+        z-index: 8;
 
-    .search-input-field {
-      border: 0;
-      width: 100%;
+        &.desktop-search-active {
+            opacity: 1;
+            right: 0;
+            z-index: 40;
+            box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
+        }
+
+        .search-input-field {
+            border: 0;
+            width: 100%;
+        }
     }
-  }
 }
 
 @include media-breakpoint-up(md) {
 
-  .suggestions {
-    max-height: 75vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: rem(0);
-    box-shadow: none;
-    margin-top: rem(11);
-    top: 0;
-  }
+    .suggestions {
+        max-height: 75vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: rem(0);
+        box-shadow: none;
+        margin-top: rem(11);
+        top: 0;
+    }
 
-  .suggestions:after, .suggestions:before {
-    content: none;
-  }
+    .suggestions:after, .suggestions:before {
+        content: none;
+    }
 }
 
 .top-search-tiles {
@@ -320,7 +321,7 @@
         opacity: 50%;
         padding: 0 rem(17);
         text-transform: capitalize;
-      }
+    }
 }
 
 .product-tile {
