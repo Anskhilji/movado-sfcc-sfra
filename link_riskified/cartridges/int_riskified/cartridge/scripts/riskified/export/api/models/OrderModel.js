@@ -135,11 +135,18 @@ function create(order, orderParams, checkoutDeniedParams) {
                 paymentProcessor = PaymentMgr.getPaymentMethod(orderPaymInstrument.paymentMethod).paymentProcessor.ID;
                 break;
             }
-
+            
+            /**
+             * Custom: Start Getting payment preocessor for PayPal using  paymentParams.paymentMethod
+             */
             if (paymentParams.paymentMethod == 'PayPal') {
-                paymentProcessor = PaymentMgr.getPaymentMethod(orderPaymInstrument.paymentMethod).paymentProcessor.ID;
+                paymentProcessor = PaymentMgr.getPaymentMethod(paymentParams.paymentMethod).paymentProcessor.ID;
                 break;
-            }            
+            }      
+
+            /**
+             * Custom: End
+             */
         }
         rskfdOrder.gateway = session.custom.decoOptIn ? 'DECO' : paymentProcessor;
         rskfdOrder.payment_details = PaymentDetails.create(order, paymentParams, checkoutDeniedParams);
