@@ -8,8 +8,24 @@
     width: 100%;
     position: relative;
 
+    @include media-breakpoint-down(sm) {
+
+        .items:last-of-type {
+            border: none;
+            padding-top: 0;
+        }
+
+        .items-header {
+            padding-top: 0;
+        }
+    }
+
     .search-suggestions-result {
         padding-left: rem(42);
+
+        @include media-breakpoint-down(sm) {
+            padding-left: rem(15);
+        }
     }
 
     .items-header {
@@ -36,6 +52,14 @@
 
         > a {
           font-size: rem(15);
+
+          @include media-breakpoint-down(sm) {
+            color: $black;
+            @include font-medium;
+            font-size: rem(12);
+            line-height: rem(16);
+            letter-spacing: rem(0.82);
+          }
         }
       }
     }
@@ -132,7 +156,7 @@
   height: calc(100vh - 52px);
   top: rem(52);
   overflow-y: visible;
-  padding: rem(20) 0 rem(120);
+  padding-top: rem(15);
   position: fixed;
   right: -100%;
   transition: all .25s ease;
@@ -140,15 +164,48 @@
   z-index: 2002;
   background: $white;
   border-top: rem(1) solid $gray91;
+  
+  .search-recomendation {
+    padding-left: rem(5);
+  }
+  
+  .search-suggestions { 
+    margin-top: rem(10);
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        border-radius: 2px;
+        padding: 0 rem(17);
+
+        a {
+          color: $black;
+          padding: rem(10) 0;
+          @include font-medium;
+          font-size: rem(12);
+          display: block;
+          line-height: rem(16);
+          letter-spacing: rem(0.82);
+        }
+      }
+    }
+  }
 
   .mobile-search-close {
     position: absolute;
-    top: rem(-55);
     right: 0;
     background: $white;
     width: calc(100vw - 133px);
     height: rem(54);
-    text-align: right;
+    text-align: center;
+    padding-top: rem(17);
+    text-decoration: underline;
+    @include font-medium;
+    font-size: rem(12);
+    line-height: rem(16);
+    letter-spacing: rem(0.82);
 
     .mobile-search-icon {
       padding: rem(17);
@@ -164,13 +221,17 @@
     width: calc(100% - 40px);
 
     .header-search-field {
+      border: none;
+      border-bottom: rem(1) solid $black;
       min-height: rem(50);
-      width: 100%;
-      padding-left: rem(30);
-      border: rem(1) solid $gray91;
+      width: 80%;
+      padding: 0;
       background: none;
-      font-size: rem(14);
-      @include font-book;
+      font-size: rem(12);
+      line-height: rem(16);
+      letter-spacing: rem(0.82);
+      text-align: left;
+      @include font-medium;
       outline: none;
 
       &:focus {
