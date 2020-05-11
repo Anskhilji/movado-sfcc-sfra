@@ -16,6 +16,35 @@
   }
 }
 
+.accessible-link {
+  position: absolute;
+  z-index: 100001;
+  color: $black;
+  top: rem(10);
+  right: rem(20);
+
+  &:focus {
+    outline: $black dashed rem(2);
+  }
+
+  &:hover {
+    color: $black;
+    text-decoration: underline;
+  }
+
+  @include media-breakpoint-down(md) {
+    position: relative;
+    width: 100%;
+    right: 0;
+    text-align: center;
+    display: block;
+    top: 0;
+    height: rem(28);
+    padding-top: rem(6);
+    background-color: $pink-grey;
+  }
+}
+
 header {
   .logo {
     &-link {
