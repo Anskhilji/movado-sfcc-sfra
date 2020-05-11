@@ -514,6 +514,44 @@ module.exports = function () {
         updateCartQuantity(this, false);
     });
 
+    $('.mini-cart-data').on('click', '.coupons-and-promos .remove-coupon', function (e) {
+        e.preventDefault();
+
+        var couponCode = $(this).data('code');
+        var uuid = $(this).data('uuid');
+
+        var url = $(this).data('action');
+        var urlParams = {
+            code: couponCode,
+            uuid: uuid
+        };
+
+        url = appendToUrl(url, urlParams);
+
+        $.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $('.coupon-uuid-' + uuid).remove();
+                updateCartTotals(data);
+                updateApproachingDiscounts(data.approachingDiscounts);
+                $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
+                validateBasket(data);
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
+    });
+
     $movadoBase.selectAttribute();
     $movadoBase.colorAttribute();
     $movadoBase.removeBonusProduct();
