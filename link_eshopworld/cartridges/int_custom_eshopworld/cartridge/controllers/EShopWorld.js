@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var Logger = require('dw/system/Logger');
+var Site = require('dw/system/Site');
 
 server.append('GetEswHeader', function (req, res, next) {
     var allCountries = null;
@@ -104,6 +105,17 @@ server.append('GetEswLandingPage', function (req, res, next) {
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
     res.viewData.EswLandingObject.allCountries = allCountries;
+    return next();
+});
+
+server.append('NotifyV2', function(req, res, next) {
+    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+        SwellExporter.exportOrder({
+            orderNo: res.viewData.OrderNumber,
+            orderState: 'created'
+        });
+    }
     return next();
 });
 
