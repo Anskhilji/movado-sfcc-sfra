@@ -12,25 +12,29 @@
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
 <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
     <div class="row">
-        <div class="col-12">
-            <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-            <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
-            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
-            <span class="swell-point-balance"></span>
-            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
-            <section class="swell-redemption">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <select id="swell-redemption-dropdown">
-                            <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block ">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
-                    </div>
+        <div class="col-12 collapsible-promo-wrapper" tabindex="0">
+            <div class="promo-code-form">
+                <div class="form-group collapsible-xl">
+	                <label class="title" class="optional-promo swell-discount" for="couponCode">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
+	                <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+		            <section class="swell-redemption">
+		                <div class="row content value">
+		                    <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
+		                    <span class="swell-point-balance"></span>
+		                    <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
+		                    <div class="col-9 pl-0 pr-2">
+		                        <select id="swell-redemption-dropdown" class="swell-redemption-dropdown">
+		                            <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
+		                        </select>
+		                    </div>
+		                    <div class="col-3 pl-2 pr-1">
+		                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block swell-redemption-btn">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
+		                    </div>
+		                </div>
+		            </section>
+		            <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
                 </div>
-            </section>
-            <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
+            </div>
         </div>
     </div>
 </isif>

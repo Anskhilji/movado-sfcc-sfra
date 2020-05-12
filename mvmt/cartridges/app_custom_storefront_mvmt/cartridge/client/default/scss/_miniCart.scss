@@ -385,6 +385,32 @@
             .mini-cart-promo-box {
                 border-bottom: rem(1) solid $light-gray4;
 
+
+                .swell-redemption {
+
+                    &-dropdown {
+                        width: 100%;
+                        padding: rem(8.32) rem(12);
+                        border-radius: rem(4);
+                        border: rem(1) solid $light-gray4;
+                        padding: rem(9) rem(5);
+                    }
+
+                    &-btn {
+                        background-color: $black;
+                        border-radius: rem(4);
+                        font-weight: 600;
+                        font-size: rem(14);
+                        padding: rem(9) rem(5);
+
+                        &:hover, &:focus {
+                            background-color: $black;
+                            background-image: linear-gradient($black, $black);
+                            border-color: $black;
+                        }
+                    }
+                }
+
                 .coupons-and-promos {
                     width: 100%;
 
@@ -407,14 +433,14 @@
                         box-shadow: none;
                     }
 
-                    .promo-code-btn, .swell-promo-code-btn {
+                    .promo-code-btn {
                         background-color: $black;
                         border-radius: rem(4);
 
                         &:hover, &:focus {
-                          background-color: $black;
-                          background-image: linear-gradient($black, $black);
-                          border-color: $black;
+                            background-color: $black;
+                            background-image: linear-gradient($black, $black);
+                            border-color: $black;
                         }
                     }
 
