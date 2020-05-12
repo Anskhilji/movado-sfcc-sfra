@@ -37,7 +37,7 @@ module.exports = function () {
     
     $(window).on('resize load',function () {
         var height = $(window).height()-212;
-        $('.tab-content ul').height(height);
+        $('.tab-content-submenu ul').height(height);
     });
     
 };
