@@ -1152,4 +1152,12 @@ header.new-header.mvmt-header-design {
             }
         }
     }
+    
+    .mobile-menu {
+        li.grey-arrow-right {
+            &:hover {
+                background: url("../images/Grey.svg") right rem(20) center no-repeat;
+            }
+        }
+     }
 }
