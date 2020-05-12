@@ -80,15 +80,13 @@
     margin-top: 0;
     overflow: hidden;
     position: absolute;
-    opacity: 1;
+    opacity: 0;
     pointer-events: auto;
     min-height: rem(260);
-    left: 50%;
-    transform: scaleY(0) translateX(-50%);
     transform-origin: top center;
     transition: transform .2s cubic-bezier(0,0,.2,1);
-    display: inherit !important;
     padding: 0;
+    display: none;
 
     .dropdown-link {
       display: block;
@@ -125,12 +123,10 @@
       .dropdown-menu {
         z-index: 0;
         opacity: 0;
-        transform: scaleX(1) translateX(-50%);
         border-top: rem(1) solid $gray94;
         margin-top: rem(-1);
 
         &::after {
-          transform: scaleX(1) translateX(-50%) ;
           margin-top: rem(-1);
         }
       }
@@ -166,18 +162,16 @@
 
         &::after {
           content: "";
-          display: block;
-          background: url("../images/nav-hover-icon.svg")  center bottom no-repeat;
           position: absolute;
           bottom: -1px;
           right: 0;
           left: 0;
           margin: 0 auto;
           opacity: 0;
-          transform: rotateY(90deg);
           transition: opacity .3s ease 0s,transform .24s ease 0s;
-          width: 30px;
-          height: 10px;
+          width: 75%;
+          height: rem(2);
+          background: $black;
         }
       }
 
@@ -200,32 +194,25 @@
     padding: rem(40) rem(50);
     padding-bottom: rem(30);
     max-width: $container-max-width;
+    padding-left: rem(100);
 
     .submenu {
       width: 100%;
     }
 
     .sub-menu-title {
-      @include font-medium;
+      font-family: $font-medium;
+      font-weight: 500;
       font-size: rem(12);
       text-transform: uppercase;
       letter-spacing: .8px;
-      margin-bottom: rem(15);
+      margin-bottom: rem(20);
       line-height: 1;
-      color: $black;
+      color: $night-rider;
       white-space: nowrap;
-      margin-bottom: rem(15);
       line-height: 1;
       display: block;
-
-      &::after {
-        content: "";
-        display: block;
-        width: rem(80);
-        white-space: nowrap;
-        border-bottom: rem(1) solid $black;
-        margin-top: rem(10);
-      }
+      opacity: 0.5;
     }
 
     .browse-collection {
@@ -242,16 +229,19 @@
         ul {
           padding: 0;
           list-style: none;
-
+          display: flex;
+          flex-wrap: wrap;
         }
 
         .submenu-item {
           display: inline-block;
-          width: 50%;
-          padding: rem(10) rem(5) rem(10) rem(5);
+          margin-bottom: rem(20);
           text-align: left;
           display: inline-block;
-          margin-left: -5px;
+
+          @include media-breakpoint-up(lg) {
+            width: 50%;
+          }
 
           a {
             align-items: center;
@@ -262,7 +252,6 @@
             }
 
             .dropdown-menu-item-img-wrap {
-              border-radius: 50%;
 
               &.no-img {
                 opacity: 0;
@@ -272,8 +261,9 @@
               img {
                 height: rem(62);
                 width: rem(62);
-                border-radius: 50%;
                 margin-right: rem(15);
+                display: inline-block;
+                border-radius: 50%;
               }
             }
 
@@ -293,8 +283,24 @@
 
         .third-level-menu {
 
-          .submenu-item  {
-            width: 33.33%;
+          .submenu-item {
+
+            @include media-breakpoint-up(lg) {
+              width: 25%;
+              max-width: rem(175);
+              margin-right: rem(25);
+              padding: 0;
+              margin-bottom: rem(25);
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+            @include media-breakpoint-up(xl) {
+              margin-right: rem(50);
+              margin-bottom: rem(50);
+            }
+
           }
         }
       }
@@ -337,51 +343,90 @@
 
           .header-tiles  {
             display: flex;
+            max-width: rem(930);
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: rem(20);
+
+            .html-content {
+              margin-right: rem(60);
+              min-width: rem(290);
+
+              &:last-child {
+                margin-right: 0;
+              }
+
+              a {
+                position: relative;
+                display: block;
+
+                img {
+                  width: 100%;
+                  height: rem(335);
+                }
+
+                span {
+                  position: absolute;
+                  left: 0;
+                  bottom: rem(-15);
+                  background-color: $black;
+                  color: $white;
+                  font-family: $font-medium;
+                  font-size: rem(14);
+                  text-transform: uppercase;
+                  padding: rem(10) rem(20);
+                  letter-spacing: rem(1.5);
+                }
+              }
+            }
           }
       }
 
       .dropdown-item {
-        margin-bottom: rem(11);
+        margin-bottom: rem(18);
         position: relative;
         line-height: 1.4;
-        margin: rem(6) 0;
-        overflow: hidden;
+        overflow: initial;
         display: inline-block;
         background: transparent;
-        padding-right: rem(15);
         white-space: nowrap;
         width: auto;
+        position: relative;
 
         .dropdown-link {
           @include font-medium;
           font-size: rem(12);
           transition: transform .24s ease 0s;
-        }
 
-        &::before {
-          content: "";
-          display: block;
-          background-image: url(../images/nav-icon-hover-right.svg);
-          background-repeat: no-repeat;
-          background-position: 50%;
-          background-size: cover;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: rem(4.5);
-          height: rem(14);
-          transition: transform .24s ease 0s;
-          transform: translateX(-6px);
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: rem(-4);
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity .3s ease 0s,transform .24s ease 0s;
+            width: 100%;
+            height: rem(1);
+            background: $black;
+          }
+
+          &:hover {
+
+            &::before {
+              opacity: 1;
+            }
+          }
         }
 
         &.active {
 
           .dropdown-link {
-            transform: translateX(15px);
-          }
 
-          &::before {
-            transform: translateX(0);
+            &::before {
+              opacity: 1;
+            }
           }
         }
       }
@@ -393,32 +438,6 @@
       width: 100px;
       -ms-flex-negative: 0;
       flex-shrink: 0;
-    }
-  }
-
-  .desktop-menu {
-
-    .menu-content {
-
-      .browse-collection {
-
-        .third-level-menu {
-
-          .submenu-item {
-            width: 50%;
-          }
-        }
-
-        &.no-static-content {
-
-          .third-level-menu {
-
-            .submenu-item {
-              width: 25%;
-            }
-          }
-        }
-      }
     }
   }
 }
@@ -434,6 +453,59 @@
       padding: 0;
       width: rem(6);
       border: 0;
+    }
+  }
+}
+
+.tab{
+
+  &-list {
+    margin-bottom: rem(30);
+    display: flex;
+
+    button {
+      font-family: $font-book;
+      font-size: rem(12);
+      width: rem(100);
+      height: rem(25);
+      display: inline-block;
+      border: rem(1) solid $black;
+      background: $white;
+      color: $black;
+      transition: ease 0.3s;
+      outline: none;
+
+      &.active, &:hover {
+        background: $black;
+        color: $white;
+      }
+    }
+
+    li {
+
+      &:first-child {
+        button {
+          border-radius: rem(5) 0  0 rem(5);
+          border-right: 0;
+        }
+      }
+
+      &:last-child {
+        button {
+          border-radius: 0 rem(5) rem(5) 0;
+          border-left: 0;
+        }
+      }
+    }
+  }
+
+  &-content {
+    &-list {
+      display: none;
+
+      &.active {
+        display: block;
+      }
     }
   }
 }

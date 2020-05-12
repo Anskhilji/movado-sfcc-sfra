@@ -2,7 +2,6 @@
 <div class="dropdown-menu" role="menu" aria-hidden="true">
     <div class="menu-content movado-header-dropdown">
         <div class="menu-pane">
-            <h3>${Resource.msgf('title.header.dropdown', 'common', null)} ${category.name}</h3>
             <ul>
               <isloop items="${menuItem.subCategories}" var="category">
                   <li class="dropdown-item gtm-customEvent submenu-control" role="menuitem" data-category = ${category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
@@ -14,7 +13,7 @@
         <div class="submenu" id="submenu">
             <isloop items="${menuItem.subCategories}" var="category"  status="loopStatus">
                 <isset name="categoryItem" value="${category}" scope="page"/>
-                <div class="submenu-container ${loopStatus.first == true ? '' : 'd-none' }" data-parentcategory = ${category.id}>
+                <div class="submenu-container ${loopStatus.first == true ? 'active' : 'd-none' }" data-parentcategory = ${category.id}>
                     <isif condition="${category.subCategories}">
                         <a href="${category.url}" id="${category.id+'list'}" class="sub-menu-title" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                     </isif>
