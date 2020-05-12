@@ -514,19 +514,21 @@ module.exports = function () {
         updateCartQuantity(this, false);
     });
 
-    $('.mini-cart-data').on('click', '.coupons-and-promos .remove-coupon', function (e) {
+    $('body').off('click', '.coupons-and-promos .remove-coupon').on('click', '.coupons-and-promos .remove-coupon', function (e) {
         e.preventDefault();
 
         var couponCode = $(this).data('code');
         var uuid = $(this).data('uuid');
-
         var url = $(this).data('action');
+        var $productToRemoveSpan = $('.coupon-to-remove');
+        $productToRemoveSpan.empty().append(couponCode);
         var urlParams = {
             code: couponCode,
             uuid: uuid
         };
 
         url = appendToUrl(url, urlParams);
+        $('body > .modal-backdrop').remove();
 
         $.spinner().start();
         $.ajax({

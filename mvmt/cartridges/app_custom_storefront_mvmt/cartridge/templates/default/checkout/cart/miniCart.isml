@@ -139,5 +139,8 @@
         </isif>
         <iscomment> 
         <iscomment> Custom End </iscomment>
+		<div class="cart-coupons-remove">
+		    <isinclude template="cart/cartRemoveCouponModal" />
+		</div>
     </div>
 </isif>

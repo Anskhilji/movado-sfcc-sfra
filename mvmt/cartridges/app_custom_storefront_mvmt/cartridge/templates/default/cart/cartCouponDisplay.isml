@@ -6,10 +6,8 @@
                 <button type="button" class="float-right remove-coupon"
                         data-code="${discount.couponCode}"
                         aria-label="Close"
-                        data-toggle="modal"
-                        data-target="#removeCouponModal"
                         data-uuid="${discount.UUID}"
-                        data-action="${URLUtils.url('Cart-RemoveCouponLineItem')}"
+                        data-action="${URLUtils.url('Cart-RemoveCouponLineItem').toString()}"
                         >
                     <span aria-hidden="true">&times;</span>
                 </button>

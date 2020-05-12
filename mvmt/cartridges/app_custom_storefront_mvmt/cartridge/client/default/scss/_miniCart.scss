@@ -407,12 +407,12 @@
                         box-shadow: none;
                     }
 
-                    .promo-code-btn {
+                    .promo-code-btn, .swell-promo-code-btn {
                         background-color: $black;
                         border-radius: rem(4);
 
                         &:hover, &:focus {
-                            background-color: $black;
+                          background-color: $black;
                           background-image: linear-gradient($black, $black);
                           border-color: $black;
                         }
