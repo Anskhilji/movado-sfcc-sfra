@@ -32,9 +32,13 @@
             <div class="row estimated-total justify-content-center">
                 ${Resource.msg('cart.label.estimatedtotal', 'cart', null)} <span class="cart-total ml-1">${pdict.totals.grandTotal}</span>
             </div>
-            <isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
-            <isinclude template="util/affirmmodule_mf" />
-            <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
+            <iscomment> Custom Start: Adding check for affirm to show only when country US is selected</iscomment>
+            <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+                <isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+                <isinclude template="util/affirmmodule_mf" />
+                <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
+            </isif>
+            <iscomment> Custom End </iscomment>
             <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaCartPromoMsg}"> 
                     <isinclude template="klarna/klarnaPromotionMessage" />
             </isif>

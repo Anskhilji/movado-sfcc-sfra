@@ -17,6 +17,10 @@
                  </isif>
             </isif>
         </button>
-	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+        <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+            <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+        </isif>
+        <iscomment> Custom End </iscomment>
     </div>
 </div>
