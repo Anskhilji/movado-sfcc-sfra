@@ -383,33 +383,6 @@
             }
 
             .mini-cart-promo-box {
-                border-bottom: rem(1) solid $light-gray4;
-
-
-                .swell-redemption {
-
-                    &-dropdown {
-                        width: 100%;
-                        padding: rem(8.32) rem(12);
-                        border-radius: rem(4);
-                        border: rem(1) solid $light-gray4;
-                        padding: rem(9) rem(5);
-                    }
-
-                    &-btn {
-                        background-color: $black;
-                        border-radius: rem(4);
-                        font-weight: 600;
-                        font-size: rem(14);
-                        padding: rem(9) rem(5);
-
-                        &:hover, &:focus {
-                            background-color: $black;
-                            background-image: linear-gradient($black, $black);
-                            border-color: $black;
-                        }
-                    }
-                }
 
                 .coupons-and-promos {
                     width: 100%;
@@ -424,6 +397,45 @@
                 }
 
                 .promo-code-form {
+                    border-bottom: rem(1) solid $light-gray4;
+
+                    .swell-redemption {
+
+                        .swell-point-balance {
+                            padding: 0 rem(4);
+                        }
+
+                        &-text {
+
+                            &.content {
+                                margin-left: 0;
+                            }
+                        }
+
+                        &-dropdown {
+                            width: 100%;
+                            padding: rem(8.32) rem(12);
+                            border-radius: rem(4);
+                            border: rem(1) solid $light-gray4;
+                            padding: rem(9) rem(5);
+                            outline: 0;
+                        }
+
+                        &-btn {
+                            background-color: $black;
+                            border-radius: rem(4);
+                            font-weight: 600;
+                            font-size: rem(14);
+                            padding: rem(9) rem(5);
+                            box-shadow: none;
+
+                            &:hover, &:focus {
+                                background-color: $black;
+                                background-image: linear-gradient($black, $black);
+                                border-color: $black;
+                            }
+                        }
+                    }
 
                     .coupon-code-field {
                         line-height: 1;

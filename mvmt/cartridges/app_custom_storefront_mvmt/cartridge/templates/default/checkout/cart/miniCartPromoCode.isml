@@ -1,9 +1,4 @@
-<iscomment>Custom Start: Add Client side Js in cart page</iscomment>
-<isscript>
-    var assets = require('*/cartridge/scripts/assets.js');
-    assets.addJs('/js/swell.js');
-</isscript>
-<iscomment>Custom End</iscomment>
+<isinclude template="include/yotpoheader"/>
 <div class="row">
     <div class="col-12 d-none">
         <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
@@ -15,24 +10,26 @@
         <div class="col-12 collapsible-promo-wrapper" tabindex="0">
             <div class="promo-code-form">
                 <div class="form-group collapsible-xl">
-	                <label class="title" class="optional-promo swell-discount" for="couponCode">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
-	                <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-		            <section class="swell-redemption">
-		                <div class="row content value">
-		                    <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
-		                    <span class="swell-point-balance"></span>
-		                    <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
-		                    <div class="col-9 pl-0 pr-2">
-		                        <select id="swell-redemption-dropdown" class="swell-redemption-dropdown">
-		                            <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
-		                        </select>
-		                    </div>
-		                    <div class="col-3 pl-2 pr-1">
-		                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block swell-redemption-btn">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
-		                    </div>
-		                </div>
-		            </section>
-		            <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
+                    <label class="title" class="optional-promo swell-discount" for="couponCode">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
+                    <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                    <section class="swell-redemption">
+                        <div class="row content value swell-redemption-text">
+                            <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)} </span>
+                            <span class="swell-point-balance"></span>
+                            <span class="swell-points-balance-text"> ${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
+                        </div>
+                        <div class="row content value">
+                            <div class="col-9">
+                                <select id="swell-redemption-dropdown" class="swell-redemption-dropdown">
+                                    <option>${Resource.msg('msg.swell.option.select', 'cart', null)}</option>
+                                </select>
+                            </div>
+                            <div class="col-3 pl-2">
+                                <button type="button" class="btn btn-primary btn-block swell-redemption-btn">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
                 </div>
             </div>
         </div>
@@ -55,7 +52,7 @@
 
                     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-                    <div class="col-3 promo-code-submit pl-0">
+                    <div class="col-3 promo-code-submit pl-2">
                         <button type="submit" class="btn btn-outline-primary btn-block promo-code-btn">
                             ${Resource.msg('button.promo.text','cart',null)}
                         </button>
