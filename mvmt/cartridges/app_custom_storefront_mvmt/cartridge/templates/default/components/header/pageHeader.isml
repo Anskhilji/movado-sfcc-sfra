@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="center-align nav-center pt-2 d-lg-none d-block">
+                        <div class="center-align nav-center mvmt-mobile-header-logo pt-2 d-lg-none d-block">
                             <isslot id="brand-logo" description="Brand Logo" context="global" />
                         </div>
                         <div class="nav-center navbar-header header-logo">
