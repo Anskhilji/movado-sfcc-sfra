@@ -28,12 +28,14 @@ module.exports = {
         var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
         var Site = require('dw/system/Site');
       
+     // Custom Start : condition to check if SFMC transactional email feature enable or disable
         var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
         if (isMarketingCloudEnabled) {
             return hooksHelper('app.sfmc.customer.email', 'sendEmail', [emailObj, template, context], send);
         } else {
            return hooksHelper('app.customer.email', 'sendEmail', [emailObj, template, context], send);
         }
+    // Custom End
     },
     emailTypes: {
         registration: 1,
