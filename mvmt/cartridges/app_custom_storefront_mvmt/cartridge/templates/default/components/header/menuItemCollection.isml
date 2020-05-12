@@ -2,7 +2,7 @@
     <button data-tab=".third-level-men-menu" class="btn btn-outline-dark btn-men-tab active">${Resource.msg('label.header.menu.men', 'product', null)}</button>
     <button data-tab=".third-level-women-menu" class="btn btn-outline-dark btn-women-tab">${Resource.msg('label.header.menu.women', 'product', null)}</button>
 </div>
-<div class="third-level-menu tab-content third-level-men-menu show" role="menu" aria-hidden="true">
+<div class="third-level-menu tab-content-submenu third-level-men-menu show" role="menu" aria-hidden="true">
     <ul>
         <isloop items="${categoryItem.subCategories}" var="category">
             <isif condition="${category.gender.equalsIgnoreCase('Men')}" >
@@ -18,7 +18,7 @@
         </isloop>
     </ul>
 </div>
-<div class="tab-content third-level-menu third-level-women-menu" role="menu" aria-hidden="true">
+<div class="tab-content-submenu third-level-menu third-level-women-menu" role="menu" aria-hidden="true">
     <ul>
         <isloop items="${categoryItem.subCategories}" var="category">
             <isif condition="${category.gender.equalsIgnoreCase('Women')}" >
