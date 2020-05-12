@@ -128,13 +128,13 @@
         margin-left: rem(35);
         padding-top: rem(6);
         color: $light-gray12;
-        opacity: 50%;
 
         h4 {
             font-size: rem(15);
             letter-spacing: rem(1.02);
             line-height: rem(20);
             text-transform: uppercase;
+            opacity: 0.5;
         }
     }
     
