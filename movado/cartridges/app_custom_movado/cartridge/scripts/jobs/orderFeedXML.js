@@ -171,13 +171,8 @@ function getLineItemConsumerTaxAmount(lineItem, isEswEnabled) {
                 lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
         var eswShopperCurrencyItemOtherTaxes = !empty(lineItem.custom.eswShopperCurrencyItemOtherTaxes) ?
                 lineItem.custom.eswShopperCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemAdministration = !empty(lineItem.custom.eswShopperCurrencyItemAdministration) ?
-                lineItem.custom.eswShopperCurrencyItemAdministration : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemDeliveryTaxes = !empty(lineItem.custom.eswShopperCurrencyItemDeliveryTaxes) ?
-                lineItem.custom.eswShopperCurrencyItemDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var consumerTaxAmount = parseFloat(eswShopperCurrencyItemTaxes + eswShopperCurrencyItemOtherTaxes
-            + eswShopperCurrencyItemAdministration + eswShopperCurrencyItemDeliveryTaxes).toFixed(TWO_DECIMAL_PLACES);
-    return consumerTaxAmount;
+        var consumerTaxAmount = parseFloat(eswShopperCurrencyItemTaxes + eswShopperCurrencyItemOtherTaxes).toFixed(TWO_DECIMAL_PLACES);
+        return consumerTaxAmount;
     }
     return '';
 }
@@ -189,11 +184,8 @@ function getLineItemConsumerTaxAmount(lineItem, isEswEnabled) {
 */
 function getLineItemConsumerDutyAmount(lineItem, isEswEnabled) {
     if (isEswEnabled) {
-        var eswShopperCurrencyItemDeliveryDuty = !empty(lineItem.custom.eswShopperCurrencyItemDeliveryDuty) ?
-                lineItem.custom.eswShopperCurrencyItemDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemDuty = !empty(lineItem.custom.eswShopperCurrencyItemDuty) ?
-                lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var consumerDutyAmount = parseFloat(eswShopperCurrencyItemDeliveryDuty + eswShopperCurrencyItemDuty).toFixed(TWO_DECIMAL_PLACES);
+        var consumerDutyAmount = !empty(lineItem.custom.eswShopperCurrencyItemDuty) ?
+                parseFloat(lineItem.custom.eswShopperCurrencyItemDuty).toFixed(TWO_DECIMAL_PLACES) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
         return consumerDutyAmount;
     }
     return '';
@@ -220,6 +212,26 @@ function getLineItemConsumerNetAmount(order, lineItem, isEswEnabled) {
                 + parseFloat(eswShopperCurrencyDeliveryTaxes) + parseFloat(eswShopperCurrencyDuty)
                 + parseFloat(eswShopperCurrencyDeliveryDuty)).toFixed(TWO_DECIMAL_PLACES);
         return consumerNetAmount;
+    }
+    return '';
+}
+
+/**
+* Calculate the shipping consumer net amount for the line item.
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} shipping consumer net amount
+*/
+function getShippingConsumerNetAmount(order, isEswEnabled) {
+    if (isEswEnabled) {
+        var eswShopperCurrencyDelivery = !empty(order.custom.eswShopperCurrencyDelivery) ?
+                order.custom.eswShopperCurrencyDelivery : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) ?
+                order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) ?
+                order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+        var shippingConsumerNetAmount = (parseFloat(eswShopperCurrencyDelivery) + parseFloat(eswShopperCurrencyDeliveryDuty)
+                + parseFloat(eswShopperCurrencyDeliveryTaxes)).toFixed(TWO_DECIMAL_PLACES);
+        return shippingConsumerNetAmount;
     }
     return '';
 }
@@ -1464,6 +1476,7 @@ function getPOItemsInfo(order, isEswEnabled) {
         obj.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled);
         obj.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem, isEswEnabled);
         obj.CrossBorderNetAmount = getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled);
+        obj.ShippingConsumerNetAmount = getShippingConsumerNetAmount(order, isEswEnabled);
 
         var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled);
 
@@ -2645,6 +2658,11 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.GrossValue);
                         }
                     }
+                    if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(order.custom.eswShopperCurrencyDelivery);
+                        }
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerMarkDownAmount');
@@ -2670,6 +2688,11 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.SubTotal);
                         }
                     }
+                    if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(order.custom.eswShopperCurrencyDelivery);
+                        }
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerTaxAmount');
@@ -2680,6 +2703,11 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.TaxAmount);
                         }
                     }
+                    if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(order.custom.eswShopperCurrencyDeliveryTaxes);
+                        }
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerDutyAmount');
@@ -2688,6 +2716,11 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.ConsumerDutyAmount);
                         } else {
                             streamWriter.writeCharacters(commerceItem.DutyAmount);
+                        }
+                    }
+                    if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(order.custom.eswShopperCurrencyDeliveryDuty);
                         }
                     }
                     streamWriter.writeEndElement();
@@ -2701,6 +2734,11 @@ function generateOrderXML(order) {
                             streamWriter.writeCharacters(commerceItem.ConsumerNetAmount);
                         } else {
                             streamWriter.writeCharacters(commerceItem.NetAmount);
+                        }
+                    }
+                    if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        if (eswOrderNo) {
+                            streamWriter.writeCharacters(commerceItem.shippingConsumerNetAmount);
                         }
                     }
                     streamWriter.writeEndElement();
