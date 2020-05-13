@@ -17,7 +17,7 @@
                 </isif>
                 <span class="product-price-mobile ${pdict.isPLPProduct ? 'd-none' : ''}"> 
                     <isset name="price" value="${product.price}" scope="page" />
-                    <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                    <div class="add-to-cart-price-holder">
                         <isinclude template="product/components/pricing/main" />
                     </div>
                 </span>
