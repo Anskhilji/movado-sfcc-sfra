@@ -1,7 +1,5 @@
 'use strict';
 
-var isSwellIntialized = false;
-
 /**
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
@@ -109,10 +107,6 @@ $('.get-reward-btn').click(function() {
 })
 
 $(document).on("swell:initialized", () => {
-    if (isSwellIntialized) {
-        return;
-    }
-    isSwellIntialized = true;
     swellAPI.getActiveCampaigns().forEach(campaign => {
         $(".swell-campaign-list").append(
         $("<li>").addClass("campaign").append(
@@ -183,6 +177,8 @@ function handleSwellPointContainer() {
 }
 
 $(document).on("swell:initialized", () => {
+    $("#swell-redemption-dropdown").empty();
+    $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
     swellAPI.getActiveRedemptionOptions().forEach(option => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $("#swell-redemption-dropdown").append(
