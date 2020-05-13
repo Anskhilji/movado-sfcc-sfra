@@ -112,6 +112,7 @@ $(document).on("swell:initialized", () => {
     if (isSwellIntialized) {
         return;
     }
+    isSwellIntialized = true;
     swellAPI.getActiveCampaigns().forEach(campaign => {
         $(".swell-campaign-list").append(
         $("<li>").addClass("campaign").append(
@@ -132,10 +133,6 @@ $(document).on("swell:initialized", () => {
 });
 
 $(document).on("swell:initialized", () => {
-    if (isSwellIntialized) {
-        return;
-    }
-    isSwellIntialized = true;
     swellAPI.getActiveRedemptionOptions().forEach(option => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $(".swell-redemption-option-list").append(
