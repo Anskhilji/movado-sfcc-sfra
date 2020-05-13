@@ -345,21 +345,22 @@ function getLineItemCrossBorderNetAmount(lineItem, isEswEnabled) {
 * @param {String} shipping country.
 * @returns {String} taxation type of country
 */
-function getTaxationType(country) {
-    var countries = require('*/cartridge/countries.json');
-    var taxationType = '';
-    for (i = 0; i < countries.length; i++) {
-        if (countries[i].countryCode == country.value) {
-            taxationType = countries[i].taxation.type;
-            break;
-        }
-    }
-    if (taxationType == 'net') {
-        return 'N'
-    } else {
-        return 'Y';
-    }
-}
+//function getTaxationType(order) {
+//    return !empty(order.custom.eswShopperCurrencyDeliveryDuty) ? 'Y' : 'N';
+//    var countries = require('*/cartridge/countries.json');
+//    var taxationType = '';
+//    for (i = 0; i < countries.length; i++) {
+//        if (countries[i].countryCode == country.value) {
+//            taxationType = countries[i].taxation.type;
+//            break;
+//        }
+//    }
+//    if (taxationType == 'net') {
+//        return 'N'
+//    } else {
+//        return 'Y';
+//    }
+//}
 
 /**
 * Fetches the shipping address data from an Order
@@ -1659,7 +1660,10 @@ function getPOItemsInfo(order, isEswEnabled) {
 * @param {Order} order Order container.
 * @returns {string} Yes or No
 */
-function isDutyInclusive(order) {
+function isDutyInclusive(order, isEswEnabled) {
+    if (isEswEnabled) {
+        return (!empty(order.custom.eswShopperCurrencyTaxes) && order.custom.eswShopperCurrencyTaxes > ZERO) ? 'Y' : 'N';
+    }
     return 'Y';
 }
 
@@ -1668,7 +1672,10 @@ function isDutyInclusive(order) {
 * @param {Order} order Order container.
 * @returns {string} Yes or No
 */
-function isVATInclusive(order) {
+function isVATInclusive(order, isEswEnabled) {
+    if (isEswEnabled) {
+        return (!empty(order.custom.eswShopperCurrencyTaxes) && order.custom.eswShopperCurrencyTaxes > ZERO)  ? 'Y' : 'N';
+    }
     return Site.current.getID() == 'OliviaBurtonUK' ? 'Y' : 'N';
 }
 
@@ -1753,19 +1760,6 @@ function isShippingCharged(order) {
         return 'Y';
     }
     return 'N';
-}
-
-/**
-* To check if order is cross border send vat entity
-* @param {String} eswOrderNo or null.
-* @returns {string} vat entity amount or null
-*/
-function getVatEntity(eswOrderNo, isEswEnabled) {
-    if (isEswEnabled) {
-        var vatEntity = eswOrderNo ? Site.getCurrent().getCustomPreferenceValue('vatEntity') : '';
-        return vatEntity;
-    }
-    return '';
 }
 
 /**
@@ -2343,7 +2337,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATEntity');
-                if (eswOrderNo) {
+                if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('vatEntityEnabled')) {
                     streamWriter.writeCharacters(crossBorderUtils.getCountryVATEntity(shippingAddress.countryKey));
                 } else {
                     streamWriter.writeCharacters('');
@@ -2444,19 +2438,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
-                if (isEswEnabled) {
-                    streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
-                } else {
-                    streamWriter.writeCharacters(isDutyInclusive(order));
-                }
+//                if (isEswEnabled) {
+//                    streamWriter.writeCharacters(getTaxationType(order));
+//                } else {
+                    streamWriter.writeCharacters(isDutyInclusive(order, isEswEnabled));
+//                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATInclusive');
-                if (isEswEnabled) {
-                    streamWriter.writeCharacters(getTaxationType(shippingAddress.countryKey));
-                } else {
-                    streamWriter.writeCharacters(isVATInclusive(order));
-                }
+//                if (isEswEnabled) {
+//                    streamWriter.writeCharacters(getTaxationType(order));
+//                } else {
+                    streamWriter.writeCharacters(isVATInclusive(order, isEswEnabled));
+//                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PaymentMethod');
@@ -2594,7 +2588,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('VATEntity');
-                    if (eswOrderNo) {
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('vatEntityEnabled')) {
                         streamWriter.writeCharacters(crossBorderUtils.getCountryVATEntity(shippingAddress.countryKey));
                     } else {
                         streamWriter.writeCharacters('');
@@ -2657,43 +2651,33 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('TaxAmount');
-                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
-                    } else {
-                        streamWriter.writeCharacters(commerceItem.TaxAmount);
-                    }
+                    streamWriter.writeCharacters(commerceItem.TaxAmount);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('Tax1');
-                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(commerceItem.CrossBorderTax1);
-                    } else {
-                        streamWriter.writeCharacters(commerceItem.Tax1);
-                    }
+                    streamWriter.writeCharacters(commerceItem.Tax1);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    if (!eswOrderNo) {
-                        streamWriter.writeStartElement('Tax2');
-                        streamWriter.writeCharacters(commerceItem.Tax2);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
-                        streamWriter.writeStartElement('Tax3');
-                        streamWriter.writeCharacters(commerceItem.Tax3);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
-                        streamWriter.writeStartElement('Tax4');
-                        streamWriter.writeCharacters(commerceItem.Tax4);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
-                        streamWriter.writeStartElement('Tax5');
-                        streamWriter.writeCharacters(commerceItem.Tax5);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
-                        streamWriter.writeStartElement('Tax6');
-                        streamWriter.writeCharacters(commerceItem.Tax6);
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
-                    }
+                    streamWriter.writeStartElement('Tax2');
+                    streamWriter.writeCharacters(commerceItem.Tax2);
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
+                    streamWriter.writeStartElement('Tax3');
+                    streamWriter.writeCharacters(commerceItem.Tax3);
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
+                    streamWriter.writeStartElement('Tax4');
+                    streamWriter.writeCharacters(commerceItem.Tax4);
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
+                    streamWriter.writeStartElement('Tax5');
+                    streamWriter.writeCharacters(commerceItem.Tax5);
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
+                    streamWriter.writeStartElement('Tax6');
+                    streamWriter.writeCharacters(commerceItem.Tax6);
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
                     if (eswOrderNo) {
                         streamWriter.writeStartElement('DutyAmount');
                         if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
@@ -2724,7 +2708,13 @@ function generateOrderXML(order) {
                     streamWriter.writeRaw('\r\n');
                     if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeStartElement('ConsTaxByMGI');
-                        streamWriter.writeCharacters(commerceItem.ConsTaxByMGI);
+                        if (isEswEnabled) {
+                            if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
+                                streamWriter.writeCharacters(commerceItem.TaxAmount);
+                            } else {
+                                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                            }
+                        }
                         streamWriter.writeEndElement();
                         streamWriter.writeRaw('\r\n');
                     }
