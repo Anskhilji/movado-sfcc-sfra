@@ -319,13 +319,6 @@
     .nav-item {
       box-shadow: none;
 
-      &.show {
-        box-shadow: none;
-      }
-    }
-
-    .nav-item {
-
       >.dropdown-menu {
         box-shadow: 0px rem(4) rem(7) rem(-3) $grey-dark;
         padding-top: rem(25);
@@ -334,6 +327,10 @@
         &.show{
           display: block;
         }
+      }
+
+      &.show {
+        box-shadow: none;
       }
     }
 
@@ -387,16 +384,17 @@
         position: relative;
         line-height: 1.4;
         overflow: initial;
-        display: inline-block;
+        display: block;
         background: transparent;
         white-space: nowrap;
         width: auto;
-        position: relative;
 
         .dropdown-link {
           @include font-medium;
           font-size: rem(12);
           transition: transform .24s ease 0s;
+          display: inline-block;
+          position: relative;
 
           &::before {
             content: "";
