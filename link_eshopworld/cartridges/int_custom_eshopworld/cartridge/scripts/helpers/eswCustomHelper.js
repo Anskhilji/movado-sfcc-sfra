@@ -14,6 +14,15 @@ function getCustomCountriesJson() {
 }
 
 /**
+ * This method is used to get the total number of custom countries from the getCustomCountriesJson() method.
+ * @returns if getCustomCountriesJson() not empty then it will returns {int} otherwise {String}
+ */
+function getNumberOfTotalCustomCountries() {
+    return !empty(getCustomCountriesJson()) ? getCustomCountriesJson().length : '';
+}
+
+
+/**
  * This method is used to get selected language from the customLanguages.
  * @param {Map} customLanguages : Map of Custom Languages
  * @param {string} locale : Locale name
@@ -174,5 +183,6 @@ module.exports = {
     getSelectedLanguage: getSelectedLanguage,
     getSelectedCountry: getSelectedCountry,
     getAlphabeticallySortedLanguages: getAlphabeticallySortedLanguages,
-    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries
+    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries,
+    getNumberOfTotalCustomCountries: getNumberOfTotalCustomCountries
 };
