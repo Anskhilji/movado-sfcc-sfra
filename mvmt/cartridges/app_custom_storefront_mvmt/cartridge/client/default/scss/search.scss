@@ -356,7 +356,7 @@
             width: 100%;
             background-color: $white-gray;
             border-bottom: rem(1) solid $light-gray4;
-            padding-top: rem(40);
+            padding-top: rem(24);
             opacity: 0;
             transition: max-height .5s,opacity .5s;
             transform-origin: top center;
@@ -400,15 +400,24 @@
                     display: flex;
                     flex-wrap: wrap;
                     max-width: 90%;
+                    min-height: rem(140);
+                    max-height: rem(210);
 
                     li {
                         display: inline-block;
                         text-align: center;
                         margin-bottom: rem(20);
                         width: rem(120);
-                        height: rem(70);
+                        min-width: rem(120);
+                        max-width: rem(120);
                         line-height: rem(24);
                         flex: 1;
+
+                        .color-elements {
+                            height: rem(52);
+                            margin: auto auto rem(15);
+                            display: block;
+                        }
 
                         .elements {
                             height: rem(70);
@@ -1144,6 +1153,10 @@
                 outline: 0;
                 text-decoration: none;
 
+                &.color-swatch-image {
+                    margin: auto auto rem(10);
+                }
+
                 &.swatch-image {
                     width: rem(70);
                     height: rem(70);
@@ -1170,6 +1183,15 @@
     }
 }
 
+.refinements {
+
+    .values {
+
+        li {
+            padding-left: rem(15);
+        }
+    }
+}
 
 .filter-group-outer, .mobile-selection-outer {
 
@@ -1180,6 +1202,56 @@
             a {
                 outline: 0;
                 text-decoration: none;
+
+                &.color-swatch-image {
+
+                    &.selected-color-swatch-image {
+                        box-shadow: 0 0 0 rem(1) $black;
+                        display: inline-block;
+                        margin-top: rem(2);
+                        border-radius: 50%;
+
+                        @include media-breakpoint-down(md) {
+                            display: block;
+                            margin-bottom: rem(10);
+                        }
+                    }
+
+                    .rounded-color {
+                        &.fa-check-square, &.fa-square-o {
+                            content: "";
+
+                            &:before {
+                                content: "";
+                            }
+                        }
+                    }
+                }
+
+                &:not(.swatch-image).color, &.color-swatch-image {
+
+                    i {
+
+                        &.fa {
+                            width: rem(54);
+                            height: rem(54);
+                            margin: 0 rem(8) rem(7) rem(16);
+                            justify-content: center;
+                            align-items: center;
+                            display: flex;
+
+                            @include media-breakpoint-down(md) {
+                                margin: rem(28) 0 0 0;
+                                height: rem(50);
+                                display: inline-block;
+                            }
+
+                            &.fa-check-square, &.fa-square-o, .fa-circle-o, .fa-check-circle {
+                                font-size: rem(24);
+                            }
+                        }
+                    }
+                }
 
                 &:not(.swatch-image) {
 
@@ -1206,7 +1278,7 @@
                     }
                 }
 
-                &.swatch-image {
+                &.swatch-image, &.color-swatch-image {
                     display: inline-block;
                 }
 
@@ -1220,6 +1292,28 @@
                     padding: 0;
                     border-radius: 50%;
                     cursor: pointer;
+
+                    &.fa-check-square, &.fa-square-o {
+                        content: "";
+                    }
+                }
+
+                .rounded-color {
+                    font-size: 0;
+                    outline: 0;
+                    background-size: cover;
+                    background-position: 50%;
+                    border-radius: 50%;
+                    display: block;
+                    cursor: pointer;
+                    padding: 0;
+                    border: rem(3) solid $white;
+                    width: rem(44);
+                    height: rem(44);
+
+                    @include media-breakpoint-down(md) {
+                        margin: rem(28) 0 0 0;
+                    }
 
                     &.fa-check-square, &.fa-square-o {
                         content: "";
