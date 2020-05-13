@@ -520,8 +520,6 @@ module.exports = function () {
         var couponCode = $(this).data('code');
         var uuid = $(this).data('uuid');
         var url = $(this).data('action');
-        var $productToRemoveSpan = $('.coupon-to-remove');
-        $productToRemoveSpan.empty().append(couponCode);
         var urlParams = {
             code: couponCode,
             uuid: uuid

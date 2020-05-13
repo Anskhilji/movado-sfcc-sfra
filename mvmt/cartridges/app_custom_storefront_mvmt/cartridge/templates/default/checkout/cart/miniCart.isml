@@ -68,12 +68,12 @@
         <iscomment>Custom Start: Adding promo code template </iscomment>
         <isif condition="${itemsLength > 0}">
             <div class="mini-cart-promo-box">
-             <div class="promo-box">
-                 <isinclude template="checkout/cart/miniCartPromoCode" />
-                 <div class="coupons-and-promos coupons-wrapper">
-                     <isinclude template="cart/cartCouponDisplay" />
-                 </div>
-             </div>
+                <div class="promo-box">
+                    <isinclude template="checkout/cart/miniCartPromoCode" />
+                    <div class="coupons-and-promos coupons-wrapper">
+                        <isinclude template="cart/cartCouponDisplay" />
+                    </div>
+                </div>
             </div>
         </isif>
         <iscomment> Custom End </iscomment>
@@ -139,8 +139,8 @@
         </isif>
         <iscomment> 
         <iscomment> Custom End </iscomment>
-		<div class="cart-coupons-remove">
-		    <isinclude template="cart/cartRemoveCouponModal" />
-		</div>
+        <div class="cart-coupons-remove">
+            <isinclude template="cart/cartRemoveCouponModal" />
+        </div>
     </div>
 </isif>

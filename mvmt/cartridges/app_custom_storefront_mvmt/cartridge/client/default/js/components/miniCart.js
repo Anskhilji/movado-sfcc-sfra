@@ -15,7 +15,6 @@ function setMiniCartProductSummaryHeight () {
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
-//    $('.mini-cart-data .product-summary').css('padding-bottom', '');
     $('.mini-cart-data .product-summary').css('max-height', $productSummaryHeight);
 }
 
@@ -24,18 +23,18 @@ module.exports = function () {
 
     $(window).resize( function() {
         if ($('.mini-cart-data .popover.show').length > 0) {
-            var $bannerHeight = $('.header-banner').outerHeight(true);
-            var $headerContainer = $('.header-container').outerHeight(true);
-            var $headerHeight = $bannerHeight + $headerContainer;
+            var bannerHeight = $('.header-banner').outerHeight(true);
+            var headerContainer = $('.header-container').outerHeight(true);
+            var $headerHeight = bannerHeight + headerContainer;
             var $windowHeight = $(window).height() - $headerHeight;
-            var screenSize= $(window).width();
+            var screenSize = $(window).width();
             var mediumScreenSize = 992;
             if (screenSize != null) {
                 if (screenSize <= mediumScreenSize) {
-                    $headerHeight = $bannerHeight + $headerContainer;
+                    $headerHeight = bannerHeight + headerContainer;
                     $windowHeight = $(window).height() - $headerHeight;
                 } else {
-                    $headerHeight = $bannerHeight;
+                    $headerHeight = bannerHeight;
                     $windowHeight = $(window).height() - $headerHeight;
                 }
             }
@@ -54,18 +53,18 @@ module.exports = function () {
     });
 
     $(window).on('load', function() {
-        var $bannerHeight = $('.header-banner').outerHeight(true);
-        var $headerContainer = $('.header-container').outerHeight(true);
-        var $headerHeight = $bannerHeight + $headerContainer;
+        var bannerHeight = $('.header-banner').outerHeight(true);
+        var headerContainer = $('.header-container').outerHeight(true);
+        var $headerHeight = bannerHeight + headerContainer;
         var $windowHeight = $(window).height() - $headerHeight;
         var screenSize= $(window).width();
         var mediumScreenSize = 992;
         if (screenSize != null) {
             if (screenSize <= mediumScreenSize) {
-                $headerHeight = $bannerHeight + $headerContainer;
+                $headerHeight = bannerHeight + headerContainer;
                 $windowHeight = $(window).height() - $headerHeight;
             } else {
-                $headerHeight = $bannerHeight;
+                $headerHeight = bannerHeight;
                 $windowHeight = $(window).height() - $headerHeight;
             }
         }
