@@ -558,7 +558,7 @@ module.exports = {
             var $trigger = $(".sort-dropdown");
             if($trigger !== event.target && !$trigger.has(event.target).length){
                 $(this).find('.sort-dropdown-toggle').removeClass('active');
-                $('.dropdown-menu').slideUp('fast').removeClass('active');
+                $('.plp-filter-bar .dropdown-menu').slideUp('fast').removeClass('active');
             }
         });
     },

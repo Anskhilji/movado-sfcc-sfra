@@ -3,7 +3,7 @@
   <li class="nav-item mobile-login  d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
       <i class="fa login" aria-hidden="true"></i>
-      <span class="user-message">${Resource.msg('title.header.account', 'account', null)}</span>
+      <span class="user-message">${Resource.msg('title.header.account-mobile', 'account', null)}</span>
     </a>
   </li>
   <li class="nav-item my-stores d-lg-none" role="menuitem">
@@ -18,7 +18,7 @@
   <a href="${URLUtils.https('Account-Show')}" class="dropdown-link" role="button">
     <span class="nav-link" role="button">
       <i class="fa login" aria-hidden="true"></i>
-      <span class="user-message">${pdict.name}</span>
+      <span class="account-name user-message">${pdict.name}</span>
     </span></a>
   </li>
     <li class="nav-item my-stores d-lg-none" role="menuitem">

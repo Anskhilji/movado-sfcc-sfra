@@ -10,13 +10,28 @@ var clearSelection = function (element) {
     $(element).closest('li').detach();
 };
 
+$(document).ready(function() {
+    var visitAccessibility = true;
+    $(document).keydown(function(e) {
+        if (e.keyCode == 9 && visitAccessibility == true) {
+            e.preventDefault();
+            $('.accessible-link').focus();
+            visitAccessibility = false;
+        }
+    });
+});
+
 module.exports = function () {
     var isDesktop = function (element) {
         return $(element).parents('.menu-toggleable-left').css('position') !== 'fixed';
     };
 
+    $('.navbar-toggleable-sm .close-button').click(function() {
+        $('.accessible-link').css('z-index', 100001);
+    });
+
     $('.header-banner .close').on('click', function () {
-        $('.header-banner').addClass('hide');
+        $('.header-banner').addClass('hide'); 
     });
 
     keyboardAccessibility('.main-menu .nav-link, .main-menu .dropdown-link', {
@@ -170,6 +185,7 @@ module.exports = function () {
         e.preventDefault();
         $('.main-menu').toggleClass('in');
         $('.modal-background').show();
+        $('.accessible-link').css('z-index', 200);
     });
 
     keyboardAccessibility('.navbar-header .user', {

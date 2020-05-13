@@ -194,6 +194,7 @@
     padding: rem(40) rem(50);
     padding-bottom: rem(30);
     max-width: $container-max-width;
+    padding-left: rem(100);
 
     .submenu {
       width: 100%;
@@ -205,14 +206,13 @@
       font-size: rem(12);
       text-transform: uppercase;
       letter-spacing: .8px;
-      margin-bottom: rem(15);
+      margin-bottom: rem(20);
       line-height: 1;
       color: $night-rider;
       white-space: nowrap;
-      margin-bottom: rem(15);
       line-height: 1;
       display: block;
-      opacity: 50%;
+      opacity: 0.5;
     }
 
     .browse-collection {
@@ -238,6 +238,10 @@
           margin-bottom: rem(20);
           text-align: left;
           display: inline-block;
+
+          @include media-breakpoint-up(lg) {
+            width: 50%;
+          }
 
           a {
             align-items: center;
@@ -276,6 +280,29 @@
 
       &.no-static-content {
         width: 100%;
+
+        .third-level-menu {
+
+          .submenu-item {
+
+            @include media-breakpoint-up(lg) {
+              width: 25%;
+              max-width: rem(175);
+              margin-right: rem(25);
+              padding: 0;
+              margin-bottom: rem(25);
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+            @include media-breakpoint-up(xl) {
+              margin-right: rem(50);
+              margin-bottom: rem(50);
+            }
+
+          }
+        }
       }
     }
 
@@ -316,20 +343,25 @@
 
           .header-tiles  {
             display: flex;
-            margin-right: rem(60);
-
-            &:last-child {
-              margin-right: 0;
-            }
+            max-width: rem(930);
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: rem(20);
 
             .html-content {
+              margin-right: rem(60);
+              min-width: rem(290);
+
+              &:last-child {
+                margin-right: 0;
+              }
 
               a {
                 position: relative;
-                display: inline-block;
+                display: block;
 
                 img {
-                  width: rem(290);
+                  width: 100%;
                   height: rem(335);
                 }
 
@@ -408,40 +440,6 @@
       flex-shrink: 0;
     }
   }
-
-  .desktop-menu {
-
-    .menu-content {
-
-      .browse-collection {
-
-        .third-level-menu {
-
-          .submenu-item {
-            width: 50%;
-          }
-        }
-
-        &.no-static-content {
-
-          .third-level-menu {
-
-            .submenu-item {
-              width: 25%;
-              max-width: rem(175);
-              margin-right: rem(50);
-              padding: 0;
-              margin-bottom: rem(50);
-
-              &:last-child {
-                margin-right: 0;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 @include media-breakpoint-down(lg) {
@@ -462,7 +460,7 @@
 .tab{
 
   &-list {
-    margin-bottom: rem(20);
+    margin-bottom: rem(30);
     display: flex;
 
     button {

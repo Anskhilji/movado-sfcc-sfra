@@ -1134,3 +1134,30 @@ header.new-header {
 .page {
   overflow: hidden;
 }
+
+header.new-header.mvmt-header-design {
+
+    .mobile-logo,.mvmt-mobile-header-logo {
+        position: relative;
+        top: rem(-6);
+    }
+    .mvmt-mobile-header-logo {
+        top: rem(2);
+    }
+    
+    .header-nav-right-mobile {
+        li {
+            svg {
+                height: rem(16);
+            }
+        }
+    }
+    
+    .mobile-menu {
+        li.grey-arrow-right {
+            &:hover {
+                background: url("../images/Grey.svg") right rem(20) center no-repeat;
+            }
+        }
+     }
+}
