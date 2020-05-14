@@ -1656,9 +1656,9 @@ function getPOItemsInfo(order, isEswEnabled) {
 * @param {Order} order Order container.
 * @returns {string} Yes or No
 */
-function isDutyInclusive(order, isEswEnabled) {
-    if (isEswEnabled) {
-        return (!empty(order.custom.eswShopperCurrencyTaxes) && order.custom.eswShopperCurrencyTaxes > ZERO) ? 'Y' : 'N';
+function isDutyInclusive(order, eswOrderNo) {
+    if (eswOrderNo) {
+        return (!empty(order.custom.eswShopperCurrencyDelivery) && order.custom.eswShopperCurrencyDelivery > ZERO) ? 'Y' : 'N';
     }
     return 'Y';
 }
@@ -1668,8 +1668,8 @@ function isDutyInclusive(order, isEswEnabled) {
 * @param {Order} order Order container.
 * @returns {string} Yes or No
 */
-function isVATInclusive(order, isEswEnabled) {
-    if (isEswEnabled) {
+function isVATInclusive(order, eswOrderNo) {
+    if (eswOrderNo) {
         return (!empty(order.custom.eswShopperCurrencyTaxes) && order.custom.eswShopperCurrencyTaxes > ZERO)  ? 'Y' : 'N';
     }
     return Site.current.getID() == 'OliviaBurtonUK' ? 'Y' : 'N';
@@ -2412,11 +2412,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
-                streamWriter.writeCharacters(isDutyInclusive(order, isEswEnabled));
+                streamWriter.writeCharacters(isDutyInclusive(order, eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATInclusive');
-                streamWriter.writeCharacters(isVATInclusive(order, isEswEnabled));
+                streamWriter.writeCharacters(isVATInclusive(order, eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PaymentMethod');
