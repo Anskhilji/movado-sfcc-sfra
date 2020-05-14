@@ -514,6 +514,10 @@ module.exports = function () {
         updateCartQuantity(this, false);
     });
 
+    /**
+     * This is override click event function of coupon code that will directly remove the coupon code without
+     * showing the popup of confirmation it basically used on the minicart and cart page.
+     */
     $('body').off('click', '.coupons-and-promos .remove-coupon').on('click', '.coupons-and-promos .remove-coupon', function (e) {
         e.preventDefault();
 

@@ -20,13 +20,6 @@
                         <isinclude template="checkout/productCard/productCardProductName" />
                     </isif>
                 </div>
-                <iscomment>Custom Start: Model number is not needed in new design of mvmt</iscomment>
-                <iscomment> 
-                <div class="item-model model-name">
-                    ${lineItem.resources.Model} ${lineItem.id}
-                </div>
-                </iscomment>
-                <iscomment> Custom End </iscomment>
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
@@ -94,13 +87,6 @@
                         <isinclude template="/product/components/pricing/main" />
                     </p>
                 </isif>
-                <iscomment>Custom Start: This price section is not needed in the new design of minicart </iscomment>
-                <iscomment>
-                <div class="item-total-${lineItem.UUID} price">
-                    <isinclude template="checkout/productCard/productCardProductTotalPrice" />
-                </div>
-                </iscomment>
-                <iscomment> Custom End </iscomment>
                 <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
                 <div class="remove-line-item d-block mb-2">
                     <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"

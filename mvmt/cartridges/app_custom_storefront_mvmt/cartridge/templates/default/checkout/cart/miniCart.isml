@@ -89,29 +89,6 @@
             </div>
         </div>
 
-        <iscomment>Custom Start: Updating the mini cart design this section is not needed</iscomment>
-        <iscomment> 
-        <isif condition="${!customer.isAuthenticated()}" >
-            <form class="cart-checkout-options">
-                <div class="cart-checkout row guest">
-                    <input class="checkout-radio-btn" checked="" type="radio" id="checkoutGuest" value="guest" name="checkout"/>
-                    <label for="checkoutGuest" class="checkout-btn-label">${Resource.msg('button.checkout.as.guest', 'checkout', null)}</label>
-                </div>
-                <div class="cart-checkout row login">
-                    <input class="checkout-radio-btn" type="radio" id="checkoutAccount" value="account" name="checkout"/>
-                    <label for="checkoutAccount" class="checkout-btn-label">
-                        ${Resource.msg('label.checkout.as.account', 'checkout', null)}
-                        <small class="checkout-sub">${Resource.msg('label.checkout.earn.reward', 'checkout', null)}</small>
-                    </label>
-                </div>
-            </form>
-            <isinclude template="account/components/miniCartLoginForm" />
-            <isinclude template="account/components/miniCartRegisterForm" />
-            <isinclude template="account/components/miniCartForgetPasswordForm" />
-        </isif>
-        </iscomment>
-        <iscomment> Custom End </iscomment>
-
         <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
         <div class="row continue-checkout-btn">
             <div class="checkout-continue">
@@ -120,25 +97,6 @@
         </div>
         <iscomment> Custom End </iscomment>
 
-        <iscomment>Custom Start: Updating the mini cart design this section is not needed</iscomment>
-        <iscomment> 
-        <isif condition="${!customer.isAuthenticated()}" >
-            <div class="row checkout-with-account">
-                <div class="col-12 checkout-continue">
-                    <button type="button" class="btn btn-block sign-in hidden-md-up">
-                        ${Resource.msg('link.text.sign.in', 'cart', null)}
-                    </button>
-                    <button type="button" class="btn btn-block sign-in hidden-sm-down">
-                        ${Resource.msg('button.text.loginform', 'cart', null)}
-                    </button>
-                    <button type="button" class="btn btn-block create-account">
-                        ${Resource.msg('link.text.create.account2', 'cart', null)}
-                    </button>
-                </div>
-            </div>
-        </isif>
-        <iscomment> 
-        <iscomment> Custom End </iscomment>
         <div class="cart-coupons-remove">
             <isinclude template="cart/cartRemoveCouponModal" />
         </div>
