@@ -57,7 +57,7 @@ $(window).on("load resize", function(e) {
     $('.mobile-search-close').width($navWidth);
 });
 
-$('.mobile-search-icon').click(function() {
+$('.mobile-search-close-text').click(function() {
     $('.mobile-side-search').removeClass('active');
 });
 
