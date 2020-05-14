@@ -177,6 +177,8 @@ function handleSwellPointContainer() {
 }
 
 $(document).on("swell:initialized", () => {
+    $("#swell-redemption-dropdown").empty();
+    $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
     swellAPI.getActiveRedemptionOptions().forEach(option => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $("#swell-redemption-dropdown").append(
