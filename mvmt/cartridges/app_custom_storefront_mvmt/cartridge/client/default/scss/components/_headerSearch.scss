@@ -177,7 +177,7 @@
         list-style-type: none;
 
         li {
-            border-radius: 2px;
+            border-radius: rem(2);
             padding: 0 rem(17);
 
             a {
@@ -208,9 +208,9 @@
     letter-spacing: rem(0.82);
 
     .mobile-search-icon {
-        padding: rem(17);
-        border: none;
-        background: none;
+      padding: rem(17);
+      border: none;
+      background: none;
     }
 }
 
