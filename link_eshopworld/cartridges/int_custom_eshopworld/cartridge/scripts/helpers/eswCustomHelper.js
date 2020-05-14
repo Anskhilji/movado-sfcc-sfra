@@ -21,7 +21,6 @@ function getNumberOfTotalCustomCountries() {
     return !empty(getCustomCountriesJson()) ? getCustomCountriesJson().length : '';
 }
 
-
 /**
  * This method is used to get selected language from the customLanguages.
  * @param {Map} customLanguages : Map of Custom Languages
@@ -154,7 +153,6 @@ function getSelectedCountry(countryCode) {
     }
     return countryObj;
 }
-
 
 /**
  * This method is used to get selected language countries in the alphabetically order.
