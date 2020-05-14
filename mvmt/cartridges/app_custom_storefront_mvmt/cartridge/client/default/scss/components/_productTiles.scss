@@ -129,10 +129,10 @@
 
         .color-swatches {
             transition: all .25s;
-            padding: 1px;
-            -ms-flex-pack: center;
+            padding: rem(1);
             justify-content: center;
             max-width: rem(250);
+            margin: 0 auto;
 
             a {
 

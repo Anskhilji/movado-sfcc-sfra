@@ -126,7 +126,7 @@ module.exports = {
     },
 
     stickybar: function () {
-        $(function() {
+        $(window).on('resize load', function(){
             var $header = $('.header-menu-wrapper .header-wrapper').height();
             var $productdetail = $('.product-detail').height();
             var $stickybar = $('.sticky-bar');
@@ -210,6 +210,7 @@ module.exports = {
             },
         });
     },
+
     updateAddToCart: function () {
         $('body').off('product:updateAddToCart').on('product:updateAddToCart', function (e, response) {
             // update local add to cart (for sets)
@@ -248,6 +249,7 @@ module.exports = {
             }
         });
     },
+
     updateAvailability: function () {
         $('body').off('product:updateAvailability').on('product:updateAvailability', function (e, response) {
             $('div.availability', response.$productContainer)
@@ -284,6 +286,23 @@ module.exports = {
             }
 
             // Custom End
+        });
+    },
+
+    updatePrice: function () {
+        $('.upsell_input').click(function(){
+            var upselprice = $(this).siblings(".upsell_wrapper-inner").find('.sales .value').data('value');
+            var currentPrice = $('.product-price-mobile .sales .value').data('value');
+            var updatedPrice;
+            if($(this).is(":checked")) {
+                updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
+            } else {
+                updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
+            }
+            $('.product-price-mobile .sales .value').each(function(){
+                var updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
+                $(this).text(updatedText).data('value', updatedPrice);
+            });
         });
     },
     base: base

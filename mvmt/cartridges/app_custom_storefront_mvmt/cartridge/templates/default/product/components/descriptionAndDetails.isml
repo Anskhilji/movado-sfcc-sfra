@@ -19,7 +19,12 @@
     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
      then appropriate template should be overridden. </iscomment>
      <div class="row product-attributes collapsible-sm">
-         <isinclude template="widget/yotporeviewswidget" />
+        <h2 class="col-sm-12 d-md-none">
+            <button class="title text-uppercase btn p-0 text-left shadow-none">${Resource.msg('label.tab.review', 'product', null)} <span class="d-md-none"><isinclude template="product/components/productRating" /></span></button>
+        </h2>
+        <div class="col-sm-12 value content">
+            <isinclude template="widget/yotporeviewswidget" />
+        </div>
      </div>
 
 </div>

@@ -259,16 +259,17 @@
 
     &-content {
         width: 50%;
-        font-family: $font-medium;
+        font-family: $font-bold;
         color: $black;
         font-size: rem(12);
-        font-weight: 500;
+        font-weight: 600;
         letter-spacing: rem(1.6);
         line-height: rem(12);
         text-transform: capitalize;
+        letter-spacing: rem(1.5);
 
         &.attribute-name {
-        text-transform: uppercase;
+            text-transform: uppercase;
         }
     }
 
@@ -1051,8 +1052,8 @@
             }
 
             &:hover {
-                background: $light-green6;
-                border-color: $light-green6;
+                background: $gossamer;
+                border-color: $gossamer;
             }
 
             &:not(:disabled):not(.disabled):active:focus {
@@ -1317,9 +1318,10 @@
         letter-spacing: rem(1.2);
         text-transform: uppercase;
         background-size: cover;
+        transition: 0.3s ease;
 
-        &.active {
-            border: rem(1) solid $black;
+        &.active, &:hover {
+            border-color: $black;
         }
 
         &.disabled {
@@ -1873,7 +1875,7 @@
 
     .price {
         color: $white;
-        font-family: $font-book;
+        font-family: $font-medium;
         font-size: rem(15);
         letter-spacing: rem(1.25);
 
@@ -1907,15 +1909,26 @@
     margin-top: rem(40);
 
     .title {
-        font-family: $font-medium;
-        font-weight: 500;
-        font-size: rem(16);
+        font-family: $font-bold;
+        font-weight: 600;
+        font-size: rem(14);
         color: $black;
         letter-spacing: rem(1.53);
         margin-bottom: rem(10);
 
         @include media-breakpoint-up(md-down) {
+            font-family: $font-medium;
+            font-weight: 500;
             font-size: rem(24);
+        }
+
+        .yotpo {
+            display: inline-block;
+            vertical-align: text-bottom;
+
+            * {
+                font-size: 14px;
+            }
         }
     }
 
@@ -1924,6 +1937,7 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        letter-spacing: 0;
     }
 
     .attribute-detail {
@@ -1941,12 +1955,16 @@
             &::after {
                 content:'';
                 position: absolute;
-                width: rem(16);
-                height: rem(16);
+                width: rem(14);
+                height: rem(14);
                 right: rem(10);
                 top: 50%;
                 transform: translateY(-50%);
                 background: url("../../images/plus.svg") center center no-repeat;
+
+                @include media-breakpoint-up(md-down) {
+                    display: none;
+                }
             }
         }
 
@@ -1971,5 +1989,9 @@
             border-bottom: none;
             padding: 0;
         }
+    }
+
+    .attribute-value {
+        text-transform: capitalize;
     }
 }
