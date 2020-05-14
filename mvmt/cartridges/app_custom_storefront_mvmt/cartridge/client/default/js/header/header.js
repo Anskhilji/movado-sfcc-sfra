@@ -15,8 +15,6 @@ $('.desktop-search-icon').click(function() {
     $(this).toggleClass('active');
     $('.desktop-side-search').toggleClass('desktop-search-active');
     $('.desktop-side-search .header-search-field').focus();
-    var desktopsearch = $('.search-suggestions');
-    desktopsearch.show();
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();
 });

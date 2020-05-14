@@ -12,6 +12,5 @@ $(document).ready(function () {
     processInclude(require('./components/miniCart'));
     processInclude(require('./components/dashboard'));
     processInclude(require('./components/mobileMenu'));
-    processInclude(require('./components/search'));
 });
 
