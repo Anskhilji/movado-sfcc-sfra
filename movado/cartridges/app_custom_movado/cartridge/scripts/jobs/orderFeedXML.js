@@ -2938,7 +2938,6 @@ function generateOrderXML(order) {
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            }
                             if(eswOrderNo) {
                                 streamWriter.writeStartElement('DutyAmount');
                                 streamWriter.writeCharacters(commerceItem.giftMessageObj.DutyAmount);
@@ -3617,7 +3616,6 @@ function generateOrderXML(order) {
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
-                            }
                             if(eswOrderNo) {
                                 streamWriter.writeStartElement('DutyAmount');
                                 streamWriter.writeCharacters(commerceItem.embossingObj.DutyAmount);
