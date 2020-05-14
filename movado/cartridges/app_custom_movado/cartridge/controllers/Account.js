@@ -406,6 +406,8 @@ server.append(
         var Resource = require('dw/web/Resource');
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
         var profileForm = server.forms.getForm('profile');
+        
+        var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
 
         if (profileForm.valid) {
             this.on('route:Complete', function (req, res) { // eslint-disable-line no-shadow
@@ -420,7 +422,13 @@ server.append(
                     var emailHeaderContent = ContentMgr.getContent('email-header');
                     var emailFooterContent = ContentMgr.getContent('email-footer');
                     var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
-                    var url = URLUtils.https('Search-Show', 'cgid', 'shop-all-watches');
+                    var url;
+                    // Custom Start: Adding Marketing Cloud cartridge integration
+                    if (isMarketingCloudEnabled) {
+                        url = URLUtils.https('Account-EditPassword');
+                    } else {
+                        url = URLUtils.https('Search-Show', 'cgid', 'shop-all-watches');
+                    }
                     var objectForEmail = {
                         firstName: customer.profile.firstName,
                         lastName: customer.profile.lastName,

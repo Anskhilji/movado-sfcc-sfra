@@ -73,10 +73,18 @@
         height: 100%;
         border-bottom: none;
         
+        .dropdown-link {
+            font-weight: bold;
+            
+            .account-name {
+                font-weight: normal;
+            }
+        }
+        
         img {
             border-radius: 7%;
             width: 100%;
-            height: 75px;
+            height: 100px;
             padding-left: 5%;
             padding-right: 5%;
             margin-bottom: rem(10);
@@ -84,9 +92,11 @@
         
         .image-text {
             position: absolute;
-            margin-top: rem(32);
+            margin-top: rem(45);
             left: 15%;
             color: $white;
+            font-weight: bold;
+            font-size: rem(15);
         }
     }
 
@@ -116,8 +126,9 @@
         text-align: center;
         
         .register-button {
-            height: rem(45);
+            height: rem(50);
             width: 90%;
+            background-color: $black;
         }
     } 
 }
@@ -128,13 +139,15 @@
         margin-left: rem(35);
         padding-top: rem(6);
         color: $light-gray12;
-        opacity: 50%;
 
         h4 {
-            font-size: rem(15);
+            font-size: rem(20);
             letter-spacing: rem(1.02);
             line-height: rem(20);
             text-transform: uppercase;
+            color: $light-gray12;
+            opacity: 0.5;
+            font-weight: bold;
         }
     }
     
@@ -144,7 +157,7 @@
     
     .third-level-menu {
 
-        &.tab-content {
+        &.tab-content-submenu {
             display: none;
         
             &.show {
@@ -157,6 +170,7 @@
             height: 100vh;
             overflow-y: scroll;
             margin-bottom: 0;
+            margin-right: rem(15);
 
             li {
                 height: rem(70);
@@ -165,7 +179,7 @@
         }
 
         &-tab {
-            padding-top: rem(5);
+            padding-top: rem(8);
             padding-bottom: rem(15);
             margin-left: rem(35);
             display: flex;
@@ -176,10 +190,11 @@
             
             .btn-women-tab {
                 border-radius: 0 rem(5) rem(5) 0;
+                margin-right: rem(35);
             }
             
             .btn.btn-outline-dark {
-                width: rem(94);
+                width: 40%;
                 height: rem(30);
                 letter-spacing: 0;
                 text-transform: capitalize;
@@ -208,6 +223,7 @@
         &-text {
             margin-left: rem(16);
             letter-spacing: 0;
+            font-weight: bold;
         }
     }
 }

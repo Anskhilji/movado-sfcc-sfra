@@ -10,6 +10,14 @@ module.exports = function () {
         e.preventDefault();
         $('.dropdown-item-mvmt').removeClass('show');
     });
+    
+    $('.close-menu').on('click', '.close-button', function (e) {
+        e.preventDefault();
+        $('.dropdown-item-mvmt').removeClass('show');
+        $('.mvmt-menu-group .sub-dropdown').removeClass('show');
+        $('.menu-toggleable-left').removeClass('in');
+        $('#overlay').hide();
+    });
 
     $('.mvmt-menu-group .dropdown' ).click(function() {
         $(this).addClass('show');
@@ -21,7 +29,7 @@ module.exports = function () {
     
     $('.third-level-menu-tab .btn' ).click(function() {
         var tablink = $(this).data('tab');
-        $('.tab-content').removeClass('show');
+        $('.tab-content-submenu').removeClass('show');
         $('.third-level-menu-tab .btn').removeClass('active');
         $(''+tablink+'').addClass('show');
         $(this).addClass('active');
@@ -29,7 +37,8 @@ module.exports = function () {
     
     $(window).on('resize load',function () {
         var height = $(window).height()-212;
-        $('.tab-content ul').height(height);
+
+        $('.mobile-menu .tab-content-submenu ul').height(height);
     });
     
 };

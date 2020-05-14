@@ -6,9 +6,6 @@
                 <div class="new-header-menu-logo">
                     <isslot id="brand-logo" description="Brand Logo" context="global" />
                 </div>
-                <a class="close-button" href="${'#'}" role="button">
-                    <span class="close-icon"></span>
-                </a>
             </div>
             <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
                 <a class="back-menu" href="${'#'}" role="button">

@@ -558,7 +558,7 @@ module.exports = {
             var $trigger = $(".sort-dropdown");
             if($trigger !== event.target && !$trigger.has(event.target).length){
                 $(this).find('.sort-dropdown-toggle').removeClass('active');
-                $('.dropdown-menu').slideUp('fast').removeClass('active');
+                $('.plp-filter-bar .dropdown-menu').slideUp('fast').removeClass('active');
             }
         });
     },
@@ -616,7 +616,7 @@ module.exports = {
             $('.mobile-filter-btn-list').addClass('filter-open');
         });
 
-        $(document).on("click", '.mobile-filter-options-list button, .mobile-filter-btn', function(e) {
+        $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function(e) {
             var str = $(this).data('option-select');
             var optionMenu = str.split(" ")[0];
             $('body').addClass('lock-bg');

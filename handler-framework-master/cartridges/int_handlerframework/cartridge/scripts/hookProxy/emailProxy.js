@@ -50,8 +50,8 @@ function sendEmail(emailObj, template, context) {
    emailData.template = template;
    emailData.context = context;
    emailData.subject = emailObj.subject;
-   
-   var hookPath = 'app.communication.';
+
+    var hookPath = 'app.sfmc.communication.';
     var hookID = hookPath;
 	
     if(emailObj){
