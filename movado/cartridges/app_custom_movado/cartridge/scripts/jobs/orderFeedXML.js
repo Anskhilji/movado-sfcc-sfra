@@ -1658,7 +1658,7 @@ function getPOItemsInfo(order, isEswEnabled) {
 */
 function isDutyInclusive(order, eswOrderNo) {
     if (eswOrderNo) {
-        return (!empty(order.custom.eswShopperCurrencyDelivery) && order.custom.eswShopperCurrencyDelivery > ZERO) ? 'Y' : 'N';
+        return (!empty(order.custom.eswShopperCurrencyDeliveryDuty) && order.custom.eswShopperCurrencyDeliveryDuty > ZERO) ? 'Y' : 'N';
     }
     return 'Y';
 }
