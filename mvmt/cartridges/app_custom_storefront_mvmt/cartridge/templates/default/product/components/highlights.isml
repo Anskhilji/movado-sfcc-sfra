@@ -1,9 +1,16 @@
 <iscomment>Attribute list added, Heading added</iscomment>
+<div class="row w-100 justify-content-md-center">
+    <div class="col-12 col-sm-8">
+        <h3 class="detals-heading mb-sm-0">${Resource.msg('label.spec.care', 'product', null)}</h3>
 
-<h2 class="col-sm-12">
-    <!-- TODO: Title BM Configurable -->
-    <button class="title text-uppercase btn p-0 text-left sec-title shadow-none">${product.resources.Highlight}</button>
-</h2>
-<div class="col-sm-12 value detail-content content">
-    <isprint value="${product.longDescription}" encoding="off"/>
+        <div class="attribute-list">
+            <isloop items="${product.pdpAttributesList}" begin="5" var="attr">
+                <div class="attribute-detail">
+                    <span class="attribute-name attribute-content">${attr.name}</span>
+                    <span class="attribute-value attribute-content">${attr.value}</span>
+                </div>
+            </isloop>
+        </div>
+    </div>
 </div>
+<iscomment>Custom End</iscomment>

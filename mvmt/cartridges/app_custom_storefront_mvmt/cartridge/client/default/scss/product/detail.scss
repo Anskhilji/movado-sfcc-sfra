@@ -3,6 +3,7 @@
 
 .pdp-tabs-nav {
     border-bottom: rem(4) solid $light-gray6;
+    margin-bottom: rem(50);
 
     @include media-breakpoint-down(sm) {
         display: none;
@@ -64,12 +65,21 @@
     }
 
     &-label {
+        font-family: $font-bold;
+        font-weight: 600;
         font-size: rem(14);
-        font-family: $font-medium;
-        font-weight: 500;
-        line-height: rem(20);
-        letter-spacing: 1.17;
+        color: $black;
+        letter-spacing: rem(1.53);
         text-transform: uppercase;
+
+        .yotpo {
+            display: inline-block;
+            vertical-align: text-bottom;
+
+            * {
+                font-size: 14px;
+            }
+        }
     }
 
     &-switch {
@@ -1997,5 +2007,136 @@
 
     .attribute-value {
         text-transform: capitalize;
+    }
+}
+
+.pdp-tabs-body {
+
+    .pdp-tab-content {
+        position: relative;
+        border-bottom: rem(1) solid $light-gray6;
+
+        &.Highlights {
+
+            .pdp-content-body {
+
+                .attribute-list {
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(65) 0;
+                    }
+                }
+            }
+        }
+
+        &:last-child {
+            border: none;
+        }
+
+        @include media-breakpoint-up(sm) {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+            transition: .25s linear;
+            border: none;
+        }
+
+        &.active {
+            display: block;
+        }
+
+        &.fadeIn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pdp-content-body {
+            display: none;
+            flex-direction: column;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: rem(20) rem(30);
+            display: none;
+            transition: all .5s ease-in-out;
+        
+            &.active {
+                display: block;
+            }
+
+            @include media-breakpoint-up(sm) {
+                padding: rem(60) rem(30);
+                padding-bottom: rem(20);
+                display: flex;
+                flex-direction: row;
+            }
+            
+
+            .detals-heading {
+                font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                line-height: rem(24);
+                letter-spacing: rem(1.5);
+                color: $black;
+                margin-bottom: rem(30);
+                text-transform: uppercase;
+            }
+
+            .attribute-list {
+                padding: 0 0 rem(45);
+
+                @include media-breakpoint-up(sm) {
+                    padding: rem(45) 0;
+                }
+
+                .attribute-detail {
+                    border-bottom: rem(1) solid $light-gray6;
+                    padding: rem(20) 0;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(20);
+                    }
+
+                    .attribute-content {
+                        width: 50%;
+                        font-family: $font-medium;
+                        color: $black;
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(1.6);
+                        line-height: rem(12);
+                        text-transform: capitalize;
+
+                        &.attribute-name {
+                        text-transform: uppercase;
+                        }
+                    }
+                }
+
+                .pdp-attr-link {
+                    text-decoration: underline;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    .Reviews {
+
+        &.pdp-tab-content {
+
+            .pdp-content-body {
+
+                .detals-heading {
+                    font-size: rem(40);
+                    font-weight: 500;
+                    line-height: rem(42);
+                    letter-spacing: rem(4.29);
+                    margin-bottom: rem(30);
+                }
+            }
+        }
     }
 }
