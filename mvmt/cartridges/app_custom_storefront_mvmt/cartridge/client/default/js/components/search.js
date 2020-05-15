@@ -104,13 +104,16 @@ function positionSuggestions(scope) {
  */
 function processResponse(response) {
     var $suggestionsWrapper = getSuggestionsWrapper(this).empty();
+    // custom start
+    var $suggestonsSlots = $('.search-recomendation');
 
     $.spinner().stop();
 
     if (!(typeof (response) === 'object')) {
         $suggestionsWrapper.append(response).show();
         positionSuggestions(this);
-        $('.search-recomendation').hide();
+        // custom start hide recomendation slots
+        $suggestonsSlots.hide();
 
         if (isMobileSearch(this)) {
             applyModals(this);
