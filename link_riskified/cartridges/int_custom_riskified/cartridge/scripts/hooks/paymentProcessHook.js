@@ -1,5 +1,6 @@
 'use strict';
 
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var PaymentMgr = require('dw/order/PaymentMgr');
@@ -20,10 +21,17 @@ function paymentReversal(order, amount, isSentMail) {
 	var resObject;
 	
 	collections.forEach(paymentInstruments, function (paymentInstrument) {
-		paymentProcessor = paymentInstrument.paymentTransaction.paymentProcessor.ID;
+	    if (!empty(paymentInstrument.paymentTransaction) && !empty(paymentInstrument.paymentTransaction.paymentProcessor)) {
+		    paymentProcessor = paymentInstrument.paymentTransaction.paymentProcessor.ID;
+	    }
 	});
 	
-	resObject = refund(order, amount, isSentMail, paymentProcessor);
+	if (!empty(paymentProcessor)) {
+	    resObject = refund(order, amount, isSentMail, paymentProcessor);
+	} else {
+	    checkoutLogger.error('(paymentProcessHook) -> paymentReversal: PaymentProcessor is undefined, cannot make refund call and order number is: ' + order.getOrderNo());
+	    resObject = { refundResponse: '', decision: 'ERROR' };
+	}
 	return resObject; 
 
 }
