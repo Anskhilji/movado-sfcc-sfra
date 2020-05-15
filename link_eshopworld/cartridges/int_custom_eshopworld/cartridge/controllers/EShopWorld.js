@@ -50,7 +50,10 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.selectedCountryName = country.displayName;
         var customCountriesJSON = {
             customCountries: customCountries,
-            customLanguages: customLanguages
+            customLanguages: customLanguages,
+            headerPage: true,
+            footerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.footerPage : '',
+            landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
@@ -105,7 +108,10 @@ server.append('GetEswFooter', function (req, res, next) {
         res.viewData.EswFooterObject.selectedCountryName = country.displayName;
         var customCountriesJSON = {
             customCountries: customCountries,
-            customLanguages: customLanguages
+            customLanguages: customLanguages,
+            footerPage: true,
+            headerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.headerPage : '',
+            landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
@@ -160,7 +166,10 @@ server.append('GetEswLandingPage', function (req, res, next) {
         res.viewData.EswLandingObject.selectedCountryName = country.displayName;
         var customCountriesJSON = {
             customCountries: customCountries,
-            customLanguages: customLanguages
+            customLanguages: customLanguages,
+            landingPage: true,
+            headerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.headerPage : '',
+            footerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.footerPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }

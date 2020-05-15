@@ -2,6 +2,7 @@
 
 var QueryString = require('./queryString');
 var SimpleCache = require('./simpleCache');
+var Site = require('dw/system/Site').getCurrent();
 
 /**
  * Translates global session object into local object
@@ -299,8 +300,8 @@ function getPageMetaData(pageMetaData) {
  */
 function Request(request, customer, session) {
     // Avoid currency check for remote includes
+    var eswEnabled = Site.getCustomPreferenceValue('eswEshopworldModuleEnabled');
     // Custom Start : Adding ESW logic
-    var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
     if (!request.includeRequest) {
         if (!eswEnabled) {
             setCurrency(request, session);
@@ -325,7 +326,7 @@ function Request(request, customer, session) {
             }
         }
     }
- // Custom End
+    // Custom End
 
     this.httpMethod = request.httpMethod;
     this.host = request.httpHost;
