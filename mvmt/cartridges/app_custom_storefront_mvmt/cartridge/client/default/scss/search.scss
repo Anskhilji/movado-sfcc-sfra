@@ -82,10 +82,27 @@
     }
 
     .product-grid {
-        padding: rem(24);
-        padding-top: rem(75);
+        padding: 0;
+        padding-top: rem(20);
         margin: 0 auto;
-        max-width: rem(1440);
+        max-width: $container-max-width;
+        
+        @include media-breakpoint-up(lg) {
+            padding: rem(24);
+        }
+        
+        > div {
+            padding: rem(3) rem(4) 0;
+
+            @include media-breakpoint-up(md-down) {
+                padding: rem(5) rem(15) 0;
+            }
+    
+            @include media-breakpoint-up(lg) {
+                padding: rem(35) 0 rem(30);
+            }
+
+        }
     }
 
     .product-price-mobile {
