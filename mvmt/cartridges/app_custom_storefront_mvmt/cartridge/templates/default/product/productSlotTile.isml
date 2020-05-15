@@ -54,8 +54,8 @@
                 <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
             </isif>
         </div>
-        <isif condition="${pdict.display.showAddToCart}">
-            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
-        </isif>
     </div>
+    <isif condition="${pdict.display.showAddToCart}">
+        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+    </isif>
 </div>
