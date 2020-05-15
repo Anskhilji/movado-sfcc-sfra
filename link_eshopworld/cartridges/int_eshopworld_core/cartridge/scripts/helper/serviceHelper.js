@@ -89,15 +89,17 @@ function getCartItemsV2() {
         totalQuantity = 0,
         remainingDiscount = totalDiscount;
 
-    //Custom Variable for product image
-    var ImageModel = require('*/cartridge/models/product/productImages');
-
     forEach(currentBasket.productLineItems, function (item) {
         if (!item.bonusProductLineItem) {
             totalQuantity += item.quantity.value;
         }
     });
     for (var lineItemNumber in currentBasket.productLineItems) {
+        // Custom Start: Adding custom image variable for dynamic image code
+        var ImageModel = require('*/cartridge/models/product/productImages');
+        var imageUrl = '';
+        // Custom End
+
         var item = currentBasket.productLineItems[lineItemNumber],
             beforeDiscount = eswHelper.getMoneyObject(item.basePrice.value, false, false).value * item.quantity.value,
             price = beforeDiscount,
@@ -117,10 +119,6 @@ function getCartItemsV2() {
         price = (price / item.quantity.value).toFixed(2);
         beforeDiscount = beforeDiscount / item.quantity.value;
 
-        // Custom Start: Adding custom image variable for dynamic image code
-        var imageUrl = '';
-        //Custom End
-
         var priceAfterProductPromos = price;
         if (item.bonusProductLineItem) {
             price = 0;
@@ -132,13 +130,12 @@ function getCartItemsV2() {
                 price -= totalDiscount / totalQuantity;
             }
             price = price.toFixed(2);
-
-            // Custom Start: Adding custom dynamic image code
-            var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
-            ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
-            imageUrl = empty(ImageModel[tile][0].url) ? '' : ImageModel[tile][0].url.toString();
-            //Custom End
         }
+        // Custom Start: Adding custom dynamic image code
+        var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
+        ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
+        imageUrl = empty(ImageModel[tile][0].url) ? '' : ImageModel[tile][0].url.toString();
+        //Custom End
         discountAmount = (beforeDiscount - price).toFixed(2);
         remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
         var productVariationModel = item.product.variationModel;
@@ -338,7 +335,7 @@ function getShippingRates() {
             for (var rate in isOverrideCountry[0].shippingMethod.ID) {
                 var shippingMethod = this.applyShippingMethod(null, isOverrideCountry[0].shippingMethod.ID[rate], eswHelper.getAvailableCountry(), false);
                 if (shippingMethod != null && cart.adjustedShippingTotalPrice.valueOrNull != null) {
-                	var currencyIso = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate).toShopperCurrencyIso : session.getCurrency().currencyCode;
+                    var currencyIso = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate).toShopperCurrencyIso : session.getCurrency().currencyCode;
                     var shippingRate = {
                         'DeliveryOption': shippingMethod.displayName,
                         'ShopperCurrencyOveridePriceInfo': {
