@@ -276,6 +276,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
             $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
             updateAvailability(data, $uuid);
@@ -511,6 +512,48 @@ module.exports = function () {
     $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
         e.preventDefault();
         updateCartQuantity(this, false);
+    });
+
+    /**
+     * This is override click event function of coupon code that will directly remove the coupon code without
+     * showing the popup of confirmation it basically used on the minicart and cart page.
+     */
+    $('body').off('click', '.coupons-and-promos .remove-coupon').on('click', '.coupons-and-promos .remove-coupon', function (e) {
+        e.preventDefault();
+
+        var couponCode = $(this).data('code');
+        var uuid = $(this).data('uuid');
+        var url = $(this).data('action');
+        var urlParams = {
+            code: couponCode,
+            uuid: uuid
+        };
+
+        url = appendToUrl(url, urlParams);
+        $('body > .modal-backdrop').remove();
+
+        $.spinner().start();
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $('.coupon-uuid-' + uuid).remove();
+                updateCartTotals(data);
+                updateApproachingDiscounts(data.approachingDiscounts);
+                $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
+                validateBasket(data);
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
     });
 
     $movadoBase.selectAttribute();
