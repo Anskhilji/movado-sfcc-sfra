@@ -339,6 +339,24 @@ function getLineItemCrossBorderNetAmount(lineItem, isEswEnabled) {
 }
 
 /**
+* Calculate consumer loyalty amount for cross border order.
+* @param {Order} order.
+* @returns {Number} net amount for corss border orders
+*/
+function getConsumerLoyaltyAmount(order) {
+    var loyaltyConsumerDiscountAmount = 0.00;
+    var PriceAdjustmentsItr = order.getPriceAdjustments().iterator();
+    var currentPriceAdjustment;
+    while (PriceAdjustmentsItr.hasNext()) {
+        currentPriceAdjustment = PriceAdjustmentsItr.next();
+        if (!empty(currentPriceAdjustment.custom.swellPointsUsed) && !empty(currentPriceAdjustment.custom.swellRedemptionId)) {
+            loyaltyConsumerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
+        }
+    }
+    return loyaltyConsumerDiscountAmount;
+}
+
+/**
 * Fetches the shipping address data from an Order
 * @param {Order} order Order container.
 * @returns {json} Shipping Address JSON
@@ -1547,6 +1565,8 @@ function getPOItemsInfo(order, isEswEnabled) {
         obj.CrossBorderConsumerPromoAmount = getLineItemConsumerPromoAmount(productLineItem);
         obj.CrossBorderSubTotal = getLineItemSubTotal(productLineItem);
         obj.CrossBorderGrossValue = getLineItemCrossBorderGrossValue(productLineItem);
+        obj.LoyaltyAmount = crossBorderUtils.getSwellDiscountAmount(order);
+        obj.ConsumerLoyaltyAmount = getConsumerLoyaltyAmount(order);
 
         var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled);
 
@@ -2381,6 +2401,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalLoyaltyAmount');
+                if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                    streamWriter.writeCharacters('');
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('NetAmount');
@@ -2449,6 +2474,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalLoyaltyAmount');
+                if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                    streamWriter.writeCharacters('');
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerNetAmount');
@@ -2601,9 +2631,19 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('RoundingAmount');
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                        streamWriter.writeCharacters(commerceItem.LoyaltyAmount);
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('LoyaltyAmount');
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                        streamWriter.writeCharacters(commerceItem.LoyaltyAmount);
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('SubTotal');
@@ -2747,6 +2787,11 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                        streamWriter.writeCharacters(commerceItem.LoyaltyAmount);
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerSubTotal');
@@ -3657,9 +3702,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
+                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                                streamWriter.writeCharacters(commerceItem.RoundingAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                                streamWriter.writeCharacters(commerceItem.LoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerSubTotal');
