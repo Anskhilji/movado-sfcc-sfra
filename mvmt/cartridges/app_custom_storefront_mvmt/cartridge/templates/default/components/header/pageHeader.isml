@@ -6,7 +6,7 @@
 <header class="new-header mvmt-header-design">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isif condition="${isEswEnabled}" >
-        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
@@ -21,7 +21,7 @@
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
                                 <isif condition="${isEswEnabled}" >
-                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
                                 <iscomment> Custom End </iscomment>
                             </div>

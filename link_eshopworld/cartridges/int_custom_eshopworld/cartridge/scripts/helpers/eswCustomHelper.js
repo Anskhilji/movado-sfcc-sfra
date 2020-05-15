@@ -10,7 +10,13 @@ var Site = require('dw/system/Site').getCurrent();
  * @returns {ArrayList} languages : Array list of languages
  */
 function getCustomCountriesJson() {
-    return !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
+    var customCountriesJson = session.custom.countriesJSONFromPreferences;
+    if (!empty(customCountriesJson)) {
+        customCountriesJson = countriesJSONFromPreferences;
+    } else {
+        customCountriesJson = !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
+    }
+    return customCountriesJson;
 }
 
 /**
@@ -146,7 +152,6 @@ function getSelectedCountry(countryCode) {
     return countryObj;
 }
 
-
 /**
  * This method is used to get selected language countries in the alphabetically order.
  * @param {string} locale : Locale name
@@ -156,7 +161,7 @@ function getSelectedCountry(countryCode) {
 function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     var countries = null;
     try {
-        countries = customCountries.get(locale);
+        countries = !empty(locale) ? customCountries.get(locale) : customCountries;
         countries.sort(function(a, b) {
             let x = a.displayValue.toUpperCase(),
             y = b.displayValue.toUpperCase();
@@ -168,11 +173,30 @@ function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     return countries;
 }
 
+/**
+ * This method is used to country object by country code from getCustomCountriesJson() method.
+ * @param {string} countryCode : Country Code
+ * @returns {Object} country : Country object
+ */
+function getCustomCountryByCountryCode(countryCode) {
+    var countries = getCustomCountriesJson();
+    var country = null;
+    for (var countryIndex = 0; countryIndex < countries.length; countryIndex++) {
+        country = countries[countryIndex];
+        if (country.countryCode.equalsIgnoreCase(countryCode)) {
+            break;
+        }
+    }
+    return country;
+}
+
 module.exports = {
+    getCustomCountriesJson: getCustomCountriesJson,
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
     getSelectedLanguage: getSelectedLanguage,
     getSelectedCountry: getSelectedCountry,
     getAlphabeticallySortedLanguages: getAlphabeticallySortedLanguages,
-    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries
+    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries,
+    getCustomCountryByCountryCode: getCustomCountryByCountryCode
 };
