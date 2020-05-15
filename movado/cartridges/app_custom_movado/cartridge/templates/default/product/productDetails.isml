@@ -100,17 +100,18 @@
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
 
-
                         <!-- Affirm Text -->
-                        
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                        <iscomment> Custom Start: Adding check for affirm to show only when country US is selected</iscomment>
+                        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+                            <div class="col-md-10 col-12">
+                                <div>
+                                    <isinclude template="util/affirmmodule_mf" />
+                                    <isaffirmpromo context="pdp"
+                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                </div>
                             </div>
-                        </div>
-                        
+                        </isif>
+                        <iscomment> Custom End </iscomment>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">

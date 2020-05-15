@@ -146,7 +146,6 @@ function getSelectedCountry(countryCode) {
     return countryObj;
 }
 
-
 /**
  * This method is used to get selected language countries in the alphabetically order.
  * @param {string} locale : Locale name
