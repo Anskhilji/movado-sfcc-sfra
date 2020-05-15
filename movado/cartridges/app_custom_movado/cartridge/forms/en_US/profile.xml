@@ -102,6 +102,7 @@
 			value-error="ValueErrorText"
 			type="string"/> 
 			<!-- TODO value-error not comming back from the platform -->
+
 		<field 
 			formid="phone"
 			label="label.input.phone.profile"
