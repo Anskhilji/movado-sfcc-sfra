@@ -616,7 +616,7 @@ module.exports = {
             $('.mobile-filter-btn-list').addClass('filter-open');
         });
 
-        $(document).on("click", '.mobile-filter-options-list button, .mobile-filter-btn', function(e) {
+        $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function(e) {
             var str = $(this).data('option-select');
             var optionMenu = str.split(" ")[0];
             $('body').addClass('lock-bg');
