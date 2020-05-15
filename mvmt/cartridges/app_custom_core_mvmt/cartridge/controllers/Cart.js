@@ -28,27 +28,9 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-server.append('MiniCartShow', consentTracking.consent, server.middleware.https, csrfProtection.generateToken,
-    function(req, res, next) {
-    var target = req.querystring.rurl || 1;
-    var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'isMiniCart', true).toString();
-    var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target, 'isMiniCart', true).toString();
+server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function(req, res, next) {
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
-    var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
-    var googleOauthProvider = Site.getCurrent().getCustomPreferenceValue('googleOauthProvider');
-    var miniCartRegisterForm = server.forms.getForm('miniCartRegistrationForm');
-    miniCartRegisterForm.clear();
-
-    res.setViewData({
-        facebookOauthProvider: facebookOauthProvider,
-        googleOauthProvider: googleOauthProvider,
-        oAuthReentryEndpoint: 2,
-        createAccountUrl: createAccountUrl,
-        actionUrl: actionUrl,
-        miniCartRegisterForm: miniCartRegisterForm,
-        removeProductLineItemUrl: removeProductLineItemUrl,
-        paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
-    });
+    res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     next();
 });
 
