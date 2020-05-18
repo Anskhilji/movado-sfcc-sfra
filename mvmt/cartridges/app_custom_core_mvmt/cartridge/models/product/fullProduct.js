@@ -20,6 +20,21 @@ module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
+    var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpDetailAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpDetailAttributes
+        });
+    }
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpSpecAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpSpecAttributes
+        });
+    }
 
     if (!empty(apiProduct.custom.shopStrapUrl)) {
         Object.defineProperty(product, 'shopStrapUrl', {
