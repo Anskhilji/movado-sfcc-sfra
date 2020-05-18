@@ -307,6 +307,9 @@
                         margin-top: rem(2);
                         padding: 0 rem(0) rem(30);
                     }
+                    .content-asset {
+                         display: inline-block;
+                    }
 
                     &-text {
                         font-size: rem(36);
@@ -325,7 +328,17 @@
                         font-family: $font-medium;
                         letter-spacing: rem(0.5);
                         text-align: center;
+                        display: inline;
                     }
+                   & a {
+	                    text-decoration: underline;
+                        letter-spacing: 0.0625rem;
+                        text-transform: uppercase;
+                        font-size: 0.6875rem;
+                        color: #000;
+                        cursor: pointer;
+	 
+                   }
                 }
             }
 

@@ -11,6 +11,7 @@
         <div class="track-order-header">
             <h3 class="card-header track-order-header-text">${Resource.msg('header.form.trackorder', 'login', null)}</h3>
             <p class="track-order-header-description">${Resource.msg('header.form.trackorder.text', 'login', null)}</p>
+            <iscontentasset aid="ESW-TRACKING-PORTAL" />
         </div>
         <div class="form-group required">
             <label class="form-control-label" for="trackorder-form-number">
