@@ -326,9 +326,9 @@ module.exports = function () {
      */
 
     $('body').off('click', '.increased-qty-btn').on('click', '.increased-qty-btn', function (e) {
-        var $pid = $(this).data('pid');
-        var $quantitySelector = '.' + $(this).data('pid');
-        increaseQuantity($quantitySelector, $pid);
+    	var pid = $(this).data('pid');
+    	var quantitySelector = '.' + pid;
+    	increaseQuantity(quantitySelector, pid);
     }); 
     
     /**
@@ -337,9 +337,9 @@ module.exports = function () {
      * class and it will call the decreaseQuantity function.
      */
     $('body').off('click', '.decreased-qty-btn').on('click', '.decreased-qty-btn', function (e) {
-        var $pid = $(this).data('pid');
-        var $quantitySelector = '.' + $(this).data('pid');
-        decreaseQuantity($quantitySelector, $pid);
+    	var pid = $(this).data('pid');
+    	var quantitySelector = '.' + pid;
+    	decreaseQuantity(quantitySelector, pid);
       });
 
     /**
