@@ -135,6 +135,78 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get productCustomAttribute for Details and Specs Sections on PDP
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Object} - detailAndSpecAttributes object
+ */
+
+ function getPdpDetailAndSpecsAttributes(apiProduct) {
+    var category = null;
+    var pdpDetailAttributes = [];
+    var pdpSpecAttributes = [];
+    try {
+        var CatalogMgr = require('dw/catalog/CatalogMgr');
+        var categories = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categories) && !empty(apiProduct)) {
+            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
+                var categoryObj = categories[categoryIndex];
+                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
+                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
+                if (!empty(categoryAssignment)) {
+                    category = categoryObj;
+                    break;
+                }
+            }
+        }
+        if (!empty(category)) {
+            var attributes = category.attributes;
+            if (!empty(attributes)) {
+                for (var attributesIndex = 0; attributesIndex < attributes.length; attributesIndex++) {
+                    try {
+                        var id = attributes[attributesIndex].ID;
+                        var displayName = attributes[attributesIndex].displayName;
+                        var isCustom =  attributes[attributesIndex].custom;
+                        var section = attributes[attributesIndex].section;
+                        var value = null;
+                        if (isCustom) {
+                            value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                        } else {
+                            value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
+                        }
+                        if (!empty(value)) {
+                            var attribute = {
+                                displayName: displayName,
+                                value: value,
+                                section: section
+                            };
+
+                            for (var sectionIndex = 0; sectionIndex < section.length; sectionIndex++) {
+                                var currentSection = section[sectionIndex];
+                                if (currentSection == 'details') {
+                                    pdpDetailAttributes.push(attribute);
+                                }
+                                if (currentSection == 'specs') {
+                                    pdpSpecAttributes.push(attribute);
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object : ' + e);
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
+    }
+    return detailAndSpecAttributes = {
+        pdpDetailAttributes: pdpDetailAttributes,
+        pdpSpecAttributes: pdpSpecAttributes
+    };
+
+}
+
+/**
  * It is used to generate swatch image url from refinement values.
  * @param {String} presentationID - presentationID from refinement values
  * @returns {String} - swatchImageURL
@@ -159,5 +231,6 @@ function getRefinementSwatches(presentationID) {
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
-    getRefinementSwatches: getRefinementSwatches
+    getRefinementSwatches: getRefinementSwatches,
+    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes
 };
