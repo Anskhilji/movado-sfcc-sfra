@@ -1958,13 +1958,13 @@
         text-align: center;
         backface-visibility: hidden;
         padding: 10px 10px 0;
-        background-color: $white;
 
         &.opened {
             display: block;
         }
 
         &-body {
+            background-color: $white;
             position: fixed;
             top: 53px;
             bottom: 0;
@@ -2018,20 +2018,43 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 42px;
-        border-top: 1px solid #e8e8e8;
-        border-bottom: 1px solid #e8e8e8;
+        height: rem(42);
+        border-top: rem(1) solid $light-gray4;
+        border-bottom: rem(1) solid $light-gray4;
         position: fixed;
         top: 0;
         width: 100%;
-        background-color: #fff;
+        background-color: $white;
         left: 0;
         right: 0;
 
         @include media-breakpoint-up(md-down) {
             border-top: none;
-            border-bottom: 1px solid #e8e8e8;
-            position: static;
+            border-bottom: rem(1) solid $light-gray4;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: block;
+            overflow: visible;
+            width: 16px;
+            height: 14px;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            transition: color .2s;
+            text-decoration: none;
+            color: $gray11;
+            border: 0;
+            outline: 0;
+            background: transparent;
+
+            &:hover, &:focus {
+                color: $gunpowder;
+            }
         }
     }
 
@@ -2059,6 +2082,54 @@
 
         @include media-breakpoint-up(lg) {
             padding: 0 90px;
+        }
+    }
+
+    &-detail-header-title {
+        font-family: $font-medium;
+        font-size: rem(16);
+        line-height: rem(22px);
+        color: $dark-gray;
+        text-align: center;
+        text-transform: uppercase;
+        @include media-breakpoint-up(lg) {
+            letter-spacing: rem(2.5);
+        }
+    } 
+
+    &-detail-content-title {
+        font-size: rem(30);
+        line-height: rem(42);
+        margin: 0 0 rem(20);
+        color: $black;
+        text-transform: uppercase;
+    }
+
+    &-detail-content-copy {
+        margin: 0 0 10px;
+        @include media-breakpoint-up(md) {
+            margin: 0 0 20px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: .5px;
+            color: #5c5c5c;
+            text-transform: none;
+            margin: 0 0 25px;
+
+            @include media-breakpoint-up(lg) {
+                font-size: 16px;
+                line-height: 23px;
+                margin: 0 0 20px;
+            }
+        }
+
+        span {
+            text-transform: uppercase;
+            color: #5c5c5c;
+            font-family: $font-medium;
+            font-weight: 500;
         }
     }
 }
