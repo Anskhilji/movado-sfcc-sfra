@@ -10,13 +10,15 @@
 
     @include media-breakpoint-down(sm) {
 
-        .items:last-of-type {
-            border: none;
-            padding-top: 0;
-        }
+        .items {
 
-        .items-header {
-            padding-top: 0;
+            &:last-of-type {
+                border: none;
+                padding-top: 0;
+        }
+            &-header {
+                padding-top: 0;
+            }
         }
     }
 
@@ -32,7 +34,7 @@
 
       > div {
         color: $night-rider;
-        @include font-medium;
+        font-family: $font-medium;
         font-size: rem(12);
         line-height: rem(16);
         letter-spacing: rem(0.82);
@@ -55,7 +57,7 @@
 
           @include media-breakpoint-down(sm) {
             color: $black;
-            @include font-medium;
+            font-family: $font-medium;
             font-size: rem(12);
             line-height: rem(16);
             letter-spacing: rem(0.82);
@@ -97,7 +99,7 @@
           color: $night-rider;
           padding: rem(10) 0;
           padding-left: 0;
-          @include font-medium;
+          font-family: $font-medium;
           font-size: rem(12);
           display: block;
           line-height: rem(16);
@@ -165,33 +167,36 @@
   background: $white;
   border-top: rem(1) solid $gray91;
 
-    .search-recomendation {
-        padding-left: rem(5);
-    }
+    .search {
 
-    .search-suggestions { 
-        margin-top: rem(10);
+        &-recomendation {
+            padding-left: rem(5);
+        }
 
-    ul {
-        padding: 0;
-        list-style-type: none;
+        &-suggestions {
+            margin-top: rem(10);
 
-        li {
-            border-radius: rem(2);
-            padding: 0 rem(17);
+            ul {
+                padding: 0;
+                list-style-type: none;
 
-            a {
-                color: $black;
-                padding: rem(10) 0;
-                @include font-medium;
-                font-size: rem(12);
-                display: block;
-                line-height: rem(16);
-                letter-spacing: rem(0.82);
+                li {
+                    border-radius: rem(2);
+                    padding: 0 rem(17);
+
+                    a {
+                        color: $black;
+                        padding: rem(10) 0;
+                        font-family: $font-medium;
+                        font-size: rem(12);
+                        display: block;
+                        line-height: rem(16);
+                        letter-spacing: rem(0.82);
+                    }
+                }
             }
         }
     }
-}
 
 .mobile-search-close {
     position: absolute;
@@ -202,7 +207,7 @@
     text-align: center;
     padding-top: rem(17);
     text-decoration: underline;
-    @include font-medium;
+    font-family: $font-medium;
     font-size: rem(12);
     line-height: rem(16);
     letter-spacing: rem(0.82);
@@ -230,7 +235,7 @@
       line-height: rem(16);
       letter-spacing: rem(0.82);
       text-align: left;
-      @include font-medium;
+      font-family: $font-medium;
       outline: none;
 
       &:focus {
@@ -307,12 +312,13 @@
 .top-search-tiles {
     display: flex;
 }
+
 .search-suggestions { 
     margin-top: rem(50);
 
     h3 {
         color: $night-rider;
-        @include font-medium;
+        font-family: $font-medium;
         font-size: rem(12);
         line-height: rem(16);
         letter-spacing: rem(0.82);
@@ -340,7 +346,7 @@
 
             a {
                 color: $night-rider;
-                @include font-medium;
+                font-family: $font-medium;
                 font-size: rem(14);
                 line-height: rem(15.59);
                 letter-spacing: rem(1.4);
@@ -359,10 +365,13 @@
     }
 }
 
-.suggested-products-caresoul {
-    padding-left: rem(65);
-}
+.suggested-products {
 
-.suggested-products-tiles {
-    padding-left: rem(75);
+    &-caresoul {
+        padding-left: rem(65);
+    }
+
+    &-tiles {
+        padding-left: rem(75);
+    }
 }
