@@ -61,7 +61,7 @@ module.exports = {
             var thistab = $(this).data('tab');
             $(this).addClass('active').siblings().removeClass('active');
             $('html, body').animate({
-                scrollTop: $('.'+ thistab +'').offset().top - 100
+                scrollTop: $('.' + thistab + '').offset().top - 100
             }, 1000);
         });
 
@@ -284,15 +284,17 @@ module.exports = {
 
     updatePrice: function () {
         $('.upsell_input').on('click', function (){
-            var upselprice = $(this).siblings(".upsell_wrapper-inner").find('.sales .value').data('value');
+            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
             var currentPrice = $('.product-price-mobile .sales .value').data('value');
             var updatedPrice;
-            if($(this).is(":checked")) {
+
+            if ($(this).is(':checked')) {
                 updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
             } else {
                 updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
             }
-            $('.product-price-mobile .sales .value').each(function(){
+
+            $('.product-price-mobile .sales .value').each(function() {
                 var updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
                 $(this).text(updatedText).data('value', updatedPrice);
             });

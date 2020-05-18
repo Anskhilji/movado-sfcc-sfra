@@ -1168,7 +1168,6 @@
                 &_description {
                     width: 100%;
                     color: $light-gray2;
-                    // padding: rem(14) 0;
                     font-size: rem(14);
                     margin-bottom: auto;
                     text-transform: capitalize;
@@ -1180,7 +1179,6 @@
 
                     @include media-breakpoint-up(sm) {
                         font-size: rem(11);
-                        // padding: rem(2) 0;
                     }
                 }
 
@@ -1219,7 +1217,7 @@
                     &-added {
                         display: none;
                         padding-left: rem(10);
-                        background: $light-green url("../../images/white-checkmark.svg") left 20px center no-repeat;
+                        background: $light-green url("../../images/white-checkmark.svg") left rem(20) center no-repeat;
                     }
                 }
 
@@ -2016,18 +2014,6 @@
         position: relative;
         border-bottom: rem(1) solid $light-gray6;
 
-        &.Highlights {
-
-            .pdp-content-body {
-
-                .attribute-list {
-                    @include media-breakpoint-up(sm) {
-                        padding: rem(65) 0;
-                    }
-                }
-            }
-        }
-
         &:last-child {
             border: none;
         }
@@ -2070,7 +2056,7 @@
             }
             
 
-            .detals-heading {
+            .details-heading {
                 font-family: $font-medium;
                 font-size: rem(24);
                 font-weight: 500;
