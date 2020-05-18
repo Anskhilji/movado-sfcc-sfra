@@ -16,7 +16,7 @@
             <ul>
                 <div class="top-category-heading"><h4>${topCat.name}</h4></div>
                 <isloop items="${menuItem.subCategories}" var="category">
-                    <isif condition="${category.subCategories && category.disableSubCategories}">
+                    <isif condition="${category.subCategories}">
                         <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                             <span href="${category.url}" role="button" class="dropdown-link">${category.name}</span>
                             <div class="dropdown-menu">

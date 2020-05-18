@@ -319,13 +319,6 @@
     .nav-item {
       box-shadow: none;
 
-      &.show {
-        box-shadow: none;
-      }
-    }
-
-    .nav-item {
-
       >.dropdown-menu {
         box-shadow: 0px rem(4) rem(7) rem(-3) $grey-dark;
         padding-top: rem(25);
@@ -334,6 +327,10 @@
         &.show{
           display: block;
         }
+      }
+
+      &.show {
+        box-shadow: none;
       }
     }
 
@@ -387,16 +384,17 @@
         position: relative;
         line-height: 1.4;
         overflow: initial;
-        display: inline-block;
+        display: block;
         background: transparent;
         white-space: nowrap;
         width: auto;
-        position: relative;
 
         .dropdown-link {
           @include font-medium;
           font-size: rem(12);
           transition: transform .24s ease 0s;
+          display: inline-block;
+          position: relative;
 
           &::before {
             content: "";
@@ -506,6 +504,67 @@
       &.active {
         display: block;
       }
+    }
+  }
+}
+
+.menu-right-aside {
+  margin: 0 0 0;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: rem(640);
+  max-width: rem(640);
+  margin-right: rem(25);
+
+  img {
+    transition: opacity .25s;
+    min-width: rem(300);
+    max-width: rem(300);
+    height: rem(350);
+    object-fit: cover;
+  }
+
+  &-content {
+    margin-left: rem(40);
+  }
+
+  &-header {
+    font-family: $font-medium;
+    text-transform: uppercase;
+    max-width: rem(300);
+    font-weight: 500;
+    font-size: rem(30);
+    line-height: 1.3;
+    margin: 0 0 rem(20);
+  }
+
+  &-text {
+    font-family: $font-book;
+    font-weight: 400;
+    font-size: rem(12);
+    line-height: 1.6;
+    margin-bottom: rem(25);
+    letter-spacing: rem(1.5);
+  }
+
+  &-button {
+    display: flex;
+    height: rem(48);
+    font-size: rem(14);
+    line-height: 1;
+    width: auto;
+    padding: 0 rem(30);
+    min-width: auto;
+    background-color: $black;
+    color: $white;
+
+    &:hover, &:focus {
+      border-color: $dark-red;
+      background-color: $dark-red;
+      color: $white;
     }
   }
 }

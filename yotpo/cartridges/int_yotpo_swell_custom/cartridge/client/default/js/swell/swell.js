@@ -177,6 +177,8 @@ function handleSwellPointContainer() {
 }
 
 $(document).on("swell:initialized", () => {
+    $("#swell-redemption-dropdown").empty();
+    $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
     swellAPI.getActiveRedemptionOptions().forEach(option => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $("#swell-redemption-dropdown").append(
@@ -186,7 +188,18 @@ $(document).on("swell:initialized", () => {
     });
 });
 
-$('#coupon-code-submit-btn').on('click', function (e) {
+$(document).on('click', '#coupon-code-submit-btn', function (e) {
+    e.preventDefault();
+    var $redemptionContainer = $('.swell-redemption');
+    $redemptionContainer.spinner().start();
+    swellAPI.makeRedemption(
+        { redemptionOptionId: $("#swell-redemption-dropdown option:selected").val(), delayPointDeduction: true },
+        onSuccess,
+        onError
+    );
+});
+
+$('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
     e.preventDefault();
     var $redemptionContainer = $('.swell-redemption');
     $redemptionContainer.spinner().start();

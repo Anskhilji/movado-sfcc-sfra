@@ -174,6 +174,7 @@
 
                         .product-line-item-details.item-info {
                             overflow: hidden;
+                            border-bottom: 0;
                         }
 
                         .quantity-form {
@@ -285,6 +286,10 @@
 
                         .price {
 
+                            .strike-through {
+                                color: $red1;
+                            }
+
                             .total-amount {
                                 font-family: $font-book;
                                 font-size: rem(11);
@@ -297,6 +302,7 @@
 
                         .remove-line-item {
                             float: left;
+                            line-height: 1;
 
                             .remove-btn {
                                 font-size: rem(9);
@@ -354,6 +360,7 @@
         }
 
         .minicart-footer {
+            overflow: hidden;
             padding: 0;
             bottom: 0;
             position: absolute;
@@ -363,7 +370,126 @@
             box-shadow: 0px rem(-5) rem(5) rem(-5) $light-gray9;
 
             @include media-breakpoint-down(md) {
-                position: relative;
+                position: absolute;
+            }
+
+            .collapsible-promo-wrapper, .mini-cart-promo-box {
+                outline: 0;
+                padding: 0;
+            }
+
+            .collapsible-promo-wrapper {
+                padding: 0;
+            }
+
+            .mini-cart-promo-box {
+
+                .coupons-and-promos {
+                    width: 100%;
+
+                    .coupon-price-adjustment {
+                        margin: rem(6);
+                    }
+
+                    .promotion-information {
+                        display: none;
+                    }
+                }
+
+                .promo-code-inner-div {
+                    border-bottom: rem(1) solid $light-gray4;
+
+                    .swell-redemption {
+
+                        .swell-point-balance {
+                            padding: 0 rem(4);
+                        }
+
+                        &-text {
+
+                            &.content {
+                                margin-left: 0;
+                            }
+                        }
+
+                        &-dropdown {
+                            width: 100%;
+                            padding: rem(8.32) rem(12);
+                            border-radius: rem(4);
+                            border: rem(1) solid $light-gray4;
+                            padding: rem(9) rem(5);
+                            outline: 0;
+                        }
+
+                        &-btn {
+                            background-color: $black;
+                            border-radius: rem(4);
+                            font-weight: 600;
+                            font-size: rem(14);
+                            padding: rem(9) rem(5);
+                            box-shadow: none;
+
+                            &:hover, &:focus {
+                                background-color: $black;
+                                background-image: linear-gradient($black, $black);
+                                border-color: $black;
+                            }
+                        }
+                    }
+
+                    .coupon-code-field {
+                        line-height: 1;
+                        border: rem(1) solid $cyan-blue1;
+                        border-radius: rem(3);
+                        height: rem(45);
+                        box-shadow: none;
+                    }
+
+                    .promo-code-btn {
+                        background-color: $black;
+                        border-radius: rem(4);
+
+                        &:hover, &:focus {
+                            background-color: $black;
+                            background-image: linear-gradient($black, $black);
+                            border-color: $black;
+                        }
+                    }
+
+                    .form-group {
+
+                        &.active {
+
+                            .title {
+                                font-size: 0;
+                                padding: 0;
+
+                                &:after {
+                                    content: "";
+                                    font-family: $font-book;
+                                }
+                            }
+
+                            .content {
+                                padding: 0 rem(16) rem(8) rem(16);
+                            }
+                        }
+
+                        .title {
+                            padding: rem(16);
+                            font-family: $font-book;
+                            font-weight: bold;
+                            font-size: rem(13);
+                            display: block;
+                            margin: 0;
+
+                            &:after {
+                                content: "+";
+                                font-family: $font-book;
+                            }
+                        }
+                    }
+                }
             }
 
             .subtotal {
@@ -373,24 +499,29 @@
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
-                    padding: rem(15) rem(18) rem(15) rem(35);
-                    border-bottom: 1px solid $light-gray4;
+                    padding: rem(14) rem(16);
                 }
 
                 &-label, &-value {
                     font-family: $font-book;
                     letter-spacing: rem(1);
-                    font-weight: 500;
+                    font-weight: 600;
                     color: $black;
                     text-transform: uppercase;
                 }
 
-                &-label {
-                    font-size: rem(9);
+                &-total {
+
+                    &-discount {
+                        text-decoration: line-through;
+                        color: $red1;
+                        padding-right: rem(6);
+                        padding-left: rem(6);
+                    }
                 }
 
-                &-total {
-                    font-size: rem(11);
+                &-label, &-total {
+                    font-size: rem(12);
                 }
             }
 
@@ -487,7 +618,6 @@
             }
 
             .continue-checkout-btn {
-                padding-top: rem(12);
                 display: block;
 
                 .checkout-btn {
@@ -495,6 +625,32 @@
                 }
 
                 .checkout-continue {
+                    position: relative;
+
+                    .checkout-button-wrapper {
+                        position: relative;
+
+                        .apple-pay-btn, .checkout-btn {
+                            flex: 1;
+                            margin: 0 rem(8) rem(8) rem(8);
+                        }
+
+                        .apple-pay-btn {
+                            font-weight: 600;
+                            font-size: rem(14);
+                            display: block;
+                            background-color: $black;
+                            color: $white;
+                            padding: rem(14) rem(5);
+                            text-align: center;
+                        }
+
+                        .amazonBtn {
+                            flex-basis: 100%;
+                            height: 0;
+                            margin: 0 rem(8) rem(8) rem(8);
+                        }
+                    }
 
                     .paypal-btn {
                         background-color: $yellow;

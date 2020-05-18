@@ -1,0 +1,84 @@
+{
+  "hooks": [
+    {
+      "name": "app.sfmc.communication.handler.registerHandler",
+      "script": "~/cartridge/scripts/communication/handler"
+    },
+    {
+      "name": "app.sfmc.communication.account.created",
+      "script": "~/cartridge/scripts/communication/account"
+    },
+    {
+      "name": "app.sfmc.communication.account.updated",
+      "script": "~/cartridge/scripts/communication/account"
+    },
+    {
+      "name": "app.sfmc.communication.account.passwordChanged",
+      "script": "~/cartridge/scripts/communication/account"
+    },
+    {
+      "name": "app.sfmc.communication.account.passwordReset",
+      "script": "~/cartridge/scripts/communication/account"
+    },
+    {
+      "name": "app.sfmc.communication.account.lockedOut",
+      "script": "~/cartridge/scripts/communication/account"
+    },
+    {
+      "name": "app.sfmc.communication.customerService.contactUs",
+      "script": "~/cartridge/scripts/communication/customerService"
+    },
+    {
+      "name": "app.sfmc.communication.giftCertificate.sendCertificate",
+      "script": "~/cartridge/scripts/communication/giftCertificate"
+    },
+    {
+      "name": "app.sfmc.communication.order.confirmation",
+      "script": "~/cartridge/scripts/communication/order"
+    },
+    {
+      "name": "app.communication.oms.invoiceProcessed",
+      "script": "~/cartridge/scripts/communication/oms"
+    },
+    {
+      "name": "app.communication.oms.returnOrderCreated",
+      "script": "~/cartridge/scripts/communication/oms"
+    },
+    {
+      "name": "app.communication.oms.shipment",
+      "script": "~/cartridge/scripts/communication/oms"
+    },
+    {
+      "name": "app.tracking.cachedTrackingLink",
+      "script": "~/cartridge/scripts/tracking/trackingLink"
+    },
+    {
+      "name": "app.tracking.trackCached",
+      "script": "~/cartridge/scripts/tracking/dataLayer"
+    },
+    {
+      "name": "app.tracking.preEvents",
+      "script": "~/cartridge/scripts/tracking/dataLayer"
+    },
+    {
+      "name": "app.tracking.event",
+      "script": "~/cartridge/scripts/tracking/dataLayer"
+    },
+    {
+      "name": "app.tracking.postEvents",
+      "script": "~/cartridge/scripts/tracking/dataLayer"
+    },
+    {
+      "name": "app.mailingList.subscribe",
+      "script": "~/cartridge/scripts/lists/subscription"
+    },
+    {
+      "name": "app.mailingList.unsubscribe",
+      "script": "~/cartridge/scripts/lists/subscription"
+    },
+    {
+      "name": "app.server.registerRoute",
+      "script": "~/cartridge/scripts/tracking/dataLayer"
+    }
+  ]
+}

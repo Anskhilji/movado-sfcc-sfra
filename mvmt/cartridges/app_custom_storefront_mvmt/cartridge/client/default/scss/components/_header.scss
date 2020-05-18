@@ -22,47 +22,51 @@
   }
 }
 
-header.new-header {
+.header-banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 99999;
 
-  @import "menu";
+  &-desktop {
+    display: none;
 
-  .header-banner {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    &-desktop {
-      display: none;
-
-      @include media-breakpoint-up(lg) {
-        display: block;
-      }
-    }
-
-    &-mobile {
+    @include media-breakpoint-up(lg) {
       display: block;
-
-      @include media-breakpoint-up(lg) {
-        display: none;
-      }
-    }
-
-    .html-slot-container {
-      font-family: $font-medium;
-      font-size: rem(13);
-      line-height: 1.5;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-
-      @include media-breakpoint-up(xs) {
-        font-size: rem(14);
-      }
-
-      @include media-breakpoint-up(xs) {
-        font-size: rem(14);
-      }
     }
   }
+
+  &-mobile {
+    display: block;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  .html-slot-container {
+    font-family: $font-medium;
+    font-size: rem(13);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+  }
+}
+
+header.new-header {
+  position: relative;
+  z-index: 99999;
+
+  @import "menu";
 
   .sticky-header-wrapper {
     min-height: rem(55);

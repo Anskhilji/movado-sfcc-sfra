@@ -24,9 +24,9 @@
                     </div>
                 </isif>
                 <div class="attribute-list">
-                    <isloop items="${product.pdpAttributesList}" begin="2" end="7" var="attr">
+                    <isloop items="${product.pdpDetailAttributes}" var="attr">
                         <div class="attribute-detail">
-                            <span class="attribute-name attribute-content">${attr.name}</span>
+                            <span class="attribute-name attribute-content">${attr.displayName}</span>
                             <span class="attribute-value attribute-content">${attr.value}</span>
                         </div>
                         <isif condition="${attr.name.equalsIgnoreCase('strap')}">

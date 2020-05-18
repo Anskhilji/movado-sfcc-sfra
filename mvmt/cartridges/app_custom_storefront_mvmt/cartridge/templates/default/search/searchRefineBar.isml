@@ -1,3 +1,4 @@
+<isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
 <div class="mobile-filter">
     <div class="mobile-filter-bar">
         <ul class="mobile-filter-btn-list">
@@ -24,13 +25,16 @@
 
             <div class="mobile-filter-options">
                 <div class="mobile-filter-options-list">
-                    <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                    <isloop items="${refinements}" var="refinement">
                         <button class="mobile-filter-options-btn" data-option-select=".mobile-${refinement.displayName}">
-                            ${refinement.displayName}
+                            <isif condition="${!empty(refinement.values[0].swatchImageURL)}"> 
+                                <img src="${refinement.values[0].swatchImageURL}"/>
+                            </isif>
+                            <span>${refinement.displayName}</span>
                         </button>
                     </isloop>
                 </div>
-                <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                <isloop items="${refinements}" var="refinement">
                     <div class="mobile-selection mobile-${refinement.displayName}">
                         <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
                             <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
@@ -61,10 +65,13 @@
                         </div>
                         <div class="mobile-active-option">
                             <div class="mobile-active-filters">
-                                <isloop items="${pdict.productSearch.refinements}" var="refinement">
-                                    <button class="mobile-filter-btn" data-option-select=".mobile-${refinement.displayName}">
-                                        ${refinement.displayName}
-                                    </button>
+                                <isloop items="${refinements}" var="refinement">
+                                    <button class="mobile-filter-options-btn-2" data-option-select=".mobile-${refinement.displayName}">
+                                        <isif condition="${!empty(refinement.values[0].swatchImageURL)}"> 
+                                           <img src="${refinement.values[0].swatchImageURL}"/>
+                                       </isif>
+                                       <span>${refinement.displayName}</span>
+                                   </button>
                                 </isloop>
                             </div>
                             <div class="mobile-active-actions">
@@ -111,7 +118,7 @@
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
                     <div class="refinements">
-                        <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                        <isloop items="${refinements}" var="refinement">
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
                                     ${refinement.displayName}
