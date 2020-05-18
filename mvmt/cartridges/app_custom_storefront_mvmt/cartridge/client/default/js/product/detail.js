@@ -287,6 +287,7 @@ module.exports = {
             var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
             var currentPrice = $('.product-price-mobile .sales .value').data('value');
             var updatedPrice;
+            var updatedText;
 
             if ($(this).is(':checked')) {
                 updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
@@ -295,7 +296,7 @@ module.exports = {
             }
 
             $('.product-price-mobile .sales .value').each(function() {
-                var updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
+                updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
                 $(this).text(updatedText).data('value', updatedPrice);
             });
         });
