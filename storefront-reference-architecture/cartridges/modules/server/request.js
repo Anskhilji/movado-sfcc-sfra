@@ -302,8 +302,31 @@ function Request(request, customer, session) {
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
+        var Logger = require('dw/system/Logger');
         if (!eswEnabled) {
             setCurrency(request, session);
+        } else {
+            //Custom Start: Adding customization of esw
+            try {
+                var countryCode = request.httpParameterMap.get('country').value;
+                if (!empty(countryCode)) {
+                    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+                    var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
+                    if (!empty(country)) {
+                        var language = country.lang[0].languageCode;
+                        var currency = country.currencyCode;
+                        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+                        request.setLocale(language);
+                        eswHelper.setAllAvailablePriceBooks();
+                        eswHelper.setBaseCurrencyPriceBook(request, currency);
+                        eswHelper.selectCountry(countryCode, currency, language);
+                    }
+                }
+            } catch (e) {
+                Logger.error('(request.js -> Request) Error occured while getting the country object from getCustomCountryByCountryCode method : ' + e);
+                setCurrency(request, session);
+            }
+            // Custom End
         }
     }
     // Custom End
