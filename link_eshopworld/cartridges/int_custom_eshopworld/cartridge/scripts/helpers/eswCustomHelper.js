@@ -175,18 +175,24 @@ function getAlphabeticallySortedCustomCountries(customCountries, locale) {
 }
 
 /**
- * This method is used to country object by country code from getCustomCountriesJson() method.
+ * This method is used to get country object by country code from getCustomCountriesJson() method.
  * @param {string} countryCode : Country Code
  * @returns {Object} country : Country object
  */
 function getCustomCountryByCountryCode(countryCode) {
-    var countries = getCustomCountriesJson();
     var country = null;
-    for (var countryIndex = 0; countryIndex < countries.length; countryIndex++) {
-        country = countries[countryIndex];
-        if (country.countryCode.equalsIgnoreCase(countryCode)) {
-            break;
+    try {
+        var countries = getCustomCountriesJson();
+        for (var countryIndex = 0; countryIndex < countries.length; countryIndex++) {
+            country = countries[countryIndex];
+            if (!empty(country)) {
+                if (country.countryCode.equalsIgnoreCase(countryCode)) {
+                    break;
+                }
+            }
         }
+    } catch (e) {
+        Logger.error('(eswCustomHelper.js -> getCustomCountryByCountryCode) Error occured while getting the country object from getCustomCountriesJson: ' + e);
     }
     return country;
 }
