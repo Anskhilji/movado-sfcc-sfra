@@ -467,3 +467,11 @@ body {
     max-width: rem(1680);
     margin: 0 auto;
 }
+
+.modal-background {
+
+    &.open {
+        display: block;
+        z-index: 99999;
+    }
+}
