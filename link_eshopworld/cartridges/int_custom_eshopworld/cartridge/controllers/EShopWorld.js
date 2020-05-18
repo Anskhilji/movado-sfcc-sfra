@@ -48,14 +48,6 @@ server.append('GetEswHeader', function (req, res, next) {
         selectedLanguage = language;
         res.viewData.EswHeaderObject.selectedCountry = country.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = country.displayName;
-        var customCountriesJSON = {
-            customCountries: customCountries,
-            customLanguages: customLanguages,
-            headerPage: true,
-            footerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.footerPage : '',
-            landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
-        };
-        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     res.viewData.EswHeaderObject.languages = languages;
@@ -106,14 +98,6 @@ server.append('GetEswFooter', function (req, res, next) {
         selectedLanguage = language;
         res.viewData.EswFooterObject.selectedCountry = country.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = country.displayName;
-        var customCountriesJSON = {
-            customCountries: customCountries,
-            customLanguages: customLanguages,
-            footerPage: true,
-            headerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.headerPage : '',
-            landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
-        };
-        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     res.viewData.EswFooterObject.languages = languages;
@@ -164,14 +148,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
         selectedLanguage = language;
         res.viewData.EswLandingObject.selectedCountry = country.countryCode;
         res.viewData.EswLandingObject.selectedCountryName = country.displayName;
-        var customCountriesJSON = {
-            customCountries: customCountries,
-            customLanguages: customLanguages,
-            landingPage: true,
-            headerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.headerPage : '',
-            footerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.footerPage : ''
-        };
-        session.custom.customCountriesJSON = customCountriesJSON;
     }
 
     res.viewData.EswLandingObject.languages = languages;

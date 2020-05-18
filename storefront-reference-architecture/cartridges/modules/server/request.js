@@ -2,7 +2,6 @@
 
 var QueryString = require('./queryString');
 var SimpleCache = require('./simpleCache');
-var Site = require('dw/system/Site').getCurrent();
 
 /**
  * Translates global session object into local object
@@ -300,30 +299,28 @@ function getPageMetaData(pageMetaData) {
  */
 function Request(request, customer, session) {
     // Avoid currency check for remote includes
-    var eswEnabled = Site.getCustomPreferenceValue('eswEshopworldModuleEnabled');
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
+        var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
         if (!eswEnabled) {
             setCurrency(request, session);
-        }
-    }
-    // Custom End
-
-    //Custom Start: Adding customization of esw
-    if (eswEnabled) {
-        var countryCode = request.httpParameterMap.get('country').value;
-        if (!empty(countryCode)) {
-            var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-            var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
-            if (!empty(country)) {
-                var language = country.lang[0].languageCode;
-                var currency = country.currencyCode;
-                var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-                request.setLocale(language);
-                eswHelper.setAllAvailablePriceBooks();
-                eswHelper.setBaseCurrencyPriceBook(request, currency);
-                eswHelper.selectCountry(country.currencyCode, currency, language);
+        } else {
+            //Custom Start: Adding customization of esw
+            var countryCode = request.httpParameterMap.get('country').value;
+            if (!empty(countryCode)) {
+                var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+                var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
+                if (!empty(country)) {
+                    var language = country.lang[0].languageCode;
+                    var currency = country.currencyCode;
+                    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+                    request.setLocale(language);
+                    eswHelper.setAllAvailablePriceBooks();
+                    eswHelper.setBaseCurrencyPriceBook(request, currency);
+                    eswHelper.selectCountry(countryCode, currency, language);
+                }
             }
+            // Custom End
         }
     }
     // Custom End

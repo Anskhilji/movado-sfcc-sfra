@@ -161,7 +161,8 @@ function getSelectedCountry(countryCode) {
 function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     var countries = null;
     try {
-        countries = !empty(locale) ? customCountries.get(locale) : customCountries;
+        var isMapOfCountries = customCountries instanceof HashMap ? true : false;
+        countries = isMapOfCountries ? customCountries.get(locale) : customCountries;
         countries.sort(function(a, b) {
             let x = a.displayValue.toUpperCase(),
             y = b.displayValue.toUpperCase();
