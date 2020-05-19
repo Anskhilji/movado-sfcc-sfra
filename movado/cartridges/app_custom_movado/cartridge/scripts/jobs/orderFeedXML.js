@@ -117,6 +117,7 @@ function getLineItemDutyAmount(lineItem) {
 /**
 * Calculate the promo amount for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} duty amount
 */
 function getLineItemPromoAmount(lineItem, shippingCountry) {
@@ -146,6 +147,7 @@ function getLineItemPromoAmount(lineItem, shippingCountry) {
 /**
 * Calculate the promo amount for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} duty amount
 */
 function getLineItemConsumerPromoAmount(lineItem, shippingCountry) {
@@ -186,6 +188,7 @@ function getLineItemSubTotal(lineItem) {
 /**
 * Calculate the gross value for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} gross value
 */
 function getLineItemCrossBorderGrossValue(lineItem, shippingCountry) {
@@ -225,6 +228,7 @@ function isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) {
 /**
 * Calculate the consumer gross value for the line item.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} consumer gross value
 */
 function getLineItemConsumerGrossValue(lineItem, isEswEnabled, shippingCountry) {
@@ -735,6 +739,8 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
 * Fetches the personalizations/options from the commerceitem
 * @param {order} order Order container.
 * @param {ProductLineItem} productLineItem ProductLineItem
+* @param {Boolean} to check if esw cartridge enabled or not
+* @param {String} shipping country
 * @returns {json} Personalizations JSON
 */
 function createPOItemPersonalizations(order, productLineItem, isEswEnabled, shippingCountry) {
@@ -1494,6 +1500,7 @@ function getPreSaleItemRequestedDeliveryDate(lineItem) {
 /**
 * Fetches the item information for an Order.
 * @param {Order} order Order container.
+* @param {String} shipping country
 * @returns {json} Commerce Items JSON
 */
 function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
@@ -1985,27 +1992,6 @@ function getConsumerGrossValue(order) {
 }
 
 /**
-* To get consumer net amount
-* @param {Order} order Order container.
-* @returns {Number} consume net amount value
-*/
-//function getConsumerNetAmount(order) {
-//    var eswShopperCurrencyItemPriceInfo = !empty(order.custom.eswShopperCurrencyItemPriceInfo) 
-//        ? order.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-//    var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) 
-//        ? order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-//    var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
-//        ? order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-//    var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) 
-//        ? order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-//    var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) 
-//        ? order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-//    var totalConsumerNetAmount = eswShopperCurrencyItemPriceInfo + eswShopperCurrencyTaxes 
-//        + eswShopperCurrencyDeliveryTaxes + eswShopperCurrencyDuty + eswShopperCurrencyDeliveryDuty;
-//    return totalConsumerNetAmount;
-//}
-
-/**
 * To get Incoterms
 * @param {Order} order Order container.
 * @returns {Number} consume net amount value
@@ -2112,8 +2098,10 @@ function getConsumerNetAmount(order, isEswEnabled, eswOrderNo) {
 }
 
 /**
-* To get consumer net amount
+* To get consumer auth amount
 * @param {Order} order Order container.
+* @param {Boolean} to check if esw cartridge is enabled or not
+* @param {String} esw order no
 * @returns {Number} value of consumer net amount
 */
 function getConsumerAuthAmount(order, isEswEnabled, eswOrderNo) {
