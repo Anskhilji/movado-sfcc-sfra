@@ -2127,7 +2127,8 @@ function getLineItemTotalNetAmount(allProductLineItems) {
     var totalLineItemNetAmount = 0.00;
     for (var a = 0; a < allProductLineItems.length; a++) {
         productLineItem = allProductLineItems[a];
-        totalLineItemNetAmount = totalLineItemNetAmount + productLineItem.custom.eswRetailerCurrencyItemSubTotal;
+        totalLineItemNetAmount = totalLineItemNetAmount + !empty(productLineItem.custom.eswRetailerCurrencyItemSubTotal) ? 
+                productLineItem.custom.eswRetailerCurrencyItemSubTotal : 0;
     }
     return parseFloat(totalLineItemNetAmount).toFixed(TWO_DECIMAL_PLACES);
 }
@@ -2142,7 +2143,8 @@ function getLineItemTotalNetAmount(allProductLineItems) {
 function getLineItemShippingCost(lineItem, totalLineItemNetAmount, isEswEnabled) {
     if (isEswEnabled) {
         var headerShippingCost =  Site.getCurrent().getCustomPreferenceValue('shippingCost');
-        var lineItemShippingCost = (parseFloat(headerShippingCost).toFixed(TWO_DECIMAL_PLACES) * parseFloat(lineItem.custom.eswRetailerCurrencyItemSubTotal).toFixed(TWO_DECIMAL_PLACES)) / parseFloat(totalLineItemNetAmount).toFixed(TWO_DECIMAL_PLACES);
+        var lineItemShippingCost = (parseFloat(headerShippingCost) * parseFloat(lineItem.custom.eswRetailerCurrencyItemSubTotal) / 
+                parseFloat(totalLineItemNetAmount)).toFixed(TWO_DECIMAL_PLACES);
         return parseFloat(lineItemShippingCost).toFixed(TWO_DECIMAL_PLACES);
     }
     return '';
