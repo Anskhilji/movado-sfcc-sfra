@@ -2266,11 +2266,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoPostalCode');
-                streamWriter.writeCharacters(shippingAddress.postalCode);
+                if (shippingAddress.postalCode !== 'undefined') {
+                    streamWriter.writeCharacters(shippingAddress.postalCode);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoRegion');
-                streamWriter.writeCharacters(shippingAddress.region);
+                if (shippingAddress.region !== 'undefined') {
+                    streamWriter.writeCharacters(shippingAddress.region);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoPhone');
@@ -2310,11 +2318,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoPostalCode');
-                streamWriter.writeCharacters(billingAddress.BilltoPostalCode);
+                if (billingAddress.BilltoPostalCode !== 'undefined') {
+                    streamWriter.writeCharacters(billingAddress.BilltoPostalCode);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoRegion');
-                streamWriter.writeCharacters(billingAddress.BilltoRegion);
+                if (billingAddress.BilltoRegion !== 'undefined') {
+                    streamWriter.writeCharacters(billingAddress.BilltoRegion);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoPhone');
