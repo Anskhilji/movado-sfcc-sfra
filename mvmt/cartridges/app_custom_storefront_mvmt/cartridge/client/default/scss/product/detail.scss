@@ -2288,7 +2288,7 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            bottom: 20px;
+            bottom: rem(20);
             max-height: calc(100% - 135px);
             max-width: calc(100% - 40px);
             width: 100%;
@@ -2321,7 +2321,7 @@
     &-detail-header-title {
         font-family: $font-medium;
         font-size: rem(16);
-        line-height: rem(22px);
+        line-height: rem(22);
         color: $dark-gray;
         text-align: center;
         text-transform: uppercase;
