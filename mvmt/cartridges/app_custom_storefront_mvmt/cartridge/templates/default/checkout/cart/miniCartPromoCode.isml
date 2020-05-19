@@ -1,4 +1,3 @@
-<isinclude template="include/yotpoheader"/>
 <div class="row">
     <div class="col-12 d-none">
         <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
@@ -10,7 +9,7 @@
         <div class="col-12 collapsible-promo-wrapper" tabindex="0">
             <div class="promo-code-inner-div">
                 <div class="form-group collapsible-xl">
-                    <label class="title" class="optional-promo swell-discount" for="couponCode">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
+                    <label class="title optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}" for="couponCode">${Resource.msg('label.swell.promo.code', 'cart', null)}</label>
                     <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
                     <section class="swell-redemption">
                         <div class="row content value swell-redemption-text">
