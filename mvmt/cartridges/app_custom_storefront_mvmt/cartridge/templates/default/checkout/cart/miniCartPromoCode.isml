@@ -29,7 +29,7 @@
                             </div>
                         </div>
                     </section>
-                    <div class="redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
+                    <div class="col-12 redemption-point-error-message d-none" id="error">${Resource.msg('error.msg.swell.point', 'cart', null)}</div>
                 </div>
             </div>
         </div>
