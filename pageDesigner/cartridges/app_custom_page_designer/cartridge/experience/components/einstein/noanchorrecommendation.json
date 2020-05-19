@@ -35,7 +35,7 @@
         {
           "id": "carouselTitle",
           "name": "Carousel Title",
-          "description": "This text will appear above carousel /slider as Title",
+          "description": "This text will appear above carousel/slider as Title",
           "type": "string",
           "required": false
         },

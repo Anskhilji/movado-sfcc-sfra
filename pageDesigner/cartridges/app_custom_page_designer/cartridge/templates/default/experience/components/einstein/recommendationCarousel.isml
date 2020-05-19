@@ -9,7 +9,7 @@
                 <isif condition="${!empty(pdict.carouselTitle) && pdict.carouselTitle != 'undefined'}">
                     <h3 class="carousel-title ${pdict.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${pdict.carouselTitle}</h3>
                 </isif>
-                <div class="cs-carousel ${pdict.recommendionType}" 
+                <div class="cs-carousel ${pdict.recommendationType}" 
                     data-primary-product-id="${pdict.productID}"
                     data-category-id="${pdict.categoryId}"
                     data-recommender="${pdict.recommender}" 

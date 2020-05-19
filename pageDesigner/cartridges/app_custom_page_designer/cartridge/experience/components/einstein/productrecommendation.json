@@ -1,10 +1,10 @@
 {
   "name": "Product defined product recommendations",
-  "description": "Shows a recommendation based on a recommender and product as  carousel ",
+  "description": "Shows a recommendation based on a recommender and product as carousel ",
   "group": "einstein",
   "attribute_definition_groups": [
     {
-      "id": "data",
+      "id": "recommendationRules",
       "name": "Recommendation Rules",
       "description": "The recommender and product this recommendation tile work against",
       "attribute_definitions": [
@@ -40,7 +40,7 @@
         {
           "id": "carouselTitle",
           "name": "Carousel Title",
-          "description": "This text will appear above carousel /slider as Title",
+          "description": "This text will appear above carousel/slider as Title",
           "type": "string",
           "required": false
         },

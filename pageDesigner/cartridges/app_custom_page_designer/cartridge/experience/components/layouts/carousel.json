@@ -10,7 +10,7 @@
         {
           "id": "carouselTitle",
           "name": "Carousel Title",
-          "description": "This text will appear above carousel /slider as Title",
+          "description": "This text will appear above carousel/slider as Title",
           "type": "string",
           "required": false
         },
@@ -59,8 +59,7 @@
           { "type_id": "layouts.carousel" },
           { "type_id": "einstein.categoryrecommendation"},
           { "type_id": "einstein.noanchorrecommendation" },
-          { "type_id": "einstein.productrecommendation"},
-          { "type_id": "assets.producttile"}
+          { "type_id": "einstein.productrecommendation"}
         ]
       }
   ]

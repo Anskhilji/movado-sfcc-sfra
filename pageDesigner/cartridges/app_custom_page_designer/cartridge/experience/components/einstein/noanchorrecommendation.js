@@ -3,7 +3,7 @@
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
 var PageRenderHelper = require('*/cartridge/experience/utilities/PageRenderHelper.js');
-var recommendionType = "einstein-noanchor-recommendations";
+var recommendationType = "einstein-noanchor-recommendations";
 
 /**
  * Render logic for the assets.einsteinproductrecommendation.
@@ -20,7 +20,7 @@ module.exports.render = function (context) {
     model.carouselTitle = content.carouselTitle;
     model.isCarouselTitleLeftAligned = content.isCarouselTitleLeftAligned;
     model.carouselJsonSettings = content.carouselJsonSettings;
-    model.recommendionType = recommendionType;
+    model.recommendationType = recommendationType;
 
     if (recommender) {
         model.recommender = recommender.value;

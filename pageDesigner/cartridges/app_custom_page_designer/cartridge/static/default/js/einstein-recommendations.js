@@ -120,10 +120,16 @@ async function fillEinsteinDomElement(einsteinResponse, parentElement) {
 
         var response = await fetch(url.href);
         parentElement.innerHTML = await response.text();
+        /**
+         * Custom Start: Attaching slick slider to carousel 
+         */
         var carouselConfig = $(parentElement).data('carousel-config');
         if(carouselConfig) {
             $(parentElement).slick(carouselConfig);
             $(parentElement).show();
         }
+        /**
+         * Custom End:
+         */
     }
 }
