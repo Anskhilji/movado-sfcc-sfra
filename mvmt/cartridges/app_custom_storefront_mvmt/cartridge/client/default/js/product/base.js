@@ -100,7 +100,7 @@ function processNonSwatchValues(attr, $productContainer) {
         
         if (attr.id.toString().toLowerCase() == 'polarization' && attrValue.selected) {
             var $whyPolarizedPopUp = $('.call-why-polarized-popup');
-            if (attrValue.toString().toLowerCase() == 'yes') {
+            if (attrValue.value.toString().toLowerCase() == 'yes') {
                 $whyPolarizedPopUp.removeClass('d-none');
             } else {
                 $whyPolarizedPopUp.addClass('d-none');

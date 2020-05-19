@@ -31,7 +31,7 @@ Template Notes:
     </isif>
     
     <isif condition="${attr.id.equalsIgnoreCase('polarization')}">
-        <button class="select-size-head-seefit-text call-why-polarized-popup ${selectedAttributeValue.equalsIgnoreCase('yes') ? '' : 'd-none'}">
+        <button class="select-size-head-seefit-text call-why-polarized-popup ${selectedAttributeValue && selectedAttributeValue.equalsIgnoreCase('yes') ? '' : 'd-none'}">
             ${Resource.msg('label.whyPolarized', 'product', null)}
         </button>
     </isif>
