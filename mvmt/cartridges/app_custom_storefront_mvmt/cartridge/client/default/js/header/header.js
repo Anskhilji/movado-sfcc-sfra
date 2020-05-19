@@ -15,6 +15,8 @@ $('.desktop-search-icon').click(function() {
     $(this).toggleClass('active');
     $('.desktop-side-search').toggleClass('desktop-search-active');
     $('.desktop-side-search .header-search-field').focus();
+    $('.mobile-side-search').addClass('active');
+    $('.mobile-side-search .header-search-field').focus();
 });
 
 $('.header-mobile-categories .header-mobile-category').click(function() {
@@ -55,7 +57,7 @@ $(window).on("load resize", function(e) {
     $('.mobile-search-close').width($navWidth);
 });
 
-$('.mobile-search-icon').click(function() {
+$('.mobile-search-close-text').click(function() {
     $('.mobile-side-search').removeClass('active');
 });
 

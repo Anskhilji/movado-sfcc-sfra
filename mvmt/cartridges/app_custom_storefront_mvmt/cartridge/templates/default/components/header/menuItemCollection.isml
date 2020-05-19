@@ -1,36 +1,59 @@
-<div class="third-level-menu-tab">
-    <button data-tab=".third-level-men-menu" class="btn btn-outline-dark btn-men-tab active">${Resource.msg('label.header.menu.men', 'product', null)}</button>
-    <button data-tab=".third-level-women-menu" class="btn btn-outline-dark btn-women-tab">${Resource.msg('label.header.menu.women', 'product', null)}</button>
-</div>
-<div class="third-level-menu tab-content-submenu third-level-men-menu show" role="menu" aria-hidden="true">
-    <ul>
-        <isloop items="${categoryItem.subCategories}" var="category">
-            <isif condition="${category.gender.equalsIgnoreCase('Men')}" >
+<isif condition="${category.disableSubCategories}">
+	<div class="third-level-menu-tab">
+	    <button data-tab=".third-level-men-menu" class="btn btn-outline-dark btn-men-tab active">${Resource.msg('label.header.menu.men', 'product', null)}</button>
+	    <button data-tab=".third-level-women-menu" class="btn btn-outline-dark btn-women-tab">${Resource.msg('label.header.menu.women', 'product', null)}</button>
+	</div>
+	<div class="third-level-menu tab-content-submenu third-level-men-menu show" role="menu" aria-hidden="true">
+	    <ul>
+	        <isloop items="${categoryItem.subCategories}" var="category">
+	            <isif condition="${category.gender.equalsIgnoreCase('Men')}" >
+	                <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+	                    <a href="${category.url}">
+	                        <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
+	                            <isif condition="${category.categoryImageURL}">
+	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL}" title="${category.name}" />
+	                            </isif>
+	                            <span class="third-level-menu-text">${category.name}</span>
+	                        </div>
+	                    </a>
+	                </li>
+	            </isif>
+	        </isloop>
+	    </ul>
+	</div>
+	<div class="tab-content-submenu third-level-menu third-level-women-menu" role="menu" aria-hidden="true">
+	    <ul>
+	        <isloop items="${categoryItem.subCategories}" var="category">
+	            <isif condition="${category.gender.equalsIgnoreCase('Women')}" >
+	                <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+	                    <a href="${category.url}">
+	                        <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
+	                            <isif condition="${category.categoryImageURL}">
+	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL}" title="${category.name}" />
+	                            </isif>
+	                            <span class="third-level-menu-text">${category.name}</span>
+	                        </div>
+	                    </a>
+	                </li>
+	            </isif>
+	        </isloop>
+	    </ul>
+	</div>
+<iselse>
+    <div class="third-level-menu tab-content-submenu third-level-men-menu show mt-4" role="menu" aria-hidden="true">
+        <ul>
+            <isloop items="${categoryItem.subCategories}" var="category">
                 <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                     <a href="${category.url}">
                         <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
-                            <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL}" title="${category.name}" />
+                            <isif condition="${category.categoryImageURL}">
+                                <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL}" title="${category.name}" />
+                            </isif>
                             <span class="third-level-menu-text">${category.name}</span>
                         </div>
                     </a>
                 </li>
-            </isif>
-        </isloop>
-    </ul>
-</div>
-<div class="tab-content-submenu third-level-menu third-level-women-menu" role="menu" aria-hidden="true">
-    <ul>
-        <isloop items="${categoryItem.subCategories}" var="category">
-            <isif condition="${category.gender.equalsIgnoreCase('Women')}" >
-                <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                    <a href="${category.url}">
-                        <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
-                            <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL}" title="${category.name}" />
-                            <span class="third-level-menu-text">${category.name}</span>
-                        </div>
-                    </a>
-                </li>
-            </isif>
-        </isloop>
-    </ul>
-</div>
+            </isloop>
+        </ul>
+    </div>
+</isif>

@@ -99,7 +99,7 @@
     <ul class="nav navbar-nav" role="menu">
       <isif condition="${pdict.categories}">
         <isloop items="${pdict.categories}" var="category">
-          <isif condition="${category.subCategories || category.disableSubCategories}">
+          <isif condition="${category.subCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
@@ -111,8 +111,9 @@
             </li>
           <iselse/>
             <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-                ${category.name}
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button">
+                <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
+                <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
               </a>
             </li>
           </isif>
