@@ -154,74 +154,7 @@
             </div>
         </div>
 
-        <div class="polarized-modal">
-            <div class="polarized-modal-body">
-                <div class="polarized-modal-inner desktop">
-                    <div class="polarized-modal-inner-image">
-                        <img src="//cdn.shopify.com/s/files/1/0377/2037/t/140/assets/polarized-modal-image.jpg?v=3280422360096733996" alt="Polarized Lens Image">
-                    </div>
-                    <div class="polarized-modal-inner-detail">
-                        <div class="polarized-inner-detail-header">
-                            <h3 class="polarized-detail-header-title">Polarized Glasses</h3>
-                            <button class="modal-close" data-close=".polarized-modal">
-                                <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <g  stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
-                                            <g id="Iconography" transform="translate(27.000000, 827.000000)">
-                                                <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
-                                                    <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="polarized-inner-detail-content">
-                            <div class="polarized-detail-content-title">Why Polarized ?</div>
-                            <div class="polarized-detail-content-copy">
-                                <p><span>Protect Play:</span> Polarized lenses significantly reduce the sun's glare protect your eyes from UV rays.</p>
-                                <p><span>Stay Sharp:</span> Designed to enhance depth perception boost vibrant color for the perfect view.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="polarized-modal-inner mobile">
-                    <div class="polarized-modal-inner-image">
-                        <img src="//cdn.shopify.com/s/files/1/0377/2037/t/140/assets/polarized-modal-image.jpg?v=3280422360096733996" alt="Polarized Lens Image">
-                    </div>
-                    <div class="polarized-modal-inner-detail">
-                        <div class="polarized-inner-detail-header">
-                            <h3 class="polarized-detail-header-title">Polarized Glasses</h3>
-                            <button class="modal-close" data-close=".polarized-modal">
-                                <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <g  stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
-                                            <g id="Iconography" transform="translate(27.000000, 827.000000)">
-                                                <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
-                                                    <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="polarized-inner-detail-content">
-                            <div class="polarized-inner-detail-continer">
-                                <div class="polarized-detail-content-title">Why Polarized ?</div>
-                                <div class="polarized-detail-content-copy">
-                                    <p><span>Protect Play:</span> Polarized lenses significantly reduce the sun's glare protect your eyes from UV rays.</p>
-                                    <p><span>Stay Sharp:</span> Designed to enhance depth perception boost vibrant color for the perfect view.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <iscontentasset aid="pdp-why-polarization-content" />
 
         <div class="container p-0">
             <isinclude template="product/components/productGallery" />
