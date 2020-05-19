@@ -612,7 +612,7 @@
                     border-radius: 50%;
                     overflow: hidden;
                     transition: opacity .5s,transform .5s,border-radius .5s;
-                        z-index: 9999;
+                    z-index: 999999;
 
                     &.active {
                         opacity: 1;
