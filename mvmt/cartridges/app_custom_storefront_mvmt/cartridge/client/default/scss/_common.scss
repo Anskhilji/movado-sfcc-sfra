@@ -469,9 +469,5 @@ body {
 }
 
 .modal-background {
-
-    &.open {
-        display: block;
-        z-index: 99999;
-    }
+    z-index: 99999;
 }

@@ -83,6 +83,31 @@ module.exports = {
         $('.size-guide-close').on('click', function(e) {
             $('.size-guide, #overlay').removeClass('active');
         });
+
+        $('.modal-close').on('click', function(e) {
+            $('.modal-background').fadeOut();
+            $('.polarized-modal').fadeOut('fast');
+            $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
+        });
+
+        $('.polarized').on('click', function(e) {
+            $('.modal-background').fadeIn();
+            setTimeout(function(){ 
+                $('.polarized-modal').fadeIn('fast');
+                $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
+             }, 300);
+        });
+
+        $('.polarized-modal').mouseup(function(e) {
+            var container = $(".polarized-modal-body");
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) 
+            {
+                $('.polarized-modal').fadeOut('fast');
+                $('.modal-background').fadeOut();
+                $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
+            }
+        });
     },
 
     gallerySlider: function () {

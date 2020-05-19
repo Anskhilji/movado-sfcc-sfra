@@ -1957,16 +1957,23 @@
         overflow: auto;
         text-align: center;
         backface-visibility: hidden;
-        padding: 10px 10px 0;
+        padding: rem(10) rem(10) 0;
 
         &.opened {
             display: block;
         }
 
         &-body {
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: rem(10);
+            padding: rem(35);
+            transform: translateZ(0);
+            color: $gunpowder;
             background-color: $white;
             position: fixed;
-            top: 53px;
+            top: rem(53);
             bottom: 0;
             left: 0;
             right: 0;
@@ -1977,8 +1984,9 @@
 
             @include media-breakpoint-up(md-down) {
                 position: static;
-                max-width: 915px;
-                max-height: 575px;
+                max-width: rem(915);
+                max-height: rem(575);
+                margin-top: rem(25);
 
                 &.opened {
                     display: inline-block;
@@ -1999,16 +2007,36 @@
                     flex-basis: 42.6%;
                     width: 42.6%;
                 }
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
             }
 
             &-detail {
                 display: flex;
                 justify-content: center;
+                width: 100%;
 
                 @include media-breakpoint-up(md-down) {
                     display: block;
                     flex-basis: 57.4%;
                     width: 57.4%;
+                }
+            }
+
+            &.desktop {
+                display: none;
+                @include media-breakpoint-up(md-down) {
+                    display: flex;
+                }
+            }
+
+            &.mobile {
+                display: flex;
+                @include media-breakpoint-up(md-down) {
+                    display: none;
                 }
             }
         }
@@ -2036,12 +2064,12 @@
 
         .modal-close {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: rem(12);
+            right: rem(12);
             display: block;
             overflow: visible;
-            width: 16px;
-            height: 14px;
+            width: rem(16);
+            height: rem(14);
             margin: 0;
             padding: 0;
             cursor: pointer;
@@ -2058,30 +2086,43 @@
         }
     }
 
-    &-inner-detail-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: left;
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
-        bottom: 20px;
-        max-height: calc(100% - 135px);
-        max-width: calc(100% - 40px);
+    &-inner-detail{
 
-        @include media-breakpoint-up(md-down) {
-            padding: 0 45px;
-            position: static;
-            height: calc(100% - 43px);
-            max-height: none;
-            max-width: none;
-            transform: none;
-            background-color: #fff;
+        &-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            bottom: 20px;
+            max-height: calc(100% - 135px);
+            max-width: calc(100% - 40px);
+            width: 100%;
+    
+            @include media-breakpoint-up(md-down) {
+                padding: 0 rem(45);
+                position: static;
+                height: calc(100% - 43px);
+                max-height: none;
+                max-width: none;
+                transform: none;
+                background-color: $white;
+                width: auto;
+            }
+    
+            @include media-breakpoint-up(lg) {
+                padding: 0 rem(90);
+            }
         }
 
-        @include media-breakpoint-up(lg) {
-            padding: 0 90px;
+        &-continer {
+            overflow: scroll;
+            padding: rem(20);
+            background-color: $white;
+            max-width: rem(290);
+            margin: 0 auto;
         }
     }
 
@@ -2092,42 +2133,48 @@
         color: $dark-gray;
         text-align: center;
         text-transform: uppercase;
+        margin-bottom: 0;
         @include media-breakpoint-up(lg) {
             letter-spacing: rem(2.5);
         }
     } 
 
     &-detail-content-title {
-        font-size: rem(30);
-        line-height: rem(42);
+        font-size: rem(24);
+        line-height: rem(30);
         margin: 0 0 rem(20);
         color: $black;
         text-transform: uppercase;
+
+        @include media-breakpoint-up(lg) {
+            font-size: rem(30);
+            line-height: rem(42);    
+        }
     }
 
     &-detail-content-copy {
-        margin: 0 0 10px;
+        margin: 0 0 rem(10);
         @include media-breakpoint-up(md) {
-            margin: 0 0 20px;
+            margin: 0 0 rem(20);
         }
         p {
-            font-size: 14px;
-            line-height: 20px;
+            font-size: rem(14);
+            line-height: rem(20);
             letter-spacing: .5px;
-            color: #5c5c5c;
+            color: $gray36;
             text-transform: none;
-            margin: 0 0 25px;
+            margin: 0 0 rem(25);
 
             @include media-breakpoint-up(lg) {
-                font-size: 16px;
-                line-height: 23px;
-                margin: 0 0 20px;
+                font-size: rem(16);
+                line-height: rem(23);
+                margin: 0 0 rem(20);
             }
         }
 
         span {
             text-transform: uppercase;
-            color: #5c5c5c;
+            color: $gray36;
             font-family: $font-medium;
             font-weight: 500;
         }
