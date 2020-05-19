@@ -2,11 +2,9 @@
 <div class="cart-and-ipay w-100">
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}"> 
-        <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
+        <button class='add-to-cart btn btn-primary'
             data-pid="${product.id}"
-            data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
-            ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "disabled" : ""}
-            ${(!product.readyToOrder || !product.available) ? "disabled" : ""} >
+            data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}">
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
