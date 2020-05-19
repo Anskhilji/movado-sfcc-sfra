@@ -15,7 +15,7 @@
     background: $white;;
     width: 100%;
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
         background: linear-gradient(0deg,$white, $light-gray3);
     }
 
@@ -50,7 +50,7 @@
 			background-color: $alice-blue;
 		}
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
             color: $gray11;
             line-height: 1;
             display: block;
@@ -84,7 +84,7 @@
         cursor: pointer;
         display: none;
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
             display: inline-block;
 
             svg {
@@ -106,7 +106,6 @@
         box-sizing: inherit;
         letter-spacing: rem(1.5);
         font-family: $font-primary;
-        top: rem(97);
         z-index: 1;
         opacity: 1;
         position: static;
@@ -120,22 +119,24 @@
         height: auto;
         width: auto;
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
+            display: block;
             position: fixed;
             transform: translateX(100%);
-            height: 100vh;
+            height: calc(100vh - 53.5px);
             width: 100%;
             background-color: $white;
             transition: transform .35s,opacity .35s;
             z-index: 11;
             opacity: 0;
+            overflow-y: scroll;
         }
 
         &-btn {
 
             display: none;
 
-            @include media-breakpoint-down(xs) {
+            @include media-breakpoint-down(sm) {
                 font-family: $font-primary;
                 font-weight: 500;
                 text-transform: uppercase;
