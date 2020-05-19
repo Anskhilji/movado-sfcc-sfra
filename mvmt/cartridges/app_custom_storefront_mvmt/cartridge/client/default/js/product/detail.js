@@ -90,7 +90,7 @@ module.exports = {
             $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
         });
 
-        $('.polarized').on('click', function(e) {
+        $('.call-why-polarized-popup').on('click', function(e) {
             $('.modal-background').fadeIn();
             setTimeout(function(){ 
                 $('.polarized-modal').fadeIn('fast');

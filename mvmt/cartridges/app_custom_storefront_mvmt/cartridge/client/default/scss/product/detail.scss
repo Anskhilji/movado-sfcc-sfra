@@ -1400,6 +1400,7 @@
         > div {
             padding: 0;
         }
+
     }
 
     .pdp-select-variations {
@@ -1478,6 +1479,15 @@
             @include media-breakpoint-up(md-down) {
                 justify-content: flex-start;
             }
+        }
+    }
+
+    .polarization {
+
+        .pdp-select-variations {
+            padding-top: rem(15);
+            border-top: rem(2) solid $white-gray;
+            margin-bottom: rem(20);
         }
     }
 
@@ -2179,4 +2189,8 @@
             font-weight: 500;
         }
     }
+}
+
+.veil {
+    z-index: 999999;
 }

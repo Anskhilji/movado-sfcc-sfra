@@ -94,9 +94,7 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-
-                    <button class="polarized"> Why Polarized?</button>
-
+    
                     <div class="row m-0 product-variations">
                         <!-- Attributes and Quantity -->
 
