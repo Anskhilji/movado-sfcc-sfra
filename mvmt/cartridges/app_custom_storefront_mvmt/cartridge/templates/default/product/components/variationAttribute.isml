@@ -16,6 +16,7 @@ Template Notes:
         <span class="selected-variation" data-selected-variation-attr="${attr.id}">
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${attrValue.selected}">
+                    <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                     ${attrValue.displayValue} 
                 </isif>
             </isloop>
@@ -26,6 +27,12 @@ Template Notes:
     <isif condition="${attributeStatus.first}">
         <button class="select-size-head-seefit-text call-see-fit-popup">
             ${Resource.msg('label.seefit', 'product', null)}
+        </button>
+    </isif>
+    
+    <isif condition="${attr.id.equalsIgnoreCase('polarization')}">
+        <button class="select-size-head-seefit-text call-why-polarized-popup ${selectedAttributeValue.equalsIgnoreCase('yes') ? '' : 'd-none'}">
+            ${Resource.msg('label.whyPolarized', 'product', null)}
         </button>
     </isif>
 

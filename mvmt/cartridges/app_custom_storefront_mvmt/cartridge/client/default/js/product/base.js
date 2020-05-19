@@ -97,6 +97,16 @@ function processNonSwatchValues(attr, $productContainer) {
         } else { 
             $attrValue.removeClass('active');
         }
+        
+        if (attr.id.toString().toLowerCase() == 'polarization' && attrValue.selected) {
+            var $whyPolarizedPopUp = $('.call-why-polarized-popup');
+            if (attrValue.toString().toLowerCase() == 'yes') {
+                $whyPolarizedPopUp.removeClass('d-none');
+            } else {
+                $whyPolarizedPopUp.addClass('d-none');
+            }
+            
+        }
     });
 }
 
