@@ -117,9 +117,10 @@ function getLineItemDutyAmount(lineItem) {
 /**
 * Calculate the promo amount for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} duty amount
 */
-function getLineItemPromoAmount(lineItem) {
+function getLineItemPromoAmount(lineItem, shippingCountry) {
     var crossBorderPromoAmount;
     if(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount > ZERO) {
         var eswRetailerCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount) ?
@@ -132,8 +133,11 @@ function getLineItemPromoAmount(lineItem) {
                 lineItem.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
         var eswRetailerCurrencyItemTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemTaxes) ?
                 lineItem.custom.eswRetailerCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
-        
+        if (shippingCountry.value === 'CA') {
+            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
+        } else {
+            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+        }
     } else {
         crossBorderPromoAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     }
@@ -143,9 +147,10 @@ function getLineItemPromoAmount(lineItem) {
 /**
 * Calculate the promo amount for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} duty amount
 */
-function getLineItemConsumerPromoAmount(lineItem) {
+function getLineItemConsumerPromoAmount(lineItem, shippingCountry) {
     var crossBorderConsumerPromoAmount;
     if(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount > ZERO) {
         var eswShopperCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) ?
@@ -158,7 +163,11 @@ function getLineItemConsumerPromoAmount(lineItem) {
                 lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
         var eswShopperCurrencyItemTaxes = !empty(lineItem.custom.eswShopperCurrencyItemTaxes) ?
                 lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+        if (shippingCountry.value === 'CA') {
+            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
+        } else {
+            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+        }
     } else {
         crossBorderConsumerPromoAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     }
@@ -179,10 +188,11 @@ function getLineItemSubTotal(lineItem) {
 /**
 * Calculate the gross value for the line item against esw order.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} gross value
 */
-function getLineItemCrossBorderGrossValue(lineItem) {
-    var promoAmount = getLineItemPromoAmount(lineItem);
+function getLineItemCrossBorderGrossValue(lineItem, shippingCountry) {
+    var promoAmount = getLineItemPromoAmount(lineItem, shippingCountry);
     var eswRetailerCurrencyItemSubTotal = !empty(lineItem.custom.eswRetailerCurrencyItemSubTotal) ? lineItem.custom.eswRetailerCurrencyItemSubTotal
             : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     var crossBorderGrossValue = (parseFloat(promoAmount) + parseFloat(eswRetailerCurrencyItemSubTotal)).toFixed(TWO_DECIMAL_PLACES);
@@ -195,7 +205,7 @@ function getLineItemCrossBorderGrossValue(lineItem) {
 * @returns {Number} gross value
 */
 function getLineItemCrossBorderConsumerGrossValue(lineItem) {
-    var consumerPromoAmount = getLineItemConsumerPromoAmount(lineItem);
+    var consumerPromoAmount = getLineItemConsumerPromoAmount(lineItem, shippingCountry);
     var eswShopperCurrencyItemSubTotal = !empty(lineItem.custom.eswShopperCurrencyItemSubTotal) ? lineItem.custom.eswShopperCurrencyItemSubTotal
             : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     var crossBorderConsumerGrossValue = (parseFloat(promoAmount) + parseFloat(eswShopperCurrencyItemSubTotal)).toFixed(TWO_DECIMAL_PLACES);
@@ -218,11 +228,12 @@ function isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) {
 /**
 * Calculate the consumer gross value for the line item.
 * @param {ProductLineItem} lineItem Line Item.
+* @param {String} shipping country
 * @returns {Number} consumer gross value
 */
-function getLineItemConsumerGrossValue(lineItem, isEswEnabled) {
+function getLineItemConsumerGrossValue(lineItem, isEswEnabled, shippingCountry) {
     if (isEswEnabled) {
-        var consumerPromoAmount = getLineItemConsumerPromoAmount(lineItem);
+        var consumerPromoAmount = getLineItemConsumerPromoAmount(lineItem, shippingCountry);
         var eswShopperCurrencyItemSubTotal = !empty(lineItem.custom.eswShopperCurrencyItemSubTotal) ? lineItem.custom.eswShopperCurrencyItemSubTotal
                 : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
         var crossBorderConsumerGrossValue = (parseFloat(consumerPromoAmount) + parseFloat(eswShopperCurrencyItemSubTotal)).toFixed(TWO_DECIMAL_PLACES);
@@ -525,17 +536,17 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
     
     OrderGiftMessage.DutyAmount = optionPrice > 0 ? getLineItemDutyAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.ConsTaxByMGI = optionPrice > 0 ? isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    OrderGiftMessage.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.ConsumerSubTotal = optionPrice > 0 ? getLineItemConsumerSubTotal(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.ConsumerTaxAmount = optionPrice > 0 ? getLineItemConsumerTaxAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.ConsumerDutyAmount = optionPrice > 0 ? getLineItemConsumerDutyAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.ConsumerNetAmount = optionPrice > 0 ? getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled, eswOrderNo) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.CrossBorderTax1 = optionPrice > 0 ? getLineItemCrossBorderTax1(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.CrossBorderNetAmount = optionPrice > 0 ? getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    OrderGiftMessage.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    OrderGiftMessage.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    OrderGiftMessage.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return OrderGiftMessage;
 }
@@ -575,17 +586,17 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
     
     GiftWrap.DutyAmount = optionPrice > 0 ? getLineItemDutyAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.ConsTaxByMGI = optionPrice > 0 ? isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    GiftWrap.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.ConsumerSubTotal = optionPrice > 0 ? getLineItemConsumerSubTotal(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.ConsumerTaxAmount = optionPrice > 0 ? getLineItemConsumerTaxAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.ConsumerDutyAmount = optionPrice > 0 ? getLineItemConsumerDutyAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.ConsumerNetAmount = optionPrice > 0 ? getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled, eswOrderNo) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.CrossBorderTax1 = optionPrice > 0 ? getLineItemCrossBorderTax1(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.CrossBorderNetAmount = optionPrice > 0 ? getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    GiftWrap.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    GiftWrap.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    GiftWrap.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return GiftWrap;
 }
@@ -640,17 +651,17 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
     
     Engraving.DutyAmount = optionPrice > 0 ? getLineItemDutyAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.ConsTaxByMGI = optionPrice > 0 ? isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Engraving.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.ConsumerSubTotal = optionPrice > 0 ? getLineItemConsumerSubTotal(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.ConsumerTaxAmount = optionPrice > 0 ? getLineItemConsumerTaxAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.ConsumerDutyAmount = optionPrice > 0 ? getLineItemConsumerDutyAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.ConsumerNetAmount = optionPrice > 0 ? getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled, eswOrderNo) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.CrossBorderTax1 = optionPrice > 0 ? getLineItemCrossBorderTax1(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.CrossBorderNetAmount = optionPrice > 0 ? getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Engraving.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Engraving.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Engraving.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return Engraving;
 }
@@ -710,17 +721,17 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
     
     Embossing.DutyAmount = optionPrice > 0 ? getLineItemDutyAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.ConsTaxByMGI = optionPrice > 0 ? isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Embossing.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.ConsumerGrossValue = optionPrice > 0 ? getLineItemConsumerGrossValue(productLineItem, isEswEnabled, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.ConsumerSubTotal = optionPrice > 0 ? getLineItemConsumerSubTotal(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.ConsumerTaxAmount = optionPrice > 0 ? getLineItemConsumerTaxAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.ConsumerDutyAmount = optionPrice > 0 ? getLineItemConsumerDutyAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.ConsumerNetAmount = optionPrice > 0 ? getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled, eswOrderNo) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.CrossBorderTax1 = optionPrice > 0 ? getLineItemCrossBorderTax1(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.CrossBorderNetAmount = optionPrice > 0 ? getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Embossing.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Embossing.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.CrossBorderPromoAmount = optionPrice > 0 ? getLineItemPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    Embossing.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return Embossing;
 }
@@ -728,9 +739,11 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
 * Fetches the personalizations/options from the commerceitem
 * @param {order} order Order container.
 * @param {ProductLineItem} productLineItem ProductLineItem
+* @param {Boolean} to check if esw cartridge enabled or not
+* @param {String} shipping country
 * @returns {json} Personalizations JSON
 */
-function createPOItemPersonalizations(order, productLineItem, isEswEnabled) {
+function createPOItemPersonalizations(order, productLineItem, isEswEnabled, shippingCountry) {
     var personalizations = {};
     var language = '';
 
@@ -764,7 +777,7 @@ function createPOItemPersonalizations(order, productLineItem, isEswEnabled) {
         };
 
         if ('GiftWrapMessage' in productLineItem.custom && productLineItem.custom.GiftWrapMessage) {
-            personalizations.OrderGiftMessage = populateGiftMessageObject(productLineItem, optionPrice, total, language, order, isEswEnabled);
+            personalizations.OrderGiftMessage = populateGiftMessageObject(productLineItem, optionPrice, total, language, order, isEswEnabled, shippingCountry);
         } else {
             personalizations.OrderGiftMessage = '';
         }
@@ -781,13 +794,13 @@ function createPOItemPersonalizations(order, productLineItem, isEswEnabled) {
                 total.personalizationGrossValue = parseFloat(optionPrice).toFixed(TWO_DECIMAL_PLACES);
 
                 if ((option && option.getID() === GIFTWRAPPED) && ('isGiftWrapped' in productLineItem.custom) && productLineItem.custom.isGiftWrapped) {
-                    personalizations.GiftWrap = populateGiftWrapObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled);
+                    personalizations.GiftWrap = populateGiftWrapObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled, shippingCountry);
                 }
                 if (option && option.getID() === ENGRAVED) {
-                    personalizations.Engraving = populateEngravedObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled);
+                    personalizations.Engraving = populateEngravedObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled, shippingCountry);
                 }
                 if (option && option.getID() === EMBOSSED) {
-                    personalizations.Embossing = populateEmbossedObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled);
+                    personalizations.Embossing = populateEmbossedObject(productLineItem, optionPrice, optionUUID, total, language, order, isEswEnabled, shippingCountry);
                 }
             }
         }
@@ -1487,9 +1500,10 @@ function getPreSaleItemRequestedDeliveryDate(lineItem) {
 /**
 * Fetches the item information for an Order.
 * @param {Order} order Order container.
+* @param {String} shipping country
 * @returns {json} Commerce Items JSON
 */
-function getPOItemsInfo(order, isEswEnabled) {
+function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
     exportLogger.debug('Getting POItemsInfo for, order {0}', order.getOrderNo());
     var Site = require('dw/system/Site');
     var inventoryLocation = Site.getCurrent().getCustomPreferenceValue('inventoryLocation');
@@ -1498,6 +1512,7 @@ function getPOItemsInfo(order, isEswEnabled) {
     var allShipments = order.getShipments();
     var sequenceNumber = 1;
     var commerceItems = new ArrayList();
+    var lineItemTotalNetAmount = getLineItemTotalNetAmount(allProductLineItems);
     
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
 
@@ -1536,19 +1551,20 @@ function getPOItemsInfo(order, isEswEnabled) {
         obj.InventoryLocation = inventoryLocation;
         obj.DutyAmount = getLineItemDutyAmount(productLineItem);
         obj.ConsTaxByMGI = isLineItemConsTaxByMGI(eswOrderNo, isEswEnabled);
-        obj.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem, isEswEnabled);
+        obj.ConsumerGrossValue = getLineItemConsumerGrossValue(productLineItem, isEswEnabled, shippingCountry);
         obj.ConsumerSubTotal = getLineItemConsumerSubTotal(productLineItem, isEswEnabled);
         obj.ConsumerTaxAmount = getLineItemConsumerTaxAmount(productLineItem, isEswEnabled);
         obj.ConsumerDutyAmount = getLineItemConsumerDutyAmount(productLineItem, isEswEnabled);
         obj.ConsumerNetAmount = getLineItemConsumerNetAmount(order, productLineItem, isEswEnabled, eswOrderNo);
         obj.CrossBorderTax1 = getLineItemCrossBorderTax1(productLineItem, isEswEnabled);
         obj.CrossBorderNetAmount = getLineItemCrossBorderNetAmount(productLineItem, isEswEnabled);
-        obj.CrossBorderPromoAmount = getLineItemPromoAmount(productLineItem);
-        obj.CrossBorderConsumerPromoAmount = getLineItemConsumerPromoAmount(productLineItem);
+        obj.CrossBorderPromoAmount = getLineItemPromoAmount(productLineItem, shippingCountry);
+        obj.CrossBorderConsumerPromoAmount = getLineItemConsumerPromoAmount(productLineItem, shippingCountry);
         obj.CrossBorderSubTotal = getLineItemSubTotal(productLineItem);
-        obj.CrossBorderGrossValue = getLineItemCrossBorderGrossValue(productLineItem);
+        obj.CrossBorderGrossValue = getLineItemCrossBorderGrossValue(productLineItem, shippingCountry);
+        obj.ShippingCost = getLineItemShippingCost(productLineItem, lineItemTotalNetAmount, isEswEnabled);
 
-        var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled);
+        var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled, shippingCountry);
 
         if (personalizationsInfo) {
             if (personalizationsInfo.OrderGiftMessage) {
@@ -1657,9 +1673,6 @@ function getPOItemsInfo(order, isEswEnabled) {
 * @returns {string} Yes or No
 */
 function isDutyInclusive(order, eswOrderNo) {
-    if (eswOrderNo) {
-        return (!empty(order.custom.eswShopperCurrencyDeliveryDuty) && order.custom.eswShopperCurrencyDeliveryDuty > ZERO) ? 'Y' : 'N';
-    }
     return 'Y';
 }
 
@@ -1668,9 +1681,9 @@ function isDutyInclusive(order, eswOrderNo) {
 * @param {Order} order Order container.
 * @returns {string} Yes or No
 */
-function isVATInclusive(order, eswOrderNo) {
+function isVATInclusive(order, eswOrderNo, shippingCountry) {
     if (eswOrderNo) {
-        return (!empty(order.custom.eswShopperCurrencyTaxes) && order.custom.eswShopperCurrencyTaxes > ZERO)  ? 'Y' : 'N';
+        return shippingCountry.value === 'CA'  ? 'N' : 'Y';
     }
     return Site.current.getID() == 'OliviaBurtonUK' ? 'Y' : 'N';
 }
@@ -1884,34 +1897,10 @@ function getNetAmount(order, eswOrderNo) {
 * @param {Order} order Order container.
 * @returns {Number} total tax
 */
-function getAuthAmount(order) {
+function getAuthAmount(order, eswOrderNo) {
     var authAmount;
-    if (!empty(order.custom.eswRetailerCurrencyTotal) || !empty(order.custom.eswRetailerCurrencyDelivery)
-            || !empty(order.custom.eswRetailerCurrencyDeliveryDuty) || !empty(order.custom.eswRetailerCurrencyDeliveryTaxes)
-            || !empty(order.custom.eswRetailerCurrencyTaxes) || !empty(order.custom.eswRetailerCurrencyOtherTaxes)
-            || !empty(order.custom.eswRetailerCurrencyAdministration) || !empty(order.custom.eswRetailerCurrencyDuty)
-            || !empty(order.custom.eswRetailerCurrencyUplift)) {
-        var eswRetailerCurrencyTotal = !empty(order.custom.eswRetailerCurrencyTotal) ?
-                order.custom.eswRetailerCurrencyTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyDelivery = !empty(order.custom.eswRetailerCurrencyDelivery) ?
-                order.custom.eswRetailerCurrencyDelivery : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyDeliveryDuty = !empty(order.custom.eswRetailerCurrencyDeliveryDuty) ?
-                order.custom.eswRetailerCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyDeliveryTaxes = !empty(order.custom.eswRetailerCurrencyDeliveryTaxes) ?
-                order.custom.eswRetailerCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyTaxes = !empty(order.custom.eswRetailerCurrencyTaxes) ?
-                order.custom.eswRetailerCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyOtherTaxes = !empty(order.custom.eswRetailerCurrencyOtherTaxes) ?
-                order.custom.eswRetailerCurrencyOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyAdministration = !empty(order.custom.eswRetailerCurrencyAdministration) ?
-                order.custom.eswRetailerCurrencyAdministration : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyDuty = !empty(order.custom.eswRetailerCurrencyDuty) ?
-                order.custom.eswRetailerCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyUplift = !empty(order.custom.eswRetailerCurrencyUplift) ?
-                order.custom.eswRetailerCurrencyUplift : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        authAmount = eswRetailerCurrencyTotal + eswRetailerCurrencyDelivery + eswRetailerCurrencyDeliveryDuty
-                   + eswRetailerCurrencyDeliveryTaxes + eswRetailerCurrencyTaxes + eswRetailerCurrencyOtherTaxes
-                   + eswRetailerCurrencyAdministration + eswRetailerCurrencyDuty + eswRetailerCurrencyUplift;
+    if (eswOrderNo) {
+        authAmount = order.custom.eswRetailerCurrencyPaymentAmount;
     } else {
         authAmount = order.getTotalGrossPrice();
     }
@@ -2000,27 +1989,6 @@ function getConsumerGrossValue(order) {
     }
     
     return (order.adjustedMerchandizeTotalPrice.value + order.adjustedShippingTotalPrice.value).toFixed(TWO_DECIMAL_PLACES);
-}
-
-/**
-* To get consumer net amount
-* @param {Order} order Order container.
-* @returns {Number} consume net amount value
-*/
-function getConsumerNetAmount(order) {
-    var eswShopperCurrencyItemPriceInfo = !empty(order.custom.eswShopperCurrencyItemPriceInfo) 
-        ? order.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var eswShopperCurrencyTaxes = !empty(order.custom.eswShopperCurrencyTaxes) 
-        ? order.custom.eswShopperCurrencyTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var eswShopperCurrencyDeliveryTaxes = !empty(order.custom.eswShopperCurrencyDeliveryTaxes) 
-        ? order.custom.eswShopperCurrencyDeliveryTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var eswShopperCurrencyDuty = !empty(order.custom.eswShopperCurrencyDuty) 
-        ? order.custom.eswShopperCurrencyDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var eswShopperCurrencyDeliveryDuty = !empty(order.custom.eswShopperCurrencyDeliveryDuty) 
-        ? order.custom.eswShopperCurrencyDeliveryDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-    var totalConsumerNetAmount = eswShopperCurrencyItemPriceInfo + eswShopperCurrencyTaxes 
-        + eswShopperCurrencyDeliveryTaxes + eswShopperCurrencyDuty + eswShopperCurrencyDeliveryDuty;
-    return totalConsumerNetAmount;
 }
 
 /**
@@ -2117,15 +2085,66 @@ function getConsumerNetAmount(order, isEswEnabled, eswOrderNo) {
     if (isEswEnabled) {
         var consumerNetAmount;
         if (eswOrderNo) {
-            var eswRetailerCurrencyTotal = !empty(order.custom.eswRetailerCurrencyTotal) ? order.custom.eswRetailerCurrencyTotal
-                    : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-            var eswRetailerCurrencyDelivery = !empty(order.custom.eswRetailerCurrencyDelivery) ? order.custom.eswRetailerCurrencyDelivery
-                    : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-            consumerNetAmount = (parseFloat(eswRetailerCurrencyTotal) + parseFloat(eswRetailerCurrencyDelivery)).toFixed(TWO_DECIMAL_PLACES);
+            var consumerSubTotal = getConsumerSubTotal(order, isEswEnabled, eswOrderNo);
+            var consumerTotalTax = getConsumerTotalTax(order, isEswEnabled);
+            var consumerTotalDutyAmount = getConsumerTotalDutyAmount(order, isEswEnabled);
+            consumerNetAmount = (parseFloat(consumerSubTotal) + parseFloat(consumerTotalTax) + parseFloat(consumerTotalDutyAmount)).toFixed(TWO_DECIMAL_PLACES);
         } else {
             consumerNetAmount = parseFloat(order.getTotalGrossPrice()).toFixed(TWO_DECIMAL_PLACES);
         }
         return consumerNetAmount;
+    }
+    return '';
+}
+
+/**
+* To get consumer auth amount
+* @param {Order} order Order container.
+* @param {Boolean} to check if esw cartridge is enabled or not
+* @param {String} esw order no
+* @returns {Number} value of consumer net amount
+*/
+function getConsumerAuthAmount(order, isEswEnabled, eswOrderNo) {
+    if (isEswEnabled) {
+        var consumerAuthAmount;
+        if (eswOrderNo) {
+            consumerAuthAmount = parseFloat(order.custom.eswShopperCurrencyPaymentAmount).toFixed(TWO_DECIMAL_PLACES);
+        } else {
+            consumerAuthAmount = parseFloat(order.getTotalGrossPrice()).toFixed(TWO_DECIMAL_PLACES);
+        }
+        return consumerAuthAmount;
+    }
+    return '';
+}
+
+/**
+* To get line items total net amount
+* @param {ProductLineItem} lineItem Line Item.
+* @returns {Number} value of total net amount
+*/
+function getLineItemTotalNetAmount(allProductLineItems) {
+    var productLineItem
+    var totalLineItemNetAmount = 0.00;
+    for (var a = 0; a < allProductLineItems.length; a++) {
+        productLineItem = allProductLineItems[a];
+        var eswRetailerCurrencyItemSubTotal = !empty(productLineItem.custom.eswRetailerCurrencyItemSubTotal) ?  productLineItem.custom.eswRetailerCurrencyItemSubTotal : 0.00;
+        totalLineItemNetAmount = totalLineItemNetAmount + eswRetailerCurrencyItemSubTotal;
+    }
+    return parseFloat(totalLineItemNetAmount).toFixed(TWO_DECIMAL_PLACES);
+}
+
+/**
+* To get line item shipping cost
+* @param {ProductLineItem} lineItem Line Item.
+* @param {Number} total line item net amount.
+* @param {Boolean} to check if esw cartridge is enabled or not.
+* @returns {Number} value of total net amount
+*/
+function getLineItemShippingCost(lineItem, totalLineItemNetAmount, isEswEnabled) {
+    if (isEswEnabled) {
+        var headerShippingCost =  Site.getCurrent().getCustomPreferenceValue('shippingCost');
+        var lineItemShippingCost = (parseFloat(headerShippingCost) * parseFloat(lineItem.custom.eswRetailerCurrencyItemSubTotal) / parseFloat(totalLineItemNetAmount)).toFixed(TWO_DECIMAL_PLACES);
+        return parseFloat(lineItemShippingCost).toFixed(TWO_DECIMAL_PLACES);
     }
     return '';
 }
@@ -2148,7 +2167,7 @@ function generateOrderXML(order) {
     if (order) {
         var billingAddress = getBillingAddress(order);
         var shippingAddress = getShippingAddress(order);
-        var commerceItemsRawData = getPOItemsInfo(order, isEswEnabled);
+        var commerceItemsRawData = getPOItemsInfo(order, isEswEnabled, shippingAddress.countryKey);
         var commerceItemsInfo = amountAdjustmentsAndWrapping(order, commerceItemsRawData);
         var paymentMethodData;
 
@@ -2388,7 +2407,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('AuthAmount');
-                streamWriter.writeCharacters(getAuthAmount(order));
+                streamWriter.writeCharacters(getAuthAmount(order, eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ChargingShipping');
@@ -2412,11 +2431,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('DutyInclusive');
-                streamWriter.writeCharacters(isDutyInclusive(order, eswOrderNo));
+                streamWriter.writeCharacters(isDutyInclusive(order));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('VATInclusive');
-                streamWriter.writeCharacters(isVATInclusive(order, eswOrderNo));
+                streamWriter.writeCharacters(isVATInclusive(order, eswOrderNo, shippingAddress.countryKey));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('PaymentMethod');
@@ -2456,7 +2475,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerAuthAmount');
-                streamWriter.writeCharacters(getConsumerNetAmount(order, isEswEnabled));
+                streamWriter.writeCharacters(getConsumerAuthAmount(order, isEswEnabled, eswOrderNo));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('Incoterms');
@@ -2697,8 +2716,8 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ShippingCost');
-                    if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(getShippingCost(eswOrderNo, isEswEnabled));
+                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(commerceItem.ShippingCost);
                     }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
