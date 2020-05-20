@@ -18,7 +18,6 @@
                 <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" src="${variation.images.swatch[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
             </picture>
         </isif>
-        ${product.productType}
     </a>
     <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
     <isif condition="${pdict.display.showQuickView !== false}">

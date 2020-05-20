@@ -8,6 +8,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     
@@ -52,6 +53,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
+        apiProduct: ProductMgr.getProduct(product.id),
         urls: {
             product: productUrl,
             quickView: quickViewUrl

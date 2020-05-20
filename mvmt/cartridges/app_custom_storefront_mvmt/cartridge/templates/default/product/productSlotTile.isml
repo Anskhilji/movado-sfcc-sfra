@@ -42,12 +42,23 @@
             </isif>
             <isinclude template="product/components/productTileName" />
 
-            <isset name="price" value="${product.price}" scope="page" />
-
-            <isif condition="${product.productType === 'set'}">
-                <isinclude template="product/components/pricing/setPrice" />
+            <isif condition="${product.productType == 'master' && pdict.display.plpTile === true}">
+                <isset name="price" value="${apiProduct.priceModel.price}" scope="page" />
+                <div class="price"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <span>
+                <span class="sales">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                    ${apiProduct.variants[0].priceModel.price.decimalValue}
+                </span>
+                </span>
+                </div>
             <iselse>
-                <isinclude template="product/components/pricing/main" />
+                <isset name="price" value="${product.price}" scope="page" />
+	            <isif condition="${product.productType === 'set'}">
+	                <isinclude template="product/components/pricing/setPrice" />
+	            <iselse>
+	                <isinclude template="product/components/pricing/main" />
+	            </isif>
             </isif>
 
             <isif condition="${pdict.display.recommendattionTile}">
