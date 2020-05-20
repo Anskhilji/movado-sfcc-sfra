@@ -1,0 +1,76 @@
+.component-banner {
+
+    &-link {
+        width: 100%;
+
+        picture {
+            width: inherit;
+        }
+    }
+
+    &-image {
+        width: inherit;
+
+        @media only screen and (max-width: 768px) {
+            height: fit-content;
+        }
+    }
+
+    &-overlay {
+        position: absolute;
+
+        &.center {
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+
+            &-left {
+                top: 50%;
+                left: 2%;
+            }
+            
+            &-right {
+                top: 50%;
+                right: 2%;
+            }
+            
+            &-top {
+                top: 2%;
+                left: 50%
+            }
+
+            &-bottom {
+                bottom: 5%;
+                left: 50%;
+            }
+        }
+
+        &.top {
+
+
+            &-left {
+                top: 2%;
+                left: 2%;
+            }
+            
+            &-right {
+                top: 2%;
+                right: 2%;
+            }
+        }
+
+        &.bottom {
+
+            &-left {
+                left: 2%;
+                bottom: 5%;
+            }
+            
+            &-right {
+                bottom: 5%;
+                right: 2%;
+            }
+        }
+    }
+
+}

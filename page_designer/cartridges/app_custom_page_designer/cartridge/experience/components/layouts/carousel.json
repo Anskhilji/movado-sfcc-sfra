@@ -1,0 +1,66 @@
+{
+  "name": "Carousel",
+  "group": "layouts",
+  "attribute_definition_groups": [
+    {
+      "id": "carouselConfigurations",
+      "name": "Carousel Configurations",
+      "description": "Configurations for Carousel Slider",
+      "attribute_definitions": [
+        {
+          "id": "carouselTitle",
+          "name": "Carousel Title",
+          "description": "This text will appear above carousel/slider as Title",
+          "type": "string",
+          "required": false
+        },
+        {
+          "id": "isCarouselTitleLeftAligned",
+          "name": "Left Align Title",
+          "description": "If checked Title will be left aligned else centeralized",
+          "type": "boolean",
+          "default_value": false,
+          "required": false
+        },
+        {
+          "id": "carouselJsonSettings",
+          "name": "Carousel JSON Settings",
+          "description": "JSON setting for carousel slider No of Slides, Arrow or Dots, responsive behaviour etc",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "style",
+      "name": "Style",
+      "description": "Controls to override default style of current Layout.",
+      "attribute_definitions": [
+        {
+          "id": "additionalCss",
+          "name": "Additional CSS Style",
+          "type":"text",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": [
+      {
+        "id":"slides",
+        "name":"Slides",
+        "component_type_exclusions": [
+          { "type_id": "layouts.1column" },
+          { "type_id": "layouts.2column" },
+          { "type_id": "layouts.3column" },
+          { "type_id": "layouts.4column" },
+          { "type_id": "layouts.gridcomponentlayout" },
+          { "type_id": "einstein.noanchorgrid" },
+          { "type_id": "layouts.carousel" },
+          { "type_id": "einstein.categoryrecommendation"},
+          { "type_id": "einstein.noanchorrecommendation" },
+          { "type_id": "einstein.productrecommendation"}
+        ]
+      }
+  ]
+}

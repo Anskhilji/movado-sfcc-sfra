@@ -115,7 +115,8 @@
     "wishlist": "./plugin_wishlists",
     "base": "./storefront-reference-architecture",
     "mcsus": "./mcsus",
-    "oliviaburton_redesign": "./oliviaburton_redesign"
+    "oliviaburton_redesign": "./oliviaburton_redesign",
+    "page_designer": "./page_designer"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
@@ -126,6 +127,7 @@
     "esw": "./link_eshopworld/cartridges/int_custom_eshopworld_sfra/cartridge/client/default/js",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/js",
     "oliviaburton_redesign": "./oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/js",
+    "app_custom_page_designer": "./page_designer/cartridges/app_custom_page_designer/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/js",
     "hourtime": "./hourtime/cartridges/app_custom_storefront_hourtime/cartridge/client/default/js",
     "concord": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
@@ -151,6 +153,7 @@
     "ebel": "./ebel/cartridges/app_custom_ebel/cartridge/client/default/scss",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/scss",
     "oliviaburton_redesign": "./oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss",
+    "app_custom_page_designer": "./page_designer/cartridges/app_custom_page_designer/cartridge/client/default/scss",
     "olivia-burton-uk": "./olivia-burton-uk/cartridges/app_custom_ob_uk/cartridge/client/default/scss",
     "klarna": "./klarna/cartridges/int_custom_adyen_klarna/cartridge/client/default/scss",
     "product_compare": "./plugin_productcompare/cartridges/plugin_productcompare/cartridge/client/default/scss",
