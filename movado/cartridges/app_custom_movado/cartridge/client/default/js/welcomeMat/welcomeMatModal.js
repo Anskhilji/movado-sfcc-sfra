@@ -1,21 +1,21 @@
 if ($('#welcomeMat').length) {
-    $('#welcomeMat .current-state').html($('.welcomemat-current-country').html());
+/*    $('#welcomeMat .current-state').html($('.welcomemat-current-country').html());
     $('#welcomeMat .current-website').html($('.welcomemat-current-shipping-country').html());
     $('#welcomeMat .site-matched-country').html($('.welcomemat-current-site-matched-country').html());
-    $('#welcomeMat .flag-icon').addClass($('.welcomemat-country-flag-icon').html());
+    $('#welcomeMat .flag-icon').addClass($('.welcomemat-country-flag-icon').html());*/
     $('#welcomeMat').modal({
-        backdrop: 'static',
+        backdrop: 'none',
         keyboard: false
     });
   // add logic to make overlay non-clickable when modal is opened
 }
-$('.continue-here').on('click', function () {
+/*$('.continue-here').on('click', function () {
     var endPointUrl = $(this).data('continue');
     $.ajax({
         url: endPointUrl,
         method: 'GET'
     });
-});
+});*/
 
 function DaysToMilliSeconds(durationInDays) {
     return durationInDays*24*60*60*1000;

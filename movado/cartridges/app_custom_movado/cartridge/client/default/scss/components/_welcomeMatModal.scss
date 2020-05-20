@@ -24,7 +24,35 @@
             }
 
             h3 {
-                font-size: rem(16);
+                padding: rem(16);
+
+                span {
+                    font-size: rem(16);
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+            }
+
+            .continue-here {
+                text-transform: uppercase;
+            }
+
+            .selector-container {
+                width: auto;
+
+                p {
+                    display: inline-block;
+                }
+
+                .selectCountry {
+                    display: inline-block;
+                }
+            }
+
+            .selector-icon {
+                margin-top: rem(6);
+                transform: rotate(90deg);
+                float: right;
             }
 
             .esw-header-wrapper {
@@ -61,16 +89,24 @@
             }
 
             .esw-country-selector {
+                width: 100%;
 
                 &.selectLanguage {
                     display: none;
                 }
 
                 &.selectCountry {
+                    text-align: left;
+                    width: auto;
 
                     label {
                         display: none;
                     }
+
+                    .select-field {
+                        float: none;
+                    }
+
                 }
             }
         }

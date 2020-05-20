@@ -8,13 +8,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
   res,
   next
 ) {
-    var ContentMgr = require('dw/content/ContentMgr');
-    var apiContent = ContentMgr.getContent('welcome-mat');
-    res.render('welcomeMat/welcomeMatModal', {
-        contentBody:
-      apiContent && apiContent.custom.body ? apiContent.custom.body : '',
-        currentCountry: request.geolocation.countryName
-    });
+    res.render('welcomeMat/welcomeMatModal');
     next();
 });
 
