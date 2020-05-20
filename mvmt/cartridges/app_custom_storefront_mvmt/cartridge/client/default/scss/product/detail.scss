@@ -1253,7 +1253,7 @@
                 }
             }
 
-            .slick-next, .slick-prev {
+            .slick-arrow {
                 position: absolute;
                 display: block;
                 height: rem(15);
@@ -1266,6 +1266,10 @@
                 transform: translateY(-50%);
                 padding: 0;
                 border: none;
+
+                &.slick-disabled {
+                    pointer-events: none;
+                } 
             }
 
             .slick-next {
@@ -1274,6 +1278,7 @@
 
                 &.slick-disabled {
                     background: none;
+
                 }
             }
 
