@@ -37,7 +37,7 @@
 <iscomment>Custom End</iscomment>
 <div class="row">
     <div class="col-12 collapsible-promo-wrapper" tabindex="0">
-        <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="promo-code-form promo-code-inner-div" method="GET" name="promo-code-form">
+        <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="minicart-promo-code-form promo-code-inner-div" method="GET" name="promo-code-form">
             <div class="form-group collapsible-xl">
                 <label class="title" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row content value">
