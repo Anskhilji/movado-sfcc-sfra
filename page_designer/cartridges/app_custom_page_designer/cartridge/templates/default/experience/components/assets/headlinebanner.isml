@@ -7,15 +7,17 @@
     <a class="component-banner-link" href="${pdict.backgroundLink}">
         <picture>
             <source media="(min-width: 992px)" srcset="${pdict.image.src.desktop}" />
-            <source media="(max-width)" srcset="${pdict.image.src.mobile}" />
+            <source media="(max-width: 991px)" srcset="${pdict.image.src.mobile}" />
             <img class="component-banner-image" src="${pdict.image.src.desktop}" <isif condition="${pdict.image.alt}"> alt="${pdict.image.alt}" title="${pdict.image.alt}"</isif> />
         </picture>
     </a>
     <figcaption class="component-banner-overlay ${pdict.alignment ? pdict.alignment : ''}">
-        <div class="component-banner-html" style="${pdict.headingStyle ? pdict.headingStyle : ''}">
-            <isprint value="${pdict.bannerHeading ? pdict.bannerHeading : '' }" encoding="off"/>
-            <div style="${pdict.subheadingStyle ? pdict.subheadingStyle : ''}">
-            <isprint value="${pdict.bannerSubheading ? pdict.bannerSubheading : '' }" encoding="off"/>
+        <div class="component-banner-html">
+            <div style="${pdict.headingStyle ? pdict.headingStyle : ''}">
+                <isprint value="${pdict.bannerHeading ? pdict.bannerHeading : '' }" encoding="off"/>
+            </div>
+            <div class="component-banner-subheading" style="${pdict.subheadingStyle ? pdict.subheadingStyle : ''}">
+                <isprint value="${pdict.bannerSubheading ? pdict.bannerSubheading : '' }" encoding="off"/>
             </div>
         </div>
         <isif condition="${!empty(pdict.bannerButton) && pdict.bannerButton != 'undefined' && !empty(pdict.bannerButtonText) && pdict.bannerButtonText != 'undefined'}">
