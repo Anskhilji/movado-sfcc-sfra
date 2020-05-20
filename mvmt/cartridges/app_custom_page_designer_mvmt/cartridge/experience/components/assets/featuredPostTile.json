@@ -1,0 +1,72 @@
+{
+    "name": "Featured Post Asset",
+    "description": "Blog Post Tile for Blogs",
+    "group": "assets",
+    "attribute_definition_groups": [
+        {
+            "id": "blogTileSpecs",
+            "name": "Blog Tile Secifications",
+            "description": "Renders Content Asset from provided ID",
+            "attribute_definitions": [
+                {
+                    "id": "image",
+                    "name": "Image",
+                    "type": "image",
+                    "required": true
+                },
+                {
+                    "id": "title",
+                    "name": "Title",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "id": "link",
+                    "name": "Link",
+                    "type": "url",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "id": "bottomSection",
+            "name": "Bottom Section",
+            "description": "Bottom Section of tile containig subheading, excerpt and buttons",
+            "attribute_definitions": [
+                {
+                    "id": "subheading",
+                    "name": "Subheading",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "excerpt",
+                    "name": "Excerpt",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "id": "primaryButtonText",
+                    "name": "Primary Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "primaryButtonLink",
+                    "name": "Primary Button Link",
+                    "type": "url",
+                    "required": false
+                },
+                {
+                    "id": "additionalButtons",
+                    "name": "Additional Buttons",
+                    "type": "text",
+                    "description": "JSON Object containing button Text and button url",
+                    "required": false
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}
+  
