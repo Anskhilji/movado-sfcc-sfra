@@ -1,11 +1,6 @@
 <iscomment> Custom: HTML Structure change</iscomment>
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 <header class="new-header">
-    <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
-    <isif condition="${isEswEnabled}" >
-        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
-    </isif>
-    <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
