@@ -32,6 +32,7 @@
     <iscomment> Custom End </iscomment>
 <iselse>
     <isset name="items" value="${pdict.items}" scope="page"/>
+    <isinclude template="include/yotpoheader"/>
     <div class="minicart-error cart-error">
         <isif condition="${pdict.valid.error}">
             <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
