@@ -789,10 +789,10 @@
 
                 &-slide {
                     text-align: center;
-
+                    cursor: zoom-in;
                     img {
                         display: inline-block;
-                        cursor: zoom-in;
+
                     }
 
                     .carousel-tile {
@@ -896,6 +896,7 @@
         height: 100%;
         top: 0;
         z-index: -1;
+        background-color: $white;
 
         &.zoom-active {
             z-index: 1;
@@ -1253,7 +1254,7 @@
                 }
             }
 
-            .slick-arrow {
+            .slick-next, .slick-prev {
                 position: absolute;
                 display: block;
                 height: rem(15);
@@ -1266,10 +1267,6 @@
                 transform: translateY(-50%);
                 padding: 0;
                 border: none;
-
-                &.slick-disabled {
-                    pointer-events: none;
-                } 
             }
 
             .slick-next {
@@ -1278,7 +1275,6 @@
 
                 &.slick-disabled {
                     background: none;
-
                 }
             }
 
@@ -2121,6 +2117,7 @@
             .pdp-content-body {
 
                 .detals-heading {
+                    font-family: $font-medium;
                     font-size: rem(40);
                     font-weight: 500;
                     line-height: rem(42);
