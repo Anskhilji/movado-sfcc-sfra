@@ -20,27 +20,28 @@
         position: absolute;
 
         &.center {
-            top: 45%;
-            left: 45%;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
 
             &-left {
-                top: 45%;
+                top: 50%;
                 left: 2%;
             }
             
             &-right {
-                top: 45%;
+                top: 50%;
                 right: 2%;
             }
             
             &-top {
                 top: 2%;
-                left: 45%
+                left: 50%
             }
 
             &-bottom {
                 bottom: 5%;
-                left: 45%;
+                left: 50%;
             }
         }
 
