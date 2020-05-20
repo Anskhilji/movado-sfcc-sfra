@@ -92,13 +92,13 @@ module.exports = {
         });
 
         $('.polarized-modal').mouseup(function(e) {
-            var container = $(".polarized-modal-body");
+            var container = $('.polarized-modal-body');
 
             if (!container.is(e.target) && container.has(e.target).length === 0) 
             {
                 $('.polarized-modal').fadeOut('fast');
                 $('.modal-background').fadeOut();
-                $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
+                $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
             }
         });
     },
