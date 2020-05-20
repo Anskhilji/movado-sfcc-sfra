@@ -34,13 +34,10 @@ module.exports = function (object, hit) {
                             }]
                         },
                         url: URLUtils.url(
-                            'Product-Variation',
-                            'dwvar_' + hit.productID + '_color',
-                            color.value,
+                            'Product-Show',
                             'pid',
                             hit.productID,
-                            'quantity',
-                            '1'
+                            'dwvar_' + hit.productID + '_color',
                             ).toString()
                     };
                 })

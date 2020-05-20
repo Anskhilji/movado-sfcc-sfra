@@ -41,10 +41,6 @@ module.exports = function () {
         $('.mobile-menu .tab-content-submenu ul').height(height);
     });
     
-    
-    //stttaaaarttt
-    
-    
     function handleVariantResponse(response, $productContainer) {
 
         // Update primary images

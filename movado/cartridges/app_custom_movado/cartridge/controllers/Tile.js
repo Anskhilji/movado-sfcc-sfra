@@ -65,9 +65,9 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
-        product: product,
-        defaultVariantImageDIS: defaultVariantImageDIS ? defaultVariantImageDIS : product.images.tile256[0].url,
         apiProduct: apiProduct,
+        defaultVariantImageDIS: defaultVariantImageDIS ? defaultVariantImageDIS : product.images.tile256[0].url,
+        product: product,
         urls: {
             product: productUrl,
             quickView: quickViewUrl
@@ -81,6 +81,14 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
 
+    Object.keys(req.querystring).forEach(function (key) {
+        if (req.querystring[key] === 'true') {
+            context.display[key] = true;
+        } else if (req.querystring[key] === 'false') {
+            context.display[key] = false;
+        }
+    });
+
     try {
         if (!empty(session.custom.yotpoConfig)) {
             var viewData = res.getViewData();
@@ -92,14 +100,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
         YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
     }
-    
-    Object.keys(req.querystring).forEach(function (key) {
-        if (req.querystring[key] === 'true') {
-            context.display[key] = true;
-        } else if (req.querystring[key] === 'false') {
-            context.display[key] = false;
-        }
-    });
 
     res.render('product/gridTile.isml', context);   
 
