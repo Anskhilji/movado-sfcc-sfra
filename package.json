@@ -116,7 +116,7 @@
     "base": "./storefront-reference-architecture",
     "mcsus": "./mcsus",
     "oliviaburton_redesign": "./oliviaburton_redesign",
-    "page_designer": "page_designer"
+    "page_designer": "./page_designer"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
