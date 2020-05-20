@@ -43,9 +43,7 @@
             </div>
         </isif>
     </div>
-    <span class="title-free-shipping"><img src="${URLUtils.staticURL('/images/greentick.svg')}"/>
-        ${Resource.msg('title.earn.free.shipping','cart',null)}
-    </span>
+    <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
     <div class="product-summary">
         <isloop items="${items}" var="lineItem">
             <div class="row">
