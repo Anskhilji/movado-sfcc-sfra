@@ -283,7 +283,7 @@ module.exports = {
     },
 
     updatePrice: function () {
-        $('.upsell_input').on('click', function (){
+        $(document).on('click', '.upsell_input', function() {
             var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
             var currentPrice = $('.product-price-mobile .sales .value').data('value');
             var updatedPrice;
