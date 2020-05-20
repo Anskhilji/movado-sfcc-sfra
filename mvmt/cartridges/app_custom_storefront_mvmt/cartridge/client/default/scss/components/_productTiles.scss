@@ -341,3 +341,10 @@
         margin: 0;
     }
 }
+
+.plp-swatches {
+    img.swatch-circle.is-active {
+        border: rem(1) solid $black;
+        border-radius: rem(50);
+    }
+}

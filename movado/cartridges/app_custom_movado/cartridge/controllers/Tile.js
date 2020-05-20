@@ -44,6 +44,19 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
     }
+    var apiProduct = ProductMgr.getProduct(product.id);
+    var defaultVariantImageDIS;
+    if (product.variationAttributes[0] && product.variationAttributes[0].values) {
+        var varAttr = product.variationAttributes[0].values;
+        var variant = apiProduct.variationModel.defaultVariant;
+        Object.keys(varAttr).forEach(function (key) {
+            if (variant.custom.color == varAttr[key].id) {
+                defaultVariantImageDIS = varAttr[key].images.swatch[0].url;
+            }
+        });
+    }
+    
+
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
@@ -53,7 +66,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
-        apiProduct: ProductMgr.getProduct(product.id),
+        defaultVariantImageDIS: defaultVariantImageDIS ? defaultVariantImageDIS : product.images.tile256[0].url,
+        apiProduct: apiProduct,
         urls: {
             product: productUrl,
             quickView: quickViewUrl
@@ -67,14 +81,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
     };
 
-    Object.keys(req.querystring).forEach(function (key) {
-        if (req.querystring[key] === 'true') {
-            context.display[key] = true;
-        } else if (req.querystring[key] === 'false') {
-            context.display[key] = false;
-        }
-    });
-    
     try {
         if (!empty(session.custom.yotpoConfig)) {
             var viewData = res.getViewData();
@@ -86,6 +92,14 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
         YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');
     }
+    
+    Object.keys(req.querystring).forEach(function (key) {
+        if (req.querystring[key] === 'true') {
+            context.display[key] = true;
+        } else if (req.querystring[key] === 'false') {
+            context.display[key] = false;
+        }
+    });
 
     res.render('product/gridTile.isml', context);   
 

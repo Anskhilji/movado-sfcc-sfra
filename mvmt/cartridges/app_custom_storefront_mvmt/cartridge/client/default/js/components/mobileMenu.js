@@ -46,24 +46,11 @@ module.exports = function () {
     
     
     function handleVariantResponse(response, $productContainer) {
-        var isChoiceOfBonusProducts =
-            $productContainer.parents('.choose-bonus-product-dialog').length > 0;
-        var isVaraint;
-//        if (response.product.variationAttributes) {
-//            updateAttrs(response.product.variationAttributes, $productContainer);
-//            isVaraint = response.product.productType === 'variant';
-//            if (isChoiceOfBonusProducts && isVaraint) {
-//                $productContainer.parent('.bonus-product-item')
-//                    .data('pid', response.product.id);
-//
-//                $productContainer.parent('.bonus-product-item')
-//                    .data('ready-to-order', response.product.readyToOrder);
-//            }
-//        }
 
         // Update primary images
         var primaryImageUrls = response.product.images;
         $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+        
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
@@ -96,8 +83,7 @@ module.exports = function () {
     }
     
     
-    var $mvmtBase = require('mvmt/product/base');
-    $('[data-attr="colorr"] a').off('click').on('click', function (e) {
+    $('[data-attr="colorVar"] a').off('click').on('click', function (e) {
         e.preventDefault();
 
         if ($(this).attr('disabled')) {
@@ -109,13 +95,14 @@ module.exports = function () {
         if (!$productContainer.length) {
             $productContainer = $(this).closest('.product-detail');
         }
-
-
+        $productContainer.find('.plp-swatches img.is-active').removeClass('is-active');
+        $('.plp-swatches img').removeClass('is-active');
+        $(this).find('img.swatch-circle').addClass('is-active');
+        
         var selectedValueUrl = new URL(e.currentTarget.href);
         
         $.ajax({
             url: selectedValueUrl,
-//            url: 'https://dev05-na02-movado.demandware.net/on/demandware.store/Sites-MVMTUS-Site/default/Product-Variation?dwvar_0607430_color=blue&pid=0607430&quantity=1',
             method: 'GET',
             success: function (data) {
                 handleVariantResponse(data, $productContainer);
@@ -128,9 +115,6 @@ module.exports = function () {
                 $.spinner().stop();
             }
         });
-        
-        
-        // eNDDDDDDDDD
     });
 };
 

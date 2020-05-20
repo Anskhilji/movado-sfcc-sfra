@@ -48,7 +48,7 @@
                 <span>
                 <span class="sales">
                     <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
-                    ${apiProduct.variants[0].priceModel.price.decimalValue}
+                    ${apiProduct.variationModel.defaultVariant.priceModel.price.decimalValue}
                 </span>
                 </span>
                 </div>
