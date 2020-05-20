@@ -6,12 +6,17 @@
 <figure class="component-banner">
     <a class="component-banner-link" href="${pdict.backgroundLink}">
         <picture>
-            <img class="component-banner-image" src="${pdict.image.src.mobile}" style="--focal-point-x:${pdict.image.focalPointX}; --focal-point-y:${pdict.image.focalPointY}" <isif condition="${pdict.image.alt}">alt="${pdict.image.alt}" title="${pdict.image.alt}"</isif> />
+            <source media="(min-width: 992px)" srcset="${pdict.image.src.desktop}" />
+            <source media="(max-width)" srcset="${pdict.image.src.mobile}" />
+            <img class="component-banner-image" src="${pdict.image.src.desktop}" <isif condition="${pdict.image.alt}"> alt="${pdict.image.alt}" title="${pdict.image.alt}"</isif> />
         </picture>
     </a>
     <figcaption class="component-banner-overlay ${pdict.alignment ? pdict.alignment : ''}">
         <div class="component-banner-html" style="${pdict.headingStyle ? pdict.headingStyle : ''}">
             <isprint value="${pdict.bannerHeading ? pdict.bannerHeading : '' }" encoding="off"/>
+            <div style="${pdict.subheadingStyle ? pdict.subheadingStyle : ''}">
+            <isprint value="${pdict.bannerSubheading ? pdict.bannerSubheading : '' }" encoding="off"/>
+            </div>
         </div>
         <isif condition="${!empty(pdict.bannerButton) && pdict.bannerButton != 'undefined' && !empty(pdict.bannerButtonText) && pdict.bannerButtonText != 'undefined'}">
             <a class="${pdict.isLink ? 'link' : 'btn btn-primary'}" href="${pdict.bannerButton}" style="${pdict.buttonStyle}" >${pdict.bannerButtonText}</a>

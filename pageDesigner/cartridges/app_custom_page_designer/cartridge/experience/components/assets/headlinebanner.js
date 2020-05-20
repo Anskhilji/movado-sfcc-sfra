@@ -16,24 +16,22 @@ module.exports.render = function (context) {
 
     model.backgroundLink = content.backgroundLink;
     model.bannerHeading = content.bannerHeading;
+    model.bannerSubheading = content.bannerSubheading;
     model.bannerButton = content.bannerButton;
     model.bannerButtonText = content.bannerButtonText;
     model.buttonStyle = content.buttonStyle;
     model.headingStyle = content.headingStyle;
+    model.subheadingStyle = content.subheadingStyle;
     model.isLink = content.isLink;
     model.alignment = content.alignment;
 
-    if (content.image) {
-        model.image = {
-            src: {
-                mobile  : ImageTransformation.url(content.image, { device: 'mobile' }),
-                desktop : ImageTransformation.url(content.image, { device: 'desktop' })
-            },
-            alt         : content.image.file.getAlt(),
-            focalPointX : content.image.focalPoint.x * 100 + '%',
-            focalPointY : content.image.focalPoint.y * 100 + '%'
-        };
-    }
+    model.image = {
+        src: {
+            mobile  : ImageTransformation.url(content.mobileImage, { device: 'mobile' }),
+            desktop : ImageTransformation.url(content.desktopImage, { device: 'desktop' })
+        },
+        alt         : content.desktopImage.file.getAlt()
+    };
 
     return new Template('experience/components/assets/headlinebanner').render(model).text;
 };
