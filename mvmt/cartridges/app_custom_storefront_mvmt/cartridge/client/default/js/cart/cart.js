@@ -319,6 +319,29 @@ module.exports = function () {
         var $quantitySelector = '.' + $(this).data('pid');
         increaseQuantity($quantitySelector, $pid);
     });
+    
+    /**
+     * This is new click event function on the Custom increased quantity button of mini-cart.
+     * It will get the increased-qty-btn data attribute and builds the quantitySelector 
+     * class and it will call the increaseQuantity function.
+     */
+
+    $('body').off('click', '.increased-qty-btn').on('click', '.increased-qty-btn', function (e) {
+    	var pid = $(this).data('pid');
+    	var quantitySelector = '.' + pid;
+    	increaseQuantity(quantitySelector, pid);
+    }); 
+    
+    /**
+     * This is new click event function on the Custom decreased quantity button of mini-cart.
+     * It will get the decreased-qty-btn data attribute and builds the quantitySelector 
+     * class and it will call the decreaseQuantity function.
+     */
+    $('body').off('click', '.decreased-qty-btn').on('click', '.decreased-qty-btn', function (e) {
+    	var pid = $(this).data('pid');
+    	var quantitySelector = '.' + pid;
+    	decreaseQuantity(quantitySelector, pid);
+      });
 
     /**
      * This is override click event function on the remove button from mini-cart.
