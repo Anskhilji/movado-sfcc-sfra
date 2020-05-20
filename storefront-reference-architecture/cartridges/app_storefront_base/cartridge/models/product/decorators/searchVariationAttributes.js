@@ -38,6 +38,7 @@ module.exports = function (object, hit) {
                             'pid',
                             hit.productID,
                             'dwvar_' + hit.productID + '_color',
+                            color.value
                             ).toString()
                     };
                 })

@@ -61,12 +61,15 @@ module.exports = function () {
         $productNameSelector.text(response.product.productName);
         
         var variationPID = response.product.id;
-        
         var isVariationQantityExist = response.product.quantities;
         var $addToCartSelector = $productContainer.find('.cta-add-to-cart button.add-to-cart');;
-        if (!variationPID) {
-            return;
+        if (response.product.available) {
+            if (response.product.available) {
+                var $cartButtonContainer = $productContainer.find('button.add-to-cart');
+                $cartButtonContainer.text('ADD TO CART');
+            }
         }
+        
         $addToCartSelector.data( 'pid', variationPID );
         if (isVariationQantityExist) {
             $addToCartSelector.removeClass('out-of-stock-btn');
@@ -74,6 +77,17 @@ module.exports = function () {
         } else {
             $addToCartSelector.addClass('out-of-stock-btn');
             $addToCartSelector.prop('disabled', true);
+        }
+        var $availibilityContainer = $productContainer.find('.mvmt-avilability');
+        if ($availibilityContainer) {
+            
+            $availibilityContainer.hide();
+            if (!response.product.available) {
+                $availibilityContainer.show();
+                $addToCartSelector.text('OUT OF STOCK');
+                $addToCartSelector.addClass('out-of-stock-btn');
+                $addToCartSelector.prop('disabled', true);
+            }
         }
        
     }
