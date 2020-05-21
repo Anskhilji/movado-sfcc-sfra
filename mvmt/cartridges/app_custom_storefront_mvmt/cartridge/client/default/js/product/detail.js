@@ -79,7 +79,6 @@ module.exports = {
 
         $('.modal-close').on('click', function(e) {
             $('.modal-background').fadeOut();
-            $('.polarized-modal').fadeOut('fast');
             $('html').removeClass('no-overflow');
             $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
         });
@@ -88,7 +87,6 @@ module.exports = {
             $('.modal-background').fadeIn();
             $('html').addClass('no-overflow');
             setTimeout(function(){ 
-                $('.polarized-modal').fadeIn('fast');
                 $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
              }, 300);
         });
@@ -98,7 +96,6 @@ module.exports = {
 
             if (!container.is(e.target) && container.has(e.target).length === 0) 
             {
-                $('.polarized-modal').fadeOut('fast');
                 $('.modal-background').fadeOut();
                 $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
                 $('html').removeClass('no-overflow');
