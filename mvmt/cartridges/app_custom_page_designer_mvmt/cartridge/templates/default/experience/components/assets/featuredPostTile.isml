@@ -1,43 +1,22 @@
-<div class="container">
-    <section class="blog__featured-post container--large">
-        <h2 class="blog__featured-post-title">Discover</h2>
-        <article class="article-grid-item article-grid-item--featured mix">
-            <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item__link">
-                <img class="article-grid-item__image" src="//cdn.shopify.com/s/files/1/0377/2037/articles/duet_blog_2000x.progressive.jpg?v=1581704800" alt="MVMT Article Featured Image" />
+<section class="blog__featured-post container--large">
+    <h2 class="blog__featured-post-title">Discover</h2>
+    <article class="article-grid-item article-grid-item--featured mix">
+        <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item__link">
+            <img class="article-grid-item__image" src="//cdn.shopify.com/s/files/1/0377/2037/articles/duet_blog_2000x.progressive.jpg?v=1581704800" alt="MVMT Article Featured Image" />
+        </a>
+        <div class="article-grid-item__main">
+            <div class="article-grid-item__tag-wrapper">
+            <a href="/blogs/product" class="article-grid-item__tag" title="Product">
+                <span>Product</span>
             </a>
-            <div class="article-grid-item__main">
-                <div class="article-grid-item__tag-wrapper">
-                <a href="/blogs/product" class="article-grid-item__tag" title="Product">
-                    <span>Product</span>
-                </a>
-                </div>
-                <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item__link">
-                    <h3 class="article-grid-item__title">Introducing The Duet</h3>
-                    <span class="article-grid-item__view">View Post</span>
-                </a>
             </div>
-        </article>
-    </section> 
-</div>
- <h1>Updated Stylings </h1>
-<div class="container">
-    <section class="blog__featured-post container--large">
-        <h2 class="blog__featured-post-title">Discover</h2>
-        <article class="article-grid-item article-grid-item--featured mix">
             <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item__link">
-                <img class="article-grid-item__image" src="//cdn.shopify.com/s/files/1/0377/2037/articles/duet_blog_2000x.progressive.jpg?v=1581704800" alt="MVMT Article Featured Image" />
-            </a>
-            <div class="article-grid-item__main">
-                <div class="article-grid-item__tag-wrapper">
-                <a href="/blogs/product" class="article-grid-item__tag" title="Product">
-                    <span>Product</span>
-                </a>
+                <h3 class="article-grid-item__title">Introducing The Duet</h3>
+                <div class="article-grid-item__excerpt">
+                    <span>In honor of our 5&nbsp;year anniversary, we asked our supporters to submit clips showing us how they do time. What we got back blew our minds.</span>
                 </div>
-                <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item__link">
-                    <h3 class="article-grid-item__title">Introducing The Duet</h3>
-                    <span class="article-grid-item__view">View Post</span>
-                </a>
-            </div>
-        </article>
-    </section> 
-</div>
+                <span class="article-grid-item__view">View Post</span>
+            </a>
+        </div>
+    </article>
+</section> 
