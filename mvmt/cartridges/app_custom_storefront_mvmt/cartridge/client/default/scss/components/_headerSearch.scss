@@ -115,6 +115,7 @@
     margin-bottom: rem(5);
     padding: 0;
     position: relative;
+    padding-top: 46px;
 
     .header-search-field {
       border: none;
@@ -158,7 +159,7 @@
 .mobile-side-search {
   height: 100%;
   overflow-y: visible;
-  padding-top: rem(67);
+  padding-top: rem(100);
   position: fixed;
   top: -100%;
   transition: all .25s ease;
@@ -391,3 +392,6 @@
     text-decoration: underline;
 }
 
+.search-suggestion-model-open {
+    overflow: hidden;
+}
