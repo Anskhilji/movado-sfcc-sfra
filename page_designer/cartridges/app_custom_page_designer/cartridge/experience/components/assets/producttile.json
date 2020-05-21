@@ -1,0 +1,45 @@
+{
+  "name": "Product Tile",
+  "description": "Displays selected prdouct in Tile",
+  "group": "assets",
+  "attribute_definition_groups": [
+    {
+      "id": "productSpecs",
+      "name": "Product Specifications",
+      "description": "Specify the product to be displayed from this product tile.",
+      "attribute_definitions": [
+        {
+          "id": "product",
+          "name": "Product",
+          "description": "Select the product SKU to be displayed.",
+          "type": "product",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "tileConfigurations",
+      "name": "Tile Configurations",
+      "description": "Configurations for Product Tile",
+      "attribute_definitions": [
+        {
+          "id": "ratings",
+          "name": "Ratings",
+          "description": "Display product ratings if true",
+          "type":"boolean",
+          "required": true,
+          "default_value": false
+        },
+        {
+          "id": "swatches",
+          "name": "Swatches",
+          "description": "Display product swatches if true",
+          "type":"boolean",
+          "required": true,
+          "default_value": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}

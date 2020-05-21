@@ -178,6 +178,7 @@
                         }
 
                         .quantity-form {
+	                         position:relative;
 
                             .quantity {
                                 overflow: visible;
@@ -194,12 +195,56 @@
                                 letter-spacing: rem(1);
                                 font-weight: 400;
                                 text-indent: rem(15);
+                                margin-right: rem(20);
 
                                 &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-                                    opacity: 1;
+                                    -webkit-appearance: none;
+                                    margin: 0;
+
                                 }
-                            }
-                        }
+                           } 
+
+                             .up-qty-btn {
+                                 position: absolute;
+                                 right: rem(35);
+                                 top: rem(18);
+                                 border: none;
+                                 outline: none;
+                                 text-align: center;
+                                 font-weight: bold;
+                                 padding: rem(0) rem(3);
+                                 line-height: rem(0);
+
+                             .svg-icon {
+                                  width: rem(8);
+                              }
+
+                             &:hover {
+                                    background-color: $light-silver;
+                             }
+
+                          }
+
+                             .down-qty-btn {	
+                                 position: absolute;
+                                 right: rem(35);
+                                 top: rem(26);
+                                 border: none;
+                                 outline: none;
+                                 text-align: center;
+                                 font-weight: bold;
+                                 padding: rem(0) rem(3);
+                                 line-height: rem(0);
+
+                             .svg-icon {
+                                  width: rem(8);
+                              }
+
+                             &:hover {
+                                    background-color: $light-silver;
+                             }
+                          }
+                      }
 
                         .item-image {
                             height: rem(73);
@@ -389,10 +434,6 @@
 
                     .coupon-price-adjustment {
                         margin: rem(6);
-                    }
-
-                    .promotion-information {
-                        display: none;
                     }
                 }
 

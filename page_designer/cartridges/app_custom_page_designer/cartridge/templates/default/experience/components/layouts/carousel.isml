@@ -1,0 +1,16 @@
+<iscomment>
+    Removed page designer, jquery and bootstrap from is script
+</iscomment>
+<div id="${pdict.id}" class="container carousel-layout p-0" style="${pdict.additionalCss}">
+    <div class="row carousel-layout-row">
+        <div class="col-12 carousel-layout-col">
+            <div class="cs-carousel-wrapper"
+                data-carousel-config='${pdict.carouselJsonSettings.replace(/[\n\s]/gi, '')}'>
+                <isif condition="${!empty(pdict.carouselTitle)}">
+                    <h3 class="carousel-title ${pdict.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${pdict.carouselTitle}</h3>
+                </isif>
+                <isprint value="${pdict.carouselRegion.render()}" encoding="off"/>
+            </div>
+        </div>
+    </div>
+</div>

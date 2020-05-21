@@ -1,0 +1,54 @@
+.region .experience-component {
+    position: relative;
+    top: 0;
+    bottom: 0;
+}
+  
+div.sf-interactions-proxyHoverContainer a {
+    overflow: visible;
+}
+
+.carousel-layout {
+    
+    &-col {
+        margin: 0;
+        padding: 0;
+    }
+
+    &-row , &-col, .cs-carousel-wrapper {
+        height: inherit;
+        width: inherit;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel-component, .slick-list.draggable {
+        height: inherit;
+    }
+
+    .carousel-component {
+        padding-bottom: 0;
+        margin-bottom: 0;
+
+        .cs-carousel-wrapper {
+            margin-bottom: 0;
+        }
+    }
+
+    .slick-arrow {
+        top: 45%;
+    }
+
+    .component-banner {
+
+        &-image {
+            width: 100%;
+        }
+
+        &-overlay {
+            position: absolute;
+            bottom: 50%;
+            right: 1.8rem;
+        }
+    }
+}

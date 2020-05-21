@@ -94,7 +94,7 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-
+    
                     <div class="row m-0 product-variations">
                         <!-- Attributes and Quantity -->
 
@@ -151,6 +151,8 @@
                 </isif>
             </div>
         </div>
+
+        <iscontentasset aid="pdp-why-polarization-content" />
 
         <div class="container p-0">
             <isinclude template="product/components/productGallery" />
