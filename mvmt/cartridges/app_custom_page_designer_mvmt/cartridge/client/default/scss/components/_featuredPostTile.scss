@@ -1,4 +1,4 @@
-.blog__featured-post {
+.blog-featured-post {
 
     line-height: 1.5;
     font-size: 100%;
@@ -39,7 +39,7 @@
         }
     }
 
-    &.blog__featured-post--disruptor {
+    &.blog-featured-post-disruptor {
         margin-top: 50px;
     }
 
@@ -70,7 +70,7 @@
     width: 100%;
     margin: 0 0 40px;
 
-        &__link {
+        &-link {
             line-height: 1.5;
             font-size: 100%;
             -webkit-font-smoothing: antialiased;
@@ -90,7 +90,7 @@
             }
         }
 
-        &__image {
+        &-image {
             line-height: 1.5;
             font-size: 100%;
             -webkit-font-smoothing: antialiased;
@@ -108,7 +108,7 @@
             width: 100%;
         }
 
-        &__main {
+        &-main {
             line-height: 1.5;
             font-size: 100%;
             -webkit-font-smoothing: antialiased;
@@ -121,7 +121,7 @@
             background-color: #fff;
         }
 
-        &__tag-wrapper {
+        &-tag-wrapper {
             line-height: 1.5;
             font-size: 100%;
             -webkit-font-smoothing: antialiased;
@@ -135,7 +135,7 @@
             margin-bottom: 40px;
         }
 
-        &__tag {
+        &-tag {
             -webkit-font-smoothing: antialiased;
             text-size-adjust: 100%;
             text-align: center;
@@ -153,7 +153,7 @@
             padding-right: 10px;
         }
 
-        &__title {
+        &-title {
             -webkit-font-smoothing: antialiased;
             text-size-adjust: 100%;
             text-align: center;
@@ -170,7 +170,7 @@
             padding: 0 25px;
         }
 
-        &__view {
+        &-view {
             -webkit-font-smoothing: antialiased;
             text-size-adjust: 100%;
             letter-spacing: 1.5px;
@@ -198,7 +198,7 @@
             }
         }
 
-        &__excerpt {
+        &-excerpt {
             -webkit-font-smoothing: antialiased;
             text-size-adjust: 100%;
             text-align: center;
@@ -214,7 +214,7 @@
             font-style: normal;
         }
 
-        &.article-grid-item--featured {
+        &.article-grid-item-featured {
             box-shadow: none;
             width: 100%;
             max-width: 100%;
@@ -226,14 +226,14 @@
             }
         }
 
-        &.article-grid-item--disruptor {
+        &.article-grid-item-disruptor {
             
             box-shadow: none;
             position: relative;
 
             .article-grid-item {
 
-                &__main {
+                &-main {
                     box-shadow: 0 0 27px -3px rgba(0,0,0,.3);
                     width: 80%;
                     margin: -30px auto 0;
@@ -254,16 +254,16 @@
                     }
                 }
 
-                &__title {
+                &-title {
                     margin-bottom: 10px;
                     padding: 0 25px;
                 }
 
-                &__view {
+                &-view {
                     margin-top: 20px;
                 }
 
-                &__image {
+                &-image {
                     @media only screen and (min-width: 1200px) {
                         width: 65%;
                     }
@@ -283,12 +283,12 @@
     }
 }
 
-.article-grid-item--featured {
+.article-grid-item-featured {
     position: relative;
 
     .article-grid-item {
-        
-        &__main {
+            
+        &-main {
             box-shadow: 0 0 27px -3px rgba(0,0,0,.3);
             width: calc(100% - 30px);
             margin: -30px auto 0;
@@ -310,7 +310,7 @@
             
         }
 
-        &__title {
+        &-title {
             font-size: 24px;
             line-height: 1;
 
@@ -323,7 +323,7 @@
             }
         }
 
-        &__excerpt {
+        &-excerpt {
             font-size: 12px;
             line-height: 14px;
 
@@ -333,7 +333,7 @@
             }
         }
 
-        &__tag-wrapper {
+        &-tag-wrapper {
 
             @media only screen and (min-width: 1024px) {
                 margin: 35px 0 30px -15px;
@@ -342,7 +342,7 @@
             }
         }
         
-        &__image {
+        &-image {
             @media only screen and (min-width: 1024px) {
                 width: 80%;
             }
