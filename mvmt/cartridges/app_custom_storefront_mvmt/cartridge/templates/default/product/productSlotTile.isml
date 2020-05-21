@@ -55,15 +55,14 @@
 
             <isif condition="${product.productType == 'master'}">
                 <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
-                <isinclude template="product/components/pricing/main" />
             <iselse>
                 <isset name="price" value="${product.price}" scope="page" />
-	            <isif condition="${product.productType === 'set'}">
-	                <isinclude template="product/components/pricing/setPrice" />
-	            <iselse>
-	                <isinclude template="product/components/pricing/main" />
-	            </isif>
             </isif>
+            <isif condition="${product.productType === 'set'}">
+                 <isinclude template="product/components/pricing/setPrice" />
+             <iselse>
+                 <isinclude template="product/components/pricing/main" />
+             </isif>
 
             <isif condition="${pdict.display.recommendattionTile}">
                 <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
