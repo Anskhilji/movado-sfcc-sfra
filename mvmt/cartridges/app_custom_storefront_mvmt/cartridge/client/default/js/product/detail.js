@@ -80,11 +80,13 @@ module.exports = {
         $('.modal-close').on('click', function(e) {
             $('.modal-background').fadeOut();
             $('.polarized-modal').fadeOut('fast');
+            $('html').removeClass('no-overflow');
             $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
         });
 
         $('.call-why-polarized-popup').on('click', function(e) {
             $('.modal-background').fadeIn();
+            $('html').addClass('no-overflow');
             setTimeout(function(){ 
                 $('.polarized-modal').fadeIn('fast');
                 $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
@@ -99,6 +101,7 @@ module.exports = {
                 $('.polarized-modal').fadeOut('fast');
                 $('.modal-background').fadeOut();
                 $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
+                $('html').removeClass('no-overflow');
             }
         });
     },
