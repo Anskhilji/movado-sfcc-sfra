@@ -3,6 +3,7 @@
 var debounce = require('lodash/debounce');
 var endpoint = $('.suggestions-wrapper').data('url');
 var minChars = $('input.search-field').data('queryThreshold');
+var $suggestionsSlots = $('.search-recomendation');
 
 /**
  * Retrieves Suggestions element relative to scope
@@ -104,8 +105,6 @@ function positionSuggestions(scope) {
  */
 function processResponse(response) {
     var $suggestionsWrapper = getSuggestionsWrapper(this).empty();
-    // custom start
-    var $suggestionsSlots = $('.search-recomendation');
 
     $.spinner().stop();
 
@@ -144,6 +143,12 @@ function getSuggestions(scope) {
     }
 }
 
+function getSuggestionsSlots() {
+    if ($('input.search-field').val().length === 0) {
+        $suggestionsSlots.show();
+    }
+}
+
 module.exports = function () {
     $('input.search-field').each(function () {
         /**
@@ -155,6 +160,7 @@ module.exports = function () {
 
         $(this).on('keyup click', function (e) {
             debounceSuggestions(this, e);
+            getSuggestionsSlots();
         });
     });
 

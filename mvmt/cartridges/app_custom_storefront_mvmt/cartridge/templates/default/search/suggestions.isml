@@ -1,26 +1,25 @@
 <div class="suggestions">
     <div class="row">
-
-        <isif condition="${pdict.suggestions.product && pdict.suggestions.product.phrases.length>0 && pdict.suggestions.didYouMeanPresence}">
-            <div class="col-sm-3 search-suggestions-result">
-            <div class="row items-header">
-                <div class="col-xs-12 col-sm-10 do-you-mean">${Resource.msg('label.suggest.doyoumean', 'search', null)}</div>
-            </div>
-            <div class="row items">
-                <isloop items="${pdict.suggestions.product.phrases}" var="phrase">
-                    <div class="col-12 item term">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
-                                    ${phrase.value}
-                                </a>
+        <div class="col-sm-3 search-suggestions-result">
+            <isif condition="${pdict.suggestions.product && pdict.suggestions.product.phrases.length>0 && pdict.suggestions.didYouMeanPresence}">
+                <div class="row items-header">
+                    <div class="col-xs-12 col-sm-10 do-you-mean">${Resource.msg('label.suggest.doyoumean', 'search', null)}</div>
+                </div>
+                <div class="row items">
+                    <isloop items="${pdict.suggestions.product.phrases}" var="phrase">
+                        <div class="col-12 item term">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                    <a href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
+                                        ${phrase.value}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </isloop>
-            </div>
-            </div>
-        </isif>
+                    </isloop>
+                </div>
+            </isif>
+        </div>
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.available}">
             <div class="col-8 suggested-products-tiles">

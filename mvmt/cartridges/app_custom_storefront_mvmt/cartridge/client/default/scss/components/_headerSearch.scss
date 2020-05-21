@@ -156,12 +156,11 @@
 }
 
 .mobile-side-search {
-  height: calc(100vh - 52px);
-  top: rem(52);
+  height: 100%;
   overflow-y: visible;
-  padding-top: rem(15);
+  padding-top: rem(67);
   position: fixed;
-  right: -100%;
+  top: -100%;
   transition: all .25s ease;
   width: 100%;
   z-index: 2002;
@@ -238,6 +237,8 @@
       text-align: left;
       font-family: $font-medium;
       outline: none;
+      background: url("../../images/clear-input-field.svg") center right no-repeat;
+      background-size: 0;
 
       &:focus {
         outline: none;
@@ -271,17 +272,16 @@
         display: block;
         left: auto;
         padding: rem(70) rem(20) 0;
-        padding-top: rem(30);
+        padding-top: rem(110);
         position: fixed;
-        right: -100%;
-        top: rem(80);
+        top: -100%;
         transition: all .25s ease;
         width: rem(400);
         z-index: 8;
 
         &.desktop-search-active {
             opacity: 1;
-            right: 0;
+            top: 0;
             z-index: 40;
             box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
         }
@@ -369,10 +369,25 @@
 .suggested-products {
 
     &-caresoul {
-        padding-left: rem(65);
+        padding-left: rem(48);
     }
 
     &-tiles {
-        padding-left: rem(75);
+        padding-left: rem(56);
     }
 }
+
+.desktop-search-close {
+    cursor: pointer;
+    float: right;
+    font-family: $font-medium;
+    padding-top: rem(20);
+    color: $light-gray12;
+    font-size: rem(15);
+    font-weight: 500;
+    letter-spacing: rem(1.02);
+    line-height: rem(20);
+    text-align: center;
+    text-decoration: underline;
+}
+
