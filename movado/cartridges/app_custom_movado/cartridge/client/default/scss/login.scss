@@ -75,3 +75,12 @@
     border-color:$grey3;
     color: $dark-red;
 }
+
+  .track-order-header-description {
+    & a {
+	text-decoration: underline;
+    font-size: rem(13);
+    font-family: $font-medium;
+	
+    }
+  }
