@@ -44,6 +44,10 @@ server.replace(
                 currencyCode = req.querystring.currency;
                 selectedCountry = req.querystring.country;
             }
+
+            if (!empty(session.custom.welcomeMat)) {
+                req.session.raw.custom.welcomeMat = session.custom.welcomeMat ? false : session.custom.welcomeMat;
+            }
             // Custom End
             var language = req.querystring.language;
 

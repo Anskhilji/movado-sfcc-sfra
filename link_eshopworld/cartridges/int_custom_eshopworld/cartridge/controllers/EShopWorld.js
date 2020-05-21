@@ -48,8 +48,7 @@ server.append('GetEswHeader', function (req, res, next) {
 
     res.viewData.EswHeaderObject.isGeoLocation = false;
 
-    if (!empty(geoLocationCountry) && (request.httpCookies['esw.Landing.Played'] == null || 
-        request.httpCookies['esw.Landing.Played'] == false)) {
+    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
         res.viewData.EswHeaderObject.isGeoLocation = true;
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
@@ -101,8 +100,7 @@ server.append('GetEswFooter', function (req, res, next) {
 
     res.viewData.EswFooterObject.isGeoLocation = false;
 
-    if (!empty(geoLocationCountry) && (request.httpCookies['esw.Landing.Played'] == null || 
-        request.httpCookies['esw.Landing.Played'] == false)) {
+    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
         res.viewData.EswFooterObject.isGeoLocation = true;
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
@@ -154,8 +152,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
 
     res.viewData.EswLandingObject.isGeoLocation = false;
 
-    if (!empty(geoLocationCountry) && (request.httpCookies['esw.Landing.Played'] == null || 
-        request.httpCookies['esw.Landing.Played'] == false)) {
+    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
         res.viewData.EswLandingObject.isGeoLocation = true;
         res.viewData.EswLandingObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswLandingObject.selectedCountryName = geoLocationCountry.displayName;
