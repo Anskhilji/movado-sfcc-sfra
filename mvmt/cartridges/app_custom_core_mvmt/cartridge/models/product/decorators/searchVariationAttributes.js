@@ -1,5 +1,7 @@
 'use strict';
 
+var searchVariationAttributes = module.superModule;
+
 var ATTRIBUTE_NAME = 'color';
 var collections = require('*/cartridge/scripts/util/collections');
 var URLUtils = require('dw/web/URLUtils');

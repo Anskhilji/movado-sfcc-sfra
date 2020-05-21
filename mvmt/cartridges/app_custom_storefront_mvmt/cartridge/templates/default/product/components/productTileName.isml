@@ -1,9 +1,11 @@
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
 <div class="pdp-link" itemprop="name">
-    <isif condition="${product.productType == 'master'}">
+    <isif condition="${!pdict.display.plpTile}">
         <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
-    <iselse>
+    <iselseif condition="${product.productType != 'master'}">
         <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+    <iselse>
+        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
     </isif>
 </div>
 </isif>

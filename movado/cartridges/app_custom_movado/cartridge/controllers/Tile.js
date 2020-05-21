@@ -8,7 +8,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
-    var ProductMgr = require('dw/catalog/ProductMgr');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     
@@ -44,18 +43,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
     }
-    var apiProduct = ProductMgr.getProduct(product.id);
-    var defaultVariantImageDIS;
-    if (product.variationAttributes[0] && product.variationAttributes[0].values) {
-        var varAttr = product.variationAttributes[0].values;
-        var variant = apiProduct.variationModel.defaultVariant;
-        Object.keys(varAttr).forEach(function (key) {
-            if (variant.custom.color == varAttr[key].id) {
-                defaultVariantImageDIS = varAttr[key].images.swatch[0].url;
-            }
-        });
-    }
-    
 
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
@@ -65,8 +52,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var qvGtmObj = productCustomHelpers.getQVGtmObj(product, categoryName);
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
-        apiProduct: apiProduct,
-        defaultVariantImageDIS: defaultVariantImageDIS ? defaultVariantImageDIS : product.images.tile256[0].url,
         product: product,
         urls: {
             product: productUrl,

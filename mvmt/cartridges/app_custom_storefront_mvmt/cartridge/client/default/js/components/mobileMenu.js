@@ -66,7 +66,7 @@ module.exports = function () {
         if (response.product.available) {
             if (response.product.available) {
                 var $cartButtonContainer = $productContainer.find('button.add-to-cart');
-                $cartButtonContainer.text('ADD TO CART');
+                $cartButtonContainer.text(Resources.ADD_TO_CART_LABEL);
             }
         }
         
@@ -84,7 +84,7 @@ module.exports = function () {
             $availibilityContainer.hide();
             if (!response.product.available) {
                 $availibilityContainer.show();
-                $addToCartSelector.text('OUT OF STOCK');
+                $addToCartSelector.text(Resources.OUT_OF_STOCK_LABEL);
                 $addToCartSelector.addClass('out-of-stock-btn');
                 $addToCartSelector.prop('disabled', true);
             }
