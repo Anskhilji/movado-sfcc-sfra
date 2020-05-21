@@ -16,6 +16,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         currentCountry: request.geolocation.countryName
     });
 
+    next();
+});
 server.get(
   'SetWelcomeMatHide',
   server.middleware.https,
