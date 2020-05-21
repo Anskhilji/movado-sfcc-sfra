@@ -20,9 +20,6 @@
                         <isinclude template="checkout/productCard/productCardProductName" />
                     </isif>
                 </div>
-                <div class="item-model model-name">
-                    ${lineItem.resources.Model} ${lineItem.id}
-                </div>
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
@@ -90,9 +87,6 @@
                         <isinclude template="/product/components/pricing/main" />
                     </p>
                 </isif>
-                <div class="item-total-${lineItem.UUID} price">
-                    <isinclude template="checkout/productCard/productCardProductTotalPrice" />
-                </div>
                 <iscomment> Custom Start: Remove actionUrls object from Pdict </iscomment>
                 <div class="remove-line-item d-block mb-2">
                     <button type="button" class="remove-btn remove-product-from-mini-cart btn btn-light"

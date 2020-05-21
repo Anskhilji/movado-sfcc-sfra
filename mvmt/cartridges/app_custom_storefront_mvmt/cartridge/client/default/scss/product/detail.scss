@@ -3,6 +3,7 @@
 
 .pdp-tabs-nav {
     border-bottom: rem(4) solid $light-gray6;
+    margin-bottom: rem(50);
 
     @include media-breakpoint-down(sm) {
         display: none;
@@ -64,12 +65,21 @@
     }
 
     &-label {
+        font-family: $font-bold;
+        font-weight: 600;
         font-size: rem(14);
-        font-family: $font-medium;
-        font-weight: 500;
-        line-height: rem(20);
-        letter-spacing: 1.17;
+        color: $black;
+        letter-spacing: rem(1.53);
         text-transform: uppercase;
+
+        .yotpo {
+            display: inline-block;
+            vertical-align: text-bottom;
+
+            * {
+                font-size: rem(14);
+            }
+        }
     }
 
     &-switch {
@@ -160,7 +170,6 @@
     }
 }
 
-
 .sticky-bar {
     display: none;
     position: fixed;
@@ -199,21 +208,32 @@
             background: $white;
             text-transform: uppercase;
             font-size: rem(11);
-            padding: rem(13) rem(42);
+            padding: rem(13) rem(22);
+            min-width: rem(230);
             height: 100%;
             letter-spacing: rem(1.5);
             transition: all .4s;
             position: relative;
             border-radius: 0;
-            display: inline-flex;
             border: none;
             color: $black;
-            min-width: rem(200);
             margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            span {
+                color: $black;
+                transition: all .4s;
+            }
 
             &:hover {
                 background-color: $light-green;
                 color: $white;
+
+                span {
+                    color: $white;
+                }
             }
         }
     }
@@ -225,128 +245,47 @@
     }
 }
 
-.pdp-tabs-body {
+.attribute {
 
-    .pdp-tab-content {
-        position: relative;
-        border-bottom: rem(1) solid $light-gray6;
-
-        &.Highlights {
-
-            .pdp-content-body {
-
-                .attribute-list {
-                    @include media-breakpoint-up(sm) {
-                        padding: rem(65) 0;
-                    }
-                }
-            }
-        }
-
-        &:last-child {
-            border: none;
-        }
+    &-list {
+        padding: 0 0 rem(45);
 
         @include media-breakpoint-up(sm) {
-            display: none;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: .25s linear;
-            border: none;
-        }
-
-        &.active {
-            display: block;
-        }
-
-        &.fadeIn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .pdp-content-body {
-            display: flex;
-            flex-direction: column;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: rem(20) rem(30);
-            display: none;
-
-            @include media-breakpoint-up(sm) {
-                padding: rem(60) rem(30);
-                padding-bottom: rem(20);
-                display: flex;
-                flex-direction: row;
-            }
-
-            .detals-heading {
-                font-family: $font-medium;
-                font-size: rem(24);
-                font-weight: 500;
-                line-height: rem(24);
-                letter-spacing: rem(1.5);
-                color: $black;
-                margin-bottom: rem(30);
-                text-transform: uppercase;
-            }
-
-            .attribute-list {
-                padding: 0 0 rem(45);
-
-                @include media-breakpoint-up(sm) {
-                    padding: rem(45) 0;
-                }
-
-                .attribute-detail {
-                    border-bottom: rem(1) solid $light-gray6;
-                    padding: rem(20) 0;
-                    display: flex;
-                    align-items: center;
-                    margin: 0;
-
-                    @include media-breakpoint-up(sm) {
-                        padding: rem(20);
-                    }
-
-                    .attribute-content {
-                        width: 50%;
-                        font-family: $font-medium;
-                        color: $black;
-                        font-size: rem(12);
-                        font-weight: 500;
-                        letter-spacing: rem(1.6);
-                        line-height: rem(12);
-                        text-transform: capitalize;
-
-                        &.attribute-name {
-                        text-transform: uppercase;
-                        }
-                    }
-                }
-
-                .pdp-attr-link {
-                    text-decoration: underline;
-                    text-transform: uppercase;
-                }
-            }
+            padding: rem(45) 0;
         }
     }
 
-    .Reviews {
+    &-detail {
+        border-bottom: rem(1) solid $light-gray6;
+        padding: rem(20) 0;
+        display: flex;
+        align-items: center;
+        margin: 0;
 
-        &.pdp-tab-content {
-
-            .pdp-content-body {
-
-                .detals-heading {
-                    font-size: rem(40);
-                    font-weight: 500;
-                    line-height: rem(42);
-                    letter-spacing: rem(4.29);
-                    margin-bottom: rem(30);
-                }
-            }
+        @include media-breakpoint-up(sm) {
+            padding: rem(20);
         }
+    }
+
+    &-content {
+        width: 50%;
+        font-family: $font-bold;
+        color: $black;
+        font-size: rem(12);
+        font-weight: 600;
+        letter-spacing: rem(1.6);
+        line-height: rem(12);
+        text-transform: capitalize;
+        letter-spacing: rem(1.5);
+
+        &.attribute-name {
+            text-transform: uppercase;
+        }
+    }
+
+    .pdp-attr-link {
+        text-decoration: underline;
+        text-transform: uppercase;
     }
 }
 
@@ -1107,29 +1046,40 @@
             line-height: 1;
             font-size: rem(16);
             padding: rem(16) rem(20);
-            background-color: $black;
-            border-color: $black;
+            background-color: $light-green2;
+            border-color: $light-green2;
             color: $white;
             width: 100%;
             letter-spacing: rem(3);
             margin: 0 auto;
+            letter-spacing: rem(1.25);
             transition: all .4s;
 
             @include media-breakpoint-up(md-down) {
                 position: relative;
-                font-size: rem(14);
-                padding: 1.5rem 1.75rem;
+                font-size: rem(15);
+                padding: rem(22) 1.75rem;
             }
 
             &:hover {
-                background: $light-green;
-                border-color: $light-green;
+                background: $gossamer;
+                border-color: $gossamer;
+            }
+
+            &:not(:disabled):not(.disabled):active:focus {
+                box-shadow: none;
             }
 
             &.mobileBtn {
-                background-color: $light-green;
-                border-color: $light-green;
+                background-color: $light-green2;
+                border-color: $light-green2;
             }
+        }
+
+        .add-to-cart {
+            display: flex;
+            justify-content: space-between;
+            border-radius: rem(5);
         }
     }
 
@@ -1181,25 +1131,43 @@
                 &_wrapper {
                     text-align: center;
                     position: relative;
+
+                    &:hover {
+                        .upsell_text {
+                            p {
+                                background-color: $light-green;
+                                color: $white;
+                                transition: 0.3s ease;
+                            }
+                        }
+                    }
+
+                    &-inner {
+                        border: rem(1) solid $white-gray;
+                    }
                 }
 
                 &_price {
+                    margin-bottom: rem(5);
 
                     .price {
                         font-family: $font-book;
                         font-size: rem(10);
                         line-height: 1.1;
-                        color: $light-gray;
+                        color: $black;
                         padding: 0;
                         padding-bottom: rem(2);
-                        margin: 0;
+
+                        span {
+                            display: block;
+                            margin: 0;
+                        }
                     }
                 }
 
                 &_description {
                     width: 100%;
                     color: $light-gray2;
-                    padding: rem(14) 0;
                     font-size: rem(14);
                     margin-bottom: auto;
                     text-transform: capitalize;
@@ -1207,10 +1175,10 @@
                     font-family: $font-medium;
                     font-weight: 500;
                     letter-spacing: rem(.2);
+                    margin-bottom: rem(5);
 
                     @include media-breakpoint-up(sm) {
                         font-size: rem(11);
-                        padding: rem(2) 0;
                     }
                 }
 
@@ -1229,23 +1197,27 @@
                     transition: all .3s;
                 }
 
-                &_meta {
+                &_text {
                     position: relative;
+                    background-color: $white-gray;
 
-                    .upsell_status {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        line-height: 1;
-                        color: $light-green;
-                        text-transform: uppercase;
-                        opacity: 0;
+                    p {
+                        font-family: $font-book;
+                        font-size: rem(11);
+                        color: $black;
+                        text-align: center;
                         margin: 0;
+                        padding: rem(5);
+                    }
 
-                        @include media-breakpoint-up(md) {
-                            font-size: rem(11);
-                        }
+                    &-add {
+                        display: block;
+                    }
+
+                    &-added {
+                        display: none;
+                        padding-left: rem(10);
+                        background: $light-green url("../../images/white-checkmark.svg") left rem(20) center no-repeat;
                     }
                 }
 
@@ -1261,25 +1233,21 @@
 
                     &:checked ~ {
 
-                        .upsell_description {
-                            color: $light-green;
+                        .upsell_text {
+
+                            .upsell_text-add {
+                                display: none;
+                            }
+        
+                            .upsell_text-added {
+                                display: block;
+                                padding-left: rem(20);
+                                color: $white;
+                            }
                         }
 
-                        .upsell_checkbox {
-                            background:$light-green url("../../images/white-checkmark.svg") center center no-repeat;
-                            opacity: 1;
+                        .upsell_wrapper-inner {
                             border-color: $light-green;
-                        }
-
-                        .upsell_meta {
-
-                            .upsell_price {
-                                opacity: 0;
-                            }
-
-                            .upsell_status {
-                                opacity: 1;
-                            }
                         }
                     }
                 }
@@ -1362,9 +1330,10 @@
         letter-spacing: rem(1.2);
         text-transform: uppercase;
         background-size: cover;
+        transition: 0.3s ease;
 
-        &.active {
-            border: rem(1) solid $black;
+        &.active, &:hover {
+            border-color: $black;
         }
 
         &.disabled {
@@ -1913,18 +1882,18 @@
 
 .product-price-mobile {
     float: right;
-    display: inline-block;
     font-size: rem(11);
     letter-spacing: rem(3);
 
-    @include media-breakpoint-up(md) {
-        display: none;
-    }
-
     .price {
         color: $white;
+        font-family: $font-medium;
+        font-size: rem(15);
+        letter-spacing: rem(1.25);
+
         .strike-through {
             color: $white;
+            display: none;
         }
     }
 }
@@ -1944,4 +1913,216 @@
          text-align: center;
          justify-content: center;
      }
+}
+
+.description-and-detail {
+    max-width: rem(950);
+    margin: 0 auto;
+    margin-top: rem(40);
+
+    .title {
+        font-family: $font-bold;
+        font-weight: 600;
+        font-size: rem(14);
+        color: $black;
+        letter-spacing: rem(1.53);
+        margin-bottom: rem(10);
+
+        @include media-breakpoint-up(md-down) {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: rem(24);
+        }
+
+        .yotpo {
+            display: inline-block;
+            vertical-align: text-bottom;
+
+            * {
+                font-size: rem(14);
+            }
+        }
+    }
+
+    .detail-content {
+        color: $light-gray;
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(16);
+        letter-spacing: 0;
+    }
+
+    .attribute-detail {
+        margin: 0 rem(10);
+
+        @include media-breakpoint-up(md-down) {
+            margin-left: rem(-20);
+        }
+    }
+
+    [class*="collapsible-"] {
+        .title {
+            position: relative;
+             
+            &::after {
+                content:'';
+                position: absolute;
+                width: rem(14);
+                height: rem(14);
+                right: rem(10);
+                top: 50%;
+                transform: translateY(-50%);
+                background: url("../../images/plus.svg") center center no-repeat;
+
+                @include media-breakpoint-up(md-down) {
+                    display: none;
+                }
+            }
+        }
+
+        &.active {
+
+            .title {
+                position: relative;
+                 
+                &::after {
+                    content:'';
+                    background: url("../../images/minus.svg") center center no-repeat;
+                }
+            }
+        }
+    }
+
+    .description, .product-attributes  {
+        border-bottom: rem(1) solid $gray10;
+        padding: rem(5) 0;
+
+        @include media-breakpoint-up(md-down) {
+            border-bottom: none;
+            padding: 0;
+        }
+    }
+
+    .attribute-value {
+        text-transform: capitalize;
+    }
+}
+
+.pdp-tabs-body {
+
+    .pdp-tab-content {
+        position: relative;
+        border-bottom: rem(1) solid $light-gray6;
+
+        &:last-child {
+            border: none;
+        }
+
+        @include media-breakpoint-up(sm) {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+            transition: .25s linear;
+            border: none;
+        }
+
+        &.active {
+            display: block;
+        }
+
+        &.fadeIn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pdp-content-body {
+            display: none;
+            flex-direction: column;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: rem(20) rem(30);
+            display: none;
+            transition: all .5s ease-in-out;
+        
+            &.active {
+                display: block;
+            }
+
+            @include media-breakpoint-up(sm) {
+                padding: rem(60) rem(30);
+                padding-bottom: rem(20);
+                display: flex;
+                flex-direction: row;
+            }
+            
+
+            .details-heading {
+                font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                line-height: rem(24);
+                letter-spacing: rem(1.5);
+                color: $black;
+                margin-bottom: rem(30);
+                text-transform: uppercase;
+            }
+
+            .attribute-list {
+                padding: 0 0 rem(45);
+
+                @include media-breakpoint-up(sm) {
+                    padding: rem(45) 0;
+                }
+
+                .attribute-detail {
+                    border-bottom: rem(1) solid $light-gray6;
+                    padding: rem(20) 0;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(20);
+                    }
+
+                    .attribute-content {
+                        width: 50%;
+                        font-family: $font-medium;
+                        color: $black;
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(1.6);
+                        line-height: rem(12);
+                        text-transform: capitalize;
+
+                        &.attribute-name {
+                        text-transform: uppercase;
+                        }
+                    }
+                }
+
+                .pdp-attr-link {
+                    text-decoration: underline;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+
+    .Reviews {
+
+        &.pdp-tab-content {
+
+            .pdp-content-body {
+
+                .detals-heading {
+                    font-size: rem(40);
+                    font-weight: 500;
+                    line-height: rem(42);
+                    letter-spacing: rem(4.29);
+                    margin-bottom: rem(30);
+                }
+            }
+        }
+    }
 }

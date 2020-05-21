@@ -4,12 +4,13 @@
         <h3 class="detals-heading mb-sm-0">${Resource.msg('label.spec.care', 'product', null)}</h3>
 
         <div class="attribute-list">
-            <isloop items="${product.pdpAttributesList}" begin="5" var="attr">
+            <isloop items="${product.pdpSpecAttributes}" var="attr">
                 <div class="attribute-detail">
-                    <span class="attribute-name attribute-content">${attr.name}</span>
+                    <span class="attribute-name attribute-content">${attr.displayName}</span>
                     <span class="attribute-value attribute-content">${attr.value}</span>
                 </div>
             </isloop>
         </div>
     </div>
 </div>
+<iscomment>Custom End</iscomment>
