@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <div class="modal show welcomeMat" id="welcomeMat" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg modal-middle">
         <div class="modal-content">
@@ -5,9 +6,9 @@
                 <div class="eswModalWrapper">
                     <div class="eswModal" role="dialog" id="eswModal">
                         <div class="eswModal-content">
-                            <isslot id="eswLandingWelcome" description="ESW Landing Page Welcome Message" context="global" />
+                            <iscontentasset aid="welcome-mat-header" />
                             <isif condition="${pdict.movadoLandingObject.isGeoLocation}"> 
-                                <isslot id="eswLandingContent" description="ESW Landing Page Content" context="global" />
+                                <iscontentasset aid="welcome-mat-body" />
                                 <h3>${Resource.msg('esw.delivery.country', 'esw', null)} <span>${pdict.movadoLandingObject.selectedCountryName}</span></h3>
                                 <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.hideWelcomeMat}">${Resource.msg('esw.continue.button', 'esw', null)}</button>
                             <iselse>
