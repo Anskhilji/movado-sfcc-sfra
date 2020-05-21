@@ -46,10 +46,7 @@ server.append('GetEswHeader', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    res.viewData.EswHeaderObject.isGeoLocation = false;
-
-    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
-        res.viewData.EswHeaderObject.isGeoLocation = true;
+    if (!empty(geoLocationCountry) && request.httpCookies['movado.Landing.Played'] == null) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
@@ -98,10 +95,7 @@ server.append('GetEswFooter', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    res.viewData.EswFooterObject.isGeoLocation = false;
-
-    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
-        res.viewData.EswFooterObject.isGeoLocation = true;
+    if (!empty(geoLocationCountry) && request.httpCookies['movado.Landing.Played'] == null) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
@@ -120,13 +114,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
-    var geoLocationCountry = null;
-    var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
-    var geoLocationCountryCode = request.geolocation.countryCode;
-
-    if (isGeoLocation) {
-        geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
-    }
 
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.landingPage)) {
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
@@ -148,14 +135,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
             footerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.footerPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
-    }
-
-    res.viewData.EswLandingObject.isGeoLocation = false;
-
-    if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
-        res.viewData.EswLandingObject.isGeoLocation = true;
-        res.viewData.EswLandingObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswLandingObject.selectedCountryName = geoLocationCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);

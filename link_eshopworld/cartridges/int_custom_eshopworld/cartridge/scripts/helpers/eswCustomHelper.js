@@ -195,8 +195,36 @@ function getCustomCountryByCountryCode(countryCode) {
     return country;
 }
 
+/**
+ * This method is used to check geo location is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
 function isGeoLocationEnabled() {
     return !empty(Site.getCustomPreferenceValue('enableGeoLookup')) ? Site.getCustomPreferenceValue('enableGeoLookup') : false;
+}
+
+/**
+ * This method is used to check e-shop-world module is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEshopworldModuleEnabled() {
+    return !empty(Site.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+}
+
+/**
+ * This method is used to check landing page is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingPage() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingPage')) ? Site.getCustomPreferenceValue('eswEnableLandingPage') : false;
+}
+
+/**
+ * This method is used to check landing page Bar is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingpageBar() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingpageBar')) ? Site.getCustomPreferenceValue('eswEnableLandingpageBar') : false;
 }
 
 module.exports = {
@@ -207,5 +235,8 @@ module.exports = {
     getAlphabeticallySortedLanguages: getAlphabeticallySortedLanguages,
     getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries,
     getCustomCountryByCountryCode: getCustomCountryByCountryCode,
-    isGeoLocationEnabled: isGeoLocationEnabled
+    isGeoLocationEnabled: isGeoLocationEnabled,
+    isEshopworldModuleEnabled: isEshopworldModuleEnabled,
+    isEswEnableLandingPage: isEswEnableLandingPage,
+    isEswEnableLandingpageBar: isEswEnableLandingpageBar
 };
