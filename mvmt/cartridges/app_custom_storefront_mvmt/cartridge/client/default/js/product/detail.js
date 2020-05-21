@@ -310,7 +310,7 @@ module.exports = {
     updatePrice: function () {
         $(document).on('click', '.upsell_input', function() {
             var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
-            var currentPrice = $('.product-price-mobile .sales .value').data('value');
+            var currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
             var updatedPrice;
             var updatedText;
 
@@ -320,7 +320,7 @@ module.exports = {
                 updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
             }
 
-            $('.product-price-mobile .sales .value').each(function() {
+            $('.product-price-mobile .sales:last-child .value').each(function() {
                 updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
                 $(this).text(updatedText).data('value', updatedPrice);
             });
