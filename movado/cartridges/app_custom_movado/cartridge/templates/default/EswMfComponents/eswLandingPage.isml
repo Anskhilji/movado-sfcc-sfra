@@ -1,0 +1,49 @@
+<!--- TEMPLATENAME: eswlandingpage.isml --->
+<iscomment>Custom Start: Customizing the esw tepmlate. Currency is commented. Adding custom countries and languages in the country and language selector </iscomment>
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isif condition=${pdict.EswLandingObject.enabledLandingPage && pdict.EswLandingObject.enabledESWModule}>
+    <isset name="URLUtils" value="${dw.web.URLUtils}" scope="page" />
+    <div class="eswModalWrapper">
+        <div class="eswModal" role="dialog" id="eswModal">
+            <div class="eswModal-content">
+                <isslot id="eswLandingWelcome" description="ESW Landing Page Welcome Message" context="global" />
+                <isif condition="${pdict.EswLandingObject.isGeoLocation}"> 
+                    <isslot id="eswLandingContent" description="ESW Landing Page Content" context="global" />
+                    <h3>${Resource.msg('esw.delivery.country', 'esw', null)} <span>${pdict.EswLandingObject.selectedCountryName}</span></h3>
+                    <button class="btn btn-primary continue-here" data-dismiss="modal" data-continue="${URLUtils.https('WelcomeMat-SetWelcomeMatHide').toString()}">${Resource.msg('esw.continue.button', 'esw', null)}</button>
+                <iselse>
+                    <h3>${Resource.msg('esw.unknown.delivery.country', 'esw', null)} <span>${request.geolocation.countryName}</span> ${Resource.msg('esw.text.right.now', 'esw', null)}</h3>
+                    <button class="btn btn-primary continue-here" data-dismiss="modal" data-continue="${URLUtils.https('WelcomeMat-SetWelcomeMatHide').toString()}">${Resource.msg('esw.continue.anyway.button', 'esw', null)}</button>
+                </isif>
+                <isif condition=${pdict.EswLandingObject.enabledLandingPageBar}>
+                <div class="selectors selector-container">
+                    <isif condition=${pdict.EswLandingObject.enabledCountriesInLandingPage}>
+                        <p>${Resource.msg('esw.change.shipping.country', 'esw', null)}</p>
+                        <div class="esw-country-selector selectCountry">
+                            <label>${Resource.msg('esw.shipping.country','esw',null)}</label>
+                            <div class="select-field">
+                                <div class="current-country">
+                                    <i class="fa fa-angle-right fa-fw selector-icon"></i>
+                                    <i class="flag-icon flag-icon-${pdict.EswLandingObject.selectedCountry.toLowerCase()}"></i>
+                                    <span id="selected-country" data-value="${pdict.EswLandingObject.selectedCountry}">${pdict.EswLandingObject.selectedCountryName}</span>
+                                </div>
+                                <div class="selector">
+                                    <div class="country">
+                                        <isloop iterator="${pdict.EswLandingObject.allCountries}" var="object" status="loopStatus">
+                                            <a href="${'#'}" data-url="${URLUtils.https('Page-SetLocale').toString()}" 
+                                            class="landing-link dropdown-item selected-link" data-country="${object.value}"
+                                            data-locale="${request.getLocale()}" data-currency="${pdict.EswLandingObject.selectedCurrency}">
+                                            <i class="flag-icon flag-icon-${object.value.toLowerCase()}"></i>${object.displayValue}</a>
+                                        </isloop>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </isif>
+                </div>
+                </isif>
+            </div>
+        </div>
+    </div>
+</isif>
+<iscomment>Custom End</iscomment>
