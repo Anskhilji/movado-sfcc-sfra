@@ -113,9 +113,7 @@
   .search-input-field {
     margin: 0 auto rem(15);
     margin-bottom: rem(5);
-    padding: 0;
     position: relative;
-    padding-top: 46px;
 
     .header-search-field {
       border: none;
@@ -238,8 +236,6 @@
       text-align: left;
       font-family: $font-medium;
       outline: none;
-      background: url("../../images/clear-input-field.svg") center right no-repeat;
-      background-size: 0;
 
       &:focus {
         outline: none;
@@ -394,4 +390,38 @@
 
 .search-suggestion-model-open {
     overflow: hidden;
+}
+
+.search-input-field {
+
+    &-add {
+        padding-top: rem(46);
+    }
+
+    &-remove {
+        padding-top: 0;
+    }
+}
+
+.header-search-field {
+
+    &-add {
+        background-size: rem(12);
+    }
+    
+    &-remove {
+        background-size: 0;
+    }
+}
+
+.input-field-containar {
+    position:relative;
+
+    .clear-text-img {
+        position:absolute;
+        bottom:2px;
+        right: 20%;
+        width: rem(15);
+        height: rem(15);
+    }
 }

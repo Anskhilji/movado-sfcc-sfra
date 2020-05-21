@@ -217,13 +217,16 @@
                 </g>
             </svg>
         </button>
-        <input class="search-field header-search-field mobile-search-field"
-            type="search" name="q"
-            title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
-            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-            autocomplete="off"
-            data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+        <div class="input-field-containar">
+            <input class="search-field header-search-field"
+                type="search" name="q"
+                title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                autocomplete="off"
+                data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+                <img class="clear-text-img" src="${URLUtils.staticURL('/images/clear-input-field.svg')}"/>
+        </div>
         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
         <input type="hidden" value="${pdict.locale}" name="lang" />
         <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
