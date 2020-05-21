@@ -403,25 +403,13 @@
     }
 }
 
-.header-search-field {
-
-    &-add {
-        background-size: rem(12);
-    }
-    
-    &-remove {
-        background-size: 0;
-    }
-}
-
 .input-field-containar {
-    position:relative;
 
     .clear-text-img {
-        position:absolute;
-        bottom:2px;
-        right: 20%;
+        bottom: rem(2);
+        right: 5%;
         width: rem(15);
         height: rem(15);
+        position: relative;
     }
 }
