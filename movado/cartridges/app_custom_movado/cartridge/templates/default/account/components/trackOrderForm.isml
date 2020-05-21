@@ -8,7 +8,7 @@
                 </div>
             </div>
         </isif>
-        <p class="track-order-header-text">${Resource.msg('header.form.trackorder.text', 'login', null)}</p>
+        <iscontentasset aid="track-order-header-description" />
 
         <div class="form-group required">
             <label class="form-control-label" for="trackorder-form-number">
