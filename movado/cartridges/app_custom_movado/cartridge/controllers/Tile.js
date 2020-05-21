@@ -43,7 +43,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
     }
-
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
@@ -73,7 +72,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
             context.display[key] = false;
         }
     });
-
+    
     try {
         if (!empty(session.custom.yotpoConfig)) {
             var viewData = res.getViewData();
