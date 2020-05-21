@@ -1272,6 +1272,10 @@
                     background: none;
                     pointer-events: none;
                 }
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             .slick-next {
