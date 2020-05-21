@@ -80,11 +80,13 @@ module.exports = {
         $('.modal-close').on('click', function(e) {
             $('.modal-background').fadeOut();
             $('.polarized-modal').fadeOut('fast');
+            $('html').removeClass('no-overflow');
             $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
         });
 
         $('.call-why-polarized-popup').on('click', function(e) {
             $('.modal-background').fadeIn();
+            $('html').addClass('no-overflow');
             setTimeout(function(){ 
                 $('.polarized-modal').fadeIn('fast');
                 $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
@@ -99,6 +101,7 @@ module.exports = {
                 $('.polarized-modal').fadeOut('fast');
                 $('.modal-background').fadeOut();
                 $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
+                $('html').removeClass('no-overflow');
             }
         });
     },
@@ -310,7 +313,7 @@ module.exports = {
     updatePrice: function () {
         $(document).on('click', '.upsell_input', function() {
             var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
-            var currentPrice = $('.product-price-mobile .sales .value').data('value');
+            var currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
             var updatedPrice;
             var updatedText;
 
@@ -320,7 +323,7 @@ module.exports = {
                 updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
             }
 
-            $('.product-price-mobile .sales .value').each(function() {
+            $('.product-price-mobile .sales:last-child .value').each(function() {
                 updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
                 $(this).text(updatedText).data('value', updatedPrice);
             });

@@ -1272,6 +1272,10 @@
                     background: none;
                     pointer-events: none;
                 }
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             .slick-next {
@@ -2144,13 +2148,23 @@
         bottom: 0;
         left: 0;
         display: none;
-        overflow: auto;
+        overflow: hidden;
         text-align: center;
         backface-visibility: hidden;
         padding: rem(10) rem(10) 0;
+        justify-content: center;
+        align-items: center;
 
         &.opened {
-            display: block;
+            display: flex;
+        }
+
+        &::after {
+            display: inline-block;
+            height: 100%;
+            margin-left: -.05em;
+            content: "";
+            vertical-align: middle;
         }
 
         &-body {
@@ -2176,11 +2190,14 @@
                 position: static;
                 max-width: rem(915);
                 max-height: rem(575);
-                margin-top: rem(25);
 
                 &.opened {
                     display: inline-block;
                 }
+            }
+
+            &::after {
+                vertical-align: middle;
             }
         }
 
@@ -2321,9 +2338,11 @@
         font-size: rem(16);
         line-height: rem(22);
         color: $dark-gray;
+        letter-spacing: rem(1.5);
         text-align: center;
         text-transform: uppercase;
         margin-bottom: 0;
+
         @include media-breakpoint-up(lg) {
             letter-spacing: rem(2.5);
         }
@@ -2373,4 +2392,9 @@
 
 .veil {
     z-index: 99999;
+}
+
+.no-overflow {
+    overflow: hidden;
+    touch-action: none;
 }

@@ -123,6 +123,16 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-12">
+                            <isif condition="${sitePref.enableSmartGift}">
+                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                    <div class="d-flex d-md-none justify-content-center"><isinclude template="product/components/smartGift" /></div>
+                                </isif>
+                            </isif>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
