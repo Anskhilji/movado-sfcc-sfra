@@ -1,7 +1,9 @@
-<section class="blog-featured-post container-large">
-    <h2 class="blog-featured-post-title">Discover</h2>
-    <article class="article-grid-item article-grid-item-featured mix">
-        <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item-link">
+<section class="${pdict.isFeaturePost ? 'blog-featured-post' : ''}">
+    <isif condition="${pdict.isFeaturePost}">
+        <h2 class="blog-featured-post-title">Discover</h2>
+    </isif>
+    <article class="article-grid-item mix ${pdict.isFeaturePost ? 'article-grid-item-featured' : ''}">
+        <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">
             <img class="article-grid-item-image" src="//cdn.shopify.com/s/files/1/0377/2037/articles/duet_blog_2000x.progressive.jpg?v=1581704800" alt="MVMT Article Featured Image" />
         </a>
         <div class="article-grid-item-main">
@@ -10,8 +12,10 @@
                 <span>Product</span>
             </a>
             </div>
-            <a href="/blogs/the-mvmt/introducing-the-duet" title="Introducing The Duet" class="article-grid-item-link">
-                <h3 class="article-grid-item-title">Introducing The Duet</h3>
+            <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">
+                <isif condition="${pdict.subheading}">
+                    <h3 class="article-grid-item-title">${pdict.subheading}</h3>
+                </isif>
                 <div class="article-grid-item-excerpt">
                     <span>In honor of our 5&nbsp;year anniversary, we asked our supporters to submit clips showing us how they do time. What we got back blew our minds.</span>
                 </div>
