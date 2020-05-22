@@ -29,17 +29,18 @@ server.replace('Show', server.middleware.https, consentTracking.consent, functio
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
         movadoLandingObject.isGeoLocation = false;
 
-        if (!empty(geoLocationCountry) && session.custom.welcomeMat) {
+        if (!empty(geoLocationCountry)) {
             movadoLandingObject.isGeoLocation = true;
             movadoLandingObject.selectedCountry = geoLocationCountry.countryCode;
             movadoLandingObject.selectedCountryName = geoLocationCountry.displayName;
+            movadoLandingObject.selectedCurrency = geoLocationCountry.currencyCode;
         } else {
             var firstCountry = allCountries.get(0);
             movadoLandingObject.selectedCountry = firstCountry.value;
             movadoLandingObject.selectedCountryName = firstCountry.displayValue;
+            movadoLandingObject.selectedCurrency = '';
         }
 
-        movadoLandingObject.hideWelcomeMat = URLUtils.https('Page-SetLocale').toString();
         movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
         movadoLandingObject.allCountries = allCountries;
         res.render('welcomeMat/welcomeMatModal', {movadoLandingObject : movadoLandingObject});

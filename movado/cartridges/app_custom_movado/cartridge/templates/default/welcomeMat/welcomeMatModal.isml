@@ -1,8 +1,8 @@
 <isif condition="${session.custom.welcomeMat}" >
     <isprint value="${pdict.contentBody}" encoding="off" />
-    <span class="welcomematcurrentcountry dnone">${pdict.currentCountry}</span>
-    <span datacurrentsiteurl="${pdict.shippingURL}" class="welcomematcurrentshippingcountry dnone welcomematcurrentsiteurl">${pdict.currentWebsite}</span>
-    <span class="dnone welcomematcurrentsitematchedcountry">${pdict.currentMatchedCountryName}</span>
-    <span class="dnone welcomematcountryflagicon">${pdict.ShipToCountryFlagIcon}</span>
+    <span class="welcomemat-current-country d-none">${pdict.currentCountry}</span>
+    <span data-currentsiteurl="${pdict.shippingURL}" class="welcomemat-current-shipping-country d-none welcomemat-current-site-url">${pdict.currentWebsite}</span>
+    <span class="d-none welcomemat-current-site-matched-country">${pdict.currentMatchedCountryName}</span>
+    <span class="d-none welcomemat-country-flag-icon">${pdict.ShipToCountryFlagIcon}</span>
     <isset name="redirectionShippingFlag" value="true" scope="session"/>
 </isif>

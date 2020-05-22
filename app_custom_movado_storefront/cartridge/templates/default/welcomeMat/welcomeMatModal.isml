@@ -2,7 +2,7 @@
 <div class="modal show welcomeMat" id="welcomeMat" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg modal-middle">
         <div class="modal-content">
-            <div class="modal-body text-center">
+            <div class="modal-body movado-welcome-mat text-center">
                 <div class="eswModalWrapper">
                     <div class="eswModal" role="dialog" id="eswModal">
                         <div class="eswModal-content">
@@ -10,10 +10,10 @@
                             <isif condition="${pdict.movadoLandingObject.isGeoLocation}"> 
                                 <iscontentasset aid="welcome-mat-body" />
                                 <h3>${Resource.msg('esw.delivery.country', 'esw', null)} <span>${pdict.movadoLandingObject.selectedCountryName}</span></h3>
-                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.hideWelcomeMat}">${Resource.msg('esw.continue.button', 'esw', null)}</button>
+                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.setLocale}">${Resource.msg('esw.continue.button', 'esw', null)}</button>
                             <iselse>
                                 <h3>${Resource.msg('esw.unknown.delivery.country', 'esw', null)} <span>${request.geolocation.countryName}</span> ${Resource.msg('esw.text.right.now', 'esw', null)}</h3>
-                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.hideWelcomeMat}">${Resource.msg('esw.continue.anyway.button', 'esw', null)}</button>
+                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.setLocale}">${Resource.msg('esw.continue.anyway.button', 'esw', null)}</button>
                             </isif>
                             <div class="selectors selector-container">
                                 <p>${Resource.msg('esw.change.shipping.country', 'esw', null)}</p>
@@ -30,7 +30,7 @@
                                                 <isloop iterator="${pdict.movadoLandingObject.allCountries}" var="object" status="loopStatus">
                                                     <a href="${'#'}" data-url="${pdict.movadoLandingObject.setLocale}" 
                                                     class="landing-link dropdown-item selected-link" data-country="${object.value}"
-                                                    data-locale="${request.getLocale()}">
+                                                    data-locale="${request.getLocale()}" data-currency="${pdict.movadoLandingObject.selectedCurrency}">
                                                     <i class="flag-icon flag-icon-${object.value.toLowerCase()}"></i>${object.displayValue}</a>
                                                 </isloop>
                                             </div>
