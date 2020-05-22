@@ -472,16 +472,6 @@ function updateQuantities(quantities, $productContainer) {
 function attributeSelect(selectedValueUrl, $productContainer) {
     if (selectedValueUrl) {
 
-        selectedValueUrl = new URL(selectedValueUrl);
-
-        $productContainer.find('input[type="text"], textarea').filter('[required]:visible')
-        .each( function() {
-            if ($(this).val() && $(this).closest("form.submitted").length) {
-                selectedValueUrl.searchParams.append($(this).data('name'), $(this).val());
-                selectedValueUrl.searchParams.append($(this).closest("form").find('input[type="hidden"]').attr("name"), $(this).closest("form").find('input[type="hidden"]').val());
-            }
-        });
-
         $('body').trigger('product:beforeAttributeSelect',
             { url: selectedValueUrl, container: $productContainer });
 
