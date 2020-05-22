@@ -25,6 +25,17 @@
                     "name": "Link",
                     "type": "url",
                     "required": true
+                },
+                {
+                    "id": "type",
+                    "name": "Type",
+                    "type": "enum",
+                    "default_value": "Featured",
+                    "values": [
+                        "Simple",
+                        "Featured",
+                        "Disrupted"
+                    ]
                 }
             ]
         },
@@ -58,10 +69,27 @@
                     "required": false
                 },
                 {
-                    "id": "additionalButtons",
-                    "name": "Additional Buttons",
-                    "type": "text",
-                    "description": "JSON Object containing button Text and button url",
+                    "id": "secondaryButtonText",
+                    "name": "Secondary Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "secondaryButtonLink",
+                    "name": "Secondary Button Link",
+                    "type": "url",
+                    "required": false
+                },
+                {
+                    "id": "thirdButtonText",
+                    "name": "Third Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "thirdButtonLink",
+                    "name": "Third Button Link",
+                    "type": "url",
                     "required": false
                 }
             ]

@@ -1,24 +1,28 @@
 <section class="${pdict.isFeaturePost ? 'blog-featured-post' : ''}">
-    <isif condition="${pdict.isFeaturePost}">
-        <h2 class="blog-featured-post-title">Discover</h2>
+    <isif condition="${pdict.isFeaturePost && !empty(pdict.title) && pdict.title != 'undefined'}">
+        <h2 class="blog-featured-post-title">${pdict.title}</h2>
     </isif>
     <article class="article-grid-item mix ${pdict.isFeaturePost ? 'article-grid-item-featured' : ''}">
         <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">
-            <img class="article-grid-item-image" src="//cdn.shopify.com/s/files/1/0377/2037/articles/duet_blog_2000x.progressive.jpg?v=1581704800" alt="MVMT Article Featured Image" />
+            <img class="article-grid-item-image" src="${pdict.image.src}" alt="${pdict.image.alt}" />
         </a>
         <div class="article-grid-item-main">
             <div class="article-grid-item-tag-wrapper">
-            <a href="/blogs/product" class="article-grid-item-tag" title="Product">
-                <span>Product</span>
-            </a>
+                <isloop items="${pdict.buttons}" var="button" status="loopstatus">
+                    <a href="${button.link}" class="article-grid-item-tag" title="Product">
+                        <span>${button.text}</span>
+                    </a>
+                </isloop>
             </div>
             <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">
-                <isif condition="${pdict.subheading}">
+                <isif condition="${!empty(pdict.subheading) && pdict.subheading !='undefined'}">
                     <h3 class="article-grid-item-title">${pdict.subheading}</h3>
                 </isif>
-                <div class="article-grid-item-excerpt">
-                    <span>In honor of our 5&nbsp;year anniversary, we asked our supporters to submit clips showing us how they do time. What we got back blew our minds.</span>
-                </div>
+                <isif condition="${!empty(pdict.excerpt) && pdict.excerpt != 'undefined'}">
+                    <div class="article-grid-item-excerpt">
+                        <span>${pdict.excerpt}</span>
+                    </div>
+                </isif>
                 <span class="article-grid-item-view">View Post</span>
             </a>
         </div>

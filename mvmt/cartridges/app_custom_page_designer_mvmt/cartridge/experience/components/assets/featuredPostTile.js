@@ -2,6 +2,8 @@
 
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
+var featuredPost = 'Featured';
+var disruptedPost = 'Disrupted';
 
 /**
  * Render logic for the assets.featuredPostTile.
@@ -20,16 +22,43 @@ module.exports.render = function (context) {
     model.link = content.link;
     model.subheading = content.subheading;
     model.excerpt = content.excerpt;
-    model.buttons = [];
-
-    var additionalButtons;
-    if (!empty(additionalButtons)) {
-        additionalButtons = JSON.parse(content.additionalButtons);
+    
+    // Post Buttons
+    model.buttons = new Array();
+    if (!empty(content.primaryButtonText) && !empty(content.primaryButtonLink)) {
+        model.buttons.push({
+            link: content.primaryButtonLink,
+            text: content.primaryButtonText
+        });
     }
-    if(content.primaryButtonText && content.primaryButtonLink) {
-        button.text = content.primaryButtonText;
-        button.url = content.primaryButtonLink;
-        model.buttons.push(button);
+
+    if (!empty(content.secondaryButtonText) && !empty(content.secondaryButtonLink)) {
+        model.buttons.push({
+            link: content.secondaryButtonLink,
+            text: content.secondaryButtonText
+        });
+    }
+
+    if (!empty(content.thirdButtonText) && !empty(content.thirdButtonLink)) {
+        model.buttons.push({
+            link: content.thirdButtonLink,
+            text: content.thirdButtonText
+        });
+    }
+
+    var postTileType = content.type;
+    if (postTileType.equals(featuredPost)) {
+        model.isFeaturePost = true;
+    } else if (postTileType.equals(disruptedPost)) {
+        model.isDisrupted = true;
+    }
+
+
+    if (content.image) {
+        model.image = {
+            src: content.image.file.absURL,
+            alt: content.image.file.alt
+        };
     }
 
     // if (!empty(additionalButtons)) {
