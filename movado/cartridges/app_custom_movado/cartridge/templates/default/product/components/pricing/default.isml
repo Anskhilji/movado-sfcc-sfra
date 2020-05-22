@@ -57,25 +57,25 @@
             <isif condition="${isEswEnabled}" >
                 <meta itemprop="priceCurrency" content="${finalOrigPrice.sales.currency}" />
                 <isif condition="${isLowPrice == 'range-low'}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.value}">
                 </isif>
                 <isif condition="${isLowPrice == 'range-high'}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.value}">
                 </isif>
                 <isif condition="${isLowPrice == null}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${finalOrigPrice.sales.decimalPrice}" data-value="${finalOrigPrice.sales.value}">
                 </isif>
             <iselse>
                 <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
                 <meta itemprop="priceCurrency" content="${price.currency}" />
                 <isif condition="${isLowPrice == 'range-low'}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="lowprice" content="${price.decimalPrice}" data-value="${price.value}">
                 </isif>
                 <isif condition="${isLowPrice == 'range-high'}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="highprice" content="${price.decimalPrice}" data-value="${price.value}">
                 </isif>
                 <isif condition="${isLowPrice == null}">
-                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.decimalPrice}">
+                    <span class="value" id="discountPrice-${typeof product === 'undefined' ? lineItem.id : product.id}" itemprop="price" content="${price.decimalPrice}" data-value="${price.value}">
                 </isif>
             </isif>
             <isinclude template="/product/components/pricing/formatted" />

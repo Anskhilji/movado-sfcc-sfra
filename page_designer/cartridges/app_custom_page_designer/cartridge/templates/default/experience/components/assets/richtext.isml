@@ -1,0 +1,4 @@
+<div class="richtext">
+    <isprint value="${pdict.richtext}" encoding="off"/>
+</div>
+
