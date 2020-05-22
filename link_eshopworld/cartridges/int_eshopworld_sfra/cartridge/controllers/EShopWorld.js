@@ -162,10 +162,13 @@ server.get('GetEswLandingPage', function (req, res, next) {
 server.get('GetConvertedPrice', function (req, res, next) {
     var price = req.querystring.price;
     var isLowPrice = req.querystring.isLowPrice;
-    var convertedPrice = eswHelper.getMoneyObject(price);
+    var list = req.querystring.listPrice;
+
+    var convertedPrice = eswHelper.getMoneyObject(price, false);
     res.render('eswPrice', {
         'price': convertedPrice,
-        'isLowPrice': isLowPrice
+        'isLowPrice': isLowPrice,
+        'list': !!list
     });
     next();
 });
@@ -174,10 +177,33 @@ server.get('GetConvertedPrice', function (req, res, next) {
  * This is the preorder request which is generating at time of redirection from cart page to ESW checkout
  */
 server.get('PreOrderRequest', function (req, res, next) {
-    var result;
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+
     var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with');
+
+    if (currentBasket) {
+    	delete session.privacy.restrictedProductID;
+        for (var lineItemNumber in currentBasket.productLineItems) {
+            var cartProduct = currentBasket.productLineItems[lineItemNumber].product;
+            if (eswHelper.isProductRestricted(cartProduct.custom)) {
+                session.privacy.eswProductRestricted = true;
+                session.privacy.restrictedProductID = cartProduct.ID;
+                if (isAjax) {
+                    res.json({
+                        'redirectURL': URLUtils.https('Cart-Show').toString()
+                    });
+                } else {
+                    res.redirect(URLUtils.https('Cart-Show').toString());
+                }
+                return next();
+            }
+        }
+    }
+
+    var result;
     try {
-    	var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
+        var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
         result = preOrderrequestHelper.handlePreOrderRequestV2();
 
         if (result.status == 'REDIRECT') {
@@ -212,7 +238,13 @@ server.get('PreOrderRequest', function (req, res, next) {
     } catch (e) {
         logger.error('ESW Service Error: {0} {1}', e.message, e.stack);
         session.privacy.eswfail = true;
-        res.redirect(URLUtils.https('Cart-Show').toString());
+        if (isAjax) {
+            res.json({
+                'redirectURL': URLUtils.https('Cart-Show').toString()
+            });
+        } else {
+            res.redirect(URLUtils.https('Cart-Show').toString());
+        }
     }
     next();
 });
@@ -278,6 +310,11 @@ server.post('NotifyV2', function (req, res, next) {
                         order.custom.eswRetailerCurrencyPaymentAmount = new Number(obj.retailerCurrencyPaymentAmount.substring(3));
                         order.custom.eswEmailMarketingOptIn = obj.shopperCheckoutExperience.emailMarketingOptIn;
                         order.custom.eswDeliveryOption = obj.deliveryOption.deliveryOption;
+                        
+                        var shoppercurrencyAmount = new Number(obj.shopperCurrencyPaymentAmount.substring(3));
+                        var retailercurrencyAmount = new Number(obj.retailerCurrencyPaymentAmount.substring(3));
+                        
+                        order.custom.eswFxrateOc = (shoppercurrencyAmount / retailercurrencyAmount).toFixed(4);
 
                         if ('shopperCurrencyDeliveryPriceInfo' in obj.deliveryOption) {
                             order.custom.eswShopperCurrencyDeliveryPriceInfo = new Number(obj.deliveryOption.shopperCurrencyDeliveryPriceInfo.price.substring(3));
@@ -356,9 +393,9 @@ server.post('NotifyV2', function (req, res, next) {
                         OrderMgr.placeOrder(order);
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                         order.setExportStatus(Order.EXPORT_STATUS_READY);
-                        
+
                         if (eswHelper.isUpdateOrderPaymentStatusToPaidAllowed()){
-                        	order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
+                            order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
                         }
 
                         responseJSON = {
@@ -421,7 +458,7 @@ server.post('NotifyV2', function (req, res, next) {
     next();
 });
 /*
- * When user failed in checkout process this function will call to failed order. 
+ * When user failed in checkout process this function will call to failed order.
  */
 server.get('Failure', function (req, res, next) {
     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');

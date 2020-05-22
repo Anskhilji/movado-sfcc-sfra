@@ -68,10 +68,10 @@
                     <div class="coupons-and-promos">
                         <isinclude template="cart/cartCouponDisplay" />
                     </div>
-                    <isif condition="${eswHelper.showShippingMethodDropdown()}">
-                    <div class="row">
-                        <isinclude template="cart/cartShippingMethodSelection" />
-                    </div>
+                    <isif condition="${!eswHelper.isESWSupportedCountry()}">
+	                    <div class="row">
+	                        <isinclude template="cart/cartShippingMethodSelection" />
+	                    </div>
                     </isif>
                     <isinclude template="cart/cartTotals" />
                     <div class="row">
