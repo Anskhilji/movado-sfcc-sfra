@@ -24,28 +24,30 @@ module.exports.render = function (context) {
     model.excerpt = content.excerpt;
     
     // Post Buttons
-    model.buttons = new Array();
+    var buttons = new Array();
     if (!empty(content.primaryButtonText) && !empty(content.primaryButtonLink)) {
-        model.buttons.push({
+        buttons.push({
             link: content.primaryButtonLink,
             text: content.primaryButtonText
         });
     }
 
     if (!empty(content.secondaryButtonText) && !empty(content.secondaryButtonLink)) {
-        model.buttons.push({
+        buttons.push({
             link: content.secondaryButtonLink,
             text: content.secondaryButtonText
         });
     }
 
     if (!empty(content.thirdButtonText) && !empty(content.thirdButtonLink)) {
-        model.buttons.push({
+        buttons.push({
             link: content.thirdButtonLink,
             text: content.thirdButtonText
         });
     }
 
+    model.buttons = buttons;
+    
     var postTileType = content.type;
     if (postTileType.equals(featuredPost)) {
         model.isFeaturePost = true;
