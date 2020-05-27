@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 'use strict';
 
 var server = require('server');
@@ -36,12 +37,12 @@ function addRandomProducts(b) {
  * @param {dw.order.Basket} b a basket
  */
 function removeExistingInstruments(b) {
-    // get all credit card payment instruments
+  // get all credit card payment instruments
   var ccPaymentInstrs = b.getPaymentInstruments('CREDIT_CARD');
   var iter = ccPaymentInstrs.iterator();
   var existingPI = null;
 
-    // remove them
+  // remove them
   while (iter.hasNext()) {
     existingPI = iter.next();
     b.removePaymentInstrument(existingPI);
@@ -61,6 +62,7 @@ function setRandomOrderAddress(a) {
   a.setPostalCode('75240');
   a.setCountryCode('US');
   a.setPhone('312-456-7894');
+  a.setCompanyName('A Company Here');
 }
 
 /**
@@ -124,7 +126,7 @@ server.get('CreateOrder', function (req, res, next) {
     basketCalculationHelpers.calculateTotals(currentBasket);
 
     if ('payment' in req.querystring) {
-            // Clear payment instruments
+      // Clear payment instruments
       removeExistingInstruments(currentBasket);
 
       switch (req.querystring.payment) {
