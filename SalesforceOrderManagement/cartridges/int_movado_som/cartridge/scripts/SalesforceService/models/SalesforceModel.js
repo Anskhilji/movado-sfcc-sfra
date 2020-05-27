@@ -2,7 +2,7 @@
 
 /* Modules */
 var SalesforceFactory = require('*/cartridge/scripts/SalesforceService/util/SalesforceFactory');
-var SalesforceService = require('*/cartridge/scripts/SalesforceService/service/SaleforceService');
+var SalesforceService = require('*/cartridge/scripts/SalesforceService/service/SalesforceService');
 var SalesforceServicesUtils = require('*/cartridge/scripts/SalesforceService/util/SalesforceServiceUtils');
 
 /* Services */
@@ -23,7 +23,7 @@ var SalesforceModel = ({
 
         return createSalesforceLoginResult;
     },
-    createSaleforceCompositeRequest: function (allOrNone, compositeRequestData) {
+    createSalesforceCompositeRequest: function (allOrNone, compositeRequestData) {
         var setAccessToken = SalesforceServicesUtils.getAccessToken();
         var createSalesforceCompositeResult;
 
@@ -34,7 +34,7 @@ var SalesforceModel = ({
 
         return createSalesforceCompositeResult;
     },
-    createSaleforceRestRequest: function (restRequestData) {
+    createSalesforceRestRequest: function (restRequestData) {
         var setAccessToken = SalesforceServicesUtils.getAccessToken();
         var createSalesforceCompositeResult;
 

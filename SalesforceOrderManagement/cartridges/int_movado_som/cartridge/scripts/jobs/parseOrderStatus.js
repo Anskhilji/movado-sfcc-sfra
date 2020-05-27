@@ -72,7 +72,7 @@ function parseOrderStatus(args) {
         }
 
         SAPOrderStatusJSON.root.EcommerceOrderStatus.forEach(function (SAPOrderStatus) { //eslint-disable-line
-            var fulfillmentOrderStatus = SalesforceModel.createSaleforceCompositeRequest(true, [
+            var fulfillmentOrderStatus = SalesforceModel.createSalesforceCompositeRequest(true, [
                 {
                     method: 'GET',
                     url: '/services/data/v48.0/query/?q=SELECT+Id,Status,(SELECT+Id,Quantity,OrderItemSummary.ProductCode+FROM+FulfillmentOrderLineItems)+FROM+FulfillmentOrder+WHERE+Id=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
@@ -114,7 +114,7 @@ function parseOrderStatus(args) {
                             }
                         });
 
-                        var updateFulfillmentOrderLineItems = SalesforceModel.createSaleforceCompositeRequest(false, compositeUpdateRequest);
+                        var updateFulfillmentOrderLineItems = SalesforceModel.createSalesforceCompositeRequest(false, compositeUpdateRequest);
 
                         if (updateFulfillmentOrderLineItems.ok) {
                             return new Status(Status.OK, 'OK', 'parseOrderStatus finished successfully');
