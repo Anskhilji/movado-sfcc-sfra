@@ -133,7 +133,7 @@ function getAddressObject(address) {
         address2: address.address2,
         city: address.city,
         companyName: address.companyName,
-        countryCode: address.countryCode,
+        countryCode: address.countryCode.value,
         fullName: address.fullName,
         firstName: address.firstName,
         lastName: address.lastName,
