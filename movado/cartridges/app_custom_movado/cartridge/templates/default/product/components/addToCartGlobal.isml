@@ -1,7 +1,8 @@
 <div class="row cart-and-ipay">
     <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-        <button class="add-to-cart-global btn btn-primary gtm-addtocart"
+        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
+        <button class="add-to-cart-global btn btn-primary gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>"
                 data-pid="${product.id}">
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
@@ -21,6 +22,9 @@
         <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
             <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
         </isif>
+        <iscomment> Custom End </iscomment>
+        <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
+        <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
         <iscomment> Custom End </iscomment>
     </div>
 </div>

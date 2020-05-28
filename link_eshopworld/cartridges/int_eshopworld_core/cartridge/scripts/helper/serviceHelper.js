@@ -95,6 +95,10 @@ function getCartItemsV2() {
         }
     });
     for (var lineItemNumber in currentBasket.productLineItems) {
+        // Custom Start: Adding custom image variable for dynamic image code
+        var ImageModel = require('*/cartridge/models/product/productImages');
+        var imageUrl = '';
+        // Custom End
         var item = currentBasket.productLineItems[lineItemNumber],
             beforeDiscount = eswHelper.getMoneyObject(item.basePrice.value, false, false).value * item.quantity.value,
             price = beforeDiscount,
@@ -126,6 +130,11 @@ function getCartItemsV2() {
             }
             price = price.toFixed(2);
         }
+        // Custom Start: Adding custom dynamic image code
+        var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
+        ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
+        imageUrl = empty(ImageModel[tile][0].url) ? '' : ImageModel[tile][0].url.toString();
+        //Custom End
         discountAmount = (beforeDiscount - price).toFixed(2);
         remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
         var productVariationModel = item.product.variationModel;
@@ -146,7 +155,7 @@ function getCartItemsV2() {
                     'beforeDiscount': currencyCode + beforeDiscount,
                     'discountPercentage': null
                 },
-                'imageUrl': item.product.getImage('small', 0).httpURL.toString(),
+                'imageUrl': imageUrl,
                 'color': color,
                 'size': size,
                 'isNonStandardCatalogItem': false,
