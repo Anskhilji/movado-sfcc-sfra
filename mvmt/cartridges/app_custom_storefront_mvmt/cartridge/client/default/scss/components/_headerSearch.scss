@@ -388,10 +388,6 @@
     text-decoration: underline;
 }
 
-.search-suggestion-model-open {
-    overflow: hidden;
-}
-
 .search-input-field {
 
     &-add {
@@ -403,13 +399,14 @@
     }
 }
 
-.input-field-containar {
+.clear-text-img {
+    bottom: rem(2);
+    right: 6%;
+    width: rem(15);
+    height: rem(15);
+    position: relative;
+}
 
-    .clear-text-img {
-        bottom: rem(2);
-        right: 6%;
-        width: rem(15);
-        height: rem(15);
-        position: relative;
-    }
+.search-bar-header-padding {
+    padding-top: rem(68);
 }
