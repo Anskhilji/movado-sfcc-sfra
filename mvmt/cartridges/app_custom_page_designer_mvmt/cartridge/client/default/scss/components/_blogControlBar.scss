@@ -12,7 +12,7 @@
     justify-content: center;
     border-top: rem(1) solid $light-gray4;
     border-bottom: rem(1) solid $light-gray4;
-    background: $white;;
+    background: linear-gradient(0deg,$white, $light-gray3);
     width: 100%;
 
     @include media-breakpoint-down(sm) {

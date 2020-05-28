@@ -13,15 +13,14 @@ var disruptedPost = 'Disrupted';
  */
 module.exports.render = function (context) {
     var model = new HashMap();
-    var button = {
-            text: '',
-            url: ''
-        };
     var content = context.content;
     model.title = content.title;
     model.link = content.link;
     model.subheading = content.subheading;
     model.excerpt = content.excerpt;
+    var attr = context.getComponentRenderSettings().getAttributes() || new HashMap();
+    attr.put('class', 'post-container');
+    context.getComponentRenderSettings().setAttributes(attr);
     
     // Post Buttons
     var buttons = new Array();
@@ -62,14 +61,6 @@ module.exports.render = function (context) {
             alt: content.image.file.alt
         };
     }
-
-    // if (!empty(additionalButtons)) {
-    //     additionalButtons.forEach(additionalButton => {
-    //         if(additionalButton.text && additionalButton.url) {
-    //             model.buttons.push(button);
-    //         }
-    //     });
-    // }
 
     return new Template('experience/components/assets/featuredPostTile').render(model).text;
 };

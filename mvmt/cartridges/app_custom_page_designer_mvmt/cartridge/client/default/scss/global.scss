@@ -1,3 +1,6 @@
 @import '~mvmt/global';
+@import './variables';
+@import'./mixins';
 @import './components/_blogControlBar';
 @import './components/featuredPostTile';
+@import'./components/viewMoreTile';

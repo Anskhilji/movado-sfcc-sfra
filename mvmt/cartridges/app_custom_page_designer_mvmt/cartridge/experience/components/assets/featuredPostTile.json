@@ -1,12 +1,12 @@
 {
-    "name": "Featured Post Asset",
+    "name": "Featured Post Tile",
     "description": "Blog Post Tile for Blogs",
     "group": "assets",
     "attribute_definition_groups": [
         {
             "id": "blogTileSpecs",
             "name": "Blog Tile Secifications",
-            "description": "Renders Content Asset from provided ID",
+            "description": "Main Configs for Blog Tile, top section",
             "attribute_definitions": [
                 {
                     "id": "image",
@@ -18,7 +18,7 @@
                     "id": "title",
                     "name": "Title",
                     "type": "string",
-                    "required": true
+                    "required": false
                 },
                 {
                     "id": "link",
