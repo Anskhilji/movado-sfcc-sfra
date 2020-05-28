@@ -368,6 +368,12 @@ function getConsumerLoyaltyAmount(order) {
 }
 
 /**
+ * 
+ */
+function getRoundingAmount(lineItem) {
+}
+
+/**
 * Fetches the shipping address data from an Order
 * @param {Order} order Order container.
 * @returns {json} Shipping Address JSON
@@ -1532,6 +1538,8 @@ function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
     var commerceItems = new ArrayList();
     var lineItemTotalNetAmount = getLineItemTotalNetAmount(allProductLineItems);
     
+//    var price = getRoundingAmount(allProductLineItems);
+    
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
 
     var tax1 = ZERO;
@@ -1583,6 +1591,7 @@ function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
         obj.ShippingCost = getLineItemShippingCost(productLineItem, lineItemTotalNetAmount, isEswEnabled);
         obj.LoyaltyAmount = crossBorderUtils.getSwellDiscountAmount(order);
         obj.ConsumerLoyaltyAmount = getConsumerLoyaltyAmount(order);
+        obj.RoundingAmount = getRoundingAmount(productLineItem);
 
         var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled, shippingCountry);
 

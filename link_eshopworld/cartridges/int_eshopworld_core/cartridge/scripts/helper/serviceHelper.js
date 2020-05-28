@@ -554,6 +554,9 @@ function createOrder() {
         while (lineItemItr.hasNext()) {
             var productItem = lineItemItr.next();
             productItem.custom.eswUnitPrice = eswHelper.getMoneyObject(productItem.basePrice.value, false, false).value;
+            var test = eswHelper.getMoneyObject(productItem.basePrice.value, false, false, true).value;
+//            productItem.custom.eswUnitPriceNoRounding = eswHelper.getMoneyObject(productItem.basePrice.value, false, false, true).value;
+            var test1 = 'var';
         }
         var shippingAddress = getShipmentShippingAddress(cart.getDefaultShipment());
         shippingAddress.setCountryCode(eswHelper.getAvailableCountry());
