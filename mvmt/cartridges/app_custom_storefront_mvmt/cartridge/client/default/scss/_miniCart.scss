@@ -210,10 +210,13 @@
                                  top: rem(18);
                                  border: none;
                                  outline: none;
+                                 height: rem(8);
                                  text-align: center;
                                  font-weight: bold;
                                  padding: rem(0) rem(3);
                                  line-height: rem(0);
+                                 background-color: $grey2;
+                                 color: $grey3;
 
                              .svg-icon {
                                   width: rem(8);
@@ -231,10 +234,13 @@
                                  top: rem(26);
                                  border: none;
                                  outline: none;
+                                 height: rem(8);
                                  text-align: center;
                                  font-weight: bold;
                                  padding: rem(0) rem(3);
                                  line-height: rem(0);
+                                 background-color: $grey2;
+                                 color: $grey3;
 
                              .svg-icon {
                                   width: rem(8);
