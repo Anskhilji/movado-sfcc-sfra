@@ -29,7 +29,6 @@ function populateByOrderID(args) {
  */
 function populateByOrder(order) {
     var Status = require('dw/system/Status');
-    var Transaction = require('dw/system/Transaction');
     var collections = require('*/cartridge/scripts/util/collections');
     var addressJSON = {};
     var shippingPriceJSON = {};
@@ -42,76 +41,74 @@ function populateByOrder(order) {
             return productLineItem.product.priceModel.priceInfo.priceBook.ID;
         });
 
-        Transaction.wrap(function () {
-            // Set the PriceBook ID
-            order.custom.SFCCPriceBookId = pricebooks[0];
+        // Set the PriceBook ID
+        order.custom.SFCCPriceBookId = pricebooks[0];
 
-            // Add all billing address fields to an object to send to SOM
-            addressJSON.billingAddress = getAddressObject(order.billingAddress);
+        // Add all billing address fields to an object to send to SOM
+        addressJSON.billingAddress = getAddressObject(order.billingAddress);
 
-            // Replace the billing address company name
-            if (order.billingAddress.companyName && order.billingAddress.companyName !== '') {
-                order.billingAddress.custom.SOMCompanyName = order.billingAddress.companyName;
-                order.billingAddress.companyName = '';
+        // Replace the billing address company name
+        if (order.billingAddress.companyName && order.billingAddress.companyName !== '') {
+            order.billingAddress.custom.SOMCompanyName = order.billingAddress.companyName;
+            order.billingAddress.companyName = '';
+        }
+
+        addressJSON.shippingAddresses = [];
+        collections.forEach(order.shipments, function (shipment) {
+            // Add all shipping address fields from each shipment to object to send to SOM
+            addressJSON.shippingAddresses.push(
+                getAddressObject(shipment.shippingAddress)
+            );
+            addressJSON.shippingAddresses[0].shipmentID = shipment.shipmentNo;
+
+            // Replace the shipping address company name
+            if (shipment.shippingAddress.companyName && shipment.shippingAddress.companyName !== '') {
+                shipment.shippingAddress.custom.SOMCompanyName = shipment.shippingAddress.companyName;
+                shipment.shippingAddress.companyName = '';
             }
 
-            addressJSON.shippingAddresses = [];
-            collections.forEach(order.shipments, function (shipment) {
-                // Add all shipping address fields from each shipment to object to send to SOM
-                addressJSON.shippingAddresses.push(
-                    getAddressObject(shipment.shippingAddress)
-                );
-                addressJSON.shippingAddresses[0].shipmentID = shipment.shipmentNo;
+            // Add the shipping price's sabrix tax fields
+            shippingPriceJSON = {
+                taxTotal: shipment.shippingLineItems[0].tax.value,
+                sabrixAdditionalCityTotal: shipment.shippingLineItems[0].custom.sabrixAdditionalCityTotal,
+                sabrixAdditionalDistrictTotal: shipment.shippingLineItems[0].custom.sabrixAdditionalDistrictTotal,
+                sabrixCityTotal: shipment.shippingLineItems[0].custom.sabrixCityTotal,
+                sabrixCountyTotal: shipment.shippingLineItems[0].custom.sabrixCountyTotal,
+                sabrixDistrictTotal: shipment.shippingLineItems[0].custom.sabrixDistrictTotal,
+                sabrixStateTotal:
+                    shipment.shippingLineItems[0].custom.sabrixStateTotal
+            };
+            // Add each shipping price adjustment
+            shippingPriceJSON.priceAdjustments = [];
+            collections.forEach(shipment.shippingLineItems[0].getShippingPriceAdjustments(), function (priceAdjustment) {
+                shippingPriceJSON.priceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
+            }
+            );
 
-                // Replace the shipping address company name
-                if (shipment.shippingAddress.companyName && shipment.shippingAddress.companyName !== '') {
-                    shipment.shippingAddress.custom.SOMCompanyName = shipment.shippingAddress.companyName;
-                    shipment.shippingAddress.companyName = '';
-                }
+            order.custom.SOMShippingPriceAdjustments = JSON.stringify(shippingPriceJSON);
+            order.custom.SOMAddressData = JSON.stringify(addressJSON);
 
-                // Add the shipping price's sabrix tax fields
-                shippingPriceJSON = {
-                    taxTotal: shipment.shippingLineItems[0].tax.value,
-                    sabrixAdditionalCityTotal: shipment.shippingLineItems[0].custom.sabrixAdditionalCityTotal,
-                    sabrixAdditionalDistrictTotal: shipment.shippingLineItems[0].custom.sabrixAdditionalDistrictTotal,
-                    sabrixCityTotal: shipment.shippingLineItems[0].custom.sabrixCityTotal,
-                    sabrixCountyTotal: shipment.shippingLineItems[0].custom.sabrixCountyTotal,
-                    sabrixDistrictTotal: shipment.shippingLineItems[0].custom.sabrixDistrictTotal,
-                    sabrixStateTotal:
-                        shipment.shippingLineItems[0].custom.sabrixStateTotal
-                };
-                // Add each shipping price adjustment
-                shippingPriceJSON.priceAdjustments = [];
-                collections.forEach(shipment.shippingLineItems[0].getShippingPriceAdjustments(), function (priceAdjustment) {
-                    shippingPriceJSON.priceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
-                }
-                );
+            /**
+             * Add each product's price adjustment(s)
+             */
+            collections.forEach(order.productLineItems, function (productLineItem) {
+                var productPriceAdjustments = [];
 
-                order.custom.SOMShippingPriceAdjustments = JSON.stringify(shippingPriceJSON);
-                order.custom.SOMAddressData = JSON.stringify(addressJSON);
-
-                /**
-                 * Add each product's price adjustment(s)
-                 */
-                collections.forEach(order.productLineItems, function (productLineItem) {
-                    var productPriceAdjustments = [];
-
-                    collections.forEach(productLineItem.priceAdjustments, function (priceAdjustment) {
-                        productPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
-                    });
-
-                    productLineItem.custom.SOMProductPriceAdjustments = JSON.stringify(productPriceAdjustments);
+                collections.forEach(productLineItem.priceAdjustments, function (priceAdjustment) {
+                    productPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
                 });
 
-                /**
-                 * Add each order price adjustment
-                 */
-                var orderPriceAdjustments = [];
-                collections.forEach(order.priceAdjustments, function (priceAdjustment) {
-                    orderPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
-                });
-                order.custom.SOMOrderPriceAdjustments = JSON.stringify(orderPriceAdjustments);
+                productLineItem.custom.SOMProductPriceAdjustments = JSON.stringify(productPriceAdjustments);
             });
+
+            /**
+             * Add each order price adjustment
+             */
+            var orderPriceAdjustments = [];
+            collections.forEach(order.priceAdjustments, function (priceAdjustment) {
+                orderPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
+            });
+            order.custom.SOMOrderPriceAdjustments = JSON.stringify(orderPriceAdjustments);
         });
     } catch (e) {
         var _e = e;
