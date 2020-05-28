@@ -422,6 +422,42 @@
                         display: flex;
                         align-items: center;
                         margin: 0;
+                        position: relative;
+                    }
+
+                    &-btn-group {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        right: rem(10);
+                        top: 50%;
+                        transform: translateY(-50%);
+                        
+                        button {
+                            width: rem(10);
+                            height: rem(10);
+                            position: relative;
+                            border: none;
+                            outline: none;
+                            text-align: center;
+                            font-weight: bold;
+                            padding: rem(0) rem(3);
+                            line-height: rem(0);
+                            background-color: $grey2;
+                            color: $grey3;
+
+                            &:hover {
+                                background-color: $light-silver;
+                            }
+
+                            svg {
+                                position: absolute;
+                                width: rem(8);
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+                        }
                     }
 
                     &-field {
@@ -454,6 +490,7 @@
                         }
                     }
 
+                
                     &-btn {
                         display: none;
                         width: rem(24);
@@ -469,7 +506,6 @@
                         fill: $gray1;
                         cursor: pointer;
                         transition: all 0.3s ease;
-
                         &:hover, &:focus {
                             background-color: $gray9;
                             border-color: $gray9;
@@ -499,54 +535,6 @@
                             height: rem(16);
                             vertical-align: middle;
                         }
-                    }
-
-                    &-btn-up {
-                            position: absolute;
-                            right: rem(35);
-                            top: rem(18);
-                            border: none;
-                            outline: none;
-                            height: rem(8);
-                            text-align: center;
-                            font-weight: bold;
-                            padding: rem(0) rem(3);
-                            line-height: rem(0);
-                            background-color: $grey2;
-                            color: $grey3;
-
-                        > svg {
-                            width: rem(8);
-                            vertical-align: middle;
-                        }
-
-                        &:hover {
-                            background-color: $light-silver;
-                        }
-                    }
-
-                    &-btn-down {
-                            position: absolute;
-                            right: rem(35);
-                            top: rem(26);
-                            border: none;
-                            outline: none;
-                            height: rem(8);
-                            text-align: center;
-                            font-weight: bold;
-                            padding: rem(0) rem(3);
-                            line-height: rem(0);
-                            background-color: $grey2;
-                            color: $grey3;
-
-                        > svg {
-                            width: rem(8);
-                            vertical-align: middle;
-                        }
-
-                        &:hover {
-                            background-color: $light-silver;
-                       }
                     }
                 }
             }
