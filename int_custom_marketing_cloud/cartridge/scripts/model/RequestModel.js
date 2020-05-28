@@ -58,9 +58,28 @@ function generateAddContactToDataExtensionPayload(params) {
     ];
 }
 
+function generateUpdateEventPayload(params, accessToken) {
+    return {
+        "Method": "updateEvents",
+        "Token": 'jsf',
+        "attributes": [{
+            "Email": params.email,
+            "Country": "Country",
+            "FirstName": "FirstName",
+            "LastName": "LastName",
+            "CampaignName": "CampaignName",
+            "Birthday": "Birthday",
+            "Gender": "Gender",
+            "PhoneNumber": "123456789",
+            "EventName": "EventName"
+        }]
+    };
+}
+
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToMCPayload: generateAddContactToMCPayload,
     generateAddContactToJourneyPayload: generateAddContactToJourneyPayload,
-    generateAddContactToDataExtensionPayload: generateAddContactToDataExtensionPayload
+    generateAddContactToDataExtensionPayload: generateAddContactToDataExtensionPayload,
+    generateUpdateEventPayload: generateUpdateEventPayload
 }

@@ -41,8 +41,12 @@ function sendSubscriberToSFMC(requestParams) {
                 result = SFMCAPIHelper.addContactToDataExtension(params, service);
             }
         }
+        if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, Constants.SFMC_DATA_API_ENDPOINT.UPDATE_DATA, accessToken, Constants.SFMC_SERVICE_API_TYPE.UPDATE);
+            result = SFMCAPIHelper.updateEvent(params, service);
+        }
     }  catch (e) {
-        Logger.error('MarketingCloud sendSubscriberToSFMC: some exception occured while exporting subscriber - {0}', e.toString());
+        Logger.error('MarketingCloud sendSubscriberToSFMC: some exception occured while exporting subscriber mainSFMC- {0}', e.toString());
         SFMCCOHelper.saveEmailSubscriber(params.email);
     }
     return result;

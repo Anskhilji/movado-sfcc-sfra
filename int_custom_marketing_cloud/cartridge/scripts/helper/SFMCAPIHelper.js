@@ -81,7 +81,7 @@ function addContactToMC(params, service) {
             Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
         } else {
             result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
-            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
+            Logger.debug('MarketingCloud taht addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
         }
         isSaveCustomObject = false;
         result.success = false;
@@ -176,10 +176,47 @@ function addContactToDataExtension(params, service) {
     return result;
 }
 
+function updateEvent(params, service) {
+    var accessToken = getAuthToken(params);
+    var updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken.custom.token);
+    var responsePayload = null;
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'common', null),
+        success: true
+    }
+    try {
+        responsePayload = service.call(JSON.stringify(updateEventPayload));
+    } catch (e) {
+        Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (responsePayload.getError() == '401') {
+        updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken);
+        params.isExpired = true;
+        accessToken = getAuthToken(params);
+        params.isExpired = false;
+        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        try {
+            responsePayload = service.call(JSON.stringify(updateEventPayload));
+        } catch (e) {
+            Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+    }
+
+    if (responsePayload.object.errorcode == 0 && responsePayload.object.message == 'Not Authorized') {
+        if (params.isJob == false) {
+            SFMCCOHelper.saveMCPayload(params);
+        }
+        result.success = false;
+    }
+    return result;
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getDataAPIService: getDataAPIService,
     addContactToMC: addContactToMC,
     addContactToJourney: addContactToJourney,
-    addContactToDataExtension: addContactToDataExtension
+    addContactToDataExtension: addContactToDataExtension,
+    updateEvent: updateEvent
 }

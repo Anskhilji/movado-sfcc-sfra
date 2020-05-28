@@ -53,7 +53,19 @@ function exportAllSavedSubscribers() {
                 } else {
                     result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
                 }
+                var responseUpdateEvent;
+                var service;
+                if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, Constants.SFMC_DATA_API_ENDPOINT.UPDATE_DATA, accessToken, Constants.SFMC_SERVICE_API_TYPE.UPDATE);
+                    var payload = subscriber.custom.mcPayload;
+                    responseUpdateEvent = SFMCAPIHelper.updateEvent(params, service);
+                }
                 if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
+                    Transaction.wrap(function () {
+                        CustomObjectMgr.remove(subscriber);
+                    });
+                }
+                if (responseUpdateEvent.object.empty === false) {
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(subscriber);
                     });
