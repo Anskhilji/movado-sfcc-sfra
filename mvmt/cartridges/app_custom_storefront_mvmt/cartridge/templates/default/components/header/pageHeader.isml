@@ -162,6 +162,9 @@
 
 <div class="desktop-side-search new-header search-bar pb-md-4 w-100">
     <form role="search" class="search-input-field" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+        <div class="desktop-search-close">
+            <a class="desktop-search-close-text">${Resource.msg('label.suggest.close', 'search', null)}</a>
+        </div>
         <button class="side-search-icon gtm-customEvent d-none" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
             <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Collections-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.35">
@@ -214,13 +217,16 @@
                 </g>
             </svg>
         </button>
-        <input class="search-field header-search-field"
-            type="search" name="q"
-            title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
-            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-            autocomplete="off"
-            data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+        <div class="input-field-containar">
+            <input class="search-field header-search-field mobile-search-field"
+                type="search" name="q"
+                title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                autocomplete="off"
+                data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+            <img class="clear-text-img d-none" src="${URLUtils.staticURL('/images/clear-input-field.svg')}"/>
+        </div>
         <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
         <input type="hidden" value="${pdict.locale}" name="lang" />
         <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>

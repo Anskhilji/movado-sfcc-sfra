@@ -445,7 +445,8 @@
                         color: $light-gray;
 
                         &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-                            opacity: 1;
+                            -webkit-appearance: none;
+                            margin: 0;
                         }
 
                         &:focus {
@@ -498,6 +499,54 @@
                             height: rem(16);
                             vertical-align: middle;
                         }
+                    }
+
+                    &-btn-up {
+                            position: absolute;
+                            right: rem(35);
+                            top: rem(18);
+                            border: none;
+                            outline: none;
+                            height: rem(8);
+                            text-align: center;
+                            font-weight: bold;
+                            padding: rem(0) rem(3);
+                            line-height: rem(0);
+                            background-color: $grey2;
+                            color: $grey3;
+
+                        > svg {
+                            width: rem(8);
+                            vertical-align: middle;
+                        }
+
+                        &:hover {
+                            background-color: $light-silver;
+                        }
+                    }
+
+                    &-btn-down {
+                            position: absolute;
+                            right: rem(35);
+                            top: rem(26);
+                            border: none;
+                            outline: none;
+                            height: rem(8);
+                            text-align: center;
+                            font-weight: bold;
+                            padding: rem(0) rem(3);
+                            line-height: rem(0);
+                            background-color: $grey2;
+                            color: $grey3;
+
+                        > svg {
+                            width: rem(8);
+                            vertical-align: middle;
+                        }
+
+                        &:hover {
+                            background-color: $light-silver;
+                       }
                     }
                 }
             }

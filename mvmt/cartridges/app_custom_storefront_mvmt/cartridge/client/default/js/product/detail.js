@@ -76,6 +76,31 @@ module.exports = {
         $('.size-guide-close').on('click', function(e) {
             $('.size-guide, #overlay').removeClass('active');
         });
+
+        $('.modal-close').on('click', function(e) {
+            $('.modal-background').fadeOut();
+            $('html').removeClass('no-overflow');
+            $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
+        });
+
+        $('.call-why-polarized-popup').on('click', function(e) {
+            $('.modal-background').fadeIn();
+            $('html').addClass('no-overflow');
+            setTimeout(function(){ 
+                $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
+             }, 300);
+        });
+
+        $('.polarized-modal').mouseup(function(e) {
+            var container = $('.polarized-modal-body');
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) 
+            {
+                $('.modal-background').fadeOut();
+                $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
+                $('html').removeClass('no-overflow');
+            }
+        });
     },
 
     gallerySlider: function () {
@@ -283,9 +308,9 @@ module.exports = {
     },
 
     updatePrice: function () {
-        $('.upsell_input').on('click', function (){
+        $(document).on('click', '.upsell_input', function() {
             var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
-            var currentPrice = $('.product-price-mobile .sales .value').data('value');
+            var currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
             var updatedPrice;
             var updatedText;
 
@@ -295,7 +320,7 @@ module.exports = {
                 updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
             }
 
-            $('.product-price-mobile .sales .value').each(function() {
+            $('.product-price-mobile .sales:last-child .value').each(function() {
                 updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
                 $(this).text(updatedText).data('value', updatedPrice);
             });

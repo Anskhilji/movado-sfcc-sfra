@@ -13,9 +13,23 @@
         value="${Number(lineItem.quantity.toString()).toFixed()}"
         name="quantity" type="number"/>
     </div>
+    
+    <button type="button" class="quantity-btn-up hidden-xs-down increased-btn"
+            data-pid="pid-${lineItem.id}" id="${lineItem.id}">
+            <svg class="svg-icon" viewBox="0 0 213.333 213.333" x="0px" y="0px">
+            <g><polygon points="106.667,53.333 0,160 213.333,160"></polygon></g>
+            </svg>
+    </button>
+        
+    <button type="button" class="quantity-btn-down hidden-xs-down decreased-btn"
+            ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
+            <svg class="svg-icon" viewBox="0 0 213.333 213.333">
+            <g><polygon points="0,53.333 106.667,160 213.333,53.333"></polygon></g>
+            </svg>
+    </button>
 
     <button type="button" class="quantity-btn hidden-sm-down increased-btn" data-pid="pid-${lineItem.id}" id="${lineItem.id}">
-        <svg class="svg-icon" viewBox="0 0 12 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="12 9 7 9 7 14 5 14 5 9 0 9 0 7 5 7 5 2 7 2 7 7 12 7"></polygon></g></svg>
+            <svg class="svg-icon" viewBox="0 0 12 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="12 9 7 9 7 14 5 14 5 9 0 9 0 7 5 7 5 2 7 2 7 7 12 7"></polygon></g></svg>
     </button>
 </div>
 <iscomment> Custom End </iscomment>
