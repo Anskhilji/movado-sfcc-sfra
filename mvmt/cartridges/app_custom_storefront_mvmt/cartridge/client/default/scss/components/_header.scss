@@ -915,7 +915,7 @@ header.new-header {
   }
 }
 
-#overlay {
+#overlay,.search-modal-open {
   position: fixed;
   z-index: 8;
   width: 100%;

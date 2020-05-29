@@ -328,3 +328,4 @@
 </div>
 
 <div id="overlay"></div>
+<div class="search-modal-open"></div>
