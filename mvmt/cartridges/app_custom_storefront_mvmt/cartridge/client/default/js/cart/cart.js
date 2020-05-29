@@ -197,17 +197,18 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
  */
 function decreaseQuantity (quantitySelector, id) {
     var $quantity = parseInt($(quantitySelector).val());
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
         $quantity = 1;
     }
 
     $quantity = ($quantity > 1) ? $quantity - 1 : $quantity;
 
     if ($quantity == 1) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     } else {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
     }
     $(quantitySelector).val($quantity);
     updateCartQuantity(quantitySelector, false);
@@ -221,14 +222,15 @@ function decreaseQuantity (quantitySelector, id) {
  * @param id
  */
 function increaseQuantity (quantitySelector, id) {
-    var $quantity = parseInt($(quantitySelector).val());
+    var $quantity = parseInt($(quantitySelector).val());4
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
         $(quantitySelector).val(1);
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     }
 
     if ($quantity >= 1) {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
         $quantity = $quantity + 1;
         $(quantitySelector).val($quantity);
     }

@@ -1927,6 +1927,18 @@
 }
 
 .description-and-detail {
+    
+    @include media-breakpoint-up(md-down) {
+        padding: rem(25) rem(25) 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding: rem(20) rem(60);
+    }
+
+    @include media-breakpoint-up(xl) {
+        padding: rem(35) rem(60) rem(25);
+    }
 
     margin: 0 auto;
     margin-top: rem(40);
@@ -2029,7 +2041,7 @@
             border: none;
         }
 
-        @include media-breakpoint-up(sm) {
+        @include media-breakpoint-up(md-down) {
             opacity: 1;
             transform: translateY(0);
             display: block;
@@ -2059,13 +2071,12 @@
                 display: block;
             }
 
-            @include media-breakpoint-up(sm) {
+            @include media-breakpoint-up(md-down) {
                 padding: rem(60) rem(30);
                 padding-bottom: rem(20);
                 display: flex;
                 flex-direction: row;
             }
-            
 
             .details-heading {
                 font-family: $font-medium;
@@ -2081,7 +2092,7 @@
             .attribute-list {
                 padding: 0 0 rem(45);
 
-                @include media-breakpoint-up(sm) {
+                @include media-breakpoint-up(md-down) {
                     padding: rem(45) 0;
                 }
 
