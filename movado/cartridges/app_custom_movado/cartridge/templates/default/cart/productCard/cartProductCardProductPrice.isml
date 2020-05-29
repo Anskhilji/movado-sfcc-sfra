@@ -24,14 +24,14 @@
             <!--- extra slot for spacing reasons due to large remove button --->
             <div class="col-lg-1 hidden-md-down remove-line-item-lg d-none"></div>
 
-        <!--- product restriction - product not available msg --->
-        <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
-        <isif condition="${pdict.valid.error && lineItem.id == session.privacy.restrictedProductID}">
-            <div class="product-not-available-msg-cart">
-                ${Resource.msg('esw.product.notavailable','esw',null)}
-            </div>
-        </isif>
-        <iscomment> Custom End </iscomment>
+            <!--- product restriction - product not available msg --->
+            <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
+            <isif condition="${pdict.valid.error && lineItem.id == session.privacy.restrictedProductID}">
+                <div class="product-not-available-msg-cart">
+                    ${Resource.msg('esw.product.notavailable','esw',null)}
+                </div>
+            </isif>
+            <iscomment> Custom End </iscomment>
 
         <!--- promotions --->
         <div class="line-item-promo item-${lineItem.UUID}">

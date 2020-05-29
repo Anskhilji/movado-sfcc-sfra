@@ -593,6 +593,8 @@ var getEswHelper = {
      * This function is used to get locale name
      */
     getNameFromLocale: function (language) {
+        //This variable is not exist in this method thats why i declared it.
+        var eswHelper = this;
         var localeCountry = this.getAllCountryFromCountryJson(this.getAvailableCountry());
         var cookieCountry = this.getAvailableCountry();
         var allESWCountryName = this.getAllCountries().filter(function (value) {

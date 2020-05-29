@@ -1,6 +1,7 @@
 'use strict';
 
 var decorators = require('*/cartridge/models/product/decorators/index');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 
 /**
  * Decorate product with full product information
@@ -50,6 +51,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
     if (category) {
         decorators.sizeChart(product, category.custom.sizeChartID);
     }
+
+    //Custom Start: Adding esw latest cartridge code
+    Object.defineProperty(product, 'isProductRestricted', {
+        enumerable: true,
+        value: eswHelper.isProductRestricted(apiProduct.custom)
+    });
+    // Custom end
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);
