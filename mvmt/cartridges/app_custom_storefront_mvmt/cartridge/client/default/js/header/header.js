@@ -17,8 +17,7 @@ $('.desktop-search-icon').click(function() {
     $('.desktop-side-search .header-search-field').focus();
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();
-    $('#overlay, .search-modal-open').addClass('active');
-    $('body').removeClass('modal-open');
+    $('.search-modal-open').addClass('active');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").addClass('search-input-field-remove');
         $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
@@ -47,13 +46,14 @@ $('.header-mobile-categories .header-mobile-category').click(function() {
     }
 });
 
-$('#overlay').click(function() {
+$('#overlay, .search-modal-open').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
-    $('.mobile-nav, #overlay, .search-modal-open').removeClass('active');
+    $('.mobile-nav, #overlay').removeClass('active');
     var $menuText = $('.header-mobile-categories .active .header-mobile-category-text').data('trigger-menu');
     $('.header-mobile-categories .active .header-mobile-category-text').text($menuText);
     $('.header-mobile-categories .header-mobile-category').removeClass('active');
     $('.desktop-side-search').removeClass('desktop-search-active');
+    $('.search-modal-open').removeClass('active');
     $('.search-field').val('');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").removeClass('search-input-field-remove');
@@ -76,7 +76,7 @@ $(window).on("load resize", function(e) {
 
 $('.mobile-search-close-text').click(function() {
     $('.mobile-side-search').removeClass('active');
-    $('#overlay, .search-modal-open').removeClass('active');
+    $('.search-modal-open').removeClass('active');
 });
 
 $('.mobile-nav .mobile-subnav-btn').click(function() {
@@ -91,7 +91,7 @@ $('.clear-text-img').click(function() {
 $('.desktop-search-close-text').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
     $('.desktop-side-search').removeClass('desktop-search-active');
-    $('#overlay, .search-modal-open').removeClass('active');
+    $('.search-modal-open').removeClass('active');
     $('.search-field').val('');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").removeClass('search-input-field-remove');
