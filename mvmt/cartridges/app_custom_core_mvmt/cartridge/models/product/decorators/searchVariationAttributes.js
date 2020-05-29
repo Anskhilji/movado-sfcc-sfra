@@ -35,6 +35,13 @@ module.exports = function (object, hit) {
                                 title: apiImage.title
                             }]
                         },
+                        pdpURL: URLUtils.url(
+                                'Product-Show',
+                                'pid',
+                                hit.productID,
+                                'dwvar_' + hit.productID + '_color',
+                                color.value
+                                ).toString(),
                         url: URLUtils.url(
                             'Product-Variation',
                             'dwvar_' + hit.productID + '_color',

@@ -41,12 +41,12 @@ module.exports = function () {
         $('.mobile-menu .tab-content-submenu ul').height(height);
     });
     
-    function handleVariantResponse(response, $productContainer) {
+    function handleVariantResponse(response, $productContainer, pdpURL) {
 
         // Update primary images
         var primaryImageUrls = response.product.images;
         $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-        
+        $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
@@ -92,8 +92,7 @@ module.exports = function () {
        
     }
     
-    
-    $('[data-attr="colorVar"] a').off('click').on('click', function (e) {
+    $(document).on('click', '[data-attr="colorVar"] a', function(e) {
         e.preventDefault();
 
         if ($(this).attr('disabled')) {
@@ -108,14 +107,14 @@ module.exports = function () {
         $productContainer.find('.plp-swatches img.is-active').removeClass('is-active');
         $('.plp-swatches img').removeClass('is-active');
         $(this).find('img.swatch-circle').addClass('is-active');
-        
-        var selectedValueUrl = new URL(e.currentTarget.href);
+        var selectedValueUrl = $(this).data('swatch-url');
+        var pdpURL = $(this).data('pdp-url');
         
         $.ajax({
             url: selectedValueUrl,
             method: 'GET',
             success: function (data) {
-                handleVariantResponse(data, $productContainer);
+                handleVariantResponse(data, $productContainer, pdpURL);
                 setTimeout(function () {
                     $.spinner().stop();
                   }, 1500);

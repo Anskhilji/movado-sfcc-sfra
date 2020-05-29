@@ -11,6 +11,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var colorVariations;
     var defaultVariantImage;
     var defaultVariant;
+    var variationPdpURL;
     
     
     if (product.variationAttributes) {
@@ -21,18 +22,32 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
     
-    if (colorVariations && colorVariations.values) {
+    if (!empty(colorVariations) && !empty(colorVariations.values)) {
         var varAttr = colorVariations.values;
         var variant = apiProduct.variationModel.defaultVariant;
-        Object.keys(varAttr).forEach(function (key) {
-            if (variant.custom.color == varAttr[key].id) {
-                defaultVariantImage = varAttr[key].images.swatch[0].url;
-                defaultVariant = variant;
-            }
-        });
+        if (!empty(variant) && !empty(variant.custom)) {
+            Object.keys(varAttr).forEach(function (key) {
+                if (variant.custom.color == varAttr[key].id) {
+                    defaultVariantImage = varAttr[key].images.swatch[0].url;
+                    variationPdpURL = varAttr[key].pdpURL;
+                    defaultVariant = variant;
+                }
+            });
+        } else {
+            defaultVariantImage = varAttr[0].images.swatch[0].url;
+            variationPdpURL = varAttr[0].pdpURL;
+            defaultVariant = apiProduct.variationModel.variants[0];
+        }
+        
+        
         Object.defineProperty(product, 'defaultVariantImageDIS', {
             enumerable: true,
             value: defaultVariantImage
+        });
+        
+        Object.defineProperty(product, 'variationPdpURL', {
+            enumerable: true,
+            value: variationPdpURL
         });
         
         Object.defineProperty(product, 'defaultVariant', {

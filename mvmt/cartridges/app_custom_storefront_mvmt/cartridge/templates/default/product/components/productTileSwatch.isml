@@ -7,7 +7,7 @@
                                 && swatch.images != null
                                 && swatch.images.swatch[0] != null
                                 && swatch.images.swatch[0].url != null}">
-                    <a href="${swatch.url}">
+                    <a data-swatch-url="${swatch.url}" data-pdp-url="${swatch.pdpURL}">
                         <span>
                             <img class='swatch swatch-circle ${(loopState.count-1 == 0.0) ? "is-active" : ""}'
                                  data-index="${loopState.count-1}"
