@@ -178,80 +178,80 @@
                             border-bottom: 0;
                         }
 
-                        .quantity-form {
-	                         position:relative;
+                        .quantity {
 
-                            .quantity {
-                                overflow: visible;
-                                padding: rem(2) rem(15) rem(2) rem(2);
-                                box-shadow: inset 0 0 rem(2) rem(1) $light-gray4;
-                                outline: 0;
-                                border: 0;
-                                line-height: 1.15;
-                                margin: 0;
-                                width: rem(76);
-                                height: rem(50);
-                                border-radius: rem(1);
-                                font-size: rem(14);
-                                letter-spacing: rem(1);
-                                font-weight: 400;
-                                text-indent: rem(15);
-                                margin-right: rem(20);
+                            &-form {
+                                position:relative;
+                                margin-top: 0;
 
-                                &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-                                    -webkit-appearance: none;
+                                .quantity {
+                                    overflow: visible;
+                                    padding: rem(2) rem(15) rem(2) rem(2);
+                                    box-shadow: inset 0 0 rem(2) rem(1) $light-gray4;
+                                    outline: 0;
+                                    border: 0;
+                                    line-height: 1.15;
                                     margin: 0;
+                                    width: rem(76);
+                                    height: rem(50);
+                                    border-radius: rem(1);
+                                    font-size: rem(14);
+                                    letter-spacing: rem(1);
+                                    font-weight: 400;
+                                    text-indent: rem(15);
+                                    margin-right: rem(20);
+    
+                                    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+                                        -webkit-appearance: none;
+                                        margin: 0;
+    
+                                    }
+                               } 
+                            }
 
+                            &-btn-group {
+                                display: flex;
+                                flex-direction: column;
+                                position: absolute;
+                                right: rem(35);
+                                top: 50%;
+                                transform: translateY(-50%);
+
+                                button {
+                                    width: rem(12);
+                                    height: rem(10);
+                                    position: relative;
+                                    border: none;
+                                    outline: none;
+                                    background-color: $grey2;
+                                    color: $grey3;
+
+                                    &:hover {
+                                        background-color: $light-silver;
+                                    }
+
+                                    svg {
+                                        position: absolute;
+                                        width: rem(8);
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                    }   
                                 }
-                           } 
-
-                             .up-qty-btn {
-                                 position: absolute;
-                                 right: rem(35);
-                                 top: rem(18);
-                                 border: none;
-                                 outline: none;
-                                 height: rem(8);
-                                 text-align: center;
-                                 font-weight: bold;
-                                 padding: rem(0) rem(3);
-                                 line-height: rem(0);
-                                 background-color: $grey2;
-                                 color: $grey3;
-
-                             .svg-icon {
-                                  width: rem(8);
-                              }
-
-                             &:hover {
-                                    background-color: $light-silver;
-                             }
-
-                          }
-
-                             .down-qty-btn {	
-                                 position: absolute;
-                                 right: rem(35);
-                                 top: rem(26);
-                                 border: none;
-                                 outline: none;
-                                 height: rem(8);
-                                 text-align: center;
-                                 font-weight: bold;
-                                 padding: rem(0) rem(3);
-                                 line-height: rem(0);
-                                 background-color: $grey2;
-                                 color: $grey3;
-
-                             .svg-icon {
-                                  width: rem(8);
-                              }
-
-                             &:hover {
-                                    background-color: $light-silver;
-                             }
-                          }
-                      }
+                            }
+    
+                            &-btn-up {
+                                svg {
+                                    top: rem(6);
+                                }
+                            }
+    
+                            &-btn-down {
+                                svg {
+                                    top: rem(-1);
+                                }
+                            }
+                        }
 
                         .item-image {
                             height: rem(73);
