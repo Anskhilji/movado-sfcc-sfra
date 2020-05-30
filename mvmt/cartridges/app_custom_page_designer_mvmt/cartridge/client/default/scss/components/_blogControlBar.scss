@@ -5,7 +5,7 @@
     text-size-adjust: 100%;
     box-sizing: inherit;
     letter-spacing: rem(1.5);
-    font-family: $font-primary;
+    font-family: $blog-font-primary;
     z-index: 10;
     position: relative;
     display: flex;
@@ -25,7 +25,7 @@
         box-sizing: inherit;
         background-color: transparent;
         text-decoration: none;
-        font-family: $font-primary;
+        font-family: $blog-font-primary;
         font-weight: 500;
         letter-spacing: rem(1.5);
         color: $black;
@@ -69,7 +69,7 @@
         outline: 0;
         border: 0;
         text-size-adjust: 100%;
-        font-family: $font-primary;
+        font-family: $blog-font-primary;
         font-weight: 500;
         font-style: normal;
         background: linear-gradient(0deg,$white,#efefef);
@@ -105,7 +105,7 @@
         text-size-adjust: 100%;
         box-sizing: inherit;
         letter-spacing: rem(1.5);
-        font-family: $font-primary;
+        font-family: $blog-font-primary;
         z-index: 1;
         opacity: 1;
         position: static;
@@ -138,7 +138,7 @@
             display: none;
 
             @include media-breakpoint-down(sm) {
-                font-family: $font-primary;
+                font-family: $blog-font-primary;
                 font-weight: 500;
                 text-transform: uppercase;
                 font-style: normal;

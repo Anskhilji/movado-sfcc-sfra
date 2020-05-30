@@ -1,0 +1,19 @@
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > div {
+    width: 100%;
+    height: auto;
+
+    @include media-up (615px) {
+      width: 50%;
+      padding-left: rem(25);
+      padding-right: rem(25);
+    }
+
+    @include media-up (960px) {
+      width: 33%;
+    }
+  }
+}

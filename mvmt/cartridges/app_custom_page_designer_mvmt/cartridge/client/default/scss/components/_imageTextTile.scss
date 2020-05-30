@@ -1,0 +1,18 @@
+.homepage-explore-by-series-tile {
+	width: 284px;
+	height: 270px;
+	margin: auto 10px;
+	border-bottom: 1px solid #cbcbcb;
+	.collection-related-tile-bottom {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.collection-related-tile-title {
+		padding: 0 5px;
+	}
+	.collection-related-tile-icon {
+		width: 30px;
+		max-height: 40px;
+	}
+}

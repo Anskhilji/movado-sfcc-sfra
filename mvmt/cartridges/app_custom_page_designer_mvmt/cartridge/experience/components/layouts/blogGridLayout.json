@@ -1,0 +1,33 @@
+{
+    "name": "Blog Grid Layout",
+    "description": "Layout for Blog Tiles in grid View",
+    "group": "layouts",
+    "attribute_definition_groups": [
+      {
+        "id": "gridSpecs",
+        "name": "Grid Specifications",
+        "description": "Configs related to grid behaviour",
+        "attribute_definitions": [
+          {
+            "id": "columns",
+            "name": "No of Columns",
+            "type": "enum",
+            "default_value": 3,
+            "values": [
+                2,
+                3
+            ],
+            "required": false
+          }
+        ]
+      }
+    ],
+    "region_definitions": [
+        {
+          "id":"columns", 
+          "name":"Columns",
+          "component_type_exclusions": []
+        }
+    ]
+  }
+  

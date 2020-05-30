@@ -10,7 +10,9 @@
     <!--- the page markup --->
     <div class="page-designer-reference">
         <div id="${pdict.page.ID}" class="row mx-n2 m-0">
-            <isprint value="${pdict.regions.main.setClassName("col-12 p-0").render()}" encoding="off"/>
+            <isprint value="${pdict.regions.top.setClassName("col-12 p-0").render()}" encoding="off"/>
+            <isprint value="${pdict.regions.main.setClassName("large-container").render()}" encoding="off"/>
+            <isprint value="${pdict.regions.bottom.setClassName("col-12 p-0").render()}" encoding="off"/>
         </div>
     </div>
 </isdecorate>
