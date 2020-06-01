@@ -24,6 +24,7 @@ function parseRiskifiedResponse(order) {
     var paymentInstrument = order.paymentInstrument;
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+    var YotpoHelper = require('int_custom_yotpo/cartridge/scripts/yotpo/helper/YotpoHelper');
     var responseObject;
     var RESP_SUCCESS ='SUCCESS';
 
@@ -78,6 +79,7 @@ function parseRiskifiedResponse(order) {
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
+        YotpoHelper.deleteOrder(order);
         
     } else {
 		if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {

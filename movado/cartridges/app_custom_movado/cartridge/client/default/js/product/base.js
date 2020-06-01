@@ -524,6 +524,7 @@ function handlePostCartAdd(response) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
         $('#addToCartModal').modal('show');
+        $('.slick-slider').slick('refresh');
     }
 }
 
@@ -779,6 +780,7 @@ module.exports = {
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
+                        $(window).resize(); // This is used to fix zoom feature after add to cart
                     },
                     error: function () {
                         $.spinner().stop();
@@ -938,6 +940,7 @@ module.exports = {
     	$(document).on('hidden.bs.modal','#chooseBonusProductModal', function () {
             if($.trim($('#addToCartModal .modal-body').html())) {
             	$('#addToCartModal').modal('show');
+            	$('.slick-slider').slick('refresh');
             }
     	});
     },
