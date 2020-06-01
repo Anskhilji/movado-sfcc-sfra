@@ -20,7 +20,7 @@ $('.desktop-search-icon').click(function() {
     $('.search-modal-open').addClass('active');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").addClass('search-input-field-remove');
-        $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
+        $('.desktop-side-search,.mobile-side-search').addClass('search-bar-header-padding');
     } else {
         $(".search-input-field").addClass('search-input-field-add');
         $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
