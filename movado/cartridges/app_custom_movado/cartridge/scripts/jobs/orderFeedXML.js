@@ -364,17 +364,22 @@ function getConsumerLoyaltyAmount(order) {
             loyaltyConsumerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
         }
     }
-    return loyaltyConsumerDiscountAmount;
+    return loyaltyConsumerDiscountAmount * -1;
 }
 
 /**
  * 
  */
 function getConsumerRoundingAmount(lineItem) {
-    var eswUnitPrice = !empty(lineItem.custom.eswUnitPrice) ? lineItem.custom.eswUnitPrice : 0.00;
-    var eswUnitPriceBeforeRounding = !empty(lineItem.custom.eswUnitPriceBeforeRounding) ? lineItem.custom.eswUnitPriceBeforeRounding : 0.00;
-    var consumerRoundingAmount = eswUnitPrice - eswUnitPriceBeforeRounding;
-    return consumerRoundingAmount;
+    var consumerRoundingAmount;
+    if (lineItem.custom.eswUnitPriceBeforeRounding) {
+        var eswUnitPrice = !empty(lineItem.custom.eswUnitPrice) ? lineItem.custom.eswUnitPrice : 0.00;
+        var eswUnitPriceBeforeRounding = !empty(lineItem.custom.eswUnitPriceBeforeRounding) ? lineItem.custom.eswUnitPriceBeforeRounding : 0.00;
+        var consumerRoundingAmount = eswUnitPrice - eswUnitPriceBeforeRounding;
+    } else {
+        consumerRoundingAmount = 0.00;
+    }
+    return parseFloat(consumerRoundingAmount).toFixed(TWO_DECIMAL_PLACES);
 }
 
 /**
@@ -2462,7 +2467,7 @@ function generateOrderXML(order) {
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalLoyaltyAmount');
                 if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
-                    streamWriter.writeCharacters('');
+                    streamWriter.writeCharacters(parseFloat(crossBorderUtils.getSwellDiscountAmount(order)).toFixed(TWO_DECIMAL_PLACES));
                 } else {
                     streamWriter.writeCharacters('');
                 }
@@ -2535,7 +2540,7 @@ function generateOrderXML(order) {
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalLoyaltyAmount');
                 if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
-                    streamWriter.writeCharacters('');
+                    streamWriter.writeCharacters(parseFloat(getConsumerLoyaltyAmount(order)).toFixed(TWO_DECIMAL_PLACES));
                 } else {
                     streamWriter.writeCharacters('');
                 }
@@ -2692,15 +2697,15 @@ function generateOrderXML(order) {
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('RoundingAmount');
                     if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(commerceItem.ConsumerRoundingAmount * fxRates);
+                        streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerRoundingAmount * fxRates).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
                     }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('LoyaltyAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
-                        streamWriter.writeCharacters(commerceItem.LoyaltyAmount);
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(parseFloat(commerceItem.LoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
                     }
@@ -2852,8 +2857,8 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
-                        streamWriter.writeCharacters(commerceItem.ConsumerLoyaltyAmount);
+                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerLoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
                     }
