@@ -1,0 +1,5 @@
+<isif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-traditional-design')}">
+    <div class="col-auto"><isinclude template="wishlist/components/addToWishListButton" /></div>
+<iselseif condition="${pdict.loggedIn}">
+    <div class="col-auto"><isinclude template="product/old/components/addToWishListButton" /></div>
+</isif>
