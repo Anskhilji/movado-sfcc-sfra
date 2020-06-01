@@ -1,0 +1,61 @@
+<form action="" name="engraving" class="engraving-form" id="engravingForm">
+    <div class="engraving-btn">
+        <a href="javascript:void(0); "class="btn btn-primary" pd-popup-open="popupNew">
+            <span class="open-popup">${Resource.msg('label.product.add.engraving', 'product', 'null')}</span>
+            <span class="edit-popup">${Resource.msg('label.product.edit.engraving', 'product', 'null')}</span>
+        </a>
+        <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
+        <isloop items="${option.values}" var="value" status="optionLoopStatus">
+            <isif condition="${optionLoopStatus.first}">
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}" data-value-id="${value.id}"
+                    name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif
+                    condition="${value.id == option.selectedValueId}" />checked</isif>/>
+            <iselse>
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}" data-value-id="${value.id}"
+                    name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif
+                    condition="${value.id === option.selectedValueId}" />checked</isif>>
+                </isif>
+        </isloop>
+    </div>
+        <div class="popup" pd-popup="popupNew">
+            <div class="popup-inner">
+                <div class="modal-header modal-header-options p-2 mr-2">
+                    <button type="button" class="close-option-popup close" data-dismiss="modal"></button>
+                </div>
+                <div class="popup-head mb-3">
+                    <h1>${Resource.msg('label.product.add.engraving', 'product', 'null')}</h1>
+                </div>
+                <div class="popup-body">
+                    <p>${pdict.product.assets.engravingTop}</p>
+                    <div class="watch-image">
+                        <div class="image d-inline-block">
+                            <picture class="d-inline-block">
+                                <source media="(min-width: 650px)" srcset="${product.images['pdp533'][2].url}">
+                                <source media="(min-width: 465px)" srcset="${product.images['pdp533'][2].url}">
+                                <img src="${product.images['pdp533'][2].url}" alt="test" style="width:auto;">
+                            </picture>
+                            <div class="text-on-watch">
+<pre>
+${Resource.msg('text.placeholder1', 'product', null)}
+${Resource.msg('text.placeholder2', 'product', null)}
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-area">
+                        <div class="mb-3 option-message">
+                            <textarea rows="${product.engravingTextValidations['casebackLineLimit']}" class="form-control engraving-input" col="${product.engravingTextValidations['casebackCharLimit']}" required wrap="hard" placeholder="${product.resources.engravingPlaceholder}" data-format-error="${product.resources.errorMaxlengthEngraveText}" data-required-error="${product.resources.errorEmptyEngraveText}" id="${'input_' + option.id}" name="option-message" data-name="${option.id + 'Message'}" data-row-max="${product.engravingTextValidations['casebackLineLimit']}" data-row-maxlength="${product.engravingTextValidations['casebackCharLimit']}" maxlength="${((product.engravingTextValidations['casebackLineLimit']) * (product.engravingTextValidations['casebackCharLimit'])) + (product.engravingTextValidations['casebackLineLimit'] - 1)}"></textarea>
+                        </div>
+                        <div class="popup-action-btns">
+                            <button type="submit" class="btn btn-primary save" form="engravingForm">
+                                <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
+                                <span class="edit">${Resource.msg('buttom.option.text.edit', 'product', null)}</span>
+                            </button>
+                            <button type="button" class="btn btn-primary engraving-cancel cancel">${Resource.msg('buttom.button.text.cancel', 'product', null)}</button>
+                        </div>
+                    </div>
+                    <label for="${'input_' + option.id}" class="hidden-label">${product.resources.engravingPlaceholder}</label>
+                </div>
+            </div>
+        </div>
+</form>
