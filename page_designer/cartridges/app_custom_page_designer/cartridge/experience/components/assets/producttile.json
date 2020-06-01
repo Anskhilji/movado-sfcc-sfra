@@ -37,6 +37,22 @@
           "type":"boolean",
           "required": true,
           "default_value": false
+        },
+        {
+          "id": "plpTile",
+          "name": "PLP Tile",
+          "description": "Render PLP Tile if true",
+          "type":"boolean",
+          "required": true,
+          "default_value": false
+        },
+        {
+          "id": "showAddToCart",
+          "name": "Add To Cart Button",
+          "description": "Show Add to Cart Button if true",
+          "type":"boolean",
+          "required": true,
+          "default_value": false
         }
       ]
     }

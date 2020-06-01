@@ -12,10 +12,15 @@ var PageRenderHelper = require('*/cartridge/experience/utilities/PageRenderHelpe
  */
 module.exports.render = function (context) {
     var model = new HashMap();
+    var content = context.content;
     model.regions = PageRenderHelper.getRegionModelRegistry(context.component);
-
-    var gridComponents = model.regions.columns; 
-    gridComponents.setClassName("grid-container");
+    var isTwoColumn = content.isTwoColumn;
+    var gridComponents = model.regions.columns;
+    if (isTwoColumn) {
+        gridComponents.setClassName("grid-container-two");
+    } else {
+        gridComponents.setClassName("grid-container");
+    }
     model.gridComponents = gridComponents; 
 
     model.id = 'blogGridLayout-' + PageRenderHelper.safeCSSClass(context.component.getID());

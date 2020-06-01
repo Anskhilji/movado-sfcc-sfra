@@ -9,14 +9,11 @@
         "description": "Configs related to grid behaviour",
         "attribute_definitions": [
           {
-            "id": "columns",
-            "name": "No of Columns",
-            "type": "enum",
-            "default_value": 3,
-            "values": [
-                2,
-                3
-            ],
+            "id": "isTwoColumn",
+            "name": "Two Column Grid",
+            "description": "Show Two columns on Large Screens",
+            "type": "boolean",
+            "default_value": false,
             "required": false
           }
         ]

@@ -13,6 +13,9 @@
                     <a href="${button.link}" class="article-grid-item-tag" title="Product">
                         <span>${button.text}</span>
                     </a>
+                    <isif condition="${!loopstatus.last}">
+                        <span class="article-grid-item-separator"> | </span>
+                    </isif>
                 </isloop>
             </div>
             <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">

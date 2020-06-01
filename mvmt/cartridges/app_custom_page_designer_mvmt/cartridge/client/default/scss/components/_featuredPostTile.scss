@@ -63,6 +63,11 @@
         margin: 0 rem(30) rem(100);
     }
 
+    &-separator {
+        background-color: $black;
+        color: $white;
+    }
+
     &-link {
         line-height: 1.5;
         font-size: 100%;
@@ -139,6 +144,11 @@
         display: block;
         padding-left: rem(10);
         padding-right: rem(10);
+
+        &:hover {
+            color: $white;
+            text-decoration: underline;
+        }
     }
 
     &-title {
@@ -174,7 +184,7 @@
 
         &:after {
             content: "";
-            background-image: url(//cdn.shopify.com/s/files/1/0377/2037/t/140/assets/arrow-right.svg?v=6474694153458622087);
+            background-image: url(../../images/arrow-right.svg);
             background-size: cover;
             background-repeat: no-repeat;
             display: inline-block;
