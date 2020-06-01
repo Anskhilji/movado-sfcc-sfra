@@ -71,7 +71,7 @@ $('#newsletterSubscribe').submit(function (e) {
     var $submisstionStatusDiv = $('.submission-status div');
     var $footermorefields = $('.footer-more-fields');
     if (inputValue !== '') {
-        var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+        var pattern = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             if(!pattern.test(inputValue)) {
                 wrapperContainer.removeClass('d-none');
                 $submisstionStatusDiv.text(wrapperContainer.data('errormsg')).attr('class', 'error');

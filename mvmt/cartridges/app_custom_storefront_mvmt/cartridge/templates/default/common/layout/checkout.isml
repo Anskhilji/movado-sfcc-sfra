@@ -35,6 +35,7 @@
             </footer>
         </iscomment>
         </div>
+        <div class="modal-background"></div>
         <!--[if lt IE 10]>
             <isinclude sf-toolkit="off" template="/common/scripts" />
         <![endif]-->

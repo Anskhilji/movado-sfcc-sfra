@@ -129,6 +129,7 @@ function processResponse(response) {
  */
 function getSuggestions(scope) {
     if ($(scope).val().length >= minChars) {
+        $suggestionsSlots.hide();
         $.spinner().start();
         $.ajax({
             context: scope,

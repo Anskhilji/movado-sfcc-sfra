@@ -16,6 +16,8 @@
     &.in {
         width: 70%;
         background-color: $light-gray11;
+        z-index: 999999;
+        max-width: rem(365);
     }
 }
 
@@ -88,6 +90,7 @@
             padding-left: 5%;
             padding-right: 5%;
             margin-bottom: rem(10);
+            object-fit: cover;
         }
         
         .image-text {
