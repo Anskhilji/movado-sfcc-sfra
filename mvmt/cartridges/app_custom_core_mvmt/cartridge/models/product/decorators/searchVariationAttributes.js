@@ -4,6 +4,7 @@ var searchVariationAttributes = module.superModule;
 
 var ATTRIBUTE_NAME = 'color';
 var collections = require('*/cartridge/scripts/util/collections');
+var ImageModel = require('*/cartridge/models/product/productImages');
 var URLUtils = require('dw/web/URLUtils');
 
 module.exports = function (object, hit) {
@@ -18,7 +19,7 @@ module.exports = function (object, hit) {
                 swatchable: true,
                 values: collections.map(colors, function (color) {
                     var apiImage = color.getImage('swatch', 0);
-                    var apiLargeImage = color.getImage('large', 0);
+                    var apiLargeImage = new ImageModel(color, { types: ['tile533', 'tile256', 'tile217', 'tile150'], quantity: 'single' });
                     if (!apiImage) {
                         return {};
                     }
@@ -36,9 +37,9 @@ module.exports = function (object, hit) {
                                 title: apiImage.title
                             }],
                             large: [{
-                                alt: apiLargeImage.alt,
-                                url: apiLargeImage.URL.toString(),
-                                title: apiLargeImage.title
+                                alt: apiLargeImage.tile256[0].alt,
+                                url: apiLargeImage.tile256[0].url.toString(),
+                                title: apiLargeImage.tile256[0].title
                             }]
                         },
                         pdpURL: URLUtils.url(
