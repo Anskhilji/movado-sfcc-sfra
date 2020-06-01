@@ -467,3 +467,19 @@ body {
     max-width: rem(1680);
     margin: 0 auto;
 }
+
+.modal-background {
+    z-index: 99999;
+}
+
+.veil {
+    z-index: 999999;
+}
+
+.modal {
+    z-index: 999999;
+}
+
+.modal-backdrop {
+    z-index: 99999;
+}

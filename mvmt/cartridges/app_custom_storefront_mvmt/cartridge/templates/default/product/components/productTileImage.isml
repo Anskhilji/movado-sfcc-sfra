@@ -2,16 +2,34 @@
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
     	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
     </isloop>
-    <a href="${pdict.urls.product}">
-	    <isif condition="${product && product.images}"> 
+    <isif condition="${product && product.images && !pdict.display.plpTile}"> 
+        <a href="${pdict.urls.product}">
 	        <picture>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" src="${product.images.tile256[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
 	        </picture>
-        </isif>
-    </a>
+        </a>
+    <iselseif condition="${product && product.images && product.productType != 'master'}" >
+        <a href="${pdict.urls.product}">
+            <picture>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" src="${product.images.tile256[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+            </picture>
+        </a>
+    <iselse>
+        <a href="${product.variationPdpURL}">
+            <picture>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+              <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" src="${product.defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+            </picture>
+        </a>
+    </isif>
     <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
     <isif condition="${pdict.display.showQuickView !== false}">
      <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">

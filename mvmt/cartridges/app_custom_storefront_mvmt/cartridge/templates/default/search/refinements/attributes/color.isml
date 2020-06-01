@@ -7,7 +7,7 @@
         
     </li>
 <iselse>
-    <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
+    <li title="${refinementValue.title}" class="col-sm-auto color-swatch col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
     <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
             <label class="color-elements">
                 <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} color" <isif condition="${!refinementValue.selectable}">disabled</isif>>
