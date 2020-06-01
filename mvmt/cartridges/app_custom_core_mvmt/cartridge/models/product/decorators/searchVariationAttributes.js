@@ -18,6 +18,7 @@ module.exports = function (object, hit) {
                 swatchable: true,
                 values: collections.map(colors, function (color) {
                     var apiImage = color.getImage('swatch', 0);
+                    var apiLargeImage = color.getImage('large', 0);
                     if (!apiImage) {
                         return {};
                     }
@@ -33,6 +34,11 @@ module.exports = function (object, hit) {
                                 alt: apiImage.alt,
                                 url: apiImage.URL.toString(),
                                 title: apiImage.title
+                            }],
+                            large: [{
+                                alt: apiLargeImage.alt,
+                                url: apiLargeImage.URL.toString(),
+                                title: apiLargeImage.title
                             }]
                         },
                         pdpURL: URLUtils.url(
