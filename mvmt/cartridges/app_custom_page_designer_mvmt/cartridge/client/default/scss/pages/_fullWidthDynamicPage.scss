@@ -3,7 +3,7 @@
     max-width: rem(1440);
     margin: auto;
 
-    @include media-up (615px) {
+    @include media-up ($mvmt-custom-sm) {
         padding-left: rem(20);
         padding-right: rem(20);
     }

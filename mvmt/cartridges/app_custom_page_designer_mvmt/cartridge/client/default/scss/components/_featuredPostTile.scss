@@ -314,7 +314,7 @@
                     width: 50%;
                     top: 25%;
                     left: 0;
-                    box-shadow: 0 0 27px rem(-3) rgba(0,0,0,.3);
+                    box-shadow: 0 0 rem(27) rem(-3) rgba(0,0,0,.3);
                 }
 
                 &-tag-wrapper {
@@ -379,7 +379,7 @@
 
             @include media-up ($mvmt-custom-lg) {
                 text-align: left;
-                letter-spacing: 4.4px;
+                letter-spacing: rem(4.4);
                 font-weight: bold;
             }
         }
@@ -390,7 +390,7 @@
 
             @include media-up ($mvmt-custom-lg) {
                 font-size: rem(14);
-			    line-height: rem(20);
+                line-height: rem(20);
             }
         }
 
@@ -407,7 +407,7 @@
             @include media-up ($mvmt-custom-lg) {
                 width: 80%;
             }
-		}
+        }
 
     }
 

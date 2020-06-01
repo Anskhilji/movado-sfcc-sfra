@@ -46,9 +46,9 @@
             border-left: rem(1) solid $light-gray4;;
         }
 
-		&:hover {
-			background-color: $alice-blue;
-		}
+        &:hover {
+            background-color: $alice-blue;
+        }
 
         @include media-breakpoint-down(sm) {
             color: $gray11;
