@@ -1559,8 +1559,6 @@ function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
     var commerceItems = new ArrayList();
     var lineItemTotalNetAmount = getLineItemTotalNetAmount(allProductLineItems);
     
-//    var price = getRoundingAmount(allProductLineItems);
-    
     var eswOrderNo = !empty(order.custom.eswOrderNo) ? order.custom.eswOrderNo : '';
 
     var tax1 = ZERO;
