@@ -182,7 +182,7 @@ function updateEvent(params, service) {
     var responsePayload = null;
     var result = {
         message: Resource.msg('newsletter.signup.success', 'common', null),
-        success: true
+        success: false
     }
     try {
         responsePayload = service.call(JSON.stringify(updateEventPayload));
@@ -190,24 +190,31 @@ function updateEvent(params, service) {
         Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
 
-    if (responsePayload.getError() == '401') {
-        updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken);
+    if (!empty(responsePayload.object) && !empty(responsePayload.object.empty)) {
+        if (!responsePayload.object.empty) {
+            result.success = true;
+        }
+    } else {
         params.isExpired = true;
         accessToken = getAuthToken(params);
         params.isExpired = false;
-        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken);
         try {
             responsePayload = service.call(JSON.stringify(updateEventPayload));
         } catch (e) {
             Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
-    }
-
-    if (responsePayload.object.errorcode == 0 && responsePayload.object.message == 'Not Authorized') {
-        if (params.isJob == false) {
-            SFMCCOHelper.saveMCPayload(params);
+        if (!empty(responsePayload.object) && !empty(responsePayload.object.empty)) {
+            if (!responsePayload.object.empty) {
+                result.success = true;
+            }
+        } else {
+            if (params.isJob == false) {
+                SFMCCOHelper.saveMCPayload(params);
+                result.success = false;
+            }
         }
-        result.success = false;
+        
     }
     return result;
 }

@@ -27,12 +27,23 @@ function saveEmailSubscriber(email) {
 }
 
 function saveMCPayload(params) {
+    var payLoad = '';
     try {
         var UUID = UUIDUtils.createUUID();
         if (UUID) {
             Transaction.wrap(function () {
                 var mcSubscriberObject = CustomObjectMgr.createCustomObject(Constants.SFMC_SUBSCRIBER_OBJECT, UUID);
-                mcSubscriberObject.custom.mcPayload = 'params';
+                payLoad = {
+                    email: params.email,
+                    Country: params.Country,
+                    FirstName: params.FirstName,
+                    LastName: params.LastName,
+                    CampaignName: params.CampaignName,
+                    Birthday: params.Birthday,
+                    Gender: params.Gender,
+                    PhoneNumber: params.PhoneNumber
+                }
+                mcSubscriberObject.custom.mcPayload = JSON.stringify(payLoad);
             });
         }
     } catch (e) {

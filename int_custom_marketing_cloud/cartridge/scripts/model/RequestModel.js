@@ -61,17 +61,17 @@ function generateAddContactToDataExtensionPayload(params) {
 function generateUpdateEventPayload(params, accessToken) {
     return {
         "Method": "updateEvents",
-        "Token": 'jsf',
+        "Token": accessToken,
         "attributes": [{
             "Email": params.email,
-            "Country": "Country",
-            "FirstName": "FirstName",
-            "LastName": "LastName",
-            "CampaignName": "CampaignName",
-            "Birthday": "Birthday",
-            "Gender": "Gender",
-            "PhoneNumber": "123456789",
-            "EventName": "EventName"
+            "Country": params.Country,
+            "FirstName": params.FirstName,
+            "LastName": params.LastName,
+            "CampaignName": params.CampaignName,
+            "Birthday": params.Birthday,
+            "Gender": params.Gender,
+            "PhoneNumber": params.PhoneNumber,
+            "EventName": params.EventName
         }]
     };
 }
