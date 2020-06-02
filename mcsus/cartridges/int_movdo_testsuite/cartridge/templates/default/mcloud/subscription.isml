@@ -15,45 +15,52 @@
                         <h4>Subscription Form</h4>
                     </div>
                     <div class="card">
-					    <form action="${URLUtils.url('MCloudTest-Subscribe')}" class="login" method="POST"
-					        name="SFRAHelloForm">
-					
-					        <div class="form-group required">
-					            <label> first name: </label> <input type="input" id="firstname"
-					                class="form-control" name="firstname">
-					        </div>
-					         <div class="form-group required">
-					            <label> last name: </label> <input type="input" id="lastname"
-					                class="form-control" name="lastname">
-					        </div>
-					        <div class="form-group required">
-                                <label> email: </label> <input type="input" id="email"
-                                    class="form-control" name="email">
-                            </div>
+                        <form action="${URLUtils.url('MCloudTest-Subscribe')}" class="login" method="POST"
+                            name="SFRAHelloForm">
+
                             <div class="form-group required">
-                                <label> country: </label> <input type="input" id="country"
-                                    class="form-control" name="country">
-                            </div>
-                            <div class="form-group required">
-                                <label> compaign: </label> <input type="input" id="compaign"
-                                    class="form-control" name="compaign">
-                            </div>
-                            <div class="form-group required">
-                                <label> birthday: </label> <input type="input" id="birthday"
-                                    class="form-control" name="birthday">
-                            </div>
-                            <div class="form-group required">
-                                <label> gender: </label> <input type="input" id="gender"
-                                    class="form-control" name="gender">
-                            </div>
-                            <div class="form-group required">
-                                <label> phone: </label> <input type="input" id="phone"
-                                    class="form-control" name="phone">
+                                <label> first name: </label>
+                                <input type="input" id="firstname" class="form-control" name="firstname">
                             </div>
                             
-					        <button type="submit" class="btn btn-block btn-primary">Submit</button>
-					    </form>
-					</div>
+                            <div class="form-group required">
+                                <label> last name: </label>
+                                <input type="input" id="lastname" class="form-control" name="lastname">
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label> email: </label>
+                                <input type="input" id="email" class="form-control" name="email">
+                            </div>
+                                
+                            <div class="form-group required">
+                                <label> country: </label>
+                                <input type="input" id="country" class="form-control" name="country">
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label> compaign: </label>
+                                <input type="input" id="compaign" class="form-control" name="compaign">
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label> birthday: </label>
+                                <input type="input" id="birthday" class="form-control" name="birthday">
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label> gender: </label>
+                                <input type="input" id="gender" class="form-control" name="gender">
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label> phone: </label>
+                                <input type="input" id="phone" class="form-control" name="phone">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

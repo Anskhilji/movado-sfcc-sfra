@@ -51,12 +51,14 @@ function exportAllSavedSubscribers() {
                     
                     service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, Constants.SFMC_DATA_API_ENDPOINT.UPDATE_DATA, accesToken, Constants.SFMC_SERVICE_API_TYPE.UPDATE);
                     var payload = JSON.parse(subscriber.custom.mcPayload);
-                    payload.EventName = Site.current.getCustomPreferenceValue('mcEventDefinationKey');
-                    result = SFMCAPIHelper.updateEvent(payload, service);
-                    if (result.success === true) {
-                        Transaction.wrap(function () {
-                            CustomObjectMgr.remove(subscriber);
-                        });
+                    if (!empty(payload)) {
+                        payload.EventName = Site.current.getCustomPreferenceValue('mcEventDefinationKey');
+                        result = SFMCAPIHelper.updateEvent(payload, service);
+                        if (result.success === true) {
+                            Transaction.wrap(function () {
+                                CustomObjectMgr.remove(subscriber);
+                            });
+                        }
                     }
                 } else {
                     params.email = subscriber.custom.email;

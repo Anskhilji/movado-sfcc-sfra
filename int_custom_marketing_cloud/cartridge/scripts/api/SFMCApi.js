@@ -56,7 +56,7 @@ function sendSubscriberToSFMC(requestParams) {
             }
         }
     }  catch (e) {
-        Logger.error('MarketingCloud sendSubscriberToSFMC: some exception occured while exporting subscriber mainSFMC- {0}', e.toString());
+        Logger.error('MarketingCloud sendSubscriberToSFMC: some exception occured while exporting subscriber - {0}', e.toString());
         SFMCCOHelper.saveEmailSubscriber(params.email);
     }
     return result;

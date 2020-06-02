@@ -81,7 +81,7 @@ function addContactToMC(params, service) {
             Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.invalid', 'common', null));
         } else {
             result.message = Resource.msg('newsletter.email.error.subscription.general', 'common', null);
-            Logger.debug('MarketingCloud taht addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
+            Logger.debug('MarketingCloud addContactToJourney: {0}', Resource.msg('newsletter.email.error.subscription.general', 'common', null));
         }
         isSaveCustomObject = false;
         result.success = false;
