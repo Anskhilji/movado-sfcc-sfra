@@ -31,14 +31,14 @@ function sendSubscriberToSFMC(requestParams) {
         var accessToken = SFMCAPIHelper.getAuthToken(params);
         if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
             params.email = requestParams.email;
-            params.Country = requestParams.Country;
-            params.FirstName = requestParams.FirstName;
-            params.LastName = requestParams.LastName;
-            params.CampaignName = requestParams.CampaignName;
+            params.Country = requestParams.country;
+            params.FirstName = requestParams.firstName;
+            params.LastName = requestParams.lastName;
+            params.CampaignName = requestParams.campaignName;
             params.EventName = Site.current.getCustomPreferenceValue('mcEventDefinationKey');
-            params.Birthday = requestParams.Birthday;
-            params.Gender = requestParams.Gender;
-            params.PhoneNumber = requestParams.PhoneNumber;
+            params.Birthday = requestParams.birthday;
+            params.Gender = requestParams.gender;
+            params.PhoneNumber = requestParams.phoneNumber;
             service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, Constants.SFMC_DATA_API_ENDPOINT.UPDATE_DATA, accessToken, Constants.SFMC_SERVICE_API_TYPE.UPDATE);
             result = SFMCAPIHelper.updateEvent(params, service);
         } else {

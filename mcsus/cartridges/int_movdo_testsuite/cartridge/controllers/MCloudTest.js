@@ -8,13 +8,13 @@ server.post('Subscribe', function (req, res, next) {
         
         var params = {
             email: req.form.email,
-            Country: req.form.country,
-            FirstName: req.form.firstname,
-            LastName: req.form.lastname,
-            CampaignName: req.form.compaign,
-            Birthday: req.form.birthday,
-            Gender: req.form.gender,
-            PhoneNumber: req.form.phone,
+            country: req.form.country,
+            firstName: req.form.firstname,
+            lastName: req.form.lastname,
+            campaignName: req.form.compaign,
+            birthday: req.form.birthday,
+            gender: req.form.gender,
+            phoneNumber: req.form.phone,
         };
         var result = SFMCApi.sendSubscriberToSFMC(params);
         res.render('mcloud/result', { result: result });
