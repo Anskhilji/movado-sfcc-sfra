@@ -35,13 +35,13 @@ function saveMCPayload(params) {
                 var mcSubscriberObject = CustomObjectMgr.createCustomObject(Constants.SFMC_SUBSCRIBER_OBJECT, UUID);
                 payLoad = {
                     email: params.email,
-                    Country: params.Country,
-                    FirstName: params.FirstName,
-                    LastName: params.LastName,
-                    CampaignName: params.CampaignName,
-                    Birthday: params.Birthday,
-                    Gender: params.Gender,
-                    PhoneNumber: params.PhoneNumber
+                    country: params.country,
+                    firstName: params.firstName,
+                    lastName: params.lastName,
+                    campaignName: params.campaignName,
+                    birthday: params.birthday,
+                    gender: params.gender,
+                    phoneNumber: params.phoneNumber
                 }
                 mcSubscriberObject.custom.mcPayload = JSON.stringify(payLoad);
             });

@@ -64,14 +64,14 @@ function generateUpdateEventPayload(params, accessToken) {
         "Token": accessToken,
         "attributes": [{
             "Email": params.email,
-            "Country": params.Country,
-            "FirstName": params.FirstName,
-            "LastName": params.LastName,
-            "CampaignName": params.CampaignName,
-            "Birthday": params.Birthday,
-            "Gender": params.Gender,
-            "PhoneNumber": params.PhoneNumber,
-            "EventName": params.EventName
+            "Country": params.country,
+            "FirstName": params.firstName,
+            "LastName": params.lastName,
+            "CampaignName": params.campaignName,
+            "Birthday": params.birthday,
+            "Gender": params.gender,
+            "PhoneNumber": params.phoneNumber,
+            "EventName": params.eventName
         }]
     };
 }
