@@ -220,18 +220,19 @@
   .suggested-products-caresoul {
     padding-left: 0;
 
-    .product {
-      width: 33%;
-      flex: 0 0 33%;
-      max-width: rem(210);
-    }
-
     .top-search-tiles {
       max-width: 75%;
-      max-height: rem(340);
+      max-height: rem(360);
       overflow-y: auto;
       overflow-x: hidden;
       flex-wrap: wrap;
+
+      
+      & > .product {
+        width: 33%;
+        flex: 0 0 33%;
+        max-width: rem(210);
+      }
     }
 
     .product-tile {
