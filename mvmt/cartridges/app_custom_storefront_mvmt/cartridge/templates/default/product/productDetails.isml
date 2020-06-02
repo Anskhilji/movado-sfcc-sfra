@@ -168,7 +168,7 @@
             <isinclude template="product/components/productGallery" />
         </div>
 
-        <div class="container p-0">
+        <div class="discrition-container p-0">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
