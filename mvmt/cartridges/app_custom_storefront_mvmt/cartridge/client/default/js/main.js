@@ -14,5 +14,6 @@ $(document).ready(function () {
     processInclude(require('./components/mobileMenu'));
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
+    processInclude(require('./utilities/gtm-events'));
 });
 

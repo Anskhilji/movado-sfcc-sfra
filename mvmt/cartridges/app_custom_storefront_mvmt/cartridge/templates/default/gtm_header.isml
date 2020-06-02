@@ -1,0 +1,139 @@
+<script>
+	dataLayer = window.dataLayer = window.dataLayer || [];
+	pageDataGTM = {};
+	checkoutDataLayer = [];
+	var gtm_PageType = '${pdict.gtm.pageType}';
+	pageDataGTM = {
+		'pageType': '${pdict.gtm.pageType}',
+		'userEmail': '${pdict.gtm.language}',
+		'hashedEmail': '${pdict.gtm.language}',
+		'customerType': '${pdict.gtm.language}',
+		'userFirstName': '${pdict.gtm.language}',
+		'userLastName': '${pdict.gtm.language}',
+		'language': '${pdict.gtm.language}',
+		'userPhone': '${pdict.gtm.language}',
+		'userZip': '${pdict.gtm.language}',
+		'currencyCode': '${pdict.gtm.language}',
+		'hashedEmail': '${pdict.gtm.language}',
+		'logState': '${pdict.gtm.loginStatus}',
+		'country': '${pdict.gtm.language}',
+	};	
+	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
+		dataLayer.push ({
+			'ecommerce':{ 
+			'detail': { "actionField": {"list": "detail"},
+				'products':[ {
+					'id': '${pdict.gtm.product.productID}',
+					'name':  '${pdict.gtm.product.productName}',
+					'price': '${pdict.gtm.product.productPrice}',
+					'brand': '${pdict.gtm.product.brand}',
+					'category': '${pdict.gtm.product.category}',
+					'variant': '${pdict.gtm.product.productPersonalization}',
+					'list': '${pdict.gtm.product.list}'
+				}]
+			}
+		},
+		"event": "productDetail"
+		});				
+	</isif>
+
+	<isif condition="${pdict.gtm.action === 'cart-show'}">
+	dataLayer.push (
+			
+				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+					{'ecommerce':{'checkout': {
+					'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+					"products": [
+					<isloop items="${checkoutObj}" var="produtArray" status="status">
+						{'id': '${produtArray.cartObj.id}',
+						'name':  '${produtArray.cartObj.name}',
+						'price': '${produtArray.cartObj.price}',
+						'brand': '${produtArray.cartObj.brand}',
+						'category': '${produtArray.cartObj.category}',
+						'variant': '${produtArray.cartObj.variant}',
+						'revenue': '${produtArray.cartObj.revenue}',
+						'tax': '${produtArray.cartObj.tax}',
+						'shipping': '${produtArray.cartObj.shipping}',
+						'coupon': '${produtArray.cartObj.coupon}'}
+						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+            		</isloop>
+							]
+						}	
+					},
+					"event": "checkout"}
+					<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+				</isloop>
+		);				
+	</isif>
+	
+	<isif condition="${pdict.gtm.action ==='checkout-begin'}">
+	checkoutDataLayer.push (
+			
+			<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+			{'ecommerce':{'checkout': {
+			'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+			"products": [
+			<isloop items="${checkoutObj}" var="produtArray" status="status">
+				{'id': '${produtArray.cartObj.id}',
+				'name':  '${produtArray.cartObj.name}',
+				'price': '${produtArray.cartObj.price}',
+				'brand': '${produtArray.cartObj.brand}',
+				'category': '${produtArray.cartObj.category}',
+				'variant': '${produtArray.cartObj.variant}',
+				'revenue': '${produtArray.cartObj.revenue}',
+				'tax': '${produtArray.cartObj.tax}',
+				'shipping': '${produtArray.cartObj.shipping}',
+				'coupon': '${produtArray.cartObj.coupon}'}
+				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+    		</isloop>
+					]
+				}	
+			},
+			"event": "checkout"}
+			<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+		</isloop>
+		);				
+	</isif>
+	<isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
+	dataLayer.push (
+		<isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
+			{ "event": "purchase",'ecommerce':{
+				'currencyCode': "${orderProdutsArray[0].productObj.currency}",			
+				'purchase':{
+					'actionField':
+						<isloop items="${orderProdutsArray}" var="orderObj">
+							<isif condition= "${orderObj.orderObj}">
+								{'id': '${orderObj.orderObj.orderId}',
+								'revenue': '${orderObj.orderObj.revenue}',
+								'tax': '${orderObj.orderObj.tax}',
+								'shipping': '${orderObj.orderObj.shipping}',
+								'coupon': '${orderObj.orderObj.orderCoupon}'}
+							</isif>
+						</isloop>
+                            
+			, 'products':[
+				<isloop items="${orderProdutsArray}" var="orderObj" status="status"> 
+				<isif condition= "${orderObj.productObj}">
+					{
+					'id': '${orderObj.productObj.id}',
+					'name': '${orderObj.productObj.name}',
+					'brand': '${orderObj.productObj.brand}',
+					'category': '${orderObj.productObj.category}',
+					'variant': '${orderObj.productObj.variant}',
+					'price': '${orderObj.productObj.price}',
+					'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
+					'coupon': '${orderObj.productObj.itemCoupon}'
+					}
+					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
+				</isif>
+			</isloop>
+               ]
+			}
+		}
+  }
+				<isif condition= "${loopStatus.index < pdict.gtm.orderConfirmation.length-1}">,</isif>
+	         </isloop>
+		);
+</isif>
+	
+</script>
