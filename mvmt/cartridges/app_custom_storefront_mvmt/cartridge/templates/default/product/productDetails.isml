@@ -164,7 +164,7 @@
 
         <iscontentasset aid="pdp-why-polarization-content" />
 
-        <div class="container p-0">
+        <div class="container p-0 product-gallery">
             <isinclude template="product/components/productGallery" />
         </div>
 
