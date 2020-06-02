@@ -23,8 +23,11 @@ var SalesforceFactory = {
         rest: 'salesforce.rest'
     },
     ENDPOINTS: {
-        FULFILLMENTORDER: '/services/data/v48.0/sobjects/FulfillmentOrder',
-        FULFILLMENTORDERLINEITEM: '/services/data/v48.0/sobjects/FulfillmentOrderLineItem'
+        COMMERCE: '/services/data/v49.0/commerce',
+        FULFILLMENTORDER: '/services/data/v49.0/sobjects/FulfillmentOrder',
+        FULFILLMENTORDERLINEITEM: '/services/data/v49.0/sobjects/FulfillmentOrderLineItem',
+        FULFILLMENTSTATUSCHANGE: '/services/data/v49.0/sobjects/Fulfillment_Status_Change__e',
+        SHIPMENT: '/services/data/v49.0/sobjects/Shipment'
     },
 
     /**
@@ -59,7 +62,7 @@ var SalesforceFactory = {
 
         return requestDataContainer;
     },
-    buildCreateSalesforceComposteRequestContainer: function (allOrNone, compositeRequestData) {
+    buildCreateSalesforceCompositeRequestContainer: function (allOrNone, compositeRequestData) {
         var requestDataContainer = {
             action: this.ACTIONS.COMPOSITE,
             requestMethod: 'POST',

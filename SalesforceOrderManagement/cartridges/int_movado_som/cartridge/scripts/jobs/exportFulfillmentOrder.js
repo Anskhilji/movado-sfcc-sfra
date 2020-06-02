@@ -54,7 +54,7 @@ function exportFulfillmentOrder(args) {
   Logger.info(JSON.stringify(responseBody));
 
   if (responseBody.length) {
-    responseBody.forEach(function (record) { //eslint-disable-line
+    responseBody.forEach(function (record) {
       var fileName = record.poHeader.poNumber + '_' + moment().format('YYYYMMDD_hhmmss') + filePattern;
       var file = new File(impexFilePath + fileName);
 
@@ -170,6 +170,7 @@ function exportFulfillmentOrder(args) {
           writeXmlElement(streamWriter, 'POItemNumber', poItem.poItemNumber);
           writeXmlElement(streamWriter, 'SKUNumber', poItem.skuNumber);
           writeXmlElement(streamWriter, 'Quantity', poItem.quantity);
+          writeXmlElement(streamWriter, 'PreSale', poItem.preSale);
           writeXmlElement(streamWriter, 'RequestedDeliveryDate', poItem.requestedDeliveryDate);
           writeXmlElement(streamWriter, 'IsThisBillable', poItem.isThisBillable);
           writeXmlElement(streamWriter, 'VATEntity', '');
@@ -191,6 +192,7 @@ function exportFulfillmentOrder(args) {
           writeXmlElement(streamWriter, 'Tax6', poItem.tax6 || 0, true);
           writeXmlElement(streamWriter, 'NetAmount', poItem.netAmount.toFixed(2), true);
           writeXmlElement(streamWriter, 'ShippingCost', '');
+          writeXmlElement(streamWriter, 'ConsTaxByMGI', '');
           writeXmlElement(streamWriter, 'ConsumerGrossValue', '');
           writeXmlElement(streamWriter, 'ConsumerMarkDownAmount', '');
           writeXmlElement(streamWriter, 'ConsumerPromoAmount', '');
@@ -201,6 +203,35 @@ function exportFulfillmentOrder(args) {
           writeXmlElement(streamWriter, 'ConsumerDutyAmount', '');
           writeXmlElement(streamWriter, 'ConsumerInsAmount', '');
           writeXmlElement(streamWriter, 'ConsumerNetAmount', '');
+
+          /* Create EcommercePOItemPersonalization Elements : start */
+          if (poItem.personalizations) {
+            poItem.personalizations.forEach(function (personalization) {  /* Gift Wrapping / Personalization */
+              streamWriter.writeStartElement('EcommercePOItemPersonalization');
+              streamWriter.writeCharacters('');
+              streamWriter.writeRaw('\r\n');
+
+              writeXmlElement(streamWriter, 'PersonalizationType', personalization.personalizationType);
+              writeXmlElement(streamWriter, 'LanguageID', '');
+              writeXmlElement(streamWriter, 'IsThisBillable', personalization.isThisBillable);
+              if (personalization.text) {
+                streamWriter.writeStartElement('Text');
+                streamWriter.writeCharacters('');
+                streamWriter.writeRaw('\r\n');
+
+                writeXmlElement(streamWriter, 'SequenceNumber', personalization.text.sequenceNumber);
+                writeXmlElement(streamWriter, 'TextMessage', personalization.text.textMessage);
+
+                /* Create Text Elements : end */
+                streamWriter.writeEndElement();
+                streamWriter.writeRaw('\r\n');
+              }
+
+              /* Create EcommercePOItemPersonalization Elements : end */
+              streamWriter.writeEndElement();
+              streamWriter.writeRaw('\r\n');
+            });
+          }
 
           /* Create EcommercePOItem Elements : end */
           streamWriter.writeEndElement();
