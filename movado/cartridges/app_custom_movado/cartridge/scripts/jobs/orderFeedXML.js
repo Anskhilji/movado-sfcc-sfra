@@ -132,11 +132,13 @@ function getLineItemPromoAmount(lineItem, shippingCountry) {
             lineItem.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     var eswRetailerCurrencyItemTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemTaxes) ?
             lineItem.custom.eswRetailerCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemOtherTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     if(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount > ZERO && eswRetailerCurrencyItemSubTotal !== ZERO) {
         if (shippingCountry.value === 'CA') {
             crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
         } else {
-            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes) + parseFloat(eswRetailerCurrencyItemOtherTaxes))).toFixed(TWO_DECIMAL_PLACES);
         }
     } else if (eswRetailerCurrencyItemSubTotal === ZERO) {
         crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - ZERO) * 1) / (1)).toFixed(TWO_DECIMAL_PLACES);
@@ -164,11 +166,13 @@ function getLineItemConsumerPromoAmount(lineItem, shippingCountry) {
             lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     var eswShopperCurrencyItemTaxes = !empty(lineItem.custom.eswShopperCurrencyItemTaxes) ?
             lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemOtherTaxes = !empty(lineItem.custom.eswShopperCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     if (lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount > ZERO && eswShopperCurrencyItemSubTotal !== ZERO) {
         if (shippingCountry.value === 'CA') {
             crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
         } else {
-            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes) + parseFloat(eswShopperCurrencyItemOtherTaxes))).toFixed(TWO_DECIMAL_PLACES);
         }
     } else if (eswShopperCurrencyItemSubTotal === ZERO) {
         crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - ZERO) * 1) / (1)).toFixed(TWO_DECIMAL_PLACES);
