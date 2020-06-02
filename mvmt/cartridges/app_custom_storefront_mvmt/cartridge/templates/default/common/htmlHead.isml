@@ -41,7 +41,7 @@
         <isinclude url="${URLUtils.url('GTM-LoadDataLayer','urlAction',pdict.action,'urlQueryString',pdict.queryString)}" />
     </isif>
 </div>
-
+<isinclude url="${URLUtils.url('CanonicalURL-Show', 'action', pdict.action)}"/>
 <isif condition="${pdict.action && pdict.action ==='Home-Show'}">
     <link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
     <isprint value="${pdict.content}" encoding="off"/>
