@@ -2031,6 +2031,11 @@
     }
 }
 
+.description-container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+}
+
 .pdp-tabs-body {
 
     .pdp-tab-content {
@@ -2149,6 +2154,7 @@
         }
     }
 }
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
