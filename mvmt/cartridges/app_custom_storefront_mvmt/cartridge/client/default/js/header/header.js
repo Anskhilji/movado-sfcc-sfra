@@ -17,6 +17,7 @@ $('.desktop-search-icon').click(function() {
     $('.desktop-side-search .header-search-field').focus();
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();
+    $('.clear-text-img').trigger('click');
     $('.search-modal-open').addClass('active');
     if ($stickyHeader.hasClass('fixed-header')){
         $(".search-input-field").addClass('search-input-field-remove');
