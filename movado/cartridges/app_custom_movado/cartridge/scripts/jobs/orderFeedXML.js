@@ -2763,18 +2763,16 @@ function generateOrderXML(order) {
                     }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeStartElement('ConsTaxByMGI');
-                        if (isEswEnabled) {
-                            if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
-                                streamWriter.writeCharacters(commerceItem.TaxAmount);
-                            } else {
-                                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
-                            }
+                    streamWriter.writeStartElement('ConsTaxByMGI');
+                    if (isEswEnabled) {
+                        if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
+                            streamWriter.writeCharacters(commerceItem.TaxAmount);
+                        } else {
+                            streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                         }
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
                     }
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerGrossValue');
                     if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         if (eswOrderNo) {
