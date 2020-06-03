@@ -1,5 +1,6 @@
 'use strict';
 
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -76,5 +77,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (!params.availability || params.availability == true) {
         decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
     }
+
+    //Custom Start: Adding esw latest cartridge code
+    Object.defineProperty(product, 'isProductRestricted', {
+        enumerable: true,
+        value: eswHelper.isProductRestricted(apiProduct.custom)
+    });
+    // Custom end
+
     return product;
 };
