@@ -47,6 +47,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.refine-wrapper',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -280,6 +281,11 @@ module.exports = {
     sort: function () {
         // Handle sort order menu selection
         $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
+            setTimeout( function () {
+                if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
+                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                }
+            }, 20);
             var url = this.value;
             e.preventDefault();
 
@@ -394,6 +400,12 @@ module.exports = {
                         updatePageURLForFacets(e.currentTarget.href);
                         // edit end
                         $.spinner().stop();
+                        $('.search-results.plp-new-design #sort-order').customSelect();
+                        setTimeout( function () {
+                            if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
+                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                            }
+                        }, 20);
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');

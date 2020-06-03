@@ -85,6 +85,7 @@ function searchOrders(currentDateTime, orderFeedJobLastExecutionTime) {
  */
 function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig) {
     var Calendar = require('dw/util/Calendar');
+    var Order = require('dw/order/Order');
     var ProductMgr = require('dw/catalog/ProductMgr');
     var Site = require('dw/system/Site');
     var StringUtils = require('dw/util/StringUtils');
@@ -168,7 +169,12 @@ function prepareOrderJSON(yotpoConfiguration, ordersIterator, exportOrderConfig)
             var regexEmail = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/g;
             customerEmailValid = regexEmail.test(StringUtils.trim(customerEmail));
 
+            var orderStatus = order.getStatus();
             // Skipping the order if any of the following fields empty of an order,
+            if (orderStatus == Order.ORDER_STATUS_CREATED || orderStatus == Order.ORDER_STATUS_FAILED || orderStatus == Order.ORDER_STATUS_CANCELLED) {
+                throw Constants.EXPORT_ORDER_INVALID_ORDER_STATUS_ERROR;
+            }
+
             if (empty(customerName) || empty(customerEmail) || empty(order.orderNo) || (customerEmailValid == false)) {
                 throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
             }

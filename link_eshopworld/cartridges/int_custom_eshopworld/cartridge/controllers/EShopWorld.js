@@ -139,6 +139,17 @@ server.append('NotifyV2', function(req, res, next) {
             orderState: 'created'
         });
     }
+    var emailOptIn = !empty(obj.shopperCheckoutExperience.emailMarketingOptIn) ? obj.shopperCheckoutExperience.emailMarketingOptIn : false;
+    if (emailOptIn) {
+        var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
+        var billingCustomer = obj.contactDetails;
+        var requestParams = {
+            email: billingCustomer[0].email
+        }
+        if (!empty(requestParams) && !empty(requestParams.email)) {
+            SFMCApi.sendSubscriberToSFMC(requestParams);
+        }
+    }
     return next();
 });
 
