@@ -1,8 +1,8 @@
-<section class="${pdict.isFeaturePost ? 'blog-featured-post' : ''}">
-    <isif condition="${pdict.isFeaturePost && !empty(pdict.title) && pdict.title != 'undefined'}">
+<section class="${pdict.isFeaturedPost ? 'blog-featured-post' : ''}">
+    <isif condition="${pdict.isFeaturedPost && !empty(pdict.title) && pdict.title != 'undefined'}">
         <h2 class="blog-featured-post-title">${pdict.title}</h2>
     </isif>
-    <article class="article-grid-item mix ${pdict.isFeaturePost ? 'article-grid-item-featured' : ''}
+    <article class="article-grid-item mix ${pdict.isFeaturedPost ? 'article-grid-item-featured' : ''}
         ${pdict.isDisrupted ? 'article-grid-item-disruptor' : ''}">
         <a href="${pdict.link ? pdict.link : ''}" title="${pdict.subheading ? pdict.subheading : ''}" class="article-grid-item-link">
             <img class="article-grid-item-image" src="${pdict.image.src}" alt="${pdict.image.alt}" />

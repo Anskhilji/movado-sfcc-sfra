@@ -6,7 +6,7 @@
         {
             "id": "blogTileSpecs",
             "name": "Blog Tile Secifications",
-            "description": "Main Configs for Blog Tile, top section",
+            "description": "Main configs for blog tile, top section",
             "attribute_definitions": [
                 {
                     "id": "image",
@@ -42,7 +42,7 @@
         {
             "id": "bottomSection",
             "name": "Bottom Section",
-            "description": "Bottom Section of tile containig subheading, excerpt and buttons",
+            "description": "Bottom section of tile containig subheading, excerpt and buttons",
             "attribute_definitions": [
                 {
                     "id": "subheading",

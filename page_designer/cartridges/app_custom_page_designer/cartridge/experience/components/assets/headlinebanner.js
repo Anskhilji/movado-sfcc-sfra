@@ -30,7 +30,7 @@ module.exports.render = function (context) {
             mobile  : ImageTransformation.url(content.mobileImage, { device: 'mobile' }),
             desktop : ImageTransformation.url(content.desktopImage, { device: 'desktop' })
         },
-        alt         : content.desktopImage.file.getAlt()
+        alt: content.desktopImage.file.getAlt()
     };
 
     return new Template('experience/components/assets/headlinebanner').render(model).text;

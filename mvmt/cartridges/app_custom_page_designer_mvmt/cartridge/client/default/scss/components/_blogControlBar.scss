@@ -12,12 +12,8 @@
     justify-content: center;
     border-top: rem(1) solid $light-gray4;
     border-bottom: rem(1) solid $light-gray4;
-    background: linear-gradient(0deg,$white, $light-gray3);
+    background: linear-gradient(0deg, $white, $light-gray3);
     width: 100%;
-
-    @include media-breakpoint-down(sm) {
-        background: linear-gradient(0deg,$white, $light-gray3);
-    }
 
     &-link {
 
@@ -50,7 +46,7 @@
             background-color: $alice-blue;
         }
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
             color: $gray11;
             line-height: 1;
             display: block;
@@ -63,6 +59,7 @@
     }
 
     &-btn {
+
         box-sizing: inherit; 
         margin: 0;
         overflow: visible;
@@ -72,7 +69,7 @@
         font-family: $blog-font-primary;
         font-weight: 500;
         font-style: normal;
-        background: linear-gradient(0deg,$white,#efefef);
+        background: linear-gradient(0deg, $white, $light-gray10);
         font-size: rem(12);
         line-height: 1;
         vertical-align: middle;
@@ -84,7 +81,7 @@
         cursor: pointer;
         display: none;
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
             display: inline-block;
 
             svg {
@@ -119,14 +116,14 @@
         height: auto;
         width: auto;
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(md) {
             display: block;
             position: fixed;
             transform: translateX(100%);
             height: calc(100vh - 53.5px);
             width: 100%;
             background-color: $white;
-            transition: transform .35s,opacity .35s;
+            transition: transform .35s, opacity .35s;
             z-index: 11;
             opacity: 0;
             overflow-y: scroll;
@@ -137,7 +134,7 @@
 
             display: none;
 
-            @include media-breakpoint-down(sm) {
+            @include media-breakpoint-down(md) {
                 font-family: $blog-font-primary;
                 font-weight: 500;
                 text-transform: uppercase;

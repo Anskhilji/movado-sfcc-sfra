@@ -49,7 +49,7 @@
         {
           "id": "showAddToCart",
           "name": "Add To Cart Button",
-          "description": "Show Add to Cart Button if true",
+          "description": "Show add to cart button if true",
           "type":"boolean",
           "required": true,
           "default_value": false

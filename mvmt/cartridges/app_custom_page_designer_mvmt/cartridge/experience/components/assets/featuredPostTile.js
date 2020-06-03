@@ -49,7 +49,7 @@ module.exports.render = function (context) {
     
     var postTileType = content.type;
     if (postTileType.equals(featuredPost)) {
-        model.isFeaturePost = true;
+        model.isFeaturedPost = true;
     } else if (postTileType.equals(disruptedPost)) {
         model.isDisrupted = true;
     }
