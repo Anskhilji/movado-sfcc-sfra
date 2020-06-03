@@ -44,14 +44,14 @@
         text-transform: uppercase;
         font-weight: 500;
 
-            &:after {
-                content: "";
-                display: block;
-                border-bottom: rem(2) solid $black;
-                position: absolute;
-                bottom: rem(-4);
-                width: 100%;
-            }
+        &:after {
+            content: "";
+            display: block;
+            border-bottom: rem(2) solid $black;
+            position: absolute;
+            bottom: rem(-4);
+            width: 100%;
+        }
     }
     
     @include media-up (xl) {
