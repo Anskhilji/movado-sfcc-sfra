@@ -1,0 +1,4 @@
+<div id="${pdict.id}"> 
+    <isprint value="${pdict.gridComponents.render()}" encoding="off"/>
+    <isprint value="${dw.experience.PageMgr.renderRegion(pdict.columns, pdict.carouselRenderSettings);}" encoding="off"/>
+</div>

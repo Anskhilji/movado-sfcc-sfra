@@ -1,0 +1,38 @@
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > div {
+        width: 100%;
+        height: auto;
+
+        @include media-up ($mvmt-custom-sm) {
+            width: 50%;
+            padding-left: rem(25);
+            padding-right: rem(25);
+        }
+
+        @include media-up ($mvmt-custom-md) {
+            width: 33%;
+        }
+    }
+
+    &-two {
+        display: flex;
+        flex-wrap: wrap;
+      
+        & > div {
+            width: 100%;
+            height: auto;
+        
+            @include media-up ($mvmt-custom-sm) {
+                width: 50%;
+                padding-left: rem(25);
+                padding-right: rem(25);
+            }
+            
+        }
+    }
+}
+
+

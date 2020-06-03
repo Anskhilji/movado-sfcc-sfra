@@ -29,6 +29,9 @@ module.exports.render = function (context) {
     model.carouselRegion = carouselRegion;
     model.id = 'carousel-' + PageRenderHelper.safeCSSClass(context.component.getID());
     model.additionalCss = content.additionalCss;
+    model.idSelector = '#' + model.id;
+    model.mobileMargin = content.mobileMargin;
+    model.deskTopMargin = content.deskTopMargin;
 
     return new Template('experience/components/layouts/carousel').render(model).text;
 };

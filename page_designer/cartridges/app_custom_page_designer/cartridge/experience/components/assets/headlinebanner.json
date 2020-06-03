@@ -9,8 +9,14 @@
       "description": "The visual display of the banner image in the background.",
       "attribute_definitions": [
         {
-          "id": "image",
-          "name": "Image",
+          "id": "desktopImage",
+          "name": "Desktop Image",
+          "type": "image",
+          "required": true
+        },
+        {
+          "id": "mobileImage",
+          "name": "Mobile Image",
           "type": "image",
           "required": true
         },
@@ -30,6 +36,12 @@
         {
           "id": "bannerHeading",
           "name": "Heading",
+          "type": "markup",
+          "required": false
+        },
+        {
+          "id": "bannerSubheading",
+          "name": "Subheading",
           "type": "markup",
           "required": false
         },
@@ -89,7 +101,14 @@
         {
           "id": "headingStyle",
           "name": "Heading Style",
-          "description": "CSS Style for button",
+          "description": "CSS Style for Heading",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "subheadingStyle",
+          "name": "Subeading Style",
+          "description": "CSS Style for Subheading",
           "type": "text",
           "required": false
         }

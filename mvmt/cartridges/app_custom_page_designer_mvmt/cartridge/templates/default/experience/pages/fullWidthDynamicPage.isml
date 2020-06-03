@@ -1,0 +1,18 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isdecorate template="${pdict.decorator}">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/layout.css');
+        assets.addJs('/js/pageDesigner.js');
+        assets.addJs('/js/controlBar.js');
+    </isscript>
+
+    <!--- the page markup --->
+    <div class="page-designer-reference">
+        <div id="${pdict.page.ID}" class="row mx-n2 m-0">
+            <isprint value="${pdict.regions.top.setClassName("col-12 p-0").render()}" encoding="off"/>
+            <isprint value="${pdict.regions.main.setClassName("large-container").render()}" encoding="off"/>
+            <isprint value="${pdict.regions.bottom.setClassName("col-12 p-0").render()}" encoding="off"/>
+        </div>
+    </div>
+</isdecorate>
