@@ -27,7 +27,10 @@ function getProductGtmObj(product, categoryName, position) {
 	          price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
 	          currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
 	          brand: product.brand,
+	          sku: product.id,
 	          category: escapeQuotes(categoryName),
+	          productType: product.productType,
+	          variantID: variantID,
 	          list: 'PLP',
 	          position: position
 	         });

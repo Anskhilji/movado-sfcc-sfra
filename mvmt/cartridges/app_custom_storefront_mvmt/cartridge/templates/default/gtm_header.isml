@@ -5,18 +5,17 @@
 	var gtm_PageType = '${pdict.gtm.pageType}';
 	pageDataGTM = {
 		'pageType': '${pdict.gtm.pageType}',
-		'userEmail': '${pdict.gtm.language}',
-		'hashedEmail': '${pdict.gtm.language}',
-		'customerType': '${pdict.gtm.language}',
-		'userFirstName': '${pdict.gtm.language}',
-		'userLastName': '${pdict.gtm.language}',
-		'language': '${pdict.gtm.language}',
-		'userPhone': '${pdict.gtm.language}',
-		'userZip': '${pdict.gtm.language}',
-		'currencyCode': '${pdict.gtm.language}',
-		'hashedEmail': '${pdict.gtm.language}',
+		'userEmail': '${pdict.gtm.userEmail}',
+		'hashedEmail': '${pdict.gtm.userHashedEmail}',
+		'customerType': '${pdict.gtm.customerType}',
+		'userFirstName': '${pdict.gtm.userFirstName}',
+		'userLastName': '${pdict.gtm.userLastName}',
+		'userPhone': '${pdict.gtm.userPhone}',
+		'userZip': '${pdict.gtm.userZip}',
+		'currencyCode': '${pdict.gtm.currencyCode}',
 		'logState': '${pdict.gtm.loginStatus}',
-		'country': '${pdict.gtm.language}',
+		'country': '${pdict.gtm.country}',
+		'category': '${pdict.gtm.category}'
 	};	
 	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
 		dataLayer.push ({
