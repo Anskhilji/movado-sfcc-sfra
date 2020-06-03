@@ -2,7 +2,7 @@
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
     	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
     </isloop>
-    <isif condition="${product && product.images && !pdict.display.plpTile}"> 
+    <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
         <a href="${pdict.urls.product}">
 	        <picture>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
