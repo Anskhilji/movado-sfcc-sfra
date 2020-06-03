@@ -2211,6 +2211,10 @@ function generateOrderXML(order) {
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? 
             Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ?
+            Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isRoundingAmountEnabled = !empty(Site.getCurrent().preferences.custom.roundingAmountEnabled) ? 
+            Site.getCurrent().preferences.custom.roundingAmountEnabled : false;
     var fxRates = parseFloat(crossBorderUtils.getFXRates(order)).toFixed(TWO_DECIMAL_PLACES);
     if (order) {
         var billingAddress = getBillingAddress(order);
@@ -2464,7 +2468,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalLoyaltyAmount');
-                if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                     streamWriter.writeCharacters(parseFloat(crossBorderUtils.getSwellDiscountAmount(order)).toFixed(TWO_DECIMAL_PLACES));
                 } else {
                     streamWriter.writeCharacters('');
@@ -2537,7 +2541,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalLoyaltyAmount');
-                if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                     streamWriter.writeCharacters(parseFloat(getConsumerLoyaltyAmount(order)).toFixed(TWO_DECIMAL_PLACES));
                 } else {
                     streamWriter.writeCharacters('');
@@ -2694,7 +2698,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('RoundingAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                    if (eswOrderNo && isRoundingAmountEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerRoundingAmount * fxRates).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
@@ -2702,7 +2706,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('LoyaltyAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                    if (eswOrderNo && isYotpoSwellLoyaltyEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(parseFloat(commerceItem.LoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
@@ -2847,7 +2851,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerRoundingAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                    if (eswOrderNo && isRoundingAmountEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(commerceItem.ConsumerRoundingAmount);
                     } else {
                         streamWriter.writeCharacters('');
@@ -2855,7 +2859,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                    if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled') && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                    if (eswOrderNo && isYotpoSwellLoyaltyEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerLoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
                     } else {
                         streamWriter.writeCharacters('');
@@ -2990,7 +2994,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerRoundingAmount * fxRates);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -2998,7 +3002,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftMessageObj.LoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3102,7 +3106,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerRoundingAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3110,7 +3114,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerLoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3235,7 +3239,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerRoundingAmount * fxRates);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3243,7 +3247,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftWrapObj.LoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3347,7 +3351,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerRoundingAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3355,7 +3359,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerLoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3467,7 +3471,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerRoundingAmount * fxRates);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3475,7 +3479,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.engravingObj.LoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3579,7 +3583,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerRoundingAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3587,7 +3591,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerLoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3728,7 +3732,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerRoundingAmount * fxRates);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3736,7 +3740,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.embossingObj.LoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3840,7 +3844,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('roundingAmountEnabled')) {
+                            if (eswOrderNo && isRoundingAmountEnabled) {
                                 streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerRoundingAmount);
                             } else {
                                 streamWriter.writeCharacters('');
@@ -3848,7 +3852,7 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
-                            if (eswOrderNo && Site.getCurrent().getCustomPreferenceValue('loyaltyAmountEnabled')) {
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
                                 streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerLoyaltyAmount);
                             } else {
                                 streamWriter.writeCharacters('');
