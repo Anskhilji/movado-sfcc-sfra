@@ -271,7 +271,9 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
 	somLog.debug('Processing Order ' + order.orderNo);
 	try {
-		populateOrderJSON.populateByOrder(order);
+		Transaction.wrap(function () {
+			populateOrderJSON.populateByOrder(order);
+		});
 	} catch (exSOM) {
 		somLog.error('SOM attribute process failed: ' + exSOM.message);
 	}
