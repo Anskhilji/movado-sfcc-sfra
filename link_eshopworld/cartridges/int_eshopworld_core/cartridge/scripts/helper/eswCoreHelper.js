@@ -132,8 +132,14 @@ var getEswHelper = {
     getSelectedInstance: function () {
         return Site.getCustomPreferenceValue('eswInstance').value.toString();
     },
+    getCheckoutServiceName: function () {
+        return Site.getCustomPreferenceValue('eswCheckoutServiceName');
+    },
     isUpdateOrderPaymentStatusToPaidAllowed: function () {
         return Site.getCustomPreferenceValue('eswUpdateOrderPaymentStatusToPaid');
+    },
+    isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
+        return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
     /*
      * Function to get corresponding languages from countries.json
@@ -174,7 +180,7 @@ var getEswHelper = {
         delete session.privacy.rounding;
         var fxRates = JSON.parse(this.getFxRates()),
             countryAdjustment = JSON.parse(this.getCountryAdjustments()),
-            roundingRules = JSON.parse(this.getRoundingRules()),
+            roundingModels = JSON.parse(this.getRoundingRules()),
             selectedFxRate = [],
             selectedCountryAdjustment = [],
             selectedRoundingRule = [];
@@ -191,8 +197,12 @@ var getEswHelper = {
             });
         }
 
-        if (!empty(roundingRules)) {
-            selectedRoundingRule = roundingRules.filter(function (rule) {
+        if (!empty(roundingModels)) {
+            selectedRoundingModel = roundingModels.filter(function (rule) {
+                return rule.deliveryCountryIso == country;
+            });
+
+            selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
                 return rule.currencyIso == eswCurrency.value;
             });
         }
@@ -325,7 +335,7 @@ var getEswHelper = {
             if (!noAdjustment) {
                 if (empty(isFixedPriceCountry) && selectedCountryAdjustment && !empty(selectedCountryAdjustment)) {
                     // applying adjustment
-                    billingPrice += new Number((selectedCountryAdjustment.retailerAdjustment.priceUpliftPercentage / 100 * billingPrice));
+                    billingPrice += new Number((selectedCountryAdjustment.retailerAdjustments.priceUpliftPercentage / 100 * billingPrice));
                     // applying duty
                     billingPrice += new Number((selectedCountryAdjustment.estimatedRates.dutyPercentage / 100 * billingPrice));
                     // applying tax
@@ -356,7 +366,7 @@ var getEswHelper = {
         var roundedPrice,
             roundedUp,
             roundedDown,
-            roundingModel = JSON.parse(session.privacy.rounding);
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
@@ -472,13 +482,15 @@ var getEswHelper = {
         // var orderSubtotal = this.getSubtotalObject(cart, true).value;
         var totalDiscount = 0;
         var that = this;
-        cart.priceAdjustments.toArray().forEach(function (adjustment) {
-            if (adjustment.appliedDiscount.type == dw.campaign.Discount.TYPE_AMOUNT) {
-                totalDiscount += adjustment.price.value;
-            } else {
-                totalDiscount += that.getMoneyObject(adjustment.price, false, false, true).value;
-            }
-        });
+        if (cart != null) {
+            cart.priceAdjustments.toArray().forEach(function (adjustment) {
+                if (adjustment.appliedDiscount.type == dw.campaign.Discount.TYPE_AMOUNT) {
+                    totalDiscount += adjustment.price.value;
+                } else {
+                    totalDiscount += that.getMoneyObject(adjustment.price, false, false, true).value;
+                }
+            });
+        }
         if (totalDiscount < 0) {
             totalDiscount *= -1;
         }
@@ -683,7 +695,7 @@ var getEswHelper = {
                 return adjustment.countryIso == country;
             });
 
-        billingAmount = billingAmount + (selectedCountryAdjustment[0].retailerAdjustment.percentage * billingAmount);
+        billingAmount = billingAmount + (selectedCountryAdjustment[0].retailerAdjustments.percentage * billingAmount);
         return new Number(billingAmount);
     },
     /*
@@ -826,6 +838,14 @@ var getEswHelper = {
             return true;
         }
         return false;
+    },
+    /** 
+     * Returns current esw currency code,
+     * stored in esw currency cookie
+     * @return {String} - Currency code
+     */
+    getCurrentEswCurrencyCode: function () {
+        return request.httpCookies['esw.currency'].value;
     }
 };
 

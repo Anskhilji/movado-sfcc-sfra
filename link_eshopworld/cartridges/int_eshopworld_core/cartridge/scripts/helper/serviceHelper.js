@@ -116,7 +116,7 @@ function getCartItemsV2() {
             });
         }
         price = (price / item.quantity.value).toFixed(2);
-        beforeDiscount = beforeDiscount / item.quantity.value;
+        beforeDiscount = (beforeDiscount / item.quantity.value).toFixed(2);
 
         var priceAfterProductPromos = price;
         if (item.bonusProductLineItem) {
@@ -221,22 +221,22 @@ function getProductLineMetadataItems(pli) {
     var metadataItems = eswHelper.getProductLineMetadataItemsPreference(),
         obj, arr = [], i = 0;
     if (!empty(metadataItems)) {
-	    for (var item in metadataItems) {
-	        var metadataItem = metadataItems[item];
-	        i = metadataItem.indexOf('|');
-	        
-	        // Product line custom attribute ID
-	        var pliCustomAttrID = metadataItem.substring(i + 1);
-	        var pliCustomAttrValue = (pliCustomAttrID in pli.custom && !!pli.custom[pliCustomAttrID]) ? pli.custom[pliCustomAttrID] : null;
-	        
-	        if (!empty(pliCustomAttrValue)) {
-	        	obj = {
+        for (var item in metadataItems) {
+            var metadataItem = metadataItems[item];
+            i = metadataItem.indexOf('|');
+            
+            // Product line custom attribute ID
+            var pliCustomAttrID = metadataItem.substring(i + 1);
+            var pliCustomAttrValue = (pliCustomAttrID in pli.custom && !!pli.custom[pliCustomAttrID]) ? pli.custom[pliCustomAttrID] : null;
+            
+            if (!empty(pliCustomAttrValue)) {
+                obj = {
                     name: metadataItem.substring(0, i),
                     value: pliCustomAttrValue
-	        	};
-	        	arr.push(obj);
-	        }
-	    }
+                };
+                arr.push(obj);
+            }
+        }
     }
     return arr.length > 0 ? arr : null;
 }
@@ -246,7 +246,7 @@ function getProductLineMetadataItems(pli) {
  */
 function getShopperCheckoutExperience() {
     var checkoutExp = {
-        'useDeliveryContactDetailsForPaymentContactDetails': false,
+        'useDeliveryContactDetailsForPaymentContactDetails': eswHelper.isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled() ? true : false,
         'emailMarketingOptIn': false,
         'registeredProfileId': customer.profile ? customer.profile.customerNo : null,
         'shopperCultureLanguageIso': request.getHttpCookies()['esw.LanguageIsoCode'].value.replace('_', '-'),
@@ -286,10 +286,10 @@ function getRetailerCheckoutMetadataItems() {
         var metadataItem = metadataItems[item];
         i = metadataItem.indexOf('|');
         if (currentInstance === 'production' && (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 || metadataItem.indexOf('OrderConfirmationUri') != -1)) {
-        	continue;
+            continue;
         } else {
-        	obj.Name = metadataItem.substring(0, i);
-        	if (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 && eswHelper.getBasicAuthEnabled() && !empty(eswHelper.getBasicAuthPassword())) {
+            obj.Name = metadataItem.substring(0, i);
+            if (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 && eswHelper.getBasicAuthEnabled() && !empty(eswHelper.getBasicAuthPassword())) {
                 obj.Value = eswHelper.encodeBasicAuth();
             } else if (metadataItem.indexOf('OrderConfirmationUri') != -1) {
                 obj.Value = URLUtils.https(new dw.web.URLAction(metadataItem.substring(i + 1), Site.ID, request.httpCookies['esw.LanguageIsoCode'].value)).toString();
@@ -366,7 +366,7 @@ function getShippingRates() {
             for (var rate in isOverrideCountry[0].shippingMethod.ID) {
                 var shippingMethod = this.applyShippingMethod(null, isOverrideCountry[0].shippingMethod.ID[rate], eswHelper.getAvailableCountry(), false);
                 if (shippingMethod != null && cart.adjustedShippingTotalPrice.valueOrNull != null) {
-                	var currencyIso = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate).toShopperCurrencyIso : session.getCurrency().currencyCode;
+                    var currencyIso = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate).toShopperCurrencyIso : session.getCurrency().currencyCode;
                     var shippingRate = {
                         'DeliveryOption': shippingMethod.displayName,
                         'ShopperCurrencyOveridePriceInfo': {

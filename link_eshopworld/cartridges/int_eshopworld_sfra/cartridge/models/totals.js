@@ -25,6 +25,19 @@ function getTotals(total, availableObject) {
 }
 
 /**
+ * Accepts a total object and formats the value for order history
+ * @param {dw.value.Money} total - Total price of the cart
+ * @param {string} currency - currency of eswShopperCurrencyCode
+ * @returns {string} the formatted money value
+ */
+function getOrderTotals(total, currency) {
+    if (total && currency) {
+        return formatMoney(new dw.value.Money(total, currency));
+    }
+    return '-';
+}
+
+/**
  * Gets the order discount amount by subtracting the basket's total including the discount from
  *      the basket's total excluding the order discount.
  * @param {dw.order.LineItemCtnr} lineItemContainer - Current users's basket
@@ -34,10 +47,11 @@ function getOrderLevelDiscountTotal(lineItemContainer) {
     var totalExcludingOrderDiscount = lineItemContainer.getAdjustedMerchandizeTotalPrice(false);
     var totalIncludingOrderDiscount = lineItemContainer.getAdjustedMerchandizeTotalPrice(true);
     var orderDiscount = totalExcludingOrderDiscount.subtract(totalIncludingOrderDiscount);
+    var currentBasket = (BasketMgr.currentBasket != null) ? BasketMgr.currentBasket : lineItemContainer;
 
     return {
-        value: !lineItemContainer.customer.authenticated ? eswHelper.getOrderDiscount(BasketMgr.currentBasket).value : orderDiscount.value,
-        formatted: !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getOrderDiscount(BasketMgr.currentBasket)) : formatMoney(orderDiscount)
+        value: eswHelper.getOrderDiscount(currentBasket).value,
+        formatted: formatMoney(eswHelper.getOrderDiscount(currentBasket))
     };
 }
 
@@ -138,6 +152,20 @@ function getDiscountsHtml(discounts) {
 }
 
 /**
+ * get subtotal for calculated price model on order history.
+ * @param {dw.order.LineItemCtnr} lineItemContainer - the current line item container
+ * @param {string} currency - currency of eswShopperCurrencyCode
+ * @returns {string} the formatted money value
+ */
+function getCalculatedSubTotal(lineItemContainer, currency) {
+    var subTotal = 0;
+    collections.forEach(lineItemContainer.allProductLineItems, function (productLineItem) {
+        subTotal += new Number((productLineItem.custom.eswShopperCurrencyItemPriceInfo * productLineItem.quantityValue)); // eslint-disable-line no-new-wrappers
+    });
+    return (!currency) ? '-' : formatMoney(new dw.value.Money(subTotal, currency));
+}
+
+/**
  * @constructor
  * @classdesc totals class that represents the order totals of the current line item container
  *
@@ -146,19 +174,40 @@ function getDiscountsHtml(discounts) {
 function totals(lineItemContainer) {
     base.call(this, lineItemContainer);
 
-    if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
+    if (eswHelper.getEShopWorldModuleEnabled()) {
         if (lineItemContainer) {
-            this.subTotal = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
-            this.totalShippingCost = !lineItemContainer.customer.authenticated ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.adjustedShippingTotalPrice, true, false, true)) : getTotals(lineItemContainer.shippingTotalPrice);
+            var orderHistoryFlag = false;
+            var eswShopperCurrencyCode = null;
+            var isESWSupportedCountry = eswHelper.isESWSupportedCountry();
+            if (Object.hasOwnProperty.call(lineItemContainer, 'orderNo')) {
+                if (lineItemContainer.orderNo != null) {
+                    orderHistoryFlag = true;
+                    eswShopperCurrencyCode = lineItemContainer.originalOrder.custom.eswShopperCurrencyCode;
+                }
+            }
+            if (!orderHistoryFlag) {
+                this.subTotal = (isESWSupportedCountry) ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
+                this.totalShippingCost = (isESWSupportedCountry) ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.adjustedShippingTotalPrice, true, false, true)) : getTotals(lineItemContainer.shippingTotalPrice);
+            } else {
+                this.subTotal = (eswShopperCurrencyCode != null) ? getCalculatedSubTotal(lineItemContainer, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false).decimalValue, lineItemContainer.getCurrencyCode());
+                this.totalShippingCost = (eswShopperCurrencyCode != null) ? getOrderTotals(lineItemContainer.originalOrder.custom.eswShopperCurrencyDeliveryPriceInfo, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.shippingTotalPrice.decimalValue, lineItemContainer.getCurrencyCode());
+            }
             if (this.totalShippingCost === '-') {
                 this.totalTax = '-';
                 this.grandTotal = '-';
             } else {
-                this.grandTotal = !lineItemContainer.customer.authenticated ? eswHelper.getOrderTotalWithShippingCost() : getTotals(lineItemContainer.totalGrossPrice);
-                this.totalTax = getTotals(lineItemContainer.totalTax, false);
+                if (!orderHistoryFlag) {
+                    this.grandTotal = (isESWSupportedCountry) ? eswHelper.getOrderTotalWithShippingCost() : getTotals(lineItemContainer.totalGrossPrice);
+                    this.totalTax = getTotals(lineItemContainer.totalTax, false);
+                } else {
+                    this.grandTotal = (eswShopperCurrencyCode != null) ? getOrderTotals(lineItemContainer.originalOrder.custom.eswShopperCurrencyPaymentAmount, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.totalGrossPrice.decimalValue, lineItemContainer.getCurrencyCode());
+                    this.totalTax = (eswShopperCurrencyCode != null) ? getOrderTotals(lineItemContainer.totalTax.decimalValue, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.totalTax.decimalValue, lineItemContainer.getCurrencyCode());
+                }
             }
-            this.orderLevelDiscountTotal = getOrderLevelDiscountTotal(lineItemContainer);
-            this.shippingLevelDiscountTotal = getShippingLevelDiscountTotal(lineItemContainer);
+            if (isESWSupportedCountry) {
+                this.orderLevelDiscountTotal = getOrderLevelDiscountTotal(lineItemContainer);
+                this.shippingLevelDiscountTotal = getShippingLevelDiscountTotal(lineItemContainer);
+            }
         } else {
             this.subTotal = '-';
             this.grandTotal = '-';

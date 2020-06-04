@@ -24,11 +24,9 @@ server.append(
         var session = req.session.raw;
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
-                res.redirect(URLUtils.https('Cart-Show').toString());
-            }
 
             if (currentBasket) {
+                delete session.privacy.orderNo;
                 delete session.privacy.restrictedProductID;
                 // eslint-disable-next-line no-restricted-syntax
                 for (var lineItemNumber in currentBasket.productLineItems) {  // eslint-disable-line guard-for-in

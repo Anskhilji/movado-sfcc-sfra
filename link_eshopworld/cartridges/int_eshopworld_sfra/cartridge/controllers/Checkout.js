@@ -11,14 +11,10 @@ server.prepend(
         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
         var session = req.session.raw;
         if (eswHelper.getEShopWorldModuleEnabled()) {
-            if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
-                res.redirect(URLUtils.https('Cart-Show').toString());
-            }
-
             var BasketMgr = require('dw/order/BasketMgr');
             var currentBasket = BasketMgr.getCurrentBasket();
-
             if (currentBasket) {
+                delete session.privacy.orderNo;
                 delete session.privacy.restrictedProductID;
                 // eslint-disable-next-line no-restricted-syntax
                 for (var lineItemNumber in currentBasket.productLineItems) {  // eslint-disable-line guard-for-in
@@ -74,4 +70,32 @@ server.prepend(
         return next();
     }
 );
+
+server.get(
+    'GetAllowedCountry',
+    server.middleware.https,
+    function (req, res, next) {
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var Resource = require('dw/web/Resource');
+        var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
+        var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
+        var selectedCountry = req.querystring.country;
+        var flag = false;
+
+        if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.checkIsEswAllowedCountry(selectedCountry)) {
+            flag = true;
+        }
+        res.json({
+            success: flag,
+            country: selectedCountry,
+            language: language,
+            currency: currency,
+            redirect: URLUtils.https('Cart-Show').toString(),
+            url: URLUtils.https('Page-SetLocale').toString(),
+            successMsg: Resource.msg('shipping.esw.country.change.msg', 'esw', null)
+        });
+        next();
+    }
+);
+
 module.exports = server.exports();
