@@ -3,7 +3,7 @@
 	pageDataGTM = {};
 	checkoutDataLayer = [];
 	var gtm_PageType = '${pdict.gtm.pageType}';
-	pageDataGTM = {
+	pageDataGTM = [ {
 		'pageType': '${pdict.gtm.pageType}',
 		'userEmail': '${pdict.gtm.userEmail}',
 		'hashedEmail': '${pdict.gtm.userHashedEmail}',
@@ -14,21 +14,23 @@
 		'userZip': '${pdict.gtm.userZip}',
 		'currencyCode': '${pdict.gtm.currencyCode}',
 		'logState': '${pdict.gtm.loginStatus}',
-		'country': '${pdict.gtm.country}',
-		'category': '${pdict.gtm.category}'
-	};	
+		'country': '${pdict.gtm.country}'
+	}];	
 	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
 		dataLayer.push ({
 			'ecommerce':{ 
-			'detail': { "actionField": {"list": "detail"},
+			'detail': {
 				'products':[ {
+					'name': '${pdict.gtm.product.productName}',
 					'id': '${pdict.gtm.product.productID}',
-					'name':  '${pdict.gtm.product.productName}',
 					'price': '${pdict.gtm.product.productPrice}',
-					'brand': '${pdict.gtm.product.brand}',
 					'category': '${pdict.gtm.product.category}',
-					'variant': '${pdict.gtm.product.productPersonalization}',
-					'list': '${pdict.gtm.product.list}'
+					'sku': '${pdict.gtm.product.Sku}',
+					'variantID': '${pdict.gtm.product.variantID}',
+					'brand': '${pdict.gtm.product.brand}',
+					'currentCategory': '${pdict.gtm.product.category}',
+					'productType': '${pdict.gtm.product.productType}',
+					'variant': '${pdict.gtm.product.productType}'
 				}]
 			}
 		},
@@ -40,12 +42,11 @@
 	dataLayer.push (
 			
 				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-					{'ecommerce':{'checkout': {
-					'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
-					"products": [
+					{'ecommerce': {
+					'products': [
 					<isloop items="${checkoutObj}" var="produtArray" status="status">
-						{'id': '${produtArray.cartObj.id}',
-						'name':  '${produtArray.cartObj.name}',
+						{'name':  '${produtArray.cartObj.name}',
+						'id':  '${produtArray.cartObj.id}',
 						'price': '${produtArray.cartObj.price}',
 						'brand': '${produtArray.cartObj.brand}',
 						'category': '${produtArray.cartObj.category}',
@@ -53,11 +54,12 @@
 						'revenue': '${produtArray.cartObj.revenue}',
 						'tax': '${produtArray.cartObj.tax}',
 						'shipping': '${produtArray.cartObj.shipping}',
+						'quantity': '${produtArray.cartObj.quantity}',
+						'description': '${produtArray.cartObj.description}',
 						'coupon': '${produtArray.cartObj.coupon}'}
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
-						}	
 					},
 					"event": "checkout"}
 					<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>

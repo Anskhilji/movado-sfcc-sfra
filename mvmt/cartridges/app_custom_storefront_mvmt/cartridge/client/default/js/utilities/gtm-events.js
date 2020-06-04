@@ -257,9 +257,9 @@ var sliceProductImpressionArray = function (e, currency) {
                 dataLayer.push({
                     event: 'productImpressions',
                     ecommerce: {
-                        currencyCode: currency,
-                        impressions: productObj
-
+                        impressions: {
+                            products: productObj
+                        }
                     }
                 });
             }
@@ -293,7 +293,7 @@ var getSiteSectionOnPageLoad = function (e) {
         pageDataGTM.primarySiteSection = siteSections[0] || '';
         pageDataGTM.secondarySiteSection = escapeXml(siteSections[1]) || '';
         pageDataGTM.tertiarySiteSection = siteSections[2] || '';
-        dataLayer.push({ dataLayer: [pageDataGTM]});
+        dataLayer.push({ dataLayer: pageDataGTM});
     }
 };
 

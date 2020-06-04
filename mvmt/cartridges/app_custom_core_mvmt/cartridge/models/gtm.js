@@ -34,39 +34,39 @@ function gtmModel(req) {
     this.searchTerm = '';
 
 
-    	if (req.querystring != undefined) {
-    		var queryString = req.querystring.urlQueryString;
-        	var searchQuery = getSearchQuery(queryString);
-        	searchkeyword = searchQuery.q;
-        	cgid = searchQuery.cgid;
-        	pid = searchQuery.pid;
-    	}
-    	if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
-    		this.checkout = [];
-    		getCartJSONArray(this.checkout);
-    		if (action.equals('cart-show')) {
-    			this.checkoutAction = 'cart';
-    			checkoutStage = 1;
-    		} else {
-    			checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
-    			var checkoutStage = '';
-    			switch (checkoutActionObject) {
-    			case 'shipping':
-    				checkoutStage = 2;
-    				break;
-    			case 'payment':
-    				checkoutStage = 3;
-    				break;
-    			case 'placeOrder':
-    				checkoutStage = 4;
-    				break;
-    			}
-    		}
-    		this.checkoutStage = checkoutStage;
-    	}
+        if (req.querystring != undefined) {
+            var queryString = req.querystring.urlQueryString;
+            var searchQuery = getSearchQuery(queryString);
+            searchkeyword = searchQuery.q;
+            cgid = searchQuery.cgid;
+            pid = searchQuery.pid;
+        }
+        if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
+            this.checkout = [];
+            getCartJSONArray(this.checkout);
+            if (action.equals('cart-show')) {
+                this.checkoutAction = 'cart';
+                checkoutStage = 1;
+            } else {
+                checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+                var checkoutStage = '';
+                switch (checkoutActionObject) {
+                case 'shipping':
+                    checkoutStage = 2;
+                    break;
+                case 'payment':
+                    checkoutStage = 3;
+                    break;
+                case 'placeOrder':
+                    checkoutStage = 4;
+                    break;
+                }
+            }
+            this.checkoutStage = checkoutStage;
+        }
 
 
-    	// get page Type
+        // get page Type
     var pageType = escapeHyphon(getPageType(action, searchkeyword, this.checkoutAction));
 
         // login status of user
@@ -98,43 +98,46 @@ function gtmModel(req) {
     
     var userZip = getUserZip(currentCustomer);
 
-   		if (pid != null) {
-    		var ProductMgr = require('dw/catalog/ProductMgr');
-    		productObj = ProductMgr.getProduct(formatProductId(pid));
-    		productBreadcrumbs = getProductBreadcrumb(productObj);
-    		var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+        if (pid != null) {
+            var ProductMgr = require('dw/catalog/ProductMgr');
+            productObj = ProductMgr.getProduct(formatProductId(pid));
+            productBreadcrumbs = getProductBreadcrumb(productObj);
+            var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
 
-    	    // get product impressions tags for PDP
-    	    var productImpressionTags = getPDPProductImpressionsTags(productObj);
-    	    this.product = {
-    	    	productID: productImpressionTags.productID,
-        	    productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
-        	    brand: productImpressionTags.brand,
-        	    productPersonalization: productImpressionTags.productPersonalization,
-        	    category: primarySiteSection,
-        	    productPrice: productImpressionTags.productPrice,
-        	    list: productImpressionTags.list
-    	    };
-    	}    	else if (searchkeyword != null) {
-    		// search count
+            // get product impressions tags for PDP
+            var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            this.product = {
+                productID: productImpressionTags.productID,
+                productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
+                brand: productImpressionTags.brand,
+                productPersonalization: productImpressionTags.productPersonalization,
+                category: primarySiteSection,
+                productPrice: productImpressionTags.productPrice,
+                list: productImpressionTags.list,
+                Sku:productImpressionTags.Sku,
+                variantID:productImpressionTags.variantID,
+                productType:productImpressionTags.productType
+            };
+        }       else if (searchkeyword != null) {
+            // search count
         searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
         this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
-    	    var searchQuery = { q: searchkeyword };
-    		var productArray = getSearchResultProducts(req, searchQuery);
-    		if (productArray == 0) {
-    			searchCount = 0;
-    		}
-    		if (searchCount == 0 && pageNameJSON != null) {
-    			pageType = pageNameJSON['no-searchresult-page'];
-    		}
-    	}
+            var searchQuery = { q: searchkeyword };
+            var productArray = getSearchResultProducts(req, searchQuery);
+            if (productArray == 0) {
+                searchCount = 0;
+            }
+            if (searchCount == 0 && pageNameJSON != null) {
+                pageType = pageNameJSON['no-searchresult-page'];
+            }
+        }
 
 
     if (action.equals('order-confirm')) {
-    	var orderId = getOrderIDfromQueryString(queryString);
-    	this.orderConfirmation = [];
-    	getOrderConfirmationArray(this.orderConfirmation, orderId);
+        var orderId = getOrderIDfromQueryString(queryString);
+        this.orderConfirmation = [];
+        getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
 
     this.action = action != null ? action : '';
@@ -195,7 +198,7 @@ function getLoginStatus(currentCustomer) {
     if (currentCustomer.raw.authenticated) {
         userStatus = 'logged in';
     }
-	 return userStatus;
+     return userStatus;
 }
 
 function getUserZip(currentCustomer) {
@@ -267,18 +270,18 @@ function getSearchQuery(queryStringVal) {
         searchArray = queryString.split('&');
         searchArray = searchArray[1].split('=');
         if ((searchArray[0].indexOf('q')) > -1) {
-        	searchQuery = { q: searchArray[1] };
+            searchQuery = { q: searchArray[1] };
         }
     } else if ((queryString.indexOf('pid')) > -1) {
-    		searchArray = queryString.split('=');
-    		searchQuery = { pid: searchArray[1] };
-    	}    	else if ((queryString.indexOf('cgid')) > -1) {
-    		searchArray = queryString.split('=');
+            searchArray = queryString.split('=');
+            searchQuery = { pid: searchArray[1] };
+        }       else if ((queryString.indexOf('cgid')) > -1) {
+            searchArray = queryString.split('=');
         searchQuery = { cgid: searchArray[1] };
-    	} else if ((queryString.indexOf('q')) > -1) {
-    			searchArray = queryString.split('=');
-    			searchQuery = { q: searchArray[1] };
-    		}
+        } else if ((queryString.indexOf('q')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { q: searchArray[1] };
+            }
     return searchQuery;
 }
 
@@ -308,7 +311,7 @@ function getProductSearch(req, queryString) {
     var apiProductSearch = new ProductSearchModel();
 
     if (queryString != undefined) {
-    	 apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
+         apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
         apiProductSearch.search();
         var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
         var productSearch = new ProductSearch(
@@ -318,7 +321,7 @@ function getProductSearch(req, queryString) {
                      CatalogMgr.getSortingOptions(),
                      CatalogMgr.getSiteCatalog().getRoot()
              );
-        	 return productSearch;
+             return productSearch;
     }
 
     return '';
@@ -426,17 +429,23 @@ function getCategoryLevelCount(category, levelCount) {
  * @returns
  */
 function getPDPProductImpressionsTags(productObj) {
+    var variantID = '';
+    if(productObj.variant ) {
+        variantID = productObj.ID;
+    }
     var productID = productObj.ID;
     var productName = stringUtils.removeSingleQuotes(productObj.name);
     var brand = productObj.brand;
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
     var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
-
+    var sku = productObj.ID;
+    var variantID = variantID;
+    var productType = productModel.productType;
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP' };
+    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP' };
 }
 
 
@@ -448,6 +457,9 @@ function getPDPProductImpressionsTags(productObj) {
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
+    var pid;
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    productObj = ProductMgr.getProduct(formatProductId(pid));
     var cartJSON = [];
     if (currentBasket) {
         var cartItems = currentBasket.allProductLineItems;
@@ -464,6 +476,8 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     price: productPrice,
+                    description: cartItem.product.shortDescription,
+                    quantity:currentBasket.productQuantityTotal,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,
@@ -495,6 +509,8 @@ function getCartJSONArray(checkoutObject) {
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.coupon = cartJSON[i].coupon;
+        cartObj.description = cartJSON[i].description;
+        cartObj.quantity = cartJSON[i].quantity;
 
         if (cartArray.length < 10) {
             cartArray.push({
@@ -540,20 +556,20 @@ function getVariants(product) {
     var productVariants = [];
     if (product.custom.GiftWrapMessage) {
         productVariants.push(Resource.msg('text.personalization.giftWrapping', 'gtm', null));
-			 }
-		 if (product.custom.embossMessageLine1 != null) {
-			 productVariants.push(Resource.msg('text.personalization.embossed', 'gtm', null));
-		 }
-		 if (product.custom.engraveMessageLine1 != null) {
-			 productVariants.push(Resource.msg('text.personalization.engraved', 'gtm', null));
-		 }
-			 for (var i = 0; i < productVariants.length; i++) {
-				 if (variant == '') {
-					 variant = productVariants[i];
-				 } else {
-					 variant = variant + ',' + productVariants[i];
-				 }
-			 }
+             }
+         if (product.custom.embossMessageLine1 != null) {
+             productVariants.push(Resource.msg('text.personalization.embossed', 'gtm', null));
+         }
+         if (product.custom.engraveMessageLine1 != null) {
+             productVariants.push(Resource.msg('text.personalization.engraved', 'gtm', null));
+         }
+             for (var i = 0; i < productVariants.length; i++) {
+                 if (variant == '') {
+                     variant = productVariants[i];
+                 } else {
+                     variant = variant + ',' + productVariants[i];
+                 }
+             }
 
     return variant;
 }
@@ -653,17 +669,17 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
-			    produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+                produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
 
-			    produtObj.itemCoupon = itemLevelCouponString;
+                produtObj.itemCoupon = itemLevelCouponString;
 
-			    if (orderJSONArray.length < 10) {
-			    	orderJSONArray.push({ productObj: produtObj });
-        	    } else {
-        	    	gtmorderConfObj.push(orderJSONArray);
-        	    	orderJSONArray = [];
-        	    	orderJSONArray.push({ productObj: produtObj });
-        	    }
+                if (orderJSONArray.length < 10) {
+                    orderJSONArray.push({ productObj: produtObj });
+                } else {
+                    gtmorderConfObj.push(orderJSONArray);
+                    orderJSONArray = [];
+                    orderJSONArray.push({ productObj: produtObj });
+                }
         });
 
         var orderObj = {};
@@ -672,7 +688,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
-	    orderJSONArray.push({ orderObj: orderObj });
+        orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
 }
