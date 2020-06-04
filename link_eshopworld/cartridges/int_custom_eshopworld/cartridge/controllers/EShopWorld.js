@@ -46,7 +46,7 @@ server.append('GetEswHeader', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    if (!empty(geoLocationCountry) && request.httpCookies['movado.Landing.Played'] == null) {
+    if (!empty(geoLocationCountry) && empty(session.custom.welcomeMat)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
@@ -95,7 +95,7 @@ server.append('GetEswFooter', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    if (!empty(geoLocationCountry) && request.httpCookies['movado.Landing.Played'] == null) {
+    if (!empty(geoLocationCountry) && empty(session.custom.welcomeMat)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }

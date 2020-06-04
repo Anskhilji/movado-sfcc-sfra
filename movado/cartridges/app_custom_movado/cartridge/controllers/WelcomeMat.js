@@ -6,8 +6,9 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 server.get('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     if (eswCustomHelper.isEshopworldModuleEnabled()) {
+        var isNewMovadoWelcomeMatSession = session.custom.welcomeMat;
         if ((!eswCustomHelper.isEswEnableLandingPage() && !eswCustomHelper.isEswEnableLandingpageBar()) && 
-            (request.httpCookies['movado.Landing.Played'] == null || request.httpCookies['movado.Landing.Played'] == false)) {
+            (empty(isNewMovadoWelcomeMatSession) || isNewMovadoWelcomeMatSession == false)) {
             var Cookie = require('dw/web/Cookie');
             var URLUtils = require('dw/web/URLUtils');
             var allCountries = null;
@@ -16,9 +17,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
             var locale = request.getLocale();
             var movadoLandingObject = {};
-            var movadoLandingCookie = new Cookie('movado.Landing.Played', true);
-            movadoLandingCookie.setPath('/');
-            response.addHttpCookie(movadoLandingCookie);
+            session.custom.welcomeMat = true;
 
             if (isGeoLocation) {
                 geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
@@ -43,6 +42,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
             movadoLandingObject.allCountries = allCountries;
             res.render('welcomeMat/newWelcomeMatModal', {movadoLandingObject : movadoLandingObject});
+        } else {
+            return "";
         }
     } else {
         var ContentMgr = require('dw/content/ContentMgr');
