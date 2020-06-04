@@ -5,7 +5,7 @@ var page = module.superModule;
 server.extend(page);
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
-server.replace('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
+server.append('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     if ((!eswCustomHelper.isEswEnableLandingPage() && !eswCustomHelper.isEswEnableLandingpageBar()) && 
         (request.httpCookies['movado.Landing.Played'] == null || request.httpCookies['movado.Landing.Played'] == false)) {
@@ -43,7 +43,7 @@ server.replace('Show', server.middleware.https, consentTracking.consent, functio
 
         movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
         movadoLandingObject.allCountries = allCountries;
-        res.render('welcomeMat/welcomeMatModal', {movadoLandingObject : movadoLandingObject});
+        res.setViewData({movadoLandingObject : movadoLandingObject});
     } else {
         return "";
     }
