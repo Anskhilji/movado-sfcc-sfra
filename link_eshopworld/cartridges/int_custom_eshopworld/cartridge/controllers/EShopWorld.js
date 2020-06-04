@@ -3,8 +3,11 @@
 var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+
 var Logger = require('dw/system/Logger');
+var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 
 server.append('GetEswHeader', function (req, res, next) {
     var allCountries = null;
@@ -157,12 +160,34 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
+    var obj = JSON.parse(req.body);
+    Transaction.wrap(function () {
+        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
+        for (var detail in obj.contactDetails) {
+            if (obj.contactDetails[detail].contactDetailType.equalsIgnoreCase('IsDelivery')) {
+                order.shipments[0].shippingAddress.stateCode = obj.contactDetails[detail].region;
+            } else if (obj.contactDetails[detail].contactDetailType.equalsIgnoreCase('IsPayment')) {
+                order.billingAddress.stateCode = obj.contactDetails[detail].region;
+            }
+        }
+    });
     if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({
             orderNo: res.viewData.OrderNumber,
             orderState: 'created'
         });
+    }
+    var emailOptIn = !empty(obj.shopperCheckoutExperience.emailMarketingOptIn) ? obj.shopperCheckoutExperience.emailMarketingOptIn : false;
+    if (emailOptIn) {
+        var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
+        var billingCustomer = obj.contactDetails;
+        var requestParams = {
+            email: billingCustomer[0].email
+        }
+        if (!empty(requestParams) && !empty(requestParams.email)) {
+            SFMCApi.sendSubscriberToSFMC(requestParams);
+        }
     }
     return next();
 });
