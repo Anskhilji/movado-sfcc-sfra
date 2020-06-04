@@ -21,8 +21,6 @@ var constants = require('app_custom_movado/cartridge/scripts/helpers/constants.j
 var Resource = require('dw/web/Resource');
 var crossBorderUtils = require('~/cartridge/scripts/helpers/utils/crossborderUtils.js');
 
-var Decimal = require('dw/util/Decimal');
-
 var GIFTWRAPMESSAGE = 'GIFTMESSAGE';
 var GIFTWRAP = 'GIFTWRAP';
 var ENGRAVING = 'ENGRAVING';
@@ -2153,12 +2151,9 @@ function getLineItemTotalNetAmount(allProductLineItems) {
 */
 function getLineItemShippingCost(lineItem, totalLineItemNetAmount, isEswEnabled) {
     if (isEswEnabled) {
-//        var decimal = new Decimal();
         var headerShippingCost =  Site.getCurrent().getCustomPreferenceValue('shippingCost');
-        var lineItemShippingCost = new Decimal(headerShippingCost).multiply(lineItem.custom.eswRetailerCurrencyItemSubTotal).divide(totalLineItemNetAmount);
-//        return lineItemShippingCost;
-//        return parseFloat(lineItemShippingCost).toFixed(TWO_DECIMAL_PLACES);
-        return lineItemShippingCost.round(2);
+        var lineItemShippingCost = (parseFloat(headerShippingCost) * parseFloat(lineItem.custom.eswRetailerCurrencyItemSubTotal) / parseFloat(totalLineItemNetAmount)).toFixed(TWO_DECIMAL_PLACES);
+        return parseFloat(lineItemShippingCost).toFixed(TWO_DECIMAL_PLACES);
     }
     return '';
 }
