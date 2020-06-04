@@ -35,7 +35,7 @@
 
 <!-- Sales Tax -->
 <iscomment>Custom Start: Adding esw check for sales tax and adding the order discount </iscomment>
-<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true && !eswHelper.isESWSupportedCountry()}">
+<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true && !eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
     <div class="row">
         <div class="col-8">
             <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>

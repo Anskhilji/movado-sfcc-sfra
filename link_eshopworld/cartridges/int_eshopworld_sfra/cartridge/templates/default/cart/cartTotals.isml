@@ -18,15 +18,15 @@
 </div>
 
 <!-- Sales Tax -->
-<isif condition="${!eswHelper.isESWSupportedCountry()}">
-	<div class="row">
-	    <div class="col-8">
-	        <p>${Resource.msg('label.sales.tax','cart',null)}</p>
-	    </div>
-	    <div class="col-4">
-	        <p class="text-right tax-total">${pdict.totals.totalTax}</p>
-	    </div>
-	</div>
+<isif condition="${!eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
+    <div class="row">
+        <div class="col-8">
+            <p>${Resource.msg('label.sales.tax','cart',null)}</p>
+        </div>
+        <div class="col-4">
+            <p class="text-right tax-total">${pdict.totals.totalTax}</p>
+        </div>
+    </div>
 </isif>
 
 <!--- Order Discount --->
