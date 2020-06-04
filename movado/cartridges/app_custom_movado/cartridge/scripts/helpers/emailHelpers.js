@@ -48,6 +48,6 @@ module.exports = {
         orderCancellation: 8,
         orderPartialCancellation: 9,
         orderShipped: 10,
-        wishlistShareEmail: 11
+        contactUs: 11
     }
 };

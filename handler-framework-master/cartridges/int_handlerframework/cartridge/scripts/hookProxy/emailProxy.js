@@ -112,7 +112,8 @@ function sendEmail(emailObj, template, context) {
       
       /*wishlist share*/
       else if (emailObj.type === 11){
-        hookID += 'shareEmail.wishlist';
+          params.put('ContactUs', session && session.forms.contactus);
+        hookID += 'customerService.contactUs';
       }
     	else {
             Logger.warn('Mail send hook called, but correct action undetermined, mail not sent as a result.');
