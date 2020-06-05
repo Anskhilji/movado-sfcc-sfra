@@ -28,7 +28,9 @@
                 </isif>
             </isif>
         <iselse/>
-            <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+            <isif condition="${product.available && product.readyToOrder}">
+                <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+            </isif>
         </isif>
         <iscomment> Custom End </iscomment>
     </div>
