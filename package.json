@@ -100,7 +100,7 @@
   "paths": {
     "custom_hourtime": "./hourtime",
     "esw": "./link_eshopworld",
-	"custom_esw": "./link_eshopworld",
+    "custom_esw": "./link_eshopworld",
     "custom_concord": "./concord",
     "custom_ebel": "./ebel",
     "custom_adyen_klarna": "./klarna",
@@ -120,7 +120,7 @@
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
     "custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/js",
-	"esw": "./link_eshopworld/cartridges/int_eshopworld_sfra/cartridge/client/default/js",
+    "esw": "./link_eshopworld/cartridges/int_eshopworld_sfra/cartridge/client/default/js",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/js",
     "oliviaburton_redesign": "./oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/js",

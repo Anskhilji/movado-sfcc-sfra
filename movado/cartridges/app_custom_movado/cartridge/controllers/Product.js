@@ -27,6 +27,7 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -77,7 +78,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
             restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-            productPrice: productPrice
+            productPrice: productPrice,
+            eswModuleEnabled: eswModuleEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -154,12 +156,13 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         resources: productHelper.getResources(),
         productPrice: product.price 
     };
-
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
 
     res.json({
         renderedTemplate: renderedTemplate,
-        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString(),
+        eswModuleEnabled: eswModuleEnabled
     });
 
     next();

@@ -14,7 +14,6 @@ var priceHelper = require('*/cartridge/scripts/helpers/priceHelper');
  * @returns {Object} an object containing the product line item total info.
  */
 function getTotalPrice(lineItem) {
-    var eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
     var context;
     var price;
     var result = {};
@@ -23,7 +22,11 @@ function getTotalPrice(lineItem) {
     var eswHelper;
     var orderHistoryFlag = false;
     var eswShopperCurrencyCode = null;
-    var eswModuleEnabled = eswHelper.getEShopWorldModuleEnabled();
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+
+    if (eswModuleEnabled) {
+        eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
+    }
 
     // Custom Start: Adding ESW cartridge integration
     if (lineItem.lineItemCtnr && Object.hasOwnProperty.call(lineItem.lineItemCtnr, 'orderNo')) {
