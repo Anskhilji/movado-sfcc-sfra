@@ -14,6 +14,7 @@ module.exports = {
     ratings: require('*/cartridge/models/product/decorators/ratings'),
     sizeChart: require('*/cartridge/models/product/decorators/sizeChart'),
     variationAttributes: require('*/cartridge/models/product/decorators/variationAttributes'),
+    // Custom: added just this following line to define a new variationsAttributes property
     variationsAttributes: require('*/cartridge/models/product/decorators/variationsAttributes'),
     searchVariationAttributes: require('*/cartridge/models/product/decorators/searchVariationAttributes'),
     attributes: require('*/cartridge/models/product/decorators/attributes'),
