@@ -18,9 +18,11 @@ server.append(
     'Show',
     function (req, res, next) {
         var viewData = res.getViewData();
-        viewData = {
-            relativeURL: URLUtils.url('Page-Show','cid', viewData.content.ID)
-        };
+        if (viewData.content && viewData.content.ID) {
+            viewData = {
+                relativeURL: URLUtils.url('Page-Show','cid', viewData.content.ID)
+            };
+        }
         res.setViewData(viewData);
         next();
     }
