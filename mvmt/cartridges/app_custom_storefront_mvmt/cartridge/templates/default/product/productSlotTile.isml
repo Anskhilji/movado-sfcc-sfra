@@ -38,8 +38,8 @@
                 </div>
             </div>
 
-            <isif condition="${pdict.display.swatches !== false}">
-                <div class="plp-swatches ${product.variationAttributes[0].values.length > 0 ? '':'0-opacity'}">
+            <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                <div class="plp-swatches ${product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                     <isinclude template="product/components/productTileSwatch" />
                 </div>
             </isif>

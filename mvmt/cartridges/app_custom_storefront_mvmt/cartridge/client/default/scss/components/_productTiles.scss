@@ -64,6 +64,11 @@
                     max-width: rem(150);
                     margin: 0 auto;
                     overflow: visible;
+                    
+                    @include media-breakpoint-down(sm) {
+                    
+                        max-width: rem(102);
+                    }
                 }
             }
 
