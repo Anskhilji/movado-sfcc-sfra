@@ -11,12 +11,9 @@
                      ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
-        <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
-            <isif condition="${product.available && product.readyToOrder}">
-                <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
-            </isif>
+        
+        <isif condition="${product.available && product.readyToOrder}">
+            <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
         </isif>
-        <iscomment> Custom End </iscomment>
     </div>
 </div>
