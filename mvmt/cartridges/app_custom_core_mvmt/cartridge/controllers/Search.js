@@ -10,9 +10,11 @@ server.append(
     'Show',
     function (req, res, next) {
         var viewData = res.getViewData();
-        viewData = {
-            relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
-        };
+        if(viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
+            viewData = {
+                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
+            };
+        }
         res.setViewData(viewData);
         next();
     }
@@ -22,9 +24,11 @@ server.append(
     'ShowContent',
     function (req, res, next) {
         var viewData = res.getViewData();
-        viewData = {
-            relativeURL: URLUtils.url('Search-ShowContent','fdid', viewData.folderID)
-        };
+        if (viewData.folderID) {
+            viewData = {
+                relativeURL: URLUtils.url('Search-ShowContent','fdid', viewData.folderID)
+            };
+        }
         res.setViewData(viewData);
         next();
     }

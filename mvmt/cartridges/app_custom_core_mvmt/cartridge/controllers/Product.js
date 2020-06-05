@@ -17,15 +17,18 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var explicitRecommendations = [];
     var viewData = res.getViewData();
     var product = viewData.product;
+    var relativeURL;
     
     /* get recommendedProducts for product*/
     if (product) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.id);
+        relativeURL= URLUtils.url('Product-Show','pid', product.id);
+
     }
 
     viewData = {
         explicitRecommendations: explicitRecommendations,
-        relativeURL: URLUtils.url('Product-Show','pid', product.id)
+        relativeURL: relativeURL
     };
 
     res.setViewData(viewData);
