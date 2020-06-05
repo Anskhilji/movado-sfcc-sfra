@@ -27,7 +27,6 @@ server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -62,6 +61,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
+
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
 
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
@@ -156,7 +159,9 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         resources: productHelper.getResources(),
         productPrice: product.price 
     };
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
     var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
 
     res.json({

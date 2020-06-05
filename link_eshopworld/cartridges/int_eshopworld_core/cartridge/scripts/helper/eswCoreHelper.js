@@ -170,7 +170,12 @@ var getEswHelper = {
         }
 
         if (!this.getEnableCurrencyFooterBar() || !this.getEnableCurrencyHeaderBar() || !this.getEnableCurrencyLandingBar()) {
-            currency = session.getCurrency().currencyCode;
+            var siteCountries = require('*/cartridge/countries');
+            var foundCountry = siteCountries.filter(function (item) {
+                if (item.countryCode === country) {
+                    currency = item.currencyCode;
+                }
+            });
         }
 
         this.updateCookieValue(eswCurrency, currency);

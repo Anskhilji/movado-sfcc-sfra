@@ -102,21 +102,21 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
 
             setTimeout(function () {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
+                //Custom Start: Adding ESW Code Logic
+                if (typeof data.eswModuleEnabled !== undefined) {
+                    if (data.eswModuleEnabled) {
+                        // Remote Include call For List Price
+                        var $eswListPriceSelector = $('.modal.show').find('.eswListPrice');
+                        eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
+                        // Remote Include call For Sales Price
+                        var $eswPriceSelector = $('.modal.show').find('.eswPrice');
+                        eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+                    }
+                }
+                //Custom End
             }, 1000);
             affirm.ui.refresh();
             $.spinner().stop();
-            //Custom Start: Adding ESW Code Logic
-            if (typeof data.eswModuleEnabled !== undefined) {
-                if (data.eswModuleEnabled) {
-                    // Remote Include call For List Price
-                    var $eswListPriceSelector = $('.modal.show').find('.eswListPrice');
-                    eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
-                    // Remote Include call For Sales Price
-                    var $eswPriceSelector = $('.modal.show').find('.eswPrice');
-                    eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
-                }
-            }
-           //Custom End
             if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                 setAnalyticsTrackingByAJAX.pdpAnalyticsTrackingData = data.pdpAnalyticsTrackingData;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
@@ -137,7 +137,7 @@ module.exports = {
             getModalHtmlElement();
             $(e.target).trigger('quickview:show');
             if (gtmProdObj) {
-            	fillModalElement(selectedValueUrl, JSON.parse(gtmProdObj));
+                fillModalElement(selectedValueUrl, JSON.parse(gtmProdObj));
             }
         });
     },

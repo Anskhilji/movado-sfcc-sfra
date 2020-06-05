@@ -282,7 +282,10 @@ server.post('NotifyV2', function (req, res, next) {
                         var billingCustomer = obj.contactDetails.filter(function (details) {
                             return details.contactDetailType == 'IsPayment'
                         });
-                        order.customerEmail = billingCustomer[0].email;
+                        var shippingCustomer = obj.contactDetails.filter(function (details) {
+                            return details.contactDetailType == 'IsDelivery';
+                        });
+                        order.customerEmail = !empty(billingCustomer[0].email) ? billingCustomer[0].email : shippingCustomer[0].email;
                         order.customerName = billingCustomer[0].firstName + ' ' + billingCustomer[0].lastName;
 
                         order.custom.eswShopperCurrencyDeliveryTaxes = new Number(obj.charges.shopperCurrencyDeliveryTaxes.substring(3));
@@ -383,7 +386,7 @@ server.post('NotifyV2', function (req, res, next) {
                                 order.billingAddress.city = obj.contactDetails[detail].city;
                                 order.billingAddress.countryCode = obj.contactDetails[detail].country;
                                 order.billingAddress.postalCode = obj.contactDetails[detail].postalCode;
-                                order.billingAddress.phone = obj.contactDetails[detail].telephone;
+                                order.billingAddress.phone = !empty(billingCustomer[0].telephone) ? billingCustomer[0].telephone : shippingCustomer[0].telephone;
                             }
                         }
 
