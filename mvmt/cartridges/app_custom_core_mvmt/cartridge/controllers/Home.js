@@ -1,5 +1,3 @@
-'use strict';
-
 var server = require('server');
 var page = module.superModule;
 server.extend(page);
@@ -7,24 +5,15 @@ server.extend(page);
 var URLUtils = require('dw/web/URLUtils');
 
 server.append(
-    'IncludeHeaderMenu',
-    function (req, res, next) {
-        res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
-        next();
-    }
-);
-
-server.append(
     'Show',
     function (req, res, next) {
         var viewData = res.getViewData();
         viewData = {
-            relativeURL: URLUtils.url('Page-Show','cid', viewData.content.ID)
+            relativeURL: ""
         };
         res.setViewData(viewData);
         next();
     }
 );
-
 
 module.exports = server.exports();

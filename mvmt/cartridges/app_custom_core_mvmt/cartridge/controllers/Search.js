@@ -7,19 +7,23 @@ server.extend(page);
 var URLUtils = require('dw/web/URLUtils');
 
 server.append(
-    'IncludeHeaderMenu',
+    'Show',
     function (req, res, next) {
-        res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+        var viewData = res.getViewData();
+        viewData = {
+            relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
+        };
+        res.setViewData(viewData);
         next();
     }
 );
 
 server.append(
-    'Show',
+    'ShowContent',
     function (req, res, next) {
         var viewData = res.getViewData();
         viewData = {
-            relativeURL: URLUtils.url('Page-Show','cid', viewData.content.ID)
+            relativeURL: URLUtils.url('Search-ShowContent','fdid', viewData.folderID)
         };
         res.setViewData(viewData);
         next();

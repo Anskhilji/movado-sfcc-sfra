@@ -7,6 +7,7 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var page = module.superModule;
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+var URLUtils = require('dw/web/URLUtils');
 server.extend(page);
 
 /**
@@ -23,7 +24,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     }
 
     viewData = {
-        explicitRecommendations: explicitRecommendations
+        explicitRecommendations: explicitRecommendations,
+        relativeURL: URLUtils.url('Product-Show','pid', product.id)
     };
 
     res.setViewData(viewData);
