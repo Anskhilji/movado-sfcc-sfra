@@ -267,10 +267,13 @@ function populateOrderAttributes(orderItem) {
     sapCurrencyCode = Site.getCurrent().getCustomPreferenceValue('sapCurrencyCode');
     sapTransactions = Site.getCurrent().getCustomPreferenceValue('sapTransactionAllowedValues');
     sapEvents = Site.getCurrent().getCustomPreferenceValue('sapEventAllowedValues');
+    
+    /* to check if order currency matches with the currencies in site preferences */
+    var isValidCurrencyCode = isCurrencyCodeMatches(orderCurrencyCode);
 
     try {
 		/* Set all values received in Status feed in Order Custom Attributes*/
-        if (order && orderSiteId == sapSiteId && orderCurrencyCode == sapCurrencyCode
+        if (order && orderSiteId == sapSiteId && isValidCurrencyCode
 				&& sapTransactions.indexOf(orderTransactionType) != -1 && sapEvents.indexOf(orderEventType) != -1) {
             for (var i = 0; i < childElements.length(); i++) {
                 var childElement = childElements[i];
@@ -370,6 +373,24 @@ function triggerEmail(errorMap) {
         return false;
     }
     return true;
+}
+
+/**
+ * check if order currency matches with the currencies in site preferences
+ * @param {String} orderCurrencyCode
+ * @returns boolean
+ */
+function isCurrencyCodeMatches(orderCurrencyCode) {
+    var sapCurrencyCode = Site.getCurrent().getCustomPreferenceValue('sapCurrencyCode');
+    var isValidCurrencyCode = false;
+    if (sapCurrencyCode.length > 0) {
+        for (i = 0; i < sapCurrencyCode.length; i++) {
+            if (orderCurrencyCode === sapCurrencyCode[i]) {
+                isValidCurrencyCode = true;
+            }
+        }
+    }
+    return isValidCurrencyCode;
 }
 
 
