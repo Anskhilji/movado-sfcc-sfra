@@ -62,6 +62,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
 
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
+
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -77,7 +81,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
             restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-            productPrice: productPrice
+            productPrice: productPrice,
+            eswModuleEnabled: eswModuleEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -154,12 +159,15 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         resources: productHelper.getResources(),
         productPrice: product.price 
     };
-
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
     var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
 
     res.json({
         renderedTemplate: renderedTemplate,
-        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString(),
+        eswModuleEnabled: eswModuleEnabled
     });
 
     next();

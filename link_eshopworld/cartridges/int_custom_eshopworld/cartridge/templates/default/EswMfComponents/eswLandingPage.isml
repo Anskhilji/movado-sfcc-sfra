@@ -36,7 +36,7 @@
                             <div class="select-field">
                             <div class="current-country">
                                 <i class="fa fa-angle-right fa-fw selector-icon"></i>
-                                <span id="selected-locale" data-value="${request.getLocale()}">${pdict.EswLandingObject.selectedLanguage.displayValue}</span>
+                                <span id="selected-locale" data-value="${request.getLocale()}">${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}</span>
                             </div>
                             <div class="selector">
                                 <div class="country">

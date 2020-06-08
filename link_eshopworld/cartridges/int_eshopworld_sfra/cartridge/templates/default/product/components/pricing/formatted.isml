@@ -1,5 +1,0 @@
-<isif condition="${!empty(matchingLineItem)}">
-	${price}
-<iselse>
-	${price.decimalPrice}
-</isif>
