@@ -585,6 +585,9 @@ function createOrder() {
         while (lineItemItr.hasNext()) {
             var productItem = lineItemItr.next();
             productItem.custom.eswUnitPrice = eswHelper.getMoneyObject(productItem.basePrice.value, false, false).value;
+            //Custom Start: Get unit price before applying any rounding rule
+            productItem.custom.eswUnitPriceBeforeRounding = eswHelper.getMoneyObject(productItem.basePrice.value, false, false, true).value;
+            // Custom End
         }
         var shippingAddress = getShipmentShippingAddress(cart.getDefaultShipment());
         shippingAddress.setCountryCode(eswHelper.getAvailableCountry());

@@ -1,4 +1,3 @@
-<iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
 <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <isif condition="${pdict.isPLPProduct}">
          <div class="simple-quantity">
@@ -7,7 +6,7 @@
      </isif>
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-        <button class="add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.productType != 'set' && product.isProductRestricted}">d-none</isif>"
+        <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -17,20 +16,22 @@
                      ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
-        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.productType != 'set' && product.isProductRestricted}d-none) </iscomment>
-        <button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.productType != 'set' && product.isProductRestricted}">d-none</isif>' aria-label="Add to Cart" data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""} >
+        <button  class='add-to-cart tile-quick-view-btn plpToCart' aria-label="Add to Cart" data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""} >
 
         </button>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
-            <isif condition="${(product.available && product.readyToOrder) && (product.productType != 'set' && product.isProductRestricted)}">
-                <isapplepay class="apple-pay-pdp btn ml-sm-2 " sku="${product.id}"></isapplepay>
+        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+        <isif condition="${isEswEnabled}">
+            <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+                <isif condition="${product.available && product.readyToOrder}">
+                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                </isif>
+            </isif>
+        <iselse/>
+            <isif condition="${product.available && product.readyToOrder}">
+                <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
             </isif>
         </isif>
         <iscomment> Custom End </iscomment>
-        <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
-        <div class="product-not-available-msg <isif condition="${product.productType == 'set' || !product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-        <iscomment> Custom End </iscomment>
     </div>
 </div>
-<iscomment> Custom End </iscomment>
