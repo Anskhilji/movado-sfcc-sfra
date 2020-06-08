@@ -26,16 +26,24 @@
     <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
     <div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
         <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
-            <isif condition="${!empty(matchingLineItem)}">
-                ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
+            <isif condition="${isEswEnabled}" >
+                <isif condition="${!empty(matchingLineItem)}">
+                    ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
+                <iselse>
+                    ${lineItem.priceTotal.price}
+                </isif>
             <iselse>
                 ${lineItem.priceTotal.price}
             </isif>
         </span>
     </div>
 <iselse>
-    <isif condition="${!empty(matchingLineItem)}">
-        <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+    <isif condition="${isEswEnabled}" >
+        <isif condition="${!empty(matchingLineItem)}">
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+        <iselse>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
+        </isif>
     <iselse>
         <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
     </isif>
