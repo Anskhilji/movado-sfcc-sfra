@@ -16,14 +16,12 @@
         'searchTerm': '${pdict.gtm.searchTerm}', 
 		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />'
 		
-		// Custom: Added following country dimension on the the base of following checks
+		// Custom: Added country dimension on the the base of ESW enabled
 		
-		<isif condition="${dw.system.Site.current.ID === 'MovadoUS'}">
-			<isif condition="${isEswEnabled}" > 
-				,'country': '${!empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
-			<iselse>
-				,'country': ''
-			</isif>
+		<isif condition="${isEswEnabled}" > 
+			,'country': '${!empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
+		<iselse>
+			,'country': ''
 		</isif>
 		
 		
