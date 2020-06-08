@@ -1,5 +1,7 @@
 'use strict';
 
+var Constants = require('~/cartridge/scripts/util/Constants');
+
 function generateAuthenticationPayLoad(params) {
     return {
         "grant_type": "client_credentials",
@@ -60,7 +62,7 @@ function generateAddContactToDataExtensionPayload(params) {
 
 function generateUpdateEventPayload(params, accessToken) {
     return {
-        "Method": "updateEvents",
+        "Method": Constants.SFMC_UPDATE_API_METHOD,
         "Token": accessToken,
         "attributes": [{
             "Email": params.email,

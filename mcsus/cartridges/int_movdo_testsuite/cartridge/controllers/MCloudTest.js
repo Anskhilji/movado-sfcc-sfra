@@ -15,6 +15,7 @@ server.post('Subscribe', function (req, res, next) {
             birthday: req.form.birthday,
             gender: req.form.gender,
             phoneNumber: req.form.phone,
+            eventName: req.form.eventName
         };
         var result = SFMCApi.sendSubscriberToSFMC(params);
         res.render('mcloud/result', { result: result });

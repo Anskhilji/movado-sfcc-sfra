@@ -30,16 +30,16 @@ function sendSubscriberToSFMC(requestParams) {
         }
         var accessToken = SFMCAPIHelper.getAuthToken(params);
         if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
-            params.email = requestParams.email;
-            params.country = requestParams.country;
-            params.firstName = requestParams.firstName;
-            params.lastName = requestParams.lastName;
-            params.campaignName = requestParams.campaignName;
-            params.eventName = Site.current.getCustomPreferenceValue('mcEventDefinationKey');
-            params.birthday = requestParams.birthday;
-            params.gender = requestParams.gender;
-            params.phoneNumber = requestParams.phoneNumber;
-            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, Constants.SFMC_DATA_API_ENDPOINT.UPDATE_DATA, accessToken, Constants.SFMC_SERVICE_API_TYPE.UPDATE);
+            params.email = !empty(requestParams.email) ? requestParams.email: '';
+            params.country = !empty(requestParams.country) ? requestParams.country : '';
+            params.firstName = !empty(requestParams.firstName) ? requestParams.firstName : '';
+            params.lastName = !empty(requestParams.lastName) ? requestParams.lastName : '';
+            params.campaignName = !empty(requestParams.campaignName) ? requestParams.campaignName : '';
+            params.eventName = !empty(requestParams.eventName) ? requestParams.eventName : '';
+            params.birthday = !empty(requestParams.birthday) ? requestParams.birthday : '';
+            params.gender = !empty(requestParams.gender) ? requestParams.gender : '';
+            params.phoneNumber = !empty(requestParams.phoneNumber) ? requestParams.phoneNumber : '';
+            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
             result = SFMCAPIHelper.updateEvent(params, service);
         } else {
             var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);

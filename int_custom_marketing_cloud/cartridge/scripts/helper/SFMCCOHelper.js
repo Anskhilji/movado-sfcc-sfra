@@ -41,7 +41,8 @@ function saveMCPayload(params) {
                     campaignName: params.campaignName,
                     birthday: params.birthday,
                     gender: params.gender,
-                    phoneNumber: params.phoneNumber
+                    phoneNumber: params.phoneNumber,
+                    eventName: params.eventName
                 }
                 mcSubscriberObject.custom.mcPayload = JSON.stringify(payLoad);
             });
