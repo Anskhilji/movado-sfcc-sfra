@@ -1,3 +1,5 @@
+<iscomment> Custom: defined the following variable </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <script>
 	dataLayer = window.dataLayer = window.dataLayer || [];
 	pageDataGTM = {};
@@ -12,8 +14,19 @@
 		'secondarySiteSection': '${pdict.gtm.secondarySiteSection}',
 		'tertiarySiteSection': '${pdict.gtm.tertiarySiteSection}', 
         'searchTerm': '${pdict.gtm.searchTerm}', 
-		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
-		'country': '${!empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
+		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />'
+		
+		// Custom: Added following country dimension on the the base of following checks
+		
+		<isif condition="${dw.system.Site.current.ID === 'MovadoUS'}">
+			<isif condition="${isEswEnabled}" > 
+				,'country': '${!empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
+			<iselse>
+				,'country': ''
+			</isif>
+		</isif>
+		
+		
 	};	
 	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
 		dataLayer.push ({
