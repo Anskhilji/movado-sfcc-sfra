@@ -1,0 +1,10 @@
+<li class="country-selector-mobile">
+<iscomment> Custom Start: Adding ESW Logic </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                <isif condition="${isEswEnabled}" > 
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                </isif>
+                <iscomment> Custom End </iscomment>
+
+</li>
