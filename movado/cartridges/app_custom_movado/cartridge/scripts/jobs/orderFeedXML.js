@@ -1865,7 +1865,7 @@ function getBillingCurrency(order, isEswEnabled) {
                 : order.getCurrencyCode();
         return billingCurrency;
     }
-    return '';
+    return order.getCurrencyCode();
 }
 
 /**
