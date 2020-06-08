@@ -2,13 +2,14 @@
 
 var server = require('server');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var Site = require('dw/system/Site');
 
 server.get('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-    if (eswCustomHelper.isEshopworldModuleEnabled()) {
-        var isNewMovadoWelcomeMatSession = session.custom.welcomeMat;
-        if ((!eswCustomHelper.isEswEnableLandingPage() && !eswCustomHelper.isEswEnableLandingpageBar()) && 
-            (empty(isNewMovadoWelcomeMatSession) || isNewMovadoWelcomeMatSession == false)) {
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    if (eswModuleEnabled) {
+        var sessionWelcomeMat = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
+        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+        if (empty(sessionWelcomeMat) || sessionWelcomeMat == false) {
             var Cookie = require('dw/web/Cookie');
             var URLUtils = require('dw/web/URLUtils');
             var allCountries = null;
@@ -17,7 +18,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
             var locale = request.getLocale();
             var movadoLandingObject = {};
-            session.custom.welcomeMat = true;
+            session.custom.isWelcomeMat = true;
 
             if (isGeoLocation) {
                 geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
@@ -41,7 +42,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
 
             movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
             movadoLandingObject.allCountries = allCountries;
-            res.render('welcomeMat/newWelcomeMatModal', {movadoLandingObject : movadoLandingObject});
+            res.render('welcomeMat/corssBorderWelcomeMatModel', {movadoLandingObject : movadoLandingObject});
         } else {
             return "";
         }
