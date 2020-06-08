@@ -60,11 +60,11 @@ function preparePreOrderV2() {
  */
 function getRetailerPromoCodes() {
     var currentBasket = BasketMgr.currentBasket;
-    var coupons = [],
-        couponObject = {};
+    var coupons = [];
     // eslint-disable-next-line no-prototype-builtins
     if ((currentBasket.hasOwnProperty('couponLineItems') || currentBasket.couponLineItems) && !empty(currentBasket.couponLineItems)) {
         forEach((currentBasket.couponLineItems), function (couponLineItem) {
+            var couponObject = {};
             couponObject.promoCode = couponLineItem.couponCode;
             couponObject.title = !empty(couponLineItem.getPriceAdjustments()) ? couponLineItem.getPriceAdjustments()[0].promotion.name : '';
             // eslint-disable-next-line no-prototype-builtins
@@ -99,7 +99,6 @@ function getCartItemsV2() {
         var ImageModel = require('*/cartridge/models/product/productImages');
         var imageUrl = '';
         // Custom End
-
         var item = currentBasket.productLineItems[lineItemNumber],
             beforeDiscount = eswHelper.getMoneyObject(item.basePrice.value, false, false).value * item.quantity.value,
             price = beforeDiscount,
@@ -117,7 +116,7 @@ function getCartItemsV2() {
             });
         }
         price = (price / item.quantity.value).toFixed(2);
-        beforeDiscount = beforeDiscount / item.quantity.value;
+        beforeDiscount = (beforeDiscount / item.quantity.value).toFixed(2);
 
         var priceAfterProductPromos = price;
         if (item.bonusProductLineItem) {
@@ -141,8 +140,6 @@ function getCartItemsV2() {
         var productVariationModel = item.product.variationModel;
         var color = productVariationModel.getProductVariationAttribute('color') ? productVariationModel.getSelectedValue(productVariationModel.getProductVariationAttribute('color')).displayValue : null;
         var size = productVariationModel.getProductVariationAttribute('size') ? productVariationModel.getSelectedValue(productVariationModel.getProductVariationAttribute('size')).displayValue : null;
-
-
         var cartItem = {
             'quantity': item.quantity.value,
             'estimatedDeliveryDate': null,
@@ -162,7 +159,7 @@ function getCartItemsV2() {
                 'color': color,
                 'size': size,
                 'isNonStandardCatalogItem': false,
-                'metadataItems': null
+                'metadataItems': getProductLineMetadataItems(item)
             },
             'cartGrouping': 'Group 1',
             'metadataItems': null
@@ -214,12 +211,42 @@ function getCartDiscountsV2() {
     return cartDiscounts;
 }
 
+/**
+ * function to get the product line item metadata.
+ * sends custom attributes in 
+ * @param {Object} pli - productLineItem  
+ * @return {Array} arr - metadata Array
+ */
+function getProductLineMetadataItems(pli) {
+    var metadataItems = eswHelper.getProductLineMetadataItemsPreference(),
+        obj, arr = [], i = 0;
+    if (!empty(metadataItems)) {
+        for (var item in metadataItems) {
+            var metadataItem = metadataItems[item];
+            i = metadataItem.indexOf('|');
+            
+            // Product line custom attribute ID
+            var pliCustomAttrID = metadataItem.substring(i + 1);
+            var pliCustomAttrValue = (pliCustomAttrID in pli.custom && !!pli.custom[pliCustomAttrID]) ? pli.custom[pliCustomAttrID] : null;
+            
+            if (!empty(pliCustomAttrValue)) {
+                obj = {
+                    name: metadataItem.substring(0, i),
+                    value: pliCustomAttrValue
+                };
+                arr.push(obj);
+            }
+        }
+    }
+    return arr.length > 0 ? arr : null;
+}
+
 /*
  * function to get shopper checkout experience for version 2
  */
 function getShopperCheckoutExperience() {
     var checkoutExp = {
-        'useDeliveryContactDetailsForPaymentContactDetails': false,
+        'useDeliveryContactDetailsForPaymentContactDetails': eswHelper.isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled() ? true : false,
         'emailMarketingOptIn': false,
         'registeredProfileId': customer.profile ? customer.profile.customerNo : null,
         'shopperCultureLanguageIso': request.getHttpCookies()['esw.LanguageIsoCode'].value.replace('_', '-'),
@@ -251,22 +278,26 @@ function getExpansionPairs() {
 function getRetailerCheckoutMetadataItems() {
     var URLUtils = require('dw/web/URLUtils'),
         metadataItems = eswHelper.getMetadataItems(),
+        currentInstance = eswHelper.getSelectedInstance(),
         obj = {},
         arr = [],
         i = 0;
     for (var item in metadataItems) {
         var metadataItem = metadataItems[item];
         i = metadataItem.indexOf('|');
-        obj.Name = metadataItem.substring(0, i);
-        if (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 && eswHelper.getBasicAuthEnabled() && !empty(eswHelper.getBasicAuthPassword())) {
-            obj.Value = eswHelper.encodeBasicAuth();
+        if (currentInstance === 'production' && (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 || metadataItem.indexOf('OrderConfirmationUri') != -1)) {
+            continue;
         } else {
-            if (metadataItem.indexOf('OrderConfirmationUri') != -1) {
+            obj.Name = metadataItem.substring(0, i);
+            if (metadataItem.indexOf('OrderConfirmationBase64EncodedAuth') != -1 && eswHelper.getBasicAuthEnabled() && !empty(eswHelper.getBasicAuthPassword())) {
+                obj.Value = eswHelper.encodeBasicAuth();
+            } else if (metadataItem.indexOf('OrderConfirmationUri') != -1) {
                 obj.Value = URLUtils.https(new dw.web.URLAction(metadataItem.substring(i + 1), Site.ID, request.httpCookies['esw.LanguageIsoCode'].value)).toString();
             } else {
                 obj.Value = metadataItem.substring(i + 1);
             }
         }
+        
         arr.push(obj);
         obj = {};
     }
@@ -584,7 +615,7 @@ function createOrder() {
         var selectedFxRate = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate) : '';
         Transaction.wrap(function () {
             if (selectedFxRate && !empty(selectedFxRate)) {
-                order.custom.eswFxrate = new Number(selectedFxRate.rate);
+                order.custom.eswFxrate = new Number(selectedFxRate.rate).toFixed(4);
             }
         });
 

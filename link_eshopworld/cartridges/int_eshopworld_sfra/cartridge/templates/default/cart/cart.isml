@@ -3,7 +3,7 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/cart.css');
     </isscript>
-	<isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
@@ -68,10 +68,10 @@
                     <div class="coupons-and-promos">
                         <isinclude template="cart/cartCouponDisplay" />
                     </div>
-                    <isif condition="${eswHelper.showShippingMethodDropdown()}">
-                    <div class="row">
-                        <isinclude template="cart/cartShippingMethodSelection" />
-                    </div>
+                    <isif condition="${!eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
+                        <div class="row">
+                            <isinclude template="cart/cartShippingMethodSelection" />
+                        </div>
                     </isif>
                     <isinclude template="cart/cartTotals" />
                     <div class="row">

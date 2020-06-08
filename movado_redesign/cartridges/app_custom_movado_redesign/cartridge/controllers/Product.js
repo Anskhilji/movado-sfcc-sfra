@@ -95,7 +95,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
     }
-    
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -112,7 +114,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         moreStyleGtmArray: moreStyleGtmArray,
         moreStyleRecommendations: moreStyleRecommendations,
         wishlistGtmObj: wishlistGtmObj,
-        youMayLikeRecommendations: youMayLikeRecommendations
+        youMayLikeRecommendations: youMayLikeRecommendations,
+        eswModuleEnabled: eswModuleEnabled
     }
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {

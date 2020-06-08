@@ -4,6 +4,7 @@ var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var Site = require('dw/system/Site');
 
 /**
  * Get product search hit for a given product
@@ -42,6 +43,7 @@ function getProductSearchHit(apiProduct) {
  * @returns {Object} - Decorated product model
  */
 module.exports = function productTile(product, apiProduct, productType, params) {
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productSearchHit = getProductSearchHit(apiProduct);
     if (!productSearchHit) {
         return null;
@@ -76,5 +78,16 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (!params.availability || params.availability == true) {
         decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
     }
+
+    //Custom Start: Adding esw latest cartridge code
+    if (isEswEnabled) {
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        Object.defineProperty(product, 'isProductRestricted', {
+            enumerable: true,
+            value: eswHelper.isProductRestricted(apiProduct.custom)
+        });
+    }
+    // Custom end
+
     return product;
 };

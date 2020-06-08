@@ -1,6 +1,7 @@
 'use strict';
 
 var decorators = require('*/cartridge/models/product/decorators/index');
+var Site = require('dw/system/Site');
 
 /**
  * Decorate product with full product information
@@ -17,6 +18,7 @@ var decorators = require('*/cartridge/models/product/decorators/index');
  * @returns {Object} - Decorated product model
  */
 module.exports = function fullProduct(product, apiProduct, options) {
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
     decorators.mgattributes(product, apiProduct);
@@ -50,6 +52,16 @@ module.exports = function fullProduct(product, apiProduct, options) {
     if (category) {
         decorators.sizeChart(product, category.custom.sizeChartID);
     }
+
+    //Custom Start: Adding esw latest cartridge code
+    if (isEswEnabled) {
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        Object.defineProperty(product, 'isProductRestricted', {
+            enumerable: true,
+            value: eswHelper.isProductRestricted(apiProduct.custom)
+        });
+    }
+    // Custom end
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);

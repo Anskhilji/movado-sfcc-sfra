@@ -1,48 +1,44 @@
+<isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
 <span>
     <isset name="finalOrigPrice" value="${price}" scope="page" />
-    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-    <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
-    
-    <isif condition="${empty(pdict.product)}"> 
-    	<isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(lineItem)}" scope="page" />
-   	<iselse>
-    	<isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
-    </isif>
-	
 
     <isif condition="${finalOrigPrice.list !== null}">
-        <isif condition="${!empty(matchingLineItem)}">
-            <isset name="price" value="${finalOrigPrice.list.decimalPrice}" scope="page" />
-    	<iselse>
-    	    <isset name="price" value="${finalOrigPrice.list}" scope="page" />
-    	</isif>
-        <meta itemprop="priceCurrency" content="${finalOrigPrice.list.currency}" />
-        <span class="strike-through list">
-            <span class="value" itemprop="price" content="${price}">
-                <isinclude template="/product/components/pricing/formatted" />
+        <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+        <del>
+            <span class="strike-through list">
+                <span class="value" content="${price.decimalPrice}">
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                    </span>
+                    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+                        <span class="eswListPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'listPrice', true)}"/></span>
+                    <iselse>
+                        <isinclude template="/product/components/pricing/formatted" />
+                    </isif>
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.to', 'pricing', null)}
+                    </span>
+                </span>
             </span>
-        </span>
+        </del>
     </isif>
-    
-    <isif condition="${!empty(matchingLineItem)}">
-    	<isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
+
+    <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+        <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice)}"/></span>
     <iselse>
-        <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
-    </isif>
-    
-    <meta itemprop="priceCurrency" content="${finalOrigPrice.sales.currency}" />
-    <span class="sales">
-        <isif condition="${isLowPrice == 'range-low'}">
-            <span class="value" itemprop="lowprice" content="${finalOrigPrice.sales.decimalPrice}">
-        </isif>
-        <isif condition="${isLowPrice == 'range-high'}">
-            <span class="value" itemprop="highprice" content="${finalOrigPrice.sales.decimalPrice}">
-        </isif>
-        <isif condition="${isLowPrice == null}">
-            <span class="value" itemprop="price" content="${finalOrigPrice.sales.decimalPrice}">
-        </isif>
-        
-        <isinclude template="/product/components/pricing/formatted" />
+        <span class="sales">
+            <isif condition="${isLowPrice == 'range-low'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == 'range-high'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == null}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isinclude template="/product/components/pricing/formatted" />
         </span>
+    </isif>
     </span>
 </span>
