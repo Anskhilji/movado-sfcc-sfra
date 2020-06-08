@@ -3,9 +3,14 @@
     height: rem(270);
     margin: auto rem(10);
     border-bottom: rem(1) solid $chinese-silver;
+    text-decoration: none;
 
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        text-decoration: none;
     }
 
     .collection-related-tile {

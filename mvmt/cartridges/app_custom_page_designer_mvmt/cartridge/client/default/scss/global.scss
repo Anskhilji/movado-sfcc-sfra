@@ -1,4 +1,5 @@
 @import '~mvmt/global';
+@import '~app_custom_page_designer/pageDesigner';
 @import './variables';
 @import './mixins';
 @import './components/_blogControlBar';
@@ -7,3 +8,4 @@
 @import './components/imageTextTile';
 @import './layouts/blogGridLayout';
 @import './pages/fullWidthDynamicPage';
+@import './components/_banner';

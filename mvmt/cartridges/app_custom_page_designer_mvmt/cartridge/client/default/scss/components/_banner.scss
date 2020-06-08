@@ -1,0 +1,68 @@
+.component-banner {
+
+    &-overlay {
+
+        &.center {
+            transform: translate(-50%, -30%);
+        }
+    }
+
+    &-image {
+        height: rem(380);
+    }
+
+    &-heading {
+        color: $white;
+        font-size: rem(40);
+        line-height: 1.1;
+        font-weight: bold;
+        padding: 0 rem(25);
+        text-align: center;
+
+        @include media-up ($mvmt-custom-lg) {
+            font-size: 60px;
+            letter-spacing: rem(8.33);
+        }
+
+        * {
+            color: $white;
+            font-size: rem(40);
+            line-height: 1.1;
+            font-weight: bold;
+            padding: 0 rem(25);
+            text-align: center;
+
+            @include media-up ($mvmt-custom-lg) {
+                font-size: 60px;
+                letter-spacing: rem(8.33);
+            }
+        }
+    }
+
+    &-subheading {
+        color: $white;
+        font-size: rem(20);
+        line-height: 1.2;
+        font-weight: 400;
+        margin-bottom: 0;
+        padding: 0 rem(25);
+
+        @include media-up ($mvmt-custom-lg) {
+            letter-spacing: rem(4.29);
+        }
+
+        * {
+            color: $white;
+            font-size: rem(20);
+            line-height: 1.2;
+            font-weight: 400;
+            margin-bottom: 0;
+            padding: 0 rem(25);
+
+            @include media-up ($mvmt-custom-lg) {
+                letter-spacing: rem(4.29);
+            }
+        }
+            
+    }
+}

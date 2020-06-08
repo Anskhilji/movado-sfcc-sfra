@@ -28,6 +28,9 @@
             text-orientation: mixed;
             margin: 0 rem(35) 0 0;
             width: rem(50);
+            margin: 0 rem(35) 0 0;
+            font-family: $font-bold;
+            font-weight: bold;
         }
     }
 
@@ -160,7 +163,7 @@
         color: inherit;
         font-family: $blog-font-primary;
         box-sizing: inherit;
-        font-weight: 400;
+        font-weight: bold;
         letter-spacing: rem(1.5);
         text-transform: uppercase;
         margin: 0;
@@ -180,8 +183,8 @@
         color: $black;
         margin: rem(30) rem(35) 0;
         display: inline-block;
-        font-family: $blog-font-primary;
-        font-weight: 600;
+        font-family: $font-bold;
+        font-weight: bold;
         text-transform: uppercase;
         font-style: normal;
 
@@ -207,7 +210,7 @@
         padding: 0 rem(35);
         letter-spacing: rem(1.5);
         font-family: $blog-font-primary;
-        font-weight: 500;
+        font-weight: bold;
         text-transform: uppercase;
         font-style: normal;
     }
@@ -358,12 +361,12 @@
             
         &-main {
             box-shadow: 0 0 rem(27) rem(-3) rgba(0, 0, 0, .3);
-            width: calc(100% - 30px);
+            width: calc(100% - 80px);
             margin: rem(-30) auto 0;
             position: relative;
 
             @include media-up ($mvmt-custom-lg) {
-                max-width: rem(325);
+                max-width: rem(425);
                 position: absolute ;
                 right: 0 ;
                 top: 40% ;
@@ -382,10 +385,22 @@
             font-size: rem(24);
             line-height: 1;
 
+
             @include media-up ($mvmt-custom-lg) {
                 text-align: left;
                 letter-spacing: rem(4.4);
                 font-weight: bold;
+                font-size: rem(40);
+                text-size-adjust: 100%;
+                text-align: left;
+                color: inherit;
+                font-family: $blog-font-primary;
+                box-sizing: inherit;
+                text-transform: uppercase;
+                margin: 0;
+                letter-spacing: rem(2.5);
+                margin-bottom: rem(10);
+                padding: 0 rem(5);
             }
         }
 
