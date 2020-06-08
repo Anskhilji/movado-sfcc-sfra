@@ -23,9 +23,8 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-            margin-bottom: rem(80);
             background-color: $white;
-            padding: rem(10) rem(5) rem(10) rem(15);
+            padding: rem(10) rem(5) rem(80) rem(15);
             position: relative;
             
             svg {
@@ -41,7 +40,7 @@
             display: inline-block;
             padding-left: rem(20);
             font-size: rem(14);
-            font-weight: 500;
+            font-weight: bold;
             padding: 0 rem(5) 0 rem(13);
         }
 

@@ -20,7 +20,6 @@
         margin: rem(25) 0 rem(20);
 
         @include media-up ($mvmt-custom-lg) {
-            letter-spacing: rem(4.29);
             font-size: rem(50);
             padding: 0;
             text-align: left;
@@ -400,7 +399,7 @@
                 margin: 0;
                 letter-spacing: rem(2.5);
                 margin-bottom: rem(10);
-                padding: 0 rem(5);
+                padding: 0 rem(25);
             }
         }
 

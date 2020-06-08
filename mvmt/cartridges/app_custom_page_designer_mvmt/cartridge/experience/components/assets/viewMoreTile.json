@@ -25,7 +25,14 @@
                     "name": "Pointer Text",
                     "type": "string",
                     "default_value": "VIEW ALL POSTS",
-                    "required": true
+                    "required": false
+                },
+                {
+                    "id": "isDisrupted",
+                    "name": "Disrupted View More",
+                    "type": "boolean",
+                    "description": "Shows disrupted view more tile. This should be checked if tile is to be used with disrupted post tiles",
+                    "default_value": false
                 }
             ]
         }
