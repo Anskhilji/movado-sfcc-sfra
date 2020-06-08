@@ -1,5 +1,7 @@
 'use strict';
 
+var Logger = require('dw/system/Logger');
+
 var collections = require('*/cartridge/scripts/util/collections');
 var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ImageModel = require('*/cartridge/models/product/productImages');
@@ -126,37 +128,44 @@ function getAttrResetUrl(values, attrID) {
  */
 function VariationAttributesModel(variationModel, attrConfig, selectedOptionsQueryParams,
                                   quantity) {
-    var allAttributes = variationModel.productVariationAttributes;
-    var result = [];
-    collections.forEach(allAttributes, function (attr) {
-        var selectedValue = variationModel.getSelectedValue(attr);
-        var values = getAllAttrValues(variationModel, selectedValue, attr, attrConfig.endPoint,
-            selectedOptionsQueryParams, quantity);
-        var resetUrl = getAttrResetUrl(values, attr.ID);
+    try {
+        var allAttributes = variationModel.productVariationAttributes;
+        var result = [];
+        collections.forEach(allAttributes, function (attr) {
+            var selectedValue = variationModel.getSelectedValue(attr);
+            var values = getAllAttrValues(variationModel, selectedValue, attr, attrConfig.endPoint,
+                selectedOptionsQueryParams, quantity);
+            var resetUrl = getAttrResetUrl(values, attr.ID);
 
-        if ((Array.isArray(attrConfig.attributes)
-            && attrConfig.attributes.indexOf(attr.attributeID) > -1)
-            || attrConfig.attributes === '*') {
-            result.push({
-                attributeId: attr.attributeID,
-                displayName: attr.displayName,
-                id: attr.ID,
-                swatchable: isSwatchable(attr.attributeID),
-                values: values,
-                resetUrl: resetUrl
-            });
-        } else if (attrConfig.attributes === 'selected') {
-            result.push({
-                displayName: attr.displayName,
-                displayValue: selectedValue && selectedValue.displayValue ? selectedValue.displayValue : '',
-                attributeId: attr.attributeID,
-                id: attr.ID
-            });
-        }
-    });
-    result.forEach(function (item) {
-        this.push(item);
-    }, this);
+            if ((Array.isArray(attrConfig.attributes)
+                && attrConfig.attributes.indexOf(attr.attributeID) > -1)
+                || attrConfig.attributes === '*') {
+                result.push({
+                    attributeId: attr.attributeID,
+                    displayName: attr.displayName,
+                    id: attr.ID,
+                    swatchable: isSwatchable(attr.attributeID),
+                    values: values,
+                    resetUrl: resetUrl
+                });
+            } else if (attrConfig.attributes === 'selected') {
+                result.push({
+                    displayName: attr.displayName,
+                    displayValue: selectedValue && selectedValue.displayValue ? selectedValue.displayValue : '',
+                    attributeId: attr.attributeID,
+                    id: attr.ID
+                });
+            }
+        });
+        result.forEach(function (item) {
+            this.push(item);
+        }, this);
+
+    } catch (e) {
+        Logger.error('VariationAttributesModel exception: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    
 }
 
 VariationAttributesModel.prototype = [];

@@ -360,8 +360,8 @@
             cursor: pointer;
         
             img {
-                border: 1px solid #ffff;
-                padding: 1px;
+                border: rem(1) solid $white;
+                padding: rem(1);
                 
                 &.swatch-circle.is-active {
                     border: rem(1) solid $black;

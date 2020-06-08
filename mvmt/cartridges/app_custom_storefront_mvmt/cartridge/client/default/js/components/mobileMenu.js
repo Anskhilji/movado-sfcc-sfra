@@ -84,7 +84,7 @@ module.exports = function () {
             $availibilityContainer.hide();
             if (!response.product.available) {
                 $availibilityContainer.show();
-                $availibilityContainer.removeClass('d-none').css('display' , 'unset');
+                $availibilityContainer.removeClass('d-none').css('display' , 'inline');
                 $addToCartSelector.text(Resources.OUT_OF_STOCK_LABEL);
                 $addToCartSelector.addClass('out-of-stock-btn');
                 $addToCartSelector.prop('disabled', true);
