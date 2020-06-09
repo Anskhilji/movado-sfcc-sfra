@@ -5,6 +5,8 @@
 <isif condition="${isEswEnabled}">
     <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
         <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselse/>
+        <isset name="isAffirmAllowed" value="false" scope="page" />
     </isif>
 <iselse/>
     <isset name="isAffirmAllowed" value="true" scope="page" />
