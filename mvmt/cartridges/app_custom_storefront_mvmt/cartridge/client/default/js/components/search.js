@@ -176,3 +176,31 @@ module.exports = function () {
         tearDownSuggestions();
     });
 };
+
+
+module.exports = function () {
+    $('.sfmc-update-event').submit(function( event ) {
+        event.preventDefault(); 
+       console.log('clicked from code');
+       $.spinner().start();
+       var params = $(this).serialize();
+        
+        var endpoint = $(this).attr('action');
+        $.ajax({
+            url: endpoint,
+            method: 'POST',
+            data: params,
+            success: function () { 
+                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $.spinner().stop();
+            },
+            error: function () {
+                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
+                $.spinner().stop();
+            }
+        });
+        $.spinner().stop();
+  
+     });
+};
+
