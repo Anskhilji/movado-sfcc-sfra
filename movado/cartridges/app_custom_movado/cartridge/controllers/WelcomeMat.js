@@ -40,10 +40,10 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
                 movadoLandingObject.selectedCountryName = firstCountry.displayValue;
                 movadoLandingObject.selectedCurrency = '';
             }
-            var newWelcomeMatContent = ContentMgr.getContent('new-welcome-mat');
+            var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');
             movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
             movadoLandingObject.allCountries = allCountries;
-            movadoLandingObject.contentBody = newWelcomeMatContent && newWelcomeMatContent.custom.body ? newWelcomeMatContent.custom.body : '';
+            movadoLandingObject.contentBody = crossBorderWelcomeMatContent && crossBorderWelcomeMatContent.custom.body ? crossBorderWelcomeMatContent.custom.body : '';
             movadoLandingObject.currentCountry = request.geolocation.countryName;
             res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : movadoLandingObject});
         } else {
