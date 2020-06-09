@@ -10,7 +10,11 @@ var Site = require('dw/system/Site').getCurrent();
  * @returns {ArrayList} languages : Array list of languages
  */
 function getCustomCountriesJson() {
-    return !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
+    var customCountriesJson = session.custom.countriesJSONFromPreferences;
+    if (empty(customCountriesJson)) {
+        customCountriesJson = !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
+    }
+    return customCountriesJson;
 }
 
 /**
@@ -167,11 +171,72 @@ function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     return countries;
 }
 
+/**
+ * This method is used to get country object by country code from getCustomCountriesJson() method.
+ * @param {string} countryCode : Country Code
+ * @returns {Object} country : Country object
+ */
+function getCustomCountryByCountryCode(countryCode) {
+    var country = null;
+    try {
+        var countries = getCustomCountriesJson();
+        for (var countryIndex = 0; countryIndex < countries.length; countryIndex++) {
+            country = countries[countryIndex];
+            if (!empty(country)) {
+                if (country.countryCode.equalsIgnoreCase(countryCode)) {
+                    break;
+                }
+                country = null;
+            }
+        }
+    } catch (e) {
+        Logger.error('(eswCustomHelper.js -> getCustomCountryByCountryCode) Error occured while getting the country object from getCustomCountriesJson: ' + e);
+    }
+    return country;
+}
+
+/**
+ * This method is used to check geo location is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isGeoLocationEnabled() {
+    return !empty(Site.getCustomPreferenceValue('enableGeoLookup')) ? Site.getCustomPreferenceValue('enableGeoLookup') : false;
+}
+
+/**
+ * This method is used to check e-shop-world module is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEshopworldModuleEnabled() {
+    return !empty(Site.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+}
+
+/**
+ * This method is used to check landing page is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingPage() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingPage')) ? Site.getCustomPreferenceValue('eswEnableLandingPage') : false;
+}
+
+/**
+ * This method is used to check landing page Bar is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingpageBar() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingpageBar')) ? Site.getCustomPreferenceValue('eswEnableLandingpageBar') : false;
+}
+
 module.exports = {
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
     getSelectedLanguage: getSelectedLanguage,
     getSelectedCountry: getSelectedCountry,
     getAlphabeticallySortedLanguages: getAlphabeticallySortedLanguages,
-    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries
+    getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries,
+    getCustomCountryByCountryCode: getCustomCountryByCountryCode,
+    isGeoLocationEnabled: isGeoLocationEnabled,
+    isEshopworldModuleEnabled: isEshopworldModuleEnabled,
+    isEswEnableLandingPage: isEswEnableLandingPage,
+    isEswEnableLandingpageBar: isEswEnableLandingpageBar
 };

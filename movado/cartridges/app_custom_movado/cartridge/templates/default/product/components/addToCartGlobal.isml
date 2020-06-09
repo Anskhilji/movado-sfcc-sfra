@@ -20,11 +20,9 @@
             </isif>
         </button>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && (product.productType != 'set' && product.isProductRestricted)}" >
+        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
             <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
         </isif>
-        <iscomment> Custom End </iscomment>
-        <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
         <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
         <iscomment> Custom End </iscomment>
     </div>
