@@ -1,4 +1,4 @@
-<a href="${pdict.link}" class="article-grid-item view-all ${pdict.isDisrupted ? 'Disrupted' : ''}">
+<a href="${pdict.link}" class="article-grid-item view-all ${pdict.isDisrupted ? 'disrupted' : ''}">
   <span class="view-all-content">
     <h3 class="view-all-title">${pdict.title}</h3>
     <span class="view-all-btn">${pdict.pointerText}</span>
