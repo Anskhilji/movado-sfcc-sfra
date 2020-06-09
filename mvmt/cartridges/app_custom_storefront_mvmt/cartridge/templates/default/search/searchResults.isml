@@ -18,6 +18,7 @@
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
     </div>
+
     <div class="mvmt-plp container-fluid p-0 search-results">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">

@@ -1,0 +1,24 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/productDetail.js');
+    </isscript>
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addCss('/css/search.css');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
+    <isif condition=${false}>
+        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+    </isif>
+ 
+    <div class="content-slots-container strap-slot-container">
+        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
+        <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="global"/>
+        <section class="strap-guide-footer">
+            <h3>Don't have a MVMT watch yet? No time like the present!</h3>
+            <a href="/collections/all-mens-watches" class="button button-utline">Shop All Mens Watches</a>
+        </section>
+    </div>
+</isdecorate>
