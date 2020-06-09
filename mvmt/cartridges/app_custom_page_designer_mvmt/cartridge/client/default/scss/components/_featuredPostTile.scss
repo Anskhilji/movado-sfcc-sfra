@@ -7,6 +7,7 @@
     display: block;
     letter-spacing: rem(1.5);
     font-family: $blog-font-primary;
+    margin: 0 rem(-8);
 
     &-title {
         text-size-adjust: 100%;
@@ -18,6 +19,7 @@
         line-height: 1;
         text-align: center;
         margin: rem(25) 0 rem(20);
+        font-family: $font-bold;
 
         @include media-up ($mvmt-custom-lg) {
             font-size: rem(50);
@@ -28,7 +30,6 @@
             margin: 0 rem(35) 0 0;
             width: rem(50);
             margin: 0 rem(35) 0 0;
-            font-family: $font-bold;
             font-weight: bold;
         }
     }
