@@ -5,6 +5,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Site = require('dw/system/Site');
 
 server.get('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
+    var ContentMgr = require('dw/content/ContentMgr');
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     if (eswModuleEnabled) {
         var sessionWelcomeMat = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
@@ -39,15 +40,16 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
                 movadoLandingObject.selectedCountryName = firstCountry.displayValue;
                 movadoLandingObject.selectedCurrency = '';
             }
-
+            var newWelcomeMatContent = ContentMgr.getContent('new-welcome-mat');
             movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
             movadoLandingObject.allCountries = allCountries;
-            res.render('welcomeMat/corssBorderWelcomeMatModel', {movadoLandingObject : movadoLandingObject});
+            movadoLandingObject.contentBody = newWelcomeMatContent && newWelcomeMatContent.custom.body ? newWelcomeMatContent.custom.body : '';
+            movadoLandingObject.currentCountry = request.geolocation.countryName;
+            res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : movadoLandingObject});
         } else {
             return "";
         }
     } else {
-        var ContentMgr = require('dw/content/ContentMgr');
         var apiContent = ContentMgr.getContent('welcome-mat');
         res.render('welcomeMat/welcomeMatModal', {
             contentBody:

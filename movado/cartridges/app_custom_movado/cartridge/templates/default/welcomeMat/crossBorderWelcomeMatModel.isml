@@ -6,17 +6,10 @@
                 <div class="eswModalWrapper">
                     <div class="eswModal" role="dialog" id="eswModal">
                         <div class="eswModal-content">
-                            <iscontentasset aid="welcome-mat-header" />
-                            <isif condition="${pdict.movadoLandingObject.isGeoLocation}"> 
-                                <iscontentasset aid="welcome-mat-body" />
-                                <h3><iscontentasset aid="welcome-mat-message-1" /> <span>${pdict.movadoLandingObject.selectedCountryName}</span></h3>
-                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.setLocale}"><iscontentasset aid="welcome-mat-button-site-name" /></button>
-                            <iselse>
-                                <h3><iscontentasset aid="welcome-mat-message-2" /> <span>${request.geolocation.countryName}</span> <iscontentasset aid="welcome-mat-right-now" /></h3>
-                                <button class="btn btn-primary esw-btn" data-dismiss="modal" data-url="${pdict.movadoLandingObject.setLocale}">${Resource.msg('esw.continue.anyway.button', 'esw', null)}</button>
-                            </isif>
+                            <input type="hidden" id="isGeoLocation" data-country="${pdict.movadoLandingObject.currentCountry}" data-url="${pdict.movadoLandingObject.setLocale}" class="d-none" value="${pdict.movadoLandingObject.isGeoLocation}">
+                            <isprint value="${pdict.movadoLandingObject.contentBody}" encoding="off" />
                             <div class="selectors selector-container">
-                                <p><iscontentasset aid="welcome-mat-change-country" /></p>
+                                <p id="add-shipping-country-message"></p>
                                 <div class="esw-country-selector selectCountry">
                                     <label>${Resource.msg('esw.shipping.country','esw',null)}</label>
                                     <div class="select-field">
