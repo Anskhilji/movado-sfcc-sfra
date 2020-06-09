@@ -1,6 +1,8 @@
 'use strict';
 
-var Cleave = require('cleave.js');
+//Custom Start: Adding Latest SFRA Cartridge Piece of Code for ESW
+var Cleave = require('cleave.js').default;
+//Custom End
 
 module.exports = {
     handleCreditCardNumber: function (cardFieldSelector, cardTypeSelector) {

@@ -62,6 +62,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
 
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
+
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -77,12 +81,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             wishlistGtmObj: wishlistGtmObj,
             klarnaProductPrice: klarnaProductPrice,
             restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-            productPrice: productPrice
+            productPrice: productPrice,
+            eswModuleEnabled: eswModuleEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
 
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+    if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
     	pdpAnalyticsTrackingData = {
             itemID: product.ID,
@@ -154,12 +159,15 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         resources: productHelper.getResources(),
         productPrice: product.price 
     };
-
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
     var renderedTemplate = renderTemplateHelper.getRenderedHtml(context, template);
 
     res.json({
         renderedTemplate: renderedTemplate,
-        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString()
+        productUrl: URLUtils.url('Product-Show', 'pid', product.id).relative().toString(),
+        eswModuleEnabled: eswModuleEnabled
     });
 
     next();
@@ -229,7 +237,11 @@ server.get('ShowAvailability', function (req, res, next) {
 
 server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    res.setViewData(smartGift);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,

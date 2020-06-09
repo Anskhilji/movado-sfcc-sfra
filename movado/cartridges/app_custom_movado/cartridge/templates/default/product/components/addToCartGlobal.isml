@@ -1,7 +1,9 @@
+<iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
 <div class="row cart-and-ipay">
     <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-        <button class="add-to-cart-global btn btn-primary gtm-addtocart"
+        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
+        <button class="add-to-cart-global btn btn-primary gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>"
                 data-pid="${product.id}">
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
@@ -18,9 +20,11 @@
             </isif>
         </button>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+        <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
             <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
         </isif>
+        <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
         <iscomment> Custom End </iscomment>
     </div>
 </div>
+<iscomment> Custom End </iscomment>

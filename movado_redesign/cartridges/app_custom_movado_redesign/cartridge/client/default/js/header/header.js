@@ -2,9 +2,7 @@
 $(document).ready(function() {
     $(window).on("resize", function () {
         var width = $(".desktop-menu .navbar-nav").width();
-        var leftmargin = $(".header-menu-wrapper .desktop-menu > div").position().left - 15;
-        $(".desktop-menu .sub-dropdown .menu-content").width(width).css("margin-left", leftmargin + "px");
-
+        $(".desktop-menu .sub-dropdown .menu-content").width(width);
     }).resize();
 });
 $('.minicart .popover').keyup(function(event) {
@@ -69,6 +67,7 @@ $(".desktop-menu .sub-dropdown").hover(
         var leftmargin = $(".header-menu-wrapper .desktop-menu > div").position().left - 15;
         $(".desktop-menu .sub-dropdown .menu-content").css("margin-left", leftmargin + "px");
         $('.slick-slider').slick("refresh");
+
         $('.desktop-menu .shop-by-collection-slide .featured-promotion').slick({
             dots: true,
             infinite: true,
@@ -105,7 +104,7 @@ $(".desktop-menu .sub-dropdown").hover(
                 }
             ]
         });
-        
+
         var imagesLength = $(this).find('.movado-header-dropdown .featured-promotion a img').length;
         if (imagesLength > 3) {
             $(this).find('.movado-header-dropdown .featured-promotion .header-tiles').slick({

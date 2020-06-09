@@ -122,22 +122,26 @@ function getLineItemDutyAmount(lineItem) {
 */
 function getLineItemPromoAmount(lineItem, shippingCountry) {
     var crossBorderPromoAmount;
-    if(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount > ZERO) {
-        var eswRetailerCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount) ?
-                lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyItemPriceInfo = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfo) ?
-                lineItem.custom.eswRetailerCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyItemSubTotal = !empty(lineItem.custom.eswRetailerCurrencyItemSubTotal) ?
-                lineItem.custom.eswRetailerCurrencyItemSubTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyItemDuty = !empty(lineItem.custom.eswRetailerCurrencyItemDuty) ?
-                lineItem.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswRetailerCurrencyItemTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemTaxes) ?
-                lineItem.custom.eswRetailerCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount) ?
+            lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemPriceInfo = !empty(lineItem.custom.eswRetailerCurrencyItemPriceInfo) ?
+            lineItem.custom.eswRetailerCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemSubTotal = !empty(lineItem.custom.eswRetailerCurrencyItemSubTotal) ?
+            lineItem.custom.eswRetailerCurrencyItemSubTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemDuty = !empty(lineItem.custom.eswRetailerCurrencyItemDuty) ?
+            lineItem.custom.eswRetailerCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswRetailerCurrencyItemOtherTaxes = !empty(lineItem.custom.eswRetailerCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswRetailerCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    if(lineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount > ZERO && eswRetailerCurrencyItemSubTotal !== ZERO) {
         if (shippingCountry.value === 'CA') {
             crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
         } else {
-            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+            crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswRetailerCurrencyItemPriceInfo)) * parseFloat(eswRetailerCurrencyItemSubTotal)) / (parseFloat(eswRetailerCurrencyItemSubTotal) + parseFloat(eswRetailerCurrencyItemDuty) + parseFloat(eswRetailerCurrencyItemTaxes) + parseFloat(eswRetailerCurrencyItemOtherTaxes))).toFixed(TWO_DECIMAL_PLACES);
         }
+    } else if (eswRetailerCurrencyItemSubTotal === ZERO) {
+        crossBorderPromoAmount = (((parseFloat(eswRetailerCurrencyItemPriceInfoBeforeDiscount) - ZERO) * 1) / (1)).toFixed(TWO_DECIMAL_PLACES);
     } else {
         crossBorderPromoAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     }
@@ -152,22 +156,26 @@ function getLineItemPromoAmount(lineItem, shippingCountry) {
 */
 function getLineItemConsumerPromoAmount(lineItem, shippingCountry) {
     var crossBorderConsumerPromoAmount;
-    if(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount > ZERO) {
-        var eswShopperCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) ?
-                lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemPriceInfo = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfo) ?
-                lineItem.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemSubTotal = !empty(lineItem.custom.eswShopperCurrencyItemSubTotal) ?
-                lineItem.custom.eswShopperCurrencyItemSubTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemDuty = !empty(lineItem.custom.eswShopperCurrencyItemDuty) ?
-                lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        var eswShopperCurrencyItemTaxes = !empty(lineItem.custom.eswShopperCurrencyItemTaxes) ?
-                lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemPriceInfoBeforeDiscount = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount) ?
+            lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemPriceInfo = !empty(lineItem.custom.eswShopperCurrencyItemPriceInfo) ?
+            lineItem.custom.eswShopperCurrencyItemPriceInfo : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemSubTotal = !empty(lineItem.custom.eswShopperCurrencyItemSubTotal) ?
+            lineItem.custom.eswShopperCurrencyItemSubTotal : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemDuty = !empty(lineItem.custom.eswShopperCurrencyItemDuty) ?
+            lineItem.custom.eswShopperCurrencyItemDuty : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemTaxes = !empty(lineItem.custom.eswShopperCurrencyItemTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    var eswShopperCurrencyItemOtherTaxes = !empty(lineItem.custom.eswShopperCurrencyItemOtherTaxes) ?
+            lineItem.custom.eswShopperCurrencyItemOtherTaxes : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    if (lineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount > ZERO && eswShopperCurrencyItemSubTotal !== ZERO) {
         if (shippingCountry.value === 'CA') {
             crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty))).toFixed(TWO_DECIMAL_PLACES);
         } else {
-            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes))).toFixed(TWO_DECIMAL_PLACES);
+            crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - parseFloat(eswShopperCurrencyItemPriceInfo)) * parseFloat(eswShopperCurrencyItemSubTotal)) / (parseFloat(eswShopperCurrencyItemSubTotal) + parseFloat(eswShopperCurrencyItemDuty) + parseFloat(eswShopperCurrencyItemTaxes) + parseFloat(eswShopperCurrencyItemOtherTaxes))).toFixed(TWO_DECIMAL_PLACES);
         }
+    } else if (eswShopperCurrencyItemSubTotal === ZERO) {
+        crossBorderConsumerPromoAmount = (((parseFloat(eswShopperCurrencyItemPriceInfoBeforeDiscount) - ZERO) * 1) / (1)).toFixed(TWO_DECIMAL_PLACES);
     } else {
         crossBorderConsumerPromoAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     }
@@ -347,6 +355,39 @@ function getLineItemCrossBorderNetAmount(lineItem, isEswEnabled) {
         return crossBorderNetAmount;
     }
     return '';
+}
+
+/**
+* Calculate consumer loyalty amount for cross border order.
+* @param {Order} order.
+* @returns {Number} net amount for corss border orders
+*/
+function getConsumerLoyaltyAmount(order) {
+    var loyaltyConsumerDiscountAmount = 0.00;
+    var PriceAdjustmentsItr = order.getPriceAdjustments().iterator();
+    var currentPriceAdjustment;
+    while (PriceAdjustmentsItr.hasNext()) {
+        currentPriceAdjustment = PriceAdjustmentsItr.next();
+        if (!empty(currentPriceAdjustment.custom.swellPointsUsed) && !empty(currentPriceAdjustment.custom.swellRedemptionId)) {
+            loyaltyConsumerDiscountAmount += currentPriceAdjustment.netPrice.decimalValue;
+        }
+    }
+    return loyaltyConsumerDiscountAmount * -1;
+}
+
+/**
+ * 
+ */
+function getConsumerRoundingAmount(lineItem) {
+    var consumerRoundingAmount;
+    if (lineItem.custom.eswUnitPriceBeforeRounding) {
+        var eswUnitPrice = !empty(lineItem.custom.eswUnitPrice) ? lineItem.custom.eswUnitPrice : 0.00;
+        var eswUnitPriceBeforeRounding = !empty(lineItem.custom.eswUnitPriceBeforeRounding) ? lineItem.custom.eswUnitPriceBeforeRounding : 0.00;
+        var consumerRoundingAmount = eswUnitPrice - eswUnitPriceBeforeRounding;
+    } else {
+        consumerRoundingAmount = 0.00;
+    }
+    return parseFloat(consumerRoundingAmount).toFixed(TWO_DECIMAL_PLACES);
 }
 
 /**
@@ -547,6 +588,9 @@ function populateGiftMessageObject(productLineItem, optionPrice, totalObject, la
     OrderGiftMessage.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     OrderGiftMessage.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.ConsumerRoundingAmount = optionPrice > 0 ? getConsumerRoundingAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.LoyaltyAmount = optionPrice > 0 ? crossBorderUtils.getSwellDiscountAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    OrderGiftMessage.ConsumerLoyaltyAmount = optionPrice > 0 ? getConsumerLoyaltyAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return OrderGiftMessage;
 }
@@ -597,6 +641,9 @@ function populateGiftWrapObject(productLineItem, optionPrice, optionUUID, totalO
     GiftWrap.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     GiftWrap.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.ConsumerRoundingAmount = optionPrice > 0 ? getConsumerRoundingAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.LoyaltyAmount = optionPrice > 0 ? crossBorderUtils.getSwellDiscountAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    GiftWrap.ConsumerLoyaltyAmount = optionPrice > 0 ? getConsumerLoyaltyAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return GiftWrap;
 }
@@ -662,6 +709,9 @@ function populateEngravedObject(productLineItem, optionPrice, optionUUID, totalO
     Engraving.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Engraving.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.ConsumerRoundingAmount = optionPrice > 0 ? getConsumerRoundingAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.LoyaltyAmount = optionPrice > 0 ? crossBorderUtils.getSwellDiscountAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Engraving.ConsumerLoyaltyAmount = optionPrice > 0 ? getConsumerLoyaltyAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return Engraving;
 }
@@ -732,6 +782,9 @@ function populateEmbossedObject(productLineItem, optionPrice, optionUUID, totalO
     Embossing.CrossBorderConsumerPromoAmount = optionPrice > 0 ? getLineItemConsumerPromoAmount(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.CrossBorderSubTotal = optionPrice > 0 ? getLineItemSubTotal(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
     Embossing.CrossBorderGrossValue = optionPrice > 0 ? getLineItemCrossBorderGrossValue(productLineItem, shippingCountry) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.ConsumerRoundingAmount = optionPrice > 0 ? getConsumerRoundingAmount(productLineItem) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.LoyaltyAmount = optionPrice > 0 ? crossBorderUtils.getSwellDiscountAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+    Embossing.ConsumerLoyaltyAmount = optionPrice > 0 ? getConsumerLoyaltyAmount(order) : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
 
     return Embossing;
 }
@@ -1563,6 +1616,9 @@ function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
         obj.CrossBorderSubTotal = getLineItemSubTotal(productLineItem);
         obj.CrossBorderGrossValue = getLineItemCrossBorderGrossValue(productLineItem, shippingCountry);
         obj.ShippingCost = getLineItemShippingCost(productLineItem, lineItemTotalNetAmount, isEswEnabled);
+        obj.LoyaltyAmount = crossBorderUtils.getSwellDiscountAmount(order);
+        obj.ConsumerLoyaltyAmount = getConsumerLoyaltyAmount(order);
+        obj.ConsumerRoundingAmount = getConsumerRoundingAmount(productLineItem);
 
         var personalizationsInfo = createPOItemPersonalizations(order, productLineItem, isEswEnabled, shippingCountry);
 
@@ -1658,6 +1714,7 @@ function getPOItemsInfo(order, isEswEnabled, shippingCountry) {
                 shipObj.NetAmount = (parseFloat(shippingLineItem.adjustedPrice.value) + parseFloat(shipObj.TaxAmount)).toFixed(TWO_DECIMAL_PLACES);
                 shipObj.IsThisBillable = isThisBillableItem(shippingLineItem);
                 shipObj.CrossBorderNetAmount = parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
+                shipObj.IsThisBillableCrossBorder = isShipmentBillableCrossBorder(order);
                 commerceItems[sequenceNumber - 1] = shipObj;
                 sequenceNumber++;
             }
@@ -1773,13 +1830,26 @@ function isShippingCharged(order) {
 
 /**
 * To check if order is cross border send shipping cost
-* @param {String} eswOrderNo or null.
+* @param {Order} order Order container.
+* @param {Boolean} isEswEnabled to check if eShop World is enabled or not
 * @returns {Decimal} shipping cost
 */
-function getShippingCost(eswOrderNo, isEswEnabled) {
+function getShippingCost(order, isEswEnabled) {
     if (isEswEnabled) {
-        var shippingCost = eswOrderNo ? Site.getCurrent().getCustomPreferenceValue('shippingCost') : parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES);
-        return shippingCost;
+        var allProductLineItems = order.getProductLineItems();
+        var totalLineItemNetAmount = getLineItemTotalNetAmount(allProductLineItems)
+        var headerShippingCost =  Site.getCurrent().getCustomPreferenceValue('shippingCost');
+        var totalLineItemShippingCost = 0.00;
+        for (var a = 0; a < allProductLineItems.length; a++) {
+            productLineItem = allProductLineItems[a];
+            var lineItemShippingCost = getLineItemShippingCost(productLineItem, totalLineItemNetAmount, isEswEnabled)
+            totalLineItemShippingCost = (parseFloat(totalLineItemShippingCost) + parseFloat(lineItemShippingCost)).toFixed(TWO_DECIMAL_PLACES);
+        }
+        if (headerShippingCost !== totalLineItemShippingCost) {
+            return totalLineItemShippingCost;
+        } else {
+            return parseFloat(headerShippingCost).toFixed(TWO_DECIMAL_PLACES);
+        }
     }
     return '';
 }
@@ -2150,6 +2220,21 @@ function getLineItemShippingCost(lineItem, totalLineItemNetAmount, isEswEnabled)
 }
 
 /**
+ * To check if shipment for crossborder is billable or not
+ * @param {ProductLineItem} lineItem Line Item.
+ * @returns {char} Y or N
+ */
+function isShipmentBillableCrossBorder(order) {
+    var eswShopperCurrencyDelivery = !empty(order.custom.eswShopperCurrencyDelivery) ? order.custom.eswShopperCurrencyDelivery : 0.00;
+    var eswRetailerCurrencyDelivery = !empty(order.custom.eswRetailerCurrencyDelivery) ? order.custom.eswRetailerCurrencyDelivery : 0.00;
+    if (eswShopperCurrencyDelivery > 0.00 && eswRetailerCurrencyDelivery > 0.00) {
+        return 'Y';
+    } else {
+        return 'N';
+    }
+}
+
+/**
 * Generates the order xml provided by the processOrders
 * @param {Order} order Order container.
 */
@@ -2163,6 +2248,10 @@ function generateOrderXML(order) {
     var shippingLineItemSKU = Site.getCurrent().getCustomPreferenceValue('shippingLineItemSKU');
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? 
             Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ?
+            Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isRoundingAmountEnabled = !empty(Site.getCurrent().preferences.custom.roundingAmountEnabled) ? 
+            Site.getCurrent().preferences.custom.roundingAmountEnabled : false;
     var fxRates = parseFloat(crossBorderUtils.getFXRates(order)).toFixed(TWO_DECIMAL_PLACES);
     if (order) {
         var billingAddress = getBillingAddress(order);
@@ -2266,11 +2355,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoPostalCode');
-                streamWriter.writeCharacters(shippingAddress.postalCode);
+                if (shippingAddress.postalCode !== 'undefined') {
+                    streamWriter.writeCharacters(shippingAddress.postalCode);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoRegion');
-                streamWriter.writeCharacters(shippingAddress.region);
+                if (shippingAddress.region !== 'undefined') {
+                    streamWriter.writeCharacters(shippingAddress.region);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShiptoPhone');
@@ -2310,11 +2407,19 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoPostalCode');
-                streamWriter.writeCharacters(billingAddress.BilltoPostalCode);
+                if (billingAddress.BilltoPostalCode !== 'undefined') {
+                    streamWriter.writeCharacters(billingAddress.BilltoPostalCode);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoRegion');
-                streamWriter.writeCharacters(billingAddress.BilltoRegion);
+                if (billingAddress.BilltoRegion !== 'undefined') {
+                    streamWriter.writeCharacters(billingAddress.BilltoRegion);
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('BilltoPhone');
@@ -2400,6 +2505,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalLoyaltyAmount');
+                if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                    streamWriter.writeCharacters(parseFloat(crossBorderUtils.getSwellDiscountAmount(order)).toFixed(TWO_DECIMAL_PLACES));
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('NetAmount');
@@ -2415,7 +2525,7 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShippingCost');
-                streamWriter.writeCharacters(getShippingCost(eswOrderNo, isEswEnabled));
+                streamWriter.writeCharacters(getShippingCost(order, isEswEnabled));
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ShippingByMGI');
@@ -2468,6 +2578,11 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerTotalLoyaltyAmount');
+                if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                    streamWriter.writeCharacters(parseFloat(getConsumerLoyaltyAmount(order)).toFixed(TWO_DECIMAL_PLACES));
+                } else {
+                    streamWriter.writeCharacters('');
+                }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('ConsumerNetAmount');
@@ -2569,7 +2684,11 @@ function generateOrderXML(order) {
                         streamWriter.writeRaw('\r\n');
                     }
                     streamWriter.writeStartElement('IsThisBillable');
-                    streamWriter.writeCharacters(commerceItem.IsThisBillable);
+                    if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(commerceItem.IsThisBillableCrossBorder);
+                    } else {
+                        streamWriter.writeCharacters(commerceItem.IsThisBillable);
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('VATEntity');
@@ -2604,9 +2723,7 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('PromoCode');
-                    if (!eswOrderNo) {
-                        streamWriter.writeCharacters(commerceItem.PromoCode);
-                    }
+                    streamWriter.writeCharacters(commerceItem.PromoCode);
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('PromoAmount');
@@ -2620,9 +2737,19 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('RoundingAmount');
+                    if (eswOrderNo && isRoundingAmountEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerRoundingAmount * fxRates).toFixed(TWO_DECIMAL_PLACES));
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('LoyaltyAmount');
+                    if (eswOrderNo && isYotpoSwellLoyaltyEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(parseFloat(commerceItem.LoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('SubTotal');
@@ -2721,18 +2848,16 @@ function generateOrderXML(order) {
                     }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
-                    if (commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeStartElement('ConsTaxByMGI');
-                        if (isEswEnabled) {
-                            if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
-                                streamWriter.writeCharacters(commerceItem.TaxAmount);
-                            } else {
-                                streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
-                            }
+                    streamWriter.writeStartElement('ConsTaxByMGI');
+                    if (isEswEnabled) {
+                        if (isConsumerTaxByMGI(eswOrderNo, isEswEnabled) == 'Y') {
+                            streamWriter.writeCharacters(commerceItem.TaxAmount);
+                        } else {
+                            streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                         }
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
                     }
+                    streamWriter.writeEndElement();
+                    streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerGrossValue');
                     if (isEswEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
                         if (eswOrderNo) {
@@ -2746,6 +2871,8 @@ function generateOrderXML(order) {
                             !empty(order.custom.eswShopperCurrencyDelivery) ? 
                                     streamWriter.writeCharacters(parseFloat(order.custom.eswShopperCurrencyDelivery).toFixed(TWO_DECIMAL_PLACES))
                                     : streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.GrossValue);
                         }
                     }
                     streamWriter.writeEndElement();
@@ -2754,18 +2881,31 @@ function generateOrderXML(order) {
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerPromoAmount');
-                    if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(commerceItem.CrossBorderConsumerPromoAmount);
-                    }
-                    if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
-                        streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                    if (isEswEnabled) {
+                        if (eswOrderNo && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                            streamWriter.writeCharacters(commerceItem.CrossBorderConsumerPromoAmount);
+                        } else if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
+                            streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.PromoAmount);
+                        }
                     }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerRoundingAmount');
+                    if (eswOrderNo && isRoundingAmountEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(commerceItem.ConsumerRoundingAmount);
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                    if (eswOrderNo && isYotpoSwellLoyaltyEnabled && commerceItem.SKUNumber !== FIXEDFREIGHT) {
+                        streamWriter.writeCharacters(parseFloat(commerceItem.ConsumerLoyaltyAmount).toFixed(TWO_DECIMAL_PLACES));
+                    } else {
+                        streamWriter.writeCharacters('');
+                    }
                     streamWriter.writeEndElement();
                     streamWriter.writeRaw('\r\n');
                     streamWriter.writeStartElement('ConsumerSubTotal');
@@ -2781,6 +2921,8 @@ function generateOrderXML(order) {
                             !empty(order.custom.eswShopperCurrencyDelivery) ? 
                                     streamWriter.writeCharacters(parseFloat(order.custom.eswShopperCurrencyDelivery).toFixed(TWO_DECIMAL_PLACES))
                                     : streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.SubTotal);
                         }
                     }
                     streamWriter.writeEndElement();
@@ -2798,6 +2940,8 @@ function generateOrderXML(order) {
                             !empty(order.custom.eswShopperCurrencyDeliveryTaxes) ? 
                                     streamWriter.writeCharacters(parseFloat(order.custom.eswShopperCurrencyDeliveryTaxes).toFixed(TWO_DECIMAL_PLACES))
                                     : streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.TaxAmount);
                         }
                     }
                     streamWriter.writeEndElement();
@@ -2833,6 +2977,8 @@ function generateOrderXML(order) {
                     if (isEswEnabled && commerceItem.SKUNumber === FIXEDFREIGHT) {
                         if (eswOrderNo) {
                             streamWriter.writeCharacters(getShippingConsumerNetAmount(order, isEswEnabled));
+                        } else {
+                            streamWriter.writeCharacters(commerceItem.NetAmount);
                         }
                     }
                     streamWriter.writeEndElement();
@@ -2896,9 +3042,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerRoundingAmount * fxRates);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.LoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
@@ -2998,9 +3154,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerRoundingAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.ConsumerLoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerSubTotal');
@@ -3121,9 +3287,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerRoundingAmount * fxRates);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.LoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
@@ -3223,9 +3399,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerRoundingAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.ConsumerLoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerSubTotal');
@@ -3333,9 +3519,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerRoundingAmount * fxRates);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.LoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
@@ -3435,9 +3631,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerRoundingAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.engravingObj.ConsumerLoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerSubTotal');
@@ -3574,9 +3780,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('RoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerRoundingAmount * fxRates);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('LoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.LoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('SubTotal');
@@ -3676,9 +3892,19 @@ function generateOrderXML(order) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerRoundingAmount');
+                            if (eswOrderNo && isRoundingAmountEnabled) {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerRoundingAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerLoyaltyAmount');
+                            if (eswOrderNo && isYotpoSwellLoyaltyEnabled) {
+                                streamWriter.writeCharacters(commerceItem.embossingObj.ConsumerLoyaltyAmount);
+                            } else {
+                                streamWriter.writeCharacters('');
+                            }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                             streamWriter.writeStartElement('ConsumerSubTotal');

@@ -31,6 +31,24 @@ function hideExtraCurrencies() {
 	});
 	}
 }
+/**
+ * Does Ajax call to convert the prices and 
+ * Injects it into the DOM.
+ * @param {jQuery} $eswPriceSelector - DOM selector for price 
+ */
+function eswConvertPrice($eswPriceSelector) {
+	var $remoteIncludeElement = $eswPriceSelector.children('wainclude')[0];
+    if (!!$remoteIncludeElement) {
+    	var getPriceUrl = $remoteIncludeElement.getAttribute('url');
+        $.ajax({
+            url: getPriceUrl,
+            method: 'GET',
+            success: function (html) {
+            	$eswPriceSelector.html(html);
+            }
+        });
+    }
+}
 function updateCountryList () {	
 
     $('.btnCheckout').on('click', function (e) {
@@ -121,7 +139,43 @@ function updateCountryList () {
 		$('.esw-country-selector .selector').removeClass('active');
         $('.esw-country-selector .current-country').removeClass('selector-active');
     });
-    
+    $('body').on('product:afterAttributeSelect', function (e, response) {
+	    if (response.data.product.isProductRestricted) {
+	    	$('.modal.show').find('button.update-cart-product-global').addClass('d-none');
+	    	$('.modal.show').find('.price').addClass('d-none');
+	    	$('.modal.show').find('.product-not-available-msg').removeClass('d-none');
+	    } else {
+	    	$('.modal.show').find('button.update-cart-product-global').removeClass('d-none');
+	    	$('.modal.show').find('.price').removeClass('d-none');
+	    	$('.modal.show').find('.product-not-available-msg').addClass('d-none');
+	    }
+	    // Remote Include call For List Price
+	    var $eswListPriceSelector = $('.modal.show').find('.eswListPrice');
+	    eswConvertPrice($eswListPriceSelector);
+
+	    // Remote Include call For Sales Price
+	    var $eswPriceSelector = $('.modal.show').find('.eswPrice');
+	    eswConvertPrice($eswPriceSelector);
+	});
+    $('body').on('shown.bs.modal', '#editProductModal', function () {
+    	var eswListPriceInterval = setInterval(function () {
+    	    // Remote Include call For List Price
+    	    var $eswListPriceSelector = $('.modal.show').find('.eswListPrice');
+    	    if ($eswListPriceSelector.length > 0) {
+    	    	eswConvertPrice($eswListPriceSelector);
+    	    	clearInterval(eswListPriceInterval);
+    	    }
+    	}, 300);
+
+    	var eswPriceInterval = setInterval(function () {
+    	    // Remote Include call For Sales Price
+    	    var $eswPriceSelector = $('.modal.show').find('.eswPrice');
+    	    if ($eswPriceSelector.length > 0) {
+    	    	eswConvertPrice($eswPriceSelector);
+    	    	clearInterval(eswPriceInterval);
+    	    }
+    	}, 300);
+    });
 };
 $(document).ready(function(){
 	updateCountryList();

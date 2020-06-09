@@ -42,6 +42,18 @@ src:url("https://use.typekit.net/af/053fc9/00000000000000003b9af1e4/27/l?primer=
 font-display:auto;font-style:normal;font-weight:700;
 }
 
+@font-face {
+    font-family: "futura-pt-demi";
+    src: url('fonts/futura-pt-demibold.otf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lato-Bold";
+    src: url('fonts/Lato-Bold.ttf');
+    font-style: normal;
+}
+
 .tk-futura-pt { font-family: "futura-pt",sans-serif; }
 .tk-futura-pt-bold { font-family: "futura-pt-bold",sans-serif; }
 
@@ -61,4 +73,15 @@ font-display:auto;font-style:normal;font-weight:700;
     font-family: futura-pt,sans-serif,"FuturaStd-Book", Arial, sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+@mixin font-demi {
+    font-family: futura-pt-demi, "FuturaStd-Medium", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-lato-bold {
+    font-family: Lato-Bold, "FuturaStd-Bold", sans-serif;
+    font-display:auto;font-style:normal;font-weight:700;
 }
