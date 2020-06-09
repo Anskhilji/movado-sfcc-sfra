@@ -23,6 +23,28 @@
         }
     }
 
+    @include media-breakpoint-up(md) {
+      border-radius: rem(0);
+      box-shadow: none;
+      margin-top: rem(11);
+      top: 0;
+
+        &:after, &:before {
+          content: none;
+        }
+
+        .items {
+          max-width: 75%;
+          max-height: rem(370);
+          overflow-x: hidden;
+          overflow-y: auto;
+
+          .item {
+            max-width: rem(200);
+          }
+        }
+    }
+
     .swatch-circle {
         @include swatch(1.8em, $white);
         height: rem(16);
@@ -76,15 +98,49 @@
 }
 
 .desktop-side-search {
-  display: none;
   background: $white;
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+    left: auto;
+    padding: rem(70) rem(20) 0;
+    padding-top: rem(150);
+    position: fixed;
+    top: -100%;
+    transition: all .25s ease;
+    width: rem(400);
+    z-index: 8;
+    opacity: 0;
+    pointer-events: none;
+
+    &.desktop-search-active {
+        opacity: 1;
+        top: 0;
+        z-index: 40;
+        box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
+        pointer-events: initial;
+    }
+
+    .search-input-field {
+        border: 0;
+        width: 100%;
+    }
+
+    &.search-bar-header-padding {
+      padding-top: rem(110);
+    }
+  }
+
+  .search-inner-content {
+    max-height: rem(500);
+    min-height: rem(450);
+    overflow: hidden;
+  }
 
   .search-suggestions {
     padding-bottom: 0;
     width: 100%;
-    max-height: 75vh;
-    overflow-y: auto;
-    overflow-x: hidden;
 
     ul {
       padding: 0;
@@ -126,13 +182,15 @@
       outline: none;
       border-bottom: rem(1) solid $black;
       min-height: rem(50);
-      width: 40%;
+      width: 38%;
       padding: 0;
       font-size: rem(18);
       font-family: $font-medium;
       line-height: 1.15;
       letter-spacing: rem(1.3);
-      margin: auto;
+      margin: 0 auto;
+      position: relative;
+      left: rem(40);
 
       &:focus {
         outline: none;
@@ -158,6 +216,41 @@
       }
     }
   }
+
+  .suggested-products-caresoul {
+    padding-left: 0;
+
+    .top-search-tiles {
+      max-width: 75%;
+      max-height: rem(360);
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-wrap: wrap;
+
+      
+      & > .product {
+        width: 33%;
+        flex: 0 0 33%;
+        max-width: rem(210);
+      }
+    }
+
+    .product-tile {
+      .exclusive-product {
+        @include media-breakpoint-up(lg) {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .search-input-field-add {
+    padding-top: 0;
+  }
+
+  .suggested-products-tiles {
+    padding-left: 0;
+  }
 }
 
 .mobile-side-search {
@@ -170,7 +263,13 @@
   width: 100%;
   z-index: 999;
   background: $white;
-  border-top: rem(1) solid $gray91;
+  opacity: 0;
+  pointer-events: none;
+
+  .mobile-search-content {
+    border-top: rem(1) solid $gray91;
+    padding-top: rem(30);
+  }
 
     .search {
 
@@ -232,7 +331,7 @@
     .header-search-field {
       border: none;
       border-bottom: rem(1) solid $black;
-      min-height: rem(50);
+      min-height: rem(40);
       width: 80%;
       padding: 0;
       background: none;
@@ -269,50 +368,6 @@
   }
 }
 
-@include media-breakpoint-up(lg) {
-
-    .desktop-side-search {
-        display: block;
-        left: auto;
-        padding: rem(70) rem(20) 0;
-        padding-top: rem(110);
-        position: fixed;
-        top: -100%;
-        transition: all .25s ease;
-        width: rem(400);
-        z-index: 8;
-
-        &.desktop-search-active {
-            opacity: 1;
-            top: 0;
-            z-index: 40;
-            box-shadow: rem(8) 0 rem(20) 0 $light-gray7;
-        }
-
-        .search-input-field {
-            border: 0;
-            width: 100%;
-        }
-    }
-}
-
-@include media-breakpoint-up(md) {
-
-    .suggestions {
-        max-height: 75vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-        border-radius: rem(0);
-        box-shadow: none;
-        margin-top: rem(11);
-        top: 0;
-    }
-
-    .suggestions:after, .suggestions:before {
-        content: none;
-    }
-}
-
 .top-search-tiles {
     display: flex;
 }
@@ -323,13 +378,14 @@
     h3 {
         color: $night-rider;
         font-family: $font-medium;
-        font-size: rem(12);
+        font-weight: 500;
+        font-size: rem(13);
         line-height: rem(16);
         letter-spacing: rem(0.82);
-        margin-bottom: rem(15);
+        margin-bottom: rem(5);
         opacity: 0.5;
         padding: 0 rem(17);
-        text-transform: capitalize;
+        text-transform: uppercase;
     }
 
     .swatch-circle {
@@ -419,5 +475,5 @@
 }
 
 .search-bar-header-padding {
-    padding-top: rem(68);
+    padding-top: rem(60);
 }

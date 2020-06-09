@@ -84,5 +84,5 @@
         var hookHelper = require('*/cartridge/scripts/template/hookHelper');
         hookHelper.callHook('app.template.htmlHead', null, {pdict: pdict});
     </isscript>
-<isif condition="${isMarketingCloudEnabled}">
+</isif>
 <iscomment> Custom End </iscomment>

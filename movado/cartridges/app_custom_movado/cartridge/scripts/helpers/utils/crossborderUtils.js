@@ -43,7 +43,7 @@ function getSwellDiscountAmount(order) {
         var totalCalculatedRetailerAmount = ((loyaltyRetailerDiscountAmount * -1) * fxRate) + ((calculatedRetailerDiscountAmount * -1) * fxRate);
         
         if (retailerDiscountAmount === totalCalculatedRetailerAmount) {
-            return loyaltyRetailerDiscountAmount;
+            return (loyaltyRetailerDiscountAmount * -1) * fxRate;
         }
     } catch (e) {
         Logger.error('(crossborderUtils.js -> getSwellDiscountAmount) Error occured while getting the swell discount amount: ' + e);

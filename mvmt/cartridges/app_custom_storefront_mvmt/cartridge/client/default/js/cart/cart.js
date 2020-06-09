@@ -305,7 +305,7 @@ module.exports = function () {
      * It will get the decreased-btn data attribute and builds the quantitySelector 
      * class and it will call the decreaseQuantity function.
      */
-    $(document).off('click', '.decreased-btn, .decreased-qty-btn').on('click', '.decreased-btn, .decreased-qty-btn', function (e) {
+    $('html').off('click', '.decreased-btn, .decreased-qty-btn').on('click', '.decreased-btn, .decreased-qty-btn', function (e) {
         e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
@@ -317,7 +317,7 @@ module.exports = function () {
      * It will get the increased-btn data attribute and builds the quantitySelector 
      * class and it will call the increaseQuantity function.
      */
-    $(document).off('click', '.increased-btn, .increased-qty-btn').on('click', '.increased-btn, .increased-qty-btn', function (e) {
+    $('html').off('click', '.increased-btn, .increased-qty-btn').on('click', '.increased-btn, .increased-qty-btn', function (e) {
         e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');

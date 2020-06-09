@@ -1,5 +1,8 @@
 <div class="suggestions">
     <div class="row">
+        <div class="col-1">
+            
+        </div>
         <div class="col-sm-3 search-suggestions-result">
             <isif condition="${pdict.suggestions.product && pdict.suggestions.product.phrases.length>0 && pdict.suggestions.didYouMeanPresence}">
                 <div class="row items-header">

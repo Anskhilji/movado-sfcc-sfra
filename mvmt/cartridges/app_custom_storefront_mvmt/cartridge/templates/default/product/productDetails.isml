@@ -5,7 +5,6 @@
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
-        assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
@@ -164,11 +163,11 @@
 
         <iscontentasset aid="pdp-why-polarization-content" />
 
-        <div class="container p-0">
+        <div class="container p-0 product-gallery">
             <isinclude template="product/components/productGallery" />
         </div>
 
-        <div class="container p-0">
+        <div class="description-container p-0">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 

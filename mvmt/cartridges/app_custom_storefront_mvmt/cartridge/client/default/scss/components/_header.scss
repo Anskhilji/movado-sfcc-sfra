@@ -1047,6 +1047,8 @@ header.new-header {
 
   .mobile-nav, .mobile-side-search  {
     &.active {
+      opacity: 1;
+      pointer-events: initial;
       top: 0;
     }
   }

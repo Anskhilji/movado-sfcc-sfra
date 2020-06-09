@@ -57,7 +57,11 @@ function getDataAPIService(serviceID, endpoint, serviceType) {
     }
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var baseUrl = dataService.getConfiguration().getCredential().URL;
-    var url = baseUrl.toString() + endpoint;
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        url = baseUrl.toString() + endpoint;
+    }
+    
     dataService.setURL(url);
     return dataService;
 }
