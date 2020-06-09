@@ -29,16 +29,30 @@ function sendSubscriberToSFMC(requestParams) {
             authServiceID: Constants.SERVICE_ID.INSTANT_AUTH
         }
         var accessToken = SFMCAPIHelper.getAuthToken(params);
-        var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
-        result = SFMCAPIHelper.addContactToMC(params, service);
-        if (result.success) {
-            if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {
-                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accessToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
-                result = SFMCAPIHelper.addContactToJourney(params, service);
-            } else {
-                var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}',params.dataExtensionKey);
-                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, endpoint, accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
-                result = SFMCAPIHelper.addContactToDataExtension(params, service);
+        if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+            params.email = !empty(requestParams.email) ? requestParams.email: '';
+            params.country = !empty(requestParams.country) ? requestParams.country : '';
+            params.firstName = !empty(requestParams.firstName) ? requestParams.firstName : '';
+            params.lastName = !empty(requestParams.lastName) ? requestParams.lastName : '';
+            params.campaignName = !empty(requestParams.campaignName) ? requestParams.campaignName : '';
+            params.eventName = !empty(requestParams.eventName) ? requestParams.eventName : '';
+            params.birthday = !empty(requestParams.birthday) ? requestParams.birthday : '';
+            params.gender = !empty(requestParams.gender) ? requestParams.gender : '';
+            params.phoneNumber = !empty(requestParams.phoneNumber) ? requestParams.phoneNumber : '';
+            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            result = SFMCAPIHelper.updateEvent(params, service);
+        } else {
+            var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
+            result = SFMCAPIHelper.addContactToMC(params, service);
+            if (result.success) {
+                if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accessToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
+                    result = SFMCAPIHelper.addContactToJourney(params, service);
+                } else {
+                    var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}',params.dataExtensionKey);
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, endpoint, accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+                    result = SFMCAPIHelper.addContactToDataExtension(params, service);
+                }
             }
         }
     }  catch (e) {

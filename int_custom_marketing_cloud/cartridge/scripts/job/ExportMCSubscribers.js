@@ -43,20 +43,39 @@ function exportAllSavedSubscribers() {
         try {
             subscriber = mcSubscribersObjectIterator.next();
             if (subscriber) {
-                params.email = subscriber.custom.email;
-                var result = SFMCAPIHelper.addContactToMC(params, contactService);
-                if (!result.success) {
-                    continue;
-                }
-                if (isMovadoOrOB) {
-                    result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                
+                
+                if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+                    var result;
+                    var service;
+                    
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+                    var payload = JSON.parse(subscriber.custom.mcPayload);
+                    if (!empty(payload)) {
+                        result = SFMCAPIHelper.updateEvent(payload, service);
+                        if (result.success === true) {
+                            Transaction.wrap(function () {
+                                CustomObjectMgr.remove(subscriber);
+                            });
+                        }
+                    }
                 } else {
-                    result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
-                }
-                if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
-                    Transaction.wrap(function () {
-                        CustomObjectMgr.remove(subscriber);
-                    });
+                    params.email = subscriber.custom.email;
+                    var result = SFMCAPIHelper.addContactToMC(params, contactService);
+                    if (!result.success) {
+                        continue;
+                    }
+                    if (isMovadoOrOB) {
+                        result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                    } else {
+                        result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
+                    }
+                    
+                    if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
+                        Transaction.wrap(function () {
+                            CustomObjectMgr.remove(subscriber);
+                        });
+                    }
                 }
             }
        } catch (e) {
