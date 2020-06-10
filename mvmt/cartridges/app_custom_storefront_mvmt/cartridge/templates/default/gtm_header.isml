@@ -102,19 +102,20 @@
 			
 			<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
 			{'ecommerce':{'checkout': {
-			'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+			'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
 			"products": [
 			<isloop items="${checkoutObj}" var="produtArray" status="status">
-				{'id': '${produtArray.cartObj.id}',
-				'name':  '${produtArray.cartObj.name}',
+				{'name': '${produtArray.cartObj.name}',
+				'id':  '${produtArray.cartObj.id}',
 				'price': '${produtArray.cartObj.price}',
-				'brand': '${produtArray.cartObj.brand}',
 				'category': '${produtArray.cartObj.category}',
-				'variant': '${produtArray.cartObj.variant}',
-				'revenue': '${produtArray.cartObj.revenue}',
-				'tax': '${produtArray.cartObj.tax}',
-				'shipping': '${produtArray.cartObj.shipping}',
-				'coupon': '${produtArray.cartObj.coupon}'}
+				'quantity': '${produtArray.cartObj.quantity}',
+				'sku': '${produtArray.cartObj.id}',
+				'productType': '${produtArray.cartObj.productType}',
+				'description': unescape('${produtArray.cartObj.description}'),
+				'imageURL': '${produtArray.cartObj.imageURL}',
+				'productURL': '${produtArray.cartObj.prouctUrl}',
+				'barnd': '${produtArray.cartObj.brand}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
 					]
