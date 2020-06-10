@@ -922,25 +922,26 @@ function getPromotionCode(order, itemInfo) {
                 }
             }
         }
-        if (order.getPriceAdjustments().length > 0) {
+        if (order.getPriceAdjustments().length > 0 && !order.custom.eswOrderNo) {
             var orderAdjustmentCollection = order.getPriceAdjustments();
             for (var n = 0; n < orderAdjustmentCollection.length; n++) {
                 var orderPriceAdjustment = orderAdjustmentCollection[n];
                 if (orderPriceAdjustment.getPromotion()) {
                     var orderPromotion = orderPriceAdjustment.getPromotion();
                     promoCode += ((orderPromotion.custom.promoCode ? orderPromotion.custom.promoCode : orderPromotion.getID()) + ' ');
-//                    if (esworder) {
-//                        promoCode += (same);
-//                    }
                 }
             }
-        } 
-//        if (order.getPriceAdjustments().length > 0 && eswOrderNo) {
-//            if (orderPriceAdjustment.getPromotion()) {
-//                var orderPromotion = orderPriceAdjustment.getPromotion();
-//                promoCode += ((orderPromotion.custom.promoCode ? orderPromotion.custom.promoCode : orderPromotion.getID()) + ' ');
-//            }
-//        }
+        }
+        else if (order.custom.eswOrderNo && !itemInfo.bonusProductLineItem) {
+            var orderAdjustmentCollection = order.getPriceAdjustments();
+            for (var n = 0; n < orderAdjustmentCollection.length; n++) {
+                var orderPriceAdjustment = orderAdjustmentCollection[n];
+                if (orderPriceAdjustment.getPromotion()) {
+                    var orderPromotion = orderPriceAdjustment.getPromotion();
+                    promoCode += ((orderPromotion.custom.promoCode ? orderPromotion.custom.promoCode : orderPromotion.getID()) + ' ');
+                }
+            }
+        }
     }
     return promoCode;
 }
