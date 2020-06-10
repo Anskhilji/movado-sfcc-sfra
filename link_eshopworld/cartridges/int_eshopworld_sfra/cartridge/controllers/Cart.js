@@ -16,7 +16,7 @@ server.prepend(
 
         var viewData = res.getViewData();
         // ESW fail order if order no is set in session
-        if (eswHelper.getEShopWorldModuleEnabled()) {
+        if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
             if (session.privacy.eswfail || (session.privacy.orderNo && !empty(session.privacy.orderNo))) { // eslint-disable-line no-undef
                 eswServiceHelper.failOrder();
             }

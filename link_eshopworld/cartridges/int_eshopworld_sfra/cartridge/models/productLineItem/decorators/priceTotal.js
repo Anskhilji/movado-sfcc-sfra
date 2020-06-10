@@ -27,7 +27,7 @@ function getTotalPrice(lineItem) {
     }
     if (lineItem.priceAdjustments.getLength() > 0) {
         var nonAdjustedPrice = (eswModuleEnabled) ? eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value : lineItem.getPrice();
-        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, lineItem.basePrice.currencyCode) : formatMoney(nonAdjustedPrice);
+        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value) : formatMoney(nonAdjustedPrice);
     }
     // If not for order history calculations
     if (!orderHistoryFlag) {

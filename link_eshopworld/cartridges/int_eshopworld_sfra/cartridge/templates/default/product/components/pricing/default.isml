@@ -11,9 +11,9 @@
                         ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                     </span>
                     <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-                        <span class="eswListPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'listPrice', true)}"/></span>
+                    	<span class="eswListPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'listPrice', true)}"/></span>
                     <iselse>
-                        <isinclude template="/product/components/pricing/formatted" />
+                    	<isinclude template="/product/components/pricing/formatted" />
                     </isif>
                     <span class="sr-only">
                         ${Resource.msg('label.price.to', 'pricing', null)}
@@ -25,19 +25,19 @@
 
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
     <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-        <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice)}"/></span>
+    	<span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice)}"/></span>
     <iselse>
-        <span class="sales">
-            <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" content="${price.decimalPrice}">
-            </isif>
-            <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" content="${price.decimalPrice}">
-            </isif>
-            <isif condition="${isLowPrice == null}">
-                <span class="value" content="${price.decimalPrice}">
-            </isif>
-            <isinclude template="/product/components/pricing/formatted" />
+    	<span class="sales">
+	        <isif condition="${isLowPrice == 'range-low'}">
+	            <span class="value" content="${price.decimalPrice}">
+	        </isif>
+	        <isif condition="${isLowPrice == 'range-high'}">
+	            <span class="value" content="${price.decimalPrice}">
+	        </isif>
+	        <isif condition="${isLowPrice == null}">
+	            <span class="value" content="${price.decimalPrice}">
+	        </isif>
+	        <isinclude template="/product/components/pricing/formatted" />
         </span>
     </isif>
     </span>

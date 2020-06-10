@@ -17,9 +17,9 @@
 </div>
 <header>
 
-    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
-    </isif>
+	<isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+		<isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+	</isif>
     <nav role="navigation">
         <div class="header container">
             <div class="row">
@@ -35,7 +35,7 @@
                             <div class="hidden-md-down">
                                 <isinclude url="${URLUtils.url('Account-Header')}" />
                                 <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                	<isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
                                 </isif>
                             </div>
                             <button class="navbar-toggler d-md-none" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
