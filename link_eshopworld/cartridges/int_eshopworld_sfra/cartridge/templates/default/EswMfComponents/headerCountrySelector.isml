@@ -1,7 +1,7 @@
 <!--- TEMPLATENAME: headerCountrySelector.isml --->
 <iscontent type="text/html" charset="UTF-8" compact="true"/>
 <isif condition=${pdict.EswHeaderObject.enabledHeaderBar && pdict.EswHeaderObject.enabledESWModule}>
-    <div class="selectors selector-container headerDropdown container">    
+    <div class="selectors selector-container headerDropdown">    
             		<isif condition=${pdict.EswHeaderObject.enabledCountriesInHeader}>
                     <div class="dropdown esw-country-selector selectCountry" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
 				        <span class="btn dropdown-toggle" id="dropdownCountrySelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -293,6 +293,12 @@ header.new-header {
     }
 }
 
+.selectors {
+    max-width: 14.875rem;
+	margin: 0 auto;
+	display: block;
+}
+
 .wrapper-dropdown {
     position: relative;
     margin: 0 auto;
@@ -306,9 +312,7 @@ header.new-header {
     
     .btn {   
         font-size: 0.75rem;
-        font-family: futura-pt-medium,sans-serif, "FuturaStd-Medium", Arial, sans-serif;
-        font-weight: 500;
-        font-style: normal;
+        @include font-medium;
         letter-spacing: normal;
         letter-spacing: 0.09375rem;
         text-transform: uppercase;
@@ -324,6 +328,7 @@ header.new-header {
 	.wrapper-dropdown  .btn  {	
 	     margin-top: 0.9375rem;
 	     margin-bottom: 0.4375rem;
+	     left: rem(15);
 	}
  }
 
@@ -336,12 +341,12 @@ header.new-header {
 
 .dropdown-selector {
 	display: none;
-	border: 1px solid #ddd;
+	border: 1px solid $gray10;
 	padding-top: 2%;
 	overflow-y: scroll;
 	max-height: 9.375rem;
 	border-width: thin;
-	border-radius: 3px;
+	border-radius: rem(3);
 	max-width: 16.875rem;
 	text-align: left;
 	padding-left: 0.25rem;
@@ -364,13 +369,13 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 
 .dropdown-selector-lng {
 	display: none;
-	border: 1px solid #ddd;
+	border: 1px solid $gray10;
     padding-top: 2%;
     padding-bottom: 2%;
 	overflow-y: scroll;
 	max-height: 9.375rem;
 	border-width: thin;
-	border-radius: 3px;
+	border-radius: rem(3);
 	max-width: 10.3125rem;
 	text-align: left;
 	padding-left: 0.25rem;
@@ -390,11 +395,11 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 .dropdown-selector-cntry {
 	display: none;
 	padding-top: 2%;
-	border: 1px solid #ddd;
+	border: 1px solid $gray10;
 	overflow-y: scroll;
 	max-height: 9.375rem;
 	border-width: thin;
-	border-radius: 3px;
+	border-radius: rem(3);
 	max-width: 10.3125rem;
 	text-align: left;
 	padding-left: 0.25rem;
@@ -419,4 +424,3 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 	    display: block;
     }
 }
-
