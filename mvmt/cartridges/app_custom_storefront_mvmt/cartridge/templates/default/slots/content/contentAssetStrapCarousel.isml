@@ -1,0 +1,25 @@
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+  <div class="plp-filter-list">
+      <isif condition="${slotcontent.custom.carouselTitle}">
+        <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+            ${slotcontent.custom.carouselTitle}
+        </button>
+      </isif>
+      <div class="filter-group">
+          <div class="filter-group-outer">
+            <div class="js-carousel cs-carousel straps-nav-desktop straps-guide-nav" data-carousel-config='${slotcontent.custom.carouselConfig}'>
+              <isloop items="${slotcontent.content}" var="contentAsset" status="loopState">
+                  <isprint value="${contentAsset.custom.body}" encoding="off"/>
+              </isloop> 
+            </div>
+          </div>
+          <div class="plp-active-filter">
+              <div class="plp-active-filter-list"></div>
+              <button class="filter-close-btn">
+                  ${Resource.msgf('label.button.close', 'common', null)}
+              </button>
+          </div>
+      </div>
+  </div>
+</isif>
+

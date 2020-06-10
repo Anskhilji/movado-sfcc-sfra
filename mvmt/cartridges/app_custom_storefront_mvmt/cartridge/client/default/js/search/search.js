@@ -654,5 +654,9 @@ module.exports = {
             ]
         });
     },
+
+    strapNavSlider: function() {
+        $('.straps-guide-nav').resize();
+    },
     // Custom End
 };
