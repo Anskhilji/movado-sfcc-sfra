@@ -67,6 +67,36 @@
 		);				
 	</isif>
 	
+	<isif condition="${pdict.gtm.action ==='checkout-login'}">
+	dataLayer.push (
+			
+			<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+			{'ecommerce':{'checkout': {
+			'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
+			"products": [
+			<isloop items="${checkoutObj}" var="produtArray" status="status">
+				{'name': '${produtArray.cartObj.name}',
+				'id':  '${produtArray.cartObj.id}',
+				'price': '${produtArray.cartObj.price}',
+				'category': '${produtArray.cartObj.category}',
+				'quantity': '${produtArray.cartObj.quantity}',
+				'sku': '${produtArray.cartObj.id}',
+				'productType': '${produtArray.cartObj.productType}',
+				'description': unescape('${produtArray.cartObj.description}'),
+				'imageURL': '${produtArray.cartObj.imageURL}',
+				'productURL': '${produtArray.cartObj.prouctUrl}',
+				'barnd': '${produtArray.cartObj.brand}'}
+				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+    		</isloop>
+					]
+				}	
+			},
+			"event": "checkout"}
+			<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+		</isloop>
+		);				
+	</isif>
+
 	<isif condition="${pdict.gtm.action ==='checkout-begin'}">
 	checkoutDataLayer.push (
 			
