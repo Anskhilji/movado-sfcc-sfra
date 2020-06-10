@@ -35,6 +35,19 @@ module.exports = {
                 $productContainer.find('.description-and-detail .details')
                     .addClass('hidden-xl-down');
             }
+
+            //Custom Start: Adding ESW Code Logic
+            if (typeof data.eswModuleEnabled !== undefined) {
+                if (data.eswModuleEnabled) {
+                    // Remote Include call For List Price
+                    var $eswListPriceSelector = $('.eswListPrice', response.container).length ? $('.eswListPrice', response.container) : $('.eswListPrice');
+                    eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
+                    // Remote Include call For Sales Price
+                    var $eswPriceSelector = $('.eswPrice', response.container).length ? $('.eswPrice', response.container) : $('.eswPrice');
+                    eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+                }
+            }
+            //Custom End
         });
     },
 
