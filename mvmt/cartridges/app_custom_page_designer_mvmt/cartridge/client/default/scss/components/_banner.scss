@@ -29,7 +29,6 @@
             font-size: rem(40);
             line-height: 1.1;
             font-weight: bold;
-            padding: 0 rem(25);
             text-align: center;
 
             @include media-up ($mvmt-custom-lg) {
@@ -57,7 +56,6 @@
             line-height: 1.2;
             font-weight: 400;
             margin-bottom: 0;
-            padding: 0 rem(25);
 
             @include media-up ($mvmt-custom-lg) {
                 letter-spacing: rem(4.29);
