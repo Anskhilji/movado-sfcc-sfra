@@ -1,6 +1,53 @@
 'use strict';
 
+var Transaction = require('dw/system/Transaction');
+var Status = require('dw/system/Status');
 var logger = require('dw/system/Logger').getLogger('SOM', '');
+var collections = require('*/cartridge/scripts/util/collections');
+var _ = require('*/cartridge/scripts/libs/underscore');
+
+/**
+ * getAddressObject returns an object with address data
+ * @param {Object} address the address object
+ * @return {Object} custom object for storing as json
+ */
+function getAddressObject(address) {
+    return {
+        address1: address.address1,
+        address2: address.address2,
+        city: address.city,
+        companyName: address.companyName,
+        countryCode: address.countryCode.value,
+        fullName: address.fullName,
+        firstName: address.firstName,
+        lastName: address.lastName,
+        phone: address.phone,
+        postalCode: address.postalCode,
+        stateCode: address.stateCode
+    };
+}
+
+/**
+ * getPriceAdjustmentObject returns an object with price adjustment data
+ * @param {Object} priceAdjustment the price adjustment object
+ * @return {Object} custom object for storing as json
+ */
+function getPriceAdjustmentObject(priceAdjustment) {
+    return {
+        name: priceAdjustment.promotionID,
+        quantity: priceAdjustment.quantity,
+        grossPrice: priceAdjustment.grossPrice.value,
+        netPrice: priceAdjustment.netPrice.value,
+        taxTotal: priceAdjustment.tax.value,
+        sabrixCityTotal: priceAdjustment.custom.sabrixCityTotal,
+        sabrixDistrictTotal: priceAdjustment.custom.sabrixDistrictTotal,
+        sabrixCountyTotal: priceAdjustment.custom.sabrixCountyTotal,
+        sabrixStateTotal: priceAdjustment.custom.sabrixStateTotal,
+        sabrixAdditionalCityTotal: priceAdjustment.custom.sabrixAdditionalCityTotal,
+        sabrixAdditionalDistrictTotal: priceAdjustment.custom.sabrixAdditionalDistrictTotal
+    };
+}
+
 
 /**
  * populateByOrderID Queries order object then runs populateByOrder
@@ -8,17 +55,33 @@ var logger = require('dw/system/Logger').getLogger('SOM', '');
  * @return {dw.system.Status} Status of the job
  */
 function populateByOrderID(args) {
+    var OrderMgr = require('dw/order/OrderMgr');
     if (args.OrderID == null) {
         return new Status(Status.ERROR, 'ERROR', 'Order ID parameter is required.');
     }
+    var orderIDs = args.OrderID.split(',');
 
-    var OrderMgr = require('dw/order/OrderMgr');
-    var order = OrderMgr.getOrder(args.OrderID);
+    Transaction.wrap(function () {
+        orderIDs.forEach(function (orderID) {
+            var order = OrderMgr.getOrder(orderID);
+            if (order == null) {
+                return new Status(Status.ERROR, 'ERROR', 'Order not found for ' + args.OrderID);
+            }
 
-    if (order == null) {
-        return new Status(Status.ERROR, 'ERROR', 'Order not found for ' + args.OrderID);
-    }
-    populateByOrder(order);
+            logger.debug('Starting: ' + order.orderNo);
+            populateByOrder(order);
+
+            // Additionally handle PayPal transaction conversion
+            try {
+                addDummyPaymentTransaction(order);
+            } catch (exSOM) {
+                var _e = exSOM;
+                logger.error('SOM attribute process failed: ' + exSOM.message);
+            }
+        });
+    });
+
+    return true;
 }
 
 
@@ -28,8 +91,6 @@ function populateByOrderID(args) {
  * @return {dw.system.Status} Status of the method
  */
 function populateByOrder(order) {
-    var Status = require('dw/system/Status');
-    var collections = require('*/cartridge/scripts/util/collections');
     var addressJSON = {};
     var shippingPriceJSON = {};
 
@@ -43,6 +104,14 @@ function populateByOrder(order) {
 
         // Set the PriceBook ID
         order.custom.SFCCPriceBookId = pricebooks[0];
+
+        // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+        // Add authTime and Adyen_merchantSig to the transaction
+        collections.forEach(order.getPaymentInstruments(), function (pi) {
+            pi.getPaymentTransaction().custom.authTime = '05:21:52.054';
+            pi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
+        });
+        // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
 
         // Add all billing address fields to an object to send to SOM
         addressJSON.billingAddress = getAddressObject(order.billingAddress);
@@ -120,48 +189,108 @@ function populateByOrder(order) {
 }
 
 /**
- * getAddressObject returns an object with address data
- * @param {Object} address the address object
- * @return {Object} custom object for storing as json
+ * addDummyPaymentTransaction converts a PayPal or other Adyen custom payment type to CREDIT_CARD.  This is necessary for the order ingestion process as of May 2020
+ * @param {Object} order the entire order object
+ * @return {Boolean} success/failure
  */
-function getAddressObject(address) {
-    return {
-        address1: address.address1,
-        address2: address.address2,
-        city: address.city,
-        companyName: address.companyName,
-        countryCode: address.countryCode.value,
-        fullName: address.fullName,
-        firstName: address.firstName,
-        lastName: address.lastName,
-        phone: address.phone,
-        postalCode: address.postalCode,
-        stateCode: address.stateCode
-    };
-}
+function addDummyPaymentTransaction(order) {
+    var PaymentMgr = require('dw/order/PaymentMgr');
+    var Calendar = require('dw/util/Calendar');
+    var StringUtils = require('dw/util/StringUtils');
+    var success = true;
 
-/**
- * getPriceAdjustmentObject returns an object with price adjustment data
- * @param {Object} priceAdjustment the price adjustment object
- * @return {Object} custom object for storing as json
- */
-function getPriceAdjustmentObject(priceAdjustment) {
-    return {
-        name: priceAdjustment.promotionID,
-        quantity: priceAdjustment.quantity,
-        grossPrice: priceAdjustment.grossPrice.value,
-        netPrice: priceAdjustment.netPrice.value,
-        taxTotal: priceAdjustment.tax.value,
-        sabrixCityTotal: priceAdjustment.custom.sabrixCityTotal,
-        sabrixDistrictTotal: priceAdjustment.custom.sabrixDistrictTotal,
-        sabrixCountyTotal: priceAdjustment.custom.sabrixCountyTotal,
-        sabrixStateTotal: priceAdjustment.custom.sabrixStateTotal,
-        sabrixAdditionalCityTotal: priceAdjustment.custom.sabrixAdditionalCityTotal,
-        sabrixAdditionalDistrictTotal: priceAdjustment.custom.sabrixAdditionalDistrictTotal
-    };
+    // Make sure we don't already have a CREDIT_CARD type
+    var ccPayment = _.find(order.getPaymentInstruments().toArray(), function (r) {
+        return r.paymentMethod.toUpperCase() === 'CREDIT_CARD';
+    });
+
+    if (!ccPayment) {
+        collections.forEach(order.getPaymentInstruments(), function (pi) {
+            switch (pi.getPaymentTransaction().getPaymentProcessor().getID()) {
+                case 'Adyen':
+                case 'ADYEN_PAYPAL':
+                    /*
+                      PAYPAL
+                    */
+                    pi.custom.adyenPaymentMethod = 'paypal_ecs';
+                    if (!('adyenPaymentMethod' in pi.custom) || pi.custom.adyenPaymentMethod === '') {
+                        logger.error('adyenPaymentMethod does not exist or not set');
+                    }
+                    var customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
+                    if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
+                        // Create a new payment transaction that the Order Ingestion process supports
+                        var newPi = order.createPaymentInstrument('CREDIT_CARD', pi.paymentTransaction.amount);
+                        if (newPi) {
+                            var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
+                            newPi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+                            newPi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
+                            newPi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
+                            newPi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
+                            newPi.getPaymentTransaction().setAmount(pi.getPaymentTransaction().getAmount());
+                            newPi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                            newPi.setCreditCardType('Maestro');
+                            newPi.custom.adyenPaymentMethod = customMethod;
+
+                            order.custom.Adyen_paymentMethod = 'paypal';
+
+                            // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+                            // Add authTime and Adyen_merchantSig to the transaction
+                            newPi.getPaymentTransaction().custom.authTime = '05:21:52.054';
+                            newPi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
+                            // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+                        }
+
+                        // remove the outdated payment instrument
+                        try {
+                            order.removePaymentInstrument(pi);
+                        } catch (exRemove) {
+                            var _e = exRemove;
+                            logger.error('Replacing Adyen PayPal payment method: ' + exRemove.message);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+    } else {
+        // Only arrive here for cc orders. Update the custom payment method if necessary
+        collections.forEach(order.getPaymentInstruments(), function (pi) {
+            switch (pi.getPaymentMethod()) {
+                case 'CREDIT_CARD':
+                case 'ADYEN_PAYPAL':
+                    var customMethod = '';
+                    if ('adyenPaymentMethod' in pi.custom) {
+                        customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
+                    }
+
+                    if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
+                        pi.setCreditCardType('Maestro');
+                        pi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+
+                        if (!pi.getPaymentTransaction().paymentProcessor || pi.getPaymentTransaction().getPaymentProcessor().getID() !== 'CREDIT_CARD') {
+                            var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
+                            pi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
+                            pi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
+                            pi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
+                            pi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                            pi.custom.adyenPaymentMethod = customMethod;
+                        }
+                    }
+                    break;
+                case 'AMAZON_PAY':
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    return success;
 }
 
 module.exports = {
     populateByOrder: populateByOrder,
-    populateByOrderID: populateByOrderID
+    populateByOrderID: populateByOrderID,
+    addDummyPaymentTransaction: addDummyPaymentTransaction
 };

@@ -98,6 +98,7 @@ function execute(ccBasket, paymentProcessor, formData) {
             ccBasket.removeAllPaymentInstruments();
             if (paymentMethod === PP_ECS) {
                 oderPaymentInstrument = ccBasket.createPaymentInstrument(PAYPAL, ccBasket.getTotalGrossPrice());
+                oderPaymentInstrument.custom.adyenPaymentMethod = paymentMethod;
             } else {
                 oderPaymentInstrument = ccBasket.createPaymentInstrument(paymentMethod, ccBasket.getTotalGrossPrice());
             }

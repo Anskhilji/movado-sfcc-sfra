@@ -61,8 +61,7 @@ function parseOrderStatus(args) {
                 if (Object.hasOwnProperty.call(SAPOrderStatusJSON, 'root') && Object.hasOwnProperty.call(SAPOrderStatusJSON.root, 'EcommerceOrderStatus')) {
                     /**
                      * If there is only one element in the EcommerceOrderStatus object, the JSON
-                     * parser does not return an array, so we are manually converting to make sure
-                     * functionality works as needed
+                     * parser does not return an array, so we manually convert
                      */
                     if (!Array.isArray(SAPOrderStatusJSON.root.EcommerceOrderStatus)) {
                         SAPOrderStatusJSON.root.EcommerceOrderStatus = [SAPOrderStatusJSON.root.EcommerceOrderStatus];
@@ -130,7 +129,6 @@ function processStatusOrder(SAPOrderStatus) {
 
         case 'CAPTURE':
             // Process rejections vs shipped here
-            // switch () {}
             return processStatusCapture(SAPOrderStatus, fulfillmentOrder);
 
         case 'REFUND':
@@ -154,12 +152,15 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var pendingFOCancelChangeItems = [];
     var pendingOSCancelChangeItems = [];
     var isFullyRejected = true;
-    var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
     var fulfillmentOrderId = fulfillmentOrder.object.records[0].Id;
     var fulfilledToName = fulfillmentOrder.object.records[0].FulfilledToName;
     var fulfillmentOrderLineItems = fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records;
 
     var trackingGroups = [];
+
+    if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'BILLING') {
+        return new Status(Status.ERROR, 'ERROR', 'unknown EventType: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+    }
 
     // Find any Delivery Charge in the fulfillment order line items
     var foShippingLineItem = _.find(fulfillmentOrderLineItems, function (r) {
@@ -168,8 +169,8 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
     // Process each item update
     SAPOrderStatus.EcommerceOrderStatusItem.forEach(function (orderStatusItem) {
-        var foLineItem = _.find(fulfillmentOrderLineItems, function (r) {
-            return r.OrderItemSummary.LineNumber === orderStatusItem.POItemNumber;
+        var foLineItem = _.find(fulfillmentOrderLineItems, function (foLine) {
+            return foLine.OrderItemSummary.LineNumber === parseInt(orderStatusItem.POItemNumber);
         });
         if (!foLineItem) {
             Logger.error('processStatusCapture - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
@@ -181,20 +182,23 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
         // Update FO Line Item custom attribute for quantity fulfilled
         // This triggers SF to check for FO-level status (i.e, now fully fulfilled)
-        if (foLineItem) {
-            var orderQuantity = parseInt(orderStatusItem.OrderQuantity);
-            var shippedQuantity = parseInt(orderStatusItem.ShippedQuantity);
-            var rejectedQuantity = parseInt(orderStatusItem.RejectedQuantity);
+        var orderQuantity = parseInt(orderStatusItem.OrderQuantity);
+        var shippedQuantity = parseInt(orderStatusItem.ShippedQuantity);
+        var rejectedQuantity = parseInt(orderStatusItem.RejectedQuantity);
 
-            // Quantity Shipped
-            pendingFOLineItems.push(
-                SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
-                    Id: foLineItem.Id,
-                    ShippedQuantity: shippedQuantity
-                })
-            );
+        // Quantity Shipped
+        pendingFOLineItems.push(
+            SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
+                Id: foLineItem.Id,
+                ShippedQuantity: shippedQuantity
+            })
+        );
 
-            // Add to Tracking group
+        // Add to Tracking group if a tracking number exists
+        if (typeof orderStatusItem.TrackingNumber === 'object') {
+            orderStatusItem.TrackingNumber = '';
+        }
+        if (orderStatusItem.TrackingNumber.toString() !== '') {
             var trackingGroup = _.find(trackingGroups, function (r) {
                 return r.TrackingNumber === orderStatusItem.TrackingNumber;
             });
@@ -208,27 +212,27 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             } else {
                 trackingGroup.FulfillmentOrderLineItems.push(foLineItem.Id);
             }
-
-            // Quantity Canceled / Rejected
-            if (rejectedQuantity > 0) {
-                if (orderQuantity > rejectedQuantity) { isFullyRejected = false; }
-
-                // Cancel this portion of the fulfillment order
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: foLineItem.Id,
-                    quantity: rejectedQuantity
-                });
-
-                // Cancel the original order line summary
-                pendingOSCancelChangeItems.push(
-                    SalesforceModel.buildOrderSummaryCancelRequestItem({
-                        orderItemSummaryId: foLineItem.OrderItemSummary.Id,
-                        quantity: rejectedQuantity
-                    })
-                );
-            }
-            if (shippedQuantity > 0) { isFullyRejected = false; }
         }
+
+        // Quantity Canceled / Rejected
+        if (rejectedQuantity > 0) {
+            if (orderQuantity > rejectedQuantity) { isFullyRejected = false; }
+
+            // Cancel this portion of the fulfillment order
+            pendingFOCancelChangeItems.push({
+                fulfillmentOrderLineItemId: foLineItem.Id,
+                quantity: rejectedQuantity
+            });
+
+            // Cancel the original order line summary
+            pendingOSCancelChangeItems.push(
+                SalesforceModel.buildOrderSummaryCancelRequestItem({
+                    orderItemSummaryId: foLineItem.OrderItemSummary.Id,
+                    quantity: rejectedQuantity
+                })
+            );
+        }
+        if (shippedQuantity > 0) { isFullyRejected = false; }
     });
 
     //
@@ -259,6 +263,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
         //  BROKEN API as of 2020-05-25
         //   TICKET OPENED
         // if (pendingOSCancelChangeItems.length > 0) {
+        //     var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
         //     var canceledOSLineItemsRequest = SalesforceModel.createOrderSummaryCancelRequest({
         //         orderSummaryId: orderSummaryId,
         //         changeItems: pendingOSCancelChangeItems
@@ -279,14 +284,17 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var requestCompositeItemsShipment = pendingFOLineItems.slice();
 
     // Add Shipment request(s)
+    var shipmentCount = 0;
     trackingGroups.forEach(function (trackingGroup) {
         requestCompositeItemsShipment.push(
             SalesforceModel.buildCompositeShipmentCreationRequest({
                 fulfillmentOrderId: fulfillmentOrderId,
                 ShipToName: fulfilledToName,
                 TrackingNumber: trackingGroup.TrackingNumber,
-                TrackingURL: 'https://www.ups.com/track?loc=en_US&tracknum=' + trackingGroup.TrackingNumber,
-                Description: trackingGroup.CarrierCode
+                TrackingURL: 'https://www.ups.com/track?loc=en_US&tracknum=' + trackingGroup.TrackingNumber.toString(),
+                Description: trackingGroup.CarrierCode,
+                ReferenceCount: shipmentCount++,
+                FulfillmentOrderLineItems: trackingGroup.FulfillmentOrderLineItems
             })
         );
     });
@@ -296,13 +304,14 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     );
 
     // Send the composite request
-    var shipmentItemsAPIRequest = SalesforceModel.createSalesforceCompositeRequest(true, requestCompositeItemsShipment);
-    if (!shipmentItemsAPIRequest.ok || !shipmentItemsAPIRequest.object || !shipmentItemsAPIRequest.object.compositeResponse || shipmentItemsAPIRequest.object.compositeResponse.length < 1) {
-        Logger.error('Failed to create invoice or shipment. shipmentInvoiceItemsAPIRequest:' + JSON.stringify(shipmentItemsAPIRequest));
-        return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Failed to create invoice or shipment. ' + (pendingFOCancelChangeItems.length > 0) ? 'Cancellations SUCCEEDED.  Requires manual check! ' : '' + 'PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + shipmentItemsAPIRequest.status + ',errorMessage:' + shipmentItemsAPIRequest.errorMessage);
+    var shipmentItemsAPIResponse = SalesforceModel.createSalesforceCompositeRequest(true, requestCompositeItemsShipment);
+    if (!shipmentItemsAPIResponse.ok || !shipmentItemsAPIResponse.object || !shipmentItemsAPIResponse.object.compositeResponse || shipmentItemsAPIResponse.object.compositeResponse.length < 1) {
+        Logger.error('Failed to create invoice or shipment. shipmentInvoiceItemsAPIRequest:' + JSON.stringify(shipmentItemsAPIResponse));
+        var messageCancellations = (pendingFOCancelChangeItems.length > 0) ? 'Cancellations SUCCEEDED.  Requires manual check! ' : 'No Cancelllations Processed. ';
+        return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Failed to create invoice or shipment. ' + messageCancellations + 'PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + shipmentItemsAPIResponse.status + ',errorMessage:' + shipmentItemsAPIResponse.errorMessage);
     }
     // Check each response message
-    var tempResponse = shipmentItemsAPIRequest.object.compositeResponse;
+    var tempResponse = shipmentItemsAPIResponse.object.compositeResponse;
     var tempStatus = new Status();
     for (var i = 0; i < tempResponse.length; i++) {
         if (tempResponse[i].body && tempResponse[i].body.length && tempResponse[i].body[0].errorCode) {

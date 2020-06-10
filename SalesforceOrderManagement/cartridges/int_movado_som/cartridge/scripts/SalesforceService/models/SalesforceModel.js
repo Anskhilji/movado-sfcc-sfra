@@ -114,7 +114,7 @@ var SalesforceModel = ({
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.SHIPMENT,
             method: 'POST',
-            referenceId: 'SHIPMENT_' + req.fulfillmentOrderId,
+            referenceId: 'SHIPMENT_' + req.ReferenceCount.toString(),
             body: {
                 FulfillmentOrderId: req.fulfillmentOrderId,
                 ShipToName: req.ShipToName,

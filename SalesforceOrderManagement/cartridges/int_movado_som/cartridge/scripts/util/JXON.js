@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-disable */
 
-function JXON() {};
+function JXON() { };
 
 JXON.toJS = function (doc) {
     var originalString;
@@ -78,7 +78,7 @@ function toXML(oObjTree) {
             if ("@xmlns" in oObjTree[sName]) {
                 ns = (oObjTree[sName])["@xmlns"];
                 oNewDoc = new XML("<" + sName + (ns ? " xmlns=\"" + ns + "\"" : "") + "/>");
-                delete(oObjTree[sName])["@xmlns"];
+                delete (oObjTree[sName])["@xmlns"];
                 loadObjTree(oNewDoc, oObjTree[sName]);
                 break;
             }
@@ -151,7 +151,7 @@ function parseText(sValue) {
         return sValue.toLowerCase() === "true";
     }
     if (isFinite(sValue)) {
-        return parseFloat(sValue);
+        return sValue.toString();  // parseFloat(sValue);   NOTE: Treat all doubles as string.  e.g., long tracking numbers
     }
     if (isFinite(Date.parse(sValue))) {
         return new Date(sValue);

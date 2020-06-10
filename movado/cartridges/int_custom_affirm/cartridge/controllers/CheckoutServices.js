@@ -253,6 +253,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 		});
 		return next();
 	}
+
 	// If payment is redirected, order is created first
 	if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
 		checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Going to set order value in the session and going to the (Adyen-Redirect) and order number: ' + order.orderNo);
@@ -266,18 +267,18 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 		return next();
 	}
 
-	// Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM is somewhat immature as of April 2020.  As it's imporoved, you may want to eliminate some of this:
+	// Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM doesn't support all objects for custom attributes.  Uses order ingestion functionality as of April 2020.  As it's imporoved, you may want to eliminate some of this:
 	var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
 	var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
 	somLog.debug('Processing Order ' + order.orderNo);
 	try {
 		Transaction.wrap(function () {
 			populateOrderJSON.populateByOrder(order);
+			populateOrderJSON.addDummyPaymentTransaction(order);
 		});
 	} catch (exSOM) {
-		somLog.error('SOM attribute process failed: ' + exSOM.message);
+		somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
 	}
-
 
 	COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 	res.json({
