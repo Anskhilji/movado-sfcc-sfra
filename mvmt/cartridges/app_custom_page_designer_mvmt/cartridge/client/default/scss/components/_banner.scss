@@ -20,7 +20,7 @@
         text-align: center;
 
         @include media-up ($mvmt-custom-lg) {
-            font-size: 60px;
+            font-size: rem(60);
             letter-spacing: rem(8.33);
         }
 
@@ -32,7 +32,7 @@
             text-align: center;
 
             @include media-up ($mvmt-custom-lg) {
-                font-size: 60px;
+                font-size: rem(60);
                 letter-spacing: rem(8.33);
             }
         }
