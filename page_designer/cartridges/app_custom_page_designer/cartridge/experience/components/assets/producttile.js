@@ -15,6 +15,9 @@ module.exports.render = function (context) {
     model.product = content.product;
     model.ratings = content.ratings;
     model.swatches = content.swatches;
+    model.plpTile = content.plpTile;
+    model.showAddToCart = content.showAddToCart;
+
 
     return new Template('experience/components/assets/producttile').render(model).text;
 };

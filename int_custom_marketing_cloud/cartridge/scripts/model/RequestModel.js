@@ -1,5 +1,7 @@
 'use strict';
 
+var Constants = require('~/cartridge/scripts/util/Constants');
+
 function generateAuthenticationPayLoad(params) {
     return {
         "grant_type": "client_credentials",
@@ -58,9 +60,28 @@ function generateAddContactToDataExtensionPayload(params) {
     ];
 }
 
+function generateUpdateEventPayload(params, accessToken) {
+    return {
+        "Method": Constants.SFMC_UPDATE_API_METHOD,
+        "Token": accessToken,
+        "attributes": [{
+            "Email": params.email,
+            "Country": params.country,
+            "FirstName": params.firstName,
+            "LastName": params.lastName,
+            "CampaignName": params.campaignName,
+            "Birthday": params.birthday,
+            "Gender": params.gender,
+            "PhoneNumber": params.phoneNumber,
+            "EventName": params.eventName
+        }]
+    };
+}
+
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToMCPayload: generateAddContactToMCPayload,
     generateAddContactToJourneyPayload: generateAddContactToJourneyPayload,
-    generateAddContactToDataExtensionPayload: generateAddContactToDataExtensionPayload
+    generateAddContactToDataExtensionPayload: generateAddContactToDataExtensionPayload,
+    generateUpdateEventPayload: generateUpdateEventPayload
 }

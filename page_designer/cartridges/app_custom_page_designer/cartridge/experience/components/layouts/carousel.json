@@ -41,6 +41,18 @@
           "name": "Additional CSS Style",
           "type":"text",
           "required": false
+        },
+        {
+          "id": "mobileMargin",
+          "name": "Tile Margin upto 992px",
+          "type":"text",
+          "required": true
+        },
+        {
+          "id": "deskTopMargin",
+          "name": "Tile Margin above 992px",
+          "type":"text",
+          "required": true
         }
       ]
     }

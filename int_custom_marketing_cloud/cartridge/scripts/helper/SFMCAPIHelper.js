@@ -176,10 +176,54 @@ function addContactToDataExtension(params, service) {
     return result;
 }
 
+function updateEvent(params, service) {
+    var accessToken = getAuthToken(params);
+    var updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken.custom.token);
+    var responsePayload = null;
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'common', null),
+        success: false
+    }
+    try {
+        responsePayload = service.call(JSON.stringify(updateEventPayload));
+    } catch (e) {
+        Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (!empty(responsePayload.object) && !empty(responsePayload.object.empty)) {
+        if (!responsePayload.object.empty) {
+            result.success = true;
+        }
+    } else {
+        params.isExpired = true;
+        accessToken = getAuthToken(params);
+        params.isExpired = false;
+        updateEventPayload = RequestModel.generateUpdateEventPayload(params, accessToken);
+        try {
+            responsePayload = service.call(JSON.stringify(updateEventPayload));
+        } catch (e) {
+            Logger.error('MarketingCloud updateEvent: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+        if (!empty(responsePayload.object) && !empty(responsePayload.object.empty)) {
+            if (!responsePayload.object.empty) {
+                result.success = true;
+            }
+        } else {
+            if (params.isJob == false) {
+                SFMCCOHelper.saveMCPayload(params);
+                result.success = false;
+            }
+        }
+        
+    }
+    return result;
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getDataAPIService: getDataAPIService,
     addContactToMC: addContactToMC,
     addContactToJourney: addContactToJourney,
-    addContactToDataExtension: addContactToDataExtension
+    addContactToDataExtension: addContactToDataExtension,
+    updateEvent: updateEvent
 }
