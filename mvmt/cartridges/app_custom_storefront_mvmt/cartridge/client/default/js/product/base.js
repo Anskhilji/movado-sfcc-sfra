@@ -1,6 +1,20 @@
 'use strict';
 var movadoBase = require('movado/product/base');
 
+function setMiniCartProductSummaryHeight () {
+    var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
+    var $miniCartHeight = parseInt($('.mini-cart-data .popover').outerHeight(true));
+    var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
+    var $miniCartHeaderHeight = $miniCartHeaderTitle;
+    if ($('.mini-cart-header').is(':visible')) {
+        $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle;
+    }
+    var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
+    $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
+    var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
+    $('.mini-cart-data .product-summary').css('max-height', ($productSummaryHeight + $headerHeight));
+}
+
 /**
  * Retrieve contextual quantity selector
  * @param {jquery} $el - DOM container for the relevant quantity
@@ -12,14 +26,7 @@ function getQuantitySelector($el) {
         : $('.quantity-select');
 }
 
-/**
- * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
- * @param {string} response - ajax response from clicking the add to cart button
- */
-function handlePostCartAdd(response) {
-    $('.minicart').trigger('count:update', response);
-    var messageType = response.error ? 'text-danger' : 'text-success';
-
+function openMiniCart () {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
@@ -28,6 +35,7 @@ function handlePostCartAdd(response) {
             $('.mini-cart-data .popover').empty();
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
+            setMiniCartProductSummaryHeight();
             $('.mini-cart-data .popover').addClass('show');
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -38,10 +46,18 @@ function handlePostCartAdd(response) {
             $('.mini-cart-data .popover').addClass('show');
         });
     }
+    $.spinner().stop();
     $('.mobile-cart-icon').hide();
     $('.mobile-cart-close-icon').show();
     //Custom End
+}
 
+/**
+ * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
+ * @param {string} response - ajax response from clicking the add to cart button
+ */
+function handlePostCartAdd(response) {
+    $('.minicart').trigger('count:update', response);
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -722,7 +738,7 @@ $('[data-attr="color"] a').off('click').on('click', function (e) {
 });
 
 movadoBase.addToCart = function () {
-        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
+    $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
         e.preventDefault();
         var addToCartUrl;
         var pid;
@@ -805,8 +821,8 @@ movadoBase.addToCart = function () {
                     if ($('.pdp-mvmt')) {
                         addRecommendationProducts(addToCartUrl); 
                     }
+                    openMiniCart();
                     $('body').trigger('product:afterAddToCart', data);
-                    $.spinner().stop();
                     $(window).resize(); // This is used to fix zoom feature after add to cart
                 },
                 error: function () {
