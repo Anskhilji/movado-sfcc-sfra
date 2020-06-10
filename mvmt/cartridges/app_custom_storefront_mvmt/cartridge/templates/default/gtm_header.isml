@@ -42,24 +42,24 @@
 	dataLayer.push (
 			
 				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-					{'ecommerce': {
-					'products': [
+					{'ecommerce':{
+					"products": [
 					<isloop items="${checkoutObj}" var="produtArray" status="status">
-						{'name':  '${produtArray.cartObj.name}',
+						{'name': '${produtArray.cartObj.name}',
 						'id':  '${produtArray.cartObj.id}',
 						'price': '${produtArray.cartObj.price}',
-						'brand': '${produtArray.cartObj.brand}',
 						'category': '${produtArray.cartObj.category}',
-						'variant': '${produtArray.cartObj.variant}',
-						'revenue': '${produtArray.cartObj.revenue}',
-						'tax': '${produtArray.cartObj.tax}',
-						'shipping': '${produtArray.cartObj.shipping}',
 						'quantity': '${produtArray.cartObj.quantity}',
-						'description': '${produtArray.cartObj.description}',
-						'coupon': '${produtArray.cartObj.coupon}'}
+						'sku': '${produtArray.cartObj.id}',
+						'productType': '${produtArray.cartObj.productType}',
+						'description': unescape('${produtArray.cartObj.description}'),
+						'imageURL': '${produtArray.cartObj.imageURL}',
+						'productURL': '${produtArray.cartObj.prouctUrl}',
+						'barnd': '${produtArray.cartObj.brand}'}
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
+							
 					},
 					"event": "checkout"}
 					<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
@@ -99,16 +99,21 @@
 	dataLayer.push (
 		<isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
 			{ "event": "purchase",'ecommerce':{
-				'currencyCode': "${orderProdutsArray[0].productObj.currency}",			
 				'purchase':{
 					'actionField':
 						<isloop items="${orderProdutsArray}" var="orderObj">
 							<isif condition= "${orderObj.orderObj}">
 								{'id': '${orderObj.orderObj.orderId}',
 								'revenue': '${orderObj.orderObj.revenue}',
+								'salesRevenue': '${orderObj.orderObj.salesRevenue}',
 								'tax': '${orderObj.orderObj.tax}',
 								'shipping': '${orderObj.orderObj.shipping}',
-								'coupon': '${orderObj.orderObj.orderCoupon}'}
+								'shippingOption': '${orderObj.orderObj.shippingOption}',
+								'tenderType': '${orderObj.orderObj.tenderType}',
+								'city': '${orderObj.orderObj.city}',
+								'state': '${orderObj.orderObj.state}',
+								'orderQuantity': '${orderObj.orderObj.orderQuantity}',
+								'discount': '${orderObj.orderObj.discount}',}
 							</isif>
 						</isloop>
                             

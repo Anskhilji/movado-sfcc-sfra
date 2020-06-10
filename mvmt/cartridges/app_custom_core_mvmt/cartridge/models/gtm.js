@@ -8,6 +8,8 @@ var Resource = require('dw/web/Resource');
 var Encoding = require('dw/crypto/Encoding');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var Bytes = require('dw/util/Bytes');
+var URLUtils = require('dw/web/URLUtils');
+
 
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
@@ -457,9 +459,6 @@ function getPDPProductImpressionsTags(productObj) {
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
-    var pid;
-    var ProductMgr = require('dw/catalog/ProductMgr');
-    productObj = ProductMgr.getProduct(formatProductId(pid));
     var cartJSON = [];
     if (currentBasket) {
         var cartItems = currentBasket.allProductLineItems;
@@ -475,6 +474,9 @@ function getBasketParameters() {
                     brand: cartItem.product.brand,
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
+                    imageURL: cartItem.product.image.absURL,
+                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).relative().toString(),
+                    productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
                     quantity:currentBasket.productQuantityTotal,
@@ -508,9 +510,11 @@ function getCartJSONArray(checkoutObject) {
         cartObj.revenue = cartJSON[i].revenue;
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
-        cartObj.coupon = cartJSON[i].coupon;
-        cartObj.description = cartJSON[i].description;
+        cartObj.productType = cartJSON[i].productType;
+        cartObj.description = escape(cartJSON[i].description);
         cartObj.quantity = cartJSON[i].quantity;
+        cartObj.imageURL = cartJSON[i].imageURL;
+        cartObj.prouctUrl = cartJSON[i].prouctUrl;
 
         if (cartArray.length < 10) {
             cartArray.push({
