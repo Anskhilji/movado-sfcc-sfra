@@ -10,6 +10,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+var URLUtils = require('dw/web/URLUtils');
 
 server.replace('ShowAvailability', function (req, res, next) {
     var template;
@@ -115,7 +116,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         moreStyleRecommendations: moreStyleRecommendations,
         wishlistGtmObj: wishlistGtmObj,
         youMayLikeRecommendations: youMayLikeRecommendations,
-        eswModuleEnabled: eswModuleEnabled
+        eswModuleEnabled: eswModuleEnabled,
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
     }
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
