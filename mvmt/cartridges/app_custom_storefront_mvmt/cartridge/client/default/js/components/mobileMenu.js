@@ -84,6 +84,7 @@ module.exports = function () {
             $availibilityContainer.hide();
             if (!response.product.available) {
                 $availibilityContainer.show();
+                $availibilityContainer.removeClass('d-none').css('display' , 'inline');
                 $addToCartSelector.text(Resources.OUT_OF_STOCK_LABEL);
                 $addToCartSelector.addClass('out-of-stock-btn');
                 $addToCartSelector.prop('disabled', true);
@@ -92,39 +93,53 @@ module.exports = function () {
        
     }
     
-    $(document).on('click', '[data-attr="colorVar"] a', function(e) {
-        e.preventDefault();
-
-        if ($(this).attr('disabled')) {
-            return;
-        }
-
-        $.spinner().start();
-        var $productContainer = $(this).closest('.product-tile');
-        if (!$productContainer.length) {
-            $productContainer = $(this).closest('.product-detail');
-        }
-        $productContainer.find('.plp-swatches img.is-active').removeClass('is-active');
-        $('.plp-swatches img').removeClass('is-active');
-        $(this).find('img.swatch-circle').addClass('is-active');
-        var selectedValueUrl = $(this).data('swatch-url');
-        var pdpURL = $(this).data('pdp-url');
-        
-        $.ajax({
-            url: selectedValueUrl,
-            method: 'GET',
-            success: function (data) {
-                handleVariantResponse(data, $productContainer, pdpURL);
-                setTimeout(function () {
-                    $.spinner().stop();
-                  }, 1500);
-                
-            },
-            error: function () {
-                $.spinner().stop();
-            }
-        });
+    
+    $( document ).ready(function () {
+        updateColorVariation();
     });
+
+    function updateColorVariation() {
+        if (document.readyState === "complete") {
+            $(document).on('click', '[data-attr="colorVar"] a', function (e) {
+                e.preventDefault();
+
+                if ($(this).attr('disabled')) {
+                    return;
+                }
+
+                $.spinner().start();
+                var $productContainer = $(this).closest('.product-tile');
+                if (!$productContainer.length) {
+                    $productContainer = $(this).closest('.product-detail');
+                }
+                $productContainer.find('.color-swatches img.is-active').removeClass('is-active');
+                $('.color-swatches img').removeClass('is-active');
+                $(this).find('img.swatch-circle').addClass('is-active');
+                var selectedValueUrl = $(this).data('swatch-url');
+                var pdpURL = $(this).data('pdp-url');
+                
+                $.ajax({
+                    url: selectedValueUrl,
+                    method: 'GET',
+                    success: function (data) {
+                        handleVariantResponse(data, $productContainer, pdpURL);
+                        setTimeout(function () {
+                            $.spinner().stop();
+                          }, 1500);
+                        
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            });
+        } else {
+            setTimeout(function () {
+                updateColorVariation();
+            }, 200);
+        }
+    }
+    
 };
 
 
