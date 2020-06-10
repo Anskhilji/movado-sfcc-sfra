@@ -24,8 +24,15 @@
     </isif>
 
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
-    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-    	<span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice)}"/></span>
+    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}">
+    	<isif condition="${empty(pdict.product)}"> 
+	    	<isset name="lineItemID" value="${lineItem.id}" scope="page" />
+	    	<isset name="lineItemUUID" value="${lineItem.UUID}" scope="page" />
+	   	<iselse>
+	    	<isset name="lineItemID" value="${pdict.product.id}" scope="page" />
+	    	<isset name="lineItemUUID" value="${pdict.product.UUID}" scope="page" />
+	    </isif> 
+    	<span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice, 'lineItemID', lineItemID, 'lineItemUUID', lineItemUUID)}"/></span>
     <iselse>
     	<span class="sales">
 	        <isif condition="${isLowPrice == 'range-low'}">

@@ -163,8 +163,17 @@ server.get('GetConvertedPrice', function (req, res, next) {
     var price = req.querystring.price;
     var isLowPrice = req.querystring.isLowPrice;
     var list = req.querystring.listPrice;
-
-    var convertedPrice = eswHelper.getMoneyObject(price, false);
+    var lineItemID = req.querystring.lineItemID;
+    var lineItemUUID = req.querystring.lineItemUUID;
+    
+    var matchingLineItem = (lineItemID && lineItemUUID) ? eswHelper.getMatchingLineItemWithID(lineItemID, lineItemUUID) : '';
+    if (!empty(matchingLineItem)) {
+    	var formatMoney = require('dw/util/StringUtils').formatMoney;
+    	var convertedPrice = formatMoney(eswHelper.getUnitPriceCost(matchingLineItem));
+    } else {
+    	var convertedPrice = eswHelper.getMoneyObject(price, false);
+    }
+    
     res.render('eswPrice', {
         'price': convertedPrice,
         'isLowPrice': isLowPrice,
