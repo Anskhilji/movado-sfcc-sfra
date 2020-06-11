@@ -12,9 +12,10 @@
     <isif condition=${false}>
         <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
     </isif>
- 
+
+    <isslot id="cs-category-landing-social" description="Category Landing Page social" context="global"/>
     <div class="content-slots-container strap-slot-container">
         <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
-        <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="global"/>
+        <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${pdict.category}"/>
     </div>
 </isdecorate>

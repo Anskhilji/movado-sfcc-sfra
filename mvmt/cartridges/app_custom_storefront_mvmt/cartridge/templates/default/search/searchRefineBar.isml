@@ -118,7 +118,8 @@
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
                     <div class="refinements">
-                        <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="global" />
+                        <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+
                         <isloop items="${refinements}" var="refinement">
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
