@@ -127,6 +127,20 @@ eswHelper.getMatchingLineItem = function (lineItem) {
     return matchingLineItem;
 };
 
+/*
+ * FUnction is used to return matching line item from current basket Using UUID
+ */
+eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
+    var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+    var matchingLineItem;
+    if (currentBasket != null) {
+        matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+            return item.productID === lineItemID && item.UUID === lineItemUUID;
+        });
+    }
+    return matchingLineItem;
+};
+
 /**
  * Check if product is restricted in current selected Country
  * @param {Object} prd - Product object

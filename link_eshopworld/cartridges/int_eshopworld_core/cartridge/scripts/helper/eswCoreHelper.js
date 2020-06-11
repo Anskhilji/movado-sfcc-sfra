@@ -170,7 +170,7 @@ var getEswHelper = {
         }
 
         if (!this.getEnableCurrencyFooterBar() || !this.getEnableCurrencyHeaderBar() || !this.getEnableCurrencyLandingBar()) {
-            var siteCountries = require('*/cartridge/countries');
+        	var siteCountries = require('*/cartridge/countries');
             var foundCountry = siteCountries.filter(function (item) {
                 if (item.countryCode === country) {
                     currency = item.currencyCode;
@@ -203,8 +203,8 @@ var getEswHelper = {
         }
 
         if (!empty(roundingModels)) {
-            selectedRoundingModel = roundingModels.filter(function (rule) {
-                return rule.deliveryCountryIso == country;
+        	selectedRoundingModel = roundingModels.filter(function (rule) {
+            	return rule.deliveryCountryIso == country;
             });
 
             selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
@@ -329,13 +329,13 @@ var getEswHelper = {
             });
 
             // if fxRate is empty, return the price without applying any calculations
-            if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso) || (!empty(isFixedPriceCountry) && selectedFxRate.rate == '1')) {
+            if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso)) {
                 return (formatted == null) ? formatMoney(new dw.value.Money(billingPrice, session.getCurrency().currencyCode)) : new dw.value.Money(billingPrice, session.getCurrency().currencyCode);
             }
 
             //applying override price if override pricebook is set
             billingPrice = new Number(this.applyOverridePrice(billingPrice, selectedCountry));
-            var selectedCountryAdjustment = JSON.parse(session.privacy.countryAdjustment);
+            var selectedCountryAdjustment = !empty(session.privacy.countryAdjustment) ? JSON.parse(session.privacy.countryAdjustment) : '';
             // fixed price countries will not have adjustment, duty and taxes applied
             if (!noAdjustment) {
                 if (empty(isFixedPriceCountry) && selectedCountryAdjustment && !empty(selectedCountryAdjustment)) {
@@ -850,7 +850,7 @@ var getEswHelper = {
      * @return {String} - Currency code
      */
     getCurrentEswCurrencyCode: function () {
-        return request.httpCookies['esw.currency'].value;
+    	return request.httpCookies['esw.currency'].value;
     }
 };
 
