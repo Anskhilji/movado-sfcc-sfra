@@ -122,6 +122,17 @@
                         text-align: left;
                         width: auto;
 
+                        @include media-breakpoint-down(sm) {
+                            width: 40%;
+                            margin: 0 auto;
+                        }
+
+                        @include media-breakpoint-down(xs) {
+                            width: 50%;
+                            margin: 0 auto;
+                            display: block;
+                        }
+
                         label {
                             display: none;
                         }
