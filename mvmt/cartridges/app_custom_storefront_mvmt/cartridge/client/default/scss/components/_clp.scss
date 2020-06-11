@@ -377,8 +377,8 @@
         background-color: $white-gray;
         
         @include media-breakpoint-up(lg) {
-            font-size: 20px;
-            padding: 60px 30px;
+            font-size: rem(20);
+            padding: rem(60) rem(30);
         }
 
         h3 {
