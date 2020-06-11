@@ -12,7 +12,7 @@
         <iscomment> Custom End </iscomment>
     </div>
 </div>
-<iscomment> Custom : More ways text is not visible on mvmt
+<iscomment> Custom : Hide Express Payment Methods From Cart Page
     <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
 
     <div class="row more-options">
