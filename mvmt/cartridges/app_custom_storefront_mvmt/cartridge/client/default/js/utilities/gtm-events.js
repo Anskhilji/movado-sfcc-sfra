@@ -60,16 +60,17 @@ var onProductClickEvent = function () {
             if ($('.slick-slider').length) {
                 val.list = 'carousel';
             }
-			 dataLayer.push({
-     event: 'productClick',
-		    		   ecommerce: {
-					      click: { actionField: { list: val.list },
+			dataLayer.push({
+                event: 'productClick',
+                currencyCode: val.currency,
+		        ecommerce: {
+				    click: { 
 						     products: [{ name: val.name,
          id: val.id,
+         sku: val.id,
          price: val.price,
-         brand: val.brand,
          category: val.category,
-         position: val.position }]
+         variant: val.variantID }]
       }
        }
  });
@@ -131,11 +132,16 @@ var onPDPAddProductClickEvent = function () {
                 ecommerce: { currencyCode: addtoCartData.currency,
                     add: { actionField: { list: addtoCartData.list },
 				      products: [{
-				          id: addtoCartData.id,
 				          name: addtoCartData.name,
+				          id: addtoCartData.id,
 				          price: addtoCartData.price,
-				          category: addtoCartData.category,
-				          variant: addtoCartData.variant
+                          category: addtoCartData.category,
+                          sku: addtoCartData.id,
+                          variantID: addtoCartData.variantID,
+                          brand: addtoCartData.brand,
+                          currentCategory: addtoCartData.category,
+                          variant: addtoCartData.variant,
+                          quantity: addtoCartData.quantity
 				      }]
                     }
                 }
@@ -145,14 +151,20 @@ var onPDPAddProductClickEvent = function () {
             var addtoCartData = JSON.parse(data);
             dataLayer.push({
                 event: 'addToCart',
-                ecommerce: { currencyCode: addtoCartData.currency,
-                    add: { actionField: { list: addtoCartData.list },
+                ecommerce: {
+                    add: {
 				      products: [{
-					          id: addtoCartData.id,
 					          name: addtoCartData.name,
+					          id: addtoCartData.name,
 					          price: addtoCartData.price,
-					          category: addtoCartData.category,
-					          variant: addtoCartData.variant
+                              category: addtoCartData.category,
+                              sku: addtoCartData.id,
+                              variantID: addtoCartData.variantID,
+                              brand: addtoCartData.brand,
+                              currentCategory: addtoCartData.category,
+                              productType: addtoCartData.productType,
+                              variant: addtoCartData.variant,
+                              quantity: addtoCartData.quantity
 				      	}]
                     }
                 }
@@ -167,14 +179,20 @@ var onAddtoCartClickEvent = function () {
         updateDataLayer('addToCart');
         dataLayer.push({
             event: 'addToCart',
-            ecommerce: { currencyCode: data.currency,
-                add: { actionField: { list: data.list },
+            ecommerce: {
+                add: {
                     products: [{
-                        id: data.id,
                         name: data.name,
+                        id: data.id,
                         price: data.price,
                         category: data.category,
-                        variant: data.variant
+                        sku: data.id,
+                        variantID: data.variantID,
+                        brand: data.brand,
+                        currentCategory: data.category,
+                        productType: data.productType,
+                        variant: data.variant,
+                        quantity: data.quantity
                     }]
                 }
             }
