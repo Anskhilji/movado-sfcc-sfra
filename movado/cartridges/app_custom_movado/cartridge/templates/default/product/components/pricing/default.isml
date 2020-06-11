@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Adding ESW updated cartridge code </iscomment>
-<isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <span>
     <isset name="finalOrigPrice" value="${price}" scope="page" />
     <isif condition="${finalOrigPrice.list !== null}">
@@ -10,7 +10,7 @@
                     <span class="sr-only">
                         ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                     </span>
-                    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+                    <isif condition="${isEswEnabled}"> 
                         <span class="eswListPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'listPrice', true)}"/></span>
                     <iselse>
                         <isinclude template="/product/components/pricing/formatted" />
@@ -24,8 +24,15 @@
     </isif>
 
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
-    <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
-        <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice)}"/></span>
+    <isif condition="${isEswEnabled}"> 
+        <isif condition="${empty(pdict.product)}"> 
+            <isset name="lineItemID" value="${lineItem.id}" scope="page" />
+            <isset name="lineItemUUID" value="${lineItem.UUID}" scope="page" />
+        <iselse>
+            <isset name="lineItemID" value="${pdict.product.id}" scope="page" />
+            <isset name="lineItemUUID" value="${pdict.product.UUID}" scope="page" />
+        </isif> 
+        <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', price.decimalPrice, 'isLowPrice', isLowPrice, 'lineItemID', lineItemID, 'lineItemUUID', lineItemUUID)}"/></span>
     <iselse>
         <span class="sales">
             <isif condition="${isLowPrice == 'range-low'}">
