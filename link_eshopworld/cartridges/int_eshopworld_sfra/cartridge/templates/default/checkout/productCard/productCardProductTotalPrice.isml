@@ -1,29 +1,29 @@
-<isscript>  
+<isscript>	
     var collections = require('*/cartridge/scripts/util/collections');
-    var formatMoney = require('dw/util/StringUtils').formatMoney;
-    var matchingLineItem;
+	var formatMoney = require('dw/util/StringUtils').formatMoney;
+	var matchingLineItem;
 
-    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-    if (eswHelper.getEShopWorldModuleEnabled()) {
-        var currentBasket = dw.order.BasketMgr.getCurrentBasket();
-        
-        if(currentBasket != null) {
-            matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-                return item.productID === lineItem.id && item.UUID === lineItem.UUID;
-            });
-        }
-    }
+	var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+	if (eswHelper.getEShopWorldModuleEnabled()) {
+		var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+		
+		if(currentBasket != null) {
+			matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+	        	return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+	    	});
+	    }
+	}
 </isscript>
 
 <div class="strike-through
 <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>"
 >
     <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
-        ${(eswHelper.getEShopWorldModuleEnabled()) ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
+    	${(eswHelper.getEShopWorldModuleEnabled()) ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
     </isif>
 </div>
 <isif condition="${!empty(matchingLineItem)}">
-    <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
 <iselse>
-    <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
+	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
 </isif>

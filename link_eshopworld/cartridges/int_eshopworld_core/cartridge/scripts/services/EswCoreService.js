@@ -22,7 +22,7 @@ var eShopWorldServices = {
      * service for getting V2 pricing feed
      */
     getPricingV2Service: function () {
-        var priceFeedV2Service = LocalServiceRegistry.createService('EswPriceFeedV2Service', {
+        var priceFeedV2Service = LocalServiceRegistry.createService('EswPriceFeedV3Service', {
 
             createRequest: function (service, params) {
                 var clientID = eswHelper.getClientID(),
@@ -54,7 +54,8 @@ var eShopWorldServices = {
      * service pre-order version 2 request definition
      */
     getPreorderServiceV2: function () {
-        var preorderServicev2 = LocalServiceRegistry.createService('EswPreorderV2Service', {
+        var preorderCheckoutServiceName = eswHelper.getCheckoutServiceName();
+        var preorderServicev2 = LocalServiceRegistry.createService(preorderCheckoutServiceName, {
             createRequest: function (service, params) {
                 var bearerToken = 'Bearer ' + session.privacy.eswOAuthToken;
                 service.addHeader('Content-Type', 'application/json');
