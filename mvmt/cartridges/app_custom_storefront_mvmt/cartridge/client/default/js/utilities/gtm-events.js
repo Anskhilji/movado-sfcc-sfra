@@ -155,7 +155,7 @@ var onPDPAddProductClickEvent = function () {
                     add: {
 				      products: [{
 					          name: addtoCartData.name,
-					          id: addtoCartData.name,
+					          id: addtoCartData.id,
 					          price: addtoCartData.price,
                               category: addtoCartData.category,
                               sku: addtoCartData.id,
@@ -167,6 +167,14 @@ var onPDPAddProductClickEvent = function () {
                               quantity: addtoCartData.quantity
 				      	}]
                     }
+                },
+                currentCart: {
+                    products: [{
+                        name: addtoCartData.cartProductName,
+                        quantity : addtoCartData.cartProductQuantity,
+                        price: addtoCartData.cartProductPrice,
+                        id: addtoCartData.cartProductID
+                    }]
                 }
             });
         }
