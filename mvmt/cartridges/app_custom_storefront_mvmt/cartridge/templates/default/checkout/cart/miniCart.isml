@@ -1,6 +1,8 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="miniCart" value="${true}" scope="page" />
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
+<isset name="subtotal" value="${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}" scope="page">
+<isset name="grandTotal" value="${empty(pdict.totals.grandTotal) ? '0' : pdict.totals.grandTotal}" scope="page">
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -82,7 +84,10 @@
                     ${Resource.msg('label.minicart.estimatedtotal', 'cart', null)}
                 </div>
                 <div class="subtotal-total">
+                    <iscomment>Removing strike through for full price items</iscomment>
+                    <isif condition="${subtotal != grandTotal}">
                     <span class="subtotal-total-discount">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
+                    </isif>
                     <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.grandTotal) ? '0' : pdict.totals.grandTotal}</span>
                 </div>
             </div>
