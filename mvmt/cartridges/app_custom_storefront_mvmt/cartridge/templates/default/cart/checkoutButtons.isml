@@ -15,17 +15,16 @@
 <iscomment> Custom : More ways text is not visible on mvmt
     <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
 
-<div class="row more-options">
-    <div class="col-sm-12">
-        <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            <isprint value="${pdict.paypalButtonImg}" encoding="off" />
-        </a>
+    <div class="row more-options">
+        <div class="col-sm-12">
+            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+            </a>
+        </div>
+        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
     </div>
-    <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
-</div>
-
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
     <isif condition="${sitePreferences.amzPayEnabled}">
         <div class="mb-sm-3">
             <div id="AmazonPayButtonCart"></div>
