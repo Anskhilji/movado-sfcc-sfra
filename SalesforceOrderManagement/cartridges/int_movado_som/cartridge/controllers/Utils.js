@@ -99,6 +99,7 @@ server.get('CreateOrder', function (req, res, next) {
   var Transaction = require('dw/system/Transaction');
   var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
   var URLUtils = require('dw/web/URLUtils');
+  var redirect = URLUtils.url('Checkout-Begin', 'stage', 'payment').toString();
 
   Transaction.wrap(function () {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
@@ -136,13 +137,16 @@ server.get('CreateOrder', function (req, res, next) {
           pi.setCreditCardExpirationMonth(3);
           pi.setCreditCardExpirationYear(2030);
           break;
+        case 'PayPalExpress':
+          redirect = URLUtils.url('AdyenExpressPaypal-ExpressCheckoutFromCart').toString();
+          break;
         default:
           break;
       }
     }
   });
 
-  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment').toString());
+  res.redirect(redirect);
   next();
 });
 

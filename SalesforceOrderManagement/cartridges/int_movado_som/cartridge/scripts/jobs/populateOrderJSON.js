@@ -212,7 +212,7 @@ function addDummyPaymentTransaction(order) {
                     /*
                       PAYPAL
                     */
-                    pi.custom.adyenPaymentMethod = 'paypal_ecs';
+                    // pi.custom.adyenPaymentMethod = 'paypal_ecs';
                     if (!('adyenPaymentMethod' in pi.custom) || pi.custom.adyenPaymentMethod === '') {
                         logger.error('adyenPaymentMethod does not exist or not set');
                     }

@@ -844,6 +844,18 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
+            // Salesforce Order Management attributes
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                var _e = exSOM;
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
             // Custom End
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
@@ -889,6 +901,18 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
+        // Salesforce Order Management attributes
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        somLog.debug('Processing Order ' + order.orderNo);
+        try {
+            Transaction.wrap(function () {
+                populateOrderJSON.populateByOrder(order);
+            });
+        } catch (exSOM) {
+            var _e = exSOM;
+            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        }
             // Custom End 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
