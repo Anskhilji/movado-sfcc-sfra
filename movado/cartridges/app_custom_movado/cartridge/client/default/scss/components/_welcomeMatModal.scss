@@ -46,12 +46,20 @@
                 .selector-container {
                     width: auto;
 
+                    @include media-breakpoint-down(xs) {
+                        margin: rem(16) 0 rem(32) 0;
+                    }
+
                     p {
                         display: inline-block;
                     }
 
                     .selectCountry {
                         display: inline-block;
+
+                        .current-country {
+                            width: 100%;
+                        }
                     }
 
                     .content-asset {
@@ -76,6 +84,11 @@
                         padding: rem(32);
                         font-size: rem(32);
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(xs) {
+                            padding: rem(16);
+                            font-size: rem(28);
+                        }
                     }
                 }
 
