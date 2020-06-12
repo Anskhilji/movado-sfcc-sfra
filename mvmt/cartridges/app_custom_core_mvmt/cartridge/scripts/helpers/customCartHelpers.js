@@ -10,8 +10,8 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 	var productGtmArray={};
     var variant;
     var variantID = '';
-    var BasketMgr = require('dw/order/BasketMgr');
-    var currentBasket = BasketMgr.getCurrentBasket();
+    var cartJSON = getBasketParameters();
+    var cartArray = [];
 
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
@@ -35,32 +35,15 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "price" : productPrice,
                         "variantID" : variantID,
                         "currency" : pli.product.priceModel.price.currencyCode,
-                        "list" : Resource.msg('gtm.list.pdp.value','cart',null)
+                        "list" : Resource.msg('gtm.list.pdp.value','cart',null),
+                        "cartObj" : cartJSON
                     };
-                    if (currentBasket) {
-                        var cartItems = currentBasket.allProductLineItems;
-                        collections.forEach(cartItems, function (cartItem) {
-                            if (cartItem.product != null && cartItem.product.optionModel != null) {
-                                var productModel = productFactory.get({pid: cartItem.productID});
-                                var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
-                                productGtmArray.cartProductID = cartItem.productID;
-                                productGtmArray.cartProductName = cartItem.productName;
-                                productGtmArray.cartProductQuantity = currentBasket.productQuantityTotal;
-                                productGtmArray.cartProductPrice = productPrice;
-                            }
-                        });
-                    }
                 }
         });
 
         return productGtmArray;
 }
 
-/**
- *
- * @param categoryObj
- * @returns
- */
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
@@ -76,7 +59,7 @@ function getBasketParameters() {
                     name: cartItem.productName,
                     price: productPrice,
                     quantity:currentBasket.productQuantityTotal,
-                    });
+                     });
             }
         });
     }

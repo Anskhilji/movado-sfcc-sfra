@@ -149,6 +149,7 @@ var onPDPAddProductClickEvent = function () {
         } else if ($('[data-action]').data('action') == 'Search-Show') {
             updateDataLayer('addToCart');
             var addtoCartData = JSON.parse(data);
+            var currentBasket = addtoCartData.cartObj;
             dataLayer.push({
                 event: 'addToCart',
                 ecommerce: {
@@ -168,14 +169,22 @@ var onPDPAddProductClickEvent = function () {
 				      	}]
                     }
                 },
-                currentCart: {
-                    products: [{
-                        name: addtoCartData.cartProductName,
-                        quantity : addtoCartData.cartProductQuantity,
-                        price: addtoCartData.cartProductPrice,
-                        id: addtoCartData.cartProductID
-                    }]
+                if (currentBasket) {
+                    currentCart: {
+                        products: [{
+                            for (var i =0; i< currentBasket.length; i++) {
+                                name: addtoCartData.cartProductName,
+                                quantity : addtoCartData.cartProductQuantity,
+                                price: addtoCartData.cartProductPrice,
+                                id: addtoCartData.cartProductID
+                                
+                            }
+
+                        }]
+                    }
+                    
                 }
+
             });
         }
     });
