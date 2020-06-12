@@ -226,7 +226,6 @@
 
         @include media-breakpoint-up(lg) {
             position: relative;
-            bottom: rem(4);
             opacity: 0;
         }
 
@@ -297,11 +296,10 @@
 
     .product-tag-content {
         height: rem(18);
-        margin-bottom: rem(10);
+        margin-bottom: rem(15);
 
         @include media-breakpoint-up(md-down) {
             height: rem(26);
-            margin-bottom: rem(15);
         }
 
         .product-tag {
