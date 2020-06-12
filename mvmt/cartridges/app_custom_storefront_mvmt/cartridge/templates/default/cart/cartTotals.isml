@@ -9,20 +9,40 @@
 </div>
 <!-- Sales Tax -->
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
+    <iscomment>Custom Start: Adding esw check for sales tax and adding the order discount </iscomment>
     <iscomment> added d-none classes </iscomment>
-    <div class="row d-none">
-        <div class="col-6">
-            <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+    <isif condition="${isEswEnabled}" >
+        <isif condition="${!eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
+            <div class="row d-none">
+                <div class="col-6">
+                    <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+                </div>
+                <div class="col-6">
+                    <isif condition="${pdict.totalTaxVal == '-'}">
+                        <p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
+                    <iselse>
+                        <p class="text-right cost tax-total">${empty(totals) || empty(totals.totalTax) ? '0.00' : totals.totalTax}</p>
+                    </isif>
+                </div>
+            </div>
+        </isif>
+     <iselse>
+        <div class="row d-none">
+            <div class="col-6">
+                <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+            </div>
+            <div class="col-6">
+                <isif condition="${pdict.totalTaxVal == '-'}">
+                    <p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
+                <iselse>
+                    <p class="text-right cost tax-total">${empty(totals) || empty(totals.totalTax) ? '0.00' : totals.totalTax}</p>
+                </isif>
+            </div>
         </div>
-        <div class="col-6">
-            <isif condition="${pdict.totalTaxVal == '-'}">
-            	<p class="text-right cost tax-total">${pdict.resources.toBeDeclared}</p>
-            <iselse>
-            	<p class="text-right cost tax-total">${empty(totals) || empty(totals.totalTax) ? '0.00' : totals.totalTax}</p>
-            </isif>
-        </div>
-    </div>
+     </isif>
 </isif>
+<iscomment>Custom End </iscomment>
 <iscomment> added div grand-total-section </iscomment>
 
 <div class="grand-total-section">
