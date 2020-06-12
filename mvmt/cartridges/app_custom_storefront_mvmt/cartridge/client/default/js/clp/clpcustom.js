@@ -20,6 +20,6 @@ var svgRight = '<svg width="5px" height="8px" viewBox="0 0 9 13" version="1.1" x
 $('.cs-bottom-carousel-wrapper .slick-arrow').empty();
 $('.cs-bottom-carousel-wrapper .slick-prev').addClass('fa fa-chevron-left');
 $('.cs-bottom-carousel-wrapper .slick-next').addClass('fa fa-chevron-right');
-$('.strap-carousel .slick-prev, .strap-carousel .slick-next').text('More Styles');
+$('.strap-carousel .slick-prev, .strap-carousel .slick-next').text(Resources.SLICK_BUTTON_MORE_STYLE);
 $('.strap-carousel .slick-prev').prepend(svgLeft);
 $('.strap-carousel .slick-next').append(svgRight);

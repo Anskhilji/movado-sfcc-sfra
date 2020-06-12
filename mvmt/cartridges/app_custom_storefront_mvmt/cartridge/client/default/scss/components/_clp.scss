@@ -142,7 +142,7 @@
         @include media-breakpoint-up(lg) {
             width: 50%;
             display: flex;
-            padding: 30px 10% 0;
+            padding: rem(30) 10% 0;
             flex-direction: column;
             margin: auto;
             text-align: left;
@@ -297,7 +297,7 @@
                 font-size: rem(12);
                 text-transform: uppercase;
                 line-height: rem(25);
-                letter-spacing: .5px;
+                letter-spacing: rem(0.5);
 
                 &:focus {
                     outline: none;
@@ -348,7 +348,7 @@
                     padding-top: rem(10);
                     padding-bottom: rem(15);
                     line-height: 1.767rem;
-                    letter-spacing: .5px;
+                    letter-spacing: rem(0.5);
                     text-align: center;
 
                     @include media-breakpoint-up(md-down) {
@@ -391,7 +391,7 @@
             margin-right: auto;
             text-align: center;
             margin-bottom: 1.25rem;
-            letter-spacing: 2.5px;
+            letter-spacing: rem(2.5);
             text-transform: uppercase;
 
             @include media-breakpoint-up(md-down) {

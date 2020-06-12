@@ -42,7 +42,7 @@
 
     &__title {
         display: none;
-        margin-bottom: 10px;
+        margin-bottom: rem(10);
         color: $black;
         font-family: $font-medium;
         font-size: rem(40);
@@ -150,9 +150,9 @@
 
                 &.sticky {
                     position: absolute;
-                    height: 40px;
+                    height: rem(40);
                     width: 100%;
-                    padding: 0 60px;
+                    padding: 0 rem(60);
                     margin: 0;
                     opacity: 1;
                 }
@@ -342,10 +342,10 @@
                 padding: 0 rem(22);
 
                 svg {
-                    width: 6px;
+                    width: rem(6);
                     position: absolute;
-                    right: 15px;
-                    top: 15px;
+                    right: rem(15);
+                    top: rem(15);
                     transform: rotate(270deg);
                     transition: transform .3s;
                 }
@@ -680,7 +680,7 @@
                     box-sizing: border-box;
 
                     &:nth-child(odd) {
-                        border-right: 1px solid $light-gray4;
+                        border-right: rem(1) solid $light-gray4;
                     }
 
                     img {
@@ -1066,7 +1066,7 @@
             background-color: $white;
             width: rem(60);
             height: rem(60);
-            border: 1px solid $chinese-silver;
+            border: rem(1) solid $chinese-silver;
             box-shadow: 0 rem(32) rem(80) rem(-40) rgba(0,0,0,.25), 0 rem(4.8) rem(16) 0 rgba(0,0,0,.3);
             font: normal normal normal 0 FontAwesome;
             text-rendering: auto;
@@ -1654,7 +1654,7 @@
     
         &-description {
             line-height: rem(25);
-            letter-spacing: .5px;
+            letter-spacing: rem(0.5);
             color: $black;
             font-family: $font-medium;
             font-size: rem(12);
@@ -1781,7 +1781,7 @@
                     font-size: rem(12);
                     text-transform: uppercase;
                     line-height: 1.767rem;
-                    letter-spacing: .5px;
+                    letter-spacing: rem(0.5);
                     align-items: center;
                     height: 100%;
                     width: 20%;
