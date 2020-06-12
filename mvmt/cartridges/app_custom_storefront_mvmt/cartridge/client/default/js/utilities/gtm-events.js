@@ -129,8 +129,8 @@ var onPDPAddProductClickEvent = function () {
             var addtoCartData = JSON.parse(data);
             dataLayer.push({
                 event: 'addToCart',
-                ecommerce: { currencyCode: addtoCartData.currency,
-                    add: { actionField: { list: addtoCartData.list },
+                ecommerce: {
+                    add: { 
 				      products: [{
 				          name: addtoCartData.name,
 				          id: addtoCartData.id,
@@ -144,6 +144,9 @@ var onPDPAddProductClickEvent = function () {
                           quantity: addtoCartData.quantity
 				      }]
                     }
+                },
+                currentCart: {
+                    products: addtoCartData.cartObj
                 }
             });
         } else if ($('[data-action]').data('action') == 'Search-Show') {
