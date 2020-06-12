@@ -501,8 +501,6 @@ body {
                     font-family: $font-bold;
                     font-weight: 700;
                     font-size: rem(12);
-
-                    @include font-heavy;
                 }
 
                 & ~ .sales {
