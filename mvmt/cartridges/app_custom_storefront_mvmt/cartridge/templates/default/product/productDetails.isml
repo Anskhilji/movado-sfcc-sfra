@@ -128,7 +128,6 @@
                                      <isprint value="${product.shortDescription}" encoding="off" />
                                  </div>
                             </isif>
-
                             <isif condition="${sitePref.enableSmartGift}">
                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                     <div class="d-flex d-md-none justify-content-center"><isinclude template="product/components/smartGift" /></div>
@@ -148,7 +147,6 @@
                                          <isprint value="${product.shortDescription}" encoding="off" />
                                      </div>
                                 </isif>
-
                                 <isif condition="${sitePref.enableSmartGift}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-none d-md-flex justify-content-center"><isinclude template="product/components/smartGift" /></div>
