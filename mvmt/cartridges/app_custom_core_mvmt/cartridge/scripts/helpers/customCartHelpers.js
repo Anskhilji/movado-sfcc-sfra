@@ -11,7 +11,6 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
     var variant;
     var variantID = '';
     var cartJSON = getBasketParameters();
-    var cartArray = [];
 
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
