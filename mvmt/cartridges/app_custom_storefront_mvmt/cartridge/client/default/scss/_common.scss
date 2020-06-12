@@ -490,3 +490,27 @@ body {
         z-index: 999;
     }
 }
+.product-tile-redesign {
+    .tile-body {
+        .price {
+            .strike-through {
+                margin-right: rem(5);
+
+                span {
+                    color: $light-gray2;
+                    font-family: $font-bold;
+                    font-weight: 700;
+                    font-size: rem(12);
+
+                    @include font-heavy;
+                }
+
+                & ~ .sales {
+                    span {
+                        color: $dark-red;
+                    }
+                }
+            }
+        }
+    }
+}

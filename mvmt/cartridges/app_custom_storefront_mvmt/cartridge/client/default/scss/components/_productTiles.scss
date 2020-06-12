@@ -165,7 +165,7 @@
                     font-size: rem(11);
                 }
 
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(md-down) {
                     font-size: rem(12);
                 }
             }
@@ -178,7 +178,7 @@
             min-height: rem(12);
             @include font-medium;
 
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(md-down) {
                 font-size: rem(12);
             }
 
@@ -261,7 +261,7 @@
                 pointer-events: none;
             }
 
-            @include media-breakpoint-down(md) {
+            @include media-breakpoint-down(md-down) {
                 font-size: rem(11);
                 line-height: rem(14);
             }
@@ -299,7 +299,7 @@
         height: rem(18);
         margin-bottom: rem(10);
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(md-down) {
             height: rem(26);
             margin-bottom: rem(15);
         }
