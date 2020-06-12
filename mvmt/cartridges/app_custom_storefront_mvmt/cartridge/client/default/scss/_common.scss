@@ -497,8 +497,8 @@ body {
     justify-content: space-between;
     align-items: center;
     height: rem(41);
-    border-bottom: 1px solid $alice-blue;
-    border-top: 1px solid $alice-blue;
+    border-bottom: rem(1) solid $alice-blue;
+    border-top: rem(1) solid $alice-blue;
     position: absolute;
     top: rem(53);
     width: 100%;

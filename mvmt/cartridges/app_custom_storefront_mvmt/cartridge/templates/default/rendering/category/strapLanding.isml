@@ -2,16 +2,11 @@
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/productDetail.js');
-    </isscript>
-    <isinclude template="/components/modules" sf-toolkit="off" />
-    <isscript>
-        var assets = require('*/cartridge/scripts/assets');
         assets.addCss('/css/search.css');
     </isscript>
+    <isinclude template="/components/modules" sf-toolkit="off" />
+
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
-    <isif condition=${false}>
-        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-    </isif>
 
     <isslot id="cs-category-landing-social" description="Category Landing Page social" context="global"/>
     <div class="content-slots-container strap-slot-container">

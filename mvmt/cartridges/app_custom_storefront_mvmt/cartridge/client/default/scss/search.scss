@@ -91,7 +91,7 @@
             padding: rem(24);
         }
         .product-tile-redesign {
-            margin: 1.25rem 0 0;
+            margin: rem(20) 0 0;
         }
     }
 
@@ -1653,9 +1653,9 @@
         }
     
         &-description {
-            line-height: 1.767rem;
+            line-height: rem(25);
             letter-spacing: .5px;
-            color: #000;
+            color: $black;
             font-family: $font-medium;
             font-size: rem(12);
             font-weight: 500;
@@ -1816,10 +1816,10 @@
 
                     a {
                         padding: rem(10) rem(5);
-                        background: linear-gradient(0deg,$white, $light-gray10);
+                        background: linear-gradient(0deg, $white, $light-gray10);
 
                         &.active {
-                            background: linear-gradient(0deg,$white-smoke,$light-gray9)
+                            background: linear-gradient(0deg, $white-smoke, $light-gray9)
                         }
                     }
                     .slide-content {
