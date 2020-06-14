@@ -1,9 +1,6 @@
 <iscomment>
     Removed page designer bootstrap from is script
-</iscomment><isscript>
-    var assets = require('*/cartridge/scripts/assets.js');
-	assets.addCss('/css/layout.css');
-</isscript>
+</iscomment>
 <div class="row mx-n2 m-0">
 	<isprint value="${pdict.regions.column1.setClassName("region region_portrait-small col-6 col-md-3 px-2").render()}" encoding="off"/>
 	<isprint value="${pdict.regions.column2.setClassName("region region_portrait-small col-6 col-md-3 px-2").render()}" encoding="off"/>

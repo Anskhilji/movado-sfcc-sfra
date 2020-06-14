@@ -38,10 +38,14 @@ function validateBasket(basket, validateTax) {
         } else if (!totalTax) {
             result.error = true;
             result.message = Resource.msg('error.invalid.tax', 'cart', null);
-        } else if (session.privacy.eswfail && !empty(session.privacy.eswfail)) { // eslint-disable-line no-undef
+        } else if (!empty(session.privacy.eswfail) && session.privacy.eswfail) {
             result.error = true;
             result.message = Resource.msg('cart.eswerror', 'esw', null);
-            delete session.privacy.eswfail; // eslint-disable-line no-undef
+            delete session.privacy.eswfail;
+        } else if (!empty(session.privacy.eswProductRestricted) && session.privacy.eswProductRestricted) {
+            result.error = true;
+            result.message = Resource.msg('cart.esw.product.notavailable', 'esw', null);
+            delete session.privacy.eswProductRestricted;
         }
     }
 

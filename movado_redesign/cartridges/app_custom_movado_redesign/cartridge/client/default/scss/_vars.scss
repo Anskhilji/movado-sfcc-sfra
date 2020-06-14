@@ -14,6 +14,10 @@ $dark-pink:#ead7dc !default;
 $grey9-light: #d6d7d8 !default;
 $gray98:#fafafa !default;
 $zircon: #eaebeb;
+$slate-grey-light: #f5f6f8;
+$slate-grey: #A0A9BA;
+
+$heart-icon: "\F004";
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;
@@ -38,7 +42,23 @@ $zircon: #eaebeb;
     font-weight: 400;
     font-style: normal;
 }
-
+$custom-xll:1440px;
 $custom-xl:1280px;
 $custom-lg:1070px;
 $custom-sm:800px;
+$custom-sm1: 300px;
+$custom-sm2: 330px;
+$custom-sm3: 355px;
+$custom-sm4: 440px;
+$custom-sm5: 630px;
+$custom-sm6: 790px;
+$custom-sm7: 500px;
+$custom-sm8: 555px;
+$custom-sm9: 560px;
+$custom-sm10: 580px;
+$custom-sm11: 400px;
+$custom-sm12: 440px;
+$custom-md1: 790px;
+$custom-md2: 810px;
+$custom-lg1: 990px;
+$custom-lg2: 1120px;

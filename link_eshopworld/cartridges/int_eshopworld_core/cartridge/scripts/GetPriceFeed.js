@@ -36,12 +36,13 @@ function execute() {
                     var priceFeed = JSON.parse(priceFeedResult.object);
                     var fxRates = priceFeed.fxRates,
                         countryAdjustments = priceFeed.deliveryCountryAdjustments,
-                        rounding = priceFeed.rounding;
+                        rounding = priceFeed.deliveryCountryRoundingModels;
 
                     Site.setCustomPreferenceValue('eswFxRatesJson', JSON.stringify(fxRates));
                     Site.setCustomPreferenceValue('eswCountryAdjustmentJson', JSON.stringify(countryAdjustments));
                     Site.setCustomPreferenceValue('eswRounding', JSON.stringify(rounding));
                     Site.setCustomPreferenceValue('eswDay', priceFeed.lastUpdated);
+                    Site.setCustomPreferenceValue('eswPricingSynchronizationId', priceFeed.pricingSynchronizationId);
                 }
             } else if (oAuthResult.status === 'ERROR' || empty(oAuthResult.object)) {
                 logger.error('ESW Service Error: {0}', oAuthResult.errorMessage);

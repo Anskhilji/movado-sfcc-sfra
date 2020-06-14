@@ -31,7 +31,9 @@
                 </div>
                 <div class="end-lines">
                     <p class="text-right pricing shipping-method-price">
-                        ${shippingModel.selectedShippingMethod.shippingCost}
+                        <iscomment> Custom Start: Adding ESW Cartridge Code Logic </iscomment>
+                        ${pdict.order.totals.totalShippingCost}
+                        <iscomment> Custom End </iscomment>
                     </p>
                 </div>
             </div>

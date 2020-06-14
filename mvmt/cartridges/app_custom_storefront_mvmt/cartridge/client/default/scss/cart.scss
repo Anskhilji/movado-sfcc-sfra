@@ -16,6 +16,43 @@
     }
 }
 
+.html-slot-container {
+    font-family: $font-medium;
+    font-size: rem(13);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(xs) {
+        font-size: rem(14);
+    }
+
+    @include media-breakpoint-up(xs) {
+        font-size: rem(14);
+    }
+
+    .title-free-shipping {
+        display: block;
+        position: relative;
+        text-align: center;
+        line-height: rem(58);
+        height: rem(55);
+        text-transform: uppercase;
+        border-bottom: rem(1) solid $white-gray;
+        width: 100%;
+        letter-spacing: rem(0.3);
+        color: $light-green;
+        font-size: rem(11);
+        font-family: $font-medium;
+        font-weight: 500;
+
+        img, svg {
+           padding-right: rem(7);
+           padding-bottom: rem(2);
+        }
+    }
+ }
+
 .cart-page {
     padding: rem(65) 0;
 
@@ -422,6 +459,51 @@
                         display: flex;
                         align-items: center;
                         margin: 0;
+                        position: relative;
+                    }
+
+                    &-btn-group {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        right: rem(20);
+                        top: 50%;
+                        transform: translateY(-50%);
+                        
+                        button {
+                            width: rem(12);
+                            height: rem(10);
+                            position: relative;
+                            border: none;
+                            outline: none;
+                            background-color: $grey2;
+                            color: $grey3;
+
+                            &:hover {
+                                background-color: $light-silver;
+                            }
+
+                            svg {
+                                position: absolute;
+                                width: rem(8);
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
+                        }
+                    }
+
+                    &-btn-up {
+                        svg {
+                            top: rem(6);
+                        }
+                    }
+
+                    
+                    &-btn-down {
+                        svg {
+                            top: rem(-1);
+                        }
                     }
 
                     &-field {
@@ -445,7 +527,8 @@
                         color: $light-gray;
 
                         &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-                            opacity: 1;
+                            -webkit-appearance: none;
+                            margin: 0;
                         }
 
                         &:focus {
@@ -453,6 +536,7 @@
                         }
                     }
 
+                
                     &-btn {
                         display: none;
                         width: rem(24);
@@ -468,7 +552,6 @@
                         fill: $gray1;
                         cursor: pointer;
                         transition: all 0.3s ease;
-
                         &:hover, &:focus {
                             background-color: $gray9;
                             border-color: $gray9;

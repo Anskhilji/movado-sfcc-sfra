@@ -63,7 +63,12 @@
                 &.slick-initialized {
                     max-width: rem(150);
                     margin: 0 auto;
-                    overflow: hidden;
+                    overflow: visible;
+                    
+                    @include media-breakpoint-down(sm) {
+                    
+                        max-width: rem(102);
+                    }
                 }
             }
 
@@ -348,4 +353,21 @@
 
 .product-tile {
     width: auto;
+
+    .color-swatches {
+    
+        a {
+            cursor: pointer;
+        
+            img {
+                border: rem(1) solid $white;
+                padding: rem(1);
+                
+                &.swatch-circle.is-active {
+                    border: rem(1) solid $black;
+                    border-radius: rem(50);
+                }
+            }
+        }
+    }
 }

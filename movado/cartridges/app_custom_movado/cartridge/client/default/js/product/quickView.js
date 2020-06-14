@@ -102,10 +102,21 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
 
             setTimeout(function () {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
+                //Custom Start: Adding ESW Code Logic
+                if (typeof data.eswModuleEnabled !== undefined) {
+                    if (data.eswModuleEnabled) {
+                        // Remote Include call For List Price
+                        var $eswListPriceSelector = $('.modal.show').find('.eswListPrice');
+                        eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
+                        // Remote Include call For Sales Price
+                        var $eswPriceSelector = $('.modal.show').find('.eswPrice');
+                        eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+                    }
+                }
+                //Custom End
             }, 1000);
             affirm.ui.refresh();
             $.spinner().stop();
-            
             if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                 setAnalyticsTrackingByAJAX.pdpAnalyticsTrackingData = data.pdpAnalyticsTrackingData;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
@@ -126,7 +137,7 @@ module.exports = {
             getModalHtmlElement();
             $(e.target).trigger('quickview:show');
             if (gtmProdObj) {
-            	fillModalElement(selectedValueUrl, JSON.parse(gtmProdObj));
+                fillModalElement(selectedValueUrl, JSON.parse(gtmProdObj));
             }
         });
     },
@@ -167,6 +178,25 @@ module.exports = {
                 $('.modal.show .full-pdp-link')
                     .attr('href', response.data.product.selectedProductUrl);
             }
+
+            //Custom Start: Adding ESW Code Logic
+            if (response.data.product.isProductRestricted) {
+                $('.modal.show').find('button.add-to-cart-global').addClass('d-none');
+                $('.modal.show').find('.price').addClass('d-none');
+                $('.modal.show').find('.product-not-available-msg').removeClass('d-none');
+            } else {
+                $('.modal.show').find('button.add-to-cart-global').removeClass('d-none');
+                $('.modal.show').find('.price').removeClass('d-none');
+                $('.modal.show').find('.product-not-available-msg').addClass('d-none');
+            }
+
+            // Remote Include call For List Price
+            var $eswListPriceSelector = $('.modal.show').find('.eswListPrice', response.container).length ? $('.modal.show').find('.eswListPrice', response.container) : $('.modal.show').find('.eswListPrice');
+            eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
+            // Remote Include call For Sales Price
+            var $eswPriceSelector = $('.modal.show').find('.eswPrice', response.container).length ? $('.modal.show').find('.eswPrice', response.container) : $('.modal.show').find('.eswPrice');
+            eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+            //Custom End
         });
     },
     updateAddToCart: function () {

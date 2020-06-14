@@ -1,3 +1,4 @@
+<isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
 <div class="header-banner slide-up">
     <div class="container">
         <div class="row">
@@ -16,7 +17,9 @@
 </div>
 <header>
 
-			<isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+	<isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+		<isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+	</isif>
     <nav role="navigation">
         <div class="header container">
             <div class="row">
@@ -31,7 +34,9 @@
                         <div class="pull-left">
                             <div class="hidden-md-down">
                                 <isinclude url="${URLUtils.url('Account-Header')}" />
-                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+                                	<isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                </isif>
                             </div>
                             <button class="navbar-toggler d-md-none" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                                 &#9776; <span class="hidden-xs-down">Menu</span>

@@ -197,17 +197,18 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
  */
 function decreaseQuantity (quantitySelector, id) {
     var $quantity = parseInt($(quantitySelector).val());
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
         $quantity = 1;
     }
 
     $quantity = ($quantity > 1) ? $quantity - 1 : $quantity;
 
     if ($quantity == 1) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     } else {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
     }
     $(quantitySelector).val($quantity);
     updateCartQuantity(quantitySelector, false);
@@ -221,14 +222,15 @@ function decreaseQuantity (quantitySelector, id) {
  * @param id
  */
 function increaseQuantity (quantitySelector, id) {
-    var $quantity = parseInt($(quantitySelector).val());
+    var $quantity = parseInt($(quantitySelector).val());4
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
         $(quantitySelector).val(1);
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     }
 
     if ($quantity >= 1) {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
         $quantity = $quantity + 1;
         $(quantitySelector).val($quantity);
     }
@@ -303,7 +305,8 @@ module.exports = function () {
      * It will get the decreased-btn data attribute and builds the quantitySelector 
      * class and it will call the decreaseQuantity function.
      */
-    $('body').off('click', '.decreased-btn').on('click', '.decreased-btn', function (e) {
+    $('html').off('click', '.decreased-btn, .decreased-qty-btn').on('click', '.decreased-btn, .decreased-qty-btn', function (e) {
+        e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
         decreaseQuantity($quantitySelector, $pid);
@@ -314,34 +317,12 @@ module.exports = function () {
      * It will get the increased-btn data attribute and builds the quantitySelector 
      * class and it will call the increaseQuantity function.
      */
-    $('body').off('click', '.increased-btn').on('click', '.increased-btn', function (e) {
+    $('html').off('click', '.increased-btn, .increased-qty-btn').on('click', '.increased-btn, .increased-qty-btn', function (e) {
+        e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
         increaseQuantity($quantitySelector, $pid);
     });
-    
-    /**
-     * This is new click event function on the Custom increased quantity button of mini-cart.
-     * It will get the increased-qty-btn data attribute and builds the quantitySelector 
-     * class and it will call the increaseQuantity function.
-     */
-
-    $('body').off('click', '.increased-qty-btn').on('click', '.increased-qty-btn', function (e) {
-    	var pid = $(this).data('pid');
-    	var quantitySelector = '.' + pid;
-    	increaseQuantity(quantitySelector, pid);
-    }); 
-    
-    /**
-     * This is new click event function on the Custom decreased quantity button of mini-cart.
-     * It will get the decreased-qty-btn data attribute and builds the quantitySelector 
-     * class and it will call the decreaseQuantity function.
-     */
-    $('body').off('click', '.decreased-qty-btn').on('click', '.decreased-qty-btn', function (e) {
-    	var pid = $(this).data('pid');
-    	var quantitySelector = '.' + pid;
-    	decreaseQuantity(quantitySelector, pid);
-      });
 
     /**
      * This is override click event function on the remove button from mini-cart.

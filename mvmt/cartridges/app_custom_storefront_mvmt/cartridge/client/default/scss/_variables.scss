@@ -94,6 +94,7 @@ $alice-blue: #F7F8F9;
 $gray36: #5c5c5c;
 $snow: #fcfcfc;
 $night-rider: #2C2C2C;
+$alice-dark: #f9f9f9;
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;
@@ -149,7 +150,8 @@ $grid-breakpoints: (
     md-down: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1280px
+    xl: 1280px,
+    xxl: 1920px
 ) !default;
 
 $container-max-width: 1440px;

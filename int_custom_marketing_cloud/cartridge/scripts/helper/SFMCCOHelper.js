@@ -26,6 +26,32 @@ function saveEmailSubscriber(email) {
     }
 }
 
+function saveMCPayload(params) {
+    var payLoad = '';
+    try {
+        var UUID = UUIDUtils.createUUID();
+        if (UUID) {
+            Transaction.wrap(function () {
+                var mcSubscriberObject = CustomObjectMgr.createCustomObject(Constants.SFMC_SUBSCRIBER_OBJECT, UUID);
+                payLoad = {
+                    email: params.email,
+                    country: params.country,
+                    firstName: params.firstName,
+                    lastName: params.lastName,
+                    campaignName: params.campaignName,
+                    birthday: params.birthday,
+                    gender: params.gender,
+                    phoneNumber: params.phoneNumber,
+                    eventName: params.eventName
+                }
+                mcSubscriberObject.custom.mcPayload = JSON.stringify(payLoad);
+            });
+        }
+    } catch (e) {
+        Logger.error('Error occurred while trying to save payload into custom object, ERROR: ' + e);
+    }
+}
+
 function getSavedAuthToken() {
     var accessToken = CustomObjectMgr.getCustomObject(Constants.SFMC_ACCESS_TOKEN_OBJECT, Constants.SFMC_ACCESS_TOKEN_OBJECT_ID);
     return accessToken;
@@ -53,5 +79,6 @@ module.exports = {
     getEmailSubscribers: getEmailSubscribers,
     saveEmailSubscriber: saveEmailSubscriber,
     getSavedAuthToken: getSavedAuthToken,
-    saveNewAuthToken: saveNewAuthToken
+    saveNewAuthToken: saveNewAuthToken,
+    saveMCPayload: saveMCPayload
 }
