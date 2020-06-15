@@ -28,8 +28,8 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $('.legacy-reset-password').text('Email is sent');
-                } 
+                    $('.legacy-reset-password').text(Resources.PASSWORD_RESET_EMAIL_TEXT);
+                }
             }
         });
     });

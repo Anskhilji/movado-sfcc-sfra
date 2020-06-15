@@ -35,7 +35,8 @@ function getResources(pageContext) {
         MVMT_EMAIL_SIGNUP_EMPTY_EMAIL: Resource.msg('newsletter.signup.empty.email', 'common', null),
         MVMT_EMAIL_EMAIL_ERROR_INVALID: Resource.msg('newsletter.email.error.invalid', 'common', null),
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
-        ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null)
+        ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null),
+        PASSWORD_RESET_EMAIL_TEXT: Resource.msg('password.reset.email.send.text', 'common', null)
     };
     return resources;
 }

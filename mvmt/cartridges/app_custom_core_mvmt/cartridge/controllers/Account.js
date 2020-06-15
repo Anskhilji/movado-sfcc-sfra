@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 
+var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
 
 server.get(
@@ -20,18 +21,35 @@ server.post(
         var CustomerMgr = require('dw/customer/CustomerMgr');
         var URLUtils = require('dw/web/URLUtils');
 
+        var customer;
+        var legacyCustomer = false;
         var email = req.form.loginEmail;
-        var customer = CustomerMgr.getCustomerByLogin(email);
-        var legacyCustomer = customer.profile.custom.legacyCustomer;
-        res.setViewData({ legacyCustomer: 'fasle' });
-        session.custom.emailResetProfile = 'muhammad.aurangzaib@innovadeltech.com';
-        res.json({
-            success: true,
-            customer: customer,
-            legacyCustomer: legacyCustomer,
-            relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
-        });
+        var password = req.form.loginPassword;
+        var authenticateCustomerResult;
 
+        Transaction.wrap(function () {
+            authenticateCustomerResult = CustomerMgr.authenticateCustomer(email, password);
+        });
+        
+        if (authenticateCustomerResult.status !== 'AUTH_OK') {
+            res.json({
+                success: false,
+                customer: '',
+                legacyCustomer: legacyCustomer,
+                relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
+            });
+        } else {
+            customer = CustomerMgr.getCustomerByLogin(email);
+            legacyCustomer = customer.profile.custom.legacyCustomer;
+            session.custom.emailResetProfile = email;
+            res.json({
+                success: true,
+                customer: customer,
+                legacyCustomer: legacyCustomer,
+                relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
+            });
+        }
+        
         return next();
     }
 );
@@ -57,7 +75,7 @@ server.get('PasswordResetEmail', server.middleware.https, function (req, res, ne
                         resettingCustomer.profile.custom.legacyCustomer = false;
                     });
                 } catch (error) {
-                    // Logger.error(error.toString());
+                    Logger.getLogger('Account', 'Account-Reset').error(error.toString());
                 }
             }
             session.custom.emailResetProfile = null;
