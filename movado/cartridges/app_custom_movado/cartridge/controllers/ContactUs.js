@@ -40,10 +40,7 @@ server.post(
         var template = dwUtil.Template('contactUsEmail.isml')
         var contentMap = dwUtil.HashMap();
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
-        
-        var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
 
-        
         if (contactUsForm.valid) {
             var result = {
                 firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value : !empty(contactUsForm.name) ? contactUsForm.name.value : '',
