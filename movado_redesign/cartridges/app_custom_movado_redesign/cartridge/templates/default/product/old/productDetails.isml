@@ -20,6 +20,7 @@
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
     <isobject object="${product.raw}" view="detail">
         <div class="container pdp-old-design product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
@@ -120,23 +121,44 @@
 
                             <div class="pdp-old d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
-	                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-	                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-	                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-	                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-	                                </isif>    
-	                            </isif>
+	                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/> 
+                                <isif condition="${isEswEnabled}">
+                                    <isif condition="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}">
+                                        <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                            <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                                <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                            </isif>    
+                                        </isif>
+                                    </isif> 
+                                <iselse/>
+                                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                            <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                        </isif>    
+                                    </isif>
+                                </isif>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/old/smartGift" /></div>
+                                <isif condition="${isEswEnabled}">
+                                    <isif condition="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}">
+                                        <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                            <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                                <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/old/smartGift" /></div>
+                                            </isif>
+                                        </isif>
+                                    </isif>
+                                <iselse/>
+                                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                            <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/old/smartGift" /></div>
+                                        </isif>
                                     </isif>
                                 </isif>
+                                
                                 <!-- Social Sharing Icons -->
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
