@@ -1018,6 +1018,7 @@
                     letter-spacing: rem(1.5);
 
                     del {
+
                         .strike-through {
                             display: block;
 
@@ -2483,9 +2484,13 @@
 }
 
 .product-tile-redesign {
+
     .tile-body {
+
         .price {
+
             del {
+
                 .strike-through {
     
                     span {
@@ -2495,6 +2500,7 @@
                 }
 
                 & + .sales {
+
                     span {
                         color: $dark-red;
                     }
