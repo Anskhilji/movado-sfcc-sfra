@@ -205,7 +205,7 @@ function getLoginStatus(currentCustomer) {
 
 function getUserZip(currentCustomer) {
     var userZip = '';
-    if (currentCustomer.raw.authenticated) {
+    if (currentCustomer.raw.authenticated && currentCustomer.addresses) {
         userZip = currentCustomer.addressBook.addresses[0].postalCode;
     }
      return userZip;
