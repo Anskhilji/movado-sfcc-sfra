@@ -2614,12 +2614,10 @@ function generateOrderXML(order) {
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
                 streamWriter.writeStartElement('TotalConsTaxByMGI');
-                if (isEswEnabled) {
-                    if (isConsumerTaxByMGI(eswOrderNo) == 'Y') {
-                        streamWriter.writeCharacters(order.getTotalTax());
-                    } else {
-                        streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
-                    }
+                if (isConsumerTaxByMGI(eswOrderNo) == 'Y') {
+                    streamWriter.writeCharacters(order.getTotalTax());
+                } else {
+                    streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                 }
                 streamWriter.writeEndElement();
                 streamWriter.writeRaw('\r\n');
