@@ -16,7 +16,7 @@
         <isif condition="${!eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
             <div class="row d-none">
                 <div class="col-6">
-                    <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+                    <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax', 'cart', null)}</p>
                 </div>
                 <div class="col-6">
                     <isif condition="${pdict.totalTaxVal == '-'}">
@@ -30,7 +30,7 @@
      <iselse>
         <div class="row d-none">
             <div class="col-6">
-                <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax','cart',null)}</p>
+                <p class="price-label">${Resource.msg('label.sales.estimated.sales.tax', 'cart', null)}</p>
             </div>
             <div class="col-6">
                 <isif condition="${pdict.totalTaxVal == '-'}">
