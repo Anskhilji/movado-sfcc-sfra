@@ -129,7 +129,5 @@ module.exports = function () {
                 $.spinner().stop();
             }
         });
-        $.spinner().stop();
-  
      });
 };
