@@ -97,6 +97,7 @@ function sendEmail(emailObj, template, context) {
       
       /*orderCancellation*/
     	else if (emailObj.type === 8){
+    	    params.put('Order', context.order);
     		hookID += 'order.cancellation';    		
       }
 
@@ -112,6 +113,10 @@ function sendEmail(emailObj, template, context) {
       
       /*wishlist share*/
       else if (emailObj.type === 11){
+          hookID += 'shareEmail.wishlist';
+      }
+    	
+      else if (emailObj.type === 12){
           params.put('ContactUs', session && session.forms.contactus);
         hookID += 'customerService.contactUs';
       }

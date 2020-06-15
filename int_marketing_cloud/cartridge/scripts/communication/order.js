@@ -294,11 +294,12 @@ function triggerDefinitions() {
         cancellation: {
             description: 'Order Cancellation trigger, contains details of the placed order.',
             attributes: [
-                'Order.customer.profile.email',
-                'Order.customer.profile.firstName',
-                'Order.customer.profile.lastName',
+                'Order.customerEmail',
+                'Order.defaultShipment.shippingAddress.firstName',
+                'Order.defaultShipment.shippingAddress.lastName',
                 'Order.orderNo',
-                'Order.merchandizeTotalGrossPrice'
+                'Order.creationDate',
+                'Order.totalGrossPrice.decimalValue'
             ]
         }
     };

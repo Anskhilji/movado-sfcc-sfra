@@ -56,17 +56,7 @@ server.post(
                 contactUsForm: contactUsForm
             };
             
-//            contentMap.put('result',result);
-//            var mail = new Mail();
-//            mail.setFrom(result.email);
-//            mail.addTo(
-//            	Site.current.getCustomPreferenceValue('customerServiceEmail')
-//            );
-//            mail.setSubject(
-//                Resource.msg('subject.contactus.email', 'common', null)
-//            );
-//            var text: MimeEncodedText = template.render(contentMap);
-//            mail.setContent(text);
+
             var emailObj = {
                     to: Site.current.getCustomPreferenceValue('customerServiceEmail'),
                     subject: Resource.msg('subject.contactus.email', 'common', null),
