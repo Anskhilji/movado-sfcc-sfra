@@ -124,10 +124,12 @@
 	                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 <isif condition="${isEswEnabled}">
                                     <isif condition="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}">
-                                        <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                            <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                                <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-                                            </isif>    
+                                        <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                                </isif>    
+                                            </isif>
                                         </isif>
                                     </isif> 
                                 <iselse/>
@@ -145,9 +147,11 @@
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${isEswEnabled}">
                                     <isif condition="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}">
-                                        <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                            <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                                <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/old/smartGift" /></div>
+                                        <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                                    <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/old/smartGift" /></div>
+                                                </isif>
                                             </isif>
                                         </isif>
                                     </isif>
