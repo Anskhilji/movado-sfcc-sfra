@@ -91,13 +91,13 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
             if (overrideCountry[0].currencyCode !== null && overrideCountry[0].currencyCode !== this.getBaseCurrency()) {
                 eswHelper.setBaseCurrencyPriceBook(req, overrideCountry[0].currencyCode);
             }
-            if (request.httpCookies['esw.currency'] === null) {
+            if (request.httpCookies['esw.currency'] === null || typeof request.httpCookies['esw.currency'] == 'undefined') {
                 eswHelper.selectCountry(selectedCountry, overrideCountry[0].currencyCode, req.locale.id);
             } else {
                 eswHelper.selectCountry(selectedCountry, request.httpCookies['esw.currency'].value, req.locale.id);
             }
         } catch (e) {
-            logger.error(e.message);
+            logger.error(e.message + e.stack);
         }
 
         return true;
@@ -125,6 +125,38 @@ eswHelper.getMatchingLineItem = function (lineItem) {
         });
     }
     return matchingLineItem;
+};
+
+/*
+ * FUnction is used to return matching line item from current basket Using UUID
+ */
+eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
+    var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+    var matchingLineItem;
+    if (currentBasket != null) {
+        matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+            return item.productID === lineItemID && item.UUID === lineItemUUID;
+        });
+    }
+    return matchingLineItem;
+};
+
+/**
+ * Check if product is restricted in current selected Country
+ * @param {Object} prd - Product object
+ * @return {Boolean} - true/ false
+ */
+eswHelper.isProductRestricted = function (prdCustomAttr) {
+	var currCountry = this.getAvailableCountry();
+	var restrictedCountries = 'eswProductRestrictedCountries' in prdCustomAttr && !!prdCustomAttr.eswProductRestrictedCountries ? prdCustomAttr.eswProductRestrictedCountries : null;
+	if (!empty(restrictedCountries)) {
+		for (var con in restrictedCountries) {
+			if (restrictedCountries[con] == currCountry) {
+				return true;
+			}
+		}
+	}
+	return false;
 };
 
 module.exports = {

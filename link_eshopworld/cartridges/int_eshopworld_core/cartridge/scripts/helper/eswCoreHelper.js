@@ -96,6 +96,9 @@ var getEswHelper = {
     getMetadataItems: function () {
         return Site.getCustomPreferenceValue('eswMetadataItems');
     },
+    getProductLineMetadataItemsPreference: function () {
+        return Site.getCustomPreferenceValue('eswProductLineMetadataItems');
+    },
     getOverridePriceBook: function () {
         return Site.getCustomPreferenceValue('eswOverridePriceBook');
     },
@@ -126,8 +129,17 @@ var getEswHelper = {
     getRoundingRules: function () {
         return Site.getCustomPreferenceValue('eswRounding');
     },
+    getSelectedInstance: function () {
+        return Site.getCustomPreferenceValue('eswInstance').value.toString();
+    },
+    getCheckoutServiceName: function () {
+        return Site.getCustomPreferenceValue('eswCheckoutServiceName');
+    },
     isUpdateOrderPaymentStatusToPaidAllowed: function () {
         return Site.getCustomPreferenceValue('eswUpdateOrderPaymentStatusToPaid');
+    },
+    isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
+        return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
     /*
      * Function to get corresponding languages from countries.json
@@ -156,9 +168,14 @@ var getEswHelper = {
             }
             session.custom.countryCode = country;
         }
-        
+
         if (!this.getEnableCurrencyFooterBar() || !this.getEnableCurrencyHeaderBar() || !this.getEnableCurrencyLandingBar()) {
-        	currency = session.getCurrency().currencyCode;
+        	var siteCountries = require('*/cartridge/countries');
+            var foundCountry = siteCountries.filter(function (item) {
+                if (item.countryCode === country) {
+                    currency = item.currencyCode;
+                }
+            });
         }
 
         this.updateCookieValue(eswCurrency, currency);
@@ -168,29 +185,33 @@ var getEswHelper = {
         delete session.privacy.rounding;
         var fxRates = JSON.parse(this.getFxRates()),
             countryAdjustment = JSON.parse(this.getCountryAdjustments()),
-            roundingRules = JSON.parse(this.getRoundingRules()),
+            roundingModels = JSON.parse(this.getRoundingRules()),
             selectedFxRate = [],
             selectedCountryAdjustment = [],
             selectedRoundingRule = [];
-        
+
         if (!empty(fxRates)) {
-        	selectedFxRate = fxRates.filter(function (rates) {
+            selectedFxRate = fxRates.filter(function (rates) {
                 return rates.toShopperCurrencyIso == eswCurrency.value;
             });
         }
-        
+
         if (!empty(countryAdjustment)) {
-        	selectedCountryAdjustment = countryAdjustment.filter(function (adjustment) {
+            selectedCountryAdjustment = countryAdjustment.filter(function (adjustment) {
                 return adjustment.deliveryCountryIso == country;
             });
         }
-        
-        if (!empty(roundingRules)) {
-        	selectedRoundingRule = roundingRules.filter(function (rule) {
+
+        if (!empty(roundingModels)) {
+        	selectedRoundingModel = roundingModels.filter(function (rule) {
+            	return rule.deliveryCountryIso == country;
+            });
+
+            selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
                 return rule.currencyIso == eswCurrency.value;
             });
         }
-        
+
         if (empty(selectedFxRate) && eswCurrency.value == baseCurrency) {
             var baseCurrencyFxRate = {
                 'fromRetailerCurrencyIso': baseCurrency,
@@ -199,9 +220,9 @@ var getEswHelper = {
             };
             selectedFxRate.push(baseCurrencyFxRate);
         }
-        
-        if(empty(selectedFxRate)) {
-        	var currencyFxRate = {
+
+        if (empty(selectedFxRate)) {
+            var currencyFxRate = {
                 'fromRetailerCurrencyIso': currency,
                 'rate': '1',
                 'toShopperCurrencyIso': currency
@@ -302,23 +323,24 @@ var getEswHelper = {
                 selectedCountry = this.getAvailableCountry(),
                 selectedFxRate = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate) : false;
 
-            // if fxRate is empty, return the price without applying any calculations
-            if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso) || selectedFxRate.rate == '1') {
-                return (formatted == null) ? formatMoney(new dw.value.Money(billingPrice, session.getCurrency().currencyCode)) : new dw.value.Money(billingPrice, session.getCurrency().currencyCode);
-            }
             // Checking if selected country is set as a fixed price country
             var isFixedPriceCountry = this.getFixedPriceModelCountries().filter(function (country) {
                 return country.value == selectedCountry;
             });
 
+            // if fxRate is empty, return the price without applying any calculations
+            if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso)) {
+                return (formatted == null) ? formatMoney(new dw.value.Money(billingPrice, session.getCurrency().currencyCode)) : new dw.value.Money(billingPrice, session.getCurrency().currencyCode);
+            }
+
             //applying override price if override pricebook is set
             billingPrice = new Number(this.applyOverridePrice(billingPrice, selectedCountry));
-            var selectedCountryAdjustment = JSON.parse(session.privacy.countryAdjustment);
+            var selectedCountryAdjustment = !empty(session.privacy.countryAdjustment) ? JSON.parse(session.privacy.countryAdjustment) : '';
             // fixed price countries will not have adjustment, duty and taxes applied
             if (!noAdjustment) {
                 if (empty(isFixedPriceCountry) && selectedCountryAdjustment && !empty(selectedCountryAdjustment)) {
                     // applying adjustment
-                    billingPrice += new Number((selectedCountryAdjustment.retailerAdjustment.priceUpliftPercentage / 100 * billingPrice));
+                    billingPrice += new Number((selectedCountryAdjustment.retailerAdjustments.priceUpliftPercentage / 100 * billingPrice));
                     // applying duty
                     billingPrice += new Number((selectedCountryAdjustment.estimatedRates.dutyPercentage / 100 * billingPrice));
                     // applying tax
@@ -349,7 +371,7 @@ var getEswHelper = {
         var roundedPrice,
             roundedUp,
             roundedDown,
-            roundingModel = JSON.parse(session.privacy.rounding);
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
@@ -465,13 +487,15 @@ var getEswHelper = {
         // var orderSubtotal = this.getSubtotalObject(cart, true).value;
         var totalDiscount = 0;
         var that = this;
-        cart.priceAdjustments.toArray().forEach(function (adjustment) {
-            if (adjustment.appliedDiscount.type == dw.campaign.Discount.TYPE_AMOUNT) {
-                totalDiscount += adjustment.price.value;
-            } else {
-                totalDiscount += that.getMoneyObject(adjustment.price, false, false, true).value;
-            }
-        });
+        if (cart != null) {
+            cart.priceAdjustments.toArray().forEach(function (adjustment) {
+                if (adjustment.appliedDiscount.type == dw.campaign.Discount.TYPE_AMOUNT) {
+                    totalDiscount += adjustment.price.value;
+                } else {
+                    totalDiscount += that.getMoneyObject(adjustment.price, false, false, true).value;
+                }
+            });
+        }
         if (totalDiscount < 0) {
             totalDiscount *= -1;
         }
@@ -586,9 +610,8 @@ var getEswHelper = {
      * This function is used to get locale name
      */
     getNameFromLocale: function (language) {
-        //Adding esw helper variable
+        //This variable is not exist in this method thats why i declared it.
         var eswHelper = this;
-
         var localeCountry = this.getAllCountryFromCountryJson(this.getAvailableCountry());
         var cookieCountry = this.getAvailableCountry();
         var allESWCountryName = this.getAllCountries().filter(function (value) {
@@ -627,7 +650,7 @@ var getEswHelper = {
             try {
                 PriceBookMgr.setApplicablePriceBooks(arrPricebooks);
             } catch (e) {
-                logger.error(e.message);
+                logger.error(e.message + e.stack);
             }
 
             if (overrideCountry[0].currencyCode != null && overrideCountry[0].currencyCode !== this.getBaseCurrency()) {
@@ -652,18 +675,18 @@ var getEswHelper = {
             var selectedFxRate = [];
 
             if (!empty(fxRates)) {
-            	selectedFxRate = fxRates.filter(function (rates) {
+                selectedFxRate = fxRates.filter(function (rates) {
                     return rates.toShopperCurrencyIso == overrideCountry[0].currencyCode;
                 });
             } else {
-            	var currencyFxRate = {
+                var currencyFxRate = {
                     'fromRetailerCurrencyIso': this.getBaseCurrencyPreference(),
                     'rate': '1',
                     'toShopperCurrencyIso': session.getCurrency().currencyCode
                 };
                 selectedFxRate.push(currencyFxRate);
             }
-            
+
             billingAmount = billingAmount / selectedFxRate[0].rate;
         }
         return new Number(billingAmount);
@@ -677,7 +700,7 @@ var getEswHelper = {
                 return adjustment.countryIso == country;
             });
 
-        billingAmount = billingAmount + (selectedCountryAdjustment[0].retailerAdjustment.percentage * billingAmount);
+        billingAmount = billingAmount + (selectedCountryAdjustment[0].retailerAdjustments.percentage * billingAmount);
         return new Number(billingAmount);
     },
     /*
@@ -812,15 +835,22 @@ var getEswHelper = {
         return new dw.value.Money((this.getSubtotalObject(lineItem, false).value / lineItem.quantity.value), request.httpCookies['esw.currency'].value);
     },
     /**
-     * If it is esw allowed country then,
-     * hide shipping method drop down
+     * Check if it is esw supported country or not,
      * @return {Boolean} - true/ false
      */
-    showShippingMethodDropdown: function () {
-    	if (this.checkIsEswAllowedCountry(this.getAvailableCountry())) {
-    		return false;
-    	}
-    	return true;
+    isESWSupportedCountry: function () {
+        if (this.checkIsEswAllowedCountry(this.getAvailableCountry())) {
+            return true;
+        }
+        return false;
+    },
+    /** 
+     * Returns current esw currency code,
+     * stored in esw currency cookie
+     * @return {String} - Currency code
+     */
+    getCurrentEswCurrencyCode: function () {
+    	return request.httpCookies['esw.currency'].value;
     }
 };
 

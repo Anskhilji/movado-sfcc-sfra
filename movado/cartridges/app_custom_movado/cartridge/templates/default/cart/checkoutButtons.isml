@@ -1,4 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <div class="row checkout-button-wrapper">
     <div class="col-12 estimated-price text-center d-block d-sm-none">
         <span>
@@ -8,29 +9,46 @@
     </div>
     <div class="col-12">
         <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-        <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
-        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            ${Resource.msg('button.checkout','cart',null)}
-        </a>
+        <isif condition="${isEswEnabled}" >
+            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+            <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                ${Resource.msg('button.checkout','cart',null)}
+            </a>
+        <iselse>
+            <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                ${Resource.msg('button.checkout','cart',null)}
+            </a>
+        </isif>
         <iscomment> Custom End </iscomment>
     </div>
 </div>
-<div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
-<div class="row more-options">
-    <div class="col col-sm-12">
-        <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            <isprint value="${pdict.paypalButtonImg}" encoding="off" />
-        </a>
-    </div>
-    <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
-</div>
-<iscomment> Amazon Pay Button </iscomment>
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
-    <isif condition="${sitePreferences.amzPayEnabled}">
-        <div class="mb-sm-3">
-            <div id="AmazonPayButtonCart"></div>
+<iscomment> Custom Start: Adding check for express, amazonpay and applepay buttons to show only when country US is selected</iscomment>
+<isif condition="${isEswEnabled}" > 
+    <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+        <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
+        <div class="row more-options">
+            <div class="col col-sm-12">
+                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+                    role="button" aria-pressed="true">
+                    <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+                </a>
+            </div>
+            <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
         </div>
     </isif>
+<iselse>
+    <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
+        <div class="row more-options">
+            <div class="col col-sm-12">
+                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+                    role="button" aria-pressed="true">
+                    <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+                </a>
+            </div>
+        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+    </div>
+</isif>
+<iscomment> Custom End </iscomment>

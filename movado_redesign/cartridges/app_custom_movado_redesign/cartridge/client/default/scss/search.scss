@@ -690,6 +690,7 @@
       }
 
       .tile-detail-btn {
+        height: fit-content;
         font-size: rem(15);
         @include font-medium;
         font-weight: 600;
@@ -723,7 +724,7 @@
         }
       }
 
-      .tile-discription {
+      .tile-discription, .product-not-available-msg {
         font-size: rem(15);
         @include font-light;
         color: $grey8;
@@ -735,6 +736,11 @@
         max-height: rem(40);
         display: block;
       }
+
+    .product-not-available-msg {
+        color: $red;
+        text-align: center;
+    }
 
       .tile-btns, .tile-discription {
         opacity: 0;

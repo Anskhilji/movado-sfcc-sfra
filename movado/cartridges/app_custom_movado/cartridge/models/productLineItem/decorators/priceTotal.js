@@ -8,7 +8,6 @@ var collections = require('*/cartridge/scripts/util/collections');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 var priceHelper = require('*/cartridge/scripts/helpers/priceHelper');
 
-
 /**
  * get the total price for the product line item
  * @param {dw.order.ProductLineItem} lineItem - API ProductLineItem instance
@@ -21,47 +20,62 @@ function getTotalPrice(lineItem) {
     var template = 'checkout/productCard/productCardProductRenderedTotalPrice';
     var savingsPrice;
     var eswHelper;
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var orderHistoryFlag = false;
+    var eswShopperCurrencyCode = null;
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
-    // Custom Start: Adding ESW cartridge integration
-    if (isEswEnabled) {
+    if (eswModuleEnabled) {
         eswHelper = require('*/cartridge/scripts/helper/eswSFRAHelper');
-        if (lineItem.priceAdjustments.getLength() > 0) {
-            var nonAdjustedPrice = eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value;
-            result.nonAdjustedPrice = new Money(nonAdjustedPrice, lineItem.basePrice.currencyCode);
-        }
     }
-    // Custom End
 
-    price = lineItem.adjustedPrice;
-
-    // The platform does not include prices for selected option values in a line item product's
-    // price by default.  So, we must add the option price to get the correct line item total price.
-    collections.forEach(lineItem.optionProductLineItems, function (item) {
-        price = price.add(item.adjustedNetPrice);
-    });
     // Custom Start: Adding ESW cartridge integration
-    if (isEswEnabled) {
-        if (lineItem.quantityValue !== 1) {
-            result.price = formatMoney(eswHelper.getSubtotalObject(lineItem, false));
-        } else {
-            result.price = formatMoney(eswHelper.getUnitPriceCost(lineItem));
+    if (lineItem.lineItemCtnr && Object.hasOwnProperty.call(lineItem.lineItemCtnr, 'orderNo')) {
+        if (lineItem.lineItemCtnr.orderNo != null) {
+            orderHistoryFlag = true;
+            eswShopperCurrencyCode = lineItem.lineItemCtnr.originalOrder.custom.eswShopperCurrencyCode;
         }
-    } else {
-        result.price = formatMoney(price);
     }
-    // Custom End
-
+    if (lineItem.priceAdjustments.getLength() > 0) {
+        var nonAdjustedPrice = (eswModuleEnabled) ? eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value : lineItem.getPrice();
+        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value) : formatMoney(nonAdjustedPrice);
+    }
+    // If not for order history calculations
+    if (!orderHistoryFlag) {
+        price = lineItem.adjustedPrice;
+        // The platform does not include prices for selected option values in a line item product's
+        // price by default.  So, we must add the option price to get the correct line item total price.
+        collections.forEach(lineItem.optionProductLineItems, function (item) {
+            price = price.add(item.adjustedNetPrice);
+        });
+        if (lineItem.quantityValue !== 1) {
+            result.price = (eswModuleEnabled) ? formatMoney(eswHelper.getSubtotalObject(lineItem, false)) : formatMoney(price);
+        } else {
+            result.price = (eswModuleEnabled) ? formatMoney(eswHelper.getUnitPriceCost(lineItem)) : formatMoney(price);
+        }
+    } else if (orderHistoryFlag) {
+        // If order placed using calculated price model
+        if (eswShopperCurrencyCode != null) {
+            price = new Number((lineItem.custom.eswShopperCurrencyItemPriceInfo * lineItem.quantityValue)); // eslint-disable-line no-new-wrappers
+            result.price = formatMoney(new dw.value.Money(price, eswShopperCurrencyCode));
+        } else {
+            price = lineItem.adjustedPrice;
+            // The platform does not include prices for selected option values in a line item product's
+            // price by default.  So, we must add the option price to get the correct line item total price.
+            collections.forEach(lineItem.optionProductLineItems, function (item) {
+                price = price.add(item.adjustedPrice);
+            });
+            result.price = formatMoney(price);
+        }
+    }
     savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
-    if (savingsPrice) {
-        result.formattedSavingPrice = formatMoney(savingsPrice);
-        result.savingPrice = savingsPrice;
-    }
-
+     if (savingsPrice) {
+         result.formattedSavingPrice = formatMoney(savingsPrice);
+         result.savingPrice = savingsPrice;
+     }
     context = { lineItem: { priceTotal: result } };
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
-
     return result;
+    // Custom End
 }
 
 module.exports = function (object, lineItem) {

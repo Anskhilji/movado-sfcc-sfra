@@ -159,8 +159,7 @@ function getSelectedCountry(countryCode) {
 function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     var countries = null;
     try {
-        var isMapOfCountries = customCountries instanceof HashMap ? true : false;
-        countries = isMapOfCountries ? customCountries.get(locale) : customCountries;
+        countries = customCountries.get(locale);
         countries.sort(function(a, b) {
             let x = a.displayValue.toUpperCase(),
             y = b.displayValue.toUpperCase();
@@ -187,6 +186,7 @@ function getCustomCountryByCountryCode(countryCode) {
                 if (country.countryCode.equalsIgnoreCase(countryCode)) {
                     break;
                 }
+                country = null;
             }
         }
     } catch (e) {
@@ -195,13 +195,48 @@ function getCustomCountryByCountryCode(countryCode) {
     return country;
 }
 
+/**
+ * This method is used to check geo location is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isGeoLocationEnabled() {
+    return !empty(Site.getCustomPreferenceValue('enableGeoLookup')) ? Site.getCustomPreferenceValue('enableGeoLookup') : false;
+}
+
+/**
+ * This method is used to check e-shop-world module is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEshopworldModuleEnabled() {
+    return !empty(Site.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+}
+
+/**
+ * This method is used to check landing page is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingPage() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingPage')) ? Site.getCustomPreferenceValue('eswEnableLandingPage') : false;
+}
+
+/**
+ * This method is used to check landing page Bar is enabled/disabled in the custom preferences.
+ * @returns {boolean}
+ */
+function isEswEnableLandingpageBar() {
+    return !empty(Site.getCustomPreferenceValue('eswEnableLandingpageBar')) ? Site.getCustomPreferenceValue('eswEnableLandingpageBar') : false;
+}
+
 module.exports = {
-    getCustomCountriesJson: getCustomCountriesJson,
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
     getSelectedLanguage: getSelectedLanguage,
     getSelectedCountry: getSelectedCountry,
     getAlphabeticallySortedLanguages: getAlphabeticallySortedLanguages,
     getAlphabeticallySortedCustomCountries: getAlphabeticallySortedCustomCountries,
-    getCustomCountryByCountryCode: getCustomCountryByCountryCode
+    getCustomCountryByCountryCode: getCustomCountryByCountryCode,
+    isGeoLocationEnabled: isGeoLocationEnabled,
+    isEshopworldModuleEnabled: isEshopworldModuleEnabled,
+    isEswEnableLandingPage: isEswEnableLandingPage,
+    isEswEnableLandingpageBar: isEswEnableLandingpageBar
 };
