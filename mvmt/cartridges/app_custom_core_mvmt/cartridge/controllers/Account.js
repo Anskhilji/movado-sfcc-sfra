@@ -3,8 +3,10 @@
 var server = require('server');
 server.extend(module.superModule);
 
+var CustomerMgr = require('dw/customer/CustomerMgr');
 var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 
 server.get(
     'MvmtInsider',
@@ -18,9 +20,6 @@ server.get(
 server.post(
     'LegacyCustomer',
     function (req, res, next) {
-        var CustomerMgr = require('dw/customer/CustomerMgr');
-        var URLUtils = require('dw/web/URLUtils');
-
         var customer;
         var legacyCustomer = false;
         var email = req.form.loginEmail;
@@ -33,9 +32,9 @@ server.post(
         
         if (authenticateCustomerResult.status !== 'AUTH_OK') {
             res.json({
-                success: false,
+                success: true,
                 customer: '',
-                legacyCustomer: legacyCustomer,
+                legacyCustomer: false,
                 relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
             });
         } else {
@@ -56,11 +55,7 @@ server.post(
 
 
 server.get('PasswordResetEmail', server.middleware.https, function (req, res, next) {
-    var CustomerMgr = require('dw/customer/CustomerMgr');
-    var Resource = require('dw/web/Resource');
-    var URLUtils = require('dw/web/URLUtils');
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
-    
 
     var email;
     var resettingCustomer;

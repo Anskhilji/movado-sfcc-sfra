@@ -44,7 +44,6 @@ module.exports = function () {
             dataType: 'json',
             data: form.serialize(),
             success: function (data) {
-                var test = data;
                 if (data.success && !data.legacyCustomer) {
                     var url = form.attr('action');
                     form.spinner().start();
@@ -81,9 +80,5 @@ module.exports = function () {
                 }
             }   
         });
-
-        
     });
 };
-
-
