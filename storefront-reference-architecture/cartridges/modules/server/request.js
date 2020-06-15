@@ -314,14 +314,15 @@ function Request(request, customer, session) {
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
                         var language = country.lang[0].languageCode;
-                        var currency = country.currencyCode;
+                        var currencyCode = country.currencyCode;
+                        countryCode = country.countryCode;
                         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
                         if (request.setLocale(language)) {
-                            if (!eswHelper.overridePrice(req, selectedCountry, currencyCode)) {
+                            if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
                                 eswHelper.setAllAvailablePriceBooks();
-                                eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
+                                eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
                             }
-                            eswHelper.selectCountry(selectedCountry, currencyCode, language);
+                            eswHelper.selectCountry(countryCode, currencyCode, language);
                         }
                     }
                 }
