@@ -30,9 +30,7 @@ function confirmation(promise, data) {
  * @returns {SynchronousPromise}
  */
 function cancellation(promise, data) {
-    //Custom Start: Get order from OrderMgr to avoid null object exception on line 22
-//    var Order = OrderMgr.getOrder(data.context.order.orderNumber);
-//    data.orderAsXML = helpers.stripXmlNS( Order.getOrderExportXML(null, null) );
+    //Custom Start: called order_cancellation hook
     return sendTrigger(hookPath + 'cancellation', promise, data);
 }
 

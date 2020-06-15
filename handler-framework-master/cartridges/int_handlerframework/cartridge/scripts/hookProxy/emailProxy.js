@@ -98,7 +98,7 @@ function sendEmail(emailObj, template, context) {
       /*orderCancellation*/
     	else if (emailObj.type === 8){
     	    params.put('Order', context.order);
-    		hookID += 'order.cancellation';    		
+    	    hookID += 'order.cancellation';    		
       }
 
       /*orderPartialCancellation*/
@@ -118,7 +118,7 @@ function sendEmail(emailObj, template, context) {
     	
       else if (emailObj.type === 12){
           params.put('ContactUs', session && session.forms.contactus);
-        hookID += 'customerService.contactUs';
+          hookID += 'customerService.contactUs';
       }
     	else {
             Logger.warn('Mail send hook called, but correct action undetermined, mail not sent as a result.');
