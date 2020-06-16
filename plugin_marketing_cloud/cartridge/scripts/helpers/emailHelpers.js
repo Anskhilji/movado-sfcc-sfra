@@ -13,7 +13,7 @@ module.exports = {
         accountAddressChanged: 8,
         accountPaymentChanged: 9,
         accountEmailChanged: 10,
-        contactUs: 11
+        contactUs: 12
     }
 };
 Object.keys(base).forEach(function (prop) {

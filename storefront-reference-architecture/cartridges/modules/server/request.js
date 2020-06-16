@@ -314,12 +314,16 @@ function Request(request, customer, session) {
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
                         var language = country.lang[0].languageCode;
-                        var currency = country.currencyCode;
+                        var currencyCode = country.currencyCode;
+                        countryCode = country.countryCode;
                         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-                        request.setLocale(language);
-                        eswHelper.setAllAvailablePriceBooks();
-                        eswHelper.setBaseCurrencyPriceBook(request, currency);
-                        eswHelper.selectCountry(countryCode, currency, language);
+                        if (request.setLocale(language)) {
+                            if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
+                                eswHelper.setAllAvailablePriceBooks();
+                                eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
+                            }
+                            eswHelper.selectCountry(countryCode, currencyCode, language);
+                        }
                     }
                 }
             } catch (e) {

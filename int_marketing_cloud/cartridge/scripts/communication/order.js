@@ -24,6 +24,17 @@ function confirmation(promise, data) {
 }
 
 /**
+ * Trigger an order cancellation notification
+ * @param {SynchronousPromise} promise
+ * @param {module:communication/util/trigger~CustomerNotification} data
+ * @returns {SynchronousPromise}
+ */
+function cancellation(promise, data) {
+    //Custom Start: called order_cancellation hook
+    return sendTrigger(hookPath + 'cancellation', promise, data);
+}
+
+/**
  * Declares attributes available for data mapping configuration
  * @returns {Object} Map of hook function to an array of strings
  */
@@ -277,6 +288,17 @@ function triggerDefinitions() {
                 'Order.totalTax.currencyCode',
                 'Order.totalTax.decimalValue'
             ]
+        },
+        cancellation: {
+            description: 'Order Cancellation trigger, contains details of the placed order.',
+            attributes: [
+                'Order.customerEmail',
+                'Order.defaultShipment.shippingAddress.firstName',
+                'Order.defaultShipment.shippingAddress.lastName',
+                'Order.orderNo',
+                'Order.creationDate',
+                'Order.totalGrossPrice.decimalValue'
+            ]
         }
     };
 }
@@ -287,7 +309,9 @@ module.exports = require('dw/system/HookMgr').callHook(
     require('./handler').handlerID,
     'app.communication.order',
     {
-        confirmation: confirmation
+        confirmation: confirmation,
+        cancellation: cancellation
+        
     }
 );
 
