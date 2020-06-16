@@ -88,7 +88,7 @@
             </div>
         </div>
         
-        <div class="orderdiscount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value != 0}">hide-shipping-discount</isif>">
+        <div class="orderdiscount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
             <div class="orderdiscount-payment-summary">
                 <div class="orderdiscount-label grand-total-label price-label">
                     ${Resource.msg('label.minicart.estimateddiscount', 'cart', null)}
