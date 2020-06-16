@@ -58,8 +58,50 @@ function getProductGtmObj(product, categoryName, position) {
     return productGtmObj[0];
 }
 
+/**
+ *
+ * @param product
+ * @param categoryName
+ * @param position
+ * @returns
+ */
+
+function getGtmProductClickObj(product, categoryName, position) {
+    var productClickGtmObj = [];
+    if (categoryName != null) {
+        productClickGtmObj.push({
+            name: escapeQuotes(product.productName),
+            id: product.id,
+            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            brand: product.brand,
+            category: escapeQuotes(categoryName),
+            position: position,
+            list: 'PLP'
+        });
+    }	else {
+        var productObj = ProductMgr.getProduct(product.id);
+        var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
+				: '')
+				: ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
+						: ''))
+				: '');
+        productClickGtmObj.push({
+            name: product.productName,
+            id: product.id,
+            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            brand: product.brand,
+            currency: product.price.min.sales.currency,
+            category: category,
+            position: position,
+            list: 'Search Results'
+        });
+    }
+
+    return productClickGtmObj[0];
+}
 
 baseProductCustomHelpers.escapeQuotes = escapeQuotes;
 baseProductCustomHelpers.getProductGtmObj = getProductGtmObj;
+baseProductCustomHelpers.getGtmProductClickObj = getGtmProductClickObj;
 
 module.exports = baseProductCustomHelpers;

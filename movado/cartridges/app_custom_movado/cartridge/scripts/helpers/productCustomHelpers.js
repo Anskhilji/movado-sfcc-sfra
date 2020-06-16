@@ -696,7 +696,6 @@ function getGtmProductClickObj(product, categoryName, position) {
             id: product.id,
             price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
             brand: product.brand,
-            currency: product.price.min.sales.currency,
             category: category,
             position: position,
             list: 'Search Results'
