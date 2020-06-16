@@ -254,19 +254,21 @@ var onLoadProductTile = function () {
 };
 
 var onPromoImpressionsLoad = function (e) {
-    updateDataLayer('promoImpressions');
-    var $currentTarget = $('.gtm-view');
-    var dataLayerObj = [];
-    $.each($currentTarget, function () {
-        var gtmTrackingData = $(this).attr('data-gtm-tracking');
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj.push(JSON.parse(gtmTrackingData));
-        }
-    });
-    updateDataLayer('productImpressions');
+    updateDataLayer('promotionalView');
+    var dataLayerObj = '';
+    var gtmTrackingData = $('.gtm-promoton-view').data('gtm-product-promo');
+
+    if (gtmTrackingData !== undefined) {
+        dataLayerObj = gtmTrackingData;
+    }
+
+    updateDataLayer('promotionalView');
     dataLayer.push({
-        event: 'promoImpressions',
+        event: 'promotionalView',
         ecommerce: {
+            promoView: {
+                promotions: dataLayerObj
+            }
         }
     });
 };
