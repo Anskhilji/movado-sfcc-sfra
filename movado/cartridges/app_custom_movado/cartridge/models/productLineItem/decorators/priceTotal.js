@@ -37,7 +37,11 @@ function getTotalPrice(lineItem) {
     }
     if (lineItem.priceAdjustments.getLength() > 0) {
         var nonAdjustedPrice = (eswModuleEnabled) ? eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value : lineItem.getPrice();
-        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value) : formatMoney(nonAdjustedPrice);
+        var gettingCurrencyCode = !empty(request.httpCookies['esw.currency']) ? 
+            (!empty(request.httpCookies['esw.currency'].value) ? request.httpCookies['esw.currency'].value : 
+            !empty(session.custom.currencyCode) ? session.custom.currencyCode : '') : 
+            !empty(session.custom.currencyCode) ? session.custom.currencyCode : '';
+        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
     }
     // If not for order history calculations
     if (!orderHistoryFlag) {
