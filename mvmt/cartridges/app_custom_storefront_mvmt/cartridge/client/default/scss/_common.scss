@@ -492,9 +492,11 @@ body {
 }
 
 @keyframes nodeInserted {
+
     from {
         outline-color: $white;
     }
+    
     to {
         outline-color: $black;
     }
