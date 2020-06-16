@@ -10,7 +10,10 @@
     </div>
 </div>
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+<isscript>
+    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+</isscript>
+<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
     <div class="row swell-redemption-containar d-none">
         <div class="col-12">
             <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>

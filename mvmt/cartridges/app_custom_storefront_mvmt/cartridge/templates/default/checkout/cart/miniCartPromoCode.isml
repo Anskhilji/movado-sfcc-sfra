@@ -4,7 +4,10 @@
     </div>
 </div>
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+<isscript>
+    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+</isscript>
+<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
     <div class="row">
         <div class="col-12 collapsible-promo-wrapper" tabindex="0">
             <div class="promo-code-inner-div">
