@@ -1,3 +1,4 @@
+<isset name="gtmPageType" value="${pdict.gtm.pageType}" scope="session" />
 <script>
     dataLayer = window.dataLayer = window.dataLayer || [];
     pageDataGTM = {};

@@ -35,16 +35,23 @@ var onWishlistClickEvent = function () {
 };
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-event', function (evt) {
+    $('body').on('click', '.gtm-promoton-view', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
-        var dataLayerObj = [];
-        dataLayerObj.push($currentTarget.data('gtm-tracking'));
+        var dataLayerObj = '';
+        var pageType = $('.gtm-promoton-view').data('page-type');
+        var gtmTrackingData = $('.gtm-promoton-view').data('gtm-product-promo');
+    
+        if (gtmTrackingData !== undefined) {
+            dataLayerObj = gtmTrackingData;
+        }
 
         dataLayer.push({ event: 'promoClick',
+            event: 'promotionalClick',
+            pageType: pageType,
             ecommerce: {
                 promoClick: {
-                    promotions: JSON.parse(dataLayerObj)
+                    promotions: dataLayerObj
                 }
             }
         });
