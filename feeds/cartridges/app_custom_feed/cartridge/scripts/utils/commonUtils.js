@@ -20,7 +20,7 @@ function getFormattedDate(unformattedDate) {
 /**
  * This method is used to subtract specified number of days from current date
  * @param {Number} a number to subtract days from the date.
- * @returns {dw.catalog.PriceBook} a calendar object after subtracting the specified number of days from current date.
+ * @returns {dw.util.Calendar} a calendar object after subtracting the specified number of days from current date.
  */
 function subtractDaysFromDate(noOfDaysToSubtract) {
     var calendar = new Calendar();
@@ -90,18 +90,16 @@ function isFixedPriceModelCurrency(selectedCountry) {
  * This method is used to calculate product price with fx rates
  * @param {String} currency code.
  * @param {String} country code.
- * @param {Deciman} product price.
- * @returns {Boolean} String.
+ * @param {Decimal} product price.
+ * @returns {String} product price after calculating fx rates.
  */
 function getFXRates(currency, country, price) {
     var eswCoreHelper = require('*/cartridge/scripts/helper/eswCoreHelper').getEswHelper;
     
     var fxRates = JSON.parse(eswCoreHelper.getFxRates()),
             countryAdjustment = JSON.parse(eswCoreHelper.getCountryAdjustments()),
-            roundingModels = JSON.parse(eswCoreHelper.getRoundingRules()),
             selectedFxRate = [],
-            selectedCountryAdjustment = [],
-            selectedRoundingRule = [];
+            selectedCountryAdjustment = [];
 
         if (!empty(fxRates)) {
             selectedFxRate = fxRates.filter(function (rates) {
@@ -113,18 +111,6 @@ function getFXRates(currency, country, price) {
             selectedCountryAdjustment = countryAdjustment.filter(function (adjustment) {
                 return adjustment.deliveryCountryIso == country;
             });
-        }
-
-        if (!empty(roundingModels)) {
-        	selectedRoundingModel = roundingModels.filter(function (rule) {
-            	return rule.deliveryCountryIso == country;
-            });
-
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == currency;
-            });
-            //Custom End
         }
 
         if (empty(selectedFxRate) && currency == baseCurrency) {
@@ -146,18 +132,12 @@ function getFXRates(currency, country, price) {
         }
 
         var calculatedFXRates = JSON.stringify(selectedFxRate[0]);
-        var calculatedCountryAdjustment = !empty(selectedCountryAdjustment[0]) ? JSON.stringify(selectedCountryAdjustment[0]) : '';
-        var calculatedRoundingRules = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : '';
+        var calculatedCountryAdjustment = !empty(selectedCountryAdjustment[0]) ? JSON.stringify(selectedCountryAdjustment[0]) : ''
 
         try {
             var baseCurrency = eswCoreHelper.getBaseCurrencyPreference(),
                 billingPrice = (typeof price == 'object') ? new Number(price.value) : new Number(price),
                 selectedFxRate = !empty(calculatedFXRates) ? JSON.parse(calculatedFXRates) : false;
-
-            // Checking if selected country is set as a fixed price country
-            // var isFixedPriceCountry = this.getFixedPriceModelCountries().filter(function (country) {
-            //     return country.value == selectedCountry;
-            // });
 
             // if fxRate is empty, return the price without applying any calculations
             if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso)) {
@@ -182,10 +162,7 @@ function getFXRates(currency, country, price) {
                     billingPrice = new Number((billingPrice * selectedFxRate.rate).toFixed(2));
                 }
             }
-            // applying the rounding model
-            // if (billingPrice > 0 && !noRounding) {
-            //     billingPrice = this.applyRoundingModel(billingPrice);
-            // }
+
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             var productDecimalPrice = billingPrice ? billingPrice.decimalValue.toString() : "";
             var productCurrencyCode = billingPrice ? billingPrice.currencyCode : "";

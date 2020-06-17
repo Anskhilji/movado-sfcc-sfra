@@ -15,7 +15,7 @@ var StringUtils = require('dw/util/StringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
-const commonUtils = require('./utils/commonUtils');
+var commonUtils = require('./utils/commonUtils');
 
 function createDirectoryAndFile(targetFolder, fileName) {
   //create directory
@@ -156,15 +156,14 @@ function exportDataFeedWatch(args) {
         "priceEUR": 16,
         "priceAUD": 17
     }
-    var feedParametersSmartGift = {
+    var feedParametersDataFeedWatch = {
         "colonSeparator" : Constants.COLON_SEPARATOR,
         "angleSeparator" : Constants.ANGLE_SEPARATOR,
         "pipeSeparator" : Constants.PIPE_SEPARATOR,
-        "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
-        "categories" : true
+        "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR
     }
         var fileArgs = createDirectoryAndFile(targetFolder, fileName);
-        exportFeed(feedColumnsDataFeedWatch, fileArgs, feedParametersSmartGift);
+        exportFeed(feedColumnsDataFeedWatch, fileArgs, feedParametersDataFeedWatch);
 }
 
 function exportFeed(feedColumns, fileArgs, feedParameters) {
