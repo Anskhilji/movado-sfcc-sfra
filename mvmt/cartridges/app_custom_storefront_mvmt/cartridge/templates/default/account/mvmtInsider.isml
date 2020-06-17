@@ -38,16 +38,16 @@
         <div class="row justify-content-center insider-list">
             <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center insider-list">
             <isslot id="swell-referral-campaign" description="Swell Referral Campaign" context="global" />
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center insider-list">
             <isslot id="swell-campaign-selected-list" description="Swell Campaign Selected List" context="global" />
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center insider-list">
             <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center insider-list">
             <isslot id="swell-how-to-redeem-static" description="Swell How To Redeem Static Slot" context="global" />
         </div>
     </div>

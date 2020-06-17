@@ -131,8 +131,10 @@ $(document).on("swell:initialized", () => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $(".swell-redemption-option-list").append(
                 $("<div>").addClass("swell-static-redemption-option").append(
-                    $("<h2>").addClass("swell-static-redemption-option-title").text(option.name),
-                    $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText)
+                    $("<div>").addClass("swell-redemption-link-inside").append(
+                        $("<h2>").addClass("swell-static-redemption-option-title").text(option.name),
+                        $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText)
+                    )
                 ).addClass("swell-redemption-link").attr("data-redemption-option-id", option.id)
             )
         }
