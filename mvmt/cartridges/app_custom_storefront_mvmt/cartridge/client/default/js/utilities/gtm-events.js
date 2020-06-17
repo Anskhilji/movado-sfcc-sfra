@@ -368,16 +368,16 @@ var updateCheckoutStage = function () {
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
-             checkoutStep = '2';
+             checkoutStep = ['2'];
              pageDataGTM.pageType = 'Checkout – Shipping';
          break;
      case 'payment':
-             checkoutStep = '3';
+             checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
              onCheckoutOption(checkoutStep - 1, shippingMethod);
          break;
      case 'placeOrder':
-             checkoutStep = '4';
+             checkoutStep = ['4'];
              checkoutStage = 'Confirm';
              pageDataGTM.pageType = 'Checkout – Review';
              if (paymentMethod != undefined) {
@@ -385,7 +385,7 @@ var updateCheckoutStage = function () {
              }
          break;
      case 'submitted':
-             checkoutStep = '5';
+             checkoutStep = ['5'];
              checkoutStage = 'Confirmation';
          break;
         }
@@ -401,7 +401,7 @@ var updateCheckoutStage = function () {
          while (dataLayerCheckout.length) {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
-                 actionField: { step: checkoutStep, option: checkoutStage },
+                 actionField: { step: checkoutStep },
                  products: productObj }
              },
                  event: 'checkout' });
@@ -438,7 +438,7 @@ var onCheckoutOptionOnCart = function () {
             event: 'checkoutOption',
             ecommerce: {
                 checkout_option: {
-                    actionField: { step: 1, option: checkoutOptionData }
+                    actionField: { step: 1, option: 'test3' }
                 }
             }
         });

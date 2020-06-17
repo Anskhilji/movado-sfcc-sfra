@@ -138,6 +138,7 @@
                                     'salesRevenue': '${orderObj.orderObj.salesRevenue}',
                                     'tax': '${orderObj.orderObj.tax}',
                                     'shipping': '${orderObj.orderObj.shipping}',
+                                    'coupon': '${orderObj.orderObj.orderCoupon}',
                                     'shippingOption': '${orderObj.orderObj.shippingOption}',
                                     'tenderType': '${orderObj.orderObj.tenderType}',
                                     'city': '${orderObj.orderObj.city}',
@@ -149,13 +150,16 @@
                     , 'products':[
                         <isloop items="${orderProdutsArray}" var="orderObj" status="status"> 
                             <isif condition= "${orderObj.productObj}">
-                                {'id': '${orderObj.productObj.id}',
-                                'name': '${orderObj.productObj.name}',
-                                'brand': '${orderObj.productObj.brand}',
-                                'category': '${orderObj.productObj.category}',
-                                'variant': '${orderObj.productObj.variant}',
+                                {'name': '${orderObj.productObj.name}',
+                                'id': '${orderObj.productObj.id}',
                                 'price': '${orderObj.productObj.price}',
+                                'category': '${orderObj.productObj.category}',
                                 'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
+                                'sku': '${orderObj.productObj.id}',
+                                'productType': '${orderObj.productObj.productType}',
+                                'description': '${orderObj.productObj.description}',
+                                'imageURL': '${orderObj.productObj.imageURL}',
+                                'productURL': '${orderObj.productObj.productURL}',
                                 'coupon': '${orderObj.productObj.itemCoupon}' }
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>

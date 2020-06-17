@@ -692,6 +692,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
+        orderObj.salesRevenue = order.totalNetPrice.decimalValue;
+        orderObj.city = order.shipments[0].shippingAddress.city;
+        orderObj.state = order.shipments[0].shippingAddress.stateCode;
+        orderObj.shippingOption = order.shipments[0].shippingMethodID;
+        orderObj.discount = order.priceAdjustments[0].netPrice.value;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
