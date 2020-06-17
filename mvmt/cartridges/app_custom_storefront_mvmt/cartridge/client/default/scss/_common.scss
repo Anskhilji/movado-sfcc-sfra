@@ -502,7 +502,16 @@ body {
     }
 }
  
-div.yotpo.bottomLine .star-clickable {
-    animation-duration: 0.01s;
-    animation-name: nodeInserted;
+div {
+    
+    &.yotpo {
+    
+        &.bottomLine {
+    
+            .star-clickable {
+                animation-duration: 0.01s;
+                animation-name: nodeInserted;
+            }
+        }
+    }
 }
