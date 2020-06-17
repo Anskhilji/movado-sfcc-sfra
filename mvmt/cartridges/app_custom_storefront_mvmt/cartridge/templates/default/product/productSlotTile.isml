@@ -28,11 +28,9 @@
 
         <div class="tile-body">
             <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
-                <isif condition="${outOfStock}">
-                    <div class="out-of-stock product-tag red-tag mvmt-avilability">
-                        ${Resource.msg('label.soldout', 'common', null)}
-                    </div>
-                </isif>
+                <div class="out-of-stock product-tag red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
+                    ${Resource.msg('label.soldout', 'common', null)}
+                </div>
 
                 <iscomment>This will be used when new badge show </iscomment>
                 <div class="out-of-stock product-tag black-tag d-none">
@@ -40,8 +38,8 @@
                 </div>
             </div>
 
-            <isif condition="${pdict.display.swatches !== false}">
-                <div class="plp-swatches ${product.variationAttributes[0].values.length > 0 ? '':'0-opacity'}">
+            <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                <div class="plp-swatches ${product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                     <isinclude template="product/components/productTileSwatch" />
                 </div>
             </isif>

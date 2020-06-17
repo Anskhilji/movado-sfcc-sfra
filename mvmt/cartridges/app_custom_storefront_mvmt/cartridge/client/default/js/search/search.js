@@ -641,7 +641,7 @@ module.exports = {
         $('.product-tile-redesign .swatches').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
-            infinite: false,
+            infinite: true,
             dots: false,
             arrows: true,
             responsive: [

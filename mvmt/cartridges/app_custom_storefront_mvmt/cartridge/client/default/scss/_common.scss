@@ -491,6 +491,31 @@ body {
     }
 }
 
+@keyframes nodeInserted {
+
+    from {
+        outline-color: $white;
+    }
+    
+    to {
+        outline-color: $black;
+    }
+}
+ 
+div {
+    
+    &.yotpo {
+    
+        &.bottomLine {
+    
+            .star-clickable {
+                animation-duration: 0.01s;
+                animation-name: nodeInserted;
+            }
+        }
+    }
+}
+
 .custom-clp-social {
     background-color: $white;
     display: none;

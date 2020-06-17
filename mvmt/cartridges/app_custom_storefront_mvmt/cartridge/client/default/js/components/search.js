@@ -165,7 +165,7 @@ module.exports = function () {
         });
     });
 
-    $('body').on('click', function (e) {
+    $('body').off('click').on('mouseup', function (e) {
         if (!$('.suggestions').has(e.target).length && !$(e.target).hasClass('search-field')) {
             $('.suggestions').hide();
         }

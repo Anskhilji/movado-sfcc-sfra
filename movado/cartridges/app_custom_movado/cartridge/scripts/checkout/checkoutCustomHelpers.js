@@ -115,7 +115,8 @@ function sendCancellationEmail(emailObject) {
         orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
         salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
-        orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber)
+        orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
+        order: emailObject.order
     };
     var emailObj = {
         to: emailObject.customerEmail,

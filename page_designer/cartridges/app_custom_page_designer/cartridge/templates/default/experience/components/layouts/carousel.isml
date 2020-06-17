@@ -10,8 +10,10 @@
             margin: ${pdict.deskTopMargin};
         }
     }
+
+    ${pdict.additionalCss}
 </style>
-<div id="${pdict.id}" class="carousel-layout container p-0" style="${pdict.additionalCss}">
+<div id="${pdict.id}" class="carousel-layout container p-0">
     <div class="row carousel-layout-row">
         <div class="col-12 carousel-layout-col">
             <div class="cs-carousel-wrapper"
