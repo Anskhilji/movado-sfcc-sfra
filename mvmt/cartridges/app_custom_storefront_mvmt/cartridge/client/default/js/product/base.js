@@ -382,7 +382,7 @@ function handleVariantResponse(response, $productContainer) {
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        $priceSelector.replaceWith(response.product.price.html);
+        $priceSelector.replaceWith(response.product.price.html);  
         // Custom Start
         var $readyToOrder = response.product.readyToOrder;
         var $barSalePriceSelector = $('.sticky-bar-price .price');
@@ -398,6 +398,12 @@ function handleVariantResponse(response, $productContainer) {
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
+        var $eswPrice = $('.eswPrice wainclude');
+        if ($eswPrice) {
+            $.get($eswPrice.attr('url'), function(data, status){
+                $eswPrice.replaceWith(data);
+            });
+        }
 
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
         
