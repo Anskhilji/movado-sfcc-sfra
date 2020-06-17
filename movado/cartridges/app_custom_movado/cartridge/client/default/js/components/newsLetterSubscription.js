@@ -24,7 +24,6 @@ function processSubscription(response) {
 
 $('#newsletterSubscribe').submit(function (e) {
     e.preventDefault();
-    console.log('movado');
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
