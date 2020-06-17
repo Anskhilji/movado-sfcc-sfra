@@ -15,6 +15,7 @@ var StringUtils = require('dw/util/StringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
+const commonUtils = require('./utils/commonUtils');
 
 function createDirectoryAndFile(targetFolder, fileName) {
   //create directory
@@ -138,7 +139,7 @@ function exportDataFeedWatch(args) {
     var fileName = args.fileName;
     var feedColumnsDataFeedWatch = {
         "sku" : 1,
-        "availability": 2,
+        "availabilityDataFeedWatch": 2,
         "online/offline": 3,
         "brand": 4,
         "condition": 5,
@@ -283,6 +284,14 @@ function buildCsvHeader(feedColumns) {
 
     if (!empty(feedColumns['availability'])) {
         csvFileHeader.push("availability");
+    }
+
+    if (!empty(feedColumns['availabilityDataFeedWatch'])) {
+        csvFileHeader.push("Availability");
+    }
+
+    if (!empty(feedColumns['online/offline'])) {
+        csvFileHeader.push("online/offline");
     }
 
     if (!empty(feedColumns['productType'])) {
@@ -530,6 +539,31 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['availabilityDataFeedWatch'])) {
+        switch (product.availability) {
+            case "PREORDER":
+                productDetails.push("pre order");
+                break;
+            case "NOT_AVAILABLE":
+                productDetails.push("out of stock");
+                break;
+            case "IN_STOCK":
+                productDetails.push("in stock");
+                break;
+            default:
+            productDetails.push("");
+            break;
+        }
+    }
+
+    if (!empty(feedColumns['online/offline'])) {
+        if (product.instock) {
+            productDetails.push("online");
+        } else {
+            productDetails.push("offline");
+        }
+    }
+
     if (!empty(feedColumns['productType'])) {
         if (product.jewelryStyle) {
             productDetails.push(product.jewelryStyle);
@@ -682,6 +716,46 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if(!empty(feedColumns['priceUSD'])) {
+        if (product.priceUSD) {
+            productDetails.push(product.priceUSD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceGBP'])) {
+        if (product.priceGBP) {
+            productDetails.push(product.priceGBP)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceCAD'])) {
+        if (product.priceCAD) {
+            productDetails.push(product.priceCAD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceEUR'])) {
+        if (product.priceEUR) {
+            productDetails.push(product.priceEUR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceAUD'])) {
+        if (product.priceAUD) {
+            productDetails.push(product.priceUSD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
     fileArgs.csvStreamWriter.writeNext(productDetails);
     productDetails = [];
 }
@@ -720,7 +794,13 @@ function getProductAttributes(product, feedParameters) {
         jewelryStyle : jewelryStyle,
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
-        smartGiftImageURL : productImages.firstImageLinkSmartGift
+        smartGiftImageURL : productImages.firstImageLinkSmartGift,
+        availability: product.availabilityModel.availabilityStatus,
+        priceUSD: empty(commonUtils.isFixedPriceModelCurrency('US')) ? commonUtils.getFXRates(Constants.USD, 'US') : commonUtils.getProductPrice(product, Constants.USD),
+        priceGBP: empty(commonUtils.isFixedPriceModelCurrency('GB')) ? commonUtils.getFXRates(Constants.GBP, 'GB') : commonUtils.getProductPrice(product, Constants.GBP),
+        priceCAD: empty(commonUtils.isFixedPriceModelCurrency('CA')) ? commonUtils.getFXRates(Constants.CAD, 'CA') : commonUtils.getProductPrice(product, Constants.CAD),
+        priceEUR: empty(commonUtils.isFixedPriceModelCurrency('BE')) ? commonUtils.getFXRates(Constants.EUR, 'BE') : commonUtils.getProductPrice(product, Constants.EUR),
+        priceAUD: empty(commonUtils.isFixedPriceModelCurrency('AU')) ? commonUtils.getFXRates(Constants.AUD, 'AU') : commonUtils.getProductPrice(product, Constants.AUD)
     };
     return productAttributes;
 }
