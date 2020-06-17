@@ -102,6 +102,69 @@
             color: $light-gray;
         }
     }
+    
+    .insider-list {
+        
+        > div {
+            width: 100%;
+        }
+    }
+
+    .swell-campaign { 
+
+        &-list {
+            padding: 0;
+            display: flex;
+            &-container {
+                max-width: rem(1000);
+                margin: 0 auto;
+            }
+    
+            &-title {
+                position: relative;
+
+                span {
+                    font-family: $font-book;
+                    font-size: 12px;
+                    letter-spacing: 1px;
+                    line-height: 20px;
+                    background-color: $white;
+                    position: relative;
+                    padding: 0 15px;
+                }
+
+                &::before {
+                    width: 100%;
+                    position: absolute;
+                    top: 3px;
+                    border-color: $gray11;
+                }
+            }
+        }
+
+        &-link {
+            width: calc(50% - 10px);
+            margin-bottom: rem(20);
+
+            @include media-breakpoint-up(lg) {
+                width: 25%;
+            }
+
+            > div {
+                padding: 0 rem(30);
+                box-shadow: 0 rem(2) rem(1) 0 hsla(0,0%,60%,.4), 0 rem(3) rem(5) rem(1) hsla(0,0%,75%,.25);
+                margin: auto;
+
+                @include media-breakpoint-up(md-down) {
+                    width: calc(100% - 15px);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    width: calc(100% - 20px);
+                }
+            }
+        }
+    }
 }
 
 .order-detail-container {
