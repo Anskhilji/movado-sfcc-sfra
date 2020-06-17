@@ -54,6 +54,7 @@ function processSubscription(response) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }
+            $('body').trigger('emailSubscribe:success', response.emailObj);
         } else {
             $('.submission-status').removeClass('success').addClass('error');
             $('.footer-more-fields').css('top', topPercentage);

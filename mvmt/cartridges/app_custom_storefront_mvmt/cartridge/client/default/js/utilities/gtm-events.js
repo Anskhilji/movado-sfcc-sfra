@@ -428,6 +428,21 @@ function onCheckoutOption(step, checkoutOption) {
 }
 
 /**
+ * Custom Start: funtion that trigeer on email subscriptions.
+ */
+
+var onEmailSubscribe = function () {
+    $('body').on('emailSubscribe:success', function (evt, data) { 
+        var userEmailData = JSON.parse(data);
+        updateDataLayer('emailSubmit');
+        dataLayer.push({
+            event: 'emailSubmit',
+            User: data
+        });
+    });
+};
+
+/**
  * A function to handle a click leading to a checkout option selection.
  */
 var onCheckoutOptionOnCart = function () {
@@ -501,6 +516,7 @@ var onClickEvents = function () {
     onMorestyleClickEvent();
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
+    onEmailSubscribe();
 };
 
 var onPageLoad = function () {
