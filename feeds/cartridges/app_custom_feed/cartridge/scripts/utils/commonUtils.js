@@ -1,11 +1,12 @@
 'use strict';
 
 var Calendar = require('dw/util/Calendar');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 var PriceBookMgr = require('dw/catalog/PriceBookMgr');
+var logger = require('dw/system/Logger');
 var StringUtils = require('dw/util/StringUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
-var eswCoreHelper = require('*/cartridge/scripts/helper/eswCoreHelper').getEswHelper;
 
 /**
  * This method is used to format the Calendar object according to the specified date format.
@@ -67,7 +68,7 @@ function getProductPrice(product, currencyCode) {
     var priceBookId = getPriceBookId(currencyCode);
     var productDecimalPrice = product.getPriceModel().getPriceBookPrice(priceBookId) ? (product.getPriceModel().getPriceBookPrice(priceBookId).decimalValue ? product.getPriceModel().getPriceBookPrice(priceBookId).decimalValue.toString() : "") : "";
     var productCurrencyCode = product.getPriceModel().getPriceBookPrice(priceBookId) != null ? product.getPriceModel().getPriceBookPrice(priceBookId).currencyCode : "";
-    var productPrice = productDecimalPrice + " " + productCurrencyCode
+    var productPrice = productDecimalPrice ? productDecimalPrice + " " + productCurrencyCode : "";
     return productPrice;
 }
 
@@ -77,13 +78,24 @@ function getProductPrice(product, currencyCode) {
  * @returns {Boolean} String.
  */
 function isFixedPriceModelCurrency(selectedCountry) {
+    var eswCoreHelper = require('*/cartridge/scripts/helper/eswCoreHelper').getEswHelper;
+
     var isFixedPriceCountry = eswCoreHelper.getFixedPriceModelCountries().filter(function (country) {
         return country.value == selectedCountry;
     });
     return isFixedPriceCountry;
 }
 
-function getFXRates(eswCurrency, country) {
+/**
+ * This method is used to calculate product price with fx rates
+ * @param {String} currency code.
+ * @param {String} country code.
+ * @param {Deciman} product price.
+ * @returns {Boolean} String.
+ */
+function getFXRates(currency, country, price) {
+    var eswCoreHelper = require('*/cartridge/scripts/helper/eswCoreHelper').getEswHelper;
+    
     var fxRates = JSON.parse(eswCoreHelper.getFxRates()),
             countryAdjustment = JSON.parse(eswCoreHelper.getCountryAdjustments()),
             roundingModels = JSON.parse(eswCoreHelper.getRoundingRules()),
@@ -93,7 +105,7 @@ function getFXRates(eswCurrency, country) {
 
         if (!empty(fxRates)) {
             selectedFxRate = fxRates.filter(function (rates) {
-                return rates.toShopperCurrencyIso == eswCurrency;
+                return rates.toShopperCurrencyIso == currency;
             });
         }
 
@@ -108,12 +120,14 @@ function getFXRates(eswCurrency, country) {
             	return rule.deliveryCountryIso == country;
             });
 
-            selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency;
+        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
+            selectedRoundingRule = roundingModels.filter(function (rule) {
+                return rule.currencyIso == currency;
             });
+            //Custom End
         }
 
-        if (empty(selectedFxRate) && eswCurrency == baseCurrency) {
+        if (empty(selectedFxRate) && currency == baseCurrency) {
             var baseCurrencyFxRate = {
                 'fromRetailerCurrencyIso': baseCurrency,
                 'rate': '1',
@@ -136,32 +150,30 @@ function getFXRates(eswCurrency, country) {
         var calculatedRoundingRules = !empty(selectedRoundingRule[0]) ? JSON.stringify(selectedRoundingRule[0]) : '';
 
         try {
-            var baseCurrency = this.getBaseCurrencyPreference(),
+            var baseCurrency = eswCoreHelper.getBaseCurrencyPreference(),
                 billingPrice = (typeof price == 'object') ? new Number(price.value) : new Number(price),
-                selectedCountry = this.getAvailableCountry(),
                 selectedFxRate = !empty(calculatedFXRates) ? JSON.parse(calculatedFXRates) : false;
 
             // Checking if selected country is set as a fixed price country
-            var isFixedPriceCountry = this.getFixedPriceModelCountries().filter(function (country) {
-                return country.value == selectedCountry;
-            });
+            // var isFixedPriceCountry = this.getFixedPriceModelCountries().filter(function (country) {
+            //     return country.value == selectedCountry;
+            // });
 
             // if fxRate is empty, return the price without applying any calculations
             if (!selectedFxRate || empty(selectedFxRate.toShopperCurrencyIso)) {
-                return (formatted == null) ? formatMoney(new dw.value.Money(billingPrice, eswCurrency)) : new dw.value.Money(billingPrice, eswCurrency);
+                return (formatted == null) ? formatMoney(new dw.value.Money(billingPrice, currency)) : new dw.value.Money(billingPrice, currency);
             }
 
+            var countryAdjustmentSelected = !empty(calculatedCountryAdjustment) ? JSON.parse(calculatedCountryAdjustment) : '';
             //applying override price if override pricebook is set
             // fixed price countries will not have adjustment, duty and taxes applied
-            if (!noAdjustment) {
-                if (selectedCountryAdjustment && !empty(selectedCountryAdjustment)) {
-                    // applying adjustment
-                    billingPrice += new Number((selectedCountryAdjustment.retailerAdjustments.priceUpliftPercentage / 100 * billingPrice));
-                    // applying duty
-                    billingPrice += new Number((selectedCountryAdjustment.estimatedRates.dutyPercentage / 100 * billingPrice));
-                    // applying tax
-                    billingPrice += new Number((selectedCountryAdjustment.estimatedRates.taxPercentage / 100 * billingPrice));
-                }
+            if (countryAdjustmentSelected && !empty(countryAdjustmentSelected)) {
+                // applying adjustment
+                billingPrice += new Number((countryAdjustmentSelected.retailerAdjustments.priceUpliftPercentage / 100 * billingPrice));
+                // applying duty
+                billingPrice += new Number((countryAdjustmentSelected.estimatedRates.dutyPercentage / 100 * billingPrice));
+                // applying tax
+                billingPrice += new Number((countryAdjustmentSelected.estimatedRates.taxPercentage / 100 * billingPrice));
             }
             selectedFxRate = JSON.parse(calculatedFXRates);
             // applying FX rate if currency is not same as base currency
@@ -171,11 +183,13 @@ function getFXRates(eswCurrency, country) {
                 }
             }
             // applying the rounding model
-            if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
-            }
+            // if (billingPrice > 0 && !noRounding) {
+            //     billingPrice = this.applyRoundingModel(billingPrice);
+            // }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
-            return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
+            var productDecimalPrice = billingPrice ? billingPrice.decimalValue.toString() : "";
+            var productCurrencyCode = billingPrice ? billingPrice.currencyCode : "";
+            return productDecimalPrice + " " + productCurrencyCode;
         } catch (e) {
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }

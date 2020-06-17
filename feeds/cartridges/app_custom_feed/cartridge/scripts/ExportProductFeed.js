@@ -223,7 +223,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['sku'])) {
-        csvFileHeader.push("SKU");
+        csvFileHeader.push("sku");
     }
 
     if (!empty(feedColumns['masterProductID'])) {
@@ -243,7 +243,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['productName'])) {
-        csvFileHeader.push("Product Name");
+        csvFileHeader.push("product name");
     }
 
     if (!empty(feedColumns['description'])) {
@@ -251,7 +251,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['shortDescription'])) {
-        csvFileHeader.push("Short Description");
+        csvFileHeader.push("short description");
     }
 
     if (!empty(feedColumns['price'])) {
@@ -275,7 +275,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['imageLinkDataFeedWatch'])) {
-        csvFileHeader.push("Image Link");
+        csvFileHeader.push("image link");
     }
 
     if (!empty(feedColumns['additionalImageLink'])) {
@@ -287,7 +287,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['availabilityDataFeedWatch'])) {
-        csvFileHeader.push("Availability");
+        csvFileHeader.push("availability");
     }
 
     if (!empty(feedColumns['online/offline'])) {
@@ -299,7 +299,7 @@ function buildCsvHeader(feedColumns) {
     }
 
     if (!empty(feedColumns['productTypeDataFeedWatch'])) {
-        csvFileHeader.push("Product Type");
+        csvFileHeader.push("product type");
     }
 
     if (!empty(feedColumns['categories'])) {
@@ -379,23 +379,23 @@ function buildCsvHeader(feedColumns) {
     }
 
     if(!empty(feedColumns['priceUSD'])) {
-        csvFileHeader.push("Price - USD");
+        csvFileHeader.push("price - USD");
     }
 
     if(!empty(feedColumns['priceGBP'])) {
-        csvFileHeader.push("Price - GBP");
+        csvFileHeader.push("price - GBP");
     }
 
     if(!empty(feedColumns['priceCAD'])) {
-        csvFileHeader.push("Price - CAD");
+        csvFileHeader.push("price - CAD");
     }
 
     if(!empty(feedColumns['priceEUR'])) {
-        csvFileHeader.push("Price - EUR");
+        csvFileHeader.push("price - EUR");
     }
 
     if(!empty(feedColumns['priceAUD'])) {
-        csvFileHeader.push("Price - AUD");
+        csvFileHeader.push("price - AUD");
     }
 
     return csvFileHeader
@@ -750,7 +750,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
     if(!empty(feedColumns['priceAUD'])) {
         if (product.priceAUD) {
-            productDetails.push(product.priceUSD)
+            productDetails.push(product.priceAUD)
         } else {
             productDetails.push("");
         }
@@ -796,11 +796,11 @@ function getProductAttributes(product, feedParameters) {
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
         availability: product.availabilityModel.availabilityStatus,
-        priceUSD: empty(commonUtils.isFixedPriceModelCurrency('US')) ? commonUtils.getFXRates(Constants.USD, 'US') : commonUtils.getProductPrice(product, Constants.USD),
-        priceGBP: empty(commonUtils.isFixedPriceModelCurrency('GB')) ? commonUtils.getFXRates(Constants.GBP, 'GB') : commonUtils.getProductPrice(product, Constants.GBP),
-        priceCAD: empty(commonUtils.isFixedPriceModelCurrency('CA')) ? commonUtils.getFXRates(Constants.CAD, 'CA') : commonUtils.getProductPrice(product, Constants.CAD),
-        priceEUR: empty(commonUtils.isFixedPriceModelCurrency('BE')) ? commonUtils.getFXRates(Constants.EUR, 'BE') : commonUtils.getProductPrice(product, Constants.EUR),
-        priceAUD: empty(commonUtils.isFixedPriceModelCurrency('AU')) ? commonUtils.getFXRates(Constants.AUD, 'AU') : commonUtils.getProductPrice(product, Constants.AUD)
+        priceUSD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD),
+        priceGBP: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_GB)) ? commonUtils.getFXRates(Constants.CURRENCY_GBP, Constants.COUNTRY_GB, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_GBP),
+        priceCAD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_CA)) ? commonUtils.getFXRates(Constants.CURRENCY_CAD, Constants.COUNTRY_CA, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_CAD),
+        priceEUR: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_BE)) ? commonUtils.getFXRates(Constants.CURRENCY_EUR, Constants.COUNTRY_BE, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_EUR),
+        priceAUD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_AU)) ? commonUtils.getFXRates(Constants.CURRENCY_AUD, Constants.COUNTRY_AU, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_AUD)
     };
     return productAttributes;
 }
