@@ -34,6 +34,10 @@ var onWishlistClickEvent = function () {
     });
 };
 
+/**
+ * Custom Start: update function Added promoclick slecter and data attributes change data layer structre accoridng to mvmt
+ **/
+
 var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promoton-view', function (evt) {
         var $currentTarget = $(evt.currentTarget);
@@ -57,6 +61,10 @@ var onPromoClickEvent = function () {
         });
     });
 };
+
+/**
+ * Custom Start: update function updated productclick change data layer structre accoridng to mvmt
+ **/
 
 var onProductClickEvent = function () {
     $('body').on('click', '.gtm-product', function (evt) {
@@ -130,6 +138,10 @@ var onMorestyleLoadEvent = function () {
     });
 };
 
+/**
+ * Custom Start: update function updated onPDPAddProductClickEvent change data layer structre accoridng to mvmt
+ **/
+
 var onPDPAddProductClickEvent = function () {
     $('body').on('addToCart:success', function (evt, data) {
         if ($('[data-action]').data('action') == 'Product-Show') {
@@ -187,6 +199,10 @@ var onPDPAddProductClickEvent = function () {
     });
 };
 
+/**
+ * Custom Start: update function updated onAddtoCartClickEvent change data layer structre accoridng to mvmt
+ **/
+
 var onAddtoCartClickEvent = function () {
     $('body').on('click', '.gtm-addtocart', function (evt) {
         var $currentTarget = $(evt.currentTarget);
@@ -237,6 +253,10 @@ var onFacetAndPaginationClick = function () {
     });
 };
 
+/**
+ * Custom Start: update function updated onLoadProductTile change data layer structre accoridng to mvmt
+ **/
+
 var onLoadProductTile = function () {
     updateDataLayer('productImpressions');
     var $currentTarget = $('.gtm-product');
@@ -260,6 +280,10 @@ var onLoadProductTile = function () {
     sliceProductImpressionArray(dataLayerObj, currency);
 };
 
+/**
+ * Custom Start: update function updated onPromoImpressionsLoad change data layer structre accoridng to mvmt
+ **/
+
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promotionalView');
     var dataLayerObj = '';
@@ -279,6 +303,10 @@ var onPromoImpressionsLoad = function (e) {
         }
     });
 };
+
+/**
+ * Custom Start: update function updated: sliceProductImpressionArray change data layer structre accoridng to mvmt
+ **/
 
 var sliceProductImpressionArray = function (e, currency) {
     if ($('.slick-slider').length) {
@@ -302,6 +330,10 @@ var sliceProductImpressionArray = function (e, currency) {
     }
 };
 
+/**
+ * Custom Start: update function updated: showProductImpressionCaraousel change data layer structre accoridng to mvmt
+ **/
+
 var showProductImpressionCaraousel = function (e, currency) {
     var dataProductImpression = {};
     updateDataLayer('productImpressions');
@@ -317,6 +349,10 @@ var showProductImpressionCaraousel = function (e, currency) {
         }
     });
 };
+
+/**
+ * Custom Start: update function updated: getSiteSectionOnPageLoad change data layer structre accoridng to mvmt
+ **/
 
 var getSiteSectionOnPageLoad = function (e) {
     var urlPath = $('[data-url-path-gtm]').data('url-path-gtm');
@@ -428,7 +464,7 @@ function onCheckoutOption(step, checkoutOption) {
 }
 
 /**
- * Custom Start: funtion that trigeer on email subscriptions.
+ * Custom Start: Create a funtion that trigeer on email subscriptions.
  */
 
 var onEmailSubscribe = function () {
@@ -453,7 +489,7 @@ var onCheckoutOptionOnCart = function () {
             event: 'checkoutOption',
             ecommerce: {
                 checkout_option: {
-                    actionField: { step: 1, option: 'test3' }
+                    actionField: { step: 1, option: checkoutOptionData }
                 }
             }
         });

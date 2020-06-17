@@ -21,6 +21,7 @@ function getProductGtmObj(product, categoryName, position) {
         variantID = product.id;
     }
     if (categoryName != null) {
+        // Custom Start: Push product object in Array.
         productGtmObj.push({
             name: escapeQuotes(product.productName),
 	          id: product.id,
@@ -69,12 +70,14 @@ function getProductGtmObj(product, categoryName, position) {
 function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
     if (categoryName != null) {
+        // Custom Start: Push product object in Array.
         productClickGtmObj.push({
             name: escapeQuotes(product.productName),
             id: product.id,
             price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
             brand: product.brand,
             category: escapeQuotes(categoryName),
+            currency: product.price.min.sales.currency,
             position: position,
             list: 'PLP'
         });

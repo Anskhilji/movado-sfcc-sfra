@@ -1,5 +1,9 @@
+<iscomment>
+    custom start: set global variable.
+</iscomment>
 <isset name="gtmPageType" value="${pdict.gtm.pageType}" scope="session" />
 <script>
+    // Custom Start: Update pageDataGTM values according to mvmt.
     dataLayer = window.dataLayer = window.dataLayer || [];
     pageDataGTM = {};
     checkoutDataLayer = [];
@@ -18,6 +22,7 @@
         'country': '${pdict.gtm.country}'
     }];
 
+// Custom Start: Update Product Details Page Data layer according to mvmt.
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
         dataLayer.push ({
             'ecommerce':{ 
@@ -40,6 +45,7 @@
         });
     </isif>
 
+// Custom Start: Update Product Cart Page Data layer according to mvmt.
     <isif condition="${pdict.gtm.action === 'cart-show'}">
         dataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
@@ -67,6 +73,7 @@
         );
     </isif>
 
+// Custom Start: Update Product check out login Page Data layer according to mvmt.
     <isif condition="${pdict.gtm.action ==='checkout-login'}">
         dataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
@@ -96,6 +103,7 @@
         );
     </isif>
 
+// Custom Start: Update Product checkout Pages Data layer according to mvmt.
     <isif condition="${pdict.gtm.action ==='checkout-begin'}">
         checkoutDataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
@@ -125,6 +133,7 @@
         );
     </isif>
 
+// Custom Start: Update Product order confirmation Page Data layer according to mvmt.
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
         dataLayer.push (
             <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">

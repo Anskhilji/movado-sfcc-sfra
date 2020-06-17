@@ -79,26 +79,35 @@ function gtmModel(req) {
 
         // language
     var language = currentLocale.language ? currentLocale.language : 'en_us';
+
         // country
     var country = currentLocale.displayCountry;
+
         // tenant
     var tenant = getTenant(language);
-        // Email
+
+        //custom start: Email
     var userEmail = getCustomerProfile(currentCustomer).email;
-    
+
+        //custom start: Hashed email
     var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
-    
+
+        //custom start: user firstName
     var userFirstName = getCustomerProfile(currentCustomer).firstName;
-   
+
+        //custom start: userFirstName
     var userLastName = getCustomerProfile(currentCustomer).lastName;
-    
+
+        //custom start: currencyCode
     var currencyCode = Site.getCurrent().getCurrencyCode();
     
+    //custom start: userPhone
     var userPhone = getCustomerProfile(currentCustomer).phone;
     
     var customerType = getCustomerType(currentCustomer);
     
     var userZip = getUserZip(currentCustomer);
+        // Custom End
 
         if (pid != null) {
             var ProductMgr = require('dw/catalog/ProductMgr');
@@ -108,6 +117,7 @@ function gtmModel(req) {
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            // Custom Start Updated product values according to mvmt
             this.product = {
                 productID: productImpressionTags.productID,
                 productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
@@ -141,7 +151,7 @@ function gtmModel(req) {
         this.orderConfirmation = [];
         getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
-
+    // Custom Start Updated PageData values according to mvmt
     this.action = action != null ? action : '';
     this.tenant = (tenant != null && tenant != undefined) ? tenant : '';
     this.language = (language != null && language != undefined) ? language : '';
@@ -203,6 +213,11 @@ function getLoginStatus(currentCustomer) {
      return userStatus;
 }
 
+/** Custom Changes Start:
+ * Return  user zip
+ * @param currentCustomer
+ */
+
 function getUserZip(currentCustomer) {
     var userZip = '';
     if (currentCustomer.raw.authenticated && currentCustomer.addresses) {
@@ -210,6 +225,11 @@ function getUserZip(currentCustomer) {
     }
      return userZip;
 }
+
+/** Custom Changes Start:
+ * Return  Customer Type
+ * @param currentCustomer
+ */
 
 function getCustomerType(currentCustomer) {
     var customerType = 'Returning User';
@@ -430,6 +450,7 @@ function getCategoryLevelCount(category, levelCount) {
  * @param productObj
  * @returns
  */
+// Custom Changes Updated data layer according to mvmt
 function getPDPProductImpressionsTags(productObj) {
     var variantID = '';
     if(productObj.variant ) {
@@ -456,6 +477,7 @@ function getPDPProductImpressionsTags(productObj) {
  * @param categoryObj
  * @returns
  */
+// Custom changes Updated dataLayer according to mvmt
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
@@ -494,6 +516,8 @@ function getBasketParameters() {
  *
  * @returns array of cart json
  */
+// Custom changes Updated dataLayer according to mvmt
+
 function getCartJSONArray(checkoutObject) {
     var cartJSON = getBasketParameters();
     var cartArray = [];
@@ -686,6 +710,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 }
         });
 
+        // Custom changes Updated dataLayer according to mvmt
         var orderObj = {};
         orderObj.orderId = orderId;
         orderObj.revenue = order.totalGrossPrice.decimalValue;

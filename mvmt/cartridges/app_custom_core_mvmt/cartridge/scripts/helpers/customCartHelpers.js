@@ -21,6 +21,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             if(pli.product.variant) {
                 variantID = pli.product.ID;
             }
+            // Custom Start: Push current basket values in array.
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
                         "id" : productID,
@@ -42,6 +43,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 
         return productGtmArray;
 }
+// Custom Start: create a funtion to get basket parameters.
 
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -64,6 +66,8 @@ function getBasketParameters() {
     }
     return cartJSON;
 }
+
+// Custom End
 
 function getProductOptions(embossedMessage,engravedMessage){
 	var variant;
