@@ -112,8 +112,8 @@ $(document).on("swell:initialized", () => {
         $("<li>").addClass("campaign").append(
         $("<div>").append(
         $("<i>").addClass(`fa ${campaign.icon}`),
-        $("<p>", {text: campaign.rewardText}),
-        $("<h5>", {text: campaign.title})
+        $("<h5>", {text: campaign.title}),
+        $("<p>", {text: campaign.rewardText})
     ).attr('id', `campaign-${campaign.id}`)
     ).addClass("swell-campaign-link")
     .attr(
