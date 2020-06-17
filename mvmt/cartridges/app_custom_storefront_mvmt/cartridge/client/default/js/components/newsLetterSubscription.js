@@ -61,7 +61,7 @@ function processSubscription(response) {
     }
 }
 
-$('#newsletterSubscribe').submit(function (e) {
+$('#newsletterSubscribe').off('submit').on('submit', function (e) {
     e.preventDefault();
     wrapperContainer.addClass('d-none');
     var topPercentage = top(true);
@@ -110,7 +110,7 @@ $('.close-footer-more, #footer-overlay').click(function (e) {
 });
 
 module.exports = function () {
-    $('.sfmc-update-event').submit( function (event) {
+    $('.sfmc-update-event').off('submit').on('submit', function (event) {
         event.preventDefault(); 
         $.spinner().start();
         var params = $(this).serialize();
