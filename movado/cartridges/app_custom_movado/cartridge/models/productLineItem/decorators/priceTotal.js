@@ -67,6 +67,11 @@ function getTotalPrice(lineItem) {
             result.price = formatMoney(price);
         }
     }
+    savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
+     if (savingsPrice) {
+         result.formattedSavingPrice = formatMoney(savingsPrice);
+         result.savingPrice = savingsPrice;
+     }
     context = { lineItem: { priceTotal: result } };
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     return result;

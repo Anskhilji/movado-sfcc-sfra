@@ -120,7 +120,7 @@ function updateCountryList () {
     	changeAjaxCall(dataObj);
     });
 
-    $(document).on('click','.selected-link',function(){
+    $('.esw-country-selector').on('click','a.selected-link',function(){
         var dataObj = {
             	  'country': $(this).attr('data-country'),
             	  'currency': $(this).attr('data-currency'),

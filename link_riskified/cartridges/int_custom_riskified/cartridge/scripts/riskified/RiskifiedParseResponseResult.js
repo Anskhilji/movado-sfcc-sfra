@@ -75,7 +75,8 @@ function parseRiskifiedResponse(order) {
         			firstName  :order.billingAddress.firstName,
         			lastName:order.billingAddress.lastName,
         			orderNumber :order.orderNo,
-        			creationDate :order.creationDate
+        			creationDate :order.creationDate,
+        			order: order
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
