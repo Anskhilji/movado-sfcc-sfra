@@ -21,9 +21,7 @@
             </svg>
         </div>
         <a href="${URLUtils.https('Account-Show')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('dashboard') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('page.heading.dashboard', 'account', null)}">${Resource.msg('page.heading.dashboard', 'account', null)}</a>
-        <isscript>
-            var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
-        </isscript>
+        <isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
         <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
             <a href="${URLUtils.https('Account-MvmtInsider')}" class="tab-bar-menu-link ${isPage.equalsIgnoreCase('mvmtInsider') ? 'is-tab-bar-menu-link-active' : ''}" title="${Resource.msg('label.mvmt.insider', 'common', null)}">${Resource.msg('label.mvmt.insider', 'common', null)}</a>
         </isif>
