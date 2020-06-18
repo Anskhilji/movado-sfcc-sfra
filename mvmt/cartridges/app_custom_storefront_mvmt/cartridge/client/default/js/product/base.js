@@ -400,7 +400,7 @@ function handleVariantResponse(response, $productContainer) {
         $productNameSelector.text(response.product.productName);
         var $eswPrice = $('.eswPrice wainclude');
         if ($eswPrice) {
-            $.get($eswPrice.attr('url'), function(data, status){
+            $.get($eswPrice.attr('url'), function(data, status) {
                 $eswPrice.replaceWith(data);
             });
         }
