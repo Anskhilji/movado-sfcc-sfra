@@ -24,36 +24,36 @@ function getProductGtmObj(product, categoryName, position) {
         // Custom Start: Push product object in Array.
         productGtmObj.push({
             name: escapeQuotes(product.productName),
-	          id: product.id,
-	          price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
-	          currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-	          brand: product.brand,
-	          sku: product.id,
-	          category: escapeQuotes(categoryName),
-	          productType: product.productType,
-	          variantID: variantID,
-	          list: 'PLP',
-	          position: position
-	         });
-    }	else {
+            id: product.id,
+            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
+            brand: product.brand,
+            sku: product.id,
+            category: escapeQuotes(categoryName),
+            productType: product.productType,
+            variantID: variantID,
+            list: 'PLP',
+            position: position
+        });
+    } else {
         var productObj = ProductMgr.getProduct(product.id);
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
-				: '')
-				: ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
-						: '')) : '');
+        : '')
+        : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
+        : '')) : '');
         productGtmObj.push({
-	          name: product.productName,
-	          id: product.id,
-	          price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
-	          currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-	          brand: product.brand,
-	          sku: product.id,
-	          category: category,
-	          productType: product.productType,
-	          variantID: variantID,
-	          list: 'Search Results',
-	          position: position
-	         });
+            name: product.productName,
+            id: product.id,
+            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
+            brand: product.brand,
+            sku: product.id,
+            category: category,
+            productType: product.productType,
+            variantID: variantID,
+            list: 'Search Results',
+            position: position
+        });
     }
 
     return productGtmObj[0];
@@ -84,10 +84,10 @@ function getGtmProductClickObj(product, categoryName, position) {
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
-				: '')
-				: ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
-						: ''))
-				: '');
+        : '')
+        : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
+        : ''))
+        : '');
         productClickGtmObj.push({
             name: product.productName,
             id: product.id,
@@ -106,5 +106,4 @@ function getGtmProductClickObj(product, categoryName, position) {
 baseProductCustomHelpers.escapeQuotes = escapeQuotes;
 baseProductCustomHelpers.getProductGtmObj = getProductGtmObj;
 baseProductCustomHelpers.getGtmProductClickObj = getGtmProductClickObj;
-
 module.exports = baseProductCustomHelpers;

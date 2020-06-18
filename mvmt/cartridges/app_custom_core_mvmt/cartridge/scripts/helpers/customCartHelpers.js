@@ -1,5 +1,5 @@
 'use strict';
-var basecustomCartHelpers = module.superModule;
+var movadoCustomCartHelpers = module.superModule;
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var EMBOSSED = 'Embossed';
@@ -7,15 +7,15 @@ var ENGRAVED = 'Engraved';
 var Resource = require('dw/web/Resource');
 
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
-	var productGtmArray={};
+    var productGtmArray={};
     var variant;
     var variantID = '';
     var cartJSON = getBasketParameters();
 
-	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
+    collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
         if (pli.UUID == productUUID) {
-            var productID = pli.product.ID;
+           var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
             if(pli.product.variant) {
@@ -60,7 +60,7 @@ function getBasketParameters() {
                     name: cartItem.productName,
                     price: productPrice,
                     quantity:currentBasket.productQuantityTotal,
-                     });
+                });
             }
         });
     }
@@ -84,7 +84,7 @@ function getProductOptions(embossedMessage,engravedMessage){
 	return variant;
 }
 
-basecustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
-basecustomCartHelpers.getProductOptions = getProductOptions;
+movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
+movadoCustomCartHelpers.getProductOptions = getProductOptions;
 
-module.exports = basecustomCartHelpers;
+module.exports = movadoCustomCartHelpers;

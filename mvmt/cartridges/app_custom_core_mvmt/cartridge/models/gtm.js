@@ -66,8 +66,6 @@ function gtmModel(req) {
             }
             this.checkoutStage = checkoutStage;
         }
-
-
         // get page Type
     var pageType = escapeHyphon(getPageType(action, searchkeyword, this.checkoutAction));
 
@@ -144,7 +142,6 @@ function gtmModel(req) {
                 pageType = pageNameJSON['no-searchresult-page'];
             }
         }
-
 
     if (action.equals('order-confirm')) {
         var orderId = getOrderIDfromQueryString(queryString);

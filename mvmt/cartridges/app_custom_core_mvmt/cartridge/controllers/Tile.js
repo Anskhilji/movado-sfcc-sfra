@@ -12,7 +12,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, function (req, res, ne
 
     if(activeProductPromotion) {
 
-       for(var i = 0; i < activeProductPromotion.length; i++) {
+       for (var i = 0; i < activeProductPromotion.length; i++) {
         var promotionId = activeProductPromotion[i].ID;
         var promotionName = activeProductPromotion[i].name;
         var promotionCreated = activeProductPromotion[i].startDate;
