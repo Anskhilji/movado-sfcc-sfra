@@ -24,6 +24,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
                 }
             }
             if (isWelcomeHideCountry) {
+                res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : ''});
                 return next();
             }
         }
