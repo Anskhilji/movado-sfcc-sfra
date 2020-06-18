@@ -23,7 +23,7 @@ server.get(
 server.prepend(
     'Login',
     server.middleware.https,
-    csrfProtection.validateAjaxRequest,
+    csrfProtection.validateRequest,
     function (req, res, next) {
         var customer;
         var legacyCustomer = false;
