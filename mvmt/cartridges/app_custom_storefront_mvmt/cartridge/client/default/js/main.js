@@ -11,6 +11,7 @@ $(document).ready(function () {
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./components/miniCart'));
+    processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));
 });
 
