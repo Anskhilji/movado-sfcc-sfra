@@ -1,5 +1,6 @@
 
-<h1>${JSON.stringify(pdict.addressForm)}</h1>
+
+
 <form
     action="${URLUtils.url('Address-SaveAddress', 'addressId', pdict.addressId)}"
     class="address-form"
@@ -97,7 +98,7 @@
                         <isprint value="${pdict.addressForm.country.attributes}" encoding="off" />
                         autocomplete="country">
                         <isloop items=${pdict.countries} var="country">
-                            <option id="${country.value}" value="${country.value}" <isif condition="${country.selected}">selected</isif>>${country.displayValue}</option>
+                            <option id="${country.value}" value="${country.value}" <isif condition="${pdict.addressForm.country.value == country.value}">selected</isif>>${country.displayValue}</option>
                         </isloop>
                     </select>
                     <i class="fa fa-angle-down"></i>
