@@ -654,5 +654,14 @@ module.exports = {
             ]
         });
     },
+
+    strapNavSlider: function() {
+        $('.straps-guide-nav').resize();
+        var svgRight = '<svg width="5px" height="8px" viewBox="0 0 9 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Press-Slider" transform="translate(-1360.000000, -140.000000)" fill="#2B2B2B"><g id="right-arrow-white"><polygon points="1361.6855 140 1360 141.633333 1365.53808 147 1360 152.366667 1361.6855 154 1368.90909 147"></polygon></g></g></g></svg>';
+        $(window).on("load resize", function(e) {
+            $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
+            $('.straps-nav-mobile .slick-next').prepend(svgRight);
+        });
+    },
     // Custom End
 };

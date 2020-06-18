@@ -515,3 +515,56 @@ div {
         }
     }
 }
+
+.custom-clp-social {
+    background-color: $white;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    height: rem(41);
+    border-bottom: rem(1) solid $alice-blue;
+    border-top: rem(1) solid $alice-blue;
+    position: absolute;
+    top: rem(53);
+    width: 100%;
+    z-index: 6;
+    transition: transform .3s ease;
+    transform: translateZ(0);
+
+    @include media-breakpoint-up(lg) {
+        top: rem(124);
+        border-top: none;
+        display: flex;
+
+        &.sticky {
+            top: rem(83);
+            position: fixed;
+        }
+    }
+
+    ul {
+        display: flex;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 0;
+
+        li {
+            width: rem(52);
+            text-align: center;
+            border-right: rem(1) solid $alice-blue;
+
+            a {
+                height: rem(40);
+                display: block;
+                width: 100%;
+            }
+            
+            i {
+                color: $black;
+                vertical-align: middle;
+                line-height: rem(40);
+                font-size: rem(18);
+            }
+        }
+    }
+}
