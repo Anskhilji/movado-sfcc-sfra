@@ -2,7 +2,6 @@
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
     	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
     </isloop>
-        <a href="${pdict.urls.product}" class="gtm-promoton-view" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${pdict.promotionObj}">
     <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
         <a href="${pdict.urls.product}" class="gtm-promoton-view" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${pdict.promotionObj}">
 	        <picture>
