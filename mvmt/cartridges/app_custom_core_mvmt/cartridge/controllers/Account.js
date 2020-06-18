@@ -81,7 +81,7 @@ server.get('LegacyCustomerPasswordReset', server.middleware.https, function (req
     }  else {
         res.json({
             success: false,
-            errorMessage: Resource.msg('your session expires please try again')
+            errorMessage: Resource.msg('session.expire.text', 'common', null)
         });
     }
     

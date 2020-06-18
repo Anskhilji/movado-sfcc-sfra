@@ -1,7 +1,6 @@
 'use strict';
 
 var baseLogin = require('base/login/login');
-var formValidation = require('base/components/formValidation');
 
 module.exports = function () {
 
