@@ -70,7 +70,7 @@ footer {
                     &:after {
                         content: "\F107";
                         font-size: 1.5625rem;
-                        font-family: "FontAwesome";
+                        font-family: $font-awesome;
                         border: 0;
                         float: right;
                         margin-left: 0;
@@ -97,7 +97,7 @@ footer {
             }
 
             .esw-country-selector {
-                border-bottom: rem(1) solid #BBBDBF;
+                border-bottom: rem(1) solid $grey10;
                 width: 100%;
                 display: inline-block;
                 position: relative;
@@ -111,12 +111,16 @@ footer {
                     border: rem(1) solid rgba(0,0,0,.15);
                     position: absolute;
                     height: rem(150);
-                    background: #fff;
+                    background: $white;
                     margin: 0;
                     overflow: auto;
                     z-index: 999;
                     width: 100%;
                     padding: rem(10);
+
+                    &.language-dropdown {
+                        height: rem(100);
+                    }
                 }
 
                 .dropdown {

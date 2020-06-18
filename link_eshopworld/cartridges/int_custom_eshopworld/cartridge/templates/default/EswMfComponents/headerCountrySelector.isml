@@ -11,7 +11,7 @@
                 </span>
                 <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
                    <isloop iterator="${pdict.EswHeaderObject.allCountries}" var="object" status="loopStatus">
-                        <a class="dropdown-item selected-link" href="javascript:void(0);" data-country="${object.value}" data-locale="${request.getLocale()}" data-currency="${pdict.EswHeaderObject.selectedCurrency}" data-url="${pdict.EswHeaderObject.selectorUrl}" >
+                        <a class="dropdown-item selected-link" href="${'#'}" data-country="${object.value}" data-locale="${request.getLocale()}" data-currency="${pdict.EswHeaderObject.selectedCurrency}" data-url="${pdict.EswHeaderObject.selectorUrl}" >
                             <i class="flag-icon flag-icon-${object.value.toLowerCase()}"></i>${object.displayValue}
                         </a>
                     </isloop>
@@ -25,7 +25,7 @@
                 </span>
                 <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
                    <isloop items="${pdict.EswHeaderObject.languages}" var="object" status="loopStatus">
-                        <a href="javascript:void(0);" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${object.value}" data-currency="${pdict.EswHeaderObject.selectedCurrency}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.displayValue}</a>
+                        <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${object.value}" data-currency="${pdict.EswHeaderObject.selectedCurrency}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.displayValue}</a>
                     </isloop>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 </span>
                 <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCurrencySelector">
                     <isloop iterator="${pdict.EswHeaderObject.currencies}" var="object" status="loopStatus">
-                        <a href="javascript:void(0);" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a>
+                        <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a>
                     </isloop>
                 </div>
             </div>

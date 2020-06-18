@@ -54,9 +54,9 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
                 movadoLandingObject.selectedCountryName = geoLocationCountry.displayName;
                 movadoLandingObject.selectedCurrency = geoLocationCountry.currencyCode;
             } else {
-                var firstCountry = allCountries.get(0);
-                movadoLandingObject.selectedCountry = firstCountry.value;
-                movadoLandingObject.selectedCountryName = firstCountry.displayValue;
+                var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+                movadoLandingObject.selectedCountry = eswHelper.getAvailableCountry();
+                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
                 movadoLandingObject.selectedCurrency = '';
             }
             var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');
