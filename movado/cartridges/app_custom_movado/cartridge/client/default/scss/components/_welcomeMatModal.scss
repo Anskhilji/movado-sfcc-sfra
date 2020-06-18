@@ -61,6 +61,10 @@
                         display: inline-block;
                         letter-spacing: rem(1);
                         margin-bottom: rem(10);
+
+                        @include media-breakpoint-down(sm) {
+                            display: block;
+                        }
                     }
 
                     .selectCountry {
@@ -68,6 +72,16 @@
 
                         .current-country {
                             width: 100%;
+                        }
+
+                        .selector {
+                            @include media-breakpoint-down(sm) {
+                                min-width: rem(247);
+
+                                .selected-link {
+                                    font-size: rem(14);
+                                }
+                            }
                         }
                     }
 
