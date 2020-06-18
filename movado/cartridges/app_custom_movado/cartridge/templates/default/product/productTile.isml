@@ -15,7 +15,7 @@
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false}">
+        <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 

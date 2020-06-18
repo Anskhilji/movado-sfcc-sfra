@@ -4,46 +4,36 @@
     <isscript>
         var collections = require('*/cartridge/scripts/util/collections');
         var formatMoney = require('dw/util/StringUtils').formatMoney;
-
-        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-        var currentBasket = dw.order.BasketMgr.getCurrentBasket();
         var matchingLineItem;
-        
-        if(currentBasket != null) {
-            matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-                return item.productID === lineItem.id && item.UUID === lineItem.UUID;
-            });
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        if (eswHelper.getEShopWorldModuleEnabled()) {
+            var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+            if(currentBasket != null) {
+                matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+                    return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+                });
+            }
         }
     </isscript>
-    <iscomment>Custom Start:Removed Strike-through price duplication</iscomment>
-    <iscomment>
-        <div class="strike-through <isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif>">
-            <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>${formatMoney(lineItem.priceTotal.nonAdjustedPrice)}</isif>
-       </div>
-    </iscomment>
-    <iscomment>Custom End</iscomment>
-    <iscomment>Custom Start:Removed Total amount of item no need to show total price in minicart</iscomment>
-    <iscomment>
-        <isif condition="${!empty(matchingLineItem)}">
-            <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
-        <iselse>
-            <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</div>
-        </isif>
-    </iscomment>
-    <iscomment>Custom end</iscomment>
 </isif>
-<iscomment> Custom End </iscomment>
-
 <iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} ${lineItem.priceTotal.nonAdjustedPrice}</div>
+    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} 
+        ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
+    </div>
     <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
-    <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} <span class="line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.priceTotal.price}</span></div>
-<iscomment>Custom Start:Removed Total amount of item no need to show total price in minicart</iscomment>
-    <iscomment>
-        <iselse>
-            <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
-    </iscomment>
-<iscomment>Custom end</iscomment>
+    <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
+        <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
+            <isif condition="${isEswEnabled}" >
+                <isif condition="${!empty(matchingLineItem)}">
+                    ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
+                <iselse>
+                    ${lineItem.priceTotal.price}
+                </isif>
+            <iselse>
+                ${lineItem.priceTotal.price}
+            </isif>
+        </span>
+    </div>
 </isif>
 <iscomment> Custom End </iscomment>

@@ -15,6 +15,7 @@ module.exports.render = function (context) {
     model.title = content.title;
     model.link = content.link;
     model.pointerText = content.pointerText;
+    model.isDisrupted = content.isDisrupted;
     var attr = context.getComponentRenderSettings().getAttributes() || new HashMap();
     attr.put('class', 'view-more-container');
     context.getComponentRenderSettings().setAttributes(attr);

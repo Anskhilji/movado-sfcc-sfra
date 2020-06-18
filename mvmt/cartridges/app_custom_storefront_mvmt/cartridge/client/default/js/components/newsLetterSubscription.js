@@ -62,7 +62,7 @@ function processSubscription(response) {
     }
 }
 
-$('#newsletterSubscribe').submit(function (e) {
+$('#newsletterSubscribe').off('submit').on('submit', function (e) {
     e.preventDefault();
     wrapperContainer.addClass('d-none');
     var topPercentage = top(true);
@@ -109,3 +109,26 @@ $('.close-footer-more, #footer-overlay').click(function (e) {
     $('.footer-more-fields').removeClass('is-active');
     $('#footer-overlay').removeClass('footer-form-overlay');
 });
+
+module.exports = function () {
+    $('.sfmc-update-event').off('submit').on('submit', function (event) {
+        event.preventDefault(); 
+        $.spinner().start();
+        var params = $(this).serialize();
+        var endpoint = $(this).attr('action');
+        
+        $.ajax({
+            url: endpoint,
+            method: 'POST',
+            data: params,
+            success: function () { 
+                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $.spinner().stop();
+            },
+            error: function () {
+                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
+                $.spinner().stop();
+            }
+        });
+     });
+};

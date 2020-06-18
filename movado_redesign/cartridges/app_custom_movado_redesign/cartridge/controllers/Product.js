@@ -10,6 +10,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+var URLUtils = require('dw/web/URLUtils');
 
 server.replace('ShowAvailability', function (req, res, next) {
     var template;
@@ -95,7 +96,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         moreStyleGtmArray = productCustomHelpers.getMoreStyleGtmArray(product, moreStylesRecommendationTypeIds);
         var wishlistGtmObj = productCustomHelpers.getWishlistGtmObjforPDP(product);
     }
-    
+    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    //Custom End
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -112,7 +115,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         moreStyleGtmArray: moreStyleGtmArray,
         moreStyleRecommendations: moreStyleRecommendations,
         wishlistGtmObj: wishlistGtmObj,
-        youMayLikeRecommendations: youMayLikeRecommendations
+        youMayLikeRecommendations: youMayLikeRecommendations,
+        eswModuleEnabled: eswModuleEnabled,
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
     }
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {

@@ -4,7 +4,9 @@ var baseProductTile = module.superModule;
 var ATTRIBUTE_NAME = 'color';
 
 var Logger = require('dw/system/Logger');
+var URLUtils = require('dw/web/URLUtils');
 
+var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
@@ -16,30 +18,59 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var defaultVariant;
     var selectedSwatch;
     var variationPdpURL;
+    var swatchesURL;
     
     try {
-        if (product.variationAttributes) {
-            Object.keys(product.variationAttributes).forEach(function (key) {
-                if (product.variationAttributes[key].id == ATTRIBUTE_NAME) {
-                    colorVariations = product.variationAttributes[key];
+        var options = productHelper.getConfig(apiProduct, { pid: product.id });
+        decorators.variationsAttributes(product, options.variationModel, {
+            attributes: '*',
+            endPoint: 'Variation'
+        });
+        
+        if (product.variationsAttributes) {
+            Object.keys(product.variationsAttributes).forEach(function (key) {
+                if (product.variationsAttributes[key].id == ATTRIBUTE_NAME) {
+                    colorVariations = product.variationsAttributes[key];
+                    if (!empty(colorVariations) && !empty(colorVariations.values)) {
+                        Object.keys(colorVariations.values).forEach(function (key) {
+                            if (colorVariations.values[key]) {
+                                colorVariations.values[key].swatchesURL = URLUtils.url(
+                                        'Product-Variation',
+                                        'dwvar_' + product.id + '_color',
+                                        colorVariations.values[key].id,
+                                        'pid',
+                                        product.id,
+                                        'quantity',
+                                        '1'
+                                        ).toString();
+                                colorVariations.values[key].pdpURL = URLUtils.url(
+                                        'Product-Show',
+                                        'pid',
+                                        product.id,
+                                        'dwvar_' + product.id + '_color',
+                                        colorVariations.values[key].id
+                                        ).toString();
+                            }
+                        });
+                    }
                 }
             });
         }
-        
+
         if (!empty(colorVariations) && !empty(colorVariations.values)) {
             var varAttr = colorVariations.values;
             var variant = apiProduct.variationModel.defaultVariant;
             if (!empty(variant) && !empty(variant.custom)) {
                 Object.keys(varAttr).forEach(function (key) {
                     if (variant.custom.color == varAttr[key].id) {
-                        defaultVariantImage = varAttr[key].images.large[0].url;
+                        defaultVariantImage = varAttr[key].largeImage.url;
                         variationPdpURL = varAttr[key].pdpURL;
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
                     }
                 });
             } else {
-                defaultVariantImage = varAttr[0].images.large[0].url;
+                defaultVariantImage = varAttr[0].largeImage.url;
                 variationPdpURL = varAttr[0].pdpURL;
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];

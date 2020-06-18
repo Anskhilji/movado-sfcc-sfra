@@ -1,8 +1,3 @@
-<isscript>
-    var assets = require('*/cartridge/scripts/assets.js');
-    assets.addCss('/css/banner.css');
-</isscript>
-
 <figure class="component-banner">
     <a class="component-banner-link" href="${pdict.backgroundLink}">
         <picture>
@@ -13,7 +8,7 @@
     </a>
     <figcaption class="component-banner-overlay ${pdict.alignment ? pdict.alignment : ''}">
         <div class="component-banner-html">
-            <div style="${pdict.headingStyle ? pdict.headingStyle : ''}">
+            <div class="component-banner-heading" style="${pdict.headingStyle ? pdict.headingStyle : ''}">
                 <isprint value="${pdict.bannerHeading ? pdict.bannerHeading : '' }" encoding="off"/>
             </div>
             <div class="component-banner-subheading" style="${pdict.subheadingStyle ? pdict.subheadingStyle : ''}">
