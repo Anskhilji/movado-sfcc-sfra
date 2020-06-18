@@ -113,23 +113,20 @@
     .insider-card {
         width: 100%;
         margin-bottom: rem(20);
+        display: block;
 
         &:hover {
             text-decoration: none;
-        }
-
-        @include media-breakpoint-up(md-down) {
-            width: 25%;
         }
 
         &-inner {
             background-color: $light-white;
             box-shadow: 0 rem(2) rem(1) 0 hsla(0,0%,60%,.4), 0 rem(3) rem(5) rem(1) hsla(0,0%,75%,.25);
             margin: auto;
-            padding: rem(30) 0;
             position: relative;
             text-align: center;
             width: 100%;
+            padding: 0;
 
             @include media-breakpoint-up(md-down) {
                 width: calc(100% - 15px);
@@ -145,7 +142,7 @@
             width: 100%;
 
             @include media-breakpoint-up(md-down) {
-                width: 25%;
+                width: 50%;
             }
 
             &-content {
@@ -196,6 +193,10 @@
             padding-top: .5rem;
             padding-bottom: .5rem;
             max-width: initial;
+            width: 90%;
+            min-width: auto;
+            max-width: rem(200);
+            margin: 0 auto;
 
             &:hover, &:focus {
                 background: $light-green;

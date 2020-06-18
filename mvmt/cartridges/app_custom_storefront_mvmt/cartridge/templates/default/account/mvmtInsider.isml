@@ -35,7 +35,7 @@
                 <button type="button" class="get-reward-btn btn-block btn-primary">${Resource.msg('get.rewards.button', 'account',null)}</button>
             </div>
         </div>
-        <div class="row justify-content-center insider-list">
+        <div class="row justify-content-center insider-list mt-4">
             <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
         </div>
 
