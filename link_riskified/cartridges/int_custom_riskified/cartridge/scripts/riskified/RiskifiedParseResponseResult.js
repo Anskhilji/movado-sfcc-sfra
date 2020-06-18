@@ -27,6 +27,7 @@ function parseRiskifiedResponse(order) {
     var YotpoHelper = require('int_custom_yotpo/cartridge/scripts/yotpo/helper/YotpoHelper');
     var responseObject;
     var RESP_SUCCESS ='SUCCESS';
+    session.custom.currencyCode = order.currencyCode;
 
     checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
 
