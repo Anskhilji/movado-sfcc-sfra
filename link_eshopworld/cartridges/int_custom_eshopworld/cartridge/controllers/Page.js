@@ -52,9 +52,7 @@ server.replace(
                 if (req.setLocale(language)) {
                     if (!eswHelper.overridePrice(req, selectedCountry, currencyCode)) {
                         eswHelper.setAllAvailablePriceBooks();
-                        //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode
-                        eswHelper.setBaseCurrencyPriceBook(req, currencyCode);
-                        //Custom End
+                        eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
                     }
                     eswHelper.selectCountry(selectedCountry, currencyCode, language);
                 }
