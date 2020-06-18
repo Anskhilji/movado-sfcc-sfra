@@ -1,5 +1,5 @@
 <iscomment>Custom Start: Adding placeholder text in the input fields and Changing in html structure similar to mvmt design </iscomment>
-<form action="${pdict.actionUrl}" data-legacy-url = "${dw.web.URLUtils.url('Account-LegacyCustomer').toString()}" class="login" method="POST" name="login-form">
+<form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
     <div class="form-group required">
         <label class="form-control-label" for="login-form-email">
             ${Resource.msg('label.input.login.email', 'login', null)}

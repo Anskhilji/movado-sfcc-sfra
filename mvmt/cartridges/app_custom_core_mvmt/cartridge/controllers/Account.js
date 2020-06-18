@@ -7,6 +7,9 @@ var CustomerMgr = require('dw/customer/CustomerMgr');
 var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
+var Resource = require('dw/web/Resource');
+
+var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 
 server.get(
     'MvmtInsider',
@@ -17,8 +20,10 @@ server.get(
     }
 );
 
-server.post(
-    'LegacyCustomer',
+server.prepend(
+    'Login',
+    server.middleware.https,
+    csrfProtection.validateAjaxRequest,
     function (req, res, next) {
         var customer;
         var legacyCustomer = false;
@@ -31,37 +36,32 @@ server.post(
         });
         
         if (authenticateCustomerResult.status !== 'AUTH_OK') {
-            res.json({
-                success: true,
-                customer: '',
-                legacyCustomer: false,
-                relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
-            });
+            return next();
         } else {
             customer = CustomerMgr.getCustomerByLogin(email);
             legacyCustomer = customer.profile.custom.legacyCustomer;
-            session.custom.emailResetProfile = email;
-            res.json({
-                success: true,
-                customer: customer,
-                legacyCustomer: legacyCustomer,
-                relativeURL: URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
-            });
+            if (legacyCustomer) {
+                session.custom.legecyCustomerEmail = email;
+                res.json({
+                    success: true,
+                    redirectUrl:  URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
+                });
+                this.emit('route:Complete', req, res);
+                return;
+            }
+           
         }
-        
         return next();
     }
 );
 
-
-server.get('PasswordResetEmail', server.middleware.https, function (req, res, next) {
+server.get('LegacyCustomerPasswordReset', server.middleware.https, function (req, res, next) {
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
 
     var email;
     var resettingCustomer;
-    if (session.custom.emailResetProfile) {
-        email = session.custom.emailResetProfile;
-        var customertest = CustomerMgr.getCustomerByLogin(email);
+    if (session.custom.legecyCustomerEmail) {
+        email = session.custom.legecyCustomerEmail;
         resettingCustomer = CustomerMgr.getCustomerByLogin(email);
             if (resettingCustomer) {
                 accountHelpers.sendPasswordResetEmail(email, resettingCustomer);
@@ -70,16 +70,21 @@ server.get('PasswordResetEmail', server.middleware.https, function (req, res, ne
                         resettingCustomer.profile.custom.legacyCustomer = false;
                     });
                 } catch (error) {
-                    Logger.getLogger('Account', 'Account-Reset').error(error.toString());
+                    Logger.getLogger('Account', 'Account-LegacyCustomerPasswordReset').error(error.toString());
                 }
             }
-            session.custom.emailResetProfile = null;
-    }  
+            session.custom.legecyCustomerEmail = null;
+            res.json({
+                success: true,
+                successMessage: Resource.msg('password.reset.email.send.text', 'common', null)
+            });
+    }  else {
+        res.json({
+            success: false,
+            errorMessage: Resource.msg('your session expires please try again')
+        });
+    }
     
-    res.json({
-        success: true
-    });
-
     return next();
 });
 
