@@ -47,13 +47,6 @@ server.append('GetEswHeader', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    var isWelcomeSession = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
-
-    if (isWelcomeSession && !empty(geoLocationCountry)) {
-        res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
-    }
-
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswHeaderObject.languages = languages;
     res.viewData.EswHeaderObject.selectedLanguage = selectedLanguage;
@@ -97,13 +90,6 @@ server.append('GetEswFooter', function (req, res, next) {
             landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
-    }
-
-    var isWelcomeSession = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
-
-    if (isWelcomeSession && !empty(geoLocationCountry)) {
-        res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
