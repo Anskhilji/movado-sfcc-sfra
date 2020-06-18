@@ -192,7 +192,8 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     });
-    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({
             orderNo: res.viewData.OrderNumber,
