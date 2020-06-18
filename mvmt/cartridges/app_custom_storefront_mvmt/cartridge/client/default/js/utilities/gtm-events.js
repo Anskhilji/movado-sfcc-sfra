@@ -39,12 +39,12 @@ var onWishlistClickEvent = function () {
  **/
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-promoton-view', function (evt) {
+    $('body').on('click', '.gtm-promotion-view', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = '';
-        var pageType = $('.gtm-promoton-view').data('page-type');
-        var gtmTrackingData = $('.gtm-promoton-view').data('gtm-product-promo');
+        var pageType = $('.gtm-promotion-view').data('page-type');
+        var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
     
         if (gtmTrackingData !== undefined) {
             dataLayerObj = gtmTrackingData;
@@ -287,7 +287,7 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promotionalView');
     var dataLayerObj = '';
-    var gtmTrackingData = $('.gtm-promoton-view').data('gtm-product-promo');
+    var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
 
     if (gtmTrackingData !== undefined) {
         dataLayerObj = gtmTrackingData;
