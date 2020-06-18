@@ -296,7 +296,12 @@ header.new-header {
 .selectors {
     max-width: 14.875rem;
 	margin: 0 auto;
-	display: block;
+    display: block;
+}
+
+.selector-dropdown {
+    position: absolute;
+    top: rem(28);
 }
 
 .wrapper-dropdown {
@@ -327,8 +332,7 @@ header.new-header {
 
 	.wrapper-dropdown  .btn  {	
 	     margin-top: 0.9375rem;
-	     margin-bottom: 0.4375rem;
-	     left: rem(15);
+         margin-bottom: 0.4375rem;
 	}
  }
 
@@ -361,6 +365,17 @@ header.new-header {
     li {
       height: rem(20);
     }   
+    a {
+        display: block;
+        width: 100%;
+        clear: both;
+        font-weight: 400;
+        color: $black;
+        text-align: inherit;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;
+    }
 }
 
 header.new-header .main-menu .dropdown-selector  li:hover {
@@ -410,6 +425,8 @@ header.new-header .main-menu .dropdown-selector  li:hover {
     
     ul {
       padding-inline-start: rem(5);
+
+
     }
 }
 
