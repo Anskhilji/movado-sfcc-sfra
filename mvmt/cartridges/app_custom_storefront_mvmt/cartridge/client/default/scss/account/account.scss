@@ -102,6 +102,61 @@
             color: $light-gray;
         }
     }
+
+    &.insider-page {
+        > div {
+            max-width: rem(1000);
+            margin: 0 auto;
+        }
+
+        .btn-blocks {
+            display: flex;
+
+            .earn-more-btn {
+                color: $white;
+                background: $black;
+                border: rem(2) solid $black;
+
+                &:hover, &:focus {
+                    background: $light-green;
+                }
+            }
+
+            .get-reward-btn {
+                color: $black;
+                background: $white;
+
+                &:hover, &:focus {
+                    background: $black;
+                    color: $white;
+                }
+            }
+
+            button {
+                font-family: $font-medium;
+                font-weight: 500;
+                display: inline-block;
+                text-align: center;
+                text-transform: uppercase;
+                line-height: 1;
+                font-size: rem(11);
+                padding: rem(16);
+                border-radius: rem(1);
+                transition: all .25s ease-in-out;
+                letter-spacing: rem(3);
+                position: relative;
+                min-width: rem(200);
+
+                &:first-child {
+                    margin-right: rem(10);
+                }
+                
+                @include media-breakpoint-up(md-down) {
+                    padding: rem(16) rem(20);
+                }
+            }
+        }
+    }
     
     .insider-list {
         
@@ -246,7 +301,7 @@
             position: relative;
             text-align: center;
 
-            @include media-breakpoint-up(lg) {
+            @include media-breakpoint-up(md-down) {
                 width: 25%;
             }
 
@@ -360,7 +415,7 @@
 
         &-link {
             width: calc(50% - 10px);
-            margin-bottom: 20px;
+            margin-bottom: rem(20);
 
             @include media-breakpoint-up(md-down) {
                 width: 50%;
@@ -370,13 +425,11 @@
                 background-color: $light-white;
                 box-shadow: 0 rem(2) rem(1) 0 hsla(0, 0%, 60%, .4), 0 rem(3) rem(5) rem(1) hsla(0, 0%, 75%, .25);
                 margin: auto;
-                margin-bottom: rem(20);
                 padding: rem(50) 0;
                 text-align: center;
 
                 @include media-breakpoint-up(md-down) {
                     width: calc(100% - 15px);
-                    margin: 0 rem(15);
                 }
     
                 @include media-breakpoint-up(lg) {
@@ -434,6 +487,7 @@
             font-size: rem(12);
             font-weight: 500;
             text-transform: uppercase;
+            margin: 0;
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(18);
