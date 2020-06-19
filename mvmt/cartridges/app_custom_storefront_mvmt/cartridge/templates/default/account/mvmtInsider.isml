@@ -21,15 +21,19 @@
         </div>
     </div>
     <div class="account-pages insider-page">
-        <div class="justify-content-center text-center">
+
+        <div class="justify-content-center insider-page-top-text text-center">
+            <isslot id="insider-top-text" description="Insider top text" context="global" />
+        </div>
+        <div class="text-center insider-dashboard-heading">
             <h3>${Resource.msg('label.points','account',null)}</h3>
         </div>
-        <div class="justify-content-center text-center">
+        <div class="text-center">
             <isslot id="swell-compaign-total-points" description="Swell Total Points" context="global" />
         </div>
-        <div class="justify-content-center  btn-blocks">
-            <button type="button" class="earn-more-btn button btn-block btn-primary">${Resource.msg('earn.more.button', 'account',null)}</button>
-            <button type="button" class="get-reward-btn button btn-block btn-primary">${Resource.msg('get.rewards.button', 'account',null)}</button>
+        <div class="justify-content-center btn-blocks">
+            <button type="button" class="earn-more-btn button btn-primary" data-scroll=".earn-reward">${Resource.msg('earn.more.button', 'account',null)}</button>
+            <button type="button" class="get-reward-btn button btn-primary" data-scroll="#get-reward">${Resource.msg('get.rewards.button', 'account',null)}</button>
         </div>
         <div class="justify-content-center insider-list mt-4">
             <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
@@ -40,7 +44,7 @@
         <div class="justify-content-center insider-list">
             <isslot id="swell-campaign-selected-list" description="Swell Campaign Selected List" context="global" />
         </div>
-        <div class="justify-content-center insider-list">
+        <div class="justify-content-center insider-list" id="get-reward">
             <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
         </div>
         <div class="justify-content-center insider-list">

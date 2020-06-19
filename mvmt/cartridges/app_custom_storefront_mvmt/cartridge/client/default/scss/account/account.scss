@@ -156,6 +156,78 @@
                 }
             }
         }
+
+        .insider-dashboard-heading {
+            h3 {
+                color: $black;
+                font-family: $font-book;
+                font-size: rem(20);
+                line-height: rem(24);
+                letter-spacing: rem(2.5);
+                text-transform: uppercase;
+            }
+        }
+
+        .swell-point-balance {
+            color: $black;
+            font-family: $font-medium;
+            font-size: rem(50);
+            font-weight: 500;
+            line-height: rem(50);
+            margin: auto 0;
+            margin-bottom: rem(15);
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .account-heading {
+            text-align: center;
+            margin: 0 auto;
+            max-width: rem(800);
+            padding: rem(20) rem(20) rem(40);
+            width: 100%;
+
+            @include media-breakpoint-up(lg) {
+                padding: rem(20) 0 rem(30);
+            }
+
+            &-title {
+                font-family: $font-medium;
+                font-size: rem(36);
+                font-weight: 500;
+                letter-spacing: rem(3.38);
+                line-height: rem(42);
+                margin-bottom: rem(15);
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(50);
+                    letter-spacing: rem(4.69);
+                    line-height: 1.5;
+                }
+            }
+
+            &-text {
+                font-family: $font-medium;
+                color: $black;
+                font-size: rem(16);
+                font-weight: 500;
+                line-height: rem(23);
+            }
+
+            &-divider {
+                border-color: $light-gray4;
+                border-bottom: 0;
+                margin-top: rem(16);
+                width: 80%;
+                box-sizing: content-box;
+                height: 0;
+                overflow: visible;
+
+                @include media-breakpoint-up(lg) {
+                    width: 45%;
+                }
+            }
+        }
     }
     
     .insider-list {
