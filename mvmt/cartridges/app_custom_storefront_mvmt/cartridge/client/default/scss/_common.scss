@@ -568,3 +568,53 @@ div {
         }
     }
 }
+
+.class-overall {
+    display: flex;
+    
+    .apple-pay-cart {
+        border-radius: 4px;
+        padding: 0;
+        height: 42px;
+        margin-left: rem(15);
+
+        @include media-breakpoint-down(xs) {
+            margin-left: rem(5);    
+        }
+    }
+    
+    .paypal-and-ipay {
+        padding: 0;
+        background: #FFC517;
+        border-radius: 4px;
+        height: 42px;
+        width: 100%;
+        margin-left: rem(15);
+
+        @include media-breakpoint-down(xs) {
+            margin-left: rem(5);    
+        }
+    }
+
+    .shipping-amazon-btn {
+        margin-left: rem(15);
+        padding-left: 0;
+
+        @include media-breakpoint-down(xs) {
+            margin-left: rem(5);    
+        }
+
+        #AmazonPayButtonCheckout {
+            width: 100% !important;
+            height: rem(61) !important;
+        }
+
+        .amazonpay-button-view3 {
+            picture {
+                display: none !important;
+            }
+            
+        }
+    }
+    
+}
