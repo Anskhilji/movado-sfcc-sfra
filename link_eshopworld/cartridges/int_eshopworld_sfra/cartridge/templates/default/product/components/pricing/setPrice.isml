@@ -1,0 +1,10 @@
+<div class="price <isif condition="${typeof product != 'undefined' && product.isProductRestricted}">d-none</isif>"">
+    <span class="starting">
+        ${Resource.msg('label.starting_from', 'pricing', null)}
+        <isif condition="${product.price.min}">
+            <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', product.price.min.sales.decimalPrice, 'listPrice', true)}"/></span>
+        <iselse>
+            <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', product.price.sales.decimalPrice, 'listPrice', true)}"/></span>
+        </isif>
+    </span>
+</div>

@@ -80,6 +80,10 @@
     "ie >= 10"
   ],
   "packageName": "int_eshopworld_sfra",
+  "paths": {
+    "base": "../storefront-reference-architecture/cartridges/app_storefront_base",
+    "base_ext": "cartridges/int_eshopworld_sfra"
+  },
   "babel": {
     "presets": [
       "env"

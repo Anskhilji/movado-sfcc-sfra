@@ -1,14 +1,14 @@
 'use strict';
-
+​
 var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-
+​
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
-
+​
 server.append('GetEswHeader', function (req, res, next) {
     var allCountries = null;
     var customCountriesJSONFromSession = session.custom.customCountriesJSON;
@@ -17,6 +17,13 @@ server.append('GetEswHeader', function (req, res, next) {
     var languages = null;
     var selectedLanguage = null;
     var countryCode = req.querystring.countryCode;
+    var geoLocationCountry = null;
+    var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
+    var geoLocationCountryCode = request.geolocation.countryCode;
+
+    if (isGeoLocation) {
+        geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
+    }
 
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.headerPage)) {
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
@@ -40,7 +47,10 @@ server.append('GetEswHeader', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
+    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
+        res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
+        res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
+    }
 
     if (!empty(countryCode)) {
         var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
@@ -53,12 +63,13 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.selectedCountryName = country.displayName;
     }
 
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswHeaderObject.languages = languages;
     res.viewData.EswHeaderObject.selectedLanguage = selectedLanguage;
     res.viewData.EswHeaderObject.allCountries = allCountries;
     return next();
 });
-
+​
 server.append('GetEswFooter', function (req, res, next) {
     var allCountries = null;
     var customCountriesJSONFromSession = session.custom.customCountriesJSON;
@@ -67,6 +78,13 @@ server.append('GetEswFooter', function (req, res, next) {
     var languages = null;
     var selectedLanguage = null;
     var countryCode = req.querystring.countryCode;
+    var geoLocationCountry = null;
+    var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
+    var geoLocationCountryCode = request.geolocation.countryCode;
+
+    if (isGeoLocation) {
+        geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
+    }
 
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.footerPage)) {
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
@@ -90,7 +108,10 @@ server.append('GetEswFooter', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
+    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
+        res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
+        res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
+    }
 
     if (!empty(countryCode)) {
         var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
@@ -103,12 +124,13 @@ server.append('GetEswFooter', function (req, res, next) {
         res.viewData.EswFooterObject.selectedCountryName = country.displayName;
     }
 
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswFooterObject.languages = languages;
     res.viewData.EswFooterObject.selectedLanguage = selectedLanguage;
     res.viewData.EswFooterObject.allCountries = allCountries;
     return next();
 });
-
+​
 server.append('GetEswLandingPage', function (req, res, next) {
     var allCountries = null;
     var customCountriesJSONFromSession = session.custom.customCountriesJSON;
@@ -117,7 +139,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var languages = null;
     var selectedLanguage = null;
     var countryCode = req.querystring.countryCode;
-
+​
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.landingPage)) {
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
         customLanguages = customCountriesJSONFromSession.customLanguages;
@@ -139,9 +161,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
-
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
-
+​
     if (!empty(countryCode)) {
         var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
         var language = {
@@ -153,6 +173,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
         res.viewData.EswLandingObject.selectedCountryName = country.displayName;
     }
 
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
     res.viewData.EswLandingObject.allCountries = allCountries;
@@ -171,7 +192,8 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     });
-    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({
             orderNo: res.viewData.OrderNumber,

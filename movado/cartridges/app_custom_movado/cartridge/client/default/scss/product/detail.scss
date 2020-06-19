@@ -252,6 +252,16 @@ label.availability {
 .add-to-cart {
     border-radius: 0px;
 }
+
+.product-not-available-msg {
+    color: $red;
+
+    @include media-breakpoint-down(xs) {
+        font-size: rem(14);
+        padding-bottom: rem(6);
+    }
+}
+
 .smartgift-bottom-text {
     letter-spacing: rem(0);
 }

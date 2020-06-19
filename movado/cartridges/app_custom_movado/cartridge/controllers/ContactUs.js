@@ -39,8 +39,8 @@ server.post(
         var dwUtil = require('dw/util');
         var template = dwUtil.Template('contactUsEmail.isml')
         var contentMap = dwUtil.HashMap();
+        var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 
-        
         if (contactUsForm.valid) {
             var result = {
                 firstName: !empty(contactUsForm.firstname) ? contactUsForm.firstname.value : !empty(contactUsForm.name) ? contactUsForm.name.value : '',
@@ -53,18 +53,16 @@ server.post(
                 contactUsForm: contactUsForm
             };
             
-            contentMap.put('result',result);
-            var mail = new Mail();
-            mail.setFrom(result.email);
-            mail.addTo(
-            	Site.current.getCustomPreferenceValue('customerServiceEmail')
-            );
-            mail.setSubject(
-                Resource.msg('subject.contactus.email', 'common', null)
-            );
-            var text: MimeEncodedText = template.render(contentMap);
-            mail.setContent(text);
-            mail.send();
+
+            var emailObj = {
+                    to: Site.current.getCustomPreferenceValue('customerServiceEmail'),
+                    subject: Resource.msg('subject.contactus.email', 'common', null),
+                    from: result.email,
+                    type: emailHelpers.emailTypes.contactUs
+                };
+
+                emailHelpers.sendEmail(emailObj, 'contactUsEmail', result);
+
 
             var apiContent = ContentMgr.getContent('ca-contactus-thankyou');
             var thankyouMessage = apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body.markup : '';

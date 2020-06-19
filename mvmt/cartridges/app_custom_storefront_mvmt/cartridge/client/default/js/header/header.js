@@ -147,3 +147,13 @@ $('body').mouseup(function(e) {
         $('.mobile-menu .close-button').trigger('click');
     }
 });
+
+document.addEventListener('animationstart', function (event) {
+    if (event.animationName == 'nodeInserted') {
+        var $reviews = $('.total-reviews-search').attr('total-reviews-search');
+        if ($reviews < Resources.YOTPO_REVIEW_COUNT) {
+            $(".yotpo.bottomLine").remove();
+            $(".yotpo-main-widget").remove();
+        }
+    }
+}, true);

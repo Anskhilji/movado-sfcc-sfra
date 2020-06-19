@@ -1,0 +1,13 @@
+<isif condition="${pdict.relativeURL}">
+    <link rel="alternate" hreflang="x-default" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="en" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="en-us" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="es" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="ja" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="en-gb" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="de" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/> 
+    <link rel="alternate" hreflang="es-es" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="it" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="fr" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+    <link rel="alternate" hreflang="ar" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+</isif>

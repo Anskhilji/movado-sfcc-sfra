@@ -3,15 +3,16 @@ var processInclude = require('base/util');
 processInclude(require('movado/main'));
 
 $(document).ready(function () {
-    processInclude(require('./components/newsLetterSubscription'));
+    processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/faq-page'));
     processInclude(require('./header/header'));
     processInclude(require('./clp/clpcustom'));
-    processInclude(require('./components/newsLetterSubscription'));
-    processInclude(require('./components/miniCart'));
     processInclude(require('./components/dashboard'));
     processInclude(require('./components/mobileMenu'));
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
+    processInclude(require('./components/miniCart'));
+    processInclude(require('./login/login'));
+    processInclude(require('./components/newsLetterSubscription'));
 });
 

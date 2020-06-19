@@ -3,7 +3,9 @@
         <div class="footer-container row">
             <div class="footer-item col-sm-3 store">
                 <iscontentasset aid="footer-locate-store" />
-                <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                <isif condition="${eswHelper.getEShopWorldModuleEnabled()}"> 
+                	<isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                </isif>
             </div>
             <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="footer-account" />

@@ -938,6 +938,13 @@ header.new-header {
   }
 }
 
+#overlay {
+
+  &.active {
+    display: block !important;
+  }
+}
+
 @import "headerSearch";
 
 @include media-breakpoint-up(lg) {

@@ -14,6 +14,9 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
+
+var relativeURL = "/home";
 
 server.append('Show', consentTracking.consent, cache.applyDefaultCache, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
@@ -37,6 +40,7 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
         }
     }
     viewData.content = content && content.custom && content.custom.body ? content.custom.body : '';
+    viewData.relativeURL = relativeURL;
     res.setViewData(viewData);
     return next();
 }, pageMetaData.computedPageMetaData);

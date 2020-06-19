@@ -31,6 +31,12 @@ var getEswHelper = {
      */
     getUnitPriceCost: function (lineItem) {
         return eswHelper.getUnitPriceCost(lineItem);
+    },
+    getAvailableCountry: function () {
+        return eswHelper.getAvailableCountry();
+    },
+    getCurrentEswCurrencyCode: function () {
+        return eswHelper.getCurrentEswCurrencyCode();
     }
 };
 module.exports = getEswHelper;
