@@ -16,11 +16,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, function (req, res, ne
         var promotionId = activeProductPromotion[i].ID;
         var promotionName = activeProductPromotion[i].name;
         var promotionCreated = activeProductPromotion[i].startDate;
+        var promotionPostistion = activeProductPromotion[i].promotionClass;
             promotionObj.push({
                 id: promotionId,
                 name: promotionName,
                 creative: promotionCreated,
-                position: ''
+                position: promotionPostistion
             });
         }
     }
