@@ -15,9 +15,6 @@ server.append('Subscribe', server.middleware.https, function (req, res, next) {
     var Bytes = require('dw/util/Bytes');
     var emailSubmitLocation = req.querystring.pageType ? req.querystring.pageType : 'footer';
     var emailObj = [];
-    var requestParams = {
-        email: req.form.email
-    }
 
     if (res.viewData.success) {
         var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
