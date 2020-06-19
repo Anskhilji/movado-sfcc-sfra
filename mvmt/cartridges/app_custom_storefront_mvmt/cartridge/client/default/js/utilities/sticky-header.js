@@ -24,11 +24,13 @@
                 });
                 // CUSTOM START: added custom class
                 $('.desktop-side-search,.mobile-side-search').addClass('search-bar-header-padding');
+                $('.custom-clp-social').addClass('sticky');
                 $thisInstance.parent().addClass('fixed-header');
             } else {
                 $thisInstance.removeClass('sticky-header');
              // CUSTOM START: removed custom class
                 $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
+                $('.custom-clp-social').removeClass('sticky');
                 $thisInstance.parent().removeClass('fixed-header');
             }
         };

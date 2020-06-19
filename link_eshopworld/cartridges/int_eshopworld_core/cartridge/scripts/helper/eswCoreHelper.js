@@ -207,9 +207,11 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-            selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
+            selectedRoundingRule = roundingModels.filter(function (rule) {
                 return rule.currencyIso == eswCurrency.value;
             });
+            //Custom End
         }
 
         if (empty(selectedFxRate) && eswCurrency.value == baseCurrency) {

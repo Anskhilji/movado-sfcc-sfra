@@ -27,6 +27,14 @@
 
                 h3 {
                     padding: rem(16);
+                    font-size: rem(18);
+                    letter-spacing: rem(1);
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(14);
+                        padding: rem(16) rem(8);
+                        line-height: rem(20);
+                    }
 
                     span {
                         font-size: rem(16);
@@ -45,13 +53,18 @@
 
                 .selector-container {
                     width: auto;
-
-                    @include media-breakpoint-down(xs) {
-                        margin: rem(16) 0 rem(32) 0;
-                    }
+                    margin: rem(25) auto rem(32) auto;
+                    max-width: initial;
+                    padding: 0 rem(15);
 
                     p {
                         display: inline-block;
+                        letter-spacing: rem(1);
+                        margin-bottom: rem(10);
+
+                        @include media-breakpoint-down(sm) {
+                            display: block;
+                        }
                     }
 
                     .selectCountry {
@@ -59,6 +72,16 @@
 
                         .current-country {
                             width: 100%;
+                        }
+
+                        .selector {
+                            @include media-breakpoint-down(sm) {
+                                min-width: rem(247);
+
+                                .selected-link {
+                                    font-size: rem(14);
+                                }
+                            }
                         }
                     }
 
@@ -123,14 +146,9 @@
                         width: auto;
 
                         @include media-breakpoint-down(sm) {
-                            width: 40%;
+                            width: auto;
                             margin: 0 auto;
-                        }
-
-                        @include media-breakpoint-down(xs) {
-                            width: 50%;
-                            margin: 0 auto;
-                            display: block;
+                            display: inline-block;
                         }
 
                         label {
@@ -141,6 +159,16 @@
                             float: none;
                         }
 
+                    }
+                }
+
+                .esw-btn {
+
+                    &:hover, &:focus {
+                        background-color: $white;
+                        color: $black;
+                        outline: none;
+                        box-shadow: none;
                     }
                 }
             }

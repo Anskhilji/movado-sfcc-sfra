@@ -12,6 +12,14 @@
             <isinclude template="checkout/productCard/productCardProductTotalPrice" />
         </div>
     </div>
+    <!--- product restriction - product not available msg --->
+    <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
+    <isif condition="${pdict.valid.error && lineItem.id == session.privacy.restrictedProductID}">
+        <div class="product-not-available-msg-cart">
+            ${Resource.msg('esw.product.notavailable', 'esw', null)}
+        </div>
+    </isif>
+    <iscomment> Custom End </iscomment>
     <!--- promotions --->
     <div class="line-item-promo item-${lineItem.UUID}">
         <isinclude template="checkout/productCard/productCardProductPromotions" />
