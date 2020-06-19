@@ -274,7 +274,7 @@
 
             &-content {
                 margin: auto;
-                padding: 30px 0;
+                padding: rem(30) 0;
             }
         }
 
@@ -350,18 +350,18 @@
 
                 span {
                     font-family: $font-book;
-                    font-size: 12px;
-                    letter-spacing: 1px;
-                    line-height: 20px;
+                    font-size: rem(12);
+                    letter-spacing: rem(1);
+                    line-height: rem(20);
                     background-color: $white;
                     position: relative;
-                    padding: 0 15px;
+                    padding: 0 rem(15);
                 }
 
                 &::before {
                     width: calc(100% - 15px);
                     position: absolute;
-                    top: 3px;
+                    top: rem(3);
                     border-color: $gray11;
                 }
             }
@@ -460,9 +460,9 @@
 
                 span {
                     font-family: $font-book;
-                    font-size: 12px;
-                    letter-spacing: 1px;
-                    line-height: 20px;
+                    font-size: rem(12);
+                    letter-spacing: rem(1);
+                    line-height: rem(20);
                     background-color: $white;
                     position: relative;
                     padding: 0 15px;
@@ -471,7 +471,7 @@
                 &::before {
                     width: calc(100% - 15px);
                     position: absolute;
-                    top: 3px;
+                    top: rem(3);
                     border-color: $gray11;
                 }
             }
