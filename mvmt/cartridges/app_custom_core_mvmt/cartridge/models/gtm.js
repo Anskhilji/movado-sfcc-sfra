@@ -36,7 +36,7 @@ function gtmModel(req) {
     this.searchTerm = '';
 
 
-        if (req.querystring != undefined) {
+        if !empty(req.querystring) {
             var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
             searchkeyword = searchQuery.q;
@@ -129,20 +129,20 @@ function gtmModel(req) {
                 variantID:productImpressionTags.variantID,
                 productType:productImpressionTags.productType
             };
-        }       else if (searchkeyword != null) {
+        } else if (searchkeyword != null) {
             // search count
         searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
         this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
-            var searchQuery = { q: searchkeyword };
-            var productArray = getSearchResultProducts(req, searchQuery);
-            if (productArray == 0) {
-                searchCount = 0;
-            }
-            if (searchCount == 0 && pageNameJSON != null) {
-                pageType = pageNameJSON['no-searchresult-page'];
-            }
+        var searchQuery = { q: searchkeyword };
+        var productArray = getSearchResultProducts(req, searchQuery);
+        if (productArray == 0) {
+            searchCount = 0;
         }
+        if (searchCount == 0 && pageNameJSON != null) {
+            pageType = pageNameJSON['no-searchresult-page'];
+        }
+    }
 
     if (action.equals('order-confirm')) {
         var orderId = getOrderIDfromQueryString(queryString);
@@ -151,7 +151,7 @@ function gtmModel(req) {
     }
     // Custom Start Updated PageData values according to mvmt
     this.action = action != null ? action : '';
-    this.tenant = (tenant != null && tenant != undefined) ? tenant : '';
+    this.tenant = !empty(tenant) ? tenant : '';
     this.language = (language != null && language != undefined) ? language : '';
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
