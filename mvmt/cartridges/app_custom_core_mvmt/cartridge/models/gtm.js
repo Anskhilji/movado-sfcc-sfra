@@ -85,22 +85,23 @@ function gtmModel(req) {
     var tenant = getTenant(language);
 
         //custom start: Email
-    var userEmail = getCustomerProfile(currentCustomer).email;
+
+    var userEmail = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).email : '';
 
         //custom start: Hashed email
     var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
 
         //custom start: user firstName
-    var userFirstName = getCustomerProfile(currentCustomer).firstName;
+    var userFirstName = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).firstName : '';
 
         //custom start: userFirstName
-    var userLastName = getCustomerProfile(currentCustomer).lastName;
+    var userLastName = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).lastName : '';
 
         //custom start: currencyCode
     var currencyCode = Site.getCurrent().getCurrencyCode();
     
     //custom start: userPhone
-    var userPhone = getCustomerProfile(currentCustomer).phone;
+    var userPhone = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).phone : '';
     
     var customerType = getCustomerType(currentCustomer);
     
