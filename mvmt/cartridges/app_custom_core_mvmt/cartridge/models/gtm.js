@@ -1,15 +1,16 @@
 'use strict';
-var Site = require('dw/system/Site');
-var CatalogMgr = require('dw/catalog/CatalogMgr');
-var collections = require('*/cartridge/scripts/util/collections');
-var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
-var productFactory = require('*/cartridge/scripts/factories/product');
-var Resource = require('dw/web/Resource');
-var Encoding = require('dw/crypto/Encoding');
-var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
 var Bytes = require('dw/util/Bytes');
+var CatalogMgr = require('dw/catalog/CatalogMgr');
+var Encoding = require('dw/crypto/Encoding');
+var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 
+var collections = require('*/cartridge/scripts/util/collections');
+var productFactory = require('*/cartridge/scripts/factories/product');
+var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
@@ -94,7 +95,7 @@ function gtmModel(req) {
         //custom start: user firstName
     var userFirstName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).firstName : '';
 
-        //custom start: userFirstName
+        //custom start: user last name
     var userLastName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).lastName : '';
 
         //custom start: currencyCode

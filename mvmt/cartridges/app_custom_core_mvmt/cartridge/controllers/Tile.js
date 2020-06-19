@@ -8,9 +8,9 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 server.append('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
     var PromotionMgr = require('dw/campaign/PromotionMgr');
     var promotionObj = [];
-    var activeProductPromotion = PromotionMgr.activePromotions.productPromotions;
+    var activeProductPromotion = !empty(PromotionMgr.activePromotions) ? PromotionMgr.activePromotions.productPromotions : '';
 
-    if(activeProductPromotion) {
+    if (!empty(activeProductPromotion)) {
 
        for (var i = 0; i < activeProductPromotion.length; i++) {
         var promotionId = activeProductPromotion[i].ID;

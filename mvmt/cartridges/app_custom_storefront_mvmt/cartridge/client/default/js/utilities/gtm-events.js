@@ -35,7 +35,7 @@ var onWishlistClickEvent = function () {
 };
 
 /**
- * Custom Start: update function Added promoclick slecter and data attributes change data layer structre accoridng to mvmt
+ * Custom Start: update function Added promoclick selector and data attributes change data layer structure according to mvmt
  **/
 
 var onPromoClickEvent = function () {
