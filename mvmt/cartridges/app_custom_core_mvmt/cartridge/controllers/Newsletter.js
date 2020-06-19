@@ -14,6 +14,7 @@ server.append('Subscribe', server.middleware.https, function (req, res, next) {
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var Encoding = require('dw/crypto/Encoding');
     var Bytes = require('dw/util/Bytes');
+    var emailSubmitLocation = req.querystring.pageType ? req.querystring.pageType : 'footer';
     var emailObj = [];
     var requestParams = {
         email: req.form.email
@@ -27,7 +28,7 @@ server.append('Subscribe', server.middleware.https, function (req, res, next) {
             emailObj.push({
                 userEmail: userEmail,
                 userHashedEmail: userHashedEmail,
-                submitLocation: 'footer'
+                submitLocation: emailSubmitLocation
             });
             res.setViewData({emailObj: JSON.stringify(emailObj)});  
         }
