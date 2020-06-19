@@ -10,15 +10,16 @@ var page = module.superModule;
 server.extend(page);
 
 server.append('Subscribe', server.middleware.https, function (req, res, next) {
-    var Site = require('dw/system/Site');
-    var Encoding = require('dw/crypto/Encoding');
     var Bytes = require('dw/util/Bytes');
-    var emailSubmitLocation = req.querystring.pageType ? req.querystring.pageType : 'footer';
+    var Encoding = require('dw/crypto/Encoding');
+    var Site = require('dw/system/Site');
+
+    var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
     var emailObj = [];
 
     if (res.viewData.success) {
         var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
-        if(isGtmEnabled) {
+        if (isGtmEnabled) {
             var userEmail = req.form.email;
             var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
             emailObj.push({
