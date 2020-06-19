@@ -40,11 +40,11 @@ var onWishlistClickEvent = function () {
 
 var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promotion-view', function (evt) {
-        var $currentTarget = $(evt.currentTarget);
+        var $currentTarget = $('.gtm-promotion-view');
         updateDataLayer('promoClick');
         var dataLayerObj = '';
         var pageType = $('.gtm-promotion-view').data('page-type');
-        var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
+        var gtmTrackingData = $currentTarget.data('gtm-product-promo');
     
         if (gtmTrackingData !== undefined) {
             dataLayerObj = gtmTrackingData;
@@ -191,9 +191,9 @@ var onPDPAddProductClickEvent = function () {
                         }]
                     }
                 },
-                    currentCart: {
-                        products: addtoCartData.cartObj
-                    }
+                currentCart: {
+                    products: addtoCartData.cartObj
+                }
             });
         }
     });
@@ -338,8 +338,6 @@ var showProductImpressionCaraousel = function (e, currency) {
     var dataProductImpression = {};
     updateDataLayer('productImpressions');
     var productObj = e.splice(0, 3);
-    $.each(productObj, function (pKey, pVal) {
-    });
     dataLayer.push({
         event: 'productImpressions',
         ecommerce: {
