@@ -549,17 +549,11 @@ module.exports = {
         });
 
         // Show hide popover
-        $('.sort-dropdown').click(function() {
+
+        $(document).on('click', '.sort-dropdown', function(e) {
+            e.preventDefault();
             $(this).find('.sort-dropdown-toggle').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
-        });
-
-        $(document).on('click', function(event){
-            var $trigger = $(".sort-dropdown");
-            if($trigger !== event.target && !$trigger.has(event.target).length){
-                $(this).find('.sort-dropdown-toggle').removeClass('active');
-                $('.plp-filter-bar .dropdown-menu').slideUp('fast').removeClass('active');
-            }
         });
     },
 
