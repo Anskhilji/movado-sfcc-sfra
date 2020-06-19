@@ -36,7 +36,7 @@ function gtmModel(req) {
     this.searchTerm = '';
 
 
-        if !empty(req.querystring) {
+        if (!empty(req.querystring)) {
             var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
             searchkeyword = searchQuery.q;
@@ -86,22 +86,22 @@ function gtmModel(req) {
 
         //custom start: Email
 
-    var userEmail = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).email : '';
+    var userEmail = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).email : '';
 
         //custom start: Hashed email
     var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
 
         //custom start: user firstName
-    var userFirstName = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).firstName : '';
+    var userFirstName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).firstName : '';
 
         //custom start: userFirstName
-    var userLastName = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).lastName : '';
+    var userLastName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).lastName : '';
 
         //custom start: currencyCode
     var currencyCode = Site.getCurrent().getCurrencyCode();
     
     //custom start: userPhone
-    var userPhone = !empty(getCustomerProfile(currentCustomer) ? getCustomerProfile(currentCustomer).phone : '';
+    var userPhone = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).phone : '';
     
     var customerType = getCustomerType(currentCustomer);
     
