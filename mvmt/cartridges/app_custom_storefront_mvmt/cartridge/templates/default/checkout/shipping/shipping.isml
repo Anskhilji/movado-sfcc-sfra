@@ -1,22 +1,23 @@
 <iscomment> Custom Start: Amazon Pay Integeration </iscomment>
 <isset name="paypalButtonImg" value="${require('*/cartridge/scripts/helpers/customCartHelpers').getContentAssetContent('ca-paypal-button')}" scope="page" />
-<isif condition="${sitePreferences.amzPayEnabled && !pdict.order.amzPayRedirectURL}">
-    <div class="shipping-express-checkout">
-        <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
-        <div class="class-overall">
-            <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
-            <div class="paypal-and-ipay col">
-                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-                    role="button" aria-pressed="true">
-                    <isprint value="${paypalButtonImg}" encoding="off" />
-                </a>
-            </div>
+<div class="shipping-express-checkout">
+    <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
+    <div class="shipping-express-checkout-buttons">
+        <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
+        <div class="shipping-paypal-btn col">
+            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
+                role="button" aria-pressed="true">
+                <isprint value="${paypalButtonImg}" encoding="off" />
+            </a>
+        </div>
+        <isif condition="${sitePreferences.amzPayEnabled && !pdict.order.amzPayRedirectURL}">
             <div class="shipping-amazon-btn col">
                 <div id="AmazonPayButtonCheckout"></div>
             </div>
-        </div>
+        </isif>
     </div>
-</isif>
+</div>
+
 <iscomment> Custom End </iscomment>
 <div class="shipping-section">
     <div class="single-shipping">
