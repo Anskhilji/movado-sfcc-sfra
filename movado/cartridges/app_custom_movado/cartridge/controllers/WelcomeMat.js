@@ -9,7 +9,26 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     if (eswModuleEnabled) {
         var sessionWelcomeMat = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
+        var welcomematHideFromCountries = !empty(Site.current.getCustomPreferenceValue('WelcomematHideFromCountries')) ? Site.current.getCustomPreferenceValue('WelcomematHideFromCountries') : '';
         var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+
+        if (!empty(welcomematHideFromCountries)) {
+            var isWelcomeHideCountry = false;
+            var geoLocationCountryCode = request.geolocation.countryCode;
+            var gettingCountryCodeFromCookie = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
+            for (var welcomematHideFromCountriesIndex = 0; welcomematHideFromCountriesIndex < welcomematHideFromCountries.length; welcomematHideFromCountriesIndex++) {
+                var welcomematHideFromCountryCode = welcomematHideFromCountries[welcomematHideFromCountriesIndex];
+                if (geoLocationCountryCode.equalsIgnoreCase(welcomematHideFromCountryCode) || gettingCountryCodeFromCookie.equalsIgnoreCase(welcomematHideFromCountryCode)) {
+                    isWelcomeHideCountry = true;
+                    break;
+                }
+            }
+            if (isWelcomeHideCountry) {
+                res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : ''});
+                return next();
+            }
+        }
+
         if (empty(sessionWelcomeMat) || sessionWelcomeMat == false) {
             var Cookie = require('dw/web/Cookie');
             var URLUtils = require('dw/web/URLUtils');
@@ -35,9 +54,9 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
                 movadoLandingObject.selectedCountryName = geoLocationCountry.displayName;
                 movadoLandingObject.selectedCurrency = geoLocationCountry.currencyCode;
             } else {
-                var firstCountry = allCountries.get(0);
-                movadoLandingObject.selectedCountry = firstCountry.value;
-                movadoLandingObject.selectedCountryName = firstCountry.displayValue;
+                var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+                movadoLandingObject.selectedCountry = eswHelper.getAvailableCountry();
+                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
                 movadoLandingObject.selectedCurrency = '';
             }
             var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');

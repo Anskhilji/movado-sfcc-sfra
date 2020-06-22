@@ -3156,7 +3156,7 @@ function generateOrderXML(order) {
                             } else if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
                                 streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                             } else {
-                                streamWriter.writeCharacters(commerceItem.PromoAmount);
+                                streamWriter.writeCharacters(commerceItem.giftMessageObj.PromoAmount);
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
@@ -3392,7 +3392,7 @@ function generateOrderXML(order) {
                             } else if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
                                 streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                             } else {
-                                streamWriter.writeCharacters(commerceItem.PromoAmount);
+                                streamWriter.writeCharacters(commerceItem.giftWrapObj.PromoAmount);
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
@@ -3615,7 +3615,7 @@ function generateOrderXML(order) {
                             } else if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
                                 streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                             } else {
-                                streamWriter.writeCharacters(commerceItem.PromoAmount);
+                                streamWriter.writeCharacters(commerceItem.engravingObj.PromoAmount);
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
@@ -3867,7 +3867,7 @@ function generateOrderXML(order) {
                             } else if (eswOrderNo && commerceItem.SKUNumber === FIXEDFREIGHT) {
                                 streamWriter.writeCharacters(parseFloat(ZERO).toFixed(TWO_DECIMAL_PLACES));
                             } else {
-                                streamWriter.writeCharacters(commerceItem.PromoAmount);
+                                streamWriter.writeCharacters(commerceItem.embossingObj.PromoAmount);
                             }
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');

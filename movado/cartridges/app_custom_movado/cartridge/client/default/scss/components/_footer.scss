@@ -11,6 +11,139 @@ footer {
         .selectors {
             width: auto;
 
+            .collapsible-xl {
+
+                &.active {
+
+                    .title {
+
+                        &:after {
+                            content: "\F106";
+                            margin-top: -0.125em;
+
+                            @include media-breakpoint-up(sm) {
+                                content: "";
+                                margin-top: 0;
+                                transform: rotate(180deg);
+                            }
+                        }
+                    }
+                }
+
+                .title {
+                    width: 100%;
+                    text-align: left;
+                    position: relative;
+                    padding: 0;
+                    margin: 0;
+                    white-space: nowrap;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-right: rem(15);
+
+                    @include media-breakpoint-up(xs) {
+                        padding-right: 0;
+                    }
+
+                    .flag-icon {
+
+                        @include media-breakpoint-up(sm) {
+                            margin-right: 0;
+                        }
+
+                        @include media-breakpoint-up(xl) {
+                            margin-right: 0.3rem;
+                        }
+                    }
+
+                    @include media-breakpoint-up(sm) {
+                        font-size: rem(12);
+                        letter-spacing: normal;
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        font-size: rem(16);
+                        letter-spacing: rem(1.5);
+                    }
+
+                    &:after {
+                        content: "\F107";
+                        font-size: 1.5625rem;
+                        font-family: $font-awesome;
+                        border: 0;
+                        float: right;
+                        margin-left: 0;
+                        vertical-align: 0;
+
+                        @include media-breakpoint-up(sm) {
+                            content: "";
+                            position: absolute;
+                            right: 0;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            display: inline-block;
+                            width: 0;
+                            height: 0;
+                            margin-left: .255em;
+                            vertical-align: .255em;
+                            border-top: .3em solid;
+                            border-right: .3em solid transparent;
+                            border-bottom: 0;
+                            border-left: .3em solid transparent;
+                        }
+                    }
+                }
+            }
+
+            .esw-country-selector {
+                border-bottom: rem(1) solid $grey10;
+                width: 100%;
+                display: inline-block;
+                position: relative;
+
+                @include media-breakpoint-up(sm) {
+                    border-bottom: 0;
+                    width: 90%;
+                }
+
+                .content {
+                    border: rem(1) solid rgba(0,0,0,.15);
+                    position: absolute;
+                    height: rem(150);
+                    background: $white;
+                    margin: 0;
+                    overflow: auto;
+                    z-index: 999;
+                    width: 100%;
+                    padding: rem(10);
+
+                    &.language-dropdown {
+                        height: rem(100);
+                    }
+                }
+
+                .dropdown {
+
+                    &-item {
+                        padding: 0;
+                        margin-bottom: rem(10);
+                        white-space: nowrap;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+
+                        @include media-breakpoint-up(sm) {
+                            font-size: rem(12);
+                        }
+
+                        @include media-breakpoint-up(md) {
+                            font-size: rem(14);
+                        }
+                    }
+                }
+            }
+
             &.footerDropdown {
                 width: auto;
                 margin: 0;
