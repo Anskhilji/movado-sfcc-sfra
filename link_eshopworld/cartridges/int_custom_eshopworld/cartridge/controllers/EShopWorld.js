@@ -33,9 +33,10 @@ server.append('GetEswHeader', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswHeaderObject.selectedCountry = firstCountry.value;
-        res.viewData.EswHeaderObject.selectedCountryName = firstCountry.displayValue;
+        if (isGeoLocation && !empty(geoLocationCountry)) {
+            res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
+            res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
+        }
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -44,11 +45,6 @@ server.append('GetEswHeader', function (req, res, next) {
             landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
-    }
-
-    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
-        res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -82,9 +78,10 @@ server.append('GetEswFooter', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswFooterObject.selectedCountry = firstCountry.value;
-        res.viewData.EswFooterObject.selectedCountryName = firstCountry.displayValue;
+        if (isGeoLocation && !empty(geoLocationCountry)) {
+            res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
+            res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
+        }
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -93,11 +90,6 @@ server.append('GetEswFooter', function (req, res, next) {
             landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
-    }
-
-    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
-        res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -124,9 +116,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswLandingObject.selectedCountry = firstCountry.value;
-        res.viewData.EswLandingObject.selectedCountryName = firstCountry.displayValue;
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,

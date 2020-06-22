@@ -94,6 +94,7 @@ function sendOrderConfirmationEmail(order, locale) {
     };
 
     emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
+    delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
 /**
