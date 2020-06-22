@@ -1,4 +1,4 @@
-<iscomment> Custom Start: Amazon Pay Integeration </iscomment>
+<iscomment> Custom Start: Amazon Pay Integeration and other express methods </iscomment>
 <isset name="paypalButtonImg" value="${require('*/cartridge/scripts/helpers/customCartHelpers').getContentAssetContent('ca-paypal-button')}" scope="page" />
 <div class="shipping-express-checkout">
     <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
@@ -17,7 +17,6 @@
         </isif>
     </div>
 </div>
-
 <iscomment> Custom End </iscomment>
 <div class="shipping-section">
     <div class="single-shipping">
