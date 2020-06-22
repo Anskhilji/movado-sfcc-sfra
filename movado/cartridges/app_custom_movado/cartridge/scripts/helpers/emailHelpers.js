@@ -45,10 +45,10 @@ module.exports = {
         accountLocked: 5,
         accountEdited: 6,
         productShareEmail: 7,
-        orderCancellation: 8,
         orderPartialCancellation: 9,
         orderShipped: 10,
         wishlistShareEmail: 11,
-        contactUs: 12
+        contactUs: 12,
+        orderCancellation: 13
     }
 };
