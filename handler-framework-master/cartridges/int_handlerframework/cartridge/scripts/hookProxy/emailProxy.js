@@ -94,12 +94,6 @@ function sendEmail(emailObj, template, context) {
     	else if (emailObj.type === 7){
     		hookID += 'shareEmail.product';  
       }
-      
-      /*orderCancellation*/
-    	else if (emailObj.type === 8){
-    	    params.put('Order', context.order);
-    	    hookID += 'order.cancellation';    		
-      }
 
       /*orderPartialCancellation*/
     	else if (emailObj.type === 9){
@@ -115,11 +109,19 @@ function sendEmail(emailObj, template, context) {
       else if (emailObj.type === 11){
           hookID += 'shareEmail.wishlist';
       }
-    	
+      
+      /*contactus*/
       else if (emailObj.type === 12){
           params.put('ContactUs', session && session.forms.contactus);
           hookID += 'customerService.contactUs';
       }
+
+      /*orderCancellation*/
+    	else if (emailObj.type === 13){
+        params.put('Order', context.order);
+        hookID += 'order.cancellation';    		
+    }
+
     	else {
             Logger.warn('Mail send hook called, but correct action undetermined, mail not sent as a result.');
         }		
