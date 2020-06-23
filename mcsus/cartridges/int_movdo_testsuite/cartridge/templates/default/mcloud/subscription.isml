@@ -15,7 +15,7 @@
                         <h4>Subscription Form</h4>
                     </div>
                     <div class="card">
-                        <form action="${URLUtils.url('MCloudTest-Subscribe')}" class="login" method="POST"
+                        <form action="${URLUtils.url('MCloudTest-Subscribe')}" method="POST"
                             name="SFRAHelloForm">
 
                             <div class="form-group required">
