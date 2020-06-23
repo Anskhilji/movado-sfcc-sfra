@@ -24,8 +24,10 @@ function parseRiskifiedResponse(order) {
     var paymentInstrument = order.paymentInstrument;
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+    var YotpoHelper = require('int_custom_yotpo/cartridge/scripts/yotpo/helper/YotpoHelper');
     var responseObject;
     var RESP_SUCCESS ='SUCCESS';
+    session.custom.currencyCode = order.currencyCode;
 
     checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
 
@@ -74,35 +76,38 @@ function parseRiskifiedResponse(order) {
         			firstName  :order.billingAddress.firstName,
         			lastName:order.billingAddress.lastName,
         			orderNumber :order.orderNo,
-        			creationDate :order.creationDate
+        			creationDate :order.creationDate,
+        			order: order
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
+        YotpoHelper.deleteOrder(order);
         
     } else {
-		if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
-			// riskifiedStatus as approved then mark as confirmed
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
-			if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
-				Transaction.wrap(function () {
-					order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-					order.setExportStatus(Order.EXPORT_STATUS_READY);
-				});
-			}
-			var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-			COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
-			Transaction.wrap(function () {
-				order.custom.is3DSecureTransactionAlreadyCompleted = false;
-			});
-		}
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+        var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
                 orderNo: order.orderNo,
                 orderState: 'created'
             });
         }
-	}
+        if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
+            // riskifiedStatus as approved then mark as confirmed
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
+            if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
+                Transaction.wrap(function () {
+                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                    order.setExportStatus(Order.EXPORT_STATUS_READY);
+                });
+            }
+            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+            COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+            Transaction.wrap(function () {
+                order.custom.is3DSecureTransactionAlreadyCompleted = false;
+            });
+        }
+    }
 }
 
 module.exports.parseRiskifiedResponse = parseRiskifiedResponse;

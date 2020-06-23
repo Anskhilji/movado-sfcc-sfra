@@ -59,21 +59,14 @@ module.exports = {
 
         $('.pdp-tabs-nav button').on('click', function(e) {
             var thistab = $(this).data('tab');
-            $('.'+thistab+'').addClass('active').siblings().removeClass('active');
             $(this).addClass('active').siblings().removeClass('active');
-
-            if ($(window).width() < 786) {
-                $('.pdp-mobile-accordian').removeClass('active');
-                $(this).find('.pdp-mobile-accordian').addBack('active')
-            }
-
-            setTimeout(function(){
-                $('.'+thistab+'').addClass('fadeIn').siblings().removeClass('fadeIn');
-             }, 300);
+            $('html, body').animate({
+                scrollTop: $('.' + thistab + '').offset().top - 100
+            }, 1000);
         });
 
         $('.pdp-mobile-accordian').on('click', function(e) {
-            $(this).toggleClass('active').siblings().slideToggle();
+            $(this).toggleClass('active').siblings().toggleClass('active');
         });
 
         $('.call-see-fit-popup').on('click', function(e) {
@@ -82,6 +75,31 @@ module.exports = {
 
         $('.size-guide-close').on('click', function(e) {
             $('.size-guide, #overlay').removeClass('active');
+        });
+
+        $('.modal-close').on('click', function(e) {
+            $('.modal-background').fadeOut();
+            $('html').removeClass('no-overflow');
+            $('.polarized-modal, .polarized-modal-body,.modal-background').removeClass('opened');
+        });
+
+        $('.call-why-polarized-popup').on('click', function(e) {
+            $('.modal-background').fadeIn();
+            $('html').addClass('no-overflow');
+            setTimeout(function(){ 
+                $('.polarized-modal, .polarized-modal-body, .modal-background').addClass('opened');
+             }, 300);
+        });
+
+        $('.polarized-modal').mouseup(function(e) {
+            var container = $('.polarized-modal-body');
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) 
+            {
+                $('.modal-background').fadeOut();
+                $('.polarized-modal, .polarized-modal-body, .modal-background').removeClass('opened');
+                $('html').removeClass('no-overflow');
+            }
         });
     },
 
@@ -126,7 +144,7 @@ module.exports = {
     },
 
     stickybar: function () {
-        $(function() {
+        $(window).on('resize load', function(){
             var $header = $('.header-menu-wrapper .header-wrapper').height();
             var $productdetail = $('.product-detail').height();
             var $stickybar = $('.sticky-bar');
@@ -210,6 +228,7 @@ module.exports = {
             },
         });
     },
+
     updateAddToCart: function () {
         $('body').off('product:updateAddToCart').on('product:updateAddToCart', function (e, response) {
             // update local add to cart (for sets)
@@ -246,6 +265,65 @@ module.exports = {
             } else {
                 $('.apple-pay-pdp').remove();
             }
+        });
+    },
+
+    updateAvailability: function () {
+        $('body').off('product:updateAvailability').on('product:updateAvailability', function (e, response) {
+            $('div.availability', response.$productContainer)
+                .data('ready-to-order', response.product.readyToOrder)
+                .data('available', response.product.available);
+
+            $('.availability-msg', response.$productContainer)
+                .empty().html(response.message);
+
+            if ($('.global-availability').length) {
+                var allAvailable = $('.product-availability').toArray()
+                    .every(function (item) { return $(item).data('available'); });
+
+                var allReady = $('.product-availability').toArray()
+                    .every(function (item) { return $(item).data('ready-to-order'); });
+
+                $('.global-availability')
+                    .data('ready-to-order', allReady)
+                    .data('available', allAvailable);
+
+                $('.global-availability .availability-msg').empty()
+                    .html(allReady ? response.message : response.resources.info_selectforstock);
+            }
+
+            // Custom Start: Handle out of stock label on PDP
+
+            var $availibilityContainer = $('.mvmt-avilability');
+            if ($availibilityContainer) {
+                
+                $availibilityContainer.hide();
+                if (!response.product.available) {
+                    $availibilityContainer.show();
+                }
+            }
+
+            // Custom End
+        });
+    },
+
+    updatePrice: function () {
+        $(document).on('click', '.upsell_input', function() {
+            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
+            var currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
+            var updatedPrice;
+            var updatedText;
+
+            if ($(this).is(':checked')) {
+                updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
+            } else {
+                updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
+            }
+
+            $('.product-price-mobile .sales:last-child .value').each(function() {
+                updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
+                $(this).text(updatedText).data('value', updatedPrice);
+            });
         });
     },
     base: base

@@ -197,17 +197,18 @@ $('.quantity-form > .quantity').bind('keyup', function (e) {
  */
 function decreaseQuantity (quantitySelector, id) {
     var $quantity = parseInt($(quantitySelector).val());
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
         $quantity = 1;
     }
 
     $quantity = ($quantity > 1) ? $quantity - 1 : $quantity;
 
     if ($quantity == 1) {
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     } else {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
     }
     $(quantitySelector).val($quantity);
     updateCartQuantity(quantitySelector, false);
@@ -221,14 +222,15 @@ function decreaseQuantity (quantitySelector, id) {
  * @param id
  */
 function increaseQuantity (quantitySelector, id) {
-    var $quantity = parseInt($(quantitySelector).val());
+    var $quantity = parseInt($(quantitySelector).val());4
+    var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
         $(quantitySelector).val(1);
-        $('#decreased-' + id).attr('disabled', true);
+        $decreasedSelector.attr('disabled', true);
     }
 
     if ($quantity >= 1) {
-        $('#decreased-' + id).attr('disabled', false);
+        $decreasedSelector.attr('disabled', false);
         $quantity = $quantity + 1;
         $(quantitySelector).val($quantity);
     }
@@ -276,6 +278,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
             $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
             updateAvailability(data, $uuid);
@@ -302,7 +305,8 @@ module.exports = function () {
      * It will get the decreased-btn data attribute and builds the quantitySelector 
      * class and it will call the decreaseQuantity function.
      */
-    $('body').off('click', '.decreased-btn').on('click', '.decreased-btn', function (e) {
+    $('html').off('click', '.decreased-btn, .decreased-qty-btn').on('click', '.decreased-btn, .decreased-qty-btn', function (e) {
+        e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
         decreaseQuantity($quantitySelector, $pid);
@@ -313,7 +317,8 @@ module.exports = function () {
      * It will get the increased-btn data attribute and builds the quantitySelector 
      * class and it will call the increaseQuantity function.
      */
-    $('body').off('click', '.increased-btn').on('click', '.increased-btn', function (e) {
+    $('html').off('click', '.increased-btn, .increased-qty-btn').on('click', '.increased-btn, .increased-qty-btn', function (e) {
+        e.preventDefault();
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
         increaseQuantity($quantitySelector, $pid);
@@ -511,6 +516,94 @@ module.exports = function () {
     $('body').off('change', '.quantity-form > .quantity').on('change', '.quantity-form .quantity', function (e) {
         e.preventDefault();
         updateCartQuantity(this, false);
+    });
+
+    $('body').off('submit', '.minicart-promo-code-form').on('submit', '.minicart-promo-code-form', function (e) {
+        e.preventDefault();
+        $('.minicart-promo-code-form').spinner().start();
+        $('.coupon-missing-error').hide();
+        $('.coupon-error-message').empty();
+        if (!$('.coupon-code-field').val()) {
+            $('.minicart-promo-code-form .form-control').addClass('is-invalid');
+            $('.coupon-missing-error').show();
+            $('.minicart-promo-code-form').spinner().stop();
+            return false;
+        }
+        var $form = $('.minicart-promo-code-form');
+        $('.minicart-promo-code-form .form-control').removeClass('is-invalid');
+        $('.coupon-error-message').empty();
+
+        $.ajax({
+            url: $form.attr('action'),
+            type: 'GET',
+            dataType: 'json',
+            data: $form.serialize(),
+            success: function (data) {
+                if (data.error) {
+                    $('.minicart-promo-code-form .form-control').addClass('is-invalid');
+                    $('.coupon-error-message').empty().append(data.errorMessage);
+                } else {
+                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    updateCartTotals(data);
+                    updateApproachingDiscounts(data.approachingDiscounts);
+                    validateBasket(data);
+                }
+                $('.coupon-code-field').val('');
+                $('.minicart-promo-code-form').spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.errorMessage);
+                    $('.minicart-promo-code-form').spinner().stop();
+                }
+            }
+        });
+        return false;
+    });
+    
+    
+    /**
+     * This is override click event function of coupon code that will directly remove the coupon code without
+     * showing the popup of confirmation it basically used on the minicart and cart page.
+     */
+    $('body').off('click', '.coupons-and-promos .remove-coupon').on('click', '.coupons-and-promos .remove-coupon', function (e) {
+        e.preventDefault();
+
+        var couponCode = $(this).data('code');
+        var uuid = $(this).data('uuid');
+        var url = $(this).data('action');
+        var urlParams = {
+            code: couponCode,
+            uuid: uuid
+        };
+
+        url = appendToUrl(url, urlParams);
+        $('body > .modal-backdrop').remove();
+
+        $('.coupon-price-adjustment').spinner().start();
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $('.coupon-uuid-' + uuid).remove();
+                updateCartTotals(data);
+                updateApproachingDiscounts(data.approachingDiscounts);
+                $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
+                validateBasket(data);
+                $('.coupon-price-adjustment').spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.responseJSON.errorMessage);
+                    $('.coupon-price-adjustment').spinner().stop();
+                }
+            }
+        });
     });
 
     $movadoBase.selectAttribute();

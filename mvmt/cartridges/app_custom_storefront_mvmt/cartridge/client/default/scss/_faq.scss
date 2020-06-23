@@ -198,13 +198,15 @@
     }
 }
 
-.tab-content {
+.faq-nav-control-bar {
 
-    &.sticky-padding {
-        padding-top: rem(53);
+    .tab-content {
+
+        &.sticky-padding {
+            padding-top: rem(53);
+        }
     }
 }
-
 
 .contact-tab-details {
 

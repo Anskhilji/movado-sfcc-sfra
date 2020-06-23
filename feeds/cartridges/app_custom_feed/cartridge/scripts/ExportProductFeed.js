@@ -15,6 +15,7 @@ var StringUtils = require('dw/util/StringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
+var commonUtils = require('./utils/commonUtils');
 
 function createDirectoryAndFile(targetFolder, fileName) {
   //create directory
@@ -133,6 +134,38 @@ function exportGoogleFeed(args) {
     exportFeed(feedColumnsGoogle, fileArgs, feedParametersGoogle);
 }
 
+function exportDataFeedWatch(args) {
+    var targetFolder = args.targetFolder;
+    var fileName = args.fileName;
+    var feedColumnsDataFeedWatch = {
+        "sku" : 1,
+        "availabilityDataFeedWatch": 2,
+        "online/offline": 3,
+        "brand": 4,
+        "condition": 5,
+        "productName": 6,
+        "shortDescription": 7,
+        "color": 8,
+        "productTypeDataFeedWatch": 9,
+        "gtin": 10,
+        "imageLinkDataFeedWatch": 11,
+        "link": 12,
+        "priceUSD": 13,
+        "priceGBP": 14,
+        "priceCAD": 15,
+        "priceEUR": 16,
+        "priceAUD": 17
+    }
+    var feedParametersDataFeedWatch = {
+        "colonSeparator" : Constants.COLON_SEPARATOR,
+        "angleSeparator" : Constants.ANGLE_SEPARATOR,
+        "pipeSeparator" : Constants.PIPE_SEPARATOR,
+        "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR
+    }
+        var fileArgs = createDirectoryAndFile(targetFolder, fileName);
+        exportFeed(feedColumnsDataFeedWatch, fileArgs, feedParametersDataFeedWatch);
+}
+
 function exportFeed(feedColumns, fileArgs, feedParameters) {
     try {
         fileArgs.csvStreamWriter.writeNext(buildCsvHeader(feedColumns));
@@ -188,6 +221,10 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("id");
     }
 
+    if (!empty(feedColumns['sku'])) {
+        csvFileHeader.push("sku");
+    }
+
     if (!empty(feedColumns['masterProductID'])) {
         csvFileHeader.push("item_group_id");
     }
@@ -204,8 +241,16 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("title");
     }
 
+    if (!empty(feedColumns['productName'])) {
+        csvFileHeader.push("product name");
+    }
+
     if (!empty(feedColumns['description'])) {
         csvFileHeader.push("description");
+    }
+
+    if (!empty(feedColumns['shortDescription'])) {
+        csvFileHeader.push("short description");
     }
 
     if (!empty(feedColumns['price'])) {
@@ -228,6 +273,10 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("image_link");
     }
 
+    if (!empty(feedColumns['imageLinkDataFeedWatch'])) {
+        csvFileHeader.push("image link");
+    }
+
     if (!empty(feedColumns['additionalImageLink'])) {
         csvFileHeader.push("additional_image_link");
     }
@@ -236,8 +285,20 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("availability");
     }
 
+    if (!empty(feedColumns['availabilityDataFeedWatch'])) {
+        csvFileHeader.push("availability");
+    }
+
+    if (!empty(feedColumns['online/offline'])) {
+        csvFileHeader.push("online/offline");
+    }
+
     if (!empty(feedColumns['productType'])) {
         csvFileHeader.push("product_type");
+    }
+
+    if (!empty(feedColumns['productTypeDataFeedWatch'])) {
+        csvFileHeader.push("product type");
     }
 
     if (!empty(feedColumns['categories'])) {
@@ -316,12 +377,40 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("custom_label_1");
     }
 
+    if(!empty(feedColumns['priceUSD'])) {
+        csvFileHeader.push("price - USD");
+    }
+
+    if(!empty(feedColumns['priceGBP'])) {
+        csvFileHeader.push("price - GBP");
+    }
+
+    if(!empty(feedColumns['priceCAD'])) {
+        csvFileHeader.push("price - CAD");
+    }
+
+    if(!empty(feedColumns['priceEUR'])) {
+        csvFileHeader.push("price - EUR");
+    }
+
+    if(!empty(feedColumns['priceAUD'])) {
+        csvFileHeader.push("price - AUD");
+    }
+
     return csvFileHeader
 }
 
 function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     var productDetails = new Array();
     if (!empty(feedColumns['ID'])) {
+        if (product.ID) {
+            productDetails.push(product.ID);
+        } else {
+            productDetails.push(""); 
+        }
+    }
+
+    if (!empty(feedColumns['sku'])) {
         if (product.ID) {
             productDetails.push(product.ID);
         } else {
@@ -361,7 +450,23 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if(!empty(feedColumns['productName'])) {
+        if(product.title) {
+            productDetails.push(product.title);
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['description'])) {
+        if (product.description) {
+            productDetails.push(product.description);
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['shortDescription'])) {
         if (product.description) {
             productDetails.push(product.description);
         } else {
@@ -409,6 +514,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['imageLinkDataFeedWatch'])) {
+        if (product.imageurl) {
+            productDetails.push(product.imageurl);
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['additionalImageLink'])) {
         if (product.isWristedImage == 'Wrist-Shot') {
             productDetails.push(product.additionalImageLink)
@@ -425,7 +538,40 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['availabilityDataFeedWatch'])) {
+        switch (product.availability) {
+            case "PREORDER":
+                productDetails.push("pre order");
+                break;
+            case "NOT_AVAILABLE":
+                productDetails.push("out of stock");
+                break;
+            case "IN_STOCK":
+                productDetails.push("in stock");
+                break;
+            default:
+            productDetails.push("");
+            break;
+        }
+    }
+
+    if (!empty(feedColumns['online/offline'])) {
+        if (product.instock) {
+            productDetails.push("online");
+        } else {
+            productDetails.push("offline");
+        }
+    }
+
     if (!empty(feedColumns['productType'])) {
+        if (product.jewelryStyle) {
+            productDetails.push(product.jewelryStyle);
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['productTypeDataFeedWatch'])) {
         if (product.jewelryStyle) {
             productDetails.push(product.jewelryStyle);
         } else {
@@ -569,6 +715,46 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if(!empty(feedColumns['priceUSD'])) {
+        if (product.priceUSD) {
+            productDetails.push(product.priceUSD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceGBP'])) {
+        if (product.priceGBP) {
+            productDetails.push(product.priceGBP)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceCAD'])) {
+        if (product.priceCAD) {
+            productDetails.push(product.priceCAD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceEUR'])) {
+        if (product.priceEUR) {
+            productDetails.push(product.priceEUR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if(!empty(feedColumns['priceAUD'])) {
+        if (product.priceAUD) {
+            productDetails.push(product.priceAUD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
     fileArgs.csvStreamWriter.writeNext(productDetails);
     productDetails = [];
 }
@@ -607,7 +793,13 @@ function getProductAttributes(product, feedParameters) {
         jewelryStyle : jewelryStyle,
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
-        smartGiftImageURL : productImages.firstImageLinkSmartGift
+        smartGiftImageURL : productImages.firstImageLinkSmartGift,
+        availability: product.availabilityModel.availabilityStatus,
+        priceUSD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD),
+        priceGBP: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_GB)) ? commonUtils.getFXRates(Constants.CURRENCY_GBP, Constants.COUNTRY_GB, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_GBP),
+        priceCAD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_CA)) ? commonUtils.getFXRates(Constants.CURRENCY_CAD, Constants.COUNTRY_CA, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_CAD),
+        priceEUR: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_BE)) ? commonUtils.getFXRates(Constants.CURRENCY_EUR, Constants.COUNTRY_BE, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_EUR),
+        priceAUD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_AU)) ? commonUtils.getFXRates(Constants.CURRENCY_AUD, Constants.COUNTRY_AU, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_AUD)
     };
     return productAttributes;
 }
@@ -710,5 +902,6 @@ function buildStringAttributes(attributeArray, feedParameters) {
 
 module.exports = {
         exportGoogleFeed : exportGoogleFeed,
-        exportSmartGiftFeed : exportSmartGiftFeed
+        exportSmartGiftFeed : exportSmartGiftFeed,
+        exportDataFeedWatch : exportDataFeedWatch
     };

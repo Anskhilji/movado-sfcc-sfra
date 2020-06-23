@@ -1,0 +1,119 @@
+{
+  "name": "Headline Banner",
+  "description": "Image, text overlay that links user to a category, product or external link using the markup editor",
+  "group": "assets",
+  "attribute_definition_groups": [
+    {
+      "id": "background",
+      "name": "Background",
+      "description": "The visual display of the banner image in the background.",
+      "attribute_definitions": [
+        {
+          "id": "desktopImage",
+          "name": "Desktop Image",
+          "type": "image",
+          "required": true
+        },
+        {
+          "id": "mobileImage",
+          "name": "Mobile Image",
+          "type": "image",
+          "required": true
+        },
+        {
+          "id": "backgroundLink",
+          "name": "Background Link",
+          "type":"url",
+          "required":false
+        }
+      ]
+    },
+    {
+      "id": "overlay",
+      "name": "Button, Link and Heading Overlay",
+      "description": "The overlay on top of the banner image.",
+      "attribute_definitions": [
+        {
+          "id": "bannerHeading",
+          "name": "Heading",
+          "type": "markup",
+          "required": false
+        },
+        {
+          "id": "bannerSubheading",
+          "name": "Subheading",
+          "type": "markup",
+          "required": false
+        },
+        {
+          "id": "bannerButton",
+          "name": "Button URL",
+          "type":"url",
+          "required": false
+        },
+        {
+          "id": "bannerButtonText",
+          "name": "Button Text",
+          "type": "string",
+          "required": false
+        },
+        {
+          "id": "isLink",
+          "name": "Show as Link",
+          "description": "Show button as Link if Checked",
+          "type":"boolean",
+          "required": true,
+          "default_value": false
+        },
+        {
+          "id": "alignment",
+          "name": "Alignment",
+          "description": "Overlay Alignment on desktop view",
+          "type": "enum",
+          "values": [
+            "center",
+            "center-left",
+            "center-right",
+            "center-top",
+            "center-bottom",
+            "top-left",
+            "top-right",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "default_value": "center",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "style",
+      "name": "Style",
+      "description": "CSS Style customization for layout components",
+      "attribute_definitions": [
+        {
+          "id": "buttonStyle",
+          "name": "Button Style",
+          "description": "CSS Style for button",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "headingStyle",
+          "name": "Heading Style",
+          "description": "CSS Style for Heading",
+          "type": "text",
+          "required": false
+        },
+        {
+          "id": "subheadingStyle",
+          "name": "Subeading Style",
+          "description": "CSS Style for Subheading",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}

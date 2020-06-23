@@ -2,11 +2,15 @@
     <div class="col-sm-12 <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="update-cart-url" value="${pdict.updateCartUrl}"
                data-selected-quantity="${pdict.selectedQuantity}" data-uuid="${pdict.uuid}">
-        <button class="update-cart-product-global btn btn-primary"
+        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}d-none) </iscomment>
+        <button class="update-cart-product-global btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>"
                 data-pid="${product.id}"
                 ${!product.readyToOrder || !product.available ? "disabled" : ""}>
             <i class="fa fa-shopping-bag"></i>
             ${Resource.msg('button.update', 'common', null)}
         </button>
+        <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
+        <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+        <iscomment> Custom End </iscomment>
     </div>
 </div>

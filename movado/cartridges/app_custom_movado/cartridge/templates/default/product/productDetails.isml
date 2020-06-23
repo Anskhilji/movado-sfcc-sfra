@@ -100,9 +100,7 @@
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
 
-
                         <!-- Affirm Text -->
-                        
                         <div class="col-md-10 col-12">
                             <div>
                                 <isinclude template="util/affirmmodule_mf" />
@@ -110,7 +108,6 @@
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                             </div>
                         </div>
-                        
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">

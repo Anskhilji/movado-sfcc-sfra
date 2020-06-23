@@ -1,0 +1,33 @@
+{
+    "name": "Image Text Tile",
+    "description": "Explore by series for mvmt",
+    "group": "assets",
+    "attribute_definition_groups": [
+        {
+            "id": "imageTextTile",
+            "name": "Image Text Tile  Secifications",
+            "description": "Configs for Image Text Tile",
+            "attribute_definitions": [
+                {
+                    "id": "image",
+                    "name": "Image",
+                    "type": "image",
+                    "required": true
+                },
+                {
+                    "id": "title",
+                    "name": "Title",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "id": "link",
+                    "name": "Link",
+                    "type": "url",
+                    "required": true
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}

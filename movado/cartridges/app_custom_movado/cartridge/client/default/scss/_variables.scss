@@ -60,6 +60,7 @@ $primary: $black !default;
 $success: $green !default;
 $danger: $red !default;
 $placeholder: $grey4 !default;
+$white-smoke:#F2F2F2 !default;
 
 $grid-breakpoints: (
     xs: 0,
@@ -107,3 +108,5 @@ $font-medium : "FuturaStd-Medium", Arial, sans-serif !default;
 $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
+
+$font-awesome: "FontAwesome";

@@ -296,6 +296,7 @@ header.new-header {
           @include font-medium;
           color: $grey8;
           border-radius: 0;
+          white-space: unset;
 
           &:hover {
             color: $white;
@@ -518,7 +519,7 @@ header.new-header {
     .slick-dots {
 
       li {
-        width: rem(20);
+        width: 4%;
         height: rem(2);
         background: $gray-x11;
         margin: 0;

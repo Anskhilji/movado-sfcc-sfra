@@ -1,0 +1,42 @@
+<isif condition="${!empty(pdict.movadoLandingObject)}" >
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <div class="modal show welcomeMat" id="welcomeMat" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-middle">
+            <div class="modal-content">
+                <div class="modal-body movado-welcome-mat text-center">
+                    <div class="eswModalWrapper">
+                        <div class="eswModal" role="dialog" id="eswModal">
+                            <div class="eswModal-content">
+                                <input type="hidden" id="isGeoLocation" data-country="${pdict.movadoLandingObject.currentCountry}" data-url="${pdict.movadoLandingObject.setLocale}" class="d-none" value="${pdict.movadoLandingObject.isGeoLocation}">
+                                <isprint value="${pdict.movadoLandingObject.contentBody}" encoding="off" />
+                                <div class="selectors selector-container">
+                                    <p id="add-shipping-country-message"></p>
+                                    <div class="esw-country-selector selectCountry">
+                                        <label>${Resource.msg('esw.shipping.country','esw',null)}</label>
+                                        <div class="select-field">
+                                            <div class="current-country">
+                                                <i class="fa fa-angle-right fa-fw selector-icon"></i>
+                                                <i class="flag-icon flag-icon-${pdict.movadoLandingObject.selectedCountry.toLowerCase()}"></i>
+                                                <span id="selected-country" data-value="${pdict.movadoLandingObject.selectedCountry}">${pdict.movadoLandingObject.selectedCountryName}</span>
+                                            </div>
+                                            <div class="selector">
+                                                <div class="country">
+                                                    <isloop iterator="${pdict.movadoLandingObject.allCountries}" var="object" status="loopStatus">
+                                                        <a href="${'#'}" data-url="${pdict.movadoLandingObject.setLocale}" 
+                                                        class="landing-link dropdown-item selected-link" data-country="${object.value}"
+                                                        data-locale="${request.getLocale()}" data-currency="${pdict.movadoLandingObject.selectedCurrency}">
+                                                        <i class="flag-icon flag-icon-${object.value.toLowerCase()}"></i>${object.displayValue}</a>
+                                                    </isloop>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

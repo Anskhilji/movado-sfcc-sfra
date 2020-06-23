@@ -325,7 +325,18 @@
                         font-family: $font-medium;
                         letter-spacing: rem(0.5);
                         text-align: center;
+                        display: inline;
                     }
+
+                   & a {
+                        text-decoration: underline;
+                        letter-spacing: rem(0.5);
+                        text-transform: uppercase;
+                        font-size: rem(11);
+                        color: $black;
+                        cursor: pointer;
+	 
+                   }
                 }
             }
 
@@ -465,7 +476,8 @@
                         }
 
                         &::before {
-                            content: "";
+                            content: "*";
+                            color: $red;
                         }
                     }
                 }

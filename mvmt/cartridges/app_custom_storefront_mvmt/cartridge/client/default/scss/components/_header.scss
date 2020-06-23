@@ -22,47 +22,50 @@
   }
 }
 
-header.new-header {
+.header-banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 99999;
 
-  @import "menu";
+  &-desktop {
+    display: none;
 
-  .header-banner {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    &-desktop {
-      display: none;
-
-      @include media-breakpoint-up(lg) {
-        display: block;
-      }
-    }
-
-    &-mobile {
+    @include media-breakpoint-up(lg) {
       display: block;
-
-      @include media-breakpoint-up(lg) {
-        display: none;
-      }
-    }
-
-    .html-slot-container {
-      font-family: $font-medium;
-      font-size: rem(13);
-      line-height: 1.5;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-
-      @include media-breakpoint-up(xs) {
-        font-size: rem(14);
-      }
-
-      @include media-breakpoint-up(xs) {
-        font-size: rem(14);
-      }
     }
   }
+
+  &-mobile {
+    display: block;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  .html-slot-container {
+    font-family: $font-medium;
+    font-size: rem(13);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+
+    @include media-breakpoint-up(xs) {
+      font-size: rem(14);
+    }
+  }
+}
+
+header.new-header {
+  position: relative;
+
+  @import "menu";
 
   .sticky-header-wrapper {
     min-height: rem(55);
@@ -77,6 +80,11 @@ header.new-header {
     z-index: 999;
     margin: 0;
     opacity: 0;
+
+    &.active {
+      opacity: 1;
+      top: rem(130);
+    }
   }
 
   .header-icon {
@@ -907,7 +915,7 @@ header.new-header {
   }
 }
 
-#overlay {
+#overlay,.search-modal-open {
   position: fixed;
   z-index: 8;
   width: 100%;
@@ -927,6 +935,13 @@ header.new-header {
   &.active {
     visibility: visible;
     opacity: 1;
+  }
+}
+
+#overlay {
+
+  &.active {
+    display: block !important;
   }
 }
 
@@ -1039,7 +1054,9 @@ header.new-header {
 
   .mobile-nav, .mobile-side-search  {
     &.active {
-      right: 0;
+      opacity: 1;
+      pointer-events: initial;
+      top: 0;
     }
   }
 }
@@ -1128,4 +1145,31 @@ header.new-header {
 
 .page {
   overflow: hidden;
+}
+
+header.new-header.mvmt-header-design {
+
+    .mobile-logo,.mvmt-mobile-header-logo {
+        position: relative;
+        top: rem(-6);
+    }
+    .mvmt-mobile-header-logo {
+        top: rem(2);
+    }
+    
+    .header-nav-right-mobile {
+        li {
+            svg {
+                height: rem(16);
+            }
+        }
+    }
+    
+    .mobile-menu {
+        li.grey-arrow-right {
+            &:hover {
+                background: url("../images/Grey.svg") right rem(20) center no-repeat;
+            }
+        }
+     }
 }

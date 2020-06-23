@@ -1,4 +1,9 @@
 .product-tile-redesign {
+    margin: 0 0 rem(20);
+
+    @include media-breakpoint-up(lg) {
+        padding: rem(35) 0 rem(30);
+    }
 
     &:hover {
 
@@ -47,8 +52,103 @@
     .tile-body {
         padding: rem(20) 0;
 
-        @include media-breakpoint-up(lg) {
-            margin-bottom: rem(30);
+        .plp-swatches {
+            min-height: rem(27);
+            margin: auto auto rem(10);
+
+            .swatches {
+                max-width: 100%;
+                overflow: hidden;
+
+                &.slick-initialized {
+                    max-width: rem(150);
+                    margin: 0 auto;
+                    overflow: visible;
+                    
+                    @include media-breakpoint-down(sm) {
+                    
+                        max-width: rem(102);
+                    }
+                }
+            }
+
+            .slick {
+
+                &-arrow {
+                    position: absolute;
+                    display: block;
+                    height: rem(20);
+                    width: rem(20);
+                    line-height: 0;
+                    font-size: 0;
+                    cursor: pointer;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    padding: 0;
+                    border: none;
+                    background: transparent;
+                    outline: none;
+
+                    &::before, &::after{
+                        content: "";
+                        position: absolute;
+                        background: $black;
+                        height: rem(7);
+                        width: rem(2);
+                    }
+                }
+
+                &-next {
+                    right: rem(-25);
+
+                    &:before {
+                        transform: rotate(135deg);
+                        left: rem(5);
+                        top: rem(5);
+                    }
+
+                    &::after {
+                        transform: rotate(45deg);
+                        left: rem(5);
+                        top: rem(9);
+                    }
+                }
+
+                &-prev {
+                    left: rem(-30);
+
+                    &:before {
+                        transform: rotate(45deg);
+                        left: rem(15);
+                        top: rem(5);
+                    }
+
+                    &::after {
+                        transform: rotate(135deg);
+                        left: rem(15);
+                        top: rem(9);
+                    }
+                }
+            }
+        }
+
+        .color-swatches {
+            transition: all .25s;
+            padding: rem(1);
+            justify-content: center;
+            max-width: rem(250);
+            margin: 0 auto;
+
+            a {
+
+                span {
+
+                    img {
+                        width: rem(24);
+                        height: rem(24);
+                    }
+                }
+            }
         }
 
         .price {
@@ -89,6 +189,10 @@
 
         .pdp-link {
             margin: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
 
             @include media-breakpoint-up(lg) {
                 margin: rem(4) 0;
@@ -122,7 +226,7 @@
 
         @include media-breakpoint-up(lg) {
             position: relative;
-            bottom: 4px;
+            bottom: rem(4);
             opacity: 0;
         }
 
@@ -136,6 +240,10 @@
             font-weight: 600;
             font-size: rem(9);
             padding: rem(15) 0;
+            padding: 1rem .25rem;
+            min-height: rem(50);
+            max-height: rem(50);
+            height: rem(50);
             border-color: $black;
             color: $white;
             line-height: rem(12);
@@ -240,5 +348,26 @@
         text-transform: none;
         padding-top: rem(3);
         margin: 0;
+    }
+}
+
+.product-tile {
+    width: auto;
+
+    .color-swatches {
+    
+        a {
+            cursor: pointer;
+        
+            img {
+                border: rem(1) solid $white;
+                padding: rem(1);
+                
+                &.swatch-circle.is-active {
+                    border: rem(1) solid $black;
+                    border-radius: rem(50);
+                }
+            }
+        }
     }
 }

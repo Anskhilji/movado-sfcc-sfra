@@ -1,0 +1,100 @@
+{
+    "name": "Featured Post Tile",
+    "description": "Blog Post Tile for Blogs",
+    "group": "assets",
+    "attribute_definition_groups": [
+        {
+            "id": "blogTileSpecs",
+            "name": "Blog Tile Secifications",
+            "description": "Main configs for blog tile, top section",
+            "attribute_definitions": [
+                {
+                    "id": "image",
+                    "name": "Image",
+                    "type": "image",
+                    "required": true
+                },
+                {
+                    "id": "title",
+                    "name": "Title",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "link",
+                    "name": "Link",
+                    "type": "url",
+                    "required": true
+                },
+                {
+                    "id": "type",
+                    "name": "Type",
+                    "type": "enum",
+                    "default_value": "Featured",
+                    "values": [
+                        "Simple",
+                        "Featured",
+                        "Disrupted"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "bottomSection",
+            "name": "Bottom Section",
+            "description": "Bottom section of tile containig subheading, excerpt and buttons",
+            "attribute_definitions": [
+                {
+                    "id": "subheading",
+                    "name": "Subheading",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "excerpt",
+                    "name": "Excerpt",
+                    "type": "text",
+                    "required": false
+                },
+                {
+                    "id": "primaryButtonText",
+                    "name": "Primary Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "primaryButtonLink",
+                    "name": "Primary Button Link",
+                    "type": "url",
+                    "required": false
+                },
+                {
+                    "id": "secondaryButtonText",
+                    "name": "Secondary Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "secondaryButtonLink",
+                    "name": "Secondary Button Link",
+                    "type": "url",
+                    "required": false
+                },
+                {
+                    "id": "thirdButtonText",
+                    "name": "Third Button Text",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "thirdButtonLink",
+                    "name": "Third Button Link",
+                    "type": "url",
+                    "required": false
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}
+  

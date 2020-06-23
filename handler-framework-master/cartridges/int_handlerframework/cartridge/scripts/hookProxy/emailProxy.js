@@ -50,8 +50,8 @@ function sendEmail(emailObj, template, context) {
    emailData.template = template;
    emailData.context = context;
    emailData.subject = emailObj.subject;
-   
-   var hookPath = 'app.communication.';
+
+    var hookPath = 'app.sfmc.communication.';
     var hookID = hookPath;
 	
     if(emailObj){
@@ -97,7 +97,8 @@ function sendEmail(emailObj, template, context) {
       
       /*orderCancellation*/
     	else if (emailObj.type === 8){
-    		hookID += 'order.cancellation';    		
+    	    params.put('Order', context.order);
+    	    hookID += 'order.cancellation';    		
       }
 
       /*orderPartialCancellation*/
@@ -112,7 +113,12 @@ function sendEmail(emailObj, template, context) {
       
       /*wishlist share*/
       else if (emailObj.type === 11){
-        hookID += 'shareEmail.wishlist';
+          hookID += 'shareEmail.wishlist';
+      }
+    	
+      else if (emailObj.type === 12){
+          params.put('ContactUs', session && session.forms.contactus);
+          hookID += 'customerService.contactUs';
       }
     	else {
             Logger.warn('Mail send hook called, but correct action undetermined, mail not sent as a result.');

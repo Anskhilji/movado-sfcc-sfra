@@ -128,6 +128,7 @@ server.append('Confirm', function (req, res, next) {
         var token = urltoken[1];
         var thankYouPageUrl = URLUtils.abs('Order-Confirm', 'ID', id, 'token', token).toString();
         var analyticsTrackingLineItems = [];
+        var orderLineItemArray = [];
         var orderLineItemsIterator = orderLineItems.iterator();
         var orderDiscount = 0.00;
         if (order.getMerchandizeTotalNetPrice() && order.getAdjustedMerchandizeTotalNetPrice()) {
@@ -145,6 +146,13 @@ server.append('Confirm', function (req, res, next) {
                     quantity: productLineItem.quantityValue,
                     price: productLineItem.getAdjustedNetPrice().getDecimalValue().toString(),
                     unique_id: productLineItem.productID
+                });
+                orderLineItemArray.push ({
+                    productName: stringUtils.removeSingleQuotes(productLineItem.productName),
+                    quantity: productLineItem.quantityValue,
+                    unitPrice: productLineItem.getGrossPrice().getDecimalValue().toString(),
+                    unitPriceLessTax: productLineItem.getNetPrice().getDecimalValue().toString(),
+                    SKU: productLineItem.productID
                 });
             }
         }
@@ -210,7 +218,36 @@ server.append('Confirm', function (req, res, next) {
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
     }
+    
+    var customerID = '';
+    var loggedIn = req.currentCustomer.raw.authenticated;
+    
+    if (loggedIn) {
+        customerID = req.currentCustomer.profile.customerNo;
+    }
 
+    var couponLineItem;
+    var couponLineItemsItr = order.getCouponLineItems().iterator();
+    var discountCode = '';
+    
+    while (couponLineItemsItr.hasNext()) {
+        couponLineItem = couponLineItemsItr.next();
+        discountCode = couponLineItem.getCouponCode();
+        if (!empty(discountCode)) {
+            break;
+        }
+    }
+    
+    var orderConfirmationObj = {
+        customerID: customerID,
+        orderDiscount: orderDiscount,
+        couponCode: discountCode,
+        orderLineItemArray: orderLineItemArray
+    };
+    res.setViewData({
+        orderConfirmationObj: JSON.stringify(orderConfirmationObj)
+    });
+    
     viewData.checkoutPage = true;
     if (viewData.order) {
         var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);

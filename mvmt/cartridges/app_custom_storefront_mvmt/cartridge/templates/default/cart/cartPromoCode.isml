@@ -10,13 +10,14 @@
     </div>
 </div>
 <iscomment>Custom Start: Adding Swell widget conent slot to render points dropdown</iscomment>
-<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
-    <div class="row">
+<isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
+<isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
+    <div class="row swell-redemption-containar d-none">
         <div class="col-12">
             <input type="hidden" class="swell-crf-token" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
             <p class="optional-promo swell-discount" data-url="${URLUtils.url('SwellYotpo-ApplyDiscount')}">${Resource.msg('label.swell.promo.code', 'cart', null)}</p>
             <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.have', 'cart', null)}</span>
-            <span class="swell-point-balance"></span>
+            <span class="swell-point-balance swell-points-total"></span>
             <span class="swell-points-balance-text">${Resource.msg('msg.swell.points.use', 'cart', null)}</span>
             <section class="swell-redemption">
                 <div class="row">
@@ -26,7 +27,7 @@
                         </select>
                     </div>
                     <div class="col-sm-4">
-                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block ">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
+                        <button type="button" id="coupon-code-submit-btn" class="btn btn-primary btn-block">${Resource.msg('button.apply.swell.points', 'cart', null)}</button>
                     </div>
                 </div>
             </section>
@@ -42,7 +43,7 @@
                 <label class="title" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row content value">
                     <div class="col-7 pr-0">
-                        <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('placholder.text.promo.code.input','cart',null)}">
+                        <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
                         <div class="coupon-error">
                             <span class="coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
                             <span class="coupon-error-message"></span>
@@ -53,7 +54,7 @@
 
                     <div class="col-5 promo-code-submit pl-0">
                         <button type="submit" class="btn btn-outline-primary btn-block promo-code-btn">
-                            ${Resource.msg('button.submit.promo.code','cart',null)}
+                            ${Resource.msg('button.promo.text','cart',null)}
                         </button>
                     </div>
                 </div>

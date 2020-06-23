@@ -1,22 +1,10 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<iscomment> Custom Start: Adding amazonpay and applepay button </iscomment>
 <div class="row checkout-button-wrapper">
-    <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Begin')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
-            role="button" aria-pressed="true">
-            ${Resource.msg('button.mini.cart.checkout','cart',null)}
-        </a>
-    </div>
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+    <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        role="button" aria-pressed="true">
+        ${Resource.msg('button.mini.cart.checkout','cart',null)}
+    </a>
 </div>
-<iscomment>Custom Start: These button are not required at this time </iscomment>
-<iscomment>
-    <div class="row more-options">
-        <div class="col col-sm-12">
-            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-                role="button" aria-pressed="true">
-                <isprint value="${pdict.paypalButtonImg}" encoding="off" />
-            </a>
-        </div>
-        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
-    </div>
-</iscomment>
-<iscomment> Custom End </iscomment>

@@ -1,3 +1,19 @@
+<iscomment>
+    Custom Start: Adding check for affirm to show only when country US is selected
+</iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<isif condition="${isEswEnabled}">
+    <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+        <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselse>
+        <isset name="isAffirmAllowed" value=${false} scope="page" />
+    </isif>
+<iselse>
+    <isset name="isAffirmAllowed" value="true" scope="page" />
+</isif>
+<iscomment>
+    Custom End:
+</iscomment>
 <isset name="affirmData" value="${require('int_affirm/cartridge/scripts/data/affirmData.ds')}" scope="page" />
 <isset name="affirmUtils" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils')}" scope="page" />
 <isset name="promoModal" value="${''}" scope="page"/>
@@ -6,7 +22,7 @@
     <isset name="promoModal" value="${affirmUtils.getPromoModalByFinProgramName(pdict.fpname)}" scope="page"/>
 </isif>
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
-<isif condition="${pdict.context == 'cart' && affirmData.getCartPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
+<isif condition="${pdict.context == 'cart' && affirmData.getCartPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
     <isif condition="${Basket.totalGrossPrice.available}">
         <isset name="basketTotal" value="${Basket.totalGrossPrice}" scope="page" />
     <iselse>
@@ -20,7 +36,7 @@
             data-amount="${basketTotal.multiply(100).getValue().toFixed()}" data-affirm-color="black" data-page-type="cart"></p>
     </isif>
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
-<iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
+<iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
 
     <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
     <isset name="psTop" value="${!empty(Product) && (Product.productSet || Product.bundle || Product.product)}" scope="page"/>
@@ -52,7 +68,7 @@
         </isif>
     </isif>
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
-<iselseif condition="${pdict.context == 'plp' && affirmData.getPLPPromoMessageStatus() && affirmData.isPromoBannerAllowed()}">
+<iselseif condition="${pdict.context == 'plp' && affirmData.getPLPPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
     <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
     <isif condition="${Product.productSet}">
         <isset name="price" value="${affirmUtils.calculateProductSetPrice(Product)}" scope="page"/>

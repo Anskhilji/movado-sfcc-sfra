@@ -162,10 +162,22 @@ server.get('GetEswLandingPage', function (req, res, next) {
 server.get('GetConvertedPrice', function (req, res, next) {
     var price = req.querystring.price;
     var isLowPrice = req.querystring.isLowPrice;
-    var convertedPrice = eswHelper.getMoneyObject(price);
+    var list = req.querystring.listPrice;
+    var lineItemID = req.querystring.lineItemID;
+    var lineItemUUID = req.querystring.lineItemUUID;
+    
+    var matchingLineItem = (lineItemID && lineItemUUID) ? eswHelper.getMatchingLineItemWithID(lineItemID, lineItemUUID) : '';
+    if (!empty(matchingLineItem)) {
+    	var formatMoney = require('dw/util/StringUtils').formatMoney;
+    	var convertedPrice = formatMoney(eswHelper.getUnitPriceCost(matchingLineItem));
+    } else {
+    	var convertedPrice = eswHelper.getMoneyObject(price, false);
+    }
+    
     res.render('eswPrice', {
         'price': convertedPrice,
-        'isLowPrice': isLowPrice
+        'isLowPrice': isLowPrice,
+        'list': !!list
     });
     next();
 });
@@ -174,10 +186,33 @@ server.get('GetConvertedPrice', function (req, res, next) {
  * This is the preorder request which is generating at time of redirection from cart page to ESW checkout
  */
 server.get('PreOrderRequest', function (req, res, next) {
-    var result;
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+
     var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with');
+
+    if (currentBasket) {
+    	delete session.privacy.restrictedProductID;
+        for (var lineItemNumber in currentBasket.productLineItems) {
+            var cartProduct = currentBasket.productLineItems[lineItemNumber].product;
+            if (eswHelper.isProductRestricted(cartProduct.custom)) {
+                session.privacy.eswProductRestricted = true;
+                session.privacy.restrictedProductID = cartProduct.ID;
+                if (isAjax) {
+                    res.json({
+                        'redirectURL': URLUtils.https('Cart-Show').toString()
+                    });
+                } else {
+                    res.redirect(URLUtils.https('Cart-Show').toString());
+                }
+                return next();
+            }
+        }
+    }
+
+    var result;
     try {
-    	var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
+        var preOrderrequestHelper = require('*/cartridge/scripts/helper/preOrderRequestHelper');
         result = preOrderrequestHelper.handlePreOrderRequestV2();
 
         if (result.status == 'REDIRECT') {
@@ -212,7 +247,13 @@ server.get('PreOrderRequest', function (req, res, next) {
     } catch (e) {
         logger.error('ESW Service Error: {0} {1}', e.message, e.stack);
         session.privacy.eswfail = true;
-        res.redirect(URLUtils.https('Cart-Show').toString());
+        if (isAjax) {
+            res.json({
+                'redirectURL': URLUtils.https('Cart-Show').toString()
+            });
+        } else {
+            res.redirect(URLUtils.https('Cart-Show').toString());
+        }
     }
     next();
 });
@@ -247,10 +288,13 @@ server.post('NotifyV2', function (req, res, next) {
                             eswHelper.setBaseCurrencyPriceBook(req, Site.defaultCurrency);
                             var appliedShipping = eswServiceHelper.applyShippingMethod(order, obj.deliveryOption.deliveryOption);
                         }
-                        var billingCustomer = obj.contactDetails.filter(function (details) {
-                            return details.contactDetailType == 'IsPayment'
+                        var shippingCustomer = obj.contactDetails.filter(function (details) {
+                            return details.contactDetailType == 'IsDelivery';
                         });
-                        order.customerEmail = billingCustomer[0].email;
+                        var billingCustomer = obj.contactDetails.filter(function (details) {
+                            return details.contactDetailType == 'IsPayment';
+                        });
+                        order.customerEmail = !empty(billingCustomer[0].email) ? billingCustomer[0].email : shippingCustomer[0].email;
                         order.customerName = billingCustomer[0].firstName + ' ' + billingCustomer[0].lastName;
 
                         order.custom.eswShopperCurrencyDeliveryTaxes = new Number(obj.charges.shopperCurrencyDeliveryTaxes.substring(3));
@@ -278,6 +322,11 @@ server.post('NotifyV2', function (req, res, next) {
                         order.custom.eswRetailerCurrencyPaymentAmount = new Number(obj.retailerCurrencyPaymentAmount.substring(3));
                         order.custom.eswEmailMarketingOptIn = obj.shopperCheckoutExperience.emailMarketingOptIn;
                         order.custom.eswDeliveryOption = obj.deliveryOption.deliveryOption;
+                        
+                        var shoppercurrencyAmount = new Number(obj.shopperCurrencyPaymentAmount.substring(3));
+                        var retailercurrencyAmount = new Number(obj.retailerCurrencyPaymentAmount.substring(3));
+                        
+                        order.custom.eswFxrateOc = (shoppercurrencyAmount / retailercurrencyAmount).toFixed(4);
 
                         if ('shopperCurrencyDeliveryPriceInfo' in obj.deliveryOption) {
                             order.custom.eswShopperCurrencyDeliveryPriceInfo = new Number(obj.deliveryOption.shopperCurrencyDeliveryPriceInfo.price.substring(3));
@@ -346,19 +395,19 @@ server.post('NotifyV2', function (req, res, next) {
                                 order.billingAddress.city = obj.contactDetails[detail].city;
                                 order.billingAddress.countryCode = obj.contactDetails[detail].country;
                                 order.billingAddress.postalCode = obj.contactDetails[detail].postalCode;
-                                order.billingAddress.phone = obj.contactDetails[detail].telephone;
                             }
                         }
 
+                        order.billingAddress.phone = !empty(billingCustomer[0].telephone) ? billingCustomer[0].telephone : shippingCustomer[0].telephone;
                         order.paymentInstruments[0].paymentTransaction.custom.eswPaymentAmount = new Number(obj.shopperCurrencyPaymentAmount.substring(3));
                         order.paymentInstruments[0].paymentTransaction.custom.eswPaymentMethodCardBrand = obj.paymentMethodCardBrand;
 
                         OrderMgr.placeOrder(order);
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                         order.setExportStatus(Order.EXPORT_STATUS_READY);
-                        
+
                         if (eswHelper.isUpdateOrderPaymentStatusToPaidAllowed()){
-                        	order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
+                            order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
                         }
 
                         responseJSON = {
@@ -421,7 +470,7 @@ server.post('NotifyV2', function (req, res, next) {
     next();
 });
 /*
- * When user failed in checkout process this function will call to failed order. 
+ * When user failed in checkout process this function will call to failed order.
  */
 server.get('Failure', function (req, res, next) {
     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
