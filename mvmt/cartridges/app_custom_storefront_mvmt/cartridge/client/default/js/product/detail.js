@@ -8,28 +8,30 @@ module.exports = {
         function zoomfeature () {
             var t = ".main-mvmt-carousel .carousel-tile";
             $(t).trigger("zoom.destroy");
-            var n = $(".main-mvmt-carousel .slick-active").find("img").attr("src");
-            $(window).width() > 767 ? ($(t).trigger("zoom.destroy"), $(t).zoom({
-                url: n,
-                magnify: 1.1,
-                on: "click",
-                target: $(".zoom-box"),
-                onZoomIn: function() {
-                    $(".zoom-box").addClass("zoom-active");
-                    $(".zoom-out").addClass("active");
-                },
-                onZoomOut: function() {
-                    $(".zoom-box").removeClass("zoom-active");
-                    $(".zoom-out").removeClass("active");
-                }
-            })) : (
-            $(t).addClass("disabled"),
-            $(t).trigger("zoom.destroy"),
-            $(document).on("click", ".zoom-icon.zoom-in", (function(a) {
-                $(t).hasClass("disabled") && ($(".zoom-icon.zoom-out").addClass("is-active"),
-                $(t).removeClass("disabled"),
+            $(t).addClass("disabled");
+            $(".zoom-icon.zoom-out").removeClass("is-active");
+            var n = $(".main-mvmt-carousel .slick-current").find("img").attr("src");
+            $(window).width() > 767 ? (
+                $(t).trigger("zoom.destroy"), 
                 $(t).zoom({
-                    url: n,
+                    url: $(this).find('img').attr('src'),
+                    magnify: 1.1,
+                    on: "click",
+                    target: $(".zoom-box"),
+                    
+                    onZoomIn: function() {
+                        $(".zoom-box").addClass("zoom-active");
+                        $(".zoom-out").addClass("active");
+                    },
+                    
+                    onZoomOut: function() {
+                        $(".zoom-box").removeClass("zoom-active");
+                        $(".zoom-out").removeClass("active");
+                    }
+                })
+            ) : (
+                $('.main-mvmt-carousel .carousel-tile').zoom({
+                    url: $(this).find('img').attr('src'),
                     magnify: 1.1,
                     on: "click",
                     target: $(".zoom-box"),
@@ -39,20 +41,27 @@ module.exports = {
                     onZoomOut: function() {
                         $(".zoom-box").removeClass("zoom-active")
                     }
+                }),
+
+                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function(a) {
+                    if ($(t).hasClass("disabled")) {
+                        $(".zoom-icon.zoom-out").addClass("is-active");
+                        $(t).removeClass("disabled");
+                    }
+                })),
+
+                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function(a) {
+                    $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
+                    $(".zoom-icon.zoom-out").removeClass("is-active"))
                 }))
-            })),
-            $(document).on("click", ".zoom-icon.zoom-out", (function(n) {
-                $(".zoom-icon.zoom-out").hasClass("is-active") && ($(t).addClass("disabled"),
-                $(".zoom-icon.zoom-out").removeClass("is-active"),
-                $(t).trigger("zoom.destroy"))
-            })));
+            );
         };
 
         zoomfeature();
 
-        $(window).resize((function() {
+        $(window).on('resize', function(){
             zoomfeature();
-        }));
+        })
     },
 
     clickEvents: function () {

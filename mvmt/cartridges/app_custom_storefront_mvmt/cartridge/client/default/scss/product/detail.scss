@@ -757,6 +757,12 @@
                         right: rem(-75);
                     }
                 }
+
+                &.zoom-in {
+                    @include media-breakpoint-up(md-down) {
+                        pointer-events: none;
+                    }
+                }
             }
 
             .zoom-out {
@@ -809,6 +815,12 @@
 
                         &.active {
                             min-height: 80vh;
+                        }
+
+                        &.disabled {
+                            @include media-breakpoint-down(md-down) {
+                                pointer-events: none;
+                            }
                         }
                     }
 
@@ -1048,6 +1060,10 @@
 
     .cart-and-ipay {
         display: block !important;
+
+        @include media-breakpoint-down(md-down) {
+            margin-bottom: 0;
+        }
 
         .add-to-cart, .add-to-cart-mvmt {
             display: inline-block;
