@@ -1,0 +1,185 @@
+<iscomment>
+    custom start: set global variable.
+</iscomment>
+<isset name="gtmPageType" value="${pdict.gtm.pageType}" scope="session" />
+<script>
+    // Custom Start: Update pageDataGTM values according to mvmt.
+    dataLayer = window.dataLayer = window.dataLayer || [];
+    pageDataGTM = {};
+    checkoutDataLayer = [];
+    var gtm_PageType = '${pdict.gtm.pageType}';
+    pageDataGTM = [ {
+        'pageType': '${pdict.gtm.pageType}',
+        'userEmail': '${pdict.gtm.userEmail}',
+        'hashedEmail': '${pdict.gtm.userHashedEmail}',
+        'customerType': '${pdict.gtm.customerType}',
+        'userFirstName': '${pdict.gtm.userFirstName}',
+        'userLastName': '${pdict.gtm.userLastName}',
+        'userPhone': '${pdict.gtm.userPhone}',
+        'userZip': '${pdict.gtm.userZip}',
+        'currencyCode': '${pdict.gtm.currencyCode}',
+        'logState': '${pdict.gtm.loginStatus}',
+        'country': '${pdict.gtm.country}'
+    }];
+
+// Custom Start: Update Product Details Page Data layer according to mvmt.
+    <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
+        dataLayer.push ({
+            'ecommerce':{ 
+            'detail': {
+                'products':[ {
+                    'name': '${pdict.gtm.product.productName}',
+                    'id': '${pdict.gtm.product.productID}',
+                    'price': '${pdict.gtm.product.productPrice}',
+                    'category': '${pdict.gtm.product.category}',
+                    'sku': '${pdict.gtm.product.Sku}',
+                    'variantID': '${pdict.gtm.product.variantID}',
+                    'brand': '${pdict.gtm.product.brand}',
+                    'currentCategory': '${pdict.gtm.product.category}',
+                    'productType': '${pdict.gtm.product.productType}',
+                    'variant': '${pdict.gtm.product.productType}'
+                }]
+            }
+        },
+        "event": "productDetail"
+        });
+    </isif>
+
+// Custom Start: Update Product Cart Page Data layer according to mvmt.
+    <isif condition="${pdict.gtm.action === 'cart-show'}">
+        dataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+                {'ecommerce':{
+                    "products": [
+                        <isloop items="${checkoutObj}" var="produtArray" status="status">
+                            {'name': '${produtArray.cartObj.name}',
+                            'id':  '${produtArray.cartObj.id}',
+                            'price': '${produtArray.cartObj.price}',
+                            'category': '${produtArray.cartObj.category}',
+                            'quantity': '${produtArray.cartObj.quantity}',
+                            'sku': '${produtArray.cartObj.id}',
+                            'productType': '${produtArray.cartObj.productType}',
+                            'description': unescape('${produtArray.cartObj.description}'),
+                            'imageURL': '${produtArray.cartObj.imageURL}',
+                            'productURL': '${produtArray.cartObj.prouctUrl}',
+                            'barnd': '${produtArray.cartObj.brand}'}
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
+                    ]
+                },
+                "event": "checkout"}
+                <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+            </isloop>
+        );
+    </isif>
+
+// Custom Start: Update Product check out login Page Data layer according to mvmt.
+    <isif condition="${pdict.gtm.action ==='checkout-login'}">
+        dataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+                {'ecommerce':{'checkout': {
+                    'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
+                    "products": [
+                    <isloop items="${checkoutObj}" var="produtArray" status="status">
+                        {'name': '${produtArray.cartObj.name}',
+                        'id':  '${produtArray.cartObj.id}',
+                        'price': '${produtArray.cartObj.price}',
+                        'category': '${produtArray.cartObj.category}',
+                        'quantity': '${produtArray.cartObj.quantity}',
+                        'sku': '${produtArray.cartObj.id}',
+                        'productType': '${produtArray.cartObj.productType}',
+                        'description': unescape('${produtArray.cartObj.description}'),
+                        'imageURL': '${produtArray.cartObj.imageURL}',
+                        'productURL': '${produtArray.cartObj.prouctUrl}',
+                        'barnd': '${produtArray.cartObj.brand}'}
+                        <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                    </isloop>
+                    ]
+                }
+            },
+            "event": "checkout"}
+            <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+        </isloop>
+        );
+    </isif>
+
+// Custom Start: Update Product checkout Pages Data layer according to mvmt.
+    <isif condition="${pdict.gtm.action ==='checkout-begin'}">
+        checkoutDataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+                {'ecommerce':{'checkout': {
+                'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
+                "products": [
+                <isloop items="${checkoutObj}" var="produtArray" status="status">
+                    {'name': '${produtArray.cartObj.name}',
+                    'id':  '${produtArray.cartObj.id}',
+                    'price': '${produtArray.cartObj.price}',
+                    'category': '${produtArray.cartObj.category}',
+                    'quantity': '${produtArray.cartObj.quantity}',
+                    'sku': '${produtArray.cartObj.id}',
+                    'productType': '${produtArray.cartObj.productType}',
+                    'description': unescape('${produtArray.cartObj.description}'),
+                    'imageURL': '${produtArray.cartObj.imageURL}',
+                    'productURL': '${produtArray.cartObj.prouctUrl}',
+                    'barnd': '${produtArray.cartObj.brand}'}
+                    <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                </isloop>
+                ]
+                }
+            },
+            "event": "checkout"}
+            <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+            </isloop>
+        );
+    </isif>
+
+// Custom Start: Update Product order confirmation Page Data layer according to mvmt.
+    <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
+        dataLayer.push (
+            <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
+                { "event": "purchase",'ecommerce':{
+                    'purchase':{
+                        'actionField':
+                            <isloop items="${orderProdutsArray}" var="orderObj">
+                                <isif condition= "${orderObj.orderObj}">
+                                    {'id': '${orderObj.orderObj.orderId}',
+                                    'revenue': '${orderObj.orderObj.revenue}',
+                                    'salesRevenue': '${orderObj.orderObj.salesRevenue}',
+                                    'tax': '${orderObj.orderObj.tax}',
+                                    'shipping': '${orderObj.orderObj.shipping}',
+                                    'coupon': '${orderObj.orderObj.orderCoupon}',
+                                    'shippingOption': '${orderObj.orderObj.shippingOption}',
+                                    'tenderType': '${orderObj.orderObj.tenderType}',
+                                    'city': '${orderObj.orderObj.city}',
+                                    'state': '${orderObj.orderObj.state}',
+                                    'orderQuantity': '${orderObj.orderObj.orderQuantity}',
+                                    'discount': '${orderObj.orderObj.discount}',}
+                                </isif>
+                            </isloop>
+                    , 'products':[
+                        <isloop items="${orderProdutsArray}" var="orderObj" status="status"> 
+                            <isif condition= "${orderObj.productObj}">
+                                {'name': '${orderObj.productObj.name}',
+                                'id': '${orderObj.productObj.id}',
+                                'price': '${orderObj.productObj.price}',
+                                'category': '${orderObj.productObj.category}',
+                                'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
+                                'sku': '${orderObj.productObj.id}',
+                                'productType': '${orderObj.productObj.productType}',
+                                'description': '${orderObj.productObj.description}',
+                                'imageURL': '${orderObj.productObj.imageURL}',
+                                'productURL': '${orderObj.productObj.productURL}',
+                                'coupon': '${orderObj.productObj.itemCoupon}' }
+                                <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
+                            </isif>
+                        </isloop>
+                    ]
+                }
+            }
+        }
+        <isif condition= "${loopStatus.index < pdict.gtm.orderConfirmation.length-1}">,</isif>
+        </isloop>
+        );
+    </isif>
+
+</script>
