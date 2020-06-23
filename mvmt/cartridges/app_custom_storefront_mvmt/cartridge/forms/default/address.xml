@@ -52,7 +52,7 @@
            parse-error="error.message.invalid"
            />
     <!--  postal code -->
-    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="4" max-length="10"
+    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="false" min-length="4" max-length="10"
            regexp="(^[a-zA-Z0-9 ]+$)"
            binding="postalCode"
            range-error="error.message.between4and10"

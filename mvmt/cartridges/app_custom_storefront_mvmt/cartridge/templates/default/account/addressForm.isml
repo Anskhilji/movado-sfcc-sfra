@@ -92,13 +92,18 @@
                 ${pdict.addressForm.country.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="country">
                     <isprint value="${pdict.addressForm.country.label}" encoding="htmlcontent" />
+                    <!-- Custom Start: Added tool tip -->
+                    <div class="tooltip-country fa fa-question-circle-o">
+                        <span class="tooltiptext">${Resource.msg('country.tooltip.text', 'account', null)}</span>
+                    </div>
+                    <!-- Custom End -->
                 </label>
                 <div class="custom-select-wrapper">
                     <select class="form-control custom-select" id="country"
                         <isprint value="${pdict.addressForm.country.attributes}" encoding="off" />
                         autocomplete="country">
                         <isloop items=${pdict.countries} var="country">
-                            <option id="${country.value}" value="${country.value}" <isif condition="${pdict.addressForm.country.value == country.value}">selected</isif>>${country.displayValue}</option>
+                            <option id="${country.value}" value="${country.value}" <isif condition="${pdict.countryCode === country.value}">selected</isif>>${country.displayValue}</option>
                         </isloop>
                     </select>
                     <i class="fa fa-angle-down"></i>

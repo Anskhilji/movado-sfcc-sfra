@@ -39,6 +39,7 @@
             </div>
         </isif>
         <!-- Rows for addresses in the Address Book -->
+        
         <isloop items="${pdict.addressBook}" var="address">
             <div class="row justify-content-center" id="uuid-${address.address.UUID}">
                 <div class="col-sm-8 col-md-6">
@@ -56,7 +57,23 @@
                             <isif condition="${address.address.address2 !== null}">
                                 <div>${address.address.address2}</div>
                             </isif>
-                            <div>${address.address.city}, ${address.address.stateCode} ${address.address.postalCode}</div>
+                            <div>${address.address.city}
+                            <iscomment> Custom Start: Check if state code and postal code is there then add comma </iscomment>
+                                <isif condition="${address.address.stateCode !== null || address.address.postalCode !== null}">
+                                    ,
+                                </isif>
+                            <iscomment> Custom End </iscomment>
+                            <iscomment> Custom Start: Added condition to check if state code is not null </iscomment>
+                                <isif condition="${address.address.stateCode !== null}">
+                                    ${address.address.stateCode}
+                                </isif>
+                            <iscomment> Custom End </iscomment>
+                            <iscomment> Custom Start: Added condition to check if postal code is not null </iscomment>
+                                <isif condition="${address.address.postalCode !== null}">
+                                    ${address.address.postalCode}
+                                </isif>
+                            <iscomment> Custom End </iscomment>
+                             </div>
                             <div>${address.address.phone}</div>
                             <isif condition="${address.address.ID !== pdict.addressBook[0].address.ID}">
                                 <div class="card-make-default-link">
