@@ -64,7 +64,7 @@ server.append('SaveAddress', function (req, res, next) {
                     : addressBook.createAddress(formInfo.addressId);
                 if (address) {
                     // Custom Start: Improve condition to check if state code is null
-                    address.setStateCode(formInfo.states.stateCode || '');
+                    address.setStateCode(formInfo.addressStates.stateCode || '');
                     // Custom End
                 }
             });
