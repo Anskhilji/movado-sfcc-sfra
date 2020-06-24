@@ -1,6 +1,7 @@
 'use strict';
 
 var baseProductCustomHelper = module.superModule;
+var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
@@ -228,9 +229,29 @@ function getRefinementSwatches(presentationID) {
     return swatchImages;
 }
 
+function getPdpCollectionContentAssetID(apiProduct) {
+    var productCategories = apiProduct.getOnlineCategories();
+    var categoriesIterator = productCategories.iterator();
+    var pdpCollectionContentAssetID =  '';
+    while (categoriesIterator.hasNext()) {
+        var category = categoriesIterator.next();
+        if (!empty(category) && !empty(category.custom.pdpCollectionContentAssetID)) {
+            pdpCollectionContentAssetID =  category.custom.pdpCollectionContentAssetID;
+            var contentasset = ContentMgr.getContent(pdpCollectionContentAssetID);
+            if (!empty(contentasset) && contentasset.online  && !empty(contentasset.custom.body)) {
+                break;
+            } else {
+                pdpCollectionContentAssetID =  '';
+            }
+        }
+    }
+    return pdpCollectionContentAssetID;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
     getRefinementSwatches: getRefinementSwatches,
-    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes
+    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
+    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID
 };
