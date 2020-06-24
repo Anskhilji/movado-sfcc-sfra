@@ -1,0 +1,41 @@
+{
+    "name": "View More Tile",
+    "description": "View More Tile for Blogs",
+    "group": "assets",
+    "attribute_definition_groups": [
+        {
+            "id": "blogTileSpecs",
+            "name": "View More Tile Secifications",
+            "description": "Configs for View More Tile",
+            "attribute_definitions": [
+                {
+                    "id": "title",
+                    "name": "Title",
+                    "type": "string",
+                    "required": false
+                },
+                {
+                    "id": "link",
+                    "name": "Link",
+                    "type": "url",
+                    "required": true
+                },
+                {
+                    "id": "pointerText",
+                    "name": "Pointer Text",
+                    "type": "string",
+                    "default_value": "VIEW ALL POSTS",
+                    "required": false
+                },
+                {
+                    "id": "isDisrupted",
+                    "name": "Disrupted View More",
+                    "type": "boolean",
+                    "description": "Shows disrupted view more tile. This should be checked if tile is to be used with disrupted post tiles",
+                    "default_value": false
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}

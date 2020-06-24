@@ -76,14 +76,16 @@ function parseRiskifiedResponse(order) {
         			firstName  :order.billingAddress.firstName,
         			lastName:order.billingAddress.lastName,
         			orderNumber :order.orderNo,
-        			creationDate :order.creationDate
+        			creationDate :order.creationDate,
+        			order: order
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
         YotpoHelper.deleteOrder(order);
         
     } else {
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+        var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
                 orderNo: order.orderNo,

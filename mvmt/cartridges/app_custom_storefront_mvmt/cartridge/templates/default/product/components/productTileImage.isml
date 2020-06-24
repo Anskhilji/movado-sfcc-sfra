@@ -2,8 +2,8 @@
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
     	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
     </isloop>
-    <isif condition="${product && product.images && !pdict.display.plpTile}"> 
-        <a href="${pdict.urls.product}">
+    <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
+        <a href="${pdict.urls.product}" class="gtm-promotion-view" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${pdict.promotionObj}">
 	        <picture>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
@@ -12,7 +12,7 @@
 	        </picture>
         </a>
     <iselseif condition="${product && product.images && product.productType != 'master'}" >
-        <a href="${pdict.urls.product}">
+        <a href="${pdict.urls.product}" class="gtm-promotion-view" data-gtm-product-promo="${pdict.promotionObj}" data-page-type="${session.custom.gtmPageType}">
             <picture>
               <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
               <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
@@ -21,7 +21,7 @@
             </picture>
         </a>
     <iselse>
-        <a href="${product.variationPdpURL}">
+        <a href="${product.variationPdpURL}" class="gtm-promotion-view" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${pdict.promotionObj}">
             <picture>
               <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
               <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>

@@ -41,8 +41,7 @@
         <isinclude url="${URLUtils.url('GTM-LoadDataLayer','urlAction',pdict.action,'urlQueryString',pdict.queryString)}" />
     </isif>
 </div>
-
-<isif condition="${pdict.action && pdict.action ==='Home-Show'}">
+<isif condition="${pdict.action && pdict.action ==='Home-Show' || session.getClickStream() && session.getClickStream().getLast() && session.getClickStream().getLast().pipelineName === 'Home-Show'}">
     <link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
     <isprint value="${pdict.content}" encoding="off"/>
 <iselseif condition="${pdict.action && pdict.action==='Product-Show'}">
@@ -66,7 +65,10 @@
     <isif condition="${'FolderSeoHtml' in pdict.foldersearch.folder.custom && pdict.foldersearch.folder.custom.FolderSeoHtml!=''}">
         <isprint value="${pdict.foldersearch.folder.custom.FolderSeoHtml}" encoding="off"/>
     </isif>
+<iselseif condition="${pdict.action && pdict.action==='FAQ-Show'}">
+    <link rel="canonical" href="${URLUtils.https('FAQ-Show')}"/>
 </isif>
+<isinclude template="common/includeHrefLang.isml" sf-toolkit="off" />
 
 <iscomment>
 	The Yopto header file that loads JavaScript dynamically. It shoudl always be inlucded in header of the site.

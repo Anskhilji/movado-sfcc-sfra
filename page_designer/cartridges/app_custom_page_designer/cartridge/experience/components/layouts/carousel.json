@@ -40,6 +40,19 @@
           "id": "additionalCss",
           "name": "Additional CSS Style",
           "type":"text",
+          "description": "CSS for current carousel. Please use component id in css to apply styling to specified component",
+          "required": false
+        },
+        {
+          "id": "mobileMargin",
+          "name": "Tile Margin upto 992px",
+          "type":"text",
+          "required": false
+        },
+        {
+          "id": "deskTopMargin",
+          "name": "Tile Margin above 992px",
+          "type":"text",
           "required": false
         }
       ]

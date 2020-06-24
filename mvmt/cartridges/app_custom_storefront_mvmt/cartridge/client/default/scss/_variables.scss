@@ -94,6 +94,7 @@ $alice-blue: #F7F8F9;
 $gray36: #5c5c5c;
 $snow: #fcfcfc;
 $night-rider: #2C2C2C;
+$alice-dark: #f9f9f9;
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;
@@ -122,10 +123,6 @@ $night-rider: #2C2C2C;
 $red1: #d9021b;
 $blue: #0051b2;
 
-$dark-gray: #222222;
-$dark-gray1: #212121;
-$dark-orange1: #231103;
-$white-smoke2: #efefef;
 
 //font Families:
 $font-medium : "futura-pt-medium", Arial, sans-serif !default;
@@ -149,7 +146,8 @@ $grid-breakpoints: (
     md-down: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1280px
+    xl: 1280px,
+    xxl: 1920px
 ) !default;
 
 $container-max-width: 1440px;

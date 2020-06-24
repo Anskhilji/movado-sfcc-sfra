@@ -100,7 +100,8 @@ function getCustomCountries() {
                 var customCountry = customCountries[countryIndex];
                 var countryObj = {
                     displayValue: customCountry.displayName,
-                    value: customCountry.countryCode
+                    value: customCountry.countryCode,
+                    currency: customCountry.currencyCode
                 };
                 var languages = customCountry.lang;
                 for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {

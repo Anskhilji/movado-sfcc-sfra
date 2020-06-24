@@ -5,7 +5,6 @@
 <isdecorate template="${pdict.decorator}">
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
-        assets.addCss('/css/layout.css');
         assets.addJs('/js/pageDesigner.js');
     </isscript>
 

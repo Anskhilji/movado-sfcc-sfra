@@ -68,6 +68,35 @@
                 "module": "app_custom_feed/cartridge/scripts/CheckoutRefundedOrders.js",
                 "function": "checkoutRefundedOrders",
                 "transactional": "true"
+            },
+            {
+                "@type-id": "custom.feed.ExportProductFeedToDataFeedWatch",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Step use to export product feed for Data Feed Watch",
+                "module": "app_custom_feed/cartridge/scripts/ExportProductFeed.js",
+                "function": "exportDataFeedWatch",
+                "transactional": "true",
+                "parameters": {
+                    "parameter": [{
+                        "@name": "targetFolder",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Target folder path (in IMPEX)",
+                        "default-value": "/src/feeds/DataFeedWatch/"
+                    },
+                    {
+                        "@name": "fileName",
+                        "description": "File name of the generated feed files",
+                        "@type": "string",
+                        "@required": "false",
+                        "@trim": "true",
+                        "default-value": "DataFeedWatch"
+                    }
+                    ]
+                }
             }
         ]
     }

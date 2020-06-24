@@ -1,5 +1,7 @@
 .component-banner {
 
+    margin: 0;
+    position: relative;
     &-link {
         width: 100%;
 
@@ -19,10 +21,11 @@
     &-overlay {
         position: absolute;
 
-        &.center {
+        &.center { 
             top: 50%;
             left: 50%;
-            transform:translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 100%;
 
             &-left {
                 top: 50%;
@@ -71,6 +74,21 @@
                 right: 2%;
             }
         }
+    }
+
+    &-subheading * { 
+        text-size-adjust: 100%;
+        text-align: center;
+        box-sizing: inherit;
+        text-transform: uppercase;
+        margin: 0;
+        letter-spacing: 4.29;
+        color: white;
+        font-size: 20px;
+        line-height: 1.2;
+        font-weight: 400;
+        margin-bottom: 0;
+        padding: 0 25px;
     }
 
 }

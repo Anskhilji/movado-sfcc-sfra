@@ -5,7 +5,6 @@
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
-        assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
@@ -124,6 +123,11 @@
 
                     <div class="row">
                         <div class="col-12">
+                            <isif condition="${product.shortDescription}">
+                                 <div class="d-flex d-md-none justify-content-center mb-2" itemprop="description">
+                                     <isprint value="${product.shortDescription}" encoding="off" />
+                                 </div>
+                            </isif>
                             <isif condition="${sitePref.enableSmartGift}">
                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                     <div class="d-flex d-md-none justify-content-center"><isinclude template="product/components/smartGift" /></div>
@@ -138,6 +142,11 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
 
+                                <isif condition="${product.shortDescription}">
+                                     <div class="d-none d-md-flex justify-content-center col-12 content" itemprop="description">
+                                         <isprint value="${product.shortDescription}" encoding="off" />
+                                     </div>
+                                </isif>
                                 <isif condition="${sitePref.enableSmartGift}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-none d-md-flex justify-content-center"><isinclude template="product/components/smartGift" /></div>
@@ -164,7 +173,7 @@
 
         <iscontentasset aid="pdp-why-polarization-content" />
 
-        <div class="container p-0">
+        <div class="container p-0 product-gallery">
             <isinclude template="product/components/productGallery" />
         </div>
 
