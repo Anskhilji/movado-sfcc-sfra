@@ -167,6 +167,10 @@
             <isinclude template="product/components/productGallery" />
         </div>
 
+        <isif condition="${!empty(product.pdpCollectionContentAssetID)}">
+            <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
+        </isif>
+
         <div class="description-container p-0">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
