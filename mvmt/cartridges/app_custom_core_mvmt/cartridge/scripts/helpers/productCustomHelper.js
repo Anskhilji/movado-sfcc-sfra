@@ -232,18 +232,19 @@ function getRefinementSwatches(presentationID) {
 function getPdpCollectionContentAssetID(apiProduct) {
     var productCategories = apiProduct.getOnlineCategories();
     var categoriesIterator = productCategories.iterator();
-    var pdpCollectionContentAssetID;
+    var pdpCollectionContentAssetID =  '';
     while (categoriesIterator.hasNext()) {
         var category = categoriesIterator.next();
         if (!empty(category) && !empty(category.custom.pdpCollectionContentAssetID)) {
             pdpCollectionContentAssetID =  category.custom.pdpCollectionContentAssetID;
             var contentasset = ContentMgr.getContent(pdpCollectionContentAssetID);
             if (!empty(contentasset) && contentasset.online  && !empty(contentasset.custom.body)) {
-                return pdpCollectionContentAssetID;
+                break;
+            } else {
+                pdpCollectionContentAssetID =  '';
             }
         }
     }
-    pdpCollectionContentAssetID =  '';
     return pdpCollectionContentAssetID;
 }
 
