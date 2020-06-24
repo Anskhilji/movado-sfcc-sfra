@@ -7,8 +7,10 @@
                 </h2>
                 <br/>
                 ${Resource.msg('label.mail.contactUs.first.name','common',null)} &nbsp;<isprint value="${pdict.firstName}">&nbsp;
+                <iscomment>Custom Start: Added template because in movado there is not field for last name.</iscomment>
                 <br/><br/>
                 ${Resource.msg('label.mail.contactUs.last.name','common',null)} &nbsp;<isprint value="${pdict.lastName}">&nbsp;
+                <iscomment>Custom End</iscomment>
                 <br/><br/>
                 ${Resource.msg('label.mail.contactUs.email','common',null)}&nbsp;<isprint value="${pdict.email}">
                 <br/><br/>
