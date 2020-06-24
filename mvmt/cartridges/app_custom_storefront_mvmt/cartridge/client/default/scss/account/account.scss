@@ -465,7 +465,7 @@
                     line-height: rem(20);
                     background-color: $white;
                     position: relative;
-                    padding: 0 15px;
+                    padding: 0 rem(15);
                 }
 
                 &::before {
