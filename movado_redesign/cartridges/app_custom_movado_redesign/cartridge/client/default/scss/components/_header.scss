@@ -296,6 +296,7 @@ header.new-header {
           @include font-medium;
           color: $grey8;
           border-radius: 0;
+          white-space: unset;
 
           &:hover {
             color: $white;

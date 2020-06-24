@@ -6,7 +6,12 @@ function changeAjaxCall(dataObj) {
         url: dataObj.url,
         data: dataObj,
         success:function(response){
-        	window.location.href=response.redirectUrl; 
+        	if(dataObj.changeAddressAjax) {
+        		alert(dataObj.successMsg);
+            	window.location.href=dataObj.redirect; 
+        	}else {
+        		window.location.href=response.redirectUrl;
+        	}
         }
 	});
 }
@@ -115,7 +120,7 @@ function updateCountryList () {
     	changeAjaxCall(dataObj);
     });
 
-    $(document).on('click','.selected-link',function(){
+    $('.esw-country-selector').on('click','a.selected-link',function(){
         var dataObj = {
             	  'country': $(this).attr('data-country'),
             	  'currency': $(this).attr('data-currency'),
@@ -125,6 +130,34 @@ function updateCountryList () {
             	  'queryString': $('.page').data('querystring')
             	 };
     	changeAjaxCall(dataObj);
+    });
+    $(document).on('change','#shippingCountrydefault',function(){
+    	var selectedData = {'country' : $('#shippingCountrydefault').val().toUpperCase(),
+    						'url'	:   $('#shippingCountrydefault').attr('data-url')
+    					};
+    	$.ajax({
+            type: 'get',
+            url: selectedData.url,
+            data: selectedData,
+            success:function(response){
+            	if(response.success == false){
+            		return;
+            	} else {
+            		var dataObj = {
+                        	  'country': response.country,
+                        	  'currency': response.currency,
+                        	  'language': response.language,
+                        	  'url'		: response.url,
+                        	  'action': $('.page').data('action'),
+                        	  'queryString': $('.page').data('querystring'),
+                        	  'redirect'	: response.redirect,
+                        	  'successMsg' : response.successMsg,
+                        	  'changeAddressAjax' : true
+                        	 };
+            		changeAjaxCall(dataObj);
+              	} 
+            }
+    	});
     });
     $('.esw-country-selector .current-country').on('click', function (e) {
     	e.stopPropagation();

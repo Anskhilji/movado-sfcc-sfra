@@ -82,6 +82,7 @@ server.replace(
                     breadcrumbs: breadcrumbs,
                     foldersearch: folderSearch,
                     cid: apiContent.ID,
+                    relativeURL: URLUtils.url('Page-Show','cid', apiContent.ID),
                     helpContent:
                         helpContentAsset &&
                         helpContentAsset.custom &&
@@ -93,7 +94,8 @@ server.replace(
                 res.render(content.template, {
                     content: content,
                     breadcrumbs: breadcrumbs,
-                    cid: apiContent.ID
+                    cid: apiContent.ID,
+                    relativeURL: URLUtils.url('Page-Show','cid', apiContent.ID)
                 });
             } else {
                 Logger.warn(

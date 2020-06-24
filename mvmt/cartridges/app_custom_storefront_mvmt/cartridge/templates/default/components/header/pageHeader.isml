@@ -80,7 +80,8 @@
                             </ul>
                             <div class="hidden-md-down d-lg-flex">
                                 <iscomment>Custom Start: Added swell point slot in page header for login user </iscomment>
-                                <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated()}">
+                                <isset name="isSwellAllowedCountry" value="${require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry()}" scope="page" />
+                                <isif condition = "${dw.system.Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && customer.isAuthenticated() && isSwellAllowedCountry}">
                                     <div class="main-level-item navbar-header account-wrapper search">
                                         <isslot id="swell-compaign-total-points-header" description="Swell Points" context="global" />
                                     </div>
