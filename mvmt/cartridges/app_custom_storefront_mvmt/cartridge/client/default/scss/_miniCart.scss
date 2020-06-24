@@ -460,6 +460,13 @@
                             }
                         }
 
+                        &.show {
+
+                            .swell-redemption-text {
+                                padding: 0 0 rem(8) rem(16);     
+                            }
+                        }
+
                         &-dropdown {
                             width: 100%;
                             padding: rem(8.32) rem(12);
@@ -534,6 +541,7 @@
                             &:after {
                                 content: "+";
                                 font-family: $font-book;
+                                float: right;
                             }
                         }
                     }
