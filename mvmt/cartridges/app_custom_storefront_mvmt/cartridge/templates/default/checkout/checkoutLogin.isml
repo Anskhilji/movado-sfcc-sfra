@@ -39,13 +39,19 @@
                             class="btn btn-block btn-primary checkout-as-guest">
                             ${Resource.msg('button.checkout.as.guest', 'checkout', null)}
                         </a>
-                        <iscomment> Amazon Pay Button 
-                        <isif condition="${sitePreferences.amzPayEnabled}">
+                        <iscomment> Amazon Pay Button </iscomment>
+                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                        <isif condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" > 
+                            <isif condition="${sitePreferences.amzPayEnabled}">
+                                <div class="col-12 pt-4">
+                                    <div id="AmazonPayButtonCheckout"></div>
+                                </div>
+                            </isif>
+                        <iselseif condition="${!isEswEnabled && sitePreferences.amzPayEnabled}">
                             <div class="col-12 pt-4">
                                 <div id="AmazonPayButtonCheckout"></div>
                             </div>
-                        </isif>
-                        </iscomment>
+                        </isif>   
                     </div>
                 </div>
                 <div class="card">
