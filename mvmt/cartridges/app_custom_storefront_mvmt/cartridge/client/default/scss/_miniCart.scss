@@ -573,6 +573,39 @@
                 }
             }
 
+            .orderdiscount {
+                position: relative;
+
+                &-payment-summary {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: rem(14) rem(16);
+                }
+
+                &-label, &-value {
+                    font-family: $font-book;
+                    letter-spacing: rem(1);
+                    font-weight: 600;
+                    color: $black;
+                    text-transform: uppercase;
+                }
+
+                &-total {
+
+                    &-discount {
+                        text-decoration: line-through;
+                        color: $red1;
+                        padding-right: rem(6);
+                        padding-left: rem(6);
+                    }
+                }
+
+                &-label, &-total {
+                    font-size: rem(12);
+                }
+            }
+
             .cart-checkout-options {
                 width: 100%;
                 display: block;
