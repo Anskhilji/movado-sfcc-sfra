@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <isprint value="${dw.content.ContentMgr.getContent('email-header').custom.body}" encoding="off"/>
+            <div >
+                <h2>
+                    ${Resource.msg('label.mail.contactUs.heading','common',null)} 
+                </h2>
+                <br/>
+                <iscomment>Custom Start: Added template because in movado there is only name field and in mvmt we need separate fields for first and last name</iscomment>
+                ${Resource.msg('label.mail.contactUs.first.name','common',null)} &nbsp;<isprint value="${pdict.firstName}">&nbsp;
+                <br/><br/>
+                ${Resource.msg('label.mail.contactUs.last.name','common',null)} &nbsp;<isprint value="${pdict.lastName}">&nbsp;
+                <iscomment>Custom End</iscomment>
+                <br/><br/>
+                ${Resource.msg('label.mail.contactUs.email','common',null)}&nbsp;<isprint value="${pdict.email}">
+                <br/><br/>
+                ${Resource.msg('label.mail.contactUs.phone','common',null)} &nbsp;<isprint value="${pdict.phone}">
+                <br /><br/>
+                ${Resource.msg('label.mail.contactUs.orderNumber','common',null)} &nbsp;<isprint value="${pdict.ordernumber}">&nbsp;
+                <br /><br/>
+                ${Resource.msg('label.mail.contactUs.mySubject','common',null)} &nbsp;<isprint value="${pdict.myquestion}">&nbsp;
+                <br /><br/>
+                ${Resource.msg('label.mail.contactUs.comment','common',null)} &nbsp;<isprint value="${pdict.comment}">&nbsp;
+                <br />
+                 &nbsp;
+        </div>
+        <isprint value="${dw.content.ContentMgr.getContent('email-footer').custom.body}" encoding="off"/>
+</html>
