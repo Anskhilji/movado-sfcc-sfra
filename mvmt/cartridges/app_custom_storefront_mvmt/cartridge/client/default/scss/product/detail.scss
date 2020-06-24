@@ -993,10 +993,17 @@
 
         &-name {
             text-align: center;
-            letter-spacing: rem(3);
+            font-family: $font-book;
+            font-size: rem(22);
+            font-weight: 400;
+            letter-spacing: rem(5);
+            line-height: rem(28);
+            margin-bottom: rem(6);
 
             @include media-breakpoint-up(md-down) {
                 text-align: left;
+                font-size: rem(28);
+                letter-spacing: rem(3);
             }
         }
 
@@ -1049,6 +1056,10 @@
     .cart-and-ipay {
         display: block !important;
 
+        @include media-breakpoint-down(md-down) {
+            margin-bottom: 0;
+        }
+
         .add-to-cart, .add-to-cart-mvmt {
             display: inline-block;
             text-align: center;
@@ -1089,7 +1100,10 @@
         .add-to-cart {
             display: flex;
             justify-content: space-between;
-            border-radius: rem(5);
+
+            @include media-breakpoint-up(md-down) {
+                border-radius: rem(5);
+            }
         }
     }
 
