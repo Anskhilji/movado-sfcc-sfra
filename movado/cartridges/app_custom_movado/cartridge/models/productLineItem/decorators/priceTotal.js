@@ -37,7 +37,13 @@ function getTotalPrice(lineItem) {
     }
     if (lineItem.priceAdjustments.getLength() > 0) {
         var nonAdjustedPrice = (eswModuleEnabled) ? eswHelper.getMoneyObject(lineItem.basePrice, false, false).value * lineItem.quantity.value : lineItem.getPrice();
-        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, request.httpCookies['esw.currency'].value) : formatMoney(nonAdjustedPrice);
+        var gettingCurrencyCode = '';
+        if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
+            gettingCurrencyCode = request.httpCookies['esw.currency'].value;
+        } else {
+            gettingCurrencyCode = session.custom.currencyCode;
+        }
+        result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
     }
     // If not for order history calculations
     if (!orderHistoryFlag) {
@@ -67,6 +73,11 @@ function getTotalPrice(lineItem) {
             result.price = formatMoney(price);
         }
     }
+    savingsPrice = priceHelper.getsavingsPrice(lineItem.getPrice(), price);
+     if (savingsPrice) {
+         result.formattedSavingPrice = formatMoney(savingsPrice);
+         result.savingPrice = savingsPrice;
+     }
     context = { lineItem: { priceTotal: result } };
     result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     return result;

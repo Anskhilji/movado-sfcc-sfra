@@ -17,4 +17,21 @@ module.exports = function () {
         $('#forget-password-section').removeClass('d-block').addClass('d-none');
         $('#login-section').addClass('d-block').removeClass('d-none');
     });
+
+    $('body').on('click', '.legacy-reset-password a',  function (e) {
+        e.preventDefault();
+        var resetLegacyURL = $(this).data('action-url');
+        $.ajax({
+            url: resetLegacyURL,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $('.legacy-reset-password').text(data.successMessage);
+                } else {
+                    $('.legacy-reset-password').text(data.errorMessage);
+                }
+            }
+        });
+    });
 };

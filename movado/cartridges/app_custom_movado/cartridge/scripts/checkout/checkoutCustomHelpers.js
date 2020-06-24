@@ -94,6 +94,7 @@ function sendOrderConfirmationEmail(order, locale) {
     };
 
     emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
+    delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
 /**
@@ -115,7 +116,8 @@ function sendCancellationEmail(emailObject) {
         orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
         salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
-        orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber)
+        orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
+        order: emailObject.order
     };
     var emailObj = {
         to: emailObject.customerEmail,

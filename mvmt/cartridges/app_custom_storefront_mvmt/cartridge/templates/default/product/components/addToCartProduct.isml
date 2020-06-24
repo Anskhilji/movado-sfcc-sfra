@@ -10,6 +10,7 @@
 	   <isset name="preOrder" value="${true}" scope="page"/>
 	</isif>  
 </isif>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 
 <div class="cart-and-ipay w-100">
     <div class="cta-add-to-cart">
@@ -59,6 +60,19 @@
                         </div>
                     </span>
             </button>
+            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+            <isif condition="${isEswEnabled}" >
+                <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+                    <isif condition="${product.available && product.readyToOrder}">
+                        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                    </isif>
+                </isif>
+            <iselse/>
+                <isif condition="${product.available && product.readyToOrder}">
+                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                </isif>
+            </isif>
+            <iscomment> Custom End </iscomment>
 	    <iselse>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
                 data-pid="${product.defaultVariant.ID}"
