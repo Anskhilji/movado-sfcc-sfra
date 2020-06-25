@@ -171,32 +171,37 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
         fileArgs.csvStreamWriter.writeNext(buildCsvHeader(feedColumns));
         var productSearchHitsItr = getProductSearchHitIt();
         while (productSearchHitsItr.hasNext()) {
-            var product = productSearchHitsItr.next().product;
+            try {
+                var product = productSearchHitsItr.next().product;
 
-            if (product.variant) {
-                continue;
-            }
-            var productAttributes = getProductAttributes(product, feedParameters);
+                if (product.variant) {
+                    continue; 
+                }
+                var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
-            if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
-                continue;
-            }
+                if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
+                    continue;
+                }
 
-            if(feedParameters.categories) {
-                var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
-            }
+                if(feedParameters.categories) {
+                    var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
+                }
 
-            writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
-            if (product.master) {
-                var isVariant = true;
-                var productVariants = getProductVariants(product.getVariants(), productAttributes, isVariant, feedParameters);
-                productVariants.forEach(function(product) {
-                    writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
-                });
+                writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
+                if (product.master) {
+                    var isVariant = true;
+                    var productVariants = getProductVariants(product.getVariants(), productAttributes, isVariant, feedParameters, feedColumns);
+                    productVariants.forEach(function(product) {
+                        writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
+                    });
+                }
+            } catch (e) {
+                Logger.error('Error occurred while adding product into feed. Product {0}, Error:\n {1}', product , e.stack);
             }
+                
         }
     } catch(e) {
-        Logger.error('Error occurred while generating csv file for product feed:' + e);
+        Logger.error('Error occurred while generating csv file for product feed. Error :\n', e.stack);
     }
     finally {
         fileArgs.csvStreamWriter.close();
@@ -759,7 +764,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     productDetails = [];
 }
 
-function getProductAttributes(product, feedParameters) {
+function getProductAttributes(product, feedParameters, feedColumns) { 
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
     var productDecimalPrice = product.getPriceModel().getPrice() ? (product.getPriceModel().getPrice().decimalValue ? product.getPriceModel().getPrice().decimalValue.toString() : "") : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
@@ -794,24 +799,34 @@ function getProductAttributes(product, feedParameters) {
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
-        availability: product.availabilityModel.availabilityStatus,
-        priceUSD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD),
-        priceGBP: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_GB)) ? commonUtils.getFXRates(Constants.CURRENCY_GBP, Constants.COUNTRY_GB, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_GBP),
-        priceCAD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_CA)) ? commonUtils.getFXRates(Constants.CURRENCY_CAD, Constants.COUNTRY_CA, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_CAD),
-        priceEUR: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_BE)) ? commonUtils.getFXRates(Constants.CURRENCY_EUR, Constants.COUNTRY_BE, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_EUR),
-        priceAUD: empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_AU)) ? commonUtils.getFXRates(Constants.CURRENCY_AUD, Constants.COUNTRY_AU, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_AUD)
+        availability: product.availabilityModel.availabilityStatus
     };
+    if (!empty(feedColumns['priceUSD'])) {
+        productAttributes.priceUSD =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD);
+    }
+    if (!empty(feedColumns['priceGBP'])) {
+        productAttributes.priceGBP =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_GB)) ? commonUtils.getFXRates(Constants.CURRENCY_GBP, Constants.COUNTRY_GB, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_GBP);
+    }
+    if (!empty(feedColumns['priceCAD'])) {    
+        productAttributes.priceCAD = empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_CA)) ? commonUtils.getFXRates(Constants.CURRENCY_CAD, Constants.COUNTRY_CA, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_CAD);
+    }
+    if (!empty(feedColumns['priceEUR'])) {
+            productAttributes.priceEUR =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_BE)) ? commonUtils.getFXRates(Constants.CURRENCY_EUR, Constants.COUNTRY_BE, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_EUR);
+    }
+    if (!empty(feedColumns['priceAUD'])) {
+        productAttributes.priceAUD = empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_AU)) ? commonUtils.getFXRates(Constants.CURRENCY_AUD, Constants.COUNTRY_AU, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_AUD);
+    }
     return productAttributes;
 }
 
-function getProductVariants(products, masterProductAttributes, isVariant, feedParameters) {
+function getProductVariants(products, masterProductAttributes, isVariant, feedParameters, feedColumns) {
     var variants = new Array();
     if (products.length !== 0) {
         var productIt = products.iterator();
         while (productIt.hasNext()) {
             var product = productIt.next();
             var variantJSON = {};
-            variantJSON.product = getProductAttributes(product, feedParameters);
+            variantJSON.product = getProductAttributes(product, feedParameters, feedColumns);
             variantJSON.product.masterProductID = masterProductAttributes.ID;
             variantJSON.product.productType = true;
             if (empty(variantJSON.product.description)) {

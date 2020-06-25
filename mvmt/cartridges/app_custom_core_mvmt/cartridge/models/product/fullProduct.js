@@ -21,6 +21,14 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
+    var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
+
+    if (!empty(pdpCollectionContentAssetID)) {
+        Object.defineProperty(product, 'pdpCollectionContentAssetID', {
+            enumerable: true,
+            value: pdpCollectionContentAssetID
+        });
+    }
 
     if (!empty(detailAndSpecAttributes)) {
         Object.defineProperty(product, 'pdpDetailAttributes', {
