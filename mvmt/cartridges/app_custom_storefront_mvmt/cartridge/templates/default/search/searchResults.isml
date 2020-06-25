@@ -22,7 +22,7 @@
     <div class="mvmt-plp container-fluid p-0 search-results">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
-          <div class="search-nav">
+          <div class="search-nav px-5 mt-2">
             <div class="nav-tabs-wrapper">
               <ul class="nav nav-tabs nav-fill" role="tablist">
                 <li class="nav-item">
