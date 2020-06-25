@@ -216,7 +216,9 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
         // Quantity Canceled / Rejected
         if (rejectedQuantity > 0) {
-            if (orderQuantity > rejectedQuantity) { isFullyRejected = false; }
+            if (orderQuantity > rejectedQuantity) {
+                isFullyRejected = false;
+            }
 
             // Cancel this portion of the fulfillment order
             pendingFOCancelChangeItems.push({
@@ -224,15 +226,20 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 quantity: rejectedQuantity
             });
 
-            // Cancel the original order line summary
-            pendingOSCancelChangeItems.push(
-                SalesforceModel.buildOrderSummaryCancelRequestItem({
-                    orderItemSummaryId: foLineItem.OrderItemSummary.Id,
-                    quantity: rejectedQuantity
-                })
-            );
+            // Cancel the original order line summary.  Note: Shipping charges are never canceled from the OrderSummary.  
+            // Cancelation calculation assumes refunding shipping for the items canceled
+            if (foLineItem.Type.toUpperCase() !== 'DELIVERY CHARGE') {
+                pendingOSCancelChangeItems.push(
+                    SalesforceModel.buildOrderSummaryCancelRequestItem({
+                        orderItemSummaryId: foLineItem.OrderItemSummary.Id,
+                        quantity: rejectedQuantity
+                    })
+                );
+            }
         }
-        if (shippedQuantity > 0) { isFullyRejected = false; }
+        if (shippedQuantity > 0) {
+            isFullyRejected = false;
+        }
     });
 
     //
@@ -243,10 +250,15 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     if (pendingFOCancelChangeItems.length > 0) {
         // Add shipping line item if necessary
         if (isFullyRejected && foShippingLineItem) {
-            pendingFOCancelChangeItems.push({
-                fulfillmentOrderLineItemId: foShippingLineItem.Id,
-                quantity: 1
+            var pendingFOShippingCancelItem = _.find(pendingFOCancelChangeItems, function (r) {
+                return r.fulfillmentOrderLineItemId === foShippingLineItem.Id;
             });
+            if (!pendingFOShippingCancelItem) {
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: foShippingLineItem.Id,
+                    quantity: 1
+                });
+            }
         }
 
         // Send API request
@@ -254,24 +266,37 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             fulfillmentOrderId: fulfillmentOrderId,
             fulfillmentOrderLineItemsToCancel: pendingFOCancelChangeItems
         });
-        if (!canceledLineItemsAPIRequest.ok || !canceledLineItemsAPIRequest.object.success) {
-            // Do not attempt order summary cancellation or quantity shipped update
-            return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + canceledLineItemsAPIRequest.status + ',errorMessage:' + canceledLineItemsAPIRequest.errorMessage);
-        }
+        // if (!canceledLineItemsAPIRequest.ok || !canceledLineItemsAPIRequest.object.success) {
+        //     // Do not attempt order summary cancellation or quantity shipped update
+        //     return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + canceledLineItemsAPIRequest.status + ',errorMessage:' + canceledLineItemsAPIRequest.errorMessage);
+        // }
 
         // For rejected items, also cancel the Order Item Summary
-        //  BROKEN API as of 2020-05-25
-        //   TICKET OPENED
-        // if (pendingOSCancelChangeItems.length > 0) {
-        //     var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
-        //     var canceledOSLineItemsRequest = SalesforceModel.createOrderSummaryCancelRequest({
-        //         orderSummaryId: orderSummaryId,
-        //         changeItems: pendingOSCancelChangeItems
-        //     });
-        //     if (!canceledOSLineItemsRequest.ok || !canceledOSLineItemsRequest.object.success) {
-        //         return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Unable to perform OS item cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + canceledLineItemsRequest.status + ',errorMessage:' + canceledLineItemsRequest.errorMessage);
-        //     }
-        // }
+        if (pendingOSCancelChangeItems.length > 0) {
+            var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
+            var canceledOSLineItemsRequest = SalesforceModel.createOrderSummaryCancelRequest({
+                orderSummaryId: orderSummaryId,
+                changeItems: pendingOSCancelChangeItems
+            });
+            Logger.debug('OrderSummary: ' + orderSummaryId + ', canceledOSLineItemsRequest: ' + JSON.stringify(canceledOSLineItemsRequest));
+            if (!canceledOSLineItemsRequest.ok || !canceledOSLineItemsRequest.object || !canceledOSLineItemsRequest.object.success) {
+                return new Status(Status.ERROR, 'ERROR', 'processStatusCapture - Unable to perform OS item cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + canceledLineItemsRequest.status + ',errorMessage:' + canceledLineItemsRequest.errorMessage);
+            }
+
+            // Create refund for the change order balance
+            if (canceledOSLineItemsRequest.object.changeBalance && canceledOSLineItemsRequest.object.changeOrderId) {
+                var refundAmount = canceledOSLineItemsRequest.object.changeBalance.totalExcessFundsAmount;
+                var changeOrderId = canceledOSLineItemsRequest.object.changeOrderId;
+
+                if (refundAmount !== 0) {
+                    var refundRequest = SalesforceModel.createRefundRequest({
+                        orderSummaryId: orderSummaryId,
+                        excessFundsAmount: refundAmount
+                    });
+                }
+            }
+
+        }
     }
 
     //
@@ -300,7 +325,9 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     });
 
     requestCompositeItemsShipment.push(
-        SalesforceModel.buildCompositeFulfillmentOrderPlatformEvent({ fulfillmentOrderId: fulfillmentOrderId })
+        SalesforceModel.buildCompositeFulfillmentOrderPlatformEvent({
+            fulfillmentOrderId: fulfillmentOrderId
+        })
     );
 
     // Send the composite request

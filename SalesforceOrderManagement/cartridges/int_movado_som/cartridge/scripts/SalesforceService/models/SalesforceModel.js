@@ -70,6 +70,15 @@ var SalesforceModel = ({
             requestData: {}
         });
     },
+    createRefundRequest: function (req) {
+        var requestData = {};
+        requestData.excessFundsAmount = req.excessFundsAmount;
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.COMMERCE + 'order-management/order-summaries/' + req.orderSummaryId + '/async-actions/ensure-refunds-async',
+            requestMethod: 'POST',
+            requestData: requestData
+        });
+    },
     buildCompositeFulfillmentOrderUpdateRequest: function (req) {
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTORDER + '/' + req.fulfillmentOrderId,
@@ -97,7 +106,9 @@ var SalesforceModel = ({
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTORDERLINEITEM + '/' + req.Id,
             method: 'PATCH',
             referenceId: 'FOITEM' + req.Id,
-            body: { Quantity_Fulfilled__c: req.ShippedQuantity }
+            body: {
+                Quantity_Fulfilled__c: req.ShippedQuantity
+            }
         };
         return requestData;
     },

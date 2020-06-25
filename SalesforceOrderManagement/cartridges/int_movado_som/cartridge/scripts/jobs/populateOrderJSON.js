@@ -144,15 +144,14 @@ function populateByOrder(order) {
                 sabrixCityTotal: shipment.shippingLineItems[0].custom.sabrixCityTotal,
                 sabrixCountyTotal: shipment.shippingLineItems[0].custom.sabrixCountyTotal,
                 sabrixDistrictTotal: shipment.shippingLineItems[0].custom.sabrixDistrictTotal,
-                sabrixStateTotal:
-                    shipment.shippingLineItems[0].custom.sabrixStateTotal
+                sabrixStateTotal: shipment.shippingLineItems[0].custom.sabrixStateTotal
             };
+
             // Add each shipping price adjustment
             shippingPriceJSON.priceAdjustments = [];
             collections.forEach(shipment.shippingLineItems[0].getShippingPriceAdjustments(), function (priceAdjustment) {
                 shippingPriceJSON.priceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
-            }
-            );
+            });
 
             order.custom.SOMShippingPriceAdjustments = JSON.stringify(shippingPriceJSON);
             order.custom.SOMAddressData = JSON.stringify(addressJSON);
@@ -199,89 +198,104 @@ function addDummyPaymentTransaction(order) {
     var StringUtils = require('dw/util/StringUtils');
     var success = true;
 
-    // Make sure we don't already have a CREDIT_CARD type
-    var ccPayment = _.find(order.getPaymentInstruments().toArray(), function (r) {
+    // Make sure we don't already have a CREDIT_CARD or ESW_PAYMENT or AMAZON_PAY payment method
+    var arrPi = order.getPaymentInstruments().toArray();
+
+    var amazonPayment = _.find(arrPi, function (r) {
+        return r.paymentMethod.toUpperCase() === 'AMAZON_PA';
+    });
+    var eswPayment = _.find(arrPi, function (r) {
+        return r.paymentMethod.toUpperCase() === 'ESW_PAYMENT';
+    });
+    if (eswPayment || amazonPayment) return true;
+
+    var ccPayment = _.find(arrPi, function (r) {
         return r.paymentMethod.toUpperCase() === 'CREDIT_CARD';
     });
 
+
     if (!ccPayment) {
         collections.forEach(order.getPaymentInstruments(), function (pi) {
-            switch (pi.getPaymentTransaction().getPaymentProcessor().getID()) {
-                case 'Adyen':
-                case 'ADYEN_PAYPAL':
-                    /*
-                      PAYPAL
-                    */
-                    // pi.custom.adyenPaymentMethod = 'paypal_ecs';
-                    if (!('adyenPaymentMethod' in pi.custom) || pi.custom.adyenPaymentMethod === '') {
-                        logger.error('adyenPaymentMethod does not exist or not set');
-                    }
-                    var customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
-                    if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
-                        // Create a new payment transaction that the Order Ingestion process supports
-                        var newPi = order.createPaymentInstrument('CREDIT_CARD', pi.paymentTransaction.amount);
-                        if (newPi) {
-                            var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
-                            newPi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
-                            newPi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
-                            newPi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
-                            newPi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
-                            newPi.getPaymentTransaction().setAmount(pi.getPaymentTransaction().getAmount());
-                            newPi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
-                            newPi.setCreditCardType('Maestro');
-                            newPi.custom.adyenPaymentMethod = customMethod;
-
-                            order.custom.Adyen_paymentMethod = 'paypal';
-
-                            // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
-                            // Add authTime and Adyen_merchantSig to the transaction
-                            newPi.getPaymentTransaction().custom.authTime = '05:21:52.054';
-                            newPi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
-                            // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+            if (pi.getPaymentTransaction().getPaymentProcessor()) {
+                switch (pi.getPaymentTransaction().getPaymentProcessor().getID()) {
+                    case 'Adyen':
+                    case 'ADYEN_PAYPAL':
+                        /*
+                          PAYPAL
+                        */
+                        // pi.custom.adyenPaymentMethod = 'paypal_ecs';
+                        if (!('adyenPaymentMethod' in pi.custom) || pi.custom.adyenPaymentMethod === '') {
+                            logger.error('adyenPaymentMethod does not exist or not set');
                         }
+                        var customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
+                        if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
+                            // Create a new payment transaction that the Order Ingestion process supports
+                            var newPi = order.createPaymentInstrument('CREDIT_CARD', pi.paymentTransaction.amount);
+                            if (newPi) {
+                                var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
+                                newPi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+                                newPi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
+                                newPi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
+                                newPi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
+                                newPi.getPaymentTransaction().setAmount(pi.getPaymentTransaction().getAmount());
+                                newPi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                                newPi.setCreditCardType('Maestro');
+                                newPi.custom.adyenPaymentMethod = customMethod;
 
-                        // remove the outdated payment instrument
-                        try {
-                            order.removePaymentInstrument(pi);
-                        } catch (exRemove) {
-                            var _e = exRemove;
-                            logger.error('Replacing Adyen PayPal payment method: ' + exRemove.message);
+                                order.custom.Adyen_paymentMethod = 'paypal';
+
+                                // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+                                // Add authTime and Adyen_merchantSig to the transaction
+                                newPi.getPaymentTransaction().custom.authTime = '05:21:52.054';
+                                newPi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
+                                // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+                            }
+
+                            // remove the outdated payment instrument
+                            try {
+                                order.removePaymentInstrument(pi);
+                            } catch (exRemove) {
+                                var _e = exRemove;
+                                logger.error('Replacing Adyen PayPal payment method: ' + exRemove.message);
+                            }
                         }
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     } else {
         // Only arrive here for cc orders. Update the custom payment method if necessary
         collections.forEach(order.getPaymentInstruments(), function (pi) {
-            switch (pi.getPaymentMethod()) {
-                case 'CREDIT_CARD':
-                case 'ADYEN_PAYPAL':
-                    var customMethod = '';
-                    if ('adyenPaymentMethod' in pi.custom) {
-                        customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
-                    }
-
-                    if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
-                        pi.setCreditCardType('Maestro');
-                        pi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
-
-                        if (!pi.getPaymentTransaction().paymentProcessor || pi.getPaymentTransaction().getPaymentProcessor().getID() !== 'CREDIT_CARD') {
-                            var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
-                            pi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
-                            pi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
-                            pi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
-                            pi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
-                            pi.custom.adyenPaymentMethod = customMethod;
+            if (pi.getPaymentMethod()) {
+                switch (pi.getPaymentMethod()) {
+                    case 'CREDIT_CARD':
+                    case 'ADYEN_PAYPAL':
+                        var customMethod = '';
+                        if ('adyenPaymentMethod' in pi.custom) {
+                            customMethod = pi.custom.adyenPaymentMethod.toUpperCase();
                         }
-                    }
-                    break;
-                case 'AMAZON_PAY':
-                    break;
-                default:
-                    break;
+
+                        if (customMethod === 'PAYPAL' || customMethod === 'PAYPAL_ECS') {
+                            pi.setCreditCardType('Maestro');
+                            pi.getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+
+                            if (!pi.getPaymentTransaction().paymentProcessor || pi.getPaymentTransaction().getPaymentProcessor().getID() !== 'CREDIT_CARD') {
+                                var paymentProcessor = PaymentMgr.getPaymentMethod('CREDIT_CARD').getPaymentProcessor();
+                                pi.setCreditCardExpirationYear(Number(StringUtils.formatCalendar(new Calendar(), 'yyyy')));
+                                pi.setCreditCardExpirationMonth(Number(StringUtils.formatCalendar(new Calendar(), 'MM')));
+                                pi.getPaymentTransaction().setPaymentProcessor(paymentProcessor);
+                                pi.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                                pi.custom.adyenPaymentMethod = customMethod;
+                            }
+                        }
+                        break;
+                    case 'AMAZON_PAY':
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }
@@ -294,4 +308,3 @@ module.exports = {
     populateByOrderID: populateByOrderID,
     addDummyPaymentTransaction: addDummyPaymentTransaction
 };
-
