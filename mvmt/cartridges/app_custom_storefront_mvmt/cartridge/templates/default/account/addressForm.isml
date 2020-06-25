@@ -112,12 +112,12 @@
         <!-- State  -->
         <div class="col-6">
             <div class="form-group
-                ${pdict.addressForm.addressStates.stateCode.mandatory === true ? 'required' : ''}">
+                ${pdict.addressForm.states.stateCode.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="state">
-                    <isprint value="${pdict.addressForm.addressStates.stateCode.label}" encoding="htmlcontent" />
+                    <isprint value="${pdict.addressForm.states.stateCode.label}" encoding="htmlcontent" />
                 </label>
                 <input type="text" class="form-control" id="state"
-                    <isprint value="${pdict.addressForm.addressStates.stateCode.attributes}" encoding="off" />
+                    <isprint value="${pdict.addressForm.states.stateCode.attributes}" encoding="off" />
                     autocomplete="address-level1">
                 <div class="invalid-feedback"></div>
             </div>
