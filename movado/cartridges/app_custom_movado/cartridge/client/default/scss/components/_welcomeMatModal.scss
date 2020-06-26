@@ -54,7 +54,7 @@
                 .selector-container {
                     width: auto;
                     margin: rem(25) auto rem(32) auto;
-                    max-width: initial;
+                    max-width: none;
                     padding: 0 rem(15);
 
                     p {
@@ -143,6 +143,7 @@
 
                     &.selectCountry {
                         text-align: left;
+                        min-width: rem(150);
                         width: auto;
 
                         @include media-breakpoint-down(sm) {
