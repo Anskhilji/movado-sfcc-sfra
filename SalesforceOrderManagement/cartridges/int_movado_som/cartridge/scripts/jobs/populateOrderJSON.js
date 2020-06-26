@@ -202,12 +202,14 @@ function addDummyPaymentTransaction(order) {
     var arrPi = order.getPaymentInstruments().toArray();
 
     var amazonPayment = _.find(arrPi, function (r) {
-        return r.paymentMethod.toUpperCase() === 'AMAZON_PA';
+        return r.paymentMethod.toUpperCase() === 'AMAZON_PAY';
     });
+    if (amazonPayment) return true;
+
     var eswPayment = _.find(arrPi, function (r) {
         return r.paymentMethod.toUpperCase() === 'ESW_PAYMENT';
     });
-    if (eswPayment || amazonPayment) return true;
+    if (eswPayment) return true;
 
     var ccPayment = _.find(arrPi, function (r) {
         return r.paymentMethod.toUpperCase() === 'CREDIT_CARD';
