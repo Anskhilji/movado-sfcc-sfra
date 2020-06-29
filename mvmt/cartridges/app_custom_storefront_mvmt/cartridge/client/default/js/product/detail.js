@@ -309,21 +309,56 @@ module.exports = {
 
     updatePrice: function () {
         $(document).on('click', '.upsell_input', function() {
-            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
-            var currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
+            var $eswPriceSelector = $('.product-price-mobile .eswPrice .sales');
+            var $eswRangePriceSelector = $('.product-price-mobile .eswPrice .sales:last-child .value');
+            var upselprice;
+            var currentPrice
             var updatedPrice;
             var updatedText;
 
-            if ($(this).is(':checked')) {
-                updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
+            if ($eswPriceSelector.length > 0) {
+                upselprice = $(this).siblings('.upsell_wrapper-inner').find('.eswPrice .sales').text().replace(/[^0-9\.]/gi, '');
+                if($eswRangePriceSelector.length > 0) {
+                    currentPrice = $eswRangePriceSelector.last().text().replace(/[^0-9\.]/gi, '');
+                } else {
+                    currentPrice = $eswPriceSelector.first().text().replace(/[^0-9\.]/gi, '');
+                }
+
+                if ($(this).is(':checked')) {
+                    updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
+                } else { 
+                    updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
+                }
+
+                if($eswRangePriceSelector.length > 0) {
+                    updatedText = $eswRangePriceSelector.first().text().replace(/([+-]?[,0-9]+(?:\.[0-9]*)?)/gm, updatedPrice);
+                    $eswRangePriceSelector.each(function () {
+                        if (!($(this).parents('.range').length > 0)) {
+                            $(this).text(updatedText);
+                        }  
+                    });
+                   
+                } else {
+                    updatedText = $eswPriceSelector.first().text().replace(/([+-]?[,0-9]+(?:\.[0-9]*)?)/gm, updatedPrice);
+                    $eswPriceSelector.text(updatedText);
+                }
             } else {
-                updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
+
+                upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').data('value');
+                currentPrice = $('.product-price-mobile .sales:last-child .value').data('value');
+
+                if ($(this).is(':checked')) {
+                    updatedPrice = parseInt(currentPrice) + parseInt(upselprice);
+                } else {
+                    updatedPrice  = parseInt(currentPrice) - parseInt(upselprice);
+                }
+
+                $('.product-price-mobile .sales:last-child .value').each(function() {
+                    updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
+                    $(this).text(updatedText).data('value', updatedPrice); 
+                });
             }
 
-            $('.product-price-mobile .sales:last-child .value').each(function() {
-                updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice);
-                $(this).text(updatedText).data('value', updatedPrice);
-            });
         });
     },
     base: base
