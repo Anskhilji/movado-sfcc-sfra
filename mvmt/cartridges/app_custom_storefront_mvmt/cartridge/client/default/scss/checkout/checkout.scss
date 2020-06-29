@@ -357,3 +357,58 @@
         }
     }
 }
+
+.shipping-express-checkout {
+    
+    &_label { 
+        font-size: rem(13);    
+    }
+
+    &-buttons {
+        display: flex;
+
+        @media only screen and (max-width: 320px){
+            margin-left: rem(5);
+        }
+        
+        .apple-pay-cart {
+            border-radius: rem(4);
+            padding: 0;
+            height: rem(42);
+            margin-left: rem(15);
+
+            @include media-breakpoint-down(xs) {
+                margin-left: rem(5);    
+            }
+        }
+        
+        .shipping-paypal-btn {
+            padding: 0;
+            background: $yellow;
+            border-radius: rem(4);
+            height: rem(42);
+            width: 100%;
+            margin-left: rem(15);
+
+            @include media-breakpoint-down(xs) {
+                margin-left: rem(5);    
+            }
+        }
+
+        .shipping-amazon-btn {
+            margin-left: rem(15);
+            padding-left: 0;
+
+            @include media-breakpoint-down(xs) {
+                margin-left: rem(5);
+                padding-right: rem(5); 
+            }
+
+            #AmazonPayButtonCheckout {
+                width: 100% !important;
+                height: rem(61) !important;
+            }
+        }
+        
+    }
+}

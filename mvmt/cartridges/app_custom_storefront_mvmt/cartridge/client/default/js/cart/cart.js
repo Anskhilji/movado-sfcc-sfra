@@ -222,7 +222,7 @@ function decreaseQuantity (quantitySelector, id) {
  * @param id
  */
 function increaseQuantity (quantitySelector, id) {
-    var $quantity = parseInt($(quantitySelector).val());4
+    var $quantity = parseInt($(quantitySelector).val());
     var $decreasedSelector = $('button.decreased-btn[data-pid="'+ id +'"]');
     if (isNaN($quantity)) {
         $(quantitySelector).val(1);
@@ -268,7 +268,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
     };
 
     $url = appendToUrl($url, $urlParams);
-    $(quantitySelector).parents('.card').spinner().start();
+    $(quantitySelector).parents('.product-info, .align-items-center').spinner().start();
 
     $.ajax({
         url: $url,

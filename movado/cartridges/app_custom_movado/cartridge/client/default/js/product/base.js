@@ -834,7 +834,6 @@ module.exports = {
             form.currentPage = $('.page[data-action]').data('action') || '';
             $(this).trigger('updateAddToCartFormData', form);
             if (addToCartUrl) {
-                $.spinner().start();
                 $.ajax({
                     url: addToCartUrl,
                     method: 'POST',

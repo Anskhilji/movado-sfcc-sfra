@@ -147,6 +147,10 @@
             <isinclude template="product/components/productGallery" />
         </div>
 
+        <isif condition="${!empty(product.pdpCollectionContentAssetID)}">
+            <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
+        </isif>
+
         <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />

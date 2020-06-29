@@ -491,6 +491,33 @@ body {
     }
 }
 
+.product-tile-redesign {
+
+    .tile-body {
+
+        .price {
+
+            del {
+
+                .strike-through {
+                    margin-right: rem(5);
+    
+                    span {
+                        color: $light-gray2;
+                        font-weight: 600;
+                    }
+                }
+
+                & + .sales {
+                    span {
+                        color: $dark-red;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @keyframes nodeInserted {
 
     from {

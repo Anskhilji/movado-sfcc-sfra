@@ -1035,11 +1035,28 @@
                 color: $black;
                 margin-right: rem(10);
 
-                .strike-through {
-                    display: block;
-                }
 
                 .price {
+                    font-size: 100%;
+                    letter-spacing: rem(1.5);
+
+                    del {
+
+                        .strike-through {
+                            display: block;
+
+                            span {
+                                color: $light-gray2;
+                                font-size: 90%;
+                            }
+                        }
+        
+                        & + .sales {
+                            span {
+                                color: $dark-red;
+                            }
+                        }
+                    }
 
                     .sales{
 
@@ -1048,6 +1065,7 @@
                         }
                     }
                 }
+
             }
 
             .ratings {
@@ -2498,5 +2516,32 @@
 	
     @include media-breakpoint-up(xxl) {
             max-width: rem(1235);
+    }
+}
+
+.product-tile-redesign {
+
+    .tile-body {
+
+        .price {
+
+            del {
+
+                .strike-through {
+    
+                    span {
+                        color: $light-gray2;
+                        font-weight: 600;
+                    }
+                }
+
+                & + .sales {
+
+                    span {
+                        color: $dark-red;
+                    }
+                }
+            }
+        }
     }
 }
