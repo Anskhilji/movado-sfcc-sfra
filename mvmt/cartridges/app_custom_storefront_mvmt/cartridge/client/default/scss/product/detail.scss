@@ -1047,11 +1047,11 @@
 
                             span {
                                 color: $light-gray2;
-                                font-size: 90%;
+                                font-size: rem(14);
                             }
                         }
         
-                        & + .sales {
+                        & + span {
                             span {
                                 color: $dark-red;
                             }
@@ -2535,7 +2535,7 @@
                     }
                 }
 
-                & + .sales {
+                & + span {
 
                     span {
                         color: $dark-red;
