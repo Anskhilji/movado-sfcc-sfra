@@ -270,6 +270,9 @@
 
             @include media-breakpoint-up(md-down) {
                 width: 50%;
+                display: block;
+                background-size: cover;
+                background-position: 50%;
             }
 
             &-content {
