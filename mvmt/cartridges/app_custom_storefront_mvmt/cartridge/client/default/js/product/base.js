@@ -333,6 +333,21 @@ function initializePDPMainSlider() {
 }
 
 /**
+ * Loads ESW price using Ajax
+ */
+function loadEswPrice() {
+    var $eswPrice = $('.eswPrice wainclude');
+    if ($eswPrice.length > 0) {
+        $eswPrice.each(function (index, $eswPriceContainer) {
+            $eswPriceContainer = $(this);
+            $.get($eswPriceContainer.attr('url'), function (data, status) {
+                $eswPriceContainer.replaceWith(data);
+            });
+        });
+    }
+}
+
+/**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
  * @param {Object} response - response from Ajax call
  * @param {Object} response.product - Product object
@@ -398,15 +413,9 @@ function handleVariantResponse(response, $productContainer) {
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
-        var $eswPrice = $('.eswPrice wainclude');
-        if ($eswPrice) {
-            $.get($eswPrice.attr('url'), function(data, status) {
-                $eswPrice.replaceWith(data);
-            });
-        }
-
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
-        
+        loadEswPrice();
+
         $.ajax({
             url: $variationProductURL,
             method: 'GET',
@@ -424,6 +433,7 @@ function handleVariantResponse(response, $productContainer) {
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
                 });
+                loadEswPrice();
             },
             error: function () {
             }
