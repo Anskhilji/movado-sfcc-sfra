@@ -1533,6 +1533,34 @@
         color: $black;
         text-transform: uppercase;
 
+        
+        del {
+            display: block;
+
+            .strike-through {
+                display: block;
+                margin: 0;
+
+                span {
+                    color: $light-gray2;
+                    font-size: rem(14);
+                }
+            }
+
+            & + span {
+                span {
+                    color: $dark-red;
+                }
+            }
+        }
+
+        .sales{
+
+            span {
+                display: block;
+            }
+        }
+
         @include media-breakpoint-up(md-down) {
             display: none;
         }
