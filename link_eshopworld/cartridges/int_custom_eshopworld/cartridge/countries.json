@@ -11797,7 +11797,7 @@
         "continent": "europe",
         "locales": ["en_US", "en_GB", "fr", "fr_CA", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "MXN",
         "taxation": {
             "type": "net"
         },
