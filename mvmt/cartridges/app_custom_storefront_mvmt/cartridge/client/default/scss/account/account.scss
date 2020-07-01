@@ -483,14 +483,28 @@
                 margin: 0;
                 margin-bottom: rem(20);
 
+                @include media-breakpoint-down(md) {
+                    text-align: center;
+                }
+
                 span {
-                    font-family: $font-book;
-                    font-size: rem(12);
-                    letter-spacing: rem(1);
-                    line-height: rem(20);
+                    font-family: $font-medium;
+                    font-weight: 500;
+                    font-size: rem(18);
+                    letter-spacing: rem(1.15);
+                    line-height: rem(24);
+                    padding: 0 rem(5);
+                    text-transform: uppercase;
                     background-color: $white;
                     position: relative;
                     padding: 0 rem(15);
+
+                    @include media-breakpoint-up(lg) {
+                        font-family: $font-book;
+                        font-size: rem(12);
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                    }
                 }
 
                 &::before {
@@ -498,6 +512,10 @@
                     position: absolute;
                     top: rem(3);
                     border-color: $gray11;
+
+                    @include media-breakpoint-down(md) {
+                        display: none;
+                    }
                 }
             }
             
@@ -542,9 +560,28 @@
                     letter-spacing: .7px;
                     line-height: rem(29);
                     margin-bottom: rem(5);
+                    text-transform: uppercase;
                         
                     @include media-breakpoint-up(lg) {
                         font-size: rem(42);
+                        margin-bottom: rem(10);
+                    }
+                }
+
+                p {
+                    color: $dark-orange1;
+                    font-family: $font-medium;
+                    font-size: rem(14);
+                    font-weight: 500;
+                    letter-spacing: rem(1.17);
+                    line-height: rem(20);
+                    margin-bottom: rem(5);
+                    text-transform: uppercase;
+
+                    @include media-breakpoint-up(lg) {
+                        color: $black;
+                        font-size: rem(24);
+                        line-height: rem(24);
                         margin-bottom: rem(10);
                     }
                 }
@@ -643,6 +680,7 @@
                 
                 &-small {
                     color: $black;
+                    font-family: $font-medium;
                     font-size: rem(12);
                     font-weight: 500;
                     text-transform: uppercase;
