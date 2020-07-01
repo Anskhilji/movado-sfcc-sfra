@@ -20,6 +20,29 @@ server.get(
     }
 );
 
+server.append(
+    'Login',
+    function (req, res, next) {
+        var accountLoginLocation = !empty(req.querystring) ? req.querystring.pageType : '';
+        res.setViewData({
+            accountLoginLocation: accountLoginLocation
+        });
+
+        next();
+    }
+);
+
+server.append(
+    'SubmitRegistration',
+    function (req, res, next) {
+        var accountLoginLocation = !empty(req.querystring) ? req.querystring.pageType : '';
+        res.setViewData({
+            accountLoginLocation: accountLoginLocation
+        });
+        next();
+    }
+);
+
 server.prepend(
     'Login',
     server.middleware.https,
