@@ -2,6 +2,9 @@
 
 var baseLogin = require('base/login/login');
 
+var formValidation = require('base/components/formValidation');
+var createErrorNotification = require('base/components/errorNotification');
+
 module.exports = function () {
 
     baseLogin.login();
