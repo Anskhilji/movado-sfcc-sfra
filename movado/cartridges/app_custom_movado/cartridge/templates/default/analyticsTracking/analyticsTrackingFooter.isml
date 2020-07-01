@@ -1,6 +1,10 @@
 <!--- TEMPLATENAME: trackingFooter.isml --->
 
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')}">
+    <script>
+        var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');
+        var triggerEvent;
+    </script>
     <isif condition="${!empty(pdict.pdpAnalyticsTrackingData)}">
         <script>
             var pdpAnalyticsTrackingData = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Analytics-GetEmail', 'trackingData', pdict.pdpAnalyticsTrackingData)}"/>));
@@ -11,10 +15,16 @@
             var categoryAnalyticsTrackingData = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Analytics-GetEmail', 'trackingData', pdict.categoryAnalyticsTrackingData)}"/>));
         </script>
     </isif>
+    <isif condition="${pdict.action && pdict.action ==='Home-Show'}">
+        <script>
+            var trackingObj = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Home-SetUserEmail')}"/>));
+            if (trackingObj != 'null') {
+                analyticsTracking.user = JSON.parse(trackingObj.userTracking);
+                triggerEvent = 'setUserInfo';
+            }
+        </script>
+    </isif>
     <script>
-        var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');
-        var triggerEvent;
-
         if('${pdict.userTracking}' != 'null') {
             analyticsTracking.user = JSON.parse('<isprint value="${pdict.userTracking}" encoding="htmlsinglequote"/>');
             triggerEvent = 'setUserInfo';
