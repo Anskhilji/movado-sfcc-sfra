@@ -1,10 +1,10 @@
 <!--- TEMPLATENAME: headerCountrySelector.isml --->
 <iscontent type="text/html" charset="UTF-8" compact="true"/>
 <isif condition=${pdict.EswHeaderObject.enabledHeaderBar && pdict.EswHeaderObject.enabledESWModule}>
-    <div class="selectors selector-container headerDropdown container d-md-none">                      
+    <div class="selectors selector-container headerDropdown container d-lg-none">                      
         <div class="row">
             <isif condition=${pdict.EswHeaderObject.enabledCountriesInHeader}>
-               <div class="wrapper-dropdown esw-country-selector selectCountry country-index" tabindex="1" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+               <div class="wrapper-dropdown esw-country-selector selectCountry" tabindex="1" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
                    <span class="btn dropdown-toggle" id="dropdownCountrySelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="flag-icon flag-icon-${pdict.EswHeaderObject.selectedCountry.toLowerCase()}"></i>
                             ${pdict.EswHeaderObject.selectedCountryName}
