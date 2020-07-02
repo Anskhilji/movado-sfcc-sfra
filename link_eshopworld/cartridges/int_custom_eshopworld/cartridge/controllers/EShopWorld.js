@@ -127,7 +127,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 ​
-    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry()).currencyCode;
 ​    if (currency) {
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.setBaseCurrencyPriceBook(req, currency);
