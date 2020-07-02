@@ -126,7 +126,6 @@
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/js",
     "yotpo_swell_custom": "./yotpo/cartridges/int_yotpo_swell_custom/cartridge/client/default/js",
-    "esw": "./link_eshopworld/cartridges/int_custom_eshopworld_sfra/cartridge/client/default/js",
 	"custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/js",
     "esw": "./link_eshopworld/cartridges/int_eshopworld_sfra/cartridge/client/default/js",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/js",

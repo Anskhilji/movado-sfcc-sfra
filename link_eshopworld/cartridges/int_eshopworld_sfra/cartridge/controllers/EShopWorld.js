@@ -163,8 +163,17 @@ server.get('GetConvertedPrice', function (req, res, next) {
     var price = req.querystring.price;
     var isLowPrice = req.querystring.isLowPrice;
     var list = req.querystring.listPrice;
-
-    var convertedPrice = eswHelper.getMoneyObject(price, false);
+    var lineItemID = req.querystring.lineItemID;
+    var lineItemUUID = req.querystring.lineItemUUID;
+    
+    var matchingLineItem = (lineItemID && lineItemUUID) ? eswHelper.getMatchingLineItemWithID(lineItemID, lineItemUUID) : '';
+    if (!empty(matchingLineItem)) {
+    	var formatMoney = require('dw/util/StringUtils').formatMoney;
+    	var convertedPrice = formatMoney(eswHelper.getUnitPriceCost(matchingLineItem));
+    } else {
+    	var convertedPrice = eswHelper.getMoneyObject(price, false);
+    }
+    
     res.render('eswPrice', {
         'price': convertedPrice,
         'isLowPrice': isLowPrice,
@@ -279,11 +288,11 @@ server.post('NotifyV2', function (req, res, next) {
                             eswHelper.setBaseCurrencyPriceBook(req, Site.defaultCurrency);
                             var appliedShipping = eswServiceHelper.applyShippingMethod(order, obj.deliveryOption.deliveryOption);
                         }
-                        var billingCustomer = obj.contactDetails.filter(function (details) {
-                            return details.contactDetailType == 'IsPayment'
-                        });
                         var shippingCustomer = obj.contactDetails.filter(function (details) {
                             return details.contactDetailType == 'IsDelivery';
+                        });
+                        var billingCustomer = obj.contactDetails.filter(function (details) {
+                            return details.contactDetailType == 'IsPayment';
                         });
                         order.customerEmail = !empty(billingCustomer[0].email) ? billingCustomer[0].email : shippingCustomer[0].email;
                         order.customerName = billingCustomer[0].firstName + ' ' + billingCustomer[0].lastName;
@@ -386,10 +395,10 @@ server.post('NotifyV2', function (req, res, next) {
                                 order.billingAddress.city = obj.contactDetails[detail].city;
                                 order.billingAddress.countryCode = obj.contactDetails[detail].country;
                                 order.billingAddress.postalCode = obj.contactDetails[detail].postalCode;
-                                order.billingAddress.phone = !empty(billingCustomer[0].telephone) ? billingCustomer[0].telephone : shippingCustomer[0].telephone;
                             }
                         }
 
+                        order.billingAddress.phone = !empty(billingCustomer[0].telephone) ? billingCustomer[0].telephone : shippingCustomer[0].telephone;
                         order.paymentInstruments[0].paymentTransaction.custom.eswPaymentAmount = new Number(obj.shopperCurrencyPaymentAmount.substring(3));
                         order.paymentInstruments[0].paymentTransaction.custom.eswPaymentMethodCardBrand = obj.paymentMethodCardBrand;
 

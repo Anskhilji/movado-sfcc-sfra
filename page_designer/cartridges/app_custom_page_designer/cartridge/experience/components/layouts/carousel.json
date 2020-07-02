@@ -47,13 +47,13 @@
           "id": "mobileMargin",
           "name": "Tile Margin upto 992px",
           "type":"text",
-          "required": true
+          "required": false
         },
         {
           "id": "deskTopMargin",
           "name": "Tile Margin above 992px",
           "type":"text",
-          "required": true
+          "required": false
         }
       ]
     }

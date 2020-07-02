@@ -46,6 +46,7 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+        $productContainer.find('.image-container').find('img').attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         //update price
         var $readyToOrder = response.product.readyToOrder;

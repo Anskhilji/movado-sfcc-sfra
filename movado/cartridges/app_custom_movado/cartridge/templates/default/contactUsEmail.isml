@@ -6,17 +6,17 @@
 					${Resource.msg('label.mail.contactUs.heading','common',null)} 
 				</h2>
 				<br/>
- 				${Resource.msg('label.mail.contactUs.name','common',null)} &nbsp;<isprint value="${param.result.firstName}">&nbsp;
+ 				${Resource.msg('label.mail.contactUs.name','common',null)} &nbsp;<isprint value="${pdict.firstName}">&nbsp;
  				<br/><br/>
- 				${Resource.msg('label.mail.contactUs.email','common',null)}&nbsp;<isprint value="${param.result.email}">
+ 				${Resource.msg('label.mail.contactUs.email','common',null)}&nbsp;<isprint value="${pdict.email}">
  				<br/><br/>
- 				${Resource.msg('label.mail.contactUs.phone','common',null)} &nbsp;<isprint value="${param.result.phone}">
+ 				${Resource.msg('label.mail.contactUs.phone','common',null)} &nbsp;<isprint value="${pdict.phone}">
  				<br /><br/>
- 				${Resource.msg('label.mail.contactUs.orderNumber','common',null)} &nbsp;<isprint value="${param.result.ordernumber}">&nbsp;
+ 				${Resource.msg('label.mail.contactUs.orderNumber','common',null)} &nbsp;<isprint value="${pdict.ordernumber}">&nbsp;
  				<br /><br/>
- 				${Resource.msg('label.mail.contactUs.mySubject','common',null)} &nbsp;<isprint value="${param.result.myquestion}">&nbsp;
+ 				${Resource.msg('label.mail.contactUs.mySubject','common',null)} &nbsp;<isprint value="${pdict.myquestion}">&nbsp;
  				<br /><br/>
- 				${Resource.msg('label.mail.contactUs.comment','common',null)} &nbsp;<isprint value="${param.result.comment}">&nbsp;
+ 				${Resource.msg('label.mail.contactUs.comment','common',null)} &nbsp;<isprint value="${pdict.comment}">&nbsp;
  				<br />
 				 &nbsp;
  		</div>

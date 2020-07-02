@@ -112,8 +112,8 @@ $(document).on("swell:initialized", () => {
         $("<li>").addClass("campaign").append(
         $("<div>").append(
         $("<i>").addClass(`fa ${campaign.icon}`),
-        $("<p>", {text: campaign.rewardText}),
-        $("<h5>", {text: campaign.title})
+        $("<h5>", {text: campaign.title}),
+        $("<p>", {text: campaign.rewardText})
     ).attr('id', `campaign-${campaign.id}`)
     ).addClass("swell-campaign-link")
     .attr(
@@ -131,8 +131,10 @@ $(document).on("swell:initialized", () => {
         if (option.discountType === "price_adjustment_fixed_amount") {
             $(".swell-redemption-option-list").append(
                 $("<div>").addClass("swell-static-redemption-option").append(
-                    $("<h2>").addClass("swell-static-redemption-option-title").text(option.name),
-                    $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText)
+                    $("<div>").addClass("swell-redemption-link-inside").append(
+                        $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText),
+                        $("<h2>").addClass("swell-static-redemption-option-title").text(option.name)
+                    )
                 ).addClass("swell-redemption-link").attr("data-redemption-option-id", option.id)
             )
         }

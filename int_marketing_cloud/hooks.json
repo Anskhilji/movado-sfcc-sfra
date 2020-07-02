@@ -37,6 +37,10 @@
       "script": "~/cartridge/scripts/communication/order"
     },
     {
+      "name": "app.sfmc.communication.order.cancellation",
+      "script": "~/cartridge/scripts/communication/order"
+    },
+    {
       "name": "app.communication.oms.invoiceProcessed",
       "script": "~/cartridge/scripts/communication/oms"
     },

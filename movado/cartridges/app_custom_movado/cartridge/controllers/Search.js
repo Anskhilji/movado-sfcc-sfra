@@ -13,6 +13,7 @@ var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
 var ABTestMgr = require('dw/campaign/ABTestMgr');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+var URLUtils = require('dw/web/URLUtils');
 
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
@@ -126,7 +127,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 category: apiProductSearch.category,
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
-                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
+                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
+                relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id)
+
             });
         }
     } else {
@@ -225,6 +228,7 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
             foldersearch: folderSearch,
             folderID: parameter.fdid,
             breadcrumbs: breadcrumbs,
+            relativeURL: URLUtils.url('Search-ShowContent','fdid', parameter.fdid),
             helpContent:
                 helpContentAsset &&
                 helpContentAsset.custom &&

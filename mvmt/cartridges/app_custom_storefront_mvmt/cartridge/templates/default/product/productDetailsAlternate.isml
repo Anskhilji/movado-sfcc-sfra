@@ -119,6 +119,11 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
 
+                                <isif condition="${product.shortDescription}">
+                                    <div class="d-none d-md-flex justify-content-center content mb-2" itemprop="description">
+                                        <isprint value="${product.shortDescription}" encoding="off" />
+                                    </div>
+                                </isif>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
@@ -143,9 +148,22 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-12">
+                <isif condition="${product.shortDescription}">
+                    <div class="d-flex d-md-none justify-content-center mb-2 text-center" itemprop="description">
+                        <isprint value="${product.shortDescription}" encoding="off" />
+                    </div>
+                </isif>
+            </div>
+        </div>
         <div class="container-fluid pdp-alternate">
             <isinclude template="product/components/productGallery" />
         </div>
+
+        <isif condition="${!empty(product.pdpCollectionContentAssetID)}">
+            <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
+        </isif>
 
         <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
 

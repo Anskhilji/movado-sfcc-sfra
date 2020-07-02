@@ -35,4 +35,12 @@ module.exports = function () {
         }
         $('.tab-bar-menu').removeClass('dashboard-active');
     });
+
+    $('.insider-page').on('click', '.btn-blocks button' , function(e) {
+        e.preventDefault();
+        var $scrollThis = $(this).data(scroll);
+        $('html, body').animate({
+            scrollTop: $(''+ $scrollThis +'').offset().top - 200
+        }, 500);
+    })
 };

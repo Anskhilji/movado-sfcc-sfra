@@ -77,6 +77,7 @@
             </div>
         </isif>
         <iscomment> Custom End </iscomment>
+        <iscomment>Custom Start: Adding order level disount check to display discount on order and remove strike through price from subtotal </iscomment>
         <div class="subtotal">
             <div class="subtotal-payment-summary">
                 <div class="subtotal-label grand-total-label price-label">
@@ -92,7 +93,18 @@
                 </div>
             </div>
         </div>
-
+        
+        <div class="orderdiscount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
+            <div class="orderdiscount-payment-summary">
+                <div class="orderdiscount-label grand-total-label price-label">
+                    ${Resource.msg('label.minicart.estimateddiscount', 'cart', null)}
+                </div>
+                <div class="orderdiscount-total">
+                    <span class="orderdiscount-value text-right grand-total cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
+                </div>
+            </div>
+        </div>
+        <iscomment> Custom End </iscomment>
         <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
         <div class="row continue-checkout-btn">
             <div class="checkout-continue">

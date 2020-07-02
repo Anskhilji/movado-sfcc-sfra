@@ -38,11 +38,12 @@
                 </div>
             </div>
 
-            <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+            
                 <div class="plp-swatches ${product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                    <isinclude template="product/components/productTileSwatch" />
+                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                        <isinclude template="product/components/productTileSwatch" />
+                    </isif>
                 </div>
-            </isif>
 
             <isif condition="${pdict.display.showAddToCart}">
                 <div class="product-brand-info">
