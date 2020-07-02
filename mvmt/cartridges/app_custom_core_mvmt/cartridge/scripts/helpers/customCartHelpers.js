@@ -84,12 +84,13 @@ function getProductOptions(embossedMessage,engravedMessage){
 	return variant;
 }
 
+//Custom Start : Added mvmt specific attributes in removeFromCart
 function removeFromCartGTMObj(productLineItems){
     var cartItemObj = [];
     var variant = '';
     var displayValue = '';
     collections.forEach(productLineItems, function (pli) {
-	    variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
+        variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
         var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
         collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
@@ -100,7 +101,7 @@ function removeFromCartGTMObj(productLineItems){
             }
         });
 
-     	cartItemObj.push({
+        cartItemObj.push({
             'name': pli.product.name,
             'id': pli.product.ID,
             'price': price,
