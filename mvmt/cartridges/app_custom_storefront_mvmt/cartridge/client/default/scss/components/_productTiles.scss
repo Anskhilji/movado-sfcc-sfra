@@ -50,7 +50,11 @@
     }
 
     .tile-body {
-        padding: rem(20) 0;
+        padding: rem(15) 0;
+
+        @include media-breakpoint-up(lg) {
+            padding: rem(20) 0;
+        }
 
         .plp-swatches {
             min-height: rem(27);
@@ -66,7 +70,6 @@
                     overflow: visible;
                     
                     @include media-breakpoint-down(sm) {
-                    
                         max-width: rem(102);
                     }
                 }
