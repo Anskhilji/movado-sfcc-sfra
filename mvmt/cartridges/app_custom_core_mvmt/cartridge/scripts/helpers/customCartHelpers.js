@@ -89,7 +89,7 @@ function removeFromCartGTMObj(productLineItems){
     var variant = '';
     var displayValue = '';
     collections.forEach(productLineItems, function (pli) {
-		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
+	    variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
         var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
         collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
@@ -114,9 +114,8 @@ function removeFromCartGTMObj(productLineItems){
             'quantity':pli.quantityValue
              });
         displayValue = '';
-     	});
-	 return cartItemObj;
-
+    });
+    return cartItemObj;
 }
 
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
