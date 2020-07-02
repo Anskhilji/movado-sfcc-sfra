@@ -85,10 +85,10 @@ function getProductOptions(embossedMessage,engravedMessage){
 }
 
 function removeFromCartGTMObj(productLineItems){
-	var cartItemObj =[];
-    var variant='';
+    var cartItemObj = [];
+    var variant = '';
     var displayValue = '';
-	collections.forEach(productLineItems, function (pli) {
+    collections.forEach(productLineItems, function (pli) {
 		variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
         var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
 
@@ -113,7 +113,7 @@ function removeFromCartGTMObj(productLineItems){
             'variant': displayValue,
             'quantity':pli.quantityValue
              });
-    displayValue = '';
+        displayValue = '';
      	});
 	 return cartItemObj;
 
