@@ -10,9 +10,12 @@ var URLUtils = require('dw/web/URLUtils');
 var Resource = require('dw/web/Resource');
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 
 server.get(
     'MvmtInsider',
+    server.middleware.https,
+    userLoggedIn.validateLoggedIn,
     function (req, res, next) {
         res.render('account/mvmtInsider');
 
