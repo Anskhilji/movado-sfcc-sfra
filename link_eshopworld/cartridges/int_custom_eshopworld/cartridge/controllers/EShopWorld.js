@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 ​
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
@@ -125,7 +126,23 @@ server.append('GetEswLandingPage', function (req, res, next) {
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
-​
+    // Custom Start: Adding Logic to show price for country selected via geolocation
+    var availableCountry = eswHelper.getAvailableCountry();
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+        return country.value == availableCountry;
+    });
+
+    if (empty(isFixedPriceCountry) && !empty(currency)) {
+        eswHelper.setAllAvailablePriceBooks();
+        eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+    } else {
+    ​    if (!empty(currency)) {
+            eswHelper.setAllAvailablePriceBooks();
+            eswHelper.setBaseCurrencyPriceBook(req, currency);
+        }
+    }
+    // Custom End:
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;

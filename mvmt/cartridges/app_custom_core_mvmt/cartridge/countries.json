@@ -12441,7 +12441,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "PKR",
         "taxation": {
             "type": "net"
         },
