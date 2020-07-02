@@ -21,6 +21,7 @@ processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 
 $(document).ready(function () {
+    processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/faq-page'));
     processInclude(require('./header/header'));
     processInclude(require('./clp/clpcustom'));
