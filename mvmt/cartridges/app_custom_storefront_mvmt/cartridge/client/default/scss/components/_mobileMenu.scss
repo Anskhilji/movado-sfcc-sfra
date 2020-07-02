@@ -360,6 +360,10 @@ header.new-header {
     background: $alice-dark;
     z-index: 1000;
     
+    .esw-custom-dropdown {
+        padding-left: 0;
+    }
+    
     li {
       height: rem(20);
       margin-bottom: rem(7);
