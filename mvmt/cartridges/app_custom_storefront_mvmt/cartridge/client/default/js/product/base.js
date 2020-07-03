@@ -534,6 +534,35 @@ function handleVariantResponse(response, $productContainer) {
     zoomfeature(); 
     initializePDPMainSlider();
 
+    // Updating primary image in spec & detail section
+
+    $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);
+    $('.description-and-detail .pdp-tab-content img').attr('src', primaryImageUrls.pdp533[0].url);
+
+    // Updating Specs & Details
+
+    $('.attribute-specs-list .attribute-detail').remove();
+    $('.attribute-details-list .attribute-detail').remove();
+    
+    var specsArray = response.product.pdpSpecAttributes;
+    var detailsArray = response.product.pdpDetailAttributes;
+
+    if (specsArray.length > 0) {
+        for (var i = 0; i < specsArray.length; i++) {
+            $('.attribute-specs-list').append( "<div class='attribute-detail'><span class='attribute-name attribute-content'>" 
+                + specsArray[i].displayName + "</span><span class='attribute-value attribute-content'>" 
+                + specsArray[i].value + "</span></div>" );
+        }
+    }
+
+    if (detailsArray.length > 0) {
+        for (var i = 0; i < detailsArray.length; i++) {
+            $('.attribute-details-list').append( "<div class='attribute-detail'><span class='attribute-name attribute-content'>"
+               + detailsArray[i].displayName + "</span><span class='attribute-value attribute-content'>" 
+               + detailsArray[i].value + "</span></div>" );
+        }
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
