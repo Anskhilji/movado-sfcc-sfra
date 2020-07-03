@@ -50,8 +50,8 @@ module.exports = function () {
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         //update price
         var $readyToOrder = response.product.readyToOrder;
-        var $variationPriceSelector = $productContainer.find('.tile-body > .price');
-        $variationPriceSelector.replaceWith(response.product.price.html);
+        var $variationPriceSelector = $productContainer.find('.tile-body .eswPrice .sales');
+        $variationPriceSelector.replaceWith('<span class="sales">' + response.product.price.sales.formatted + '</span>');
         if ($readyToOrder) {
             $variationPriceSelector.removeClass('d-none');
         } else {
