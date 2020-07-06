@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 ​
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
@@ -126,6 +127,11 @@ server.append('GetEswLandingPage', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 ​
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry()).currencyCode;
+​    if (currency) {
+        eswHelper.setAllAvailablePriceBooks();
+        eswHelper.setBaseCurrencyPriceBook(req, currency);
+    } 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
