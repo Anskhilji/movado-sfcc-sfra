@@ -362,6 +362,11 @@
 .account-dashboard-tab-sticky {
     position: fixed;
     width: 100%;
+    margin-top: rem(18);
+
+    @include media-breakpoint-up(lg) {
+        margin-top: 0;
+    }
 }
 
 .heading-three {
@@ -508,7 +513,7 @@ body {
                     }
                 }
 
-                & + .sales {
+                & + span {
                     span {
                         color: $dark-red;
                     }

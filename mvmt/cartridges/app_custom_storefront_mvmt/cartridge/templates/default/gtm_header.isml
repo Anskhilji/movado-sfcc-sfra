@@ -67,7 +67,7 @@
                         </isloop>
                     ]
                 },
-                "event": "checkout"}
+                }
                 <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
             </isloop>
         );
@@ -169,7 +169,8 @@
                                 'description': '${orderObj.productObj.description}',
                                 'imageURL': '${orderObj.productObj.imageURL}',
                                 'productURL': '${orderObj.productObj.productURL}',
-                                'coupon': '${orderObj.productObj.itemCoupon}' }
+                                'coupon': '${orderObj.productObj.itemCoupon}',
+                                'brand':  '${orderObj.productObj.brand}'}
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>
                         </isloop>

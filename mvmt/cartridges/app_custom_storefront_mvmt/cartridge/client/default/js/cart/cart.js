@@ -1,7 +1,7 @@
 'use strict';
 
-var $movadoBase = require('movado/product/base');
 
+var $movadoBase = require('movado/product/base');
 /**
  * appends params to a url
  * @param {string} url - Original url

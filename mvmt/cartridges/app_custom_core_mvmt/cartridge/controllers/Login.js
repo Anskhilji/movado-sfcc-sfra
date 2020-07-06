@@ -138,4 +138,22 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
     return next();
 });
 
+server.append(
+       'Show',
+       function (req, res, next) {
+           var URLUtils = require('dw/web/URLUtils');
+           var target = req.querystring.rurl || 1;
+
+           var actionUrl = URLUtils.url('Account-Login', 'rurl', target, 'pageType', 'header');
+           var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target, 'pageType', 'new account').relative().toString();
+
+           res.setViewData({
+            actionUrl: actionUrl,
+            createAccountUrl: createAccountUrl
+        });
+
+           next();
+       }
+   );
+
 module.exports = server.exports();

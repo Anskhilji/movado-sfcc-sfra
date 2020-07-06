@@ -1047,11 +1047,11 @@
 
                             span {
                                 color: $light-gray2;
-                                font-size: 90%;
+                                font-size: rem(14);
                             }
                         }
         
-                        & + .sales {
+                        & + span {
                             span {
                                 color: $dark-red;
                             }
@@ -1090,6 +1090,7 @@
             letter-spacing: rem(0);
             margin-top: 0;
             margin-bottom: rem(15);
+            padding-left: 0;
         }
     }
 
@@ -1394,8 +1395,10 @@
         font-weight: 500;
         letter-spacing: rem(1.2);
         text-transform: uppercase;
-        background-size: cover;
+        background-size: 90%;
         transition: 0.3s ease;
+        background-repeat: no-repeat;
+        background-position: center;
 
         &.active, &:hover {
             border-color: $black;
@@ -1532,6 +1535,34 @@
         font-weight: 500;
         color: $black;
         text-transform: uppercase;
+
+        
+        del {
+            display: block;
+
+            .strike-through {
+                display: block;
+                margin: 0;
+
+                span {
+                    color: $light-gray2;
+                    font-size: rem(14);
+                }
+            }
+
+            & + span {
+                span {
+                    color: $dark-red;
+                }
+            }
+        }
+
+        .sales{
+
+            span {
+                display: block;
+            }
+        }
 
         @include media-breakpoint-up(md-down) {
             display: none;
@@ -2535,7 +2566,7 @@
                     }
                 }
 
-                & + .sales {
+                & + span {
 
                     span {
                         color: $dark-red;

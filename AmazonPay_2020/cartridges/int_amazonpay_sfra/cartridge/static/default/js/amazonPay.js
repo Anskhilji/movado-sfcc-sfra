@@ -127,18 +127,6 @@ module.exports = function (include) {
 
 var $ = __webpack_require__(3);
 
-async function createCheckoutSession() {
-    var checkoutSessionId = '';
-    await $.ajax({
-        url: AmazonURLs.createCheckoutSession,
-        type: 'POST',
-        success: function (data) {
-            checkoutSessionId = data.checkoutSessionId || '';
-        }
-    });
-    return checkoutSessionId;
-}
-
 $(document).ready( function() {
     var amazonPaymentsObject = {
         addButtonToCheckoutPage: function () {
@@ -146,7 +134,9 @@ $(document).ready( function() {
                 // eslint-disable-next-line
                 amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
                     merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
-                    createCheckoutSession: createCheckoutSession,
+                    createCheckoutSession: {
+                        url: AmazonURLs.createCheckoutSession
+                    },
                     ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
                     checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
                     productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
@@ -160,7 +150,9 @@ $(document).ready( function() {
                 // eslint-disable-next-line
                 amazon.Pay.renderButton('#AmazonPayButtonCart', {
                     merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
-                    createCheckoutSession: createCheckoutSession,
+                    createCheckoutSession: {
+                        url: AmazonURLs.createCheckoutSession
+                    },
                     ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
                     checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
                     productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,

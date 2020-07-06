@@ -84,7 +84,43 @@ function getProductOptions(embossedMessage,engravedMessage){
 	return variant;
 }
 
+//Custom Start : Added mvmt specific attributes in removeFromCart
+function removeFromCartGTMObj(productLineItems){
+    var cartItemObj = [];
+    var variant = '';
+    var displayValue = '';
+    collections.forEach(productLineItems, function (pli) {
+        variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
+        var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+
+        collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
+            if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
+                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes).displayValue;
+            } else {
+                displayValue = '';
+            }
+        });
+
+        cartItemObj.push({
+            'name': pli.product.name,
+            'id': pli.product.ID,
+            'price': price,
+            'category': pli.product.categories[0].ID,
+            'sku' : pli.product.ID,
+            'variantID' : pli.product.variant ? pli.product.ID : '',
+            'brand': pli.product.brand,
+            'currentCategory': pli.product.categories[0].displayName,
+            'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
+            'variant': displayValue,
+            'quantity':pli.quantityValue
+             });
+        displayValue = '';
+    });
+    return cartItemObj;
+}
+
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
 movadoCustomCartHelpers.getProductOptions = getProductOptions;
+movadoCustomCartHelpers.removeFromCartGTMObj = removeFromCartGTMObj;
 
 module.exports = movadoCustomCartHelpers;
