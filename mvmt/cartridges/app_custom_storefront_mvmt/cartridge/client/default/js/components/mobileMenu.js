@@ -1,5 +1,17 @@
 'use strict';
 
+function loadEswPrice() {
+    var $eswPrice = $('.eswPrice wainclude');
+    if ($eswPrice.length > 0) {
+        $eswPrice.each(function (index, $eswPriceContainer) {
+            $eswPriceContainer = $(this);
+            $.get($eswPriceContainer.attr('url'), function (data, status) {
+                $eswPriceContainer.replaceWith(data);
+            });
+        });
+    }
+}
+
 module.exports = function () {
     $('.navbar-nav').on('click', '.back-menu', function (e) {
         e.preventDefault();
@@ -50,8 +62,9 @@ module.exports = function () {
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         //update price
         var $readyToOrder = response.product.readyToOrder;
-        var $variationPriceSelector = $productContainer.find('.tile-body .eswPrice .sales');
-        $variationPriceSelector.replaceWith('<span class="sales">' + response.product.price.sales.formatted + '</span>');
+        var $variationPriceSelector = $productContainer.find('.tile-body > .price');
+        $variationPriceSelector.replaceWith(response.product.price.html);
+        loadEswPrice();
         if ($readyToOrder) {
             $variationPriceSelector.removeClass('d-none');
         } else {
