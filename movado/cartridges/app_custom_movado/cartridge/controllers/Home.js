@@ -25,7 +25,6 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var viewData = res.getViewData();
     var content = ContentMgr.getContent('ca-home-hreflang');
-    var userTracking;
 
     var folderSearch = searchCustomHelpers.setupContentFolderSearch('root');
     var contentObj = {
@@ -34,11 +33,6 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     		pageKeywords: folderSearch.folder.pageKeywords };
 
     pageMetaHelper.setPageMetaData(req.pageMetaData, contentObj);
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-        if (customer.isAuthenticated() && customer.getProfile()) {
-            viewData.userTracking = JSON.stringify({email: customer.getProfile().getEmail()});
-        }
-    }
     viewData.content = content && content.custom && content.custom.body ? content.custom.body : '';
     viewData.relativeURL = relativeURL;
     res.setViewData(viewData);
@@ -59,6 +53,20 @@ server.replace('ErrorNotFound', function (req, res, next) {
         result.content404Page = content;
     }
     res.render('error/notFound', result);
+    next();
+});
+
+server.get('SetUserEmail', function (req, res, next) {
+
+    var userTracking;
+	if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        if (customer.isAuthenticated() && customer.getProfile()) {
+            userTracking = JSON.stringify({email: customer.getProfile().getEmail()});
+        }
+    }
+    res.json({
+        userTracking: userTracking
+    });
     next();
 });
 
