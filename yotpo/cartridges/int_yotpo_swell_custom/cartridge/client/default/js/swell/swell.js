@@ -132,8 +132,8 @@ $(document).on("swell:initialized", () => {
             $(".swell-redemption-option-list").append(
                 $("<div>").addClass("swell-static-redemption-option").append(
                     $("<div>").addClass("swell-redemption-link-inside").append(
-                        $("<h2>").addClass("swell-static-redemption-option-title").text(option.name),
-                        $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText)
+                        $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText),
+                        $("<h2>").addClass("swell-static-redemption-option-title").text(option.name)
                     )
                 ).addClass("swell-redemption-link").attr("data-redemption-option-id", option.id)
             )

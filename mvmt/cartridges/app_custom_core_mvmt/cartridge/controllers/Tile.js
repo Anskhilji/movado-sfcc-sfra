@@ -17,11 +17,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, function (req, res, ne
         var promotionName = activeProductPromotion[i].name;
         var promotionCreated = activeProductPromotion[i].startDate;
         var promotionPostistion = activeProductPromotion[i].promotionClass;
+        var pageType = session.custom.gtmPageType;
             promotionObj.push({
                 id: promotionId,
                 name: promotionName,
                 creative: promotionCreated,
-                position: promotionPostistion
+                position: promotionPostistion,
+                pageType: pageType
             });
         }
     }
