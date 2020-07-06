@@ -792,6 +792,16 @@
                         background-color: $gossamer;
                     }
                 }
+
+                label.title {
+
+                    &[aria-expanded="true"] {
+                        
+                        &::after {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
             }
         }
     }
