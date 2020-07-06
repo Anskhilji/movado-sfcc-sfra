@@ -71,6 +71,15 @@ server.get(
         } else {
             footerTemplate = '/components/footer/old/pageFooter';
         }
+        var parentController = req.querystring.parentController;
+        var homeFlag = false;
+        var viewData = res.getViewData();
+
+        if (parentController == 'Home-Show' || parentController == 'Account-Show') {
+            homeFlag = true;
+        }
+        viewData.homeFlag = homeFlag;
+        res.setViewData(viewData);
         res.render(footerTemplate);
         next();
     }

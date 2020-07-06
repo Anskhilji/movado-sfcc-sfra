@@ -432,7 +432,7 @@ function applyShippingMethod(obj, shippingMethodID, country, ignoreCurrency) {
                         Transaction.wrap(function () {
                             shipment.setShippingMethod(method);
                             ShippingMgr.applyShippingCost(cart);
-                            dw.system.HookMgr.callHook('dw.order.calculate', 'calculate', cart);
+                            dw.system.HookMgr.callHook('dw.order.calculate', 'calculate', cart, true);
                             updatePaymentInstrument(cart);
                         });
                         return method;
