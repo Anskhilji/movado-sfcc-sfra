@@ -38,6 +38,7 @@ function getResources(pageContext) {
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
         ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null),
         SLICK_BUTTON_MORE: Resource.msg('label.button.more', 'common', null),
+        EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         SLICK_BUTTON_MORE_STYLE: Resource.msg('label.button.more.style', 'common', null),
         YOTPO_REVIEW_COUNT: Site.getCurrent().getCustomPreferenceValue('yotpoReviewsCount')
     };
