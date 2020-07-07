@@ -1,5 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var mvmtDetail = require('./detail');
 
 function setMiniCartProductSummaryHeight () {
     var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
@@ -501,7 +502,7 @@ function loadEswPrice() {
  *     determine whether the Add to Cart button can be enabled
  * @param {jQuery} $productContainer - DOM element for a given product.
  */
-function handleVariantResponse(response, $productContainer) {
+function handleVariantResponse(response, $productContainer, $galleryImagesContainer) {
     var isChoiceOfBonusProducts =
         $productContainer.parents('.choose-bonus-product-dialog').length > 0;
     var isVaraint;
@@ -520,6 +521,8 @@ function handleVariantResponse(response, $productContainer) {
     //  Remove Zoom and slick slider
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
+    $('.gallery-slider').slick('unslick');
+
     // Update primary images
     var primaryImageUrls = response.product.images;
     primaryImageUrls.zoom1660.forEach(function (imageUrl, idx) {
@@ -530,9 +533,20 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+
+    // Update gallery images
+    primaryImageUrls.gallery.forEach(function (imageUrl, idx) {
+        $galleryImagesContainer.find('.gallery-slider').find('img').eq(idx)
+            .attr('src', imageUrl.url);
+        $galleryImagesContainer.find('.gallery-slider').find('.carousel-tile').eq(idx)
+            .attr('data-thumb', imageUrl.url);
+        $galleryImagesContainer.find('.gallery-slider').find('picture source').eq(idx)
+            .attr('srcset', imageUrl.url);
+    });
     // Attach Slider and Zoom
     zoomfeature(); 
     initializePDPMainSlider();
+    mvmtDetail.gallerySlider();
 
     // Updating primary image in spec & detail section
 
@@ -656,7 +670,7 @@ function updateQuantities(quantities, $productContainer) {
  * @param {string} selectedValueUrl - the Url for the selected variation value
  * @param {jQuery} $productContainer - DOM element for current product
  */
-function attributeSelect(selectedValueUrl, $productContainer) {
+function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesContainer) {
     if (selectedValueUrl) {
 
         $('body').trigger('product:beforeAttributeSelect',
@@ -666,7 +680,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
             url: selectedValueUrl,
             method: 'GET',
             success: function (data) {
-                handleVariantResponse(data, $productContainer);
+                handleVariantResponse(data, $productContainer, $galleryImagesContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
@@ -764,7 +778,8 @@ $(document).off('click').on('click', selector, function (e) {
     if (!$productContainer.length) {
         $productContainer = $(this).closest('.product-detail');
     }
-    attributeSelect(value, $productContainer);
+    var $galleryImagesContainer = $('.product-gallery');
+    attributeSelect(value, $productContainer, $galleryImagesContainer);
 });
 
 $('[data-attr="color"] a').off('click').on('click', function (e) {
@@ -778,8 +793,8 @@ $('[data-attr="color"] a').off('click').on('click', function (e) {
     if (!$productContainer.length) {
         $productContainer = $(this).closest('.product-detail');
     }
-
-    attributeSelect(e.currentTarget.href, $productContainer);
+    var $galleryImagesContainer = $('.product-gallery');
+    attributeSelect(e.currentTarget.href, $productContainer, $galleryImagesContainer);
 });
 
 movadoBase.addToCart = function () {
