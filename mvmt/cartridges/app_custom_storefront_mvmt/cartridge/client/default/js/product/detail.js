@@ -1,5 +1,6 @@
 'use strict';
-
+var movadoDetail = require('movado/product/detail');
+var base = require('./base');
 module.exports = {
 
     zooom : function() {
@@ -368,4 +369,5 @@ module.exports = {
 
         });
     },
+    base: base
 };

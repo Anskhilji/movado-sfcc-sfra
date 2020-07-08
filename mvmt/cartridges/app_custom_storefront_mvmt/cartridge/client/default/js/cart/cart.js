@@ -1,7 +1,7 @@
 'use strict';
 
+var base = require('../product/base');
 
-var $movadoBase = require('movado/product/base');
 /**
  * appends params to a url
  * @param {string} url - Original url
@@ -606,11 +606,11 @@ module.exports = function () {
         });
     });
 
-    $movadoBase.selectAttribute();
-    $movadoBase.colorAttribute();
-    $movadoBase.removeBonusProduct();
-    $movadoBase.selectBonusProduct();
-    $movadoBase.enableBonusProductSelection();
-    $movadoBase.showMoreBonusProducts();
-    $movadoBase.addBonusProductsToCart();
+    base.selectAttribute();
+    base.colorAttribute();
+    base.removeBonusProduct();
+    base.selectBonusProduct();
+    base.enableBonusProductSelection();
+    base.showMoreBonusProducts();
+    base.addBonusProductsToCart();
 };
