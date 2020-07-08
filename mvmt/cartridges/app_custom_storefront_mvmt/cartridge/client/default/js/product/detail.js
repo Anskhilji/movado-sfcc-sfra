@@ -369,11 +369,5 @@ module.exports = {
 
         });
     },
-
-    addCollapse: function () {
-        $(document).on('click','[data-toggle="collapse"]', function () {
-            $($(this).data('target')).toggleClass('show');
-        });
-    },
     base: base
 };
