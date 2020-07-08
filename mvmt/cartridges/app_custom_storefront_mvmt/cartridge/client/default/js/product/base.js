@@ -623,9 +623,6 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
         if ($readyToOrder) {
             $mobilePrice.removeClass('d-none');
             $barSalePriceSelector.removeClass('d-none');
-            if (response.product.currentCountry.toLowerCase() !== 'US') {
-                $('isapplepay.apple-pay-pdp').addClass('d-none');
-            } 
         } else {
             $mobilePrice.addClass('d-none');
             $barSalePriceSelector.addClass('d-none');
@@ -718,7 +715,7 @@ function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesCont
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+       
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
