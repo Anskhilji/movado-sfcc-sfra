@@ -248,10 +248,22 @@ function getPdpCollectionContentAssetID(apiProduct) {
     return pdpCollectionContentAssetID;
 }
 
+function getCurrentCountry() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var availableCountry = 'US';
+    if (isEswEnabled) { 
+        availableCountry = eswHelper.getAvailableCountry();
+    }
+    
+    return availableCountry;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
     getRefinementSwatches: getRefinementSwatches,
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
-    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID
+    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
+    getCurrentCountry: getCurrentCountry
 };
