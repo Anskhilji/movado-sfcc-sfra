@@ -376,6 +376,7 @@
             padding: 0;
             height: rem(42);
             margin-left: rem(15);
+            margin-top: 0;
 
             @include media-breakpoint-down(xs) {
                 margin-left: rem(5);    

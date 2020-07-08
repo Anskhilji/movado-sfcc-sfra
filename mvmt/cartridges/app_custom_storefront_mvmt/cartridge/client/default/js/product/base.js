@@ -1,6 +1,5 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var mvmtDetail = require('./detail');
 
 function setMiniCartProductSummaryHeight () {
     var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
@@ -23,7 +22,7 @@ function setMiniCartProductSummaryHeight () {
  */
 function getQuantitySelector($el) {
     return $el && $('.set-items').length
-        ? $($el).closest('.product-detail').find('.quantity-select')
+        ? $($el).closest('.product-detail').find('.quantity-select') 
         : $('.quantity-select');
 }
 
@@ -399,6 +398,38 @@ var updateCartPage = function(data) {
 };
 
 /**
+ * Add gallery slider in functionality in PDP Primary images
+ */
+function gallerySlider() {
+    $('.gallery-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: false,
+        arrows: true,
+        autoplay: false,
+        prevArrow: '<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 544,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+        ]
+    });
+}
+
+/**
  * Add zoom in functionality in PDP Primary images
  */
 function zoomfeature () {
@@ -546,7 +577,7 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
     // Attach Slider and Zoom
     zoomfeature(); 
     initializePDPMainSlider();
-    mvmtDetail.gallerySlider();
+    gallerySlider();
 
     // Updating primary image in spec & detail section
 
