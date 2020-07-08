@@ -255,7 +255,6 @@ function getCurrentCountry() {
     if (isEswEnabled) { 
         availableCountry = eswHelper.getAvailableCountry();
     }
-    
     return availableCountry;
 }
 
