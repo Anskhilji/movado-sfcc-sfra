@@ -153,7 +153,8 @@
                                     'city': '${orderObj.orderObj.city}',
                                     'state': '${orderObj.orderObj.state}',
                                     'orderQuantity': '${orderObj.orderObj.orderQuantity}',
-                                    'discount': '${orderObj.orderObj.discount}',}
+                                    'discount': '${orderObj.orderObj.discount}',
+                                    'discountType': '${orderObj.orderObj.discountType}',}
                                 </isif>
                             </isloop>
                     , 'products':[
