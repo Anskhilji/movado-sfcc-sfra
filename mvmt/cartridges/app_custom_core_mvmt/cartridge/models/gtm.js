@@ -733,6 +733,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.state = order.shipments[0].shippingAddress.stateCode;
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
         orderObj.discount = getOrderLevelDiscount(order);
+        orderObj.discountType = getDicountType(order);
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
@@ -764,6 +765,24 @@ function getOrderLevelDiscount (order) {
         totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
     }
     return totalOrderPriceAdjustment;
+}
+
+/**
+ * function to get discount type
+ * @param {dw.order.Order} order 
+ * returns {String} discountType
+ */
+function getDicountType (order) {
+    var discountType;
+    var priceAdjustmentsItr = order.getAllLineItems().iterator();
+    var priceAdjustments;
+    while (priceAdjustmentsItr.hasNext()) {
+        priceAdjustments = priceAdjustmentsItr.next();
+        if (priceAdjustments instanceof dw.order.PriceAdjustment) {
+            discountType = priceAdjustments.appliedDiscount.type;
+        }
+    }
+    return discountType;
 }
 
 /**

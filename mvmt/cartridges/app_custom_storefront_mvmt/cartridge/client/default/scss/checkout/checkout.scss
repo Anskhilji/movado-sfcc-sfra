@@ -376,6 +376,7 @@
             padding: 0;
             height: rem(42);
             margin-left: rem(15);
+            margin-top: 0;
 
             @include media-breakpoint-down(xs) {
                 margin-left: rem(5);    
@@ -389,6 +390,7 @@
             height: rem(42);
             width: 100%;
             margin-left: rem(15);
+            margin-top: 0;
 
             @include media-breakpoint-down(xs) {
                 margin-left: rem(5);    
@@ -410,5 +412,34 @@
             }
         }
         
+    }
+}
+
+.collapsible-promo-wrapper {
+    outline: none;
+    margin-top: rem(5);
+
+    .form-group {
+        margin: 0;
+        outline: none;
+
+        label.title {
+            display: block;
+            cursor: pointer;
+
+            &::after {
+                float: right;
+                content: "\F107";
+                font-family: "FontAwesome";
+                font-size: 1.5rem;
+            }
+
+            &[aria-expanded="true"] {
+                
+                &::after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
     }
 }

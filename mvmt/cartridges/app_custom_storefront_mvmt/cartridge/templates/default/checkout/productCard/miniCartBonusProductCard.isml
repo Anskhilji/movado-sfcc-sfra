@@ -5,7 +5,7 @@
         <!--- individual bundled line items --->
         <isinclude template="cart/productCard/cartProductCardBundledItems" />
     <iselse/>
-        <div class="product-line-item-details item-info d-flex flex-row">
+        <div class="product-line-item-details align-items-center item-info d-flex flex-row">
             <div class="item-image">
                 <img class="product-image"
                     src="${lineItem.images.tile150[0].url}"

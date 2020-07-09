@@ -3,6 +3,7 @@
 ## AmazonPay.js
 - Line No: 581
 - Line No: 838
+- Line No: 850
 - Line No: 875
 
 - Line No: 992

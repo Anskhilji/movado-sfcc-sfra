@@ -130,13 +130,21 @@ function processResponse(response) {
 function getSuggestions(scope) {
     if ($(scope).val().length >= minChars) {
         $suggestionsSlots.hide();
+        $(scope).prop("disabled", true);
         $.spinner().start();
         $.ajax({
             context: scope,
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
-            success: processResponse,
-            error: function () { $.spinner().stop(); }
+            success: function() {
+                $(scope).prop("disabled", false).focus();
+                processResponse;
+            },
+
+            error: function () {
+                $(scope).prop("disabled", true);
+                $.spinner().stop();
+            }
         });
     } else {
         clearModals();
@@ -157,6 +165,7 @@ module.exports = function () {
          * hundred milliseconds before making the request. Without debounce, the user sees the
          * browser blink with every key press.
          */
+
         var debounceSuggestions = debounce(getSuggestions, 300);
 
         $(this).on('keyup click', function (e) {

@@ -9,6 +9,9 @@ $(document).ready(function() {
         $activeSubMenu.siblings('.submenu-container').addClass('d-none').removeClass('active');
         $activeSubMenu.removeClass('d-none').addClass('active');
     });
+    $(document).on('click', '[data-toggle="collapse"]', function () {
+        $($(this).data('target')).toggleClass('show');
+    }); 
 });
 
 $('.desktop-search-icon').click(function() {
