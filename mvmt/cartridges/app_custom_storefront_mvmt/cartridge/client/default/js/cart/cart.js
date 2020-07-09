@@ -402,6 +402,10 @@ module.exports = function () {
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
                 }
+                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                }
                 $.spinner().stop();
             },
             error: function (err) {
@@ -493,6 +497,10 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                }
+                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 $.spinner().stop();
             },
