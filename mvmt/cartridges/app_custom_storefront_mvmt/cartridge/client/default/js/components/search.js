@@ -140,10 +140,11 @@ function getSuggestions(scope) {
                 $(scope).prop("disabled", false).focus();
                 processResponse;
             },
+
             error: function () {
                 $(scope).prop("disabled", true);
                 $.spinner().stop();
-             }
+            }
         });
     } else {
         clearModals();
