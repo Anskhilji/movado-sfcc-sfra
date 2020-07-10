@@ -107,38 +107,42 @@ $('.get-reward-btn').click(function() {
 })
 
 $(document).on("swell:initialized", () => {
-    swellAPI.getActiveCampaigns().forEach(campaign => {
-        $(".swell-campaign-list").append(
-        $("<li>").addClass("campaign").append(
-        $("<div>").append(
-        $("<i>").addClass(`fa ${campaign.icon}`),
-        $("<h5>", {text: campaign.title}),
-        $("<p>", {text: campaign.rewardText})
-    ).attr('id', `campaign-${campaign.id}`)
-    ).addClass("swell-campaign-link")
-    .attr(
-    {
-        "data-campaign-id": campaign.id,
-        "data-display-mode": "modal"
+    if (typeof swellAPI !== 'undefined') {
+        swellAPI.getActiveCampaigns().forEach(campaign => {
+            $(".swell-campaign-list").append(
+            $("<li>").addClass("campaign").append(
+            $("<div>").append(
+            $("<i>").addClass(`fa ${campaign.icon}`),
+            $("<h5>", {text: campaign.title}),
+            $("<p>", {text: campaign.rewardText})
+        ).attr('id', `campaign-${campaign.id}`)
+        ).addClass("swell-campaign-link")
+        .attr(
+        {
+            "data-campaign-id": campaign.id,
+            "data-display-mode": "modal"
+        }
+        )
+        );
+        });
     }
-    )
-    );
-    });
 });
 
 $(document).on("swell:initialized", () => {
-    swellAPI.getActiveRedemptionOptions().forEach(option => {
-        if (option.discountType === "price_adjustment_fixed_amount") {
-            $(".swell-redemption-option-list").append(
-                $("<div>").addClass("swell-static-redemption-option").append(
-                    $("<div>").addClass("swell-redemption-link-inside").append(
-                        $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText),
-                        $("<h2>").addClass("swell-static-redemption-option-title").text(option.name)
-                    )
-                ).addClass("swell-redemption-link").attr("data-redemption-option-id", option.id)
-            )
-        }
-    })
+    if (typeof swellAPI !== 'undefined') {
+        swellAPI.getActiveRedemptionOptions().forEach(option => {
+            if (option.discountType === "price_adjustment_fixed_amount") {
+                $(".swell-redemption-option-list").append(
+                    $("<div>").addClass("swell-static-redemption-option").append(
+                        $("<div>").addClass("swell-redemption-link-inside").append(
+                            $("<p>").addClass("swell-static-redemption-option-point-value").text(option.costText),
+                            $("<h2>").addClass("swell-static-redemption-option-title").text(option.name)
+                        )
+                    ).addClass("swell-redemption-link").attr("data-redemption-option-id", option.id)
+                )
+            }
+        })
+    }
 });
 
 var onSuccess = function(redemption) {
@@ -179,15 +183,17 @@ function handleSwellPointContainer() {
 }
 
 $(document).on("swell:initialized", () => {
-    $("#swell-redemption-dropdown").empty();
-    $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
-    swellAPI.getActiveRedemptionOptions().forEach(option => {
-        if (option.discountType === "price_adjustment_fixed_amount") {
-            $("#swell-redemption-dropdown").append(
-                $("<option>").val(option.id).text(`${option.name} = ${option.costText}`)
-            )
-        }
-    });
+    if (typeof swellAPI !== 'undefined') {
+        $("#swell-redemption-dropdown").empty();
+        $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
+        swellAPI.getActiveRedemptionOptions().forEach(option => {
+            if (option.discountType === "price_adjustment_fixed_amount") {
+                $("#swell-redemption-dropdown").append(
+                    $("<option>").val(option.id).text(`${option.name} = ${option.costText}`)
+                )
+            }
+        });
+    }
 });
 
 $(document).on('click', '#coupon-code-submit-btn', function (e) {
