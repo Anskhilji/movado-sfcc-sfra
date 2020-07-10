@@ -6,5 +6,5 @@ $(document).ready(function () {
     processInclude(require('./search/jquery-custom-select'));
     processInclude(require('movado/search'));
     processInclude(require('./search/search'));
-    processInclude(require('./productDetail'));
+    processInclude(require('./product/base'));
 });
