@@ -22,7 +22,15 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
+    if (!empty(currentCountry)) {
+        Object.defineProperty(product, 'currentCountry', {
+            enumerable: true,
+            value: currentCountry
+        });
+    }
+    
     if (!empty(pdpCollectionContentAssetID)) {
         Object.defineProperty(product, 'pdpCollectionContentAssetID', {
             enumerable: true,
