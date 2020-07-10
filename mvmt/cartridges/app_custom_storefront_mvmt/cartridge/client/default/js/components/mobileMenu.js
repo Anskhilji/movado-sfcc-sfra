@@ -1,7 +1,7 @@
 'use strict';
 
-function loadEswPrice() {
-    var $eswPrice = $('.eswPrice wainclude');
+function loadEswPrice($parentContainer) {
+    var $eswPrice = $parentContainer.find('.eswPrice wainclude');
     if ($eswPrice.length > 0) {
         $eswPrice.each(function (index, $eswPriceContainer) {
             $eswPriceContainer = $(this);
@@ -64,7 +64,7 @@ module.exports = function () {
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
         $variationPriceSelector.replaceWith(response.product.price.html);
-        loadEswPrice();
+        loadEswPrice($productContainer);
         if ($readyToOrder) {
             $variationPriceSelector.removeClass('d-none');
         } else {
