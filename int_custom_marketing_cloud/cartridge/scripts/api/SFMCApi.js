@@ -9,6 +9,16 @@ var MarketingCloudServiceRegistry = require('~/cartridge/scripts/service/Marketi
 var SFMCAPIHelper = require('~/cartridge/scripts/helper/SFMCAPIHelper');
 var SFMCCOHelper = require('~/cartridge/scripts/helper/SFMCCOHelper');
 
+function getCurrentCountry() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var availableCountry = 'US';
+    if (isEswEnabled) { 
+        availableCountry = eswHelper.getAvailableCountry();
+    }
+    return availableCountry;
+}
+
 function sendSubscriberToSFMC(requestParams) {
     var result = {
         success: true
@@ -31,7 +41,7 @@ function sendSubscriberToSFMC(requestParams) {
         var accessToken = SFMCAPIHelper.getAuthToken(params);
         if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
             params.email = !empty(requestParams.email) ? requestParams.email: '';
-            params.country = !empty(requestParams.country) ? requestParams.country : '';
+            params.country = !empty(requestParams.country) ? requestParams.country : getCurrentCountry();
             params.firstName = !empty(requestParams.firstName) ? requestParams.firstName : '';
             params.lastName = !empty(requestParams.lastName) ? requestParams.lastName : '';
             params.campaignName = !empty(requestParams.campaignName) ? requestParams.campaignName : '';
