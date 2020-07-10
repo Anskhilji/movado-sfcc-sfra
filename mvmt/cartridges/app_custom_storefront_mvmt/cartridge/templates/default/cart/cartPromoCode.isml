@@ -43,7 +43,7 @@
                 <label class="title" for="cartCouponCode" data-toggle="collapse" data-target="#cartCouponCode" aria-expanded="false">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row collapse value" id="cartCouponCode" name="cartCouponCode">
                     <div class="col-7 pr-0">
-                        <input type="text" class="form-control coupon-code-field" placeholder="${Resource.msg('label.promo.code','cart',null)}">
+                        <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
                         <div class="coupon-error">
                             <span class="coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
                             <span class="coupon-error-message"></span>
