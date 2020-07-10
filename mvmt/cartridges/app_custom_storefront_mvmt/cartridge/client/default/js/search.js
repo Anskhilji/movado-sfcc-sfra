@@ -7,5 +7,4 @@ $(document).ready(function () {
     processInclude(require('movado/search'));
     processInclude(require('./product/base'));
     processInclude(require('./search/search'));
-
 });
