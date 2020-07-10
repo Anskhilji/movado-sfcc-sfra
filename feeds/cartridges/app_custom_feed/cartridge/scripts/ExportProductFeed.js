@@ -196,12 +196,12 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     });
                 }
             } catch (e) {
-                Logger.error('Error occurred while adding product into feed. Product {0}, Error:\n {1}', product , e.stack);
+                Logger.error('Error occurred while adding product into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product , e.stack, e.message);
             }
                 
         }
     } catch(e) {
-        Logger.error('Error occurred while generating csv file for product feed. Error :\n', e.stack);
+        Logger.error('Error occurred while generating csv file for product feed. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
     finally {
         fileArgs.csvStreamWriter.close();
