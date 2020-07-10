@@ -254,7 +254,11 @@ function getCurrentCountry() {
     var availableCountry = 'US';
     if (isEswEnabled) { 
         availableCountry = eswHelper.getAvailableCountry();
+        if (availableCountry == null || empty(availableCountry)) {
+            availableCountry = 'US';
+        }
     }
+
     return availableCountry;
 }
 
