@@ -509,21 +509,6 @@ function initializePDPMainSlider() {
 }
 
 /**
- * Loads ESW price using Ajax
- */
-function loadEswPrice() {
-    var $eswPrice = $('.eswPrice wainclude');
-    if ($eswPrice.length > 0) {
-        $eswPrice.each(function (index, $eswPriceContainer) {
-            $eswPriceContainer = $(this);
-            $.get($eswPriceContainer.attr('url'), function (data, status) {
-                $eswPriceContainer.replaceWith(data);
-            });
-        });
-    }
-}
-
-/**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
  * @param {Object} response - response from Ajax call
  * @param {Object} response.product - Product object
@@ -615,13 +600,23 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        $priceSelector.replaceWith(response.product.price.html);  
+        if (response.product.eswPrice) {
+            $priceSelector.replaceWith(response.product.eswPrice.html);  
+        } else {
+            $priceSelector.replaceWith(response.product.price.html);  
+        }
         // Custom Start
         var $readyToOrder = response.product.readyToOrder;
         var $barSalePriceSelector = $('.sticky-bar-price .price');
-        var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder');
-        $mobilePrice.replaceWith(response.product.price.html);
-        $barSalePriceSelector.replaceWith(response.product.price.html);
+        var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder .price');
+
+        if (response.product.eswPrice) {
+            $mobilePrice.replaceWith(response.product.eswPrice.html);
+            $barSalePriceSelector.replaceWith(response.product.eswPrice.html);
+        }  else {
+            $mobilePrice.replaceWith(response.product.price.html);
+            $barSalePriceSelector.replaceWith(response.product.price.html);
+        }
         if ($readyToOrder) {
             $mobilePrice.removeClass('d-none');
             $barSalePriceSelector.removeClass('d-none');
@@ -631,8 +626,7 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
-        var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
-        loadEswPrice();
+        var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
 
         $.ajax({
             url: $variationProductURL,
@@ -651,7 +645,6 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
                 });
-                loadEswPrice();
             },
             error: function () {
             }
@@ -814,7 +807,7 @@ $(document).off('click').on('click', selector, function (e) {
     attributeSelect(value, $productContainer, $galleryImagesContainer);
 });
 
-$('[data-attr="color"] a').off('click').on('click', function (e) {
+$(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
     e.preventDefault();
 
     if ($(this).attr('disabled')) {

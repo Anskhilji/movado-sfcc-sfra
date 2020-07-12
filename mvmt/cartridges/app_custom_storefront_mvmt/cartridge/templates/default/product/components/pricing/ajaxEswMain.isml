@@ -1,0 +1,25 @@
+<isif condition="${pdict.isStrapAjax}">
+    <isset name="product" value="${recommendation}" scope="page" />
+    <isset name="eswPrice" value="${recommendation.eswPrice.price}" scope="page" />
+<iselse/>
+    <isset name="product" value="${param.product}" scope="page" />
+    <isset name="price" value="${param.price}" scope="page" />
+    <isset name="eswPrice" value="${param.eswPrice}" scope="page" />
+</isif>
+<isif condition="${price.type === 'tiered'}">
+    <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>">
+        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <isinclude template="/product/components/pricing/ajaxEswTiered" />
+    </div>
+<iselseif condition="${price.type === 'range'}">
+    <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <isinclude template="/product/components/pricing/ajaxEswRange" />
+    </div>
+<iselse>
+    <div class="price <isif condition="${typeof product != 'undefined' && product.productType != 'set' && product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <isset name="isLowPrice" value="${}" scope="page" />
+        <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <isinclude template="/product/components/pricing/ajaxEswDefault" /> 
+    </div>
+</isif>

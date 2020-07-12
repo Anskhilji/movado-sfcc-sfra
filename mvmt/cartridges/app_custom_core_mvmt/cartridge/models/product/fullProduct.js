@@ -23,6 +23,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
+    var eswPrice = productCustomHelper.getESWPrice(product);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -91,6 +92,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'seeTheFitSpecs', {
             enumerable: true,
             value: seeTheFitPopup.seeTheFitSpecs
+        });
+    }
+
+    if (!empty(eswPrice)) {
+        Object.defineProperty(product, 'eswPrice', {
+            enumerable: true,
+            value: eswPrice
         });
     }
 
