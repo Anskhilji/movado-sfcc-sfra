@@ -58,20 +58,29 @@ function sendEmail(emailObj, template, context) {
     	
       /*registration*/
     	if(emailObj.type === 1){
+    	    /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
             hookID += 'account.created';
     	}
     	
       /*passwordReset*/
     	else if (emailObj.type === 2){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		params.put('ResetPasswordToken', context.passwordResetToken)
-    		hookID += 'account.passwordReset'; 	
+            params.put('CurrentCustomer', context.resettingCustomer);
+            params.put('ResetPasswordToken', context.passwordResetToken);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordReset'; 	
     	}
     	
       /*passwordChanged*/
     	else if (emailObj.type === 3){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		hookID += 'account.passwordChanged';    
+            params.put('CurrentCustomer', context.resettingCustomer);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordChanged';    
     		 
     	}
     	
@@ -87,8 +96,11 @@ function sendEmail(emailObj, template, context) {
     	
       /*accountEdited*/
     	else if (emailObj.type === 6){
-    		hookID += 'account.updated';  
-      }
+    	    /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.updated';  
+        }
       
       /*productEmailShare*/
     	else if (emailObj.type === 7){
