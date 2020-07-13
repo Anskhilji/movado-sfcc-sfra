@@ -572,7 +572,7 @@ function handleVariantResponse(response, $productContainer) {
     
     // Update gallery images
     primaryImageUrls.gallery.forEach(function (imageUrl) {
-        $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"?sw=533&amp;sh=533"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"?sw=533&amp;sh=533"><img src="' + imageUrl.url + '"?sw=533&amp;sh=533" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '"?sw=830&amp;sh=830" data-zoom-desktop-url="' + imageUrl.url + '"?sw=1660&amp;sh=1660"></picture></div>');
+        $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
 
     // Attach Slider and Zoom
