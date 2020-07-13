@@ -75,7 +75,7 @@ function sendEmail(emailObj, template, context) {
     	}
     	
       /*passwordChanged*/
-    	else if (emailObj.type === 3){
+        else if (emailObj.type === 3){
             params.put('CurrentCustomer', context.resettingCustomer);
             /* Custom Start: Send birthday as per customized logic */
             params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
@@ -85,9 +85,9 @@ function sendEmail(emailObj, template, context) {
     	}
     	
       /*orderConfirmation*/
-    	else if (emailObj.type === 4){
-    	    params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
-    		hookID += 'order.confirmation';    		
+        else if (emailObj.type === 4){
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            hookID += 'order.confirmation';    		
     	}
     	
       /*accountLocked*/
@@ -96,8 +96,8 @@ function sendEmail(emailObj, template, context) {
     	}
     	
       /*accountEdited*/
-    	else if (emailObj.type === 6){
-    	    /* Custom Start: Send birthday as per customized logic */
+        else if (emailObj.type === 6){
+            /* Custom Start: Send birthday as per customized logic */
             params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
             /* Custom End */
             hookID += 'account.updated';  
