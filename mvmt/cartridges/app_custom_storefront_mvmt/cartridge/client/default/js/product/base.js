@@ -617,13 +617,6 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }
-        if ($readyToOrder) {
-            $mobilePrice.removeClass('d-none');
-            $barSalePriceSelector.removeClass('d-none');
-        } else {
-            $mobilePrice.addClass('d-none');
-            $barSalePriceSelector.addClass('d-none');
-        }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
@@ -791,36 +784,39 @@ var updateCartPage = function(data) {
   affirm.ui.refresh();
 };
 
+movadoBase.selectAttribute = function () {
+    var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
+    $(document).off('change', selector);
+    $(document).off('click').on('click', selector, function (e) {
+        e.preventDefault();
 
-var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
-$(document).off('change', selector);
-$(document).off('click').on('click', selector, function (e) {
-    e.preventDefault();
+        var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
-    var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
+        var $galleryImagesContainer = $('.product-gallery');
+        attributeSelect(value, $productContainer, $galleryImagesContainer);
+    });
+}
 
-    var $productContainer = $(this).closest('.set-item');
-    if (!$productContainer.length) {
-        $productContainer = $(this).closest('.product-detail');
-    }
-    var $galleryImagesContainer = $('.product-gallery');
-    attributeSelect(value, $productContainer, $galleryImagesContainer);
-});
-
-$(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
-    e.preventDefault();
-
-    if ($(this).attr('disabled')) {
-        return;
-    }
-
-    var $productContainer = $(this).closest('.set-item');
-    if (!$productContainer.length) {
-        $productContainer = $(this).closest('.product-detail');
-    }
-    var $galleryImagesContainer = $('.product-gallery');
-    attributeSelect(e.currentTarget.href, $productContainer, $galleryImagesContainer);
-});
+movadoBase.colorAttribute = function () {
+    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+        e.preventDefault();
+    
+        if ($(this).attr('disabled')) {
+            return;
+        }
+    
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
+        var $galleryImagesContainer = $('.product-gallery');
+        attributeSelect(e.currentTarget.href, $productContainer, $galleryImagesContainer);
+    });
+}
 
 movadoBase.addToCart = function () {
     $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
