@@ -27,16 +27,18 @@
     <isif condition="${isEswEnabled}"> 
         <span class="eswPrice">
 			<span class="sales">
-				<isif condition="${eswPrice && eswPrice.range && eswPrice.range.minPrice}">
+				<isif condition="${isLowPrice == 'range-low'}">
 					<span class="value" itemprop="lowprice" content="${eswPrice.range.minPrice}">
+                    ${eswPrice.range.minPrice}
 				</isif>
-				<isif condition="${eswPrice && eswPrice.range && eswPrice.range.maxPrice}">
+				<isif condition="${isLowPrice == 'range-high'}">
 					<span class="value" itemprop="highprice" content="${eswPrice.range.maxPrice}">
+                    ${eswPrice.range.maxPrice}
 				</isif>
-				<isif condition="${eswPrice && empty(eswPrice.range)}">
+				<isif condition="${isLowPrice == null}">
 					<span class="value" itemprop="price" content="${eswPrice.sales}">
+                    ${eswPrice.sales}
 				</isif>
-				${eswPrice.sales}
 			</span>
 		</span>
     <iselse>

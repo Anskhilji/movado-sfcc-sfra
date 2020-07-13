@@ -288,7 +288,7 @@ function getESWPrice(product) {
             var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
             var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
             updatedPriceObj.range = {
-                maxPric: maxPrice,
+                maxPrice: maxPrice,
                 minPrice: minPrice
             };
     
@@ -296,18 +296,8 @@ function getESWPrice(product) {
     
         if (!empty(priceObj.sales)) {
             price = priceObj.sales.decimalPrice;
-            lineItemID = product.id;
-            lineItemUUID = product.UUID;
-            var matchingLineItem = (lineItemID && lineItemUUID) ? eswHelper.getMatchingLineItemWithID(lineItemID, lineItemUUID) : '';
-            if (!empty(matchingLineItem)) {
-                var formatMoney = require('dw/util/StringUtils').formatMoney;
-                var convertedPrice = formatMoney(eswHelper.getUnitPriceCost(matchingLineItem));
-            } else {
-                var convertedPrice = eswHelper.getMoneyObject(price, false);
-            }
-    
+            var convertedPrice = eswHelper.getMoneyObject(price, false);
             updatedPriceObj.sales = convertedPrice;
-    
         }
     
         var eswHtml;
