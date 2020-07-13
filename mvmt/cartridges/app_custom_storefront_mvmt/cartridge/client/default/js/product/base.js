@@ -520,7 +520,7 @@ function initializePDPMainSlider() {
  *     determine whether the Add to Cart button can be enabled
  * @param {jQuery} $productContainer - DOM element for a given product.
  */
-function handleVariantResponse(response, $productContainer, $galleryImagesContainer) {
+function handleVariantResponse(response, $productContainer) {
     var isChoiceOfBonusProducts =
         $productContainer.parents('.choose-bonus-product-dialog').length > 0;
     var isVaraint;
@@ -552,15 +552,14 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
             .attr('srcset', imageUrl.url);
     });
 
+    var $galleryImageContainer = $('.gallery-slider');
+    $galleryImageContainer.empty();
+    
     // Update gallery images
-    primaryImageUrls.gallery.forEach(function (imageUrl, idx) {
-        $galleryImagesContainer.find('.gallery-slider').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $galleryImagesContainer.find('.gallery-slider').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $galleryImagesContainer.find('.gallery-slider').find('picture source').eq(idx)
-            .attr('srcset', imageUrl.url);
+    primaryImageUrls.gallery.forEach(function (imageUrl) {
+        $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
+
     // Attach Slider and Zoom
     zoomfeature(); 
     initializePDPMainSlider();
@@ -689,7 +688,7 @@ function updateQuantities(quantities, $productContainer) {
  * @param {string} selectedValueUrl - the Url for the selected variation value
  * @param {jQuery} $productContainer - DOM element for current product
  */
-function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesContainer) {
+function attributeSelect(selectedValueUrl, $productContainer) {
     if (selectedValueUrl) {
 
         $('body').trigger('product:beforeAttributeSelect',
@@ -699,7 +698,7 @@ function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesCont
             url: selectedValueUrl,
             method: 'GET',
             success: function (data) {
-                handleVariantResponse(data, $productContainer, $galleryImagesContainer);
+                handleVariantResponse(data, $productContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
@@ -796,8 +795,7 @@ movadoBase.selectAttribute = function () {
         if (!$productContainer.length) {
             $productContainer = $(this).closest('.product-detail');
         }
-        var $galleryImagesContainer = $('.product-gallery');
-        attributeSelect(value, $productContainer, $galleryImagesContainer);
+        attributeSelect(value, $productContainer);
     });
 }
 
@@ -813,8 +811,7 @@ movadoBase.colorAttribute = function () {
         if (!$productContainer.length) {
             $productContainer = $(this).closest('.product-detail');
         }
-        var $galleryImagesContainer = $('.product-gallery');
-        attributeSelect(e.currentTarget.href, $productContainer, $galleryImagesContainer);
+        attributeSelect(e.currentTarget.href, $productContainer);
     });
 }
 
