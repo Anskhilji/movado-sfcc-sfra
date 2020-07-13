@@ -26,7 +26,7 @@
                                         <isinclude template="product/components/pricing/setPrice" />
                                     <iselse>
                                         <isif condition="${pdict.isStrapAjax}">
-                                            <isinclude template="product/components/pricing/ajaxEswMain" />
+                                            <isinclude template="product/components/pricing/ajaxPricingMain" />
                                         <iselse/>
                                             <isinclude template="product/components/pricing/main" />
                                         </isif>

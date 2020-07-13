@@ -18,7 +18,7 @@
                     <td class="quantity"><isprint value="${tier.quantity}" style="INTEGER" /></td>
                     <td class="value">
                         <isset name="isLowPrice" value="${}" scope="page" />
-                        <isinclude template="/product/components/pricing/ajaxEswDefault" />
+                        <isinclude template="/product/components/pricing/ajaxDefault" />
                     </td>
                 </tr>
             </isloop>

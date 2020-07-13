@@ -26,21 +26,21 @@
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
     <isif condition="${isEswEnabled}"> 
         <span class="eswPrice">
-			<span class="sales">
-				<isif condition="${isLowPrice == 'range-low'}">
-					<span class="value" itemprop="lowprice" content="${eswPrice.range.minPrice}">
+            <span class="sales">
+                <isif condition="${isLowPrice == 'range-low'}">
+                    <span class="value" itemprop="lowprice" content="${eswPrice.range.minPrice}">
                     ${eswPrice.range.minPrice}
-				</isif>
-				<isif condition="${isLowPrice == 'range-high'}">
-					<span class="value" itemprop="highprice" content="${eswPrice.range.maxPrice}">
+                </isif>
+                <isif condition="${isLowPrice == 'range-high'}">
+                    <span class="value" itemprop="highprice" content="${eswPrice.range.maxPrice}">
                     ${eswPrice.range.maxPrice}
-				</isif>
-				<isif condition="${isLowPrice == null}">
-					<span class="value" itemprop="price" content="${eswPrice.sales}">
+                </isif>
+                <isif condition="${isLowPrice == null}">
+                    <span class="value" itemprop="price" content="${eswPrice.sales}">
                     ${eswPrice.sales}
-				</isif>
-			</span>
-		</span>
+                </isif>
+            </span>
+        </span>
     <iselse>
         <span class="sales">
             <isif condition="${isLowPrice == 'range-low'}">

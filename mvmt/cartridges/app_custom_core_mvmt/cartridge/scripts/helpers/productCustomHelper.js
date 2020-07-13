@@ -301,7 +301,7 @@ function getESWPrice(product) {
         }
     
         var eswHtml;
-        var path = 'product/components/pricing/ajaxEswMain.isml';
+        var path = 'product/components/pricing/ajaxPricingMain.isml';
         var template = new Template(path);
         var result = new HashMap();
     

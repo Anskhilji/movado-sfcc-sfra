@@ -9,17 +9,17 @@
 <isif condition="${price.type === 'tiered'}">
     <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>">
         <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
-        <isinclude template="/product/components/pricing/ajaxEswTiered" />
+        <isinclude template="/product/components/pricing/ajaxTiered" />
     </div>
 <iselseif condition="${price.type === 'range'}">
     <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
         <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
-        <isinclude template="/product/components/pricing/ajaxEswRange" />
+        <isinclude template="/product/components/pricing/ajaxRange" />
     </div>
 <iselse>
     <div class="price <isif condition="${typeof product != 'undefined' && product.productType != 'set' && product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <isset name="isLowPrice" value="${}" scope="page" />
         <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
-        <isinclude template="/product/components/pricing/ajaxEswDefault" /> 
+        <isinclude template="/product/components/pricing/ajaxDefault" /> 
     </div>
 </isif>
