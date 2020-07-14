@@ -115,7 +115,8 @@ function updateCountryList () {
             	  'currency': currency,
             	  'language': language,
             	  'url': $(this).attr('data-url'),
-            	  'action':'Home-Show'
+            	  'action': $('.page').data('action'),
+            	  'queryString': $('.page').data('querystring')
             	 };    	
     	changeAjaxCall(dataObj);
     });
@@ -210,6 +211,17 @@ function updateCountryList () {
     	}, 300);
     });
 };
-$(document).ready(function(){
-	updateCountryList();
+
+$(document).ready(function() {
+    refreshUpdateCountryList();
 });
+
+function refreshUpdateCountryList() {
+    if (document.readyState === 'complete') {
+        updateCountryList();
+    } else {
+        setTimeout(() => {
+            refreshUpdateCountryList();
+        }, 200);
+    }
+}
