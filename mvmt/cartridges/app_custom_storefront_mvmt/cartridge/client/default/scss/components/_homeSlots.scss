@@ -108,7 +108,7 @@
 
                 img {
                     object-fit: cover;
-                    height: 255px;
+                    height: rem(255);
 
                     @include media-breakpoint-up(sm) {
                         height: 75vw;
