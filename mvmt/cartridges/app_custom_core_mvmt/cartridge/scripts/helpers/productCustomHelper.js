@@ -8,6 +8,9 @@ var Site = require('dw/system/Site').getCurrent();
 var URLUtils = require('dw/web/URLUtils');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+var Template = require('dw/util/Template');
+var HashMap = require('dw/util/HashMap');
 
 /**
  * Get explicit recommendations for product
@@ -262,11 +265,66 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+/**
+ * 
+ * @param {Product Model} product
+ * @returns eswPriceHTML
+ */
+function getESWPrice(product) {
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    if (isEswEnabled) {
+        var priceObj = product.price;
+        var price, lineItemID, lineItemUUID = null;
+        var updatedPriceObj = {};
+    
+        if (!empty(priceObj.list)) {
+            price = priceObj.list.decimalPrice;
+            var convertedPrice = eswHelper.getMoneyObject(price, false);
+            updatedPriceObj.list = convertedPrice;
+    
+        }
+    
+        if (!empty(priceObj.type) && priceObj.type == 'range') {
+            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
+            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
+            updatedPriceObj.range = {
+                maxPrice: maxPrice,
+                minPrice: minPrice
+            };
+    
+        } 
+    
+        if (!empty(priceObj.sales)) {
+            price = priceObj.sales.decimalPrice;
+            var convertedPrice = eswHelper.getMoneyObject(price, false);
+            updatedPriceObj.sales = convertedPrice;
+        }
+    
+        var eswHtml;
+        var path = 'product/components/pricing/ajaxPricingMain.isml';
+        var template = new Template(path);
+        var result = new HashMap();
+    
+        result.put('price', product.price);
+        result.put('eswPrice', updatedPriceObj);
+        result.put('product', product);
+        eswHtml = template.render(result);
+        var eswPrice = {
+            price: updatedPriceObj,
+            html: eswHtml.text
+        }
+        return eswPrice;
+    } else {
+        return null;
+    }
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
     getRefinementSwatches: getRefinementSwatches,
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
-    getCurrentCountry: getCurrentCountry
+    getCurrentCountry: getCurrentCountry,
+    getESWPrice: getESWPrice
 };
