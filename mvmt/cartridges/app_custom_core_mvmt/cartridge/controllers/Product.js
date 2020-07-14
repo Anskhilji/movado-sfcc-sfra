@@ -44,13 +44,17 @@ server.prepend('Variation', function (req, res, next) {
     var explicitRecommendations = [];
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
+    var isStrapAjax = req.querystring.isStrapAjax;
     
     /* get recommendedProducts for product*/
     if (pid) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
     
-    attributeContext = {explicitRecommendations : explicitRecommendations};
+    attributeContext = {
+        explicitRecommendations: explicitRecommendations,
+        isStrapAjax: isStrapAjax
+    };
     attributeTemplateLinked = 'product/components/recommendedProducts';
     
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
