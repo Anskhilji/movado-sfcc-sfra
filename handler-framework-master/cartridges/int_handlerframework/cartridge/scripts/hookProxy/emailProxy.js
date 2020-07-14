@@ -86,9 +86,6 @@ function sendEmail(emailObj, template, context) {
     	
       /*orderConfirmation*/
         else if (emailObj.type === 4){
-            /* Custom Start: Send birthday as per customized logic */
-            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
-            /* Custom End */
             hookID += 'order.confirmation';    		
     	}
     	
