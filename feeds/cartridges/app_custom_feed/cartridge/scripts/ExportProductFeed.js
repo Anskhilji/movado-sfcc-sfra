@@ -784,7 +784,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
-        color : product.custom.color ? buildStringAttributes(product.custom.color, feedParameters) : "",
+        color : product.custom.color ? product.custom.color : "",
         dialStyle : product.custom.dialStyle ? product.custom.dialStyle : "",
         familyName : buildStringAttributes(product.custom.familyName, feedParameters),
         gtin : product.custom.gtins ? product.custom.gtins : "",
