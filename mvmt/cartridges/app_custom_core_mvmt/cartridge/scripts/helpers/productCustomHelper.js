@@ -272,7 +272,7 @@ function getCurrentCountry() {
  */
 function getESWPrice(product) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    if (isEswEnabled) {
+    if (isEswEnabled && !empty(product.price)) {
         var priceObj = product.price;
         var price, lineItemID, lineItemUUID = null;
         var updatedPriceObj = {};
