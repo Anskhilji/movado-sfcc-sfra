@@ -1,0 +1,60 @@
+<iscomment> Custom Start: Adding ESW updated cartridge code </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<span>
+    <isset name="finalOrigPrice" value="${price}" scope="page" />
+    <isif condition="${finalOrigPrice.list !== null}">
+        <isset name="price" value="${finalOrigPrice.list}" scope="page" />
+        <del>
+            <span class="strike-through list">
+                <span class="value" content="${price.decimalPrice}">
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                    </span>
+                    <isif condition="${isEswEnabled}"> 
+                        <span class="eswListPrice">${eswPrice.list}</span>
+                    <iselse>
+                        <isinclude template="/product/components/pricing/formatted" />
+                    </isif>
+                    <span class="sr-only">
+                        ${Resource.msg('label.price.to', 'pricing', null)}
+                    </span>
+                </span>
+            </span>
+        </del>
+    </isif>
+
+    <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+    <isif condition="${isEswEnabled}"> 
+        <span class="eswPrice">
+            <span class="sales">
+                <isif condition="${isLowPrice == 'range-low'}">
+                    <span class="value" itemprop="lowprice" content="${eswPrice.range.minPrice}">
+                    ${eswPrice.range.minPrice}
+                </isif>
+                <isif condition="${isLowPrice == 'range-high'}">
+                    <span class="value" itemprop="highprice" content="${eswPrice.range.maxPrice}">
+                    ${eswPrice.range.maxPrice}
+                </isif>
+                <isif condition="${isLowPrice == null}">
+                    <span class="value" itemprop="price" content="${eswPrice.sales}">
+                    ${eswPrice.sales}
+                </isif>
+            </span>
+        </span>
+    <iselse>
+        <span class="sales">
+            <isif condition="${isLowPrice == 'range-low'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == 'range-high'}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isif condition="${isLowPrice == null}">
+                <span class="value" content="${price.decimalPrice}">
+            </isif>
+            <isinclude template="/product/components/pricing/formatted" />
+        </span>
+    </isif>
+    </span>
+</span>
+<iscomment> Custom End </iscomment>

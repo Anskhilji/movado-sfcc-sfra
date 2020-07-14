@@ -84,13 +84,13 @@
                     ${Resource.msg('label.minicart.estimatedtotal', 'cart', null)}
                 </div>
                 <div class="subtotal-total">
-                    <iscomment>Custom Start: Removing strike through for full price items</iscomment>
+                    <iscomment> Custom Start: Removing strike through for full price items
                     <isif condition="${orderLevelDiscountTotal != 0}">
                     <span class="subtotal-total-discount">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
                     </isif>
-                    <iscomment> Custom End </iscomment>
-                    <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.grandTotal) ? '0' : pdict.totals.grandTotal}</span>
-                </div>
+                    Custom End </iscomment>
+                    <span class="subtotal-total-discount sub-total">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
+                    </div>
             </div>
         </div>
         

@@ -442,4 +442,17 @@
             }
         }
     }
+
+    .collapsible-xl {
+
+        .content {
+            display: flex;
+        }
+        
+        .collapse {
+            &:not(.show) {
+                display: none;
+            }
+        }
+    }
 }

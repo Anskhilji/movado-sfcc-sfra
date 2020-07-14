@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12 collapsible-promo-wrapper" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
-            <div class="form-group">
+            <div class="form-group collapsible-xl">
                 <label class="title" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row collapse content value" id="checkoutCoupon">
                     <div class="col-7 pr-0">
