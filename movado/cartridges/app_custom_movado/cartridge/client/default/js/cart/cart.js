@@ -648,7 +648,7 @@ module.exports = function () {
         $productToRemoveSpan.empty().append(couponCode);
     });
 
-    $('body').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
+    $('body').off('click', '#removeCouponModal .delete-coupon-confirmation-btn').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
         e.preventDefault();
 
         var url = $(this).data('action');
