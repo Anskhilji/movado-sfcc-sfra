@@ -2,7 +2,7 @@
 .content-slot-container {
     padding: rem(20) 0;
     max-width: rem(1680);
-    margin: 0 auto;
+    margin: 0 rem(20);
 
     @include media-breakpoint-up(md-down) {
         display: flex;
@@ -10,6 +10,7 @@
         justify-content: space-between;
         padding: rem(25) rem(25) 0;
         flex-wrap: wrap;
+        margin: 0 auto;
     }
 
     @include media-breakpoint-up(lg) {
@@ -85,19 +86,61 @@
         }
 
         &-block-full {
+            width: 100%;
+            position: relative;
+            min-height: rem(320);
+            height: auto;
+            box-shadow: none;
+
             @include media-breakpoint-up(md-down) {
                 max-width: 100%;
+                height: 40vw;
+                max-height: rem(425);
+                margin: 0;
+            }
+
+            @include media-breakpoint-up(lg) {
+                height: 45vw;
+                max-height: rem(600);
+            }
+
+            .home-content-img {
+
+                img {
+                    object-fit: cover;
+                    height: 255px;
+
+                    @include media-breakpoint-up(sm) {
+                        height: 75vw;
+                    }
+
+                    @include media-breakpoint-up(md-down) {
+                        max-width: 100%;
+                        height: 40vw;
+                        min-height: 100%;
+                        max-height: rem(425);
+                    }
+        
+                    @include media-breakpoint-up(lg) {
+                        height: 45vw;
+                        max-height: rem(600);
+                    }
+                }
             }
 
             .home-content-text-wrapper {
-                max-width: none;
-                margin: rem(50);
-                padding: rem(20) rem(30) rem(25);
-                width: auto;
+                width: 100%;
+                margin: rem(0);
 
-                @include media-breakpoint-down(md-down) {
-                    width: 100%;
-                    margin: rem(0);
+                @include media-breakpoint-up(md-down) {
+                    max-width: none;
+                    margin: rem(25);
+                    padding: rem(20) rem(30) rem(25);
+                    width: auto;
+                }
+
+                @include media-breakpoint-up(lg) {
+                    margin: rem(50);
                 }
             }
 
@@ -390,6 +433,7 @@
         img {
             width: 100%;
             height: rem(275);
+            object-fit: contain;
         }
 
         h3 {
