@@ -92,7 +92,7 @@
             <!-- Promos -->
             <div class="checkout-promo-section">
                 <isinclude template="checkout/checkoutPromoCode" />
-                <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
+                <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
                 </div>
                 <div class="checkout-coupons-remove">
