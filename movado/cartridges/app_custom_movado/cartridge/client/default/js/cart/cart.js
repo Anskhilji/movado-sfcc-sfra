@@ -589,7 +589,7 @@ module.exports = function () {
         });
     });
 
-    $('body').on('submit', '.promo-code-form', function (e) {
+    $('body').off('submit', '.promo-code-form').on('submit', '.promo-code-form', function (e) {
         e.preventDefault();
         $.spinner().start();
         $('.coupon-missing-error').hide();
@@ -648,7 +648,7 @@ module.exports = function () {
         $productToRemoveSpan.empty().append(couponCode);
     });
 
-    $('body').off('click', '#removeCouponModal .delete-coupon-confirmation-btn').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
+    $('body').on('click', '#removeCouponModal .delete-coupon-confirmation-btn', function (e) {
         e.preventDefault();
 
         var url = $(this).data('action');
