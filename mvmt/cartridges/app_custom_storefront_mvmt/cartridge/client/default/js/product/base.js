@@ -786,7 +786,7 @@ var updateCartPage = function(data) {
 movadoBase.selectAttribute = function () {
     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
     $(document).off('change', selector);
-    $(document).off('click').on('click', selector, function (e) {
+    $(document).off('click', selector).on('click', selector, function (e) {
         e.preventDefault();
 
         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;

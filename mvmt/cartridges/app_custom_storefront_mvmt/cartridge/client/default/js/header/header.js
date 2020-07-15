@@ -1,6 +1,7 @@
 'use strict';
 $(document).ready(function() {
     $('.new-header .dropdown-menu .dropdown-item:first-child').addClass('active');
+    
     $('.submenu-control').hover(function(event) {
         $(this).parent().find('.submenu-control').removeClass('active');
         $(this).addClass('active');
@@ -9,9 +10,6 @@ $(document).ready(function() {
         $activeSubMenu.siblings('.submenu-container').addClass('d-none').removeClass('active');
         $activeSubMenu.removeClass('d-none').addClass('active');
     });
-    $(document).on('click', '[data-toggle="collapse"]', function () {
-        $($(this).data('target')).toggleClass('show');
-    }); 
 });
 
 $('.desktop-search-icon').click(function() {
@@ -135,12 +133,14 @@ $('.dropdown-menu').on('click', '.submenu-container.active .tab-list button', fu
     $('.submenu-container.active .'+ t +'').addClass('active');
 });
 
-$('.desktop-menu .sub-dropdown').hover(function() {
+$('.desktop-menu .sub-dropdown').hover(
+    function() {
     $('#overlay, .overlay').addClass('active');
-  },
-  function(){
+    },
+    function(){
     $('#overlay, .overlay').removeClass('active');
-});
+    }
+);
 
 $('body').mouseup(function(e) {
     var container = $('.mobile-menu');

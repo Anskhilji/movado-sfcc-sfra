@@ -535,10 +535,21 @@
                             margin: 0;
                             cursor: pointer;
 
-                            &:after {
-                                content: "+";
-                                font-family: $font-book;
-                                float: right;
+                            &[aria-expanded="false"] {
+                                &:after {
+                                    content: "+";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
+                            }
+
+                            
+                            &[aria-expanded="true"] {
+                                &:after {
+                                    content: "-";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
                             }
                         }
                     }
