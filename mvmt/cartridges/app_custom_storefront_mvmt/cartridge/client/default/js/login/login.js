@@ -7,8 +7,6 @@ var createErrorNotification = require('base/components/errorNotification');
 
 module.exports = function () {
 
-    //baseLogin.login();
-
     $('form.login').off('submit').on('submit', function (e) {
         var form = $(this);
         e.preventDefault();
