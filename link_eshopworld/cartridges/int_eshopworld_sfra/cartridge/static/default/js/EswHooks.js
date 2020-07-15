@@ -114,9 +114,11 @@ function updateCountryList () {
             	  'country': country,
             	  'currency': currency,
             	  'language': language,
-            	  'url': $(this).attr('data-url'),
+				  'url': $(this).attr('data-url'),
+				  // Custom Start: Changed the  hard coded action from 'Home-Show' to respective action and added the queryString atribute
             	  'action': $('.page').data('action'),
-            	  'queryString': $('.page').data('querystring')
+				  'queryString': $('.page').data('querystring')
+				   // Custom End 
             	 };    	
     	changeAjaxCall(dataObj);
     });
@@ -213,15 +215,5 @@ function updateCountryList () {
 };
 
 $(document).ready(function() {
-    refreshUpdateCountryList();
+    updateCountryList();
 });
-
-function refreshUpdateCountryList() {
-    if (document.readyState === 'complete') {
-        updateCountryList();
-    } else {
-        setTimeout(() => {
-            refreshUpdateCountryList();
-        }, 200);
-    }
-}
