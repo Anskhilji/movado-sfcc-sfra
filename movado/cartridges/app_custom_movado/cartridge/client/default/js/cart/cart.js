@@ -589,7 +589,7 @@ module.exports = function () {
         });
     });
 
-    $('body').off('submit', '.promo-code-form').on('submit', '.promo-code-form', function (e) {
+    $('body').on('submit', '.promo-code-form', function (e) {
         e.preventDefault();
         $.spinner().start();
         $('.coupon-missing-error').hide();

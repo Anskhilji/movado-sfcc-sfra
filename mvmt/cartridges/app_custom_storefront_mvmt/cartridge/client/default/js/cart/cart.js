@@ -1,7 +1,6 @@
 'use strict';
 
 var base = require('../product/base');
-var movadoCart = require('movado/cart/cart');
 
 /**
  * appends params to a url
@@ -623,4 +622,3 @@ module.exports = function () {
     base.showMoreBonusProducts();
     base.addBonusProductsToCart();
 };
-movadoCart();
