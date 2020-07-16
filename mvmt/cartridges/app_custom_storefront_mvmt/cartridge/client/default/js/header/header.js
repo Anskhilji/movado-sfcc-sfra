@@ -50,7 +50,7 @@ $('.header-mobile-categories .header-mobile-category').click(function() {
 
 $('#overlay, .search-modal-open').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
-    $('.mobile-nav, #overlay').removeClass('active');
+    $('.mobile-nav, #overlay, .size-guide').removeClass('size-guide-overlay active');
     var $menuText = $('.header-mobile-categories .active .header-mobile-category-text').data('trigger-menu');
     $('.header-mobile-categories .active .header-mobile-category-text').text($menuText);
     $('.header-mobile-categories .header-mobile-category').removeClass('active');

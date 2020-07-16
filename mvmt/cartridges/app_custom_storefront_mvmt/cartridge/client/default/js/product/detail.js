@@ -79,10 +79,12 @@ module.exports = {
 
         $('.call-see-fit-popup').on('click', function(e) {
             $('.size-guide, #overlay').addClass('active');
+            $('#overlay').addClass('size-guide-overlay');
         });
 
         $('.size-guide-close').on('click', function(e) {
             $('.size-guide, #overlay').removeClass('active');
+            $('#overlay').removeClass('size-guide-overlay');
         });
 
         $('.modal-close').on('click', function(e) {
