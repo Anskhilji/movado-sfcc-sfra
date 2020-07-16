@@ -16,6 +16,13 @@ var eShopWorldServices = {
                 return listOutput.text;
             }
         });
+        // Custom Start: implemented the 3rd party test mode option
+        var Site = require('dw/system/Site');
+        var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+        if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+            oAuthService = customStorefrontHelpers.setTestModeCredentials(oAuthService);
+        } 
+        // Custom End
         return oAuthService;
     },
     /*
@@ -29,6 +36,13 @@ var eShopWorldServices = {
                     bearerToken = 'Bearer ' + params;
                 clientID = clientID.substring(0, clientID.indexOf('.'));
                 // eslint-disable-next-line no-param-reassign
+                // Custom Start: implemented the 3rd party test mode option
+                var Site = require('dw/system/Site');
+                var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+                if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+                    service = customStorefrontHelpers.setTestModeCredentials(service);
+                } 
+                // Custom End
                 service.URL = service.URL + '/' + clientID;
                 service.addHeader('Content-type', 'application/json');
                 service.addHeader('Authorization', bearerToken);
@@ -61,6 +75,13 @@ var eShopWorldServices = {
                 service.addHeader('Content-Type', 'application/json');
                 service.addHeader('Authorization', bearerToken);
                 // eslint-disable-next-line no-param-reassign
+                // Custom Start: implemented the 3rd party test mode option
+                var Site = require('dw/system/Site');
+                var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+                if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+                    service = customStorefrontHelpers.setTestModeCredentials(service);
+                } 
+                // Custom End
                 service.URL = service.URL;
                 service.setRequestMethod('post');
                 eswHelper.eswInfoLogger('Esw Pre Order V2 Request : ', params);
