@@ -186,8 +186,10 @@ server.append('NotifyV2', function(req, res, next) {
     if (emailOptIn) {
         var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
         var billingCustomer = obj.contactDetails;
+        var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
-            email: billingCustomer[0].email
+            email: billingCustomer[0].email,
+            country: deliveryCountry
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
             SFMCApi.sendSubscriberToSFMC(requestParams);
