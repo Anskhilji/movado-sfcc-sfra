@@ -139,7 +139,7 @@ server.prepend(
                 value: stateOrRegion
             });
 
-            shippingForm.shippingAddress.addressFields.states.stateCode.options = map;
+            shippingForm.shippingAddress.addressFields.states.stateCode.options = map.toArray();
         }
 
         if (preferredAddress) {
