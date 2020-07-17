@@ -16,3 +16,8 @@
 
 ## EswHooks.js
 - Line No: Start from 118 to 121
+
+## EswCoreService.js
+- Line No: Start from 19 to 25
+- Line No: Start from 39 to 45
+- Line No: Start from 78 to 84
