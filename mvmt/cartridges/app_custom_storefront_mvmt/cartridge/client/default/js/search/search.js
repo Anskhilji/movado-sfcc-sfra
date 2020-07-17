@@ -657,10 +657,11 @@ module.exports = {
 
         $(window).on('resize', function() {
             $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text('');
+
             setTimeout( function(){ 
                 $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
                 $('.straps-nav-mobile .slick-next').prepend(svgRight);
-             }, 100);
+            }, 100);
         });
     },
 
