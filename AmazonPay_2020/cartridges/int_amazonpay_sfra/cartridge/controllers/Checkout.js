@@ -139,7 +139,9 @@ server.prepend(
                 value: stateOrRegion
             });
 
+            // Custom Start: Change map type into array to fix error for registered user.
             shippingForm.shippingAddress.addressFields.states.stateCode.options = map.toArray();
+            // Custom End
         }
 
         if (preferredAddress) {
