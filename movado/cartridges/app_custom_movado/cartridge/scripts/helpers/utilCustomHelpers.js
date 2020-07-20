@@ -2,7 +2,7 @@
 
 var Site = require('dw/system/Site');
 
-var Constants = require('~/cartridge/scripts/util/Constants');
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants.js');
 
 function isSwellLoyaltyAllowedCountry() {
     
