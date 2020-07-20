@@ -501,7 +501,17 @@ var getEswHelper = {
         if (totalDiscount < 0) {
             totalDiscount *= -1;
         }
-        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
+
+        // Custom Start: Add defensive code for currency
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        } else {
+            currencyCode = session.custom.currencyCode;
+        }
+        // Custom End
+
+        return new dw.value.Money(totalDiscount, currencyCode);
         /*
         if(cart.couponLineItems.length > 0) {
             for (var item in cart.couponLineItems) {
