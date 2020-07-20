@@ -37,9 +37,9 @@ module.exports = function (object, hit) {
                                 title: apiImage.title
                             }],
                             large: [{
-                                alt: apiLargeImage.tile256[0].alt,
-                                url: apiLargeImage.tile256[0].url.toString(),
-                                title: apiLargeImage.tile256[0].title
+                                alt: !empty(apiLargeImage.tile256[0]) ? apiLargeImage.tile256[0].alt : '',
+                                url: !empty(apiLargeImage.tile256[0]) ? apiLargeImage.tile256[0].url.toString() : '',
+                                title: !empty(apiLargeImage.tile256[0]) ? apiLargeImage.tile256[0].title : ''
                             }]
                         },
                         pdpURL: URLUtils.url(
