@@ -1039,9 +1039,11 @@ function getLineItemLevelTax(resultTaxObject, lineItemAdjustedTax, orderPriceRat
     var pliTaxes = 0.0;
     var productProrationPrice = 0.0;
 
-    if (orderPromoApplied) {
+    if (orderPromoApplied && lineItemAdjustedTax > 0) {
         productProrationPrice = parseFloat(orderLevelTaxAttrAdjTotal * orderPriceRatio);
         pliTaxes = lineItemAdjustedTax - productProrationPrice;
+    } else if (orderPromoApplied) {
+        pliTaxes = parseFloat(orderLevelTaxAttrAdjTotal * orderPriceRatio);
     } else {
         pliTaxes = lineItemAdjustedTax;
     }
