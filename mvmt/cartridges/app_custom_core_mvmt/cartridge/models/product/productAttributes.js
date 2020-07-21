@@ -38,43 +38,47 @@ function getAllAttrValues(
     selectedOptionsQueryParams,
     quantity
 ) {
-    var attrValues = variationModel.getAllValues(attr);
-    var actionEndpoint = 'Product-' + endPoint;
+    try {
+        var attrValues = variationModel.getAllValues(attr);
+        var actionEndpoint = 'Product-' + endPoint;
 
-    return collections.map(attrValues, function (value) {
-        var isSelected = (selectedValue && selectedValue.equals(value)) || false;
-        var valueUrl = '';
+        return collections.map(attrValues, function (value) {
+            var isSelected = (selectedValue && selectedValue.equals(value)) || false;
+            var valueUrl = '';
 
-        var processedAttr = {
-            id: value.ID,
-            description: value.description,
-            displayValue: value.displayValue,
-            value: value.value,
-            selected: isSelected,
-            selectable: variationModel.hasOrderableVariants(attr, value)
-        };
+            var processedAttr = {
+                id: value.ID,
+                description: value.description,
+                displayValue: value.displayValue,
+                value: value.value,
+                selected: isSelected,
+                selectable: variationModel.hasOrderableVariants(attr, value)
+            };
 
-        if (processedAttr.selectable) {
-            valueUrl = (isSelected && endPoint !== 'Show')
-                ? variationModel.urlUnselectVariationValue(actionEndpoint, attr)
-                : variationModel.urlSelectVariationValue(actionEndpoint, attr, value);
-            processedAttr.url = urlHelper.appendQueryParams(valueUrl, [selectedOptionsQueryParams,
-                'quantity=' + quantity]);
-        }
+            if (processedAttr.selectable) {
+                valueUrl = (isSelected && endPoint !== 'Show')
+                    ? variationModel.urlUnselectVariationValue(actionEndpoint, attr)
+                    : variationModel.urlSelectVariationValue(actionEndpoint, attr, value);
+                processedAttr.url = urlHelper.appendQueryParams(valueUrl, [selectedOptionsQueryParams,
+                    'quantity=' + quantity]);
+            }
 
-        if (isSwatchable(attr.attributeID)) {
-            processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
-            
-            // Custom Start : getting large type image against each variant
-            
-            var largeImages = new ImageModel(value, { types: ['tile533', 'tile256', 'tile217', 'tile150'], quantity: 'single' });
-            processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
-            
-            // Custom End
-        }
+            if (isSwatchable(attr.attributeID)) {
+                processedAttr.images = new ImageModel(value, { types: ['swatch'], quantity: 'all' });
+                
+                // Custom Start : getting large type image against each variant
+                
+                var largeImages = new ImageModel(value, { types: ['tile533', 'tile256', 'tile217', 'tile150'], quantity: 'single' });
+                processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
+                
+                // Custom End
+            }
 
-        return processedAttr;
-    });
+            return processedAttr;
+        });
+    } catch (e) {
+        Logger.error('productAttributes: Error occured while getting all attributes value and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
 }
 
 /**

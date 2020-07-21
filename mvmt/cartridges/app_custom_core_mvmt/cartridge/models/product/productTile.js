@@ -72,8 +72,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     }
                 });
             } else {
-                defaultVariantImage = varAttr[0].largeImage.url;
-                variationPdpURL = varAttr[0].pdpURL;
+                defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
+                variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
             }
