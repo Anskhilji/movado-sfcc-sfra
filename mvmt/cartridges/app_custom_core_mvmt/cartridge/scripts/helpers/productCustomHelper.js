@@ -27,16 +27,20 @@ function getExplicitRecommendations(pid) {
     var recommendationTilesList = [];
     var productRecommendationTile = {};
     
-    if (productRecommendations) {
-        for (var i = 0; i < productRecommendations.length; i++) {
-            recommendation = productRecommendations[i];
-            productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-            product = Object.create(null);
-            apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-            productType = productHelper.getProductType(apiProduct);
-            productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-            recommendationTilesList.push(productRecommendationTile);
+    try {
+        if (productRecommendations) {
+            for (var i = 0; i < productRecommendations.length; i++) {
+                recommendation = productRecommendations[i];
+                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
+                product = Object.create(null);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
+                productType = productHelper.getProductType(apiProduct);
+                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                recommendationTilesList.push(productRecommendationTile);
+            }
         }
+    } catch (e) {
+        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     return recommendationTilesList;
 }
