@@ -44,7 +44,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         product = false;
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
-        logger.error('Tile-Show: Error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        logger.error('Tile-Show: Error occured while getting product: {0} and error is: {1} in {2} : {3}', productTileParams.pid, e.toString(), e.fileName, e.lineNumber);
     }
     
     var showProductPageHelperResult = '';
