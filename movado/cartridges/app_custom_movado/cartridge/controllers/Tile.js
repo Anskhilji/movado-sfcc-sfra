@@ -5,6 +5,7 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var logger = require('dw/system/Logger');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -43,13 +44,17 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         product = false;
         productUrl = URLUtils.url('Home-Show');// TODO: change to coming soon page
         quickViewUrl = URLUtils.url('Home-Show');
+        logger.error('Tile-Show: Error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     
-    var requestQuerystring = {
-        pid: product.id
-    };
+    var showProductPageHelperResult = '';
+    if (product) {
+        var requestQuerystring = {
+            pid: product.apiProduct.ID
+        };
+        showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
+    }
     
-    var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
@@ -59,7 +64,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var context = {
         isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(productTileParams.pid),
         product: product,
-        apiProduct: showProductPageHelperResult.product,
+        apiProduct: !empty(showProductPageHelperResult) ? showProductPageHelperResult.product : '',
         urls: {
             product: productUrl,
             quickView: quickViewUrl
