@@ -50,7 +50,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var showProductPageHelperResult = '';
     if (product) {
         var requestQuerystring = {
-            pid: product.apiProduct.ID
+            pid: product.apiProduct.id
         };
         showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     }
