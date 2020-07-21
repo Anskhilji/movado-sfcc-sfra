@@ -439,7 +439,12 @@
                     letter-spacing: 1.17px;
                     line-height: rem(20);
                     margin-bottom: rem(10);
-                    text-transform: uppercase;
+                    text-transform: uppercase; 
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding: 0 rem(5);
+
 
                     @include media-breakpoint-up(lg) {
                         font-size: rem(12);
@@ -467,6 +472,9 @@
                     text-transform: uppercase;
                     margin: 0 auto;
                     cursor: pointer;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
 
                     &:hover, &:focus {
                         background: $light-green;
