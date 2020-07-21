@@ -42,7 +42,6 @@ function getExplicitRecommendations(pid) {
     } catch (e) {
         Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
-    
     return recommendationTilesList;
 }
 
