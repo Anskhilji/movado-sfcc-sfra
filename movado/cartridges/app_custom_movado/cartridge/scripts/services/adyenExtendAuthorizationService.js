@@ -14,6 +14,13 @@ var THIS_SCRIPT = '/app_custom_movado/cartridge/scripts/services/adyenExtendAuth
 */
 function getService(serviceID, serviceConfig) {
     var adyenCheckoutPaymentService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    // Custom Start: implemented the 3rd party test mode option
+    var Site = require('dw/system/Site');
+    var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+    if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+        adyenCheckoutPaymentService = customStorefrontHelpers.setTestModeCredentials(adyenCheckoutPaymentService);
+    } 
+    // Custom End
     return adyenCheckoutPaymentService;
 }
 

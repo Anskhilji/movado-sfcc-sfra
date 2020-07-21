@@ -79,10 +79,12 @@ module.exports = {
 
         $('.call-see-fit-popup').on('click', function(e) {
             $('.size-guide, #overlay').addClass('active');
+            $('#overlay').addClass('size-guide-overlay');
         });
 
         $('.size-guide-close').on('click', function(e) {
             $('.size-guide, #overlay').removeClass('active');
+            $('#overlay').removeClass('size-guide-overlay');
         });
 
         $('.modal-close').on('click', function(e) {
@@ -260,16 +262,20 @@ module.exports = {
             if (response.product.readyToOrder) {
                 // Custom Start: Enable Add to  Cart if product Ready To Order
                 $('button.add-to-cart').attr('disabled', false);
-                // Custom End
-                var applePayButton = $('.apple-pay-pdp', response.$productContainer);
-                if (applePayButton.length !== 0) {
-                    applePayButton.attr('sku', response.product.id);
-                } else {
-                    if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
-                        $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
-                            'sku=' + response.product.id + '></isapplepay>');
+                
+                var currentCountry = response.product.currentCountry.toLowerCase();
+                if (currentCountry && currentCountry === Resources.US_COUNTRY_CODE.toLowerCase()) {
+                    var applePayButton = $('.apple-pay-pdp', response.$productContainer);
+                    if (applePayButton.length !== 0) {
+                        applePayButton.attr('sku', response.product.id);
+                    } else {
+                        if ($('.apple-pay-pdp').length === 0) { // eslint-disable-line no-lonely-if
+                            $('.cart-and-ipay').append('<isapplepay class="apple-pay-pdp btn"' +
+                                'sku=' + response.product.id + '></isapplepay>');
+                        }
                     }
-                }
+                } 
+                // Custom End
             } else {
                 $('.apple-pay-pdp').remove();
             }

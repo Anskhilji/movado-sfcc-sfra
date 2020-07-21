@@ -12,6 +12,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
     baseProductTile.call(this, product, apiProduct, productType, params);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     
     var colorVariations;
     var defaultVariantImage;
@@ -19,6 +20,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
+    var eswPrice = productCustomHelper.getESWPrice(product);
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -125,6 +127,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: apiProduct
         });
         
+    }
+
+    if (!empty(eswPrice)) {
+        Object.defineProperty(product, 'eswPrice', {
+            enumerable: true,
+            value: eswPrice
+        });
     }
     
     return product;

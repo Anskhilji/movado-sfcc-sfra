@@ -37,6 +37,7 @@ function openMiniCart () {
             $('#footer-overlay').addClass('footer-form-overlay');
             setMiniCartProductSummaryHeight();
             $('.mini-cart-data .popover').addClass('show');
+            $.spinner().stop();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -44,9 +45,10 @@ function openMiniCart () {
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
             $('.mini-cart-data .popover').addClass('show');
+            $.spinner().stop();
         });
     }
-    $.spinner().stop();
+
     $('.mobile-cart-icon').hide();
     $('.mobile-cart-close-icon').show();
     //Custom End
@@ -507,21 +509,6 @@ function initializePDPMainSlider() {
 }
 
 /**
- * Loads ESW price using Ajax
- */
-function loadEswPrice() {
-    var $eswPrice = $('.eswPrice wainclude');
-    if ($eswPrice.length > 0) {
-        $eswPrice.each(function (index, $eswPriceContainer) {
-            $eswPriceContainer = $(this);
-            $.get($eswPriceContainer.attr('url'), function (data, status) {
-                $eswPriceContainer.replaceWith(data);
-            });
-        });
-    }
-}
-
-/**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
  * @param {Object} response - response from Ajax call
  * @param {Object} response.product - Product object
@@ -533,7 +520,7 @@ function loadEswPrice() {
  *     determine whether the Add to Cart button can be enabled
  * @param {jQuery} $productContainer - DOM element for a given product.
  */
-function handleVariantResponse(response, $productContainer, $galleryImagesContainer) {
+function handleVariantResponse(response, $productContainer) {
     var isChoiceOfBonusProducts =
         $productContainer.parents('.choose-bonus-product-dialog').length > 0;
     var isVaraint;
@@ -565,15 +552,14 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
             .attr('srcset', imageUrl.url);
     });
 
+    var $galleryImageContainer = $('.gallery-slider');
+    $galleryImageContainer.empty();
+    
     // Update gallery images
-    primaryImageUrls.gallery.forEach(function (imageUrl, idx) {
-        $galleryImagesContainer.find('.gallery-slider').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $galleryImagesContainer.find('.gallery-slider').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $galleryImagesContainer.find('.gallery-slider').find('picture source').eq(idx)
-            .attr('srcset', imageUrl.url);
+    primaryImageUrls.gallery.forEach(function (imageUrl) {
+        $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
+
     // Attach Slider and Zoom
     zoomfeature(); 
     initializePDPMainSlider();
@@ -613,24 +599,26 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        $priceSelector.replaceWith(response.product.price.html);  
+        if (response.product.eswPrice) {
+            $priceSelector.replaceWith(response.product.eswPrice.html);  
+        } else {
+            $priceSelector.replaceWith(response.product.price.html);  
+        }
         // Custom Start
         var $readyToOrder = response.product.readyToOrder;
         var $barSalePriceSelector = $('.sticky-bar-price .price');
-        var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder');
-        $mobilePrice.replaceWith(response.product.price.html);
-        $barSalePriceSelector.replaceWith(response.product.price.html);
-        if ($readyToOrder) {
-            $mobilePrice.removeClass('d-none');
-            $barSalePriceSelector.removeClass('d-none');
-        } else {
-            $mobilePrice.addClass('d-none');
-            $barSalePriceSelector.addClass('d-none');
+        var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder .price');
+
+        if (response.product.eswPrice) {
+            $mobilePrice.replaceWith(response.product.eswPrice.html);
+            $barSalePriceSelector.replaceWith(response.product.eswPrice.html);
+        }  else {
+            $mobilePrice.replaceWith(response.product.price.html);
+            $barSalePriceSelector.replaceWith(response.product.price.html);
         }
         var $productNameSelector = $('.product-name');
         $productNameSelector.text(response.product.productName);
-        var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id;
-        loadEswPrice();
+        var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
 
         $.ajax({
             url: $variationProductURL,
@@ -649,7 +637,6 @@ function handleVariantResponse(response, $productContainer, $galleryImagesContai
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
                 });
-                loadEswPrice();
             },
             error: function () {
             }
@@ -701,7 +688,7 @@ function updateQuantities(quantities, $productContainer) {
  * @param {string} selectedValueUrl - the Url for the selected variation value
  * @param {jQuery} $productContainer - DOM element for current product
  */
-function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesContainer) {
+function attributeSelect(selectedValueUrl, $productContainer) {
     if (selectedValueUrl) {
 
         $('body').trigger('product:beforeAttributeSelect',
@@ -711,11 +698,10 @@ function attributeSelect(selectedValueUrl, $productContainer, $galleryImagesCont
             url: selectedValueUrl,
             method: 'GET',
             success: function (data) {
-                handleVariantResponse(data, $productContainer, $galleryImagesContainer);
+                handleVariantResponse(data, $productContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -797,36 +783,37 @@ var updateCartPage = function(data) {
   affirm.ui.refresh();
 };
 
+movadoBase.selectAttribute = function () {
+    var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
+    $(document).off('change', selector);
+    $(document).off('click', selector).on('click', selector, function (e) {
+        e.preventDefault();
 
-var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
-$(document).off('change', selector);
-$(document).off('click').on('click', selector, function (e) {
-    e.preventDefault();
+        var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
-    var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
+        attributeSelect(value, $productContainer);
+    });
+}
 
-    var $productContainer = $(this).closest('.set-item');
-    if (!$productContainer.length) {
-        $productContainer = $(this).closest('.product-detail');
-    }
-    var $galleryImagesContainer = $('.product-gallery');
-    attributeSelect(value, $productContainer, $galleryImagesContainer);
-});
-
-$('[data-attr="color"] a').off('click').on('click', function (e) {
-    e.preventDefault();
-
-    if ($(this).attr('disabled')) {
-        return;
-    }
-
-    var $productContainer = $(this).closest('.set-item');
-    if (!$productContainer.length) {
-        $productContainer = $(this).closest('.product-detail');
-    }
-    var $galleryImagesContainer = $('.product-gallery');
-    attributeSelect(e.currentTarget.href, $productContainer, $galleryImagesContainer);
-});
+movadoBase.colorAttribute = function () {
+    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+        e.preventDefault();
+    
+        if ($(this).attr('disabled')) {
+            return;
+        }
+    
+        var $productContainer = $(this).closest('.set-item');
+        if (!$productContainer.length) {
+            $productContainer = $(this).closest('.product-detail');
+        }
+        attributeSelect(e.currentTarget.href, $productContainer);
+    });
+}
 
 movadoBase.addToCart = function () {
     $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
@@ -835,7 +822,7 @@ movadoBase.addToCart = function () {
         var pid;
         var pidsObj;
         var setPids;
-
+        $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
 
         if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
@@ -900,7 +887,7 @@ movadoBase.addToCart = function () {
         form.currentPage = $('.page[data-action]').data('action') || '';
         $(this).trigger('updateAddToCartFormData', form);
         if (addToCartUrl) {
-            $.spinner().start();
+
             $.ajax({
                 url: addToCartUrl,
                 method: 'POST',

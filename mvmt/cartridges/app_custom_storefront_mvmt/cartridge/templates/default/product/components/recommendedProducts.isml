@@ -25,7 +25,11 @@
                                     <isif condition="${recommendation.productType === 'set'}">
                                         <isinclude template="product/components/pricing/setPrice" />
                                     <iselse>
-                                        <isinclude template="product/components/pricing/main" />
+                                        <isif condition="${pdict.isStrapAjax}">
+                                            <isinclude template="product/components/pricing/ajaxPricingMain" />
+                                        <iselse/>
+                                            <isinclude template="product/components/pricing/main" />
+                                        </isif>
                                     </isif>
                                 </div>
                             </div>

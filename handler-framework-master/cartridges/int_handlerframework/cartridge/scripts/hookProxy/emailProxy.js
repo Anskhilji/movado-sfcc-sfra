@@ -57,27 +57,36 @@ function sendEmail(emailObj, template, context) {
     if(emailObj){
     	
       /*registration*/
-    	if(emailObj.type === 1){
+        if(emailObj.type === 1){
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
             hookID += 'account.created';
     	}
     	
       /*passwordReset*/
     	else if (emailObj.type === 2){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		params.put('ResetPasswordToken', context.passwordResetToken)
-    		hookID += 'account.passwordReset'; 	
+            params.put('CurrentCustomer', context.resettingCustomer);
+            params.put('ResetPasswordToken', context.passwordResetToken);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordReset'; 	
     	}
     	
       /*passwordChanged*/
-    	else if (emailObj.type === 3){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		hookID += 'account.passwordChanged';    
+        else if (emailObj.type === 3){
+            params.put('CurrentCustomer', context.resettingCustomer);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordChanged';    
     		 
     	}
     	
       /*orderConfirmation*/
-    	else if (emailObj.type === 4){
-    		hookID += 'order.confirmation';    		
+        else if (emailObj.type === 4){
+            hookID += 'order.confirmation';    		
     	}
     	
       /*accountLocked*/
@@ -86,9 +95,12 @@ function sendEmail(emailObj, template, context) {
     	}
     	
       /*accountEdited*/
-    	else if (emailObj.type === 6){
-    		hookID += 'account.updated';  
-      }
+        else if (emailObj.type === 6){
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.updated';  
+        }
       
       /*productEmailShare*/
     	else if (emailObj.type === 7){

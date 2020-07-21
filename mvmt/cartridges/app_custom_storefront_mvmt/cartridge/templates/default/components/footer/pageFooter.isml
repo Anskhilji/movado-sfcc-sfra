@@ -64,8 +64,9 @@
     <div class="terms-and-conditions justify-content-center row">
         <iscontentasset aid="ca-footer-copy" />
     </div>
-    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
-
+    <isif condition="${!request.httpParameterMap.get('country').value}">
+        <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+    </isif>
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>

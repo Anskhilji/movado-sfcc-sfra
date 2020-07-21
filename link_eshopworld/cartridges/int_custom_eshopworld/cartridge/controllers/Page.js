@@ -88,6 +88,10 @@ server.replace(
                 delete queryStringObj.lang;
             }
 
+            if (Object.hasOwnProperty.call(queryStringObj, 'country')) {
+                delete queryStringObj.country;
+            }
+
             var redirectUrl = URLUtils.url(req.querystring.action).toString();
             var qsConnector = redirectUrl.indexOf('?') >= 0 ? '&' : '?';
 

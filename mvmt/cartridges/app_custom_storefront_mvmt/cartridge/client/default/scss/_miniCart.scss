@@ -535,10 +535,21 @@
                             margin: 0;
                             cursor: pointer;
 
-                            &:after {
-                                content: "+";
-                                font-family: $font-book;
-                                float: right;
+                            &[aria-expanded="false"] {
+                                &:after {
+                                    content: "+";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
+                            }
+
+                            
+                            &[aria-expanded="true"] {
+                                &:after {
+                                    content: "-";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
                             }
                         }
                     }
@@ -566,10 +577,11 @@
                 &-total {
 
                     &-discount {
-                        text-decoration: line-through;
-                        color: $red1;
-                        padding-right: rem(6);
-                        padding-left: rem(6);
+                        font-family: $font-book;
+                        letter-spacing: rem(1);
+                        font-weight: 600;
+                        color: $black;
+                        text-transform: uppercase;
                     }
                 }
 

@@ -7,7 +7,39 @@ var createErrorNotification = require('base/components/errorNotification');
 
 module.exports = function () {
 
-    baseLogin.login();
+    $('form.login').off('submit').on('submit', function (e) {
+        var form = $(this);
+        e.preventDefault();
+        var url = form.attr('action');
+        form.spinner().start();
+        $('form.login').trigger('login:submit', e);
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function (data) {
+                form.spinner().stop();
+                if (!data.success) {
+                    formValidation(form, data);
+                    $('form.login').trigger('login:error', data);
+                } else {
+                    $('form.login').trigger('login:success', data);
+                    location.href = data.redirectUrl;
+                }
+            },
+            error: function (data) {
+                if (data.responseJSON.redirectUrl) {
+                    window.location.href = data.responseJSON.redirectUrl;
+                } else {
+                    $('form.login').trigger('login:error', data);
+                    form.spinner().stop();
+                }
+            }
+        });
+        return false;
+    });
+    
 
     $('.reset-password-form').off('submit').on('submit', function (e) {
         var form = $(this);
@@ -48,7 +80,7 @@ module.exports = function () {
         return false;
     });
 
-    $('form.registration').submit(function (e) {
+    $('form.registration').off('submit').on('submit', function (e) {
         var form = $(this);
         e.preventDefault();
         var url = form.attr('action');
