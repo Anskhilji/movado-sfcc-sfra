@@ -531,7 +531,7 @@ function shippingFormResponse(defer, data) {
         });
 
         if (data.customer && data.customer.profile && data.customer.profile.email) {
-        	$('#email').val(data.customer.profile.email);
+            $('#email').val(data.customer.profile.email);
         }
 
         defer.resolve(data);

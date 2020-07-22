@@ -1,0 +1,16 @@
+<div class="card-body find-store-form">
+    <${pdict.isForm === 'true' ? 'form' : 'div'} action="${pdict.stores.actionUrl}" class="store-locator justify-content-center" method="get" name="storelocator">
+        <div class="form-group required">
+            <input autofocus type="text" placeholder="${Resource.msg('storelocator.address.placeholder','storeLocator',null)}" class="form-control" id="store-postal-code" name="address"  value="" autocomplete="nofill" required/>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group-2">
+            <isinclude template="storeLocator/storeLocatorRadius" />
+       </div>
+       <div class="button-align">
+           <button class="btn btn-block btn-outline-secondary card-button btn-storelocator-search" type="${pdict.isForm === 'true' ? 'submit' : 'button'}">
+               ${Resource.msg('button.find.stores','storeLocator',null)}
+           </button>
+       </div>
+    </${pdict.isForm === 'true' ? 'form' : 'div'}>
+</div>

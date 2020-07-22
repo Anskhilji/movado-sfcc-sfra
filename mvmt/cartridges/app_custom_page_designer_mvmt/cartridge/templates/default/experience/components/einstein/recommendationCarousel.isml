@@ -1,0 +1,31 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addJs('/js/einstein-recommendations.js');
+</isscript>
+<div id="${pdict.id}" class="container-fluid product-slot-slider">
+    <div class="row">
+        <div class="col-12">
+            <div class="cs-carousel-wrapper">
+                <div class="product-slider-aside">
+                    <isif condition="${!empty(pdict.carouselTitle) && pdict.carouselTitle != 'undefined'}">
+                        <h3 class="carousel-title ${pdict.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${pdict.carouselTitle}</h3>
+                    </isif>
+                    <ul>
+                        <li class="prev slick-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
+                        <li class="next slick-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
+                    </ul>
+                </div>
+                <div class="js-carousel cs-carousel ${pdict.recommendationType}"
+                    data-primary-product-id="${pdict.productID}"
+                    data-category-id="${pdict.categoryId}"
+                    data-recommender="${pdict.recommender}" 
+                    data-template="assets/productcarouselitem"
+                    data-product-load-url="${pdict.productLoadUrl}"
+                    data-limit="${pdict.limit}"
+                    data-carousel-config='${pdict.carouselJsonSettings.replace(/[\n\s]/gi, '')}'>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,6 +27,7 @@
             <iscomment>
                 This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeFooter.
                 <isinclude template="/components/footer/pageFooter" />
+                <isinclude template="/resources/appresources" />
             </iscomment>
 
         </div>

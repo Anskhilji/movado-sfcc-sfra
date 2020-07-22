@@ -1,0 +1,21 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
+<div class="col-12 p-0">
+    <!---Order History--->
+    <isset name="order" value="${!empty(account.orderHistory) ? account.orderHistory : ''}" scope="page"/>
+    <isinclude template="account/order/orderHistoryCard"/>
+    <!---Profile--->
+    <isinclude template="account/profileCard"/>
+    <isif condition="${!empty(account.isExternallyAuthenticated) && !account.isExternallyAuthenticated}">
+        <!---Password--->
+        <isinclude template="account/passwordCard"/>
+    </isif>
+    <!---Address Book--->
+    <isinclude template="account/addressBookCard"/>
+    <isif condition="${!empty(account.wishlist) && account.wishlist}">
+        <!---Wishlist--->
+        <div class="wishlist-account-card" data-error-msg="${Resource.msg('wishlist.removefromwishlist.failure.msg','wishlist',null)}">
+            <isinclude template="account/wishlist/listCards"/>
+        </div>
+    </isif>
+</div>
+<iscomment> Custom End </iscomment>

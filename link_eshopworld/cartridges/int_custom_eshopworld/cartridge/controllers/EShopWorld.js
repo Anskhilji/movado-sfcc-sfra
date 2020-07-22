@@ -63,11 +63,18 @@ server.append('GetEswFooter', function (req, res, next) {
     var languages = null;
     var selectedLanguage = null;
     var geoLocationCountry = null;
+    var queriedCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
+    var queryCountryCode = request.httpParameterMap.get('countryCode').value;
+
 
     if (isGeoLocation) {
         geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
+    }
+
+    if (queryCountryCode) {
+        queriedCountry = eswCustomHelper.getCustomCountryByCountryCode(queryCountryCode);
     }
 
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.footerPage)) {
@@ -83,6 +90,7 @@ server.append('GetEswFooter', function (req, res, next) {
             res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
             res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
         }
+
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -91,6 +99,11 @@ server.append('GetEswFooter', function (req, res, next) {
             landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
+    }
+
+    if (queryCountryCode && !empty(queriedCountry)) {
+        res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
+        res.viewData.EswFooterObject.selectedCountryName = queriedCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -126,12 +139,23 @@ server.append('GetEswLandingPage', function (req, res, next) {
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
-​
-    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry()).currencyCode;
-​    if (currency) {
+    // Custom Start: Adding Logic to show price for country selected via geolocation
+    var availableCountry = eswHelper.getAvailableCountry();
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+        return country.value == availableCountry;
+    });
+
+    if (empty(isFixedPriceCountry) && !empty(currency)) {
         eswHelper.setAllAvailablePriceBooks();
-        eswHelper.setBaseCurrencyPriceBook(req, currency);
-    } 
+        eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+    } else {
+    ​    if (!empty(currency)) {
+            eswHelper.setAllAvailablePriceBooks();
+            eswHelper.setBaseCurrencyPriceBook(req, currency);
+        }
+    }
+    // Custom End:
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
@@ -162,8 +186,10 @@ server.append('NotifyV2', function(req, res, next) {
     if (emailOptIn) {
         var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
         var billingCustomer = obj.contactDetails;
+        var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
-            email: billingCustomer[0].email
+            email: billingCustomer[0].email,
+            country: deliveryCountry
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
             SFMCApi.sendSubscriberToSFMC(requestParams);

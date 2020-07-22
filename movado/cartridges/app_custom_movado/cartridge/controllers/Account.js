@@ -61,182 +61,175 @@ server.replace(
 
 
 // Function will be called when a new customer is being created
-server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest,
-	    function (req, res, next) {
-	        var CustomerMgr = require('dw/customer/CustomerMgr');
-	        var Resource = require('dw/web/Resource');
+server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
+    var CustomerMgr = require('dw/customer/CustomerMgr');
+    var Resource = require('dw/web/Resource');
+    var URLUtils = require('dw/web/URLUtils');
 
-                var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
-                var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
-	        var formErrors = require('*/cartridge/scripts/formErrors');
+    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+    var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
+    var formErrors = require('*/cartridge/scripts/formErrors');
+    var registrationForm = null;
+    var registrationFormObj = null;
+    var redirectUrl = null;
+    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
 
-	        var registrationForm = server.forms.getForm('profile');
+    // setting variables for the BeforeComplete function
+    registrationForm = server.forms.getForm('profile');
+    redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
+    if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
+        registrationForm.customer.email.valid = false;
+        registrationForm.customer.emailconfirm.valid = false;
+        registrationForm.customer.emailconfirm.error =
+            Resource.msg('error.message.mismatch.email', 'forms', null);
+        registrationForm.valid = false;
+    }
 
-	        // form validation
-	        if (registrationForm.customer.email.value.toLowerCase()
-	            !== registrationForm.customer.emailconfirm.value.toLowerCase()
-	        ) {
-	            registrationForm.customer.email.valid = false;
-	            registrationForm.customer.emailconfirm.valid = false;
-	            registrationForm.customer.emailconfirm.error =
-	                Resource.msg('error.message.mismatch.email', 'forms', null);
-	            registrationForm.valid = false;
-	        }
+    if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
+        registrationForm.login.password.valid = false;
+        registrationForm.login.passwordconfirm.valid = false;
+        registrationForm.login.passwordconfirm.error =
+            Resource.msg('error.message.mismatch.password', 'forms', null);
+        registrationForm.valid = false;
+    }
+    if (registrationForm.login.password.valid) {
+        if (!CustomerMgr.isAcceptablePassword(registrationForm.login.password.value)) {
+            registrationForm.login.password.valid = false;
+            registrationForm.login.passwordconfirm.valid = false;
+            registrationForm.login.passwordconfirm.error =
+                Resource.msg('error.message.password.constraints.not.matched', 'forms', null);
+            registrationForm.valid = false;
+        }
+    }
+    if (!customAccountHelper.isValidatebirthDay(registrationForm.customer.birthdate.value, registrationForm.customer.birthmonth.selectedOption)) {
+        registrationForm.customer.birthdate.valid = false;
+        registrationForm.customer.birthdate.error = Resource.msg('error.message.invalid.birthdate', 'forms', null);
+        registrationForm.valid = false;
+    }
+    registrationFormObj = {
+        firstName: registrationForm.customer.firstname.value,
+        lastName: registrationForm.customer.lastname.value,
+        birthdate: registrationForm.customer.birthdate.value,
+        birthmonth: registrationForm.customer.birthmonth.value,
+        phone: registrationForm.customer.phone.value,
+        email: registrationForm.customer.email.value,
+        emailConfirm: registrationForm.customer.emailconfirm.value,
+        password: registrationForm.login.password.value,
+        passwordConfirm: registrationForm.login.passwordconfirm.value,
+        addToEmailList: registrationForm.customer.addtoemaillist.value,
+        validForm: registrationForm.valid,
+        form: registrationForm
+    };
+    if (registrationForm.valid) {
+        res.setViewData(registrationFormObj);
 
-	        if (registrationForm.login.password.value
-	            !== registrationForm.login.passwordconfirm.value
-	        ) {
-	            registrationForm.login.password.valid = false;
-	            registrationForm.login.passwordconfirm.valid = false;
-	            registrationForm.login.passwordconfirm.error =
-	                Resource.msg('error.message.mismatch.password', 'forms', null);
-	            registrationForm.valid = false;
-	        }
+        this.on('route:BeforeComplete', function (req, res) { // eslint-disable-line no-shadow
+            var Transaction = require('dw/system/Transaction');
+            var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+            var authenticatedCustomer;
+            var serverError;
 
-	        if (!CustomerMgr.isAcceptablePassword(registrationForm.login.password.value)) {
-	            registrationForm.login.password.valid = false;
-	            registrationForm.login.passwordconfirm.valid = false;
-	            registrationForm.login.passwordconfirm.error =
-	                Resource.msg('error.message.password.constraints.not.matched', 'forms', null);
-	            registrationForm.valid = false;
-	        }
+            // getting variables for the BeforeComplete function
+            var registrationForm = res.getViewData(); // eslint-disable-line
 
-	        if (!customAccountHelper.isValidatebirthDay(registrationForm.customer.birthdate.value, registrationForm.customer.birthmonth.selectedOption)) {
-	        	 registrationForm.customer.birthdate.valid = false;
-	        	 registrationForm.customer.birthdate.error =
-		                Resource.msg('error.message.invalid.birthdate', 'forms', null);
-		            registrationForm.valid = false;
-	        }
+            if (registrationForm.validForm) {
+                var login = registrationForm.email;
+                var password = registrationForm.password;
 
-	        // setting variables for the BeforeComplete function
-	        var registrationFormObj = {
-	            firstName: registrationForm.customer.firstname.value,
-	            lastName: registrationForm.customer.lastname.value,
-	            birthdate: registrationForm.customer.birthdate.value,
-	            birthmonth: registrationForm.customer.birthmonth.value,
-	            phone: registrationForm.customer.phone.value,
-	            email: registrationForm.customer.email.value,
-	            emailConfirm: registrationForm.customer.emailconfirm.value,
-	            password: registrationForm.login.password.value,
-	            passwordConfirm: registrationForm.login.passwordconfirm.value,
-	            addToEmailList: registrationForm.customer.addtoemaillist.value,
-	            validForm: registrationForm.valid,
-	            form: registrationForm
-	        };
+                // attempt to create a new user and log that user in.
+                try {
+                    Transaction.wrap(function () {
+                        var error = {};
+                        var newCustomer = CustomerMgr.createCustomer(login, password);
 
-	        if (registrationForm.valid) {
-	            res.setViewData(registrationFormObj);
+                        var authenticateCustomerResult = CustomerMgr.authenticateCustomer(login, password);
+                        if (authenticateCustomerResult.status !== 'AUTH_OK') {
+                            error = { authError: true, status: authenticateCustomerResult.status };
+                            throw error;
+                        }
 
-	            this.on('route:BeforeComplete', function (req, res) { // eslint-disable-line no-shadow
-	                var Transaction = require('dw/system/Transaction');
-	                var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
-	                var authenticatedCustomer;
-	                var serverError;
+                        authenticatedCustomer = CustomerMgr.loginCustomer(authenticateCustomerResult, false);
 
-	                // getting variables for the BeforeComplete function
-	                var registrationForm = res.getViewData(); // eslint-disable-line
+                        if (!authenticatedCustomer) {
+                            error = { authError: true, status: authenticateCustomerResult.status };
+                            throw error;
+                        } else {
+                            // assign values to the profile
+                            var newCustomerProfile = newCustomer.getProfile();
 
-	                if (registrationForm.validForm) {
-	                    var login = registrationForm.email;
-	                    var password = registrationForm.password;
+                            var newsletterSignupProssesed;
+                            if (registrationForm.addToEmailList) {
+                                var requestParams = {
+                                    email: registrationForm.email
+                                }
+                                SFMCApi.sendSubscriberToSFMC(requestParams);
+                                newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
+                            } else {
+                                newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
+                            }
 
-	                    // attempt to create a new user and log that user in.
-	                    try {
-	                        Transaction.wrap(function () {
-	                            var error = {};
-	                            var newCustomer = CustomerMgr.createCustomer(login, password);
+                            newCustomerProfile.firstName = registrationForm.firstName;
+                            newCustomerProfile.lastName = registrationForm.lastName;
+                            newCustomerProfile.email = registrationForm.email;
+                            newCustomerProfile.phoneHome = registrationForm.phone;
+                            newCustomerProfile.custom.birthdate = registrationForm.birthdate;
+                            newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            if (newsletterSignupProssesed.success) {
+                                newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
+                            }
+                        }
+                    });
+                } catch (e) {
+                    if (e.authError) {
+                        serverError = true;
+                    } else {
+                        registrationForm.validForm = false;
+                        registrationForm.form.customer.email.valid = false;
+                        registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
+                        registrationForm.form.customer.emailconfirm.valid = false;
+                        registrationForm.form.customer.email.error = Resource.msg('error.message.username.invalid', 'forms', null);
+                    }
+                }
+            }
 
-	                            var authenticateCustomerResult = CustomerMgr.authenticateCustomer(login, password);
-	                            if (authenticateCustomerResult.status !== 'AUTH_OK') {
-	                                error = { authError: true, status: authenticateCustomerResult.status };
-	                                throw error;
-	                            }
+            delete registrationForm.password;
+            delete registrationForm.passwordConfirm;
+            formErrors.removeFormValues(registrationForm.form);
 
-	                            authenticatedCustomer = CustomerMgr.loginCustomer(authenticateCustomerResult, false);
+            if (serverError) {
+                res.setStatusCode(500);
+                res.json({
+                    success: false,
+                    errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+                });
 
-	                            if (!authenticatedCustomer) {
-	                                error = { authError: true, status: authenticateCustomerResult.status };
-	                                throw error;
-	                            } else {
-	                                // assign values to the profile
-	                                var newCustomerProfile = newCustomer.getProfile();
+                return;
+            }
 
-	                               var newsletterSignupProssesed;
-	                           	   if (registrationForm.addToEmailList) {
-	                                    var requestParams = {
-                                            email: registrationForm.email
-                                        }
-	                                    SFMCApi.sendSubscriberToSFMC(requestParams);
-	                                    newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
-                                    } else {
-                                        newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
-                                    }
+            if (registrationForm.validForm) {
+                // send a registration email
+                accountHelpers.sendCreateAccountEmail(authenticatedCustomer.profile);
 
-	                                newCustomerProfile.firstName = registrationForm.firstName;
-	                                newCustomerProfile.lastName = registrationForm.lastName;
-	                                newCustomerProfile.phoneHome = registrationForm.phone;
-	                                newCustomerProfile.email = registrationForm.email;
-	                                newCustomerProfile.custom.birthdate = registrationForm.birthdate;
-	                                newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
-	                                if (newsletterSignupProssesed.success) {
-	                                	newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
-	                            }
-	                            }
-	                        });
-	                    } catch (e) {
-	                        if (e.authError) {
-	                            serverError = true;
-	                        } else {
-	                            registrationForm.validForm = false;
-	                            registrationForm.form.customer.email.valid = false;
-	                            registrationForm.form.customer.emailconfirm.valid = false;
-	                            registrationForm.form.customer.email.error =
-	                                Resource.msg('error.message.username.invalid', 'forms', null);
-	                        }
-	                    }
-	                }
+                res.setViewData({ authenticatedCustomer: authenticatedCustomer });
+                res.json({
+                    success: true,
+                    redirectUrl: redirectUrl
+                });
 
-	                delete registrationForm.password;
-	                delete registrationForm.passwordConfirm;
-	                formErrors.removeFormValues(registrationForm.form);
-
-	                if (serverError) {
-	                    res.setStatusCode(500);
-	                    res.json({
-	                        success: false,
-	                        errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
-	                    });
-
-	                    return;
-	                }
-
-	                if (registrationForm.validForm) {
-	                    // send a registration email
-	                    accountHelpers.sendCreateAccountEmail(authenticatedCustomer.profile);
-
-	                    res.setViewData({ authenticatedCustomer: authenticatedCustomer });
-	                    res.json({
-	                        success: true,
-	                        redirectUrl: accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true)
-	                    });
-
-	                    req.session.privacyCache.set('args', null);
-	                } else {
-	                    res.json({
-	                        fields: formErrors.getFormErrors(registrationForm)
-	                    });
-	                }
-	            });
-	        } else {
-	            res.json({
-	                fields: formErrors.getFormErrors(registrationForm)
-	            });
-	        }
-
-	        return next();
-	    }
-	);
-
+                req.session.privacyCache.set('args', null);
+            } else {
+                res.json({
+                    fields: formErrors.getFormErrors(registrationForm)
+                });
+            }
+        });
+    } else {
+        res.json({
+            fields: formErrors.getFormErrors(registrationForm)
+        });
+    }
+    return next();
+});
 
 // Function will be called when an existing customer save changes on there profile
 server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAjaxRequest,
@@ -413,6 +406,8 @@ server.append(
         var Resource = require('dw/web/Resource');
         var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
         var profileForm = server.forms.getForm('profile');
+        
+        var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
 
         if (profileForm.valid) {
             this.on('route:Complete', function (req, res) { // eslint-disable-line no-shadow
@@ -427,7 +422,13 @@ server.append(
                     var emailHeaderContent = ContentMgr.getContent('email-header');
                     var emailFooterContent = ContentMgr.getContent('email-footer');
                     var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
-                    var url = URLUtils.https('Search-Show', 'cgid', 'shop-all-watches');
+                    var url;
+                    // Custom Start: Adding Marketing Cloud cartridge integration
+                    if (isMarketingCloudEnabled) {
+                        url = URLUtils.https('Account-EditPassword');
+                    } else {
+                        url = URLUtils.https('Search-Show', 'cgid', 'shop-all-watches');
+                    }
                     var objectForEmail = {
                         firstName: customer.profile.firstName,
                         lastName: customer.profile.lastName,

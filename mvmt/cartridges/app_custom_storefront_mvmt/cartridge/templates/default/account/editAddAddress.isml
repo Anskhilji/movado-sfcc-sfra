@@ -1,0 +1,35 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/addressBook.js');
+    </isscript>
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <iscomment> Custom End </iscomment>
+    <div class="container account-pages">
+        <!---Breadcrumbs--->
+        <iscomment> Custom Start: Breadcrumbs are not needed in MVMT </iscomment>
+        <iscomment> <isinclude template="components/breadcrumbs/pageBreadcrumbs"/> </iscomment>
+        <iscomment> Custom End </iscomment>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                    <isif condition="${pdict.addressId}">
+                        <h3>${Resource.msg('label.addressbook.editaddress','account',null)}</h3>
+                        <iselse>
+                            <h3>${Resource.msg('label.addressbook.addnewaddress','account',null)}</h3>
+                    </isif>
+                    </div>
+                    <div class="card-body">
+                        <isinclude template="account/addressForm"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isdecorate>

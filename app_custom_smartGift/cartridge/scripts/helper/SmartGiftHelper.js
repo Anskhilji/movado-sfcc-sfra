@@ -66,4 +66,3 @@ var sendSmartGiftDetails = function(trackingCode, orderID) {
 
 exports.getSmartGiftCardBasket = getSmartGiftCardBasket;
 exports.sendSmartGiftDetails = sendSmartGiftDetails;
-

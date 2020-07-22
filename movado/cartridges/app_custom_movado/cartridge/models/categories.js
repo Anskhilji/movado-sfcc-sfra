@@ -58,6 +58,7 @@ function categoryToObject(category) {
         headerMenuBanner: category.custom.headerMenuBanner,
         gtmNavVal: gtmNavVal,
         disableSubCategories: category.custom.disableSubCategories,
+        gender: category.custom.gender,
         staticContentAsset: staticContentAsset
     };
     if (!empty(category.custom.categoryImageURL)) {

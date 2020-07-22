@@ -21,30 +21,29 @@ function processSubscription(response) {
         }
     }
 }
-$(document).ready(function () {
-    $('#newsletterSubscribe').submit(function (e) {
-        e.preventDefault();
-        wrapperContainer.addClass('d-none');
-        var endPointUrl = $(e.target).attr('action');
-        var inputValue = $(e.target).find('.form-control').val();
-        if (inputValue !== '') {
-            var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
-                if(!pattern.test(inputValue)) {
-                    wrapperContainer.removeClass('d-none');
-                    $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
-                } else {
-                    $.spinner().start();
-                    $.ajax({
-                        url: endPointUrl,
-                        method: 'POST',
-                        data: { email: inputValue },
-                        success: processSubscription,
-                        error: function () { $.spinner().stop(); }
-                    });
-                }
-        } else {
-            wrapperContainer.removeClass('d-none');
-            $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
-        }
-    });
+
+$('#newsletterSubscribe').submit(function (e) {
+    e.preventDefault();
+    wrapperContainer.addClass('d-none');
+    var endPointUrl = $(e.target).attr('action');
+    var inputValue = $(e.target).find('.form-control').val();
+    if (inputValue !== '') {
+        var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
+            if(!pattern.test(inputValue)) {
+                wrapperContainer.removeClass('d-none');
+                $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
+            } else {
+                $.spinner().start();
+                $.ajax({
+                    url: endPointUrl,
+                    method: 'POST',
+                    data: { email: inputValue },
+                    success: processSubscription,
+                    error: function () { $.spinner().stop(); }
+                });
+            }
+    } else {
+        wrapperContainer.removeClass('d-none');
+        $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
+    }
 });

@@ -277,7 +277,14 @@ function prepareOrderJSON(order) {
         var orderCreationDate = order.creationDate.toISOString();
         var orderTotalPrice = YotpoUtils.convertPriceIntoCents(order.totalGrossPrice.value);
 
-        var customerEmail = empty(order.customerEmail) ? null : YotpoUtils.escape(order.customerEmail, Constants.REGEX_FOR_YOTPO_DATA, '');
+        // Custom Start: Check if customer is logged in then user its email
+        var customerEmail;
+        if (customer.isAuthenticated()) {
+            customerEmail = empty(customer.profile.email) ? null : YotpoUtils.escape(customer.profile.email, Constants.REGEX_FOR_YOTPO_DATA, '');
+        } else {
+            customerEmail = empty(order.customerEmail) ? null : YotpoUtils.escape(order.customerEmail, Constants.REGEX_FOR_YOTPO_DATA, '');
+        }
+        // Custom End
 
         if (!order.orderNo || !customerEmail || !order.currencyCode || !orderTotalPrice) {
             throw Constants.EXPORT_ORDER_MISSING_MANDATORY_FIELDS_ERROR;
@@ -450,13 +457,15 @@ function saveUserInfoInOrder(order) {
     var Transaction = require('dw/system/Transaction');
 
     var userAgent = request.httpUserAgent || '';
-    var userIPAddress = request.httpRemoteAddress || '';
+  //  Custom Start: Commented IP saving logic as its already in Order-Confirm
+  //  var userIPAddress = request.httpRemoteAddress || '';
 
     var currentOrder = order;
     Transaction.wrap(function () {
         if (currentOrder) {
             currentOrder.custom.userAgent = userAgent;
-            currentOrder.custom.userIPAddress = userIPAddress;
+          //  Custom Start: Commented IP saving logic as its already in Order-Confirm
+         //   currentOrder.custom.userIPAddress = userIPAddress;
         }
     });
 
