@@ -35,7 +35,7 @@ server.prepend('NotifyV2', server.middleware.post, function (req, res, next) {
             try {
                 Transaction.wrap(function () {
                     populateOrderJSON.populateByOrder(order);
-                    //populateOrderJSON.addDummyPaymentTransaction(order);
+                    populateOrderJSON.addDummyPaymentTransaction(order);
                 });
             } catch (exSOM) {
                 var _e = exSOM;

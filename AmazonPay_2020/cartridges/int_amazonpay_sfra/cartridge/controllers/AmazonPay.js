@@ -836,15 +836,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Custom Start: Change email helper to trigger confirmation email
-            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
-                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                SwellExporter.exportOrder({
-                    orderNo: order.orderNo,
-                    orderState: 'created'
-                });
-            }
+            // Custom Start: 
             // Salesforce Order Management attributes
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
@@ -857,6 +849,16 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 var _e = exSOM;
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                SwellExporter.exportOrder({
+                    orderNo: order.orderNo,
+                    orderState: 'created'
+                });
+            }
+            
+            // Change email helper to trigger confirmation email
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
             // Custom End
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
@@ -893,7 +895,21 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
+            // Custom Start
+            // Salesforce Order Management attributes
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                var _e = exSOM;
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+
+            // Change email helper to trigger confirmation email, Also add Swell Integration
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
@@ -902,18 +918,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
-        // Salesforce Order Management attributes
-        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-        somLog.debug('Processing Order ' + order.orderNo);
-        try {
-            Transaction.wrap(function () {
-                populateOrderJSON.populateByOrder(order);
-            });
-        } catch (exSOM) {
-            var _e = exSOM;
-            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
-        }
             // Custom End 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 

@@ -107,7 +107,7 @@ server.get('CreateOrder', function (req, res, next) {
 
         // addRandomProducts(currentBasket);
         CartHelpers.addProductToCart(currentBasket, 'MT01-BL', 1, null, {});
-        CartHelpers.addProductToCart(currentBasket, 'CIT-961', 2, null, {});
+        CartHelpers.addProductToCart(currentBasket, 'L213.1B.131', 2, null, {});
 
         // Add email, shipping address, set shipping method, calculate tax
         // if ('randomEmail' in request.httpParameters && request.httpParameters.randomEmail == 'true') {

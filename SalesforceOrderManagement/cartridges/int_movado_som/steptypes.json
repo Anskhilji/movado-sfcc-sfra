@@ -1,15 +1,13 @@
 {
     "step-types": {
-        "script-module-step": [
-            {
+        "script-module-step": [{
                 "@type-id": "custom.SOM.parseOrderStatus",
                 "@supports-site-context": true,
                 "@supports-organization-context": true,
                 "module": "int_movado_som/cartridge/scripts/jobs/parseOrderStatus.js",
                 "function": "parseOrderStatus",
                 "parameters": {
-                    "parameters": [
-                        {
+                    "parameters": [{
                             "@name": "SourceFolder",
                             "@type": "string",
                             "@required": "true",
@@ -35,8 +33,7 @@
                     ]
                 },
                 "status-codes": {
-                    "status": [
-                        {
+                    "status": [{
                             "@code": "ERROR",
                             "description": "Used when an error occurred."
                         },
@@ -58,7 +55,14 @@
                 "module": "int_movado_som/cartridge/scripts/jobs/exportFulfillmentOrder.js",
                 "function": "exportFulfillmentOrder",
                 "parameters": {
-                    "parameters": [
+                    "parameters": [{
+                            "@name": "OrderIDs",
+                            "description": "Order IDs (Comma-Separated, up to 10)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ""
+                        },
                         {
                             "@name": "FilePattern",
                             "description": "File pattern (Regular Expression)",
@@ -77,8 +81,47 @@
                     ]
                 },
                 "status-codes": {
-                    "status": [
+                    "status": [{
+                            "@code": "ERROR",
+                            "description": "Used when an error occurred."
+                        },
                         {
+                            "@code": "OK",
+                            "description": "Used when everything went well."
+                        },
+                        {
+                            "@code": "NO_FILES_FOUND",
+                            "description": "Used when no files could be found in the source directory."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id": "custom.SOM.exportAppeasementOrder",
+                "@supports-site-context": true,
+                "@supports-organization-context": true,
+                "module": "int_movado_som/cartridge/scripts/jobs/exportFulfillmentOrder.js",
+                "function": "exportAppeasementOrder",
+                "parameters": {
+                    "parameters": [{
+                            "@name": "FilePattern",
+                            "description": "File pattern (Regular Expression)",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": ".*\\.xml"
+                        },
+                        {
+                            "@name": "IsDisabled",
+                            "description": "Mark the step as disabled. This will skip the step and returns a OK status",
+                            "@type": "boolean",
+                            "@required": false,
+                            "@trim": true
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [{
                             "@code": "ERROR",
                             "description": "Used when an error occurred."
                         },
@@ -100,8 +143,7 @@
                 "module": "int_movado_som/cartridge/scripts/jobs/populateOrderJSON.js",
                 "function": "populateByOrderID",
                 "parameters": {
-                    "parameters": [
-                        {
+                    "parameters": [{
                             "@name": "OrderID",
                             "description": "Order ID",
                             "@type": "string",
@@ -119,8 +161,7 @@
                     ]
                 },
                 "status-codes": {
-                    "status": [
-                        {
+                    "status": [{
                             "@code": "ERROR",
                             "description": "Used when an error occurred."
                         },
