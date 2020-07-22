@@ -23,8 +23,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var params = req.querystring;
     var explicitRecommendations = [];
     var relativeURL;
+    var defaultVariant = apiProduct.variationModel.defaultVariant;
 
-    if (apiProduct.variationModel.defaultVariant && apiProduct.master) {
+    if (defaultVariant && apiProduct.master && defaultVariant.getAvailabilityModel().inStock) {
         var pid = apiProduct.variationModel.defaultVariant.getID();
         params.pid = pid;
     }
