@@ -362,6 +362,11 @@
 .account-dashboard-tab-sticky {
     position: fixed;
     width: 100%;
+    margin-top: rem(18);
+
+    @include media-breakpoint-up(lg) {
+        margin-top: 0;
+    }
 }
 
 .heading-three {
@@ -488,6 +493,33 @@ body {
     
     .veil {
         z-index: 999;
+    }
+}
+
+.product-tile-redesign {
+
+    .tile-body {
+
+        .price {
+
+            del {
+
+                .strike-through {
+                    margin-right: rem(5);
+    
+                    span {
+                        color: $light-gray2;
+                        font-weight: 600;
+                    }
+                }
+
+                & + span {
+                    span {
+                        color: $dark-red;
+                    }
+                }
+            }
+        }
     }
 }
 

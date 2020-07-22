@@ -33,11 +33,19 @@
                     </isif>
                     <span class="product-price-mobile ${pdict.isPLPProduct ? 'd-none' : ''}"> 
                         <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                        <div class="add-to-cart-price-holder">
                             <isinclude template="product/components/pricing/main" />
                         </div>
                     </span>
             </button>
+            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+            <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
+            <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
+                <isif condition="${product.available && product.readyToOrder}">
+                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                </isif>
+            </isif>
+            <iscomment> Custom End </iscomment>
             
         <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
         <iselseif condition="${product.productType != 'master'}">
@@ -55,24 +63,11 @@
                     </isif>
                     <span class="product-price-mobile ${pdict.isPLPProduct ? 'd-none' : ''}"> 
                         <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder ${!product.readyToOrder ? "d-none" : ""} ">
+                        <div class="add-to-cart-price-holder} ">
                             <isinclude template="product/components/pricing/main" />
                         </div>
                     </span>
             </button>
-            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-            <isif condition="${isEswEnabled}" >
-                <isif condition="${!empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
-                    <isif condition="${product.available && product.readyToOrder}">
-                        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
-                    </isif>
-                </isif>
-            <iselse/>
-                <isif condition="${product.available && product.readyToOrder}">
-                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
-                </isif>
-            </isif>
-            <iscomment> Custom End </iscomment>
 	    <iselse>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
                 data-pid="${product.defaultVariant.ID}"

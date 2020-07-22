@@ -1,6 +1,6 @@
 'use strict';
 
-var $movadoBase = require('movado/product/base');
+var base = require('../product/base');
 
 /**
  * appends params to a url
@@ -402,6 +402,10 @@ module.exports = function () {
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
                 }
+                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                }
                 $.spinner().stop();
             },
             error: function (err) {
@@ -493,6 +497,10 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
+                }
+                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 $.spinner().stop();
             },
@@ -606,11 +614,11 @@ module.exports = function () {
         });
     });
 
-    $movadoBase.selectAttribute();
-    $movadoBase.colorAttribute();
-    $movadoBase.removeBonusProduct();
-    $movadoBase.selectBonusProduct();
-    $movadoBase.enableBonusProductSelection();
-    $movadoBase.showMoreBonusProducts();
-    $movadoBase.addBonusProductsToCart();
+    base.selectAttribute();
+    base.colorAttribute();
+    base.removeBonusProduct();
+    base.selectBonusProduct();
+    base.enableBonusProductSelection();
+    base.showMoreBonusProducts();
+    base.addBonusProductsToCart();
 };

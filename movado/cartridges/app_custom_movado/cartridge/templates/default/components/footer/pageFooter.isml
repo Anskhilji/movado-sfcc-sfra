@@ -27,7 +27,8 @@
                 <iscontentasset aid="ca-footer-locate-store" />
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
                 <isif condition="${isEswEnabled}" > 
-                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter')}"/>
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>
                 <iscomment> Custom End </iscomment>
             </div>

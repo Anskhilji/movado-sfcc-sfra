@@ -1,3 +1,5 @@
+var debounce = require('lodash/debounce');
+
 var updateDataLayer = function (string) {
     dataLayer.map(function (item, index, arr) {
         if (item.event && item.event === string) {
@@ -232,7 +234,7 @@ var onAddtoCartClickEvent = function () {
 };
 
 var onRemoveFromCartClickEvent = function () {
-    $('body').on('click', '.gtm-cart', function (evt) {
+    $('body').off('click', '.remove-btn').on('click', '.remove-btn', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('removeFromCart');
         dataLayer.push({
@@ -337,7 +339,7 @@ var sliceProductImpressionArray = function (e, currency) {
 var showProductImpressionCaraousel = function (e, currency) {
     var dataProductImpression = {};
     updateDataLayer('productImpressions');
-    var productObj = e.splice(0, 3);
+    var productObj = e.splice(0, 7);
     dataLayer.push({
         event: 'productImpressions',
         ecommerce: {
@@ -477,6 +479,43 @@ var onEmailSubscribe = function () {
 };
 
 /**
+ * Custom Start: Create a function that trigger on site search.
+ */
+var onSiteSearch = function () {
+    $('body').on('keydown', '.search-field', debounce(function() {
+        var $searchTerm = $(this).val();
+        updateDataLayer('siteSearch');
+        dataLayer.push({
+            event: 'siteSearch',
+            siteSearchTerm: $searchTerm
+        })
+    }, 300));
+};
+
+/**
+ * Custom Start: Create a function that trigger on login.
+ */
+var onLoginIn = function () {
+    $('form.login').off('login:success').on('login:success', function (evt, data) {
+        var accountLoginLocation = data.accountLoginLocation;
+        updateDataLayer('login');
+        dataLayer.push({
+            event: 'login',
+            loginLocation: accountLoginLocation
+        });
+    });
+
+    $('form.registration').off('registration:success').on('registration:success', function (evt, data) {
+        var accountLoginLocation = data.accountLoginLocation;
+        updateDataLayer('login');
+        dataLayer.push({
+            event: 'login',
+            loginLocation: accountLoginLocation
+        });
+    });
+};
+
+/**
  * A function to handle a click leading to a checkout option selection.
  */
 var onCheckoutOptionOnCart = function () {
@@ -551,6 +590,8 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
+    onSiteSearch();
+    onLoginIn();
 };
 
 var onPageLoad = function () {

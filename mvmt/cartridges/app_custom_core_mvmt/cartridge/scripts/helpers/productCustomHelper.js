@@ -8,6 +8,9 @@ var Site = require('dw/system/Site').getCurrent();
 var URLUtils = require('dw/web/URLUtils');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+var Template = require('dw/util/Template');
+var HashMap = require('dw/util/HashMap');
 
 /**
  * Get explicit recommendations for product
@@ -24,16 +27,20 @@ function getExplicitRecommendations(pid) {
     var recommendationTilesList = [];
     var productRecommendationTile = {};
     
-    if (productRecommendations) {
-        for (var i = 0; i < productRecommendations.length; i++) {
-            recommendation = productRecommendations[i];
-            productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-            product = Object.create(null);
-            apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-            productType = productHelper.getProductType(apiProduct);
-            productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-            recommendationTilesList.push(productRecommendationTile);
+    try {
+        if (productRecommendations) {
+            for (var i = 0; i < productRecommendations.length; i++) {
+                recommendation = productRecommendations[i];
+                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
+                product = Object.create(null);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
+                productType = productHelper.getProductType(apiProduct);
+                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                recommendationTilesList.push(productRecommendationTile);
+            }
         }
+    } catch (e) {
+        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     return recommendationTilesList;
 }
@@ -248,10 +255,80 @@ function getPdpCollectionContentAssetID(apiProduct) {
     return pdpCollectionContentAssetID;
 }
 
+function getCurrentCountry() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var availableCountry = 'US';
+    if (isEswEnabled) { 
+        availableCountry = eswHelper.getAvailableCountry();
+        if (availableCountry == null || empty(availableCountry)) {
+            availableCountry = 'US';
+        }
+    }
+
+    return availableCountry;
+}
+
+/**
+ * 
+ * @param {Product Model} product
+ * @returns eswPriceHTML
+ */
+function getESWPrice(product) {
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    if (isEswEnabled && !empty(product.price)) {
+        var priceObj = product.price;
+        var price, lineItemID, lineItemUUID = null;
+        var updatedPriceObj = {};
+    
+        if (!empty(priceObj.list)) {
+            price = priceObj.list.decimalPrice;
+            var convertedPrice = eswHelper.getMoneyObject(price, false);
+            updatedPriceObj.list = convertedPrice;
+    
+        }
+    
+        if (!empty(priceObj.type) && priceObj.type == 'range') {
+            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
+            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
+            updatedPriceObj.range = {
+                maxPrice: maxPrice,
+                minPrice: minPrice
+            };
+    
+        } 
+    
+        if (!empty(priceObj.sales)) {
+            price = priceObj.sales.decimalPrice;
+            var convertedPrice = eswHelper.getMoneyObject(price, false);
+            updatedPriceObj.sales = convertedPrice;
+        }
+    
+        var eswHtml;
+        var path = 'product/components/pricing/ajaxPricingMain.isml';
+        var template = new Template(path);
+        var result = new HashMap();
+    
+        result.put('price', product.price);
+        result.put('eswPrice', updatedPriceObj);
+        result.put('product', product);
+        eswHtml = template.render(result);
+        var eswPrice = {
+            price: updatedPriceObj,
+            html: eswHtml.text
+        }
+        return eswPrice;
+    } else {
+        return null;
+    }
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
     getRefinementSwatches: getRefinementSwatches,
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
-    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID
+    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
+    getCurrentCountry: getCurrentCountry,
+    getESWPrice: getESWPrice
 };

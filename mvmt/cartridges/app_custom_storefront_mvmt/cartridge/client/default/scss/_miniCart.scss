@@ -460,11 +460,8 @@
                             }
                         }
 
-                        &.show {
-
-                            .swell-redemption-text {
-                                padding: 0 0 rem(8) rem(16);     
-                            }
+                        .swell-redemption-text {
+                            padding: 0 0 rem(8) rem(16);     
                         }
 
                         &-dropdown {
@@ -514,13 +511,12 @@
                     .form-group {
 
                         &.active {
+                            margin-bottom: rem(10);
 
                             .title {
-                                font-size: 0;
-                                padding: 0;
 
                                 &:after {
-                                    content: "";
+                                    content: "-";
                                     font-family: $font-book;
                                 }
                             }
@@ -537,11 +533,23 @@
                             font-size: rem(13);
                             display: block;
                             margin: 0;
+                            cursor: pointer;
 
-                            &:after {
-                                content: "+";
-                                font-family: $font-book;
-                                float: right;
+                            &[aria-expanded="false"] {
+                                &:after {
+                                    content: "+";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
+                            }
+
+                            
+                            &[aria-expanded="true"] {
+                                &:after {
+                                    content: "-";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
                             }
                         }
                     }
@@ -569,10 +577,11 @@
                 &-total {
 
                     &-discount {
-                        text-decoration: line-through;
-                        color: $red1;
-                        padding-right: rem(6);
-                        padding-left: rem(6);
+                        font-family: $font-book;
+                        letter-spacing: rem(1);
+                        font-weight: 600;
+                        color: $black;
+                        text-transform: uppercase;
                     }
                 }
 

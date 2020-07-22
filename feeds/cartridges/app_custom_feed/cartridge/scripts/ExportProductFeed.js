@@ -154,7 +154,9 @@ function exportDataFeedWatch(args) {
         "priceGBP": 14,
         "priceCAD": 15,
         "priceEUR": 16,
-        "priceAUD": 17
+        "priceAUD": 17,
+        "gender": 18,
+        "caseDiameter": 19
     }
     var feedParametersDataFeedWatch = {
         "colonSeparator" : Constants.COLON_SEPARATOR,
@@ -196,12 +198,12 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     });
                 }
             } catch (e) {
-                Logger.error('Error occurred while adding product into feed. Product {0}, Error:\n {1}', product , e.stack);
+                Logger.error('Error occurred while adding product into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product , e.stack, e.message);
             }
                 
         }
     } catch(e) {
-        Logger.error('Error occurred while generating csv file for product feed. Error :\n', e.stack);
+        Logger.error('Error occurred while generating csv file for product feed. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
     finally {
         fileArgs.csvStreamWriter.close();
@@ -400,6 +402,10 @@ function buildCsvHeader(feedColumns) {
 
     if(!empty(feedColumns['priceAUD'])) {
         csvFileHeader.push("price - AUD");
+    }
+
+    if(!empty(feedColumns['caseDiameter'])) {
+        csvFileHeader.push("case diameter");
     }
 
     return csvFileHeader
@@ -760,6 +766,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if(!empty(feedColumns['caseDiameter'])) {
+        if (product.priceAUD) {
+            productDetails.push(product.caseDiameter)
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+
     fileArgs.csvStreamWriter.writeNext(productDetails);
     productDetails = [];
 }
@@ -784,7 +799,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         salePrice: getProductSalePrice(product),
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
-        color : product.custom.color ? buildStringAttributes(product.custom.color, feedParameters) : "",
+        color : product.custom.color ? product.custom.color : "",
         dialStyle : product.custom.dialStyle ? product.custom.dialStyle : "",
         familyName : buildStringAttributes(product.custom.familyName, feedParameters),
         gtin : product.custom.gtins ? product.custom.gtins : "",
@@ -799,7 +814,8 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
         isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
-        availability: product.availabilityModel.availabilityStatus
+        availability: product.availabilityModel.availabilityStatus,
+        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : ""
     };
     if (!empty(feedColumns['priceUSD'])) {
         productAttributes.priceUSD =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD);

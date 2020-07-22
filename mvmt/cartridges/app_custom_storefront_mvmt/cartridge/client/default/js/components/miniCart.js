@@ -6,6 +6,7 @@ var $cart = require('../cart/cart');
 
 
 function setMiniCartProductSummaryHeight () {
+    var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
     var $miniCartHeight = parseInt($('.mini-cart-data .popover').outerHeight(true));
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
     var $miniCartHeaderHeight = $miniCartHeaderTitle;
@@ -15,7 +16,7 @@ function setMiniCartProductSummaryHeight () {
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
-    $('.mini-cart-data .product-summary').css('max-height', $productSummaryHeight);
+    $('.mini-cart-data .product-summary').css('max-height', ($productSummaryHeight + $headerHeight));
 }
 
 module.exports = function () {

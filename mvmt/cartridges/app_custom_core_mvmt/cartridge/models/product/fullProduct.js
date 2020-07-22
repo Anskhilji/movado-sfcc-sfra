@@ -22,7 +22,16 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
+    var currentCountry = productCustomHelper.getCurrentCountry();
+    var eswPrice = productCustomHelper.getESWPrice(product);
 
+    if (!empty(currentCountry)) {
+        Object.defineProperty(product, 'currentCountry', {
+            enumerable: true,
+            value: currentCountry
+        });
+    }
+    
     if (!empty(pdpCollectionContentAssetID)) {
         Object.defineProperty(product, 'pdpCollectionContentAssetID', {
             enumerable: true,
@@ -83,6 +92,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'seeTheFitSpecs', {
             enumerable: true,
             value: seeTheFitPopup.seeTheFitSpecs
+        });
+    }
+
+    if (!empty(eswPrice)) {
+        Object.defineProperty(product, 'eswPrice', {
+            enumerable: true,
+            value: eswPrice
         });
     }
 

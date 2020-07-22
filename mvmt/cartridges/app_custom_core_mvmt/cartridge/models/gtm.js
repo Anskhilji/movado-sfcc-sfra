@@ -12,12 +12,16 @@ var productFactory = require('*/cartridge/scripts/factories/product');
 var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
+var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
+        Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
  * @param {Object} req - request object
  * @constructor
  */
 function gtmModel(req) {
+    var country;
     var currentCustomer = req.currentCustomer;
     var reqQueryString = req.querystring;
     var action = req.querystring.urlAction.toLowerCase();
@@ -80,7 +84,12 @@ function gtmModel(req) {
     var language = currentLocale.language ? currentLocale.language : 'en_us';
 
         // country
-    var country = currentLocale.displayCountry;
+    if (isEswEnabled && request.httpCookies['esw.location'] != null) {
+        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+        country = eswCustomHelper.getCustomCountryByCountryCode(request.httpCookies['esw.location'].value).displayName;
+    } else {
+        country = currentLocale.displayCountry;
+    }
 
         // tenant
     var tenant = getTenant(language);
@@ -99,7 +108,7 @@ function gtmModel(req) {
     var userLastName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).lastName : '';
 
         //custom start: currencyCode
-    var currencyCode = Site.getCurrent().getCurrencyCode();
+    var currencyCode = isEswEnabled && request.httpCookies['esw.currency'] != null ? request.httpCookies['esw.currency'].value : Site.getCurrent().getCurrencyCode();
     
     //custom start: userPhone
     var userPhone = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).phone : '';
@@ -668,6 +677,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var order = require('dw/order/Order');
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderId);
+    var averageOrderLevelDiscount = getAverageOrderLevelDiscount(order);
     if (order != null && order.productLineItems != null) {
         var orderLevelCouponString = '';
         var itemLevelCouponString = '';
@@ -693,7 +703,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 : '')
                 : ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID : ''));
             produtObj.variant = variants;
-            produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
+            produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
                 produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
@@ -711,6 +721,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         // Custom changes Updated dataLayer according to mvmt
         var orderObj = {};
+        var orderPriceAdj;
+        var totalOrderPriceAdjValue = 0.0;
         orderObj.orderId = orderId;
         orderObj.revenue = order.totalGrossPrice.decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
@@ -720,10 +732,57 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.city = order.shipments[0].shippingAddress.city;
         orderObj.state = order.shipments[0].shippingAddress.stateCode;
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
-        orderObj.discount = order.priceAdjustments[0].netPrice.value;
+        orderObj.discount = getOrderLevelDiscount(order);
+        orderObj.discountType = getDicountType(order);
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
+}
+
+/**
+ * function to get average order level discount
+ * @param {dw.order.Order} order 
+ * returns {Number} average order level discount
+ */
+function getAverageOrderLevelDiscount(order) {
+    var averageProductLevelDiscount = 0.0;
+    var totalOrderPriceAdjustment = getOrderLevelDiscount (order);
+    averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
+    return averageProductLevelDiscount;
+}
+
+/**
+ * function to get total order level discount
+ * @param {dw.order.Order} order 
+ * returns {Number} orderPriceAdjustment
+ */
+
+function getOrderLevelDiscount (order) {
+    var orderPriceAdjustment;
+    var totalOrderPriceAdjustment = 0.0;
+    for (var i = 0; i < order.priceAdjustments.length; i++) {
+        orderPriceAdjustment = order.priceAdjustments[i];
+        totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+    }
+    return totalOrderPriceAdjustment;
+}
+
+/**
+ * function to get discount type
+ * @param {dw.order.Order} order 
+ * returns {String} discountType
+ */
+function getDicountType (order) {
+    var discountType;
+    var priceAdjustmentsItr = order.getAllLineItems().iterator();
+    var priceAdjustments;
+    while (priceAdjustmentsItr.hasNext()) {
+        priceAdjustments = priceAdjustmentsItr.next();
+        if (priceAdjustments instanceof dw.order.PriceAdjustment) {
+            discountType = priceAdjustments.appliedDiscount.type;
+        }
+    }
+    return discountType;
 }
 
 /**

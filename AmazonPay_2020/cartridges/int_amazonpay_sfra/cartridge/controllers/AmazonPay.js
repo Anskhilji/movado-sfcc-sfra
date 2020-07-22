@@ -861,6 +861,10 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             }
             // Custom End
 
+            //Custom Start: set to true to trigger Purchase tag on confirmation page
+            session.custom.orderJustPlaced = true;
+            // Custom End
+
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();

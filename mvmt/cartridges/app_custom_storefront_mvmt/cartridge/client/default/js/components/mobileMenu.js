@@ -46,11 +46,16 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+        $productContainer.find('.image-container').find('img').attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
-        $variationPriceSelector.replaceWith(response.product.price.html);
+        if (response.product.eswPrice) {
+            $variationPriceSelector.replaceWith(response.product.eswPrice.html);
+        } else {
+            $variationPriceSelector.replaceWith(response.product.price.html);
+        }
         if ($readyToOrder) {
             $variationPriceSelector.removeClass('d-none');
         } else {

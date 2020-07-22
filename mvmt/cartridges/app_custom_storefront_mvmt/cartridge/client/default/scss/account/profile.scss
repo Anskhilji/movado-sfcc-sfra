@@ -92,4 +92,46 @@
             box-shadow: none;
         }
     }
+
+    .tooltip-country {
+        position: relative;
+        visibility: visible;
+        padding-left:rem(5);
+        font-weight: 300;
+      
+        .tooltiptext {
+            visibility: hidden;
+            width: rem(220);
+            background-color: $night-rider;
+            color: $white;
+            text-align: center;
+            border-radius: rem(6);
+            padding: rem(5) 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 305%;
+            margin-left: rem(-60);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-family: $font-primary;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 9%;
+                margin-left: rem(-5);
+                border-width: rem(5);
+                border-style: solid;
+                border-color: $night-rider transparent transparent transparent;
+            }
+
+        }
+
+        &:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
 }
