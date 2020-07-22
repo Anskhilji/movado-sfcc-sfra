@@ -1,0 +1,11 @@
+.large-container {
+    width: 100%;
+    max-width: rem(1312);
+    margin: auto;
+
+    @include media-up ($mvmt-custom-sm) {
+        padding-left: rem(20);
+        padding-right: rem(20);
+    }
+
+}

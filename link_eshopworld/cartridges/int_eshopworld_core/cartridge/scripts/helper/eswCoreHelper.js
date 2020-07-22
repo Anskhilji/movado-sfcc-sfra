@@ -207,9 +207,11 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-            selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
+            selectedRoundingRule = roundingModels.filter(function (rule) {
                 return rule.currencyIso == eswCurrency.value;
             });
+            //Custom End
         }
 
         if (empty(selectedFxRate) && eswCurrency.value == baseCurrency) {
@@ -499,7 +501,17 @@ var getEswHelper = {
         if (totalDiscount < 0) {
             totalDiscount *= -1;
         }
-        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
+
+        // Custom Start: Add defensive code for currency
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        } else {
+            currencyCode = session.custom.currencyCode;
+        }
+        // Custom End
+
+        return new dw.value.Money(totalDiscount, currencyCode);
         /*
         if(cart.couponLineItems.length > 0) {
             for (var item in cart.couponLineItems) {

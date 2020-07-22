@@ -1,0 +1,19 @@
+<isif condition="${pdict.orders.length > 0}">
+	<isloop items="${pdict.orders}" var="order">
+	    <div class="row">
+	        <div class="col-xs-12 col-lg-6 offset-lg-3">
+	            <isinclude template="account/order/orderHistoryCard"/>
+	        </div>
+	    </div>
+	</isloop>
+<iselse>
+    <iscomment>Custom Start:Changing the html structure similar to mvmt</iscomment>
+    <div class="card-header card-msg clearfix">
+        <h4 class="pull-left">${Resource.msg('label.my.orders', 'account', null)}</h4>
+    </div>
+    <div class="card-header card-msg clearfix">
+        <p class="pull-left empty-order-msg">${Resource.msg('empty.order.msg', 'account', null)}</p>
+    </div>
+    <iscomment>Custom End</iscomment>
+</isif>
+

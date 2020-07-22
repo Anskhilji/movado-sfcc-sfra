@@ -119,21 +119,11 @@
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${billingFields.states.stateCode.htmlName} relative">
             <label class="form-control-label" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
-            <select class="form-control billingState custom-select" id="billingState"
-                <isprint value=${billingFields.states.stateCode.attributes} encoding="off"/>
-                autocomplete="billing address-level1">
-                    <isloop items=${billingFields.states.stateCode.options} var="state">
-                        <option id="${state.id}"  value="${state.htmlValue}"
-                            ${pdict.order.billing.billingAddress.address
-                                && state.id === pdict.order.billing.billingAddress.address.stateCode
-                                ? "selected"
-                                : "" }
-                        >
-                            ${state.label}
-                        </option>
-                    </isloop>
-            </select>
-            <i class="fa fa-angle-down"></i>
+            <input class="form-control shippingState" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
+                value="${shippingAddress.stateCode||''}"
+                <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
+                autocomplete="shipping address-level1">
+            </input>
             <div class="invalid-feedback"></div>
         </div>
     </div>

@@ -147,7 +147,7 @@ function formatPhoneNumber(phoneNumber) {
         return match[1] + '-' + match[2] + '-' + match[3];
     }
 
-    return null;
+    return phoneNumber;
 }
 
 function getCheckoutCouponUrl() {
@@ -218,10 +218,10 @@ function getPaymentMethod(order) {
 }
 
 /**
-* Fetches the selected payment method from order
-* @param {orderModel} order model.
-* @returns {String} order selected payment method
-*/
+ * Fetches the selected payment method from order
+ * @param {orderModel} order model.
+ * @returns {String} order selected payment method
+ */
 function getSelectedPaymentMethod(orderModel) {
     var constants = require('*/cartridge/scripts/helpers/constants');
     var selectedPaymentMethod;
@@ -252,11 +252,12 @@ function getSelectedPaymentMethod(orderModel) {
                     selectedPaymentMethod = '';
                     break;
             }
-       }
+        }
     }
 
     return selectedPaymentMethod;
 }
+
 
 module.exports = {
     formatOrderDate: formatOrderDate,

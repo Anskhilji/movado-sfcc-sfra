@@ -1,0 +1,5 @@
+@mixin media-up ($screenSize) {
+    @media only screen and (min-width: #{$screenSize}) {
+        @content;
+    }
+}

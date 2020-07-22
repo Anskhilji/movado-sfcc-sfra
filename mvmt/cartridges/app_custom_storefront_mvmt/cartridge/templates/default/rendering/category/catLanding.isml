@@ -1,0 +1,29 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/productDetail.js');
+        assets.addCss('/css/search.css');
+    </isscript>
+    <isinclude template="/components/modules" sf-toolkit="off" />
+
+    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.landing', 'eum', null))}"/>
+    <isif condition=${false}>
+        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+    </isif>
+
+    <div class="shop-all-container">
+        <isslot id="cs-category-landing-top" description="Category Landing Page Banner." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-nav" description="Category Landing Page Nav" context="category" context-object="${pdict.category}"/>
+    </div>
+
+    <div class="content-slots-container">
+        <isslot id="cs-category-landing-cs1" description="Category Landing Page content Slot 1." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs2" description="Category Landing Page content Slot 2." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs3" description="Category Landing Page content Slot 3." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs4" description="Category Landing Page content Slot 4." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs5" description="Category Landing Page content Slot 5." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs6" description="Category Landing Page content Slot 6." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs7" description="Category Landing Page content Slot 7." context="category" context-object="${pdict.category}"/>
+        <isslot id="cs-category-landing-cs8" description="Category Landing Page content Slot 8." context="category" context-object="${pdict.category}"/>
+    </div>
+</isdecorate>

@@ -1,0 +1,39 @@
+<iscomment>Custom Start: Adding placeholder text in the input fields and Changing in html structure similar to mvmt design </iscomment>
+<form action="${pdict.actionUrl}" class="login" method="POST" name="login-form">
+    <div class="form-group required">
+        <label class="form-control-label" for="login-form-email">
+            ${Resource.msg('label.input.login.email', 'login', null)}
+        </label>
+        <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="login-form-email" class="form-control" name="loginEmail" value="${pdict.userName}">
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group required">
+        <label class="form-control-label" for="login-form-password">
+                ${Resource.msg('label.input.login.password', 'login', null)}
+        </label>
+        <input type="password" placeholder="${Resource.msg('form.placeholder.password', 'account', null)}" id="login-form-password" class="form-control" name="loginPassword" autocomplete="off">
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+        <div class="custom-control custom-checkbox remember-me">
+            <input type="checkbox" class="custom-control-input" id="rememberMe" name="loginRememberMe" value="true"
+                <isif condition="${pdict.rememberMe}">checked</isif>
+            >
+            <label class="custom-control-label" for="rememberMe">
+                ${Resource.msg('label.checkbox.login.rememberme', 'login', null)}
+            </label>
+        </div>
+        <div class="forgot-password">
+            <a id="forget-password-btn" class="float-right">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
+        </div>
+    </div>
+
+    <div class="submit-form-section text-left">
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
+    </div>
+ <iscomment>   <div class="forgot-password text-center">
+        <a id="forget-password-btn">${Resource.msg('link.login.forgotpassword', 'login', null)}</a>
+    </div> </iscomment>
+</form>
+<iscomment> Custom End </iscomment>

@@ -32,11 +32,11 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
 			require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
 
     Transaction.begin();
-    if (riskifiedCheckoutCreateResponse) { 
+    if (riskifiedCheckoutCreateResponse) {
         result = expressPayPalAuthorisation.verify(order, adyenPayPalToken, paymentInstrument.paymentMethod, request);
     }
 
-    if (result.decision !== 'ACCEPT' || !riskifiedCheckoutCreateResponse) { 
+    if (result.decision !== 'ACCEPT' || !riskifiedCheckoutCreateResponse) {
         Transaction.rollback();
         hooksHelper(
 				'app.fraud.detection.checkoutdenied',
