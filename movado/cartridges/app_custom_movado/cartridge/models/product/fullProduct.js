@@ -24,9 +24,11 @@ module.exports = function fullProduct(product, apiProduct, options) {
     decorators.mgattributes(product, apiProduct);
 
     if (options.variationModel) {
-        decorators.images(product, options.variationModel, { types: ['pdp533'], quantity: 'all' });
+        // Custom Start: Define view type 'gallery' for DIS
+        decorators.images(product, options.variationModel, { types: ['pdp533', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
     } else {
-        decorators.images(product, apiProduct, { types: ['pdp533', 'zoom830', 'zoom1660'], quantity: 'all' });
+     // Custom Start: Define view type for 'gallery' for DIS
+        decorators.images(product, apiProduct, { types: ['pdp533', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
     }
     decorators.emailImage(product, apiProduct, { types: ['tile150'], quantity: 'single' });
     decorators.quantity(product, apiProduct, options.quantity);

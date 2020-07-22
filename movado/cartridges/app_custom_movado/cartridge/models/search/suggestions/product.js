@@ -38,6 +38,7 @@ function getProducts(suggestedProducts, maxItems) {
         if (suggestedProducts.hasNext()) {
             product = suggestedProducts.next().productSearchHit.product;
             products.push({
+                id: product.ID,
                 name: product.name,
                 imageUrl: getImageUrl(product),
                 url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID),

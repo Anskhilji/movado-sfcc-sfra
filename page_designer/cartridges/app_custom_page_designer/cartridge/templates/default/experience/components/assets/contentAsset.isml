@@ -1,0 +1,4 @@
+<isif condition="${pdict.isContentAssetEnabled}">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <iscontentasset aid="${pdict.contentAssetID}"/>
+</isif>

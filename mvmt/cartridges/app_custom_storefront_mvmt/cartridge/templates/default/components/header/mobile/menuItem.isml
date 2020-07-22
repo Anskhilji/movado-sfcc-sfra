@@ -1,0 +1,49 @@
+<iscomment> Custom: menu-content div added</iscomment>
+<div class="dropdown-menu" role="menu" aria-hidden="true">
+    <div class="menu-content mvmt-header-dropdown">
+        <div class="menu-pane">
+            <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
+                <div class="new-header-menu-logo">
+                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                </div>
+            </div>
+            <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
+                <a class="back-menu" href="${'#'}" role="button">
+                    <span class="caret-left"></span>
+                    ${Resource.msg('label.header.menu.back', 'common', null)}
+                </a>
+            </div>
+            <ul>
+                <div class="top-category-heading"><h4>${topCat.name}</h4></div>
+                <isloop items="${menuItem.subCategories}" var="category">
+                    <isif condition="${category.subCategories}">
+                        <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <span href="${category.url}" role="button" class="dropdown-link">${category.name}</span>
+                            <div class="dropdown-menu">
+                                <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
+                                    <div class="new-header-menu-logo">
+                                        <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                    </div>
+                                </div>
+                                <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
+                                    <a class="back-submenu" href="${'#'}" role="button">
+                                        <span class="caret-left"></span> ${topCat.name}
+                                    </a>
+                                </div>
+                                <div class="d-block d-lg-none third-level-menu grey-sub-menu">
+                                    <div class="top-category-heading"><h4>${category.name}</h4></div>
+                                    <isset name="categoryItem" value="${category}" scope="page" />
+                                    <isinclude template="components/header/menuItemCollection" />
+                                </div>
+                            </div>
+                        </li>
+                    <iselse>
+                       <li class="dropdown-item-mvmt gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                           <a href="${category.url}" role="button" class="dropdown-link">${category.name}</a>
+                      </li>
+                  </isif>
+              </isloop>
+            </ul>
+        </div>
+    </div>
+</div>

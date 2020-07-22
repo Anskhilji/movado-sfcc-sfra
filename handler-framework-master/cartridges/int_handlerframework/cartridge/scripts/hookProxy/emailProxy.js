@@ -50,34 +50,43 @@ function sendEmail(emailObj, template, context) {
    emailData.template = template;
    emailData.context = context;
    emailData.subject = emailObj.subject;
-   
-   var hookPath = 'app.communication.';
+
+    var hookPath = 'app.sfmc.communication.';
     var hookID = hookPath;
 	
     if(emailObj){
     	
       /*registration*/
-    	if(emailObj.type === 1){
+        if(emailObj.type === 1){
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
             hookID += 'account.created';
     	}
     	
       /*passwordReset*/
     	else if (emailObj.type === 2){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		params.put('ResetPasswordToken', context.passwordResetToken)
-    		hookID += 'account.passwordReset'; 	
+            params.put('CurrentCustomer', context.resettingCustomer);
+            params.put('ResetPasswordToken', context.passwordResetToken);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordReset'; 	
     	}
     	
       /*passwordChanged*/
-    	else if (emailObj.type === 3){
-    		params.put('CurrentCustomer', context.resettingCustomer);
-    		hookID += 'account.passwordChanged';    
+        else if (emailObj.type === 3){
+            params.put('CurrentCustomer', context.resettingCustomer);
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.passwordChanged';    
     		 
     	}
     	
       /*orderConfirmation*/
-    	else if (emailObj.type === 4){
-    		hookID += 'order.confirmation';    		
+        else if (emailObj.type === 4){
+            hookID += 'order.confirmation';    		
     	}
     	
       /*accountLocked*/
@@ -86,18 +95,16 @@ function sendEmail(emailObj, template, context) {
     	}
     	
       /*accountEdited*/
-    	else if (emailObj.type === 6){
-    		hookID += 'account.updated';  
-      }
+        else if (emailObj.type === 6){
+            /* Custom Start: Send birthday as per customized logic */
+            params.put('Birthday', params.CurrentCustomer.profile.custom.birthmonth + " " + params.CurrentCustomer.profile.custom.birthdate);
+            /* Custom End */
+            hookID += 'account.updated';  
+        }
       
       /*productEmailShare*/
     	else if (emailObj.type === 7){
     		hookID += 'shareEmail.product';  
-      }
-      
-      /*orderCancellation*/
-    	else if (emailObj.type === 8){
-    		hookID += 'order.cancellation';    		
       }
 
       /*orderPartialCancellation*/
@@ -112,8 +119,21 @@ function sendEmail(emailObj, template, context) {
       
       /*wishlist share*/
       else if (emailObj.type === 11){
-        hookID += 'shareEmail.wishlist';
+          hookID += 'shareEmail.wishlist';
       }
+      
+      /*contactus*/
+      else if (emailObj.type === 12){
+          params.put('ContactUs', session && session.forms.contactus);
+          hookID += 'customerService.contactUs';
+      }
+
+      /*orderCancellation*/
+    	else if (emailObj.type === 13){
+        params.put('Order', context.order);
+        hookID += 'order.cancellation';    		
+    }
+
     	else {
             Logger.warn('Mail send hook called, but correct action undetermined, mail not sent as a result.');
         }		

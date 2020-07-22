@@ -26,7 +26,16 @@ module.exports = {
     send: send,
     sendEmail: function (emailObj, template, context) {
         var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-        return hooksHelper('app.customer.email', 'sendEmail', [emailObj, template, context], send);
+        var Site = require('dw/system/Site');
+      
+     // Custom Start : condition to check if SFMC transactional email feature enable or disable
+        var isMarketingCloudEnabled = !empty(Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled')) ? Site.current.getCustomPreferenceValue('marketingCloudModuleEnabled') : false;
+        if (isMarketingCloudEnabled) {
+            return hooksHelper('app.sfmc.customer.email', 'sendEmail', [emailObj, template, context], send);
+        } else {
+           return hooksHelper('app.customer.email', 'sendEmail', [emailObj, template, context], send);
+        }
+    // Custom End
     },
     emailTypes: {
         registration: 1,
@@ -36,9 +45,10 @@ module.exports = {
         accountLocked: 5,
         accountEdited: 6,
         productShareEmail: 7,
-        orderCancellation: 8,
         orderPartialCancellation: 9,
         orderShipped: 10,
-        wishlistShareEmail: 11
+        wishlistShareEmail: 11,
+        contactUs: 12,
+        orderCancellation: 13
     }
 };

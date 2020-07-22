@@ -1,0 +1,22 @@
+{
+    "name": "Content Asset",
+    "description": "Container to render HTML Content From Content Asset",
+    "group": "assets",
+    "attribute_definition_groups": [
+      {
+        "id": "contentAsset",
+        "name": "Content Asset ID",
+        "description": "Renders Content Asset from provided ID",
+        "attribute_definitions": [
+          {
+            "id": "contentAssetID",
+            "name": "Content Asset ID",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "region_definitions": []
+  }
+  

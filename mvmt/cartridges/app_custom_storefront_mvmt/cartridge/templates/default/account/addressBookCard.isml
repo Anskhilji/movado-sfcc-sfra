@@ -1,0 +1,36 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
+<isset name="address" value="${!empty(pdict.account) && !empty(pdict.account.preferredAddress) ? pdict.account.preferredAddress.address : ''}" scope="page" >
+<div class="card address">
+    <div class="card-header clearfix">
+        <h4 class="pull-left">${Resource.msg('label.addressbook', 'account', null)}</h4>
+        <a href="${URLUtils.url('Address-List')}" class="pull-right">
+            ${Resource.msg('label.manage.address', 'account', null)}&#40;${!empty(account.addresses.length) ? Number(account.addresses.length).toFixed() : 0}&#41;
+        </a>
+    </div>
+    <isif condition="${!empty(address)}">
+        <div class="card-body">
+            <div>
+                <div class="dashboard-cards-block-title">${Resource.msg('label.addressbook.defaultaddress', 'account', null)}</div>
+                <div class="dashboard-info">${!empty(address) ? address.ID : ''}</div>
+                <div>${!empty(address.firstName) ? address.firstName : ''} ${!empty(address.lastName) ? address.lastName : ''}</div>
+                <isif condition="${!empty(address.companyName)}">
+                    <div>${address.companyName}</div>
+                </isif>
+                <div>${!empty(address.address1) ? address.address1 : ''}</div>
+                <isif condition="${!empty(address.address2)}">
+                      <div>${address.address2}</div>
+                </isif>
+                <div>${!empty(address.city) ? address.city : ''}, ${!empty(address.stateCode) ? address.stateCode : ''} ${!empty(address.postalCode) ? address.postalCode : ''}</div>
+                <div>${!empty(address.phone) ? address.phone : ''}</div>
+            </div>
+        </div>
+    <iselse>
+        <div class="card-header clearfix">
+             <p>${Resource.msg('empty.address.book.msg', 'account', null)}</p>
+        </div>
+    </isif>
+    <div class="card-footer text-center <isif condition="${empty(address)}">no-card-body</isif>">
+        <a href="${URLUtils.url('Address-AddAddress')}" class="card-link">${Resource.msg('link.addnew', 'account', null)}</a>
+    </div>
+</div>
+<iscomment> Custom End </iscomment>

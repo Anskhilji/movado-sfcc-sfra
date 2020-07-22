@@ -165,7 +165,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
     var credentials = authenticatedCustomerProfile.getCredentials();
     if (credentials.isEnabled()) {
         Transaction.wrap(function () {
-            CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, false);
+            CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, true);
             if(firstTimeUser){
                 accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
             }

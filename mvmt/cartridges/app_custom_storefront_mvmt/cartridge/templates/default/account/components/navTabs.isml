@@ -1,0 +1,36 @@
+<iscomment> Custom Start: Adding two labels in anchor tags. One label for mobile and one for desktop </iscomment>
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a
+            <isif condition="${pdict.navTabValue === 'login'}">
+                class="nav-link active"
+            <iselse>
+                class="nav-link"
+            </isif>
+            href="#login" data-toggle="tab" role="tab">
+            <span class="hidden-md-down ">
+                ${Resource.msg('link.header.login.module', 'login', null)}
+            </span>
+            <span class="hidden-lg-up ">
+                ${Resource.msg('link.text.sign.in', 'cart', null)}
+            </span>
+         </a>
+    </li>
+    <li class="nav-item">
+        <a
+            <isif condition="${pdict.navTabValue === 'register'}">
+                class="nav-link active"
+            <iselse>
+                class="nav-link"
+            </isif>
+            href="#register" data-toggle="tab" role="tab">
+            <span class="hidden-md-down">
+                ${Resource.msg('link.header.register.module', 'login', null)}
+            </span>
+            <span class="hidden-lg-up">
+                ${Resource.msg('link.text.create.account', 'cart', null)}
+            </span>
+         </a>
+    </li>
+</ul>
+<iscomment> Custom End </iscomment>

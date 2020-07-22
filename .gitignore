@@ -10,3 +10,7 @@
 **/dw.json
 **/.DS_Store
 **/tmp/
+!yotpo/cartridges/bm_yotpo/**/static/**
+!**/module_pagedesigner**/cartridge/static/**/js/*
+!**/module_pagedesigner**/cartridge/static/**/css/*
+!einstein-recommendations.js

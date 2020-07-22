@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+   <head>
+      <title>HTML pre Tag</title>
+   </head>
+
+   <body>
+      <pre>
+           ${pdict.result.message}
+      </pre>
+   </body>
+
+</html>

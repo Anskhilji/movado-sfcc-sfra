@@ -1,0 +1,12 @@
+<iscomment> Custom Start: Removing mb-2 class in section , added class d-none</iscomment>
+<div class="line-item-availability d-none availability-${lineItem.UUID}">
+    <isloop items="${lineItem.availability.messages}" var="message">
+        <p class="line-item-attributes <isif condition="${!lineItem.available}"> out-of-stock </isif>">${message}</p>
+    </isloop>
+    <isif condition="${lineItem.availability.inStockDate}">
+        <p class="line-item-attributes d-none line-item-instock-date">
+            ${lineItem.availability.inStockDate}
+        </p>
+    </isif>
+</div>
+<iscomment> Custom End </iscomment>

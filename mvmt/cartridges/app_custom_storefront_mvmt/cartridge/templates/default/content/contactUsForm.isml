@@ -1,0 +1,89 @@
+<div class="contactus-page">
+    <form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="firstName">
+                <isprint value="${pdict.contactUsForm.firstname.label}" encoding="htmlcontent" />
+            </label>
+            <input type="text" class="form-control contact-tab-form-control" id="firstName"
+                placeholder="${Resource.msg('label.profile.firstname', 'account', null)}"
+                <isprint value="${pdict.contactUsForm.firstname.attributes}" encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.lastname.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="lastName">
+                <isprint value="${pdict.contactUsForm.lastname.label}" encoding="htmlcontent" />
+            </label>
+            <input type="text" class="form-control contact-tab-form-control" id="lastName"
+                placeholder="${Resource.msg('label.profile.lastname', 'account', null)}"
+                <isprint value="${pdict.contactUsForm.lastname.attributes}" encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.phone.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="phone">
+                <isprint value="${pdict.contactUsForm.phone.label}" encoding="htmlcontent" />
+            </label>
+            <input type="text" class="form-control contact-tab-form-control" id="phone"
+                placeholder="${Resource.msg('label.profile.phone', 'account', null)}"
+                <isprint value="${pdict.contactUsForm.phone.attributes}" encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.email.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="email">
+                <isprint value="${pdict.contactUsForm.email.label}" encoding="htmlcontent" />
+            </label>
+            <input type="email" class="form-control contact-tab-form-control" id="email"
+                placeholder="${Resource.msg('label.profile.email', 'account', null)}"
+                <isprint value="${pdict.contactUsForm.email.attributes}" encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.ordernumber.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="ordernumber">
+                <isprint value="${pdict.contactUsForm.ordernumber.label}" encoding="htmlcontent" />
+            </label>
+            <input type="text" class="form-control contact-tab-form-control" id="ordernumber"
+                placeholder="${Resource.msg('contact.form.order.number', 'contactUs', null)}"
+                <isprint value="${pdict.contactUsForm.ordernumber.attributes}" encoding="off" />>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="myquestion">
+                <isprint value="${pdict.contactUsForm.myquestion.label}" encoding="htmlcontent" />
+            </label>
+            <iscomment>Custom:ADDED Custom class in seclect dropdown to style</iscomment>
+             <div class="myquestion-wrapper row">
+                <div class="custom-select-wrapper col-12">
+                    <select class="form-control custom-select custom-select-form-wrapper" id="myquestion" <isprint value="${pdict.contactUsForm.myquestion.attributes}" encoding="off" />>
+                       <isloop items=${pdict.contactUsForm.myquestion.options} var="ques">
+                        <option id="${ques.id}" value="${ques.htmlValue}" <isif condition="${ques.htmlValue == pdict.contactUsForm.myquestion.htmlValue}">selected</isif> >${ques.label}</option>
+                       </isloop>
+                    </select>
+                    <iscomment>Custom: added icon in selector field</iscomment>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group
+            <isif condition="${pdict.contactUsForm.comment.mandatory === true}">required</isif>">
+            <label class="form-control-label" for="comment">
+                <isprint value="${pdict.contactUsForm.comment.label}" encoding="htmlcontent" />
+            </label>
+            <iscomment>Custom:ADDED Custom class and placeholder</iscomment>
+            <textarea class="form-control contact-tab-form-control comment-textarea" id="comment" rows="5" placeholder="Message..."
+            <isprint value="${pdict.contactUsForm.comment.attributes}" encoding="off" />></textarea>
+            <div class="invalid-feedback"></div>
+        </div>
+        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+        <iscomment>Custom start:ADDED Custom class in button</iscomment>
+        <div class="row">
+            <div class="col-md-6 pt-2">
+                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
+            </div>
+        </div>
+        <iscomment>Custom End</iscomment>
+    </form>
+</div>

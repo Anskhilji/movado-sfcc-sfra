@@ -7,7 +7,7 @@ image: node:10.15.3
 
 pipelines:
   branches:
-    '{release-*,develop,master}':
+    '{release-*,develop,master,develop-*}':
       - step:
           caches:
             - node

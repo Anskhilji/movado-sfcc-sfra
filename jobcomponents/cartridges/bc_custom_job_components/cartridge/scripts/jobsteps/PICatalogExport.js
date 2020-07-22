@@ -3,6 +3,7 @@ var ProductMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var Calendar = require('dw/util/Calendar');
+var Logger = require('dw/system/Logger');
 var STATUS = {
 	    FILE_EXIST: 'FILE_ALREADY_EXISTS',
 	    NO_DATA: 'NO_DATA_TO_EXPORT'
@@ -45,25 +46,29 @@ var piCatalog = function piCatalog(args, options) {
 
 		    		collections.forEach(siteProducts, function (item) {
 		    			if (item.getOnlineFlag()) {
-		    				var skuID = getSkuID(item);
-		    				var productName = getProductName(item);
-		    				var productType = getProductType(item);
-		    				var productLink = getProductLink(item);
-		    				var imageLink = getImageLink(item);
-		    				var regularPrice = getRegularPrice(item);
-		    				var onlineAvailability = getOnlineAvailability(item);
-		    				var productDescription = getProductDescription(item);
-		    				var brandName = getBrandName(item);
-		    				var color = getColor(item);
-		    				var material = getMaterial(item);
-		    				var keywords = getKeywords(item);
-
-		    				var singleProductData = skuID + '|' + productName + '|' + productType + '|' + productLink + '|'
-							+ imageLink + '|' + regularPrice + '|' + onlineAvailability + '|' + productDescription
-							+ '|' + brandName + '|' + color + '|' + material + '|' + keywords;
-
-		    				// writing data in file
-		    				writer.writeLine(singleProductData);
+                            try {
+                                var skuID = getSkuID(item);
+                                var productName = getProductName(item);
+                                var productType = getProductType(item);
+                                var productLink = getProductLink(item);
+                                var imageLink = getImageLink(item);
+                                var regularPrice = getRegularPrice(item);
+                                var onlineAvailability = getOnlineAvailability(item);
+                                var productDescription = getProductDescription(item);
+                                var brandName = getBrandName(item);
+                                var color = getColor(item);
+                                var material = getMaterial(item);
+                                var keywords = getKeywords(item);
+    
+                                var singleProductData = skuID + '|' + productName + '|' + productType + '|' + productLink + '|'
+                                + imageLink + '|' + regularPrice + '|' + onlineAvailability + '|' + productDescription
+                                + '|' + brandName + '|' + color + '|' + material + '|' + keywords;
+    
+                                // writing data in file
+                                writer.writeLine(singleProductData);
+                            } catch (e) {
+                                Logger.error('PICatalogExport: Error occurred while adding product into PICatalog Feed. Product {0} \n Error: {1} \n Stack Trace: \n {2}', item , e.message, e.stack);
+                            }
 		    			}
 		    		});
         }

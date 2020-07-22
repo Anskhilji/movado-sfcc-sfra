@@ -43,20 +43,48 @@ function exportAllSavedSubscribers() {
         try {
             subscriber = mcSubscribersObjectIterator.next();
             if (subscriber) {
-                params.email = subscriber.custom.email;
-                var result = SFMCAPIHelper.addContactToMC(params, contactService);
-                if (!result.success) {
-                    continue;
-                }
-                if (isMovadoOrOB) {
-                    result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                
+                
+                if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+                    var result;
+                    var service;
+                    
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+                    var payload = JSON.parse(subscriber.custom.mcPayload);
+                    params.email = !empty(payload.email) ? payload.email : '';
+                    params.country = !empty(payload.country) ? payload.country : '';
+                    params.firstName = !empty(payload.firstName) ? payload.firstName : '';
+                    params.lastName = !empty(payload.lastName) ? payload.lastName : '';
+                    params.campaignName = !empty(payload.campaignName) ? payload.campaignName : '';
+                    params.birthday = !empty(payload.birthday) ? payload.birthday : '';
+                    params.gender = !empty(payload.gender) ? payload.gender : '';
+                    params.phoneNumber = !empty(payload.phoneNumber) ? payload.phoneNumber : '';
+                    params.eventName = !empty(payload.eventName) ? payload.eventName : '';
+                    if (!empty(params)) {
+                        result = SFMCAPIHelper.updateEvent(params, service);
+                        if (result.success === true) {
+                            Transaction.wrap(function () {
+                                CustomObjectMgr.remove(subscriber);
+                            });
+                        }
+                    }
                 } else {
-                    result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
-                }
-                if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
-                    Transaction.wrap(function () {
-                        CustomObjectMgr.remove(subscriber);
-                    });
+                    params.email = subscriber.custom.email;
+                    var result = SFMCAPIHelper.addContactToMC(params, contactService);
+                    if (!result.success) {
+                        continue;
+                    }
+                    if (isMovadoOrOB) {
+                        result = SFMCAPIHelper.addContactToJourney(params, eventService);
+                    } else {
+                        result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
+                    }
+                    
+                    if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
+                        Transaction.wrap(function () {
+                            CustomObjectMgr.remove(subscriber);
+                        });
+                    }
                 }
             }
        } catch (e) {

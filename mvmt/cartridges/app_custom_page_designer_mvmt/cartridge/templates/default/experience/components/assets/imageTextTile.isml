@@ -1,0 +1,10 @@
+<a href="${pdict.link}" title="${pdict.title}" class="homepage-explore-by-series-tile tile-shadow" >
+    <img class="collection-related-tile-image" src="${pdict.image.src}" alt="${pdict.title}">
+    <div class="collection-related-tile-bottom">
+        <span class="collection-related-tile-title">${pdict.title}</span>
+        <svg width="9" height="14" viewBox="0 0 9 14"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.686 0L0 1.633 5.538 7 0 12.367 1.686 14l7.223-7z" fill="#2B2B2B" fill-rule="evenodd"></path>
+        </svg>
+    </div>
+</a>
