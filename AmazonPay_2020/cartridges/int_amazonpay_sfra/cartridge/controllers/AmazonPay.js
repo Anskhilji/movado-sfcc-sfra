@@ -903,11 +903,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-<<<<<<< HEAD
-            // Custom Start
-=======
->>>>>>> 6e55152c3cb81d7d23594538cd279707253dc744
-            // Salesforce Order Management attributes
+            // Custom Start: Salesforce Order Management attributes
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             somLog.debug('Processing Order ' + order.orderNo);
@@ -920,11 +916,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
 
-<<<<<<< HEAD
-            // Change email helper to trigger confirmation email, Also add Swell Integration
-=======
             // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
->>>>>>> 6e55152c3cb81d7d23594538cd279707253dc744
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
@@ -934,6 +926,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 });
             }
             // Custom End 
+            
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();
