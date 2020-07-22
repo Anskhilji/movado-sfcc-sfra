@@ -362,7 +362,7 @@ var getSiteSectionOnPageLoad = function (e) {
         pageDataGTM.primarySiteSection = siteSections[0] || '';
         pageDataGTM.secondarySiteSection = escapeXml(siteSections[1]) || '';
         pageDataGTM.tertiarySiteSection = siteSections[2] || '';
-        dataLayer.push({ dataLayer: pageDataGTM});
+        dataLayer.push({ pageData: pageDataGTM});
     }
 };
 
