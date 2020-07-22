@@ -460,6 +460,10 @@
                             }
                         }
 
+                        .swell-redemption-text {
+                            padding: 0 0 rem(8) rem(16);     
+                        }
+
                         &-dropdown {
                             width: 100%;
                             padding: rem(8.32) rem(12);
@@ -507,13 +511,12 @@
                     .form-group {
 
                         &.active {
+                            margin-bottom: rem(10);
 
                             .title {
-                                font-size: 0;
-                                padding: 0;
 
                                 &:after {
-                                    content: "";
+                                    content: "-";
                                     font-family: $font-book;
                                 }
                             }
@@ -530,10 +533,23 @@
                             font-size: rem(13);
                             display: block;
                             margin: 0;
+                            cursor: pointer;
 
-                            &:after {
-                                content: "+";
-                                font-family: $font-book;
+                            &[aria-expanded="false"] {
+                                &:after {
+                                    content: "+";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
+                            }
+
+                            
+                            &[aria-expanded="true"] {
+                                &:after {
+                                    content: "-";
+                                    font-family: $font-book;
+                                    float: right;
+                                }
                             }
                         }
                     }
@@ -541,6 +557,40 @@
             }
 
             .subtotal {
+                position: relative;
+
+                &-payment-summary {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: rem(14) rem(16);
+                }
+
+                &-label, &-value {
+                    font-family: $font-book;
+                    letter-spacing: rem(1);
+                    font-weight: 600;
+                    color: $black;
+                    text-transform: uppercase;
+                }
+
+                &-total {
+
+                    &-discount {
+                        font-family: $font-book;
+                        letter-spacing: rem(1);
+                        font-weight: 600;
+                        color: $black;
+                        text-transform: uppercase;
+                    }
+                }
+
+                &-label, &-total {
+                    font-size: rem(12);
+                }
+            }
+
+            .orderdiscount {
                 position: relative;
 
                 &-payment-summary {

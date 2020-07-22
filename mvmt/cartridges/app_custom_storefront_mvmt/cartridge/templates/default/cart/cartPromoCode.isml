@@ -40,8 +40,8 @@
     <div class="col-12 collapsible-promo-wrapper mb-2" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="promo-code-form" method="GET" name="promo-code-form">
             <div class="form-group collapsible-xl">
-                <label class="title" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
-                <div class="row content value">
+                <label class="title" for="cartCouponCode" data-toggle="collapse" data-target="#cartCouponCode" aria-expanded="false">${Resource.msg('label.promo.code','cart',null)}</label>
+                <div class="row collapse value" id="cartCouponCode" name="cartCouponCode">
                     <div class="col-7 pr-0">
                         <input type="text" class="form-control coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('label.promo.code','cart',null)}">
                         <div class="coupon-error">

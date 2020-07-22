@@ -286,7 +286,7 @@
                 display: block;
                 cursor: pointer;
                 top: 50%;
-                transform: translateY(-50%);
+                margin-top: -2%;
                 background-color: $cyan-blue;
                 border: rem(1) solid $white-grey;
                 color: $black;
@@ -342,6 +342,7 @@
 
                 h3 {
                     color: $black;
+                    font-family: $font-medium;
                     font-size: rem(12);
                     font-weight: 500;
                     text-transform: uppercase;
@@ -402,13 +403,14 @@
         }
 
         .button {
-            font-family: $font-bold;
+            font-family: $font-medium;
             font-weight: 600;
             font-size: rem(12);
             padding: rem(18) rem(30);
             letter-spacing: rem(1.6);
             line-height: 1;
             max-width: max-content;
+            display: inline-block;
             margin: 0 auto;
             text-decoration: none;
 

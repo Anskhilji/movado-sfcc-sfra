@@ -30,7 +30,7 @@ server.replace(
             var selectedCountryObj = eswCustomHelper.getSelectedCountry(req.querystring.country);
             var currencyCode = '';
             var selectedCountry = '';
-            if (!empty(selectedCountryObj.absUrl)) {
+            if (selectedCountryObj && !empty(selectedCountryObj.absUrl)) {
                 res.json({
                     success: true,
                     redirectUrl: selectedCountryObj.absUrl
@@ -52,7 +52,16 @@ server.replace(
                 if (req.setLocale(language)) {
                     if (!eswHelper.overridePrice(req, selectedCountry, currencyCode)) {
                         eswHelper.setAllAvailablePriceBooks();
-                        eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
+                        //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
+                        var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
+                            return country.value == selectedCountry;
+                        });
+                        if (empty(isFixedPriceCountry)) {
+                            eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
+                        } else {
+                            eswHelper.setBaseCurrencyPriceBook(req, currencyCode);
+                        }
+                        //Custom End
                     }
                     eswHelper.selectCountry(selectedCountry, currencyCode, language);
                 }
@@ -77,6 +86,10 @@ server.replace(
 
             if (Object.hasOwnProperty.call(queryStringObj, 'lang')) {
                 delete queryStringObj.lang;
+            }
+
+            if (Object.hasOwnProperty.call(queryStringObj, 'country')) {
+                delete queryStringObj.country;
             }
 
             var redirectUrl = URLUtils.url(req.querystring.action).toString();

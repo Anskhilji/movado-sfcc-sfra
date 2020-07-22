@@ -1,6 +1,7 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="miniCart" value="${true}" scope="page" />
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
+<isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -76,18 +77,34 @@
             </div>
         </isif>
         <iscomment> Custom End </iscomment>
+        <iscomment>Custom Start: Adding order level disount check to display discount on order and remove strike through price from subtotal </iscomment>
         <div class="subtotal">
             <div class="subtotal-payment-summary">
                 <div class="subtotal-label grand-total-label price-label">
                     ${Resource.msg('label.minicart.estimatedtotal', 'cart', null)}
                 </div>
                 <div class="subtotal-total">
+                    <iscomment> Custom Start: Removing strike through for full price items
+                    <isif condition="${orderLevelDiscountTotal != 0}">
                     <span class="subtotal-total-discount">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
-                    <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.grandTotal) ? '0' : pdict.totals.grandTotal}</span>
+                    </isif>
+                    Custom End </iscomment>
+                    <span class="subtotal-total-discount sub-total">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
+                    </div>
+            </div>
+        </div>
+        
+        <div class="orderdiscount <isif condition="${pdict.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
+            <div class="orderdiscount-payment-summary">
+                <div class="orderdiscount-label grand-total-label price-label">
+                    ${Resource.msg('label.minicart.estimateddiscount', 'cart', null)}
+                </div>
+                <div class="orderdiscount-total">
+                    <span class="orderdiscount-value text-right grand-total cost">- ${pdict.totals.shippingLevelDiscountTotal.formatted}</span>
                 </div>
             </div>
         </div>
-
+        <iscomment> Custom End </iscomment>
         <iscomment>Custom Start: Adding the checkout button in the mini cart </iscomment>
         <div class="row continue-checkout-btn">
             <div class="checkout-continue">

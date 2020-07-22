@@ -19,12 +19,12 @@
             </div>
         </isif>
         <isif condition=${pdict.EswFooterObject.enabledLanguagesInFooter}>
-            <div class="dropdown esw-country-selector selectLanguage" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+                <div class="dropdown esw-country-selector selectLanguage" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
                 <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}
                 </span>
                 <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCountrySelector">
-                   <isloop items="${pdict.EswFooterObject.languages}" var="object" status="loopStatus">
+                    <isloop items="${pdict.EswFooterObject.languages}" var="object" status="loopStatus">
                         <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswFooterObject.selectedCountry}" data-locale="${object.value}" data-currency="${pdict.EswFooterObject.selectedCurrency}" data-url="${pdict.EswFooterObject.selectorUrl}">${object.displayValue}</a>
                     </isloop>
                 </div>

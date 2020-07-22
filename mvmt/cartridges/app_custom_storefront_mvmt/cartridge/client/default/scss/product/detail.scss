@@ -236,6 +236,10 @@
                 }
             }
         }
+
+        .apple-pay-pdp {
+            display: none;
+        }
     }
 
     &-price {
@@ -540,14 +544,14 @@
 
 #overlay {
     position: fixed;
-    z-index: 8;
+    z-index: 99;
     width: 100%;
     height: 100%;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,.8);
+    background: rgba(0,0,0,.5);
     visibility: hidden;
     opacity: 0;
     transition: all .25s;
@@ -558,6 +562,10 @@
     &.active {
         opacity: 1;
         visibility: visible;
+    }
+
+    &.size-guide-overlay {
+        z-index: 99999;
     }
 }
 
@@ -757,6 +765,12 @@
                         right: rem(-75);
                     }
                 }
+
+                &.zoom-in {
+                    @include media-breakpoint-up(md-down) {
+                        pointer-events: none;
+                    }
+                }
             }
 
             .zoom-out {
@@ -809,6 +823,12 @@
 
                         &.active {
                             min-height: 80vh;
+                        }
+
+                        &.disabled {
+                            @include media-breakpoint-down(md-down) {
+                                pointer-events: none;
+                            }
                         }
                     }
 
@@ -993,10 +1013,17 @@
 
         &-name {
             text-align: center;
-            letter-spacing: rem(3);
+            font-family: $font-book;
+            font-size: rem(22);
+            font-weight: 400;
+            letter-spacing: rem(5);
+            line-height: rem(28);
+            margin-bottom: rem(6);
 
             @include media-breakpoint-up(md-down) {
                 text-align: left;
+                font-size: rem(28);
+                letter-spacing: rem(3);
             }
         }
 
@@ -1012,11 +1039,28 @@
                 color: $black;
                 margin-right: rem(10);
 
-                .strike-through {
-                    display: block;
-                }
 
                 .price {
+                    font-size: 100%;
+                    letter-spacing: rem(1.5);
+
+                    del {
+
+                        .strike-through {
+                            display: block;
+
+                            span {
+                                color: $light-gray2;
+                                font-size: rem(14);
+                            }
+                        }
+        
+                        & + span {
+                            span {
+                                color: $dark-red;
+                            }
+                        }
+                    }
 
                     .sales{
 
@@ -1025,6 +1069,7 @@
                         }
                     }
                 }
+
             }
 
             .ratings {
@@ -1044,10 +1089,21 @@
             position: static;
             padding: 0 rem(15);
         }
+    
+        .content {
+            letter-spacing: rem(0);
+            margin-top: 0;
+            margin-bottom: rem(15);
+            padding-left: 0;
+        }
     }
 
     .cart-and-ipay {
         display: block !important;
+
+        @include media-breakpoint-down(md-down) {
+            margin-bottom: 0;
+        }
 
         .add-to-cart, .add-to-cart-mvmt {
             display: inline-block;
@@ -1089,7 +1145,10 @@
         .add-to-cart {
             display: flex;
             justify-content: space-between;
-            border-radius: rem(5);
+
+            @include media-breakpoint-up(md-down) {
+                border-radius: rem(5);
+            }
         }
     }
 
@@ -1340,8 +1399,10 @@
         font-weight: 500;
         letter-spacing: rem(1.2);
         text-transform: uppercase;
-        background-size: cover;
+        background-size: 90%;
         transition: 0.3s ease;
+        background-repeat: no-repeat;
+        background-position: center;
 
         &.active, &:hover {
             border-color: $black;
@@ -1478,6 +1539,34 @@
         font-weight: 500;
         color: $black;
         text-transform: uppercase;
+
+        
+        del {
+            display: block;
+
+            .strike-through {
+                display: block;
+                margin: 0;
+
+                span {
+                    color: $light-gray2;
+                    font-size: rem(14);
+                }
+            }
+
+            & + span {
+                span {
+                    color: $dark-red;
+                }
+            }
+        }
+
+        .sales{
+
+            span {
+                display: block;
+            }
+        }
 
         @include media-breakpoint-up(md-down) {
             display: none;
@@ -2462,5 +2551,32 @@
 	
     @include media-breakpoint-up(xxl) {
             max-width: rem(1235);
+    }
+}
+
+.product-tile-redesign {
+
+    .tile-body {
+
+        .price {
+
+            del {
+
+                .strike-through {
+    
+                    span {
+                        color: $light-gray2;
+                        font-weight: 600;
+                    }
+                }
+
+                & + span {
+
+                    span {
+                        color: $dark-red;
+                    }
+                }
+            }
+        }
     }
 }

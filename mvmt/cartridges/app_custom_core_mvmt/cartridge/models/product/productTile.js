@@ -12,6 +12,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
     baseProductTile.call(this, product, apiProduct, productType, params);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     
     var colorVariations;
     var defaultVariantImage;
@@ -19,6 +20,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
+    var eswPrice = productCustomHelper.getESWPrice(product);
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -63,15 +65,15 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             if (!empty(variant) && !empty(variant.custom)) {
                 Object.keys(varAttr).forEach(function (key) {
                     if (variant.custom.color == varAttr[key].id) {
-                        defaultVariantImage = varAttr[key].largeImage.url;
-                        variationPdpURL = varAttr[key].pdpURL;
+                        defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
+                        variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
                     }
                 });
             } else {
-                defaultVariantImage = varAttr[0].largeImage.url;
-                variationPdpURL = varAttr[0].pdpURL;
+                defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
+                variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
             }
@@ -125,6 +127,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: apiProduct
         });
         
+    }
+
+    if (!empty(eswPrice)) {
+        Object.defineProperty(product, 'eswPrice', {
+            enumerable: true,
+            value: eswPrice
+        });
     }
     
     return product;

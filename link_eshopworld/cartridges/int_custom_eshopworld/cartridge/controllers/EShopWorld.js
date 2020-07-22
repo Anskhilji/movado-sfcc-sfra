@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 ​
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
@@ -16,7 +17,6 @@ server.append('GetEswHeader', function (req, res, next) {
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
-    var countryCode = req.querystring.countryCode;
     var geoLocationCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
@@ -34,9 +34,10 @@ server.append('GetEswHeader', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswHeaderObject.selectedCountry = firstCountry.value;
-        res.viewData.EswHeaderObject.selectedCountryName = firstCountry.displayValue;
+        if (isGeoLocation && !empty(geoLocationCountry)) {
+            res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
+            res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
+        }
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -45,22 +46,6 @@ server.append('GetEswHeader', function (req, res, next) {
             landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
         };
         session.custom.customCountriesJSON = customCountriesJSON;
-    }
-
-    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
-        res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
-    }
-
-    if (!empty(countryCode)) {
-        var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
-        var language = {
-            value: country.lang[0].languageCode,
-            displayValue: country.lang[0].languageName
-        }
-        selectedLanguage = language;
-        res.viewData.EswHeaderObject.selectedCountry = country.countryCode;
-        res.viewData.EswHeaderObject.selectedCountryName = country.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -77,13 +62,19 @@ server.append('GetEswFooter', function (req, res, next) {
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
-    var countryCode = req.querystring.countryCode;
     var geoLocationCountry = null;
+    var queriedCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
+    var queryCountryCode = request.httpParameterMap.get('countryCode').value;
+
 
     if (isGeoLocation) {
         geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
+    }
+
+    if (queryCountryCode) {
+        queriedCountry = eswCustomHelper.getCustomCountryByCountryCode(queryCountryCode);
     }
 
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.footerPage)) {
@@ -95,9 +86,11 @@ server.append('GetEswFooter', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswFooterObject.selectedCountry = firstCountry.value;
-        res.viewData.EswFooterObject.selectedCountryName = firstCountry.displayValue;
+        if (isGeoLocation && !empty(geoLocationCountry)) {
+            res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
+            res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
+        }
+
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -108,20 +101,9 @@ server.append('GetEswFooter', function (req, res, next) {
         session.custom.customCountriesJSON = customCountriesJSON;
     }
 
-    if (!empty(geoLocationCountry) && empty(session.custom.isWelcomeMat)) {
-        res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
-        res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
-    }
-
-    if (!empty(countryCode)) {
-        var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
-        var language = {
-            value: country.lang[0].languageCode,
-            displayValue: country.lang[0].languageName
-        }
-        selectedLanguage = language;
-        res.viewData.EswFooterObject.selectedCountry = country.countryCode;
-        res.viewData.EswFooterObject.selectedCountryName = country.displayName;
+    if (queryCountryCode && !empty(queriedCountry)) {
+        res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
+        res.viewData.EswFooterObject.selectedCountryName = queriedCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -138,7 +120,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var locale = request.getLocale();
     var languages = null;
     var selectedLanguage = null;
-    var countryCode = req.querystring.countryCode;
 ​
     if (!empty(customCountriesJSONFromSession) && !empty(customCountriesJSONFromSession.landingPage)) {
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountriesJSONFromSession.customCountries, locale);
@@ -149,9 +130,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
         customLanguages = eswCustomHelper.getCustomLanguages();
         languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        var firstCountry = allCountries.get(0);
-        res.viewData.EswLandingObject.selectedCountry = firstCountry.value;
-        res.viewData.EswLandingObject.selectedCountryName = firstCountry.displayValue;
         var customCountriesJSON = {
             customCountries: customCountries,
             customLanguages: customLanguages,
@@ -161,18 +139,23 @@ server.append('GetEswLandingPage', function (req, res, next) {
         };
         session.custom.customCountriesJSON = customCountriesJSON;
     }
-​
-    if (!empty(countryCode)) {
-        var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
-        var language = {
-            value: country.lang[0].languageCode,
-            displayValue: country.lang[0].languageName
-        }
-        selectedLanguage = language;
-        res.viewData.EswLandingObject.selectedCountry = country.countryCode;
-        res.viewData.EswLandingObject.selectedCountryName = country.displayName;
-    }
+    // Custom Start: Adding Logic to show price for country selected via geolocation
+    var availableCountry = eswHelper.getAvailableCountry();
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+        return country.value == availableCountry;
+    });
 
+    if (empty(isFixedPriceCountry) && !empty(currency)) {
+        eswHelper.setAllAvailablePriceBooks();
+        eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+    } else {
+    ​    if (!empty(currency)) {
+            eswHelper.setAllAvailablePriceBooks();
+            eswHelper.setBaseCurrencyPriceBook(req, currency);
+        }
+    }
+    // Custom End:
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
@@ -192,8 +175,7 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     });
-    var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
-    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+    if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({
             orderNo: res.viewData.OrderNumber,
@@ -204,8 +186,10 @@ server.append('NotifyV2', function(req, res, next) {
     if (emailOptIn) {
         var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
         var billingCustomer = obj.contactDetails;
+        var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
-            email: billingCustomer[0].email
+            email: billingCustomer[0].email,
+            country: deliveryCountry
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
             SFMCApi.sendSubscriberToSFMC(requestParams);

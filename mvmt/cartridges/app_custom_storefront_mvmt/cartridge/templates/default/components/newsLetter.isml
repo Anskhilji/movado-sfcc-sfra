@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Creating the new template for newsletter popup.</iscomment> 
-<form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+<form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe', 'pageType', 'footer')}" method="POST">
     <div class="input-group">
         <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         <div class="invalid-feedback"></div>

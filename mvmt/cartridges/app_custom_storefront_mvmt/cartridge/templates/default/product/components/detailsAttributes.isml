@@ -23,7 +23,7 @@
                         <button class="button-outline button call-see-fit-popup">${Resource.msg('button.see.fit', 'product', null)}</button>
                     </div>
                 </isif>
-                <div class="attribute-list">
+                <div class="attribute-list attribute-details-list">
                     <isloop items="${product.pdpDetailAttributes}" var="attr">
                         <div class="attribute-detail">
                             <span class="attribute-name attribute-content">${attr.displayName}</span>
