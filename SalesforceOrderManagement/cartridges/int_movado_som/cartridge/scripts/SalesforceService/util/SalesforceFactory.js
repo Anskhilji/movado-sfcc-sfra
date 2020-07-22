@@ -27,7 +27,6 @@ var SalesforceFactory = {
         FULFILLMENTORDER: '/services/data/v49.0/sobjects/FulfillmentOrder',
         FULFILLMENTORDERLINEITEM: '/services/data/v49.0/sobjects/FulfillmentOrderLineItem',
         FULFILLMENTSTATUSCHANGE: '/services/data/v49.0/sobjects/Fulfillment_Status_Change__e',
-        FULFILLMENTITEMCANCEL: '/services/data/v49.0/sobjects/Item_Cancellation__e',
         SHIPMENT: '/services/data/v49.0/sobjects/Shipment'
     },
 
@@ -92,11 +91,13 @@ var SalesforceFactory = {
         return requestDataContainer;
     },
     buildFulfillmentOrderCompositeRequestData: function (order) {
-        var requestData = [{
-            method: 'PATCH',
-            url: this.ENDPOINTS.FULFILLMENTORDER + order.PONumber,
-            referenceId: 'FulfillmentOrder'
-        }];
+        var requestData = [
+            {
+                method: 'PATCH',
+                url: this.ENDPOINTS.FULFILLMENTORDER + order.PONumber,
+                referenceId: 'FulfillmentOrder'
+            }
+        ];
 
         return requestData;
     }

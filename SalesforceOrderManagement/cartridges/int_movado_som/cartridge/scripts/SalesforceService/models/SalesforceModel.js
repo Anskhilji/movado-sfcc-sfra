@@ -48,24 +48,9 @@ var SalesforceModel = ({
     createOrderSummaryCancelRequest: function (req) {
         var requestData = {};
         requestData.changeItems = req.changeItems;
-
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.COMMERCE + '/order-management/order-summaries/' + req.orderSummaryId + '/actions/submit-cancel',
             requestMethod: 'POST',
-            requestData: requestData
-        });
-    },
-    /*
-    TODO TEST
-    */
-    publishOrderSummaryCancelItemsEvent: function (req) {
-        var requestData = {};
-        requestData.changeItems = req.changeItems;
-
-        return SalesforceModel.createSalesforceRestRequest({
-            url: SalesforceFactory.ENDPOINTS.FULFILLMENTITEMCANCEL,
-            requestMethod: 'POST',
-            referenceId: 'OSCANCELITEMS',
             requestData: requestData
         });
     },
@@ -89,7 +74,7 @@ var SalesforceModel = ({
         var requestData = {};
         requestData.excessFundsAmount = req.excessFundsAmount;
         return SalesforceModel.createSalesforceRestRequest({
-            url: SalesforceFactory.ENDPOINTS.COMMERCE + '/order-management/order-summaries/' + req.orderSummaryId + '/async-actions/ensure-refunds-async',
+            url: SalesforceFactory.ENDPOINTS.COMMERCE + 'order-management/order-summaries/' + req.orderSummaryId + '/async-actions/ensure-refunds-async',
             requestMethod: 'POST',
             requestData: requestData
         });

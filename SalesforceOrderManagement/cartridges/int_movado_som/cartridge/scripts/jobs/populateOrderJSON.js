@@ -33,7 +33,7 @@ function getAddressObject(address) {
  * @return {Object} custom object for storing as json
  */
 function getPriceAdjustmentObject(priceAdjustment) {
-    var ret = {
+    return {
         name: priceAdjustment.promotionID,
         quantity: priceAdjustment.quantity,
         grossPrice: priceAdjustment.grossPrice.value,
@@ -46,21 +46,6 @@ function getPriceAdjustmentObject(priceAdjustment) {
         sabrixAdditionalCityTotal: priceAdjustment.custom.sabrixAdditionalCityTotal,
         sabrixAdditionalDistrictTotal: priceAdjustment.custom.sabrixAdditionalDistrictTotal
     };
-
-    if (priceAdjustment.promotion) {
-        ret.promoName = priceAdjustment.promotion.name;
-    } else {
-        ret.promoName = priceAdjustment.promotionID; // TODO: check order ingestion for mapping - SKU + ' - ' + promoName;
-    }
-
-    if (priceAdjustment.reasonCode && priceAdjustment.reasonCode.value) {
-        // e.g., 'LOYALTY' for Swell/Yotpo points applications
-        ret.reasonCode = priceAdjustment.reasonCode.value;
-    } else {
-        ret.reasonCode = '';
-    }
-
-    return ret;
 }
 
 
@@ -110,7 +95,6 @@ function populateByOrder(order) {
     var shippingPriceJSON = {};
 
     try {
-
         /**
          * Add pricebookID to Order
          */
@@ -124,8 +108,8 @@ function populateByOrder(order) {
         // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
         // Add authTime and Adyen_merchantSig to the transaction
         collections.forEach(order.getPaymentInstruments(), function (pi) {
-            //pi.getPaymentTransaction().custom.authTime = '05:21:52.054';
-            //pi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
+            pi.getPaymentTransaction().custom.authTime = '05:21:52.054';
+            pi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
         });
         // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
 
