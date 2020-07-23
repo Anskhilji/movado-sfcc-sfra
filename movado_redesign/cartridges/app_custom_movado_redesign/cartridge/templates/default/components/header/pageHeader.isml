@@ -3,7 +3,8 @@
 <header class="new-header">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isif condition="${isEswEnabled}" >
-        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
+        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
@@ -20,7 +21,8 @@
                                 </div>
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
                                 <isif condition="${isEswEnabled}" >
-                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
                                 <iscomment> Custom End </iscomment>
                                 <button class="navbar-toggler-custom navbar-toggler d-lg-none"
