@@ -283,49 +283,6 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
     }
 }
 
-/**
- * Custom Start: Retrieve recommended products
- *
- * @param {Link} addToCartUrl - link of add to cart URL for variation product
- * 
- */
-function addRecommendationProducts(addToCartUrl) {
-    var $recommendedProductSelector = $('.upsell_input');
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-        if ($currentRecommendedProduct.checked) {
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-            
-            addRecommendationProductToCartAjax(form, addToCartUrl);
-        }
-    }
-}
-/**
- * Custom Start: Add recommended products to cart
- *
- * @param {Object} variationForm - holds form attributes for selected variation product
- * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
- * 
- */
-function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
-    if (addToCartUrl) {
-        $.ajax({
-            url: addToCartUrl,
-            method: 'POST',
-            data: variationForm,
-            success: function (data) {
-                updateCartPage(data);
-                $('.minicart').trigger('count:update', data);
-            },
-            error: function () {
-                $.spinner().stop();
-            }
-        });
-    }
-}
 
 /**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
