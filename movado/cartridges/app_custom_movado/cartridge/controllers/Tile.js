@@ -5,8 +5,8 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 
 server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next) {
-    var logger = require('dw/system/Logger');
     var Site = require('dw/system/Site');
+    var logger = require('dw/system/Logger');
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -46,7 +46,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         quickViewUrl = URLUtils.url('Home-Show');
         logger.error('Tile-Show: Error occured while getting product: {0} and error is: {1} in {2} : {3}', productTileParams.pid, e.toString(), e.fileName, e.lineNumber);
     }
-    
+
     var showProductPageHelperResult = '';
     if (product) {
         var requestQuerystring = {
@@ -54,7 +54,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         };
         showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     }
-    
+
+    var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);

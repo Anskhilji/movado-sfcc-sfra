@@ -237,7 +237,8 @@ function getRefinementSwatches(presentationID) {
 }
 
 function getPdpCollectionContentAssetID(apiProduct) {
-    var productCategories = apiProduct.getOnlineCategories();
+    var isVariant = apiProduct.variant;
+    var productCategories = isVariant ? apiProduct.masterProduct.getOnlineCategories() : apiProduct.getOnlineCategories();
     var categoriesIterator = productCategories.iterator();
     var pdpCollectionContentAssetID =  '';
     while (categoriesIterator.hasNext()) {
