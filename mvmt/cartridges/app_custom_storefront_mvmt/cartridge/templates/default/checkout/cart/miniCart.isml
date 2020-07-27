@@ -117,4 +117,6 @@
             <isinclude template="cart/cartRemoveCouponModal" />
         </div>
     </div>
+    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
+    <isinclude template="include/yotpofooter"/>
 </isif>
