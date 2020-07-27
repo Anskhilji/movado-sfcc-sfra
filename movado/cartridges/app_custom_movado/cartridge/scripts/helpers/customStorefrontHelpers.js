@@ -1,4 +1,4 @@
-use strict';
+'use strict';
 
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site');
