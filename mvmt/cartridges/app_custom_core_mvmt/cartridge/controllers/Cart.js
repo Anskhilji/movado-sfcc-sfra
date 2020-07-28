@@ -29,8 +29,13 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 });
 
 server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function(req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
+    var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
+    res.viewData.cartItemObj = cartItems;
     next();
 });
 
