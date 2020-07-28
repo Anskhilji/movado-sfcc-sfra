@@ -1,9 +1,10 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <header>
   <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
-  <isif condition="${isEswEnabled}" >
-      <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage')}"/>
-  </isif>
+    <isif condition="${isEswEnabled}" >
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
+        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+    </isif>
   <iscomment> Custom End </iscomment>
   <nav>
     <div class="sticky-header-wrapper">
@@ -14,11 +15,12 @@
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
-                  <div class="hidden-md-down account-wrapper">
+                  <div class="hidden-md-down account-wrapper">  
                     <isinclude url="${URLUtils.url('Account-Header')}"/>
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isif condition="${isEswEnabled}" >
-                        <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader')}"/>
+                        <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                     </isif>
                     <iscomment> Custom End </iscomment>
                     <iscomment>Custom Start:  Not needed old country selector logic </iscomment>

@@ -67,8 +67,7 @@
             class="form-control"
             id="registration-form-phone"
             data-pattern-mismatch="${Resource.msg('error.message.invalid.phone','forms',null)}"
-            <isprint value=${pdict.profileForm.customer.phone.attributes} encoding="off" />
-            placeholder="${Resource.msg('example.phone','forms',null)}">
+            <isprint value=${pdict.profileForm.customer.phone.attributes} encoding="off" />>
             <div class="invalid-feedback"></div>
     </div>
 

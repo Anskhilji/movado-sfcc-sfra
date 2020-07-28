@@ -652,10 +652,34 @@ module.exports = {
     strapNavSlider: function() {
         $('.straps-guide-nav').resize();
         var svgRight = '<svg width="5px" height="8px" viewBox="0 0 9 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Press-Slider" transform="translate(-1360.000000, -140.000000)" fill="#2B2B2B"><g id="right-arrow-white"><polygon points="1361.6855 140 1360 141.633333 1365.53808 147 1360 152.366667 1361.6855 154 1368.90909 147"></polygon></g></g></g></svg>';
-        $(window).on("load resize", function(e) {
-            $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
-            $('.straps-nav-mobile .slick-next').prepend(svgRight);
+        $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
+        $('.straps-nav-mobile .slick-next').prepend(svgRight);
+
+        $(window).on('resize', function() {
+            $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text('');
+
+            setTimeout( function(){ 
+                $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
+                $('.straps-nav-mobile .slick-next').prepend(svgRight);
+            }, 100);
         });
     },
+
+    strapNavMobileSticky: function () {
+        $(window).scroll( function (event) {
+            var $headerSize = $('.header-menu-wrapper').height();
+            var $searchBannerSize = $('.search-banner').height();
+            var $totalHeaderSize = $searchBannerSize + 70;
+    
+            if ($(this).scrollTop() > $totalHeaderSize) {
+                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
+                $('.straps-nav-mobile').addClass('sticky');
+                $('.straps-nav-mobile').css('top', $headerSize + 17);
+            } else {
+                $('.straps-nav-mobile').removeClass('sticky');
+                $('.straps-nav-mobile').css('top', '');
+            }
+        });
+    }
     // Custom End
 };

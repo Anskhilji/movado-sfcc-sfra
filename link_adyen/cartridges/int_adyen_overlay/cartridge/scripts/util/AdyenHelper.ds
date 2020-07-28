@@ -48,6 +48,13 @@ var __AdyenHelper : Object = {
 					return client;
 				}
 			 });
+			// Custom Start: implemented the 3rd party test mode option
+			var Site = require('dw/system/Site');
+			var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+			if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+				adyenService = customStorefrontHelpers.setTestModeCredentials(adyenService);
+			} 
+			// Custom End 
             dwsystem.Logger.getLogger("Adyen", "adyen").debug("Successfully retrive service with name {0}", service);
         } catch (e) {
             var ex = e;

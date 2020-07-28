@@ -9,7 +9,14 @@ var Resource = require('dw/web/Resource');
 function getTaxService(basket) {
 	var sabrix = LocalServiceRegistry.createService(Resource.msg('service.sabrix.address.title', 'sabrix', null) ,{
 		initServiceClient: function() {
-			var creds = this.configuration.getCredential();  
+			var creds = this.configuration.getCredential();
+			// Custom Start: implemented the 3rd party test mode option
+			var Site = require('dw/system/Site');
+			var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+			if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+			    creds = customStorefrontHelpers.setTestModeCredentials(this).configuration.getCredential();
+			}
+			// Custom End 
 			var secretsMap = new HashMap();
 			secretsMap.put(creds.user, creds.password);
 			var requestCfg = new HashMap();

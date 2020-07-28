@@ -65,15 +65,15 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             if (!empty(variant) && !empty(variant.custom)) {
                 Object.keys(varAttr).forEach(function (key) {
                     if (variant.custom.color == varAttr[key].id) {
-                        defaultVariantImage = varAttr[key].largeImage.url;
-                        variationPdpURL = varAttr[key].pdpURL;
+                        defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
+                        variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
                     }
                 });
             } else {
-                defaultVariantImage = varAttr[0].largeImage.url;
-                variationPdpURL = varAttr[0].pdpURL;
+                defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
+                variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
             }
