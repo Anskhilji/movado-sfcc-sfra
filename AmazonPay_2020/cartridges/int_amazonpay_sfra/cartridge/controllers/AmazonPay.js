@@ -847,9 +847,9 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     populateOrderJSON.populateByOrder(order);
                 });
             } catch (exSOM) {
-                var _e = exSOM;
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
+            
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
@@ -912,7 +912,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     populateOrderJSON.populateByOrder(order);
                 });
             } catch (exSOM) {
-                var _e = exSOM;
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
 
