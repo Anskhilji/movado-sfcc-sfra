@@ -101,13 +101,5 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: eswPrice
         });
     }
-
-    if (!empty(promotionObj)) {
-        Object.defineProperty(product, 'promotionObj', {
-            enumerable: true,
-            value: promotionObj
-        });
-    } 
-
     return product;
 };
