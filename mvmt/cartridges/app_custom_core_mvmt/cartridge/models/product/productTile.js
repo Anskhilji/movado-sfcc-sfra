@@ -9,6 +9,7 @@ var URLUtils = require('dw/web/URLUtils');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var PromotionMgr = require('dw/campaign/PromotionMgr');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
     baseProductTile.call(this, product, apiProduct, productType, params);
@@ -21,6 +22,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var eswPrice = productCustomHelper.getESWPrice(product);
+    var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
+    var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -135,6 +138,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: eswPrice
         });
     }
+
+    if (!empty(promotionObj)) {
+        Object.defineProperty(product, 'promotionObj', {
+            enumerable: true,
+            value: promotionObj
+        });
+    } 
     
     return product;
 };

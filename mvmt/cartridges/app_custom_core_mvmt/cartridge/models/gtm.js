@@ -100,7 +100,7 @@ function gtmModel(req) {
     var userEmail = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).email : '';
 
         //custom start: Hashed email
-    var userHashedEmail = !empty(userEmail) ? Encoding.toHex(new Bytes(userEmail, 'UTF-8')): '';
+    var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
 
         //custom start: user firstName
     var userFirstName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).firstName : '';
@@ -175,7 +175,7 @@ function gtmModel(req) {
     this.currencyCode = (currencyCode != null && currencyCode != undefined) ? currencyCode : '';
     this.customerType = (customerType != null && customerType != undefined) ? customerType : '';
     this.userZip = !empty(userZip) ? userZip : '';
-    this.userHashedEmail = (userHashedEmail != null && userHashedEmail != userHashedEmail) ? userHashedEmail : '';
+    this.userHashedEmail = !empty(userHashedEmail) ? userHashedEmail : '';
 }
 
 
