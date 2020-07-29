@@ -16,7 +16,7 @@ var baseFullProduct = module.superModule;
  *
  * @returns {Object} - Decorated product model
  */
-module.exports = function fullProduct(product, apiProduct, options) { 
+module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var seeTheFitPopup  = productCustomHelper.getProductAttributes(apiProduct);
@@ -101,5 +101,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: eswPrice
         });
     }
+
     return product;
 };
