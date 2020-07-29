@@ -75,7 +75,7 @@
             <isinclude template="checkout/productCard/productCardQuantitySelector" />
         </div>
         <iscomment> Custom End </iscomment>
-        <div class="col-2 hidden-md-down p-0 p-lg-2">
+        <div class="col-2 hidden-md-down p-0 p-lg-2 item-total-${lineItem.UUID}">
             <isset name="price" value="${lineItem.price}" scope="page"/>
             <isinclude template="/product/components/pricing/main" />
         </div>
