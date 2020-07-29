@@ -90,7 +90,7 @@ function populateByOrderID(args) {
             try {
                 addDummyPaymentTransaction(order);
             } catch (exSOM) {
-                var _e = exSOM;
+                //var _e = exSOM;
                 logger.error('SOM attribute process failed: ' + exSOM.message);
             }
         });
@@ -123,11 +123,11 @@ function populateByOrder(order) {
 
         // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
         // Add authTime and Adyen_merchantSig to the transaction
-        collections.forEach(order.getPaymentInstruments(), function (pi) {
+        //collections.forEach(order.getPaymentInstruments(), function (pi) {
             //pi.getPaymentTransaction().custom.authTime = '05:21:52.054';
             //pi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
-        });
-        // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
+        //});
+        // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!! 
 
         // Add all billing address fields to an object to send to SOM
         addressJSON.billingAddress = getAddressObject(order.billingAddress);
@@ -175,7 +175,7 @@ function populateByOrder(order) {
             /**
              * Add each product's price adjustment(s)
              */
-            collections.forEach(order.productLineItems, function (productLineItem) {
+            collections.forEach(shipment.productLineItems, function (productLineItem) {
                 var productPriceAdjustments = [];
 
                 collections.forEach(productLineItem.priceAdjustments, function (priceAdjustment) {
@@ -183,6 +183,10 @@ function populateByOrder(order) {
                 });
 
                 productLineItem.custom.SOMProductPriceAdjustments = JSON.stringify(productPriceAdjustments);
+
+                // Copy long ESW attribute names to shorter alternative
+                productLineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDi = productLineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount;
+                productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDis = productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount;
             });
 
             /**
@@ -195,7 +199,7 @@ function populateByOrder(order) {
             order.custom.SOMOrderPriceAdjustments = JSON.stringify(orderPriceAdjustments);
         });
     } catch (e) {
-        var _e = e;
+        //var _e = e;
         logger.error(e);
         logger.fatal('CheckoutServices.js failure: ' + order.orderNo + ' - ' + e.toString());
         return new Status(Status.ERROR, 'ERROR', 'populateOrderJSON failed. Fatal log sent.');
@@ -225,7 +229,11 @@ function addDummyPaymentTransaction(order) {
     var eswPayment = _.find(arrPi, function (r) {
         return r.paymentMethod.toUpperCase() === 'ESW_PAYMENT';
     });
-    if (eswPayment) return true;
+    if (eswPayment) {
+        // Tell SOM this is a pre-captured amount, not an authorization
+        eswPayment.getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+        return true;
+    }
 
     var ccPayment = _.find(arrPi, function (r) {
         return r.paymentMethod.toUpperCase() === 'CREDIT_CARD';
@@ -264,8 +272,8 @@ function addDummyPaymentTransaction(order) {
 
                                 // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
                                 // Add authTime and Adyen_merchantSig to the transaction
-                                newPi.getPaymentTransaction().custom.authTime = '05:21:52.054';
-                                newPi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
+                                //newPi.getPaymentTransaction().custom.authTime = '05:21:52.054';
+                                //newPi.getPaymentTransaction().custom.Adyen_merchantSig = 'Test2_PaymentTransactionSignature';
                                 // !!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!
                             }
 
@@ -273,7 +281,7 @@ function addDummyPaymentTransaction(order) {
                             try {
                                 order.removePaymentInstrument(pi);
                             } catch (exRemove) {
-                                var _e = exRemove;
+                                //var _e = exRemove;
                                 logger.error('Replacing Adyen PayPal payment method: ' + exRemove.message);
                             }
                         }
