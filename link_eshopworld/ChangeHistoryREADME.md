@@ -2,6 +2,7 @@
 
 ## eswCoreHelper.js
 - Line No: Start from 589 to 590
+- Line No: Start from 505 to 514
 
 ## serviceHelper.js
 - Line No: Start from 98 to 101
@@ -19,3 +20,6 @@
 
 ## EswCoreService.js
 - Line No: Start from 19 to 25
+
+## totals.js
+- Line No: 50
