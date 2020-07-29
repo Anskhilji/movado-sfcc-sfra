@@ -85,6 +85,7 @@
 
         <div class="panel-group payment-options" id="accordion">
             <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopstate">
+            <isif condition="${!pdict.order.amzPayRedirectURL}">
                 <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
                     <div class="panel panel-default">
                         <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
@@ -125,6 +126,14 @@
 	                    <isinclude template="checkout/billing/paymentOptions/applePayTab" />
 	                    <isinclude template="checkout/billing/paymentOptions/applePayContent" />
 	                </div>
+                </isif>
+                <iselse/>
+                    <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
+                        <div class="panel panel-default">
+                            <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
+                            <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
+                        </div>
+                    </isif>
                 </isif>
             </isloop>
        </div>
