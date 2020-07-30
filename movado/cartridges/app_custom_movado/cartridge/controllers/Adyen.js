@@ -215,7 +215,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 populateOrderJSON.addDummyPaymentTransaction(order);
             });
         } catch (exSOM) {
-            var _e = exSOM;
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
 
