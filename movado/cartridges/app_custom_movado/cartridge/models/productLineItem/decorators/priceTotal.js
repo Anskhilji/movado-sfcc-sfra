@@ -40,8 +40,10 @@ function getTotalPrice(lineItem) {
         var gettingCurrencyCode = '';
         if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
             gettingCurrencyCode = request.httpCookies['esw.currency'].value;
-        } else {
+        } else if (session.custom.currencyCode) {
             gettingCurrencyCode = session.custom.currencyCode;
+        } else {
+            gettingCurrencyCode = eswShopperCurrencyCode ? eswShopperCurrencyCode : lineItem.lineItemCtnr.currencyCode;
         }
         result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
     }

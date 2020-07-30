@@ -506,8 +506,10 @@ var getEswHelper = {
         var currencyCode = '';
         if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
             currencyCode = request.httpCookies['esw.currency'].value;
-        } else {
+        } else if (session.custom.currencyCode) {
             currencyCode = session.custom.currencyCode;
+        }  else {
+            currencyCode = cart.originalOrder.custom.eswShopperCurrencyCode ? cart.originalOrder.custom.eswShopperCurrencyCode : cart.originalOrder.currencyCode;
         }
         // Custom End
 
