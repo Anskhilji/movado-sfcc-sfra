@@ -126,6 +126,19 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
     });
     
+    // Salesforce Order Management attributes
+    var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+    try {
+        Transaction.wrap(function () {
+            populateOrderJSON.populateByOrder(Order);
+            populateOrderJSON.addDummyPaymentTransaction(Order);
+        });
+    } catch (exSOM) {
+        somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+    }
+    // End Salesforce Order Management
+    
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
 
 	// remove personalization details from session once order is authorized and placed
