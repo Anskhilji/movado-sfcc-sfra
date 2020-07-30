@@ -838,9 +838,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Custom Start: Change email helper to trigger confirmation email
-            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-            // Salesforce Order Management attributes
+            // Custom Start: Salesforce Order Management attributes
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             somLog.debug('Processing Order ' + order.orderNo);
@@ -849,9 +847,9 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     populateOrderJSON.populateByOrder(order);
                 });
             } catch (exSOM) {
-                var _e = exSOM;
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
+            
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
@@ -859,10 +857,14 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
-            // Custom End
+            
+            // Custom Start: Change email helper to trigger confirmation email
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
-            //Custom Start: set to true to trigger Purchase tag on confirmation page
+
+            // Custom Start: set to true to trigger Purchase tag on confirmation page
             session.custom.orderJustPlaced = true;
+			
             // Custom End
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
@@ -901,7 +903,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Salesforce Order Management attributes
+            // Custom Start: Salesforce Order Management attributes
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             somLog.debug('Processing Order ' + order.orderNo);
@@ -910,7 +912,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     populateOrderJSON.populateByOrder(order);
                 });
             } catch (exSOM) {
-                var _e = exSOM;
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
 
@@ -924,6 +925,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 });
             }
             // Custom End 
+            
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();

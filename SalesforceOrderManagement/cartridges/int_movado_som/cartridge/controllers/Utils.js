@@ -96,6 +96,13 @@ function setShippingMethodById(b, sid) {
 }
 
 server.get('CreateOrder', function (req, res, next) {
+
+    var System = require('dw/system/System');
+    if (System.instanceType !== System.DEVELOPMENT_SYSTEM) {
+        res.redirect(redirect);
+        next();
+    }
+
     var BasketMgr = require('dw/order/BasketMgr');
     var Transaction = require('dw/system/Transaction');
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
