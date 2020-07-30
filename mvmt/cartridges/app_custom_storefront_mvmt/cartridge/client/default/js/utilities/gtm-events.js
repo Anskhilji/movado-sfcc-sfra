@@ -42,10 +42,10 @@ var onWishlistClickEvent = function () {
 
 var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promotion-view', function (evt) {
-        var $currentTarget = $('.gtm-promotion-view');
+        var $currentTarget = $(this);
         updateDataLayer('promoClick');
         var dataLayerObj = '';
-        var pageType = $('.gtm-promotion-view').data('page-type');
+        var pageType = $currentTarget.data('page-type'); 
         var gtmTrackingData = $currentTarget.data('gtm-product-promo');
     
         if (gtmTrackingData !== undefined) {
@@ -363,6 +363,7 @@ var getSiteSectionOnPageLoad = function (e) {
         pageDataGTM.secondarySiteSection = escapeXml(siteSections[1]) || '';
         pageDataGTM.tertiarySiteSection = siteSections[2] || '';
         dataLayer.push({ pageData: pageDataGTM});
+        dataLayer.push({ hashedEmail: pageDataGTM.hashedEmail});
     }
 };
 
@@ -482,14 +483,13 @@ var onEmailSubscribe = function () {
  * Custom Start: Create a function that trigger on site search.
  */
 var onSiteSearch = function () {
-    $('body').on('keydown', '.search-field', debounce(function() {
-        var $searchTerm = $(this).val();
+    $('body').on('siteSearch:success', function (evt, data) {
         updateDataLayer('siteSearch');
         dataLayer.push({
             event: 'siteSearch',
-            siteSearchTerm: $searchTerm
+            siteSearchTerm: data
         })
-    }, 300));
+    });
 };
 
 /**

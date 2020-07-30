@@ -46,7 +46,7 @@
     </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
     <div class="product-summary">
-        <isloop items="${items}" var="lineItem">
+        <isloop items="${items}" var="lineItem" status="loopStatus">
             <div class="row">
                <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                    <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">

@@ -10,6 +10,7 @@ var URLUtils = require('dw/web/URLUtils');
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
@@ -166,15 +167,15 @@ function gtmModel(req) {
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
-    this.userEmail = (userEmail != null && userEmail != undefined) ? userEmail : '';
+    this.userEmail = !empty(userEmail) ? userEmail : '';
     this.userFirstName = (userFirstName != null && userFirstName != undefined) ? userFirstName : '';
-    this.userLastName = (userLastName != null && userLastName != undefined) ? userLastName : '';
-    this.userPhone = (userPhone != null && userPhone != undefined) ? userPhone : '';
+    this.userLastName = !empty(userLastName) ? userLastName : '';
+    this.userPhone = !empty(userPhone) ? userPhone : '';
     this.country = (country != null && country != undefined) ? country : '';
     this.currencyCode = (currencyCode != null && currencyCode != undefined) ? currencyCode : '';
     this.customerType = (customerType != null && customerType != undefined) ? customerType : '';
-    this.userZip = (userZip != null && userZip != undefined) ? userZip : '';
-    this.userHashedEmail = (userHashedEmail != null && userHashedEmail != userHashedEmail) ? userHashedEmail : '';
+    this.userZip = !empty(userZip) ? userZip : '';
+    this.userHashedEmail = !empty(userHashedEmail) ? userHashedEmail : '';
 }
 
 
@@ -511,7 +512,7 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
-                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).relative().toString(),
+                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
                     productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
@@ -711,18 +712,21 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.variant = variants;
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+            produtObj.description = productLineItem.product.shortDescription.markup;
+            produtObj.productType = productHelper.getProductType(productLineItem.product);
+            produtObj.imageURL = productLineItem.product.image.absURL;
+            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
+            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
 
-                produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.itemCoupon = itemLevelCouponString;
 
-                produtObj.itemCoupon = itemLevelCouponString;
-
-                if (orderJSONArray.length < 10) {
-                    orderJSONArray.push({ productObj: produtObj });
-                } else {
-                    gtmorderConfObj.push(orderJSONArray);
-                    orderJSONArray = [];
-                    orderJSONArray.push({ productObj: produtObj });
-                }
+            if (orderJSONArray.length < 10) {
+                orderJSONArray.push({ productObj: produtObj });
+            } else {
+                gtmorderConfObj.push(orderJSONArray);
+                orderJSONArray = [];
+                orderJSONArray.push({ productObj: produtObj });
+            }
         });
 
         // Custom changes Updated dataLayer according to mvmt
@@ -730,6 +734,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         var orderPriceAdj;
         var totalOrderPriceAdjValue = 0.0;
         orderObj.orderId = orderId;
+        orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
+        orderObj.orderQuantity = order.productLineItems.length;
         orderObj.revenue = order.totalGrossPrice.decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
