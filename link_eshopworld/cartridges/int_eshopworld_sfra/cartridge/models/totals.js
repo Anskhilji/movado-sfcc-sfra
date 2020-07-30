@@ -47,7 +47,7 @@ function getOrderLevelDiscountTotal(lineItemContainer) {
     var totalExcludingOrderDiscount = lineItemContainer.getAdjustedMerchandizeTotalPrice(false);
     var totalIncludingOrderDiscount = lineItemContainer.getAdjustedMerchandizeTotalPrice(true);
     var orderDiscount = totalExcludingOrderDiscount.subtract(totalIncludingOrderDiscount);
-    var currentBasket = (BasketMgr.currentBasket != null) ? BasketMgr.currentBasket : lineItemContainer;
+    var currentBasket = !empty(session.customer) ? BasketMgr.currentBasket : lineItemContainer;
 
     return {
         value: eswHelper.getOrderDiscount(currentBasket).value,

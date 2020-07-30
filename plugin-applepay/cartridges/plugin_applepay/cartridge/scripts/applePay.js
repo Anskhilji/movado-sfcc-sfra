@@ -91,6 +91,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (order.billingAddress.phone == null) {
         order.billingAddress.phone = order.shipments[0].getShippingAddress().getPhone();
     }
+    // copying the city from shipping address to billing address
+    if (order.billingAddress.city == null) {
+        order.billingAddress.city = order.shipments[0].getShippingAddress().getCity();
+    }
+    // copying the postal code from shipping address to billing address
+    if (order.billingAddress.postalCode == null) {
+        order.billingAddress.postalCode = order.shipments[0].getShippingAddress().getPostalCode();
+    }
 
     // Country code Check for billing Address
     var billCountryCode = order.getBillingAddress().getCountryCode().value;
