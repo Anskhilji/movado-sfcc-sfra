@@ -273,21 +273,26 @@ function getCurrentCountry() {
 function getGtmPromotionObject (promotions) {
     var promotionObj = [];
     if (!empty(promotions)) {
-        for (var i = 0; i < promotions.length; i++) {
-            var promotionId = promotions[i].ID;
-            var promotionName = promotions[i].name;
-            var promotionCreated = promotions[i].startDate;
-            var promotionPostistion = promotions[i].promotionClass;
-            var pageType = session.custom.gtmPageType;
-            promotionObj.push({
-                id: promotionId,
-                name: promotionName,
-                creative: promotionCreated,
-                position: promotionPostistion,
-                pageType: pageType
-            });
+        try {
+            for (var i = 0; i < promotions.length; i++) {
+                var promotionId = promotions[i].ID;
+                var promotionName = promotions[i].name;
+                var promotionCreated = promotions[i].startDate;
+                var promotionPostistion = promotions[i].promotionClass;
+                var pageType = session.custom.gtmPageType;
+                promotionObj.push({
+                    id: promotionId,
+                    name: promotionName,
+                    creative: promotionCreated,
+                    position: promotionPostistion,
+                    pageType: pageType
+                });
+            }
+            return JSON.stringify(promotionObj);
+        } catch (e) {
+            Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
+            return null;
         }
-        return JSON.stringify(promotionObj);
     } else {
         return null;
     }
