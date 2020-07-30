@@ -512,7 +512,7 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
-                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).relative().toString(),
+                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
                     productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
@@ -715,7 +715,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.description = productLineItem.product.shortDescription.markup;
             produtObj.productType = productHelper.getProductType(productLineItem.product);
             produtObj.imageURL = productLineItem.product.image.absURL;
-            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).relative().toString();
+            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
             produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
 
             produtObj.itemCoupon = itemLevelCouponString;
@@ -733,7 +733,6 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         var orderObj = {};
         var orderPriceAdj;
         var totalOrderPriceAdjValue = 0.0;
-        var testing = order.productLineItems.length;
         orderObj.orderId = orderId;
         orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
         orderObj.orderQuantity = order.productLineItems.length;
