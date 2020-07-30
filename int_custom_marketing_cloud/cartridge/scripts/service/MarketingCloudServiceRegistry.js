@@ -56,6 +56,13 @@ function getDataAPIService(serviceID, endpoint, serviceType) {
         serviceConfig = getDataAPIServiceConfigs();
     }
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    // Custom Start: implemented the 3rd party test mode option
+    var Site = require('dw/system/Site');
+    var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+    if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+        dataService = customStorefrontHelpers.setTestModeCredentials(dataService);
+    } 
+    // Custom End 
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
