@@ -86,13 +86,8 @@ function updateCartTotals(data) {
     }
 
     data.items.forEach(function (item) {
-        if (item.price.list) {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list"><span class="value" content="120.00"><span class="sr-only">label.price.reduced.from</span><span class="eswListPrice">' + item.price.list.formatted +'</span><span class="sr-only">label.price.to</span></span></span>');
-        } else {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-        }
-        $('.item-total-' + item.UUID + ' .sales').empty().append(item.price.sales.formatted);
+        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
+        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
     });
 }
 
@@ -315,51 +310,6 @@ module.exports = function () {
         var $pid = $(this).data('pid');
         var $quantitySelector = '.' + $(this).data('pid');
         decreaseQuantity($quantitySelector, $pid);
-    });
-    
-    $('body').off('submit', '.promo-code-form').on('submit', '.promo-code-form', function (e) {
-        e.preventDefault();
-        $.spinner().start();
-        $('.coupon-missing-error').hide();
-        $('.coupon-error-message').empty();
-        if (!$('.coupon-code-field').val()) {
-            $('.promo-code-form .form-control').addClass('is-invalid');
-            $('.coupon-missing-error').show();
-            $.spinner().stop();
-            return false;
-        }
-        var $form = $('.promo-code-form');
-        $('.promo-code-form .form-control').removeClass('is-invalid');
-        $('.coupon-error-message').empty();
-
-        $.ajax({
-            url: $form.attr('action'),
-            type: 'GET',
-            dataType: 'json',
-            data: $form.serialize(),
-            success: function (data) {
-                if (data.error) {
-                    $('.promo-code-form .form-control').addClass('is-invalid');
-                    $('.coupon-error-message').empty().append(data.errorMessage);
-                } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
-                    updateCartTotals(data);
-                    updateApproachingDiscounts(data.approachingDiscounts);
-                    validateBasket(data);
-                }
-                $('.coupon-code-field').val('');
-                $.spinner().stop();
-            },
-            error: function (err) {
-                if (err.responseJSON.redirectUrl) {
-                    window.location.href = err.responseJSON.redirectUrl;
-                } else {
-                    createErrorNotification(err.errorMessage);
-                    $.spinner().stop();
-                }
-            }
-        });
-        return false;
     });
 
     /**
