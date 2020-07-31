@@ -170,7 +170,7 @@ function gtmModel(req) {
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
-    this.userEmail = userShippingDetails && !empty(userShippingDetails.userShippingEmail) ? userShippingDetails.userShippingEmail :(!empty(userEmail) ? userEmail : '');
+    this.userEmail = userShippingDetails && !empty(userShippingDetails.userShippingEmail) ? userShippingDetails.userShippingEmail : (!empty(userEmail) ? userEmail : '');
     this.userFirstName = userShippingDetails  && !empty(userShippingDetails.userShippingFirstName) ? userShippingDetails.userShippingFirstName : (!empty(userFirstName) ? userFirstName : '');
     this.userLastName = userShippingDetails && !empty(userShippingDetails.userShippingLastName) ? userShippingDetails.userShippingLastName : (!empty(userLastName) ? userLastName : '');
     this.userPhone = userShippingDetails && !empty(userShippingDetails.userShippingPhone) ? userShippingDetails.userShippingPhone : (!empty(userPhone) ? userPhone : '');
