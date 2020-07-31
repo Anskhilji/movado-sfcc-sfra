@@ -482,6 +482,10 @@ module.exports = function () {
                     $('.minicart .popover').removeClass('show');
                     $('body').removeClass('modal-open');
                     $('html').removeClass('veiled');
+                    if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                        setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                        window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                    } 
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -497,10 +501,6 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
-                }
-                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
-                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
-                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 $.spinner().stop();
             },
