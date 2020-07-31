@@ -6,6 +6,7 @@ var Encoding = require('dw/crypto/Encoding');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
+var Logger = require('dw/system/Logger');
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
@@ -35,6 +36,7 @@ function gtmModel(req) {
     var categoryBreadcrumbs;
     var productBreadcrumbs;
     var searchBreadcrumbs;
+    var userShippingDetails;
 
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
@@ -159,6 +161,7 @@ function gtmModel(req) {
         var orderId = getOrderIDfromQueryString(queryString);
         this.orderConfirmation = [];
         getOrderConfirmationArray(this.orderConfirmation, orderId);
+        userShippingDetails = getUserShippingDetails(orderId);
     }
     // Custom Start Updated PageData values according to mvmt
     this.action = action != null ? action : '';
@@ -167,15 +170,15 @@ function gtmModel(req) {
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
-    this.userEmail = !empty(userEmail) ? userEmail : '';
-    this.userFirstName = (userFirstName != null && userFirstName != undefined) ? userFirstName : '';
-    this.userLastName = !empty(userLastName) ? userLastName : '';
-    this.userPhone = !empty(userPhone) ? userPhone : '';
-    this.country = (country != null && country != undefined) ? country : '';
+    this.userEmail = userShippingDetails && !empty(userShippingDetails.userShippingEmail) ? userShippingDetails.userShippingEmail :(!empty(userEmail) ? userEmail : '');
+    this.userFirstName = userShippingDetails  && !empty(userShippingDetails.userShippingFirstName) ? userShippingDetails.userShippingFirstName : (!empty(userFirstName) ? userFirstName : '');
+    this.userLastName = userShippingDetails && !empty(userShippingDetails.userShippingLastName) ? userShippingDetails.userShippingLastName : (!empty(userLastName) ? userLastName : '');
+    this.userPhone = userShippingDetails && !empty(userShippingDetails.userShippingPhone) ? userShippingDetails.userShippingPhone : (!empty(userPhone) ? userPhone : '');
+    this.country =  !empty(country) ? country : '';
     this.currencyCode = (currencyCode != null && currencyCode != undefined) ? currencyCode : '';
     this.customerType = (customerType != null && customerType != undefined) ? customerType : '';
-    this.userZip = !empty(userZip) ? userZip : '';
-    this.userHashedEmail = !empty(userHashedEmail) ? userHashedEmail : '';
+    this.userZip = userShippingDetails && !empty (userShippingDetails.userShippingPostalCode) ? userShippingDetails.userShippingPostalCode : (!empty(userZip) ? userZip : '');
+    this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
 }
 
 
@@ -749,6 +752,26 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
+}
+
+function getUserShippingDetails(orderId) {
+    var order = require('dw/order/Order');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var order = OrderMgr.getOrder(orderId);
+    var shippingDetails = {};
+    try {
+        shippingDetails.userShippingFirstName = order.shipments[0].shippingAddress.firstName;
+        shippingDetails.userShippingLastName = order.shipments[0].shippingAddress.lastName;
+        shippingDetails.userShippingPhone = order.shipments[0].shippingAddress.phone;
+        shippingDetails.userShippingPostalCode = order.shipments[0].shippingAddress.postalCode;
+        shippingDetails.userShippingStateCode = order.shipments[0].shippingAddress.stateCode;
+        shippingDetails.userShippingCity = order.shipments[0].shippingAddress.city;
+        shippingDetails.userShippingEmail = order.customerEmail;
+    } catch (e) {
+        Logger.error('Error Occured while getting user shipping details for gtm', e, e.stack);
+    }
+
+    return shippingDetails;
 }
 
 /**
