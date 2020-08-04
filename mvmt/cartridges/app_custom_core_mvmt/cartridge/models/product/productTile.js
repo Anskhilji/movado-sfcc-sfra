@@ -21,6 +21,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var eswPrice = productCustomHelper.getESWPrice(product);
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -133,6 +134,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'eswPrice', {
             enumerable: true,
             value: eswPrice
+        });
+    }
+
+    if (!empty(collectionName)) {
+        Object.defineProperty(product, 'collectionName', {
+            enumerable: true,
+            value: collectionName
         });
     }
     
