@@ -328,7 +328,6 @@ function getESWPrice(product) {
 function getCollectionName(apiProduct) {
     var collectionName = apiProduct.custom.familyName ? apiProduct.custom.familyName[0] : '';
     return collectionName;
-
 }
 
 module.exports = {
