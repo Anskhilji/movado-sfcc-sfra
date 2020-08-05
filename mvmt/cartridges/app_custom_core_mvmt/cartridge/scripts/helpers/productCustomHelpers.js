@@ -74,7 +74,8 @@ function getGtmProductClickObj(product, categoryName, position) {
         productClickGtmObj.push({
             name: escapeQuotes(product.productName),
             id: product.id,
-            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            price: product.productType == 'master' ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+                : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             brand: product.brand,
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: escapeQuotes(categoryName),
@@ -91,7 +92,8 @@ function getGtmProductClickObj(product, categoryName, position) {
         productClickGtmObj.push({
             name: product.productName,
             id: product.id,
-            price: product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : ''),
+            price: product.productType == 'master' ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+                : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             brand: product.brand,
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: category,

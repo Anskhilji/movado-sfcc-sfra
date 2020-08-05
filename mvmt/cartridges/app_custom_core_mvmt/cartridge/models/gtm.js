@@ -140,7 +140,8 @@ function gtmModel(req) {
                 list: productImpressionTags.list,
                 Sku:productImpressionTags.Sku,
                 variantID:productImpressionTags.variantID,
-                productType:productImpressionTags.productType
+                productType: productImpressionTags.productType,
+                variant: productImpressionTags.variant
             };
         } else if (searchkeyword != null) {
             // search count
@@ -470,23 +471,44 @@ function getCategoryLevelCount(category, levelCount) {
  */
 // Custom Changes Updated data layer according to mvmt
 function getPDPProductImpressionsTags(productObj) {
-    var variantID = '';
-    if(productObj.variant ) {
-        variantID = productObj.ID;
-    }
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var priceFactory = require('*/cartridge/scripts/factories/price');
+    var variantSize = '';
     var productID = productObj.ID;
+    var defaultVariantPrice;
+    var defaultVariant;
+    if (productObj.master) {
+        defaultVariant = productObj.variationModel.defaultVariant;
+        collections.forEach(defaultVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                variantSize = productObj.variationModel.getVariationValue(defaultVariant, variationAttribute);
+            }
+        });
+        var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+        defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null)
+    }
+
+    if (productObj.variant) {
+        collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
+            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
+            }
+        });
+    }
     var productName = stringUtils.removeSingleQuotes(productObj.name);
     var brand = productObj.brand;
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
-    var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+    var productPrice = defaultVariantPrice ? (defaultVariantPrice.sales ? defaultVariantPrice.sales.decimalPrice : (defaultVariantPrice.list ? defaultVariantPrice.list.decimalPrice : ''))
+        : (productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : ''));
     var sku = productObj.ID;
-    var variantID = variantID;
+    var variantID = productObj.master ? defaultVariant.getID() : '';
     var productType = productModel.productType;
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
+    var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP' };
+    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
 }
 
 

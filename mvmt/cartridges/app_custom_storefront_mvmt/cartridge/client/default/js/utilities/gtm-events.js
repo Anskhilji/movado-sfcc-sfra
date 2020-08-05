@@ -162,6 +162,7 @@ var onPDPAddProductClickEvent = function () {
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
                             currentCategory: addtoCartData.category,
+                            productType: addtoCartData.productType,
                             variant: addtoCartData.variant,
                             quantity: addtoCartData.quantity
                         }]
@@ -289,8 +290,12 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promotionalView');
     var dataLayerObj = '';
-    var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
-
+    var promoObjects = $('.gtm-promotion-view');
+    var gtmTrackingData = [];
+    promoObjects.each(function () {
+        var promoData = $(this).data('gtm-product-promo');
+        gtmTrackingData.push(promoData[0]);
+    });
     if (gtmTrackingData !== undefined) {
         dataLayerObj = gtmTrackingData;
     }
