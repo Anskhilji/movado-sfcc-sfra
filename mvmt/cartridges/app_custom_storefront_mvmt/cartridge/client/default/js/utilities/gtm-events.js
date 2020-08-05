@@ -88,7 +88,7 @@ var onProductClickEvent = function () {
                             sku: val.id,
                             price: val.price,
                             category: val.category,
-                            variant: val.variantID }]
+                            variant: val.variant }]
                     }
                 }
             });

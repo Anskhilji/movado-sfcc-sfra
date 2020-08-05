@@ -1,6 +1,7 @@
 'use strict';
 var ProductMgr = require('dw/catalog/ProductMgr');
 var baseProductCustomHelpers = module.superModule;
+var collections = require('*/cartridge/scripts/util/collections');
 
 /**
  * Function to escape quotes
@@ -59,6 +60,20 @@ function getProductGtmObj(product, categoryName, position) {
     return productGtmObj[0];
 }
 
+function getDefaultVariantSize(apiProduct) {
+    var variantSize = '';
+    var defaultVariant = apiProduct.variationModel.defaultVariant;
+    if (!empty(defaultVariant)) { 
+        collections.forEach(defaultVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                variantSize = apiProduct.variationModel.getVariationValue(defaultVariant, variationAttribute).displayValue;
+            }
+        });
+    }
+
+    return variantSize;
+}
+
 /**
  *
  * @param product
@@ -69,6 +84,7 @@ function getProductGtmObj(product, categoryName, position) {
 
 function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
+    var productObj = ProductMgr.getProduct(product.id);
     if (categoryName != null) {
         // Custom Start: Push product object in Array.
         productClickGtmObj.push({
@@ -80,10 +96,10 @@ function getGtmProductClickObj(product, categoryName, position) {
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: escapeQuotes(categoryName),
             position: position,
+            variant: productObj.master ? getDefaultVariantSize(productObj) : '',
             list: 'PLP'
         });
     }	else {
-        var productObj = ProductMgr.getProduct(product.id);
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
         : '')
         : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
@@ -98,6 +114,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: category,
             position: position,
+            variant: productObj.master ? getDefaultVariantSize(productObj) : '',
             list: 'Search Results'
         });
     }

@@ -479,13 +479,15 @@ function getPDPProductImpressionsTags(productObj) {
     var defaultVariant;
     if (productObj.master) {
         defaultVariant = productObj.variationModel.defaultVariant;
-        collections.forEach(defaultVariant.variationModel.productVariationAttributes, function(variationAttribute) {
-            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                variantSize = productObj.variationModel.getVariationValue(defaultVariant, variationAttribute);
-            }
-        });
-        var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
-        defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null)
+        if (!empty(defaultVariant)) { 
+            collections.forEach(defaultVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+                if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                    variantSize = productObj.variationModel.getVariationValue(defaultVariant, variationAttribute);
+                }
+            });
+            var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+            defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null)
+        }
     }
 
     if (productObj.variant) {
@@ -502,7 +504,7 @@ function getPDPProductImpressionsTags(productObj) {
     var productPrice = defaultVariantPrice ? (defaultVariantPrice.sales ? defaultVariantPrice.sales.decimalPrice : (defaultVariantPrice.list ? defaultVariantPrice.list.decimalPrice : ''))
         : (productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : ''));
     var sku = productObj.ID;
-    var variantID = productObj.master ? defaultVariant.getID() : '';
+    var variantID = productObj.master ? (defaultVariant ? defaultVariant.getID() : '') : '';
     var productType = productModel.productType;
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
     var variant = !empty(variantSize) ? variantSize.displayValue : '';
