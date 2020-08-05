@@ -46,6 +46,7 @@ function getTotalPrice(lineItem) {
             gettingCurrencyCode = eswShopperCurrencyCode ? eswShopperCurrencyCode : lineItem.lineItemCtnr.currencyCode;
         }
         result.nonAdjustedPrice = (eswModuleEnabled) ? new Money(nonAdjustedPrice, gettingCurrencyCode) : formatMoney(nonAdjustedPrice);
+        result.nonAdjustedFormattedPrice = (eswModuleEnabled && !empty(result.nonAdjustedPrice)) ? formatMoney(result.nonAdjustedPrice) : null;
     }
     // If not for order history calculations
     if (!orderHistoryFlag) {
