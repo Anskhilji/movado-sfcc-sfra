@@ -2,9 +2,12 @@
 @import '~movado/search';
 
 .search-banner {
-    position: relative;
     overflow: hidden;
-    z-index: 9;
+
+    > * > div:not(.straps-hero) {
+        position: relative;
+        z-index: 9;
+    }
 
     img {
         width: 100%;
