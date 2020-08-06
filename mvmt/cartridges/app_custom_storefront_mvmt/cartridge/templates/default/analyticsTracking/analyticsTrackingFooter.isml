@@ -1,0 +1,26 @@
+<script>
+    <isif condition="${pdict.marketingProductData !== null}">
+        dataLayer.push ({
+            'marketing':{ 
+            'marketingProducts': {
+                'products':[ 
+                    <isloop items="${pdict.marketingProductData}" var="produtArray" status="status">
+                    {'name': '${produtArray.name}',
+                    'id': '${produtArray.id}',
+                    'price': '${produtArray.price}',
+                    'category': '${produtArray.category}',
+                    'quantity': '${produtArray.quantity}',
+                    'sku': '${produtArray.sku}',
+                    'variantID':'${produtArray.variantID}',
+                    'brand':'${produtArray.brand}',
+                    'currentCategory':'${produtArray.currentCategory}',
+                    'productType':'${produtArray.productType}'}
+                    <isif condition= "${status.index < pdict.marketingProductData.length-1}">,</isif>
+                    </isloop>
+                ]
+            }
+        },
+        "event": "marketingProducts"
+        });
+    </isif>
+</script>

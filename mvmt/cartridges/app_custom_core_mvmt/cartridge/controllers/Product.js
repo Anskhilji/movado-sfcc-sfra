@@ -6,6 +6,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var page = module.superModule;
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
@@ -48,6 +49,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         breadcrumbs: showProductPageHelperResult.breadcrumbs
     };
 
+    var marketingProductsData = [];
+    var quantity = apiProduct.availabilityModel.inStock ? apiProduct.availabilityModel.inventoryRecord.stockLevel.value : 0;
+    marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+    viewData.marketingProductData = marketingProductsData;
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);

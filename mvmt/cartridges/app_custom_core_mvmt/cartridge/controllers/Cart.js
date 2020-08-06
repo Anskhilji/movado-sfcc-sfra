@@ -33,6 +33,17 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+
+    var productLineItems = currentBasket.productLineItems.iterator();
+    var marketingProductsData = [];
+
+    while (productLineItems.hasNext()) {
+        var productLineItem = productLineItems.next();
+        var apiProduct = productLineItem.getProduct();
+        marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct));
+    }
+    res.viewData.marketingProductData = marketingProductsData;
 
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;
@@ -71,5 +82,27 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     }
     next();
 });
+
+server.append(
+    'Show',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) {
+        var BasketMgr = require('dw/order/BasketMgr');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var marketingProductsData = [];
+    
+        while (productLineItems.hasNext()) {
+            var productLineItem = productLineItems.next();
+            var quantity = productLineItem.getQuantity().value;
+            var apiProduct = productLineItem.getProduct();
+            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+        res.viewData.marketingProductData = marketingProductsData;
+        next();
+    });
 
 module.exports = server.exports();

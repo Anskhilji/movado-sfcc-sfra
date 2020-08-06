@@ -749,6 +749,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
         orderObj.discount = getOrderLevelDiscount(order);
         orderObj.discountType = getDicountType(order);
+        orderObj.currencyCode = order.currencyCode;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }

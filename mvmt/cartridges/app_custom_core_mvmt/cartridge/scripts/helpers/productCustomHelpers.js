@@ -103,7 +103,42 @@ function getGtmProductClickObj(product, categoryName, position) {
     return productClickGtmObj[0];
 }
 
+function getMarketingProducts(apiProduct, quantity) {
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var priceFactory = require('*/cartridge/scripts/factories/price');
+    var productFactory = require('*/cartridge/scripts/factories/product');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+
+    var productType = productHelper.getProductType(apiProduct);
+
+    var defaultVariant = apiProduct.variationModel.defaultVariant;
+    var defaultVariantPrice;
+    if (apiProduct.master) {
+        var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+        defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
+    }
+    var productModel = productFactory.get({pid: apiProduct.ID});
+
+    var marketingProductData;
+    marketingProductData = {
+        name: apiProduct.name,
+        id: apiProduct.ID,
+        price: defaultVariantPrice ? (defaultVariantPrice.sales ? defaultVariantPrice.sales.decimalPrice : (defaultVariantPrice.list ? defaultVariantPrice.list.decimalPrice : ''))
+                : (productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '')),
+        category: apiProduct.allCategoryAssignments[0].category.displayName,
+        sku: apiProduct.ID,
+        variantID: apiProduct.variant ? apiProduct.ID : '',
+        brand: apiProduct.brand,
+        currentCategory: apiProduct.allCategoryAssignments[0].category.displayName,
+        productType: productType,
+        quantity: quantity
+    };
+
+    return marketingProductData;
+}
+
 baseProductCustomHelpers.escapeQuotes = escapeQuotes;
 baseProductCustomHelpers.getProductGtmObj = getProductGtmObj;
 baseProductCustomHelpers.getGtmProductClickObj = getGtmProductClickObj;
+baseProductCustomHelpers.getMarketingProducts = getMarketingProducts;
 module.exports = baseProductCustomHelpers;
