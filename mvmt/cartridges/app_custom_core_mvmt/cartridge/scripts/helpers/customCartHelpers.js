@@ -22,27 +22,40 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                 variantID = pli.product.ID;
             }
             // Custom Start: Push current basket values in array.
-            variant=getProductOptions(embossedMessage,engravedMessage)
-                    productGtmArray={
-                        "id" : productID,
-                        "name" : pli.product.name,
-                        "brand" : pli.product.brand,
-                        "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-                                : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
-                        "variant" : variant,
-                        "productType" : productModel.productType,
-                        "quantity" : productModel.quantities[0].value,
-                        "price" : productPrice,
-                        "variantID" : variantID,
-                        "currency" : pli.product.priceModel.price.currencyCode,
-                        "list" : Resource.msg('gtm.list.pdp.value','cart',null),
-                        "cartObj" : cartJSON
-                    };
-                }
-        });
+            variant = getVaraintSize(pli);
+            productGtmArray={
+                "id" : productID,
+                "name" : pli.product.name,
+                "brand" : pli.product.brand,
+                "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
+                        : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
+                "variant" : variant,
+                "productType" : productModel.productType,
+                "quantity" : productModel.quantities[0].value,
+                "price" : productPrice,
+                "variantID" : variantID,
+                "currency" : pli.product.priceModel.price.currencyCode,
+                "list" : Resource.msg('gtm.list.pdp.value','cart',null),
+                "cartObj" : cartJSON
+            };
+        }
+    });
 
-        return productGtmArray;
+    return productGtmArray;
 }
+
+function getVaraintSize(pli) {
+    var variantSize = '';
+    collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttribute) {
+        if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute).displayValue;
+        } else {
+            variantSize = '';
+        }
+    });
+    return variantSize
+}
+
 // Custom Start: create a funtion to get basket parameters.
 
 function getBasketParameters() {
@@ -59,7 +72,7 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     price: productPrice,
-                    quantity:currentBasket.productQuantityTotal,
+                    quantity:currentBasket.productQuantityTotal, 
                 });
             }
         });

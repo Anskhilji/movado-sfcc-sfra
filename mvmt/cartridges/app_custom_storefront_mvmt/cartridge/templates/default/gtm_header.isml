@@ -37,7 +37,7 @@
                     'brand': '${pdict.gtm.product.brand}',
                     'currentCategory': '${pdict.gtm.product.category}',
                     'productType': '${pdict.gtm.product.productType}',
-                    'variant': '${pdict.gtm.product.productType}'
+                    'variant': '${pdict.gtm.product.variant}'
                 }]
             }
         },
