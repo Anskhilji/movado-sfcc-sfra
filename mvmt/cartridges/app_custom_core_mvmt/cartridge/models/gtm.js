@@ -7,6 +7,8 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 var Logger = require('dw/system/Logger');
+var HashMap = require('dw/util/HashMap');
+
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
@@ -128,7 +130,7 @@ function gtmModel(req) {
             var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
 
             // get product impressions tags for PDP
-            var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
             this.product = {
                 productID: productImpressionTags.productID,
@@ -470,23 +472,23 @@ function getCategoryLevelCount(category, levelCount) {
  * @returns
  */
 // Custom Changes Updated data layer according to mvmt
-function getPDPProductImpressionsTags(productObj) {
-    var PromotionMgr = require('dw/campaign/PromotionMgr');
-    var priceFactory = require('*/cartridge/scripts/factories/price');
+function getPDPProductImpressionsTags(productObj, queryString) {
     var variantSize = '';
     var productID = productObj.ID;
-    var defaultVariantPrice;
-    var defaultVariant;
+    var selectedVariant;
     if (productObj.master) {
-        defaultVariant = productObj.variationModel.defaultVariant;
-        if (!empty(defaultVariant)) { 
-            collections.forEach(defaultVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+        var variantFilter = getVariantFilter(queryString);
+        if (variantFilter.length > 0) {
+            selectedVariant = productObj.getVariationModel().getVariants(variantFilter)[0]; 
+        }
+        if (!empty(selectedVariant)) { 
+            productID = selectedVariant.getID();
+            productObj = selectedVariant;
+            collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
                 if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                    variantSize = productObj.variationModel.getVariationValue(defaultVariant, variationAttribute);
+                    variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
                 }
             });
-            var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
-            defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null)
         }
     }
 
@@ -501,16 +503,34 @@ function getPDPProductImpressionsTags(productObj) {
     var brand = productObj.brand;
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
-    var productPrice = defaultVariantPrice ? (defaultVariantPrice.sales ? defaultVariantPrice.sales.decimalPrice : (defaultVariantPrice.list ? defaultVariantPrice.list.decimalPrice : ''))
-        : (productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : ''));
+    var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
     var sku = productObj.ID;
-    var variantID = productObj.master ? (defaultVariant ? defaultVariant.getID() : '') : '';
+    var variantID = '';
     var productType = productModel.productType;
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
     var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
     return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+}
+
+/**
+ * @param {queryString} queryString
+ */
+function getVariantFilter(queryStringVal) {
+    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+    var searchArray = queryString.split('&');
+    var variantFilter = new HashMap();
+    for (var index = 0; index < searchArray.length; index++) {
+        var searchItem = searchArray[index].split('=');
+        if (searchItem[0] !== 'pid') { 
+            var splitedQueryParam = searchItem[0].split('_');
+            var attributeName = splitedQueryParam[splitedQueryParam.length - 1];
+            var attibuteValue = searchItem[1];
+            variantFilter.put(attributeName, attibuteValue);
+        }
+    }
+    return variantFilter;
 }
 
 
@@ -543,7 +563,7 @@ function getBasketParameters() {
                     productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
-                    quantity:currentBasket.productQuantityTotal,
+                    quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,

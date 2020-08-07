@@ -97,6 +97,9 @@ module.exports = function () {
                     formValidation(form, data);
                 } else {
                     $('form.registration').trigger('registration:success', data);
+                    if (data.emailObj) { 
+                        $('body').trigger('emailSubscribe:success', data.emailObj);
+                    }
                     location.href = data.redirectUrl;
                 }
             },
