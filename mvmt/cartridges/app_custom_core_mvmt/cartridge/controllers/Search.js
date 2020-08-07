@@ -17,10 +17,10 @@ server.append(
         if(viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
             for (var i = 0; i < viewData.productSearch.productIds.length; i++) {
                 var apiProduct = ProductMgr.getProduct(viewData.productSearch.productIds[i].productID);
-                var quantity = apiProduct.availabilityModel.inStock ? apiProduct.availabilityModel.inventoryRecord.stockLevel.value : 0;
+                var quantity = 0;
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
             }
-            viewData.marketingProductData = marketingProductsData;
+            viewData.marketingProductData = JSON.stringify(marketingProductsData);
             viewData = {
                 relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
             };

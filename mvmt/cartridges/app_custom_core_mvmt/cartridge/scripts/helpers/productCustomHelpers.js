@@ -104,37 +104,58 @@ function getGtmProductClickObj(product, categoryName, position) {
 }
 
 function getMarketingProducts(apiProduct, quantity) {
+    var Logger = require('dw/system/Logger');
     var PromotionMgr = require('dw/campaign/PromotionMgr');
     var priceFactory = require('*/cartridge/scripts/factories/price');
     var productFactory = require('*/cartridge/scripts/factories/product');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
-    var productType = productHelper.getProductType(apiProduct);
+    try {
+        var productType = productHelper.getProductType(apiProduct);
 
-    var defaultVariant = apiProduct.variationModel.defaultVariant;
-    var defaultVariantPrice;
-    if (apiProduct.master) {
-        var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
-        defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
-    }
-    var productModel = productFactory.get({pid: apiProduct.ID});
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+        var defaultVariantPrice;
+        if (apiProduct.master) {
+            var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+            defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
+        }
+        var productModel = productFactory.get({pid: apiProduct.ID});
 
-    var marketingProductData;
-    marketingProductData = {
-        name: apiProduct.name,
-        id: apiProduct.ID,
-        price: defaultVariantPrice ? (defaultVariantPrice.sales ? defaultVariantPrice.sales.decimalPrice : (defaultVariantPrice.list ? defaultVariantPrice.list.decimalPrice : ''))
-                : (productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '')),
-        category: apiProduct.allCategoryAssignments[0].category.displayName,
-        sku: apiProduct.ID,
-        variantID: apiProduct.variant ? apiProduct.ID : '',
-        brand: apiProduct.brand,
-        currentCategory: apiProduct.allCategoryAssignments[0].category.displayName,
-        productType: productType,
-        quantity: quantity
-    };
+        var price;
 
-    return marketingProductData;
+        if (defaultVariantPrice) {
+            if(defaultVariantPrice.sales) {
+                price = defaultVariantPrice.sales.decimalPrice;
+            } else {
+                price = defaultVariantPrice.list.decimalPrice;
+            }
+        } else {
+            if (productModel.price && productModel.price.sales) {
+                price = productModel.price.sales.decimalPrice;
+            } else {
+                price = prodcutModel.price.list.decimalPrice;
+            }
+        }
+
+        var marketingProductData;
+        marketingProductData = {
+            name: apiProduct.name,
+            id: apiProduct.ID,
+            price: price,
+            category: apiProduct.allCategoryAssignments[0].category.displayName,
+            sku: apiProduct.ID,
+            variantID: apiProduct.variant ? apiProduct.ID : '',
+            brand: apiProduct.brand,
+            currentCategory: apiProduct.allCategoryAssignments[0].category.displayName,
+            productType: productType,
+            quantity: quantity
+        };
+
+        return marketingProductData;
+} catch (e) {
+    Logger.error('Error occurred while generating products json. Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct , e.stack, e.message);
+    return null;
+}
 }
 
 baseProductCustomHelpers.escapeQuotes = escapeQuotes;

@@ -115,8 +115,11 @@ server.append(
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var marketingProductsData = [];
 
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
@@ -165,9 +168,17 @@ server.append(
             });
         }
 
+        while (productLineItems.hasNext()) {
+            var productLineItem = productLineItems.next();
+            var quantity = productLineItem.getQuantity().value;
+            var apiProduct = productLineItem.getProduct();
+            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+        marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({
             wishlistGTMObj: wishlistGTMObj,
-        	cartItemObj: cartItems
+            cartItemObj: cartItems,
+            marketingProductData : marketingProductsData
         });
 
         if (req.querystring.paypalerror) {

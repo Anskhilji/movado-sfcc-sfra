@@ -29,6 +29,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     if (defaultVariant && apiProduct.master && defaultVariant.getAvailabilityModel().inStock) {
         var pid = apiProduct.variationModel.defaultVariant.getID();
         params.pid = pid;
+        apiProduct = ProductMgr.getProduct(pid);
     }
 
     var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
@@ -50,9 +51,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     };
 
     var marketingProductsData = [];
-    var quantity = apiProduct.availabilityModel.inStock ? apiProduct.availabilityModel.inventoryRecord.stockLevel.value : 0;
+    var quantity = 0;
     marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
-    viewData.marketingProductData = marketingProductsData;
+    viewData.marketingProductData = JSON.stringify(marketingProductsData);
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);
