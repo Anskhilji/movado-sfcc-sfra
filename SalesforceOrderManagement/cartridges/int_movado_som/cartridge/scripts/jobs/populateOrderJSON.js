@@ -2,6 +2,7 @@
 
 var Transaction = require('dw/system/Transaction');
 var Status = require('dw/system/Status');
+var Site = require('dw/system/Site');
 var logger = require('dw/system/Logger').getLogger('SOM', '');
 var collections = require('*/cartridge/scripts/util/collections');
 var _ = require('*/cartridge/scripts/libs/underscore');
@@ -197,6 +198,19 @@ function populateByOrder(order) {
                     arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
                     arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
                     break;
+                case 'BASIC_CREDIT':
+                    if (arrPi[i].getPaymentMethod() == 'ESW_PAYMENT') {
+                        arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                        arrPi[i].getPaymentTransaction().setTransactionID(order.custom.eswOrderNo);
+
+                        // Override the authorization amount with the actual amount charged to the customer card
+                        // in retailer currency equivalent
+                        if ('SOMOverrideESWPaymentAmount' in Site.getCurrent().getPreferences() && Site.getCurrent().getPreferences().SOMOverrideESWPaymentAmount) {
+                            if ('eswRetailerCurrencyPaymentAmount' in order.custom && order.custom.eswRetailerCurrencyPaymentAmount > 0) {
+                                arrPi[i].getPaymentTransaction().setAmount(order.custom.eswRetailerCurrencyPaymentAmount);
+                            }
+                        }
+                    }
                 default:
                     break;
             }
