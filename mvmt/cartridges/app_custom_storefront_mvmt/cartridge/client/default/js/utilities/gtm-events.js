@@ -290,12 +290,8 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promotionalView');
     var dataLayerObj = '';
-    var promoObjects = $('.gtm-promotion-view');
-    var gtmTrackingData = [];
-    promoObjects.each(function () {
-        var promoData = $(this).data('gtm-product-promo');
-        gtmTrackingData.push(promoData[0]);
-    });
+    var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
+
     if (gtmTrackingData !== undefined) {
         dataLayerObj = gtmTrackingData;
     }
