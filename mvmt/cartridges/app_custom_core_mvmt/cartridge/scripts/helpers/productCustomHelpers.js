@@ -111,17 +111,18 @@ function getMarketingProducts(apiProduct, quantity) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
     try {
-        var productType = productHelper.getProductType(apiProduct);
-
         var defaultVariant = apiProduct.variationModel.defaultVariant;
         var defaultVariantPrice;
+        var marketingProductData;
+        var price;
+        var productType = productHelper.getProductType(apiProduct);
+        var productModel;
+
         if (apiProduct.master) {
             var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
             defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
         }
-        var productModel = productFactory.get({pid: apiProduct.ID});
-
-        var price;
+        productModel = productFactory.get({pid: apiProduct.ID});
 
         if (defaultVariantPrice) {
             if(defaultVariantPrice.sales) {
@@ -137,7 +138,6 @@ function getMarketingProducts(apiProduct, quantity) {
             }
         }
 
-        var marketingProductData;
         marketingProductData = {
             name: apiProduct.name,
             id: apiProduct.ID,
@@ -150,12 +150,11 @@ function getMarketingProducts(apiProduct, quantity) {
             productType: productType,
             quantity: quantity
         };
-
         return marketingProductData;
-} catch (e) {
-    Logger.error('Error occurred while generating products json. Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct , e.stack, e.message);
-    return null;
-}
+    } catch (e) {
+        Logger.error('Error occurred while generating products json. Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct , e.stack, e.message);
+        return null;
+    }
 }
 
 baseProductCustomHelpers.escapeQuotes = escapeQuotes;
