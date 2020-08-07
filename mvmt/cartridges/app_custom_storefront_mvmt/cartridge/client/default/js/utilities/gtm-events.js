@@ -405,18 +405,20 @@ var updateCheckoutStage = function () {
         paymentMethod = paymentData;
     });
 
-    $('body').on('checkOutStage:success', function (evt, data) {
+    $('body').off('checkOutStage:success').on('checkOutStage:success', function (evt, data) {
         updateDataLayer('checkout');
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
              checkoutStep = ['2'];
-             pageDataGTM.pageType = 'Checkout – Shipping';
+                 pageDataGTM.pageType = 'Checkout – Shipping';
+                 dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'payment':
              checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
              onCheckoutOption(checkoutStep - 1, shippingMethod);
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'placeOrder':
              checkoutStep = ['4'];
@@ -425,6 +427,7 @@ var updateCheckoutStage = function () {
              if (paymentMethod != undefined) {
                  onCheckoutOption(checkoutStep - 1, paymentMethod);
              }
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'submitted':
              checkoutStep = ['5'];
