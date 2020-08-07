@@ -8,7 +8,7 @@
     pageDataGTM = {};
     checkoutDataLayer = [];
     var gtm_PageType = '${pdict.gtm.pageType}';
-    pageDataGTM = [ {
+    pageDataGTM = {
         'pageType': '${pdict.gtm.pageType}',
         'userEmail': '${pdict.gtm.userEmail}',
         'hashedEmail': '${pdict.gtm.userHashedEmail}',
@@ -20,7 +20,7 @@
         'currencyCode': '${pdict.gtm.currencyCode}',
         'logState': '${pdict.gtm.loginStatus}',
         'country': '${pdict.gtm.country}'
-    }];
+    };
 
 // Custom Start: Update Product Details Page Data layer according to mvmt.
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
@@ -37,7 +37,7 @@
                     'brand': '${pdict.gtm.product.brand}',
                     'currentCategory': '${pdict.gtm.product.category}',
                     'productType': '${pdict.gtm.product.productType}',
-                    'variant': '${pdict.gtm.product.productType}'
+                    'variant': '${pdict.gtm.product.variant}'
                 }]
             }
         },
@@ -154,6 +154,7 @@
                                     'state': '${orderObj.orderObj.state}',
                                     'orderQuantity': '${orderObj.orderObj.orderQuantity}',
                                     'discount': '${orderObj.orderObj.discount}',
+                                    'currencyCode': '${orderObj.orderObj.currencyCode}',
                                     'discountType': '${orderObj.orderObj.discountType}',}
                                 </isif>
                             </isloop>

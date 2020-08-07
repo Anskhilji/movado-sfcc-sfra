@@ -127,24 +127,19 @@ function processResponse(response) {
  *
  * @param {Object} scope - Search field DOM element
  */
+
 function getSuggestions(scope) {
     if ($(scope).val().length >= minChars) {
         $suggestionsSlots.hide();
-        $(scope).prop("disabled", true);
+        $.spinner().stop();
         $.spinner().start();
         $.ajax({
             context: scope,
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
-            success: function() {
-                $(scope).prop("disabled", false).focus();
-                processResponse;
-            },
+            success: processResponse,
 
-            error: function () {
-                $(scope).prop("disabled", true);
-                $.spinner().stop();
-            }
+            error: function () { $.spinner().stop();}
         });
     } else {
         clearModals();

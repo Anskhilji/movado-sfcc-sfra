@@ -2,9 +2,12 @@
 @import '~movado/search';
 
 .search-banner {
-    position: relative;
     overflow: hidden;
-    z-index: 9;
+
+    > * > div:not(.straps-hero) {
+        position: relative;
+        z-index: 9;
+    }
 
     img {
         width: 100%;
@@ -1790,15 +1793,23 @@
     &-nav {
         &-mobile {
             display: block !important;
+            background: linear-gradient(0deg, $white, $light-gray10);
+
             @include media-breakpoint-up(lg) {
                 display: none !important;
+            }
+
+            &.sticky {
+                position: fixed;
+                width: 100%;
+                z-index: 9999;
             }
 
             .slick {
                 &-arrow {
                     position: absolute;
                     cursor: pointer;
-                    top: 50%;
+                    top: 49%;
                     transform: translateY(-50%);
                     background-color: $cyan-blue;
                     border: rem(1) solid $white-grey;
@@ -1830,6 +1841,10 @@
                     svg {
                         margin-left: rem(5);
                     }
+
+                    &::before {
+                        content: '';
+                    }
                 }
     
                 &-prev {
@@ -1846,6 +1861,7 @@
                     a {
                         padding: rem(10) rem(5);
                         background: linear-gradient(0deg, $white, $light-gray10);
+                        border-bottom: rem(1) solid $light-gray10;
 
                         &.active {
                             background: linear-gradient(0deg, $white-smoke, $light-gray9)

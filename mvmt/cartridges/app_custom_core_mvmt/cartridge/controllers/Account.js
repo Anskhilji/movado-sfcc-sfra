@@ -38,10 +38,26 @@ server.append(
 server.append(
     'SubmitRegistration',
     function (req, res, next) {
+        var Bytes = require('dw/util/Bytes');
+        var Encoding = require('dw/crypto/Encoding');
+        var viewData = res.viewData;
         var accountLoginLocation = !empty(req.querystring) ? req.querystring.pageType : '';
         res.setViewData({
             accountLoginLocation: accountLoginLocation
         });
+        if (viewData.addToEmailList) { 
+            var userHashedEmail = Encoding.toHex(new Bytes(viewData.email, 'UTF-8'));
+            var emailObj = [];
+            emailObj.push({
+                userEmail: viewData.email,
+                userHashedEmail: userHashedEmail,
+                submitLocation: 'Create Account'
+            });
+            res.json({
+                emailObj: JSON.stringify(emailObj)
+            });
+        }
+
         next();
     }
 );

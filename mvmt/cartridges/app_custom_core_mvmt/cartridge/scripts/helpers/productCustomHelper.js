@@ -27,16 +27,20 @@ function getExplicitRecommendations(pid) {
     var recommendationTilesList = [];
     var productRecommendationTile = {};
     
-    if (productRecommendations) {
-        for (var i = 0; i < productRecommendations.length; i++) {
-            recommendation = productRecommendations[i];
-            productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-            product = Object.create(null);
-            apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-            productType = productHelper.getProductType(apiProduct);
-            productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-            recommendationTilesList.push(productRecommendationTile);
+    try {
+        if (productRecommendations) {
+            for (var i = 0; i < productRecommendations.length; i++) {
+                recommendation = productRecommendations[i];
+                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
+                product = Object.create(null);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
+                productType = productHelper.getProductType(apiProduct);
+                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                recommendationTilesList.push(productRecommendationTile);
+            }
         }
+    } catch (e) {
+        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     return recommendationTilesList;
 }
@@ -266,6 +270,34 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getGtmPromotionObject (promotions) {
+    var promotionObj = [];
+    if (!empty(promotions)) {
+        try {
+            for (var i = 0; i < promotions.length; i++) {
+                var promotionId = promotions[i].ID;
+                var promotionName = promotions[i].name;
+                var promotionCreated = promotions[i].startDate;
+                var promotionPostistion = promotions[i].promotionClass;
+                var pageType = session.custom.gtmPageType;
+                promotionObj.push({
+                    id: promotionId,
+                    name: promotionName,
+                    creative: promotionCreated,
+                    position: promotionPostistion,
+                    pageType: pageType
+                });
+            }
+            return JSON.stringify(promotionObj);
+        } catch (e) {
+            Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
 /**
  * 
  * @param {Product Model} product
@@ -339,4 +371,5 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getESWPrice: getESWPrice,
     getCollectionName: getCollectionName
+    getGtmPromotionObject: getGtmPromotionObject
 };

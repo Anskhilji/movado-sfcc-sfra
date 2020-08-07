@@ -135,8 +135,11 @@
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
     <iscomment> Start: Create category slots for strapsd design </iscomment>
-    <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
     <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+    <isif condition=${false}>
+        <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" /> 
+    </isif>
+
     <iscomment> End </iscomment>
     <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
         <div class="d-none" id="color-swatch-images">

@@ -72,8 +72,6 @@ function handlePostCartAdd(response) {
     if (response.newBonusDiscountLineItem
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
-    } else {
-        $('.slick-slider').slick('refresh');
     }
 }
 
@@ -816,7 +814,7 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
+    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) { 
         e.preventDefault();
         var addToCartUrl;
         var pid;

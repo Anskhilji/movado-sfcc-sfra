@@ -18,31 +18,41 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
            var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
-            if(pli.product.variant) {
-                variantID = pli.product.ID;
-            }
             // Custom Start: Push current basket values in array.
-            variant=getProductOptions(embossedMessage,engravedMessage)
-                    productGtmArray={
-                        "id" : productID,
-                        "name" : pli.product.name,
-                        "brand" : pli.product.brand,
-                        "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-                                : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
-                        "variant" : variant,
-                        "productType" : productModel.productType,
-                        "quantity" : productModel.quantities[0].value,
-                        "price" : productPrice,
-                        "variantID" : variantID,
-                        "currency" : pli.product.priceModel.price.currencyCode,
-                        "list" : Resource.msg('gtm.list.pdp.value','cart',null),
-                        "cartObj" : cartJSON
-                    };
-                }
-        });
+            variant = getVaraintSize(pli);
+            productGtmArray={
+                "id" : productID,
+                "name" : pli.product.name,
+                "brand" : pli.product.brand,
+                "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
+                        : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
+                "variant" : variant,
+                "productType" : productModel.productType,
+                "quantity" : productModel.quantities[0].value,
+                "price" : productPrice,
+                "variantID" : variantID,
+                "currency" : pli.product.priceModel.price.currencyCode,
+                "list" : Resource.msg('gtm.list.pdp.value','cart',null),
+                "cartObj" : cartJSON
+            };
+        }
+    });
 
-        return productGtmArray;
+    return productGtmArray;
 }
+
+function getVaraintSize(pli) {
+    var variantSize = '';
+    collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttribute) {
+        if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute).displayValue;
+        } else {
+            variantSize = '';
+        }
+    });
+    return variantSize
+}
+
 // Custom Start: create a funtion to get basket parameters.
 
 function getBasketParameters() {
@@ -59,7 +69,7 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     price: productPrice,
-                    quantity:currentBasket.productQuantityTotal,
+                    quantity:cartItem.quantityValue, 
                 });
             }
         });
@@ -105,11 +115,11 @@ function removeFromCartGTMObj(productLineItems){
             'name': pli.product.name,
             'id': pli.product.ID,
             'price': price,
-            'category': pli.product.categories[0].ID,
+            'category': !empty(pli.product.categories) ? pli.product.categories[0].ID : '',
             'sku' : pli.product.ID,
             'variantID' : pli.product.variant ? pli.product.ID : '',
             'brand': pli.product.brand,
-            'currentCategory': pli.product.categories[0].displayName,
+            'currentCategory': !empty(pli.product.categories) ? pli.product.categories[0].displayName : '',
             'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
             'variant': displayValue,
             'quantity':pli.quantityValue

@@ -6,10 +6,14 @@ var Encoding = require('dw/crypto/Encoding');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
+var Logger = require('dw/system/Logger');
+var HashMap = require('dw/util/HashMap');
+
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
@@ -34,6 +38,7 @@ function gtmModel(req) {
     var categoryBreadcrumbs;
     var productBreadcrumbs;
     var searchBreadcrumbs;
+    var userShippingDetails;
 
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
@@ -125,7 +130,7 @@ function gtmModel(req) {
             var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
 
             // get product impressions tags for PDP
-            var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
             this.product = {
                 productID: productImpressionTags.productID,
@@ -137,7 +142,8 @@ function gtmModel(req) {
                 list: productImpressionTags.list,
                 Sku:productImpressionTags.Sku,
                 variantID:productImpressionTags.variantID,
-                productType:productImpressionTags.productType
+                productType: productImpressionTags.productType,
+                variant: productImpressionTags.variant
             };
         } else if (searchkeyword != null) {
             // search count
@@ -158,6 +164,7 @@ function gtmModel(req) {
         var orderId = getOrderIDfromQueryString(queryString);
         this.orderConfirmation = [];
         getOrderConfirmationArray(this.orderConfirmation, orderId);
+        userShippingDetails = getUserShippingDetails(orderId);
     }
     // Custom Start Updated PageData values according to mvmt
     this.action = action != null ? action : '';
@@ -166,15 +173,15 @@ function gtmModel(req) {
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
-    this.userEmail = (userEmail != null && userEmail != undefined) ? userEmail : '';
-    this.userFirstName = (userFirstName != null && userFirstName != undefined) ? userFirstName : '';
-    this.userLastName = (userLastName != null && userLastName != undefined) ? userLastName : '';
-    this.userPhone = (userPhone != null && userPhone != undefined) ? userPhone : '';
-    this.country = (country != null && country != undefined) ? country : '';
+    this.userEmail = userShippingDetails && !empty(userShippingDetails.userShippingEmail) ? userShippingDetails.userShippingEmail : (!empty(userEmail) ? userEmail : '');
+    this.userFirstName = userShippingDetails  && !empty(userShippingDetails.userShippingFirstName) ? userShippingDetails.userShippingFirstName : (!empty(userFirstName) ? userFirstName : '');
+    this.userLastName = userShippingDetails && !empty(userShippingDetails.userShippingLastName) ? userShippingDetails.userShippingLastName : (!empty(userLastName) ? userLastName : '');
+    this.userPhone = userShippingDetails && !empty(userShippingDetails.userShippingPhone) ? userShippingDetails.userShippingPhone : (!empty(userPhone) ? userPhone : '');
+    this.country =  !empty(country) ? country : '';
     this.currencyCode = (currencyCode != null && currencyCode != undefined) ? currencyCode : '';
     this.customerType = (customerType != null && customerType != undefined) ? customerType : '';
-    this.userZip = (userZip != null && userZip != undefined) ? userZip : '';
-    this.userHashedEmail = (userHashedEmail != null && userHashedEmail != userHashedEmail) ? userHashedEmail : '';
+    this.userZip = userShippingDetails && !empty (userShippingDetails.userShippingPostalCode) ? userShippingDetails.userShippingPostalCode : (!empty(userZip) ? userZip : '');
+    this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
 }
 
 
@@ -302,6 +309,12 @@ function getSearchQuery(queryStringVal) {
         if ((searchArray[0].indexOf('q')) > -1) {
             searchQuery = { q: searchArray[1] };
         }
+
+        if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
+            searchArray = queryString.split('=');
+            searchQuery = { pid: searchArray[searchArray.length - 1] };
+        }
+
     } else if ((queryString.indexOf('pid')) > -1) {
             searchArray = queryString.split('=');
             searchQuery = { pid: searchArray[1] };
@@ -459,24 +472,65 @@ function getCategoryLevelCount(category, levelCount) {
  * @returns
  */
 // Custom Changes Updated data layer according to mvmt
-function getPDPProductImpressionsTags(productObj) {
-    var variantID = '';
-    if(productObj.variant ) {
-        variantID = productObj.ID;
-    }
+function getPDPProductImpressionsTags(productObj, queryString) {
+    var variantSize = '';
     var productID = productObj.ID;
+    var selectedVariant;
+    if (productObj.master) {
+        var variantFilter = getVariantFilter(queryString);
+        if (variantFilter.length > 0) {
+            selectedVariant = productObj.getVariationModel().getVariants(variantFilter)[0]; 
+        }
+        if (!empty(selectedVariant)) { 
+            productID = selectedVariant.getID();
+            productObj = selectedVariant;
+            collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+                if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                    variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
+                }
+            });
+        }
+    }
+
+    if (productObj.variant) {
+        collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
+            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
+            }
+        });
+    }
     var productName = stringUtils.removeSingleQuotes(productObj.name);
     var brand = productObj.brand;
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
     var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
     var sku = productObj.ID;
-    var variantID = variantID;
+    var variantID = '';
     var productType = productModel.productType;
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
+    var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP' };
+    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+}
+
+/**
+ * @param {queryString} queryString
+ */
+function getVariantFilter(queryStringVal) {
+    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+    var searchArray = queryString.split('&');
+    var variantFilter = new HashMap();
+    for (var index = 0; index < searchArray.length; index++) {
+        var searchItem = searchArray[index].split('=');
+        if (searchItem[0] !== 'pid') { 
+            var splitedQueryParam = searchItem[0].split('_');
+            var attributeName = splitedQueryParam[splitedQueryParam.length - 1];
+            var attibuteValue = searchItem[1];
+            variantFilter.put(attributeName, attibuteValue);
+        }
+    }
+    return variantFilter;
 }
 
 
@@ -505,11 +559,11 @@ function getBasketParameters() {
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
-                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).relative().toString(),
+                    prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
                     productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
-                    quantity:currentBasket.productQuantityTotal,
+                    quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,
@@ -705,18 +759,21 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.variant = variants;
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+            produtObj.description = productLineItem.product.shortDescription.markup;
+            produtObj.productType = productHelper.getProductType(productLineItem.product);
+            produtObj.imageURL = productLineItem.product.image.absURL;
+            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
+            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
 
-                produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.itemCoupon = itemLevelCouponString;
 
-                produtObj.itemCoupon = itemLevelCouponString;
-
-                if (orderJSONArray.length < 10) {
-                    orderJSONArray.push({ productObj: produtObj });
-                } else {
-                    gtmorderConfObj.push(orderJSONArray);
-                    orderJSONArray = [];
-                    orderJSONArray.push({ productObj: produtObj });
-                }
+            if (orderJSONArray.length < 10) {
+                orderJSONArray.push({ productObj: produtObj });
+            } else {
+                gtmorderConfObj.push(orderJSONArray);
+                orderJSONArray = [];
+                orderJSONArray.push({ productObj: produtObj });
+            }
         });
 
         // Custom changes Updated dataLayer according to mvmt
@@ -724,6 +781,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         var orderPriceAdj;
         var totalOrderPriceAdjValue = 0.0;
         orderObj.orderId = orderId;
+        orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
+        orderObj.orderQuantity = order.productLineItems.length;
         orderObj.revenue = order.totalGrossPrice.decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
@@ -734,9 +793,30 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
         orderObj.discount = getOrderLevelDiscount(order);
         orderObj.discountType = getDicountType(order);
+        orderObj.currencyCode = order.currencyCode;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
+}
+
+function getUserShippingDetails(orderId) {
+    var order = require('dw/order/Order');
+    var OrderMgr = require('dw/order/OrderMgr');
+    var order = OrderMgr.getOrder(orderId);
+    var shippingDetails = {};
+    try {
+        shippingDetails.userShippingFirstName = order.shipments[0].shippingAddress.firstName;
+        shippingDetails.userShippingLastName = order.shipments[0].shippingAddress.lastName;
+        shippingDetails.userShippingPhone = order.shipments[0].shippingAddress.phone;
+        shippingDetails.userShippingPostalCode = order.shipments[0].shippingAddress.postalCode;
+        shippingDetails.userShippingStateCode = order.shipments[0].shippingAddress.stateCode;
+        shippingDetails.userShippingCity = order.shipments[0].shippingAddress.city;
+        shippingDetails.userShippingEmail = order.customerEmail;
+    } catch (e) {
+        Logger.error('Error Occured while getting user shipping details for gtm', e, e.stack);
+    }
+
+    return shippingDetails;
 }
 
 /**

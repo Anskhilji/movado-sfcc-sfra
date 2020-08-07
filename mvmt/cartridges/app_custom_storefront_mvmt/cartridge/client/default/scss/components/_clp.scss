@@ -275,6 +275,9 @@
 
     &-carousel {
         display: none !important;
+        max-width: $container-max-width;
+        margin: 0 auto;
+        padding: 0 rem(1);
 
         @include media-breakpoint-up(lg) {
             display: block !important;
@@ -361,10 +364,6 @@
 
             &-disabled {
                 display: none !important;
-            }
-
-            &-list {
-                overflow: visible;
             }
         }
     }

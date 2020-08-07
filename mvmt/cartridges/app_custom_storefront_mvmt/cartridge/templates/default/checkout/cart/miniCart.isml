@@ -46,7 +46,7 @@
     </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
     <div class="product-summary">
-        <isloop items="${items}" var="lineItem">
+        <isloop items="${items}" var="lineItem" status="loopStatus">
             <div class="row">
                <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                    <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
@@ -89,8 +89,8 @@
                     <span class="subtotal-total-discount">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
                     </isif>
                     Custom End </iscomment>
-                    <span class="subtotal-total-discount sub-total">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
-                    </div>
+                    <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.grandTotal) ? '0' : pdict.totals.grandTotal}</span>
+                </div>
             </div>
         </div>
         
@@ -117,4 +117,6 @@
             <isinclude template="cart/cartRemoveCouponModal" />
         </div>
     </div>
+    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
+    <isinclude template="include/yotpofooter"/>
 </isif>

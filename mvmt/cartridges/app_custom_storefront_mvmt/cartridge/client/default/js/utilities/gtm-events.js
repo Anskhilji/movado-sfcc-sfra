@@ -42,10 +42,10 @@ var onWishlistClickEvent = function () {
 
 var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promotion-view', function (evt) {
-        var $currentTarget = $('.gtm-promotion-view');
+        var $currentTarget = $(this);
         updateDataLayer('promoClick');
         var dataLayerObj = '';
-        var pageType = $('.gtm-promotion-view').data('page-type');
+        var pageType = $currentTarget.data('page-type'); 
         var gtmTrackingData = $currentTarget.data('gtm-product-promo');
     
         if (gtmTrackingData !== undefined) {
@@ -88,7 +88,7 @@ var onProductClickEvent = function () {
                             sku: val.id,
                             price: val.price,
                             category: val.category,
-                            variant: val.variantID }]
+                            variant: val.variant }]
                     }
                 }
             });
@@ -162,6 +162,7 @@ var onPDPAddProductClickEvent = function () {
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
                             currentCategory: addtoCartData.category,
+                            productType: addtoCartData.productType,
                             variant: addtoCartData.variant,
                             quantity: addtoCartData.quantity
                         }]
@@ -362,7 +363,8 @@ var getSiteSectionOnPageLoad = function (e) {
         pageDataGTM.primarySiteSection = siteSections[0] || '';
         pageDataGTM.secondarySiteSection = escapeXml(siteSections[1]) || '';
         pageDataGTM.tertiarySiteSection = siteSections[2] || '';
-        dataLayer.push({ dataLayer: pageDataGTM});
+        dataLayer.push({ pageData: pageDataGTM});
+        dataLayer.push({ hashedEmail: pageDataGTM.hashedEmail});
     }
 };
 
@@ -399,18 +401,20 @@ var updateCheckoutStage = function () {
         paymentMethod = paymentData;
     });
 
-    $('body').on('checkOutStage:success', function (evt, data) {
+    $('body').off('checkOutStage:success').on('checkOutStage:success', function (evt, data) {
         updateDataLayer('checkout');
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
              checkoutStep = ['2'];
-             pageDataGTM.pageType = 'Checkout – Shipping';
+                 pageDataGTM.pageType = 'Checkout – Shipping';
+                 dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'payment':
              checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
              onCheckoutOption(checkoutStep - 1, shippingMethod);
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'placeOrder':
              checkoutStep = ['4'];
@@ -419,6 +423,7 @@ var updateCheckoutStage = function () {
              if (paymentMethod != undefined) {
                  onCheckoutOption(checkoutStep - 1, paymentMethod);
              }
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'submitted':
              checkoutStep = ['5'];
@@ -482,14 +487,13 @@ var onEmailSubscribe = function () {
  * Custom Start: Create a function that trigger on site search.
  */
 var onSiteSearch = function () {
-    $('body').on('keydown', '.search-field', debounce(function() {
-        var $searchTerm = $(this).val();
+    $('body').on('siteSearch:success', function (evt, data) {
         updateDataLayer('siteSearch');
         dataLayer.push({
             event: 'siteSearch',
-            siteSearchTerm: $searchTerm
+            siteSearchTerm: data
         })
-    }, 300));
+    });
 };
 
 /**
