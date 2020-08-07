@@ -154,6 +154,7 @@
                                     'state': '${orderObj.orderObj.state}',
                                     'orderQuantity': '${orderObj.orderObj.orderQuantity}',
                                     'discount': '${orderObj.orderObj.discount}',
+                                    'currencyCode': '${orderObj.orderObj.currencyCode}',
                                     'discountType': '${orderObj.orderObj.discountType}',}
                                 </isif>
                             </isloop>

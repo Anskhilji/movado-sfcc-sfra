@@ -1,0 +1,11 @@
+<script>
+    var triggerMarketingProduct;
+    if ('${pdict.marketingProductData}' != 'null') {
+        marketingProducts = JSON.parse('<isprint value="${pdict.marketingProductData}" encoding="htmlsinglequote"/>');
+        triggerMarketingProduct = 'marketingProducts';
+    }
+    if (triggerMarketingProduct) {
+        dataLayer.push({'event': triggerMarketingProduct, 'marketingProducts': marketingProducts});
+        triggerMarketingProduct = null;
+    }
+</script>
