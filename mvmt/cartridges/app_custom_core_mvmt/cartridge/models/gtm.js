@@ -563,7 +563,7 @@ function getBasketParameters() {
                     productType: productModel.productType,
                     price: productPrice,
                     description: cartItem.product.shortDescription,
-                    quantity:currentBasket.productQuantityTotal,
+                    quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,

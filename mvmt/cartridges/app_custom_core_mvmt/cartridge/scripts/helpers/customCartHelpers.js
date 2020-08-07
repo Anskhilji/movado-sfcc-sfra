@@ -69,7 +69,7 @@ function getBasketParameters() {
                     id: cartItem.productID,
                     name: cartItem.productName,
                     price: productPrice,
-                    quantity:currentBasket.productQuantityTotal, 
+                    quantity:cartItem.quantityValue, 
                 });
             }
         });
