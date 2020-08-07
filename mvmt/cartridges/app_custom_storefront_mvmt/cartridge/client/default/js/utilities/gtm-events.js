@@ -255,13 +255,6 @@ var onFacetAndPaginationClick = function () {
     });
 };
 
-var onFacetAndPaginationClick1 = function () {
-    $('body').on('facet:success', function (evt, data) {
-        var dataLayerStr = data;
-        marketingEventProductsArray(dataLayerStr);
-    });
-};
-
 /**
  * Custom Start: update function updated onLoadProductTile change data layer structre accoridng to mvmt
  **/
@@ -287,29 +280,6 @@ var onLoadProductTile = function () {
         }
     });
     sliceProductImpressionArray(dataLayerObj, currency);
-};
-
-var onLoadProductTileLoad = function () {
-    updateDataLayer('marketingEvents');
-    var $currentTarget = $('.gtm-product');
-    var dataLayerObj1 = [];
-    var currency = '';
-    $.each($currentTarget, function () {
-        var gtmTrackingData = $(this).data('gtm-facets');
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj1.push({ name: gtmTrackingData.name,
-                id: gtmTrackingData.id,
-                price: gtmTrackingData.price,
-                category: gtmTrackingData.category,
-                sku: gtmTrackingData.sku,
-                variantID: gtmTrackingData.variantID,
-                brand: gtmTrackingData.brand,
-                currentCategory: gtmTrackingData.category,
-                productType: gtmTrackingData.productType });
-            currency = gtmTrackingData.currency;
-        }
-    });
-    marketingEventProductsArray(dataLayerObj1, currency);
 };
 
 /**
@@ -361,28 +331,6 @@ var sliceProductImpressionArray = function (e, currency) {
         }
     }
 };
-
-/**
- * 
- * @param {Products} e 
- * @param {*} currency 
- */
-var marketingEventProductsArray = function (e, currency) {
-    updateDataLayer('marketingEvents');
-    if (e.length > 0) {
-        while (e.length) {
-            var productObj = e.splice(0, e.length);
-            dataLayer.push({
-                event: 'marketingEvents',
-                ecommerce: {
-                    impressions: {
-                        marketingEvents: productObj
-                    }
-                }
-            });
-        }
-    }
-}
 
 /**
  * Custom Start: update function updated: showProductImpressionCaraousel change data layer structre accoridng to mvmt
@@ -654,7 +602,6 @@ var onPageLoad = function () {
     onPromoImpressionsLoad();
     onLoadProductTile();
     onCheckoutOptionOnCart();
-    onLoadProductTileLoad();
     $('body').trigger('gtmOnLoadEvents:fired');
 };
 
