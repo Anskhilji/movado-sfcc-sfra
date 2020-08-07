@@ -584,7 +584,6 @@ var onClickEvents = function () {
     onPDPAddProductClickEvent();
     onProductClickEvent();
     onFacetAndPaginationClick();
-    onFacetAndPaginationClick1();
     onRemoveFromCartClickEvent();
     onWishlistClickEvent();
     onMorestyleClickEvent();
