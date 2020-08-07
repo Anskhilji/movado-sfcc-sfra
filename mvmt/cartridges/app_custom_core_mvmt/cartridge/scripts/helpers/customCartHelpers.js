@@ -18,9 +18,6 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
            var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
-            if(pli.product.variant) {
-                variantID = pli.product.ID;
-            }
             // Custom Start: Push current basket values in array.
             variant = getVaraintSize(pli);
             productGtmArray={
