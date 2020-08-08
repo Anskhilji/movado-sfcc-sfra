@@ -274,6 +274,17 @@ var getEswHelper = {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;
+            /**
+             * Custom Start: Override geolocation if country or countryCode parameter is present in request
+             */
+            var country = request.httpParameterMap.get('country').value;
+            var countryCode = request.httpParameterMap.get('countryCode').value; 
+            if (!empty(country) || !empty(countryCode)) { 
+                geolocation = !empty(country) ? country : countryCode;
+            }
+            /**
+             * Custom End: 
+             */ 
             var matchCountry = this.getAllCountries().filter(function (value) {
                 if (value.value == geolocation) {
                     return geolocation;

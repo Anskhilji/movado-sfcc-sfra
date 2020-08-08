@@ -310,6 +310,7 @@ function Request(request, customer, session) {
             try {
                 var countryCode = request.httpParameterMap.get('country').value;
                 if (!empty(countryCode)) {
+                    request.session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
