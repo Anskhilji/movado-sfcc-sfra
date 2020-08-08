@@ -5159,6 +5159,7 @@
         "countryCode": "AL",
         "name": {
             "en_US": "Albania",
+            "en_GB": "Albania",
             "default": "Albania",
             "en": "Albania"
         },
@@ -5252,6 +5253,7 @@
         "countryCode": "AI",
         "name": {
             "en_US": "Anguilla",
+            "en_GB": "Anguilla",
             "default": "Anguilla",
             "en": "Anguilla"
         },
@@ -5345,6 +5347,7 @@
         "countryCode": "AR",
         "name": {
             "en_US": "Argentina",
+            "en_GB": "Argentina",
             "default": "Argentina",
             "en": "Argentina"
         },
@@ -5438,6 +5441,7 @@
         "countryCode": "AM",
         "name": {
             "en_US": "Armenia",
+            "en_GB": "Armenia",
             "default": "Armenia",
             "en": "Armenia"
         },
@@ -5531,6 +5535,7 @@
         "countryCode": "AW",
         "name": {
             "en_US": "Aruba",
+            "en_GB": "Aruba",
             "default": "Aruba",
             "en": "Aruba"
         },
@@ -5623,6 +5628,7 @@
         "countryCode": "AU",
         "name": {
             "en_US": "Australia",
+            "en_GB": "Australia",
             "default": "Australia",
             "en": "Australia"
         },
@@ -5715,6 +5721,7 @@
         "countryCode": "AZ",
         "name": {
             "en_US": "Azerbaijan",
+            "en_GB": "Azerbaijan",
             "default": "Azerbaijan",
             "en": "Azerbaijan"
         },
@@ -5807,6 +5814,7 @@
         "countryCode": "BS",
         "name": {
             "en_US": "Bahamas",
+            "en_GB": "Bahamas",
             "default": "Bahamas",
             "en": "Bahamas"
         },
@@ -5899,6 +5907,7 @@
         "countryCode": "BH",
         "name": {
             "en_US": "Bahrain",
+            "en_GB": "Bahrain",
             "default": "Bahrain",
             "en": "Bahrain"
         },
@@ -5991,6 +6000,7 @@
         "countryCode": "BB",
         "name": {
             "en_US": "Bangladesh",
+            "en_GB": "Bangladesh",
             "default": "Bangladesh",
             "en": "Bangladesh"
         },
@@ -6083,6 +6093,7 @@
         "countryCode": "BZ",
         "name": {
             "en_US": "Belize",
+            "en_GB": "Belize",
             "default": "Belize",
             "en": "Belize"
         },
@@ -6175,6 +6186,7 @@
         "countryCode": "BJ",
         "name": {
             "en_US": "Benin",
+            "en_GB": "Benin",
             "default": "Benin",
             "en": "Benin"
         },
@@ -6267,6 +6279,7 @@
         "countryCode": "BM",
         "name": {
             "en_US": "Bermuda",
+            "en_GB": "Bermuda",
             "default": "Bermuda",
             "en": "Bermuda"
         },
@@ -6359,6 +6372,7 @@
         "countryCode": "BO",
         "name": {
             "en_US": "Bolivia",
+            "en_GB": "Bolivia",
             "default": "Bolivia",
             "en": "Bolivia"
         },
@@ -6451,6 +6465,7 @@
         "countryCode": "BW",
         "name": {
             "en_US": "Botswana",
+            "en_GB": "Botswana",
             "default": "Botswana",
             "en": "Botswana"
         },
@@ -6543,6 +6558,7 @@
         "countryCode": "BN",
         "name": {
             "en_US": "Brunei",
+            "en_GB": "Brunei",
             "default": "Brunei",
             "en": "Brunei"
         },
@@ -6635,6 +6651,7 @@
         "countryCode": "BF",
         "name": {
             "en_US": "Burkina Faso",
+            "en_GB": "Burkina Faso",
             "default": "Burkina Faso",
             "en": "Burkina Faso"
         },
@@ -6727,6 +6744,7 @@
         "countryCode": "KH",
         "name": {
             "en_US": "Cambodia",
+            "en_GB": "Cambodia",
             "default": "Cambodia",
             "en": "Cambodia"
         },
@@ -6819,6 +6837,7 @@
         "countryCode": "CV",
         "name": {
             "en_US": "Cabo Verde",
+            "en_GB": "Cabo Verde",
             "default": "Cabo Verde",
             "en": "Cabo Verde"
         },
@@ -6911,6 +6930,7 @@
         "countryCode": "KY",
         "name": {
             "en_US": "Cayman Islands",
+            "en_GB": "Cayman Islands",
             "default": "Cayman Islands",
             "en": "Cayman Islands"
         },
@@ -7003,6 +7023,7 @@
         "countryCode": "CF",
         "name": {
             "en_US": "Central African Republic",
+            "en_GB": "Central African Republic",
             "default": "Central African Republic",
             "en": "Central African Republic"
         },
@@ -7095,6 +7116,7 @@
         "countryCode": "CL",
         "name": {
             "en_US": "Chile",
+            "en_GB": "Chile",
             "default": "Chile",
             "en": "Chile"
         },
@@ -7187,6 +7209,7 @@
         "countryCode": "CO",
         "name": {
             "en_US": "Colombia",
+            "en_GB": "Colombia",
             "default": "Colombia",
             "en": "Colombia"
         },
@@ -7279,6 +7302,7 @@
         "countryCode": "KM",
         "name": {
             "en_US": "Comoros",
+            "en_GB": "Comoros",
             "default": "Comoros",
             "en": "Comoros"
         },
@@ -7371,6 +7395,7 @@
         "countryCode": "CG",
         "name": {
             "en_US": "Congo",
+            "en_GB": "Congo",
             "default": "Congo",
             "en": "Congo"
         },
@@ -7463,6 +7488,7 @@
         "countryCode": "CK",
         "name": {
             "en_US": "Cook Islands",
+            "en_GB": "Cook Islands",
             "default": "Cook Islands",
             "en": "Cook Islands"
         },
@@ -7555,6 +7581,7 @@
         "countryCode": "CR",
         "name": {
             "en_US": "Costa Rica",
+            "en_GB": "Costa Rica",
             "default": "Costa Rica",
             "en": "Costa Rica"
         },
@@ -7646,9 +7673,10 @@
     },{
         "countryCode": "CI",
         "name": {
-            "en_US": "Côte d'Ivoire",
-            "default": "Côte d'Ivoire",
-            "en": "Côte d'Ivoire"
+            "en_US": "Cï¿½te d'Ivoire",
+            "en_GB": "Cï¿½te d'Ivoire",
+            "default": "Cï¿½te d'Ivoire",
+            "en": "Cï¿½te d'Ivoire"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
@@ -7738,9 +7766,10 @@
     },{
         "countryCode": "CW",
         "name": {
-            "en_US": "Curaçao",
-            "default": "Curaçao",
-            "en": "Curaçao"
+            "en_US": "Curaï¿½ao",
+            "en_GB": "Curaï¿½ao",
+            "default": "Curaï¿½ao",
+            "en": "Curaï¿½ao"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
@@ -7831,6 +7860,7 @@
         "countryCode": "DJ",
         "name": {
             "en_US": "Djibouti",
+            "en_GB": "Djibouti",
             "default": "Djibouti",
             "en": "Djibouti"
         },
@@ -7923,6 +7953,7 @@
         "countryCode": "DM",
         "name": {
             "en_US": "Dominica",
+            "en_GB": "Dominica",
             "default": "Dominica",
             "en": "Dominica"
         },
@@ -8015,6 +8046,7 @@
         "countryCode": "DO",
         "name": {
             "en_US": "Dominican Republic",
+            "en_GB": "Dominican Republic",
             "default": "Dominican Republic",
             "en": "Dominican Republic"
         },
@@ -8107,6 +8139,7 @@
         "countryCode": "EC",
         "name": {
             "en_US": "Ecuador",
+            "en_GB": "Ecuador",
             "default": "Ecuador",
             "en": "Ecuador"
         },
@@ -8199,6 +8232,7 @@
         "countryCode": "EG",
         "name": {
             "en_US": "Egypt",
+            "en_GB": "Egypt",
             "default": "Egypt",
             "en": "Egypt"
         },
@@ -8291,6 +8325,7 @@
         "countryCode": "SV",
         "name": {
             "en_US": "El Salvador",
+            "en_GB": "El Salvador",
             "default": "El Salvador",
             "en": "El Salvador"
         },
@@ -8383,6 +8418,7 @@
         "countryCode": "FJ",
         "name": {
             "en_US": "Fiji",
+            "en_GB": "Fiji",
             "default": "Fiji",
             "en": "Fiji"
         },
@@ -8475,6 +8511,7 @@
         "countryCode": "FG",
         "name": {
             "en_US": "French Guiana",
+            "en_GB": "French Guiana",
             "default": "French Guiana",
             "en": "French Guiana"
         },
@@ -8567,6 +8604,7 @@
         "countryCode": "PF",
         "name": {
             "en_US": "French Polynesia",
+            "en_GB": "French Polynesia",
             "default": "French Polynesia",
             "en": "French Polynesia"
         },
@@ -8659,6 +8697,7 @@
         "countryCode": "GA",
         "name": {
             "en_US": "Gabon",
+            "en_GB": "Gabon",
             "default": "Gabon",
             "en": "Gabon"
         },
@@ -8751,6 +8790,7 @@
         "countryCode": "GH",
         "name": {
             "en_US": "Ghana",
+            "en_GB": "Ghana",
             "default": "Ghana",
             "en": "Ghana"
         },
@@ -8843,6 +8883,7 @@
         "countryCode": "GL",
         "name": {
             "en_US": "Greenland",
+            "en_GB": "Greenland",
             "default": "Greenland",
             "en": "Greenland"
         },
@@ -8935,6 +8976,7 @@
         "countryCode": "GP",
         "name": {
             "en_US": "Guadeloupe",
+            "en_GB": "Guadeloupe",
             "default": "Guadeloupe",
             "en": "Guadeloupe"
         },
@@ -9027,6 +9069,7 @@
         "countryCode": "GU",
         "name": {
             "en_US": "Guam",
+            "en_GB": "Guam",
             "default": "Guam",
             "en": "Guam"
         },
@@ -9119,6 +9162,7 @@
         "countryCode": "GT",
         "name": {
             "en_US": "Guatemala",
+            "en_GB": "Guatemala",
             "default": "Guatemala",
             "en": "Guatemala"
         },
@@ -9211,6 +9255,7 @@
         "countryCode": "GN",
         "name": {
             "en_US": "Guinea",
+            "en_GB": "Guinea",
             "default": "Guinea",
             "en": "Guinea"
         },
@@ -9303,6 +9348,7 @@
         "countryCode": "HT",
         "name": {
             "en_US": "Haiti",
+            "en_GB": "Haiti",
             "default": "Haiti",
             "en": "Haiti"
         },
@@ -9395,6 +9441,7 @@
         "countryCode": "HN",
         "name": {
             "en_US": "Honduras",
+            "en_GB": "Honduras",
             "default": "Honduras",
             "en": "Honduras"
         },
@@ -9487,6 +9534,7 @@
         "countryCode": "HK",
         "name": {
             "en_US": "Hong Kong",
+            "en_GB": "Hong Kong",
             "default": "Hong Kong",
             "en": "Hong Kong"
         },
@@ -9579,6 +9627,7 @@
         "countryCode": "IL",
         "name": {
             "en_US": "Israel",
+            "en_GB": "Israel",
             "default": "Israel",
             "en": "Israel"
         },
@@ -9671,6 +9720,7 @@
         "countryCode": "JM",
         "name": {
             "en_US": "Jamaica",
+            "en_GB": "Jamaica",
             "default": "Jamaica",
             "en": "Jamaica"
         },
@@ -9763,6 +9813,7 @@
         "countryCode": "JP",
         "name": {
             "en_US": "Japan",
+            "en_GB": "Japan",
             "default": "Japan",
             "en": "Japan"
         },
@@ -9855,6 +9906,7 @@
         "countryCode": "JR",
         "name": {
             "en_US": "Jordan",
+            "en_GB": "Jordan",
             "default": "Jordan",
             "en": "Jordan"
         },
@@ -9947,6 +9999,7 @@
         "countryCode": "KZ",
         "name": {
             "en_US": "Kazakhstan",
+            "en_GB": "Kazakhstan",
             "default": "Kazakhstan",
             "en": "Kazakhstan"
         },
@@ -10039,6 +10092,7 @@
         "countryCode": "KE",
         "name": {
             "en_US": "Kenya",
+            "en_GB": "Kenya",
             "default": "Kenya",
             "en": "Kenya"
         },
@@ -10131,6 +10185,7 @@
         "countryCode": "KW",
         "name": {
             "en_US": "Kuwait",
+            "en_GB": "Kuwait",
             "default": "Kuwait",
             "en": "Kuwait"
         },
@@ -10223,6 +10278,7 @@
         "countryCode": "KG",
         "name": {
             "en_US": "Kyrgyzstan",
+            "en_GB": "Kyrgyzstan",
             "default": "Kyrgyzstan",
             "en": "Kyrgyzstan"
         },
@@ -10315,6 +10371,7 @@
         "countryCode": "LA",
         "name": {
             "en_US": "Laos",
+            "en_GB": "Laos",
             "default": "Laos",
             "en": "Laos"
         },
@@ -10407,6 +10464,7 @@
         "countryCode": "LB",
         "name": {
             "en_US": "Lebanon",
+            "en_GB": "Lebanon",
             "default": "Lebanon",
             "en": "Lebanon"
         },
@@ -10499,6 +10557,7 @@
         "countryCode": "LY",
         "name": {
             "en_US": "Libyan Arab Jamahiriya",
+            "en_GB": "Libyan Arab Jamahiriya",
             "default": "Libyan Arab Jamahiriya",
             "en": "Libyan Arab Jamahiriya"
         },
@@ -10591,6 +10650,7 @@
         "countryCode": "MO",
         "name": {
             "en_US": "Macao",
+            "en_GB": "Macao",
             "default": "Macao",
             "en": "Macao"
         },
@@ -10683,6 +10743,7 @@
         "countryCode": "MK",
         "name": {
             "en_US": "Macedonia",
+            "en_GB": "Macedonia",
             "default": "Macedonia",
             "en": "Macedonia"
         },
@@ -10775,6 +10836,7 @@
         "countryCode": "MW",
         "name": {
             "en_US": "Malawi",
+            "en_GB": "Malawi",
             "default": "Malawi",
             "en": "Malawi"
         },
@@ -10868,6 +10930,7 @@
         "countryCode": "MV",
         "name": {
             "en_US": "Maldives",
+            "en_GB": "Maldives",
             "default": "Maldives",
             "en": "Maldives"
         },
@@ -10960,6 +11023,7 @@
         "countryCode": "ML",
         "name": {
             "en_US": "Mali",
+            "en_GB": "Mali",
             "default": "Mali",
             "en": "Mali"
         },
@@ -11052,6 +11116,7 @@
         "countryCode": "MH",
         "name": {
             "en_US": "Marshall Islands",
+            "en_GB": "Marshall Islands",
             "default": "Marshall Islands",
             "en": "Marshall Islands"
         },
@@ -11144,6 +11209,7 @@
         "countryCode": "MQ",
         "name": {
             "en_US": "Martinique",
+            "en_GB": "Martinique",
             "default": "Martinique",
             "en": "Martinique"
         },
@@ -11236,6 +11302,7 @@
         "countryCode": "MR",
         "name": {
             "en_US": "Mauritania",
+            "en_GB": "Mauritania",
             "default": "Mauritania",
             "en": "Mauritania"
         },
@@ -11328,6 +11395,7 @@
         "countryCode": "MU",
         "name": {
             "en_US": "Mauritius",
+            "en_GB": "Mauritius",
             "default": "Mauritius",
             "en": "Mauritius"
         },
@@ -11420,6 +11488,7 @@
         "countryCode": "YT",
         "name": {
             "en_US": "Mayotte",
+            "en_GB": "Mayotte",
             "default": "Mayotte",
             "en": "Mayotte"
         },
@@ -11512,6 +11581,7 @@
         "countryCode": "MN",
         "name": {
             "en_US": "Mongolia",
+            "en_GB": "Mongolia",
             "default": "Mongolia",
             "en": "Mongolia"
         },
@@ -11604,6 +11674,7 @@
         "countryCode": "MS",
         "name": {
             "en_US": "Montserrat",
+            "en_GB": "Montserrat",
             "default": "Montserrat",
             "en": "Montserrat"
         },
@@ -11696,6 +11767,7 @@
         "countryCode": "NA",
         "name": {
             "en_US": "Namibia",
+            "en_GB": "Namibia",
             "default": "Namibia",
             "en": "Namibia"
         },
@@ -11883,6 +11955,7 @@
         "countryCode": "NP",
         "name": {
             "en_US": "Nepal",
+            "en_GB": "Nepal",
             "default": "Nepal",
             "en": "Nepal"
         },
@@ -11975,6 +12048,7 @@
         "countryCode": "AN",
         "name": {
             "en_US": "Netherlands Antilles",
+            "en_GB": "Netherlands Antilles",
             "default": "Netherlands Antilles",
             "en": "Netherlands Antilles"
         },
@@ -12067,6 +12141,7 @@
         "countryCode": "NC",
         "name": {
             "en_US": "New Caledonia",
+            "en_GB": "New Caledonia",
             "default": "New Caledonia",
             "en": "New Caledonia"
         },
@@ -12159,6 +12234,7 @@
         "countryCode": "NI",
         "name": {
             "en_US": "Nicaragua",
+            "en_GB": "Nicaragua",
             "default": "Nicaragua",
             "en": "Nicaragua"
         },
@@ -12251,6 +12327,7 @@
         "countryCode": "NG",
         "name": {
             "en_US": "Nigeria",
+            "en_GB": "Nigeria",
             "default": "Nigeria",
             "en": "Nigeria"
         },
@@ -12343,6 +12420,7 @@
         "countryCode": "OM",
         "name": {
             "en_US": "Oman",
+            "en_GB": "Oman",
             "default": "Oman",
             "en": "Oman"
         },
@@ -12435,6 +12513,7 @@
         "countryCode": "PK",
         "name": {
             "en_US": "Pakistan",
+            "en_GB": "Pakistan",
             "default": "Pakistan",
             "en": "Pakistan"
         },
@@ -12527,6 +12606,7 @@
         "countryCode": "PS",
         "name": {
             "en_US": "Palestinian Territory",
+            "en_GB": "Palestinian Territory",
             "default": "Palestinian Territory",
             "en": "Palestinian Territory"
         },
@@ -12619,6 +12699,7 @@
         "countryCode": "PA",
         "name": {
             "en_US": "Panama",
+            "en_GB": "Panama",
             "default": "Panama",
             "en": "Panama"
         },
@@ -12711,6 +12792,7 @@
         "countryCode": "PG",
         "name": {
             "en_US": "Papua New Guinea",
+            "en_GB": "Papua New Guinea",
             "default": "Papua New Guinea",
             "en": "Papua New Guinea"
         },
@@ -12803,6 +12885,7 @@
         "countryCode": "PY",
         "name": {
             "en_US": "Paraguay",
+            "en_GB": "Paraguay",
             "default": "Paraguay",
             "en": "Paraguay"
         },
@@ -12895,6 +12978,7 @@
         "countryCode": "PE",
         "name": {
             "en_US": "Peru",
+            "en_GB": "Peru",
             "default": "Peru",
             "en": "Peru"
         },
@@ -12987,6 +13071,7 @@
         "countryCode": "PH",
         "name": {
             "en_US": "Philippines",
+            "en_GB": "Philippines",
             "default": "Philippines",
             "en": "Philippines"
         },
@@ -13079,6 +13164,7 @@
         "countryCode": "QA",
         "name": {
             "en_US": "Qatar",
+            "en_GB": "Qatar",
             "default": "Qatar",
             "en": "Qatar"
         },
@@ -13171,6 +13257,7 @@
         "countryCode": "CM",
         "name": {
             "en_US": "Republic of Cameroon",
+            "en_GB": "Republic of Cameroon",
             "default": "Republic of Cameroon",
             "en": "Republic of Cameroon"
         },
@@ -13263,6 +13350,7 @@
         "countryCode": "RE",
         "name": {
             "en_US": "Reunion",
+            "en_GB": "Reunion",
             "default": "Reunion",
             "en": "Reunion"
         },
@@ -13355,6 +13443,7 @@
         "countryCode": "RW",
         "name": {
             "en_US": "Rwanda",
+            "en_GB": "Rwanda",
             "default": "Rwanda",
             "en": "Rwanda"
         },
@@ -13447,6 +13536,7 @@
         "countryCode": "KN",
         "name": {
             "en_US": "Saint Kitts And Nevis",
+            "en_GB": "Saint Kitts And Nevis",
             "default": "Saint Kitts And Nevis",
             "en": "Saint Kitts And Nevis"
         },
@@ -13539,6 +13629,7 @@
         "countryCode": "WS",
         "name": {
             "en_US": "Samoa",
+            "en_GB": "Samoa",
             "default": "Samoa",
             "en": "Samoa"
         },
@@ -13631,6 +13722,7 @@
         "countryCode": "SA",
         "name": {
             "en_US": "Saudi Arabia",
+            "en_GB": "Saudi Arabia",
             "default": "Saudi Arabia",
             "en": "Saudi Arabia"
         },
@@ -13723,6 +13815,7 @@
         "countryCode": "SN",
         "name": {
             "en_US": "Senegal",
+            "en_GB": "Senegal",
             "default": "Senegal",
             "en": "Senegal"
         },
@@ -13815,6 +13908,7 @@
         "countryCode": "RS",
         "name": {
             "en_US": "Serbia",
+            "en_GB": "Serbia",
             "default": "Serbia",
             "en": "Serbia"
         },
@@ -13907,6 +14001,7 @@
         "countryCode": "SC",
         "name": {
             "en_US": "Seychelles",
+            "en_GB": "Seychelles",
             "default": "Seychelles",
             "en": "Seychelles"
         },
@@ -13999,6 +14094,7 @@
         "countryCode": "ZA",
         "name": {
             "en_US": "South Africa",
+            "en_GB": "South Africa",
             "default": "South Africa",
             "en": "South Africa"
         },
@@ -14091,6 +14187,7 @@
         "countryCode": "LK",
         "name": {
             "en_US": "Sri Lanka",
+            "en_GB": "Sri Lanka",
             "default": "Sri Lanka",
             "en": "Sri Lanka"
         },
@@ -14183,6 +14280,7 @@
         "countryCode": "VC",
         "name": {
             "en_US": "St. Vincent",
+            "en_GB": "St. Vincent",
             "default": "St. Vincent",
             "en": "St. Vincent"
         },
@@ -14275,6 +14373,7 @@
         "countryCode": "SW",
         "name": {
             "en_US": "Swaziland",
+            "en_GB": "Swaziland",
             "default": "Swaziland",
             "en": "Swaziland"
         },
@@ -14367,6 +14466,7 @@
         "countryCode": "TW",
         "name": {
             "en_US": "Taiwan",
+            "en_GB": "Taiwan",
             "default": "Taiwan",
             "en": "Taiwan"
         },
@@ -14459,6 +14559,7 @@
         "countryCode": "TJ",
         "name": {
             "en_US": "Tajikistan",
+            "en_GB": "Tajikistan",
             "default": "Tajikistan",
             "en": "Tajikistan"
         },
@@ -14551,6 +14652,7 @@
         "countryCode": "TZ",
         "name": {
             "en_US": "Tanzania",
+            "en_GB": "Tanzania",
             "default": "Tanzania",
             "en": "Tanzania"
         },
@@ -14643,6 +14745,7 @@
         "countryCode": "TH",
         "name": {
             "en_US": "Thailand",
+            "en_GB": "Thailand",
             "default": "Thailand",
             "en": "Thailand"
         },
@@ -14735,6 +14838,7 @@
         "countryCode": "TL",
         "name": {
             "en_US": "Timor Leste",
+            "en_GB": "Timor Leste",
             "default": "Timor Leste",
             "en": "Timor Leste"
         },
@@ -14827,6 +14931,7 @@
         "countryCode": "TG",
         "name": {
             "en_US": "Togo",
+            "en_GB": "Togo",
             "default": "Togo",
             "en": "Togo"
         },
@@ -14919,6 +15024,7 @@
         "countryCode": "TT",
         "name": {
             "en_US": "Trinidad and Tobago",
+            "en_GB": "Trinidad and Tobago",
             "default": "Trinidad and Tobago",
             "en": "Trinidad and Tobago"
         },
@@ -15012,6 +15118,7 @@
         "countryCode": "TC",
         "name": {
             "en_US": "Turks and Caicos Islands",
+            "en_GB": "Turks and Caicos Islands",
             "default": "Turks and Caicos Islands",
             "en": "Turks and Caicos Islands"
         },
@@ -15105,6 +15212,7 @@
         "countryCode": "UG",
         "name": {
             "en_US": "Uganda",
+            "en_GB": "Uganda",
             "default": "Uganda",
             "en": "Uganda"
         },
@@ -15198,6 +15306,7 @@
         "countryCode": "UY",
         "name": {
             "en_US": "Uruguay",
+            "en_GB": "Uruguay",
             "default": "Uruguay",
             "en": "Uruguay"
         },
@@ -15291,6 +15400,7 @@
         "countryCode": "VU",
         "name": {
             "en_US": "Vanuatu",
+            "en_GB": "Vanuatu",
             "default": "Vanuatu",
             "en": "Vanuatu"
         },
@@ -15384,6 +15494,7 @@
         "countryCode": "VN",
         "name": {
             "en_US": "Vietnam",
+            "en_GB": "Vietnam",
             "default": "Vietnam",
             "en": "Vietnam"
         },
@@ -15477,6 +15588,7 @@
         "countryCode": "VG",
         "name": {
             "en_US": "Virgin Islands, British",
+            "en_GB": "Virgin Islands, British",
             "default": "Virgin Islands, British",
             "en": "Virgin Islands, British"
         },
@@ -15570,6 +15682,7 @@
         "countryCode": "ZM",
         "name": {
             "en_US": "Zambia",
+            "en_GB": "Zambia",
             "default": "Zambia",
             "en": "Zambia"
         },
@@ -15663,6 +15776,7 @@
         "countryCode": "UZ",
         "name": {
             "en_US": "Uzbekistan",
+            "en_GB": "Uzbekistan",
             "default": "Uzbekistan",
             "en": "Uzbekistan"
         },
@@ -15756,6 +15870,7 @@
         "countryCode": "AE",
         "name": {
             "en_US": "United Arab Emirates",
+            "en_GB": "United Arab Emirates",
             "default": "United Arab Emirates",
             "en": "United Arab Emirates"
         },

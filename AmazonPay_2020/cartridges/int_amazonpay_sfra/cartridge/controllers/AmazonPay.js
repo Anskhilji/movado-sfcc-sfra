@@ -198,7 +198,7 @@ server.get('Review', server.middleware.https, function (req, res, next) {
     if (empty(lastName) && amzShippingAddress.countryCode !== 'JP') {
         lastName = '-';
     }
-    
+
     var address1 = '';
     var address2 = '';
 
@@ -295,9 +295,9 @@ server.get('Review', server.middleware.https, function (req, res, next) {
     }
 
 
-    viewData.shippingMethod = shipping.shippingAddress.shippingMethodID.value
-        ? shipping.shippingAddress.shippingMethodID.value.toString()
-        : null;
+    viewData.shippingMethod = shipping.shippingAddress.shippingMethodID.value ?
+        shipping.shippingAddress.shippingMethodID.value.toString() :
+        null;
 
     viewData.isGift = shipping.shippingAddress.isGift.checked;
 
@@ -688,7 +688,9 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
         var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
         if (fraudDetectionStatus.status === 'fail') {
-            Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
+            Transaction.wrap(function () {
+                OrderMgr.failOrder(order, true);
+            });
 
             // fraud detection failed
             req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -820,8 +822,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
         var chargeState = charge ? charge.statusDetail.state : null;
 
-        if (chargeState
-            && (
+        if (chargeState &&
+            (
                 chargeState === 'AuthorizationInitiated' ||
                 chargeState === 'Authorized' ||
                 chargeState === 'CaptureInitiated' ||
@@ -836,8 +838,18 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            // Custom Start: Change email helper to trigger confirmation email
-            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+            // Custom Start: Salesforce Order Management attributes
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+            
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
@@ -845,10 +857,14 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
-            // Custom End
+            
+            // Custom Start: Change email helper to trigger confirmation email
+            COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
-            //Custom Start: set to true to trigger Purchase tag on confirmation page
+
+            // Custom Start: set to true to trigger Purchase tag on confirmation page
             session.custom.orderJustPlaced = true;
+			
             // Custom End
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
@@ -856,7 +872,9 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             return next();
         } else if (chargeState && charge.statusDetail.state === 'Declined') {
             // fail order
-            Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
+            Transaction.wrap(function () {
+                OrderMgr.failOrder(order, true);
+            });
 
             // After fail order clean up currentBasket
             var notes = currentBasket.getNotes().iterator();
@@ -885,6 +903,18 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
+            // Custom Start: Salesforce Order Management attributes
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+
             // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
@@ -895,6 +925,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 });
             }
             // Custom End 
+            
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();
@@ -921,7 +952,9 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
             var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
             if (fraudDetectionStatus.status === 'fail') {
-                Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
+                Transaction.wrap(function () {
+                    OrderMgr.failOrder(order, true);
+                });
 
                 // fraud detection failed
                 req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -1001,17 +1034,33 @@ server.post(
             formFieldErrors.push(billingFormErrors);
         } else {
             viewData.address = {
-                firstName: { value: paymentForm.addressFields.firstName.value },
-                lastName: { value: paymentForm.addressFields.lastName.value },
-                address1: { value: paymentForm.addressFields.address1.value },
-                address2: { value: paymentForm.addressFields.address2.value },
-                city: { value: paymentForm.addressFields.city.value },
-                postalCode: { value: paymentForm.addressFields.postalCode.value },
-                countryCode: { value: paymentForm.addressFields.country.value }
+                firstName: {
+                    value: paymentForm.addressFields.firstName.value
+                },
+                lastName: {
+                    value: paymentForm.addressFields.lastName.value
+                },
+                address1: {
+                    value: paymentForm.addressFields.address1.value
+                },
+                address2: {
+                    value: paymentForm.addressFields.address2.value
+                },
+                city: {
+                    value: paymentForm.addressFields.city.value
+                },
+                postalCode: {
+                    value: paymentForm.addressFields.postalCode.value
+                },
+                countryCode: {
+                    value: paymentForm.addressFields.country.value
+                }
             };
 
             if (Object.prototype.hasOwnProperty.call(paymentForm.addressFields, 'states')) {
-                viewData.address.stateCode = { value: paymentForm.addressFields.states.stateCode.value };
+                viewData.address.stateCode = {
+                    value: paymentForm.addressFields.states.stateCode.value
+                };
             }
         }
 
@@ -1024,7 +1073,9 @@ server.post(
             };
 
             // Custom: Change contactInfoFields to creditCardFields
-            viewData.phone = { value: paymentForm.creditCardFields.phone.value };
+            viewData.phone = {
+                value: paymentForm.creditCardFields.phone.value
+            };
         }
 
         var paymentMethodIdValue = paymentForm.paymentMethod.value;
@@ -1249,8 +1300,11 @@ server.post(
             var currentLocale = Locale.getLocale(req.locale.id);
 
             var basketModel = new OrderModel(
-                currentBasket,
-                { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+                currentBasket, {
+                    usingMultiShipping: usingMultiShipping,
+                    countryCode: currentLocale.country,
+                    containerView: 'basket'
+                }
             );
 
             var accountModel = new AccountModel(req.currentCustomer);

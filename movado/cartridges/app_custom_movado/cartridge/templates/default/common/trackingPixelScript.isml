@@ -11,11 +11,6 @@
 	  	})();
 	</script>
  </isif> 
- 
-<iscomment>Everage Integration</iscomment>
-<isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('EvergageEnabled')}"> 
-	<script type="text/javascript" src="${dw.system.Site.getCurrent().getCustomPreferenceValue('evergageSrcJs')}"></script>
-</isif> 
 
 <iscomment>Movable Ink - global script inclusion</iscomment>
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('movableInkTrackEnabled')}">

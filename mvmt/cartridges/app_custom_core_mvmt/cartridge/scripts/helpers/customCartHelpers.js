@@ -105,11 +105,11 @@ function removeFromCartGTMObj(productLineItems){
             'name': pli.product.name,
             'id': pli.product.ID,
             'price': price,
-            'category': pli.product.categories[0].ID,
+            'category': !empty(pli.product.categories) ? pli.product.categories[0].ID : '',
             'sku' : pli.product.ID,
             'variantID' : pli.product.variant ? pli.product.ID : '',
             'brand': pli.product.brand,
-            'currentCategory': pli.product.categories[0].displayName,
+            'currentCategory': !empty(pli.product.categories) ? pli.product.categories[0].displayName : '',
             'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
             'variant': displayValue,
             'quantity':pli.quantityValue
