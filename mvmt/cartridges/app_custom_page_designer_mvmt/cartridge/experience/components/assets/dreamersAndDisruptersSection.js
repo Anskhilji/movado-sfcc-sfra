@@ -20,6 +20,7 @@ module.exports.render = function (context) {
         src: content.primaryImage.file.absURL,
         alt: content.primaryImage.file.alt 
     };
+    model.additionalCss = content.additionalCss;
     model.richText = content.richText;
     return new Template('experience/components/assets/dreamersAndDisruptersSection').render(model).text;
 };

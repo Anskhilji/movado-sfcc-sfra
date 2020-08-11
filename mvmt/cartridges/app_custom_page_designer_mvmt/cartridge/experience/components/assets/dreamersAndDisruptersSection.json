@@ -27,6 +27,20 @@
                     "required": true
                 }
             ]
+        },
+        {
+            "id": "style",
+            "name": "Style",
+            "description": "Controls to override default style of current Layout.",
+            "attribute_definitions": [
+                {
+                    "id": "additionalCss",
+                    "name": "Additional CSS Style",
+                    "type":"text",
+                    "description": "CSS for current 3coulumn Layout. Please use component id in css to apply styling to specified component",
+                    "required": false
+                }
+            ]
         }
     ],
     "region_definitions": []

@@ -1,3 +1,6 @@
+<style>
+	${pdict.additionalCss} 
+</style>
 <div class="dreamers">
     <div class="dreamers-background">
         <img src="${pdict.backgroundImage.src}" />
