@@ -11,7 +11,8 @@ module.exports.render = function (context) {
     var model = new HashMap();
     var component = context.component;
     var content = context.content;
-    model.additionalCss = content.additionalCss; 
+    model.additionalCss = content.additionalCss;
+    model.id = 'threeColumn-' + PageRenderHelper.safeCSSClass(context.component.getID());
 
     // automatically register configured regions
     model.regions = PageRenderHelper.getRegionModelRegistry(component); 

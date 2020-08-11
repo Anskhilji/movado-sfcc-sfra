@@ -4,7 +4,7 @@
 <style>
 	${pdict.additionalCss} 
 </style>
-<div class="row mx-n2 m-0">
+<div id="${pdict.id}" class="row mx-n2 m-0">
 	<isprint value="${pdict.regions.column1.setClassName("region region_square col-12 col-md-4 px-2").render()}" encoding="off"/>
 	<isprint value="${pdict.regions.column2.setClassName("region region_square col-12 col-md-4 px-2").render()}" encoding="off"/>
 	<isprint value="${pdict.regions.column3.setClassName("region region_square col-12 col-md-4 px-2").render()}" encoding="off"/>
