@@ -116,6 +116,10 @@
         <div class="cart-coupons-remove">
             <isinclude template="cart/cartRemoveCouponModal" />
         </div>
+        <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
+        <isif condition="${!currentCountry.equalsIgnoreCase('US')}" >
+            <isslot id="esw-cart-message" description="esw cart message" context="global" />
+        </isif>
     </div>
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
