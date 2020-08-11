@@ -370,6 +370,6 @@ module.exports = {
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
     getESWPrice: getESWPrice,
-    getCollectionName: getCollectionName
+    getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject
 };
