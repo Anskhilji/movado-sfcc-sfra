@@ -218,7 +218,7 @@ function populateByOrder(order) {
 
     } catch (e) {
         logger.error(e);
-        logger.fatal('CheckoutServices.js failure: ' + order.orderNo + ' - ' + e.toString());
+        logger.error('CheckoutServices.js failure: ' + order.orderNo + ' - ' + e.toString());
         return new Status(Status.ERROR, 'ERROR', 'populateOrderJSON failed. Fatal log sent.');
     }
     return new Status(Status.OK, 'OK', 'populateOrderJSON finished successfully for order ' + order.orderNo);
