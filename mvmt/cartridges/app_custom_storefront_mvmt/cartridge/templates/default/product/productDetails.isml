@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="product-brand-info">
-                        <span>${product.brand}</span>
+                        <span>${product.collectionName}</span>
                     </div>
 
                     <!-- Product Availability -->

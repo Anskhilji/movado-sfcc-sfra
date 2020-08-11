@@ -352,6 +352,16 @@ function getESWPrice(product) {
     }
 }
 
+/**
+ * Method use to get collection name from product's custom attribute family name`
+ * @param {Product} apiProduct
+ * @returns {String }collection name
+ */
+function getCollectionName(apiProduct) {
+    var collectionName = apiProduct.custom.familyName ? apiProduct.custom.familyName[0] : '';
+    return collectionName;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -360,5 +370,6 @@ module.exports = {
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
     getESWPrice: getESWPrice,
+    getCollectionName: getCollectionName
     getGtmPromotionObject: getGtmPromotionObject
 };
