@@ -19,6 +19,7 @@ server.append('AddProduct', function (req, res, next) {
     var Site = require('dw/system/Site');
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
     if (!viewData.error) {
 		// variables for personalization message
@@ -28,6 +29,8 @@ server.append('AddProduct', function (req, res, next) {
         if (embossedMessage || engravedMessage) {
             customCartHelpers.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         }
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var marketingProductsData = [];
 
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
@@ -55,6 +58,15 @@ server.append('AddProduct', function (req, res, next) {
                 cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)
             });
         }
+
+        while (productLineItems.hasNext()) {
+            var productLineItem = productLineItems.next();
+            var quantity = productLineItem.getQuantity().value;
+            var apiProduct = productLineItem.getProduct();
+            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+        marketingProductsData = JSON.stringify(marketingProductsData);
+        res.setViewData({marketingProductData : marketingProductsData});
         res.setViewData({viewData: viewData});
     }
     return next();

@@ -133,6 +133,7 @@
 
 <script>
     var triggerMarketingProduct;
+    var marketingProducts;
     if ('${pdict.marketingProductData}' != 'null') {
         marketingProducts = JSON.parse('<isprint value="${pdict.marketingProductData}" encoding="htmlsinglequote"/>');
         triggerMarketingProduct = 'marketingProducts';
@@ -141,4 +142,18 @@
         dataLayer.push({'event': triggerMarketingProduct, 'marketingProducts': marketingProducts});
         triggerMarketingProduct = null;
     }
+
+    window.addEventListener ('makretingProducts', function(e) {
+        if (e) {
+            // dataLayer = dataLayer.filter(x => !(makretingProducts in x));
+            // dataLayer.set('makretingProducts', undefined);
+            makretingProducts = JSON.parse(e.cartMarketingData);
+            dataLayer.push({'event':'marketingProducts', 'marketingProducts': makretingProducts});
+        }
+    });
 </script>
+
+<script>
+    var setMarketingProductsByAJAX = new CustomEvent('makretingProducts');
+</script>
+
