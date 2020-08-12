@@ -16,13 +16,8 @@
         <button class="close-cart-img" id="close-mini-cart" type="button"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
     </div>
 </div>
-<isif condition="${!empty(pdict.redirectionCountry)}">
-    <div class="flex">
-        <span>Please</span>
-        <a href="${pdict.redirectionCountry.absUrl}"> switch sites </a>
-        <span> to ship to ${pdict.redirectionCountry.displayName}</span>
-    </div>
-</isif>
+<isinclude template="cart/redirectToCountryMessage" />
+
 <isif condition="${itemsLength === 0}">
 <iscomment> Wraped content asset into empty-min-cart div </iscomment>
     <div class="empty-mini-cart">
