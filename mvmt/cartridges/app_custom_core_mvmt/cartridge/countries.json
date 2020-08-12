@@ -2588,7 +2588,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "CZK",
         "taxation": {
             "type": "net"
         },
