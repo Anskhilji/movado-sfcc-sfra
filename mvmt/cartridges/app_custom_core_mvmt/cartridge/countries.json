@@ -2404,7 +2404,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "HRK",
         "taxation": {
             "type": "net"
         },
@@ -2680,7 +2680,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "DKK",
         "taxation": {
             "type": "net"
         },
@@ -3876,7 +3876,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "MTL",
         "taxation": {
             "type": "net"
         },
@@ -4152,7 +4152,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "NOK",
         "taxation": {
             "type": "net"
         },
@@ -4244,7 +4244,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "PLN",
         "taxation": {
             "type": "net"
         },
@@ -4428,7 +4428,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "ROL",
         "taxation": {
             "type": "net"
         },
@@ -4520,7 +4520,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "RUR",
         "taxation": {
             "type": "net"
         },
@@ -5635,7 +5635,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "AUD",
         "taxation": {
             "type": "net"
         },
@@ -7123,7 +7123,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "CLP",
         "taxation": {
             "type": "net"
         },
@@ -7216,7 +7216,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "COP",
         "taxation": {
             "type": "net"
         },
@@ -9541,7 +9541,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "HKD",
         "taxation": {
             "type": "net"
         },
@@ -9634,7 +9634,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "ILS",
         "taxation": {
             "type": "net"
         },
@@ -9820,7 +9820,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "JPY",
         "taxation": {
             "type": "net"
         },
@@ -10937,7 +10937,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "MVR",
         "taxation": {
             "type": "net"
         },
@@ -11869,7 +11869,7 @@
         "continent": "europe",
         "locales": ["en_US", "en_GB", "fr", "fr_CA", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "MXN",
         "taxation": {
             "type": "net"
         },
@@ -13078,7 +13078,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "PHP",
         "taxation": {
             "type": "net"
         },
@@ -13729,7 +13729,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "SAR",
         "taxation": {
             "type": "net"
         },
@@ -14101,7 +14101,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "ZAR",
         "taxation": {
             "type": "net"
         },
@@ -14473,7 +14473,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "TWD",
         "taxation": {
             "type": "net"
         },
@@ -14752,7 +14752,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "THB",
         "taxation": {
             "type": "net"
         },
@@ -15501,7 +15501,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "VND",
         "taxation": {
             "type": "net"
         },
@@ -15877,7 +15877,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "AED",
         "taxation": {
             "type": "net"
         },
