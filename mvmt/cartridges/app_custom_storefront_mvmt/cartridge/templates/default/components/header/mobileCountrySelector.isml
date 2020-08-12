@@ -1,9 +1,9 @@
 <li class="country-selector-mobile">
 <iscomment> Custom Start: Adding ESW Logic </iscomment>
   <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
-     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
-          <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
-                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
-     </isif>
+  <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
+      <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+  </isif>
   <iscomment> Custom End </iscomment>
 </li>
