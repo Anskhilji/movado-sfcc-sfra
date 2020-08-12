@@ -2220,7 +2220,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "EUR",
+        "currencyCode": "BGN",
         "taxation": {
             "type": "net"
         },
