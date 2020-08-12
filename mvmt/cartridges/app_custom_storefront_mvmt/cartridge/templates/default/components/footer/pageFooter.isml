@@ -52,7 +52,8 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isif condition="${isEswEnabled}" > 
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>

@@ -60,60 +60,61 @@ function setInitialCookies(req) {
 }
 
 /**
+ * Get general ESW configs from custom site preference
+ * @returns {Object} - General Config JSON object
+ */
+function getESWGeneralConfigs() {
+	var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
+	var ESWGeneralConfigs = {
+        'enabledESWModule': eswHelper.getEShopWorldModuleEnabled(),
+        'allCountries': eswHelper.getAllCountries(),
+        'languages': eswHelper.getLanguagesOptions(),
+        'currencies': eswHelper.getCurrenciesOptions(),
+        'selectedCountry': eswHelper.getAvailableCountry(),
+        'selectedCountryName': eswHelper.getNameFromLocale(language),
+        'selectedLanguage': language,
+        'selectedCurrency': currency
+    };
+	return ESWGeneralConfigs;
+}
+
+/**
  * Get header bar of ESW and render template for it in response
  */
 server.get('GetEswHeader', function (req, res, next) {
     setInitialCookies(req);
-    var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
-    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
-    var ESWHeaderObject = {
-        'allCountries': eswHelper.getAllCountries(),
-        'languages': eswHelper.getLanguagesOptions(),
+    var ESWHeaderConfigs = {
         'enabledHeaderBar': eswHelper.getEnableHeaderBar(),
-        'enabledESWModule': eswHelper.getEShopWorldModuleEnabled(),
         'enabledCountriesInHeader': eswHelper.getEnableCountryHeaderBar(),
         'enabledLanguagesInHeader': eswHelper.getEnableLanguageHeaderBar(),
-        'selectedCountry': eswHelper.getAvailableCountry(),
-        'selectedCountryName': eswHelper.getNameFromLocale(language),
-        'selectedCurrency': currency,
-        'selectedLanguage': language,
-        'selectorUrl': URLUtils.https('Page-SetLocale').toString(),
-        'currencies': eswHelper.getCurrenciesOptions(),
         'enabledCurrencyInHeader': eswHelper.getEnableCurrencyHeaderBar()
-    }
+    };
+    
+    ESWHeaderConfigs = eswHelper.extendObject(ESWHeaderConfigs, getESWGeneralConfigs());
 
     res.render('/EswMfComponents/headerCountrySelector', {
-        'EswHeaderObject': ESWHeaderObject,
-        'eswHelper': eswHelper
+        'EswHeaderObject': ESWHeaderConfigs
     });
     next();
 });
-
 
 /**
  * Get footer bar of ESW and render template for it in response
  */
 server.get('GetEswFooter', function (req, res, next) {
     setInitialCookies(req);
-    var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
-    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
-    var ESWFooterObject = {
-        'allCountries': eswHelper.getAllCountries(),
-        'languages': eswHelper.getLanguagesOptions(),
-        'enabledESWModule': eswHelper.getEShopWorldModuleEnabled(),
+    var ESWFooterConfigs = {
         'enabledFooterBar': eswHelper.getEnableFooterBar(),
         'enabledCountriesInFooter': eswHelper.getEnableCountryFooterBar(),
         'enabledLanguagesInFooter': eswHelper.getEnableLanguageFooterBar(),
-        'selectedCountry': eswHelper.getAvailableCountry(),
-        'selectedCountryName': eswHelper.getNameFromLocale(language),
-        'selectedCurrency': currency,
-        'selectorUrl': URLUtils.https('Page-SetLocale').toString(),
-        'currencies': eswHelper.getCurrenciesOptions(),
         'enabledCurrencyInFooter': eswHelper.getEnableCurrencyFooterBar()
-    }
+    };
+
+    ESWFooterConfigs = eswHelper.extendObject(ESWFooterConfigs, getESWGeneralConfigs());
 
     res.render('/EswMfComponents/eswFooterBar', {
-        'EswFooterObject': ESWFooterObject
+        'EswFooterObject': ESWFooterConfigs
     });
     next();
 });
@@ -123,37 +124,28 @@ server.get('GetEswFooter', function (req, res, next) {
  */
 server.get('GetEswLandingPage', function (req, res, next) {
     if (request.httpCookies['esw.Landing.Played'] == null || request.httpCookies['esw.Landing.Played'] == false) {
-        var Cookie = require('dw/web/Cookie');
-        var eswLandingCookie = new Cookie('esw.Landing.Played', true);
-        eswLandingCookie.setPath('/');
-        response.addHttpCookie(eswLandingCookie);
-        setInitialCookies(req);
-
-        //var overridePricebooks = eswHelper.getOverridePriceBook();
-        var language = !empty(request.httpCookies['esw.LanguageIsoCode']) ? request.httpCookies['esw.LanguageIsoCode'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).locales[0];
-        var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).currencyCode;
-        var ESWLandingObject = {
-            'allCountries': eswHelper.getAllCountries(),
-            'languages': eswHelper.getLanguagesOptions(),
-            'enabledESWModule': eswHelper.getEShopWorldModuleEnabled(),
-            'enabledLandingPageBar': eswHelper.getEnableLandingPageBar(),
-            'enabledLandingPage': eswHelper.getEnableLandingPage(),
-            'enabledCountriesInLandingPage': eswHelper.getEnableCountryLandingBar(),
-            'enabledLanguagesInLandingPage': eswHelper.getEnableLanguageLandingBar(),
-            'selectedCountry': eswHelper.getAvailableCountry(),
-            'selectedCountryName': eswHelper.getNameFromLocale(language),
-            'selectedCurrency': currency,
-            'currencies': eswHelper.getCurrenciesOptions(),
-            'enabledCurrencyInLandingPage': eswHelper.getEnableCurrencyLandingBar()
-        }
-
-        res.render('/EswMfComponents/eswLandingPage', {
-            'EswLandingObject': ESWLandingObject
-        });
-    } else {
-        return "";
+	    var Cookie = require('dw/web/Cookie');
+	    var eswLandingCookie = new Cookie('esw.Landing.Played', true);
+	    eswLandingCookie.setPath('/');
+	    response.addHttpCookie(eswLandingCookie);
+	    setInitialCookies(req);
+	
+	    var ESWLandingConfigs = {
+	        'enabledLandingPage': eswHelper.getEnableLandingPage(),
+	        'enabledLandingPageBar': eswHelper.getEnableLandingPageBar(),
+	        'enabledCountriesInLandingPage': eswHelper.getEnableCountryLandingBar(),
+	        'enabledLanguagesInLandingPage': eswHelper.getEnableLanguageLandingBar(),
+	        'enabledCurrencyInLandingPage': eswHelper.getEnableCurrencyLandingBar()
+	    };
+	    
+	    ESWLandingConfigs = eswHelper.extendObject(ESWLandingConfigs, getESWGeneralConfigs());
+	
+	    res.render('/EswMfComponents/eswLandingPage', {
+	        'EswLandingObject': ESWLandingConfigs
+	    });
+	    next();
     }
-    next();
+    return;
 });
 
 /**
