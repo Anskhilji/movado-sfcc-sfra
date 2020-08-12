@@ -108,7 +108,8 @@ server.get('GetEswFooter', function (req, res, next) {
         'enabledFooterBar': eswHelper.getEnableFooterBar(),
         'enabledCountriesInFooter': eswHelper.getEnableCountryFooterBar(),
         'enabledLanguagesInFooter': eswHelper.getEnableLanguageFooterBar(),
-        'enabledCurrencyInFooter': eswHelper.getEnableCurrencyFooterBar()
+        'enabledCurrencyInFooter': eswHelper.getEnableCurrencyFooterBar(),
+        'selectorUrl': URLUtils.https('Page-SetLocale').toString()
     };
 
     ESWFooterConfigs = eswHelper.extendObject(ESWFooterConfigs, getESWGeneralConfigs());
