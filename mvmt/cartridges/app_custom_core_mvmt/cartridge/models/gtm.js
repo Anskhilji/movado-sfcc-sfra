@@ -763,7 +763,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.productType = productHelper.getProductType(productLineItem.product);
             produtObj.imageURL = productLineItem.product.image.absURL;
             produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
-            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.quantity = productLineItem.quantityValue;
 
             produtObj.itemCoupon = itemLevelCouponString;
 
@@ -787,7 +787,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
-        orderObj.salesRevenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue;
+        orderObj.salesRevenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue; 
         orderObj.city = order.shipments[0].shippingAddress.city;
         orderObj.state = order.shipments[0].shippingAddress.stateCode;
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
