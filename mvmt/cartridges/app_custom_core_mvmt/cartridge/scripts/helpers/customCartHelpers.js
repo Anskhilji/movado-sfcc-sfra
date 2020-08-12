@@ -129,8 +129,23 @@ function removeFromCartGTMObj(productLineItems){
     return cartItemObj;
 }
 
+function getRedirectCountry() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    var Site = require('dw/system/Site');
+    var selectedCountryCode = eswHelper.getAvailableCountry();
+    var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
+
+    if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
+        return selectedCountry;
+    }
+
+    return false;
+}
+
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
 movadoCustomCartHelpers.getProductOptions = getProductOptions;
 movadoCustomCartHelpers.removeFromCartGTMObj = removeFromCartGTMObj;
+movadoCustomCartHelpers.getRedirectCountry = getRedirectCountry;
 
 module.exports = movadoCustomCartHelpers;

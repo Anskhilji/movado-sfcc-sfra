@@ -4,6 +4,7 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+
 var server = require('server');
 var page = module.superModule;
 server.extend(page);
@@ -28,12 +29,32 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function(req, res, next) {
+server.append(
+    'Show',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) { 
+        var redirectionCountry = customCartHelpers.getRedirectCountry();
+
+        if (!empty(redirectionCountry)) {
+            res.viewData.redirectionCountry = redirectionCountry;
+        }
+        next();
+    }
+);
+
+server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var redirectionCountry = customCartHelpers.getRedirectCountry();
+
+    if (!empty(redirectionCountry)) {
+        res.viewData.redirectionCountry = redirectionCountry;
+    }
 
     var productLineItems = currentBasket.productLineItems.iterator();
     var marketingProductsData = [];
