@@ -124,7 +124,12 @@
                         <isinclude template="cart/cartTotals" />
                         <div class="col-12 checkout-buttons checkout-continue">
                             <isinclude template="cart/checkoutButtons" />
-                            <iscontentasset aid="cart-tax-message" />
+                            <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
+                            <isif condition="${!currentCountry.equalsIgnoreCase('US')}" >
+                                <isslot id="esw-cart-message" description="esw cart message" context="global" />
+                            <iselse>
+                                <iscontentasset aid="cart-tax-message" />
+                            </isif>
                         </div>
                     </div>
                 </div>

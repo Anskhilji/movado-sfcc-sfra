@@ -140,7 +140,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     try {
         Transaction.wrap(function () {
             populateOrderJSON.populateByOrder(Order);
-            populateOrderJSON.addDummyPaymentTransaction(Order);
         });
     } catch (exSOM) {
         somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));

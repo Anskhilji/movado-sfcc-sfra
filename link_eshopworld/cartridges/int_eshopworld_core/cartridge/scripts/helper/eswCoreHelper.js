@@ -270,7 +270,10 @@ var getEswHelper = {
      * Function to set initial selected country from cookie or geolocation or preferences
      */
     getAvailableCountry: function () {
-        if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        //Custom Change: updated the getAvailableCountry logic with an addition of session country code condition
+        if (!empty(session.custom.countryCode)) {
+            return session.custom.countryCode;
+        } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;

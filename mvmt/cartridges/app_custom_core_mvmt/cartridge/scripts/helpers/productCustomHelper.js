@@ -143,6 +143,45 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get category object of current product
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @param {Object} categories - categories json configured in site preference
+ * @returns {Object} - category object
+ */
+
+function getCategoryConfig(apiProduct, categoriesConfig) {
+    var categoryConfigFound = false;
+    var category = null;
+    var currentCategory;
+
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        category = categoriesConfig[currentCategory.ID];
+        
+        if (!empty(category)) {
+            break;
+        }
+
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory)) {
+                category = categoriesConfig[currentCategory.ID];
+                if (!empty(category)) {
+                    categoryConfigFound = true;
+                    break;
+                }
+            }
+        } //End inner while
+
+        if (categoryConfigFound) {
+            break;
+        }
+    } //End outer while
+    return category;
+}
+
+/**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
@@ -153,19 +192,15 @@ function getProductAttributes(apiProduct) {
     var pdpDetailAttributes = [];
     var pdpSpecAttributes = [];
     try {
-        var CatalogMgr = require('dw/catalog/CatalogMgr');
-        var categories = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
-        if (!empty(categories) && !empty(apiProduct)) {
-            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-                var categoryObj = categories[categoryIndex];
-                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
-                if (!empty(categoryAssignment)) {
-                    category = categoryObj;
-                    break;
-                }
-            }
+        var categoriesConfig = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
         }
+
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
+
         if (!empty(category)) {
             var attributes = category.attributes;
             if (!empty(attributes)) {

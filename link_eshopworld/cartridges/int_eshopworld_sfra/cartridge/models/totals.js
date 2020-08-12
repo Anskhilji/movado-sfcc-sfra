@@ -31,7 +31,11 @@ function getTotals(total, availableObject) {
  * @returns {string} the formatted money value
  */
 function getOrderTotals(total, currency) {
-    if (total && currency) {
+    /** Custom Start: When there is no shipping apply total has 0 and it is
+     * considered to be false the condition therefore improved check.
+    */
+    if (!empty(total) && !empty(currency)) {
+    // Custom End
         return formatMoney(new dw.value.Money(total, currency));
     }
     return '-';

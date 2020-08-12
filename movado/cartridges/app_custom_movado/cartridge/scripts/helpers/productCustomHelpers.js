@@ -856,6 +856,67 @@ function formatProductId(pid) {
     return pid;
 }
 
+/**
+ * method used to get products attribute
+ * @param {dw.catalog.Product} apiProduct 
+ * @param {Number} quantity
+ * @returns {Object} marketingProduct
+ */
+
+function getMarketingProducts(apiProduct, quantity) {
+    var Logger = require('dw/system/Logger');
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var priceFactory = require('*/cartridge/scripts/factories/price');
+    var productFactory = require('*/cartridge/scripts/factories/product');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+
+    try {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+        var defaultVariantPrice;
+        var marketingProductData;
+        var price;
+        var productType = productHelper.getProductType(apiProduct);
+        var productModel;
+
+        if (apiProduct.master) {
+            var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
+            defaultVariantPrice = priceFactory.getPrice(defaultVariant, null, false, promotions, null);
+        }
+        productModel = productFactory.get({pid: apiProduct.ID});
+
+        if (defaultVariantPrice) {
+            if(defaultVariantPrice.sales) {
+                price = defaultVariantPrice.sales.decimalPrice;
+            } else {
+                price = defaultVariantPrice.list.decimalPrice;
+            }
+        } else {
+            if (productModel.price && productModel.price.sales) {
+                price = productModel.price.sales.decimalPrice;
+            } else {
+                price = prodcutModel.price.list.decimalPrice;
+            }
+        }
+
+        marketingProductData = {
+            name: apiProduct.name,
+            id: apiProduct.ID,
+            price: price,
+            category: apiProduct.allCategoryAssignments[0].category.displayName,
+            sku: apiProduct.ID,
+            variantID: apiProduct.variant ? apiProduct.ID : '',
+            brand: apiProduct.brand,
+            currentCategory: apiProduct.allCategoryAssignments[0].category.displayName,
+            productType: productType,
+            quantity: quantity
+        };
+        return marketingProductData;
+    } catch (e) {
+        Logger.error('Error occurred while generating products json. Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct , e.stack, e.message);
+        return null;
+    }
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -878,5 +939,6 @@ module.exports = {
     getQVGtmObj: getQVGtmObj,
     getMoreStyleGtmArray: getMoreStyleGtmArray,
     formatProductId: formatProductId,
-    getWishlistGtmObjforPDP: getWishlistGtmObjforPDP
+    getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
+    getMarketingProducts : getMarketingProducts
 };
