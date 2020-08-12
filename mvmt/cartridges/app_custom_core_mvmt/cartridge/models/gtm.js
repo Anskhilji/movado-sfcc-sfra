@@ -763,7 +763,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.productType = productHelper.getProductType(productLineItem.product);
             produtObj.imageURL = productLineItem.product.image.absURL;
             produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
-            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.quantity = productLineItem.quantityValue;
 
             produtObj.itemCoupon = itemLevelCouponString;
 
@@ -783,11 +783,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderId = orderId;
         orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
         orderObj.orderQuantity = order.productLineItems.length;
-        orderObj.revenue = order.totalGrossPrice.decimalValue;
+        orderObj.revenue = order.getMerchandizeTotalNetPrice().decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
-        orderObj.salesRevenue = order.totalNetPrice.decimalValue;
+        orderObj.salesRevenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue; 
         orderObj.city = order.shipments[0].shippingAddress.city;
         orderObj.state = order.shipments[0].shippingAddress.stateCode;
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
