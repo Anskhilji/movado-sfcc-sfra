@@ -16,7 +16,7 @@
         <button class="close-cart-img" id="close-mini-cart" type="button"><img src="${URLUtils.staticURL('/images/cross.svg')}"/></button>
     </div>
 </div>
-<isinclude template="cart/redirectToCountryMessage" />
+<isinclude template="cart/switchToCountryMessage" />
 
 <isif condition="${itemsLength === 0}">
 <iscomment> Wraped content asset into empty-min-cart div </iscomment>
