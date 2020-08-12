@@ -4428,7 +4428,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "ROL",
+        "currencyCode": "RON",
         "taxation": {
             "type": "net"
         },
