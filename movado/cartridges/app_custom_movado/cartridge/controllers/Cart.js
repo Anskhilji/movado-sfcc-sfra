@@ -74,6 +74,10 @@ server.append('AddProduct', function (req, res, next) {
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({marketingProductData : marketingProductsData});
+        if (!session.custom.addToCartPerSession || empty(session.custom.addToCartPerSession)) {
+            session.custom.addToCartPerSession = true;
+            res.setViewData({addToCartPerSession : true});
+        }
         res.setViewData({viewData: viewData});
     }
     return next();

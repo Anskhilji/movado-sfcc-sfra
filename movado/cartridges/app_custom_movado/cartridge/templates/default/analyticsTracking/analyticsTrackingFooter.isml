@@ -140,6 +140,9 @@
         marketingProducts = JSON.parse('<isprint value="${pdict.marketingProductData}" encoding="htmlsinglequote"/>');
         triggerMarketingProduct = 'marketingProducts';
     }
+    if (pageDataGTM != undefined && pageDataGTM) {
+        dataLayer.push({ pageData: pageDataGTM});
+    }
     if (triggerMarketingProduct) {
         dataLayer.push({'event': triggerMarketingProduct, 'marketingProducts': marketingProducts});
         triggerMarketingProduct = null;
@@ -151,6 +154,11 @@
             dataLayer.push({'marketingProducts': marketingProducts});
             marketingProducts = JSON.parse(e.cartMarketingData);
             dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
+            if (e.addToCartPerSession) {
+                marketingProducts = JSON.parse(e.cartMarketingData);
+                dataLayer.push({'event':'addToCartPerSession', 'marketingProducts': marketingProducts});
+                e.addToCartPerSession = null;
+            }
             return true;
         }
 
