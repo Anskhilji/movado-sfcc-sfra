@@ -35,10 +35,10 @@ server.append(
     consentTracking.consent,
     csrfProtection.generateToken,
     function (req, res, next) { 
-        var redirectionCountry = customCartHelpers.getRedirectCountry();
+        var countrySwitch = customCartHelpers.getCountrySwitch();
 
-        if (!empty(redirectionCountry)) {
-            res.viewData.redirectionCountry = redirectionCountry;
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
         }
         next();
     }
@@ -50,10 +50,10 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var redirectionCountry = customCartHelpers.getRedirectCountry();
+    var countrySwitch = customCartHelpers.getCountrySwitch();
 
-    if (!empty(redirectionCountry)) {
-        res.viewData.redirectionCountry = redirectionCountry;
+    if (countrySwitch && !empty(countrySwitch)) {
+        res.viewData.countrySwitch = countrySwitch;
     }
 
     var productLineItems = currentBasket.productLineItems.iterator();

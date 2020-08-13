@@ -1,7 +1,7 @@
-<isif condition="${!empty(pdict.redirectionCountry)}">
+<isif condition="${!empty(pdict.countrySwitch)}">
     <div class="d-flex justify-content-center text-danger">
         <span>Please </span>
-        <a class= "link pl-1 pr-1 text-info" href="${pdict.redirectionCountry.absURL}"> switch sites </a>
-        <span> to ship to ${pdict.redirectionCountry.displayName}</span>
+        <a class= "link pl-1 pr-1 text-info" href="${pdict.countrySwitch.absURL}"> switch sites </a>
+        <span> to ship to ${pdict.countrySwitch.displayName}</span>
     </div>
 </isif> 
