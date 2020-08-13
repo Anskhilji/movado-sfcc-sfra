@@ -28,13 +28,14 @@ server.append('AddProduct', function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var apiProduct;
         var marketingProductsData = [];
+        var marketingProductData;
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
         if (embossedMessage || engravedMessage) {
             customCartHelpers.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         }
-        
+
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
         if (content) {
@@ -66,7 +67,10 @@ server.append('AddProduct', function (req, res, next) {
             productLineItem = productLineItems.next();
             quantity = productLineItem.getQuantity().value;
             apiProduct = productLineItem.getProduct();
-            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+            marketingProductData = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProductData !== null) {
+                marketingProductsData.push(marketingProductData);
+            }
         }
         marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({marketingProductData : marketingProductsData});

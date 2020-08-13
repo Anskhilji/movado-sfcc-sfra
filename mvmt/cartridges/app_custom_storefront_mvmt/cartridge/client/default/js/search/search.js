@@ -20,7 +20,7 @@ function updateDom($results, selector) {
  */
 
 function updateMarketingProducts(response) {
-    if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== undefined) {
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== 'undefined') {
         setMarketingProductsByAJAX.cartMarketingData = null;
         setMarketingProductsByAJAX.plpMarketingData = response;
         window.dispatchEvent(setMarketingProductsByAJAX);
