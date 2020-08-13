@@ -143,17 +143,25 @@
         triggerMarketingProduct = null;
     }
 
-    window.addEventListener ('makretingProducts', function(e) {
-        if (e) {
-            // dataLayer = dataLayer.filter(x => !(makretingProducts in x));
-            // dataLayer.set('makretingProducts', undefined);
-            makretingProducts = JSON.parse(e.cartMarketingData);
-            dataLayer.push({'event':'marketingProducts', 'marketingProducts': makretingProducts});
+    window.addEventListener ('marketingProducts', function(e) {
+        if (e.cartMarketingData && e.cartMarketingData != 'undefined' && e.cartMarketingData != null && e.cartMarketingData != '') {
+            marketingProducts = null;
+            dataLayer.push({'marketingProducts': marketingProducts});
+            marketingProducts = JSON.parse(e.cartMarketingData);
+            dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
+            return true;
+        }
+
+        if (e.plpMarketingData && e.plpMarketingData != 'undefined' && e.plpMarketingData != null && e.plpMarketingData != '') {
+            marketingProducts = null;
+            dataLayer.push({'marketingProducts': marketingProducts});
+            marketingProducts = e.plpMarketingData;
+            dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
         }
     });
 </script>
 
 <script>
-    var setMarketingProductsByAJAX = new CustomEvent('makretingProducts');
+    var setMarketingProductsByAJAX = new CustomEvent('marketingProducts');
 </script>
 

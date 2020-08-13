@@ -243,10 +243,24 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 });
 
 server.append('UpdateGrid', function (req, res, next) {
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var marketingProductsData = [];
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+    if(res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
+        for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
+            var apiProduct = ProductMgr.getProduct(res.viewData.productSearch.productIds[i].productID);
+            var quantity = 0;
+            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+        marketingProductData = JSON.stringify(marketingProductsData);
+    }
     res.setViewData({
-    	compareBoxEnabled: compareBoxEnabled
+        compareBoxEnabled: compareBoxEnabled,
+        marketingProductData: marketingProductData
+        
     });
+
     return next();
 });
 

@@ -15,6 +15,21 @@ function updateDom($results, selector) {
 }
 
 /**
+ * 
+ * @param {Object} response 
+ */
+
+function updateMarketingProducts(response) {
+    if (typeof setMarketingProductsByAJAX !== 'undefined') {
+        if (response !== undefined) {
+            setMarketingProductsByAJAX.cartMarketingData = null;
+            setMarketingProductsByAJAX.plpMarketingData = response;
+            window.dispatchEvent(setMarketingProductsByAJAX);
+        }
+    }
+}
+
+/**
  * Keep refinement panes expanded/collapsed after Ajax refresh
  *
  * @param {Object} $results - jQuery DOM element
@@ -389,8 +404,11 @@ module.exports = {
             	updateSortOptions(response);
             	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
             	$('body').trigger('facet:success', [gtmFacetArray]);
-            	// edit
-            	updatePageURLForPagination(showMoreUrl);
+                // edit
+                updatePageURLForPagination(showMoreUrl);
+                // Get products for marketing data
+                var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
+                updateMarketingProducts(marketingProductsData);
             	// edit
                 $.spinner().stop();
                 moveFocusToTop();
