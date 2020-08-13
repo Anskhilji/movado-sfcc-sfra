@@ -88,7 +88,8 @@ server.get('GetEswHeader', function (req, res, next) {
         'enabledHeaderBar': eswHelper.getEnableHeaderBar(),
         'enabledCountriesInHeader': eswHelper.getEnableCountryHeaderBar(),
         'enabledLanguagesInHeader': eswHelper.getEnableLanguageHeaderBar(),
-        'enabledCurrencyInHeader': eswHelper.getEnableCurrencyHeaderBar()
+        'enabledCurrencyInHeader': eswHelper.getEnableCurrencyHeaderBar(),
+        'selectorUrl': URLUtils.https('Page-SetLocale').toString()
     };
     
     ESWHeaderConfigs = eswHelper.extendObject(ESWHeaderConfigs, getESWGeneralConfigs());
@@ -136,7 +137,8 @@ server.get('GetEswLandingPage', function (req, res, next) {
 	        'enabledLandingPageBar': eswHelper.getEnableLandingPageBar(),
 	        'enabledCountriesInLandingPage': eswHelper.getEnableCountryLandingBar(),
 	        'enabledLanguagesInLandingPage': eswHelper.getEnableLanguageLandingBar(),
-	        'enabledCurrencyInLandingPage': eswHelper.getEnableCurrencyLandingBar()
+            'enabledCurrencyInLandingPage': eswHelper.getEnableCurrencyLandingBar(),
+            'selectorUrl': URLUtils.https('Page-SetLocale').toString()
 	    };
 	    
 	    ESWLandingConfigs = eswHelper.extendObject(ESWLandingConfigs, getESWGeneralConfigs());
