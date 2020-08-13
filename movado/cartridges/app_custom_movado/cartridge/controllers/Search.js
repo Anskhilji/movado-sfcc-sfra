@@ -247,7 +247,7 @@ server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var marketingProductsData = [];
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
-    if(res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
+    if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
             var apiProduct = ProductMgr.getProduct(res.viewData.productSearch.productIds[i].productID);
             var quantity = 0;
