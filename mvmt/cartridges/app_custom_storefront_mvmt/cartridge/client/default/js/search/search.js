@@ -15,6 +15,19 @@ function updateDom($results, selector) {
 }
 
 /**
+ * this method use to get products for GTM Product object
+ * @param {Object} response 
+ */
+
+function updateMarketingProducts(response) {
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== 'undefined') {
+        setMarketingProductsByAJAX.cartMarketingData = null;
+        setMarketingProductsByAJAX.plpMarketingData = response;
+        window.dispatchEvent(setMarketingProductsByAJAX);
+    }
+}
+
+/**
  * Keep refinement panes expanded/collapsed after Ajax refresh
  *
  * @param {Object} $results - jQuery DOM element
@@ -385,13 +398,15 @@ module.exports = {
             data: { selectedUrl: showMoreUrl },
             method: 'GET',
             success: function (response) {
-            	$('.product-grid').html(response);
-            	updateSortOptions(response);
-            	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-            	$('body').trigger('facet:success', [gtmFacetArray]);
-            	// edit
-            	updatePageURLForPagination(showMoreUrl);
-            	// edit
+                $('.product-grid').html(response);
+                updateSortOptions(response);
+                var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                $('body').trigger('facet:success', [gtmFacetArray]);
+                // edit
+                updatePageURLForPagination(showMoreUrl);
+                // Get products for marketing data
+                var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
+                updateMarketingProducts(marketingProductsData);
                 $.spinner().stop();
                 moveFocusToTop();
             },

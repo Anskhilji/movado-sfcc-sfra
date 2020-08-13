@@ -132,7 +132,10 @@
 </isif>
 
 <script>
+    var marketingProducts;
+    var setMarketingProductsByAJAX = new CustomEvent('marketingProducts');
     var triggerMarketingProduct;
+
     if ('${pdict.marketingProductData}' != 'null') {
         marketingProducts = JSON.parse('<isprint value="${pdict.marketingProductData}" encoding="htmlsinglequote"/>');
         triggerMarketingProduct = 'marketingProducts';
@@ -141,4 +144,21 @@
         dataLayer.push({'event': triggerMarketingProduct, 'marketingProducts': marketingProducts});
         triggerMarketingProduct = null;
     }
+
+    window.addEventListener ('marketingProducts', function(e) {
+        if (e.cartMarketingData && e.cartMarketingData !== 'undefined' && e.cartMarketingData !== null && e.cartMarketingData !== '') {
+            marketingProducts = null;
+            dataLayer.push({'marketingProducts': marketingProducts});
+            marketingProducts = JSON.parse(e.cartMarketingData);
+            dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
+            return true;
+        }
+
+        if (e.plpMarketingData && e.plpMarketingData !== 'undefined' && e.plpMarketingData !== null && e.plpMarketingData !== '') {
+            marketingProducts = null;
+            dataLayer.push({'marketingProducts': marketingProducts});
+            marketingProducts = e.plpMarketingData;
+            dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
+        }
+    });
 </script>
