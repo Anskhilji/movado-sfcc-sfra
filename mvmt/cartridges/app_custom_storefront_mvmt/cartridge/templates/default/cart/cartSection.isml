@@ -4,6 +4,8 @@
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
+<isinclude template="cart/switchToCountryMessage"/>
+
 <div class="html-slot-container">
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
 </div>

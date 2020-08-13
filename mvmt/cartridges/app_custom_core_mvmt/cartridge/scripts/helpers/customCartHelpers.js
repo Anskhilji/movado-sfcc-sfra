@@ -1,5 +1,6 @@
 'use strict';
 var movadoCustomCartHelpers = module.superModule;
+var Logger = require('dw/system/Logger');
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var EMBOSSED = 'Embossed';
@@ -129,8 +130,28 @@ function removeFromCartGTMObj(productLineItems){
     return cartItemObj;
 }
 
+function getCountrySwitch() {
+    try {
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+        var Site = require('dw/system/Site');
+        var selectedCountryCode = eswHelper.getAvailableCountry();
+        var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
+    
+        if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
+            return selectedCountry;
+        }
+    
+        return false;
+    } catch (e) {
+        Logger.error('(customCartHelpers.js -> getCountrySwitch) Error occured while getting countrySwitch: ' + e + e.stack);
+        return false;
+    }
+}
+
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
 movadoCustomCartHelpers.getProductOptions = getProductOptions;
 movadoCustomCartHelpers.removeFromCartGTMObj = removeFromCartGTMObj;
+movadoCustomCartHelpers.getCountrySwitch = getCountrySwitch;
 
 module.exports = movadoCustomCartHelpers;
