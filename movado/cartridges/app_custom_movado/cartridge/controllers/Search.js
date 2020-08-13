@@ -258,9 +258,7 @@ server.append('UpdateGrid', function (req, res, next) {
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
         marketingProductData: marketingProductData
-        
     });
-
     return next();
 });
 

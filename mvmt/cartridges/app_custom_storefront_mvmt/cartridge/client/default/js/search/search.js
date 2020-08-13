@@ -400,16 +400,16 @@ module.exports = {
             data: { selectedUrl: showMoreUrl },
             method: 'GET',
             success: function (response) {
-            	$('.product-grid').html(response);
-            	updateSortOptions(response);
-            	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-            	$('body').trigger('facet:success', [gtmFacetArray]);
+                $('.product-grid').html(response);
+                updateSortOptions(response);
+                var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                $('body').trigger('facet:success', [gtmFacetArray]);
                 // edit
                 updatePageURLForPagination(showMoreUrl);
                 // Get products for marketing data
                 var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
                 updateMarketingProducts(marketingProductsData);
-            	// edit
+                // edit
                 $.spinner().stop();
                 moveFocusToTop();
             },
