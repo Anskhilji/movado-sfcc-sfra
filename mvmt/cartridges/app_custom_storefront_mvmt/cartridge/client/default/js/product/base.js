@@ -60,11 +60,9 @@ function openMiniCart () {
  */
 function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
-    if (typeof setMarketingProductsByAJAX !== 'undefined') {
-        if (response.marketingProductData !== undefined) {
-            setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
-            window.dispatchEvent(setMarketingProductsByAJAX);
-        }
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
+        setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
+        window.dispatchEvent(setMarketingProductsByAJAX);
     }
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {

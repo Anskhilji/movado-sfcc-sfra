@@ -26,12 +26,15 @@ server.append('AddProduct', function (req, res, next) {
         var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
         var engravedMessage = req.form.EngravedMessage;
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var apiProduct;
+        var marketingProductsData = [];
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var productLineItem;
+        var quantity;
         if (embossedMessage || engravedMessage) {
             customCartHelpers.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         }
-        var productLineItems = currentBasket.productLineItems.iterator();
-        var marketingProductsData = [];
-
+        
         // update the success message from content
         var content = ContentMgr.getContent('product-successfully-added');
         if (content) {
@@ -60,9 +63,9 @@ server.append('AddProduct', function (req, res, next) {
         }
 
         while (productLineItems.hasNext()) {
-            var productLineItem = productLineItems.next();
-            var quantity = productLineItem.getQuantity().value;
-            var apiProduct = productLineItem.getProduct();
+            productLineItem = productLineItems.next();
+            quantity = productLineItem.getQuantity().value;
+            apiProduct = productLineItem.getProduct();
             marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
         }
         marketingProductsData = JSON.stringify(marketingProductsData);

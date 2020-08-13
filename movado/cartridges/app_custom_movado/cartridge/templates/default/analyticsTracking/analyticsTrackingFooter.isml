@@ -132,8 +132,10 @@
 </isif>
 
 <script>
-    var triggerMarketingProduct;
     var marketingProducts;
+    var setMarketingProductsByAJAX = new CustomEvent('marketingProducts');
+    var triggerMarketingProduct;
+
     if ('${pdict.marketingProductData}' != 'null') {
         marketingProducts = JSON.parse('<isprint value="${pdict.marketingProductData}" encoding="htmlsinglequote"/>');
         triggerMarketingProduct = 'marketingProducts';
@@ -144,7 +146,7 @@
     }
 
     window.addEventListener ('marketingProducts', function(e) {
-        if (e.cartMarketingData && e.cartMarketingData != 'undefined' && e.cartMarketingData != null && e.cartMarketingData != '') {
+        if (e.cartMarketingData && e.cartMarketingData !== 'undefined' && e.cartMarketingData !== null && e.cartMarketingData !== '') {
             marketingProducts = null;
             dataLayer.push({'marketingProducts': marketingProducts});
             marketingProducts = JSON.parse(e.cartMarketingData);
@@ -152,7 +154,7 @@
             return true;
         }
 
-        if (e.plpMarketingData && e.plpMarketingData != 'undefined' && e.plpMarketingData != null && e.plpMarketingData != '') {
+        if (e.plpMarketingData && e.plpMarketingData !== 'undefined' && e.plpMarketingData !== null && e.plpMarketingData !== '') {
             marketingProducts = null;
             dataLayer.push({'marketingProducts': marketingProducts});
             marketingProducts = e.plpMarketingData;
@@ -160,8 +162,3 @@
         }
     });
 </script>
-
-<script>
-    var setMarketingProductsByAJAX = new CustomEvent('marketingProducts');
-</script>
-

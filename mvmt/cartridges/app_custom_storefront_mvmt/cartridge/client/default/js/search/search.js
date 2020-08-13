@@ -15,17 +15,15 @@ function updateDom($results, selector) {
 }
 
 /**
- * 
+ * this method use to get products for GTM Product object
  * @param {Object} response 
  */
 
 function updateMarketingProducts(response) {
-    if (typeof setMarketingProductsByAJAX !== 'undefined') {
-        if (response !== undefined) {
-            setMarketingProductsByAJAX.cartMarketingData = null;
-            setMarketingProductsByAJAX.plpMarketingData = response;
-            window.dispatchEvent(setMarketingProductsByAJAX);
-        }
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== undefined) {
+        setMarketingProductsByAJAX.cartMarketingData = null;
+        setMarketingProductsByAJAX.plpMarketingData = response;
+        window.dispatchEvent(setMarketingProductsByAJAX);
     }
 }
 
@@ -409,7 +407,6 @@ module.exports = {
                 // Get products for marketing data
                 var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
                 updateMarketingProducts(marketingProductsData);
-                // edit
                 $.spinner().stop();
                 moveFocusToTop();
             },
