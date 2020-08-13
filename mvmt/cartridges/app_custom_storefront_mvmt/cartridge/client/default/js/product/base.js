@@ -596,6 +596,18 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+
+
+    // Updating promo messages
+    if (response.product.promotions) {
+        var $promotions = $('.promotions');
+        $promotions.empty();
+        var productPromotions = response.product.promotions;
+        productPromotions.forEach(function(promotion) {
+            $promotions.append("<div class='row'>" + promotion.details + "</div>");
+        });
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
