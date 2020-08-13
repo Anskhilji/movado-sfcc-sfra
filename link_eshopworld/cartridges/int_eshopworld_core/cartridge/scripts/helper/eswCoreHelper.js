@@ -876,7 +876,20 @@ var getEswHelper = {
      */
     getCurrentEswCurrencyCode: function () {
     	return request.httpCookies['esw.currency'].value;
+    },
+    /**
+    * Merges properties from source object to target object
+    * @param {Object} target object
+    * @param {Object} source object
+    * @returns {Object} target object
+    */
+    extendObject: function (target, source) {
+        Object.keys(source).forEach(function (prop) {
+            target[prop] = source[prop];
+        });
+        return target;
     }
+
 };
 
 module.exports = {
