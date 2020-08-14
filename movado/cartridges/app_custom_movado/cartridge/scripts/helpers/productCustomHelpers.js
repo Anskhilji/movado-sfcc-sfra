@@ -898,15 +898,20 @@ function getMarketingProducts(apiProduct, quantity) {
             }
         }
 
+        var productCategory = '';
+        if (apiProduct.allCategoryAssignments.length > 0) {
+            productCategory = apiProduct.allCategoryAssignments[0].category.displayName;
+        }
+
         marketingProductData = {
             name: apiProduct.name,
             id: apiProduct.ID,
             price: price,
-            category: apiProduct.allCategoryAssignments[0].category.displayName,
+            category: productCategory,
             sku: apiProduct.ID,
             variantID: apiProduct.variant ? apiProduct.ID : '',
             brand: apiProduct.brand,
-            currentCategory: apiProduct.allCategoryAssignments[0].category.displayName,
+            currentCategory: productCategory,
             productType: productType,
             quantity: quantity
         };
