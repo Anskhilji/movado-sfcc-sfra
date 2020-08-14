@@ -1,0 +1,37 @@
+<!--- TEMPLATENAME: emailOptInPopUp.isml --->
+<isif condition="${pdict.isEmailPopUpEnabled}">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isinclude template="common/emailPopUpStyle"/>
+    <isset name="currentSite" value="${dw.system.Site.getCurrent()}" scope="page" />
+    <isset name="emailOptInViewed" value="${true}" scope="session" />
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
+    <isset name="currentCountry" value="${eswHelper.getAvailableCountry()}" scope="page" />
+    <h1>${currentCountry} scs</h1>
+    <div class="modal fade show email-popup" id="emailOptInPopUp" role="dialog" aria-modal="true" 
+         data-emailoptinfrequency = "${pdict.popUpSettings.emailPopupMuteForDays}"
+         data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
+         data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
+        <div class=" modal-dialog quick-view-dialog email-popup-container popup-form">
+            <!-- Modal content-->
+            <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
+                <div class="modal-body">
+                    <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
+                        <div class="email-optin-control">
+                            <iscontentasset aid="${pdict.popUpSettings.popupFormContentAssetIDUS}"/>
+                        </div>
+                        <div class="thankyou-note-control d-none">
+                            <iscontentasset aid="${pdict.popUpSettings.popupMessageContentAssetIDUS}"/>
+                        </div>
+                    <iselse/>
+                        <div class="email-optin-control">
+                            <iscontentasset aid="${pdict.popUpSettings.popupFormContentAssetID}"/>
+                        </div>
+                        <div class="thankyou-note-control d-none">
+                            <iscontentasset aid="${pdict.popUpSettings.popupMessageContentAssetID}"/>
+                        </div>
+                    </isif>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

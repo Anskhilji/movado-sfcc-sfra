@@ -16,6 +16,11 @@ function getPopUpSettings() {
             ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : null);
     popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
             ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : null);
+    // Content Asset Ids for US
+    popUpSettings.put('popupFormContentAssetIDUS', currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') 
+            ? currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') : null);
+    popUpSettings.put('popupMessageContentAssetIDUS', currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') 
+            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') : null);
 
     // Mute for Days and Wait Time
     popUpSettings.put('emailPopupMuteForDays', currentSite.getCustomPreferenceValue('emailPopupMuteForDays') 
