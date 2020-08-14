@@ -5,7 +5,8 @@
 
 <header class="new-header mvmt-header-design">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
-    <isif condition="${isEswEnabled}" >
+    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableLandingPage()}" >
         <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
         !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
@@ -20,12 +21,12 @@
                         <div class="p-0 nav-left main-menu desktop-menu">
                             <div class="d-none d-lg-inline-block">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
-                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <iscomment>Custom Start: Here it is not needed
                                 <isif condition="${isEswEnabled}" >
                                     <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
                                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                                 </isif>
-                                <iscomment> Custom End </iscomment>
+                                Custom End </iscomment>
                             </div>
                             <div class="d-flex w-100 mobile-logo d-lg-none ml-3">
                                 <div class="navbar-toggler menu-icon-mvmt-hamburger">
@@ -255,95 +256,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="mobile-nav">
-    <div class="mobile-search-nav">
-        <div class="mobile-search-button">
-            <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.787 12.752l-3.451-3.466a5.519 5.519 0 0 0 1.373-3.634C11.71 2.536 9.083 0 5.855 0 2.626 0 0 2.536 0 5.652c0 3.117 2.626 5.653 5.855 5.653a5.936 5.936 0 0 0 3.354-1.023l3.477 3.492c.146.146.341.226.55.226a.774.774 0 0 0 .53-.206.72.72 0 0 0 .021-1.042zM5.855 1.475c2.386 0 4.327 1.874 4.327 4.177 0 2.304-1.941 4.178-4.327 4.178S1.527 7.956 1.527 5.652c0-2.303 1.942-4.177 4.328-4.177z"></path>
-            </svg>
-            <input class="search-input-button" aria-label="search" type="text" placeholder="Search..." value="" disabled="" autocomplete="off" />
-        </div>
-    </div>
-
-    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
-
-    <div class="mobile-page-buttons">
-        <a href="${URLUtils.url('Account-Show')}" class="mobile-page-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="50.000000pt" height="50.000000pt" viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
-                <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                    <path d="M162 483 c-87 -31 -162 -138 -162 -233 0 -130 120 -250 250 -250 61 0 127 29 174 76 188 187 -11 496 -262 407z m141 -83 c34 -27 43 -71 22 -112 -15 -32 -15 -33 10 -51 31 -23 55 -67 55 -102 l0 -25 -140 0 -140 0 0 25 c0 35 24 79 55 102 25 18 25 19 10 51 -31 60 10 132 75 132 15 0 39 -9 53 -20z"/>
-                    <path d="M207 372 c-36 -40 -9 -102 45 -102 51 0 78 69 40 103 -24 22 -65 21 -85 -1z"/>
-                    <path d="M200 227 c-23 -12 -70 -71 -70 -88 0 -5 54 -9 120 -9 66 0 120 4 120 9 0 4 -10 23 -23 42 -37 55 -93 73 -147 46z"/>
-                </g>
-            </svg>
-            <span>${Resource.msg('label.header.account', 'common', null)}</span>
-        </a>
-        <a href="${URLUtils.url('Page-Show','cid','ca-faqs')}" class="mobile-page-icon">
-            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50.000000pt" height="50.000000pt" viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
-                <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                    <path d="M161 483 c-130 -47 -196 -210 -136 -337 74 -155 278 -191 399 -70 71
-                    71 93 193 51 278 -56 116 -195 173 -314 129z m155 -117 c48 -40 35 -115 -23
-                    -137 -14 -5 -23 -17 -23 -29 0 -15 -7 -20 -25 -20 -22 0 -25 4 -25 40 0 27 4
-                    40 14 40 8 0 24 8 36 18 17 13 21 24 16 40 -9 28 -42 29 -58 2 -15 -24 -58
-                    -27 -58 -4 0 66 92 97 146 50z m-42 -238 c8 -14 7 -21 -6 -34 -30 -30 -75 9
-                    -48 42 16 18 39 15 54 -8z"/>
-                </g>
-            </svg>
-            <span>${Resource.msg('label.header.faq', 'common', null)}</span>
-        </a>
-        <a href="#" class="mobile-page-icon">
-            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50.000000pt" height="50.000000pt" viewBox="0 0 50.000000 50.000000" preserveAspectRatio="xMidYMid meet">
-                <g transform="translate(0.000000,50.000000) scale(0.100000,-0.100000)"
-                fill="#000000" stroke="none">
-                <path d="M162 483 c-87 -31 -162 -138 -162 -233 0 -130 120 -250 250 -250 61
-                0 127 29 174 76 188 187 -11 496 -262 407z m109 -133 l44 -70 56 0 c64 0 91
-                -18 69 -45 -8 -10 -31 -15 -69 -15 l-56 0 -44 -70 c-29 -47 -49 -70 -62 -70
-                -23 0 -23 -5 1 65 11 32 20 62 20 67 0 15 -97 9 -110 -7 -20 -24 -43 -19 -34
-                8 10 28 10 46 0 75 -9 26 14 31 34 7 13 -16 110 -22 110 -7 0 5 -9 35 -20 67
-                -24 70 -24 65 -1 65 13 0 33 -23 62 -70z"/>
-                </g>
-            </svg>
-            <span>${Resource.msg('label.header.dropdown', 'common', null)}</span>
-        </a>
-    </div>
-
-    <ul class="mobile-static-nav">
-        <li class="mobile-category-item">
-            <button class="mobile-subnav-btn">${Resource.msg('label.button.about', 'common', null)}</button>
-            <ul class="mobile-collapse-nav">
-                <li class="menu-list-item">
-                    <a href="${URLUtils.url('Page-Show','cid','ca-contact-us')}" class="menu-item-link">${Resource.msg('label.header.contact', 'common', null)}</a>
-                </li>
-                <li class="menu-list-item">
-                    <a href="${URLUtils.url('Stores-Find', 'showMap', true, 'horizontalView', true, 'isForm', true)}" class="menu-item-link">${Resource.msg('label.header.find', 'common', null)}</a>
-                </li>
-                <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">${Resource.msg('label.header.insider', 'common', null)}</a>
-                </li>
-            </ul>
-        </li>
-        <li class="mobile-category-item">
-            <button class="mobile-subnav-btn">${Resource.msg('label.button.join', 'common', null)}</button>
-            <ul class="mobile-collapse-nav">
-                <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">${Resource.msg('label.button.join.insta', 'common', null)}</a>
-                </li>
-                <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">${Resource.msg('label.button.join.blog', 'common', null)}</a>
-                </li>
-                <li class="menu-list-item">
-                    <a href="#" class="menu-item-link">${Resource.msg('label.button.join.story', 'common', null)}</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div class="mobile-dropdown-logo">
-        <isslot id="brand-logo" description="Brand Logo" context="global" />
-    </div>
-    <iscontentasset aid="ca-needhelp-section" />
-    <iscontentasset aid="ca-footer-social-email" />
 </div>
 
 <div id="overlay"></div>

@@ -3,15 +3,13 @@
 ## eswCoreHelper.js
 - Line No: Start from 589 to 590
 - Line No: Start from 505 to 514
-- Line No: Start from 273 to 276
-- Line No: Start from 451 to 456
 - Line No: Start from 277 to 287
+- Line No: Start from 880 to 891
 
 ## serviceHelper.js
 - Line No: Start from 98 to 101
 - Line No: Start from 134 to 138
 - Line No: Start from 557 to 559
-- Line No: 375
 
 ## countries.json
 - Line No: Start from 1557 to 5155
@@ -27,7 +25,9 @@
 
 ## totals.js
 - Line No: 50
-- Line No: 194
 
-## eswHelper.js
-- Line No: 113
+## pageFooterESW.isml
+- Line No: 6
+
+## EShopWorld.js
+- Line No: Start from 62 to 149
