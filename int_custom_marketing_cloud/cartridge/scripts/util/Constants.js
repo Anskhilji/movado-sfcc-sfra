@@ -14,7 +14,8 @@ exports.SERVICE_ID = {
     BATCH_AUTH: 'mc.batch.auth.api',
     INSTANT_DATA: 'mc.instant.data.api',
     BATCH_DATA: 'mc.batch.data.api',
-    UPDATE_DATA: 'mc.update.event.api'
+    UPDATE_DATA: 'mc.update.event.api',
+    UPDATE_DATA_EU: 'mc.update.event.api.mvmteu'
 }
 exports.SFMC_SERVICE_API_TYPE = {
     CONTACT: 'CONTACT',

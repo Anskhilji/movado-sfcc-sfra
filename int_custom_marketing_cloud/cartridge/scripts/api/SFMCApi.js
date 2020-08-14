@@ -39,7 +39,11 @@ function sendSubscriberToSFMC(requestParams) {
             params.birthday = !empty(requestParams.birthday) ? requestParams.birthday : '';
             params.gender = !empty(requestParams.gender) ? requestParams.gender : '';
             params.phoneNumber = !empty(requestParams.phoneNumber) ? requestParams.phoneNumber : '';
-            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            if (Site.current.ID === 'MVMTUS') {
+                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            } else {
+                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA_EU, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            }
             result = SFMCAPIHelper.updateEvent(params, service);
         } else {
             var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
