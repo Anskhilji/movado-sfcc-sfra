@@ -6,68 +6,81 @@
 
             .main-widget.yotpo-display-wrapper {
 
+                .yotpo-review.yotpo-regular-box-filters-padding {
+                    border-bottom: none;
+                }
+
+                .yotpo-reviews-header {
+
+                    .reviews-amount {
+                        font-size: rem(14) !important;
+                        line-height: rem(18) !important;
+                        font-family: Futura-pt,arial,sans-serif !important;
+                        font-weight: 500 !important;
+                        color: #5c5c5c !important;
+                        display: none;
+
+                        @include media-breakpoint-up(md) {
+                            display: block;
+                        }
+                    }
+                }
+
                 .yotpo-review.yotpo-regular-box {
-                    text-size-adjust: 100%;
-                    direction: LTR;
-                    text-align: left;
-                    visibility: visible !important;
-                    letter-spacing: 1.5px;
-                    font-family: David;
-                    -webkit-font-smoothing: antialiased;
-                    font-style: normal !important;
-                    font-size: 14px;
-                    line-height: 17px;
-                    color: #6A6C77;
-                    border: none;
-                    box-sizing: border-box;
-                    margin: 0 rem(10);
-                    border-top: rem(1) solid #e3e3e3;
                     display: flex;
                     flex-wrap: wrap;
                     position: relative;
                     padding: rem(25) 0 rem(22) !important;
-                    
+                    letter-spacing: rem(1.5);
+                    border-bottom: none;
+
                     .yotpo-main {
                         margin-left: 0 !important;
                         position: relative;
                         width: 100%;
                         content: "";
 
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            top: rem(-10);
+                            left: rem(-50);
+                            height: calc(100% + 40px);
+                            width: rem(1);
+                            background: #e8e8e8;
+                        }
+
+                        @include media-breakpoint-up(md) {
+                            width: 80%;
+                        }
+
                         .content-title {
-                            text-size-adjust: 100%;
-                            visibility: visible !important;
-                            -webkit-font-smoothing: antialiased;
-                            font-style: normal !important;
-                            border: none;
-                            padding: 0;
-                            margin: 0;
-                            box-sizing: border-box;
-                            font-size: 14px;
-                            line-height: 20px;
-                            letter-spacing: 1.25px;
-                            font-family: Futura-pt,arial,sans-serif!important;
-                            font-weight: 500!important;
-                            color: #000!important;
+                            line-height: rem(20);
+                            letter-spacing: rem(1.25);
+                            font-family: Futura-pt,arial,sans-serif !important;
+                            color: $black !important;
                             text-transform: uppercase;
                             width: 100%;
-                            max-width: 660px;
-                            display: inline-block;
-                            float: left;
-                            padding-bottom: 5px;
+                            max-width: rem(660);
+
+                            @include media-breakpoint-up(md) {
+                                font-size: rem(22);
+                                line-height: rem(24);
+                                letter-spacing: rem(2.29);
+                            }
                         }
 
                         .yotpo-review-wrapper {
                             width: 100%;
-                            max-width: 660px;
+                            max-width: rem(660);
                             
                             .content-review {
-                                font-size: 14px;
-                                line-height: 18px;
+                                font-size: rem(14);
+                                line-height: rem(18);
                                 letter-spacing: 0;
-                                font-family: Futura-pt,arial,sans-serif!important;
-                                font-weight: 500!important;
-                                color: #5c5c5c!important;
-                                background-color: transparent!important;
+                                font-family: Futura-pt,arial,sans-serif !important;
+                                color: #5c5c5c !important;
+                                background-color: transparent !important;
                             }
 
                         }
@@ -78,31 +91,21 @@
                         padding-left: 0;
                         min-height: rem(50);
                         position: unset !important;
+
+                        @include media-breakpoint-up(md) {
+                            padding-left: rem(10);
+                            min-height: rem(110);
+                        }
                         
                         .yotpo-icon-profile {
                             display: none !important;
                         }
 
                         &-element {
-                            text-size-adjust: 100%;
-                            direction: LTR;
-                            text-align: left;
-                            visibility: visible !important;
-                            letter-spacing: 1.5px;
-                            font-family: David;
-                            -webkit-font-smoothing: antialiased;
-                            font-style: normal !important;
-                            font-size: 14px;
-                            line-height: 17px;
-                            color: #6A6C77;
-                            border: none;
-                            padding: 0;
-                            margin: 0;
-                            box-sizing: border-box;
                             flex-wrap: wrap;
-                            padding-top: 2px;
-                            display: inline-block;
-                            vertical-align: top;
+                            padding-top: rem(2);
+                            color: #6A6C77;
+
 
                             &.yotpo-header-actions {
                                 display: none !important;
@@ -112,77 +115,30 @@
                             }
 
                             .y-label.yotpo-user-name {
-                                text-size-adjust: 100%;
-                                direction: LTR;
-                                visibility: visible !important;
-                                -webkit-font-smoothing: antialiased;
-                                font-style: normal !important;
-                                border: none;
-                                margin: 0;
-                                box-sizing: border-box;
-                                text-align: start;
-                                display: inline-block;
-                                width: 100%;
-                                font-size: 11px!important;
-                                line-height: 12px!important;
-                                letter-spacing: 1.38px!important;
-                                color: #000!important;
+                                font-size: rem(11) !important;
+                                line-height: rem(12) !important;
+                                letter-spacing: rem(1.38) !important;
+                                color: $black !important;
                                 text-transform: uppercase;
-                                margin-bottom: 2px;
-                                max-width: 100%!important;
-                                float: left;
-                                margin-right: 5px;
-                                font-family: Futura-pt,arial,sans-serif!important;
-                                font-weight: 500!important;
-                                min-width: 0px;
-                                padding: 0px;
-                                vertical-align: top;
+                                margin-bottom: rem(2);
+                                max-width: 100% !important;
+                                font-family: Futura-pt,arial,sans-serif !important;
+
+                                @include media-breakpoint-up(md) {
+                                    max-width: 100%!important;
+                                }
+
                             }
 
-                            .label-with-tooltip {
-                                text-size-adjust: 100%;
-                                direction: LTR;
-                                visibility: visible !important;
-                                letter-spacing: 1.5px;
-                                font-family: David;
-                                -webkit-font-smoothing: antialiased;
-                                font-style: normal !important;
-                                font-size: 14px;
-                                line-height: 17px;
-                                color: #6A6C77;
-                                border: none;
-                                padding: 0;
-                                margin: 0;
-                                box-sizing: border-box;
-                                text-align: left;
-                                float: left;
+                            .yotpo-review-stars {
+                                width: 100%;
 
-                                .yotpo-user-title {
-                                    text-size-adjust: 100%;
-                                    direction: LTR;
-                                    visibility: visible !important;
-                                    -webkit-font-smoothing: antialiased;
-                                    font-style: normal !important;
-                                    border: none;
-                                    margin: 0;
-                                    box-sizing: border-box;
-                                    text-align: start;
-                                    display: inline-block;
-                                    float: none;
-                                    width: 100%;
-                                    font-size: 9px!important;
-                                    line-height: 15px!important;
-                                    letter-spacing: .9px!important;
-                                    color: #a2a09f!important;
-                                    text-transform: uppercase;
-                                    font-family: Futura-pt,arial,sans-serif!important;
-                                    font-weight: 500!important;
-                                    min-width: 0px;
-                                    padding: 0px;
-                                    vertical-align: top;
-                                    background: none;
+                                .yotpo-icon-star {
+                                    color: #f7dd52 !important;
+                                    margin-bottom: rem(10);
                                 }
                             }
+
                         }
                     }
 
@@ -203,7 +159,11 @@
 
                                 .y-label {
                                     font-family: Futura-pt,arial,sans-serif !important;
-                                    font-weight: 500 !important;
+                                    font-size: rem(9) !important;
+                                    line-height: rem(12) !important;
+                                    letter-spacing: rem(1.12)  !important;
+                                    text-transform: uppercase !important;
+                                    color: $black !important;
                                 }
 
                                 .yotpo-icon-seperator {
@@ -220,12 +180,11 @@
                             right: 0;
 
                             .yotpo-review-date {
-                                font-family: Futura-pt,arial,sans-serif!important;
-                                font-weight: 500!important;
-                                font-size: 9px!important;
-                                line-height: 15px!important;
-                                letter-spacing: .9px!important;
-                                color: #a2a09f!important;
+                                font-family: Futura-pt,arial,sans-serif !important;
+                                font-size: rem(9)!important;
+                                line-height: rem(15)!important;
+                                letter-spacing: rem(.9) !important;
+                                color: #a2a09f !important;
                             }
                         }
 
@@ -233,19 +192,17 @@
 
                             .label-helpful {
                                 font-family: Futura-pt,arial,sans-serif !important;
-                                font-weight: 500 !important;
                             }
 
                             .yotpo-icon-btn-small {
 
-                                .yotpo-icon {
+                                .yotpo-icon { 
                                     color: $black !important;
                                     font-size: rem(12);
                                 }
 
                                 .vote-sum {
                                     font-family: Futura-pt,arial,sans-serif !important;
-                                    font-weight: 500 !important;
                                     font-size: rem(9) !important;
                                     line-height: rem(12) !important;
                                     letter-spacing: rem(1.12) !important;
@@ -256,6 +213,20 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+.yotpo-bottomline-top-div {
+
+    .standalone-bottomline {
+
+        .yotpo-stars {
+
+            .yotpo-icon-star {
+                color: #f7dd52 !important;
+                margin-bottom: 0.625rem;
             }
         }
     }
