@@ -459,6 +459,22 @@ var getEswHelper = {
         return price;
     },
     /*
+    * This function is used to get shipping discount if it exist
+    */
+    getShippingDiscount: function (cart) {
+        var totalDiscount = 0;
+        var that = this;
+        if (cart != null) {
+            cart.defaultShipment.shippingPriceAdjustments.toArray().forEach(function (adjustment) {
+                totalDiscount += that.getMoneyObject(adjustment.price, true, false, true).value;
+            });
+        }
+        if (totalDiscount < 0) {
+            totalDiscount *= -1;
+        }
+        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
+    },
+    /*
      * This function is used to get total of cart or productlineitems based on input
      */
     getSubtotalObject: function (cart, isCart, listPrice) {
