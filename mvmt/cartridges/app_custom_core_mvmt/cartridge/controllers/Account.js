@@ -75,25 +75,25 @@ server.prepend(
 
         Transaction.wrap(function () {
             authenticateCustomerResult = CustomerMgr.authenticateCustomer(email, password);
-		});
+        });
 		
-		customer = CustomerMgr.getCustomerByLogin(email);
-        legacyCustomer = customer.profile.custom.legacyCustomer;
-		if (legacyCustomer) {
-			if (authenticateCustomerResult.status == 'AUTH_OK') {
-				Transaction.wrap(function () {
-					customer.profile.custom.legacyCustomer = false;
-				});
-			} else {
-				session.custom.legecyCustomerEmail = email;
-				res.json({
-					success: true,
-					redirectUrl:  URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
-				});
-				this.emit('route:Complete', req, res);
-				return;
-			}
-		}
+        customer = CustomerMgr.getCustomerByLogin(email);
+        legacyCustomer = !empty(customer.profile.custom.legacyCustomer) ? customer.profile.custom.legacyCustomer : false;
+        if (legacyCustomer) {
+            if (authenticateCustomerResult.status == 'AUTH_OK') {
+                Transaction.wrap(function () {
+                    customer.profile.custom.legacyCustomer = false;
+                });
+            } else {
+                session.custom.legecyCustomerEmail = email;
+                res.json({
+                    success: true,
+                    redirectUrl:  URLUtils.url('Page-Show','cid', 'legacy-customer-reset-password').toString()
+                });
+                this.emit('route:Complete', req, res);
+                return;
+            }
+        }
         return next();
     }
 );
