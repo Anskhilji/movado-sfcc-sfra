@@ -155,7 +155,6 @@
             marketingProducts = JSON.parse(e.cartMarketingData);
             dataLayer.push({'event':'marketingProducts', 'marketingProducts': marketingProducts});
             if (e.addToCartPerSession) {
-                marketingProducts = JSON.parse(e.cartMarketingData);
                 dataLayer.push({'event':'addToCartPerSession', 'marketingProducts': marketingProducts});
                 e.addToCartPerSession = null;
             }
