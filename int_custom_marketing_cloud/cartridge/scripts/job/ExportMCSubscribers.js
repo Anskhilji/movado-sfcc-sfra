@@ -49,11 +49,7 @@ function exportAllSavedSubscribers() {
                     var result;
                     var service;
 
-                    if (Site.current.ID === 'MVMTUS') {
-                        service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
-                    } else {
-                        service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA_EU, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
-                    }
+                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
                     var payload = JSON.parse(subscriber.custom.mcPayload);
                     params.email = !empty(payload.email) ? payload.email : '';
                     params.country = !empty(payload.country) ? payload.country : '';

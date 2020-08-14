@@ -62,6 +62,10 @@ function getDataAPIService(serviceID, endpoint, serviceType) {
     if (Site.current.preferences.custom.isSiteRunOnTestModel) {
         dataService = customStorefrontHelpers.setTestModeCredentials(dataService);
     } 
+    if (Site.current.ID === 'MVMTEU') {
+        var credentialID = dataService.getConfiguration().getCredential().ID;
+        dataService = dataService.setCredentialID(credentialID + '.mvmteu');
+    }
     // Custom End 
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var url = baseUrl.toString();
