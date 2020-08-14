@@ -1,9 +1,16 @@
+/**
+ * Overriding emailPopUpHelper.js to 
+ *  add US Country check
+ *  Check if US popUps are enabled
+ */
 var Site = require('dw/system/Site');
 var Util = require('dw/util');
 var Logger = require('dw/system/Logger');
 var currentSite = Site.getCurrent();
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var ContentMgr = require('dw/content/ContentMgr');
+var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+
 /**
  * Gets all pop up settings from custom preferences
  */
@@ -11,11 +18,20 @@ function getPopUpSettings() {
 
     var popUpSettings = new Util.HashMap();
 
-    // Content Asset Ids
-    popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
+
+    // Content Asset Ids for US
+    if (isUSCountry()) { 
+        popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') 
+            ? currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') : null);
+        popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') 
+            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') : null);
+    } else {
+            // Content Asset Ids
+        popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
             ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : null);
-    popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
+        popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
             ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : null);
+    }
 
     // Mute for Days and Wait Time
     popUpSettings.put('emailPopupMuteForDays', currentSite.getCustomPreferenceValue('emailPopupMuteForDays') 
@@ -63,23 +79,46 @@ function getPopUpSettings() {
     return popUpSettings;
 }
 
-/*
- * Checks if popUp is enabled for current page 
- * and gives pipeline higher priority if available
+/**
+ * Checks if current country is US
+ * @returns {boolean}
  */
-function isWhiteListed(pipeline, seoURL , request) {
-
-    var isWhitelistedPipeline = currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines') 
-                                ? currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines').indexOf(pipeline) : -1;
-    var relativeURL = seoURL && request.locale && request.locale.id ? ( seoURL.split(request.locale.id)[1] ? seoURL.split(request.locale.id)[1] 
-                      : ( request.locale.id.toString().split('_')[0] ? seoURL.split(request.locale.id.toString().split('_')[0])[1] : null)) : null;
-    var isWhitelistedURL = currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls') 
-                           ? currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls').indexOf(relativeURL) : -1;
-    if ( (isWhitelistedPipeline > -1 && isWhitelistedPipeline != null) || (isWhitelistedURL > -1 && isWhitelistedURL != null) ) {
-        return true;
-    } else {
-        return false;
+function isUSCountry() {
+    var isUSCountry =false
+    var selectedCountryCode = eswHelper.getAvailableCountry();
+    if (selectedCountryCode.equalsIgnoreCase('US')) {
+        isUSCountry = true;
     }
+    return isUSCountry;
+}
+
+/*
+ * Check if content Assets are online
+ */
+function isContentAssetEnabled() {
+
+    var popupFormContentAssetID;
+    var popupMessageContentAssetID;
+    if (isUSCountry()) {
+        popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS')
+            ? currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') : false;
+        popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS')
+            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') : false;
+    } else { 
+        popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
+            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : false;
+        popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
+            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : false;
+    }
+    if (popupFormContentAssetID && popupMessageContentAssetID) {
+        var popupFormContentAsset = ContentMgr.getContent(popupFormContentAssetID);
+        var popupMessageContentAsset = ContentMgr.getContent(popupMessageContentAssetID);
+        if (popupFormContentAsset && popupMessageContentAsset && popupFormContentAsset.online &&  popupMessageContentAsset.online &&
+                !empty(popupFormContentAsset.custom.body) && !empty(popupMessageContentAsset.custom.body) ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
@@ -100,24 +139,23 @@ function isEmailPopUpEnabled () {
     }
     return false;
 }
-
 /*
- * Check if content Assets are online
+ * Checks if popUp is enabled for current page 
+ * and gives pipeline higher priority if available
  */
-function isContentAssetEnabled () {
-    var popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : false;
-    var popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : false;
-    if (popupFormContentAssetID && popupMessageContentAssetID) {
-        var popupFormContentAsset = ContentMgr.getContent(popupFormContentAssetID);
-        var popupMessageContentAsset = ContentMgr.getContent(popupMessageContentAssetID);
-        if (popupFormContentAsset && popupMessageContentAsset && popupFormContentAsset.online &&  popupMessageContentAsset.online &&
-                !empty(popupFormContentAsset.custom.body) && !empty(popupMessageContentAsset.custom.body) ) {
-            return true;
-        }
+function isWhiteListed(pipeline, seoURL , request) {
+
+    var isWhitelistedPipeline = currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines') 
+                                ? currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines').indexOf(pipeline) : -1;
+    var relativeURL = seoURL && request.locale && request.locale.id ? ( seoURL.split(request.locale.id)[1] ? seoURL.split(request.locale.id)[1] 
+                      : ( request.locale.id.toString().split('_')[0] ? seoURL.split(request.locale.id.toString().split('_')[0])[1] : null)) : null;
+    var isWhitelistedURL = currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls') 
+                           ? currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls').indexOf(relativeURL) : -1;
+    if ( (isWhitelistedPipeline > -1 && isWhitelistedPipeline != null) || (isWhitelistedURL > -1 && isWhitelistedURL != null) ) {
+        return true;
+    } else {
+        return false; 
     }
-    return false;
 }
 
 function checkPopupQualifications (req) {
@@ -153,7 +191,9 @@ function checkPopupQualifications (req) {
     }
 }
 
+
 module.exports.getPopUpSettings = getPopUpSettings;
 module.exports.isWhiteListed = isWhiteListed;
 module.exports.isEmailPopUpEnabled = isEmailPopUpEnabled;
 module.exports.checkPopupQualifications = checkPopupQualifications;
+
