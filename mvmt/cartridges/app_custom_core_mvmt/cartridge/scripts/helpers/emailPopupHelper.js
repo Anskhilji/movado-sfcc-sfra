@@ -3,6 +3,8 @@
  *  add US Country check
  *  Check if US popUps are enabled
  */
+'use strict';
+var movadoEmailPopUpHelper = module.superModule;
 var Site = require('dw/system/Site');
 var Util = require('dw/util');
 var Logger = require('dw/system/Logger');
@@ -10,11 +12,10 @@ var currentSite = Site.getCurrent();
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var ContentMgr = require('dw/content/ContentMgr');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-
 /**
  * Gets all pop up settings from custom preferences
  */
-function getPopUpSettings() {
+movadoEmailPopUpHelper.getPopUpSettings =  function getPopUpSettings() {
 
     var popUpSettings = new Util.HashMap();
 
@@ -95,7 +96,7 @@ function isUSCountry() {
 /*
  * Check if content Assets are online
  */
-function isContentAssetEnabled() {
+ function isContentAssetEnabled() {
 
     var popupFormContentAssetID;
     var popupMessageContentAssetID;
@@ -125,7 +126,8 @@ function isContentAssetEnabled() {
  * Checks if popUp is enabled or disabled
  * Custom preference has higher priority i.e if disabled popup will not show.
  * */
-function isEmailPopUpEnabled () {
+
+movadoEmailPopUpHelper.isEmailPopUpEnabled =  function isEmailPopUpEnabled () {
     var emailPopupEnabled = currentSite.getCustomPreferenceValue('emailPopupEnabled');
     if (emailPopupEnabled) {
         var campaignId = currentSite.getCustomPreferenceValue('popupCampaignID');
@@ -139,40 +141,22 @@ function isEmailPopUpEnabled () {
     }
     return false;
 }
-/*
- * Checks if popUp is enabled for current page 
- * and gives pipeline higher priority if available
- */
-function isWhiteListed(pipeline, seoURL , request) {
 
-    var isWhitelistedPipeline = currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines') 
-                                ? currentSite.getCustomPreferenceValue('emailPopupWhitelistPipelines').indexOf(pipeline) : -1;
-    var relativeURL = seoURL && request.locale && request.locale.id ? ( seoURL.split(request.locale.id)[1] ? seoURL.split(request.locale.id)[1] 
-                      : ( request.locale.id.toString().split('_')[0] ? seoURL.split(request.locale.id.toString().split('_')[0])[1] : null)) : null;
-    var isWhitelistedURL = currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls') 
-                           ? currentSite.getCustomPreferenceValue('emailPopupWhitelistUrls').indexOf(relativeURL) : -1;
-    if ( (isWhitelistedPipeline > -1 && isWhitelistedPipeline != null) || (isWhitelistedURL > -1 && isWhitelistedURL != null) ) {
-        return true;
-    } else {
-        return false; 
-    }
-}
-
-function checkPopupQualifications (req) {
+movadoEmailPopUpHelper.checkPopupQualifications =  function checkPopupQualifications (req) {
     var isPopUpEnabled;
     var popUpSettings;
     try {
         var seoURL = req.httpHeaders.get('x-is-path_translated');
         var pipeline = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;
-        isPopUpEnabled = isEmailPopUpEnabled();
+        isPopUpEnabled = movadoEmailPopUpHelper.isEmailPopUpEnabled();
         if (isPopUpEnabled) {
-            isPopUpEnabled = isWhiteListed(pipeline, seoURL, req);
+            isPopUpEnabled = movadoEmailPopUpHelper.isWhiteListed(pipeline, seoURL, req);
             if (!session.custom.emailOptInViewed) {
                 session.custom.emailOptInViewed = false;
             } else {
                 isPopUpEnabled = false;
             }
-            popUpSettings = getPopUpSettings();
+            popUpSettings = movadoEmailPopUpHelper.getPopUpSettings();
         }
         var response = {
                 isEmailPopUpEnabled: isPopUpEnabled,
@@ -191,9 +175,5 @@ function checkPopupQualifications (req) {
     }
 }
 
-
-module.exports.getPopUpSettings = getPopUpSettings;
-module.exports.isWhiteListed = isWhiteListed;
-module.exports.isEmailPopUpEnabled = isEmailPopUpEnabled;
-module.exports.checkPopupQualifications = checkPopupQualifications;
+module.exports = movadoEmailPopUpHelper;
 
