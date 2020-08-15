@@ -4,7 +4,6 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 
 var server = require('server');
 var page = module.superModule;
@@ -36,12 +35,10 @@ server.append(
     consentTracking.consent,
     csrfProtection.generateToken,
     function (req, res, next) { 
-        if (eswCustomHelper.isEshopworldModuleEnabled()) {
-            var countrySwitch = customCartHelpers.getCountrySwitch();
+        var countrySwitch = customCartHelpers.getCountrySwitch();
 
-            if (countrySwitch && !empty(countrySwitch)) {
-                res.viewData.countrySwitch = countrySwitch;
-            }
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
         }
         next();
     }
@@ -53,12 +50,10 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    if (eswCustomHelper.isEshopworldModuleEnabled()) {
-        var countrySwitch = customCartHelpers.getCountrySwitch();
+    var countrySwitch = customCartHelpers.getCountrySwitch();
 
-        if (countrySwitch && !empty(countrySwitch)) {
-            res.viewData.countrySwitch = countrySwitch;
-        }
+    if (countrySwitch && !empty(countrySwitch)) {
+        res.viewData.countrySwitch = countrySwitch;
     }
 
     var productLineItems = currentBasket.productLineItems.iterator();
