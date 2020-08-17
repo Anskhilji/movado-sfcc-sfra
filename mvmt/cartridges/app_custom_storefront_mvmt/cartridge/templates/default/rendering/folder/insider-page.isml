@@ -11,5 +11,7 @@
         <div class="container-fluid">
             <h1>Insider</h1>
         </div>
+        <isslot id="mvmt-insider-slot1" description="MVMT slot 1" context="global"/>
+        <isslot id="mvmt-insider-slot2" description="MVMT slot 1" context="global"/>
     </main>
 </isdecorate>
