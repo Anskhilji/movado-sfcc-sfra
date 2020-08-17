@@ -899,8 +899,17 @@ function getMarketingProducts(apiProduct, quantity) {
         }
 
         var productCategory = '';
-        if (apiProduct.allCategoryAssignments.length > 0) {
-            productCategory = apiProduct.allCategoryAssignments[0].category.displayName;
+        var apiCategories;
+
+        if (apiProduct.getOnlineCategories().length > 0) {
+            apiCategories = apiProduct.getOnlineCategories();
+            productCategory = apiCategories[apiCategories.length-1].displayName;
+        }
+
+        if (empty(productCategory) && apiProduct.variant &&
+            apiProduct.variationModel.master.getOnlineCategories().length > 0) {
+                apiCategories = apiProduct.variationModel.master.getOnlineCategories();
+                productCategory = apiCategories[apiCategories.length-1].displayName;
         }
 
         marketingProductData = {

@@ -759,7 +759,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.variant = variants;
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
-            produtObj.description = productLineItem.product.shortDescription.markup;
+            produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
             produtObj.productType = productHelper.getProductType(productLineItem.product);
             produtObj.imageURL = productLineItem.product.image.absURL;
             produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
