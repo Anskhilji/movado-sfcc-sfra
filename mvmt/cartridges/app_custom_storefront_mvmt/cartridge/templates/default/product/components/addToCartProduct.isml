@@ -30,12 +30,14 @@
                     <iselse>
                         ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
-                    <span class="product-price-mobile ${pdict.display.plpTile ? 'd-none' : ''}"> 
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder">
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                    </span>
+                    <isif condition="${!pdict.isPLPProduct}"> 
+                        <span class="product-price-mobile"> 
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <div class="add-to-cart-price-holder specific">
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                        </span>
+                    </isif>
             </button>
             <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
             <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
@@ -60,12 +62,14 @@
                     <iselse>
                         ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
-                    <span class="product-price-mobile ${pdict.display.plpTile ? 'd-none' : ''}"> 
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder} ">
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                    </span>
+                    <isif condition="${!pdict.isPLPProduct}">
+                        <span class="product-price-mobile"> 
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <div class="add-to-cart-price-holder} ">
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                        </span>
+                    </isif>
             </button>
 	    <iselse>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
