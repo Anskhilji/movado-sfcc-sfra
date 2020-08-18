@@ -676,7 +676,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
             return next();
         }
-        session.custom.orderNumber = order.orderNo;
 
         // Handles payment authorization
         var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
@@ -868,6 +867,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 			
             // Custom End
 
+            session.custom.orderNumber = order.orderNo;
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();
@@ -927,6 +927,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             }
             // Custom End 
             
+            session.custom.orderNumber = order.orderNo;
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
 
             return next();
@@ -941,7 +942,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
                 return next();
             }
-            session.custom.orderNumber = order.orderNo;
 
             // Handles payment authorization
             var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);

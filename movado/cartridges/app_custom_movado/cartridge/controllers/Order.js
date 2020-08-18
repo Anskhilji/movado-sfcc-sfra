@@ -275,6 +275,9 @@ server.append('Confirm', function (req, res, next) {
         viewData.selectedPaymentMethod = selectedPaymentMethod;
     }
     res.setViewData(viewData);
+    if (!empty(session.custom.orderNumber)) {
+        session.custom.orderNumber = '';
+    }
     next();
 });
 
