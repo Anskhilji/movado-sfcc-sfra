@@ -47,7 +47,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         resources: showProductPageHelperResult.resources,
         breadcrumbs: showProductPageHelperResult.breadcrumbs
     };
-
+    var display = {
+        plpTile : false
+    }
+    viewData.display = display;
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);

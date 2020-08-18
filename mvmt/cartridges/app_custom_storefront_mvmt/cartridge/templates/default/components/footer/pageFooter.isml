@@ -3,7 +3,6 @@
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
 
     <div class="banner-with-contents">
         <iscontentasset aid="footer-banner" />

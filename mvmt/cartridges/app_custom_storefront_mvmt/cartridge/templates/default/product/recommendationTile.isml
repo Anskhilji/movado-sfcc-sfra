@@ -28,9 +28,6 @@
             <isinclude template="product/components/pricing/main" />
         </isif>
         <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
-        <isif condition="${!pdict.isCompareableDisabled}"> 
-            <isinclude template="product/components/compare" />
-        </isif>
         <isif condition="${product.promotions}">
             <div class="promotions">
                 <isloop items="${product.promotions}" var="promotion" status ="promoStatus">

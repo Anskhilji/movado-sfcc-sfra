@@ -9,16 +9,10 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
 
     <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
-    <isif condition="${!empty(sitePref.enableSmartGift)}">
-        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
-            <script>
-                (function (d,g,e,c,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
-                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}');
-            </script>
-        </isif>
+    <isif condition="${sitePref.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
@@ -36,7 +30,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    <isinclude template="product/components/showCartButtonProduct" />
                 </div>
             </div>
         </section>
@@ -117,17 +111,12 @@
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                <isinclude template="product/components/showCartButtonProduct" />
 
                                 <isif condition="${product.shortDescription}">
                                     <div class="d-none d-md-flex justify-content-center content mb-2" itemprop="description">
                                         <isprint value="${product.shortDescription}" encoding="off" />
                                     </div>
-                                </isif>
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>
                                 </isif>
                             </div>
                         </div>
