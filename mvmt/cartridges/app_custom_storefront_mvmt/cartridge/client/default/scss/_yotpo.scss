@@ -15,9 +15,9 @@
                     .reviews-amount {
                         font-size: rem(14) !important;
                         line-height: rem(18) !important;
-                        font-family: Futura-pt,arial,sans-serif !important;
+                        font-family: $font-bold !important;
                         font-weight: 500 !important;
-                        color: #5c5c5c !important;
+                        color: $light-gray !important;
                         display: none;
 
                         @include media-breakpoint-up(md) {
@@ -26,7 +26,7 @@
                     }
                 }
 
-                .yotpo-review.yotpo-regular-box {
+                .yotpo-review.yotpo-regular-box { 
                     display: flex;
                     flex-wrap: wrap;
                     position: relative;
@@ -47,7 +47,7 @@
                             left: rem(-50);
                             height: calc(100% + 40px);
                             width: rem(1);
-                            background: #e8e8e8;
+                            background: $light-gray4;
                         }
 
                         @include media-breakpoint-up(md) {
@@ -57,7 +57,7 @@
                         .content-title {
                             line-height: rem(20);
                             letter-spacing: rem(1.25);
-                            font-family: Futura-pt,arial,sans-serif !important;
+                            font-family: $font-bold !important;
                             color: $black !important;
                             text-transform: uppercase;
                             width: 100%;
@@ -78,8 +78,8 @@
                                 font-size: rem(14);
                                 line-height: rem(18);
                                 letter-spacing: 0;
-                                font-family: Futura-pt,arial,sans-serif !important;
-                                color: #5c5c5c !important;
+                                font-family: $font-bold !important;
+                                color: $light-gray !important;
                                 background-color: transparent !important;
                             }
 
@@ -104,8 +104,7 @@
                         &-element {
                             flex-wrap: wrap;
                             padding-top: rem(2);
-                            color: #6A6C77;
-
+                            color: $comet;
 
                             &.yotpo-header-actions {
                                 display: none !important;
@@ -122,7 +121,7 @@
                                 text-transform: uppercase;
                                 margin-bottom: rem(2);
                                 max-width: 100% !important;
-                                font-family: Futura-pt,arial,sans-serif !important;
+                                font-family: $font-bold !important;
 
                                 @include media-breakpoint-up(md) {
                                     max-width: 100%!important;
@@ -134,7 +133,7 @@
                                 width: 100%;
 
                                 .yotpo-icon-star {
-                                    color: #f7dd52 !important;
+                                    color: $deep-orange-yellow !important;
                                     margin-bottom: rem(10);
                                 }
                             }
@@ -158,7 +157,7 @@
                                 }
 
                                 .y-label {
-                                    font-family: Futura-pt,arial,sans-serif !important;
+                                    font-family: $font-bold !important;
                                     font-size: rem(9) !important;
                                     line-height: rem(12) !important;
                                     letter-spacing: rem(1.12)  !important;
@@ -180,18 +179,18 @@
                             right: 0;
 
                             .yotpo-review-date {
-                                font-family: Futura-pt,arial,sans-serif !important;
-                                font-size: rem(9)!important;
-                                line-height: rem(15)!important;
+                                font-family: $font-bold !important;
+                                font-size: rem(9) !important;
+                                line-height: rem(15) !important;
                                 letter-spacing: rem(.9) !important;
-                                color: #a2a09f !important;
+                                color: $grey-chateau !important;
                             }
                         }
 
                         .yotpo-helpful {
 
                             .label-helpful {
-                                font-family: Futura-pt,arial,sans-serif !important;
+                                font-family: $font-bold !important;
                             }
 
                             .yotpo-icon-btn-small {
@@ -202,7 +201,7 @@
                                 }
 
                                 .vote-sum {
-                                    font-family: Futura-pt,arial,sans-serif !important;
+                                    font-family: $font-bold !important;
                                     font-size: rem(9) !important;
                                     line-height: rem(12) !important;
                                     letter-spacing: rem(1.12) !important;
@@ -225,7 +224,7 @@
         .yotpo-stars {
 
             .yotpo-icon-star {
-                color: #f7dd52 !important;
+                color: $deep-orange-yellow !important;
                 margin-bottom: 0.625rem;
             }
         }
