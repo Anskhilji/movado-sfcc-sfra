@@ -8,42 +8,33 @@
     <isset name="isPage" value="contactUs" scope="page" />
     <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.company.info', 'eum', null))}"/>
     <main role="main" id="main" class="pt_customerservice">
-        <div class="container-fluid">
-            <h1>Insider</h1>
-        </div>
-        <isslot id="mvmt-insider-slot1" description="MVMT slot 1" context="global"/>
-        <isslot id="mvmt-insider-slot2" description="MVMT slot 1" context="global"/>
+
+        <isslot id="mvmt-insider-slot1" description="MVMT insider slot 1" context="global"/>
         <div class="insider-main-wrapper">
             <div class="insider-main-inner">
                 <div class="insider-earn-points-container insider-sidebar">
-                    <h2 class="insider-earn-points-header">Earn Points, Get&nbsp;Rewards</h2>
-                    <p class="insider-copy">For every $1 spent, 1 point will be added to your Point Balance. Each point will go towards unlocking store credit, and points never expire. And it’s not just purchasing that can earn you points. Check out the 10 easy ways to earn points now!</p>
-                    <p class="insider-copy">At checkout, you'll be able to decide how many points you want to apply to your order.</p>
-                    <div class="insider-sidebar-button">
-                        <a href="/account?view=mvmt-insider">
-                            <button type="button" class="button button--black-gradient insider-earn-points-button"><span>Check your points</span></button>
-                        </a>
-                    </div>
+                    <isslot id="mvmt-insider-slot2" description="MVMT insider slot 2" context="global"/>
                 </div>
                 <div class="insider-main">
-
-        <div class="justify-content-center insider-list mt-4">
-            <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
-        </div>
-        <div class="justify-content-center insider-list">
-            <isslot id="swell-referral-campaign" description="Swell Referral Campaign" context="global" />
-        </div>
-        <div class="justify-content-center insider-list">
-            <isslot id="swell-campaign-selected-list" description="Swell Campaign Selected List" context="global" />
-        </div>
-        <div class="justify-content-center insider-list" id="get-reward">
-            <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
-        </div>
-        <div class="justify-content-center insider-list">
-            <isslot id="swell-how-to-redeem-static" description="Swell How To Redeem Static Slot" context="global" />
-        </div>
+                    <div class="justify-content-center insider-list mt-4">
+                        <isslot id="swell-compaign-list" description="Swell Campaigns List" context="global" />
+                    </div>
+                    <div class="justify-content-center insider-list">
+                        <isslot id="swell-referral-campaign" description="Swell Referral Campaign" context="global" />
+                    </div>
+                    <div class="justify-content-center insider-list">
+                        <isslot id="swell-campaign-selected-list" description="Swell Campaign Selected List" context="global" />
+                    </div>
+                    <div class="justify-content-center insider-list" id="get-reward">
+                        <isslot id="swell-campaign-rewards-list" description="Swell Campaign Reward List" context="global" />
+                    </div>
+                    <div class="justify-content-center insider-list">
+                        <isslot id="swell-how-to-redeem-static" description="Swell How To Redeem Static Slot" context="global" />
+                    </div>
                 </div>
             </div>
         </div>
+        <isslot id="mvmt-insider-slot3" description="MVMT insider slot 3" context="global"/>
+        <isslot id="mvmt-insider-slot4" description="MVMT insider slot 4" context="global"/>
     </main>
 </isdecorate>

@@ -14,6 +14,8 @@
             }
 
             &.desktop-only {
+                display: none;
+
                 @include media-breakpoint-up(lg) {
                     display: block;
                 }
@@ -88,6 +90,7 @@
         }
 
         &-title {
+            font-family: $font-medium;
             font-size: 36px;
             font-weight: 500;
             letter-spacing: 3.38px;
@@ -100,19 +103,38 @@
             }
         }
 
-        &-arrow-wrapper {
-            position: relative;
-            margin: auto;
-            width: 100%;
+        &-arrow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%,40%);
 
             @include media-breakpoint-up(lg) {
-                padding-bottom: 15px;
+                position: relative;
+                left: 0;
+                transform: none;
+            }
+
+            &-wrapper {
+                position: relative;
+                margin: auto;
+                width: 100%;
+    
+                @include media-breakpoint-up(lg) {
+                    padding-bottom: 15px;
+                }
             }
         }
     }
 
     &-main {
         width: 100%;
+        padding-bottom: 30px;
+
+        @include media-breakpoint-up(lg) {
+            padding-bottom: 0;
+        }
+
         &-wrapper {
             background-color: #f7f8f9;
         }
@@ -139,15 +161,16 @@
 
                 h2 {
                     color: #000;
+                    font-family: $font-medium;
                     font-weight: 500;
                     font-size: 24px;
                     line-height: 24px;
                     letter-spacing: 1.53px;
+                    text-transform: uppercase;
 
                     @include media-breakpoint-up(lg) {
-                        font-size: 40px;
+                        font-size: 36px;
                         line-height: 42px;
-                        letter-spacing: 4.29px;
                     }
                 }
 
@@ -679,11 +702,125 @@
     text-transform: uppercase;
 }
 
-.button.button--black-gradient {
-    color: #fff;
-    background: #000;
+.insider-additional-info {
+    &-container {
+        padding: 75px 25px;
+        @include media-breakpoint-up(lg) {
+            padding: 75px 30px;
+        }
 
-    &:hover, &:focus {
-        background: #53c563;
+        .insider-promoter-cta {
+            display: block;
+            font-family: $font-medium;
+            font-weight: 500;
+            margin: 20px auto 0;
+            max-width: 500px;
+            padding: 8px 14px!important;
+            text-align: center;
+            width: 40%;
+        }
     }
+
+    &-title {
+        font-size: 34px;
+        line-height: 1;
+        letter-spacing: 3.18px;
+        margin-bottom: 25px;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: $font-medium;
+        font-weight: 500;
+        @include media-breakpoint-up(lg) {
+            font-size: 50px;
+            letter-spacing: 6.94px;
+        }
+    }
+
+    &-subtitle {
+        color: #5c5c5c;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 0 auto;
+        text-transform: uppercase;
+
+        &--bold {
+            color: #000;
+            font-weight: 600;
+        }
+    }
+}
+
+.faq {
+    &-insider {
+        padding: 75px 25px;
+
+        @include media-breakpoint-up(lg) {
+            padding: 75px 30px;
+        }
+    }
+    
+    &-main {
+        margin: 0 auto 40px;
+        padding: 0 20px;
+
+        @include media-breakpoint-up(lg) {
+            margin: 0 auto 80px;
+            padding: 0;
+        }
+
+        &-title {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: 3.18px;
+            margin-bottom: 25px;
+            text-align: center;
+            justify-content: center;
+
+            @include media-breakpoint-up(lg) {
+                font-size: 50px;
+                letter-spacing: 6.94px;
+            }
+        }
+    }
+}
+
+.button {
+    &--black-gradient {
+        color: #fff;
+        background: #000;
+        font-family: $font-medium;
+        font-weight: 500;
+
+        &:hover, &:focus {
+            background: #53c563;
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+
+    &--black-skeleton {
+        padding: 0 12px;
+        line-height: 30px;
+        text-align: center;
+        border: 1px solid #000;
+        color: #000;
+        transition: all .25s ease-in-out;
+        font-size: 12px;
+
+        &:hover {
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}
+
+.container--small {
+    max-width: 1000px;
+    margin: 0 auto;
 }
