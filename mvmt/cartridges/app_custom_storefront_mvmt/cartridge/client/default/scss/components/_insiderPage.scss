@@ -42,9 +42,9 @@
         }
         
         &-main-wrapper {
-            background-color: #f7f8f9;
-            min-height: 550px;
-            padding-bottom: 40px;
+            background-color: $white-gray;
+            min-height: rem(550);
+            padding-bottom: rem(40);
             position: relative;
 
             @include media-breakpoint-up(md-down) {
@@ -59,28 +59,26 @@
         }
 
         &-main-content {
-            background-color: #fff;
+            background-color: $white;
             margin: auto;
-            padding: 30px;
+            padding: rem(30);
             text-align: center;
             width: 100%;
 
             @include media-breakpoint-up(lg) {
                 height: auto;
-                left: unset;
                 margin: auto;
-                padding: 30px 30px 0;
+                padding: rem(30) rem(30) 0;
                 position: relative;
-                top: unset;
                 transform: none;
             }
 
             .introductory-points-img {
-                max-width: 160px;
+                max-width: rem(160);
                 margin: 0 auto;
 
                 @include media-breakpoint-up(lg) {
-                    max-width: 140px;
+                    max-width: rem(140);
                 }
             }
 
@@ -91,14 +89,14 @@
 
         &-title {
             font-family: $font-medium;
-            font-size: 36px;
+            font-size: rem(36);
             font-weight: 500;
-            letter-spacing: 3.38px;
-            line-height: 42px;
-            margin-bottom: 15px;
+            letter-spacing: rem(3.38);
+            line-height: rem(42);
+            margin-bottom: rem(15);
             @include media-breakpoint-up(lg) {
-                font-size: 50px;
-                letter-spacing: 4.69px;
+                font-size: rem(50);
+                letter-spacing: rem(4.69);
                 line-height: 1.5;
             }
         }
@@ -121,7 +119,7 @@
                 width: 100%;
     
                 @include media-breakpoint-up(lg) {
-                    padding-bottom: 15px;
+                    padding-bottom: rem(15);
                 }
             }
         }
@@ -129,14 +127,14 @@
 
     &-main {
         width: 100%;
-        padding-bottom: 30px;
+        padding-bottom: rem(30);
 
         @include media-breakpoint-up(lg) {
             padding-bottom: 0;
         }
 
         &-wrapper {
-            background-color: #f7f8f9;
+            background-color: $white-gray;
         }
 
         &-inner {
@@ -144,33 +142,33 @@
             @include media-breakpoint-up(lg) {
                 display: flex;
                 justify-content: center;
-                padding: 100px 50px;
+                padding: rem(100) rem(50);
             }
 
             .insider-sidebar {
                 text-align: center;
-                padding: 30px;
+                padding: rem(30);
                 width: 100%;
 
                 @include media-breakpoint-up(lg) {
-                    padding: 10px 10% 0 0;
-                    max-width: 450px;
+                    padding: rem(10) 10% 0 0;
+                    max-width: rem(450);
                     width: 40%;
                     text-align: left;
                 }
 
                 h2 {
-                    color: #000;
+                    color: $black;
                     font-family: $font-medium;
                     font-weight: 500;
-                    font-size: 24px;
-                    line-height: 24px;
-                    letter-spacing: 1.53px;
+                    font-size: rem(24);
+                    line-height: rem(24);
+                    letter-spacing: rem(1.53);
                     text-transform: uppercase;
 
                     @include media-breakpoint-up(lg) {
-                        font-size: 36px;
-                        line-height: 42px;
+                        font-size: rem(36);
+                        line-height: rem(42);
                     }
                 }
 
@@ -184,13 +182,13 @@
                         text-decoration: none;
                     }
                     button {
-                        font-size: 11px!important;
-                        line-height: 1!important;
+                        font-size: rem(11);
+                        line-height: 1;
                         width: 100%;
 
                         @include media-breakpoint-up(lg) {
-                            padding: 1rem 1.75rem!important;
-                            margin-bottom: 5px;
+                            padding: 1rem 1.75rem;
+                            margin-bottom: rem(5);
                             display: block;
                         }
                     }
@@ -298,7 +296,7 @@
                         font-family: $font-medium;
                         font-size: rem(14);
                         font-weight: 500;
-                        letter-spacing: 1.17px;
+                        letter-spacing: rem(1.17);
                         line-height: rem(20);
                         margin-bottom: rem(10);
                         text-transform: uppercase; 
@@ -582,7 +580,7 @@
                         margin: 0;
 
                         span {
-                            margin-left: 5px;
+                            margin-left: rem(5);
                         }
                     }
                 }
@@ -692,62 +690,62 @@
 }
 
 .insider-copy {
-    color: #231103;
-    font-size: 12px;
+    color: $dark-orange1;
+    font-size: rem(12);
     font-weight: 500;
-    letter-spacing: 1px;
-    line-height: 23px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    letter-spacing: rem(1);
+    line-height: rem(23);
+    margin-top: rem(15);
+    margin-bottom: rem(15);
     text-transform: uppercase;
 }
 
 .insider-additional-info {
     &-container {
-        padding: 75px 25px;
+        padding: rem(75) rem(25);
         @include media-breakpoint-up(lg) {
-            padding: 75px 30px;
+            padding: rem(75) rem(30);
         }
 
         .insider-promoter-cta {
             display: block;
             font-family: $font-medium;
             font-weight: 500;
-            margin: 20px auto 0;
-            max-width: 500px;
-            padding: 8px 14px!important;
+            margin: rem(20) auto 0;
+            max-width: rem(500);
+            padding: rem(8) rem(14);
             text-align: center;
             width: 40%;
         }
     }
 
     &-title {
-        font-size: 34px;
+        font-size: re(34);
         line-height: 1;
-        letter-spacing: 3.18px;
-        margin-bottom: 25px;
+        letter-spacing: rem(3.18);
+        margin-bottom: rem(25);
         text-align: center;
         text-transform: uppercase;
         font-family: $font-medium;
         font-weight: 500;
         @include media-breakpoint-up(lg) {
-            font-size: 50px;
-            letter-spacing: 6.94px;
+            font-size: rem(50);
+            letter-spacing: rem(6.94);
         }
     }
 
     &-subtitle {
-        color: #5c5c5c;
-        font-size: 12px;
+        color: $gray36;
+        font-size: rem(12);
         font-weight: 500;
-        line-height: 20px;
+        line-height: rem(20);
         text-align: center;
-        letter-spacing: 1px;
+        letter-spacing: rem(1);
         margin: 0 auto;
         text-transform: uppercase;
 
         &--bold {
-            color: #000;
+            color: $black;
             font-weight: 600;
         }
     }
@@ -755,35 +753,35 @@
 
 .faq {
     &-insider {
-        padding: 75px 25px;
+        padding: rem(75) rem(25);
 
         @include media-breakpoint-up(lg) {
-            padding: 75px 30px;
+            padding: rem(75) rem(30);
         }
     }
     
     &-main {
-        margin: 0 auto 40px;
-        padding: 0 20px;
+        margin: 0 auto rem(40);
+        padding: 0 rem(20);
 
         @include media-breakpoint-up(lg) {
-            margin: 0 auto 80px;
+            margin: 0 auto rem(80);
             padding: 0;
         }
 
         &-title {
             font-family: $font-medium;
             font-weight: 500;
-            font-size: 34px;
+            font-size: rem(34);
             line-height: 1;
-            letter-spacing: 3.18px;
-            margin-bottom: 25px;
+            letter-spacing: rem(3.18);
+            margin-bottom: rem(25);
             text-align: center;
             justify-content: center;
 
             @include media-breakpoint-up(lg) {
-                font-size: 50px;
-                letter-spacing: 6.94px;
+                font-size: rem(50);
+                letter-spacing: rem(6.94);
             }
         }
     }
@@ -791,36 +789,36 @@
 
 .button {
     &--black-gradient {
-        color: #fff;
-        background: #000;
+        color: $white;
+        background: $black;
         font-family: $font-medium;
         font-weight: 500;
 
         &:hover, &:focus {
-            background: #53c563;
-            color: #fff;
+            background: $apple-green;
+            color: $white;
             text-decoration: none;
         }
     }
 
     &--black-skeleton {
-        padding: 0 12px;
-        line-height: 30px;
+        padding: 0 rem(12);
+        line-height: rem(30);
         text-align: center;
-        border: 1px solid #000;
-        color: #000;
+        border: rem(1) solid $black;
+        color: $black;
         transition: all .25s ease-in-out;
-        font-size: 12px;
+        font-size: rem(12);
 
         &:hover {
-            background: #000;
-            color: #fff;
+            background: $black;
+            color: $white;
             text-decoration: none;
         }
     }
 }
 
 .container--small {
-    max-width: 1000px;
+    max-width: rem(1000);
     margin: 0 auto;
 }
