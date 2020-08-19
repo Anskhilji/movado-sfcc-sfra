@@ -207,10 +207,12 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency.value;
-            });
+        	//Custom Start: Add defensive check for undefined error handing
+            if (!empty(selectedRoundingModel)) {
+                selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+                    return rule.currencyIso == eswCurrency.value;
+                });
+            }
             //Custom End
         }
 
