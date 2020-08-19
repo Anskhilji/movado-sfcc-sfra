@@ -334,7 +334,6 @@
             &-link-btn {
                 position: relative;
                 z-index: 3;
-                width: 100%;
 
                 a {
                     color: $black;
@@ -356,8 +355,6 @@
                         color: $white;
                         background: $black;
                         border-color: $black;
-                        margin-bottom: rem(5);
-                        width: 100%;
 
                         &:hover {
                             color: $black;
