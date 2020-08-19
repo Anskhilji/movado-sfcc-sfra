@@ -18,6 +18,9 @@
         background-color: $light-gray11;
         z-index: 999999;
         max-width: rem(365);
+        overflow-y: auto;
+        padding-bottom: rem(10);
+        overflow-x: hidden;
     }
 }
 
