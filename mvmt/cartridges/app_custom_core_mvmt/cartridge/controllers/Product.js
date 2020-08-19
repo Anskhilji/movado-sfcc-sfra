@@ -49,11 +49,16 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         resources: showProductPageHelperResult.resources,
         breadcrumbs: showProductPageHelperResult.breadcrumbs
     };
-
+    
     var marketingProductsData = [];
     var quantity = 0;
     marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
     viewData.marketingProductData = JSON.stringify(marketingProductsData);
+
+    var display = {
+        plpTile : false
+    }
+    viewData.display = display;
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);

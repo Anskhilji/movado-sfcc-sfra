@@ -9,12 +9,17 @@
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <div class="hero search-banner">
         <isif condition="${pdict.productSearch.isCategorySearch}">
-            <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
+            <isif condition="${sitePref.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
+            </isif>
             <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
         <iselse>
-            <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+            <isif condition="${sitePref.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+            </isif>
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
     </div>
