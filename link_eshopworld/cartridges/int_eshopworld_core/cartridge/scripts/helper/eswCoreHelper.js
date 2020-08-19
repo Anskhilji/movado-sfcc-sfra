@@ -277,8 +277,9 @@ var getEswHelper = {
             /**
              * Custom Start: Override geolocation if country or countryCode parameter is present in request
              */
-            var country = request.httpParameterMap.get('country').value;
-            var countryCode = request.httpParameterMap.get('countryCode').value; 
+            var requestHttpParameterMap = request.getHttpParameterMap();
+            var country = !empty(requestHttpParameterMap) && !empty(requestHttpParameterMap).get('country') ? requestHttpParameterMap.get('country').value : '' ;
+            var countryCode = !empty(requestHttpParameterMap) && !empty(requestHttpParameterMap).get('countryCode') ? requestHttpParameterMap.get('countryCode').value : '' ;
             if (!empty(country) || !empty(countryCode)) { 
                 geolocation = !empty(country) ? country : countryCode;
             }
@@ -373,7 +374,7 @@ var getEswHelper = {
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
-        } catch (e) {
+        } catch (e) { 
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }
     },
