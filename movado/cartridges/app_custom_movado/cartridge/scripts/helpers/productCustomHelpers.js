@@ -878,7 +878,6 @@ function getMarketingProducts(apiProduct, quantity) {
         var price;
         var productType = productHelper.getProductType(apiProduct);
         var productModel;
-        var productName;
 
         if (apiProduct.master) {
             var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
