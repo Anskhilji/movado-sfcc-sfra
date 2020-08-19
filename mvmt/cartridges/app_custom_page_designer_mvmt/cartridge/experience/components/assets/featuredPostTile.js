@@ -19,7 +19,11 @@ module.exports.render = function (context) {
     model.subheading = content.subheading;
     model.excerpt = content.excerpt;
     var attr = context.getComponentRenderSettings().getAttributes() || new HashMap();
-    attr.put('class', 'post-container');
+    if (content.isGridFeatured) {
+        attr.put('class', 'post-container grid-featured-tile');
+    } else {
+        attr.put('class', 'post-container');
+    }
     context.getComponentRenderSettings().setAttributes(attr);
     
     // Post Buttons
@@ -50,6 +54,8 @@ module.exports.render = function (context) {
     var postTileType = content.type;
     if (postTileType.equals(featuredPost)) {
         model.isFeaturedPost = true;
+        model.isGridFeatured = content.isGridFeatured;
+        model.isLeftAligned = content.isLeftAligned;
     } else if (postTileType.equals(disruptedPost)) {
         model.isDisrupted = true;
     }

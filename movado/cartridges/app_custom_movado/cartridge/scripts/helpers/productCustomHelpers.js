@@ -869,6 +869,7 @@ function getMarketingProducts(apiProduct, quantity) {
     var priceFactory = require('*/cartridge/scripts/factories/price');
     var productFactory = require('*/cartridge/scripts/factories/product');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
     try {
         var defaultVariant = apiProduct.variationModel.defaultVariant;
@@ -899,8 +900,17 @@ function getMarketingProducts(apiProduct, quantity) {
         }
 
         var productCategory = '';
-        if (apiProduct.allCategoryAssignments.length > 0) {
-            productCategory = apiProduct.allCategoryAssignments[0].category.displayName;
+        var apiCategories;
+
+        if (apiProduct.getOnlineCategories().length > 0) {
+            apiCategories = apiProduct.getOnlineCategories();
+            productCategory = stringUtils.removeSingleQuotes(apiCategories[apiCategories.length-1].displayName);
+        }
+
+        if (empty(productCategory) && apiProduct.variant &&
+            apiProduct.variationModel.master.getOnlineCategories().length > 0) {
+                apiCategories = apiProduct.variationModel.master.getOnlineCategories();
+                productCategory = stringUtils.removeSingleQuotes(apiCategories[apiCategories.length-1].displayName);
         }
 
         marketingProductData = {

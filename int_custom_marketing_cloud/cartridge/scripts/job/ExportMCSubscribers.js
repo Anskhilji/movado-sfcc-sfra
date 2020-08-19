@@ -48,7 +48,7 @@ function exportAllSavedSubscribers() {
                 if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
                     var result;
                     var service;
-                    
+
                     service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
                     var payload = JSON.parse(subscriber.custom.mcPayload);
                     params.email = !empty(payload.email) ? payload.email : '';

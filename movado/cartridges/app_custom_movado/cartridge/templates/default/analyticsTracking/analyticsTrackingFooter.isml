@@ -169,3 +169,8 @@
         }
     });
 </script>
+<isif condition="${pdict.isMvmtInsider}">
+    <script>
+        dataLayer.push({'event': 'mvmtInsiderEvent'});
+    </script>    
+</isif>
