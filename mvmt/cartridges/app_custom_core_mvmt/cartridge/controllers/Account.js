@@ -17,7 +17,9 @@ server.get(
     server.middleware.https,
     userLoggedIn.validateLoggedIn,
     function (req, res, next) {
-        res.render('account/mvmtInsider');
+        res.render('account/mvmtInsider', {
+			isMvmtInsider: true
+		});
 
         next();
     }
