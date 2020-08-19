@@ -878,6 +878,7 @@ function getMarketingProducts(apiProduct, quantity) {
         var price;
         var productType = productHelper.getProductType(apiProduct);
         var productModel;
+        var productName;
 
         if (apiProduct.master) {
             var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(defaultVariant);
@@ -914,13 +915,13 @@ function getMarketingProducts(apiProduct, quantity) {
         }
 
         marketingProductData = {
-            name: apiProduct.name,
+            name: stringUtils.removeSingleQuotes(apiProduct.name),
             id: apiProduct.ID,
             price: price,
             category: productCategory,
             sku: apiProduct.ID,
             variantID: apiProduct.variant ? apiProduct.ID : '',
-            brand: apiProduct.brand,
+            brand: stringUtils.removeSingleQuotes(apiProduct.brand),
             currentCategory: productCategory,
             productType: productType,
             quantity: quantity
