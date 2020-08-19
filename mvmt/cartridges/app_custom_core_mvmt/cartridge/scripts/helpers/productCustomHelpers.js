@@ -29,7 +29,7 @@ function getProductGtmObj(product, categoryName, position) {
             price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                 : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-            brand: !empty(product.defaultVariant) ? product.defaultVariant.brand : product.brand,
+            brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
             sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
             category: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
             productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
@@ -49,7 +49,7 @@ function getProductGtmObj(product, categoryName, position) {
             price:productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                 : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-            brand: !empty(product.defaultVariant) ? product.defaultVariant.brand : product.brand,
+            brand: !empty(product.defaultVariant) ?stringUtils.removeSingleQuotes( product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
             sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
             category: stringUtils.removeSingleQuotes(category),
             productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,

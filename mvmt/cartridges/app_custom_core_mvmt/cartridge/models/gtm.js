@@ -555,7 +555,7 @@ function getBasketParameters() {
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
-                    brand: cartItem.product.brand,
+                    brand: stringUtils.removeSingleQuotes(cartItem.product.brand),
                     category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.masterProduct.primaryCategory.ID) : (cartItem.product.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.primaryCategory.ID) : ''),
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
@@ -752,7 +752,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
             produtObj.id = productLineItem.product.ID;
             produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
-            produtObj.brand = productLineItem.product.brand;
+            produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
             produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
                 : '')
                 : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
