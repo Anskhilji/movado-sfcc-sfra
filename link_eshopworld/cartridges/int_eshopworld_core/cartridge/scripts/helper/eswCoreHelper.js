@@ -672,7 +672,8 @@ var getEswHelper = {
             }
             return this.shortenName(this.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).name['en_GB']);
         }
-        return this.shortenName(allESWCountryName[0].displayValue);
+        var shortName = !empty(allESWCountryName[0]) ? allESWCountryName[0].displayValue : '';
+        return this.shortenName(shortName);
     },
     /*
      * Function to apply pricebook if country is override country
