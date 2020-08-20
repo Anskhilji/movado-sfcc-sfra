@@ -11,7 +11,11 @@
                 }
 
                 .bottom-line-items-container {
+                    padding-bottom: 0 !important;
 
+                    @include media-breakpoint-up (md) {
+                        padding-bottom: rem(22) !important;
+                    }
                 }
 
                 .bottom-line-items {
@@ -119,6 +123,19 @@
 
                             .yotpo-icon-clear-text-search {
                                 display: none !important;
+                            }
+                        }
+
+                        .suggested-topics {
+
+                            .suggested-topics-component {
+
+                                .suggested-topic {
+
+                                    &.active-topic {
+                                        background-color: $light-gray4 !important;
+                                    }
+                                }
                             }
                         }
                         
@@ -390,6 +407,11 @@
                 }
 
                 .yotpo-pager {
+                    display: flex;
+
+                    @include media-breakpoint-up (md) {
+                        display: block;
+                    }
 
                     .yotpo-page-element {
 
@@ -404,6 +426,7 @@
 
                         @include media-breakpoint-up(md) {
                             padding: rem(20) !important;
+                            margin: 0 rem(6) !important;
                         }
 
                         &:after {
@@ -415,11 +438,11 @@
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%,-50%);
+                            border: rem(2) solid $white-gray;
 
                             @include media-breakpoint-up (md) {
                                 width: rem(60) !important;
                                 height: rem(60) !important;
-                                border: rem(2) solid $white-gray;
                             }
                         }
 
@@ -459,13 +482,21 @@
                     .yotpo-nav-primary {
 
                         &.yotpo-nav {
-                            display: flex !important;
-                            width: 100% !important;
-                            justify-content: space-evenly;
 
-                            @include media-breakpoint-up (md) {
-                                width: auto !important;
+                            ul {
+                                display: flex !important;
+                                width: 100% !important;
+                                justify-content: space-evenly;
+    
+                                @include media-breakpoint-up (md) {
+                                    width: max-content!important;
+                                }
                             }
+
+                            .mobile-clear-filters-btn {
+                                display: none !important;
+                            }
+
                         }
 
                         .yotpo-nav-tab.yotpo-active {
@@ -534,3 +565,100 @@
         }
     }
 }
+
+.yotpo-display-wrapper {
+
+    &.mobile-filters-modal {
+
+        .yotpo-modal-dialog {
+
+            .mobile-filters-modal-title {
+
+                .title-text {
+                    font-size: rem(12) !important;
+                    line-height: rem(20) !important;
+                    letter-spacing: rem(1) !important;
+                    font-weight: 500 !important;
+                    text-transform: uppercase;
+                    padding-top: rem(2);
+                    padding-left: rem(25);
+                    color: $comet2;
+                    width: rem(61);
+                    height: rem(22);
+                    font-family: $font-medium !important;
+                }
+
+                .mobile-clear-all-btn {
+                    font-size: rem(8) !important;
+                    line-height: rem(8) !important;
+                    letter-spacing: rem(2) !important;
+                    font-family: $font-medium !important;
+                    font-weight: 500 !important;
+                    text-transform: uppercase;
+                    margin-top: rem(5);
+                }
+            }
+
+            .mobile-filters-container {
+
+                .mobile-filter-title {
+                    font-size: rem(14) !important;
+                    line-height: rem(20) !important;
+                    letter-spacing: rem(1.17) !important;
+                    font-family: $font-medium !important;
+                    font-weight: 500 !important;
+                    text-transform: uppercase;
+                }
+
+                .mobile-filter-radio-buttons {
+
+                    .mobile-filter-radio-button {
+
+
+                        .rating-star {
+
+                            &.radio-non-selected-color {
+                                color: $deep-orange-yellow  !important;
+                            }
+
+                            &.radio-selected-star-color {
+                                color: $black !important;
+                            }
+                        }
+                    }
+                    .radio-text-option {
+                        color: $light-gray !important;
+                        font-size: rem(13) !important;
+                        line-height: rem(17) !important;
+                        letter-spacing: 0 !important;
+                        font-family: $font-medium !important;
+                        font-weight: 500 !important;
+                    }
+
+                    .radio-label {
+
+                        &:before {
+                            background: $white !important;
+                            border-radius: 100%;
+                            border: rem(1) solid $dark-gray !important;
+                        }
+                    }
+                }
+            }
+
+            .mobile-filters-footer-btn {
+                
+                .footer-text {
+                    font-size: rem(14) !important;
+                    line-height: rem(18) !important;
+                    letter-spacing: rem(1.87) !important;
+                    font-family: $font-medium !important;
+                    font-weight: 600 !important;
+                    color: $white !important;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
+
