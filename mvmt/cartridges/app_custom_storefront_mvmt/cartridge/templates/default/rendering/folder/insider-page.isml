@@ -2,11 +2,13 @@
     <isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
-        assets.addJs('/js/contactus.js');
+        assets.addCss('/css/insiderPage.css');
         assets.addCss('/css/staticContent.css');
     </isscript>
-    <isset name="isPage" value="contactUs" scope="page" />
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.company.info', 'eum', null))}"/>
+    <isset name="isPage" value="Insider" scope="page" />
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.company.info', 'eum', null))}"/>
+    </isif>
     <main role="main" id="main" class="pt_customerservice">
 
         <isslot id="mvmt-insider-slot1" description="MVMT insider slot 1" context="global"/>
