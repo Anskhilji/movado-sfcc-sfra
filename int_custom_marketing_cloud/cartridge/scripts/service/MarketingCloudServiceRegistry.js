@@ -62,6 +62,9 @@ function getDataAPIService(serviceID, endpoint, serviceType) {
     if (Site.current.preferences.custom.isSiteRunOnTestModel) {
         dataService = customStorefrontHelpers.setTestModeCredentials(dataService);
     } 
+    if (dataService.configuration.ID == Constants.SERVICE_ID.UPDATE_DATA) {
+        dataService = dataService.setCredentialID(Constants.CREDENTIAL_ID.UPDATE_DATA_CREDENTIAL_ID + Site.current.ID);
+    }
     // Custom End 
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var url = baseUrl.toString();

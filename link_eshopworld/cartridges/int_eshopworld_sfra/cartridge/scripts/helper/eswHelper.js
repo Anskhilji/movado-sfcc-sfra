@@ -105,13 +105,14 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
     return false;
 };
 
-/*
+ /*
  * Function is used to get Order total including shipping cost
  */
 eswHelper.getOrderTotalWithShippingCost = function () {
     var BasketMgr = require('dw/order/BasketMgr');
-    return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.adjustedShippingTotalPrice, true, false, true).value, request.httpCookies['esw.currency'].value));
+    return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.shippingTotalPrice, true, false, false).value - eswHelper.getShippingDiscount(BasketMgr.currentBasket), request.httpCookies['esw.currency'].value));
 };
+
 
 /*
  * FUnction is used to return matching line item from current basket

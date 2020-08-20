@@ -62,6 +62,11 @@ function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
     if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
         setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
+        if (response.addToCartPerSession == true) {
+            setMarketingProductsByAJAX.addToCartPerSession = true;
+        } else {
+            setMarketingProductsByAJAX.addToCartPerSession = false;
+        }
         window.dispatchEvent(setMarketingProductsByAJAX);
     }
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
@@ -594,6 +599,18 @@ function handleVariantResponse(response, $productContainer) {
                + detailsArray[i].displayName + "</span><span class='attribute-value attribute-content'>" 
                + detailsArray[i].value + "</span></div>" );
         }
+    }
+
+
+
+    // Updating promo messages
+    if (response.product.promotions) {
+        var $promotions = $('.promotions');
+        $promotions.empty();
+        var productPromotions = response.product.promotions;
+        productPromotions.forEach(function(promotion) {
+            $promotions.append("<div class='row'>" + promotion.details + "</div>");
+        });
     }
 
     // Update pricing

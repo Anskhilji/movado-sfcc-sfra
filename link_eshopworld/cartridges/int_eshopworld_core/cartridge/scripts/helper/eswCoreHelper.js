@@ -207,10 +207,12 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency.value;
-            });
+        	//Custom Start: Add defensive check for undefined error handing
+            if (!empty(selectedRoundingModel)) {
+                selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+                    return rule.currencyIso == eswCurrency.value;
+                });
+            }
             //Custom End
         }
 
@@ -457,6 +459,22 @@ var getEswHelper = {
         }
 
         return price;
+    },
+    /*
+    * This function is used to get shipping discount if it exist
+    */
+    getShippingDiscount: function (cart) {
+        var totalDiscount = 0;
+        var that = this;
+        if (cart != null) {
+            cart.defaultShipment.shippingPriceAdjustments.toArray().forEach(function (adjustment) {
+                totalDiscount += that.getMoneyObject(adjustment.price, true, false, true).value;
+            });
+        }
+        if (totalDiscount < 0) {
+            totalDiscount *= -1;
+        }
+        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
     },
     /*
      * This function is used to get total of cart or productlineitems based on input
@@ -879,7 +897,20 @@ var getEswHelper = {
      */
     getCurrentEswCurrencyCode: function () {
     	return request.httpCookies['esw.currency'].value;
+    },
+    /**
+    * Merges properties from source object to target object
+    * @param {Object} target object
+    * @param {Object} source object
+    * @returns {Object} target object
+    */
+    extendObject: function (target, source) {
+        Object.keys(source).forEach(function (prop) {
+            target[prop] = source[prop];
+        });
+        return target;
     }
+
 };
 
 module.exports = {

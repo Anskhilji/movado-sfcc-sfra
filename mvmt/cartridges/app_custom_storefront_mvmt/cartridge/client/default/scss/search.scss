@@ -4,7 +4,7 @@
 .search-banner {
     overflow: hidden;
 
-    > * > div:not(.straps-hero) {
+    .html-slot-container:not(.straps-hero) {
         position: relative;
         z-index: 9;
     }
