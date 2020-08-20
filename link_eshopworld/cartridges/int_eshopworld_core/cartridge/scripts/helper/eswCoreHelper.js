@@ -278,8 +278,16 @@ var getEswHelper = {
              * Custom Start: Override geolocation if country or countryCode parameter is present in request
              */
             var requestHttpParameterMap = request.getHttpParameterMap();
-            var country = !empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country')) ? requestHttpParameterMap.get('country').value : '' ;
-            var countryCode = !empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode')) ? requestHttpParameterMap.get('countryCode').value : '' ;
+            var country;
+            var countryCode;
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                country = requestHttpParameterMap.get('country').value;
+            }
+
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode'))) {
+                countryCode = requestHttpParameterMap.get('countryCode').value;
+            }
+            
             if (!empty(country) || !empty(countryCode)) { 
                 geolocation = !empty(country) ? country : countryCode;
             }
