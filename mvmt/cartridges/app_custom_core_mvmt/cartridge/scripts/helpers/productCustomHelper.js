@@ -12,6 +12,8 @@ var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
 
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -311,7 +313,7 @@ function getGtmPromotionObject (promotions) {
         try {
             for (var i = 0; i < promotions.length; i++) {
                 var promotionId = promotions[i].ID;
-                var promotionName = promotions[i].name;
+                var promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
                 var promotionCreated = promotions[i].startDate;
                 var promotionPostistion = promotions[i].promotionClass;
                 var pageType = session.custom.gtmPageType;
