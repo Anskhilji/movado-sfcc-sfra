@@ -562,7 +562,7 @@ function getBasketParameters() {
                     prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
                     productType: productModel.productType,
                     price: productPrice,
-                    description: stringUtils.removeSingleQuotes(cartItem.product.shortDescription),
+                    description: stringUtils.removeSingleQuotes(cartItem.product.shortDescription.markup),
                     quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
@@ -597,7 +597,7 @@ function getCartJSONArray(checkoutObject) {
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.productType = cartJSON[i].productType;
-        cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description));
+        cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
         cartObj.quantity = cartJSON[i].quantity;
         cartObj.imageURL = cartJSON[i].imageURL;
         cartObj.prouctUrl = cartJSON[i].prouctUrl;
