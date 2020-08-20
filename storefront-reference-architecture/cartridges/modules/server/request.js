@@ -333,7 +333,6 @@ function Request(request, customer, session) {
                                 //Custom End  
                             }
                             eswHelper.selectCountry(countryCode, currencyCode, language);
-                            session.custom.countryCode = countryCode;
                         }
                     }
                 }
