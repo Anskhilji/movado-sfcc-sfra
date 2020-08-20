@@ -10,6 +10,10 @@
                     border-bottom: none;
                 }
 
+                .bottom-line-items-container {
+
+                }
+
                 .bottom-line-items {
                     display: flex;
                     justify-content: center;
@@ -111,6 +115,10 @@
                                 border: rem(1) solid $gray93;
                                 outline: none;
                                 padding: 0 rem(20) !important;
+                            }
+
+                            .yotpo-icon-clear-text-search {
+                                display: none !important;
                             }
                         }
                         
@@ -336,6 +344,7 @@
                             position: absolute;
                             top: rem(25);
                             right: 0;
+                            display: block !important;
 
                             .yotpo-review-date {
                                 font-family: $font-medium !important;
@@ -391,6 +400,7 @@
                         font-weight: 500 !important;
                         color: $black !important;
                         position: relative;
+                        margin: auto !important;
 
                         @include media-breakpoint-up(md) {
                             padding: rem(20) !important;
@@ -399,8 +409,8 @@
                         &:after {
                             content: "";
                             position: absolute;
-                            width: rem(15) !important;
-                            height: rem(15) !important;
+                            width: rem(50) !important;
+                            height: rem(50) !important;
                             z-index: -1;
                             top: 50%;
                             left: 50%;
@@ -422,8 +432,8 @@
                             &:before {
                                 content: "";
                                 position: absolute;
-                                width: rem(15) !important;
-                                height: rem(15) !important;
+                                width: rem(50) !important;
+                                height: rem(50) !important;
                                 z-index: -1;
                                 top: 50%;
                                 background-color: $black;
@@ -440,9 +450,23 @@
                 }
 
                 .new-yotpo-small-box {
-                    border-bottom: rem(3) solid $gray91;
+                    border-bottom: rem(3) solid $black;
+
+                    @include media-breakpoint-up (md) {
+                        border-bottom: rem(3) solid $gray91;
+                    }
 
                     .yotpo-nav-primary {
+
+                        &.yotpo-nav {
+                            display: flex !important;
+                            width: 100% !important;
+                            justify-content: space-evenly;
+
+                            @include media-breakpoint-up (md) {
+                                width: auto !important;
+                            }
+                        }
 
                         .yotpo-nav-tab.yotpo-active {
     
