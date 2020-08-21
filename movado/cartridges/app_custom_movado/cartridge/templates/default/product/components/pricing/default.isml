@@ -1,11 +1,11 @@
 <span>
     <isset name="finalOrigPrice" value="${price}" scope="page" />
-	<isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
+    <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
     
     <isif condition="${isEswEnabled}">
         <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-        <isif condition="${empty(pdict.product) && isEswEnabled}"> 
+        <isif condition="${empty(pdict.product)}"> 
             <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(lineItem)}" scope="page" />
         <iselse>
             <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
@@ -34,7 +34,7 @@
             </span>
         </del>
     </isif>
-	<isif condition="${isEswEnabled && !empty(matchingLineItem)}">
+    <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
         <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
     <iselse>
         <isset name="price" value="${finalOrigPrice.sales}" scope="page" />

@@ -262,7 +262,7 @@ function execute(args) {
         var totalAssignedProducts;
 
         localizedPricingCountries.forEach(function (localizeObj) {
-            var	localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
+            var localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
             if (!empty(localizePriceBooks)) {
                 localizePriceBooks.forEach(function (priceBook) {
                     totalAssignedProducts = buildPriceBookSchema(writeDirPath, products, priceBook, localizeObj);
