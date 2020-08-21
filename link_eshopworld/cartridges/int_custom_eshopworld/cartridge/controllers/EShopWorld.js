@@ -200,7 +200,6 @@ server.append('NotifyV2', function(req, res, next) {
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
         Transaction.wrap(function () {
             populateOrderJSON.populateByOrder(order);
-            populateOrderJSON.addDummyPaymentTransaction(order);
         }); 
     } catch (exSOM) {
         somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));

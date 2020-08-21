@@ -55,6 +55,20 @@ function parseRiskifiedResponse(order) {
 					false,
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
+
+        /* Reject in OMS - Do not process to fulfillment status */
+        try {
+            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                orderSummaryNumber: order.getOrderNo(),
+                status: 'Cancelled'
+            });
+        }
+        catch (exSOM) {
+            var _e = exSOM;
+            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+        }
         
         Transaction.wrap(function () {
         	//if order status is CREATED
@@ -68,6 +82,8 @@ function parseRiskifiedResponse(order) {
         		order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         	}
         });
+
+
         
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
@@ -107,6 +123,21 @@ function parseRiskifiedResponse(order) {
                 order.custom.is3DSecureTransactionAlreadyCompleted = false;
             });
         }
+
+        /* Accept in OMS */
+        try {
+            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                orderSummaryNumber: order.getOrderNo(),
+                status: 'Approved'
+            });
+            // 204 response only
+        }
+        catch (exSOM) {
+            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+        }
+                
     }
 }
 
