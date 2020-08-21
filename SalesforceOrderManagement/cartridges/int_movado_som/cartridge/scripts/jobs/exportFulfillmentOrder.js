@@ -115,8 +115,8 @@ function createSAPOrderFile(args, impexFilePath, record) {
         writeXmlElement(streamWriter, 'BilltoRegion', record.poHeader.billToRegion);
         writeXmlElement(streamWriter, 'BilltoPhone', record.poHeader.billToPhone);
         writeXmlElement(streamWriter, 'CarrierCode', record.poHeader.carrierCode);
-        if (Object.hasOwnProperty.call(record.poHeader, 'VATEntity')) {
-            writeXmlElement(streamWriter, 'VATEntity', record.poHeader.VATEntity); 
+        if (Object.hasOwnProperty.call(record.poHeader, 'vatEntity')) {
+            writeXmlElement(streamWriter, 'VATEntity', record.poHeader.vatEntity);
         }
         if (Object.hasOwnProperty.call(record.poHeader, 'commercialEntity')) {
             writeXmlElement(streamWriter, 'CommercialEntity', record.poHeader.commercialEntity);
