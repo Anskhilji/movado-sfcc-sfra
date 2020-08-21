@@ -18,8 +18,8 @@ function activTabOnLoad() {
 $(window).on('load', function() {
     var $generaltab = $('.faq-nav-control-bar-link');
     var $activeTabSelector = $('#active-tab-selector').val();
-    $.each($generaltab, function(value){
-        if (value.data('current-tab') == $activeTabSelector) {
+    $generaltab.forEach(function(value){
+        if ($(value.data('current-tab') == $activeTabSelector)) {
             var $id = $(value.attr('href'));
             $id.removeClass('d-none');
         }
