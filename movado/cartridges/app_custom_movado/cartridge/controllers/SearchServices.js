@@ -74,7 +74,8 @@ server.replace('GetSuggestions', cache.applyDefaultCache, function (req, res, ne
                     popular: popularSuggestions,
                     brand: brandSuggestions,
                     collection: collectionSuggestions,
-                    didYouMeanPresence: didYouMeanPresence
+                    didYouMeanPresence: didYouMeanPresence,
+                    searchCount: searchTerms.length 
                 },
                 searchAnalyticsTrackingData: JSON.stringify(searchAnalyticsTrackingData)
             });

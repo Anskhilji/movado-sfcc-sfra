@@ -12,6 +12,8 @@ var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
 
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -143,6 +145,45 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get category object of current product
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @param {Object} categories - categories json configured in site preference
+ * @returns {Object} - category object
+ */
+
+function getCategoryConfig(apiProduct, categoriesConfig) {
+    var categoryConfigFound = false;
+    var category = null;
+    var currentCategory;
+
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        category = categoriesConfig[currentCategory.ID];
+        
+        if (!empty(category)) {
+            break;
+        }
+
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory)) {
+                category = categoriesConfig[currentCategory.ID];
+                if (!empty(category)) {
+                    categoryConfigFound = true;
+                    break;
+                }
+            }
+        } //End inner while
+
+        if (categoryConfigFound) {
+            break;
+        }
+    } //End outer while
+    return category;
+}
+
+/**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
@@ -153,19 +194,15 @@ function getProductAttributes(apiProduct) {
     var pdpDetailAttributes = [];
     var pdpSpecAttributes = [];
     try {
-        var CatalogMgr = require('dw/catalog/CatalogMgr');
-        var categories = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
-        if (!empty(categories) && !empty(apiProduct)) {
-            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-                var categoryObj = categories[categoryIndex];
-                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
-                if (!empty(categoryAssignment)) {
-                    category = categoryObj;
-                    break;
-                }
-            }
+        var categoriesConfig = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
         }
+
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
+
         if (!empty(category)) {
             var attributes = category.attributes;
             if (!empty(attributes)) {
@@ -276,7 +313,7 @@ function getGtmPromotionObject (promotions) {
         try {
             for (var i = 0; i < promotions.length; i++) {
                 var promotionId = promotions[i].ID;
-                var promotionName = promotions[i].name;
+                var promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
                 var promotionCreated = promotions[i].startDate;
                 var promotionPostistion = promotions[i].promotionClass;
                 var pageType = session.custom.gtmPageType;
@@ -352,6 +389,16 @@ function getESWPrice(product) {
     }
 }
 
+/**
+ * Method use to get collection name from product's custom attribute family name`
+ * @param {Product} apiProduct
+ * @returns {String }collection name
+ */
+function getCollectionName(apiProduct) {
+    var collectionName = apiProduct.custom.familyName ? apiProduct.custom.familyName[0] : '';
+    return collectionName;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -360,5 +407,6 @@ module.exports = {
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
     getESWPrice: getESWPrice,
+    getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject
 };

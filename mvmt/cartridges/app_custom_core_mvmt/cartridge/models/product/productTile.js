@@ -22,6 +22,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var eswPrice = productCustomHelper.getESWPrice(product);
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     
@@ -139,6 +140,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
 
+    if (!empty(collectionName)) {
+        Object.defineProperty(product, 'collectionName', {
+            enumerable: true,
+            value: collectionName
+        });
+    }
     if (!empty(promotionObj)) {
         Object.defineProperty(product, 'promotionObj', {
             enumerable: true,

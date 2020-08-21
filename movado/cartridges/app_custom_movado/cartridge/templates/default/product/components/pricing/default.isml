@@ -24,7 +24,7 @@
     </isif>
 
     <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
-    <isif condition="${isEswEnabled}"> 
+    <isif condition="${isEswEnabled && price != null}"> 
         <isif condition="${empty(pdict.product)}"> 
             <isset name="lineItemID" value="${lineItem.id}" scope="page" />
             <isset name="lineItemUUID" value="${lineItem.UUID}" scope="page" />

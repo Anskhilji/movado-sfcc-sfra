@@ -1,4 +1,5 @@
 <div class="suggestions">
+    <input class="d-none" type="text" id="searchCount" name="searchCount" value="${pdict.suggestions.searchCount}">
     <div class="row">
         <div class="col-1">
             
@@ -90,5 +91,4 @@
         </iscomment>
         <iscomment>Custom END</iscomment>
     </div>
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 </div>

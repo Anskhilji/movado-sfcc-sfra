@@ -372,8 +372,8 @@ function getShippingRates() {
                         'ShopperCurrencyOveridePriceInfo': {
                             'Title': 'SCOPI_Title',
                             'Description': 'SCOPI_Description',
-                            'Price': currencyIso + eswHelper.getMoneyObject(cart.adjustedShippingTotalPrice, true, false, true).value
-                        },
+                            'Price': currencyIso + eswHelper.getMoneyObject(cart.adjustedShippingTotalPrice,true, false, false).value
+                        },                        
                         'MetadataItems': null
                     };
                     shippingRates.push(shippingRate);

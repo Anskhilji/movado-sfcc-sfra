@@ -47,7 +47,7 @@
 
             <isif condition="${pdict.display.showAddToCart}">
                 <div class="product-brand-info">
-                    <span>${product.brand}</span>
+                    <span>${product.collectionName}</span>
                 </div>
             </isif>
             <isinclude template="product/components/productTileName" />
@@ -69,6 +69,6 @@
         </div>
     </div>
     <isif condition="${pdict.display.showAddToCart}">
-        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true, 'pview', 'tile')}"/>
+        <isinclude template="product/components/showCartButtonProduct" />
     </isif>
 </div>

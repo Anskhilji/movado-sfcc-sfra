@@ -58,7 +58,9 @@
             </div>
         </div>
     </div>
-    <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+    <isif condition="${!request.httpParameterMap.get('country').value}">
+        <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+    </isif>
     
     <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 

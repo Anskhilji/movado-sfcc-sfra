@@ -310,6 +310,7 @@ function Request(request, customer, session) {
             try {
                 var countryCode = request.httpParameterMap.get('country').value;
                 if (!empty(countryCode)) {
+                    session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
@@ -332,6 +333,7 @@ function Request(request, customer, session) {
                                 //Custom End  
                             }
                             eswHelper.selectCountry(countryCode, currencyCode, language);
+                            session.custom.countryCode = countryCode;
                         }
                     }
                 }

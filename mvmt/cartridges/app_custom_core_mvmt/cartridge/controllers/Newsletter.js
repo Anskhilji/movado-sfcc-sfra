@@ -40,7 +40,7 @@ server.post('UpdateEvent', server.middleware.https, function (req, res, next) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
             Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    
-    var countryCode = isEswEnabled ? request.httpCookies['esw.location'].value : '';
+    var countryCode = isEswEnabled ? session.custom.countryCode : '';
     
     var params = {
         email: !empty(request.httpParameterMap.email.value) ? request.httpParameterMap.email.value : '',
