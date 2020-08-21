@@ -456,3 +456,13 @@
         }
     }
 }
+
+.klarna {
+  &-panel {
+    &-image {
+      width: rem(77);
+      border-radius: rem(8);
+      height: rem(39);
+    }
+  }
+}

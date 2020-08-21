@@ -579,3 +579,10 @@
     }
   }
 }
+
+@include media-breakpoint-down(md) {
+  .main-menu.menu-toggleable-left.in .dropdown-menu {
+    height: 125%;
+    overflow-y: hidden;
+  }
+}

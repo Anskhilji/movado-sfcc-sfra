@@ -10,14 +10,13 @@
 	   <isset name="preOrder" value="${true}" scope="page"/>
 	</isif>  
 </isif>
-<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 
 <div class="cart-and-ipay w-100">
     <div class="cta-add-to-cart">
-        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
         
         <iscomment> Custom: [added just a plp check here] </iscomment>
-        <isif condition="${!pdict.isPLPProduct}"> 
+        <isif condition="${!pdict.display.plpTile}"> 
             <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
                 data-pid="${product.id}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
@@ -31,12 +30,14 @@
                     <iselse>
                         ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
-                    <span class="product-price-mobile ${pdict.isPLPProduct ? 'd-none' : ''}"> 
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder">
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                    </span>
+                    <isif condition="${!pdict.isPLPProduct}"> 
+                        <span class="product-price-mobile"> 
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <div class="add-to-cart-price-holder specific">
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                        </span>
+                    </isif>
             </button>
             <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
             <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
@@ -61,12 +62,14 @@
                     <iselse>
                         ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
-                    <span class="product-price-mobile ${pdict.isPLPProduct ? 'd-none' : ''}"> 
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <div class="add-to-cart-price-holder} ">
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                    </span>
+                    <isif condition="${!pdict.isPLPProduct}">
+                        <span class="product-price-mobile"> 
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <div class="add-to-cart-price-holder} ">
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                        </span>
+                    </isif>
             </button>
 	    <iselse>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
