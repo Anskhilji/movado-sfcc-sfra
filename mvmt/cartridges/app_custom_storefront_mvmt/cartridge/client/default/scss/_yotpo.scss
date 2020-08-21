@@ -1,5 +1,13 @@
 #yotpoReviews {
 
+    h3.details-heading {
+        font-size: rem(24);
+
+        @include media-breakpoint-up (md) {
+            font-size: rem(40);
+        }
+    }
+
     #yotpo-reviews-top-div  {
 
         &.yotpo.yotpo-main-widget {
