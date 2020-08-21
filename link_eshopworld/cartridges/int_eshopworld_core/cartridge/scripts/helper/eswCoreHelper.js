@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
