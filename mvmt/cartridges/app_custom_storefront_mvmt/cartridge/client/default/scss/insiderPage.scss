@@ -203,7 +203,7 @@
         }
 
         
-        .swell-campaign { 
+        .swell-campaign, .swell-campaign-one-time, .swell-referral-campaign { 
 
             &-list {
                 padding: 0;
@@ -263,6 +263,30 @@
                         @include media-breakpoint-down(md) {
                             display: none;
                         }
+                    }
+                }
+
+
+                .insider-card__check {
+                    display: none;
+                }
+    
+                .is-complete {
+                    
+                    .swell-campaign-details {
+                        opacity: 0.5;
+                    }
+    
+                    .insider-card__check {
+                        display: block;
+                        right: rem(30);
+                        padding: 0;
+                        position: absolute;
+                        top: rem(10);
+                        width: rem(20);
+                        height: rem(20);
+                        background: url("../../images/insiderCheck.svg") center center no-repeat;
+                        box-shadow: none;
                     }
                 }
             }
