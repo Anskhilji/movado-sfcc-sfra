@@ -298,60 +298,6 @@ function getGtmPromotionObject (promotions) {
     }
 }
 
-/**
- * 
- * @param {Product Model} product
- * @returns eswPriceHTML
- */
-function getESWPrice(product) {
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    if (isEswEnabled && !empty(product.price)) {
-        var priceObj = product.price;
-        var price, lineItemID, lineItemUUID = null;
-        var updatedPriceObj = {};
-    
-        if (!empty(priceObj.list)) {
-            price = priceObj.list.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.list = convertedPrice;
-    
-        }
-    
-        if (!empty(priceObj.type) && priceObj.type == 'range') {
-            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
-            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
-            updatedPriceObj.range = {
-                maxPrice: maxPrice,
-                minPrice: minPrice
-            };
-    
-        } 
-    
-        if (!empty(priceObj.sales)) {
-            price = priceObj.sales.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.sales = convertedPrice;
-        }
-    
-        var eswHtml;
-        var path = 'product/components/pricing/ajaxPricingMain.isml';
-        var template = new Template(path);
-        var result = new HashMap();
-    
-        result.put('price', product.price);
-        result.put('eswPrice', updatedPriceObj);
-        result.put('product', product);
-        eswHtml = template.render(result);
-        var eswPrice = {
-            price: updatedPriceObj,
-            html: eswHtml.text
-        }
-        return eswPrice;
-    } else {
-        return null;
-    }
-}
-
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -359,6 +305,5 @@ module.exports = {
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
-    getESWPrice: getESWPrice,
     getGtmPromotionObject: getGtmPromotionObject
 };
