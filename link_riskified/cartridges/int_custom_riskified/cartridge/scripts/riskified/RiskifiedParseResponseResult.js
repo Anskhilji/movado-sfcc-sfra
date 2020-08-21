@@ -66,7 +66,6 @@ function parseRiskifiedResponse(order) {
             });
         }
         catch (exSOM) {
-            var _e = exSOM;
             somLog.error('RiskifiedParseResponseResult - ' + exSOM);
         }
         
