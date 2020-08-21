@@ -71,15 +71,11 @@
                 flex: 1 1 100%;
                 margin-bottom: rem(30);
             }
-
-            @include media-breakpoint-up(xl-custom) {
-                height: rem(600);
-            }
         }
 
         &-block-2 {
             @include media-breakpoint-up(md-down) {
-                flex: initial;
+                flex: none;
                 width: calc(50% - 12.5px);
             }
 
@@ -89,6 +85,10 @@
 
             @include media-breakpoint-up(xl) {
                 width: calc(50% - 30px);
+            }
+
+            @include media-breakpoint-up(xl-custom) {
+                height: rem(750);
             }
         }
 
@@ -277,7 +277,7 @@
                 }
 
                 @include media-breakpoint-up(xl-custom) {
-                    height: rem(600);
+                    height: 100%;
                 }
             }
         }
