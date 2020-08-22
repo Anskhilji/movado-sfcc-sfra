@@ -1,0 +1,62 @@
+{
+    "name": "1 Row, 3 Column, Landscape",
+    "group": "layouts",
+    "attribute_definition_groups": [
+      {
+        "id": "style",
+        "name": "Style",
+        "description": "Controls to override default style of current Layout.",
+        "attribute_definitions": [
+          {
+            "id": "additionalCss",
+            "name": "Additional CSS Style",
+            "type":"text",
+            "description": "CSS for current 3coulumn Layout. Please use component id in css to apply styling to specified component",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "region_definitions": [
+        {
+          "id":"column1",
+          "name":"Column 1",
+          "max_components":1,
+          "component_type_exclusions": [
+            { "type_id": "layouts.1column" },
+            { "type_id": "layouts.2column" },
+            { "type_id": "layouts.3column" },
+            { "type_id": "layouts.4column" },
+            { "type_id": "layouts.gridcomponentlayout" },
+            { "type_id": "einstein.noanchorgrid" }
+          ]
+        },
+        {
+          "id":"column2",
+          "name":"Column 2",
+          "max_components":1,
+          "component_type_exclusions": [
+            { "type_id": "layouts.1column" },
+            { "type_id": "layouts.2column" },
+            { "type_id": "layouts.3column" },
+            { "type_id": "layouts.4column" },
+            { "type_id": "layouts.gridcomponentlayout" },
+            { "type_id": "einstein.noanchorgrid" }
+          ]
+        },
+        {
+          "id":"column3",
+          "name":"Column 3",
+          "max_components":1,
+          "component_type_exclusions": [
+            { "type_id": "layouts.1column" },
+            { "type_id": "layouts.2column" },
+            { "type_id": "layouts.3column" },
+            { "type_id": "layouts.4column" },
+            { "type_id": "layouts.gridcomponentlayout" },
+            { "type_id": "einstein.noanchorgrid" }
+          ]
+        }
+    ]
+  }
+  
