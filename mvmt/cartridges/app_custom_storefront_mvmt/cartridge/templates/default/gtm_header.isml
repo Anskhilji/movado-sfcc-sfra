@@ -21,6 +21,10 @@
         'logState': '${pdict.gtm.loginStatus}',
         'country': '${pdict.gtm.country}'
     };
+    
+    if (pageDataGTM != undefined && pageDataGTM) {
+        dataLayer.push({ pageData: pageDataGTM});
+    }
 
 // Custom Start: Update Product Details Page Data layer according to mvmt.
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
