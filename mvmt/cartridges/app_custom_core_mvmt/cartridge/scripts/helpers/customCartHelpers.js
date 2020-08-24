@@ -67,7 +67,7 @@ function getBasketParameters() {
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var productModel = productFactory.get({pid: cartItem.productID});
-                var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+                var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.value : (productModel.price && productModel.price.list ? productModel.price.list.value : '');
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
