@@ -550,6 +550,9 @@ function handleVariantResponse(response, $productContainer) {
             .attr('srcset', imageUrl.url);
     });
 
+    // Update Family Name
+    $productContainer.find('.product-brand-info span').text(response.product.collectionName);
+
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
     

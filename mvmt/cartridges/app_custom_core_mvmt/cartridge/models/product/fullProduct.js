@@ -105,7 +105,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     Object.defineProperty(product, 'collectionName', {
         enumerable: true,
-        value: collectionName ? collectionName : ''
+        value: collectionName
     });
 
     return product;
