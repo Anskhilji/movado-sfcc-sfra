@@ -112,6 +112,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.getAvailabilityModel().availabilityStatus
                 });
+
+                Object.defineProperty(product, 'defaultVariantCollectionName', {
+                    enumerable: true,
+                    value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
