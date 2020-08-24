@@ -618,9 +618,7 @@ function handleVariantResponse(response, $productContainer) {
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        if (response.product.eswPrice) {
-            $priceSelector.replaceWith(response.product.eswPrice.html);  
-        } else {
+        if (response.product.price) {
             $priceSelector.replaceWith(response.product.price.html);  
         }
         // Custom Start
@@ -628,10 +626,7 @@ function handleVariantResponse(response, $productContainer) {
         var $barSalePriceSelector = $('.sticky-bar-price .price');
         var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder .price');
 
-        if (response.product.eswPrice) {
-            $mobilePrice.replaceWith(response.product.eswPrice.html);
-            $barSalePriceSelector.replaceWith(response.product.eswPrice.html);
-        }  else {
+        if (response.product.price) {
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }

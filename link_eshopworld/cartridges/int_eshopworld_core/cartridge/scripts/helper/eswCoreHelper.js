@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
@@ -282,8 +285,17 @@ var getEswHelper = {
             /**
              * Custom Start: Override geolocation if country or countryCode parameter is present in request
              */
-            var country = request.httpParameterMap.get('country').value;
-            var countryCode = request.httpParameterMap.get('countryCode').value; 
+            var requestHttpParameterMap = request.getHttpParameterMap();
+            var country;
+            var countryCode;
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                country = requestHttpParameterMap.get('country').value;
+            }
+
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode'))) {
+                countryCode = requestHttpParameterMap.get('countryCode').value;
+            }
+            
             if (!empty(country) || !empty(countryCode)) { 
                 geolocation = !empty(country) ? country : countryCode;
             }
@@ -374,22 +386,24 @@ var getEswHelper = {
             }
             // applying the rounding model
             if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
+                billingPrice = this.applyRoundingModel(billingPrice, false);
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
-        } catch (e) {
+        } catch (e) { 
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }
     },
     /*
      * applies rounding model received from V2 pricefeed
      */
-    applyRoundingModel: function (price) {
+    applyRoundingModel: function (price, roundingModel) {
+        if (!roundingModel) {
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+        }
         var roundedPrice,
             roundedUp,
-            roundedDown,
-            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+            roundedDown;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
