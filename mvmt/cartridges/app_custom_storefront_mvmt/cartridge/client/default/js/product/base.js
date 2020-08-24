@@ -543,6 +543,10 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (response.product.productType == 'variant') {
+        $('body').trigger('pdpChangedVariation', response.product);
+    }
+
     //  Remove Zoom and slick slider
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
