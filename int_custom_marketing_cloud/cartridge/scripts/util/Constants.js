@@ -21,3 +21,7 @@ exports.SFMC_SERVICE_API_TYPE = {
     EVENT: 'EVENT',
     DATA_EXTENSION: 'DATA_EXTENSION'
 }
+
+exports.CREDENTIAL_ID = {
+    UPDATE_DATA_CREDENTIAL_ID : 'mc.update.event.api.cred.'
+}

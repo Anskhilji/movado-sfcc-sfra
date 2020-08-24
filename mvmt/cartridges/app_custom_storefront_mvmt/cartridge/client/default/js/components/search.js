@@ -4,6 +4,7 @@ var debounce = require('lodash/debounce');
 var endpoint = $('.suggestions-wrapper').data('url');
 var minChars = $('input.search-field').data('queryThreshold');
 var $suggestionsSlots = $('.search-recomendation');
+var currentCount;
 
 /**
  * Retrieves Suggestions element relative to scope
@@ -130,6 +131,7 @@ function processResponse(response) {
 
 function getSuggestions(scope) {
     if ($(scope).val().length >= minChars) {
+        currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
         $.spinner().stop();
         $.spinner().start();
@@ -137,7 +139,13 @@ function getSuggestions(scope) {
             context: scope,
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
-            success: processResponse,
+            success: function (data) {
+                var resposeCount = $('#searchCount', $(data).context).val();
+                processResponse;
+                if (resposeCount == currentCount) { 
+                    $('body').trigger('siteSearch:success', $(scope).val());
+                }
+            },
 
             error: function () { $.spinner().stop();}
         });

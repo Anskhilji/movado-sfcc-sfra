@@ -3,7 +3,6 @@
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
 
     <div class="banner-with-contents">
         <iscontentasset aid="footer-banner" />
@@ -52,7 +51,8 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isif condition="${isEswEnabled}" > 
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>

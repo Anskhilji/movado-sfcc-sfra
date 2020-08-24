@@ -60,6 +60,15 @@ function openMiniCart () {
  */
 function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
+        setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
+        if (response.addToCartPerSession == true) {
+            setMarketingProductsByAJAX.addToCartPerSession = true;
+        } else {
+            setMarketingProductsByAJAX.addToCartPerSession = false;
+        }
+        window.dispatchEvent(setMarketingProductsByAJAX);
+    }
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -595,14 +604,24 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+
+
+    // Updating promo messages
+    if (response.product.promotions) {
+        var $promotions = $('.promotions');
+        $promotions.empty();
+        var productPromotions = response.product.promotions;
+        productPromotions.forEach(function(promotion) {
+            $promotions.append("<div class='row'>" + promotion.details + "</div>");
+        });
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        if (response.product.eswPrice) {
-            $priceSelector.replaceWith(response.product.eswPrice.html);  
-        } else {
+        if (response.product.price) {
             $priceSelector.replaceWith(response.product.price.html);  
         }
         // Custom Start
@@ -610,10 +629,7 @@ function handleVariantResponse(response, $productContainer) {
         var $barSalePriceSelector = $('.sticky-bar-price .price');
         var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder .price');
 
-        if (response.product.eswPrice) {
-            $mobilePrice.replaceWith(response.product.eswPrice.html);
-            $barSalePriceSelector.replaceWith(response.product.eswPrice.html);
-        }  else {
+        if (response.product.price) {
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }

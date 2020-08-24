@@ -106,13 +106,16 @@
                 padding: rem(23) rem(25);
                 background: $white;
                 z-index: 1;
-                top: 50%;
-                transform: translateY(-50%);
                 width: auto;
                 height: auto;
 
                 &:hover {
                     background: $white-smoke;
+                }
+
+                @include media-breakpoint-down(sm) {
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
 
                 @include media-breakpoint-up(md-down) {

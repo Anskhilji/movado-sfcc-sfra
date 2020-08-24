@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
@@ -207,10 +210,12 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency.value;
-            });
+        	//Custom Start: Add defensive check for undefined error handing
+            if (!empty(selectedRoundingModel)) {
+                selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+                    return rule.currencyIso == eswCurrency.value;
+                });
+            }
             //Custom End
         }
 
@@ -270,10 +275,33 @@ var getEswHelper = {
      * Function to set initial selected country from cookie or geolocation or preferences
      */
     getAvailableCountry: function () {
-        if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        //Custom Change: updated the getAvailableCountry logic with an addition of session country code condition
+        if (!empty(session.custom.countryCode)) {
+            return session.custom.countryCode;
+        } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;
+            /**
+             * Custom Start: Override geolocation if country or countryCode parameter is present in request
+             */
+            var requestHttpParameterMap = request.getHttpParameterMap();
+            var country;
+            var countryCode;
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                country = requestHttpParameterMap.get('country').value;
+            }
+
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode'))) {
+                countryCode = requestHttpParameterMap.get('countryCode').value;
+            }
+            
+            if (!empty(country) || !empty(countryCode)) { 
+                geolocation = !empty(country) ? country : countryCode;
+            }
+            /**
+             * Custom End: 
+             */ 
             var matchCountry = this.getAllCountries().filter(function (value) {
                 if (value.value == geolocation) {
                     return geolocation;
@@ -358,22 +386,24 @@ var getEswHelper = {
             }
             // applying the rounding model
             if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
+                billingPrice = this.applyRoundingModel(billingPrice, false);
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
-        } catch (e) {
+        } catch (e) { 
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }
     },
     /*
      * applies rounding model received from V2 pricefeed
      */
-    applyRoundingModel: function (price) {
+    applyRoundingModel: function (price, roundingModel) {
+        if (!roundingModel) {
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+        }
         var roundedPrice,
             roundedUp,
-            roundedDown,
-            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+            roundedDown;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
@@ -443,6 +473,22 @@ var getEswHelper = {
         }
 
         return price;
+    },
+    /*
+    * This function is used to get shipping discount if it exist
+    */
+    getShippingDiscount: function (cart) {
+        var totalDiscount = 0;
+        var that = this;
+        if (cart != null) {
+            cart.defaultShipment.shippingPriceAdjustments.toArray().forEach(function (adjustment) {
+                totalDiscount += that.getMoneyObject(adjustment.price, true, false, true).value;
+            });
+        }
+        if (totalDiscount < 0) {
+            totalDiscount *= -1;
+        }
+        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
     },
     /*
      * This function is used to get total of cart or productlineitems based on input
@@ -640,7 +686,8 @@ var getEswHelper = {
             }
             return this.shortenName(this.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).name['en_GB']);
         }
-        return this.shortenName(allESWCountryName[0].displayValue);
+        var shortName = !empty(allESWCountryName[0]) ? allESWCountryName[0].displayValue : '';
+        return this.shortenName(shortName);
     },
     /*
      * Function to apply pricebook if country is override country
@@ -865,7 +912,20 @@ var getEswHelper = {
      */
     getCurrentEswCurrencyCode: function () {
     	return request.httpCookies['esw.currency'].value;
+    },
+    /**
+    * Merges properties from source object to target object
+    * @param {Object} target object
+    * @param {Object} source object
+    * @returns {Object} target object
+    */
+    extendObject: function (target, source) {
+        Object.keys(source).forEach(function (prop) {
+            target[prop] = source[prop];
+        });
+        return target;
     }
+
 };
 
 module.exports = {

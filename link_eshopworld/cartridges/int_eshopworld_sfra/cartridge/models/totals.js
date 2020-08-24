@@ -31,7 +31,11 @@ function getTotals(total, availableObject) {
  * @returns {string} the formatted money value
  */
 function getOrderTotals(total, currency) {
-    if (total && currency) {
+    /** Custom Start: When there is no shipping apply total has 0 and it is
+     * considered to be false the condition therefore improved check.
+    */
+    if (!empty(total) && !empty(currency)) {
+    // Custom End
         return formatMoney(new dw.value.Money(total, currency));
     }
     return '-';
@@ -187,7 +191,7 @@ function totals(lineItemContainer) {
             }
             if (!orderHistoryFlag) {
                 this.subTotal = (isESWSupportedCountry) ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
-                this.totalShippingCost = (isESWSupportedCountry) ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.adjustedShippingTotalPrice, true, false, true)) : getTotals(lineItemContainer.shippingTotalPrice);
+                this.totalShippingCost = (isESWSupportedCountry) ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.shippingTotalPrice, true, false, false)) : getTotals(lineItemContainer.shippingTotalPrice);
             } else {
                 this.subTotal = (eswShopperCurrencyCode != null) ? getCalculatedSubTotal(lineItemContainer, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false).decimalValue, lineItemContainer.getCurrencyCode());
                 this.totalShippingCost = (eswShopperCurrencyCode != null) ? getOrderTotals(lineItemContainer.originalOrder.custom.eswShopperCurrencyDeliveryPriceInfo, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.shippingTotalPrice.decimalValue, lineItemContainer.getCurrencyCode());

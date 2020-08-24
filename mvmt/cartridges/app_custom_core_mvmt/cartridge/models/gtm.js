@@ -107,10 +107,10 @@ function gtmModel(req) {
     var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
 
         //custom start: user firstName
-    var userFirstName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).firstName : '';
+    var userFirstName = !empty(getCustomerProfile(currentCustomer)) ? stringUtils.removeSingleQuotes(getCustomerProfile(currentCustomer).firstName) : '';
 
         //custom start: user last name
-    var userLastName = !empty(getCustomerProfile(currentCustomer)) ? getCustomerProfile(currentCustomer).lastName : '';
+    var userLastName = !empty(getCustomerProfile(currentCustomer)) ? stringUtils.removeSingleQuotes(getCustomerProfile(currentCustomer).lastName) : '';
 
         //custom start: currencyCode
     var currencyCode = isEswEnabled && request.httpCookies['esw.currency'] != null ? request.httpCookies['esw.currency'].value : Site.getCurrent().getCurrencyCode();
@@ -174,8 +174,8 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.userEmail = userShippingDetails && !empty(userShippingDetails.userShippingEmail) ? userShippingDetails.userShippingEmail : (!empty(userEmail) ? userEmail : '');
-    this.userFirstName = userShippingDetails  && !empty(userShippingDetails.userShippingFirstName) ? userShippingDetails.userShippingFirstName : (!empty(userFirstName) ? userFirstName : '');
-    this.userLastName = userShippingDetails && !empty(userShippingDetails.userShippingLastName) ? userShippingDetails.userShippingLastName : (!empty(userLastName) ? userLastName : '');
+    this.userFirstName = userShippingDetails  && !empty(userShippingDetails.userShippingFirstName) ? stringUtils.removeSingleQuotes(userShippingDetails.userShippingFirstName) : (!empty(userFirstName) ? stringUtils.removeSingleQuotes(userFirstName) : '');
+    this.userLastName = userShippingDetails && !empty(userShippingDetails.userShippingLastName) ? stringUtils.removeSingleQuotes(userShippingDetails.userShippingLastName) : (!empty(userLastName) ? stringUtils.removeSingleQuotes(userLastName) : '');
     this.userPhone = userShippingDetails && !empty(userShippingDetails.userShippingPhone) ? userShippingDetails.userShippingPhone : (!empty(userPhone) ? userPhone : '');
     this.country =  !empty(country) ? country : '';
     this.currencyCode = (currencyCode != null && currencyCode != undefined) ? currencyCode : '';
@@ -235,8 +235,8 @@ function getLoginStatus(currentCustomer) {
 
 function getUserZip(currentCustomer) {
     var userZip = '';
-    if (currentCustomer.raw.authenticated && currentCustomer.addresses) {
-        userZip = currentCustomer.addressBook.addresses[0].postalCode;
+    if (currentCustomer.raw.authenticated && currentCustomer.addressBook.addresses) {
+        userZip = !empty(currentCustomer.addressBook.addresses[0]) ? currentCustomer.addressBook.addresses[0].postalCode : '';
     }
      return userZip;
 }
@@ -387,14 +387,14 @@ function getCategoryBreadcrumb(categoryObj) {
     if (categoryObj) {
         var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
         if (categoryLevel == 3) {
-            tertiaryCategory = categoryObj.displayName;
-            secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
+            tertiaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+            secondaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
+            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.parent.displayName): '' ): '');
         } else if (categoryLevel == 2) {
-            secondaryCategory = categoryObj.displayName;
-            primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
+            secondaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+            primaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
         } else if (categoryLevel == 1) {
-            primaryCategory = categoryObj.displayName;
+            primaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
         }
     }
     return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
@@ -500,7 +500,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         });
     }
     var productName = stringUtils.removeSingleQuotes(productObj.name);
-    var brand = productObj.brand;
+    var brand = stringUtils.removeSingleQuotes(productObj.brand);
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
     var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
@@ -555,14 +555,14 @@ function getBasketParameters() {
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
-                    brand: cartItem.product.brand,
-                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? cartItem.product.masterProduct.primaryCategory.ID : (cartItem.product.primaryCategory ? cartItem.product.primaryCategory.ID : ''),
+                    brand: stringUtils.removeSingleQuotes(cartItem.product.brand),
+                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.masterProduct.primaryCategory.ID) : (cartItem.product.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.primaryCategory.ID) : ''),
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
                     prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
                     productType: productModel.productType,
                     price: productPrice,
-                    description: cartItem.product.shortDescription,
+                    description: stringUtils.removeSingleQuotes(cartItem.product.shortDescription.markup),
                     quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
                     tax: cartItem.tax.decimalValue,
@@ -589,15 +589,15 @@ function getCartJSONArray(checkoutObject) {
         cartObj.id = cartJSON[i].id;
         cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
         cartObj.price = cartJSON[i].price;
-        cartObj.brand = cartJSON[i].brand;
-        cartObj.category = escapeQuotes(cartJSON[i].category);
+        cartObj.brand = stringUtils.removeSingleQuotes(cartJSON[i].brand);
+        cartObj.category = stringUtils.removeSingleQuotes(escapeQuotes(cartJSON[i].category));
         cartObj.variant = cartJSON[i].variant;
         cartObj.position = cartJSON[i].position;
         cartObj.revenue = cartJSON[i].revenue;
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.productType = cartJSON[i].productType;
-        cartObj.description = escape(cartJSON[i].description);
+        cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
         cartObj.quantity = cartJSON[i].quantity;
         cartObj.imageURL = cartJSON[i].imageURL;
         cartObj.prouctUrl = cartJSON[i].prouctUrl;
@@ -752,18 +752,18 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
             produtObj.id = productLineItem.product.ID;
             produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
-            produtObj.brand = productLineItem.product.brand;
-            produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? productLineItem.product.masterProduct.primaryCategory.ID
+            produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
+            produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
                 : '')
-                : ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID : ''));
+                : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
             produtObj.variant = variants;
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
-            produtObj.description = productLineItem.product.shortDescription.markup;
+            produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
             produtObj.productType = productHelper.getProductType(productLineItem.product);
             produtObj.imageURL = productLineItem.product.image.absURL;
             produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
-            produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+            produtObj.quantity = productLineItem.quantityValue;
 
             produtObj.itemCoupon = itemLevelCouponString;
 
@@ -783,11 +783,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderId = orderId;
         orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
         orderObj.orderQuantity = order.productLineItems.length;
-        orderObj.revenue = order.totalGrossPrice.decimalValue;
+        orderObj.revenue = order.getMerchandizeTotalNetPrice().decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
-        orderObj.salesRevenue = order.totalNetPrice.decimalValue;
+        orderObj.salesRevenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue; 
         orderObj.city = order.shipments[0].shippingAddress.city;
         orderObj.state = order.shipments[0].shippingAddress.stateCode;
         orderObj.shippingOption = order.shipments[0].shippingMethodID;
@@ -805,8 +805,8 @@ function getUserShippingDetails(orderId) {
     var order = OrderMgr.getOrder(orderId);
     var shippingDetails = {};
     try {
-        shippingDetails.userShippingFirstName = order.shipments[0].shippingAddress.firstName;
-        shippingDetails.userShippingLastName = order.shipments[0].shippingAddress.lastName;
+        shippingDetails.userShippingFirstName = stringUtils.removeSingleQuotes(order.shipments[0].shippingAddress.firstName);
+        shippingDetails.userShippingLastName = stringUtils.removeSingleQuotes(order.shipments[0].shippingAddress.lastName);
         shippingDetails.userShippingPhone = order.shipments[0].shippingAddress.phone;
         shippingDetails.userShippingPostalCode = order.shipments[0].shippingAddress.postalCode;
         shippingDetails.userShippingStateCode = order.shipments[0].shippingAddress.stateCode;

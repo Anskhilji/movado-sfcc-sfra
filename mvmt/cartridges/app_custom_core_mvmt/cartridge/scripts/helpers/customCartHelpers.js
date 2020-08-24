@@ -1,10 +1,13 @@
 'use strict';
 var movadoCustomCartHelpers = module.superModule;
+var Logger = require('dw/system/Logger');
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 var Resource = require('dw/web/Resource');
+
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
     var productGtmArray={};
@@ -22,10 +25,10 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             variant = getVaraintSize(pli);
             productGtmArray={
                 "id" : productID,
-                "name" : pli.product.name,
-                "brand" : pli.product.brand,
-                "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-                        : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
+                "name" : stringUtils.removeSingleQuotes(pli.product.name),
+                "brand" : stringUtils.removeSingleQuotes(pli.product.brand),
+                "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? stringUtils.removeSingleQuotes(pli.product.masterProduct.primaryCategory.ID)
+                        : (pli.product.primaryCategory ? stringUtils.removeSingleQuotes(pli.product.primaryCategory.ID) : ''),
                 "variant" : variant,
                 "productType" : productModel.productType,
                 "quantity" : productModel.quantities[0].value,
@@ -67,7 +70,7 @@ function getBasketParameters() {
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
                 cartJSON.push({
                     id: cartItem.productID,
-                    name: cartItem.productName,
+                    name: stringUtils.removeSingleQuotes(cartItem.productName),
                     price: productPrice,
                     quantity:cartItem.quantityValue, 
                 });
@@ -112,14 +115,14 @@ function removeFromCartGTMObj(productLineItems){
         });
 
         cartItemObj.push({
-            'name': pli.product.name,
+            'name': stringUtils.removeSingleQuotes(pli.product.name),
             'id': pli.product.ID,
             'price': price,
-            'category': !empty(pli.product.categories) ? pli.product.categories[0].ID : '',
+            'category': !empty(pli.product.categories) ? stringUtils.removeSingleQuotes(pli.product.categories[0].ID) : '',
             'sku' : pli.product.ID,
             'variantID' : pli.product.variant ? pli.product.ID : '',
             'brand': pli.product.brand,
-            'currentCategory': !empty(pli.product.categories) ? pli.product.categories[0].displayName : '',
+            'currentCategory': !empty(pli.product.categories) ? stringUtils.removeSingleQuotes(pli.product.categories[0].displayName) : '',
             'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
             'variant': displayValue,
             'quantity':pli.quantityValue
@@ -129,8 +132,32 @@ function removeFromCartGTMObj(productLineItems){
     return cartItemObj;
 }
 
+function getCountrySwitch() {
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    if (eswCustomHelper.isEshopworldModuleEnabled()) {
+        try {
+            var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+            var Site = require('dw/system/Site');
+            var selectedCountryCode = eswHelper.getAvailableCountry();
+            var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
+        
+            if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
+                return selectedCountry;
+            }
+        
+            return false;
+        } catch (e) {
+            Logger.error('(customCartHelpers.js -> getCountrySwitch) Error occured while getting countrySwitch: ' + e + e.stack);
+            return false;
+        }
+    }
+    return false;
+
+}
+
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
 movadoCustomCartHelpers.getProductOptions = getProductOptions;
 movadoCustomCartHelpers.removeFromCartGTMObj = removeFromCartGTMObj;
+movadoCustomCartHelpers.getCountrySwitch = getCountrySwitch;
 
 module.exports = movadoCustomCartHelpers;

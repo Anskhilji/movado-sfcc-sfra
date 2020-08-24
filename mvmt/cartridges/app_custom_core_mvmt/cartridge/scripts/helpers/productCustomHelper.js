@@ -12,6 +12,8 @@ var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
 
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -143,6 +145,45 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get category object of current product
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @param {Object} categories - categories json configured in site preference
+ * @returns {Object} - category object
+ */
+
+function getCategoryConfig(apiProduct, categoriesConfig) {
+    var categoryConfigFound = false;
+    var category = null;
+    var currentCategory;
+
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        category = categoriesConfig[currentCategory.ID];
+        
+        if (!empty(category)) {
+            break;
+        }
+
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory)) {
+                category = categoriesConfig[currentCategory.ID];
+                if (!empty(category)) {
+                    categoryConfigFound = true;
+                    break;
+                }
+            }
+        } //End inner while
+
+        if (categoryConfigFound) {
+            break;
+        }
+    } //End outer while
+    return category;
+}
+
+/**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
@@ -153,19 +194,15 @@ function getProductAttributes(apiProduct) {
     var pdpDetailAttributes = [];
     var pdpSpecAttributes = [];
     try {
-        var CatalogMgr = require('dw/catalog/CatalogMgr');
-        var categories = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
-        if (!empty(categories) && !empty(apiProduct)) {
-            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-                var categoryObj = categories[categoryIndex];
-                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
-                if (!empty(categoryAssignment)) {
-                    category = categoryObj;
-                    break;
-                }
-            }
+        var categoriesConfig = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
         }
+
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
+
         if (!empty(category)) {
             var attributes = category.attributes;
             if (!empty(attributes)) {
@@ -276,7 +313,7 @@ function getGtmPromotionObject (promotions) {
         try {
             for (var i = 0; i < promotions.length; i++) {
                 var promotionId = promotions[i].ID;
-                var promotionName = promotions[i].name;
+                var promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
                 var promotionCreated = promotions[i].startDate;
                 var promotionPostistion = promotions[i].promotionClass;
                 var pageType = session.custom.gtmPageType;
@@ -293,60 +330,6 @@ function getGtmPromotionObject (promotions) {
             Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
             return null;
         }
-    } else {
-        return null;
-    }
-}
-
-/**
- * 
- * @param {Product Model} product
- * @returns eswPriceHTML
- */
-function getESWPrice(product) {
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    if (isEswEnabled && !empty(product.price)) {
-        var priceObj = product.price;
-        var price, lineItemID, lineItemUUID = null;
-        var updatedPriceObj = {};
-    
-        if (!empty(priceObj.list)) {
-            price = priceObj.list.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.list = convertedPrice;
-    
-        }
-    
-        if (!empty(priceObj.type) && priceObj.type == 'range') {
-            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
-            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
-            updatedPriceObj.range = {
-                maxPrice: maxPrice,
-                minPrice: minPrice
-            };
-    
-        } 
-    
-        if (!empty(priceObj.sales)) {
-            price = priceObj.sales.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.sales = convertedPrice;
-        }
-    
-        var eswHtml;
-        var path = 'product/components/pricing/ajaxPricingMain.isml';
-        var template = new Template(path);
-        var result = new HashMap();
-    
-        result.put('price', product.price);
-        result.put('eswPrice', updatedPriceObj);
-        result.put('product', product);
-        eswHtml = template.render(result);
-        var eswPrice = {
-            price: updatedPriceObj,
-            html: eswHtml.text
-        }
-        return eswPrice;
     } else {
         return null;
     }
@@ -373,7 +356,6 @@ module.exports = {
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
-    getESWPrice: getESWPrice,
     getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject
 };

@@ -21,7 +21,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
-    var eswPrice = productCustomHelper.getESWPrice(product);
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
@@ -131,13 +130,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: apiProduct
         });
         
-    }
-
-    if (!empty(eswPrice)) {
-        Object.defineProperty(product, 'eswPrice', {
-            enumerable: true,
-            value: eswPrice
-        });
     }
 
     Object.defineProperty(product, 'collectionName', {
