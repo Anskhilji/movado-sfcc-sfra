@@ -140,12 +140,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
 
-    if (!empty(collectionName)) {
-        Object.defineProperty(product, 'collectionName', {
-            enumerable: true,
-            value: collectionName
-        });
-    }
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName ? collectionName : ''
+    });
+
     if (!empty(promotionObj)) {
         Object.defineProperty(product, 'promotionObj', {
             enumerable: true,
