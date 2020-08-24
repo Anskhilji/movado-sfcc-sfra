@@ -145,7 +145,7 @@
         <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
         <isif condition="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) && dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
             <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
-            <isif condition="${KlarnaOnSiteMessaging && siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
+            <isif condition="${!empty(KlarnaOnSiteMessaging) && siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
                 <script async src="https://eu-library.klarnaservices.com/merchant.js?uci=${KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}&country=${siteLocaleCountryCode}"></script>
                 <script>
                     isklarnaPromoEnabled = true;

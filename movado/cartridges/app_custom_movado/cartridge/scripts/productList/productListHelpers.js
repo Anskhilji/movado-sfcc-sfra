@@ -253,7 +253,9 @@ function addItem(list, pid, config) {
 
         var apiProduct = ProductMgr.getProduct(pid);
 
-        if (!empty(apiProduct) && apiProduct.variationGroup) { return false; }
+        if (!empty(apiProduct) && apiProduct.variationGroup) {
+            return false;
+        }
 
         if (apiProduct && list && config.qty) {
             try {
