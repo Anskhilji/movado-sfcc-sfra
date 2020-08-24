@@ -107,6 +107,7 @@
             formid="phone"
             label="label.input.phone.profile"
             mandatory="true"
+            max-length="15"
             regexp="(^[0-9 \\s-]+$)"
             missing-error="error.message.required"
             parse-error="error.message.parse.phone.profile.form"
