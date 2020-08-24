@@ -95,12 +95,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(collectionName)) {
-        Object.defineProperty(product, 'collectionName', {
-            enumerable: true,
-            value: collectionName
-        });
-    }
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     return product;
 };

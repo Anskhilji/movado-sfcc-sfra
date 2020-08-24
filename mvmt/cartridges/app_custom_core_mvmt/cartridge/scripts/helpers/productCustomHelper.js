@@ -341,7 +341,11 @@ function getGtmPromotionObject (promotions) {
  * @returns {String }collection name
  */
 function getCollectionName(apiProduct) {
-    var collectionName = apiProduct.custom.familyName ? apiProduct.custom.familyName[0] : '';
+    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    if (empty(collectionName) && apiProduct.variant) {
+        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
+    }
+
     return collectionName;
 }
 
