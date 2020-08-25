@@ -2,9 +2,9 @@
     <span class="starting">
         ${Resource.msg('label.starting_from', 'pricing', null)}
         <isif condition="${product.price.min}">
-            <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', product.price.min.sales.decimalPrice, 'listPrice', true)}"/></span>
+            ${product.price.min.sales.formatted}
         <iselse>
-            <span class="eswPrice"><isinclude url="${URLUtils.url('EShopWorld-GetConvertedPrice', 'price', product.price.sales.decimalPrice, 'listPrice', true)}"/></span>
+            ${product.price.sales.formatted}
         </isif>
     </span>
 </div>

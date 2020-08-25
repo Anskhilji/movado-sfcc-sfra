@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
@@ -369,7 +372,7 @@ var getEswHelper = {
             }
             // applying the rounding model
             if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
+                billingPrice = this.applyRoundingModel(billingPrice, false);
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
@@ -380,11 +383,13 @@ var getEswHelper = {
     /*
      * applies rounding model received from V2 pricefeed
      */
-    applyRoundingModel: function (price) {
+    applyRoundingModel: function (price, roundingModel) {
+        if (!roundingModel) {
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+        }
         var roundedPrice,
             roundedUp,
-            roundedDown,
-            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+            roundedDown;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;

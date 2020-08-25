@@ -1,0 +1,24 @@
+{
+  "step-types": {
+      "script-module-step": [
+          {
+              "@type-id": "custom.ESW_GenerateLocalizePricing",
+              "timeout-in-seconds": "180000",
+              "description": "This job used to calculate and generate localize price books.",
+              "module": "int_eshopworld_core/cartridge/scripts/jobs/GenerateLocalizePricing.js",
+              "transactional": "true",
+              "function": "execute",
+              "parameters": {
+                  "parameters": [
+                    {
+                  "@name":"impexDirPath",
+                  "@type":"string",
+                  "@required":"true",
+                  "description":"Define IMPEX directory path here."
+                }
+              ]
+              }
+          }
+      ]
+  }
+}
