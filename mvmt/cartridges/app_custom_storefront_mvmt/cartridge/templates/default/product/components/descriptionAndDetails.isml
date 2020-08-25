@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="pdp-content-body">
-                <div class="w-100">
+                <div id="yotpoReviews" class="w-100">
                     <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
                     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                     then appropriate template should be overridden. </iscomment>

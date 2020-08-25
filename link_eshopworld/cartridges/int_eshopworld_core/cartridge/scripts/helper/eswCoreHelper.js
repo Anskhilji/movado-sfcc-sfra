@@ -210,10 +210,12 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency.value;
-            });
+        	//Custom Start: Add defensive check for undefined error handing
+            if (!empty(selectedRoundingModel)) {
+                selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+                    return rule.currencyIso == eswCurrency.value;
+                });
+            }
             //Custom End
         }
 
@@ -273,15 +275,27 @@ var getEswHelper = {
      * Function to set initial selected country from cookie or geolocation or preferences
      */
     getAvailableCountry: function () {
-        if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        //Custom Change: updated the getAvailableCountry logic with an addition of session country code condition
+        if (!empty(session.custom.countryCode)) {
+            return session.custom.countryCode;
+        } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;
             /**
              * Custom Start: Override geolocation if country or countryCode parameter is present in request
              */
-            var country = request.httpParameterMap.get('country').value;
-            var countryCode = request.httpParameterMap.get('countryCode').value; 
+            var requestHttpParameterMap = request.getHttpParameterMap();
+            var country;
+            var countryCode;
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                country = requestHttpParameterMap.get('country').value;
+            }
+
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode'))) {
+                countryCode = requestHttpParameterMap.get('countryCode').value;
+            }
+            
             if (!empty(country) || !empty(countryCode)) { 
                 geolocation = !empty(country) ? country : countryCode;
             }
@@ -376,7 +390,7 @@ var getEswHelper = {
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
-        } catch (e) {
+        } catch (e) { 
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }
     },
@@ -459,6 +473,22 @@ var getEswHelper = {
         }
 
         return price;
+    },
+    /*
+    * This function is used to get shipping discount if it exist
+    */
+    getShippingDiscount: function (cart) {
+        var totalDiscount = 0;
+        var that = this;
+        if (cart != null) {
+            cart.defaultShipment.shippingPriceAdjustments.toArray().forEach(function (adjustment) {
+                totalDiscount += that.getMoneyObject(adjustment.price, true, false, true).value;
+            });
+        }
+        if (totalDiscount < 0) {
+            totalDiscount *= -1;
+        }
+        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
     },
     /*
      * This function is used to get total of cart or productlineitems based on input
@@ -656,7 +686,8 @@ var getEswHelper = {
             }
             return this.shortenName(this.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).name['en_GB']);
         }
-        return this.shortenName(allESWCountryName[0].displayValue);
+        var shortName = !empty(allESWCountryName[0]) ? allESWCountryName[0].displayValue : '';
+        return this.shortenName(shortName);
     },
     /*
      * Function to apply pricebook if country is override country

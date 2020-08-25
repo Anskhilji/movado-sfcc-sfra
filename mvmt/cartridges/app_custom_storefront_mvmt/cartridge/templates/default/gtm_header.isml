@@ -21,6 +21,10 @@
         'logState': '${pdict.gtm.loginStatus}',
         'country': '${pdict.gtm.country}'
     };
+    
+    if (pageDataGTM != undefined && pageDataGTM) {
+        dataLayer.push({ pageData: pageDataGTM});
+    }
 
 // Custom Start: Update Product Details Page Data layer according to mvmt.
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
@@ -37,7 +41,7 @@
                     'brand': '${pdict.gtm.product.brand}',
                     'currentCategory': '${pdict.gtm.product.category}',
                     'productType': '${pdict.gtm.product.productType}',
-                    'variant': '${pdict.gtm.product.productType}'
+                    'variant': '${pdict.gtm.product.variant}'
                 }]
             }
         },
@@ -154,6 +158,7 @@
                                     'state': '${orderObj.orderObj.state}',
                                     'orderQuantity': '${orderObj.orderObj.orderQuantity}',
                                     'discount': '${orderObj.orderObj.discount}',
+                                    'currencyCode': '${orderObj.orderObj.currencyCode}',
                                     'discountType': '${orderObj.orderObj.discountType}',}
                                 </isif>
                             </isloop>

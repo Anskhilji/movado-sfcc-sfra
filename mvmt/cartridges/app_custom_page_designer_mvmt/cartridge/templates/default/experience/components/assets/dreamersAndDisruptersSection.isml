@@ -1,0 +1,16 @@
+<style>
+	${pdict.additionalCss} 
+</style>
+<div class="dreamers">
+    <div class="dreamers-background">
+        <img src="${pdict.backgroundImage.src}" />
+    </div>
+    <div class="dreamers-main">
+        <div class="dreamers-main-image">
+            <img src="${pdict.primaryImage.src}"/>
+        </div>
+        <div class="dreamers-main-excerpt">
+            <isprint value="${pdict.richText}" encoding="off"/>
+        </div>
+    </div>
+</div>

@@ -17,9 +17,30 @@ var OrderMgr = require('dw/order/OrderMgr')
  * @returns {SynchronousPromise}
  */
 function confirmation(promise, data) {
-    //Custom Start: Get order from OrderMgr to avoid null object exception on line 22
+    //Custom Start: Get order from OrderMgr to avoid null object exception
     var Order = OrderMgr.getOrder(data.context.order.orderNumber);
-    data.orderAsXML = helpers.stripXmlNS( Order.getOrderExportXML(null, null) );
+    // Custom End
+    var orderXML = Order.getOrderExportXML(null, null);
+    var productID;
+    var prodctIDNode;
+    var productImageURL;
+    var productImageURLNode;
+    var updatedOrderXML;
+    var token;
+    // Custom Start: Implement logic to add product-image into orderXML payload.
+    for (var i = 0; i < data.context.order.items.items.length; i++ ) {
+        productID = data.context.order.items.items[i].id;
+        prodctIDNode = '<product-id>' + productID + '</product-id>';
+        productImageURL = data.context.order.items.items[i].images.small[0].url;
+        productImageURLNode = '<product-image>' + productImageURL + '</product-image>';
+        if (orderXML.indexOf(prodctIDNode) > -1) {
+            token = orderXML.indexOf(prodctIDNode) + prodctIDNode.length;
+            updatedOrderXML = orderXML.substring(0, token) + productImageURLNode + orderXML.substring(token);
+            orderXML = updatedOrderXML;
+        }
+    }
+    //Custom End
+    data.orderAsXML = helpers.stripXmlNS( orderXML );
     return sendTrigger(hookPath + 'confirmation', promise, data);
 }
 

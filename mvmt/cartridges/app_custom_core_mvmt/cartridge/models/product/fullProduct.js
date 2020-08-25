@@ -23,6 +23,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -93,6 +94,11 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: seeTheFitPopup.seeTheFitSpecs
         });
     }
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     return product;
 };

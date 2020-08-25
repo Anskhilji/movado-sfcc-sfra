@@ -122,11 +122,12 @@ module.exports = function () {
             method: 'POST',
             data: params,
             success: function () { 
-                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $('.sfmc-update-event-success').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $('.sfmc-update-event').trigger("reset");
                 $.spinner().stop();
             },
             error: function () {
-                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
+                $('.sfmc-update-event-error').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
                 $.spinner().stop();
             }
         });

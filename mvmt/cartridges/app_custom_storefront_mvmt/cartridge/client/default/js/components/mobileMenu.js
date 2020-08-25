@@ -42,12 +42,24 @@ module.exports = function () {
     });
     
     function handleVariantResponse(response, $productContainer, pdpURL) {
-
+        var $product = response.product;
         // Update primary images
         var primaryImageUrls = response.product.images;
+        var $imageContainer = $productContainer.find('.image-container').find('img');
         $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-        $productContainer.find('.image-container').find('img').attr('src', primaryImageUrls.pdp533[0].url);
+        $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+
+        // Update Family Name
+        $productContainer.find('.product-brand-info span').text(response.product.collectionName);
+
+        //update product gtm data
+        var $gtmClikObject = $imageContainer.data('gtm-product');
+        $gtmClikObject.id = $product.id;
+        $gtmClikObject.brand = $product.brand;
+        $gtmClikObject.name = $product.productName;
+        $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
+        $imageContainer.data('gtm-product', $gtmClikObject);
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
