@@ -349,7 +349,8 @@ var getEswHelper = {
         }
         try {
             var baseCurrency = this.getBaseCurrencyPreference(),
-                billingPrice = (typeof price == 'object') ? new Number(price.value) : new Number(price),
+                // setting price to zero if it is null
+                billingPrice = (typeof price == 'object') ? new Number(price.value || 0) : new Number(price || 0),
                 selectedCountry = this.getAvailableCountry(),
                 selectedFxRate = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate) : false;
 
