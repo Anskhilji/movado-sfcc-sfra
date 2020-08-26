@@ -543,6 +543,10 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (response.product.productType == 'variant') {
+        $('body').trigger('pdpChangedVariation', response.product);
+    }
+
     //  Remove Zoom and slick slider
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
@@ -558,6 +562,9 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+
+    // Update Family Name
+    $productContainer.find('.product-brand-info span').text(response.product.collectionName);
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();

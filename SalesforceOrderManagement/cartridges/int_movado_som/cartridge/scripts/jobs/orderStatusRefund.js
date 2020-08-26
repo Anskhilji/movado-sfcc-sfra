@@ -131,6 +131,18 @@ function processStatusRefund(SAPOrderStatus, fulfillmentOrder) {
         })
     );
 
+    // Add Operation Log
+    requestPlatformEvent.push(
+        SalesforceModel.buildCompositeOperationLog({
+            orderSummaryId: orderSummaryId,
+            fulfillmentOrderId: fulfillmentOrderId,
+            operationComponent: 'REFUND/CANCELLATION',
+            operationStartTime: startTimeStamp,
+            dataInput: JSON.stringify(SAPOrderStatus),
+            dataOutput: JSON.stringify(pendingOSCancelChangeItems)
+        })
+    );
+
     // Send the composite request
     var platformEventResponse = SalesforceModel.createSalesforceCompositeRequest(true, requestPlatformEvent);
     if (!platformEventResponse.ok || !platformEventResponse.object || !platformEventResponse.object.compositeResponse || platformEventResponse.object.compositeResponse.length < 1) {
