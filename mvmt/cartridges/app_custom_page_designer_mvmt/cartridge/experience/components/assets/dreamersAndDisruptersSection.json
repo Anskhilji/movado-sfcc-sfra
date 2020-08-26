@@ -29,6 +29,38 @@
             ]
         },
         {
+            "id": "lifeStyleImages",
+            "name": "Life Style Images for dreamers and diruptors",
+            "description": "Life Style Images for dreamers and diruptors",
+            "attribute_definitions": [
+                {
+                    "id": "enableLifeStyleImages",
+                    "name": "Enable Life Style Images",
+                    "type": "boolean",
+                    "default_value": false,
+                    "required": true
+                },
+                {
+                    "id": "firstImage",
+                    "name": "First Image",
+                    "type": "image",
+                    "required": false
+                },
+                {
+                    "id": "secoundImage",
+                    "name": "Second Image",
+                    "type": "image",
+                    "required": false
+                },
+                {
+                    "id": "thirdImage",
+                    "name": "Third Image",
+                    "type": "image",
+                    "required": false
+                }
+            ]
+        },
+        {
             "id": "style",
             "name": "Style",
             "description": "Controls to override default style of current Layout.",
