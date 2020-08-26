@@ -4,7 +4,9 @@
         assets.addCss('/css/account/orderTrack.css');
         assets.addCss('/css/account/profile.css');
     </isscript>
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    </isif>
 
     <!--- Replace image once UX has given images --->
     <div class="hero container">
