@@ -887,15 +887,15 @@ function getMarketingProducts(apiProduct, quantity) {
 
         if (defaultVariantPrice) {
             if(defaultVariantPrice.sales) {
-                price = defaultVariantPrice.sales.decimalPrice;
+                price = defaultVariantPrice.sales.value;
             } else {
-                price = defaultVariantPrice.list.decimalPrice;
+                price = defaultVariantPrice.list.value;
             }
         } else {
             if (productModel.price && productModel.price.sales) {
-                price = productModel.price.sales.decimalPrice;
+                price = productModel.price.sales.value;
             } else {
-                price = prodcutModel.price.list.decimalPrice;
+                price = prodcutModel.price.list.value;
             }
         }
 

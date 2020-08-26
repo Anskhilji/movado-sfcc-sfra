@@ -68,22 +68,26 @@ function parseRiskifiedResponse(order) {
         catch (exSOM) {
             somLog.error('RiskifiedParseResponseResult - ' + exSOM);
         }
-        
-        Transaction.wrap(function () {
-        	//if order status is CREATED
-        	if(order.getStatus() == Order.ORDER_STATUS_CREATED){
-            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
-        		OrderMgr.failOrder(order);  //Order must be in status CREATED
-        		order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        	}else{ //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
-        		OrderMgr.cancelOrder(order);
-        		order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        	}
-        });
 
+        if (!Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            try {
+                Transaction.wrap(function () {
+                    //if order status is CREATED
+                    if (order.getStatus() == Order.ORDER_STATUS_CREATED){
+                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+                        OrderMgr.failOrder(order);  //Order must be in status CREATED
+                        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                    } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+                        OrderMgr.cancelOrder(order);
+                        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                    }
+                });
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+        }
 
-        
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
         	var orderObj ={
