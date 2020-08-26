@@ -20,7 +20,7 @@
             <img class="lifeStyle-image" src="${pdict.firstImage.src}" />
             <img class="lifeStyle-image" src="${pdict.secoundImage.src}" />
             <img class="lifeStyle-image" src="${pdict.thirdImage.src}" />
-            <img class="lifeStyle-image d-block d-md-none" src="${pdict.backgroundImage.src}" />
+            <img class="lifeStyle-image lifeStyle-background" src="${pdict.backgroundImage.src}" />
         </div>
     </div>
 </isif>

@@ -79,4 +79,11 @@
             width: 30%;
         }
     }
+
+    &-background {
+
+        @include media-up ($mvmt-custom-md1) {
+            display: none;
+        }
+    }
 }
