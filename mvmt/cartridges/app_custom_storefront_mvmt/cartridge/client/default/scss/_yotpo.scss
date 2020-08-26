@@ -36,8 +36,8 @@
 
                     .avg-score {
                         font-size: rem(24);
-                        font-family: $font-medium;
-                        font-weight: 400;
+                        font-family: $font-primary;
+                        font-weight: 300;
                         width: auto !important;
                     }
 
@@ -140,8 +140,26 @@
 
                                 .suggested-topic {
 
+                                    background-color: $white-gray !important;
+                                    border: rem(1) solid $light-gray4 !important;
+                                    border-radius: 0 !important;
+
+                                    &:focus {
+                                        outline: none !important; 
+                                    }
+
                                     &.active-topic {
                                         background-color: $light-gray4 !important;
+                                    }
+
+                                    &-text {
+                                        font-size: rem(11) !important;
+                                        line-height: rem(12) !important;
+                                        letter-spacing: rem(1.38) !important;
+                                        font-family: $font-medium !important;
+                                        font-weight: 500 !important;
+                                        color: $light-gray !important;
+                                        text-transform: uppercase !important;
                                     }
                                 }
                             }
@@ -246,13 +264,16 @@
                             width: 100%;
                             max-width: rem(660);
                             
-                            .content-review {
+                            .content-review, .highlight-text {
                                 font-size: rem(14);
                                 line-height: rem(18);
                                 letter-spacing: 0;
                                 font-family: $font-medium !important;
                                 font-weight: 500 !important;
                                 color: $light-gray !important;
+                            }
+                            
+                            .content-review {
                                 background-color: transparent !important;
                             }
 
@@ -561,10 +582,22 @@
         letter-spacing: rem(1) !important;
         background-color: transparent !important;
         font-size: rem(12);
+        text-transform: uppercase !important;
+
+        &:hover {
+            color: $light-gray2 !important;
+        }
     }
 }
 
 .pdp-mobile-accordian-label {
+
+    .yotpo-bottomline-top-div {
+
+        &:focus {
+            outline: none !important;
+        } 
+    }
 
     .yotpo-stars {
 
