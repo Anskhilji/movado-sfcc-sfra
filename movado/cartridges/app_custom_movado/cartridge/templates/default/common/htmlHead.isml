@@ -75,7 +75,7 @@
 <isinclude template="include/yotpoheader"/>
 
 <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-	<isinclude url="${URLUtils.url('EUMData-IncludeHeader')}"/>
+    <isinclude url="${URLUtils.url('EUMData-IncludeHeader')}"/>
 </isif>
 
 <iscomment> Custom Start: Adding Marketing Cloud cartridge integration </iscomment>
