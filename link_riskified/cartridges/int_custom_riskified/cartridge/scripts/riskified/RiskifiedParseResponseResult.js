@@ -56,6 +56,19 @@ function parseRiskifiedResponse(order) {
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
 
+        /* Reject in OMS - Do not process to fulfillment status */
+        try {
+            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                orderSummaryNumber: order.getOrderNo(),
+                status: 'Cancelled'
+            });
+        }
+        catch (exSOM) {
+            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+        }
+
         if (!Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             try {
                 Transaction.wrap(function () {
@@ -113,6 +126,21 @@ function parseRiskifiedResponse(order) {
                 order.custom.is3DSecureTransactionAlreadyCompleted = false;
             });
         }
+
+        /* Accept in OMS */
+        try {
+            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                orderSummaryNumber: order.getOrderNo(),
+                status: 'Approved'
+            });
+            // 204 response only
+        }
+        catch (exSOM) {
+            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+        }
+                
     }
 }
 

@@ -115,6 +115,11 @@ function populateByOrder(order) {
         // Set the PriceBook ID
         order.custom.SFCCPriceBookId = pricebooks[0];
 
+        // Set the coupon code if applicable
+        if (order.couponLineItems && order.couponLineItems.length > 0) {
+            order.custom.SOMCouponCode = order.couponLineItems[0].couponCode;
+        }
+
         // Add all billing address fields to an object to send to SOM
         addressJSON.billingAddress = getAddressObject(order.billingAddress);
 
@@ -175,17 +180,20 @@ function populateByOrder(order) {
                 productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDis = productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount;
             });
 
-            /**
-             * Add each order price adjustment
-             */
-            var orderPriceAdjustments = [];
-            collections.forEach(order.priceAdjustments, function (priceAdjustment) {
-                orderPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
-            });
-            order.custom.SOMOrderPriceAdjustments = JSON.stringify(orderPriceAdjustments);
         });
 
-        // Set Pre-capture status for Adyen PayPal transactions
+        /**
+         * Add each order price adjustment
+         */
+        var orderPriceAdjustments = [];
+        collections.forEach(order.priceAdjustments, function (priceAdjustment) {
+            orderPriceAdjustments.push(getPriceAdjustmentObject(priceAdjustment));
+        });
+        order.custom.SOMOrderPriceAdjustments = JSON.stringify(orderPriceAdjustments);
+
+        /**
+         * Set Pre-capture status for Adyen-PayPal and ESW transactions
+        */
         var PaymentMgr = require('dw/order/PaymentMgr');
         var arrPi = order.getPaymentInstruments().toArray();
 
@@ -195,8 +203,10 @@ function populateByOrder(order) {
                     arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
                     break;
                 case 'Adyen':
-                    arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
-                    arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+                    if (order.custom.Adyen_paymentMethod.indexOf('Klarna') === -1) {
+                        arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                        arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
+                    }
                     break;
                 case 'BASIC_CREDIT':
                     if (arrPi[i].getPaymentMethod() == 'ESW_PAYMENT') {
@@ -218,7 +228,7 @@ function populateByOrder(order) {
 
     } catch (e) {
         logger.error(e);
-        logger.error('CheckoutServices.js failure: ' + order.orderNo + ' - ' + e.toString());
+        logger.fatal('CheckoutServices.js failure: ' + order.orderNo + ' - ' + e.toString());
         return new Status(Status.ERROR, 'ERROR', 'populateOrderJSON failed. Fatal log sent.');
     }
     return new Status(Status.OK, 'OK', 'populateOrderJSON finished successfully for order ' + order.orderNo);

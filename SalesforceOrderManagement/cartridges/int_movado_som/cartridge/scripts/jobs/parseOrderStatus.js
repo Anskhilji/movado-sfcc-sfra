@@ -139,6 +139,7 @@ function processStatusOrder(SAPOrderStatus) {
     switch (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType) {
 
         case 'CAPTURE':
+        case 'UPDATE':
             // Process rejections vs shipped here
             return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
 
