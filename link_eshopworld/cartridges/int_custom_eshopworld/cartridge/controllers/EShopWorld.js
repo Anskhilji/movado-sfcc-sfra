@@ -30,7 +30,7 @@ server.append('GetEswHeader', function (req, res, next) {
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
 
-    if (isGeoLocation && !empty(geoLocationCountry) && (empty(isWeclomeMat) || isWeclomeMat == false)) {
+    if (isGeoLocation && !empty(geoLocationCountry) && (!empty(isWeclomeMat) || isWeclomeMat == true)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
@@ -69,7 +69,7 @@ server.append('GetEswFooter', function (req, res, next) {
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
 
-    if (isGeoLocation && !empty(geoLocationCountry) && (empty(isWeclomeMat) || isWeclomeMat == false)) {
+    if (isGeoLocation && !empty(geoLocationCountry) && (!empty(isWeclomeMat) || isWeclomeMat == true)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
