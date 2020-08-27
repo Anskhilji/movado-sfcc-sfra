@@ -29,7 +29,6 @@ function setInitialCookies(req) {
     eswHelper.createCookie('esw.sessionid', customer.ID, '/');
     if (request.httpCookies['esw.location'] == null) {
         eswHelper.createCookie('esw.location', eswHelper.getAvailableCountry(), '/');
-        session.privacy.countryCode = eswHelper.getAvailableCountry();
     }
     if (request.httpCookies['esw.currency'] == null) {
         eswHelper.createCookie('esw.currency', currencyCode, '/');
