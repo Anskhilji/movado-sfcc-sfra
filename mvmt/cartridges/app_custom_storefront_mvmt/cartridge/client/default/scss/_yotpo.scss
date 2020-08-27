@@ -600,6 +600,7 @@
         background-color: transparent !important;
         font-size: rem(12);
         text-transform: uppercase !important;
+        margin-left: rem(5) !important; 
 
         &:hover {
             color: $light-gray2 !important;
