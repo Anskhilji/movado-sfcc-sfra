@@ -336,7 +336,6 @@ function Request(request, customer, session) {
                                 }
                                 //Custom End  
                             }
-                            var test = '';
                             eswHelper.selectCountry(countryCode, currencyCode, language);
                             if (session.privacy.countryCode != countryCode) {
                                 delete session.privacy.countryCode;
