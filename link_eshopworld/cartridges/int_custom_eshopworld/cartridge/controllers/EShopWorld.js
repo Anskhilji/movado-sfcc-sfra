@@ -19,6 +19,7 @@ server.append('GetEswHeader', function (req, res, next) {
     var geoLocationCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
+    var isWeclomeMat = session.custom.welcomeMat;
 
     if (isGeoLocation) {
         geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
@@ -28,7 +29,8 @@ server.append('GetEswHeader', function (req, res, next) {
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-    if (isGeoLocation && !empty(geoLocationCountry)) {
+
+    if (isGeoLocation && !empty(geoLocationCountry) && (!empty(isWeclomeMat) || isWeclomeMat == true)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
@@ -51,6 +53,7 @@ server.append('GetEswFooter', function (req, res, next) {
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
     var queryCountryCode = request.httpParameterMap.get('countryCode').value;
+    var isWeclomeMat = session.custom.welcomeMat;
 
 
     if (isGeoLocation) {
@@ -65,7 +68,8 @@ server.append('GetEswFooter', function (req, res, next) {
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-    if (isGeoLocation && !empty(geoLocationCountry)) {
+
+    if (isGeoLocation && !empty(geoLocationCountry) && (!empty(isWeclomeMat) || isWeclomeMat == true)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
