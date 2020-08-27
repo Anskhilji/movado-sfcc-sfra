@@ -1039,9 +1039,11 @@ function getLineItemLevelTax(resultTaxObject, lineItemAdjustedTax, orderPriceRat
     var pliTaxes = 0.0;
     var productProrationPrice = 0.0;
 
-    if (orderPromoApplied) {
+    if (orderPromoApplied && lineItemAdjustedTax > 0) {
         productProrationPrice = parseFloat(orderLevelTaxAttrAdjTotal * orderPriceRatio);
         pliTaxes = lineItemAdjustedTax - productProrationPrice;
+    } else if (orderPromoApplied) {
+        pliTaxes = parseFloat(orderLevelTaxAttrAdjTotal * orderPriceRatio);
     } else {
         pliTaxes = lineItemAdjustedTax;
     }
@@ -1284,8 +1286,19 @@ function adjustTaxAmount(lineItemObject, order) {
         sum += parseFloat(item.taxBreakup.lineItemTax);
     });
     taxAmountDeficit = order.getTotalTax() - sum;
-    lineItemObject[0].taxBreakup.lineItemTax = parseFloat(lineItemObject[0].taxBreakup.lineItemTax) + parseFloat(taxAmountDeficit) - order.adjustedShippingTotalTax.value;
-    lineItemObject[0].taxBreakup.stateTotal = parseFloat(lineItemObject[0].taxBreakup.stateTotal) + parseFloat(taxAmountDeficit) - order.adjustedShippingTotalTax.value;
+    var lineItemTax = parseFloat(lineItemObject[0].taxBreakup.lineItemTax) + parseFloat(taxAmountDeficit) - order.adjustedShippingTotalTax.value;
+    var stateTotal = parseFloat(lineItemObject[0].taxBreakup.stateTotal) + parseFloat(taxAmountDeficit) - order.adjustedShippingTotalTax.value;
+    if (lineItemTax < 0) {
+        lineItemObject[0].taxBreakup.lineItemTax = lineItemTax * (-1);
+    } else {
+        lineItemObject[0].taxBreakup.lineItemTax = lineItemTax;
+    }
+    
+    if (stateTotal < 0) {
+        lineItemObject[0].taxBreakup.stateTotal = stateTotal * (-1);
+    } else {
+        lineItemObject[0].taxBreakup.stateTotal = stateTotal;
+    }
     return lineItemObject;
 }
 

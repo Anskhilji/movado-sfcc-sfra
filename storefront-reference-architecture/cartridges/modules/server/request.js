@@ -310,6 +310,7 @@ function Request(request, customer, session) {
             try {
                 var countryCode = request.httpParameterMap.get('country').value;
                 if (!empty(countryCode)) {
+                    session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
@@ -320,7 +321,16 @@ function Request(request, customer, session) {
                         if (request.setLocale(language)) {
                             if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
                                 eswHelper.setAllAvailablePriceBooks();
-                                eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
+                                //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
+                                var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
+                                    return country.value == countryCode;
+                                });
+                                if (empty(isFixedPriceCountry)) {
+                                    eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
+                                } else {
+                                    eswHelper.setBaseCurrencyPriceBook(request, currencyCode);
+                                }
+                                //Custom End  
                             }
                             eswHelper.selectCountry(countryCode, currencyCode, language);
                         }

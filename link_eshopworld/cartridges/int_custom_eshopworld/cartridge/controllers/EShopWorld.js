@@ -105,6 +105,23 @@ server.append('GetEswFooter', function (req, res, next) {
         res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = queriedCountry.displayName;
     }
+    // Custom Start: Adding Logic to show price for country selected via geolocation
+    var availableCountry = eswHelper.getAvailableCountry();
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+        return country.value == availableCountry;
+    });
+
+    if (empty(isFixedPriceCountry) && !empty(currency)) {
+        eswHelper.setAllAvailablePriceBooks();
+        eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+    } else {
+    ​    if (!empty(currency)) {
+            eswHelper.setAllAvailablePriceBooks();
+            eswHelper.setBaseCurrencyPriceBook(req, currency);
+        }
+    }
+    // Custom End:
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswFooterObject.languages = languages;
@@ -175,6 +192,21 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     });
+
+    // Salesforce Order Management attributes
+    var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+    try {
+        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
+        Transaction.wrap(function () {
+            populateOrderJSON.populateByOrder(order);
+            populateOrderJSON.addDummyPaymentTransaction(order);
+        }); 
+    } catch (exSOM) {
+        somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+    }
+    // End Salesforce Order Management
+
     if (res.viewData.ResponseCode == '200' && Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({

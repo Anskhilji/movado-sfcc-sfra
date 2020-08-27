@@ -72,8 +72,6 @@ function handlePostCartAdd(response) {
     if (response.newBonusDiscountLineItem
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
-    } else {
-        $('.slick-slider').slick('refresh');
     }
 }
 
@@ -602,9 +600,7 @@ function handleVariantResponse(response, $productContainer) {
         var $priceSelector = $('.prices .price', $productContainer).length
             ? $('.prices .price', $productContainer)
             : $('.prices .price');
-        if (response.product.eswPrice) {
-            $priceSelector.replaceWith(response.product.eswPrice.html);  
-        } else {
+        if (response.product.price) {
             $priceSelector.replaceWith(response.product.price.html);  
         }
         // Custom Start
@@ -612,10 +608,7 @@ function handleVariantResponse(response, $productContainer) {
         var $barSalePriceSelector = $('.sticky-bar-price .price');
         var $mobilePrice = $('.product-price-mobile .price, .add-to-cart-price-holder .price');
 
-        if (response.product.eswPrice) {
-            $mobilePrice.replaceWith(response.product.eswPrice.html);
-            $barSalePriceSelector.replaceWith(response.product.eswPrice.html);
-        }  else {
+        if (response.product.price) {
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }
@@ -823,7 +816,6 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    
     $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) {
         e.preventDefault();
         var addToCartUrl;

@@ -86,9 +86,20 @@ function updateCartTotals(data) {
     }
 
     data.items.forEach(function (item) {
-        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
-        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+    // Custom Start: Updated selector and rendered HTML as per MVMT site
+        if (item.price.list) {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
+        } else {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+        }
+        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
     });
+    // Custom End
 }
 
 /**
@@ -482,6 +493,10 @@ module.exports = function () {
                     $('.minicart .popover').removeClass('show');
                     $('body').removeClass('modal-open');
                     $('html').removeClass('veiled');
+                    if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
+                        setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
+                        window.dispatchEvent(setAnalyticsTrackingByAJAX);
+                    } 
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -497,10 +512,6 @@ module.exports = function () {
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
-                }
-                if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
-                    setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
-                    window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 $.spinner().stop();
             },
@@ -570,8 +581,55 @@ module.exports = function () {
         });
         return false;
     });
-    
-    
+
+    /**
+     * This method is used to call on cart page when we add promo code.
+     */
+    $('body').off('submit', '.promo-code-form').on('submit', '.promo-code-form', function (e) {
+        e.preventDefault();
+        $.spinner().start();
+        $('.coupon-missing-error').hide();
+        $('.coupon-error-message').empty();
+        if (!$('.coupon-code-field').val()) {
+            $('.promo-code-form .form-control').addClass('is-invalid');
+            $('.coupon-missing-error').show();
+            $.spinner().stop();
+            return false;
+        }
+        var $form = $('.promo-code-form');
+        $('.promo-code-form .form-control').removeClass('is-invalid');
+        $('.coupon-error-message').empty();
+
+        $.ajax({
+            url: $form.attr('action'),
+            type: 'GET',
+            dataType: 'json',
+            data: $form.serialize(),
+            success: function (data) {
+                if (data.error) {
+                    $('.promo-code-form .form-control').addClass('is-invalid');
+                    $('.coupon-error-message').empty().append(data.errorMessage);
+                } else {
+                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    updateCartTotals(data);
+                    updateApproachingDiscounts(data.approachingDiscounts);
+                    validateBasket(data);
+                }
+                $('.coupon-code-field').val('');
+                $.spinner().stop();
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    window.location.href = err.responseJSON.redirectUrl;
+                } else {
+                    createErrorNotification(err.errorMessage);
+                    $.spinner().stop();
+                }
+            }
+        });
+        return false;
+    });
+
     /**
      * This is override click event function of coupon code that will directly remove the coupon code without
      * showing the popup of confirmation it basically used on the minicart and cart page.

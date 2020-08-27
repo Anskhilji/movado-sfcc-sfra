@@ -1,4 +1,4 @@
-<div class="card product-line-item product-card-wrapper" data-product-line-item="${lineItem.UUID}">
+<div class="card product-line-item product-card-wrapper item-total-${lineItem.UUID}" data-product-line-item="${lineItem.UUID}">
 
     <isif condition="${lineItem.productType === 'bundle'}">
         <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
@@ -94,6 +94,7 @@
                             data-name="${lineItem.productName}"
                             data-action="${pdict.removeProductLineItemUrl}"
                             data-uuid="${lineItem.UUID}"
+                            data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
                             aria-label="remove">
                         <span aria-hidden="true">${Resource.msg('label.cart.remove','cart',null)}</span>
                     </button>

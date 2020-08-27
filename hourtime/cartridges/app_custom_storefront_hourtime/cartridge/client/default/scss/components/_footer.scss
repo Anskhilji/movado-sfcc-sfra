@@ -1,0 +1,58 @@
+.cookie-warning-messaging {
+    background-color: $gray49;
+    bottom: 0;
+    color: $white;
+    position: fixed;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    display: none;
+    z-index: 200001;
+
+    .content-asset {
+        width: 95%;
+        float: left;
+    }
+
+    a, p {
+        font-family: $font-primary;
+        color: $white;
+        font-size: .8rem;
+        line-height: 1.3rem;
+        padding-top: 1.875rem;
+        padding-left: 5%;
+    }
+
+    a {
+        padding-left: rem(1);
+        text-decoration: underline;
+    }
+
+    .cookie-close {
+        width: 2%;
+        height: 26%;
+        padding-top: rem(10);
+        padding-right: rem(5);
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+
+        &::before, &::after {
+            content: "";
+            top: .85rem;
+            right: .25rem;
+            height: rem(1);
+            width: 1rem;
+            background-color: $white;
+            position: absolute;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+}

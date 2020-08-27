@@ -138,6 +138,7 @@ function getSuggestions(scope) {
             method: 'GET',
             success: function() {
                 $(scope).prop("disabled", false).focus();
+                $('body').trigger('siteSearch:success', $(scope).val());
                 processResponse;
             },
 

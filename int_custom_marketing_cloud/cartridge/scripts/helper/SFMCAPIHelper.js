@@ -11,6 +11,13 @@ var LOG_LOCATION = 'int_custom_marketing_cloud~SFMCAPIHelper.js';
 
 function getAuthTokenFromAPI(requestParams) {
     var service = MarketingCloudServiceRegistry.getAuthorizationService(requestParams.authServiceID);
+    // Custom Start: implemented the 3rd party test mode option
+    var Site = require('dw/system/Site');
+    var customStorefrontHelpers = require('*/cartridge/scripts/helpers/customStorefrontHelpers.js');
+    if (Site.current.preferences.custom.isSiteRunOnTestModel) {
+        service = customStorefrontHelpers.setTestModeCredentials(service);
+    } 
+    // Custom End
     var params = {
         accountID: requestParams.accountID,
         clientID: service.configuration.credential.user,

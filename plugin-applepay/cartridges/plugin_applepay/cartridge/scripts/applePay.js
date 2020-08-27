@@ -91,6 +91,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (order.billingAddress.phone == null) {
         order.billingAddress.phone = order.shipments[0].getShippingAddress().getPhone();
     }
+    // copying the city from shipping address to billing address
+    if (order.billingAddress.city == null) {
+        order.billingAddress.city = order.shipments[0].getShippingAddress().getCity();
+    }
+    // copying the postal code from shipping address to billing address
+    if (order.billingAddress.postalCode == null) {
+        order.billingAddress.postalCode = order.shipments[0].getShippingAddress().getPostalCode();
+    }
 
     // Country code Check for billing Address
     var billCountryCode = order.getBillingAddress().getCountryCode().value;
@@ -125,6 +133,19 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     Transaction.wrap(function () {
         Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
     });
+    
+    // Salesforce Order Management attributes
+    var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+    try {
+        Transaction.wrap(function () {
+            populateOrderJSON.populateByOrder(Order);
+            populateOrderJSON.addDummyPaymentTransaction(Order);
+        });
+    } catch (exSOM) {
+        somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+    }
+    // End Salesforce Order Management
     
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
 

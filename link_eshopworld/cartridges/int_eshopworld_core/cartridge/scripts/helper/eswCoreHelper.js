@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
@@ -274,6 +277,17 @@ var getEswHelper = {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;
+            /**
+             * Custom Start: Override geolocation if country or countryCode parameter is present in request
+             */
+            var country = request.httpParameterMap.get('country').value;
+            var countryCode = request.httpParameterMap.get('countryCode').value; 
+            if (!empty(country) || !empty(countryCode)) { 
+                geolocation = !empty(country) ? country : countryCode;
+            }
+            /**
+             * Custom End: 
+             */ 
             var matchCountry = this.getAllCountries().filter(function (value) {
                 if (value.value == geolocation) {
                     return geolocation;
@@ -358,7 +372,7 @@ var getEswHelper = {
             }
             // applying the rounding model
             if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
+                billingPrice = this.applyRoundingModel(billingPrice, false);
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
@@ -369,11 +383,13 @@ var getEswHelper = {
     /*
      * applies rounding model received from V2 pricefeed
      */
-    applyRoundingModel: function (price) {
+    applyRoundingModel: function (price, roundingModel) {
+        if (!roundingModel) {
+            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+        }
         var roundedPrice,
             roundedUp,
-            roundedDown,
-            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+            roundedDown;
         try {
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
@@ -506,8 +522,10 @@ var getEswHelper = {
         var currencyCode = '';
         if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
             currencyCode = request.httpCookies['esw.currency'].value;
-        } else {
+        } else if (session.custom.currencyCode) {
             currencyCode = session.custom.currencyCode;
+        }  else {
+            currencyCode = cart.originalOrder.custom.eswShopperCurrencyCode ? cart.originalOrder.custom.eswShopperCurrencyCode : cart.originalOrder.currencyCode;
         }
         // Custom End
 
@@ -863,7 +881,20 @@ var getEswHelper = {
      */
     getCurrentEswCurrencyCode: function () {
     	return request.httpCookies['esw.currency'].value;
+    },
+    /**
+    * Merges properties from source object to target object
+    * @param {Object} target object
+    * @param {Object} source object
+    * @returns {Object} target object
+    */
+    extendObject: function (target, source) {
+        Object.keys(source).forEach(function (prop) {
+            target[prop] = source[prop];
+        });
+        return target;
     }
+
 };
 
 module.exports = {

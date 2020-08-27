@@ -27,16 +27,20 @@ function getExplicitRecommendations(pid) {
     var recommendationTilesList = [];
     var productRecommendationTile = {};
     
-    if (productRecommendations) {
-        for (var i = 0; i < productRecommendations.length; i++) {
-            recommendation = productRecommendations[i];
-            productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-            product = Object.create(null);
-            apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-            productType = productHelper.getProductType(apiProduct);
-            productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-            recommendationTilesList.push(productRecommendationTile);
+    try {
+        if (productRecommendations) {
+            for (var i = 0; i < productRecommendations.length; i++) {
+                recommendation = productRecommendations[i];
+                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
+                product = Object.create(null);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
+                productType = productHelper.getProductType(apiProduct);
+                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                recommendationTilesList.push(productRecommendationTile);
+            }
         }
+    } catch (e) {
+        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
     return recommendationTilesList;
 }
@@ -233,7 +237,8 @@ function getRefinementSwatches(presentationID) {
 }
 
 function getPdpCollectionContentAssetID(apiProduct) {
-    var productCategories = apiProduct.getOnlineCategories();
+    var isVariant = apiProduct.variant;
+    var productCategories = isVariant ? apiProduct.masterProduct.getOnlineCategories() : apiProduct.getOnlineCategories();
     var categoriesIterator = productCategories.iterator();
     var pdpCollectionContentAssetID =  '';
     while (categoriesIterator.hasNext()) {
@@ -265,55 +270,29 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
-/**
- * 
- * @param {Product Model} product
- * @returns eswPriceHTML
- */
-function getESWPrice(product) {
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    if (isEswEnabled && !empty(product.price)) {
-        var priceObj = product.price;
-        var price, lineItemID, lineItemUUID = null;
-        var updatedPriceObj = {};
-    
-        if (!empty(priceObj.list)) {
-            price = priceObj.list.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.list = convertedPrice;
-    
+function getGtmPromotionObject (promotions) {
+    var promotionObj = [];
+    if (!empty(promotions)) {
+        try {
+            for (var i = 0; i < promotions.length; i++) {
+                var promotionId = promotions[i].ID;
+                var promotionName = promotions[i].name;
+                var promotionCreated = promotions[i].startDate;
+                var promotionPostistion = promotions[i].promotionClass;
+                var pageType = session.custom.gtmPageType;
+                promotionObj.push({
+                    id: promotionId,
+                    name: promotionName,
+                    creative: promotionCreated,
+                    position: promotionPostistion,
+                    pageType: pageType
+                });
+            }
+            return JSON.stringify(promotionObj);
+        } catch (e) {
+            Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
+            return null;
         }
-    
-        if (!empty(priceObj.type) && priceObj.type == 'range') {
-            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
-            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
-            updatedPriceObj.range = {
-                maxPrice: maxPrice,
-                minPrice: minPrice
-            };
-    
-        } 
-    
-        if (!empty(priceObj.sales)) {
-            price = priceObj.sales.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.sales = convertedPrice;
-        }
-    
-        var eswHtml;
-        var path = 'product/components/pricing/ajaxPricingMain.isml';
-        var template = new Template(path);
-        var result = new HashMap();
-    
-        result.put('price', product.price);
-        result.put('eswPrice', updatedPriceObj);
-        result.put('product', product);
-        eswHtml = template.render(result);
-        var eswPrice = {
-            price: updatedPriceObj,
-            html: eswHtml.text
-        }
-        return eswPrice;
     } else {
         return null;
     }
@@ -326,5 +305,5 @@ module.exports = {
     getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
-    getESWPrice: getESWPrice
+    getGtmPromotionObject: getGtmPromotionObject
 };

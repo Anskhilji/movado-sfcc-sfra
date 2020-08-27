@@ -17,63 +17,63 @@ var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.replace('Redirect', server.middleware.https, function (req, res, next) {
-	  var	adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
+    var adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
 
-	  var order = OrderMgr.getOrder(session.custom.orderNo);
-      checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
+    var order = OrderMgr.getOrder(session.custom.orderNo);
+    checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
 
-	  var riskifiedCheckoutCreateResponse = hooksHelper(
-		        'app.fraud.detection.checkoutcreate',
-		        'checkoutCreate',
-		        order.orderNo,
-		        order.paymentInstrument,
-		        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
-	  if (!riskifiedCheckoutCreateResponse) {
-	      checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
-	      res.render('error', {
-	          message: Resource.msg('subheading.error.general', 'error', null)
-	      });
-	      return next();
-	  }
+    var riskifiedCheckoutCreateResponse = hooksHelper(
+        'app.fraud.detection.checkoutcreate',
+        'checkoutCreate',
+        order.orderNo,
+        order.paymentInstrument,
+        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+    if (!riskifiedCheckoutCreateResponse) {
+        checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
+        res.render('error', {
+            message: Resource.msg('subheading.error.general', 'error', null)
+        });
+        return next();
+    }
 
 
-	  var result;
+    var result;
 
-	  Transaction.wrap(function () {
-	    result = adyenVerificationSHA256.verify({
-	      Order: order,
-	      OrderNo: order.orderNo,
-	      CurrentSession: session,
-	      CurrentUser: customer,
-	      PaymentInstrument: order.paymentInstrument,
-	      brandCode: session.custom.brandCode,
-	      issuerId: session.custom.issuerId
-	    });
-	  });
+    Transaction.wrap(function () {
+        result = adyenVerificationSHA256.verify({
+            Order: order,
+            OrderNo: order.orderNo,
+            CurrentSession: session,
+            CurrentUser: customer,
+            PaymentInstrument: order.paymentInstrument,
+            brandCode: session.custom.brandCode,
+            issuerId: session.custom.issuerId
+        });
+    });
 
-	  if (result === PIPELET_ERROR) {
-	    res.render('error');
-	    return next();
-	  }
+    if (result === PIPELET_ERROR) {
+        res.render('error');
+        return next();
+    }
 
-	  var pdict = {
-	    merchantSig:	result.merchantSig,
-	    Amount100: result.Amount100,
-	    shopperEmail: result.shopperEmail,
-	    shopperReference: result.shopperReference,
-	    ParamsMap: result.paramsMap,
-	    SessionValidity: result.sessionValidity,
-	    Order: order,
-	    OrderNo: order.orderNo
-	  };
+    var pdict = {
+        merchantSig: result.merchantSig,
+        Amount100: result.Amount100,
+        shopperEmail: result.shopperEmail,
+        shopperReference: result.shopperReference,
+        ParamsMap: result.paramsMap,
+        SessionValidity: result.sessionValidity,
+        Order: order,
+        OrderNo: order.orderNo
+    };
 
-	  res.render('redirectHPP', pdict);
-	  return next();
+    res.render('redirectHPP', pdict);
+    return next();
 });
 
 server.replace('ShowConfirmation', server.middleware.https, function (req, res, next) {
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
-    var Order = require('dw/order/Order');  
+    var Order = require('dw/order/Order');
     var Status = require('dw/system/Status');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var order = null;
@@ -83,7 +83,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     if (req.querystring.merchantReference) {
         order = OrderMgr.getOrder(req.querystring.merchantReference.toString());
     } else if (session.custom.brandCode.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
-      order = OrderMgr.getOrder(session.custom.orderNo);
+        order = OrderMgr.getOrder(session.custom.orderNo);
     }
 
     if (req.querystring.authResult && req.querystring.authResult.value !== constants.PAYMENT_STATUS_CANCELLED) {
@@ -116,13 +116,13 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     // AUTHORISED: The payment authorisation was successfully completed.
     if (req.querystring.authResult === constants.PAYMENT_STATUS_AUTHORISED || (klarnaPaymentStatus && klarnaPaymentStatus.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED)) {
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Payment is authorized and going to place the order and order number is: ' + orderNumber);
-    	var OrderModel = require('*/cartridge/models/order');
+        var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
 
         var currentLocale = Locale.getLocale(req.locale.id);
         var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
 
-      // Save orderModel to custom object during session
+        // Save orderModel to custom object during session
         Transaction.wrap(function () {
             order.custom.Adyen_CustomerEmail = JSON.stringify(orderModel);
         });
@@ -149,7 +149,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             order.setExportStatus(Order.EXPORT_STATUS_READY);
             order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
                 ? klarnaPaymentStatus.toUpperCase()
-            : constants.PAYMENT_STATUS_CAPTURE;
+                : constants.PAYMENT_STATUS_CAPTURE;
             order.custom.Adyen_value = order.totalGrossPrice.value;
             if ('pspReference' in req.querystring && req.querystring.pspReference) {
                 checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
@@ -194,15 +194,28 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 return next();
             }
         } catch (e) {
-		  // put logger
-  		  checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
-		  checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
-		  res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-		  return next();
-	  }
+            // put logger
+            checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
+            checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
+            res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+            return next();
+        }
 
         if (!empty(session.custom.trackingCode)) {
             smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
+        }
+
+        // Salesforce Order Management requirement.  Convert the 'Adyen' payment method to 'CREDIT_CARD' so that the order ingestion process can recognize it
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        somLog.debug('Processing Order ' + order.orderNo);
+        try {
+            Transaction.wrap(function () {
+                populateOrderJSON.populateByOrder(order);
+                populateOrderJSON.addDummyPaymentTransaction(order);
+            });
+        } catch (exSOM) {
+            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to send the order confirmation email to the user and order number is: ' + orderNumber);
@@ -223,7 +236,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
  * Clear system session data
  */
 function clearForms() {
-  // Clears all forms used in the checkout process.
+    // Clears all forms used in the checkout process.
     session.forms.billing.clearFormElement();
 
     clearCustomSessionFields();
@@ -233,7 +246,7 @@ function clearForms() {
  * Clear custom session data
  */
 function clearCustomSessionFields() {
-  // Clears all fields used in the 3d secure payment.
+    // Clears all fields used in the 3d secure payment.
     session.custom.paymentInstrument = null;
     session.custom.order = null;
     session.custom.brandCode = null;

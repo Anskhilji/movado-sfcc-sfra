@@ -15,4 +15,5 @@
 - Line No: Start from 56 to 76
 
 ## Checkout.js
+- Line No: Start from 142 to 144
 - Line No: Start from 182 to 197

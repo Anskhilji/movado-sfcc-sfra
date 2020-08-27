@@ -51,9 +51,7 @@ module.exports = function () {
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
-        if (response.product.eswPrice) {
-            $variationPriceSelector.replaceWith(response.product.eswPrice.html);
-        } else {
+        if (response.product.price) {
             $variationPriceSelector.replaceWith(response.product.price.html);
         }
         if ($readyToOrder) {

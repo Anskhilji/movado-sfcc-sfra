@@ -24,9 +24,6 @@
            </isif>
          </isloop>
        </isif>
-
-       <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
-       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
      </ul>
     </div>
   </nav>
