@@ -33,7 +33,6 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
     }
 
-
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
     res.viewData.EswHeaderObject.languages = languages;
     res.viewData.EswHeaderObject.selectedLanguage = selectedLanguage;
@@ -70,14 +69,6 @@ server.append('GetEswFooter', function (req, res, next) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
     }
-
-    var customCountriesJSON = {
-        customCountries: customCountries,
-        customLanguages: customLanguages,
-        footerPage: true,
-        headerPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.headerPage : '',
-        landingPage: !empty(customCountriesJSONFromSession) ? customCountriesJSONFromSession.landingPage : ''
-    };
 
     if (queryCountryCode && !empty(queriedCountry)) {
         res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
