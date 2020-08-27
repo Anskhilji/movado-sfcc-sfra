@@ -169,10 +169,6 @@ var getEswHelper = {
                 var eswLocation = request.getHttpCookies()['esw.location'];
                 this.updateCookieValue(eswLocation, country);
             }
-            if (session.privacy.countryCode != country ) {
-                delete session.privacy.countryCode;
-                session.privacy.countryCode = country;
-            }
         }
 
         if (!this.getEnableCurrencyFooterBar() || !this.getEnableCurrencyHeaderBar() || !this.getEnableCurrencyLandingBar()) {

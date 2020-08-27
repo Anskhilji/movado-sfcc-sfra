@@ -336,10 +336,11 @@ function Request(request, customer, session) {
                                 }
                                 //Custom End  
                             }
+                            var test = '';
                             eswHelper.selectCountry(countryCode, currencyCode, language);
-                            if (session.privacy.countryCode != country ) {
+                            if (session.privacy.countryCode != countryCode) {
                                 delete session.privacy.countryCode;
-                                session.privacy.countryCode = country;
+                                session.privacy.countryCode = countryCode;
                             }
                         }
                     }

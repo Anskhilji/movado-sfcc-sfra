@@ -37,10 +37,18 @@ server.append('Subscribe', server.middleware.https, function (req, res, next) {
 server.post('UpdateEvent', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+    var Constants = require('~/cartridge/scripts/util/Constants');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
             Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    
-    var countryCode = isEswEnabled ? session.custom.countryCode : '';
+    var countryCode = Constants.DEFAULT_COUNTRYCODE;
+    if (isEswEnabled) {
+        countryCode = productCustomHelper.getCurrentCountry();
+        if (!countryCode) {
+            countryCode = session.privacy.countryCode;
+        }
+    }
     
     var params = {
         email: !empty(request.httpParameterMap.email.value) ? request.httpParameterMap.email.value : '',
