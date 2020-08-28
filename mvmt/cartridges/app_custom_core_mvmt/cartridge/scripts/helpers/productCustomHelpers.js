@@ -70,7 +70,9 @@ function getVariantSize(apiProduct) {
         if (!empty(selectedVariant)) { 
             collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
                 if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                    variantSize = apiProduct.variationModel.getVariationValue(selectedVariant, variationAttribute).displayValue;
+                    if (!empty(apiProduct.variationModel.getVariationValue(selectedVariant, variationAttribute))) {
+                        variantSize = apiProduct.variationModel.getVariationValue(selectedVariant, variationAttribute).displayValue;
+                    }
                 }
             });
         }
@@ -78,7 +80,9 @@ function getVariantSize(apiProduct) {
     if (apiProduct.variant) {
         collections.forEach(apiProduct.variationModel.productVariationAttributes, function(variationAttribute) {
             if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                variantSize = apiProduct.variationModel.getSelectedValue(variationAttribute).displayValue;
+                if (!empty(apiProduct.variationModel.getSelectedValue(variationAttribute))) {
+                    variantSize = apiProduct.variationModel.getSelectedValue(variationAttribute).displayValue;
+                }
             }
         });
     }
