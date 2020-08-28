@@ -19,10 +19,14 @@ server.append('GetEswHeader', function (req, res, next) {
     var geoLocationCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
-    var isWeclomeMat = session.custom.welcomeMat;
+    var queryCountryCode = request.httpParameterMap.get('countryCode').value;
 
     if (isGeoLocation) {
         geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
+    }
+
+    if (queryCountryCode) {
+        queriedCountry = eswCustomHelper.getCustomCountryByCountryCode(queryCountryCode);
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
@@ -30,9 +34,15 @@ server.append('GetEswHeader', function (req, res, next) {
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
 
-    if (isGeoLocation && !empty(geoLocationCountry) && isWeclomeMat) {
+    if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = geoLocationCountry.displayName;
+        session.privacy.geoLocated = true;
+    }
+
+    if (queryCountryCode && !empty(queriedCountry)) {
+        res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
+        res.viewData.EswFooterObject.selectedCountryName = queriedCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
@@ -53,8 +63,6 @@ server.append('GetEswFooter', function (req, res, next) {
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
     var geoLocationCountryCode = request.geolocation.countryCode;
     var queryCountryCode = request.httpParameterMap.get('countryCode').value;
-    var isWeclomeMat = session.custom.welcomeMat;
-
 
     if (isGeoLocation) {
         geoLocationCountry = eswCustomHelper.getCustomCountryByCountryCode(geoLocationCountryCode);
@@ -69,9 +77,10 @@ server.append('GetEswFooter', function (req, res, next) {
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
 
-    if (isGeoLocation && !empty(geoLocationCountry) && isWeclomeMat) {
+    if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
         res.viewData.EswFooterObject.selectedCountryName = geoLocationCountry.displayName;
+        session.privacy.geoLocated = true;
     }
 
     if (queryCountryCode && !empty(queriedCountry)) {
