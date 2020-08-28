@@ -9,7 +9,9 @@
         assets.addJs('/js/storeLocator.js');
         assets.addCss('/css/storeLocator.css');
     </isscript>
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.store', 'eum', null))}"/>
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.store', 'eum', null))}"/>
+    </isif>
     <isif condition="${pdict.showMap === 'true'}">
         <div class="jumbotron map-canvas" data-has-google-api="${pdict.stores.googleMapsApi ? true : false}" data-locations="${pdict.stores.locations}">
             <div class="container">

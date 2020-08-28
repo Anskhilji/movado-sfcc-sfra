@@ -73,7 +73,7 @@
             </button>
 	    <iselse>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
-                data-pid="${product.defaultVariant.ID}"
+                data-pid="${product.defaultVariant ? product.defaultVariant.ID : ''}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
                     ${outOfStock ? "disabled" : ""}>
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
