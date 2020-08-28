@@ -36,6 +36,7 @@
                 <div class="out-of-stock product-tag black-tag d-none">
                     ${Resource.msg('label.new', 'common', null)}
                 </div>
+                <isinclude template="product/components/badges" />
             </div>
 
             
