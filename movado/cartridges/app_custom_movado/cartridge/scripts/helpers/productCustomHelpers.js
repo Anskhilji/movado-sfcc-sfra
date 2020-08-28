@@ -27,6 +27,9 @@ var ATTR_MOVEMENT_TYPE = 'movementType';
 var ATTR_GENDER = 'watchGender';
 var ATTR_WTR_RESISTANCE = 'waterResistance';
 var ATTR_FABRICATION = 'crystalFabrication';
+var ATTR_RING_SIZE = 'ringSize';
+var ATTR_LENGTH = 'length';
+
 var STRAP = 'strap';
 var BRACELET = 'bracelet';
 var BANGLE = 'bangle';
@@ -205,6 +208,8 @@ function getPdpAttributes(apiProduct) {
     var fabricationImage = Site.getCurrent().getCustomPreferenceValue('crystalFabricationAttributeImage');
     var gemstoneTypeImage = Site.getCurrent().getCustomPreferenceValue('gemstoneTypeAttributeImage');
     var attachmentTypeImage = Site.getCurrent().getCustomPreferenceValue('attachmentTypeAttributeImage');
+    var ringSizeImage = Site.getCurrent().getCustomPreferenceValue('ringSizeAttributeImage');
+    var lengthImage = Site.getCurrent().getCustomPreferenceValue('lengthAttributeImage');
 
 	/* split the list of attributes*/
     pdpAttributes = pdpAttributes.split(DELIMITER_COMMA);
@@ -217,7 +222,16 @@ function getPdpAttributes(apiProduct) {
 
             if (attr && attr == ATTR_DIAL && apiProduct.custom.dial) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.dial, apiProduct.custom.dial, dialImage.URL);
-            }			else if (attr && attr == ATTR_CASE_DIA && apiProduct.custom.caseDiameter) {
+            } 
+            
+            else if (attr && attr == ATTR_RING_SIZE && apiProduct.custom.ringSize) {
+                attributes = pushAttributeToList(attributes, attrNameMapping.ringSize, apiProduct.custom.ringSize, ringSizeImage.URL);
+            }
+
+            else if (attr && attr == ATTR_LENGTH && apiProduct.custom.length) {
+                attributes = pushAttributeToList(attributes, attrNameMapping.length, apiProduct.custom.length, lengthImage.URL);
+            }
+            			else if (attr && attr == ATTR_CASE_DIA && apiProduct.custom.caseDiameter) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.caseDiameter, apiProduct.custom.caseDiameter, caseDiaImage.URL);
             }			else if (attr && attr == ATTR_CASE_MAT && apiProduct.custom.caseMaterial) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.caseMaterial, apiProduct.custom.caseMaterial, caseMaterialImage.URL);
@@ -250,7 +264,7 @@ function getPdpAttributes(apiProduct) {
     }
         }
     } catch (e) {
-        Logger.getLogger('ProductCustomHelpers').error('Error occured while populating PDP attributes : ');
+        Logger.getLogger('ProductCustomHelpers').error('Error occured while populating PDP attributes : '+ e.message + e.stack);
         return [];
     }
 
