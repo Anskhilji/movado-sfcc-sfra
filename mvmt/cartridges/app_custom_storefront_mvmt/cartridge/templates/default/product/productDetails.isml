@@ -63,6 +63,8 @@
                         </isif>
                     </div>
 
+                    <isinclude template="product/components/badges" />
+
                     <div class="product-brand-info">
                         <span>${product.brand}</span>
                     </div>
@@ -90,8 +92,6 @@
     
                     <div class="row m-0 product-variations">
                         <!-- Attributes and Quantity -->
-
-                        <isinclude template="product/components/badges" />
 
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">

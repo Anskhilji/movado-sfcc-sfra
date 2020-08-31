@@ -342,6 +342,7 @@
 
         .exclusive-badges {
             margin-bottom: rem(16);
+            display: flex;
 
             .badge {
                 text-align: center;
@@ -352,6 +353,7 @@
                 letter-spacing: rem(1);
                 display: inline-block;
                 margin-bottom: rem(10);
+                margin-right: rem(3);
                 line-height: 1;
                 vertical-align: top;
                 padding: rem(5) rem(10);
@@ -371,6 +373,7 @@
             @include media-breakpoint-down(xs) {
                 text-align: center;
                 margin: rem(16) 0;
+                justify-content: center;
             }
         }
     }
