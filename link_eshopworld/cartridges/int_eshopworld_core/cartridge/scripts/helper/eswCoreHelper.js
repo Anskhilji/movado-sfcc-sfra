@@ -275,8 +275,8 @@ var getEswHelper = {
      */
     getAvailableCountry: function () {
         //Custom Change: updated the getAvailableCountry logic with an addition of session country code condition
-        if (!empty(session.custom.countryCode)) {
-            return session.custom.countryCode;
+        if (!empty(session.privacy.countryCode)) {
+            return session.privacy.countryCode;
         } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
