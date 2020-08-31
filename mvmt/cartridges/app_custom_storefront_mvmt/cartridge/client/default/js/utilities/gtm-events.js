@@ -146,9 +146,10 @@ var onMorestyleLoadEvent = function () {
 
 var onPDPAddProductClickEvent = function () {
     $('body').on('addToCart:success', function (evt, data) {
+        var addtoCartData = JSON.parse(data);
+
         if ($('[data-action]').data('action') == 'Product-Show') {
             updateDataLayer('addToCart');
-            var addtoCartData = JSON.parse(data);
             dataLayer.push({
                 event: 'addToCart',
                 ecommerce: {
@@ -174,7 +175,6 @@ var onPDPAddProductClickEvent = function () {
             });
         } else if ($('[data-action]').data('action') == 'Search-Show') {
             updateDataLayer('addToCart');
-            var addtoCartData = JSON.parse(data);
             dataLayer.push({
                 event: 'addToCart',
                 ecommerce: {
@@ -198,6 +198,14 @@ var onPDPAddProductClickEvent = function () {
                     products: addtoCartData.cartObj
                 }
             });
+        }
+
+        if (addtoCartData.productType == 'variant') {
+            dataLayer.push({
+                event: 'Add to Cart',
+                location: window.location.href,
+                variant: addtoCartData.id
+            })
         }
     });
 };
