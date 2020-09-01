@@ -13,10 +13,6 @@ function sendSubscriberToSFMC(requestParams) {
     var result = {
         success: true
     }
-    if (empty(requestParams.email)) {
-        result.success = false;
-        return result;
-    }
     try {
         var params = {
             email: StringUtils.trim(requestParams.email),
