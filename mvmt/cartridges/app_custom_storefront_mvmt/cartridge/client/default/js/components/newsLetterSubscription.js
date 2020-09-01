@@ -111,7 +111,7 @@ $('.close-footer-more, #footer-overlay').click(function (e) {
 });
 
 module.exports = function () {
-    $('.sfmc-update-event, #sfmcUpdateEvent').off('submit').on('submit', function (event) {
+    $('.sfmc-update-event').off('submit').on('submit', function (event) {
         event.preventDefault(); 
         $.spinner().start();
         var formContainer = $(this).data('sfmc-form-container');
