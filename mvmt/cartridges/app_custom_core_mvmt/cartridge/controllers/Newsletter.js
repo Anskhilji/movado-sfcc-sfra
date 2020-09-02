@@ -50,7 +50,7 @@ server.post('UpdateEvent', server.middleware.https, function (req, res, next) {
         }
     }
     
-    var params = {
+    var params = { 
         email: !empty(request.httpParameterMap.email.value) ? request.httpParameterMap.email.value : '',
         country: countryCode,
         firstName: !empty(request.httpParameterMap.firstName.value) ? request.httpParameterMap.firstName.value : '',
@@ -59,7 +59,8 @@ server.post('UpdateEvent', server.middleware.https, function (req, res, next) {
         eventName: !empty(request.httpParameterMap.eventName.value) ? request.httpParameterMap.eventName.value : '',
         birthday: !empty(request.httpParameterMap.birthday.value) ? request.httpParameterMap.birthday.value : '',
         gender: !empty(request.httpParameterMap.gender.value) ? request.httpParameterMap.gender.value : '',
-        phoneNumber: !empty(request.httpParameterMap.phoneNumber.value) ? request.httpParameterMap.phoneNumber.value : ''
+        phoneNumber: !empty(request.httpParameterMap.phoneNumber.value) ? request.httpParameterMap.phoneNumber.value : '',
+        isEmailCheckDisabled: !empty(request.httpParameterMap.isEmailCheckDisabled.value) ? request.httpParameterMap.isEmailCheckDisabled.value : false
     };
     var result = SFMCApi.sendSubscriberToSFMC(params);
 });
