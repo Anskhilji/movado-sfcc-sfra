@@ -1,0 +1,31 @@
+
+<style>
+
+    ${pdict.idSelector} {
+        background: ${pdict.backgroundColor};
+        color: ${pdict.textColor};
+        width: ${pdict.ctaButtonWidthMobile};
+        height: ${pdict.ctaButtonHeightMobile};
+        max-width: ${pdict.ctaButtonMaxWidthMobile};
+        margin: ${pdict.ctaButtonMarginMobile};
+        padding: ${pdict.ctaButtonPaddingMobile};
+        line-height: calc(${pdict.ctaButtonHeightMobile} - 5px);
+    }
+
+    ${pdict.idSelector}:hover {
+        background: ${pdict.hoverBackgroundColor};
+        color: ${pdict.hoverTextColor};
+    }
+
+    @media (min-width: 992px) {
+        ${pdict.idSelector} {
+            width: ${pdict.ctaButtonWidth};
+            height: ${pdict.ctaButtonHeight};
+            max-width: ${pdict.ctaButtonMaxWidth};
+            margin: ${pdict.ctaButtonMargin};
+            padding: ${pdict.ctaButtonPadding};
+            line-height: calc(${pdict.ctaButtonHeight} - 5px);
+        }
+    }
+</style>
+<a id="${pdict.id}" class="btn btn-primary" href="${pdict.buttonLink}"> ${pdict.buttonText}</a>
