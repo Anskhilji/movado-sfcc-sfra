@@ -222,16 +222,11 @@ function getPdpAttributes(apiProduct) {
 
             if (attr && attr == ATTR_DIAL && apiProduct.custom.dial) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.dial, apiProduct.custom.dial, dialImage.URL);
-            } 
-            
-            else if (attr && attr == ATTR_RING_SIZE && apiProduct.custom.ringSize) {
+            }           else if (attr && attr == ATTR_RING_SIZE && apiProduct.custom.ringSize) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.ringSize, apiProduct.custom.ringSize, ringSizeImage.URL);
-            }
-
-            else if (attr && attr == ATTR_LENGTH && apiProduct.custom.length) {
+            }           else if (attr && attr == ATTR_LENGTH && apiProduct.custom.length) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.length, apiProduct.custom.length, lengthImage.URL);
-            }
-            			else if (attr && attr == ATTR_CASE_DIA && apiProduct.custom.caseDiameter) {
+            }           else if (attr && attr == ATTR_CASE_DIA && apiProduct.custom.caseDiameter) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.caseDiameter, apiProduct.custom.caseDiameter, caseDiaImage.URL);
             }			else if (attr && attr == ATTR_CASE_MAT && apiProduct.custom.caseMaterial) {
                 attributes = pushAttributeToList(attributes, attrNameMapping.caseMaterial, apiProduct.custom.caseMaterial, caseMaterialImage.URL);
