@@ -1,0 +1,7 @@
+<isif condition="${!empty(pdict.countrySwitch)}">
+    <div class="d-flex justify-content-center text-danger">
+        <span>${dw.web.Resource.msgf('label.country.switch.please.text', 'cart', null)}</span>
+        <a class= "link pl-1 pr-1 text-info" href="${pdict.countrySwitch.absURL}">${dw.web.Resource.msgf('label.country.switch.switch.site.text', 'cart', null)}</a>
+        <span>${dw.web.Resource.msgf('label.country.switch.ship.to.text', 'cart', null,  pdict.countrySwitch.displayName)}</span>
+    </div>
+</isif> 

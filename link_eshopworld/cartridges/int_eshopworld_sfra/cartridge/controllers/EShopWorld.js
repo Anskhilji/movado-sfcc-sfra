@@ -307,7 +307,8 @@ server.post('NotifyV2', function (req, res, next) {
                         order.custom.eswRetailerCurrencyAdministration = new Number(obj.charges.retailerCurrencyAdministration.substring(3));
                         order.custom.eswShopperCurrencyUplift = new Number(obj.charges.shopperCurrencyUplift.substring(3));
                         order.custom.eswRetailerCurrencyUplift = new Number(obj.charges.retailerCurrencyUplift.substring(3));
-                        order.custom.eswRetailerCurrencyCode = eswHelper.getBaseCurrencyPreference();
+                        // updated retailer currency logic
+                        order.custom.eswRetailerCurrencyCode = obj.retailerCurrencyPaymentAmount.substring(0, 3);
                         order.custom.eswShopperCurrencyCode = obj.shopperCurrencyPaymentAmount.substring(0, 3);
                         order.custom.eswOrderNo = obj.eShopWorldOrderNumber;
                         order.custom.eswShopperCurrencyTotal = new Number(obj.charges.shopperCurrencyTotal.substring(3));

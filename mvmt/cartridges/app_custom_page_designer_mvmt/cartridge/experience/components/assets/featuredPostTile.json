@@ -36,6 +36,14 @@
                         "Featured",
                         "Disrupted"
                     ]
+                },
+                {
+                    "id": "isGridFeatured",
+                    "name": "Grid Featured Tile",
+                    "description": "Check if feature tile is rendered in Blog Grid",
+                    "type": "boolean",
+                    "default_value": false,
+                    "required": false
                 }
             ]
         },
@@ -90,6 +98,14 @@
                     "id": "thirdButtonLink",
                     "name": "Third Button Link",
                     "type": "url",
+                    "required": false
+                },
+                {
+                    "id": "isLeftAligned",
+                    "name": "Left Align Bottom Section",
+                    "description": "If checked bottom setion is aligned left to Image on main screen by default it is right aligned",
+                    "type": "boolean",
+                    "default_value": false,
                     "required": false
                 }
             ]

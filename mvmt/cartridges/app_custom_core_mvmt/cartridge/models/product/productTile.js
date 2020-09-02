@@ -21,6 +21,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     
@@ -111,6 +112,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.getAvailabilityModel().availabilityStatus
                 });
+
+                Object.defineProperty(product, 'defaultVariantCollectionName', {
+                    enumerable: true,
+                    value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
@@ -130,6 +136,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
         
     }
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     if (!empty(promotionObj)) {
         Object.defineProperty(product, 'promotionObj', {

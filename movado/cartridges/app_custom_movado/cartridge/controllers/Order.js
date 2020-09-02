@@ -105,16 +105,22 @@ server.append('Confirm', function (req, res, next) {
     var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
     var viewData = res.getViewData();
+    var marketingProductsData = [];
     var orderAnalyticsTrackingData;
     var uniDaysTrackingLineItems;
-    var order = OrderMgr.getOrder(viewData.order.orderNumber);
+    var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
+    var order = OrderMgr.getOrder(orderNo);
     var orderLineItems = order.getAllProductLineItems();
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productLineItem;
     var userIPAddress = request.httpRemoteAddress || '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-    checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
+    if (!empty(viewData.order)) {
+        checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
+    }
+    
 
     Transaction.wrap(function () {
         order.custom.userIPAddress = userIPAddress;
@@ -160,7 +166,7 @@ server.append('Confirm', function (req, res, next) {
         orderAnalyticsTrackingData = {
             cart: analyticsTrackingLineItems,
             discount: orderDiscount,
-            order_number: viewData.order.orderNumber,
+            order_number: !empty(viewData.order) ? viewData.order.orderNumber : orderNo,
             shipping: order.getShippingTotalGrossPrice().getDecimalValue() ? order.getShippingTotalGrossPrice().getDecimalValue().toString() : 0.00,
             orderConfirmationUrl: thankYouPageUrl,
             tax: order.getTotalTax().getDecimalValue() ? order.getTotalTax().getDecimalValue().toString() : 0.00,
@@ -205,7 +211,7 @@ server.append('Confirm', function (req, res, next) {
             unidaysDiscountPercentage = ((unidaysOrderDiscount * 100) / merchandizeTotal).toFixed(2);
             uniDaysTrackingLineItems = {
                 partnerId: partnerId,
-                transcationId: viewData.order.orderNumber,
+                transcationId: !empty(viewData.order) ? viewData.order.orderNumber : orderNo,
                 currency: order.currencyCode,
                 code: couponCode,
                 itemsUnidaysDiscount: unidaysOrderDiscount.toFixed(2),
@@ -218,6 +224,21 @@ server.append('Confirm', function (req, res, next) {
             res.setViewData({uniDaysTrackingLineItems: JSON.stringify(uniDaysTrackingLineItems)});
         }
     }
+
+    var orderLineItemsIterator = orderLineItems.iterator();
+
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        if (productLineItem instanceof dw.order.ProductLineItem &&
+            !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                var apiProduct = productLineItem.getProduct();
+                var quantity = productLineItem.getQuantity().value;
+                marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+    }
+    res.setViewData({
+        marketingProductData : JSON.stringify(marketingProductsData)
+    });
     
     var customerID = '';
     var loggedIn = req.currentCustomer.raw.authenticated;
@@ -254,6 +275,9 @@ server.append('Confirm', function (req, res, next) {
         viewData.selectedPaymentMethod = selectedPaymentMethod;
     }
     res.setViewData(viewData);
+    if (!empty(session.custom.orderNumber)) {
+        session.custom.orderNumber = '';
+    }
     next();
 });
 

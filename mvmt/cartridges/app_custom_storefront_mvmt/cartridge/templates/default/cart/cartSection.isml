@@ -4,6 +4,8 @@
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
+<isinclude template="cart/switchToCountryMessage"/>
+
 <div class="html-slot-container">
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
 </div>
@@ -124,7 +126,12 @@
                         <isinclude template="cart/cartTotals" />
                         <div class="col-12 checkout-buttons checkout-continue">
                             <isinclude template="cart/checkoutButtons" />
-                            <iscontentasset aid="cart-tax-message" />
+                            <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
+                            <isif condition="${!currentCountry.equalsIgnoreCase('US')}" >
+                                <isslot id="esw-cart-message" description="esw cart message" context="global" />
+                            <iselse>
+                                <iscontentasset aid="cart-tax-message" />
+                            </isif>
                         </div>
                     </div>
                 </div>

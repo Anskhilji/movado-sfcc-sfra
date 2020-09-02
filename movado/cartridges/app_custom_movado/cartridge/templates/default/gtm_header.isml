@@ -19,7 +19,7 @@
 		// Custom: Added country dimension on the the base of ESW enabled
 		
 		<isif condition="${isEswEnabled}" > 
-			,'country': '${!empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
+			,'country': '${!empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
 		<iselse>
 			,'country': ''
 		</isif>

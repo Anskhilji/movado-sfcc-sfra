@@ -12,7 +12,7 @@ function getRandomCustomer() {
             Address1: '547 Neque. Street',
             City: 'Rock Springs',
             Region: 'WY',
-            PostalCode: '23670',
+            PostalCode: '82901',
             Email: 'sed.tortor@acmattis.com',
             Phone: '(104) 559-4389'
         },
@@ -22,7 +22,7 @@ function getRandomCustomer() {
             Address1: '501-1349 Cras Road',
             City: 'New Haven',
             Region: 'CT',
-            PostalCode: '56780',
+            PostalCode: '06511',
             Email: 'consequat.lectus.sit@sollicitudinamalesuada.edu',
             Phone: '(648) 140-3371'
         },
@@ -32,7 +32,7 @@ function getRandomCustomer() {
             Address1: 'Ap #813-6438 Gravida St.',
             City: 'Rutland',
             Region: 'VT',
-            PostalCode: '67416',
+            PostalCode: '05701',
             Email: 'ullamcorper.magna@euismodacfermentum.ca',
             Phone: '(977) 488-2387'
         },
@@ -42,7 +42,7 @@ function getRandomCustomer() {
             Address1: '388, 8489 Sociis Road',
             City: 'Overland Park',
             Region: 'KS',
-            PostalCode: '81938',
+            PostalCode: '66223',
             Email: 'nunc@magnaSuspendisse.org',
             Phone: '(158) 598-9425'
         },
@@ -52,7 +52,7 @@ function getRandomCustomer() {
             Address1: '455, 6314 A, Street',
             City: 'Portland',
             Region: 'OR',
-            PostalCode: '11573',
+            PostalCode: '97209',
             Email: 'non.egestas@risus.net',
             Phone: '(240) 473-7967'
         },
@@ -62,7 +62,7 @@ function getRandomCustomer() {
             Address1: 'Ap #341-1614 Ante. Rd.',
             City: 'Houston',
             Region: 'TX',
-            PostalCode: '14155',
+            PostalCode: '77030',
             Email: 'Fusce.mi.lorem@Morbisit.net',
             Phone: '(245) 578-5543'
         },
@@ -72,7 +72,7 @@ function getRandomCustomer() {
             Address1: '5134 Quis Ave',
             City: 'Athens',
             Region: 'GA',
-            PostalCode: '30715',
+            PostalCode: '30605',
             Email: 'Aliquam.erat@mollisvitae.org',
             Phone: '(152) 756-9547'
         },
@@ -82,17 +82,17 @@ function getRandomCustomer() {
             Address1: '338-8990 Risus. Rd.',
             City: 'Kearney',
             Region: 'NE',
-            PostalCode: '53184',
+            PostalCode: '68847',
             Email: 'a@facilisi.net',
             Phone: '(504) 716-9039'
         },
         {
             FirstName: 'Merritt',
             LastName: 'Gray',
-            Address1: '877, 7179 Congue, Avenue',
-            City: 'Wyoming',
+            Address1: '1501 N Poplar St',
+            City: 'Casper',
             Region: 'WY',
-            PostalCode: '73670',
+            PostalCode: '82601',
             Email: 'diam@ametconsectetuer.net',
             Phone: '(785) 219-2367'
         },
@@ -102,10 +102,13 @@ function getRandomCustomer() {
             Address1: '958, 8174 Est Rd.',
             City: 'Bowling Green',
             Region: 'KY',
-            PostalCode: '52391',
+            PostalCode: '42101',
             Email: 'condimentum.Donec.at@Praesenteudui.edu',
             Phone: '(155) 993-6882'
-        },
+        }];
+        
+        /*
+        ,
         {
             FirstName: 'Lev',
             LastName: 'Hobbs',
@@ -202,7 +205,7 @@ function getRandomCustomer() {
             Address1: '855, 3714 Auctor Rd.',
             City: 'Racine',
             Region: 'WI',
-            PostalCode: '36756',
+            PostalCode: '53403',
             Email: 'Sed.id.risus@erat.org',
             Phone: '(786) 668-7303'
         },
@@ -212,7 +215,7 @@ function getRandomCustomer() {
             Address1: '6291 Tellus St.',
             City: 'Toledo',
             Region: 'OH',
-            PostalCode: '22229',
+            PostalCode: '43609',
             Email: 'amet.ultricies@facilisi.edu',
             Phone: '(787) 330-6986'
         },
@@ -1007,6 +1010,7 @@ function getRandomCustomer() {
             Phone: '(627) 624-2780'
         }
     ];
+    */
 
     return customers[Math.floor(Math.random() * customers.length)];
 }
