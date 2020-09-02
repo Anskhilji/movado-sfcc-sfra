@@ -809,6 +809,9 @@ movadoBase.selectAttribute = function () {
     $(document).off('change', selector);
     $(document).off('click', selector).on('click', selector, function (e) {
         e.preventDefault();
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
+            return;
+        }
 
         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
@@ -824,7 +827,7 @@ movadoBase.colorAttribute = function () {
     $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
         e.preventDefault();
     
-        if ($(this).attr('disabled')) {
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
         }
     
