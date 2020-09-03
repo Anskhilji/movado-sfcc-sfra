@@ -1,13 +1,15 @@
-<isif condition="${pdict.relativeURL}">
-    <link rel="alternate" hreflang="x-default" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-us" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="es" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="ja" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-gb" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="de" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/> 
-    <link rel="alternate" hreflang="es-es" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="it" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="fr" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="ar" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+<isset name="hreflangBasePath" value="${!empty(dw.system.Site.current.preferences.custom.hreflangBasePath) ? dw.system.Site.current.preferences.custom.hreflangBasePath : false}" scope="page" />
+<isif condition="${pdict.relativeURL && hreflangBasePath}">
+    <isset name="alternateURL" value="${hreflangBasePath + pdict.relativeURL}" scope="page" />
+    <link rel="alternate" hreflang="x-default" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="en" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="en-us" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="es" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="ja" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="en-gb" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="de" href="${alternateURL}"/> 
+    <link rel="alternate" hreflang="es-es" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="it" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="fr" href="${alternateURL}"/>
+    <link rel="alternate" hreflang="ar" href="${alternateURL}"/>
 </isif>
