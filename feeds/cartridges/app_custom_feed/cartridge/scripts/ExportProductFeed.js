@@ -127,7 +127,7 @@ function exportGoogleFeed(args) {
             "angleSeparator" : Constants.ANGLE_SEPARATOR,
             "pipeSeparator" : Constants.PIPE_SEPARATOR,
             "semiColonSeparator" : Constants.SEMICOLON_SEPARATOR,
-            "skipMissingProductTypeSKUs" : true
+            "skipMissingProductTypeSKUs" : false
     }
 
     var fileArgs = createDirectoryAndFile(targetFolder, fileName);
@@ -181,7 +181,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 }
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
-                if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
+                if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryType)) {
                     continue;
                 }
 
@@ -575,8 +575,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productType'])) {
-        if (product.jewelryStyle) {
-            productDetails.push(product.jewelryStyle);
+        if (product.jewelryType) {
+            productDetails.push(product.jewelryType);
         } else {
             productDetails.push("");
         }
@@ -812,7 +812,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         isMasterProduct : product.master ? true : false,
         jewelryStyle : jewelryStyle,
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
-        isWristedImage : productImages.isWrist ? "Wrist-Shot" : "Non Wrist-Shot",
+        isWristedImage : productImages.isWristedImage ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
         availability: product.availabilityModel.availabilityStatus,
         caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : ""
