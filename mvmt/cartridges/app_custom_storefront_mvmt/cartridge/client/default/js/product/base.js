@@ -558,11 +558,12 @@ function handleVariantResponse(response, $productContainer) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
 
-    var $exclusiveBadges = $('.exclusive-badges');
+    // Update Badges
+    var $exclusiveBadges = $('.product-side-details .exclusive-badges');
     $exclusiveBadges.empty();
-    var badges = response.product.badges;
-    // Badges
-    if (badges.textBadges.length > 0) {
+    var badges = response.badges;
+
+    if (badges.textBadges && badges.textBadges.length > 0) {
         badges.textBadges.forEach(function (badge) {
             $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
         });

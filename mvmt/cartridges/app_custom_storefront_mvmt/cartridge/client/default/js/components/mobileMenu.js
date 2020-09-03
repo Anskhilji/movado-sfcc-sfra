@@ -72,7 +72,18 @@ module.exports = function () {
                 $cartButtonContainer.text(Resources.ADD_TO_CART_LABEL);
             }
         }
-        
+
+        // Update Badges
+        var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
+        $exclusiveBadges.empty();
+        var badges = response.badges;
+
+        if (badges.textBadges && badges.textBadges.length > 0) {
+            badges.textBadges.forEach(function (badge) {
+                $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
+            });
+        }
+
         $addToCartSelector.data( 'pid', variationPID );
         if (isVariationQantityExist) {
             $addToCartSelector.removeClass('out-of-stock-btn');

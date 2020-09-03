@@ -126,11 +126,19 @@ server.replace('Variation', function (req, res, next) {
         attributeTemplate
     );
 
+    if (!empty(product.badges)) {
+        var badges = {
+            imageBadges: !empty(product.badges.imageBadges) ? product.badges.imageBadges.toArray() : null,
+            textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
+        };
+    }
+
     res.json({
         product: product,
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
-        validationErrorEngraved: params.validationErrorEngraved
+        validationErrorEngraved: params.validationErrorEngraved,
+        badges: badges
     });
     next();
 });
