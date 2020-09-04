@@ -1,16 +1,15 @@
 <isset name="hreflangBasePath" value="${!empty(dw.system.Site.current.preferences.custom.hreflangBasePath) ? dw.system.Site.current.preferences.custom.hreflangBasePath : false}" scope="page" />
 <isif condition="${pdict.relativeURL && hreflangBasePath}">
     <isset name="alternateURLUS" value="${hreflangBasePath + pdict.relativeURL}" scope="page" />
-    <isset name="alternateURLEU" value="${hreflangBasePath + '/eu' + pdict.relativeURL}" scope="page" />
     <link rel="alternate" hreflang="x-default" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="en" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="en-us" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="es" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="ja" href="${alternateURLUS}"/>
-    <link rel="alternate" hreflang="en-gb" href="${alternateURLEU}"/>
-    <link rel="alternate" hreflang="de" href="${alternateURLEU}"/> 
-    <link rel="alternate" hreflang="es-es" href="${alternateURLEU}"/>
-    <link rel="alternate" hreflang="it" href="${alternateURLEU}"/>
-    <link rel="alternate" hreflang="fr" href="${alternateURLEU}"/>
-    <link rel="alternate" hreflang="ar" href="${alternateURLEU}"/>
+    <link rel="alternate" hreflang="en-gb" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="de" href="${alternateURLUS}"/> 
+    <link rel="alternate" hreflang="es-es" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="it" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="fr" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="ar" href="${alternateURLUS}"/>
 </isif>
