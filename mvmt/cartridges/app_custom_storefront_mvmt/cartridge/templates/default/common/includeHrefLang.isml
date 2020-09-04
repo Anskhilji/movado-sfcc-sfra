@@ -1,7 +1,12 @@
 <isset name="hreflangBasePath" value="${!empty(dw.system.Site.current.preferences.custom.hreflangBasePath) ? dw.system.Site.current.preferences.custom.hreflangBasePath : false}" scope="page" />
 <isif condition="${pdict.relativeURL && hreflangBasePath}">
-    <isset name="alternateURLUS" value="${hreflangBasePath + pdict.relativeURL}" scope="page" />
-    <isset name="alternateURLEU" value="${hreflangBasePath + '/eu' + pdict.relativeURL}" scope="page" />
+    <isif condition="${pdict.relativeURL.toString().indexOf('/eu') == 0}">
+        <isset name="relativeURL" value="${pdict.relativeURL.toString().substring(3)}" scope="page" />
+    <iselse/>
+        <isset name="relativeURL" value="${pdict.relativeURL}" scope="page" />
+    </isif>
+    <isset name="alternateURLUS" value="${hreflangBasePath + relativeURL}" scope="page" />
+    <isset name="alternateURLEU" value="${hreflangBasePath + '/eu' + relativeURL}" scope="page" />
     <link rel="alternate" hreflang="x-default" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="en" href="${alternateURLUS}"/>
     <link rel="alternate" hreflang="en-us" href="${alternateURLUS}"/>
