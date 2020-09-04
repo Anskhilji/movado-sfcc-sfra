@@ -111,6 +111,7 @@ server.replace('Variation', function (req, res, next) {
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 
+    var badges;
     var params = req.querystring;
 
     var paramsUpdated = productCustomHelpers.updateOptionsAndMessage(req, params);
@@ -127,7 +128,7 @@ server.replace('Variation', function (req, res, next) {
     );
 
     if (!empty(product.badges)) {
-        var badges = {
+        badges = {
             imageBadges: !empty(product.badges.imageBadges) ? product.badges.imageBadges.toArray() : null,
             textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
         };

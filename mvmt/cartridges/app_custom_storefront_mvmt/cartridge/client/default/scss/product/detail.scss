@@ -2585,7 +2585,7 @@
     touch-action: none;
 }
 .product-gallery {
-    
+
     @include media-breakpoint-up(xxl) {
             max-width: rem(1235);
     }

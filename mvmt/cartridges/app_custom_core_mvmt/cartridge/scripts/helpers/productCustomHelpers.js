@@ -1,8 +1,6 @@
 'use strict';
 var ProductMgr = require('dw/catalog/ProductMgr');
-
 var baseProductCustomHelpers = module.superModule;
-
 
 /**
  * Function to escape quotes
@@ -109,4 +107,3 @@ baseProductCustomHelpers.escapeQuotes = escapeQuotes;
 baseProductCustomHelpers.getProductGtmObj = getProductGtmObj;
 baseProductCustomHelpers.getGtmProductClickObj = getGtmProductClickObj;
 module.exports = baseProductCustomHelpers;
-
