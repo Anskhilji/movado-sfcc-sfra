@@ -3,7 +3,7 @@
 var $formValidation = require('base/components/formValidation');
 var $createErrorNotification = require('base/components/errorNotification');
 var $cart = require('../cart/cart');
-
+var updateMiniCart = true;
 
 function setMiniCartProductSummaryHeight () {
     var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
@@ -84,21 +84,38 @@ module.exports = function () {
      $('body').off('click touchstart', '.minicart').on('click touchstart', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
+         $.spinner().start();
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
+            if (!updateMiniCart) {
+                $('.mini-cart-data .popover').addClass('show');
+                $('#footer-overlay').addClass('footer-form-overlay');
+                $.spinner().stop();
+                return;
+            }
              $.get($url, function (data) {
+                updateMiniCart = false;
                  $('.mini-cart-data .popover').empty();
                  $('.mini-cart-data .popover').append(data);
                  $('#footer-overlay').addClass('footer-form-overlay');
                  setMiniCartProductSummaryHeight();
                  $('.mini-cart-data .popover').addClass('show');
+                 $.spinner().stop();
              });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
+            if (!updateMiniCart) {
+                $('.mini-cart-data .popover').addClass('show');
+                $('#footer-overlay').addClass('footer-form-overlay');
+                $.spinner().stop();
+                return;
+            }
              $.get($url, function (data) {
+                updateMiniCart = false;
                  $('.mini-cart-data .popover').empty();
                  $('.mini-cart-data .popover').append(data);
                  $('#footer-overlay').addClass('footer-form-overlay');
                  $('.mini-cart-data .popover').addClass('show');
+                 $.spinner().stop();
              });
          }
          $('.mobile-cart-icon').hide();
@@ -262,7 +279,6 @@ module.exports = function () {
         $('.mobile-cart-close-icon').hide();
         $('.mobile-cart-icon').show();
         $('.mini-cart-data .popover').removeClass('show');
-        $('.mini-cart-data .popover').empty();
         $('#footer-overlay').removeClass('footer-form-overlay');
     });
 
@@ -373,5 +389,9 @@ module.exports = function () {
     $('.mini-cart-data #login .modal').on('hidden.bs.modal', function () {
         $('#reset-password-email').val('');
         $('.modal-dialog .form-control.is-invalid').removeClass('is-invalid');
+    });
+
+    $('body').on('product:afterAddToCart', function () {
+        updateMiniCart = true;
     });
 };

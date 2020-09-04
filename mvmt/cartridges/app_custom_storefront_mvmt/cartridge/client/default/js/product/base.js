@@ -1,6 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-
+var updateMiniCart = true;
 function setMiniCartProductSummaryHeight () {
     var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
     var $miniCartHeight = parseInt($('.mini-cart-data .popover').outerHeight(true));
@@ -37,6 +37,7 @@ function openMiniCart () {
             $('#footer-overlay').addClass('footer-form-overlay');
             setMiniCartProductSummaryHeight();
             $('.mini-cart-data .popover').addClass('show');
+            updateMiniCart = false;
             $.spinner().stop();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -45,6 +46,7 @@ function openMiniCart () {
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
             $('.mini-cart-data .popover').addClass('show');
+            updateMiniCart = false;
             $.spinner().stop();
         });
     }
@@ -925,7 +927,6 @@ movadoBase.addToCart = function () {
                 data: form,
                 success: function (data) {
                     updateCartPage(data);
-
                     // Custom Start: Add recommended Products for MVMT Add To Cart
                     if ($('.pdp-mvmt')) {
                         addRecommendationProducts(addToCartUrl); 
@@ -935,6 +936,7 @@ movadoBase.addToCart = function () {
                         handlePostCartAdd(data);
                     }
                     $('body').trigger('product:afterAddToCart', data);
+                    updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
                 },
                 error: function () {
