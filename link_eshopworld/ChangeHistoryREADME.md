@@ -5,6 +5,7 @@
 - Line No: Start from 505 to 514
 - Line No: Start from 277 to 287
 - Line No: Start from 880 to 891
+- Line No: Start from 352 to 353
 
 ## serviceHelper.js
 - Line No: Start from 98 to 101
@@ -31,3 +32,4 @@
 
 ## EShopWorld.js
 - Line No: Start from 62 to 149
+- Line No: Start from 311 to 312

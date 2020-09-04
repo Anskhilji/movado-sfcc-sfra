@@ -60,6 +60,15 @@ function openMiniCart () {
  */
 function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
+        setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
+        if (response.addToCartPerSession == true) {
+            setMarketingProductsByAJAX.addToCartPerSession = true;
+        } else {
+            setMarketingProductsByAJAX.addToCartPerSession = false;
+        }
+        window.dispatchEvent(setMarketingProductsByAJAX);
+    }
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if(response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -537,6 +546,10 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (response.product.productType == 'variant') {
+        $('body').trigger('pdpChangedVariation', response.product);
+    }
+
     //  Remove Zoom and slick slider
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
@@ -552,6 +565,9 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+
+    // Update Family Name
+    $productContainer.find('.product-brand-info span').text(response.product.collectionName);
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
@@ -593,6 +609,18 @@ function handleVariantResponse(response, $productContainer) {
                + detailsArray[i].displayName + "</span><span class='attribute-value attribute-content'>" 
                + detailsArray[i].value + "</span></div>" );
         }
+    }
+
+
+
+    // Updating promo messages
+    if (response.product.promotions) {
+        var $promotions = $('.promotions');
+        $promotions.empty();
+        var productPromotions = response.product.promotions;
+        productPromotions.forEach(function(promotion) {
+            $promotions.append("<div class='row'>" + promotion.details + "</div>");
+        });
     }
 
     // Update pricing
@@ -788,6 +816,9 @@ movadoBase.selectAttribute = function () {
     $(document).off('change', selector);
     $(document).off('click', selector).on('click', selector, function (e) {
         e.preventDefault();
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
+            return;
+        }
 
         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
@@ -803,7 +834,7 @@ movadoBase.colorAttribute = function () {
     $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
         e.preventDefault();
     
-        if ($(this).attr('disabled')) {
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
         }
     

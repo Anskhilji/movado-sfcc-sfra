@@ -308,7 +308,11 @@ function Request(request, customer, session) {
         } else {
             //Custom Start: Adding customization of esw
             try {
-                var countryCode = request.httpParameterMap.get('country').value;
+                var countryCode;
+                var requestHttpParameterMap = request.getHttpParameterMap();
+                if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                    countryCode = requestHttpParameterMap.get('country').value;
+                }
                 if (!empty(countryCode)) {
                     session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
@@ -333,6 +337,10 @@ function Request(request, customer, session) {
                                 //Custom End  
                             }
                             eswHelper.selectCountry(countryCode, currencyCode, language);
+                            if (session.privacy.countryCode != countryCode) {
+                                delete session.privacy.countryCode;
+                                session.privacy.countryCode = countryCode;
+                            }
                         }
                     }
                 }

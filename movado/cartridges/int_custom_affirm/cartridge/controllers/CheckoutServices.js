@@ -273,7 +273,6 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	try {
 		Transaction.wrap(function () {
 			populateOrderJSON.populateByOrder(order);
-			populateOrderJSON.addDummyPaymentTransaction(order);
 		});
 	} catch (exSOM) {
 		somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));

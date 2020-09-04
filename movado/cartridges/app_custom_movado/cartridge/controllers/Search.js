@@ -243,9 +243,28 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 });
 
 server.append('UpdateGrid', function (req, res, next) {
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+
+    var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+    var marketingProductsData = [];
+    var marketingProduct;
+    var quantity = 0;
+
+    if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
+        for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
+            apiProduct = ProductMgr.getProduct(res.viewData.productSearch.productIds[i].productID);
+            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProduct !== null) {
+                marketingProductsData.push(marketingProduct);
+            }
+        }
+        marketingProductData = JSON.stringify(marketingProductsData);
+    }
     res.setViewData({
-    	compareBoxEnabled: compareBoxEnabled
+        compareBoxEnabled: compareBoxEnabled,
+        marketingProductData: marketingProductData
     });
     return next();
 });

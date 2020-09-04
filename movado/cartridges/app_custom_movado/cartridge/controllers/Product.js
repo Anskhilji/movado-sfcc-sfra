@@ -36,7 +36,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var product = viewData.product;
-    var productPrice = product.price;
+    var productPrice = !empty(product) ? product.price : '';
 
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;

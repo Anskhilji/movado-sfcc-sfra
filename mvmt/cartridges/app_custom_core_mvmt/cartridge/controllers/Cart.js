@@ -4,6 +4,7 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+
 var server = require('server');
 var page = module.superModule;
 server.extend(page);
@@ -28,11 +29,43 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function(req, res, next) {
+server.append(
+    'Show',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) { 
+        var countrySwitch = customCartHelpers.getCountrySwitch();
+
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
+        }
+        next();
+    }
+);
+
+server.append('MiniCartShow', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var countrySwitch = customCartHelpers.getCountrySwitch();
+
+    if (countrySwitch && !empty(countrySwitch)) {
+        res.viewData.countrySwitch = countrySwitch;
+    }
+
+    var productLineItems = currentBasket.productLineItems.iterator();
+    var marketingProductsData = [];
+
+    while (productLineItems.hasNext()) {
+        var productLineItem = productLineItems.next();
+        var apiProduct = productLineItem.getProduct();
+        var quantity = productLineItem.getQuantity().value;
+        marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+    }
+    res.viewData.marketingProductData = JSON.stringify(marketingProductsData);
 
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;

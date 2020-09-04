@@ -10,10 +10,7 @@ var Site = require('dw/system/Site').getCurrent();
  * @returns {ArrayList} languages : Array list of languages
  */
 function getCustomCountriesJson() {
-    var customCountriesJson = session.custom.countriesJSONFromPreferences;
-    if (empty(customCountriesJson)) {
-        customCountriesJson = !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
-    }
+    var  customCountriesJson = !empty(Site.getCustomPreferenceValue('customCountriesConfigESW')) ? JSON.parse(Site.getCustomPreferenceValue('customCountriesConfigESW')) : '';
     return customCountriesJson;
 }
 

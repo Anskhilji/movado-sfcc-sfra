@@ -9,7 +9,7 @@
                 <div class="tab-content-list active tab1">
                     <ul>
                         <isloop items="${categoryItem.subCategories}" var="category">
-                            <isif condition="${category.gender.equalsIgnoreCase('Men')}" >
+                            <isif condition="${category.gender && category.gender.equalsIgnoreCase('Men')}" >
                                 <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                                     <a href="${category.url}">
                                         <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">
@@ -25,7 +25,7 @@
                 <div class="tab-content-list tab2">
                     <ul>
                         <isloop items="${categoryItem.subCategories}" var="category">
-                            <isif condition="${category.gender.equalsIgnoreCase('Women')}" >
+                            <isif condition="${category.gender && category.gender.equalsIgnoreCase('Women')}" >
                                 <li class="submenu-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
                                     <a href="${category.url}">
                                         <div class="dropdown-menu-item-img-wrap ${category.categoryImageURL == null ? 'no-img' : ''}">

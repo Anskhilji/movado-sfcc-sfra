@@ -7,9 +7,9 @@
 	<div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
 		<meta itemprop="price" content="${price.decimalPrice}" />
 		<meta itemprop="priceCurrency" content="${price.currency}" />
-		<isif condition="${pdict.product.availability.messages.indexOf('In Stock')> -1}">
+		<isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
 			<meta itemprop="availability" content="InStock" />
-		<iselseif condition="${pdict.product.availability.messages.indexOf('Pre-Order')> -1}">
+		<iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
                        <meta itemprop="availability" content="PreOrder" />
 		<iselse>
 			<meta itemprop="availability" content="OutStock" />
@@ -23,9 +23,9 @@
 <meta property='og:url' content="${URLUtils.https('Product-Show','pid', pdict.product.id).abs()}"/>
 <meta property='og:price:amount' content="${price.decimalPrice}"/>
 <meta property='og:price:currency' content="${price.currency}"/>
-<isif condition="${pdict.product.availability.messages.indexOf('In Stock')> -1}">
+<isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
 	<meta property='og:availability' content="instock"/>
-<iselseif condition="${pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
+<iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
 	<meta itemprop="og:availability" content="preorder" />
 <iselse>
 	<meta property='og:availability' content="oos"/>

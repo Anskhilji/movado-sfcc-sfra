@@ -64,11 +64,14 @@ server.replace(
                         //Custom End
                     }
                     eswHelper.selectCountry(selectedCountry, currencyCode, language);
+                    if (session.privacy.countryCode != selectedCountry ) {
+                        delete session.privacy.countryCode;
+                        session.privacy.countryCode = selectedCountry;
+                    }
                 }
             } else {
                 delete session.privacy.fxRate;
                 eswHelper.createCookie('esw.location', selectedCountry, '/');
-                session.privacy.countryCode = selectedCountry;
                 var foundCountry = siteCountries.filter(function (item) {
                     if (item.countryCode === selectedCountry) {
                         var currency = Currency.getCurrency(item.currencyCode);

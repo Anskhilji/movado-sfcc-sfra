@@ -5,8 +5,8 @@
     
     <isif condition="${isEswEnabled}">
         <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-        <isif condition="${empty(pdict.product)}"> 
-            <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(lineItem)}" scope="page" />
+        <isif condition="${empty(pdict.product)}">
+            <isset name="matchingLineItem" value="${typeof lineItem != 'undefined' ? eswHelper.getMatchingLineItem(lineItem) : ''}" scope="page" />
         <iselse>
             <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
         </isif>

@@ -109,7 +109,7 @@
 				<div class="tooltip">
 					${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 			</span> <input type="password" class="form-control securityCode"
-				id="securityCode" data-encrypted-name="cvc">
+				id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback"></div>
 		</div>
 	</div>

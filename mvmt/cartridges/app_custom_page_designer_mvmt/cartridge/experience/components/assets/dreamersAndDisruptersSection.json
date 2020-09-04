@@ -1,0 +1,79 @@
+{
+    "name": "Dreamers & Disrupters Section",
+    "description": "Dreamers and Disrupters Section for mvmt blog pages",
+    "group": "assets",
+    "attribute_definition_groups": [
+        {
+            "id": "section",
+            "name": "Dreamers & Disrupters Section  Secifications",
+            "description": "Configs for Dreamers & Disrupters Section i.e Background Image, primray Image and live text",
+            "attribute_definitions": [
+                {
+                    "id": "backgroundImage",
+                    "name": "Background Image",
+                    "type": "image",
+                    "required": true
+                },
+                {
+                    "id": "primaryImage",
+                    "name": "Primary Image",
+                    "type": "image",
+                    "required": true
+                },
+                {
+                    "id": "richText",
+                    "name": "Rich Text",
+                    "type": "markup",
+                    "required": true
+                }
+            ]
+        },
+        {
+            "id": "lifeStyleImages",
+            "name": "Life Style Images for dreamers and diruptors",
+            "description": "Life Style Images for dreamers and diruptors",
+            "attribute_definitions": [
+                {
+                    "id": "enableLifeStyleImages",
+                    "name": "Enable Life Style Images",
+                    "type": "boolean",
+                    "default_value": false,
+                    "required": true
+                },
+                {
+                    "id": "firstImage",
+                    "name": "First Image",
+                    "type": "image",
+                    "required": false
+                },
+                {
+                    "id": "secoundImage",
+                    "name": "Second Image",
+                    "type": "image",
+                    "required": false
+                },
+                {
+                    "id": "thirdImage",
+                    "name": "Third Image",
+                    "type": "image",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "id": "style",
+            "name": "Style",
+            "description": "Controls to override default style of current Layout.",
+            "attribute_definitions": [
+                {
+                    "id": "additionalCss",
+                    "name": "Additional CSS Style",
+                    "type":"text",
+                    "description": "CSS for current 3coulumn Layout. Please use component id in css to apply styling to specified component",
+                    "required": false
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}

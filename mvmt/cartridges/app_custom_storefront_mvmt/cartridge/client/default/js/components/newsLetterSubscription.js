@@ -114,6 +114,7 @@ module.exports = function () {
     $('.sfmc-update-event').off('submit').on('submit', function (event) {
         event.preventDefault(); 
         $.spinner().start();
+        var formContainer = $(this).data('sfmc-form-container');
         var params = $(this).serialize();
         var endpoint = $(this).attr('action');
         
@@ -122,11 +123,15 @@ module.exports = function () {
             method: 'POST',
             data: params,
             success: function () { 
-                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $('.sfmc-update-event-success').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+                $('.sfmc-update-event').trigger("reset");
+                if (formContainer) {
+                    $(formContainer).hide();
+                }
                 $.spinner().stop();
             },
             error: function () {
-                $('.sfmc-update-event').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
+                $('.sfmc-update-event-error').text(Resources.MVMT_EMAIL_SIGNUP_GENERAL_FAILURE);
                 $.spinner().stop();
             }
         });

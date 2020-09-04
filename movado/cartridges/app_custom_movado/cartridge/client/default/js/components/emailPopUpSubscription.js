@@ -56,8 +56,14 @@ function hideEmailPopUpModal() {
     $(".email-popup").addClass('thankyou-opened');
     $('.email-popup .quick-view-dialog').addClass('popup-message');
     setTimeout(function() { 
-        $(".thankyou-opened").click( function() {
-            $('.thankyou-opened').hide();
+        $(".thankyou-opened").click(function () {
+            if ($('.thankyou-opened').find('.disable-full-popup-hide').length == 0) {
+                $('.thankyou-opened').hide();
+           }
         });
     }, 200);
 }
+
+$(document).on('click', '.hide-email-popup', function () {
+    $('#emailOptInPopUp').hide();
+});

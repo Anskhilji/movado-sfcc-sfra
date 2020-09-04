@@ -39,7 +39,7 @@
             </div>
 
             
-                <div class="plp-swatches ${product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
+                <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                     <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                         <isinclude template="product/components/productTileSwatch" />
                     </isif>
@@ -47,7 +47,7 @@
 
             <isif condition="${pdict.display.showAddToCart}">
                 <div class="product-brand-info">
-                    <span>${product.brand}</span>
+                    <span>${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
                 </div>
             </isif>
             <isinclude template="product/components/productTileName" />

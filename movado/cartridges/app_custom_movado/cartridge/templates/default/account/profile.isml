@@ -4,7 +4,9 @@
         assets.addCss('/css/account/profile.css');
         assets.addJs('/js/profile.js');
     </isscript>
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    </isif>
     <div class="hero account-banner container">
        <isslot id="cs-account-profile-banner" description="profile banner Image" context="global" />
     </div>

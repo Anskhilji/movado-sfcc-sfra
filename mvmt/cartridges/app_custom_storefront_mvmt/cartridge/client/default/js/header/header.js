@@ -157,6 +157,8 @@ document.addEventListener('animationstart', function (event) {
         if ($reviews < Resources.YOTPO_REVIEW_COUNT) {
             $(".yotpo.bottomLine").remove();
             $(".yotpo-main-widget").remove();
+            $('.pdp-tab-button[data-tab="Reviews"]').remove();
+            $(".pdp-tab-content.Reviews").remove();
         }
     }
 }, true);

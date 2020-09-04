@@ -332,10 +332,13 @@ module.exports = {
             } else {
                 updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
             }
-            $('.product-price-mobile .sales .value').each(function() {
-                updatedText = $(this).text().replace(/([0-9]+[.,][0-9]+|[0-9]+)/g, updatedPrice.toFixed(2));
-                $(this).text(updatedText).attr('content', updatedPrice);
-            });
+
+            if (updatedPrice && !isNaN(updatedPrice)) {
+                $('.product-price-mobile .sales .value').each(function() {
+                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
+                    $(this).text(updatedText).attr('content', updatedPrice);
+                });
+            }
         });
     },
     base: base
