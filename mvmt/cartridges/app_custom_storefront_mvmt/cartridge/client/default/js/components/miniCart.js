@@ -93,15 +93,15 @@ module.exports = function () {
                 $.spinner().stop();
                 return;
             }
-             $.get($url, function (data) {
-                 updateMiniCart = false;
-                 $('.mini-cart-data .popover').empty();
-                 $('.mini-cart-data .popover').append(data);
-                 $('#footer-overlay').addClass('footer-form-overlay');
-                 setMiniCartProductSummaryHeight();
-                 $('.mini-cart-data .popover').addClass('show');
-                 $.spinner().stop();
-             });
+            $.get($url, function (data) {
+                updateMiniCart = false;
+                $('.mini-cart-data .popover').empty();
+                $('.mini-cart-data .popover').append(data);
+                $('#footer-overlay').addClass('footer-form-overlay');
+                setMiniCartProductSummaryHeight();
+                $('.mini-cart-data .popover').addClass('show');
+                $.spinner().stop();
+            });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
@@ -109,14 +109,14 @@ module.exports = function () {
                 $.spinner().stop();
                 return;
             }
-             $.get($url, function (data) {
-                 updateMiniCart = false;
-                 $('.mini-cart-data .popover').empty();
-                 $('.mini-cart-data .popover').append(data);
-                 $('#footer-overlay').addClass('footer-form-overlay');
-                 $('.mini-cart-data .popover').addClass('show');
-                 $.spinner().stop();
-             });
+            $.get($url, function (data) {
+                updateMiniCart = false;
+                $('.mini-cart-data .popover').empty();
+                $('.mini-cart-data .popover').append(data);
+                $('#footer-overlay').addClass('footer-form-overlay');
+                $('.mini-cart-data .popover').addClass('show');
+                $.spinner().stop();
+            });
          }
          $('.mobile-cart-icon').hide();
          $('.mobile-cart-close-icon').show();
