@@ -127,6 +127,12 @@ server.replace('Variation', function (req, res, next) {
         attributeTemplate
     );
 
+    if (!empty(product.badges.imageBadges)) {
+        for (var i = 0; i < product.badges.imageBadges.length; i++) {
+            product.badges.imageBadges[i].imageUrl = product.badges.imageBadges[i].imageUrl.toString();
+        }
+    }
+
     if (!empty(product.badges)) {
         badges = {
             imageBadges: !empty(product.badges.imageBadges) ? product.badges.imageBadges.toArray() : null,

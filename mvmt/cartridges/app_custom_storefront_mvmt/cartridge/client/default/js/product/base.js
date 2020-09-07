@@ -558,7 +558,7 @@ function handleVariantResponse(response, $productContainer) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
 
-    // Update Badges
+    // Update text Badges
     var $exclusiveBadges = $('.product-side-details .exclusive-badges');
     $exclusiveBadges.empty();
     var badges = response.badges;
@@ -566,6 +566,19 @@ function handleVariantResponse(response, $productContainer) {
     if (badges.textBadges && badges.textBadges.length > 0) {
         badges.textBadges.forEach(function (badge) {
             $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
+        });
+    }
+
+    // Update image Badges
+    var $imageBadges = $('.primary-images .product-badges');
+    $imageBadges.empty();
+    if (badges.imageBadges && badges.imageBadges.length > 0) {
+        badges.imageBadges.forEach(function (imageBadge, idx) {
+            if (idx === 0) {
+                $imageBadges.append('<div class="badge-left"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
+            } else {
+                $imageBadges.append('<div class="badge-right"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
+            }
         });
     }
 
