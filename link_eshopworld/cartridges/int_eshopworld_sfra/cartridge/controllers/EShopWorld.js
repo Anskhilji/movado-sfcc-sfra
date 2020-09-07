@@ -26,7 +26,7 @@ function setInitialCookies(req) {
     var allowedCountries = eswHelper.getAllowedCountries();
     var currencyCode;
     if (eswCustomHelper) {
-        var selectedCountry = currencyCode = eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry());
+        var selectedCountry = eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry());
         currencyCode = !empty(selectedCountry) ? selectedCountry.currencyCode : '';
     }
     var countryFromJson = eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry());
