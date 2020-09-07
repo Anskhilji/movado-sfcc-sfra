@@ -8,7 +8,7 @@
     <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
         <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
     <iselse>
-        <a class="link product-name test" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
+        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
     </isif>
 </div>
 </isif>
