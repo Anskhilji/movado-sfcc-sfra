@@ -94,7 +94,7 @@ module.exports = function () {
                 return;
             }
              $.get($url, function (data) {
-                updateMiniCart = false;
+                 updateMiniCart = false;
                  $('.mini-cart-data .popover').empty();
                  $('.mini-cart-data .popover').append(data);
                  $('#footer-overlay').addClass('footer-form-overlay');
@@ -110,7 +110,7 @@ module.exports = function () {
                 return;
             }
              $.get($url, function (data) {
-                updateMiniCart = false;
+                 updateMiniCart = false;
                  $('.mini-cart-data .popover').empty();
                  $('.mini-cart-data .popover').append(data);
                  $('#footer-overlay').addClass('footer-form-overlay');
