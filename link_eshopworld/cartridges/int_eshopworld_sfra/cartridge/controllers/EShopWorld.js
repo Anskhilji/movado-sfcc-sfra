@@ -19,12 +19,20 @@ var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
  */
 function setInitialCookies(req) {
     var Cookie = require('dw/web/Cookie');
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var log = dw.system.Logger.getLogger("EswDebugLog");
     var allowedLanguages = eswHelper.getAllowedLanguages();
     var allowedCurrencies = eswHelper.getAllowedCurrencies();
     var allowedCountries = eswHelper.getAllowedCountries();
+    var currencyCode;
+    if (eswCustomHelper) {
+        var selectedCountry = eswCustomHelper.getSelectedCountry(eswHelper.getAvailableCountry());
+        currencyCode = !empty(selectedCountry) ? selectedCountry.currencyCode : '';
+    }
     var countryFromJson = eswHelper.getAllCountryFromCountryJson(eswHelper.getAvailableCountry());
-    var currencyCode = (countryFromJson != null) ? countryFromJson.currencyCode : session.getCurrency();
+    if (empty(currencyCode)) {
+        currencyCode = (countryFromJson != null) ? countryFromJson.currencyCode : session.getCurrency();
+    }
     eswHelper.createCookie('esw.InternationalUser', true, '/');
     eswHelper.createCookie('esw.sessionid', customer.ID, '/');
     if (request.httpCookies['esw.location'] == null) {
