@@ -84,7 +84,31 @@ module.exports = function () {
                 $cartButtonContainer.text(Resources.ADD_TO_CART_LABEL);
             }
         }
-        
+
+        // Update text Badges
+        var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
+        $exclusiveBadges.empty();
+        var badges = response.badges;
+
+        if (badges.textBadges && badges.textBadges.length > 0) {
+            badges.textBadges.forEach(function (badge) {
+                $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
+            });
+        }
+
+        // Update image Badges
+        var $imageBadges = $productContainer.find('.image-container');
+        $imageBadges.empty();
+        if (badges.imageBadges && badges.imageBadges.length > 0) {
+            badges.imageBadges.forEach(function (imageBadge1, idx) {
+                if (idx === 0) {
+                    $imageBadges.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                } else {
+                    $imageBadges.append('<div class="product-badge right"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                }
+            });
+        }
+
         $addToCartSelector.data( 'pid', variationPID );
         if (isVariationQantityExist) {
             $addToCartSelector.removeClass('out-of-stock-btn');
