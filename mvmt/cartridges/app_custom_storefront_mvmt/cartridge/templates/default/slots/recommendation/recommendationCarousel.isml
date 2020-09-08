@@ -1,5 +1,10 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-  <div class="container-fluid product-slot-slider">
+  <script>
+      $(document).ready(function() {
+          window.slickSlider.initCarousel($('.pdp-product-recommendation'));
+      });
+  </script>
+  <div class="container-fluid product-slot-slider pdp-product-recommendation">
     <div class="row">
       <div class="col-12">
         <div class="cs-carousel-wrapper">
