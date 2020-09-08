@@ -52,7 +52,7 @@
             </isif>
             <isinclude template="product/components/productTileName" />
 
-            <isif condition="${product.productType == 'master'}">
+            <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
                 <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
             <iselse>
                 <isset name="price" value="${product.price}" scope="page" />
