@@ -757,7 +757,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 : '')
                 : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
             produtObj.variant = variants;
-            produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount;
+            produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
             produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
             produtObj.productType = productHelper.getProductType(productLineItem.product);
@@ -783,7 +783,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderId = orderId;
         orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
         orderObj.orderQuantity = order.productLineItems.length;
-        orderObj.revenue = order.getMerchandizeTotalNetPrice().decimalValue;
+        orderObj.revenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue + getOrderLevelDiscount(order) + order.shippingTotalPrice.decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
