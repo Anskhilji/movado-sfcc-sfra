@@ -84,13 +84,11 @@ module.exports = function () {
      $('body').off('click touchstart', '.minicart').on('click touchstart', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
-         $.spinner().start();
 
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
                 $('#footer-overlay').addClass('footer-form-overlay');
-                $.spinner().stop();
                 return;
             }
             $.get($url, function (data) {
@@ -100,13 +98,12 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 setMiniCartProductSummaryHeight();
                 $('.mini-cart-data .popover').addClass('show');
-                $.spinner().stop();
+
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
                 $('#footer-overlay').addClass('footer-form-overlay');
-                $.spinner().stop();
                 return;
             }
             $.get($url, function (data) {
@@ -115,7 +112,6 @@ module.exports = function () {
                 $('.mini-cart-data .popover').append(data);
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mini-cart-data .popover').addClass('show');
-                $.spinner().stop();
             });
          }
          $('.mobile-cart-icon').hide();
