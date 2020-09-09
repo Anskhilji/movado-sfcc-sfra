@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-12">
           <div class="content">
-            <div class="html-slot-container">
+            <div class="html-slot-container px-5  text-lg-right">
               <isloop items="${slotcontent.content}" var="markupText">
                 <isprint value="${markupText.markup}" encoding="off"/>
               </isloop>
