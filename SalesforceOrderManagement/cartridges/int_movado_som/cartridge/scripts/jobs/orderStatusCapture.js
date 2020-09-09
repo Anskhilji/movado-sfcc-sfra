@@ -50,7 +50,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('processStatusCapture - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
             return;
         }
-        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber && orderStatusItem.SKUNumber != 'FIXEDFREIGHT') {
+        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber && orderStatusItem.SKUNumber !== 'FIXEDFREIGHT') {
             Logger.error('processStatusCapture - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
         }
 
