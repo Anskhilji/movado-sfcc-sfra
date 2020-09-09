@@ -124,7 +124,7 @@ function sendPasswordResetEmail(email, resettingCustomer) {
 
     var emailObj = {
         to: email,
-        subject: Resource.msg('subject.profile.resetpassword.email', 'login', null),
+        subject: Resource.msg('subject.profile.passwordreset.email', 'login', null),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.passwordReset
     };
@@ -140,11 +140,16 @@ function sendAccountEditedEmail(profile) {
     var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
     var Site = require('dw/system/Site');
     var Resource = require('dw/web/Resource');
+    var ContentMgr = require('dw/content/ContentMgr');
+    var emailHeaderContent = ContentMgr.getContent('email-header');
+    var emailFooterContent = ContentMgr.getContent('email-footer');
 
     var userObject = {
         firstName: profile.firstName,
         lastName: profile.lastName,
-        url: URLUtils.https('Login-Show')
+        url: URLUtils.https('Login-Show'),
+        emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
+        emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : '')
     };
 
     var emailObj = {
