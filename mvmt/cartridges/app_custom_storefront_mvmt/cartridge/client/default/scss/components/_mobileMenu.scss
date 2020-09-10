@@ -179,7 +179,7 @@
             margin-right: rem(15);
 
             li {
-                height: rem(70);
+                height: auto;
                 margin-bottom: rem(20);
             }
         }
@@ -217,12 +217,15 @@
         &-images {
             text-align: left;
             margin-left: rem(20);
+            display: flex;
+            align-items: center;
             
             img {
                 width: rem(70);
                 height: rem(70);
                 padding: 0;
                 margin-left: rem(32);
+                margin-bottom: 0;
             }
         }
 
