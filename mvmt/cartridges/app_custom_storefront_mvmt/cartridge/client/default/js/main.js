@@ -1,6 +1,6 @@
 // This is the main file please add submodules into it
 var processInclude = require('base/util');
-processInclude(require('movado/components/slickCarousel'));
+
 processInclude(require('movado/utilities/sticky-header'));
 processInclude(require('movado/utilities/modal'));
 processInclude(require('movado/components/menu'));
@@ -21,6 +21,7 @@ processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 
 $(document).ready(function () {
+    processInclude(require('movado/components/slickCarousel'));
     processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/faq-page'));
     processInclude(require('./header/header'));
