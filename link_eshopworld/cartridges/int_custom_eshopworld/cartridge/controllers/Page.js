@@ -64,6 +64,7 @@ server.replace(
                         //Custom End
                     }
                     eswHelper.selectCountry(selectedCountry, currencyCode, language);
+                    delete session.privacy.countryCode;
                     session.privacy.countryCode = selectedCountry;
                 }
             } else {
