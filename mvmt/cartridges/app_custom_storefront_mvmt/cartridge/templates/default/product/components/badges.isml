@@ -1,0 +1,7 @@
+<div class="exclusive-badges">
+    <isif condition="${product.available}">
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <span class="badge text-uppercase">${badge.text}</span>
+        </isloop>
+    </isif>
+</div>
