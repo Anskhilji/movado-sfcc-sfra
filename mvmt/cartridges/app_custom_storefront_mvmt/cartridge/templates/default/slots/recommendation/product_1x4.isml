@@ -1,7 +1,9 @@
 <ul class="category-product-listing">
-    <isloop items="${slotcontent.content}" var="product" status="loopState">
+    <isloop items="${slotcontent.content}" var="product" status="loopState" begin="0" end="3">
         <li>
-            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'showAddToCart',true)}"/>
+            <isobject object="${product}" view="recommendation">
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'showAddToCart',true)}"/>  
+            </isobject>
         </li>
     </isloop>
 </ul>

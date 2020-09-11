@@ -33,6 +33,7 @@ var SalesforceFactory = {
         FULFILLMENTITEMCANCEL: APIROOT + '/sobjects/Item_Cancellation__e',
         SHIPMENT: APIROOT + '/sobjects/Shipment',
         CANCELLATIONEMAIL: '/services/apexrest/ordercancellationemail',
+        SAPORDERREFUND: '/services/apexrest/saporderrefund',
         OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c'
     },
 

@@ -1,4 +1,9 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
+  <script>
+      $(document).ready(function() {
+          window.slickSlider.initCarousel($('.product-slot-slider'));
+      });
+  </script>
   <div class="container-fluid product-slot-slider">
     <div class="row">
       <div class="col-12">
