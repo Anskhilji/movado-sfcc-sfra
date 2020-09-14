@@ -14,6 +14,9 @@ function processSubscription(response) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }
+            if ($('.sfmc-update-event-success')) {
+                $('.sfmc-update-event-success').text(Resources.MVMT_EMAIL_SIGNUP_SUCCESS);
+            }
         } else {
             $('.submission-status div').attr('class', 'error');
         }
@@ -24,7 +27,8 @@ $(document).ready(function () {
         e.preventDefault();
         wrapperContainer.addClass('d-none');
         var endPointUrl = $(e.target).attr('action');
-        var inputValue = $(e.target).find('.form-control').val();
+        var params = $(this).serialize();
+        var inputValue = $(e.target).find('#email').val();
         if (inputValue !== '') {
             var pattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
             if(!pattern.test(inputValue)) {
@@ -34,7 +38,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: endPointUrl,
                     method: 'POST',
-                    data: { email: inputValue },
+                    data: params,
                     success: processSubscription,
                     error: function () { 
                         wrapperContainer.removeClass('d-none');
