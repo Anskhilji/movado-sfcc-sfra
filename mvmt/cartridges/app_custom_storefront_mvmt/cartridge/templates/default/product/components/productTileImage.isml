@@ -1,11 +1,13 @@
 <div class="image-container">
-    <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
-        <isif condition="${loopStatus.first}">
-            <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
-        <iselseif condition="${loopStatus.last}">
-            <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
-        </isif>
-    </isloop>
+    <isif condition="${product.available}">
+        <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+            <isif condition="${loopStatus.first}">
+                <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            <iselseif condition="${loopStatus.last}">
+                <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            </isif>
+        </isloop>
+    </isif>
     <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
         <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
 	        <picture>
