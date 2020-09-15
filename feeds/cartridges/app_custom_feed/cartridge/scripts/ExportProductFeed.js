@@ -181,8 +181,14 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 }
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
-                if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryType)) {
-                    continue;
+                if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
+                    if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryType)) {
+                        continue;
+                    }
+                } else {
+                    if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryStyle)) {
+                        continue;
+                    }
                 }
 
                 if(feedParameters.categories) {
@@ -584,10 +590,18 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productType'])) {
-        if (product.jewelryType) {
-            productDetails.push(product.jewelryType);
+        if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
+            if (product.jewelryType) {
+                productDetails.push(product.jewelryType);
+            } else {
+                productDetails.push("");
+            }
         } else {
-            productDetails.push("");
+            if (product.jewelryStyle) {
+                productDetails.push(product.jewelryStyle);
+            } else {
+                productDetails.push("");
+            }
         }
     }
 
