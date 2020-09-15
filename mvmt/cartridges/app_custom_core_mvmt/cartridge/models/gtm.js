@@ -747,32 +747,39 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
-            var variants = getVariants(productLineItem);
-            var produtObj = {};
+            try {
+                var variants = getVariants(productLineItem);
+                var produtObj = {};
 
-            produtObj.id = productLineItem.product.ID;
-            produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
-            produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
-            produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
-                : '')
-                : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
-            produtObj.variant = variants;
-            produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
-            produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
-            produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
-            produtObj.productType = productHelper.getProductType(productLineItem.product);
-            produtObj.imageURL = productLineItem.product.image.absURL;
-            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
-            produtObj.quantity = productLineItem.quantityValue;
+                produtObj.id = productLineItem.product.ID;
+                produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
+                produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
+                produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
+                    : '')
+                    : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
+                produtObj.variant = variants;
+                produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+                produtObj.description = '';
+                if (!empty(productLineItem.product.shortDescription)) {
+                    produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
+                }
+                produtObj.productType = productHelper.getProductType(productLineItem.product);
+                produtObj.imageURL = productLineItem.product.image.absURL;
+                produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
+                produtObj.quantity = productLineItem.quantityValue;
 
-            produtObj.itemCoupon = itemLevelCouponString;
+                produtObj.itemCoupon = itemLevelCouponString;
 
-            if (orderJSONArray.length < 10) {
-                orderJSONArray.push({ productObj: produtObj });
-            } else {
-                gtmorderConfObj.push(orderJSONArray);
-                orderJSONArray = [];
-                orderJSONArray.push({ productObj: produtObj });
+                if (orderJSONArray.length < 10) {
+                    orderJSONArray.push({ productObj: produtObj });
+                } else {
+                    gtmorderConfObj.push(orderJSONArray);
+                    orderJSONArray = [];
+                    orderJSONArray.push({ productObj: produtObj });
+                }
+            } catch (ex) {
+                Logger.error('Error Occured while getting order details for gtm against lineitem: ' + productLineItem.productID + ' and exception is: ' + ex);
             }
         });
 
