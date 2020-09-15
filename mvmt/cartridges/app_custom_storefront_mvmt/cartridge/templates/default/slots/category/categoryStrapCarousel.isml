@@ -1,4 +1,9 @@
 <isif condition="${slotcontent}">
+    <script>
+       $(document).ready(function() {
+           window.slickSlider.initCarousel($('.category-slot'));
+       });
+    </script>
     <div class="category-slot">
         <h2>
             ${slotcontent.custom.carouselTitle}

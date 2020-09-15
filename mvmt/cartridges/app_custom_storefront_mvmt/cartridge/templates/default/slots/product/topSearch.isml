@@ -1,9 +1,4 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-  <script>
-      $(document).ready(function() {
-          window.slickSlider.initCarousel($('.search-tile-carousel'));
-      });
-  </script>
     <isif condition="${slotcontent.custom.carouselTitle}">
       <h3>${slotcontent.custom.carouselTitle}</h3>
     </isif>
