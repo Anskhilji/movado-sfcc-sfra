@@ -74,7 +74,7 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-    if(Site.current.ID == "MovadoUS") {
+    if(Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
@@ -470,8 +470,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['description'])) {
-        if (product.description) {
-            productDetails.push(product.description);
+        if (product.pageDescription) {
+            productDetails.push(product.pageDescription);
         } else {
             productDetails.push("");
         }
@@ -542,10 +542,19 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['availability'])) {
-        if (product.instock) {
-            productDetails.push("in stock");
-        } else {
+        switch (product.availability) {
+            case "PREORDER":
+                productDetails.push("pre order");
+                break;
+            case "NOT_AVAILABLE":
+                productDetails.push("out of stock");
+                break;
+            case "IN_STOCK":
+                productDetails.push("in stock");
+                break;
+            default:
             productDetails.push("");
+            break;
         }
     }
 
@@ -815,7 +824,8 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         isWristedImage : productImages.isWristedImage ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
         availability: product.availabilityModel.availabilityStatus,
-        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : ""
+        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
+        pageDescription: product.pageDescription
     };
     if (!empty(feedColumns['priceUSD'])) {
         productAttributes.priceUSD =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD);
