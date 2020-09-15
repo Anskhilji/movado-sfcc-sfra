@@ -1,9 +1,5 @@
-<isif condition="${slotcontent}">
-    <script>
-       $(document).ready(function() {
-           window.slickSlider.initCarousel($('.homepage-carousel'));
-       });
-    </script>
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+
     <div class="category-slot homepage-carousel">
         <h2>
             ${slotcontent.custom.carouselTitle}
