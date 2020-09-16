@@ -55,11 +55,13 @@ module.exports = function () {
 
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');
-        $gtmClikObject.id = $product.id;
-        $gtmClikObject.brand = $product.brand;
-        $gtmClikObject.name = $product.productName;
-        $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
-        $imageContainer.data('gtm-product', $gtmClikObject);
+        if ($gtmClikObject) {
+            $gtmClikObject.id = $product.id;
+            $gtmClikObject.brand = $product.brand;
+            $gtmClikObject.name = $product.productName;
+            $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
+            $imageContainer.data('gtm-product', $gtmClikObject);
+        }
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
@@ -88,7 +90,7 @@ module.exports = function () {
         var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
         $exclusiveBadges.empty();
 
-        var $imageBadges = $productContainer.find('.image-container');
+        var $imageBadges = $productContainer.find('.image-container .product-badges');
         $imageBadges.empty();
 
         if (response.product.available) {
