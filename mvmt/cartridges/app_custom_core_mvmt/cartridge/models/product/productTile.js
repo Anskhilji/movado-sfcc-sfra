@@ -59,12 +59,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                                     ).toString();
 
                             colorVariations.values[key].pdpURL = URLUtils.url(
-                                        'Product-Show',
-                                        'pid',
-                                        product.id,
-                                        'dwvar_' + product.id + '_color',
-                                        colorVariations.values[key].id
-                                        ).toString();
+                                    'Product-Show',
+                                    'pid',
+                                    product.id,
+                                    'dwvar_' + product.id + '_color',
+                                    colorVariations.values[key].id
+                                    ).toString();
 
                             if (!empty(variationParam) && !empty(variationParamValue)) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
