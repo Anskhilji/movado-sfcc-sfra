@@ -1,0 +1,142 @@
+<iscomment> Custom Start: Changing the html structure similar to mvmt</iscomment>
+<isdecorate template="common/layout/page">
+    <isinclude template="/components/modules" sf-toolkit="off" />
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/orderHistory.js');
+        assets.addCss('/css/account/profile.css');
+    </isscript>
+
+    <isset name="isPage" value="orderHistory" scope="page" />
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.account', 'eum', null))}"/>
+    </isif>
+    <iscomment> Custom Start: Adding two classes in this div for banner style </iscomment>
+    <div class="account-dashboard-banner floating-header-banner">
+         <isslot id="cs-account-accountdashboard-banner" description="accountDashboard banner Image" context="global" />
+    </div>
+    <iscomment> Custom End </iscomment>
+
+    <isinclude template="account/accountTabBar"/>
+
+    <div class="container account-pages">
+        <!---Breadcrumbs--->
+        <iscomment> Custom Start: Removing breadcrumbs because it is not mandatory in the mvvmt dashboard page </iscomment>
+        <iscomment>
+            <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        </iscomment>
+        <iscomment> Custom End </iscomment>
+        <isif condition="${pdict.orders.length > 0}">
+            <div class="row justify-content-center order-list-card">
+                <div class="col-12 col-sm-4 col-md-3">
+                    <h2 class="heading-three">${Resource.msg('label.orderhistory','account',null)}</h2>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <iscomment>TODO: Filter By Date Range</iscomment>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <iscomment>Custom Start: Adding Content asstet for no order history </iscomment>
+        <isif condition="${empty(pdict.orders)}">
+            <div class="row justify-content-center">
+                <iscontentasset aid="order-history-heading-box" />   NO ORDER HISTORY
+            </div>
+        </isif>
+        <iscomment>Custom End </iscomment>
+        <div class="row justify-content-center order-list-card">
+            <div class="container order-list-container">
+                <isif condition="${pdict.orders.length > 0}">
+                    <isloop items="${pdict.orders}" var="order">
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-6 offset-lg-3">
+                            <iscomment> ORDER CARD - DETAILS</iscomment>
+                                <div class="card">
+                                    <isif condition="${pdict.accountlanding}">
+                                        <div class="card-header clearfix">
+                                            <h4 class="pull-left">${Resource.msg('label.recent.orders', 'account', null)}</h4>
+                                            <a href="${URLUtils.url('Order-History')}" class="order-label">${Resource.msg('label.view.orders', 'account', null)}</a>
+                                        </div>
+                                    <iselse/>
+                                        <div class="card-header clearfix">
+                                            <h4 class="pull-left">${Resource.msg('label.orderhistory.orderno', 'account', null)} ${order.num}</h4>
+                                            <a href="${URLUtils.url('Order-Details', 'orderID', order.num, 'orderFilter', pdict.orderFilter)}">${Resource.msg('label.view.orders.title', 'account', null)}</a>
+                                        </div>
+                                    </isif>
+                                    <isif condition="${!empty(order)}" >
+                                        <div class="card-body card-info-group">
+                                            <div class="row">
+                                                <isif condition="${pdict.accountlanding}">
+                                                    <div class="col-12">
+                                                        ${Resource.msg('label.orderhistory.mostrecentorder', 'account', null)}
+                                                    </div>
+                                                </isif>
+                                                <div class="col-4">
+                                                    <isif condition="${order.imageURL}">
+                                                        <img class="img-fluid" src="${order.imageURL}" alt="${order.imageAlt}" title="${order.imageTitle}" />
+                                                    </isif>
+                                                </div>
+                                                <div class="col-sm-8 col-12">
+                                                    <isif condition="${pdict.accountlanding}">
+                                                        <p><span class="field-label">${Resource.msg('label.orderhistory.ordernumber', 'account', null)}</span> <span class="field-value"><isprint value="${order.num}"/></span></p>
+                                                    </isif>
+                                                    <p><span class="field-label">${Resource.msg('label.orderhistory.dateordered', 'account', null)}</span> <span class="field-value"> <isprint value="${order.dt}"/></span></p>
+                                                    <p><span class="field-label">${Resource.msg('label.orderhistory.orderstatus', 'account',null)}</span> <span class="dashboard-order-card-status field-value">${order.status}</span></p>
+                                                    <isif condition="${order.trackingUrls && order.trackingUrls.length > 0}">
+                                                        <p>${Resource.msg('label.order.tracking', 'confirmation', null)}
+                                                        <span class="dashboard-order-card-tracking">
+                                                            <isloop items="${order.trackingUrls}" var="tracking" status="status">
+                                                                <a href="${tracking.trackingURL}">${tracking.trackingNumber}<isif condition="${status.index < order.trackingUrls.length-1}">${Resource.msg('label.order.trackingDivider', 'confirmation', null)}</isif></a>
+                                                            </isloop>
+                                                        </span></p>
+                                                    </isif>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <div class="col-7 dashboard-order-card-footer-columns card-info-group">
+                                                    <p class="field-label">${Resource.msg('label.orderhistory.totalitems','account',null)}</p>
+                                                    <p class="dashboard-order-card-footer-value field-value">
+                                                        <isprint value="${order.productQty}" formatter="#"/>
+                                                    </p>
+                                                </div>
+                                                <div class="col-5 dashboard-order-card-footer-columns card-info-group">
+                                                    <p class="field-label">${Resource.msg('label.orderhistory.ordertotal','account',null)} </p>
+                                                    <p class="dashboard-order-card-footer-value field-value">
+                                                        ${order.total}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <iselse>
+                                        <div class="card-header clearfix">
+                                            <p class="pull-left">${Resource.msg('empty.order.msg', 'account', null)}</p>
+                                        </div>
+                                    </isif>
+                                </div>
+                            </div>
+                        </div>
+                    </isloop>
+                <iselse>
+                    <div class="card-header card-msg clearfix">
+                        <h4 class="pull-left">${Resource.msg('label.my.orders', 'account', null)}</h4>
+                    </div>
+                    <div class="card-header card-msg clearfix">
+                        <p class="pull-left empty-order-msg">${Resource.msg('empty.order.msg', 'account', null)}</p>
+                    </div>
+                </iselse>
+                </isif>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6 text-center">
+                <a href="${URLUtils.url('Account-Show')}" class="normal profile-back-to-account-link">
+                    ${Resource.msg('link.profile.backtomyaccount','account',null)}
+                </a>
+            </div>
+        </div>
+    </div>
+</isdecorate>
+<iscomment> Custom End </iscomment>
