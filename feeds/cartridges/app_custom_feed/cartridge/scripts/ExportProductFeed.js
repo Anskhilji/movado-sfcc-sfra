@@ -83,7 +83,7 @@ function exportGoogleFeed(args) {
             "link" : 5,
             "imageLink" : 6,
             "availability" : 7,
-            "productType" : 8,
+            "productTypeMovado" : 8,
             "googleProductCategory": 9,
             "condition" : 10,
             "gtin" : 11,
