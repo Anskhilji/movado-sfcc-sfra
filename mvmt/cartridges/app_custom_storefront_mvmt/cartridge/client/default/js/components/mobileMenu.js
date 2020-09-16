@@ -90,7 +90,7 @@ module.exports = function () {
         var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
         $exclusiveBadges.empty();
 
-        var $imageBadges = $productContainer.find('.image-container');
+        var $imageBadges = $productContainer.find('.image-container .product-badges');
         $imageBadges.empty();
 
         if (response.product.available) {
