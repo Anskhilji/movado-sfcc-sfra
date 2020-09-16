@@ -41,7 +41,7 @@
         <iscomment>Custom Start: Adding Content asstet for no order history </iscomment>
         <isif condition="${empty(pdict.orders)}">
             <div class="row justify-content-center">
-                <iscontentasset aid="order-history-heading-box" />   NO ORDER HISTORY
+                <iscontentasset aid="order-history-heading-box" />
             </div>
         </isif>
         <iscomment>Custom End </iscomment>

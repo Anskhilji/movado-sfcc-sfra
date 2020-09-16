@@ -161,15 +161,17 @@ server.append('NotifyV2', function(req, res, next) {
     });
 
     // Salesforce Order Management attributes
-    var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-    try {
-        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
-        Transaction.wrap(function () {
-            populateOrderJSON.populateByOrder(order);
-        }); 
-    } catch (exSOM) {
-        somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+    if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        try {
+            var order = OrderMgr.getOrder(res.viewData.OrderNumber);
+            Transaction.wrap(function () {
+                populateOrderJSON.populateByOrder(order);
+            }); 
+        } catch (exSOM) {
+            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        }
     }
     // End Salesforce Order Management
 
