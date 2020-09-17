@@ -57,16 +57,18 @@ function parseRiskifiedResponse(order) {
         }
 
         /* Reject in OMS - Do not process to fulfillment status */
-        try {
-            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
-                orderSummaryNumber: order.getOrderNo(),
-                status: 'Cancelled'
-            });
-        }
-        catch (exSOM) {
-            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+            try {
+                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                    orderSummaryNumber: order.getOrderNo(),
+                    status: 'Cancelled'
+                });
+            }
+            catch (exSOM) {
+                somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+            }
         }
 
         if (!Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
