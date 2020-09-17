@@ -83,7 +83,7 @@ function exportGoogleFeed(args) {
             "link" : 5,
             "imageLink" : 6,
             "availability" : 7,
-            "productTypeMovado" : 8,
+            "productType" : 8,
             "googleProductCategory": 9,
             "condition" : 10,
             "gtin" : 11,
@@ -550,7 +550,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     if (!empty(feedColumns['availability'])) {
         switch (product.availability) {
             case "PREORDER":
-                productDetails.push("pre order");
+                productDetails.push("preorder");
                 break;
             case "NOT_AVAILABLE":
                 productDetails.push("out of stock");
@@ -567,7 +567,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     if (!empty(feedColumns['availabilityDataFeedWatch'])) {
         switch (product.availability) {
             case "PREORDER":
-                productDetails.push("pre order");
+                productDetails.push("preorder");
                 break;
             case "NOT_AVAILABLE":
                 productDetails.push("out of stock");
