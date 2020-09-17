@@ -839,15 +839,17 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             }
 
             // Custom Start: Salesforce Order Management attributes
-            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-            somLog.debug('Processing Order ' + order.orderNo);
-            try {
-                Transaction.wrap(function () {
-                    populateOrderJSON.populateByOrder(order);
-                });
-            } catch (exSOM) {
-                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+                var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                somLog.debug('Processing Order ' + order.orderNo);
+                try {
+                    Transaction.wrap(function () {
+                        populateOrderJSON.populateByOrder(order);
+                    });
+                } catch (exSOM) {
+                    somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+                }
             }
             
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {

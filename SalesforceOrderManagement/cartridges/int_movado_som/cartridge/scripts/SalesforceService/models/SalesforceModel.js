@@ -225,6 +225,16 @@ var SalesforceModel = ({
             requestMethod: 'POST',
             requestData: requestData
         });
+    },
+    getOrdersByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
     }
 });
 
