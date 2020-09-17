@@ -57,9 +57,9 @@ function parseRiskifiedResponse(order) {
         }
 
         /* Reject in OMS - Do not process to fulfillment status */
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
         try {
             var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
                 orderSummaryNumber: order.getOrderNo(),
                 status: 'Cancelled'
