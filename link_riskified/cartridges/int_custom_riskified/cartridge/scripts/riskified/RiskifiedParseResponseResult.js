@@ -130,19 +130,21 @@ function parseRiskifiedResponse(order) {
         }
 
         /* Accept in OMS */
-        try {
-            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-            var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
-                orderSummaryNumber: order.getOrderNo(),
-                status: 'Approved'
-            });
-            // 204 response only
+        if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            try {
+                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                    orderSummaryNumber: order.getOrderNo(),
+                    status: 'Approved'
+                });
+                // 204 response only
+            }
+            catch (exSOM) {
+                somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+            }
         }
-        catch (exSOM) {
-            somLog.error('RiskifiedParseResponseResult - ' + exSOM);
-        }
-                
+
     }
 }
 
