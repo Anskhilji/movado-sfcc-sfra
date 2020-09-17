@@ -839,7 +839,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             }
 
             // Custom Start: Salesforce Order Management attributes
-            if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            if (sitePreferences.SOMIntegrationEnabled) {
                 var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
                 var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
                 somLog.debug('Processing Order ' + order.orderNo);

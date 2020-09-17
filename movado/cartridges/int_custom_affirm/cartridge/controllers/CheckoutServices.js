@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var RiskifiedService = require('int_riskified');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var Site = require('dw/system/Site');
 
 server.append('SubmitPayment',
 		server.middleware.https,
