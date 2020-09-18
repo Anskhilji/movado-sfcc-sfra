@@ -206,7 +206,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         }
 
         // Salesforce Order Management requirement.  
-        if ('SOMIntegrationEnabled' in require('dw/system/Site').getCurrent().preferences.custom && require('dw/system/Site').getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             somLog.debug('Processing Order ' + order.orderNo);
