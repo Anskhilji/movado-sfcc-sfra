@@ -89,11 +89,15 @@ function gtmModel(req) {
     var language = currentLocale.language ? currentLocale.language : 'en_us';
 
         // country
-    if (isEswEnabled && request.httpCookies['esw.location'] != null) {
-        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-        country = eswCustomHelper.getCustomCountryByCountryCode(request.httpCookies['esw.location'].value).displayName;
-    } else {
-        country = currentLocale.displayCountry;
+    try {
+        if (isEswEnabled && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null) {
+            var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+            country = eswCustomHelper.getCustomCountryByCountryCode(request.httpCookies['esw.location'].value).displayName;
+        } else {
+            country = currentLocale.displayCountry;
+        }
+    } catch(ex) {
+        Logger.error('Error Occured while getting country displayName for gtm and exception is: ' + ex);
     }
 
         // tenant
@@ -127,23 +131,23 @@ function gtmModel(req) {
             var ProductMgr = require('dw/catalog/ProductMgr');
             productObj = ProductMgr.getProduct(formatProductId(pid));
             productBreadcrumbs = getProductBreadcrumb(productObj);
-            var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+            var primarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.primaryCategory) : '';
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
             this.product = {
-                productID: productImpressionTags.productID,
-                productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
-                brand: productImpressionTags.brand,
-                productPersonalization: productImpressionTags.productPersonalization,
+                productID: productImpressionTags.productID ? productImpressionTags.productID : '',
+                productName: productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
+                brand: productImpressionTags.brand ? productImpressionTags.brand : '',
+                productPersonalization: productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
                 category: primarySiteSection,
-                productPrice: productImpressionTags.productPrice,
-                list: productImpressionTags.list,
-                Sku:productImpressionTags.Sku,
-                variantID:productImpressionTags.variantID,
-                productType: productImpressionTags.productType,
-                variant: productImpressionTags.variant
+                productPrice: productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
+                list: productImpressionTags.list ? productImpressionTags.list : '',
+                Sku: productImpressionTags.Sku ? productImpressionTags.Sku : '',
+                variantID: productImpressionTags.variantID ? productImpressionTags.variantID : '',
+                productType: productImpressionTags.productType ? productImpressionTags.productType : '',
+                variant: productImpressionTags.variant ? productImpressionTags.variant : ''
             };
         } else if (searchkeyword != null) {
             // search count
@@ -406,11 +410,16 @@ function getCategoryBreadcrumb(categoryObj) {
  * @returns productBreadcrumb
  */
 function getProductBreadcrumb(productObj) {
-    var category = productObj.variant && !!productObj.masterProduct.primaryCategory
-    ? productObj.masterProduct.primaryCategory
-    : productObj.primaryCategory;
-    var categoryHierarchy = getCategoryBreadcrumb(category);
-    return { primaryCategory: categoryHierarchy.primaryCategory };
+    try {
+        var category = productObj.variant && !!productObj.masterProduct.primaryCategory
+        ? productObj.masterProduct.primaryCategory
+        : productObj.primaryCategory;
+        var categoryHierarchy = getCategoryBreadcrumb(category);
+        return { primaryCategory: categoryHierarchy.primaryCategory };
+    } catch (ex) {
+        Logger.error('Error occured while getting product bread crumb and exception is: ' + ex);
+        return '';
+    }
 }
 
 
@@ -473,45 +482,50 @@ function getCategoryLevelCount(category, levelCount) {
  */
 // Custom Changes Updated data layer according to mvmt
 function getPDPProductImpressionsTags(productObj, queryString) {
-    var variantSize = '';
-    var productID = productObj.ID;
-    var selectedVariant;
-    if (productObj.master) {
-        var variantFilter = getVariantFilter(queryString);
-        if (variantFilter.length > 0) {
-            selectedVariant = productObj.getVariationModel().getVariants(variantFilter)[0]; 
+    try {
+        var variantSize = '';
+        var productID = productObj.ID;
+        var selectedVariant;
+        if (productObj.master) {
+            var variantFilter = getVariantFilter(queryString);
+            if (variantFilter.length > 0) {
+                selectedVariant = productObj.getVariationModel() ? productObj.getVariationModel().getVariants(variantFilter)[0] : ''; 
+            }
+            if (!empty(selectedVariant)) { 
+                productID = selectedVariant.getID();
+                productObj = selectedVariant;
+                collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+                    if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                        variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
+                    }
+                });
+            }
         }
-        if (!empty(selectedVariant)) { 
-            productID = selectedVariant.getID();
-            productObj = selectedVariant;
-            collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+
+        if (productObj.variant) {
+            collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
                 if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                    variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
+                    variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
                 }
             });
         }
-    }
+        var productName = stringUtils.removeSingleQuotes(productObj.name);
+        var brand = stringUtils.removeSingleQuotes(productObj.brand);
+        var productPersonalization = '';
+        var productModel = productFactory.get({pid: productID});
+        var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+        var sku = productObj.ID;
+        var variantID = '';
+        var productType = productModel.productType;
+        var prodOptionArray = getProductOptions(productObj.optionModel.options);
+        var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
-    if (productObj.variant) {
-        collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
-            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
-            }
-        });
+        productPersonalization = prodOptionArray != null ? prodOptionArray : '';
+        return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+    } catch (ex) {
+        Logger.error('Error Occured while getting product impressions tags for gtm against lineitem: ' + productObj.productID + ' and exception is: ' + ex);
+        return '';
     }
-    var productName = stringUtils.removeSingleQuotes(productObj.name);
-    var brand = stringUtils.removeSingleQuotes(productObj.brand);
-    var productPersonalization = '';
-    var productModel = productFactory.get({pid: productID});
-    var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
-    var sku = productObj.ID;
-    var variantID = '';
-    var productType = productModel.productType;
-    var prodOptionArray = getProductOptions(productObj.optionModel.options);
-    var variant = !empty(variantSize) ? variantSize.displayValue : '';
-
-    productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
 }
 
 /**
