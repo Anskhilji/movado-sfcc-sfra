@@ -134,7 +134,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
     });
     
-    if ('SOMIntegrationEnabled' in require('dw/system/Site').getCurrent().preferences.custom && require('dw/system/Site').getCurrent().preferences.custom.SOMIntegrationEnabled) {
+    if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
         // Salesforce Order Management attributes
         var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
         var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
