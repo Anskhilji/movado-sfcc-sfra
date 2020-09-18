@@ -106,6 +106,12 @@ server.replace(
                     redirectUrl = Object.keys(queryStringObj).length === 0
                     ? redirectUrl += queryStringObj.toString()
                     : redirectUrl += qsConnector + queryStringObj.toString();
+                } else {
+                    // Removing country param from redirect URL
+                    var countryParam = redirectUrl.search('country');
+                    if (countryParam >= 0) {
+                        redirectUrl = redirectUrl.replace(/([&\?]country=[a-zA-Z]*$|country=[a-zA-Z]&|[?&]country=[a-zA-Z](?=#))/, '');
+                    }
                 }
             } catch (ex) {
                 Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
