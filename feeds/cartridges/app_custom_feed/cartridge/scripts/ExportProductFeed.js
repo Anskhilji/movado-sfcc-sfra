@@ -17,7 +17,6 @@ var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var commonUtils = require('./utils/commonUtils');
-const { indexOf } = require('lodash');
 
 function createDirectoryAndFile(targetFolder, fileName) {
   //create directory
