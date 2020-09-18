@@ -108,7 +108,7 @@ server.replace(
                     : redirectUrl += qsConnector + queryStringObj.toString();
                 }
             } catch (ex) {
-                Logger.error('Unable to determine current incoming path for reffere: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
+                Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
                 redirectUrl = URLUtils.url('Home-Show').toString();
                 if (!empty(req.querystring.action)) {
                     redirectUrl = URLUtils.url(req.querystring.action).toString();
