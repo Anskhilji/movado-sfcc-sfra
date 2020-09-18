@@ -161,7 +161,7 @@ server.append('NotifyV2', function(req, res, next) {
     });
 
     // Salesforce Order Management attributes
-    if ('SOMIntegrationEnabled' in require('dw/system/Site').getCurrent().preferences.custom && require('dw/system/Site').getCurrent().preferences.custom.SOMIntegrationEnabled) {
+    if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
         var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
         var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
         try {
