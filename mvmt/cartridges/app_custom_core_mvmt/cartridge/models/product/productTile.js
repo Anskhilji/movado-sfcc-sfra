@@ -26,6 +26,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
     var variationParamValue = '';
+    var otherVariantValues = '';
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -37,8 +38,19 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
                 if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME) {
-                    variationParam = product.variationsAttributes[key].id;
-                    variationParamValue = product.variationsAttributes[key].values[0].id;
+                    defaultVariant = apiProduct.variationModel.defaultVariant;
+                    otherVariantValues = product.variationsAttributes[key].values;
+                    if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
+                        Object.keys(otherVariantValues).forEach(function (value) {
+                            if (defaultVariant.custom[product.variationsAttributes[key].id] === otherVariantValues[value].id) {
+                                variationParam = product.variationsAttributes[key].id;
+                                variationParamValue = otherVariantValues[value].id;
+                            }
+                        });
+                    } else {
+                        variationParam = product.variationsAttributes[key].id;
+                        variationParamValue = product.variationsAttributes[key].values[0].id;
+                    }
                 }
 
                 if (product.variationsAttributes[key].id === ATTRIBUTE_NAME) {
