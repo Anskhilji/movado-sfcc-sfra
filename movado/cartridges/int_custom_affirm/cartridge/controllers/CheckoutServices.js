@@ -268,7 +268,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  }
 
       // Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM doesn't support all objects for custom attributes.  Uses order ingestion functionality as of April 2020.  As it's imporoved, you may want to eliminate some of this:
-	  if ('SOMIntegrationEnabled' in Site.preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+	  if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
         var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
         var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
         somLog.debug('Processing Order ' + order.orderNo);
