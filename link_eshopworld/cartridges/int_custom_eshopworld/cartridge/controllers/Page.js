@@ -15,6 +15,7 @@ server.replace(
         var Site = require('dw/system/Site');
         var BasketMgr = require('dw/order/BasketMgr');
         var Transaction = require('dw/system/Transaction');
+        var Logger = require('dw/system/Logger').getLogger('countrySwitch', 'countrySwitch');
 
         var currentBasket = BasketMgr.getCurrentBasket();
 
@@ -64,10 +65,8 @@ server.replace(
                         //Custom End
                     }
                     eswHelper.selectCountry(selectedCountry, currencyCode, language);
-                    if (session.privacy.countryCode != selectedCountry ) {
-                        delete session.privacy.countryCode;
-                        session.privacy.countryCode = selectedCountry;
-                    }
+                    delete session.privacy.countryCode;
+                    session.privacy.countryCode = selectedCountry;
                 }
             } else {
                 delete session.privacy.fxRate;
@@ -95,12 +94,37 @@ server.replace(
                 delete queryStringObj.country;
             }
 
-            var redirectUrl = URLUtils.url(req.querystring.action).toString();
-            var qsConnector = redirectUrl.indexOf('?') >= 0 ? '&' : '?';
+            var redirectUrl = '';
+            var requestAction = req.querystring.action;
+            var qsConnector = requestAction.indexOf('?') >= 0 ? '&' : '?';
 
-            redirectUrl = Object.keys(queryStringObj).length === 0
+            try {
+                redirectUrl = request.getHttpReferer();
+                if (empty(redirectUrl)) {
+                    redirectUrl = URLUtils.url('Home-Show').toString();
+
+                    redirectUrl = Object.keys(queryStringObj).length === 0
+                    ? redirectUrl += queryStringObj.toString()
+                    : redirectUrl += qsConnector + queryStringObj.toString();
+                } else {
+                    // Removing country param from redirect URL
+                    var countryParam = redirectUrl.search('country');
+                    if (countryParam >= 0) {
+                        redirectUrl = redirectUrl.replace(/([&\?]country=[a-zA-Z]*$|country=[a-zA-Z]&|[?&]country=[a-zA-Z](?=#))/, '');
+                    }
+                }
+            } catch (ex) {
+                Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
+                redirectUrl = URLUtils.url('Home-Show').toString();
+                if (!empty(req.querystring.action)) {
+                    redirectUrl = URLUtils.url(req.querystring.action).toString();
+                }
+
+                redirectUrl = Object.keys(queryStringObj).length === 0
                 ? redirectUrl += queryStringObj.toString()
                 : redirectUrl += qsConnector + queryStringObj.toString();
+            }
+
             res.json({
                 success: true,
                 redirectUrl: redirectUrl
