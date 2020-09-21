@@ -49,7 +49,7 @@ function gtmModel(req) {
         if (!empty(req.querystring)) {
             var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
-            searchkeyword = searchQuery.q;
+            searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
         }
@@ -137,17 +137,17 @@ function gtmModel(req) {
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
             this.product = {
-                productID: productImpressionTags.productID ? productImpressionTags.productID : '',
-                productName: productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
-                brand: productImpressionTags.brand ? productImpressionTags.brand : '',
-                productPersonalization: productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
+                productID: productImpressionTags && productImpressionTags.productID ? productImpressionTags.productID : '',
+                productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
+                brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
+                productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
                 category: primarySiteSection,
-                productPrice: productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
-                list: productImpressionTags.list ? productImpressionTags.list : '',
-                Sku: productImpressionTags.Sku ? productImpressionTags.Sku : '',
-                variantID: productImpressionTags.variantID ? productImpressionTags.variantID : '',
-                productType: productImpressionTags.productType ? productImpressionTags.productType : '',
-                variant: productImpressionTags.variant ? productImpressionTags.variant : ''
+                productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
+                list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
+                Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
+                variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
+                productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
+                variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : ''
             };
         } else if (searchkeyword != null) {
             // search count
@@ -304,32 +304,37 @@ function getTenant(currentLocale) {
  * @returns searchQuery
  */
 function getSearchQuery(queryStringVal) {
-    var searchArray = [];
-    var searchQuery = '';
-    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
-    if (queryString.indexOf('&') >= 0) {
-        searchArray = queryString.split('&');
-        searchArray = searchArray[1].split('=');
-        if ((searchArray[0].indexOf('q')) > -1) {
-            searchQuery = { q: searchArray[1] };
-        }
-
-        if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
-            searchArray = queryString.split('=');
-            searchQuery = { pid: searchArray[searchArray.length - 1] };
-        }
-
-    } else if ((queryString.indexOf('pid')) > -1) {
-            searchArray = queryString.split('=');
-            searchQuery = { pid: searchArray[1] };
-        }       else if ((queryString.indexOf('cgid')) > -1) {
-            searchArray = queryString.split('=');
-        searchQuery = { cgid: searchArray[1] };
-        } else if ((queryString.indexOf('q')) > -1) {
-                searchArray = queryString.split('=');
+    try {
+        var searchArray = [];
+        var searchQuery = '';
+        var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        if (queryString.indexOf('&') >= 0) {
+            searchArray = queryString.split('&');
+            searchArray = searchArray[1].split('=');
+            if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    return searchQuery;
+    
+            if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { pid: searchArray[searchArray.length - 1] };
+            }
+    
+        } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { pid: searchArray[1] };
+            }       else if ((queryString.indexOf('cgid')) > -1) {
+                searchArray = queryString.split('=');
+            searchQuery = { cgid: searchArray[1] };
+            } else if ((queryString.indexOf('q')) > -1) {
+                    searchArray = queryString.split('=');
+                    searchQuery = { q: searchArray[1] };
+                }
+        return searchQuery;
+    } catch(ex) {
+        Logger.error('Error occured while getting search query for gtm and exception is: ' + ex);
+        return '';
+    }
 }
 
 
@@ -352,26 +357,29 @@ function getCheckoutQueryString(reqQueryString) {
  * @returns
  */
 function getProductSearch(req, queryString) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var apiProductSearch = new ProductSearchModel();
-
-    if (queryString != undefined) {
-         apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
-        apiProductSearch.search();
-        var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
-        var productSearch = new ProductSearch(
-                     apiProductSearch,
-                     queryString,
-                     req.querystring.srule,
-                     CatalogMgr.getSortingOptions(),
-                     CatalogMgr.getSiteCatalog().getRoot()
-             );
-             return productSearch;
+    try {
+        var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+        var ProductSearch = require('*/cartridge/models/search/productSearch');
+        var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+        var apiProductSearch = new ProductSearchModel();
+    
+        if (queryString != undefined) {
+             apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
+            apiProductSearch.search();
+            var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+            var productSearch = new ProductSearch(
+                         apiProductSearch,
+                         queryString,
+                         req.querystring.srule,
+                         CatalogMgr.getSortingOptions(),
+                         CatalogMgr.getSiteCatalog().getRoot()
+                 );
+                 return productSearch;
+        }
+    } catch (ex) {
+        Logger.error('Error occured while getting product search count for gtm and exception is: ' + ex);
+        return '';
     }
-
-    return '';
 }
 
 
@@ -383,25 +391,31 @@ function getProductSearch(req, queryString) {
  * @returns {Object} apiProductSearch returns apiProductSearch to be searched
  */
 function getCategoryBreadcrumb(categoryObj) {
-    var primaryCategory = '';
-    var secondaryCategory = '';
-    var tertiaryCategory = '';
-
-    var levelCount = 0;
-    if (categoryObj) {
-        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-        if (categoryLevel == 3) {
-            tertiaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
-            secondaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.parent.displayName): '' ): '');
-        } else if (categoryLevel == 2) {
-            secondaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
-            primaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
-        } else if (categoryLevel == 1) {
-            primaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+    try {
+        var primaryCategory = '';
+        var secondaryCategory = '';
+        var tertiaryCategory = '';
+    
+        var levelCount = 0;
+        if (categoryObj) {
+            var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
+            if (categoryLevel == 3) {
+                tertiaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+                secondaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
+                primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.parent.displayName): '' ): '');
+            } else if (categoryLevel == 2) {
+                secondaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+                primaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
+            } else if (categoryLevel == 1) {
+                primaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+            }
         }
+        return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
+    } catch (ex) {
+        Logger.error('Error occured while getting category breadcrumb for gtm and exception is: ' + ex);
+        return '';
     }
-    return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
+
 }
 
 /**
@@ -411,7 +425,7 @@ function getCategoryBreadcrumb(categoryObj) {
  */
 function getProductBreadcrumb(productObj) {
     try {
-        var category = productObj.variant && !!productObj.masterProduct.primaryCategory
+        var category = productObj && productObj.variant && !!productObj.masterProduct.primaryCategory
         ? productObj.masterProduct.primaryCategory
         : productObj.primaryCategory;
         var categoryHierarchy = getCategoryBreadcrumb(category);
@@ -467,12 +481,18 @@ function getSearchResultProducts(req, searchQuery) {
  * @returns levelCount
  */
 function getCategoryLevelCount(category, levelCount) {
-    var currentCategory = category.parent;
-    if (!category.root) {
-        levelCount += 1;
-        levelCount = getCategoryLevelCount(currentCategory, levelCount);
+    try {
+        var currentCategory = category.parent;
+        if (!category.root) {
+            levelCount += 1;
+            levelCount = getCategoryLevelCount(currentCategory, levelCount);
+        }
+        return levelCount;
+    } catch (ex) {
+        Logger.error('Error occured while getting category level count for gtm and exception is: ' + ex);
+        return '';
     }
-    return levelCount;
+
 }
 
 /**
@@ -598,36 +618,42 @@ function getCartJSONArray(checkoutObject) {
     var cartJSON = getBasketParameters();
     var cartArray = [];
 
-    for (var i = 0; i < cartJSON.length; i++) {
-        var cartObj = {};
-        cartObj.id = cartJSON[i].id;
-        cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
-        cartObj.price = cartJSON[i].price;
-        cartObj.brand = stringUtils.removeSingleQuotes(cartJSON[i].brand);
-        cartObj.category = stringUtils.removeSingleQuotes(escapeQuotes(cartJSON[i].category));
-        cartObj.variant = cartJSON[i].variant;
-        cartObj.position = cartJSON[i].position;
-        cartObj.revenue = cartJSON[i].revenue;
-        cartObj.tax = cartJSON[i].tax;
-        cartObj.shipping = cartJSON[i].shipping;
-        cartObj.productType = cartJSON[i].productType;
-        cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
-        cartObj.quantity = cartJSON[i].quantity;
-        cartObj.imageURL = cartJSON[i].imageURL;
-        cartObj.prouctUrl = cartJSON[i].prouctUrl;
-
-        if (cartArray.length < 10) {
-            cartArray.push({
-                cartObj: cartObj
-            });
-        } else {
-            checkoutObject.push(cartArray);
-            cartArray = [];
-            cartArray.push({
-                cartObj: cartObj
-            });
+    try {
+        for (var i = 0; i < cartJSON.length; i++) {
+            var cartObj = {};
+            cartObj.id = cartJSON[i].id;
+            cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
+            cartObj.price = cartJSON[i].price;
+            cartObj.brand = stringUtils.removeSingleQuotes(cartJSON[i].brand);
+            cartObj.category = stringUtils.removeSingleQuotes(escapeQuotes(cartJSON[i].category));
+            cartObj.variant = cartJSON[i].variant;
+            cartObj.position = cartJSON[i].position;
+            cartObj.revenue = cartJSON[i].revenue;
+            cartObj.tax = cartJSON[i].tax;
+            cartObj.shipping = cartJSON[i].shipping;
+            cartObj.productType = cartJSON[i].productType;
+            cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
+            cartObj.quantity = cartJSON[i].quantity;
+            cartObj.imageURL = cartJSON[i].imageURL;
+            cartObj.prouctUrl = cartJSON[i].prouctUrl;
+    
+            if (cartArray.length < 10) {
+                cartArray.push({
+                    cartObj: cartObj
+                });
+            } else {
+                checkoutObject.push(cartArray);
+                cartArray = [];
+                cartArray.push({
+                    cartObj: cartObj
+                });
+            }
         }
+    } catch (ex) {
+        Logger.error('Error occured while getting cart json array for gtm and exception is: ' + ex);
+        return '';
     }
+
     checkoutObject.push(cartArray);
 }
 
@@ -846,10 +872,15 @@ function getUserShippingDetails(orderId) {
  * returns {Number} average order level discount
  */
 function getAverageOrderLevelDiscount(order) {
-    var averageProductLevelDiscount = 0.0;
-    var totalOrderPriceAdjustment = getOrderLevelDiscount (order);
-    averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
-    return averageProductLevelDiscount;
+    try {
+        var averageProductLevelDiscount = 0.0;
+        var totalOrderPriceAdjustment = getOrderLevelDiscount (order);
+        averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
+        return averageProductLevelDiscount;
+    } catch (ex) {
+        Logger.error('Error occured while getting average order level discount for gtm and exception is: ' + ex);
+        return 0;
+    }
 }
 
 /**
@@ -859,13 +890,19 @@ function getAverageOrderLevelDiscount(order) {
  */
 
 function getOrderLevelDiscount (order) {
-    var orderPriceAdjustment;
-    var totalOrderPriceAdjustment = 0.0;
-    for (var i = 0; i < order.priceAdjustments.length; i++) {
-        orderPriceAdjustment = order.priceAdjustments[i];
-        totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+    try {
+        var orderPriceAdjustment;
+        var totalOrderPriceAdjustment = 0.0;
+        for (var i = 0; i < order.priceAdjustments.length; i++) {
+            orderPriceAdjustment = order.priceAdjustments[i];
+            totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+        }
+        return totalOrderPriceAdjustment;
+    } catch (ex) {
+        Logger.error('Error Occured while getting order adjustment for gtm', e, e.stack);
+        return 0;
     }
-    return totalOrderPriceAdjustment;
+
 }
 
 /**
@@ -874,16 +911,21 @@ function getOrderLevelDiscount (order) {
  * returns {String} discountType
  */
 function getDicountType (order) {
-    var discountType;
-    var priceAdjustmentsItr = order.getAllLineItems().iterator();
-    var priceAdjustments;
-    while (priceAdjustmentsItr.hasNext()) {
-        priceAdjustments = priceAdjustmentsItr.next();
-        if (priceAdjustments instanceof dw.order.PriceAdjustment) {
-            discountType = priceAdjustments.appliedDiscount.type;
+    try {
+        var discountType;
+        var priceAdjustmentsItr = order.getAllLineItems().iterator();
+        var priceAdjustments;
+        while (priceAdjustmentsItr.hasNext()) {
+            priceAdjustments = priceAdjustmentsItr.next();
+            if (priceAdjustments instanceof dw.order.PriceAdjustment) {
+                discountType = priceAdjustments.appliedDiscount.type;
+            }
         }
+        return discountType;
+    } catch (ex) {
+        Logger.error('Error occured while getting discount for gtm and exception is: ' + ex);
+        return '';
     }
-    return discountType;
 }
 
 /**
