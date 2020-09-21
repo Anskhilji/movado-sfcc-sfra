@@ -79,6 +79,16 @@ server.append('AddProduct', function (req, res, next) {
             res.setViewData({addToCartPerSession : true});
         }
         res.setViewData({viewData: viewData});
+
+        var quantityTotal;
+
+        if (currentBasket) {
+            quantityTotal = currentBasket.productQuantityTotal;
+        } else {
+            quantityTotal = 0;
+        }
+
+        res.setViewData({quantityTotal : quantityTotal});
     }
     return next();
 });
