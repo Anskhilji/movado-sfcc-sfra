@@ -798,14 +798,6 @@ module.exports = {
                     success: function (data) {
                         updateCartPage(data);
                         handlePostCartAdd(data);
-                        // Custom Start: Add recommended Products for MVMT Add To Cart
-                        if ($('.pdp-mvmt')) {
-                            addRecommendationProducts(addToCartUrl); 
-                        }
-                        /**
-                         Custom End:
-                         */
-
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         $(window).resize(); // This is used to fix zoom feature after add to cart
