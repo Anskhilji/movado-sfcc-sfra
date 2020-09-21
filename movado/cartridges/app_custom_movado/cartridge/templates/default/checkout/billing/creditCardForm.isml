@@ -28,9 +28,7 @@
 <div class="row">
 	<div class="col-12">
 		<div
-			class="form-group
-            <isif condition=${creditFields.cardNumber.mandatory === true}>required</isif>
-            ${creditFields.cardNumber.htmlName}">
+			class="form-group required ${creditFields.cardNumber.htmlName}">
 			<label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
 			<div class="card-number-wrapper">
 				<input type="text" class="form-control cardNumber" id="cardNumber"
@@ -50,9 +48,7 @@
 <div class="row">
 	<div class="col-6 field-left">
 		<div
-			class="form-group
-            <isif condition=${creditFields.expirationMonth.mandatory === true}>required</isif>
-            ${creditFields.expirationMonth.htmlName} relative">
+			class="form-group required ${creditFields.expirationMonth.htmlName} relative">
 			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
 			<select class="form-control expirationMonth custom-select"
 				id="expirationMonth"
@@ -74,9 +70,7 @@
 	</div>
 	<div class="col-6 field-right">
 		<div
-			class="form-group
-            <isif condition=${creditFields.expirationYear.mandatory === true}>required</isif>
-            ${creditFields.expirationYear.htmlName} relative">
+			class="form-group required ${creditFields.expirationYear.htmlName} relative">
 			<label class="form-control-label invisible" for="expirationYear">${Resource.msg('field.credit.card.expiration.year','creditCard',null)}</label>
 			<select class="form-control expirationYear custom-select"
 				id="expirationYear" data-encrypted-name="expiryYear"
@@ -101,9 +95,7 @@
 <div class="row">
 	<div class="col-sm-6 field-left">
 		<div
-			class="form-group
-            <isif condition=${creditFields.securityCode.mandatory === true}>required</isif>
-            ${creditFields.securityCode.htmlName}">
+			class="form-group required ${creditFields.securityCode.htmlName}">
 			<label class="form-control-label" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
 			<span class="info-icon"> <span class="icon">i</span>
 				<div class="tooltip">
