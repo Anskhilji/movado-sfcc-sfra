@@ -49,7 +49,7 @@ function gtmModel(req) {
         if (!empty(req.querystring)) {
             var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
-            searchkeyword = searchQuery.q;
+            searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
         }
@@ -89,11 +89,15 @@ function gtmModel(req) {
     var language = currentLocale.language ? currentLocale.language : 'en_us';
 
         // country
-    if (isEswEnabled && request.httpCookies['esw.location'] != null) {
-        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-        country = eswCustomHelper.getCustomCountryByCountryCode(request.httpCookies['esw.location'].value).displayName;
-    } else {
-        country = currentLocale.displayCountry;
+    try {
+        if (isEswEnabled && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null) {
+            var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+            country = eswCustomHelper.getCustomCountryByCountryCode(request.httpCookies['esw.location'].value).displayName;
+        } else {
+            country = currentLocale.displayCountry;
+        }
+    } catch(ex) {
+        Logger.error('Error Occured while getting country displayName for gtm and exception is: ' + ex);
     }
 
         // tenant
@@ -127,23 +131,23 @@ function gtmModel(req) {
             var ProductMgr = require('dw/catalog/ProductMgr');
             productObj = ProductMgr.getProduct(formatProductId(pid));
             productBreadcrumbs = getProductBreadcrumb(productObj);
-            var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+            var primarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.primaryCategory) : '';
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
             this.product = {
-                productID: productImpressionTags.productID,
-                productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
-                brand: productImpressionTags.brand,
-                productPersonalization: productImpressionTags.productPersonalization,
+                productID: productImpressionTags && productImpressionTags.productID ? productImpressionTags.productID : '',
+                productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
+                brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
+                productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
                 category: primarySiteSection,
-                productPrice: productImpressionTags.productPrice,
-                list: productImpressionTags.list,
-                Sku:productImpressionTags.Sku,
-                variantID:productImpressionTags.variantID,
-                productType: productImpressionTags.productType,
-                variant: productImpressionTags.variant
+                productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
+                list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
+                Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
+                variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
+                productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
+                variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : ''
             };
         } else if (searchkeyword != null) {
             // search count
@@ -300,32 +304,37 @@ function getTenant(currentLocale) {
  * @returns searchQuery
  */
 function getSearchQuery(queryStringVal) {
-    var searchArray = [];
-    var searchQuery = '';
-    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
-    if (queryString.indexOf('&') >= 0) {
-        searchArray = queryString.split('&');
-        searchArray = searchArray[1].split('=');
-        if ((searchArray[0].indexOf('q')) > -1) {
-            searchQuery = { q: searchArray[1] };
-        }
-
-        if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
-            searchArray = queryString.split('=');
-            searchQuery = { pid: searchArray[searchArray.length - 1] };
-        }
-
-    } else if ((queryString.indexOf('pid')) > -1) {
-            searchArray = queryString.split('=');
-            searchQuery = { pid: searchArray[1] };
-        }       else if ((queryString.indexOf('cgid')) > -1) {
-            searchArray = queryString.split('=');
-        searchQuery = { cgid: searchArray[1] };
-        } else if ((queryString.indexOf('q')) > -1) {
-                searchArray = queryString.split('=');
+    try {
+        var searchArray = [];
+        var searchQuery = '';
+        var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        if (queryString.indexOf('&') >= 0) {
+            searchArray = queryString.split('&');
+            searchArray = searchArray[1].split('=');
+            if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    return searchQuery;
+    
+            if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { pid: searchArray[searchArray.length - 1] };
+            }
+    
+        } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { pid: searchArray[1] };
+            }       else if ((queryString.indexOf('cgid')) > -1) {
+                searchArray = queryString.split('=');
+            searchQuery = { cgid: searchArray[1] };
+            } else if ((queryString.indexOf('q')) > -1) {
+                    searchArray = queryString.split('=');
+                    searchQuery = { q: searchArray[1] };
+                }
+        return searchQuery;
+    } catch(ex) {
+        Logger.error('Error occured while getting search query for gtm and exception is: ' + ex);
+        return '';
+    }
 }
 
 
@@ -348,26 +357,29 @@ function getCheckoutQueryString(reqQueryString) {
  * @returns
  */
 function getProductSearch(req, queryString) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var apiProductSearch = new ProductSearchModel();
-
-    if (queryString != undefined) {
-         apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
-        apiProductSearch.search();
-        var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
-        var productSearch = new ProductSearch(
-                     apiProductSearch,
-                     queryString,
-                     req.querystring.srule,
-                     CatalogMgr.getSortingOptions(),
-                     CatalogMgr.getSiteCatalog().getRoot()
-             );
-             return productSearch;
+    try {
+        var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+        var ProductSearch = require('*/cartridge/models/search/productSearch');
+        var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+        var apiProductSearch = new ProductSearchModel();
+    
+        if (queryString != undefined) {
+             apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
+            apiProductSearch.search();
+            var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+            var productSearch = new ProductSearch(
+                         apiProductSearch,
+                         queryString,
+                         req.querystring.srule,
+                         CatalogMgr.getSortingOptions(),
+                         CatalogMgr.getSiteCatalog().getRoot()
+                 );
+                 return productSearch;
+        }
+    } catch (ex) {
+        Logger.error('Error occured while getting product search count for gtm and exception is: ' + ex);
+        return '';
     }
-
-    return '';
 }
 
 
@@ -379,25 +391,31 @@ function getProductSearch(req, queryString) {
  * @returns {Object} apiProductSearch returns apiProductSearch to be searched
  */
 function getCategoryBreadcrumb(categoryObj) {
-    var primaryCategory = '';
-    var secondaryCategory = '';
-    var tertiaryCategory = '';
-
-    var levelCount = 0;
-    if (categoryObj) {
-        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-        if (categoryLevel == 3) {
-            tertiaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
-            secondaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.parent.displayName): '' ): '');
-        } else if (categoryLevel == 2) {
-            secondaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
-            primaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
-        } else if (categoryLevel == 1) {
-            primaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+    try {
+        var primaryCategory = '';
+        var secondaryCategory = '';
+        var tertiaryCategory = '';
+    
+        var levelCount = 0;
+        if (categoryObj) {
+            var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
+            if (categoryLevel == 3) {
+                tertiaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+                secondaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
+                primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.parent.displayName): '' ): '');
+            } else if (categoryLevel == 2) {
+                secondaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+                primaryCategory = categoryObj.parent ? stringUtils.removeSingleQuotes(categoryObj.parent.displayName) : '';
+            } else if (categoryLevel == 1) {
+                primaryCategory = stringUtils.removeSingleQuotes(categoryObj.displayName);
+            }
         }
+        return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
+    } catch (ex) {
+        Logger.error('Error occured while getting category breadcrumb for gtm and exception is: ' + ex);
+        return '';
     }
-    return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
+
 }
 
 /**
@@ -406,11 +424,16 @@ function getCategoryBreadcrumb(categoryObj) {
  * @returns productBreadcrumb
  */
 function getProductBreadcrumb(productObj) {
-    var category = productObj.variant && !!productObj.masterProduct.primaryCategory
-    ? productObj.masterProduct.primaryCategory
-    : productObj.primaryCategory;
-    var categoryHierarchy = getCategoryBreadcrumb(category);
-    return { primaryCategory: categoryHierarchy.primaryCategory };
+    try {
+        var category = productObj && productObj.variant && !!productObj.masterProduct.primaryCategory
+        ? productObj.masterProduct.primaryCategory
+        : productObj.primaryCategory;
+        var categoryHierarchy = getCategoryBreadcrumb(category);
+        return { primaryCategory: categoryHierarchy.primaryCategory };
+    } catch (ex) {
+        Logger.error('Error occured while getting product bread crumb and exception is: ' + ex);
+        return '';
+    }
 }
 
 
@@ -458,12 +481,18 @@ function getSearchResultProducts(req, searchQuery) {
  * @returns levelCount
  */
 function getCategoryLevelCount(category, levelCount) {
-    var currentCategory = category.parent;
-    if (!category.root) {
-        levelCount += 1;
-        levelCount = getCategoryLevelCount(currentCategory, levelCount);
+    try {
+        var currentCategory = category.parent;
+        if (!category.root) {
+            levelCount += 1;
+            levelCount = getCategoryLevelCount(currentCategory, levelCount);
+        }
+        return levelCount;
+    } catch (ex) {
+        Logger.error('Error occured while getting category level count for gtm and exception is: ' + ex);
+        return '';
     }
-    return levelCount;
+
 }
 
 /**
@@ -473,45 +502,50 @@ function getCategoryLevelCount(category, levelCount) {
  */
 // Custom Changes Updated data layer according to mvmt
 function getPDPProductImpressionsTags(productObj, queryString) {
-    var variantSize = '';
-    var productID = productObj.ID;
-    var selectedVariant;
-    if (productObj.master) {
-        var variantFilter = getVariantFilter(queryString);
-        if (variantFilter.length > 0) {
-            selectedVariant = productObj.getVariationModel().getVariants(variantFilter)[0]; 
+    try {
+        var variantSize = '';
+        var productID = productObj.ID;
+        var selectedVariant;
+        if (productObj.master) {
+            var variantFilter = getVariantFilter(queryString);
+            if (variantFilter.length > 0) {
+                selectedVariant = productObj.getVariationModel() ? productObj.getVariationModel().getVariants(variantFilter)[0] : ''; 
+            }
+            if (!empty(selectedVariant)) { 
+                productID = selectedVariant.getID();
+                productObj = selectedVariant;
+                collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+                    if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
+                        variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
+                    }
+                });
+            }
         }
-        if (!empty(selectedVariant)) { 
-            productID = selectedVariant.getID();
-            productObj = selectedVariant;
-            collections.forEach(selectedVariant.variationModel.productVariationAttributes, function(variationAttribute) {
+
+        if (productObj.variant) {
+            collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
                 if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                    variantSize = productObj.variationModel.getVariationValue(selectedVariant, variationAttribute);
+                    variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
                 }
             });
         }
-    }
+        var productName = stringUtils.removeSingleQuotes(productObj.name);
+        var brand = stringUtils.removeSingleQuotes(productObj.brand);
+        var productPersonalization = '';
+        var productModel = productFactory.get({pid: productID});
+        var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+        var sku = productObj.ID;
+        var variantID = '';
+        var productType = productModel.productType;
+        var prodOptionArray = getProductOptions(productObj.optionModel.options);
+        var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
-    if (productObj.variant) {
-        collections.forEach(productObj.variationModel.productVariationAttributes, function(variationAttribute) {
-            if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-                variantSize = productObj.variationModel.getSelectedValue(variationAttribute);
-            }
-        });
+        productPersonalization = prodOptionArray != null ? prodOptionArray : '';
+        return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+    } catch (ex) {
+        Logger.error('Error Occured while getting product impressions tags for gtm against lineitem: ' + productObj.productID + ' and exception is: ' + ex);
+        return '';
     }
-    var productName = stringUtils.removeSingleQuotes(productObj.name);
-    var brand = stringUtils.removeSingleQuotes(productObj.brand);
-    var productPersonalization = '';
-    var productModel = productFactory.get({pid: productID});
-    var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
-    var sku = productObj.ID;
-    var variantID = '';
-    var productType = productModel.productType;
-    var prodOptionArray = getProductOptions(productObj.optionModel.options);
-    var variant = !empty(variantSize) ? variantSize.displayValue : '';
-
-    productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
 }
 
 /**
@@ -584,36 +618,42 @@ function getCartJSONArray(checkoutObject) {
     var cartJSON = getBasketParameters();
     var cartArray = [];
 
-    for (var i = 0; i < cartJSON.length; i++) {
-        var cartObj = {};
-        cartObj.id = cartJSON[i].id;
-        cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
-        cartObj.price = cartJSON[i].price;
-        cartObj.brand = stringUtils.removeSingleQuotes(cartJSON[i].brand);
-        cartObj.category = stringUtils.removeSingleQuotes(escapeQuotes(cartJSON[i].category));
-        cartObj.variant = cartJSON[i].variant;
-        cartObj.position = cartJSON[i].position;
-        cartObj.revenue = cartJSON[i].revenue;
-        cartObj.tax = cartJSON[i].tax;
-        cartObj.shipping = cartJSON[i].shipping;
-        cartObj.productType = cartJSON[i].productType;
-        cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
-        cartObj.quantity = cartJSON[i].quantity;
-        cartObj.imageURL = cartJSON[i].imageURL;
-        cartObj.prouctUrl = cartJSON[i].prouctUrl;
-
-        if (cartArray.length < 10) {
-            cartArray.push({
-                cartObj: cartObj
-            });
-        } else {
-            checkoutObject.push(cartArray);
-            cartArray = [];
-            cartArray.push({
-                cartObj: cartObj
-            });
+    try {
+        for (var i = 0; i < cartJSON.length; i++) {
+            var cartObj = {};
+            cartObj.id = cartJSON[i].id;
+            cartObj.name = stringUtils.removeSingleQuotes(cartJSON[i].name);
+            cartObj.price = cartJSON[i].price;
+            cartObj.brand = stringUtils.removeSingleQuotes(cartJSON[i].brand);
+            cartObj.category = stringUtils.removeSingleQuotes(escapeQuotes(cartJSON[i].category));
+            cartObj.variant = cartJSON[i].variant;
+            cartObj.position = cartJSON[i].position;
+            cartObj.revenue = cartJSON[i].revenue;
+            cartObj.tax = cartJSON[i].tax;
+            cartObj.shipping = cartJSON[i].shipping;
+            cartObj.productType = cartJSON[i].productType;
+            cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
+            cartObj.quantity = cartJSON[i].quantity;
+            cartObj.imageURL = cartJSON[i].imageURL;
+            cartObj.prouctUrl = cartJSON[i].prouctUrl;
+    
+            if (cartArray.length < 10) {
+                cartArray.push({
+                    cartObj: cartObj
+                });
+            } else {
+                checkoutObject.push(cartArray);
+                cartArray = [];
+                cartArray.push({
+                    cartObj: cartObj
+                });
+            }
         }
+    } catch (ex) {
+        Logger.error('Error occured while getting cart json array for gtm and exception is: ' + ex);
+        return '';
     }
+
     checkoutObject.push(cartArray);
 }
 
@@ -747,32 +787,39 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
-            var variants = getVariants(productLineItem);
-            var produtObj = {};
+            try {
+                var variants = getVariants(productLineItem);
+                var produtObj = {};
 
-            produtObj.id = productLineItem.product.ID;
-            produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
-            produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
-            produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
-                : '')
-                : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
-            produtObj.variant = variants;
-            produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
-            produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
-            produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
-            produtObj.productType = productHelper.getProductType(productLineItem.product);
-            produtObj.imageURL = productLineItem.product.image.absURL;
-            produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
-            produtObj.quantity = productLineItem.quantityValue;
+                produtObj.id = productLineItem.product.ID;
+                produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
+                produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
+                produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
+                    : '')
+                    : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
+                produtObj.variant = variants;
+                produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+                produtObj.description = '';
+                if (!empty(productLineItem.product.shortDescription)) {
+                    produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
+                }
+                produtObj.productType = productHelper.getProductType(productLineItem.product);
+                produtObj.imageURL = productLineItem.product.image.absURL;
+                produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
+                produtObj.quantity = productLineItem.quantityValue;
 
-            produtObj.itemCoupon = itemLevelCouponString;
+                produtObj.itemCoupon = itemLevelCouponString;
 
-            if (orderJSONArray.length < 10) {
-                orderJSONArray.push({ productObj: produtObj });
-            } else {
-                gtmorderConfObj.push(orderJSONArray);
-                orderJSONArray = [];
-                orderJSONArray.push({ productObj: produtObj });
+                if (orderJSONArray.length < 10) {
+                    orderJSONArray.push({ productObj: produtObj });
+                } else {
+                    gtmorderConfObj.push(orderJSONArray);
+                    orderJSONArray = [];
+                    orderJSONArray.push({ productObj: produtObj });
+                }
+            } catch (ex) {
+                Logger.error('Error Occured while getting order details for gtm against lineitem: ' + productLineItem.productID + ' and exception is: ' + ex);
             }
         });
 
@@ -825,10 +872,15 @@ function getUserShippingDetails(orderId) {
  * returns {Number} average order level discount
  */
 function getAverageOrderLevelDiscount(order) {
-    var averageProductLevelDiscount = 0.0;
-    var totalOrderPriceAdjustment = getOrderLevelDiscount (order);
-    averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
-    return averageProductLevelDiscount;
+    try {
+        var averageProductLevelDiscount = 0.0;
+        var totalOrderPriceAdjustment = getOrderLevelDiscount (order);
+        averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
+        return averageProductLevelDiscount;
+    } catch (ex) {
+        Logger.error('Error occured while getting average order level discount for gtm and exception is: ' + ex);
+        return 0;
+    }
 }
 
 /**
@@ -838,13 +890,19 @@ function getAverageOrderLevelDiscount(order) {
  */
 
 function getOrderLevelDiscount (order) {
-    var orderPriceAdjustment;
-    var totalOrderPriceAdjustment = 0.0;
-    for (var i = 0; i < order.priceAdjustments.length; i++) {
-        orderPriceAdjustment = order.priceAdjustments[i];
-        totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+    try {
+        var orderPriceAdjustment;
+        var totalOrderPriceAdjustment = 0.0;
+        for (var i = 0; i < order.priceAdjustments.length; i++) {
+            orderPriceAdjustment = order.priceAdjustments[i];
+            totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+        }
+        return totalOrderPriceAdjustment;
+    } catch (ex) {
+        Logger.error('Error Occured while getting order adjustment for gtm', e, e.stack);
+        return 0;
     }
-    return totalOrderPriceAdjustment;
+
 }
 
 /**
@@ -853,16 +911,21 @@ function getOrderLevelDiscount (order) {
  * returns {String} discountType
  */
 function getDicountType (order) {
-    var discountType;
-    var priceAdjustmentsItr = order.getAllLineItems().iterator();
-    var priceAdjustments;
-    while (priceAdjustmentsItr.hasNext()) {
-        priceAdjustments = priceAdjustmentsItr.next();
-        if (priceAdjustments instanceof dw.order.PriceAdjustment) {
-            discountType = priceAdjustments.appliedDiscount.type;
+    try {
+        var discountType;
+        var priceAdjustmentsItr = order.getAllLineItems().iterator();
+        var priceAdjustments;
+        while (priceAdjustmentsItr.hasNext()) {
+            priceAdjustments = priceAdjustmentsItr.next();
+            if (priceAdjustments instanceof dw.order.PriceAdjustment) {
+                discountType = priceAdjustments.appliedDiscount.type;
+            }
         }
+        return discountType;
+    } catch (ex) {
+        Logger.error('Error occured while getting discount for gtm and exception is: ' + ex);
+        return '';
     }
-    return discountType;
 }
 
 /**
