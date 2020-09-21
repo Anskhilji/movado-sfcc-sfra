@@ -154,6 +154,8 @@ function processStatusOrder(SAPOrderStatus) {
             switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
                 case 'FREE':
                     return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                case 'BILLING':
+                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
                 case 'CANCELLATION':
                     return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
                 default:
