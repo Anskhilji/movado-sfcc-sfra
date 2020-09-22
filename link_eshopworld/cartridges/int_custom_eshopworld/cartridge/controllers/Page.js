@@ -36,6 +36,10 @@ server.replace(
                 var redirectUrl = selectedCountryObj.absUrl;
                 var qsConnector = redirectUrl.indexOf('?') >= 0 ? '&' : '?';
 
+                if (!empty(queryStringObj.country)) {
+                    delete queryStringObj.country;
+                }
+
                 redirectUrl = Object.keys(queryStringObj).length === 0
                 ? redirectUrl += queryStringObj.toString()
                 : redirectUrl += qsConnector + queryStringObj.toString();
@@ -118,7 +122,11 @@ server.replace(
                     // Removing country param from redirect URL
                     var countryParam = redirectUrl.search('country');
                     if (countryParam >= 0) {
-                        redirectUrl = redirectUrl.replace(/([&\?]country=[a-zA-Z]*$|country=[a-zA-Z]&|[?&]country=[a-zA-Z](?=#))/, '');
+                        redirectUrl = redirectUrl.replace(/#.*$/, '').replace(/\?.*$/, '');
+
+                        redirectUrl = Object.keys(queryStringObj).length === 0
+                        ? redirectUrl += queryStringObj.toString()
+                        : redirectUrl += qsConnector + queryStringObj.toString();
                     }
                 }
             } catch (ex) {
