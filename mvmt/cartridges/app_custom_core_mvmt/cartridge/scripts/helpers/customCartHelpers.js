@@ -108,7 +108,7 @@ function removeFromCartGTMObj(productLineItems){
 
         collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
             if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
-                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes).displayValue;
+                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes) ? pli.product.variationModel.getSelectedValue(variationAttributes).displayValue : '';
             } else {
                 displayValue = '';
             }
