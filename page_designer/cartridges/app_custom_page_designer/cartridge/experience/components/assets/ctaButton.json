@@ -77,18 +77,18 @@
             "required": false
           },
           {
-              "id": "ctaButtonAlignment",
-              "name": "CTA Button Alignment",
-              "description": "Enter Alignment values e.g left, right, center",
-              "type": "enum",
-              "values": [
-                  "center",
-                  "left",
-                  "right"
-              ],
-              "default_value": "center",
-              "required": false
-            }
+            "id": "ctaButtonAlignment",
+            "name": "CTA Button Alignment",
+            "description": "Enter Alignment values e.g left, right, center",
+            "type": "enum",
+            "values": [
+                "center",
+                "left",
+                "right"
+            ],
+            "default_value": "center",
+            "required": false
+          }
         ]
       },
       {
