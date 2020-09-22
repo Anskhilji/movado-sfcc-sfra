@@ -32,9 +32,17 @@ server.replace(
             var currencyCode = '';
             var selectedCountry = '';
             if (selectedCountryObj && !empty(selectedCountryObj.absUrl)) {
+
+                var redirectUrl = selectedCountryObj.absUrl;
+                var qsConnector = redirectUrl.indexOf('?') >= 0 ? '&' : '?';
+
+                redirectUrl = Object.keys(queryStringObj).length === 0
+                ? redirectUrl += queryStringObj.toString()
+                : redirectUrl += qsConnector + queryStringObj.toString();
+
                 res.json({
                     success: true,
-                    redirectUrl: selectedCountryObj.absUrl
+                    redirectUrl: redirectUrl
                 });
                 return next();
             }
