@@ -23,12 +23,14 @@ module.exports.render = function (context) {
     model.ctaButtonMaxWidth = content.ctaButtonMaxWidth;
     model.ctaButtonMargin = content.ctaButtonMargin;
     model.ctaButtonPadding = content.ctaButtonPadding;
+    model.ctaButtonAlignment = content.ctaButtonAlignment;
 
     model.ctaButtonHeightMobile = content.ctaButtonHeightMobile;
     model.ctaButtonWidthMobile = content.ctaButtonWidthMobile;
     model.ctaButtonMaxWidthMobile = content.ctaButtonMaxWidthMobile;
     model.ctaButtonMarginMobile = content.ctaButtonMarginMobile;
     model.ctaButtonPaddingMobile = content.ctaButtonPaddingMobile;
+    model.ctaButtonAlignmentMobile = content.ctaButtonAlignmentMobile;
 
     model.buttonLink = content.buttonLink;
     model.buttonText = content.buttonText;
