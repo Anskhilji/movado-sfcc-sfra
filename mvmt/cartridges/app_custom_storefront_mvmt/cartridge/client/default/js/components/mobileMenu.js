@@ -148,7 +148,8 @@ module.exports = function () {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
                 e.preventDefault();
 
-                if ($(this).attr('disabled')) {
+                var swatchImageContainer = $(this).find('img.swatch-circle');
+                if ($(this).attr('disabled') || $(swatchImageContainer).hasClass('is-active')) {
                     return;
                 }
 
