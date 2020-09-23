@@ -78,7 +78,7 @@ function parseOrderStatus(args) {
                         var res = processStatusOrder(SAPOrderStatus);
 
                         if (res.error) {
-                            status.addItem(new StatusItem(Status.ERROR, 'ORDER_ERROR', res.message));
+                            status.addItem(new StatusItem(Status.ERROR, 'ERROR', res.message));
                         }
                     });
                 } else {
@@ -113,7 +113,7 @@ function processStatusOrder(SAPOrderStatus) {
         method: 'GET',
         url: '/services/data/v49.0/query/?q=' +
             'SELECT+' +
-            'Id,Status,OrderSummary.Id,FulfilledToName,' +
+            'Id,Status,OrderSummary.Id,OrderSummary.eswOrderNo__c,FulfilledToName,' +
             '(SELECT+' +
             'Id,Type,Quantity,' +
             'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
@@ -139,7 +139,6 @@ function processStatusOrder(SAPOrderStatus) {
     switch (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType) {
 
         case 'CAPTURE':
-        case 'UPDATE':
             // Process rejections vs shipped here
             return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
 
@@ -151,8 +150,19 @@ function processStatusOrder(SAPOrderStatus) {
             // Process refunds
             return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
 
+        case 'UPDATE':
+            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                case 'FREE':
+                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                case 'BILLING':
+                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                case 'CANCELLATION':
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                default:
+                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType UPDATE: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+            }
+
         default:
-            return new Status(Status.ERROR, 'ERROR', 'unknown TransactionType: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
 
     }
     return new Status(Status.OK);

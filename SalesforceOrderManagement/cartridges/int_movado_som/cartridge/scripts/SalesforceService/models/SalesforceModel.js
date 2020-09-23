@@ -64,12 +64,9 @@ var SalesforceModel = ({
             requestData: requestData
         });
     },
-    /*
-    TODO TEST
-    */
-    publishOrderSummaryCancelItemsEvent: function (req) {
+    createESWCancelRequest: function (req) {
         var requestData = {};
-        requestData.changeItems = req.changeItems;
+        requestData.Item_Cancel_JSON__c = JSON.stringify(req);
 
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTITEMCANCEL,
@@ -101,6 +98,12 @@ var SalesforceModel = ({
             url: SalesforceFactory.ENDPOINTS.COMMERCE + '/order-management/order-summaries/' + req.orderSummaryId + '/async-actions/ensure-refunds-async',
             requestMethod: 'POST',
             requestData: requestData
+        });
+    },
+    createSAPRefundRequest: function (req) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.SAPORDERREFUND + '?eventType=' + req.eventType + '&poNumber=' + req.poNumber + '&amount=' + req.amount + '&poStatusItems=' + req.poStatusItems,
+            requestMethod: 'GET'
         });
     },
     buildCompositeFulfillmentOrderUpdateRequest: function (req) {
@@ -218,8 +221,19 @@ var SalesforceModel = ({
             changeOrderIds: req.changeOrderIds
         };
         return SalesforceModel.createSalesforceRestRequest({
-            url: SalesforceFactory.ENDPOINTS.CANCELLATIONEMAIL + '?changeOrderIds=' + requestData.changeOrderId,
-            requestMethod: 'GET'
+            url: SalesforceFactory.ENDPOINTS.CANCELLATIONEMAIL,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
+    },
+    getOrdersByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
         });
     }
 });

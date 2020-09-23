@@ -6,10 +6,10 @@
         <isset name="preOrder" value="${false}" scope="page"/>
         <isif condition="${product.productType == 'master' && pdict.display.plpTile === true}">
             <isset name="availabilityStatus" value="${product.defaultVariantAvailabilityStatus}" scope="page" />
-            <isif condition="${availabilityStatus.indexOf(Resource.msg('label.product.out.of.stock', 'common', null)) != -1}">
+            <isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.out.of.stock', 'common', null)) != -1}">
                <isset name="outOfStock" value="${true}" scope="page"/>
             </isif>
-            <isif condition="${availabilityStatus.indexOf(Resource.msg('label.product.pre.order', 'common', null))}">
+            <isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.pre.order', 'common', null))}">
                <isset name="preOrder" value="${true}" scope="page"/>
             </isif>
         <iselse>
@@ -36,6 +36,7 @@
                 <div class="out-of-stock product-tag black-tag d-none">
                     ${Resource.msg('label.new', 'common', null)}
                 </div>
+                <isinclude template="product/components/badges" />
             </div>
 
             
@@ -52,7 +53,7 @@
             </isif>
             <isinclude template="product/components/productTileName" />
 
-            <isif condition="${product.productType == 'master'}">
+            <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
                 <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
             <iselse>
                 <isset name="price" value="${product.price}" scope="page" />

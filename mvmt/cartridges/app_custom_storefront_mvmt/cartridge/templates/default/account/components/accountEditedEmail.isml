@@ -1,0 +1,9 @@
+<html>
+<head>
+<isprint value="${pdict.emailHeader}" encoding="off" />  
+<body>
+
+    <p>${Resource.msg('email.msg.edited.body1','account',null)}<b> &nbsp;${pdict.firstName}&nbsp;${pdict.lastName}</b>.
+        ${Resource.msg('email.msg.edited.body2','account',null)}</p>
+
+<isprint value="${pdict.emailFooter}" encoding="off" />

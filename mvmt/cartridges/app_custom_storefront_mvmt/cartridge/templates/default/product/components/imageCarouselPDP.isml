@@ -1,6 +1,8 @@
 <div class="primary-images">
     <div class="product-badges">
-      <isinclude template="product/components/newnessBadge"/>
+        <isif condition="${product.available}">
+            <isinclude template="product/components/newnessBadge"/>
+        </isif>
     </div>
     <isscript>
       var primaryImageCarouselConfig = {

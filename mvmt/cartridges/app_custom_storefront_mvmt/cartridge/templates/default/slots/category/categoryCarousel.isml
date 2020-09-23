@@ -1,4 +1,5 @@
-<isif condition="${slotcontent}">
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+
     <div class="category-slot homepage-carousel">
         <h2>
             ${slotcontent.custom.carouselTitle}

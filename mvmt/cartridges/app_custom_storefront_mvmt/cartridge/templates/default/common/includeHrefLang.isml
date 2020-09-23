@@ -1,13 +1,21 @@
-<isif condition="${pdict.relativeURL}">
-    <link rel="alternate" hreflang="x-default" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-us" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="es" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="ja" href="https://www.mvmtwatches.com${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="en-gb" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="de" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/> 
-    <link rel="alternate" hreflang="es-es" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="it" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="fr" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
-    <link rel="alternate" hreflang="ar" href="https://www.mvmtwatches.com/eu${pdict.relativeURL}"/>
+<isset name="hreflangBasePath" value="${!empty(dw.system.Site.current.preferences.custom.hreflangBasePath) ? dw.system.Site.current.preferences.custom.hreflangBasePath : false}" scope="page" />
+<isif condition="${pdict.relativeURL && hreflangBasePath}">
+    <isif condition="${pdict.relativeURL.toString().indexOf('/eu') == 0}">
+        <isset name="relativeURL" value="${pdict.relativeURL.toString().substring(3)}" scope="page" />
+    <iselse/>
+        <isset name="relativeURL" value="${pdict.relativeURL}" scope="page" />
+    </isif>
+    <isset name="alternateURLUS" value="${hreflangBasePath + relativeURL}" scope="page" />
+    <isset name="alternateURLEU" value="${hreflangBasePath + '/eu' + relativeURL}" scope="page" />
+    <link rel="alternate" hreflang="x-default" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="en" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="en-us" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="es" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="ja" href="${alternateURLUS}"/>
+    <link rel="alternate" hreflang="en-gb" href="${alternateURLEU}"/>
+    <link rel="alternate" hreflang="de" href="${alternateURLEU}"/> 
+    <link rel="alternate" hreflang="es-es" href="${alternateURLEU}"/>
+    <link rel="alternate" hreflang="it" href="${alternateURLEU}"/>
+    <link rel="alternate" hreflang="fr" href="${alternateURLEU}"/>
+    <link rel="alternate" hreflang="ar" href="${alternateURLEU}"/>
 </isif>

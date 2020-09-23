@@ -1,6 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-
+var updateMiniCart = true;
 function setMiniCartProductSummaryHeight () {
     var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
     var $miniCartHeight = parseInt($('.mini-cart-data .popover').outerHeight(true));
@@ -37,6 +37,7 @@ function openMiniCart () {
             $('#footer-overlay').addClass('footer-form-overlay');
             setMiniCartProductSummaryHeight();
             $('.mini-cart-data .popover').addClass('show');
+            updateMiniCart = false;
             $.spinner().stop();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -45,6 +46,7 @@ function openMiniCart () {
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
             $('.mini-cart-data .popover').addClass('show');
+            updateMiniCart = false;
             $.spinner().stop();
         });
     }
@@ -146,7 +148,7 @@ function getChildProducts() {
  * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
  * 
  */
-function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
+function addRecommendationProductToCartAjax(variationForm, addToCartUrl, isLast) {
     if (addToCartUrl) {
         $.ajax({
             url: addToCartUrl,
@@ -154,7 +156,10 @@ function addRecommendationProductToCartAjax(variationForm, addToCartUrl) {
             data: variationForm,
             success: function (data) {
                 updateCartPage(data);
-                $('.minicart').trigger('count:update', data);
+                if (isLast) {
+                    handlePostCartAdd(data);
+                    $('.minicart').trigger('count:update', data);
+                }
             },
             error: function () {
                 $.spinner().stop();
@@ -573,6 +578,35 @@ function handleVariantResponse(response, $productContainer) {
     primaryImageUrls.gallery.forEach(function (imageUrl) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
+    
+
+    var $exclusiveBadges = $('.product-side-details .exclusive-badges');
+    $exclusiveBadges.empty();
+    var $imageBadges = $('.primary-images .product-badges');
+    $imageBadges.empty();
+
+    // Update text Badges
+   if (response.product.available) {
+        var badges = response.badges;
+
+        if (badges.textBadges && badges.textBadges.length > 0) {
+            badges.textBadges.forEach(function (badge) {
+                $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
+            });
+        }
+
+    // Update image Badges
+        if (badges.imageBadges && badges.imageBadges.length > 0) {
+            badges.imageBadges.forEach(function (imageBadge, idx) {
+                if (idx === 0) {
+                    $imageBadges.append('<div class="badge-left"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
+                } else {
+                    $imageBadges.append('<div class="badge-right"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
+                }
+            });
+        }
+   }
+    
 
     // Attach Slider and Zoom
     zoomfeature(); 
@@ -741,17 +775,21 @@ function attributeSelect(selectedValueUrl, $productContainer) {
  * 
  */
 function addRecommendationProducts(addToCartUrl) {
-    var $recommendedProductSelector = $('.upsell_input');
+    var $recommendedProductSelector = $('.upsell_input:checked');
+    var isLast = false;
     for (var i = 0; i < $recommendedProductSelector.length; i++) {
+        if ($recommendedProductSelector.length == i+1) {
+            isLast = true;
+        }
         var $currentRecommendedProduct = $recommendedProductSelector[i];
-        if ($currentRecommendedProduct.checked) {
+        
             var form = {
                 pid: $currentRecommendedProduct.value,
                 quantity: 1
             };
             
-            addRecommendationProductToCartAjax(form, addToCartUrl);
-        }
+            addRecommendationProductToCartAjax(form, addToCartUrl, isLast);
+        
     }
 }
 
@@ -809,6 +847,9 @@ movadoBase.selectAttribute = function () {
     $(document).off('change', selector);
     $(document).off('click', selector).on('click', selector, function (e) {
         e.preventDefault();
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
+            return;
+        }
 
         var value = $(e.currentTarget).is('input[type="radio"]') ? $(e.currentTarget).data('value-url') : e.currentTarget.value;
 
@@ -824,7 +865,7 @@ movadoBase.colorAttribute = function () {
     $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
         e.preventDefault();
     
-        if ($(this).attr('disabled')) {
+        if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
         }
     
@@ -837,7 +878,7 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) { 
+    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) {
         e.preventDefault();
         var addToCartUrl;
         var pid;
@@ -915,13 +956,16 @@ movadoBase.addToCart = function () {
                 data: form,
                 success: function (data) {
                     updateCartPage(data);
-                    handlePostCartAdd(data);
                     // Custom Start: Add recommended Products for MVMT Add To Cart
                     if ($('.pdp-mvmt')) {
                         addRecommendationProducts(addToCartUrl); 
                     }
                     openMiniCart();
+                    if(!$('.upsell_input').is(":checked")) {
+                        handlePostCartAdd(data);
+                    }
                     $('body').trigger('product:afterAddToCart', data);
+                    updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
                 },
                 error: function () {
