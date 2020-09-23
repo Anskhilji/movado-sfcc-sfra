@@ -4,7 +4,7 @@
     <isinclude template="common/emailPopUpStyle"/>
     <isset name="currentSite" value="${dw.system.Site.getCurrent()}" scope="page" />
     <isset name="emailOptInViewed" value="${true}" scope="session" />
-    <div class="modal fade show email-popup" id="emailOptInPopUp" role="dialog" aria-modal="true" 
+    <div class="modal fade show email-popup" id="emailOptInPopUp" role="dialog"
          data-emailoptinfrequency = "${pdict.popUpSettings.emailPopupMuteForDays}"
          data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
          data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">

@@ -51,6 +51,14 @@ $(document).ready(function () {
             $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
         }
     });
+
+    $('#emailOptInPopUpSubmit').on('keydown', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 9) {
+            e.preventDefault();
+            $('#emailOptInPopUp_Button').focus();
+        }
+    });
 });
 
 // Hide email pop up 
