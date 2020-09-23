@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 var ArrayList = require('dw/util/ArrayList');
@@ -74,7 +75,7 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-    if(Site.current.ID == "MovadoUS") {
+    if(Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
@@ -84,7 +85,7 @@ function exportGoogleFeed(args) {
             "imageLink" : 6,
             "availability" : 7,
             "productType" : 8,
-            "googleProductCategory": 9,
+            "ProductCategory": 9,
             "condition" : 10,
             "gtin" : 11,
             "mpn" : 12,
@@ -99,13 +100,13 @@ function exportGoogleFeed(args) {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
-            "description" : 3,
+            "descriptionGoogle" : 3,
             "decimalPrice" : 4,
             "link" : 5,
             "imageLink" : 6,
             "additionalImageLink" : 7,
             "availability" : 8,
-            "productType" : 9,
+            "productTypeGoogle" : 9,
             "googleProductCategory": 10,
             "condition" : 11,
             "gtin" : 12,
@@ -181,10 +182,6 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 }
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
-                if(feedParameters.skipMissingProductTypeSKUs && empty(productAttributes.jewelryType)) {
-                    continue;
-                }
-
                 if(feedParameters.categories) {
                     var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
                 }
@@ -256,6 +253,10 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("description");
     }
 
+    if (!empty(feedColumns['descriptionGoogle'])) {
+        csvFileHeader.push("descriptionGoogle");
+    }
+
     if (!empty(feedColumns['shortDescription'])) {
         csvFileHeader.push("short description");
     }
@@ -304,6 +305,10 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("product_type");
     }
 
+    if (!empty(feedColumns['productTypeGoogle'])) {
+        csvFileHeader.push("product_type_google");
+    }
+
     if (!empty(feedColumns['productTypeDataFeedWatch'])) {
         csvFileHeader.push("product type");
     }
@@ -313,6 +318,10 @@ function buildCsvHeader(feedColumns) {
     }
     
     if (!empty(feedColumns['googleProductCategory'])) {
+        csvFileHeader.push("google_product_category");
+      }
+
+      if (!empty(feedColumns['ProductCategory'])) {
         csvFileHeader.push("google_product_category");
       }
 
@@ -470,8 +479,16 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['description'])) {
-        if (product.description) {
-            productDetails.push(product.description);
+        if (product.pageDescription) {
+            productDetails.push(product.pageDescription);
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['descriptionGoogle'])) {
+        if (product.pageDescription) {
+            productDetails.push(product.pageDescription);
         } else {
             productDetails.push("");
         }
@@ -542,10 +559,19 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['availability'])) {
-        if (product.instock) {
-            productDetails.push("in stock");
-        } else {
+        switch (product.availability) {
+            case "PREORDER":
+                productDetails.push("preorder");
+                break;
+            case "NOT_AVAILABLE":
+                productDetails.push("out of stock");
+                break;
+            case "IN_STOCK":
+                productDetails.push("in stock");
+                break;
+            default:
             productDetails.push("");
+            break;
         }
     }
 
@@ -582,6 +608,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['productTypeGoogle'])) {
+            if (product.jewelryStyle) {
+                productDetails.push(product.jewelryStyle);
+            } else {
+                productDetails.push("");
+            }
+    }
+
     if (!empty(feedColumns['productTypeDataFeedWatch'])) {
         if (product.jewelryStyle) {
             productDetails.push(product.jewelryStyle);
@@ -604,7 +638,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         } else {
             productDetails.push("");
         }
-      } 
+    }
+    
+    if (!empty(feedColumns['ProductCategory'])) {
+        if (product.categoryPath) {
+            productDetails.push(product.categoryPath);
+        } else {
+            productDetails.push("");
+        }
+    } 
 
     if (!empty(feedColumns['condition'])) {
         productDetails.push("new");
@@ -785,6 +827,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
     var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
+    var jewelryType = product.custom.jewelryType ? product.custom.jewelryType : "";
     var productAttributes = {
         ID: product.ID,
         title: product.name,
@@ -803,7 +846,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         dialStyle : product.custom.dialStyle ? product.custom.dialStyle : "",
         familyName : buildStringAttributes(product.custom.familyName, feedParameters),
         gtin : product.custom.gtins ? product.custom.gtins : "",
-        jewelryType : product.custom.jewelryType ? product.custom.jewelryType : "",
+        jewelryType : jewelryType,
         masterProductID : product.ID,
         productType : false,
         longDescription : product.getLongDescription(),
@@ -812,10 +855,12 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         isMasterProduct : product.master ? true : false,
         jewelryStyle : jewelryStyle,
         googleCategoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
+        categoryPath : Constants.GOOGLE_CATEGORY_PATH + jewelryType,
         isWristedImage : productImages.isWristedImage ? "Wrist-Shot" : "Non Wrist-Shot",
         smartGiftImageURL : productImages.firstImageLinkSmartGift,
         availability: product.availabilityModel.availabilityStatus,
-        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : ""
+        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
+        pageDescription: product.pageDescription
     };
     if (!empty(feedColumns['priceUSD'])) {
         productAttributes.priceUSD =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD);
@@ -873,7 +918,7 @@ function getProductImageURL(product) {
 
     var firstImageLink = product.getImage("large", 0) != null ? product.getImage("large", 0).absURL.toString() : null;
     var additionalImageLink = product.getImage("large", 3) != null ? product.getImage("large", 3).absURL.toString() : null;
-    var isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1))) ? true : false;
+    var isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.equalsIgnoreCase(indexOf("wrist")) > -1)) ? true : false;
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage, firstImageLinkSmartGift : firstImageLinkSmartGift}
 }
 
