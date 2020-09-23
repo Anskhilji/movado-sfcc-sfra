@@ -62,6 +62,12 @@ module.exports = function () {
             $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
             $imageContainer.data('gtm-product', $gtmClikObject);
         }
+
+        // Trigger collectionVariantToggle function
+        if (response.product) {
+            $('body').trigger('collectionVariantToggle', response.product);
+        }
+
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
