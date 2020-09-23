@@ -79,14 +79,14 @@
           {
               "id": "ctaButtonAlignment",
               "name": "CTA Button Alignment",
-              "description": "Enter Alignment values e.g left, right, center",
+              "description": "Enter Alignment values e.g left, right, default alignment is center",
               "type": "enum",
               "values": [
-                  "center",
+                  "none",
                   "left",
                   "right"
               ],
-              "default_value": "center",
+              "default_value": "none",
               "required": false
           }
         ]
@@ -131,14 +131,14 @@
             {
                 "id": "ctaButtonAlignmentMobile",
                 "name": "Mobile CTA Button Alignment",
-                "description": "Enter Alignment values e.g left, right, center",
+                "description": "Enter Alignment values e.g left, right, default alignment is center",
                 "type": "enum",
                 "values": [
-                     "center",
+                     "none",
                      "left",
                      "right"
                 ],
-                "default_value": "center",
+                "default_value": "none",
                 "required": false
             }
         ]
