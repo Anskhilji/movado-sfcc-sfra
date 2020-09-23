@@ -10,6 +10,7 @@
         margin: ${pdict.ctaButtonMarginMobile};
         padding: ${pdict.ctaButtonPaddingMobile};
         line-height: calc(${pdict.ctaButtonHeightMobile} - 5px);
+        float: ${pdict.ctaButtonAlignmentMobile};
     }
 
     ${pdict.idSelector}:hover {
@@ -25,7 +26,10 @@
             margin: ${pdict.ctaButtonMargin};
             padding: ${pdict.ctaButtonPadding};
             line-height: calc(${pdict.ctaButtonHeight} - 5px);
+            float: ${pdict.ctaButtonAlignment};
         }
     }
 </style>
-<a id="${pdict.id}" class="btn btn-primary" href="${pdict.buttonLink}"> ${pdict.buttonText}</a>
+<div class="text-center">
+    <a id="${pdict.id}" class="btn btn-primary" href="${pdict.buttonLink}"> ${pdict.buttonText}</a>
+</div>

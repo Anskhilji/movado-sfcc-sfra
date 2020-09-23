@@ -75,6 +75,19 @@
             "description": "Enter padding values e.g 5px 6px 7px 8px",
             "type": "string",
             "required": false
+          },
+          {
+              "id": "ctaButtonAlignment",
+              "name": "CTA Button Alignment",
+              "description": "Enter Alignment values e.g left, right, center",
+              "type": "enum",
+              "values": [
+                  "center",
+                  "left",
+                  "right"
+              ],
+              "default_value": "center",
+              "required": false
           }
         ]
       },
@@ -113,6 +126,19 @@
                 "name": "Mobile CTA Button Padding",
                 "description": "Enter padding values e.g 5px 6px 7px 8px",
                 "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonAlignmentMobile",
+                "name": "Mobile CTA Button Alignment",
+                "description": "Enter Alignment values e.g left, right, center",
+                "type": "enum",
+                "values": [
+                     "center",
+                     "left",
+                     "right"
+                ],
+                "default_value": "center",
                 "required": false
             }
         ]
