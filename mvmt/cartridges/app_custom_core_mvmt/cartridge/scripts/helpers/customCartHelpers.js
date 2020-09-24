@@ -48,7 +48,7 @@ function getVaraintSize(pli) {
     var variantSize = '';
     collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttribute) {
         if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute).displayValue;
+            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute) ? pli.product.variationModel.getSelectedValue(variationAttribute).displayValue : '';
         } else {
             variantSize = '';
         }
