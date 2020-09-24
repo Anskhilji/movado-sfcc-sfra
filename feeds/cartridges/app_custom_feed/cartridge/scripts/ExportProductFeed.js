@@ -920,6 +920,7 @@ function getProductImageURL(product) {
     var imageList = product.getImages("large");
     var additionalImageLink = '';
     var isWristedImage = '';
+    if(!empty(imageList)) {
         for (var i = 0; i < imageList.length; i++) {
             additionalImageLink = imageList[i].absURL.toString();
             if (!empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1)))) {
@@ -927,6 +928,7 @@ function getProductImageURL(product) {
                 break;
             }
        }
+    }
 
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage, firstImageLinkSmartGift : firstImageLinkSmartGift}
 }
