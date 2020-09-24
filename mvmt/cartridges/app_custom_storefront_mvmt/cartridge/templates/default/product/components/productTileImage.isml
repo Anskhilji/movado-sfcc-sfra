@@ -1,5 +1,6 @@
 <div class="image-container">
-    <isif condition="${product.available}">
+    <!-- First two conditions are for PLP and the last is applicable on PDP -->
+    <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
         <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
             <isif condition="${loopStatus.first}">
                 <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
