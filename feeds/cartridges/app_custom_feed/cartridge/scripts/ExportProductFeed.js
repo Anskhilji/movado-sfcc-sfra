@@ -927,7 +927,7 @@ function getProductImageURL(product) {
                 isWristedImage = additionalImageLink;
                 break;
             }
-       }
+        }
     }
 
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage, firstImageLinkSmartGift : firstImageLinkSmartGift}
