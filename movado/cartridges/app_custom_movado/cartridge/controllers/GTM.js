@@ -13,7 +13,6 @@ server.append(
     'LoadDataLayer',
     function (req, res, next) {
         var OrderMgr = require('dw/order/OrderMgr');
-
         var action = req.querystring.urlAction.toLowerCase();
         var currentCustomer = req.currentCustomer;
         var customerStatus = currentCustomer.raw.anonymous ? 'New' : 'Existing';
@@ -21,9 +20,9 @@ server.append(
         var discountCode = '';
         var reqQueryString = req.querystring;
         var queryString;
+
         if (!empty(reqQueryString)) {
             queryString = req.querystring.urlQueryString;
-
             if (action.equals('order-confirm')) {
                 var orderId = getOrderIDfromQueryString(queryString);
                 if (orderId) {
@@ -41,7 +40,6 @@ server.append(
                 }
             }
         }
-        var test = '';
 
         res.setViewData({
             customerStatus: customerStatus,
