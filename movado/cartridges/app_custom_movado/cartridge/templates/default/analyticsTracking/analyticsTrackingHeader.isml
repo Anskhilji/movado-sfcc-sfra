@@ -39,7 +39,7 @@
         ct.type = "text/javascript";
         ct.async = true; ct.src = url; loc = document.getElementsByTagName('script')[0];
         loc.parentNode.insertBefore(ct, loc);
-        }(document.location.protocol + "${dw.system.Site.current.getCustomPreferenceValue('rakutenProtocol')}"));
+        }(document.location.protocol + "${dw.system.Site.current.getCustomPreferenceValue('rakutenJS')}"));
     </script>
 <!-- END Rakuten Marketing Tracking -->
 </isif>
