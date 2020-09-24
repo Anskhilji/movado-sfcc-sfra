@@ -55,11 +55,13 @@ module.exports = function () {
 
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');
-        $gtmClikObject.id = $product.id;
-        $gtmClikObject.brand = $product.brand;
-        $gtmClikObject.name = $product.productName;
-        $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
-        $imageContainer.data('gtm-product', $gtmClikObject);
+        if ($gtmClikObject) {
+            $gtmClikObject.id = $product.id;
+            $gtmClikObject.brand = $product.brand;
+            $gtmClikObject.name = $product.productName;
+            $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
+            $imageContainer.data('gtm-product', $gtmClikObject);
+        }
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
@@ -84,7 +86,35 @@ module.exports = function () {
                 $cartButtonContainer.text(Resources.ADD_TO_CART_LABEL);
             }
         }
-        
+
+        var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
+        $exclusiveBadges.empty();
+
+        var $imageBadges = $productContainer.find('.image-container .product-badges');
+        $imageBadges.empty();
+
+        if (response.product.available) {
+            var badges = response.badges;
+
+            // Update text Badges
+            if (badges.textBadges && badges.textBadges.length > 0) {
+                badges.textBadges.forEach(function (badge) {
+                    $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
+                });
+            }
+
+            // Update image Badges
+            if (badges.imageBadges && badges.imageBadges.length > 0) {
+                badges.imageBadges.forEach(function (imageBadge1, idx) {
+                    if (idx === 0) {
+                        $imageBadges.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                    } else {
+                        $imageBadges.append('<div class="product-badge right"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                    }
+                });
+            }
+        }
+
         $addToCartSelector.data( 'pid', variationPID );
         if (isVariationQantityExist) {
             $addToCartSelector.removeClass('out-of-stock-btn');

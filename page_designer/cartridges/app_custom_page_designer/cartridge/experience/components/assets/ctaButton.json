@@ -1,0 +1,149 @@
+{
+    "name": "CTA Button",
+    "description": "CTA button",
+    "group": "assets",
+    "attribute_definition_groups": [
+      {
+        "id": "ctaButtonConfigDesktop",
+        "name": "CTA Button configurations for desktop",
+        "description": "CTA Button configurations for desktop",
+        "attribute_definitions": [
+          {
+            "id": "buttonLink",
+            "name": "Button Link",
+            "type":"url",
+            "required":true
+          },
+          {
+            "id": "buttonText",
+            "name": "Button Text",
+            "type":"string",
+            "required":true
+          },
+          {
+            "id": "backgroundColor",
+            "name": "Background Color",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "textColor",
+            "name": "Text Color",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "hoverBackgroundColor",
+            "name": "Hover Background Color",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "hoverTextColor",
+            "name": "Hover Text Color",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "ctaButtonHeight",
+            "name": "CTA Button Height",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "ctaButtonWidth",
+            "name": "CTA Button Width",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "ctaButtonMaxWidth",
+            "name": "CTA Button Max Width",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "ctaButtonMargin",
+            "name": "Margin",
+            "description": "Enter margin values e.g 5px 6px 7px 8px",
+            "type": "string",
+            "required": false
+          },
+          {
+            "id": "ctaButtonPadding",
+            "name": "CTA Button Padding",
+            "description": "Enter padding values e.g 5px 6px 7px 8px",
+            "type": "string",
+            "required": false
+          },
+          {
+              "id": "ctaButtonAlignment",
+              "name": "CTA Button Alignment",
+              "description": "Enter Alignment values e.g left, right, default alignment is center",
+              "type": "enum",
+              "values": [
+                  "none",
+                  "left",
+                  "right"
+              ],
+              "default_value": "none",
+              "required": false
+          }
+        ]
+      },
+      {
+        "id": "ctaButtonConfigMobile",
+        "name": "CTA Button configurations for mobile",
+        "description": "CTA Button configurations for mobile",
+        "attribute_definitions": [
+            {
+                "id": "ctaButtonHeightMobile",
+                "name": "Mobile CTA Button Height",
+                "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonWidthMobile",
+                "name": "Mobile CTA Button Width",
+                "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonMaxWidthMobile",
+                "name": "Mobile CTA Button Max Width",
+                "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonMarginMobile",
+                "name": "Mobile CTA Button Margin",
+                "description": "Enter margin values e.g 5px 6px 7px 8px",
+                "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonPaddingMobile",
+                "name": "Mobile CTA Button Padding",
+                "description": "Enter padding values e.g 5px 6px 7px 8px",
+                "type": "string",
+                "required": false
+            },
+            {
+                "id": "ctaButtonAlignmentMobile",
+                "name": "Mobile CTA Button Alignment",
+                "description": "Enter Alignment values e.g left, right, default alignment is center",
+                "type": "enum",
+                "values": [
+                     "none",
+                     "left",
+                     "right"
+                ],
+                "default_value": "none",
+                "required": false
+            }
+        ]
+      }
+    ],
+    "region_definitions": []
+  }
+  

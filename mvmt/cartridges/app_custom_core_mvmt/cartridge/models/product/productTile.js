@@ -24,6 +24,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
+    var variationParam = '';
+    var variationParamValue = '';
+    var otherVariantValues = '';
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -31,33 +34,75 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             attributes: '*',
             endPoint: 'Variation'
         });
-        
+
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
-                if (product.variationsAttributes[key].id == ATTRIBUTE_NAME) {
+                if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME) {
+                    defaultVariant = apiProduct.variationModel.defaultVariant;
+                    otherVariantValues = product.variationsAttributes[key].values;
+                    if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
+                        Object.keys(otherVariantValues).forEach(function (value) {
+                            if (defaultVariant.custom[product.variationsAttributes[key].id] === otherVariantValues[value].id) {
+                                variationParam = product.variationsAttributes[key].id;
+                                variationParamValue = otherVariantValues[value].id;
+                            }
+                        });
+                    } else {
+                        variationParam = product.variationsAttributes[key].id;
+                        variationParamValue = product.variationsAttributes[key].values[0].id;
+                    }
+                }
+
+                if (product.variationsAttributes[key].id === ATTRIBUTE_NAME) {
                     colorVariations = product.variationsAttributes[key];
-                    if (!empty(colorVariations) && !empty(colorVariations.values)) {
-                        Object.keys(colorVariations.values).forEach(function (key) {
-                            if (colorVariations.values[key]) {
+                }
+
+                if (!empty(colorVariations) && !empty(colorVariations.values)) {
+                    Object.keys(colorVariations.values).forEach(function (key) {
+                        if (colorVariations.values[key]) {
+                            colorVariations.values[key].swatchesURL = URLUtils.url(
+                                    'Product-Variation',
+                                    'dwvar_' + product.id + '_color',
+                                    colorVariations.values[key].id,
+                                    'pid',
+                                    product.id,
+                                    'quantity',
+                                    '1'
+                                    ).toString();
+
+                            colorVariations.values[key].pdpURL = URLUtils.url(
+                                    'Product-Show',
+                                    'pid',
+                                    product.id,
+                                    'dwvar_' + product.id + '_color',
+                                    colorVariations.values[key].id
+                                    ).toString();
+
+                            if (!empty(variationParam) && !empty(variationParamValue)) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
                                         'Product-Variation',
                                         'dwvar_' + product.id + '_color',
                                         colorVariations.values[key].id,
+                                        'dwvar_' + product.id + '_' + variationParam,
+                                        variationParamValue,
                                         'pid',
                                         product.id,
                                         'quantity',
                                         '1'
                                         ).toString();
+
                                 colorVariations.values[key].pdpURL = URLUtils.url(
                                         'Product-Show',
                                         'pid',
                                         product.id,
                                         'dwvar_' + product.id + '_color',
-                                        colorVariations.values[key].id
+                                        colorVariations.values[key].id,
+                                        'dwvar_' + product.id + '_' + variationParam,
+                                        variationParamValue
                                         ).toString();
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             });
         }

@@ -4520,7 +4520,7 @@
         "continent": "europe",
         "locales": ["en_GB", "default"],
         "languages": ["en"],
-        "currencyCode": "RUR",
+        "currencyCode": "RUB",
         "taxation": {
             "type": "net"
         },

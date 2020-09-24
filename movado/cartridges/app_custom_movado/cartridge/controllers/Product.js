@@ -111,6 +111,7 @@ server.replace('Variation', function (req, res, next) {
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 
+    var badges;
     var params = req.querystring;
 
     var paramsUpdated = productCustomHelpers.updateOptionsAndMessage(req, params);
@@ -126,11 +127,25 @@ server.replace('Variation', function (req, res, next) {
         attributeTemplate
     );
 
+    if (!empty(product.badges.imageBadges)) {
+        for (var i = 0; i < product.badges.imageBadges.length; i++) {
+            product.badges.imageBadges[i].imageUrl = product.badges.imageBadges[i].imageUrl.toString();
+        }
+    }
+
+    if (!empty(product.badges)) {
+        badges = {
+            imageBadges: !empty(product.badges.imageBadges) ? product.badges.imageBadges.toArray() : null,
+            textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
+        };
+    }
+
     res.json({
         product: product,
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
-        validationErrorEngraved: params.validationErrorEngraved
+        validationErrorEngraved: params.validationErrorEngraved,
+        badges: badges
     });
     next();
 });
