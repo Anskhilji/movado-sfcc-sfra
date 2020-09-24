@@ -922,9 +922,8 @@ function getProductImageURL(product) {
     var isWristedImage = '';
         for (var i = 0; i < imageList.length; i++) {
             additionalImageLink = imageList[i].absURL.toString();
-            isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1)));
-            if (isWristedImage) {
-                isWristedage = additionalImageLink;
+            if (!empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1)))) {
+                isWristedImage = additionalImageLink;
                 break;
             }
        }
