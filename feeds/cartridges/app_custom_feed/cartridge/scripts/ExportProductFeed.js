@@ -917,8 +917,18 @@ function getProductImageURL(product) {
     }
 
     var firstImageLink = product.getImage("large", 0) != null ? product.getImage("large", 0).absURL.toString() : null;
-    var additionalImageLink = product.getImage("large", 3) != null ? product.getImage("large", 3).absURL.toString() : null;
-    var isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.equalsIgnoreCase(indexOf("wrist")) > -1)) ? true : false;
+    var imageList = product.getImages("large");
+    var additionalImageLink = '';
+    var isWristedImage = '';
+        for (var i = 0; i < imageList.length; i++) {
+            additionalImageLink = imageList[i].absURL.toString();
+            isWristedImage = !empty(additionalImageLink) && ((additionalImageLink.indexOf("wrist") > -1 || (additionalImageLink.indexOf("Wrist") > -1)));
+            if (isWristedImage) {
+                isWristedage = additionalImageLink;
+                break;
+            }
+       }
+
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage, firstImageLinkSmartGift : firstImageLinkSmartGift}
 }
 
