@@ -150,7 +150,6 @@ module.exports = function () {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
-            $('.mini-cart-data .popover').empty();
         }
     });
 
