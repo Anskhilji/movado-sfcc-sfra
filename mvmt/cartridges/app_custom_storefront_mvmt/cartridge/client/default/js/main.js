@@ -21,7 +21,7 @@ processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 
 $(document).ready(function () {
-    processInclude(require('movado/components/slickCarousel'));
+    processInclude(require('./components/slickCarousel'));
     processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/faq-page'));
     processInclude(require('./header/header'));
@@ -37,4 +37,4 @@ $(document).ready(function () {
 });
 
 require('base/components/spinner');
-window.slickSlider = require('movado/components/slickCarousel');
+window.slickSlider = require('./components/slickCarousel');

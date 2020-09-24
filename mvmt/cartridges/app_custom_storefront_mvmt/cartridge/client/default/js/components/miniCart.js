@@ -138,7 +138,6 @@ module.exports = function () {
             $('.mobile-cart-icon').show();
             $('#footer-overlay').removeClass('footer-form-overlay');
             $('.mini-cart-data .popover').removeClass('show');
-            $('.mini-cart-data .popover').empty();
         }
   });
 
@@ -150,7 +149,6 @@ module.exports = function () {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();
             $('.mini-cart-data .popover').removeClass('show');
-            $('.mini-cart-data .popover').empty();
         }
     });
 
