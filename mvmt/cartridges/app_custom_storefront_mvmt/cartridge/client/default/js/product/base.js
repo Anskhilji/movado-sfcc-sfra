@@ -142,33 +142,6 @@ function getChildProducts() {
 }
 
 /**
- * Custom Start: Add recommended products to cart
- *
- * @param {Object} variationForm - holds form attributes for selected variation product
- * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
- * 
- */
-function addRecommendationProductToCartAjax(variationForm, addToCartUrl, isLast) {
-    if (addToCartUrl) {
-        $.ajax({
-            url: addToCartUrl,
-            method: 'POST',
-            data: variationForm,
-            success: function (data) {
-                updateCartPage(data);
-                if (isLast) {
-                    handlePostCartAdd(data);
-                    openMiniCart();
-                }
-            },
-            error: function () {
-                $.spinner().stop();
-            }
-        });
-    }
-}
-
-/**
  * Process the attribute values for an attribute that has image swatches
  *
  * @param {Object} attr - Attribute
@@ -775,23 +748,22 @@ function attributeSelect(selectedValueUrl, $productContainer) {
  * @param {Link} addToCartUrl - link of add to cart URL for variation product
  * 
  */
-function addRecommendationProducts(addToCartUrl) {
+function getRecommendationProducts() {
     var $recommendedProductSelector = $('.upsell_input:checked');
     var isLast = false;
+    var productArray = [];
     for (var i = 0; i < $recommendedProductSelector.length; i++) {
         if ($recommendedProductSelector.length == i+1) {
             isLast = true;
         }
         var $currentRecommendedProduct = $recommendedProductSelector[i];
-        
             var form = {
                 pid: $currentRecommendedProduct.value,
                 quantity: 1
             };
-            
-        addRecommendationProductToCartAjax(form, addToCartUrl, isLast);
-        
+        productArray.push(form);
     }
+    return productArray.length ? JSON.stringify(productArray) : [] ;
 }
 
 /**
@@ -920,7 +892,8 @@ movadoBase.addToCart = function () {
             pid: pid,
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
-            quantity: movadoBase.getQuantitySelected($(this))
+            quantity: movadoBase.getQuantitySelected($(this)),
+            recommendationArray: getRecommendationProducts()
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -930,7 +903,8 @@ movadoBase.addToCart = function () {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: 1
+                quantity: 1,
+                recommendationArray: getRecommendationProducts()
             };
         }
         /**
@@ -957,14 +931,8 @@ movadoBase.addToCart = function () {
                 data: form,
                 success: function (data) {
                     updateCartPage(data);
-                    // Custom Start: Add recommended Products for MVMT Add To Cart
-                    if ($('.pdp-mvmt')) {
-                        addRecommendationProducts(addToCartUrl); 
-                    }
-                    if(!$('.upsell_input').is(":checked")) {
-                        openMiniCart();
-                        handlePostCartAdd(data);
-                    }
+                    handlePostCartAdd(data);
+                    openMiniCart();
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
