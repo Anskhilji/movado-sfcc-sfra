@@ -52,13 +52,19 @@ $(document).ready(function () {
         }
     });
 
-    $('#emailOptInPopUpSubmit').on('keydown', function(e) {
+    $('.email-popup-child').on('keydown', function(e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 9) {
             e.preventDefault();
             $('#emailOptInPopUp_Button').focus();
         }
     });
+
+    if ($('#emailOptInPopUp').is(':visible')) {
+        setTimeout(function () {
+            $('#emailOptInPopUp').focus();
+        }, 1000);
+    }
 });
 
 // Hide email pop up 
