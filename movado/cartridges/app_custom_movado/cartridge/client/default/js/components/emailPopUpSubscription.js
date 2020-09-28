@@ -59,13 +59,12 @@ $(document).ready(function () {
             $('#emailOptInPopUp_Button').focus();
         }
     });
-    
-      if ($('#emailOptInPopUp').is(':visible')) {
-          setTimeout(function (){
-              $('#emailOptInPopUp').focus();
-          }, 1000);
-      }
 
+    if ($('#emailOptInPopUp').is(':visible')) {
+        setTimeout(function () {
+            $('#emailOptInPopUp').focus();
+        }, 1000);
+    }
 });
 
 // Hide email pop up 
