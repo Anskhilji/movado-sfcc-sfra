@@ -29,6 +29,10 @@
   position: relative;
   z-index: 99999;
   
+  .slide-up {
+    width: 100%;
+  }
+  
   @include media-breakpoint-down(md) {
     flex-wrap: wrap;
   }
