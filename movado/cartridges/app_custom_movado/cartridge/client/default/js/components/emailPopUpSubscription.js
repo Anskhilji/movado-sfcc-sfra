@@ -61,9 +61,7 @@ $(document).ready(function () {
     });
 
     if ($('#emailOptInPopUp').is(':visible')) {
-        setTimeout(function () {
-            $('#emailOptInPopUp').focus();
-        }, 1000);
+        $('#emailOptInPopUp').focus();
     }
 });
 
