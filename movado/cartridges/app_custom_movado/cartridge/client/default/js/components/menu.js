@@ -12,7 +12,7 @@ var clearSelection = function (element) {
 
 $(document).ready(function() {
     var visitAccessibility = true;
-    if ($('#emailOptInPopUp').is(':visible')) {
+    if ($('#emailOptInPopUp').is(':visible') || $('.email-popup-container').is(':visible')) {
         visitAccessibility = false;
     }
     $(document).keydown(function(e) {
