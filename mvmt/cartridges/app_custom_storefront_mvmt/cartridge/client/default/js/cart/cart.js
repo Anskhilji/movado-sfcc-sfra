@@ -2,6 +2,31 @@
 
 var base = require('../product/base');
 
+// Minicart Product summary cart height
+function setMiniCartProductSummaryHeight () {
+    var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
+    var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
+    var $miniCartHeaderHeight = $miniCartHeaderTitle + $miniCartCountrySelector;
+    if ($('.mini-cart-header').is(':visible')) {
+        $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle + $miniCartCountrySelector;
+    }
+    var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
+    $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
+    var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
+    $('.mini-cart-data .product-summary').css('max-height', '');
+    var screenSize = $(window).width();
+    var mediumScreenSize = 992; // mobile break point
+
+    // check screen size for mobile and desktop
+    if (screenSize != null) {
+        if (screenSize <= mediumScreenSize) {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
+        } else {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
+        }
+    }
+}
+
 /**
  * appends params to a url
  * @param {string} url - Original url
@@ -569,6 +594,7 @@ module.exports = function () {
                 }
                 $('.coupon-code-field').val('');
                 $('.minicart-promo-code-form').spinner().stop();
+                setMiniCartProductSummaryHeight();
             },
             error: function (err) {
                 if (err.responseJSON.redirectUrl) {
@@ -577,6 +603,7 @@ module.exports = function () {
                     createErrorNotification(err.errorMessage);
                     $('.minicart-promo-code-form').spinner().stop();
                 }
+                setMiniCartProductSummaryHeight();
             }
         });
         return false;
@@ -660,6 +687,7 @@ module.exports = function () {
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $('.coupon-price-adjustment').spinner().stop();
+                setMiniCartProductSummaryHeight();
             },
             error: function (err) {
                 if (err.responseJSON.redirectUrl) {
@@ -668,6 +696,7 @@ module.exports = function () {
                     createErrorNotification(err.responseJSON.errorMessage);
                     $('.coupon-price-adjustment').spinner().stop();
                 }
+                setMiniCartProductSummaryHeight();
             }
         });
     });
