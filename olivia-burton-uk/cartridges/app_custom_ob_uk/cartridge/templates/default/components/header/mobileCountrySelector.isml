@@ -1,0 +1,12 @@
+<li class="country-selector-mobile">
+   <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+   <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+   <isif condition="${false}" >
+      <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+      !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+   <iselse>
+      <isslot id="country-selector" description="country selector" context="global" />
+   </isif>
+   <iscomment> Custom End </iscomment>
+</li>
+ 
