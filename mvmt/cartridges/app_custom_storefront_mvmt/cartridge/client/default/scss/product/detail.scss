@@ -2058,7 +2058,9 @@
          margin: 0;
          padding: 0;
          text-align: center;
-         justify-content: center;
+         justify-content: left;
+         font-family: $font-book;
+         letter-spacing: rem(0.5);
      }
 }
 
