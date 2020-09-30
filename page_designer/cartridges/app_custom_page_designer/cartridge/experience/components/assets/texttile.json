@@ -1,0 +1,47 @@
+{
+  "name": "Rich Text",
+  "description": "Shows rich text for text pages, such as help or FAQ pages",
+  "group": "assets",
+  "attribute_definition_groups": [
+    {
+      "id": "textcontent",
+      "name": "Text Content",
+      "description": "The content to show in this component",
+      "attribute_definitions": [
+        {
+          "id": "alignment_desktop",
+          "name": "Alignment for desktop",
+          "description": "Text Alignment on desktop view (default value center)",
+          "type": "enum",
+          "values": [
+            "center",
+            "left",
+            "right"
+          ],
+          "default_value": "center",
+          "required": false
+        },
+        {
+          "id": "alignment_mobile",
+          "name": "Alignment for Mobile",
+          "description": "Text Alignment on mobile view,(default value center)",
+          "type": "enum",
+          "values": [
+            "center",
+            "left",
+            "right"
+          ],
+          "default_value": "center",
+          "required": false
+        },
+        {
+          "id": "richtext",
+          "name": "Content",
+          "type": "markup",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "region_definitions": []
+}
