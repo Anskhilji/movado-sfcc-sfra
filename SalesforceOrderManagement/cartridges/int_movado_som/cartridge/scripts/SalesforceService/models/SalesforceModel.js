@@ -171,6 +171,10 @@ var SalesforceModel = ({
         return requestData;
     },
     buildCompositeShipmentCreationRequest: function (req) {
+        var description = '';
+        if (req.FulfillmentOrderLineItems && req.FulfillmentOrderLineItems.length > 0) {
+            description = JSON.stringify(req.FulfillmentOrderLineItems);
+        }
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.SHIPMENT,
             method: 'POST',
@@ -180,7 +184,7 @@ var SalesforceModel = ({
                 ShipToName: req.ShipToName,
                 TrackingNumber: req.TrackingNumber,
                 TrackingURL: req.TrackingURL || '',
-                Description: JSON.stringify(req.FulfillmentOrderLineItems.Description) || '',
+                Description: description,
                 SAPCarrierCode__c: req.SAPCarrierCode,
                 SAPDeliveryNumber__c: req.SAPDeliveryNumber
             }
