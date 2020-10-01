@@ -397,6 +397,21 @@ footer {
             }
         }
     }
+
+    .content {
+
+        li {
+            a.accessible-link {
+                position: initial;
+                text-decoration: none;
+
+                &:hover {
+                    color: $black;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }
 
 @include media-breakpoint-down(sm) {

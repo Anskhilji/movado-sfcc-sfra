@@ -62,6 +62,12 @@ module.exports = function () {
             $gtmClikObject.price = $product.price.sales != null ? $product.price.sales.decimalPrice : ($product.price.list != null ? $product.price.list.decimalPrice : '0.0');
             $imageContainer.data('gtm-product', $gtmClikObject);
         }
+
+        // Trigger collectionVariantToggle function
+        if (response.product) {
+            $('body').trigger('collectionVariantToggle', response.product);
+        }
+
         //update price
         var $readyToOrder = response.product.readyToOrder;
         var $variationPriceSelector = $productContainer.find('.tile-body > .price');
@@ -90,8 +96,11 @@ module.exports = function () {
         var $exclusiveBadges = $productContainer.find('.product-tag-content .exclusive-badges');
         $exclusiveBadges.empty();
 
-        var $imageBadges = $productContainer.find('.image-container .product-badges');
-        $imageBadges.empty();
+        var $imageBadgesLeft = $productContainer.find('.product-badge.left');
+        $imageBadgesLeft.empty();
+
+        var $imageBadgesRight = $productContainer.find('.product-badge.right');
+        $imageBadgesRight.empty();
 
         if (response.product.available) {
             var badges = response.badges;
@@ -105,11 +114,11 @@ module.exports = function () {
 
             // Update image Badges
             if (badges.imageBadges && badges.imageBadges.length > 0) {
-                badges.imageBadges.forEach(function (imageBadge1, idx) {
+                badges.imageBadges.forEach(function (imageBadge, idx) {
                     if (idx === 0) {
-                        $imageBadges.append('<div class="product-badge left"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                        $imageBadgesLeft.append('<span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span>');
                     } else {
-                        $imageBadges.append('<div class="product-badge right"><span class="badge-text"><img src="' + imageBadge1.imageUrl + '" alt="' + imageBadge1.imageAlt + '"></span></div>');
+                        $imageBadgesRight.append('<span class="badge-text"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></span>');
                     }
                 });
             }
@@ -148,7 +157,8 @@ module.exports = function () {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
                 e.preventDefault();
 
-                if ($(this).attr('disabled')) {
+                var swatchImageContainer = $(this).find('img.swatch-circle');
+                if ($(this).attr('disabled') || $(swatchImageContainer).hasClass('is-active')) {
                     return;
                 }
 

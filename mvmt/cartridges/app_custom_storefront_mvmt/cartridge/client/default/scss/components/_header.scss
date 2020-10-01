@@ -28,6 +28,14 @@
   width: 100%;
   position: relative;
   z-index: 99999;
+  
+  .slide-up {
+    width: 100%;
+  }
+  
+  @include media-breakpoint-down(md) {
+    flex-wrap: wrap;
+  }
 
   &-desktop {
     display: none;
@@ -1172,4 +1180,15 @@ header.new-header.mvmt-header-design {
             }
         }
      }
+}
+
+.accessible-link {
+  right: 0;
+  text-decoration: underline;
+  z-index: 999999;
+  
+  @include media-breakpoint-up(lg) {
+    right: auto;
+    left: rem(50);
+  }
 }

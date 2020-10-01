@@ -51,6 +51,23 @@ $(document).ready(function () {
             $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
         }
     });
+
+    $(document).on('keydown', '.email-popup-child',  function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 9) {
+            e.preventDefault();
+            var $thankYouContainer = $('.thankyou-opened');
+            if ($thankYouContainer.length > 0) {
+                $('.thankyou-note-control #emailOptInPopUp_Button').focus();
+            } else {
+                $('#emailOptInPopUp_Button').focus();
+            }
+        }
+    });
+
+    if ($('#emailOptInPopUp').is(':visible')) {
+        $('#emailOptInPopUp').focus();
+    }
 });
 
 // Hide email pop up 
@@ -59,7 +76,8 @@ function hideEmailPopUpModal() {
     $('.thankyou-note-control').removeClass('popup-form d-none');
     $(".email-popup").addClass('thankyou-opened');
     $('.email-popup .quick-view-dialog').addClass('popup-message');
-    setTimeout(function() { 
+    $('.thankyou-note-control #emailOptInPopUp_Button').focus();
+    setTimeout(function() {
         $(".thankyou-opened").click(function () {
             if ($('.thankyou-opened').find('.disable-full-popup-hide').length == 0) {
                 $('.thankyou-opened').hide();

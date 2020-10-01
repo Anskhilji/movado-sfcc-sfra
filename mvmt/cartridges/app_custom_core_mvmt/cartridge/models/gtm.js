@@ -97,7 +97,7 @@ function gtmModel(req) {
             country = currentLocale.displayCountry;
         }
     } catch(ex) {
-        Logger.error('Error Occured while getting country displayName for gtm and exception is: ' + ex);
+        Logger.error('Error Occured while getting country displayName for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
     }
 
         // tenant
@@ -136,19 +136,23 @@ function gtmModel(req) {
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
             // Custom Start Updated product values according to mvmt
-            this.product = {
-                productID: productImpressionTags && productImpressionTags.productID ? productImpressionTags.productID : '',
-                productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
-                brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
-                productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
-                category: primarySiteSection,
-                productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
-                list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
-                Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
-                variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
-                productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
-                variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : ''
-            };
+            if (!empty(productImpressionTags)) {
+                this.product = {
+                    productID: productImpressionTags && productImpressionTags.productID ? productImpressionTags.productID : '',
+                    productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
+                    brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
+                    productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
+                    category: primarySiteSection,
+                    productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
+                    list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
+                    Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
+                    variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
+                    productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
+                    variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : ''
+                };
+            } else {
+                this.product = {};
+            }
         } else if (searchkeyword != null) {
             // search count
         searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
@@ -332,7 +336,8 @@ function getSearchQuery(queryStringVal) {
                 }
         return searchQuery;
     } catch(ex) {
-        Logger.error('Error occured while getting search query for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        
         return '';
     }
 }
@@ -377,7 +382,7 @@ function getProductSearch(req, queryString) {
                  return productSearch;
         }
     } catch (ex) {
-        Logger.error('Error occured while getting product search count for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting product search count for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 }
@@ -412,7 +417,7 @@ function getCategoryBreadcrumb(categoryObj) {
         }
         return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
     } catch (ex) {
-        Logger.error('Error occured while getting category breadcrumb for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting category breadcrumb for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 
@@ -431,7 +436,7 @@ function getProductBreadcrumb(productObj) {
         var categoryHierarchy = getCategoryBreadcrumb(category);
         return { primaryCategory: categoryHierarchy.primaryCategory };
     } catch (ex) {
-        Logger.error('Error occured while getting product bread crumb and exception is: ' + ex);
+        Logger.error('Error occured while getting product bread crumb. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 }
@@ -489,7 +494,7 @@ function getCategoryLevelCount(category, levelCount) {
         }
         return levelCount;
     } catch (ex) {
-        Logger.error('Error occured while getting category level count for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting category level count for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 
@@ -543,7 +548,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
         return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
     } catch (ex) {
-        Logger.error('Error Occured while getting product impressions tags for gtm against lineitem: ' + productObj.productID + ' and exception is: ' + ex);
+        Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 }
@@ -650,7 +655,7 @@ function getCartJSONArray(checkoutObject) {
             }
         }
     } catch (ex) {
-        Logger.error('Error occured while getting cart json array for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting cart json array for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 
@@ -819,7 +824,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                     orderJSONArray.push({ productObj: produtObj });
                 }
             } catch (ex) {
-                Logger.error('Error Occured while getting order details for gtm against lineitem: ' + productLineItem.productID + ' and exception is: ' + ex);
+                Logger.error('Error Occured while getting order details for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
             }
         });
 
@@ -878,7 +883,7 @@ function getAverageOrderLevelDiscount(order) {
         averageProductLevelDiscount = totalOrderPriceAdjustment / order.productLineItems.length;
         return averageProductLevelDiscount;
     } catch (ex) {
-        Logger.error('Error occured while getting average order level discount for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting average order level discount for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return 0;
     }
 }
@@ -899,7 +904,7 @@ function getOrderLevelDiscount (order) {
         }
         return totalOrderPriceAdjustment;
     } catch (ex) {
-        Logger.error('Error Occured while getting order adjustment for gtm', e, e.stack);
+        Logger.error('Error Occured while getting order adjustment for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return 0;
     }
 
@@ -923,7 +928,7 @@ function getDicountType (order) {
         }
         return discountType;
     } catch (ex) {
-        Logger.error('Error occured while getting discount for gtm and exception is: ' + ex);
+        Logger.error('Error occured while getting discount for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
 }

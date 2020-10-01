@@ -23,7 +23,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var fulfillmentOrderLineItems = fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records;
     var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
 
-    var trackingGroups = [];
+    var trackingGroups = [];    
 
     if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'BILLING' &&
         SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'FREE') {
@@ -50,8 +50,13 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('processStatusCapture - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
             return;
         }
-        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber && orderStatusItem.SKUNumber !== 'FIXEDFREIGHT') {
-            Logger.error('processStatusCapture - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+        try {
+            if (foLineItem.OrderItemSummary.ProductCode.toUpperCase() !== orderStatusItem.SKUNumber.toUpperCase() && orderStatusItem.SKUNumber !== 'FIXEDFREIGHT') {
+                Logger.error('processStatusCapture - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+            }
+        }
+        catch (exProductComparison) {
+            Logger.error('processStatusCapture - Error comparing ProductCode to SKUNumber- ' + exProductComparison.message);
         }
 
         // Update FO Line Item custom attribute for quantity fulfilled
@@ -88,6 +93,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 trackingGroups.push({
                     TrackingNumber: orderStatusItem.TrackingNumber,
                     CarrierCode: orderStatusItem.CarrierCode,
+                    DeliveryNumber: orderStatusItem.DeliveryNumber,
                     FulfillmentOrderLineItems: [foLineItem.Id]
                 });
                 trackingGroup = trackingGroups[0];
@@ -204,7 +210,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                     Logger.error('orderStatusCapture - error sending cancellation email: ' + JSON.stringify(cancellationEmailRequest));
                 }
             }
-
         }
     }
 
@@ -227,7 +232,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('Failed to update quantities assumed shipped. foItemsAPIResponse:' + JSON.stringify(foItemsAPIResponse));
         }
     }
-    
+
     var requestCompositeItemsShipment = [];
 
     // Add Shipment request(s)
@@ -240,6 +245,8 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 TrackingNumber: '',
                 TrackingURL: 'Not Applicable',
                 Description: '',
+                SAPCarrierCode__c: '',
+                SAPDeliveryNumber__c: '',
                 ReferenceCount: shipmentCount++,
                 FulfillmentOrderLineItems: null
             })
@@ -251,8 +258,10 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                     fulfillmentOrderId: fulfillmentOrderId,
                     ShipToName: fulfilledToName,
                     TrackingNumber: trackingGroup.TrackingNumber,
-                    TrackingURL: 'https://www.ups.com/track?loc=en_US&tracknum=' + trackingGroup.TrackingNumber.toString(),
+                    TrackingURL: '',
                     Description: trackingGroup.CarrierCode,
+                    SAPCarrierCode: trackingGroup.CarrierCode,
+                    SAPDeliveryNumber: trackingGroup.DeliveryNumber,
                     ReferenceCount: shipmentCount++,
                     FulfillmentOrderLineItems: trackingGroup.FulfillmentOrderLineItems
                 })

@@ -180,7 +180,9 @@ var SalesforceModel = ({
                 ShipToName: req.ShipToName,
                 TrackingNumber: req.TrackingNumber,
                 TrackingURL: req.TrackingURL || '',
-                Description: req.Description || ''
+                Description: JSON.stringify(req.FulfillmentOrderLineItems.Description) || '',
+                SAPCarrierCode__c: req.SAPCarrierCode,
+                SAPDeliveryNumber__c: req.SAPDeliveryNumber
             }
         };
         return requestData;

@@ -194,7 +194,6 @@ function populateByOrder(order) {
         /**
          * Set Pre-capture status for Adyen-PayPal and ESW transactions
         */
-        var PaymentMgr = require('dw/order/PaymentMgr');
         var arrPi = order.getPaymentInstruments().toArray();
 
         for (var i = 0; i < arrPi.length; i++) {
@@ -203,13 +202,13 @@ function populateByOrder(order) {
                     arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
                     break;
                 case 'Adyen':
-                    if (order.custom.Adyen_paymentMethod.indexOf('Klarna') === -1) {
+                    if (order.custom.Adyen_paymentMethod.toLowerCase().indexOf('paypal') > -1) {
                         arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
-                        arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
                     }
+                    arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
                     break;
                 case 'BASIC_CREDIT':
-                    if (arrPi[i].getPaymentMethod() == 'ESW_PAYMENT') {
+                    if (arrPi[i].getPaymentMethod() === 'ESW_PAYMENT') {
                         arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
                         arrPi[i].getPaymentTransaction().setTransactionID(order.custom.eswOrderNo);
 
@@ -221,6 +220,7 @@ function populateByOrder(order) {
                             }
                         }
                     }
+                    break;
                 default:
                     break;
             }
