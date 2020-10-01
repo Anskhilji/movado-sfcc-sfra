@@ -3,6 +3,7 @@
 var server = require('server');
 
 var customProductOptionsHelper = require('*/cartridge/scripts/helpers/customProductOptionsHelper');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 
 server.extend(module.superModule);
 
@@ -26,5 +27,30 @@ server.append('AddProduct', function (req, res, next) {
     }
     next();
 });
+
+server.append(
+    'Show',
+    server.middleware.https,
+    function (req, res, next) { 
+        var countrySwitch = customCartHelpers.getCountrySwitch();
+
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
+        }
+        next();
+    }
+);
+
+server.append('MiniCartShow', function (req, res, next) {
+    
+    var countrySwitch = customCartHelpers.getCountrySwitch();
+
+    if (countrySwitch && !empty(countrySwitch)) {
+        res.viewData.countrySwitch = countrySwitch;
+    }
+
+    next();
+});
+
 
 module.exports = server.exports();
