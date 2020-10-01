@@ -586,7 +586,7 @@
     .dropdown-menu {
 
       @include media-breakpoint-down(lg) {
-        height: 125%;
+        height: 100%;
         overflow-y: hidden;
         z-index: 999999;
       }

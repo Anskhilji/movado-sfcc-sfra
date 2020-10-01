@@ -17,9 +17,12 @@ server.append('AddProduct', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 
     if (!viewData.error) {
 		// variables for personalization message
@@ -29,6 +32,30 @@ server.append('AddProduct', function (req, res, next) {
         var apiProduct;
         var marketingProductsData = [];
         var marketingProductData;
+
+        // Custom logic to add product recommendation
+        if (!empty(req.form.recommendationArray)) {
+            var recommendationArray = JSON.parse(req.form.recommendationArray);
+            if (recommendationArray.length > 0 ) {
+                recommendationArray.forEach(function (recommendation) {
+
+                    Transaction.wrap(function () {
+                        quantity = 1;
+                        result = cartHelper.addProductToCart(
+                                currentBasket,
+                                recommendation.pid,
+                                recommendation.quantity,
+                                [],
+                                []
+                            );
+                        if (!result.error) {
+                            cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                            basketCalculationHelpers.calculateTotals(currentBasket);
+                        }
+                    });
+                });
+            }
+        }
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
@@ -79,6 +106,16 @@ server.append('AddProduct', function (req, res, next) {
             res.setViewData({addToCartPerSession : true});
         }
         res.setViewData({viewData: viewData});
+
+        var quantityTotal;
+
+        if (currentBasket) {
+            quantityTotal = currentBasket.productQuantityTotal;
+        } else {
+            quantityTotal = 0;
+        }
+
+        res.setViewData({quantityTotal : quantityTotal});
     }
     return next();
 });

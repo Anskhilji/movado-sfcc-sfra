@@ -590,6 +590,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 : ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID : ''));
             produtObj.variant = variants;
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
+            produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
+            produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
 			    produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
