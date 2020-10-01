@@ -2172,7 +2172,7 @@
     margin: 0 auto;
 }
 
-.media-text{
+.media-text {
     padding-left: rem(25);
     padding-right: rem(25);
     display: flex;
@@ -2185,7 +2185,7 @@
     &-video {
         margin-bottom: rem(35);
 
-        @include media-breakpoint-up(md-down) {
+        @include media-breakpoint-up(lg) {
             max-width: rem(650);
             margin: 0;
         }
@@ -2194,7 +2194,7 @@
     &-tiles {
         width: 100%;
 
-        @include media-breakpoint-up(md-down) {
+        @include media-breakpoint-up(lg) {
             width: 50%;
         }
     }
@@ -2223,17 +2223,17 @@
     }
 
     &-content {
-        max-width: 600px;
+        max-width: rem(600);
 
         &-container {
             padding: 0 rem(25);
             margin: 0 auto;
 
-            @include media-breakpoint-up(md-down) {
+            @include media-breakpoint-up(lg) {
                 padding: 0 3% 0 10%;
             }
 
-            @include media-breakpoint-up(xl-down) {
+            @include media-breakpoint-up(xl) {
                 padding: 0 10% 0 16%;
             }
 
@@ -2266,14 +2266,16 @@
         }
     }
 
-    @include media-breakpoint-up(md-down) {
+
+    @include media-breakpoint-up(md) {
+        padding: 0 rem(20) rem(50);
+    }
+
+    @include media-breakpoint-up(lg) {
         padding-left: rem(60);
         padding-right: rem(60);
     }
 
-    @include media-breakpoint-up(sm-down) {
-        padding: 0 rem(20) rem(50);
-    }
 }
 
 .pdp-tabs-body {
