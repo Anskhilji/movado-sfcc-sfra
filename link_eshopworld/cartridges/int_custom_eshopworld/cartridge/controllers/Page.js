@@ -111,7 +111,7 @@ server.replace(
             var qsConnector = requestAction.indexOf('?') >= 0 ? '&' : '?';
 
             try {
-                redirectUrl = request.getHttpReferer();
+                redirectUrl = URLUtils.url(req.querystring.action).toString();
                 if (empty(redirectUrl)) {
                     redirectUrl = URLUtils.url('Home-Show').toString();
 
@@ -123,11 +123,10 @@ server.replace(
                     var countryParam = redirectUrl.search('country');
                     if (countryParam >= 0) {
                         redirectUrl = redirectUrl.replace(/#.*$/, '').replace(/\?.*$/, '');
-
-                        redirectUrl = Object.keys(queryStringObj).length === 0
-                        ? redirectUrl += queryStringObj.toString()
-                        : redirectUrl += qsConnector + queryStringObj.toString();
                     }
+                    redirectUrl = Object.keys(queryStringObj).length === 0
+                    ? redirectUrl += queryStringObj.toString()
+                    : redirectUrl += qsConnector + queryStringObj.toString();
                 }
             } catch (ex) {
                 Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
