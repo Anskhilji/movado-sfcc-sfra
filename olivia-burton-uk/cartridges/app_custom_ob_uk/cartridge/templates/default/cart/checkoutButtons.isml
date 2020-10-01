@@ -1,8 +1,11 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
 <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}">
 <div class="row checkout-button-without-sticky">
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.https('Checkout-Login')}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
         </a>
@@ -18,7 +21,9 @@
         </span>
     </div>
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.https('Checkout-Login')}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}" 
             role="button" aria-pressed="true">${Resource.msg('button.checkout','cart',null)}
         </a>
     </div>
@@ -27,7 +32,9 @@
 <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}">
 <div class="row checkout-button-without-sticky">
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.https('Checkout-Login')}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}" 
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
         </a>
@@ -41,7 +48,9 @@
         </span>
     </div>
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.https('Checkout-Login')}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}" 
             role="button" aria-pressed="true">
         ${Resource.msg('button.checkout','cart',null)}
         </a>
@@ -57,7 +66,9 @@
         </span>
     </div>
     <div class="col-12">
-        <a href="${URLUtils.https('Checkout-Login')}" class="btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}"
+        <a href="${URLUtils.https('Checkout-Login')}" class="
+        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+        ${!empty(pdict.countrySwitch) ? 'disabled' : ''}" 
             role="button" aria-pressed="true">
             ${Resource.msg('button.checkout','cart',null)}
         </a>
