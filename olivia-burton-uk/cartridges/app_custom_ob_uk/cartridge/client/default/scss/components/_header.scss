@@ -165,3 +165,19 @@ header.checkout-header {
     }
   }
 }
+.dropdown-selector, .dropdown-selector-lng {
+  display: none;
+  border: 1px solid #ddd;
+  padding-top: 2%;
+  overflow-y: scroll;
+  max-height: 9.375rem;
+  border-width: thin;
+  border-radius: .1875rem;
+  max-width: 16.875rem;
+  text-align: left;
+  padding-left: .25rem;
+  overflow-x: hidden;
+  position: absolute;
+  background: #f9f9f9;
+  z-index: 1000;
+}

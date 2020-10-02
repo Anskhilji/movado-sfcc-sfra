@@ -17,11 +17,21 @@
                     </div>
                     <div class="d-block d-lg-flex selector-wrapper">
                         <div class="footer-item-country-selector">
-                            <isslot id="country-selector" description="country selector" context="global" />
+                            <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+                            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
+                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                            <iselse>
+                                <isslot id="country-selector" description="country selector" context="global" />
+                            </isif>
+                            <iscomment> Custom End </iscomment>
                         </div>
-                        <div class="footer-item-language-selector">
-                            <isslot id="language-selector" description="language selector" context="global" />
-                        </div>
+                        <isif condition="${!eswHelper.getEShopWorldModuleEnabled()}" >
+                            <div class="footer-item-language-selector">
+                                <isslot id="language-selector" description="language selector" context="global" />
+                            </div>
+                        </isif>
                     </div>
                     <iscontentasset aid="ca-footer-mobile-links" />
                     <div class="footer-item-social-icons hidden-md-up">
