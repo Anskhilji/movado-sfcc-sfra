@@ -349,6 +349,19 @@ function getCollectionName(apiProduct) {
     return collectionName;
 }
 
+/**
+ * Method use to get content asset ID to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset ID
+ */
+function getPDPContentAssetID (apiProduct) {
+    var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+    if (empty(contentAssetID) && apiProduct.variant) {
+        contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+    }
+    return contentAssetID;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -357,5 +370,6 @@ module.exports = {
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
     getCollectionName: getCollectionName,
-    getGtmPromotionObject: getGtmPromotionObject
+    getGtmPromotionObject: getGtmPromotionObject,
+    getPDPContentAssetID : getPDPContentAssetID
 };

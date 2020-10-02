@@ -24,6 +24,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var pdpContentAssetID = productCustomHelper.getPDPContentAssetID(apiProduct);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -98,6 +99,11 @@ module.exports = function fullProduct(product, apiProduct, options) {
     Object.defineProperty(product, 'collectionName', {
         enumerable: true,
         value: collectionName
+    });
+
+    Object.defineProperty(product, 'pdpContentAssetID', {
+        enumerable: true,
+        value: pdpContentAssetID
     });
 
     return product;

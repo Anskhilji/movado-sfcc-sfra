@@ -169,14 +169,11 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
-
-        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-        
-        <isif condition="${!empty($apiProduct.custom.pdpContentAssetID)}">
-            <iscontentasset aid="${apiProduct.custom.pdpContentAssetID}" />
+        <isif condition="${!empty(product.pdpContentAssetID)}">
+            <iscontentasset aid="${product.pdpContentAssetID}" />
         </isif>
 
-        <iscontentasset aid="${apiProduct.custom.pdpContentAssetID}" />
+        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
 
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />

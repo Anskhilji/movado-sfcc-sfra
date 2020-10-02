@@ -2180,7 +2180,8 @@
     justify-content: center;
     margin: rem(60) auto;
     max-width: rem(1270);
-    font-family: $font-primary;
+    padding: 0 rem(10) rem(50);
+    font-family: $font-bold;
 
     &-video {
         margin-bottom: rem(35);
@@ -2202,8 +2203,8 @@
     &-video-container {
         position: relative;
 
-        @include media-breakpoint-up(xl-down) {
-            padding-left: rem(30);
+        @include media-breakpoint-up(xl) {
+            padding-left: 0;
         }
     }
 
@@ -2223,7 +2224,6 @@
     }
 
     &-content {
-        max-width: rem(600);
 
         &-container {
             padding: 0 rem(25);
@@ -2238,16 +2238,18 @@
             }
 
             h2 {
+                margin-bottom: rem(25);
+                font-size: rem(20);
                 font-weight: 400;
                 line-height: 1.2;
                 letter-spacing: rem(2.5);
                 text-transform: uppercase;
 
-                @include media-breakpoint-up(md-down) {
+                @include media-breakpoint-up(md) {
                     font-size: rem(30);
                 }
 
-                @include media-breakpoint-up(xl-down) {
+                @include media-breakpoint-up(xl) {
                     margin-bottom: rem(25);
                 }
             }
@@ -2259,13 +2261,33 @@
                 line-height: rem(23);
                 margin-bottom: rem(25);
 
-                @include media-breakpoint-up(xl-down) {
+                @include media-breakpoint-up(xl) {
                     margin-bottom: rem(30);
                 }
             }
         }
     }
 
+    &-cta {
+        background-color: transparent;
+        border: rem(2) solid $black;
+        color: $black;
+        display: flex;
+        height: rem(48);
+        font-size: rem(12);
+        font-weight: 500;
+        justify-content: center;
+        letter-spacing: rem(1.6);
+        text-transform: uppercase;
+        transition: all .25s ease-in-out;
+        width: max-content;
+        width: -webkit-max-content;
+        width: -moz-max-content;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 
     @include media-breakpoint-up(md) {
         padding: 0 rem(20) rem(50);
@@ -2274,6 +2296,13 @@
     @include media-breakpoint-up(lg) {
         padding-left: rem(60);
         padding-right: rem(60);
+    }
+
+    @media (min-width: 544px) {
+        .modal-dialog {
+            max-width: 75%;
+            max-height: 50%;
+        }
     }
 
 }
