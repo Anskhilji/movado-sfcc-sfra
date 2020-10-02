@@ -25,6 +25,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var currentCountry = productCustomHelper.getCurrentCountry();
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var pdpContentAssetID = productCustomHelper.getPDPContentAssetID(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
+
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -101,10 +103,19 @@ module.exports = function fullProduct(product, apiProduct, options) {
         value: collectionName
     });
 
-    Object.defineProperty(product, 'pdpContentAssetID', {
-        enumerable: true,
-        value: pdpContentAssetID
-    });
+
+    if (pdpContentAssetID && pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetID', {
+            enumerable: true,
+            value: pdpContentAssetID
+        });
+
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
+            enumerable: true,
+            value: pdpContentAssetHTML
+        });
+    
+    }
 
     return product;
 };

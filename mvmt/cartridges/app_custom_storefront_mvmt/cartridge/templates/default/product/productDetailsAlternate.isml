@@ -159,9 +159,12 @@
 
 
         <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />
-        <isif condition="${!empty(product.pdpContentAssetID)}">
-            <iscontentasset aid="${product.pdpContentAssetID}" />
-        </isif>
+        <div class="pdp-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpContentAssetID)}">
+                <iscontentasset aid="${product.pdpContentAssetID}" />
+            </isif>
+        </div>
+
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
 
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"

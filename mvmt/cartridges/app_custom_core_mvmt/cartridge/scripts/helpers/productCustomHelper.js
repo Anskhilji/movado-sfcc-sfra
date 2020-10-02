@@ -362,6 +362,16 @@ function getPDPContentAssetID (apiProduct) {
     return contentAssetID;
 }
 
+function getPDPContentAssetHTML (apiProduct) {
+    var contentAssetID = getPDPContentAssetID (apiProduct);
+    var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+    var pdpContentAssetHTML;
+    if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+        pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+    }
+    return pdpContentAssetHTML;
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -371,5 +381,6 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject,
-    getPDPContentAssetID : getPDPContentAssetID
+    getPDPContentAssetID : getPDPContentAssetID,
+    getPDPContentAssetHTML : getPDPContentAssetHTML
 };

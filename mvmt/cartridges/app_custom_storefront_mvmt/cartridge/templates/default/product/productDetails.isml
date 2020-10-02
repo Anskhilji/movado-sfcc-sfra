@@ -169,9 +169,11 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
-        <isif condition="${!empty(product.pdpContentAssetID)}">
-            <iscontentasset aid="${product.pdpContentAssetID}" />
-        </isif>
+        <div class="pdp-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpContentAssetID)}">
+                <iscontentasset aid="${product.pdpContentAssetID}" />
+            </isif>
+        </div>
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
 

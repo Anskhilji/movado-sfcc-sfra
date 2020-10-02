@@ -654,6 +654,12 @@ function handleVariantResponse(response, $productContainer) {
         });
     }
 
+    var $pdpContentAssetWrapper = $('.pdp-content-asset-wrapper');
+    $pdpContentAssetWrapper.empty();
+    if (response.product.pdpContentAssetHTML) {
+        $pdpContentAssetWrapper.html(response.product.pdpContentAssetHTML);
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
