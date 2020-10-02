@@ -170,8 +170,8 @@
         </div>
 
         <div class="pdp-content-asset-wrapper">
-            <isif condition="${!empty(product.pdpContentAssetID)}">
-                <iscontentasset aid="${product.pdpContentAssetID}" />
+            <isif condition="${!empty(product.pdpContentAssetHTML)}">
+                <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
             </isif>
         </div>
 

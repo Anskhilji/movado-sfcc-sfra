@@ -350,26 +350,26 @@ function getCollectionName(apiProduct) {
 }
 
 /**
- * Method use to get content asset ID to render on PDP
+ * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
- * @returns {String} content asset ID
+ * @returns {String} content asset HTML
  */
-function getPDPContentAssetID (apiProduct) {
-    var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
-    if (empty(contentAssetID) && apiProduct.variant) {
-        contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
-    }
-    return contentAssetID;
-}
-
 function getPDPContentAssetHTML (apiProduct) {
-    var contentAssetID = getPDPContentAssetID (apiProduct);
-    var pdpContentAsset = ContentMgr.getContent(contentAssetID);
-    var pdpContentAssetHTML;
-    if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
-        pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
     }
-    return pdpContentAssetHTML;
 }
 
 module.exports = {
@@ -381,6 +381,5 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject,
-    getPDPContentAssetID : getPDPContentAssetID,
     getPDPContentAssetHTML : getPDPContentAssetHTML
 };
