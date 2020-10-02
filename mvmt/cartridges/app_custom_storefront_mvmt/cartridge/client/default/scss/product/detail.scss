@@ -2223,6 +2223,14 @@
         left: calc(50% - 30px);
     }
 
+    .video-btn {
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
     &-content {
 
         &-container {
@@ -2298,7 +2306,7 @@
         padding-right: rem(60);
     }
 
-    @media (min-width: 544px) {
+    @include media-breakpoint-up(sm) {
         .modal-dialog {
             max-width: 75%;
             max-height: 50%;
