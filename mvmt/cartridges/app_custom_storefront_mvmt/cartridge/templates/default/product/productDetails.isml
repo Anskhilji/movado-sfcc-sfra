@@ -169,7 +169,14 @@
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
+        <div class="pdp-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpContentAssetHTML)}">
+                <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+            </isif>
+        </div>
+
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>

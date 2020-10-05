@@ -34,6 +34,7 @@ $(document).ready(function () {
     processInclude(require('./components/miniCart'));
     processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));
+    processInclude(require('./videoPopup'));
 });
 
 require('base/components/spinner');
