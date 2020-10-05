@@ -5,10 +5,10 @@ module.exports = function () {
         e.preventDefault();
         e.stopPropagation();
 
-        var $this = $(this).find('.ob-mobile-esw-dropdown');
-        $(".esw-country-selector .ob-mobile-esw-dropdown").not($this).hide();
+        var $eswMobileDropdown = $(this).find('.ob-mobile-esw-dropdown');
+        $(".esw-country-selector .ob-mobile-esw-dropdown").not($eswMobileDropdown).hide();
 
-        $this.toggle();
+        $eswMobileDropdown.toggle();
     });
 
     $('.multilevel-dropdown').on('click', function () {

@@ -167,17 +167,34 @@ header.checkout-header {
 }
 .dropdown-selector, .dropdown-selector-lng {
   display: none;
-  border: 1px solid #ddd;
+  border: rem(1) solid $gray10;
   padding-top: 2%;
   overflow-y: scroll;
-  max-height: 9.375rem;
+  max-height: rem(150);
   border-width: thin;
-  border-radius: .1875rem;
-  max-width: 16.875rem;
+  border-radius: rem(3);
+  max-width: rem(270);
   text-align: left;
-  padding-left: .25rem;
+  padding-left: rem(4);
   overflow-x: hidden;
   position: absolute;
-  background: #f9f9f9;
+  background: $alice-dark;
   z-index: 1000;
+}
+
+@include media-breakpoint-down(lg) {
+  .main-menu {
+    .selectCountry {
+      z-index: 99;
+    }
+    
+    .esw-country-selector {
+      .dropdown-toggle:after {
+        
+        transform: rotate(90deg);
+        right: rem(-16);
+        top: rem(7);
+      }
+    }
+  } 
 }

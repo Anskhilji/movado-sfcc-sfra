@@ -2,6 +2,7 @@
 
 var server = require('server');
 
+var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
@@ -18,6 +19,19 @@ server.append(
         var Site = require('dw/system/Site');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
+
+        // Custom Start: Adding ESW country switch control
+        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        if (isEswEnabled) {
+            
+            var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+            var countrySwitch = customCartHelpers.getCountrySwitch();
+            if (countrySwitch && !empty(countrySwitch)) {
+                res.redirect(URLUtils.https('Cart-Show').toString());
+                return next();
+            }    
+        }
+        // Custom End
 
         if (currentBasket && !req.currentCustomer.profile) {
 			var facebookOauthProvider = Site.getCurrent().getCustomPreferenceValue('facebookOauthProvider');
@@ -44,6 +58,19 @@ server.append(
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var totals = viewData.order.totals;
+
+        // Custom Start: Adding ESW country switch control
+        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        if (isEswEnabled) {
+            
+            var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+            var countrySwitch = customCartHelpers.getCountrySwitch();
+            if (countrySwitch && !empty(countrySwitch)) {
+                res.redirect(URLUtils.https('Cart-Show').toString());
+                return next();
+            }    
+        }
+        // Custom End
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         	var userTracking;

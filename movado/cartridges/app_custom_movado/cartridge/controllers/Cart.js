@@ -169,6 +169,13 @@ server.append(
                 });
             }
             res.setViewData(viewData);
+            // Custom Start: Adding country switch control
+            var countrySwitch = customCartHelpers.getCountrySwitch();
+
+            if (countrySwitch && !empty(countrySwitch)) {
+                res.viewData.countrySwitch = countrySwitch;
+            }
+
         }
         // Custom End
 
@@ -348,7 +355,17 @@ server.append('MiniCartShow', function(req, res, next){
     var Site = require('dw/system/Site');
     
     var basketModel = new CartModel(currentBasket);
-
+    // Custom Start: Adding ESW country switch control
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    
+    if (isEswEnabled) {
+        var countrySwitch = customCartHelpers.getCountrySwitch();
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
+        }    
+    }
+    // Custom End
+    
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var cartAnalyticsTrackingData;
     	if(basketModel.items.length > 0) {
