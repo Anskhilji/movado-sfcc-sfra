@@ -33,12 +33,17 @@
             flex-direction: column;
             width: 90%;
             max-width: 90%;
-            height: calc(100vh - 54px);
             max-height: 100%;
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
-            top: rem(54);
+        }
+        
+        &.afterSticky {
+            @include media-breakpoint-down(md) {
+                height: calc(100vh - 54px) !important;
+                top: rem(54) !important;
+            }
         }
 
         @include media-breakpoint-down(xs) {
@@ -997,6 +1002,10 @@
             }
         }
     }
+}
+
+.footer-form-overlay {
+    height: 100vh;
 }
 
 .empty-mini-cart {
