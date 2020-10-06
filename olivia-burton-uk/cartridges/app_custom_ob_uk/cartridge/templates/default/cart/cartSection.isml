@@ -2,7 +2,9 @@
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
+<iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
 <isinclude template="cart/switchToCountryMessage"/>
+<iscomment> Custom End </iscomment>
 
 <isif condition="${pdict.items.length !== 0}">
     <div class="container cart-error-messaging cart-error mt-2">

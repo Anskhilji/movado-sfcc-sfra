@@ -3,7 +3,6 @@
 var server = require('server');
 
 var customProductOptionsHelper = require('*/cartridge/scripts/helpers/customProductOptionsHelper');
-var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 
 server.extend(module.superModule);
 

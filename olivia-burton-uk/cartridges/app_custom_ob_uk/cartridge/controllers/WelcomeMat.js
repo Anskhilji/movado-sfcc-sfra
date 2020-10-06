@@ -11,8 +11,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
   next
 ) {
   
-  var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    
+  var eswModuleEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+        
   if (eswModuleEnabled) {
     var sessionWelcomeMat = empty(session.custom.isWelcomeMat) ? false : session.custom.isWelcomeMat;
     var welcomematHideFromCountries = !empty(Site.current.getCustomPreferenceValue('WelcomematHideFromCountries')) ? Site.current.getCustomPreferenceValue('WelcomematHideFromCountries') : '';
@@ -30,7 +30,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
             }
         }
         if (isWelcomeHideCountry) {
-            res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : ''});
+            res.render('welcomeMat/crossBorderWelcomeMatModel', {obLandingObject : ''});
             return next();
         }
     }
@@ -43,7 +43,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         var geoLocationCountryCode = request.geolocation.countryCode;
         var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
         var locale = request.getLocale();
-        var movadoLandingObject = {};
+        var obLandingObject = {};
         session.custom.isWelcomeMat = true;
 
         if (isGeoLocation) {
@@ -52,25 +52,25 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
 
         var customCountries = eswCustomHelper.getCustomCountries();
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
-        movadoLandingObject.isGeoLocation = false;
+        obLandingObject.isGeoLocation = false;
 
         if (!empty(geoLocationCountry)) {
-            movadoLandingObject.isGeoLocation = true;
-            movadoLandingObject.selectedCountry = geoLocationCountry.countryCode;
-            movadoLandingObject.selectedCountryName = geoLocationCountry.displayName;
-            movadoLandingObject.selectedCurrency = geoLocationCountry.currencyCode;
+            obLandingObject.isGeoLocation = true;
+            obLandingObject.selectedCountry = geoLocationCountry.countryCode;
+            obLandingObject.selectedCountryName = geoLocationCountry.displayName;
+            obLandingObject.selectedCurrency = geoLocationCountry.currencyCode;
         } else {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-            movadoLandingObject.selectedCountry = eswHelper.getAvailableCountry();
-            movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
-            movadoLandingObject.selectedCurrency = '';
+            obLandingObject.selectedCountry = eswHelper.getAvailableCountry();
+            obLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
+            obLandingObject.selectedCurrency = '';
         }
         var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');
-        movadoLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
-        movadoLandingObject.allCountries = allCountries;
-        movadoLandingObject.contentBody = crossBorderWelcomeMatContent && crossBorderWelcomeMatContent.custom.body ? crossBorderWelcomeMatContent.custom.body : '';
-        movadoLandingObject.currentCountry = request.geolocation.countryName;
-        res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : movadoLandingObject});
+        obLandingObject.setLocale = URLUtils.https('Page-SetLocale').toString();
+        obLandingObject.allCountries = allCountries;
+        obLandingObject.contentBody = crossBorderWelcomeMatContent && crossBorderWelcomeMatContent.custom.body ? crossBorderWelcomeMatContent.custom.body : '';
+        obLandingObject.currentCountry = request.geolocation.countryName;
+        res.render('welcomeMat/crossBorderWelcomeMatModel', {obLandingObject : obLandingObject});
     } else {
         return "";
     }

@@ -273,11 +273,15 @@ function getcartPageHtml (req) {
 };
 
 function getCountrySwitch() {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-    if (eswCustomHelper.isEshopworldModuleEnabled()) {
+    
+    var Logger = require('dw/system/Logger');
+    var Site = require('dw/system/Site');
+
+    var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+    if (isEswEnabled) {
         try {
+            var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-            var Site = require('dw/system/Site');
             var selectedCountryCode = eswHelper.getAvailableCountry();
             var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
         

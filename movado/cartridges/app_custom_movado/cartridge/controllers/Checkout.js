@@ -21,7 +21,7 @@ server.append(
         currentBasket.startCheckout();
 
         // Custom Start: Adding ESW country switch control
-        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
         if (isEswEnabled) {
             
             var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
@@ -60,7 +60,7 @@ server.append(
         var totals = viewData.order.totals;
 
         // Custom Start: Adding ESW country switch control
-        var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
         if (isEswEnabled) {
             
             var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');

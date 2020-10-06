@@ -32,18 +32,18 @@
         </isif>
         <iscomment>Custom Start: Currency selector is not needed therefore its commented </iscomment>
         <iscomment>
-        <isif condition=${pdict.EswHeaderObject.enabledCurrencyInHeader}>
-            <div class="dropdown esw-country-selector selectCurrency" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
-                <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   ${pdict.EswHeaderObject.selectedCurrency}
-                </span>
-                <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCurrencySelector">
-                    <isloop iterator="${pdict.EswHeaderObject.currencies}" var="object" status="loopStatus">
-                        <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a>
-                    </isloop>
+            <isif condition=${pdict.EswHeaderObject.enabledCurrencyInHeader}>
+                <div class="dropdown esw-country-selector selectCurrency" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+                    <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ${pdict.EswHeaderObject.selectedCurrency}
+                    </span>
+                    <div class="dropdown-menu dropdown-country-selector" aria-labelledby="dropdownCurrencySelector">
+                        <isloop iterator="${pdict.EswHeaderObject.currencies}" var="object" status="loopStatus">
+                            <a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a>
+                        </isloop>
+                    </div>
                 </div>
-            </div>
-        </isif>
+            </isif>
         </iscomment>
         <iscomment>Custom End</iscomment>
     </div>
@@ -83,20 +83,20 @@
                 
             <iscomment>Custom Start: Currency selector is not needed therefore its commented </iscomment>
             <iscomment>                               
-            <isif condition=${pdict.EswHeaderObject.enabledCurrencyInHeader}>
-                <div class="wrapper-dropdown" tabindex="1" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
-                    <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        ${pdict.EswHeaderObject.selectedCurrency}
-                    </span>
-                    <div class="dropdown-selector-cntry">
-                        <ul class="esw-custom-dropdown">
-                            <isloop iterator="${pdict.EswHeaderObject.allCountries}" var="object" status="loopStatus">
-                                <li><a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a></li>
-                            </isloop>
-                        </ul>
+                <isif condition=${pdict.EswHeaderObject.enabledCurrencyInHeader}>
+                    <div class="wrapper-dropdown" tabindex="1" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
+                        <span class="btn dropdown-toggle" id="dropdownLangSelector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${pdict.EswHeaderObject.selectedCurrency}
+                        </span>
+                        <div class="dropdown-selector-cntry">
+                            <ul class="esw-custom-dropdown">
+                                <isloop iterator="${pdict.EswHeaderObject.allCountries}" var="object" status="loopStatus">
+                                    <li><a href="${'#'}" class="dropdown-item selected-link" data-country="${pdict.EswHeaderObject.selectedCountry}" data-locale="${request.getLocale()}" data-currency="${object.value}" data-url="${pdict.EswHeaderObject.selectorUrl}">${object.value}</a></li>
+                                </isloop>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </isif>
+                </isif>
             </iscomment>
         </div>
     </div>

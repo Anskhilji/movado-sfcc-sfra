@@ -6,7 +6,7 @@ module.exports = function () {
         e.stopPropagation();
 
         var $eswMobileDropdown = $(this).find('.ob-mobile-esw-dropdown');
-        $(".esw-country-selector .ob-mobile-esw-dropdown").not($eswMobileDropdown).hide();
+        $('.esw-country-selector .ob-mobile-esw-dropdown').not($eswMobileDropdown).hide();
 
         $eswMobileDropdown.toggle();
     });

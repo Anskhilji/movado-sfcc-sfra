@@ -356,7 +356,7 @@ server.append('MiniCartShow', function(req, res, next){
     
     var basketModel = new CartModel(currentBasket);
     // Custom Start: Adding ESW country switch control
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
     
     if (isEswEnabled) {
         var countrySwitch = customCartHelpers.getCountrySwitch();
