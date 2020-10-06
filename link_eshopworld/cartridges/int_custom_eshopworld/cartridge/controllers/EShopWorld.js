@@ -41,8 +41,8 @@ server.append('GetEswHeader', function (req, res, next) {
     }
 
     if (queryCountryCode && !empty(queriedCountry)) {
-        res.viewData.EswFooterObject.selectedCountry = queriedCountry.countryCode;
-        res.viewData.EswFooterObject.selectedCountryName = queriedCountry.displayName;
+        res.viewData.EswHeaderObject.selectedCountry = queriedCountry.countryCode;
+        res.viewData.EswHeaderObject.selectedCountryName = queriedCountry.displayName;
     }
 
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
