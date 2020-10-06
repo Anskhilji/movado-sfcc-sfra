@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
-<div class="product-tile product-tile-redesign" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile-redesign grid-tile-design" itemscope itemtype="http://schema.org/Product">
     <div class="tile-content">
         <isset name="availabilityStatus" value="${false}" scope="page" />
         <isset name="outOfStock" value="${false}" scope="page"/>
@@ -26,56 +26,57 @@
         </isif>
         <isinclude template="product/components/productTileImage" />
 
-        <div class="tile-body">
-            <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''}">
-                <div class="out-of-stock product-tag red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
-                    ${Resource.msg('label.soldout', 'common', null)}
+        <div class="tile-body pt-2">
+            <div class="tile-badges">
+                <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
+                    <div class="exclusive-badges m-0">
+                        <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
+                            ${Resource.msg('label.soldout', 'common', null)}
+                        </div>
+                    </div>
+
+                    <isinclude template="product/components/badges" />
                 </div>
-
-                <isinclude template="product/components/badges" />
-            </div>
-
-            
-                <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                    <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                         <isinclude template="product/components/productTileSwatch" />
+                    </div>
+                </isif>
+            </div>
+            <div class="tile-inner-content">
+                <isif condition="${pdict.display.showAddToCart}">
+                    <div class="product-brand-info">
+                        <span>${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                    </div>
+                </isif>
+                <isinclude template="product/components/productTileName" />
+
+                <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
+                    <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
+                <iselse>
+                    <isset name="price" value="${product.price}" scope="page" />
+                </isif>
+                <isif condition="${product.productType === 'set'}">
+                    <isinclude template="product/components/pricing/setPrice" />
+                <iselse>
+                    <isinclude template="product/components/pricing/main" />
+                </isif>
+
+                <isif condition="${pdict.display.recommendattionTile}">
+                    <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
+                </isif>
+                <div class="d-lg-none d-block mt-3">
+                    <isif condition="${pdict.display.showAddToCart}">
+                        <isinclude template="product/components/showCartButtonProduct" />
                     </isif>
                 </div>
-
-            <isif condition="${pdict.display.showAddToCart}">
-                <div class="product-brand-info">
-                    <span>${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
-                </div>
-            </isif>
-            <isinclude template="product/components/productTileName" />
-
-            <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
-                <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
-            <iselse>
-                <isset name="price" value="${product.price}" scope="page" />
-            </isif>
-            <isif condition="${product.productType === 'set'}">
-                 <isinclude template="product/components/pricing/setPrice" />
-             <iselse>
-                 <isinclude template="product/components/pricing/main" />
-             </isif>
-            <isif condition="${pdict.display.plpTile && product.promotions}">
-                <div class="promotions plp-promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.calloutMsg !== ''}">
-                            <div class="callout promo-msg">
-                                <isprint value="${promotion.calloutMsg}" encoding="off">
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
-            </isif>
-            <isif condition="${pdict.display.recommendattionTile}">
-                <p class="vat-duty-label">${Resource.msg('tile.product.tax', 'common', null)}</p>
-            </isif>
+            </div>
         </div>
     </div>
-    <isif condition="${pdict.display.showAddToCart}">
-        <isinclude template="product/components/showCartButtonProduct" />
-    </isif>
+    <div class="d-none d-lg-block">
+        <isif condition="${pdict.display.showAddToCart}">
+            <isinclude template="product/components/showCartButtonProduct" />
+        </isif>
+    </div>
+
 </div>

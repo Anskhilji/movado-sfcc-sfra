@@ -98,6 +98,10 @@
             padding: rem(60) rem(30) rem(25);
         }
 
+        .product-tile, .product-tile-redesign {
+            height: 100%;
+        }
+
         .product-tile-redesign {
             margin: rem(20) 0 0;
 
@@ -108,6 +112,7 @@
                     letter-spacing: rem(0.5);
                 }
             }
+            margin-top: 0px;
         }
 
         > div {
