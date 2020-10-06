@@ -70,7 +70,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         obLandingObject.allCountries = allCountries;
         obLandingObject.contentBody = crossBorderWelcomeMatContent && crossBorderWelcomeMatContent.custom.body ? crossBorderWelcomeMatContent.custom.body : '';
         obLandingObject.currentCountry = request.geolocation.countryName;
-        res.render('welcomeMat/crossBorderWelcomeMatModel', {obLandingObject : obLandingObject});
+        res.render('welcomeMat/crossBorderWelcomeMatModel', {movadoLandingObject : obLandingObject});
     } else {
         return "";
     }
