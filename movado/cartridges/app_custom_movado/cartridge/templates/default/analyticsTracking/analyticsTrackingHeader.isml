@@ -23,7 +23,7 @@
 </isif>
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('isRakutenEnable')}">
     <!-- START Rakuten Marketing Tracking -->
-    <script type="text/javascript">
+    <script type="text/plain" class="optanon-category-C0004">
         (function (url) {
         /*Tracking Bootstrap Set Up DataLayer objects/properties here*/
         if(!window.DataLayer){

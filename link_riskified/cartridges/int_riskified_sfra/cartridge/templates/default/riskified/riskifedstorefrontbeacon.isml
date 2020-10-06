@@ -1,7 +1,7 @@
 <isscript> 
 	var merchantDomainAddressOnRiskified : String = dw.system.Site.getCurrent().preferences.custom.merchantDomainAddressOnRiskified; 
 </isscript>
-<script type="text/javascript">
+<script type="text/plain" class="optanon-category-C0003">
 	//<![CDATA[
 	(function() {
 		function riskifiedBeaconLoad() {
