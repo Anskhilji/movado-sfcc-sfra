@@ -46,6 +46,7 @@ module.exports = function () {
                 if (screenSize <= mediumScreenSize) {
                     $headerHeight = bannerHeight + headerContainer;
                     $windowHeight = $(window).height() - $headerHeight;
+                    $('.mini-cart-data .popover').css({'top':$headerHeight+'px', 'height': 'calc(100% - '+$headerHeight+'px)'});
                 } else {
                     $headerHeight = bannerHeight;
                     $windowHeight = $(window).height() - $headerHeight;
@@ -74,6 +75,10 @@ module.exports = function () {
             }
         }
         setMiniCartProductSummaryHeight();
+    });
+
+    $('body').on("click", '.collapsible-xl .title', function(){
+        setTimeout(function(){  setMiniCartProductSummaryHeight(); }, 300);
     });
 
     /**
