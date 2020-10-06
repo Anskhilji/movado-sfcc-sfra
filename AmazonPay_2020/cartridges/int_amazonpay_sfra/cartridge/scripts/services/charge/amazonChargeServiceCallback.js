@@ -22,7 +22,6 @@ var amazonChargeServiceCallback = {
          * @param {string} params.payload.chargePermissionId Charge identifier
          * @param {Price} params.payload.chargeAmount Represents the amount to be charged/authorized
          * @param {boolean} params.payload.captureNow Boolean that indicates whether or not Charge should be captured immediately after a successful authorization
-         * @param {boolean} params.payload.canHandlePendingAuthorization Boolean that indicates whether merchant can handle pending response
          * @param {string} params.payload.idempotencyKey Idempotency key to safely retry requests.
          * @param {string} params.payload.softDescriptor Description shown on the buyer's payment instrument statement.
          * The soft descriptor sent to the payment processor is: 'AMZ* <soft descriptor specified here>'
