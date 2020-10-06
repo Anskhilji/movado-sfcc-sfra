@@ -1,0 +1,12 @@
+<li class="country-selector-mobile">
+   <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+   <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+   <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
+      <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+      !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+   <iselse>
+      <isslot id="country-selector" description="country selector" context="global" />
+   </isif>
+   <iscomment> Custom End </iscomment>
+</li>
+ 

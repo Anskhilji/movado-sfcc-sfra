@@ -272,6 +272,33 @@ function getcartPageHtml (req) {
   return renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
 };
 
+function getCountrySwitch() {
+    
+    var Logger = require('dw/system/Logger');
+    var Site = require('dw/system/Site');
+
+    var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+    if (isEswEnabled) {
+        try {
+            var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+            var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+            var selectedCountryCode = eswHelper.getAvailableCountry();
+            var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
+        
+            if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
+                return selectedCountry;
+            }
+        
+            return false;
+        } catch (e) {
+            Logger.error('(customCartHelpers.js -> getCountrySwitch) Error occured while getting countrySwitch: ' + e + e.stack);
+            return false;
+        }
+    }
+    return false;
+
+};
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -284,6 +311,7 @@ module.exports = {
     validGiftMsgStringXSS:validGiftMsgStringXSS,
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
-    getCartForAnalyticsTracking: getCartForAnalyticsTracking
+    getCartForAnalyticsTracking: getCartForAnalyticsTracking,
+    getCountrySwitch: getCountrySwitch
 };
 
