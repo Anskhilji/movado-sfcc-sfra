@@ -75,7 +75,10 @@
                 </div>
             </div>
             
-        <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+        <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
+        <isif condition="${!request.httpParameterMap.get('country').value}">
+            <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+        </isif>
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>
