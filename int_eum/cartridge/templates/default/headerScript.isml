@@ -13,5 +13,5 @@
 	        };
 	})(window['adrum-config'] || (window['adrum-config'] = {}));
 	</script>
-	<script src='${pdict.eumURL}'></script>
+	<script type="text/plain" class="optanon-category-C0002" src='${pdict.eumURL}'></script>
 </isif>

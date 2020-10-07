@@ -8,7 +8,7 @@ from Yotpo which is mandatory for the Yotpo functionality to work</iscomment>
 		var yotpoAppKey : String = YotpoUtils.getAppKeyForCurrentLocale(currentLocaleID);
 	 </isscript>
 	
-	<script type="text/javascript">
+	<script type="text/plain" class="optanon-category-C0003">
 	var isYotpoJsLoaded = false;
 	//Custom code to set Yotpo JS loaded
     function setYotpoJsLoaded() {

@@ -2,7 +2,7 @@
 
 <isset name="GTM_ID" value="${dw.system.Site.current.preferences.custom.GTM_ID}" scope="page" />
 <!-- Google Tag Manager -->
-<script>
+<script type="text/plain" class="optanon-category-C0002-C0004">
 
 	
 	$('body').on('gtmOnLoadEvents:fired', function() {
