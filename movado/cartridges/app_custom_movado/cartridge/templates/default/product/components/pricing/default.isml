@@ -55,13 +55,13 @@
     <iselse>
         <span class="sales">
             <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" itemprop="lowprice" content="${price.formattedPrice}">
+                <span class="value" itemprop="lowprice" content="${price.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" itemprop="highprice" content="${price.formattedPrice}">
+                <span class="value" itemprop="highprice" content="${price.decimalPrice}">
             </isif>
             <isif condition="${isLowPrice == null}">
-                <span class="value" itemprop="price" content="${price.formattedPrice}">
+                <span class="value" itemprop="price" content="${price.decimalPrice}">
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>
