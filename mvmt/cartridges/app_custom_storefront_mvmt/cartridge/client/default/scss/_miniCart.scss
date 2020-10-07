@@ -33,7 +33,7 @@
             flex-direction: column;
             width: 90%;
             max-width: 90%;
-            max-height: 100%;
+            max-height: 93.1%;
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
@@ -603,7 +603,7 @@
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
-                    padding: rem(14) rem(16);
+                    padding: rem(10) rem(16);
                 }
 
                 &-label, &-value {
@@ -737,6 +737,10 @@
                         .apple-pay-btn, .checkout-btn {
                             flex: 1;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+
+                        .checkout-btn {
+                            margin-bottom: rem(10);
                         }
 
                         .apple-pay-btn {

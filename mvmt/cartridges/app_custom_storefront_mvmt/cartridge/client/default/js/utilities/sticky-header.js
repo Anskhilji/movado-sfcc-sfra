@@ -1,5 +1,5 @@
 var screenSize = $(window).width();
-
+var customScrollValue = $(window).scrollTop();
 (function ($) {
     var $window = $(window),
         $document = $(document),
@@ -39,7 +39,11 @@ var screenSize = $(window).width();
                 // CUSTOM START: removed custom class                
                 if (screenSize != null) {
                     if (screenSize <= mediumScreenSize) {
-                        $('.mini-cart-data .popover').css({'top':$headerHeight+'px', 'height': 'calc(100% - '+$headerHeight+'px)'});
+                        setTimeout(function(){  
+                            var $customTop = $headerHeight - customScrollValue - 5;
+                            $('.mini-cart-data .popover').css({'top': $customTop +'px', 'height': 'calc(100% - '+ $customTop +'px)'});
+                         }, 100);
+                       
                     } else {
                         $('.mini-cart-data .popover').css({'top':'0', 'height': '100%'});
                     }
@@ -81,3 +85,8 @@ $('.header-menu-wrapper').pinElement();
 $(window).on('resize', function (e) {
     screenSize = $(window).width();  
 })
+
+$(window).on('scroll', function() {
+    customScrollValue = $(this).scrollTop();
+});
+
