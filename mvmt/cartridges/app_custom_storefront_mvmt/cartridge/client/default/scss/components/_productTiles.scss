@@ -330,48 +330,49 @@
             height: rem(26);
         }
 
-        .exclusive-badges {
-            margin-bottom: rem(16);
+        
+        .badge {
+            text-align: center;
+            text-transform: uppercase;
+            font-family: $font-medium;
+            font-size: rem(8);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            display: inline-block;
+            margin-bottom: rem(10);
+            margin-right: rem(3);
+            line-height: 1;
+            vertical-align: top;
+            padding: rem(5) rem(10);
+            height: rem(18);
+            background-color: $black;
+            color: $white;
+            border-radius: 0;
 
-            .badge {
-                text-align: center;
-                text-transform: uppercase;
-                font-family: $font-medium;
-                font-size: rem(8);
-                font-weight: 500;
-                letter-spacing: rem(1);
-                display: inline-block;
-                margin-bottom: rem(10);
-                margin-right: rem(3);
-                line-height: 1;
-                vertical-align: top;
-                padding: rem(5) rem(10);
-                height: rem(18);
+            @include media-breakpoint-up(sm) {
+                font-size: rem(12);
+                letter-spacing: rem(1.5);
+                padding: rem(7) rem(17);
+                height: rem(26);
+            }
+
+            &.red-tag {
+                background-color: $speech-red;
+                color: $white;
+            }
+
+            &.black-tag {
                 background-color: $black;
                 color: $white;
-                border-radius: 0;
 
-                @include media-breakpoint-up(sm) {
-                    font-size: rem(12);
-                    letter-spacing: rem(1.5);
-                    padding: rem(7) rem(17);
-                    height: rem(26);
-                }
-
-                &.red-tag {
-                    background-color: $speech-red;
-                    color: $white;
-                }
-    
-                &.black-tag {
-                    background-color: $black;
-                    color: $white;
-    
-                    @include media-breakpoint-up(md) {
-                        padding: rem(7) rem(10);
-                    }
+                @include media-breakpoint-up(md) {
+                    padding: rem(7) rem(10);
                 }
             }
+        }
+
+        .exclusive-badges {
+            margin-bottom: rem(16);
 
             @include media-breakpoint-down(xs) {
                 text-align: center;
