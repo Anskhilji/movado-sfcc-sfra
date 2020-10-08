@@ -496,7 +496,7 @@
         overflow-y: scroll;
      
         .dropdown-item {
-            padding-left: rem(15);
+            padding-left: rem(15) !important;
         }
     }
 
