@@ -499,5 +499,16 @@
             padding-left: rem(15) !important;
         }
     }
+    
+    @include media-breakpoint-down(md) {
+        .headerDropdown {
+            text-align: center;
+            width: 100%;
+
+            .esw-country-selector  {
+                border: none !important;
+            }
+        }
+    }
 
 }
