@@ -503,11 +503,15 @@
     @include media-breakpoint-down(md) {
         .headerDropdown {
             text-align: center;
-            width: 100%;
+            width: 100% !important;
 
             .esw-country-selector  {
                 border: none !important;
             }
+        }
+
+        .esw-country-mobile-selector {
+            z-index: 99;
         }
     }
 

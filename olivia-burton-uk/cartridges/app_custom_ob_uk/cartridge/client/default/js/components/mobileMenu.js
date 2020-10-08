@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function () {
-    $('.multilevel-dropdown').on('click', '.esw-country-selector', function (e) {
+    $('.multilevel-dropdown, .footer-redesign').on('click', '.esw-country-selector', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -11,7 +11,8 @@ module.exports = function () {
         $eswMobileDropdown.toggle();
     });
 
-    $('.multilevel-dropdown').on('click', function () {
+    $('.multilevel-dropdown, .footer-redesign').on('click', function () {
         $('.ob-mobile-esw-dropdown').hide();
     });
+
 };
