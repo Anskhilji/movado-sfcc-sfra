@@ -489,3 +489,15 @@
         justify-content: center;
     }
 }
+
+.footer-redesign {
+    .dropdown-country-selector {
+        max-height: rem(200);
+        overflow-y: scroll;
+     
+        .dropdown-item {
+            padding-left: rem(15);
+        }
+    }
+
+}
