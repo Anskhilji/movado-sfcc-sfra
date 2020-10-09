@@ -73,10 +73,11 @@ function getLocalPriceBooksDetails(localizeObj) {
  */
 function getESWCurrencyFXRate(shopperCurrencyIso) {
     var fxRates = JSON.parse(eswHelper.getFxRates()),
+        baseCurrency = eswHelper.getBaseCurrencyPreference(),
         selectedFxRate = [];
     if (!empty(fxRates)) {
         selectedFxRate = fxRates.filter(function (rates) {
-            return rates.toShopperCurrencyIso === shopperCurrencyIso;
+            return rates.toShopperCurrencyIso === shopperCurrencyIso && rates.fromRetailerCurrencyIso === baseCurrency;
         });
     }
     return selectedFxRate;
