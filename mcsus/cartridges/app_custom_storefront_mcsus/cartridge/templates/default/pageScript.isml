@@ -1,5 +1,5 @@
 <isif condition="${pdict.userPageName !== null}">
-	<script charset='UTF-8'>
+	<script charset='UTF-8' type="text/plain" class="optanon-category-C0002">
 	    (function(config) {
 	        (function (info) {
 	            info.PageView = function(context) {
