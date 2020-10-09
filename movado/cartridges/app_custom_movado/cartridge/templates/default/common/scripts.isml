@@ -10,8 +10,8 @@
 <isloop items="${ require('*/cartridge/scripts/assets.js').scripts }" var="script">
     <script defer type="text/javascript" src="${script}"></script>
 </isloop>
-<iscomment> This is used for s7.addthis.com cookies </iscomment>
-<script type="text/plain" class="optanon-category-C0004" src="${dw.system.Site.getCurrent().preferences.custom.addthisUrl}"></script>
+
+<script type="text/javascript" src="${dw.system.Site.getCurrent().preferences.custom.addthisUrl}"></script>
 
 
 

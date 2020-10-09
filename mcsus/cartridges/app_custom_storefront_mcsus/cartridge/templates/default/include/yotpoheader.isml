@@ -7,8 +7,10 @@ from Yotpo which is mandatory for the Yotpo functionality to work</iscomment>
 		var currentLocaleID : String  = YotpoUtils.getCurrentLocale(request);
 		var yotpoAppKey : String = YotpoUtils.getAppKeyForCurrentLocale(currentLocaleID);
 	 </isscript>
-	
-	<script type="text/javascript">
+
+	<iscomment> Changed type and add class for consent cookies </iscomment>
+
+	<script type="text/plain" class="optanon-category-C0002-C0003">
 	var isYotpoJsLoaded = false;
 	//Custom code to set Yotpo JS loaded
     function setYotpoJsLoaded() {
