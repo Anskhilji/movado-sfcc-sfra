@@ -16,8 +16,7 @@ var amzPayUtils = require('*/cartridge/scripts/util/amazonPayUtils');
 function AmazonPayRequest(basket, httpMethod, url, srchVal, rplcVal, amount) {
     this.amount = amount;
     this.basket = basket;
-    this.canHandlePendingAuthorization = sitePreferences.amzPayPaymentIntent.value === 'Authorize' || sitePreferences.amzPayPaymentIntent.value === 'AuthorizedWithCapture';
-    this.captureNow = sitePreferences.amzPayPaymentIntent.value !== 'Confirm';
+    this.captureNow = sitePreferences.amzCaptureNow;
     this.headers = [];
     this.httpMethod = httpMethod;
     this.idempotencyKey = this.httpMethod === 'POST' ? amzPayUtils.generateIdempotencyKey() : '';
@@ -144,15 +143,13 @@ function AmazonPayRequest(basket, httpMethod, url, srchVal, rplcVal, amount) {
                             chargePermissionId: this.rplcVal,
                             chargeAmount: this.amount ? this.amount : amzPayUtils.getPaymentDetail(this.basket).chargeAmount,
                             captureNow: this.captureNow, // default is false
-                            softDescriptor: !empty(sitePreferences.amzPayCaptureDescriptor) ? sitePreferences.amzPayCaptureDescriptor.substr(0, 16) : null, // Do not set this value if CaptureNow is set to false
-                            canHandlePendingAuthorization: this.canHandlePendingAuthorization // default is false
+                            softDescriptor: !empty(sitePreferences.amzPayCaptureDescriptor) ? sitePreferences.amzPayCaptureDescriptor.substr(0, 16) : null // Do not set this value if CaptureNow is set to false
                         };
                     } else {
                         this.payload = {
                             chargePermissionId: this.rplcVal,
                             chargeAmount: this.amount ? this.amount : amzPayUtils.getPaymentDetail(this.basket).chargeAmount,
-                            captureNow: this.captureNow, // default is false
-                            canHandlePendingAuthorization: this.canHandlePendingAuthorization // default is false
+                            captureNow: this.captureNow // default is false
                         };
                     }
                     if (simulationCode && simulationCode[0] === 'Charge') {

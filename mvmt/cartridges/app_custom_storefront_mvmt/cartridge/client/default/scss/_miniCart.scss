@@ -33,12 +33,17 @@
             flex-direction: column;
             width: 90%;
             max-width: 90%;
-            height: calc(100vh - 54px);
-            max-height: 100%;
+            max-height: 93.1%;
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
-            top: rem(54);
+        }
+        
+        &.afterSticky {
+            @include media-breakpoint-down(md) {
+                height: calc(100vh - 54px) !important;
+                top: rem(54) !important;
+            }
         }
 
         @include media-breakpoint-down(xs) {
@@ -598,7 +603,7 @@
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
-                    padding: rem(14) rem(16);
+                    padding: rem(10) rem(16);
                 }
 
                 &-label, &-value {
@@ -732,6 +737,10 @@
                         .apple-pay-btn, .checkout-btn {
                             flex: 1;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+
+                        .checkout-btn {
+                            margin-bottom: rem(10);
                         }
 
                         .apple-pay-btn {
@@ -997,6 +1006,10 @@
             }
         }
     }
+}
+
+.footer-form-overlay {
+    height: 100vh;
 }
 
 .empty-mini-cart {
