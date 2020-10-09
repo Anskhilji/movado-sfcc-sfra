@@ -1,0 +1,31 @@
+<isscript> 
+	var merchantDomainAddressOnRiskified : String = dw.system.Site.getCurrent().preferences.custom.merchantDomainAddressOnRiskified; 
+</isscript>
+<iscomment> Changed type and add class for consent cookies </iscomment>
+<script type="text/plain" class="optanon-category-C0003">
+	//<![CDATA[
+	(function() {
+		function riskifiedBeaconLoad() {
+			
+			var store_domain = '${merchantDomainAddressOnRiskified}';
+			var session_id = '${session.sessionID}';
+			var url = ('https:' == document.location.protocol ? 'https://'
+					: 'http://')
+					+ "beacon.riskified.com?shop="
+					+ store_domain
+					+ "&sid="
+					+ session_id;
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.async = true;
+			s.src = url;
+			var x = document.getElementsByTagName('script')[0];
+			x.parentNode.insertBefore(s, x);
+		}
+		if (window.attachEvent)
+			window.attachEvent('onload', riskifiedBeaconLoad)
+		else
+			window.addEventListener('load', riskifiedBeaconLoad, false);
+	})();
+	//]]>
+</script>
