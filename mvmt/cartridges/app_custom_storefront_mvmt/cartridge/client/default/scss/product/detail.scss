@@ -2223,6 +2223,12 @@
         bottom: 0;
         top: calc(50% - 30px);
         left: calc(50% - 30px);
+        border-color: transparent;
+
+        svg {
+            width: rem(15);
+            height: rem(15);
+        }
     }
 
     .video-btn {
@@ -2285,7 +2291,7 @@
         display: flex;
         height: rem(48);
         font-size: rem(12);
-        font-weight: 500;
+        font-weight: 600;
         justify-content: center;
         letter-spacing: rem(1.6);
         text-transform: uppercase;
@@ -2293,10 +2299,15 @@
         width: max-content;
         width: -webkit-max-content;
         width: -moz-max-content;
+        font-family: $font-medium;
 
         &:hover {
             text-decoration: none;
         }
+    }
+
+    .loaded {
+        width: 99%;
     }
 
     @include media-breakpoint-up(md) {
