@@ -14,5 +14,6 @@
 	        };
 	})(window['adrum-config'] || (window['adrum-config'] = {}));
 	</script>
+	<iscomment> Changed type and add class for consent cookies </iscomment>
 	<script type="text/plain" class="optanon-category-C0002" src='${pdict.eumURL}'></script>
 </isif>

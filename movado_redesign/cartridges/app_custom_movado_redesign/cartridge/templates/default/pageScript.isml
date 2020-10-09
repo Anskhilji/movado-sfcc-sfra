@@ -1,4 +1,5 @@
 <isif condition="${pdict.userPageName !== null}">
+<iscomment> Changed type and add class for consent cookies </iscomment>
 	<script charset='UTF-8' type="text/plain" class="optanon-category-C0002">
 	    (function(config) {
 	        (function (info) {
