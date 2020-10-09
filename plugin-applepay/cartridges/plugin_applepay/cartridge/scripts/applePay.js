@@ -111,14 +111,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     
     var isBillingPostalNotValid = !postalCodeBillingRegex.test(order.billingAddress.postalCode);
     if (empty(order.billingAddress.firstName) || empty(order.billingAddress.lastName) || empty(order.billingAddress.address1) || isBillingPostalNotValid || empty(order.billingAddress.city)) {
-    	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+        addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
         Logger.error('There is something missing or invalid in billing address for order: {0}', order.orderNo);
     }
 
     var orderShippingAddress = order.shipments[0].getShippingAddress();
     var isShippingPostalNotValid = !postalCodeShippingRegex.test(orderShippingAddress.postalCode);
     if (empty(orderShippingAddress.firstName) || empty(orderShippingAddress.lastName) || empty(orderShippingAddress.address1) || isShippingPostalNotValid || empty(orderShippingAddress.city)) {
-    	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+        addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
         Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
     }
 
