@@ -110,8 +110,37 @@ server.replace(
             var requestAction = req.querystring.action;
             var qsConnector = requestAction.indexOf('?') >= 0 ? '&' : '?';
 
+            if (empty(requestAction)) {
+                requestAction = 'Home-Show';
+            }
+
             try {
-                redirectUrl = request.getHttpReferer();
+                redirectUrl = URLUtils.url(requestAction).toString();
+                // Custom Start: Added logic to generate SEO URL's for category search
+                if (requestAction === 'search' || requestAction === 'Search-Show') {
+                    redirectUrl = URLUtils.url(requestAction);
+                    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule'];
+
+                    Object.keys(queryStringObj).forEach(function (element) {
+                        if (whitelistedParams.indexOf(element) > -1) {
+                            redirectUrl.append(element, queryStringObj[element]);
+                            delete queryStringObj[element];
+                        }
+
+                        if (element === 'preferences') {
+                            var i = 1;
+                            Object.keys(queryStringObj[element]).forEach(function (preference) {
+                                redirectUrl.append('prefn' + i, preference);
+                                redirectUrl.append('prefv' + i, queryStringObj[element][preference]);
+                                delete queryStringObj[element][preference];
+                                i++;
+                            });
+                        }
+
+                    });
+                }
+                // Custom End
+
                 if (empty(redirectUrl)) {
                     redirectUrl = URLUtils.url('Home-Show').toString();
 
@@ -119,18 +148,12 @@ server.replace(
                     ? redirectUrl += queryStringObj.toString()
                     : redirectUrl += qsConnector + queryStringObj.toString();
                 } else {
-                    // Removing country param from redirect URL
-                    var countryParam = redirectUrl.search('country');
-                    if (countryParam >= 0) {
-                        redirectUrl = redirectUrl.replace(/#.*$/, '').replace(/\?.*$/, '');
-
-                        redirectUrl = Object.keys(queryStringObj).length === 0
-                        ? redirectUrl += queryStringObj.toString()
-                        : redirectUrl += qsConnector + queryStringObj.toString();
-                    }
+                    redirectUrl = Object.keys(queryStringObj).length === 0
+                    ? redirectUrl += queryStringObj.toString()
+                    : redirectUrl += qsConnector + queryStringObj.toString();
                 }
             } catch (ex) {
-                Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1}', redirectUrl, req.querystring.action);
+                Logger.error('Unable to determine current incoming path for referer: {0}, Sending country switch request to: {1} and exception is: {2}', redirectUrl, req.querystring.action, ex);
                 redirectUrl = URLUtils.url('Home-Show').toString();
                 if (!empty(req.querystring.action)) {
                     redirectUrl = URLUtils.url(req.querystring.action).toString();
