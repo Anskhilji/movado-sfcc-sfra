@@ -106,19 +106,20 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
     }
-    var postalCodeBillingRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
-    var postalCodeShippingRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
+    var postalCodeRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
     
-    var isBillingPostalNotValid = !postalCodeBillingRegex.test(order.billingAddress.postalCode);
+    var isBillingPostalNotValid = !postalCodeRegex.test(order.billingAddress.postalCode);
     if (empty(order.billingAddress.firstName) || empty(order.billingAddress.lastName) || empty(order.billingAddress.address1) || isBillingPostalNotValid || empty(order.billingAddress.city)) {
         addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+        deliveryValidationFail = true;
         Logger.error('There is something missing or invalid in billing address for order: {0}', order.orderNo);
     }
 
     var orderShippingAddress = order.shipments[0].getShippingAddress();
-    var isShippingPostalNotValid = !postalCodeShippingRegex.test(orderShippingAddress.postalCode);
+    var isShippingPostalNotValid = !postalCodeRegex.test(orderShippingAddress.postalCode);
     if (empty(orderShippingAddress.firstName) || empty(orderShippingAddress.lastName) || empty(orderShippingAddress.address1) || isShippingPostalNotValid || empty(orderShippingAddress.city)) {
         addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+        deliveryValidationFail = true;
         Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
     }
 
