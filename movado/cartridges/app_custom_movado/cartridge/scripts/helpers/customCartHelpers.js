@@ -285,6 +285,10 @@ function getCountrySwitch() {
             var selectedCountryCode = eswHelper.getAvailableCountry();
             var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
         
+            if (empty(selectedCountry) && empty(selectedCountry.siteId)) {
+                return false;
+            }
+
             if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
                 return selectedCountry;
             }
