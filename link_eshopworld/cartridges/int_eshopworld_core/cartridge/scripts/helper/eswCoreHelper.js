@@ -739,7 +739,9 @@ var getEswHelper = {
                 selectedFxRate = fxRates.filter(function (rates) {
                     return rates.toShopperCurrencyIso == overrideCountry[0].currencyCode;
                 });
-            } else {
+            }
+
+            if (empty(fxRates) || empty(selectedFxRate)) {
                 var currencyFxRate = {
                     'fromRetailerCurrencyIso': this.getBaseCurrencyPreference(),
                     'rate': '1',
