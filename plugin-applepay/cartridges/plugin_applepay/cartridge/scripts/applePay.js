@@ -136,7 +136,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
         }
     } catch(e) {
-    	Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
+        Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
     hooksHelper(
         'app.fraud.detection.create',
