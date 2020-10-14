@@ -50,8 +50,8 @@ function comparePostalCode(address) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
-	var isBillingPostalNotValid;
-	var orderShippingAddress;
+    var isBillingPostalNotValid;
+    var orderShippingAddress;
     var isShippingPostalNotValid;
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
