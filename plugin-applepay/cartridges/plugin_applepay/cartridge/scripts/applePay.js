@@ -37,7 +37,7 @@ function comparePoBox(address) {
  */
 function comparePostalCode(address) {
     var postalCodeRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
-    var results = postalCodeRegex.test(address);
+    var results = !postalCodeRegex.test(address);
     return results;
 }
 
