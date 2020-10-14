@@ -17,3 +17,6 @@
 ## Checkout.js
 - Line No: Start from 142 to 144
 - Line No: Start from 182 to 197
+
+## amazon_pay.js
+- Line No: 32
