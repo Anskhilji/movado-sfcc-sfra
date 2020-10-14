@@ -31,6 +31,17 @@ function comparePoBox(address) {
 }
 
 /**
+ * This method is used for checking for Postal Code validation in the address passed as parameter.
+ * @param address
+ * @returns results
+ */
+function comparePostalCode(address) {
+    var postalCodeRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
+    var results = !postalCodeRegex.test(address);
+    return results;
+}
+
+/**
  *	After Authorization Order Payment hook implementation for Apple pay
  * @param order
  * @param payment
@@ -39,7 +50,9 @@ function comparePoBox(address) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
-    
+    var isBillingPostalNotValid;
+    var orderShippingAddress;
+    var isShippingPostalNotValid;
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -105,6 +118,25 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     if (!isAllowedCountryCode(billCountryCode) && !deliveryValidationFail) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
+    }
+    try {
+        isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
+        if (empty(order.billingAddress.firstName) || empty(order.billingAddress.lastName) || empty(order.billingAddress.address1) || isBillingPostalNotValid || empty(order.billingAddress.city)) {
+            addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+            deliveryValidationFail = true;
+            Logger.error('There is something missing or invalid in billing address for order: {0}', order.orderNo);
+        }
+        if (order.shipments.length) { 
+            orderShippingAddress = order.shipments[0].getShippingAddress();
+            isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
+        }
+        if (empty(orderShippingAddress.firstName) || empty(orderShippingAddress.lastName) || empty(orderShippingAddress.address1) || isShippingPostalNotValid || empty(orderShippingAddress.city)) {
+            addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+            deliveryValidationFail = true;
+            Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
+        }
+    } catch(e) {
+        Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
     hooksHelper(
         'app.fraud.detection.create',
