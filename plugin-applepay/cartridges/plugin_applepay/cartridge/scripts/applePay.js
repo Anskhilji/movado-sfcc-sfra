@@ -128,8 +128,8 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
         if (order.shipments.length) { 
             orderShippingAddress = order.shipments[0].getShippingAddress();
+            isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
         }
-        isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
         if (empty(orderShippingAddress.firstName) || empty(orderShippingAddress.lastName) || empty(orderShippingAddress.address1) || isShippingPostalNotValid || empty(orderShippingAddress.city)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
             deliveryValidationFail = true;
