@@ -1,6 +1,6 @@
 <iscomment> Custom Start: Amazon Pay Integeration and other express methods </iscomment>
 <isset name="paypalButtonImg" value="${require('*/cartridge/scripts/helpers/customCartHelpers').getContentAssetContent('ca-paypal-button')}" scope="page" />
-<div class="shipping-express-checkout ${pdict.order.amzPayRedirectURL ? 'd-none' : ''}">
+<div class="shipping-express-checkout ${pdict.currentStage === 'placeOrder' ? 'd-none' : ''}">
     <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
     <div class="shipping-express-checkout-buttons">
         <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>

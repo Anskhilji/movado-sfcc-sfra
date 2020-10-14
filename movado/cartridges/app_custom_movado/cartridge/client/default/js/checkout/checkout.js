@@ -176,6 +176,9 @@ var formHelpers = require('base/checkout/formErrors');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
 
+                  if($(".shipping-express-checkout").length && $(".shipping-express-checkout").is(":visible")) {
+                    $(".shipping-express-checkout").addClass('d-none');
+                  }
                   $('body').trigger('checkout:serializeBilling', {
                       form: $('#dwfrm_billing'),
                       data: paymentForm,
@@ -286,10 +289,7 @@ var formHelpers = require('base/checkout/formErrors');
 
                   if ($('.payment-details .amazon-pay-option').length) {
                       window.location.replace($('.place-order').data('action'));
-                      if($(".shipping-express-checkout").length && $(".shipping-express-checkout").is(":visible")) {
-                        $(".shipping-express-checkout").addClass('d-none');
-                    } 
-                  }
+                  } 
 
                   $.ajax({
                       beforeSend: function() {
