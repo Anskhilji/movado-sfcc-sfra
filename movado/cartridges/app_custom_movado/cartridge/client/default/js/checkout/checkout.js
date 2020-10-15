@@ -176,6 +176,9 @@ var formHelpers = require('base/checkout/formErrors');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
 
+                  if($('.shipping-express-checkout').length && $('.shipping-express-checkout').is(':visible')) {
+                    $('.shipping-express-checkout').addClass('d-none');
+                  }
                   $('body').trigger('checkout:serializeBilling', {
                       form: $('#dwfrm_billing'),
                       data: paymentForm,
@@ -366,10 +369,16 @@ var formHelpers = require('base/checkout/formErrors');
                   if (!$('#checkout-main').hasClass('multi-ship')) {
                       $('body').trigger('shipping:selectSingleShipping');
                   }
+                  if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
+                    $('.shipping-express-checkout').removeClass('d-none');
+                  }
                   members.gotoStage('shipping');
               });
 
               $('.payment-summary .edit-button', plugin).on('click', function () {
+                  if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
+                      $('.shipping-express-checkout').removeClass('d-none');
+                  }  
                   members.gotoStage('payment');
               });
 
