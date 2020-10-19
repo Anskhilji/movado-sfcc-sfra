@@ -121,16 +121,24 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     }
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
-        if (empty(order.billingAddress.firstName) || empty(order.billingAddress.lastName) || empty(order.billingAddress.address1) || isBillingPostalNotValid || empty(order.billingAddress.city)) {
+        var billingAddressFirstName = order.billingAddress.firstName.trim();
+        var billingAddressLastName = order.billingAddress.lastName.trim();
+        var billingAddressAddress1 = order.billingAddress.address1.trim();
+        var billingAddressCity = order.billingAddress.city.trim();
+        if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
             deliveryValidationFail = true;
             Logger.error('There is something missing or invalid in billing address for order: {0}', order.orderNo);
         }
-        if (order.shipments.length) { 
+        if (order.shipments.length) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
+            var shippingAddressFirstName = orderShippingAddress.firstName.trim();
+            var shippingAddressLastName = orderShippingAddress.lastName.trim();
+            var shippingAddressAddress1 = orderShippingAddress.address1.trim();
+            var shippingAddressCity = orderShippingAddress.city.trim();
         }
-        if (empty(orderShippingAddress.firstName) || empty(orderShippingAddress.lastName) || empty(orderShippingAddress.address1) || isShippingPostalNotValid || empty(orderShippingAddress.city)) {
+        if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
             deliveryValidationFail = true;
             Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
