@@ -73,7 +73,6 @@ $(document).ready(function () {
 
 // Hide email pop up 
 function hideEmailPopUpModal() {
-    var formContainer = $('.news-letter-subscribe-control').data('sfmc-form-container');
     var $thankYouContainer = $('.thankyou-opened');
     $('.email-optin-control').addClass('d-none');
     $('.thankyou-note-control').removeClass('popup-form d-none');
@@ -81,7 +80,8 @@ function hideEmailPopUpModal() {
     $('.email-popup .quick-view-dialog').addClass('popup-message');
     $('.thankyou-note-control #emailOptInPopUp_Button').focus();
     if ($thankYouContainer.length > 0) {
-        $(formContainer).hide();
+        $('.disable-full-popup-hide').addClass('d-none');
+        $('.email-popup-thanku-note').removeClass('d-none');
     }
     setTimeout(function() {
         $(".thankyou-opened").click(function () {
