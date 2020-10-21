@@ -15,8 +15,6 @@ processInclude(require('movado/components/clientSideValidation'));
 processInclude(require('base/components/countrySelector'));
 processInclude(require('movado/welcomeMat/welcomeMatModal'));
 processInclude(require('movado/components/mod_video'));
-processInclude(require('movado/product/compare'));
-processInclude(require('movado/product/wishlistHeart'));
 processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 
