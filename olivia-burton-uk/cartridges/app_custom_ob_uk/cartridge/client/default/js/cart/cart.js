@@ -925,7 +925,26 @@ module.exports = function () {
 
     $('body').on('keyup', '.gift-text', function () {
         enterGiftMessageHandler($(this));
+  
     });
+
+    $('body').on('keypress','.gift-text', function(event) {
+        var text = $('textarea').val();
+        var lines = text.split("\n");
+        var currentLine = this.value.substr(0, this.selectionStart).split("\n").length;
+        console.log(lines);
+        console.log(currentLine);
+        console.log(lines[currentLine-1]);
+        if(event.keyCode == 13) {
+        if (lines.length >= $(this).attr('rows'))
+            return false;
+        }
+        else if(lines[currentLine-1].length >= $(this).attr('cols')) {
+            return false; // prevent characters from appeang
+        }
+    });
+
+
     $('body').on('click', '.product-move .move', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
