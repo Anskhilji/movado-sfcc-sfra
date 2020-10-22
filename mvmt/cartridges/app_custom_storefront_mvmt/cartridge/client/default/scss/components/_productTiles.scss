@@ -177,6 +177,7 @@
         .product-brand-info {
             font-size: rem(9);
             color: $light-gray2;
+            text-transform: uppercase;
             line-height: rem(12);
             min-height: rem(12);
             @include font-medium;
