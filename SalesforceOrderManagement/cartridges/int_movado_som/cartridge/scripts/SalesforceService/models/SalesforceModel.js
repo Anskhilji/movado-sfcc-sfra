@@ -208,7 +208,8 @@ var SalesforceModel = ({
                 Operation_Start_Time__c: req.operationStartTime,
                 Operation_End_Time__c: Date.now(),
                 Data_Input__c: req.dataInput,
-                Data_Output__c: req.dataOutput
+                Data_Output__c: req.dataOutput,
+                Status_Description__c: req.statusDescription || ''
             }
         };
         return requestData;
