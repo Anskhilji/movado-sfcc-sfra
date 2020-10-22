@@ -15,6 +15,7 @@ var _ = require('*/cartridge/scripts/libs/underscore');
 var OrderStatusCapture = require('*/cartridge/scripts/jobs/orderStatusCapture');
 var OrderStatusVoid = require('*/cartridge/scripts/jobs/orderStatusVoid');
 var OrderStatusRefund = require('*/cartridge/scripts/jobs/orderStatusRefund');
+var OrderStatusNotification = require('*/cartridge/scripts/jobs/orderStatusNotification');
 
 /**
  * parseOrderStatus Grabs an order status file and parses it to be
@@ -148,6 +149,20 @@ function processStatusOrder(SAPOrderStatus) {
             // Process refunds
             return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
 
+        case 'REJECTION':
+            // Notification for refunds
+            return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+
+        case 'CANCELLATION':
+            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                case 'RETURN':
+                    // Notification for refunds
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                default:
+                    Logger.error('Unknown EventType for CANCELLATION TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType);
+                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType CANCELLATION: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+            }
+
         case 'UPDATE':
             switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
                 case 'FREE':
@@ -156,6 +171,10 @@ function processStatusOrder(SAPOrderStatus) {
                     return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
                 case 'CANCELLATION':
                     return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                case 'RETURN':
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                case 'UNDELIVERABLE':
+                    return OrderStatusNotification.processStatusNotification(SAPOrderStatus, fulfillmentOrder);
                 default:
                     return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType UPDATE: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
             }
