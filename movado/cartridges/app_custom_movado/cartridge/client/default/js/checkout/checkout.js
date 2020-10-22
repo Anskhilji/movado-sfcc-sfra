@@ -228,6 +228,10 @@ var formHelpers = require('base/checkout/formErrors');
                                   data.fieldErrors.forEach(function (error) {
                                       if (Object.keys(error).length) {
                                         formHelpers.loadFormErrors('.payment-form', error);
+                                        var $billingFormMode = $('#dwfrm_billing').attr('data-address-mode');
+                                        if ( $billingFormMode !== 'details') {
+                                            $('#dwfrm_billing').attr('data-address-mode', 'details');
+                                        }
                                     }
                                   });
                                   var scrollUtil = require('../utilities/scrollUtil');
