@@ -932,11 +932,12 @@ module.exports = function () {
         var lines = text.split("\n");
         var currentLine = this.value.substr(0, this.selectionStart).split("\n").length;
         if (event.keyCode == 13) {
-        if (lines.length >= $(this).attr('rows'))
-            return false;
+             if (lines.length >= $(this).attr('rows')) {
+             return false;
+             }
         }
         else if (lines[currentLine-1].length >= $(this).attr('cols')) {
-            return false; 
+             return false; 
         }
     });
 
