@@ -32,8 +32,12 @@ function updateBillingAddressSelector(order, customer) {
         }
     ));
 
-        shippings.forEach(function (aShipping) {
-            var isSelected = order.billing.matchingAddressId === aShipping.UUID;
+        shippings.forEach(function (aShipping, index) {
+            var isSelected = false;
+            if (index == 0) {
+                isSelected = true;
+            }
+            
             hasSelectedAddress = hasSelectedAddress || isSelected;
       // Shipping Address option
             $billingAddressSelector.append(
@@ -48,10 +52,9 @@ function updateBillingAddressSelector(order, customer) {
 
         if (customer.addresses && customer.addresses.length > 0) {
             $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-          order.resources.accountAddresses, false, order));
+            order.resources.accountAddresses, false, order));
             customer.addresses.forEach(function (address) {
-                var isSelected = order.billing.matchingAddressId === address.ID;
-                hasSelectedAddress = hasSelectedAddress || isSelected;
+                var isSelected = false;
         // Customer Address option
                 $billingAddressSelector.append(
             addressHelpers.methods.optionValueForAddress({
@@ -80,22 +83,22 @@ function updateBillingAddressSelector(order, customer) {
  */
 function updateBillingAddressFormValues(order) {
     var billing = order.billing;
-    if (!billing.billingAddress || !billing.billingAddress.address) return;
+    var shipping = order.shipping[0];
+    if (!billing.billingAddress || !billing.billingAddress.address || !shipping.shippingAddress || !shipping.shippingAddress.address1) return;
 
     var form = $('form[name=dwfrm_billing]');
     if (!form) return;
 
-    $('input[name$=_firstName]', form).val(billing.billingAddress.address.firstName);
-    $('input[name$=_lastName]', form).val(billing.billingAddress.address.lastName);
-    $('input[name$=_companyName]', form).val(billing.billingAddress.address.companyName);
-    $('input[name$=_address1]', form).val(billing.billingAddress.address.address1);
-    $('input[name$=_address2]', form).val(billing.billingAddress.address.address2);
-    $('input[name$=_city]', form).val(billing.billingAddress.address.city);
-    $('input[name$=_postalCode]', form).val(billing.billingAddress.address.postalCode);
-    $('select[name$=_stateCode],input[name$=_stateCode]', form)
-  .val(billing.billingAddress.address.stateCode);
-    $('select[name$=_country]', form).val(billing.billingAddress.address.countryCode.value);
-    $('input[name$=_phone]', form).val(billing.billingAddress.address.phone);
+    $('input[name$=_firstName]', form).val(shipping.shippingAddress.firstName);
+    $('input[name$=_lastName]', form).val(shipping.shippingAddress.lastName);
+    $('input[name$=_companyName]', form).val(shipping.shippingAddress.companyName);
+    $('input[name$=_address1]', form).val(shipping.shippingAddress.address1);
+    $('input[name$=_address2]', form).val(shipping.shippingAddress.address2);
+    $('input[name$=_city]', form).val(shipping.shippingAddress.city);
+    $('input[name$=_postalCode]', form).val(shipping.shippingAddress.postalCode);
+    $('select[name$=_stateCode],input[name$=_stateCode]', form).val(shipping.shippingAddress.stateCode);
+    $('select[name$=_country]', form).val(shipping.shippingAddress.countryCode.value);
+    $('input[name$=_phone]', form).val(shipping.shippingAddress.phone);
     $('input[name$=_email]', form).val(order.orderEmail);
 
     if (billing.payment && billing.payment.selectedPaymentInstruments

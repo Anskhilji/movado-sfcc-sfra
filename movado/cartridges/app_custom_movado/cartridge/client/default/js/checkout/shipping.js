@@ -493,6 +493,7 @@ function createErrorNotification(message) {
  */
 function shippingFormResponse(defer, data) {
     var isMultiShip = $('#checkout-main').hasClass('multi-ship');
+    var $shippingFormMode = $('.shipping-form').attr('data-address-mode');
     var formSelector = isMultiShip
         ? '.multi-shipping .active form'
         : '.single-shipping form';
@@ -503,6 +504,9 @@ function shippingFormResponse(defer, data) {
             data.fieldErrors.forEach(function (error) {
                 if (Object.keys(error).length) {
                     formHelpers.loadFormErrors(formSelector, error);
+                    if ( $shippingFormMode !== 'details') {
+                        $('.shipping-form').attr('data-address-mode', 'details');
+                    }
                 }
                 var scrollUtil = require('../utilities/scrollUtil');
                 scrollUtil.scrollInvalidFields(formSelector, -80, 300);
