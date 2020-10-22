@@ -55,9 +55,9 @@ function getFirstProductLineItem(productLineItemsModel) {
     if (productLineItemsModel && productLineItemsModel.items[0]) {
         var firstItemImage = productLineItemsModel.items[0].images.small[0];
         return {
-            imageURL: 'test',
-            alt: 'test',
-            title: 'test'
+            imageURL: firstItemImage.url,
+            alt: firstItemImage.alt,
+            title: firstItemImage.title
         };
     }
     return null;

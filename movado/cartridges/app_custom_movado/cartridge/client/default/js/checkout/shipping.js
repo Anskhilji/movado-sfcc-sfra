@@ -506,6 +506,7 @@ function shippingFormResponse(defer, data) {
                     formHelpers.loadFormErrors(formSelector, error);
                     if ( $shippingFormMode !== 'details') {
                         $('.shipping-form').attr('data-address-mode', 'details');
+                        $('.btn-show-details').click();
                     }
                 }
                 var scrollUtil = require('../utilities/scrollUtil');
