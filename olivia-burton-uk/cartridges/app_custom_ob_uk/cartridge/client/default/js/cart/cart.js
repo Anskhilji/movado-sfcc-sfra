@@ -927,16 +927,20 @@ module.exports = function () {
         enterGiftMessageHandler($(this));
     });
 
+
     $('body').on('keypress','.gift-text', function(event) {
         var text = $('textarea').val();
+        var maxchars=140;
+        var rows = $('textarea').attr('rows');
+        var perlinechars = maxchars/rows;
         var lines = text.split("\n");
         var currentLine = this.value.substr(0, this.selectionStart).split("\n").length;
         if (event.keyCode == 13) {
              if (lines.length >= $(this).attr('rows')) {
-             return false;
+                 return false;
              }
         }
-        else if (lines[currentLine-1].length >= $(this).attr('cols')) {
+        else if (lines[currentLine-1].length >= perlinechars) {
              return false; 
         }
     });

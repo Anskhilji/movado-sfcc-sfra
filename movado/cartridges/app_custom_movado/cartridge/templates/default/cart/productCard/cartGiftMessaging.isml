@@ -21,7 +21,7 @@
     
         <div class="gift-message-wrapper mb-3">
             <div class="form-group gift-textarea">
-                <textarea rows="6" name="giftMessageText" class="form-control gift-text mb-1"
+                <textarea rows="6" name="giftMessageText" class="form-control gift-text mb-1 textarea"
                     aria-label="${pdict.giftMessaging.giftTextPlaceholder}" col="35"
                     placeholder="${pdict.giftMessaging.giftTextPlaceholder}" data-format-error="" data-required-error=""
                     data-row-max="6"
