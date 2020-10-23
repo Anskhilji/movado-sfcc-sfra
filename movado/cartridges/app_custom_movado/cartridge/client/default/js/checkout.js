@@ -35,7 +35,7 @@ $(document).ready(function() { // eslint-disable-line
 
     var checkedPaymentMethod = $('input[name = "paymentOption"]:checked');
 
-    if (checkedPaymentMethod) {
+    if (checkedPaymentMethod && checkedPaymentMethod.attr('id') !== Resources.CREDIT_CARD_PAYMENT_METHOD_ID) {
         $(checkedPaymentMethod).trigger('click');
     }
 
