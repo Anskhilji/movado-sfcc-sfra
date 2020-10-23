@@ -242,6 +242,17 @@ var SalesforceModel = ({
             requestMethod: 'POST',
             requestData: requestData
         });
+    },
+    getOrderRecentByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress,
+            maxOrders: '1'
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
     }
 });
 
