@@ -927,7 +927,6 @@ module.exports = function () {
         enterGiftMessageHandler($(this));
     });
 
-
     $('body').on('keypress','.gift-text', function(event) {
         var text = $('textarea').val();
         var maxchars=140;
@@ -944,7 +943,6 @@ module.exports = function () {
              return false; 
         }
     });
-
 
     $('body').on('click', '.product-move .move', function (e) {
         e.preventDefault();
