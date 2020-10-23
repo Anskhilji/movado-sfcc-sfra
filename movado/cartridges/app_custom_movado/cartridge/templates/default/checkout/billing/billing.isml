@@ -16,7 +16,7 @@
         <h4>${Resource.msg('heading.payment', 'checkout', null)}</h4>
     </div>
     <div class="card-body">
-        <form autocomplete="on" method="POST" action="${action}"
+        <form autocomplete="on" method="POST" action="${action}" class="billing-form"
             data-address-mode="${addressMode}"
             <isprint value=${pdict.forms.billingForm.attributes} encoding="htmlsinglequote" /> novalidate>
 
