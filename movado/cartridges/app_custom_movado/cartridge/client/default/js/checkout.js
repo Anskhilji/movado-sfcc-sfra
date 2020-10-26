@@ -39,6 +39,11 @@ $(document).ready(function() { // eslint-disable-line
         $(checkedPaymentMethod).trigger('click');
     }
 
+    // trigger click event to save shipping address for register users by default
+    if ($('.data-checkout-stage').data('customer-type') === 'registered') {
+        $('.shipping-address .saveShippingAddress').trigger('click');
+    }
+
     // Avoid self toggle once a payment panel is expanded.
     $('a', $('.payment-options .form-check')).on('click', function (e) {
         $('#selectedPaymentOption').removeClass('is-invalid')
