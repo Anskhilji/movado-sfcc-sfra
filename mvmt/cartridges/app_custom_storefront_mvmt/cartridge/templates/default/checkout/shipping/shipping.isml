@@ -1,5 +1,7 @@
 <iscomment> Custom Start: Amazon Pay Integeration and other express methods </iscomment>
 <isset name="paypalButtonImg" value="${require('*/cartridge/scripts/helpers/customCartHelpers').getContentAssetContent('ca-paypal-button')}" scope="page" />
+<iscomment> Custom Start: Remove the express payment methods section from the checkout </iscomment>
+<iscomment>
 <div class="shipping-express-checkout ${pdict.currentStage === 'placeOrder' ? 'd-none' : ''}">
     <label class="shipping-express-checkout_label">${Resource.msg('checkout.shipping.express', 'checkout', null)}</label>
     <div class="shipping-express-checkout-buttons">
@@ -17,6 +19,8 @@
         </isif>
     </div>
 </div>
+</iscomment>
+<iscomment> Custom End </iscomment>
 <iscomment> Custom End </iscomment>
 <div class="shipping-section">
     <div class="single-shipping">
