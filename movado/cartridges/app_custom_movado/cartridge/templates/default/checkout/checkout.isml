@@ -118,8 +118,8 @@
                 <div class="row hidden-xs-down">
                 <div class="col-12">
                 <div class="text-center">
-                    <div><isslot id="checkout-help-text" description="Need Help" context="global" /></div>
-                    <div><isslot id="checkout-call-text" description="Call Now"  context="global" /> </div>
+                    <div><isslot id="checkout-need-help" description="Need Help Text" context="global" /></div>
+                    <div><isslot id="checkout-info-phone-number" description="Info Phone Number"  context="global" /> </div>
 
                 </div>
             </div>
