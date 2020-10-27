@@ -128,7 +128,7 @@ function getDiscountsHtml(discounts) {
  */
 function totals(lineItemContainer) {
     if (lineItemContainer) {
-        this.subTotal = getTotals(lineItemContainer.adjustedMerchandizeTotalNetPrice);
+        this.subTotal = getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
         this.totalShippingCost = getTotals(lineItemContainer.shippingTotalPrice);
         if (this.totalShippingCost === '-') {
             this.totalTax = '-';
