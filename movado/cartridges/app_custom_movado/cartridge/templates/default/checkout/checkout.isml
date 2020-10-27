@@ -118,8 +118,9 @@
                 <div class="row hidden-xs-down">
                 <div class="col-12">
                 <div class="text-center">
-                    <div>${Resource.msg('checkout.need.help','checkout',null)}</div>
-                    <div>${Resource.msg('checkout.help.call','checkout',null)} <a href="tel:${Resource.msg('info.phone.number','common',null)}">${Resource.msg('info.phone.number','common',null)}</a></div>
+                    <div><isslot id="checkout-help-text" description="Need Help" context="global" /></div>
+                    <div><isslot id="checkout-call-text" description="Call Now"  context="global" /> </div>
+
                 </div>
             </div>
         </div>
