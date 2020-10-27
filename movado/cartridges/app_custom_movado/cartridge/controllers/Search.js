@@ -251,6 +251,7 @@ server.append('UpdateGrid', function (req, res, next) {
     var marketingProductsData = [];
     var marketingProduct;
     var quantity = 0;
+    var marketingProductData;
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {

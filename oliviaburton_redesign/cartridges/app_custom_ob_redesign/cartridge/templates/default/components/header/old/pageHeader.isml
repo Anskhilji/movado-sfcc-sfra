@@ -11,7 +11,16 @@
                 <div class="left navbar-header">
                   <div class="hidden-md-down account-wrapper">
                     <isinclude url="${URLUtils.url('Account-Header')}"/>
-                    <isslot id="country-selector" description="country selector" context="global" />
+                    <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+                    <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
+                      <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                      !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                    <iselse>
+                      <isslot id="country-selector" description="country selector" context="global" />
+                    </isif>
+                    <iscomment> Custom End </iscomment>
                   </div>
                   <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse" aria-expanded="false">
                     <iscomment>

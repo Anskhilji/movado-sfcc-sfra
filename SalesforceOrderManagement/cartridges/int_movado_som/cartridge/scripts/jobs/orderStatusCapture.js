@@ -282,6 +282,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             orderSummaryId: orderSummaryId,
             fulfillmentOrderId: fulfillmentOrderId,
             operationComponent: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType,
+            statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType,
             operationStartTime: startTimeStamp,
             dataInput: JSON.stringify(SAPOrderStatus),
             dataOutput: JSON.stringify(requestCompositeItemsShipment)

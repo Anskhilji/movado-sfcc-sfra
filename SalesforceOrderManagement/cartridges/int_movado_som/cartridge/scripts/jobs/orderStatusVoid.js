@@ -171,7 +171,8 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             operationComponent: 'VOID/CANCELLATION',
             operationStartTime: startTimeStamp,
             dataInput: JSON.stringify(SAPOrderStatus),
-            dataOutput: JSON.stringify(pendingOSCancelChangeItems)
+            dataOutput: JSON.stringify(pendingOSCancelChangeItems),
+            statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType
         })
     );
 

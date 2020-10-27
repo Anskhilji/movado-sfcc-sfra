@@ -16,11 +16,13 @@ function toPriceModel(price) {
 
     if (formattedPrice) { decimalPrice = price.getDecimalValue().toString(); }
 
+    // Custom : Added an attribute of formattedPrice
     return {
         value: value,
         currency: currency,
         formatted: eswHelper.getMoneyObject(price, false),
-        decimalPrice: eswHelper.getMoneyObject(decimalPrice, false)
+        decimalPrice: eswHelper.getMoneyObject(decimalPrice, false),
+        formattedPrice: formattedPrice
     };
 }
 

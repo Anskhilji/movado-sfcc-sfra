@@ -50,6 +50,15 @@ footer {
   .copyright {
     letter-spacing: rem(0.4);
   }
+
+  .store {
+    .selectors {
+      .esw-country-selector-ob {
+        z-index: 99;
+      }
+    }
+  }
+
 }
 
 .home {
