@@ -26,18 +26,18 @@
                 </div>
             </div>
         </div>
-    <iselse>
-        <div class="shipping-express-checkout">
-            <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
-            <div class="shipping-express-checkout-buttons">
-                <div class="shipping-paypal-btn col">
-                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
-                       role="button" aria-pressed="true">
-                       <isprint value="${paypalButtonImg}" encoding="off" />
-                    </a>
-                    <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
-                </div>
+    </isif>
+<iselse>
+    <div class="shipping-express-checkout">
+        <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
+        <div class="shipping-express-checkout-buttons">
+            <div class="shipping-paypal-btn col">
+                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                   role="button" aria-pressed="true">
+                   <isprint value="${paypalButtonImg}" encoding="off" />
+                </a>
+                <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
             </div>
         </div>
-    </isif>
+    </div> 
 </isif>
