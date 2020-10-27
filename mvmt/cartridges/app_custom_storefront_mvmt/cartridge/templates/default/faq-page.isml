@@ -1,6 +1,7 @@
 <isdecorate template="common/layout/page">
     <isscript>
         var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/faq.css');
     </isscript>
     <isinclude template="/components/modules" sf-toolkit="off" />
     <div class="hero p-0">

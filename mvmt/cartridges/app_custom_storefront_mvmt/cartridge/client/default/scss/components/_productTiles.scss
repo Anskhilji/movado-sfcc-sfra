@@ -1,6 +1,13 @@
 .product-tile-redesign {
     margin: 0 0 rem(20);
 
+    .product-tag-content {
+
+        .exclusive-badges {
+            margin-top: 0;
+        }
+    }
+
     @include media-breakpoint-up(lg) {
         padding: rem(35) 0 rem(30);
     }
@@ -35,6 +42,24 @@
         position: relative;
         top: 0;
         transition: all .25s;
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+
+        @include media-breakpoint-up(lg) {
+            display: block;
+            height: auto;
+        }
+
+        .tile-body {
+
+            @include media-breakpoint-down(md) {
+                flex: 1;
+                display: flex;
+                flex-flow: column;
+                justify-content: space-between;
+            }
+        }
     }
 
     .image-container {
@@ -305,18 +330,31 @@
             height: rem(26);
         }
 
-        .product-tag {
+        
+        .badge {
             text-align: center;
             text-transform: uppercase;
             font-family: $font-medium;
             font-size: rem(8);
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: rem(1);
             display: inline-block;
+            margin-bottom: rem(10);
+            margin-right: rem(3);
             line-height: 1;
+            vertical-align: top;
             padding: rem(5) rem(10);
             height: rem(18);
-            vertical-align: top;
+            background-color: $black;
+            color: $white;
+            border-radius: 0;
+
+            @include media-breakpoint-up(sm) {
+                font-size: rem(12);
+                letter-spacing: rem(1.5);
+                padding: rem(7) rem(17);
+                height: rem(26);
+            }
 
             &.red-tag {
                 background-color: $speech-red;
@@ -331,43 +369,10 @@
                     padding: rem(7) rem(10);
                 }
             }
-
-            @include media-breakpoint-up(md) {
-                font-size: rem(12);
-                letter-spacing: 1.5px;
-                padding: rem(7) rem(17);
-                height: rem(26);
-            }
         }
 
         .exclusive-badges {
             margin-bottom: rem(16);
-
-            .badge {
-                text-align: center;
-                text-transform: uppercase;
-                font-family: $font-medium;
-                font-size: rem(8);
-                font-weight: 500;
-                letter-spacing: rem(1);
-                display: inline-block;
-                margin-bottom: rem(10);
-                margin-right: rem(3);
-                line-height: 1;
-                vertical-align: top;
-                padding: rem(5) rem(10);
-                height: rem(18);
-                background-color: $black;
-                color: $white;
-                border-radius: 0;
-
-                @include media-breakpoint-up(sm) {
-                    font-size: rem(12);
-                    letter-spacing: rem(1.5);
-                    padding: rem(7) rem(17);
-                    height: rem(26);
-                }
-            }
 
             @include media-breakpoint-down(xs) {
                 text-align: center;
@@ -409,4 +414,8 @@
             }
         }
     }
+}
+
+.product-tile, .product-tile-redesign {
+    height: 100%;
 }
