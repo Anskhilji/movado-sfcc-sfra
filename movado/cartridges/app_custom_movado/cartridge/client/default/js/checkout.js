@@ -35,6 +35,7 @@ $(document).ready(function() { // eslint-disable-line
 
     var checkedPaymentMethod = $('input[name = "paymentOption"]:checked');
 
+    // Custom Change: prevent from triggering if the payment method id is credit card
     if (checkedPaymentMethod && checkedPaymentMethod.attr('id') !== Resources.CREDIT_CARD_PAYMENT_METHOD_ID) {
         $(checkedPaymentMethod).trigger('click');
     }
