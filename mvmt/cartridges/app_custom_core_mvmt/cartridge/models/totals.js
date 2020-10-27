@@ -2,11 +2,7 @@
 'use strict';
 
 var formatMoney = require('dw/util/StringUtils').formatMoney;
-var collections = require('*/cartridge/scripts/util/collections');
-var HashMap = require('dw/util/HashMap');
-var Template = require('dw/util/Template');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-var BasketMgr = require('dw/order/BasketMgr');
 
 var base = module.superModule;
 
