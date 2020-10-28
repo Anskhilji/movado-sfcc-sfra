@@ -61,7 +61,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
-
+    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + product.ID;
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
@@ -82,7 +82,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             klarnaProductPrice: klarnaProductPrice,
             restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
             productPrice: productPrice,
-            eswModuleEnabled: eswModuleEnabled
+            eswModuleEnabled: eswModuleEnabled,
+            isSmartGiftURL: isSmartGiftURL
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
