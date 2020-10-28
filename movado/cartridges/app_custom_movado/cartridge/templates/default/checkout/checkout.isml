@@ -115,11 +115,11 @@
                 <!-- Help and Phone -->
                 <!----------------------------------------------------------------------------------->
 
-            <div class="row hidden-xs-down">
+                <div class="row hidden-xs-down">
                 <div class="col-12">
                     <div><isslot id="checkout-info-phone-number" description="Info Phone Number" context="global" /></div>
                 </div>
-            </div>
+        </div>
 
             </div>
         </div>
