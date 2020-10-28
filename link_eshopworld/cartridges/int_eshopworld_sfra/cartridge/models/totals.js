@@ -191,9 +191,13 @@ function totals(lineItemContainer) {
             }
             if (!orderHistoryFlag) {
                 this.subTotal = (isESWSupportedCountry) ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
+                // Custom change: subTotaladjustedNetPrice for MVMT with adjusted net price
+                this.subTotaladjustedNetPrice = (isESWSupportedCountry) ? formatMoney(eswHelper.getFinalOrderTotalsObject()) : getTotals(lineItemContainer.adjustedMerchandizeTotalNetPrice);
                 this.totalShippingCost = (isESWSupportedCountry) ? formatMoney(eswHelper.getMoneyObject(lineItemContainer.shippingTotalPrice, true, false, false)) : getTotals(lineItemContainer.shippingTotalPrice);
             } else {
                 this.subTotal = (eswShopperCurrencyCode != null) ? getCalculatedSubTotal(lineItemContainer, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false).decimalValue, lineItemContainer.getCurrencyCode());
+                // Custom change: subTotaladjustedNetPrice for MVMT with adjusted net price
+                this.subTotaladjustedNetPrice = (eswShopperCurrencyCode != null) ? getCalculatedSubTotal(lineItemContainer, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.adjustedMerchandizeTotalNetPrice.decimalValue, lineItemContainer.getCurrencyCode());
                 this.totalShippingCost = (eswShopperCurrencyCode != null) ? getOrderTotals(lineItemContainer.originalOrder.custom.eswShopperCurrencyDeliveryPriceInfo, eswShopperCurrencyCode) : getOrderTotals(lineItemContainer.shippingTotalPrice.decimalValue, lineItemContainer.getCurrencyCode());
             }
             if (this.totalShippingCost === '-') {
