@@ -23,9 +23,9 @@
 </isif>
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('isRakutenEnable')}">
     <isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
-    <isset name="optanonCategory" value="${require('*/cartridge/scripts/helpers/utils/Constants').OPTANON-CATEGORY-C0004}" scope="page" />
+    <isset name="Constants" value="${require('*/cartridge/scripts/helpers/utils/Constants').OPTANON-CATEGORY-C0004}" scope="page" />
     <!-- START Rakuten Marketing Tracking -->
-    <script charset='UTF-8' type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? 'optanonCategory' : ''}">
+    <script charset='UTF-8' type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? 'Constants.ONETRUST_TARGETING_COOKIES_CLASS' : ''}">
         (function (url) {
         /*Tracking Bootstrap Set Up DataLayer objects/properties here*/
         if(!window.DataLayer){
