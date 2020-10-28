@@ -117,7 +117,9 @@
 
                 <div class="row hidden-xs-down">
                 <div class="col-12">
-                    <div><isslot id="checkout-info-phone-number" description="Info Phone Number" context="global" /></div>
+                    <div class="text-center">
+                        <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                    </div>
                 </div>
         </div>
 
