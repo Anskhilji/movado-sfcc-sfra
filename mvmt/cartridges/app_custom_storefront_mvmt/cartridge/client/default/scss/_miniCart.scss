@@ -786,7 +786,7 @@
 
                             img {
                                 height: rem(30);
-                                width: rem(165);
+                                width: auto;
                             }
 
                              @include media-breakpoint-down(sm) {
