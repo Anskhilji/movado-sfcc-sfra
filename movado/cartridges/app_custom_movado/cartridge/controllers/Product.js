@@ -61,7 +61,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
-    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + product.ID;
+    var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
+    if(!smartGiftURL){
+        res.setStatusCode(404);
+        res.render('error/notFound');
+    }else{
+        var isSmartGiftURL = smartGiftURL + product.ID;
+    }    
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End

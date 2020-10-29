@@ -84,8 +84,14 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
     var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
     var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
-    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + product.ID;
-
+    var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
+    if(!smartGiftURL){
+        res.setStatusCode(404);
+        res.render('error/notFound');
+    }else{
+        var isSmartGiftURL = smartGiftURL + product.ID;
+    }    
+    
     /* get recommendations for product*/
     if (product) {
         if (product.priceModel.price.available) {
