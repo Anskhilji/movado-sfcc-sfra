@@ -506,6 +506,12 @@ function shippingFormResponse(defer, data) {
                     formHelpers.loadFormErrors(formSelector, error);
                     if ( $shippingFormMode !== 'details') {
                         $('.shipping-form').attr('data-address-mode', 'details');
+
+                        // trigger click event to save shipping address for register users by default
+                        if ($('.data-checkout-stage').data('customer-type') === 'registered') {
+                            $('.shipping-address .saveShippingAddress').trigger('click');
+                        }
+
                         $('.btn-show-details').click();
                     }
                 }
