@@ -61,13 +61,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
-    var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
-    if(!smartGiftURL){
-        res.setStatusCode(404);
-        res.render('error/notFound');
-    }else{
-        var isSmartGiftURL = smartGiftURL + product.ID;
-    }    
+    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + product.ID;
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
@@ -263,13 +257,15 @@ server.get('ShowCartButton', function (req, res, next) {
     
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        isSmartGiftURL: isSmartGiftURL
     });
     next();
 });

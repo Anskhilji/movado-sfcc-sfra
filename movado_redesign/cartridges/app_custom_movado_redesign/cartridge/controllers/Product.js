@@ -85,12 +85,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
     var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
     var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
-    if(!smartGiftURL){
-        res.setStatusCode(404);
-        res.render('error/notFound');
-    }else{
-        var isSmartGiftURL = smartGiftURL + product.ID;
-    }    
+    var isSmartGiftURL = smartGiftURL + product.ID;
+
     
     /* get recommendations for product*/
     if (product) {
