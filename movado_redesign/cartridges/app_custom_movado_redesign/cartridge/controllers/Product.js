@@ -87,7 +87,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
     var isSmartGiftURL = smartGiftURL + product.ID;
 
-    
     /* get recommendations for product*/
     if (product) {
         if (product.priceModel.price.available) {
