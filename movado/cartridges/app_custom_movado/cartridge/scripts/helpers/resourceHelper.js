@@ -30,7 +30,8 @@ function getResources(pageContext) {
         INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),
-        LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null)
+        LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
+        CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null)
     };
     return resources;
 }
