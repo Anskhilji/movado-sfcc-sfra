@@ -61,7 +61,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
     }
-    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + product.ID;
+
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
@@ -82,8 +82,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             klarnaProductPrice: klarnaProductPrice,
             restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
             productPrice: productPrice,
-            eswModuleEnabled: eswModuleEnabled,
-            isSmartGiftURL: isSmartGiftURL
+            eswModuleEnabled: eswModuleEnabled
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -257,7 +256,7 @@ server.get('ShowCartButton', function (req, res, next) {
     
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
-    var isSmartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL') + showProductPageHelperResult.product.id;
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
@@ -265,7 +264,7 @@ server.get('ShowCartButton', function (req, res, next) {
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-        isSmartGiftURL: isSmartGiftURL
+        smartGiftAddToCartURL : smartGiftAddToCartURL 
     });
     next();
 });

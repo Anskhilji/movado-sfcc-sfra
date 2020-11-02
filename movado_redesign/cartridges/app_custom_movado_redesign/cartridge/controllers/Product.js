@@ -84,8 +84,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
     var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
     var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
-    var smartGiftURL = Site.current.getCustomPreferenceValue('smartGiftURL');
-    var isSmartGiftURL = smartGiftURL + product.ID;
 
     /* get recommendations for product*/
     if (product) {
@@ -119,8 +117,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         wishlistGtmObj: wishlistGtmObj,
         youMayLikeRecommendations: youMayLikeRecommendations,
         eswModuleEnabled: eswModuleEnabled,
-        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
-        isSmartGiftURL: isSmartGiftURL
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
     }
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
