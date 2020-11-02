@@ -23,7 +23,7 @@ server.replace('ShowAvailability', function (req, res, next) {
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
         template = 'product/traditional/components/showAvailability';
     } else {
-        template = 'product/old/components/showAvailability';
+        template = 'product/components/showAvailability';
     }
     res.render(template, {
         product: showProductPageHelperResult.product
@@ -68,7 +68,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     } else if (ABTestMgr.isParticipant('MovadoRedesignPDPABTest','render-traditional-design')){
         template = 'product/traditional/productDetails';
     } else {
-        template = 'product/old/productDetails';
+        template = 'product/productDetails';
     }
 
     if (productType === 'bundle') {

@@ -2,5 +2,5 @@
 <isif condition="${pdict.isPLPProduct}">
     <isinclude template="product/components/addToCartProduct" />
 <iselse>
-    <isinclude template="product/old/components/addToCartProduct" />
+    <isinclude template="product/components/addToCartProductTraditional" />
 </isif>
