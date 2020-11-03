@@ -41,7 +41,8 @@ function getResources(pageContext) {
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         SLICK_BUTTON_MORE_STYLE: Resource.msg('label.button.more.style', 'common', null),
         YOTPO_REVIEW_COUNT: Site.getCurrent().getCustomPreferenceValue('yotpoReviewsCount'),
-        US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null)
+        US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
+        CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null)
     };
     return resources;
 }

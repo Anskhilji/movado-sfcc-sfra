@@ -110,7 +110,7 @@ server.replace(
             var requestAction = req.querystring.action;
             var qsConnector = requestAction.indexOf('?') >= 0 ? '&' : '?';
 
-            if (empty(requestAction)) {
+            if (empty(requestAction) || requestAction == '') {
                 requestAction = 'Home-Show';
             }
 

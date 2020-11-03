@@ -617,8 +617,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productTypeDataFeedWatch'])) {
-        if (product.jewelryStyle) {
-            productDetails.push(product.jewelryStyle);
+        if (product.jewelryType) {
+            productDetails.push(product.jewelryType);
         } else {
             productDetails.push("");
         }

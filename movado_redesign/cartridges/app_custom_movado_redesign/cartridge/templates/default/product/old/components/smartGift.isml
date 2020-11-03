@@ -1,4 +1,0 @@
-<div class="ml-0 mt-2 text-center ml-sm-0 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
-        <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn btn-outline-dark smartgift-btn-redesign mb-1" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
-        <p class="smartgift-bottom-text">${Resource.msg('button.smartgift.bottom.text', 'smartgift', null)}<p>
-</div>

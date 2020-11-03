@@ -759,6 +759,67 @@
                             margin: 0 rem(8) rem(8) rem(8);
                         }
                     }
+                    .shipping-express-checkout {
+
+                        .shipping-express-checkout_label {
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            border-bottom: rem(1) solid $black;
+                            line-height: rem(0);
+                            margin: rem(10) rem(15) rem(10) rem(15);
+
+                            .shipping-express-checkout_span {
+                                background: $white;
+                                padding: 0 rem(10);
+                           }
+                        }
+                       
+                        .paypal-btn {
+                            flex: 1;
+                            padding-top: rem(5);
+                            padding-bottom: rem(5);
+                        }
+
+                        .shipping-paypal-btn {
+                            display: flex;
+                            position: relative;
+
+                            img {
+                                height: rem(30);
+                                width: auto;
+                            }
+
+                             @include media-breakpoint-down(sm) {
+
+                                 img {
+                                     width: auto;
+                                     height: auto;
+                                 }
+                             }
+                        }
+                       
+                        .apple-pay-cart {
+                            flex: 1;
+                            font-weight: 600;
+                            font-size: rem(14);
+                            display: block;
+                            background-color: $black;
+                            color: $white;
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            line-height: 0.1em;
+                            margin: rem(3) rem(0) rem(0) rem(5);
+                            height: rem(35);
+                            padding: 0;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+
+                            .apple-pay-cart {
+                                height: rem(32);
+                            }
+                        }
+                    }
 
                     .paypal-btn {
                         background-color: $yellow;

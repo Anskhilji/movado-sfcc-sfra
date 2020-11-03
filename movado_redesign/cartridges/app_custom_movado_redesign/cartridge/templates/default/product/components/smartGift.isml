@@ -1,6 +1,4 @@
 <div class="ml-2 text-center ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
-    <div>
-        <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn btn-outline-dark smartgift-btn mb-1" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
-        <p class="smartgift-bottom-text">${Resource.msg('button.smartgift.bottom.text', 'smartgift', null)}<p>
-    </div>
+    <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn btn-outline-dark smartgift-btn mb-1" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
+    <p class="smartgift-bottom-text">${Resource.msg('button.smartgift.bottom.text', 'smartgift', null)}<p>
 </div>

@@ -32,7 +32,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/traditional/components/pidRating" />
+                            <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-12">
-	                       <isinclude template="product/traditional/components/badges" />
+	                       <isinclude template="product/components/badges" />
 	                    </div>
 	                </div>
 
@@ -90,7 +90,7 @@
                             </div>
 
 	                        <isif condition="${product.options && product.options.length > 0}">
-	                            <isinclude template="product/traditional/components/options" />
+	                            <isinclude template="product/components/options" />
 	                        </isif>
                             <div class = "d-none d-md-block">
                                 <isinclude template="util/affirmmodule_mf" />
@@ -125,12 +125,12 @@
 
 
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
-            <isinclude template="product/traditional/components/descriptionAndDetails" />
+            <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(product.id)}" scope="page" />
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
-            <isinclude template="product/traditional/components/youMayLikeRecommendation" />
+            <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
