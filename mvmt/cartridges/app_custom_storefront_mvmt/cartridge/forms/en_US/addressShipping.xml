@@ -72,10 +72,10 @@
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="10" max-length="20"
-           regexp="(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)"
+           regexp="(^(?!(?=(000-000-0000|0000000000)))(\(?(\+)([1]{1})?[-]?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)"
            missing-error="error.message.required"
            range-error="error.message.between10and20"
-           parse-error="error.message.parse.phone"/>
+           parse-error="error.message.parse.us.phone"/>
 
     <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
     <field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>
