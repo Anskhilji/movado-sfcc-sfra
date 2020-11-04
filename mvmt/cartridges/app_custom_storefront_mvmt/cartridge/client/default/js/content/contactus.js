@@ -8,7 +8,7 @@ module.exports = {
             var form = $(this);
             e.preventDefault();
             var url = form.attr('action');
-            var $messageContainer = $('.contactus-page');
+            var $messageContainer = $('.contact-tab-form-message');
             form.spinner().start();
             $.ajax({
                 url: url,
@@ -24,14 +24,14 @@ module.exports = {
                             .show()
                             .html(data.message);
                     }
-                    $form.hide();
+                    form.hide();
                     $('html, body').animate({
                         scrollTop: $('.contact-tab-callout-wrapper').offset().top
                     }, 250);
                 },
                 error: function (data) {
                     form.spinner().stop();
-                    $form.hide();
+                    form.hide();
                     $('html, body').animate({
                         scrollTop: $('.contact-tab-callout-wrapper').offset().top
                     }, 250);
