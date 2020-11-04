@@ -1,3 +1,4 @@
+<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
     <div class="home-email-signup"> 
@@ -23,6 +24,11 @@
     </div>
     <div class="container">
         <div class="footer-container row">
+            <isif condition="${enableUsablenetAccessibility}">
+                <div class="footer-item col-sm-3 hidden-md-up">
+                    <iscontentasset aid="ca-usablenet-mobile-link" />
+                </div>
+            </isif>
             <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-account" />
             </div>
