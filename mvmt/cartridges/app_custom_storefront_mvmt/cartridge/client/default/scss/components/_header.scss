@@ -1186,6 +1186,7 @@ header.new-header.mvmt-header-design {
   right: 0;
   text-decoration: underline;
   z-index: 999999;
+  font-size: rem(14);
   
   @include media-breakpoint-up(lg) {
     right: auto;

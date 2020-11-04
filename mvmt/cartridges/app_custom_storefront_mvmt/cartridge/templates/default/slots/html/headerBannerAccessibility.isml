@@ -2,9 +2,9 @@
 
 <isif condition="${slotcontent && !!slotcontent.content.length}"> 
     <isif condition="${enableUsablenetAccessibility}"> 
-        <a class="accessible-link UsableNetAssistive" tabindex="0"  href="#" onclick="return enableUsableNetAssistive()">
+        <a class="accessible-link UsableNetAssistive hidden-md-down" tabindex="0"  href="#" onclick="return enableUsableNetAssistive()">
             ${Resource.msg('enable.accessibility', 'common', null)}
-        </a>                      
+        </a>
     </isif>
     <div class="slide-up">
         <div class="container-fluid">
