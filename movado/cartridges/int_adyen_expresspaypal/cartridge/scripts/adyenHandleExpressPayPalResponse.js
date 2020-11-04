@@ -96,6 +96,13 @@ function execute(ccBasket, paymentProcessor, formData) {
 
             var paymentInstruments = ccBasket.getPaymentInstruments(PAYPAL);
             ccBasket.removeAllPaymentInstruments();
+ 
+            // Custom Start: Remove amazon redirect url from basket [MSS-1052]
+            if (!empty(ccBasket.custom.amzPayRedirectURL)) {
+                ccBasket.custom.amzPayRedirectURL = null;
+            }
+            // Custom End
+
             if (paymentMethod === PP_ECS) {
                 oderPaymentInstrument = ccBasket.createPaymentInstrument(PAYPAL, ccBasket.getTotalGrossPrice());
             } else {

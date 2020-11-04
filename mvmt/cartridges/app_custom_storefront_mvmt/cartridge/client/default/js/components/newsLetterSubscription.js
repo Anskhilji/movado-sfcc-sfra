@@ -40,6 +40,7 @@ var wrapperContainer = $('.submission-status');
  * @param object response
  **/
 function processSubscription(response) {
+    var formContainer = $(this).data('sfmc-form-container');
     $.spinner().stop();
     if ((typeof (response) === 'object')) {
         var topPercentage = top(true);
@@ -55,6 +56,9 @@ function processSubscription(response) {
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);
             }
             $('body').trigger('emailSubscribe:success', response.emailObj);
+            if (formContainer) {
+            	$(formContainer).hide();
+            }
         } else {
             $('.submission-status').removeClass('success').addClass('error');
             $('.footer-more-fields').css('top', topPercentage);

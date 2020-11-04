@@ -67,6 +67,14 @@ server.prepend('ShowConfirmation', server.middleware.https, function (req, res, 
                 klarnaPaymentMethod: session.custom.brandCode,
                 klarnaPaymentPspReference: klarnaPaymentVerifyResult.paymentVarificationResult.pspReference
             });
+            //Custom Start: Send order to swell
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+                var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                SwellExporter.exportOrder({
+                    orderNo: orderNumber,
+                    orderState: 'created'
+                });
+            }
         }
     }
 

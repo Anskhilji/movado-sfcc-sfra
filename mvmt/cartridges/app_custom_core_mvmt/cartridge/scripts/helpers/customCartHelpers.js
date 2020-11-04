@@ -48,7 +48,7 @@ function getVaraintSize(pli) {
     var variantSize = '';
     collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttribute) {
         if (variationAttribute.displayName.equalsIgnoreCase('Size')) {
-            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute).displayValue;
+            variantSize = pli.product.variationModel.getSelectedValue(variationAttribute) ? pli.product.variationModel.getSelectedValue(variationAttribute).displayValue : '';
         } else {
             variantSize = '';
         }
@@ -108,7 +108,7 @@ function removeFromCartGTMObj(productLineItems){
 
         collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
             if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
-                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes).displayValue;
+                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes) ? pli.product.variationModel.getSelectedValue(variationAttributes).displayValue : '';
             } else {
                 displayValue = '';
             }
@@ -132,32 +132,8 @@ function removeFromCartGTMObj(productLineItems){
     return cartItemObj;
 }
 
-function getCountrySwitch() {
-    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-    if (eswCustomHelper.isEshopworldModuleEnabled()) {
-        try {
-            var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-            var Site = require('dw/system/Site');
-            var selectedCountryCode = eswHelper.getAvailableCountry();
-            var selectedCountry = eswCustomHelper.getCustomCountryByCountryCode(selectedCountryCode);
-        
-            if (!empty(selectedCountry) && (selectedCountry.siteId !== Site.getCurrent().ID)) {
-                return selectedCountry;
-            }
-        
-            return false;
-        } catch (e) {
-            Logger.error('(customCartHelpers.js -> getCountrySwitch) Error occured while getting countrySwitch: ' + e + e.stack);
-            return false;
-        }
-    }
-    return false;
-
-}
-
 movadoCustomCartHelpers.createAddtoCartProdObj = createAddtoCartProdObj;
 movadoCustomCartHelpers.getProductOptions = getProductOptions;
 movadoCustomCartHelpers.removeFromCartGTMObj = removeFromCartGTMObj;
-movadoCustomCartHelpers.getCountrySwitch = getCountrySwitch;
 
 module.exports = movadoCustomCartHelpers;

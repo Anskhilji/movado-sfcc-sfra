@@ -3,6 +3,8 @@
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
+    <isinclude template="cart/switchToCountryMessage" />
+    
     <div>
         <div class="row">
             <div class="col-12">

@@ -24,6 +24,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
+
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -99,6 +101,14 @@ module.exports = function fullProduct(product, apiProduct, options) {
         enumerable: true,
         value: collectionName
     });
+
+
+    if (pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
+            enumerable: true,
+            value: pdpContentAssetHTML
+        });
+    }
 
     return product;
 };

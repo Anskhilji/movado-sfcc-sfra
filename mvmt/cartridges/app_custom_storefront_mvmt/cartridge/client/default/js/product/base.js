@@ -2,17 +2,27 @@
 var movadoBase = require('movado/product/base');
 var updateMiniCart = true;
 function setMiniCartProductSummaryHeight () {
-    var $headerHeight = parseInt($('.mvmt-header-design .header-wrapper').outerHeight(true));
-    var $miniCartHeight = parseInt($('.mini-cart-data .popover').outerHeight(true));
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
-    var $miniCartHeaderHeight = $miniCartHeaderTitle;
+    var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
+    var $miniCartHeaderHeight = $miniCartHeaderTitle + $miniCartCountrySelector;
     if ($('.mini-cart-header').is(':visible')) {
-        $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle;
+        $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle + $miniCartCountrySelector;
     }
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
-    var $productSummaryHeight = $miniCartHeight - ($miniCartFooterHeight + $miniCartHeaderHeight);
-    $('.mini-cart-data .product-summary').css('max-height', ($productSummaryHeight + $headerHeight));
+    var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
+    $('.mini-cart-data .product-summary').css('max-height', '');
+    var screenSize = $(window).width();
+    var mediumScreenSize = 992; // mobile break point
+
+    // check screen size for mobile and desktop
+    if (screenSize != null) {
+        if (screenSize <= mediumScreenSize) {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
+        } else {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
+        }
+    }
 }
 
 /**
@@ -60,7 +70,7 @@ function openMiniCart () {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
-function handlePostCartAdd(response) {
+function handlePostCartAdd(response) { 
     $('.minicart').trigger('count:update', response);
     if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
         setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
@@ -139,33 +149,6 @@ function getChildProducts() {
     });
 
     return childProducts.length ? JSON.stringify(childProducts) : [];
-}
-
-/**
- * Custom Start: Add recommended products to cart
- *
- * @param {Object} variationForm - holds form attributes for selected variation product
- * @param {Link}  addToCartUrl -link of add to cart URL of recommended product
- * 
- */
-function addRecommendationProductToCartAjax(variationForm, addToCartUrl, isLast) {
-    if (addToCartUrl) {
-        $.ajax({
-            url: addToCartUrl,
-            method: 'POST',
-            data: variationForm,
-            success: function (data) {
-                updateCartPage(data);
-                if (isLast) {
-                    handlePostCartAdd(data);
-                    $('.minicart').trigger('count:update', data);
-                }
-            },
-            error: function () {
-                $.spinner().stop();
-            }
-        });
-    }
 }
 
 /**
@@ -408,6 +391,7 @@ $('#strapguide').on('click', function (e) {
 
 var updateCartPage = function(data) {
     $('.cart-section-wrapper').html(data.cartPageHtml);
+    $('.minicart').trigger('count:update', data);
     affirm.ui.refresh();
 };
 
@@ -654,6 +638,12 @@ function handleVariantResponse(response, $productContainer) {
         });
     }
 
+    var $pdpContentAssetWrapper = $('.pdp-content-asset-wrapper');
+    $pdpContentAssetWrapper.empty();
+    if (response.product.pdpContentAssetHTML) {
+        $pdpContentAssetWrapper.html(response.product.pdpContentAssetHTML);
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
@@ -774,23 +764,22 @@ function attributeSelect(selectedValueUrl, $productContainer) {
  * @param {Link} addToCartUrl - link of add to cart URL for variation product
  * 
  */
-function addRecommendationProducts(addToCartUrl) {
+function getRecommendationProducts() {
     var $recommendedProductSelector = $('.upsell_input:checked');
     var isLast = false;
+    var productArray = [];
     for (var i = 0; i < $recommendedProductSelector.length; i++) {
         if ($recommendedProductSelector.length == i+1) {
             isLast = true;
         }
         var $currentRecommendedProduct = $recommendedProductSelector[i];
-        
             var form = {
                 pid: $currentRecommendedProduct.value,
                 quantity: 1
             };
-            
-            addRecommendationProductToCartAjax(form, addToCartUrl, isLast);
-        
+        productArray.push(form);
     }
+    return productArray.length ? JSON.stringify(productArray) : [] ;
 }
 
 /**
@@ -919,7 +908,8 @@ movadoBase.addToCart = function () {
             pid: pid,
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
-            quantity: movadoBase.getQuantitySelected($(this))
+            quantity: movadoBase.getQuantitySelected($(this)),
+            recommendationArray: getRecommendationProducts()
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -929,7 +919,8 @@ movadoBase.addToCart = function () {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: 1
+                quantity: 1,
+                recommendationArray: getRecommendationProducts()
             };
         }
         /**
@@ -956,14 +947,8 @@ movadoBase.addToCart = function () {
                 data: form,
                 success: function (data) {
                     updateCartPage(data);
-                    // Custom Start: Add recommended Products for MVMT Add To Cart
-                    if ($('.pdp-mvmt')) {
-                        addRecommendationProducts(addToCartUrl); 
-                    }
+                    handlePostCartAdd(data);
                     openMiniCart();
-                    if(!$('.upsell_input').is(":checked")) {
-                        handlePostCartAdd(data);
-                    }
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart

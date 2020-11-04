@@ -23,15 +23,16 @@ function processSubscription(response) {
     }
 }
 $(document).ready(function () {
-    $('#emailPopUpSubscribe').submit(function (e) {
+    $('#emailPopUpSubscribe, .news-letter-subscribe-control').submit(function (e) {
         e.preventDefault();
         wrapperContainer.addClass('d-none');
         var endPointUrl = $(e.target).attr('action');
         var params = $(this).serialize();
-        var inputValue = $(e.target).find('#email').val();
-        if (inputValue !== '') {
+        var emailInputValue = $(e.target).find('#email').val();
+        var phoneInputValue = $(e.target).find('#phoneNumber').val();
+        if (emailInputValue !== '' || phoneInputValue !== '') {
             var pattern = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
-            if(!pattern.test(inputValue)) {
+            if(!pattern.test(emailInputValue) && phoneInputValue === '') {
                 wrapperContainer.removeClass('d-none');
                 $('.submission-status div').text(Resources.INVALID_EMAIL_ERROR).attr('class', 'error');
             } else {
@@ -51,15 +52,38 @@ $(document).ready(function () {
             $('.submission-status div').text(wrapperContainer.data('errormsg')).attr('class', 'error');
         }
     });
+
+    $(document).on('keydown', '.email-popup-child',  function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 9) {
+            e.preventDefault();
+            var $thankYouContainer = $('.thankyou-opened');
+            if ($thankYouContainer.length > 0) {
+                $('.thankyou-note-control #emailOptInPopUp_Button').focus();
+            } else {
+                $('#emailOptInPopUp_Button').focus();
+            }
+        }
+    });
+
+    if ($('#emailOptInPopUp').is(':visible')) {
+        $('#emailOptInPopUp').focus();
+    }
 });
 
 // Hide email pop up 
 function hideEmailPopUpModal() {
+    var $thankYouContainer = $('.thankyou-opened');
     $('.email-optin-control').addClass('d-none');
     $('.thankyou-note-control').removeClass('popup-form d-none');
     $(".email-popup").addClass('thankyou-opened');
     $('.email-popup .quick-view-dialog').addClass('popup-message');
-    setTimeout(function() { 
+    $('.thankyou-note-control #emailOptInPopUp_Button').focus();
+    if ($thankYouContainer.length > 0) {
+        $('.disable-full-popup-hide').addClass('d-none');
+        $('.email-popup-thanku-note').removeClass('d-none');
+    }
+    setTimeout(function() {
         $(".thankyou-opened").click(function () {
             if ($('.thankyou-opened').find('.disable-full-popup-hide').length == 0) {
                 $('.thankyou-opened').hide();

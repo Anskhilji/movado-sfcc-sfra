@@ -35,7 +35,6 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
 
     // Process each item update
     SAPOrderStatus.EcommerceOrderStatusItem.forEach(function (orderStatusItem) {
-        var orderedQuantity = parseInt(orderStatusItem.OrderQuantity);
         var rejectedQuantity = parseInt(orderStatusItem.RejectedQuantity);
         var poItemNumber = parseInt(orderStatusItem.POItemNumber);
 
@@ -47,8 +46,13 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('processStatusVoid - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
             return;
         }
-        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber) {
-            Logger.error('processStatusVoid - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+        try {
+            if (foLineItem.OrderItemSummary.ProductCode.toUpperCase() !== orderStatusItem.SKUNumber.toUpperCase()) {
+                Logger.error('processStatusVoid - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+            }
+        }
+        catch (exProductComparison) {
+            Logger.error('processStatusCapture - Error comparing ProductCode to SKUNumber- ' + exProductComparison.message);
         }
 
         // Cancel rejected amounts from the OrderSummary and Fulfillment Order
@@ -95,7 +99,7 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
 
         if (!cancelledLineItemsAPIResponse.ok || !cancelledLineItemsAPIResponse.object.success) {
             // Do not attempt order summary cancellation or quantity shipped update
-            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledLineItemsAPIRequest.status + ',errorMessage:' + cancelledLineItemsAPIRequest.errorMessage);
+            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledLineItemsAPIResponse.status + ',errorMessage:' + cancelledLineItemsAPIResponse.errorMessage);
         }
     }
 
@@ -124,7 +128,6 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
         if (!cancelledOSLineItemsResponse.ok || !cancelledOSLineItemsResponse.object || !cancelledOSLineItemsResponse.object.success) {
             return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to perform OS item cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledOSLineItemsResponse.status + ',errorMessage:' + cancelledOSLineItemsResponse.errorMessage);
         }
-        
 
         // Create refund for the change order balance
         if (cancelledOSLineItemsResponse.object.changeBalances && cancelledOSLineItemsResponse.object.changeOrderId) {
@@ -168,7 +171,8 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             operationComponent: 'VOID/CANCELLATION',
             operationStartTime: startTimeStamp,
             dataInput: JSON.stringify(SAPOrderStatus),
-            dataOutput: JSON.stringify(pendingOSCancelChangeItems)
+            dataOutput: JSON.stringify(pendingOSCancelChangeItems),
+            statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType
         })
     );
 

@@ -17,11 +17,21 @@
                     </div>
                     <div class="d-block d-lg-flex selector-wrapper">
                         <div class="footer-item-country-selector">
-                            <isslot id="country-selector" description="country selector" context="global" />
+                            <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+                            <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                            <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
+                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                            <iselse>
+                                <isslot id="country-selector" description="country selector" context="global" />
+                            </isif>
+                            <iscomment> Custom End </iscomment>
                         </div>
-                        <div class="footer-item-language-selector">
-                            <isslot id="language-selector" description="language selector" context="global" />
-                        </div>
+                        <isif condition="${!eswHelper.getEShopWorldModuleEnabled()}" >
+                            <div class="footer-item-language-selector">
+                                <isslot id="language-selector" description="language selector" context="global" />
+                            </div>
+                        </isif>
                     </div>
                     <iscontentasset aid="ca-footer-mobile-links" />
                     <div class="footer-item-social-icons hidden-md-up">
@@ -65,7 +75,10 @@
                 </div>
             </div>
             
-        <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+        <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
+        <isif condition="${!request.httpParameterMap.get('country').value}">
+            <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
+        </isif>
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>

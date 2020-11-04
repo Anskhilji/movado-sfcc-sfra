@@ -225,6 +225,24 @@ function isEswEnableLandingpageBar() {
     return !empty(Site.getCustomPreferenceValue('eswEnableLandingpageBar')) ? Site.getCustomPreferenceValue('eswEnableLandingpageBar') : false;
 }
 
+function isCurrentDomesticAllowedCountry() {
+    var domesticAllowedCountries = !empty(Site.current.preferences.custom.domesticAllowedCountries) ? Site.current.preferences.custom.domesticAllowedCountries : false;
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var isexpressCheckoutEnable = false;
+    var availableCountry = eswHelper.getAvailableCountry();
+    if (domesticAllowedCountries) {
+        for (var countryIndex = 0; countryIndex < domesticAllowedCountries.length; countryIndex++) {
+            country = domesticAllowedCountries[countryIndex];
+            if (availableCountry.equalsIgnoreCase(country)) {
+                isexpressCheckoutEnable = true;
+                break;
+            }
+        }
+    }
+    return isexpressCheckoutEnable;
+}
+
+
 module.exports = {
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
@@ -236,5 +254,6 @@ module.exports = {
     isGeoLocationEnabled: isGeoLocationEnabled,
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
-    isEswEnableLandingpageBar: isEswEnableLandingpageBar
+    isEswEnableLandingpageBar: isEswEnableLandingpageBar,
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
 };

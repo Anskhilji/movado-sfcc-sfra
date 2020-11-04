@@ -156,6 +156,8 @@ var formHelpers = require('base/checkout/formErrors');
                           data: shippingFormData,
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
+                              var scrollUtil = require('../utilities/scrollUtil');
+                              scrollUtil.scrollPaymentSection('.payment-form', 65);
                           },
                           error: function (err) {
                               if (err.responseJSON.redirectUrl) {
@@ -176,6 +178,9 @@ var formHelpers = require('base/checkout/formErrors');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
 
+                  if($('.shipping-express-checkout').length && $('.shipping-express-checkout').is(':visible')) {
+                    $('.shipping-express-checkout').addClass('d-none');
+                  }
                   $('body').trigger('checkout:serializeBilling', {
                       form: $('#dwfrm_billing'),
                       data: paymentForm,
@@ -225,6 +230,10 @@ var formHelpers = require('base/checkout/formErrors');
                                   data.fieldErrors.forEach(function (error) {
                                       if (Object.keys(error).length) {
                                         formHelpers.loadFormErrors('.payment-form', error);
+                                        var $billingFormMode = $('.billing-form').attr('data-address-mode');
+                                        if ( $billingFormMode !== 'details') {
+                                            $('.billing-form').attr('data-address-mode', 'details');
+                                        }
                                     }
                                   });
                                   var scrollUtil = require('../utilities/scrollUtil');
@@ -255,6 +264,8 @@ var formHelpers = require('base/checkout/formErrors');
                   //
                   // Populate the Address Summary
                   //
+                      var scrollUtil = require('../utilities/scrollUtil');
+                      scrollUtil.scrollPaymentSection('#checkout-main', 60);
                               $('body').trigger('checkout:updateCheckoutView',
                       { order: data.order, customer: data.customer });
 
@@ -366,10 +377,16 @@ var formHelpers = require('base/checkout/formErrors');
                   if (!$('#checkout-main').hasClass('multi-ship')) {
                       $('body').trigger('shipping:selectSingleShipping');
                   }
+                  if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
+                    $('.shipping-express-checkout').removeClass('d-none');
+                  }
                   members.gotoStage('shipping');
               });
 
               $('.payment-summary .edit-button', plugin).on('click', function () {
+                  if($('.shipping-express-checkout').length && !$('.shipping-express-checkout').is(':visible')) {
+                      $('.shipping-express-checkout').removeClass('d-none');
+                  }  
                   members.gotoStage('payment');
               });
 

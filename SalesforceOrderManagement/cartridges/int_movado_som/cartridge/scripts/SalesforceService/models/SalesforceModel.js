@@ -171,6 +171,10 @@ var SalesforceModel = ({
         return requestData;
     },
     buildCompositeShipmentCreationRequest: function (req) {
+        var description = '';
+        if (req.FulfillmentOrderLineItems && req.FulfillmentOrderLineItems.length > 0) {
+            description = JSON.stringify(req.FulfillmentOrderLineItems);
+        }
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.SHIPMENT,
             method: 'POST',
@@ -180,7 +184,9 @@ var SalesforceModel = ({
                 ShipToName: req.ShipToName,
                 TrackingNumber: req.TrackingNumber,
                 TrackingURL: req.TrackingURL || '',
-                Description: req.Description || ''
+                Description: description,
+                SAPCarrierCode__c: req.SAPCarrierCode,
+                SAPDeliveryNumber__c: req.SAPDeliveryNumber
             }
         };
         return requestData;
@@ -202,7 +208,8 @@ var SalesforceModel = ({
                 Operation_Start_Time__c: req.operationStartTime,
                 Operation_End_Time__c: Date.now(),
                 Data_Input__c: req.dataInput,
-                Data_Output__c: req.dataOutput
+                Data_Output__c: req.dataOutput,
+                Status_Description__c: req.statusDescription || ''
             }
         };
         return requestData;
@@ -229,6 +236,17 @@ var SalesforceModel = ({
     getOrdersByCustomerEmail: function (req) {
         var requestData = {
             emailAddress: req.emailAddress
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
+    },
+    getOrderRecentByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress,
+            maxOrders: '1'
         };
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,

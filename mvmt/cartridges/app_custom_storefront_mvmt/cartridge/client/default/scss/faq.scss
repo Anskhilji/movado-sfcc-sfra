@@ -1,3 +1,9 @@
+@import "mixins";
+@import "~movado/variables";
+@import "~movado/bootstrap-custom-import";
+@import "~movado/bootstrapOverrides";
+@import '~movado/commonPlaceholders';
+@import "~movado/components/common";
 .faq-banner {
     max-height: rem(181);
     overflow: hidden;

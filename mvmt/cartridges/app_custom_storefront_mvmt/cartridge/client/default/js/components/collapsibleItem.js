@@ -1,9 +1,6 @@
 'use strict';
 
-var movadoCollapsibleItem = require('movado/components/collapsibleItem');
-
 module.exports = function () {
-    movadoCollapsibleItem();
     var sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
 
     sizes.forEach(function (size) {

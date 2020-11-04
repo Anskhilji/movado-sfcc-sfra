@@ -14,7 +14,9 @@
 		'secondarySiteSection': '${pdict.gtm.secondarySiteSection}',
 		'tertiarySiteSection': '${pdict.gtm.tertiarySiteSection}', 
         'searchTerm': '${pdict.gtm.searchTerm}', 
-		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />'
+		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
+		'customerStatus': '${pdict.customerStatus}',
+		'customerID': '${pdict.customerID}'
 		
 		// Custom: Added country dimension on the the base of ESW enabled
 		
@@ -106,7 +108,8 @@
 	dataLayer.push (
 		<isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
 			{ "event": "purchase",'ecommerce':{
-				'currencyCode': "${orderProdutsArray[0].productObj.currency}",			
+				'currencyCode': "${orderProdutsArray[0].productObj.currency}",
+				'orderDiscountCode': "${pdict.discountCode}",
 				'purchase':{
 					'actionField':
 						<isloop items="${orderProdutsArray}" var="orderObj">
@@ -130,7 +133,9 @@
 					'variant': '${orderObj.productObj.variant}',
 					'price': '${orderObj.productObj.price}',
 					'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
-					'coupon': '${orderObj.productObj.itemCoupon}'
+					'coupon': '${orderObj.productObj.itemCoupon}',
+					'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
+					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}'
 					}
 					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
 				</isif>

@@ -11,15 +11,6 @@
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
 
-    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
-    <isif condition="${!empty(sitePref.enableSmartGift)}">
-        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
-            <script>
-                (function (d,g,e,c,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
-                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}');
-            </script>
-        </isif>
-    </isif>
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
@@ -42,7 +33,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/traditional/components/pidRating" />
+                            <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
 
@@ -51,20 +42,20 @@
 
             <div class="row">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/traditional/components/imageCarousel" />
+                <isinclude template="product/components/imageCarousel" />
 
                 <div class="col-12 col-lg-5 detail-sec mt-sm-5 pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
-	                       <isinclude template="product/traditional/components/badges" />
+	                       <isinclude template="product/components/badges" />
 	                    </div>
 	                </div>
                     <!-- Product Name -->
                     <h1 class="product-name d-sm-none d-md-block text-capitalize">${product.productName}</h1>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/traditional/components/pidRating" />
+                        <isinclude template="product/components/pidRating" />
                     </div>
                     <div class="row mt-4 description">
                         <isinclude template="product/components/description" />
@@ -107,7 +98,7 @@
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                             </div>
 	                        <isif condition="${product.options && product.options.length > 0}">
-	                            <isinclude template="product/traditional/components/options" />
+	                            <isinclude template="product/components/options" />
 	                        </isif>
                             <div class = "d-none d-md-block">
                                 <isinclude template="util/affirmmodule_mf" />
@@ -142,12 +133,12 @@
 
 
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
-            <isinclude template="product/traditional/components/descriptionAndDetails" />
+            <isinclude template="product/components/descriptionAndDetails" />
         </div>
 
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(product.id)}" scope="page" />
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}"> 
-            <isinclude template="product/traditional/components/youMayLikeRecommendation" />
+            <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>

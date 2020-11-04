@@ -8,6 +8,7 @@ var URLUtils = require('dw/web/URLUtils');
 
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 
@@ -166,6 +167,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
                     value: priceFactory.getPrice(apiProduct.variationModel.defaultVariant, null, false, options.promotions, options.optionModel)
+                });
+
+                Object.defineProperty(product, 'defaultVariantBadges', {
+                    enumerable: true,
+                    value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
             }
             
