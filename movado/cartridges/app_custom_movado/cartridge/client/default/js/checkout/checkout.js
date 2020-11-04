@@ -156,8 +156,10 @@ var formHelpers = require('base/checkout/formErrors');
                           data: shippingFormData,
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
-                              var scrollUtil = require('../utilities/scrollUtil');
-                              scrollUtil.scrollPaymentSection('.payment-form', 65);
+                              if (!data.error) {
+                                var scrollUtil = require('../utilities/scrollUtil');
+                                scrollUtil.scrollPaymentSection('.payment-form', 65);
+                              }
                           },
                           error: function (err) {
                               if (err.responseJSON.redirectUrl) {
@@ -264,8 +266,10 @@ var formHelpers = require('base/checkout/formErrors');
                   //
                   // Populate the Address Summary
                   //
+                  if (!data.error) {
                       var scrollUtil = require('../utilities/scrollUtil');
                       scrollUtil.scrollPaymentSection('#checkout-main', 60);
+                  }
                               $('body').trigger('checkout:updateCheckoutView',
                       { order: data.order, customer: data.customer });
 
