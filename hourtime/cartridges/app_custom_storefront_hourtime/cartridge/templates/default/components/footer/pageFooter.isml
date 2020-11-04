@@ -24,7 +24,7 @@
     </div>
     <div class="container">
         <div class="footer-container row">
-        <isif condition="${enableUsablenetAccessibility}">
+            <isif condition="${enableUsablenetAccessibility}">
                 <div class="footer-item col-sm-4 hidden-md-up">
                     <iscontentasset aid="ca-usablenet-mobile-link" />
                 </div>
