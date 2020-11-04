@@ -41,6 +41,11 @@
                 </div>
                 <div class="hidden-sm-down">
                     <div class="footer-redesign-links">
+                        <isif condition="${enableUsablenetAccessibility}">
+                            <div class="footer-item hidden-md-up">
+                                <iscontentasset aid="ca-usablenet-mobile-link" />
+                            </div>
+                        </isif>
                         <div class="footer-item collapsible-xs">
                             <iscontentasset aid="ca-footer-about" />
                         </div>
