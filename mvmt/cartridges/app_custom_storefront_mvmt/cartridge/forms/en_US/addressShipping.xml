@@ -75,7 +75,7 @@
            regexp="(^(?!(?=(000-000-0000|0000000000)))(\(?((\+)[1]{1}|([1]{1}))?[-]?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)"
            missing-error="error.message.required"
            range-error="error.message.between10and20"
-           parse-error="error.message.parse.us.phone"/>
+           parse-error="error.message.parse.phone"/>
 
     <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
     <field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>
