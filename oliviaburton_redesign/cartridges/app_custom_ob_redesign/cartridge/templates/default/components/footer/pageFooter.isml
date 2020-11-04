@@ -34,6 +34,11 @@
                             </div>
                         </isif>
                     </div>
+                    <isif condition="${enableUsablenetAccessibility}">
+                        <div class="footer-item-mobile-links hidden-md-up">
+                            <iscontentasset aid="ca-usablenet-mobile-link" />
+                        </div>
+                    </isif>
                     <iscontentasset aid="ca-footer-mobile-links" />
                     <div class="footer-item-social-icons hidden-md-up">
                         <iscontentasset aid="ca-footer-social-email" />
@@ -41,11 +46,6 @@
                 </div>
                 <div class="hidden-sm-down">
                     <div class="footer-redesign-links">
-                        <isif condition="${enableUsablenetAccessibility}">
-                            <div class="footer-item hidden-md-up">
-                                <iscontentasset aid="ca-usablenet-mobile-link" />
-                            </div>
-                        </isif>
                         <div class="footer-item collapsible-xs">
                             <iscontentasset aid="ca-footer-about" />
                         </div>
