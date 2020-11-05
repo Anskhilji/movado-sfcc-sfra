@@ -1587,6 +1587,7 @@ body {
             font-size: 1rem;
             letter-spacing: normal;
             border-color: $black;
+            border-radius: 0;
     
             @include media-breakpoint-down(xs) {
                 min-width: 85%;
@@ -1595,7 +1596,7 @@ body {
         }
 
         &-btn-popup {
-            width: rem(41);
+            width: rem(39);
             font-family: $font-medium;
             font-weight: 500;
             font-style: normal;
@@ -1603,13 +1604,14 @@ body {
             letter-spacing: normal;
             border-color: $black;
             margin-left: rem(-7);
+            border-radius: 0;
             
             &::after, &::before {
                 border-left: solid transparent 0.425em;
                 border-right: solid transparent 0.425em;
                 content: " ";
                 height: 0;
-                right: rem(8);
+                right: rem(14);
                 transform: rotate(180deg);
                 position: absolute;
                 width: 0;
@@ -1625,8 +1627,8 @@ body {
     
             &::before {
                 border-bottom: solid $gull-gray-light rem(10);
-                right: 7px;
-                top: 4px;
+                right: rem(13);
+                top: rem(4);
                 border-left: solid transparent 0.525em;
                 border-right: solid transparent 0.525em;
                 @include media-breakpoint-down(sm) {
