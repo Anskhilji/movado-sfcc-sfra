@@ -1187,6 +1187,19 @@
                 border-radius: rem(5);
             }
         }
+
+        .apple-pay-pdp {
+            width: 100%;
+            height: rem(50);
+            margin-top: rem(4);
+            border-radius: unset;
+
+            @include media-breakpoint-up(md-down) {
+                padding: 1.375rem 1.75rem;
+                border-radius: rem(5);
+                height: rem(56);
+            }
+        }
     }
 
     .linked {
