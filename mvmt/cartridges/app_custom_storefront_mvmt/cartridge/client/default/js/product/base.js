@@ -661,7 +661,7 @@ function handleVariantResponse(response, $productContainer) {
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }
-        var $productNameSelector = $('.product-name');
+        var $productNameSelector = $('product-side-details .product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
 
