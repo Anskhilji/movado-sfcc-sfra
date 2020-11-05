@@ -1627,8 +1627,8 @@ body {
     
             &::before {
                 border-bottom: solid $gull-gray-light rem(10);
-                right: 13px;
-                top: 4px;
+                right: rem(13);
+                top: rem(4);
                 border-left: solid transparent 0.525em;
                 border-right: solid transparent 0.525em;
                 @include media-breakpoint-down(sm) {
