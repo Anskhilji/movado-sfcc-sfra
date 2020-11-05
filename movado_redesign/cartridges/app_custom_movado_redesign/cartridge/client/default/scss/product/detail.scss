@@ -4,7 +4,7 @@
 @import '../utilities/fonts';
 @import "animate.css/animate";
 @import "../custom-animation";
-
+$arrow-height: 1.25em;
 .dw-apple-pay-button.apple-pay-pdp,
 .dw-apple-pay-button.apple-pay-pdp:hover {
     min-width: auto;
@@ -1569,9 +1569,153 @@ body {
 .cart-and-ipay {
     justify-content: flex-start;
 }
-
-.smartgift-btn-redesign {
+.smart-gift-btn {
     width: 100%;
+
+    @include media-breakpoint-down(sm) {
+        display: flex;
+    }
+
+    .content-asset {display: inline-block;}
+
+    .smartgift {
+        &-btn-redesign {
+            width: 88%;
+            font-family: $font-futura-demi;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 1rem;
+            letter-spacing: normal;
+            border-color: $black;
+    
+            @include media-breakpoint-down(xs) {
+                min-width: 85%;
+                margin-left: rem(0);
+            }
+        }
+
+        &-btn-popup {
+            width: rem(41);
+            font-family: $font-medium;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 1rem;
+            letter-spacing: normal;
+            border-color: $black;
+            margin-left: rem(-7);
+            
+            &::after, &::before {
+                border-left: solid transparent 0.425em;
+                border-right: solid transparent 0.425em;
+                content: " ";
+                height: 0;
+                right: rem(8);
+                transform: rotate(180deg);
+                position: absolute;
+                width: 0;
+                bottom: rem(33);
+                z-index: 999;
+                border-bottom: solid $white 0.625em;;
+                display: none;
+                @include media-breakpoint-down(sm) {
+                    right: rem(13);
+                    bottom: rem(37);
+                }
+            }
+    
+            &::before {
+                border-bottom: solid $gull-gray-light rem(10);
+                right: 7px;
+                top: 4px;
+                border-left: solid transparent 0.525em;
+                border-right: solid transparent 0.525em;
+                @include media-breakpoint-down(sm) {
+                    right: rem(11);
+                    top: rem(1);
+                }
+                @include media-breakpoint-down(xs) {
+                    top: rem(3);
+                    right: rem(13);
+                }
+            }
+            
+    
+            &.active {
+                &::after, &::before {
+                    display: block;
+                }
+            }
+            @include media-breakpoint-down(sm) {
+                min-width: rem(44);
+                margin-left: rem(-1);
+            }
+            @include media-breakpoint-down(xs) {
+                min-width: rem(44);
+                margin-left: rem(-4);
+            }
+        }
+    }
+    
+}
+
+.custom-tooltipsmart {
+    display: none;
+    position: absolute;
+    padding: rem(22);
+
+    background-color: $white;
+    color:$dark-black;
+    font-size: 0.75rem;
+    width: 100%;
+    animation: fade-in 0.01s linear forwards;
+    z-index: 100;
+    box-shadow: 0 0 0.4375rem 0 $slate-grey;
+    word-wrap: break-word;
+    opacity: 0;
+    bottom: rem(43);
+    right: 0;
+    left: 0;
+    @include media-breakpoint-down(sm) {
+        bottom: rem(47);
+    }
+    .smartgift-num-one {
+        font-family: $font-book;
+        font-size: rem(14);
+        text-transform: uppercase;
+    }
+
+    &-line-one{
+        padding: 0 rem(26);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-medium;
+    }
+
+    &-line-two{
+        padding: 0 rem(17);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-medium;
+    }
+
+    &-line-three{
+        padding: 0 rem(17);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-medium;
+    }
+    &-smartgift-heading{
+        p {
+            font-family: $font-book;
+            font-size: rem(14);
+            text-transform: uppercase;
+        }
+
+        
+    }
 }
 
 @include media-breakpoint-down(md) {
@@ -1645,7 +1789,7 @@ body {
         border-bottom: 0;
         
         .close-option-popup {
-            background: url("../../images/zoom-close.png") center center no-repeat;
+            background: url("../../images/pop-cross.png") center center no-repeat;
             background-size: rem(18);
             right: rem(30);
             position: absolute;
@@ -1655,7 +1799,7 @@ body {
 
     .close-promotion-popover, .close-promo {
         display: block;
-        background: url("../../images/zoom-close.png") center center no-repeat;
+        background: url("../../images/pop-cross.png") center center no-repeat;
         background-size: rem(10);
         width: rem(15);
         height: rem(15);
@@ -1672,7 +1816,7 @@ body {
     }
 
     .close-promo {
-        background-size: rem(8);
+        background-size: rem(10);
     }
 
     .promotions {
