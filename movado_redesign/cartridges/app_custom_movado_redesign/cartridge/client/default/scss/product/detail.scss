@@ -1581,7 +1581,7 @@ body {
     .smartgift {
         &-btn-redesign {
             width: 88%;
-            font-family: futura-pt-demi, "FuturaStd-Medium", sans-serif;
+            font-family: $font-futura-demi;
             font-weight: 500;
             font-style: normal;
             font-size: 1rem;
@@ -1717,11 +1717,6 @@ body {
         
     }
 }
-
-
-
-
-
 
 @include media-breakpoint-down(md) {
 
