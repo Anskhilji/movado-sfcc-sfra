@@ -41,7 +41,7 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
         $('.item-' + item.UUID).empty().append(item.renderedPromotions);
-        $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
+        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
     });
 }
 
