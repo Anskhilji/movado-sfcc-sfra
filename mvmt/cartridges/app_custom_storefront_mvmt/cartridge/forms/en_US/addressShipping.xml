@@ -36,13 +36,13 @@
            />
     <field formid="address1" label="label.input.address1"  type="string" mandatory="true"
            binding="address1" max-length="35"
-           regexp="(^((?!(([\\'\\\\\\>\\&lt;])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)" 
+           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
            missing-error="error.message.required"
            range-error="error.message.lessthan35"
            parse-error="error.message.parse.addressPObox"/> 
     <field formid="address2" label="label.input.address2"  type="string" mandatory="false"
            binding="address2" max-length="35"
-           regexp="(^((?!(([\\'\\\\\\>\\&lt;])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)" 
+           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
            missing-error="error.message.required"
            range-error="error.message.lessthan35"
            parse-error="error.message.parse.addressPObox"/>  
