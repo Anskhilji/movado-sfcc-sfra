@@ -946,13 +946,21 @@ function getProductSalePrice(product) {
     var salePrice = '';
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
             if (product.optionProduct) {
-                promotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
             } else {
-                promotionalPrice = promo.getPromotionalPrice(product);
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                }
             }
         }
     }
