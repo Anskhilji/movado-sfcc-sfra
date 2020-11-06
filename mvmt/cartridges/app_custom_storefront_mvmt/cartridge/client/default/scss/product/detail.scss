@@ -183,7 +183,6 @@
     font-size: rem(14);
     font-family: $font-book;
     text-transform: uppercase;
-    z-index: 999;
 
     @include media-breakpoint-up(md-down) {
         display: block;
