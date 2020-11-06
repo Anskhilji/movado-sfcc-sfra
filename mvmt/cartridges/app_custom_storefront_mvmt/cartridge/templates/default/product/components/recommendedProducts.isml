@@ -2,13 +2,13 @@
 <div class="linked-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <div class="linked-head">
-            <label>
-                ${Resource.msg('label.add.strap', 'product', null)}
-            </label>
-
+            <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+            <isslot id="add-strap-text" description="Strap text heading" context="global" />
+            <isif condition="${sitePref.enableStripGuide}">
             <button class="strap-guid" data-toggle="modal" data-target="#strapguid" id="strapguide">
                 <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
             </button>
+            </isif>
         </div>
         <div class="linked-products">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
