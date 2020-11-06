@@ -949,7 +949,7 @@ function getProductSalePrice(product) {
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
-        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
             if (product.optionProduct) {
                 currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
             } else {
