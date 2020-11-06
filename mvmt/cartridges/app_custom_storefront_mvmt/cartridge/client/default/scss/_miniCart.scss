@@ -231,7 +231,14 @@
                                     outline: none;
                                     background-color: $grey2;
                                     color: $grey3;
-
+                                    @include media-breakpoint-down(xs) {
+                                        width: rem(10);
+                                        height: rem(15);
+                                    }
+                                    @include media-breakpoint-down(md) {
+                                        width: rem(10);
+                                        height: rem(15);
+                                    }
                                     &:hover {
                                         background-color: $light-silver;
                                     }
@@ -242,6 +249,12 @@
                                         top: 50%;
                                         left: 50%;
                                         transform: translate(-50%, -50%);
+                                        @include media-breakpoint-down(xs) {
+                                            width: rem(13);
+                                        }
+                                        @include media-breakpoint-down(md) {
+                                            width: rem(11);
+                                        }
                                     }   
                                 }
                             }
