@@ -182,8 +182,6 @@
                 </div>
             </div>
         </div>
-        <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
-        <isif condition="${sitePref.enableStripGuide}">
         <div class="modal fade strap-guid-popup" id="strapguid" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
@@ -206,6 +204,5 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-        </isif>
     </isobject>
 </isdecorate>
