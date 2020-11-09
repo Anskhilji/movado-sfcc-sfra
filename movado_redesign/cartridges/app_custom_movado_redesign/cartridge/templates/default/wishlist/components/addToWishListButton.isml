@@ -2,6 +2,6 @@
     <button type="submit" class="btn btn-link add-to-wish-list" data-href="${URLUtils.url('Wishlist-AddProduct')}" data-gtm-tracking='${JSON.stringify(pdict.wishlistGtmObj)}'>
         <iscomment> <i class="fa fa-heart"></i> </iscomment>${Resource.msg('button.add_to_wishlist.txt', 'wishlist', null)}
     </button>
-<iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-modern-design') || dw.campaign.ABTestMgr.isParticipant('MovadoRedesignPDPABTest', 'render-traditional-design')}">
+<iselse>
     <a class="btn ml-3 btn-link wishlist-login" href="${URLUtils.https('Login-Show')}"></a>
 </isif>

@@ -77,10 +77,9 @@ module.exports = function () {
         setMiniCartProductSummaryHeight();
     });
 
-    $('body').on("click", '.collapsible-xl .title', function(){
-        setTimeout(function(){  setMiniCartProductSummaryHeight(); }, 300);
+    $('.mini-cart-data').on('click', '.minicart-promo-code-form .title', function () {
+        setTimeout(function(){  setMiniCartProductSummaryHeight(); }, 500);
     });
-
     /**
      * It is used to off the movado event.
      */

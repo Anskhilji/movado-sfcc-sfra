@@ -156,6 +156,10 @@ var formHelpers = require('base/checkout/formErrors');
                           data: shippingFormData,
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
+                              if (!data.error) {
+                                var scrollUtil = require('../utilities/scrollUtil');
+                                scrollUtil.scrollPaymentSection('.payment-form', 65);
+                              }
                           },
                           error: function (err) {
                               if (err.responseJSON.redirectUrl) {

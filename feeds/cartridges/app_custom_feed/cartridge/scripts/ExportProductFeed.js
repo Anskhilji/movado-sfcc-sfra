@@ -617,8 +617,8 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['productTypeDataFeedWatch'])) {
-        if (product.jewelryStyle) {
-            productDetails.push(product.jewelryStyle);
+        if (product.jewelryType) {
+            productDetails.push(product.jewelryType);
         } else {
             productDetails.push("");
         }
@@ -821,9 +821,18 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     productDetails = [];
 }
 
-function getProductAttributes(product, feedParameters, feedColumns) { 
+function getProductAttributes(product, feedParameters, feedColumns) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
-    var productDecimalPrice = product.getPriceModel().getPrice() ? (product.getPriceModel().getPrice().decimalValue ? product.getPriceModel().getPrice().decimalValue.toString() : "") : "";
+    var productDecimalPrice = getProductSalePrice(product);
+    if (getProductSalePrice(product) > 0) {
+        productDecimalPrice = getProductSalePrice(product);
+    } else {
+        if (product.getPriceModel().getPrice()) {
+            if (product.getPriceModel().getPrice().decimalValue) {
+                productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
+            }
+        }
+    }
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
     var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
@@ -863,19 +872,19 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         pageDescription: product.pageDescription
     };
     if (!empty(feedColumns['priceUSD'])) {
-        productAttributes.priceUSD =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_US)) ? commonUtils.getFXRates(Constants.CURRENCY_USD, Constants.COUNTRY_US, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_USD);
+        productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product);
     }
     if (!empty(feedColumns['priceGBP'])) {
-        productAttributes.priceGBP =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_GB)) ? commonUtils.getFXRates(Constants.CURRENCY_GBP, Constants.COUNTRY_GB, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_GBP);
+        productAttributes.priceGBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product);
     }
-    if (!empty(feedColumns['priceCAD'])) {    
-        productAttributes.priceCAD = empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_CA)) ? commonUtils.getFXRates(Constants.CURRENCY_CAD, Constants.COUNTRY_CA, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_CAD);
+    if (!empty(feedColumns['priceCAD'])) {
+        productAttributes.priceCAD = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product);
     }
     if (!empty(feedColumns['priceEUR'])) {
-            productAttributes.priceEUR =  empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_BE)) ? commonUtils.getFXRates(Constants.CURRENCY_EUR, Constants.COUNTRY_BE, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_EUR);
+        productAttributes.priceEUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product);
     }
     if (!empty(feedColumns['priceAUD'])) {
-        productAttributes.priceAUD = empty(commonUtils.isFixedPriceModelCurrency(Constants.COUNTRY_AU)) ? commonUtils.getFXRates(Constants.CURRENCY_AUD, Constants.COUNTRY_AU, productPrice) : commonUtils.getProductPrice(product, Constants.CURRENCY_AUD);
+        productAttributes.priceAUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product);
     }
     return productAttributes;
 }
@@ -937,13 +946,21 @@ function getProductSalePrice(product) {
     var salePrice = '';
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
-        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
             if (product.optionProduct) {
-                promotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
             } else {
-                promotionalPrice = promo.getPromotionalPrice(product);
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                }
             }
         }
     }
@@ -985,6 +1002,36 @@ function buildStringAttributes(attributeArray, feedParameters) {
         }
     })
     return attribute;
+}
+
+/**
+ * This method is used to get price of a product after promotion
+ * if promotion is not applicable method will return actual price in decimal
+ * @param {String} currencyCode
+ * @param {dw.catalog.Product} product
+ * @returns {String} product price decimal.
+ */
+
+function getPromotionalPricePerPriceBook(currencyCode, product) {
+    var Transaction = require('dw/system/Transaction');
+    var Currency = require('dw/util/Currency');
+    var promotionalPrice;
+    var productDecimalPrice = '';
+    Transaction.wrap(function () {
+        var currency = Currency.getCurrency(currencyCode);
+        session.setCurrency(currency);
+        promotionalPrice = getProductSalePrice(product);
+    });
+    if (promotionalPrice > 0) {
+        productDecimalPrice = promotionalPrice;
+    } else {
+        if (product.getPriceModel().getPrice()) {
+            if (product.getPriceModel().getPrice().decimalValue) {
+                productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
+            }
+        }
+    }
+    return productDecimalPrice + " " + currencyCode;
 }
 
 module.exports = {

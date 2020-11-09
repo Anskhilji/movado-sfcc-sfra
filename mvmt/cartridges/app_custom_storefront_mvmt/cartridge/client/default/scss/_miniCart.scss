@@ -282,7 +282,7 @@
                             width: 65%;
                             padding-right: rem(16);
                             flex: 1;
-                            height: rem(90);
+                            min-height: rem(90);
                             overflow: hidden;
 
                             p {
