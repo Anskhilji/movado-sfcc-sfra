@@ -62,7 +62,7 @@ function execute(ccBasket, paymentProcessor, formData) {
             var billingCountry = fetchFromMap(formData, 'billingAddress.country');
 
             !empty(billingAddressFirstName) ? billingAddress.setFirstName(billingAddressFirstName) : billingAddress.setFirstName(fetchFromMap(formData, 'shopper.firstName'));
-            !empty(billingAddresslastName) ? billingAddress.setLastName(billingAddresslastName) : billingAddress.setFirstName(fetchFromMap(formData, 'shopper.lastName'));
+            !empty(billingAddresslastName) ? billingAddress.setLastName(billingAddresslastName) : billingAddress.setLastName(fetchFromMap(formData, 'shopper.lastName'));
             !empty(billingAddress1) ? billingAddress.setAddress1(billingAddress1) : billingAddress.setAddress1(fetchFromMap(formData, 'deliveryAddress.street'));
             billingAddress.setAddress2('');
             !empty(billingCity) ? billingAddress.setCity(billingCity) : billingAddress.setCity(fetchFromMap(formData, 'deliveryAddress.city'));
