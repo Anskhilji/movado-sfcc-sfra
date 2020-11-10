@@ -43,7 +43,7 @@
             <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
             <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
                 <isif condition="${product.available && product.readyToOrder}">
-                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                    <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
                 </isif>
             </isif>
             <iscomment> Custom End </iscomment>
