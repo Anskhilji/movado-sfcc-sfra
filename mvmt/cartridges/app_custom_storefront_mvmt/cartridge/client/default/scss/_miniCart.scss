@@ -228,6 +228,10 @@
                                 top: 50%;
                                 transform: translateY(-50%);
 
+                                @include media-breakpoint-down(md) {
+                                    right: rem(21);
+                                }
+
                                 button {
                                     width: rem(12);
                                     height: rem(10);
@@ -238,8 +242,8 @@
                                     color: $grey3;
 
                                     @include media-breakpoint-down(md) {
-                                        width: rem(13);
-                                        height: rem(20);
+                                        width: rem(18);
+                                        height: rem(24);
                                     }
 
                                     &:hover {
