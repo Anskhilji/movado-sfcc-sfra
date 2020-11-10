@@ -4,10 +4,7 @@
         <div class="linked-head">
             <isset name="isStrapGuideEnabled" value="${!empty(dw.system.Site.current.preferences.custom.strapGuideEnabled) ? dw.system.Site.current.preferences.custom.strapGuideEnabled : false}" scope="page" />
             <isif condition="${isStrapGuideEnabled}">
-                <label>${!empty(dw.system.Site.current.preferences.custom.strapGuideText)}</label>
-                <button class="strap-guid" data-toggle="modal" data-target="#strapguid" id="strapguide">
-                    <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
-                </button>
+                <iscontentasset aid="strap-guide-text-configs" />
             </isif>
         </div>
         <div class="linked-products">

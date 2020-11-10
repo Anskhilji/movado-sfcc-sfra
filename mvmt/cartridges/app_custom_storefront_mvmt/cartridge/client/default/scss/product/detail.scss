@@ -1198,32 +1198,36 @@
         }
 
         &-head {
-            margin-bottom: rem(15);
-            display: flex;
-            justify-content: space-between;
+            
+            .content-asset {
+                margin-bottom: rem(15);
+                display: flex;
+                justify-content: space-between;
+                max-width: 100%;
 
-            label {
-                color: $transparent-gray;
-                font-family: $font-medium;
-                font-size: rem(12);
-                font-weight: 500;
-                letter-spacing: rem(0.5);
-                text-transform: uppercase;
-                margin-right: rem(4);
-                margin-bottom: 0;
-            }
+                label {
+                    color: $transparent-gray;
+                    font-family: $font-medium;
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.5);
+                    text-transform: uppercase;
+                    margin-right: rem(4);
+                    margin-bottom: 0;
+                }
 
-            .strap-guid {
-                display: inline-block;
-                color: $transparent-gray;
-                font-size: rem(11);
-                font-family: $font-medium;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: rem(1);
-                border: none;
-                background: none;
-                cursor: pointer;
+                .strap-guid {
+                    display: inline-block;
+                    color: $transparent-gray;
+                    font-size: rem(11);
+                    font-family: $font-medium;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: rem(1);
+                    border: none;
+                    background: none;
+                    cursor: pointer;
+                }
             }
         }
 
@@ -1699,7 +1703,7 @@
         .linked-product-list {
             border-top: 0;
 
-            .linked-head {
+            .linked-head, .content-asset {
                 display: block;
 
                 label {
