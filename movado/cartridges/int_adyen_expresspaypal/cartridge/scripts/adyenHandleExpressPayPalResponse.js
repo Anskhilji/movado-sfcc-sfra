@@ -55,14 +55,20 @@ function execute(ccBasket, paymentProcessor, formData) {
         billingAddresslastName = (customerName.length > 1) ? customerName[1] : '';
 
         try {
-            billingAddress.setFirstName(billingAddressFirstName);
-            billingAddress.setLastName(billingAddresslastName);
-            billingAddress.setAddress1(fetchFromMap(formData, 'billingAddress.street'));
+            var billingAddress1 = fetchFromMap(formData, 'billingAddress.street');
+            var billingCity = fetchFromMap(formData, 'billingAddress.city');
+            var billingPostalCode = fetchFromMap(formData, 'billingAddress.postalCode');
+            var billingStateCode = fetchFromMap(formData, 'billingAddress.stateOrProvince');
+            var billingCountry = fetchFromMap(formData, 'billingAddress.country');
+
+            !empty(billingAddressFirstName) ? billingAddress.setFirstName(billingAddressFirstName) : billingAddress.setFirstName(fetchFromMap(formData, 'shopper.firstName'));
+            !empty(billingAddresslastName) ? billingAddress.setLastName(billingAddresslastName) : billingAddress.setFirstName(fetchFromMap(formData, 'shopper.lastName'));
+            !empty(billingAddress1) ? billingAddress.setAddress1(billingAddress1) : billingAddress.setAddress1(fetchFromMap(formData, 'deliveryAddress.street'));
             billingAddress.setAddress2('');
-            billingAddress.setCity(fetchFromMap(formData, 'billingAddress.city'));
-            billingAddress.setPostalCode(fetchFromMap(formData, 'billingAddress.postalCode'));
-            billingAddress.setStateCode(fetchFromMap(formData, 'billingAddress.stateOrProvince'));
-            billingAddress.setCountryCode(fetchFromMap(formData, 'billingAddress.country'));
+            !empty(billingCity) ? billingAddress.setCity(billingCity) : billingAddress.setCity(fetchFromMap(formData, 'deliveryAddress.city'));
+            !empty(billingPostalCode) ? billingAddress.setPostalCode(billingPostalCode) : billingAddress.setPostalCode(fetchFromMap(formData, 'deliveryAddress.postalCode'));
+            !empty(billingStateCode) ? billingAddress.setStateCode(billingStateCode) : billingAddress.setStateCode(fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+            !empty(billingCountry) ? billingAddress.setCountryCode(billingCountry) : billingAddress.setCountryCode(fetchFromMap(formData, 'deliveryAddress.country'));
             billingAddress.setPhone(fetchFromMap(formData, 'shopper.telephoneNumber'));
             shippingAddress.setFirstName(fetchFromMap(formData, 'shopper.firstName'));
             shippingAddress.setLastName(fetchFromMap(formData, 'shopper.lastName'));
