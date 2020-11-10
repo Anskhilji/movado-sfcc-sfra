@@ -1195,7 +1195,7 @@
             border-radius: unset;
 
             @include media-breakpoint-up(md-down) {
-                padding: 1.375rem 1.75rem;
+                padding: rem(22) rem(28);
                 border-radius: rem(5);
                 height: rem(61);
             }
