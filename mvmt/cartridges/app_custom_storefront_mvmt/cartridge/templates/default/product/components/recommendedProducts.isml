@@ -6,7 +6,7 @@
             <isset name="isStrapGuideEnabled" value="${!empty(dw.system.Site.current.preferences.custom.strapGuideEnabled) ? dw.system.Site.current.preferences.custom.strapGuideEnabled : false}" scope="page" />
             <isif condition="${isStrapGuideEnabled}">
                 <button class="strap-guid" data-toggle="modal" data-target="#strapguid" id="strapguide">
-                    <i class="fa fa-question-circle"></i> Strap guide
+                    <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
                 </button>
             </isif>
         </div>
