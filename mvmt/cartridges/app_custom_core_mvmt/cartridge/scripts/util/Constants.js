@@ -1,3 +1,4 @@
 'use strict';
 
 exports.DEFAULT_COUNTRYCODE = 'US';
+exports.NOT_AVAILABILITY_STATUS = 'NOT_AVAILABLE';

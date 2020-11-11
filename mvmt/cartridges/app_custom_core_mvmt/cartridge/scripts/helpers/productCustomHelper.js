@@ -11,6 +11,7 @@ var productTile = require('*/cartridge/models/product/productTile');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
@@ -35,10 +36,12 @@ function getExplicitRecommendations(pid) {
                 recommendation = productRecommendations[i];
                 productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
                 product = Object.create(null);
-                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-                productType = productHelper.getProductType(apiProduct);
-                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-                recommendationTilesList.push(productRecommendationTile);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);
+                if (apiProduct.available && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
+                    productType = productHelper.getProductType(apiProduct);
+                    productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                    recommendationTilesList.push(productRecommendationTile);
+                }
             }
         }
     } catch (e) {
