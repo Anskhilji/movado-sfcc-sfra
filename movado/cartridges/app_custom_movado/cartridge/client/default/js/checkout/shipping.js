@@ -540,6 +540,9 @@ function shippingFormResponse(defer, data) {
             order: data.order,
             customer: data.customer
         });
+        if (data.emailObj) {
+            $('body').trigger('emailSubscribe:success', data.emailObj);
+        }
 
         if (data.customer && data.customer.profile && data.customer.profile.email) {
             $('#email').val(data.customer.profile.email);
