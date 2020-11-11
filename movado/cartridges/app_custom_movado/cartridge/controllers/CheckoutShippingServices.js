@@ -106,6 +106,7 @@ server.replace(
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 
+        var emailObj = [];
 
         var currentBasket = BasketMgr.getCurrentBasket();
         checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Inside SubmitShipping to submit shipping form');
@@ -170,11 +171,11 @@ server.replace(
                     if (isGtmEnabled) {
                         var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';
                         var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
-                        var emailObj = {
+                        emailObj.push({
                             userEmail: userEmail,
                             userHashedEmail: userHashedEmail,
                             submitLocation: 'checkout'
-                        }
+                        });
                         result.emailObj = JSON.stringify(emailObj);
                     }
                 }
