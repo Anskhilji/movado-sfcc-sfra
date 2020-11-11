@@ -1210,12 +1210,14 @@
         }
 
         &-head {
-            
+            margin-bottom: rem(15);
+            display: flex;
+            justify-content: space-between;
+
             .content-asset {
                 margin-bottom: rem(15);
-                display: flex;
+                display: inline-block;
                 justify-content: space-between;
-                max-width: 100%;
 
                 label {
                     color: $transparent-gray;
@@ -1227,20 +1229,20 @@
                     margin-right: rem(4);
                     margin-bottom: 0;
                 }
-
-                .strap-guid {
-                    display: inline-block;
-                    color: $transparent-gray;
-                    font-size: rem(11);
-                    font-family: $font-medium;
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    letter-spacing: rem(1);
-                    border: none;
-                    background: none;
-                    cursor: pointer;
-                }
             }
+            .strap-guid {
+                display: inline-block;
+                color: $transparent-gray;
+                font-size: rem(11);
+                font-family: $font-medium;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: rem(1);
+                border: none;
+                background: none;
+                cursor: pointer;
+            }
+            
         }
 
         &-products {
@@ -1715,7 +1717,7 @@
         .linked-product-list {
             border-top: 0;
 
-            .linked-head, .content-asset {
+            .linked-head {
                 display: block;
 
                 label {
@@ -1731,7 +1733,6 @@
                     border-top: rem(1) solid $light-gray4;
                 }
             }
-        }
 
         .cart-and-ipay  {
             padding: 0;
