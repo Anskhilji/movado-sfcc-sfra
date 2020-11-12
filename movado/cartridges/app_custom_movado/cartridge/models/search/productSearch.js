@@ -133,7 +133,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot) {
         currentStart
     );
 
-    if (pageSize > hitsCount) {
+    if (pageSize >= hitsCount) {
         return '';
     } else if (pageSize > DEFAULT_PAGE_SIZE) {
         nextStart = pageSize;
