@@ -140,11 +140,13 @@ $( document ).ready(function() {
 });
 
 function refreshAffirmUI() {
-    if (document.readyState === "complete") {
-        affirm.ui.refresh();
-    } else {
-        setTimeout(function() {
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS == true) {
+        if (document.readyState === "complete") {
+            affirm.ui.refresh();
+        } else {
+            setTimeout(function(){
             refreshAffirmUI();
-        }, 200);
+            }, 200);
+        }
     }
 }
