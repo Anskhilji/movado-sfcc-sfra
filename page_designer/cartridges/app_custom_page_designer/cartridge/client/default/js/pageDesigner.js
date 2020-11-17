@@ -1,5 +1,8 @@
 'use strict'
 
+var processInclude = require('base/util');
+processInclude(require('mvmt/product/base'));
+
 $(document).ready(function() {
     slickCarousel();
 });

@@ -206,7 +206,13 @@
                                     font-weight: 400;
                                     text-indent: rem(15);
                                     margin-right: rem(20);
-    
+                                    -moz-appearance: textfield;
+
+                                    @include media-breakpoint-down(sm) {
+                                        font-size: rem(16);
+                                        padding: 0;
+                                    }
+
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
                                         -webkit-appearance: none;
                                         margin: 0;
@@ -223,6 +229,10 @@
                                 top: 50%;
                                 transform: translateY(-50%);
 
+                                @include media-breakpoint-down(md) {
+                                    right: rem(21);
+                                }
+
                                 button {
                                     width: rem(12);
                                     height: rem(10);
@@ -231,6 +241,11 @@
                                     outline: none;
                                     background-color: $grey2;
                                     color: $grey3;
+
+                                    @include media-breakpoint-down(md) {
+                                        width: rem(18);
+                                        height: rem(24);
+                                    }
 
                                     &:hover {
                                         background-color: $light-silver;
@@ -242,7 +257,11 @@
                                         top: 50%;
                                         left: 50%;
                                         transform: translate(-50%, -50%);
-                                    }   
+
+                                        @include media-breakpoint-down(md) {
+                                            width: rem(13);
+                                        }
+                                    }
                                 }
                             }
     
