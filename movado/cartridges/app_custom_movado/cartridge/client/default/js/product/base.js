@@ -626,7 +626,9 @@ function validateOptions($el) {
 
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
-  affirm.ui.refresh();
+  if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+          affirm.ui.refresh();
+   } 
 };
 
 module.exports = {
