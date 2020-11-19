@@ -835,7 +835,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderId = orderId;
         orderObj.tenderType = order.paymentInstrument.custom.adyenPaymentMethod ? order.paymentInstrument.custom.adyenPaymentMethod : order.paymentInstrument.paymentMethod;
         orderObj.orderQuantity = order.productLineItems.length;
-        orderObj.revenue = order.getAdjustedMerchandizeTotalNetPrice().decimalValue + getOrderLevelDiscount(order) + order.shippingTotalPrice.decimalValue;
+        orderObj.revenue = order.getAdjustedMerchandizeTotalGrossPrice().decimalValue + order.shippingTotalPrice.decimalValue;
         orderObj.tax = order.totalTax.decimalValue;
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;

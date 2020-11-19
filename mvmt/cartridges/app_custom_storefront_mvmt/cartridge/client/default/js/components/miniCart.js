@@ -32,7 +32,7 @@ function setMiniCartProductSummaryHeight () {
 module.exports = function () {
     $cart();
 
-    $(window).resize( function() {
+    $(window).on('resize', function() {
         if ($('.mini-cart-data .popover.show').length > 0) {
             var bannerHeight = $('.header-banner').outerHeight(true);
             var headerContainer = $('.header-container').outerHeight(true);
@@ -46,9 +46,12 @@ module.exports = function () {
                 if (screenSize <= mediumScreenSize) {
                     $headerHeight = bannerHeight + headerContainer;
                     $windowHeight = $(window).height() - $headerHeight;
+                    $('.mini-cart-data .popover').css({'top':$headerHeight+'px', 'height': 'calc(100% - '+$headerHeight+'px)'});
                 } else {
                     $headerHeight = bannerHeight;
                     $windowHeight = $(window).height() - $headerHeight;
+                    $('.mini-cart-data .popover').removeClass('afterSticky');
+                    $('.mini-cart-data .popover').css({'top':'0', 'height': '100%'});
                 }
             }
             setTimeout(function(){  setMiniCartProductSummaryHeight(); }, 500);
@@ -71,10 +74,12 @@ module.exports = function () {
                 $windowHeight = $(window).height() - $headerHeight;
             }
         }
-        $('.mini-cart-data .popover').css({'max-height': $windowHeight + 'px', 'top': $headerHeight + 'px'});
         setMiniCartProductSummaryHeight();
     });
 
+    $('.mini-cart-data').on('click', '.minicart-promo-code-form .title', function () {
+        setTimeout(function(){  setMiniCartProductSummaryHeight(); }, 500);
+    });
     /**
      * It is used to off the movado event.
      */
@@ -146,7 +151,7 @@ module.exports = function () {
     /**
      * This event is used to close the mini cart.
      */
-    $('#footer-overlay').on('click touchstart', function (event) {
+    $('#footer-overlay').on('click', function (event) {
         if ($('.mini-cart-data .popover.show').length > 0) {
             $('.mobile-cart-close-icon').hide();
             $('.mobile-cart-icon').show();

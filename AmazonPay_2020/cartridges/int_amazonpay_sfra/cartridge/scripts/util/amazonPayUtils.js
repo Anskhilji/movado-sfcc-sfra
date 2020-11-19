@@ -228,14 +228,12 @@ AmazonPayUtils.generateAuthorizationHeader = function (httpRequestMethod, canoni
 
 AmazonPayUtils.getPaymentDetail = function (basket) {
     var grossPrice = basket ? basket.getTotalGrossPrice() : null;
-    var canHandlePendingAuthorization = preferences.amzPayPaymentIntent.value === 'Authorize' || preferences.amzPayPaymentIntent.value === 'AuthorizedWithCapture';
     var paymentDetail = {
-        canHandlePendingAuthorization: canHandlePendingAuthorization,
         chargeAmount: {
             amount: grossPrice && grossPrice.value ? grossPrice.value.toString() : '',
             currencyCode: grossPrice && grossPrice.currencyCode ? grossPrice.currencyCode : ''
         },
-        paymentIntent: preferences.amzPayPaymentIntent.value === 'AuthorizedWithCapture' ? 'Authorize' : preferences.amzPayPaymentIntent.value
+        paymentIntent: preferences.amzPayPaymentIntent.value === 'AuthorizeWithCapture' ? 'Authorize' : preferences.amzPayPaymentIntent.value
     };
     return paymentDetail;
 };

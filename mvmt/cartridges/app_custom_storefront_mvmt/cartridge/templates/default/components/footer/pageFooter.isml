@@ -2,6 +2,7 @@
 <div id="footer-overlay"></div>
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
+<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <footer>
 
     <div class="banner-with-contents">
@@ -25,6 +26,11 @@
                     <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="join-the-mvmt" />
                     </div>
+                    <isif condition="${enableUsablenetAccessibility}">
+                        <div class=" col-md-4 hidden-md-up">
+                            <iscontentasset aid="ca-usablenet-mobile-link" />
+                        </div>
+                    </isif>
                     <div class="footer-item col-md-4 mobile-view">
                         <iscontentasset aid="footer-menu-1" />
                     </div>

@@ -1,0 +1,2 @@
+<isprint value="${dw.system.Site.current.preferences.custom.surveyMonkeyJS}" encoding="off" />
+<isprint value="${dw.system.Site.current.preferences.custom.surveyMonkeyCSS}" encoding="off" />

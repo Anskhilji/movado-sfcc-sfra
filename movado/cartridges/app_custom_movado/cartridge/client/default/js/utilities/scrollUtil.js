@@ -7,6 +7,13 @@ function scrollInvalidFields(elemetSelector, positionAdjustment, time) {
        }, time);
 }
 
+function scrollPaymentSection(container, positionAdjustment) {
+  $('html, body').animate({
+    scrollTop:  $(container).offset().top - positionAdjustment
+  });
+}
+
 module.exports = {
-    scrollInvalidFields: scrollInvalidFields
+    scrollInvalidFields: scrollInvalidFields,
+    scrollPaymentSection: scrollPaymentSection
 };

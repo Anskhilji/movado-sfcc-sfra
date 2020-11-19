@@ -24,6 +24,7 @@ $(document).ready(function () {
     processInclude(require('./components/miniCart'));
     processInclude(require('movado/utilities/swatches'));
     processInclude(require('movado/components/emailPopUpSubscription'));
+    processInclude(require('./components/mobileMenu'));
 });
 
 require('base/components/spinner');

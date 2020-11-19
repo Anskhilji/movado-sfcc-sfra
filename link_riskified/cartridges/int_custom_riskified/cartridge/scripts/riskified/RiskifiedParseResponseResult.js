@@ -105,8 +105,7 @@ function parseRiskifiedResponse(order) {
         YotpoHelper.deleteOrder(order);
         
     } else {
-        var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
                 orderNo: order.orderNo,

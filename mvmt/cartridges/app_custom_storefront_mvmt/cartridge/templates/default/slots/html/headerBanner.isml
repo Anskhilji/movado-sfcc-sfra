@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="content">
-                        <div class="html-slot-container ${enableUsablenetAccessibility ? 'text-lg-right px-5' : ''}">
+                        <div class="html-slot-container">
                             <isloop items="${slotcontent.content}" var="markupText">
                                 <isprint value="${markupText.markup}" encoding="off"/>
                             </isloop>

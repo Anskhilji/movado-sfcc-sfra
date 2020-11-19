@@ -638,6 +638,12 @@ function handleVariantResponse(response, $productContainer) {
         });
     }
 
+    var $pdpContentAssetWrapper = $('.pdp-content-asset-wrapper');
+    $pdpContentAssetWrapper.empty();
+    if (response.product.pdpContentAssetHTML) {
+        $pdpContentAssetWrapper.html(response.product.pdpContentAssetHTML);
+    }
+
     // Update pricing
     if (!isChoiceOfBonusProducts) {
         var $priceSelector = $('.prices .price', $productContainer).length
@@ -655,7 +661,7 @@ function handleVariantResponse(response, $productContainer) {
             $mobilePrice.replaceWith(response.product.price.html);
             $barSalePriceSelector.replaceWith(response.product.price.html);
         }
-        var $productNameSelector = $('.product-name');
+        var $productNameSelector = $('.product-side-details .product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
 

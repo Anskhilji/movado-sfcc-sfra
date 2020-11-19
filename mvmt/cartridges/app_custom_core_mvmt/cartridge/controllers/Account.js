@@ -8,9 +8,63 @@ var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
 var Resource = require('dw/web/Resource');
+var cache = require('*/cartridge/scripts/middleware/cache');
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
+
+server.get('MostRecentOrder', server.middleware.https, cache.applyInventorySensitiveCache, userLoggedIn.validateLoggedIn, function (req, res, next) {
+
+    // Customer Email
+    var emailAddress = req.currentCustomer.profile.email;
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+
+    // Retrieve most recent order details
+    var orderResult = SalesforceModel.getOrderRecentByCustomerEmail({
+        emailAddress: emailAddress
+	});
+
+    var firstOrder;
+    if (orderResult.object.orders && orderResult.object.orders.length > 0) {
+        var ProductImageDIS = require('*/cartridge/scripts/helpers/ProductImageDIS');
+        var formatCurrency = require('*/cartridge/scripts/util/formatting').formatCurrency;
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        firstOrder = orderResult.object.orders[0];
+
+		// Currency Format
+        if (firstOrder.total) {
+            firstOrder.total = formatCurrency(firstOrder.total, firstOrder.currencyISO);
+        }
+
+        var product = ProductMgr.getProduct(firstOrder.productCode);
+        var firstImage = new ProductImageDIS(product, 'tile150');
+        if (firstImage) {
+            firstOrder.imageURL = firstImage.getURL();
+            firstOrder.imageAlt = firstImage.getAlt();
+            firstOrder.imageTitle = firstImage.getTitle();
+        } else {
+            firstOrder.imageURL = '';
+            firstOrder.imageTitle = '';
+            firstOrder.imageAlt = '';
+        }
+
+        if (firstOrder.status && firstOrder.status === 'Sent to SAP') {
+            firstOrder.status = 'Processing';
+        }
+    }
+
+    res.render('account/order/orderHistoryRecent', {
+        order: firstOrder,
+        accountlanding: true,
+        breadcrumbs: [
+            {
+                htmlValue: Resource.msg('global.home', 'common', null),
+                url: URLUtils.home().toString()
+            }
+        ]
+    });
+    next();
+});
 
 server.get(
     'MvmtInsider',

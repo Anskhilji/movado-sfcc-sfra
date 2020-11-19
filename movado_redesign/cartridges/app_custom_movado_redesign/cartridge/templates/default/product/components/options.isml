@@ -6,14 +6,14 @@
             <div class="col-12 p-0">
                 <isif condition="${option.id.indexOf('Embossed') > -1}">
                     <isif condition="${pdict.isEmbossEnabled}">
-                        <isinclude template="product/traditional/components/productEmbossing" />
+                        <isinclude template="product/components/productEmbossing" />
                         <div>
                             <pre class="debossing-text"></pre>
                         </div>
                     </isif>
                 <iselseif condition="${option.id.indexOf('Engraved') > -1}">
                     <isif condition="${pdict.isEngraveEnabled}">
-                        <isinclude template="product/traditional/components/productEngraving" />
+                        <isinclude template="product/components/productEngraving" />
                         <div>
                             <pre class="engraved-text"></pre>
                         </div>
