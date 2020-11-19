@@ -1,5 +1,5 @@
 <isset name="priceToCenter" value="" scope="page" />
-<isif condition="${!(pdict.display.compare)}">
+<isif condition="${!(pdict.display && pdict.display.compare)}">
     <isset name="priceToCenter" value="price-to-center" scope="page" />
 </isif>
 
