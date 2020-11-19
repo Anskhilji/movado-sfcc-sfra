@@ -928,6 +928,24 @@ module.exports = function () {
     $('body').on('keyup', '.gift-text', function () {
         enterGiftMessageHandler($(this));
     });
+
+    $('body').on('keypress','.gift-text', function(event) {
+        var text = $(this).val();
+        var maxchars=$(this).attr('maxlength');
+        var rows = $(this).attr('rows');
+        var perlinechars = maxchars/rows;
+        var lines = text.split("\n");
+        var currentLine = this.value.substr(0, this.selectionStart).split("\n").length;
+        if (event.keyCode == 13) {
+             if (lines.length >= $(this).attr('rows')) {
+                 return false;
+             }
+        }
+        else if (lines[currentLine-1].length >= perlinechars) {
+             return false; 
+        }
+    });
+    
     $('body').on('click', '.product-move .move', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');

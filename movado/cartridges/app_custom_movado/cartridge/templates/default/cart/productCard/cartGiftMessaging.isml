@@ -21,10 +21,10 @@
     
         <div class="gift-message-wrapper mb-3">
             <div class="form-group gift-textarea">
-                <textarea rows="4" name="giftMessageText" class="form-control gift-text mb-1"
+                <textarea rows="6" name="giftMessageText" class="form-control gift-text mb-1"
                     aria-label="${pdict.giftMessaging.giftTextPlaceholder}" col="35"
                     placeholder="${pdict.giftMessaging.giftTextPlaceholder}" data-format-error="" data-required-error=""
-                    data-row-max="4"
+                    data-row-max="6"
                     data-row-maxlength="35" maxlength="${pdict.giftMessaging.giftCharLimit}">${pdict.lineItemGiftMessage[lineItem.UUID].giftMessage ? pdict.lineItemGiftMessage[lineItem.UUID].giftMessage : ''}</textarea>
                 <div class="gift-error-wrapper">
                     <span class="gift-message-blank">${pdict.giftMessaging.missingText}</span>
