@@ -3,5 +3,5 @@
 	${price}
 <iselse>
 	<iscomment>Custom: used formattedPrice instead of decimal price</iscomment>	
-	${!empty(price) ? price.formattedPrice : ''}
+	${price.formattedPrice}
 </isif>
