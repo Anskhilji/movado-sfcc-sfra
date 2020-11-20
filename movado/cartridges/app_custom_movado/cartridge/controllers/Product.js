@@ -95,8 +95,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID)
     };
-    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
-    res.setViewData(smartGift);
+   // var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
+  //  res.setViewData(smartGift);
 
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;

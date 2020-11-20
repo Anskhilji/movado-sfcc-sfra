@@ -13,7 +13,7 @@
     </isif>
     
     
-    <isif condition="${finalOrigPrice.list !== null}">
+    <isif condition="${finalOrigPrice && finalOrigPrice.list !== null}">
         <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
             <isset name="price" value="${finalOrigPrice.list.decimalPrice}" scope="page" />
         <iselse>
@@ -37,7 +37,7 @@
     <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
         <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
     <iselse>
-        <isset name="price" value="${finalOrigPrice.sales}" scope="page" />
+        <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
     <isif condition="${isEswEnabled}">
         <span class="sales">

@@ -3,7 +3,7 @@
     <isset name="priceToCenter" value="price-to-center" scope="page" />
 </isif>
 
-<isif condition="${price.type === 'tiered'}">
+<isif condition="${price && price.type === 'tiered'}">
     <div class="price ${priceToCenter}">
         <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" >
             <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
@@ -14,7 +14,7 @@
         </isif>
         <isinclude template="/product/components/pricing/tiered" />
     </div>
-<iselseif condition="${price.type === 'range'}">
+<iselseif condition="${price && price.type === 'range'}">
     <div class="price ${priceToCenter}"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer"">
         <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" >
             <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
