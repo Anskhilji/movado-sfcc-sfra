@@ -11,8 +11,9 @@
     <script defer type="text/javascript" src="${script}"></script>
 </isloop>
 <isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
+<isset name="Constants" value="${require('*/cartridge/scripts/helpers/utils/Constants')}" scope="page" />
 <iscomment> Changed type and add class if one trust cookie is enabled </iscomment>
-<script type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? 'optanon-category-C0003-C0004' : ''}" src="${dw.system.Site.getCurrent().preferences.custom.addthisUrl}"></script>
+<script type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_FUNCTIONAL_AND_TARGETING_COOKIES_CLASS : ''}" src="${dw.system.Site.getCurrent().preferences.custom.addthisUrl}"></script>
 
 
 
