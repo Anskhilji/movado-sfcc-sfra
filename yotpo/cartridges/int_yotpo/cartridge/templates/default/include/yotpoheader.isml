@@ -8,11 +8,11 @@ from Yotpo which is mandatory for the Yotpo functionality to work</iscomment>
 		var yotpoAppKey : String = YotpoUtils.getAppKeyForCurrentLocale(currentLocaleID);
 	 </isscript>
 
-	<isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
+    <isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
     <isset name="Constants" value="${require('*/cartridge/scripts/helpers/utils/Constants')}" scope="page" />
-	<iscomment> Changed type and add class if one trust cookie is enabled </iscomment>
+    <iscomment> Changed type and add class if one trust cookie is enabled </iscomment>
 
-	<script type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_PERFORMANCE_AND_FUNCTIONAL_COOKIES_CLASS : ''}">
+    <script type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_PERFORMANCE_AND_FUNCTIONAL_COOKIES_CLASS : ''}">
 	var isYotpoJsLoaded = false;
 	//Custom code to set Yotpo JS loaded
     function setYotpoJsLoaded() {
