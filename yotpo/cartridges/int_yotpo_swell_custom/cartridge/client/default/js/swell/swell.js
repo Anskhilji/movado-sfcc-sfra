@@ -40,9 +40,15 @@ function updateCartTotals(data) {
     }
 
     data.items.forEach(function (item) {
-        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
-        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
+    // Custom Start: Updated selector and rendered HTML as per MVMT site
+        var trimmedRenderPrice = item.priceTotal.renderedPrice.trim();
+        if (trimmedRenderPrice !== "") {
+            $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
+        } else {
+            $('.item-total-' + item.UUID + ' .sales').empty().append('<span class="value" itemprop="price" content="' + item.priceTotal.price + '">' + item.priceTotal.price + '</span>');
+        }
     });
+    // Custom End
 }
 
 /**
