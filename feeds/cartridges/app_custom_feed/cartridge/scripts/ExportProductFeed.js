@@ -81,20 +81,23 @@ function exportGoogleFeed(args) {
             "metaTitle" : 2,
             "description" : 3,
             "decimalPrice" : 4,
-            "link" : 5,
-            "imageLink" : 6,
-            "availability" : 7,
-            "productType" : 8,
-            "ProductCategory": 9,
-            "condition" : 10,
-            "gtin" : 11,
-            "mpn" : 12,
-            "brand" : 13,
-            "color" : 14,
-            "gender" : 15,
-            "ageGroup" : 16,
-            "productLabel" : 17,
-            "fontFamily" : 18
+            "price": 5,
+            "saleprice": 6,
+            "salepriceeffectivedate": 7,
+            "link" : 8,
+            "imageLink" : 9,
+            "availability" : 10,
+            "productType" : 11,
+            "ProductCategory": 12,
+            "condition" : 13,
+            "gtin" : 14,
+            "mpn" : 15,
+            "brand" : 16,
+            "color" : 17,
+            "gender" : 18,
+            "ageGroup" : 19,
+            "productLabel" : 20,
+            "fontFamily" : 21
                 }
     } else {
         feedColumnsGoogle = {
@@ -268,6 +271,14 @@ function buildCsvHeader(feedColumns) {
     if (!empty(feedColumns['decimalPrice'])) {
         csvFileHeader.push("price");
     }
+    
+    if (!empty(feedColumns['saleprice'])) {
+    	csvFileHeader.push("sale_price");
+    }
+    
+    if (!empty(feedColumns['salepriceeffectivedate'])) {
+    	csvFileHeader.push("sales_​price_​effective_​date");
+    }
 
     if (!empty(feedColumns['link'])) {
         csvFileHeader.push("link");
@@ -416,6 +427,7 @@ function buildCsvHeader(feedColumns) {
     if(!empty(feedColumns['caseDiameter'])) {
         csvFileHeader.push("case diameter");
     }
+    
 
     return csvFileHeader
 }
@@ -513,6 +525,22 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     if (!empty(feedColumns['decimalPrice'])) {
         if (product.decimalPrice) {
             productDetails.push(product.decimalPrice);
+        } else {
+            productDetails.push("");
+        }
+    } 
+    
+    if(!empty(feedColumns['saleprice'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salePrice)
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+    if(!empty(feedColumns['salepriceeffectivedate'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salepriceffectiveDate)
         } else {
             productDetails.push("");
         }
@@ -823,6 +851,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
 function getProductAttributes(product, feedParameters, feedColumns) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
+    var saleffectiveDate = salepriceeffectivedate(product);
     var productDecimalPrice = getProductSalePrice(product);
     if (getProductSalePrice(product) > 0) {
         productDecimalPrice = getProductSalePrice(product);
@@ -849,6 +878,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         label : product.custom.label ? product.custom.label : "",
         price:  productPrice + " " + productCurrencyCode,
         salePrice: getProductSalePrice(product),
+        salepriceffectiveDate: saleffectiveDate,
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
         color : product.custom.color ? product.custom.color : "",
@@ -949,6 +979,7 @@ function getProductSalePrice(product) {
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
+        var endDate = promo.campaign.endDate
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
             if (product.optionProduct) {
                 currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
@@ -1032,6 +1063,36 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
         }
     }
     return productDecimalPrice + " " + currencyCode;
+}
+
+/**
+ * This method is used to get end date of a product campaign after promotion
+ * f there is no end date then can you add a one year end date?
+ * @param {dw.catalog.Product} product
+ * @returns {Date} end date.
+ */
+function salepriceeffectivedate(product) {
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var saleCreationEffectivedate = '';
+    var saleEndEffectivedate = '';
+    var year = 1;
+    var Calendar = require('dw/util/Calendar');
+    var currentDateTime = new Calendar();
+    while (PromotionIt.hasNext()) {
+        var promo = PromotionIt.next();
+        if (!empty(promo.campaign.startDate)) {
+            saleCreationEffectivedate = promo.campaign.endDate;
+        }
+        if (!empty(promo.campaign.endDate)) {
+            saleEndEffectivedate = promo.campaign.endDate;
+            var otpExpiryDateTime = new Calendar(otpExpiryTime);
+            var see = currentDateTime.add(1, 1);
+        }
+        if (empty(promo.campaign.startDate) && empty(promo.campaign.endDate)) {
+            saleEndEffectivedate = currentDateTime.add(1, 1);
+        }
+    }
+    return saleCreationEffectivedate + saleEndEffectivedate;
 }
 
 module.exports = {
