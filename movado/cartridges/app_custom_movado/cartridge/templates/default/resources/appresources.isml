@@ -4,15 +4,18 @@
     This template will render client side messages loaded from 
     resource bundle in JavaScript.
 </iscomment>
-<isscript>
-    var ResourceHelper = require('*/cartridge/scripts/helpers/resourceHelper');
-    var amazonPayUtils = require('*/cartridge/scripts/util/amazonPayUtils.js');
-</isscript>
-<script>
-    (function(){
-        window.Resources = <isprint value="${JSON.stringify(ResourceHelper.getResources())}" encoding="off"/>;
-        window.AmazonURLs = ${JSON.stringify(amazonPayUtils.getURLs())};
-        window.AmazonSitePreferences = ${JSON.stringify(amazonPayUtils.getPreferences(request, session))};
-    }());
-</script>
+<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+<isif condition="${sitePreferences.amzPayEnabled}">
+    <isscript>
+        var ResourceHelper = require('*/cartridge/scripts/helpers/resourceHelper');
+        var amazonPayUtils = require('*/cartridge/scripts/util/amazonPayUtils.js');
+    </isscript>
+    <script>
+        (function(){
+            window.Resources = <isprint value="${JSON.stringify(ResourceHelper.getResources())}" encoding="off"/>;
+            window.AmazonURLs = ${JSON.stringify(amazonPayUtils.getURLs())};
+            window.AmazonSitePreferences = ${JSON.stringify(amazonPayUtils.getPreferences(request, session))};
+        }());
+    </script>
+</isif>
 

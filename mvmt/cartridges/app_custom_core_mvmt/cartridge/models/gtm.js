@@ -430,7 +430,7 @@ function getCategoryBreadcrumb(categoryObj) {
  */
 function getProductBreadcrumb(productObj) {
     try {
-        var category = productObj && productObj.variant && !!productObj.masterProduct.primaryCategory
+        var category = productObj && productObj.variant && productObj.masterProduct && !!productObj.masterProduct.primaryCategory
         ? productObj.masterProduct.primaryCategory
         : productObj.primaryCategory;
         var categoryHierarchy = getCategoryBreadcrumb(category);
@@ -509,7 +509,7 @@ function getCategoryLevelCount(category, levelCount) {
 function getPDPProductImpressionsTags(productObj, queryString) {
     try {
         var variantSize = '';
-        var productID = productObj.ID;
+        var productID = !empty(productObj) && !empty(productObj.ID) ? productObj.ID : '';
         var selectedVariant;
         if (productObj.master) {
             var variantFilter = getVariantFilter(queryString);
