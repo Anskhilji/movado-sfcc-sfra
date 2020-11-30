@@ -275,6 +275,7 @@ server.get('ShowCartButton', function (req, res, next) {
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         smartGiftAddToCartURL : smartGiftAddToCartURL 
     });
     next();
