@@ -1072,25 +1072,27 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
  * @returns {Date} end date.
  */
 function salepriceeffectivedate(product) {
-    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
-    var saleCreationEffectivedate = '';
-    var saleEndEffectivedate = '';
-    var year = 1;
     var Calendar = require('dw/util/Calendar');
-    var currentDateTime = new Calendar();
+
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var saleCreationEffectivedate = new Calendar();
+    var saleEndEffectivedate = new Calendar();
+    var date = new Date();
+    // saleEndEffectivedate.setTime(date);
+    
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
         if (!empty(promo.campaign.startDate)) {
-            saleCreationEffectivedate = promo.campaign.endDate;
+            saleCreationEffectivedate = promo.campaign.startDate;
+        } else {
+            saleCreationEffectivedate = "";
         }
         if (!empty(promo.campaign.endDate)) {
             saleEndEffectivedate = promo.campaign.endDate;
-            var otpExpiryDateTime = new Calendar(otpExpiryTime);
-            var see = currentDateTime.add(1, 1);
+        } else {
+            saleEndEffectivedate.add(saleEndEffectivedate.YEAR, "1");
         }
-        if (empty(promo.campaign.startDate) && empty(promo.campaign.endDate)) {
-            saleEndEffectivedate = currentDateTime.add(1, 1);
-        }
+
     }
     return saleCreationEffectivedate + saleEndEffectivedate;
 }
