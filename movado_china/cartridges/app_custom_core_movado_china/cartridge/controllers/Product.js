@@ -19,7 +19,7 @@ server.get('ShowMovadoChinaAffirmText', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/movadoChinaAffirmText', {
         product: showProductPageHelperResult.product,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
     }); 
     next();
 });

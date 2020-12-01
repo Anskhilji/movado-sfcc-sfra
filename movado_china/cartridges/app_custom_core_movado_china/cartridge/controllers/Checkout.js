@@ -14,7 +14,20 @@ var page = module.superModule;
 server.extend(page);
 
 server.prepend(
-    'Show',
+    'Login',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) {
+        if (!ecommerceFunctionalityEnabled) {
+            res.redirect(URLUtils.url('Home-Show'));
+        }
+        next();
+    }
+);
+
+server.prepend(
+    'Begin',
     server.middleware.https,
     consentTracking.consent,
     csrfProtection.generateToken,

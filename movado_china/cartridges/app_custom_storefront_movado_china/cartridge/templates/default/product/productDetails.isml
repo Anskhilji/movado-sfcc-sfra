@@ -85,9 +85,9 @@
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
-                                <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                                <iscomment> Custom Start: Pricing show when following requirements meet </iscomment>
                                     <isinclude url="${URLUtils.https('Product-ShowMovadoChinaProdutPrice', 'pid', product.id)}"/>
-                                <iscomment> Custom: End </iscomment>
+                                <iscomment> Custom End </iscomment>
                             </div>
                             
                             <!-- Applicable Promotions -->
@@ -95,15 +95,17 @@
                                 <isinclude template="product/components/promotions" />
                             </div>
                             <div class = "d-block d-md-none">
+                            <iscomment> Custom Start: Affirm promo message show when following requirements meet </iscomment>
                                 <isinclude url="${URLUtils.https('Product-ShowMovadoChinaAffirmText', 'pid', product.id)}"/>
+                            <iscomment> Custom End </iscomment>
                             </div>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
                             <div class = "d-none d-md-block">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            <iscomment> Custom Start: Affirm promo message show when following requirements meet </iscomment>
+                                <isinclude url="${URLUtils.https('Product-ShowMovadoChinaAffirmText', 'pid', product.id)}"/>
+                            <iscomment> Custom End </iscomment>
                             </div>
 
                             <!-- Product Availability -->
