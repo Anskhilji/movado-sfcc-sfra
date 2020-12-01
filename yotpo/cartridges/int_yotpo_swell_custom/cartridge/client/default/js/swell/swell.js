@@ -41,12 +41,17 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
-        var trimmedRenderPrice = item.priceTotal.renderedPrice.trim();
-        if (trimmedRenderPrice !== "") {
-            $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
+        if (item.price.list) {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
         } else {
-            $('.item-total-' + item.UUID + ' .sales').empty().append('<span class="value" itemprop="price" content="' + item.priceTotal.price + '">' + item.priceTotal.price + '</span>');
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
         }
+        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
 }
