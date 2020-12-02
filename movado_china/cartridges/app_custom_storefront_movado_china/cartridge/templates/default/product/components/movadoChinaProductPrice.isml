@@ -1,3 +1,4 @@
+<iscomment> Custom Start: Product prices shows when following requirements meet </iscomment>
 <isset name="product" value="${pdict.product}" scope="page" />
 <isset name="price" value="${product.price}" scope="page" />
 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
