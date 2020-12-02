@@ -11,7 +11,7 @@ var Constants = require('~/cartridge/scripts/utils/Constants');
 /**
  * This method is used to format the Calendar object according to the ISO 8601  date format.
  * @param {dw.util.Calendar} date - Calendar object of unformated date
- * @returns {string} formated date include day and month name e.g. 2020-01-13T01:20:20
+ * @returns {string} formatted date and time e.g. 2020-01-13T01:20:20
  */
 function formatDateTimeISO_8601(date) {
     var formatedDateTime = '';
@@ -22,7 +22,6 @@ function formatDateTimeISO_8601(date) {
     }
     return formatedDateTime;
 }
-
 
 /**
  * This method is used to format the Calendar object according to the specified date format.
