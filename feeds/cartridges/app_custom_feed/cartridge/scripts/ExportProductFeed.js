@@ -75,7 +75,6 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-
     if(Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
         feedColumnsGoogle = {
             "ID" : 1,
@@ -432,7 +431,6 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("case diameter");
     }
     
-
     return csvFileHeader
 }
 
