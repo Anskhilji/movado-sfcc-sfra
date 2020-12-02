@@ -77,7 +77,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         qvGtmObj: qvGtmObj,
         loggedIn: req.currentCustomer.raw.authenticated,
         isTopSearch: req.querystring.isTopSearch,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
     };
 
     Object.keys(req.querystring).forEach(function (key) {

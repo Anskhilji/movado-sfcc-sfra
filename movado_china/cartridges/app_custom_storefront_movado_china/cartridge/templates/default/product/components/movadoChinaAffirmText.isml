@@ -1,9 +1,0 @@
-<iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-<isset name="product" value="${pdict.product}" scope="page" />
-<isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-    <div>
-        <isinclude template="util/affirmmodule_mf" />
-        <isaffirmpromo context="pdp"
-            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-    </div>
-</isif> 

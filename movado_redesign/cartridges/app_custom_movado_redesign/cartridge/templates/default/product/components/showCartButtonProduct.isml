@@ -1,6 +1,9 @@
-<isset name="product" value="${pdict.product}" scope="page"/>
-<isif condition="${pdict.isPLPProduct}">
-    <isinclude template="product/components/addToCartProduct" />
-<iselse>
-    <isinclude template="product/components/addToCartProductTraditional" />
+<iscomment> Custom Start: AddToCart shows only when following requirements meet </iscomment>
+<isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+    <isset name="product" value="${pdict.product}" scope="page"/>
+    <isif condition="${pdict.isPLPProduct}">
+        <isinclude template="product/components/addToCartProduct" />
+    <iselse>
+        <isinclude template="product/components/addToCartProductTraditional" />
+    </isif>
 </isif>

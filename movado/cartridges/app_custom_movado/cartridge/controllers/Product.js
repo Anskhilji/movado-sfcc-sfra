@@ -91,6 +91,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID)
