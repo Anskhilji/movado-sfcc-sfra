@@ -106,24 +106,27 @@ function exportGoogleFeed(args) {
             "metaTitle" : 2,
             "descriptionGoogle" : 3,
             "decimalPrice" : 4,
-            "link" : 5,
-            "imageLink" : 6,
-            "additionalImageLink" : 7,
-            "availability" : 8,
-            "productTypeGoogle" : 9,
-            "googleProductCategory": 10,
-            "condition" : 11,
-            "gtin" : 12,
-            "mpn" : 13,
-            "brand" : 14,
-            "color" : 15,
-            "size" : 16,
-            "gender" : 17,
-            "ageGroup" : 18, 
-            "customLabel0" : 19,
-            "customLabel1" : 20,
-            "customLabel2" : 21,
-            "customLabel3" : 22
+            "price": 5,
+            "saleprice": 6,
+            "salePricEeffectiveDate": 7,
+            "link" : 8,
+            "imageLink" : 9,
+            "additionalImageLink" : 10,
+            "availability" : 11,
+            "productTypeGoogle" : 12,
+            "googleProductCategory": 13,
+            "condition" : 14,
+            "gtin" : 15,
+            "mpn" : 16,
+            "brand" : 17,
+            "color" : 18,
+            "size" : 19,
+            "gender" : 20,
+            "ageGroup" : 21, 
+            "customLabel0" : 22,
+            "customLabel1" : 23,
+            "customLabel2" : 24,
+            "customLabel3" : 25
         }
     }
 
@@ -180,7 +183,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
         while (productSearchHitsItr.hasNext()) {
             try {
                 var product = productSearchHitsItr.next().product;
-                
+
                 if (product.variant) {
                     continue; 
                 }
@@ -852,7 +855,10 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
 function getProductAttributes(product, feedParameters, feedColumns) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
-    var saleffectiveDate = salePricEeffectiveDate(getProductPromoAndSalePrice(product).storefrontPromo);
+    var saleffectiveDate = '';
+    if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
+        saleffectiveDate = getSalePricEeffectiveDate(getProductPromoAndSalePrice(product).storefrontPromo);
+    }
     var productDecimalPrice = getProductPromoAndSalePrice(product).salePrice;
     if (getProductPromoAndSalePrice(product).salePrice > 0) {
         productDecimalPrice = getProductPromoAndSalePrice(product).salePrice;
@@ -1078,37 +1084,27 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
  * @param {dw.catalog.Product} promotion
  * @returns {Date} end date.
  */
-function salePricEeffectiveDate(promotion) {
+function getSalePricEeffectiveDate(promotion) {
     var Calendar = require('dw/util/Calendar');
-    
-    var saleCreationEffectivedate = new Calendar();
-    var saleEndEffectivedate = "";
+    var saleCreationEffectivedate = '';
+    var saleEndEffectivedate = '';
     var currentDateTime = new Calendar();
     if (!empty(promotion.campaign.startDate)) {
-        saleCreationEffectivedate = getDateTimeISO_8601(promotion.campaign.startDate);
+        CreationEffectivedate = new Calendar(promotion.campaign.startDate);
+        saleCreationEffectivedate = commonUtils.formatDateTimeISO_8601(CreationEffectivedate);
     } else {
-        saleCreationEffectivedate = "";
+        saleCreationEffectivedate = commonUtils.formatDateTimeISO_8601(currentDateTime);
     }
     if (!empty(promotion.campaign.endDate)) {
-        saleEndEffectivedate = getDateTimeISO_8601(promotion.campaign.endDate);
+        EndEffectivedate = new Calendar(promotion.campaign.endDate);
+        saleEndEffectivedate = commonUtils.formatDateTimeISO_8601(EndEffectivedate);
     } else {
         currentDateTime.add(currentDateTime.YEAR, "1");
-        saleEndEffectivedate = getDateTimeISO_8601(currentDateTime);
+        saleEndEffectivedate = commonUtils.formatDateTimeISO_8601(currentDateTime);
     }
 
     return saleCreationEffectivedate + Constants.PROMOTION_START_END_DATE_SEPARATOR +  saleEndEffectivedate;
 }
-
-function getDateTimeISO_8601(date) {
-    var formatedDateTime = '';
-    if(!empty(date)) {
-        var formatedTime = StringUtils.formatCalendar(date, Constants.HOUR_MINUTE_SECOND_PATTERN);
-        var formatedDate = StringUtils.formatCalendar(date, Constants.YEAR_MONTH_DATE_PATTERN);
-        formatedDateTime =  formatedDate + Constants.DATE_TIME_SEPERATOR + formatedTime;
-    }
-    return formatedDateTime;
-}
-
 
 module.exports = {
         exportGoogleFeed : exportGoogleFeed,
