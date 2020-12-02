@@ -428,7 +428,7 @@ function buildCsvHeader(feedColumns) {
     if(!empty(feedColumns['caseDiameter'])) {
         csvFileHeader.push("case diameter");
     }
-    
+
     return csvFileHeader
 }
 
