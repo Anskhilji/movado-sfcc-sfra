@@ -75,7 +75,7 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-    if(Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
+    if(Site.current.ID === 'MovadoUS') {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
@@ -97,6 +97,27 @@ function exportGoogleFeed(args) {
             "ageGroup" : 18,
             "productLabel" : 19,
             "fontFamily" : 20
+        }
+    } else if (Site.current.ID === 'MCSUS') {
+        feedColumnsGoogle = {
+            "ID" : 1,
+            "metaTitle" : 2,
+            "description" : 3,
+            "price": 4,
+            "link" : 5,
+            "imageLink" : 6,
+            "availability" : 7,
+            "productType" : 8,
+            "ProductCategory": 9,
+            "condition" : 10,
+            "gtin" : 11,
+            "mpn" : 12,
+            "brand" : 13,
+            "color" : 14,
+            "gender" : 15,
+            "ageGroup" : 16,
+            "productLabel" : 17,
+            "fontFamily" : 18
         }
     } else {
         feedColumnsGoogle = {
