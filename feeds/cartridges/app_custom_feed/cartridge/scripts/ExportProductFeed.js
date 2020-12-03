@@ -80,9 +80,9 @@ function exportGoogleFeed(args) {
             "ID" : 1,
             "metaTitle" : 2,
             "description" : 3,
-            "price": 4,
+            "decimalPrice" : 4,
             "salePrice": 5,
-            "salePricEeffectiveDate": 6,
+            "salePriceEffectiveDate": 6,
             "link" : 7,
             "imageLink" : 8,
             "availability" : 9,
@@ -103,7 +103,7 @@ function exportGoogleFeed(args) {
             "ID" : 1,
             "metaTitle" : 2,
             "description" : 3,
-            "price": 4,
+            "decimalPriceMCSUS": 4,
             "link" : 5,
             "imageLink" : 6,
             "availability" : 7,
@@ -124,9 +124,9 @@ function exportGoogleFeed(args) {
             "ID" : 1,
             "metaTitle" : 2,
             "descriptionGoogle" : 3,
-            "price": 4,
+            "decimalPrice": 4,
             "salePrice": 5,
-            "salePricEeffectiveDate": 6,
+            "salePriceEffectiveDate": 6,
             "link" : 7,
             "imageLink" : 8,
             "additionalImageLink" : 9,
@@ -293,12 +293,16 @@ function buildCsvHeader(feedColumns) {
     if (!empty(feedColumns['decimalPrice'])) {
         csvFileHeader.push("price");
     }
+
+    if (!empty(feedColumns['decimalPriceMCSUS'])) {
+    	csvFileHeader.push("price");
+    }
     
     if (!empty(feedColumns['salePrice'])) {
     	csvFileHeader.push("sale_price");
     }
     
-    if (!empty(feedColumns['salePricEeffectiveDate'])) {
+    if (!empty(feedColumns['salePriceEffectiveDate'])) {
         csvFileHeader.push("sales_​price_​effective_​date");
     }
 
@@ -549,17 +553,25 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         } else {
             productDetails.push("");
         }
-    } 
-    
-    if(!empty(feedColumns['salePrice'])) {
+    }
+
+    if(!empty(feedColumns['decimalPriceMCSUS'])) {
         if (product.salePrice) {
-            productDetails.push(product.decimalPrice)
+            productDetails.push(product.salePrice)
         } else {
             productDetails.push("");
         }
     }
     
-    if(!empty(feedColumns['salePricEeffectiveDate'])) {
+    if(!empty(feedColumns['salePrice'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salePrice)
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+    if(!empty(feedColumns['salePriceEffectiveDate'])) {
         if (product.salePrice) {
             productDetails.push(product.salePriceEffectiveDate)
         } else {
@@ -871,21 +883,17 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters, feedColumns) {
-    var productPrice = product.getPriceModel().getPrice().decimalValue ? product.getPriceModel().getPrice().decimalValue.toString() : "";
+    var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
     var saleEffectiveDate = '';
     if (!empty(getProductPromoAndSalePrice(product).storeFrontPromo)) {
-        saleEffectiveDate = getSalePricEeffectiveDate(getProductPromoAndSalePrice(product).storeFrontPromo);
+        saleEffectiveDate = getsalePriceEffectiveDate(getProductPromoAndSalePrice(product).storeFrontPromo);
     }
-    var productDecimalPrice = getProductPromoAndSalePrice(product).salePrice;
-    if (getProductPromoAndSalePrice(product).salePrice > 0) {
-        productDecimalPrice = getProductPromoAndSalePrice(product).salePrice;
-    } else {
-        if (product.getPriceModel().getPrice()) {
-            if (product.getPriceModel().getPrice().decimalValue) {
-                productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
-            }
+    if (product.getPriceModel().getPrice()) {
+        if (product.getPriceModel().getPrice().decimalValue) {
+            var productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
         }
     }
+    var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != ""  ? product.getPriceModel().getPrice().currencyCode : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
     var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
@@ -901,7 +909,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         decimalPrice : productDecimalPrice + " " + productCurrencyCode,
         label : product.custom.label ? product.custom.label : "",
         price:  productPrice + " " + productCurrencyCode,
-        salePrice: getProductPromoAndSalePrice(product).salePrice,
+        salePrice: getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode,
         salePriceEffectiveDate: saleEffectiveDate,
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
@@ -1023,7 +1031,7 @@ function getProductPromoAndSalePrice(product) {
     }
 
     if (promotionalPrice.available) {
-        salePrice = promotionalPrice.toNumberString();
+        salePrice = promotionalPrice.decimalValue.toString();
     }
     return {
         storeFrontPromo: storeFrontPromo,
@@ -1099,7 +1107,7 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
  * @param {dw.catalog.Product} promotion
  * @returns {Date} end date.
  */
-function getSalePricEeffectiveDate(promotion) {
+function getsalePriceEffectiveDate(promotion) {
     var campaignStartingDate = '';
     var campaignEndingDate = '';
     var currentDateTime = new Calendar();
