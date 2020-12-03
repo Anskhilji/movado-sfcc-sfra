@@ -149,7 +149,7 @@ $(document).on("swell:initialized", () => {
 
 var onSuccess = function(redemption) {
     fillAndSubmitCouponCodeForm(redemption.couponCode);
-    applySwellDiscount();
+    applySwellDiscount(redemption.id);
 };
 
 var onError = function(err) {
@@ -158,15 +158,41 @@ var onError = function(err) {
     $('#error').removeClass('d-none');
 };
 
+
+
 // depending on your cart/checkout markup the selectors will need to be updated
 var fillAndSubmitCouponCodeForm = function(couponCode) {
     // set the value for the coupon code input
     $("#coupon-code-input-element").val(couponCode);
 };
 
+var upadteSwellRedemptionId = function(id) {
+    // set the value for the redemption id input
+    $('.remove-redeem-rewards').attr('data-redemption-id', id);
+    
+};
+
 $(document).ready(function() {
     handleSwellPointContainer();
 });
+
+function updateSwellPointsContainer  (data) {
+    if(data.swellRedemptionID !== '') {
+        var swellPointsContainar =
+        '<div class="redeem-rewards-promos">' +
+        '<div class="promotion-price-adjustment">'+
+        '<div class="promotion-adjustment">' +
+        '<button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemptionID +'">' +
+        '<span aria-hidden="true">&times;</span>'+
+        '</button>'+
+        '</div>'+
+        '<div class="redeem-discount-promotion">'+
+        '</div>'+
+        '</div>'+
+        '</div>';
+         $('.promotion-information .swell-rewards-discount').append(swellPointsContainar);
+    }
+}
 
 function handleSwellPointContainer() {
     var $swellPoints = parseInt($('.swell-points-total').text());
@@ -220,9 +246,25 @@ $('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
     );
 });
 
-function applySwellDiscount() {
+$(document).on('click', '.remove-redeem-rewards', function (e) {
+    e.preventDefault();
+    var $removeredemptionContainer = $('.coupons-and-promos');
+    var pointRedemptionID = $(this).data('redemption-id');
+    $removeredemptionContainer.spinner().start();
+    swellAPI.removePointRedemptionIdFromCart(pointRedemptionID,
+        removeSwellDiscountFromCart()
+    );
+});
+
+function removeSwellDiscountFromCart() {
+    applySwellDiscount(null);
+    $('.swell-rewards-discount').remove();
+}
+
+function applySwellDiscount(swellRedemptionId) {
     var $csrfInput = $('.swell-crf-token');
     var $redemptionContainer = $('.swell-redemption');
+    var $removeredemptionContainer = $('.coupons-and-promos');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
     $.ajax({
@@ -237,11 +279,19 @@ function applySwellDiscount() {
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 validateBasket(data);
+                updateSwellPointsContainer(data);
+                if (data.swellRedemptionID !== '' & data.swellRedemptionID === null) {
+                    upadteSwellRedemptionId(data.swellRedemptionID);
+                } else {
+                    upadteSwellRedemptionId(swellRedemptionId);
+                }
             }
             $redemptionContainer.spinner().stop();
+            $removeredemptionContainer.spinner().stop();
         },
         error: function (err) {
             $('#error').empty().append(err.responseText);
+            $removeredemptionContainer.spinner().stop();
             $redemptionContainer.spinner().stop();
         }
   });

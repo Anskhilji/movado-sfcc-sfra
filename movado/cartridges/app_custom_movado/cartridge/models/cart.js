@@ -125,6 +125,20 @@ function getCustomAssets(){
   return assets;
 }
 
+function getSwellRedemptionID(priceAdjustments) {
+    var swellRedemptionID = '';
+    var swellRedemptionText = '';
+    var reuslt = '';
+    priceAdjustments.toArray().forEach(function (priceAdjustment) {
+        if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
+            result = {
+                swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
+                swellRedemptionText : priceAdjustment.lineItemText
+            };
+        }
+    });
+    return result;
+}
 /**
  * Order class that represents the current order
  * @param {dw.order.Basket} basket - Current users's basket
@@ -156,7 +170,8 @@ function CartModel(basket) {
         toBeDeclared: Resource.msg('tax.tbd', 'cart', null),
         additionalCheckout: Resource.msg('additional.checkout', 'cart', null)
       },
-      assets: assets
+      assets: assets,
+      swellRedemptionContainer: getSwellRedemptionID(basket.getPriceAdjustments())
     });
     return cartObject;
 }
