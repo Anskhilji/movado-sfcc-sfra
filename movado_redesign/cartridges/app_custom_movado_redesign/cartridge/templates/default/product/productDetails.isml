@@ -84,33 +84,48 @@
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
+                                <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isset name="price" value="${product.price}" scope="page" />
+                                    <isinclude template="product/components/pricing/main" />
+                                </isif>
                             </div>
                             
                             <!-- Applicable Promotions -->
-                            <div class="promotions">
-                                <isinclude template="product/components/promotions" />
-                            </div>
+                            <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
+                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                <div class="promotions">
+                                    <isinclude template="product/components/promotions" />
+                                </div>
+                            </isif>
                             <div class = "d-block d-md-none">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isinclude template="util/affirmmodule_mf" />
+                                    <isaffirmpromo context="pdp"
+                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                </isif>
                             </div>
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
                             <div class = "d-none d-md-block">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isinclude template="util/affirmmodule_mf" />
+                                    <isaffirmpromo context="pdp"
+                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                </isif>
                             </div>
 
                             <!-- Product Availability -->
-                            <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                            </div>
+                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
+                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                    data-available="${product.available}">
+                                    <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                                </div>
+                            </isif>
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
