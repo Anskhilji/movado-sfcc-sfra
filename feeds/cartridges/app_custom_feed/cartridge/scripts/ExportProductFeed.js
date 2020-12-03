@@ -1004,7 +1004,6 @@ function getProductPromoAndSalePrice(product) {
     var storeFrontPromo;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
-        var endDate = promo.campaign.endDate
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
             if (product.optionProduct) {
                 currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
