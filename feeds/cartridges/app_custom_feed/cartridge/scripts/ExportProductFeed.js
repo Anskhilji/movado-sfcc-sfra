@@ -884,14 +884,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
 function getProductAttributes(product, feedParameters, feedColumns) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
-    var saleEffectiveDate = '';
-    if (!empty(getProductPromoAndSalePrice(product).storeFrontPromo)) {
-        saleEffectiveDate = getsalePriceEffectiveDate(getProductPromoAndSalePrice(product).storeFrontPromo);
-    }
     if (product.getPriceModel().getPrice()) {
         if (product.getPriceModel().getPrice().decimalValue) {
             var productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
         }
+    }
+    var saleEffectiveDate = '';
+    if (!empty(getProductPromoAndSalePrice(product).storeFrontPromo)) {
+        saleEffectiveDate = getSalePriceEffectiveDate(getProductPromoAndSalePrice(product).storeFrontPromo);
     }
     var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != ""  ? product.getPriceModel().getPrice().currencyCode : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
@@ -1107,19 +1107,17 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
  * @param {dw.catalog.Product} promotion
  * @returns {Date} end date.
  */
-function getsalePriceEffectiveDate(promotion) {
+function getSalePriceEffectiveDate(promotion) {
     var campaignStartingDate = '';
     var campaignEndingDate = '';
     var currentDateTime = new Calendar();
     if (!empty(promotion.campaign.startDate)) {
-        var campaignEffectiveStarDate = new Calendar(promotion.campaign.startDate);
-        campaignStartingDate = commonUtils.formatDateTimeISO_8601(campaignEffectiveStarDate);
+        campaignStartingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.endDate));
     } else {
         campaignStartingDate = commonUtils.formatDateTimeISO_8601(currentDateTime);
     }
     if (!empty(promotion.campaign.endDate)) {
-        campaignEffectiveEndDate = new Calendar(promotion.campaign.endDate);
-        campaignEndingDate = commonUtils.formatDateTimeISO_8601(campaignEffectiveEndDate);
+        campaignEndingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.endDate));
     } else {
         currentDateTime.add(currentDateTime.YEAR, "1");
         campaignEndingDate = commonUtils.formatDateTimeISO_8601(currentDateTime);
