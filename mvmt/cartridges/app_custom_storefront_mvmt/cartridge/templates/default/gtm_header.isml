@@ -82,7 +82,7 @@
         dataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
                 {'ecommerce':{'checkout': {
-                    'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
+                    'actionField':{'step': ['<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />']},
                     "products": [
                     <isloop items="${checkoutObj}" var="produtArray" status="status">
                         {'name': '${produtArray.cartObj.name}',
@@ -112,7 +112,7 @@
         checkoutDataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
                 {'ecommerce':{'checkout': {
-                'actionField':{'step': '[<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />]'},
+                'actionField':{'step': ['<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />']},
                 "products": [
                 <isloop items="${checkoutObj}" var="produtArray" status="status">
                     {'name': '${produtArray.cartObj.name}',
