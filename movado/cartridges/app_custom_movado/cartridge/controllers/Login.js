@@ -37,6 +37,9 @@ server.append(
         
         res.setViewData(oAuthObject);
 
+        var ecommerceFunctionalityEnabled = Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled;
+        res.setViewData(ecommerceFunctionalityEnabled);
+
         next();
     }
 );

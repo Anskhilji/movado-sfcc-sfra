@@ -36,11 +36,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 col-md-6">
-                <div class="card">
-                    <isinclude template="account/components/trackOrderForm" />
+            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                <div class="col-sm-8 col-md-6">
+                    <div class="card">
+                        <isinclude template="account/components/trackOrderForm" />
+                    </div>
                 </div>
-            </div>
+            </isif>
         </div>
     </div>
 </isdecorate>

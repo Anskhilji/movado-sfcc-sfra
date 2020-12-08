@@ -661,4 +661,13 @@ server.post(
 }
 );
 
+server.prepend('Header', server.middleware.include, function (req, res, next) {
+    var viewData = res.getViewData();
+    viewData = {
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
+    }
+    res.setViewData(viewData);
+    next();
+});
+
 module.exports = server.exports();
