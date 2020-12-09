@@ -105,7 +105,7 @@
                     <isslot id="esw-cart-disclaimer-message" description="esw cart disclaimer message" context="global" />
                 </isif>
                 <div class="container">
-                    <isprint value="${pdict.assets.needHelp}" encoding="on" />
+                    <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
                 <br/>
             </div>

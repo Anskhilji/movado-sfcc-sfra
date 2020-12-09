@@ -96,7 +96,7 @@
                         <isinclude template="cart/checkoutButtons" />
                     </div>
                 </div>
-                <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/customProductOptionsHelper').getCurrentCountry()}" scope="page" />
+                <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/customCartHelpers').getCurrentCountry()}" scope="page" />
                 <isif condition="${!currentCountry.equalsIgnoreCase('US')}" >
                     <isslot id="esw-cart-disclaimer-message" description="esw cart disclaimer message" context="global" />
                 </isif>

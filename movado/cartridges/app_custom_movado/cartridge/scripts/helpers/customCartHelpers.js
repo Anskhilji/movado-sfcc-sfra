@@ -9,6 +9,7 @@ var ENGRAVED = 'Engraved';
 var NEWLINE = '\n';
 var GIFTWRAPPED = 'GiftWrapped';
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site').getCurrent();
 
 /**
  * Code to populate personalization message in the ProductLineItem
@@ -303,6 +304,20 @@ function getCountrySwitch() {
 
 };
 
+function getCurrentCountry() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var availableCountry = 'US';
+    if (isEswEnabled) { 
+        availableCountry = eswHelper.getAvailableCountry();
+        if (availableCountry == null || empty(availableCountry)) {
+            availableCountry = 'US';
+        }
+    }
+
+    return availableCountry;
+}
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -316,6 +331,7 @@ module.exports = {
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
-    getCountrySwitch: getCountrySwitch
+    getCountrySwitch: getCountrySwitch,
+    getCurrentCountry: getCurrentCountry
 };
 
