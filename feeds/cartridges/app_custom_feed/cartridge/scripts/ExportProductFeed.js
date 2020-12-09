@@ -75,7 +75,7 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-    if(Site.current.ID === 'MovadoUS') {
+    if (Site.current.ID === 'MovadoUS') {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
@@ -890,8 +890,8 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         }
     }
     var saleEffectiveDate = '';
-    if (!empty(getProductPromoAndSalePrice(product).storeFrontPromo)) {
-        saleEffectiveDate = getSalePriceEffectiveDate(getProductPromoAndSalePrice(product).storeFrontPromo);
+    if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
+        saleEffectiveDate = getSalePriceEffectiveDate(getProductPromoAndSalePrice(product).storefrontPromo);
     }
     var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != ""  ? product.getPriceModel().getPrice().currencyCode : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
@@ -1009,7 +1009,7 @@ function getProductPromoAndSalePrice(product) {
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
-    var storeFrontPromo;
+    var storefrontPromo;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
@@ -1020,11 +1020,11 @@ function getProductPromoAndSalePrice(product) {
             }
             if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                 promotionalPrice = currentPromotionalPrice;
-                storeFrontPromo = promo;
+                storefrontPromo = promo;
             } else if (promotionalPrice.value == 0) {
                 if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
                     promotionalPrice = currentPromotionalPrice;
-                    storeFrontPromo = promo;
+                    storefrontPromo = promo;
                 }
             }
         }
@@ -1034,7 +1034,7 @@ function getProductPromoAndSalePrice(product) {
         salePrice = promotionalPrice.decimalValue.toString();
     }
     return {
-        storeFrontPromo: storeFrontPromo,
+        storefrontPromo: storefrontPromo,
         salePrice: salePrice
     };
 }
