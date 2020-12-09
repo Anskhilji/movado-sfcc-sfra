@@ -10,10 +10,12 @@ server.append('Confirm', function (req, res, next) {
     var viewData = res.getViewData();
     var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
     var order = OrderMgr.getOrder(orderNo);
-    var customerEmail = order.getCustomerEmail() ? order.getCustomerEmail() : '';
-    
-    if (!empty(customerEmail)) {
-        sfmcApi.sendSubscriberToSFMC(customerEmail);
+    var requestParams = {
+        email : order.getCustomerEmail() ? order.getCustomerEmail() : ''
+    }
+
+    if (!empty(requestParams.email)) {
+        sfmcApi.sendSubscriberToSFMC(requestParams);
     }
     next();
 });
