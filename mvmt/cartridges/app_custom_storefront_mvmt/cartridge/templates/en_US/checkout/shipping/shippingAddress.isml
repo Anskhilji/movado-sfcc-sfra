@@ -57,7 +57,7 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <iscomment> Custom Start: Remove the opt in checkbox from mvmt us checkout </iscomment>
+    <iscomment> Custom Start: [MSS-1130] Remove the opt in checkbox from mvmt us checkout </iscomment>
     <iscomment>
         <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
