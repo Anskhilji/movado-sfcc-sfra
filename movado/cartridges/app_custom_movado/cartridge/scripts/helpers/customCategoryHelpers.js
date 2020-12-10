@@ -19,7 +19,7 @@ var isCompareableDisabled = function(productID) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var product = ProductMgr.getProduct(productID);
     var productCategories;
-    if (!empty(product) && product.getOnlineCategories().length > 0) {
+    if (!empty(product) && !empty(product.getOnlineCategories())) {
         productCategories = product.getOnlineCategories();
     }
     var categoriesIterator = productCategories.iterator();
