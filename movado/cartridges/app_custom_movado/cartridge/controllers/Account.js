@@ -73,6 +73,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var registrationFormObj = null;
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -222,6 +223,21 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
+            // Custom Start: Yotpo Swell Integration 
+            if (isYotpoSwellLoyaltyEnabled) {
+                var viewData = res.getViewData();
+                if (viewData.success) {
+                    var email = registrationForm.email;
+                    var customerAPI = CustomerMgr.getCustomerByLogin(email);
+                    if (customerAPI) {
+                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                        SwellExporter.exportCustomer({
+                            customerNo: customerAPI.profile.customerNo
+                        });
+                    }
+                }
+            }
+            // Custom End: Yotpo Swell Integration 
         });
     } else {
         res.json({
@@ -239,6 +255,7 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	        var Resource = require('dw/web/Resource');
 	        var URLUtils = require('dw/web/URLUtils');
 	        var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+	        var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -348,6 +365,17 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	                        fields: formErrors.getFormErrors(profileForm)
 	                    });
 	                }
+	             // Custom Start: Yotpo Swell Integration 
+	                if (isYotpoSwellLoyaltyEnabled) {
+	                    var viewData = res.getViewData();
+	                    if (viewData.success) {
+	                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+	                        SwellExporter.exportCustomer({
+	                            customerNo: req.currentCustomer.profile.customerNo
+	                        });
+	                    }
+	                }
+	                // Custom End: Yotpo Swell Integration 
 	            });
 	        } else {
 	            res.json({
