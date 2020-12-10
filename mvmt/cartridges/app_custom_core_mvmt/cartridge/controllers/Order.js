@@ -6,7 +6,7 @@ server.extend(module.superModule);
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
-    var Logger = require('dw/system/Logger').getLogger('MarketingCloud');
+    var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
     try {
         var viewData = res.getViewData();
@@ -20,7 +20,7 @@ server.append('Confirm', function (req, res, next) {
             sfmcApi.sendSubscriberToSFMC(requestParams);
         }
     } catch (e) {
-        Logger.error('(Order-Confirm) -> Exception occurred while try to send email to SFMC: {0}', e.toString());
+        checkoutLogger.error('(Order-Confirm) -> Exception occurred while try to send email to SFMC: {0}', e.toString());
     }
     
     next();
