@@ -126,9 +126,7 @@ function getCustomAssets(){
 }
 
 function getSwellRedemptionID(priceAdjustments) {
-    var swellRedemptionID = '';
-    var swellRedemptionText = '';
-    var reuslt = '';
+    var result;
     priceAdjustments.toArray().forEach(function (priceAdjustment) {
         if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
             result = {
