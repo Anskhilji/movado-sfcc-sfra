@@ -927,21 +927,28 @@ module.exports = function () {
         enterGiftMessageHandler($(this));
     });
 
-    $('body').on('keypress','.gift-text', function(event) {
-        var text = $(this).val();
-        var maxchars=$(this).attr('maxlength');
-        var rows = $(this).attr('rows');
-        var perlinechars = maxchars/rows;
-        var lines = text.split("\n");
-        var currentLine = this.value.substr(0, this.selectionStart).split("\n").length;
+    
+    $('body').on('keyup', '.gift-text', function (event) {
+    var rows = $(this).attr('rows');
+    var cols = $(this).attr('col');
+    var maxchars=$(this).attr('maxlength');
+    var lines = this.value.split("\n");
+        for (var i = 0; i < lines.length; i++) {
+        if (lines[i].length <= cols) continue;
+        var j = 0;
+        var space = cols;
+        while (j++ <= cols) {
+            if (lines[i].charAt(j) === " ") space = j;
+        }
         if (event.keyCode == 13) {
-             if (lines.length >= $(this).attr('rows')) {
-                 return false;
-             }
+            if (lines.length >= maxchars) {
+                return false;
+            }
         }
-        else if (lines[currentLine-1].length >= perlinechars) {
-             return false; 
-        }
+        lines[i + 1] = lines[i].substring(space + 1) + (lines[i + 1] || "");
+        lines[i] = lines[i].substring(0, space);
+      }
+      this.value = lines.slice(0, rows).join("\n");
     });
 
     $('body').on('click', '.product-move .move', function (e) {
