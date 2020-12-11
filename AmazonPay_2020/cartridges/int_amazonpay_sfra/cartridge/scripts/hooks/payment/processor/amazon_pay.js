@@ -29,11 +29,9 @@ function Handle(basket, paymentInformation) {
     var serverErrors = [];
 
     Transaction.wrap(function () { // eslint-disable-line consistent-return
-        var paymentInstruments = currentBasket.getPaymentInstruments(
-            'AMAZON_PAY'
-        );
+        var paymentInstruments = currentBasket.getPaymentInstruments(); // Custom change: Remove all other payment instruments [MSS-1052]
 
-        collections.forEach(paymentInstruments, function (item) {
+        collections.forEach(paymentInstruments, function (item) { 
             currentBasket.removePaymentInstrument(item);
         });
 

@@ -18,6 +18,14 @@
                  </isif>
             </isif>
         </button>
-	        <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+        <isif condition="${isEswEnabled}">
+            <isset name="isexpressCheckoutEnable" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+            <isif condition="${isexpressCheckoutEnable}">
+                <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+            </isif>
+        <iselse>
+            <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+        </isif>
     </div>
 </div>

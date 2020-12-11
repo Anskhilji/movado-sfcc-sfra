@@ -206,7 +206,13 @@
                                     font-weight: 400;
                                     text-indent: rem(15);
                                     margin-right: rem(20);
-    
+                                    -moz-appearance: textfield;
+
+                                    @include media-breakpoint-down(sm) {
+                                        font-size: rem(16);
+                                        padding: 0;
+                                    }
+
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
                                         -webkit-appearance: none;
                                         margin: 0;
@@ -223,6 +229,10 @@
                                 top: 50%;
                                 transform: translateY(-50%);
 
+                                @include media-breakpoint-down(md) {
+                                    right: rem(21);
+                                }
+
                                 button {
                                     width: rem(12);
                                     height: rem(10);
@@ -231,6 +241,11 @@
                                     outline: none;
                                     background-color: $grey2;
                                     color: $grey3;
+
+                                    @include media-breakpoint-down(md) {
+                                        width: rem(18);
+                                        height: rem(24);
+                                    }
 
                                     &:hover {
                                         background-color: $light-silver;
@@ -242,7 +257,11 @@
                                         top: 50%;
                                         left: 50%;
                                         transform: translate(-50%, -50%);
-                                    }   
+
+                                        @include media-breakpoint-down(md) {
+                                            width: rem(13);
+                                        }
+                                    }
                                 }
                             }
     
@@ -282,7 +301,7 @@
                             width: 65%;
                             padding-right: rem(16);
                             flex: 1;
-                            height: rem(90);
+                            min-height: rem(90);
                             overflow: hidden;
 
                             p {
@@ -757,6 +776,67 @@
                             flex-basis: 100%;
                             height: 0;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+                    }
+                    .shipping-express-checkout {
+
+                        .shipping-express-checkout_label {
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            border-bottom: rem(1) solid $black;
+                            line-height: rem(0);
+                            margin: rem(10) rem(15) rem(10) rem(15);
+
+                            .shipping-express-checkout_span {
+                                background: $white;
+                                padding: 0 rem(10);
+                           }
+                        }
+                       
+                        .paypal-btn {
+                            flex: 1;
+                            padding-top: rem(5);
+                            padding-bottom: rem(5);
+                        }
+
+                        .shipping-paypal-btn {
+                            display: flex;
+                            position: relative;
+
+                            img {
+                                height: rem(30);
+                                width: auto;
+                            }
+
+                             @include media-breakpoint-down(sm) {
+
+                                 img {
+                                     width: auto;
+                                     height: auto;
+                                 }
+                             }
+                        }
+                       
+                        .apple-pay-cart {
+                            flex: 1;
+                            font-weight: 600;
+                            font-size: rem(14);
+                            display: block;
+                            background-color: $black;
+                            color: $white;
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            line-height: 0.1em;
+                            margin: rem(3) rem(0) rem(0) rem(5);
+                            height: rem(35);
+                            padding: 0;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+
+                            .apple-pay-cart {
+                                height: rem(32);
+                            }
                         }
                     }
 

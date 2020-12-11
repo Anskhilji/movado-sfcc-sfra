@@ -53,6 +53,20 @@
           "type":"boolean",
           "required": true,
           "default_value": false
+        },
+        {
+            "id": "tileSize",
+            "name": "Select Tile size",
+            "description": "Select Tile size (default value 50%)",
+            "type": "enum",
+            "values": [
+                "25",
+                "50",
+                "75",
+                "100"
+            ],
+            "default_value": "50",
+            "required": false
         }
       ]
     }

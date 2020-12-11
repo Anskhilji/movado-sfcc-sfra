@@ -18,22 +18,25 @@
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
-            <isset name="price" value="${product.price}" scope="page" />
-            <isif condition="${product.productType === 'set'}">
-                <isinclude template="product/components/pricing/setPrice" />
-            <iselse>
-                <isinclude template="product/components/pricing/main" />
-            </isif>
-            <isif condition="${pdict.display.isPLP && product.promotions}">
-                <div class="promotions plp-promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.calloutMsg !== ''}">
-                            <div class="callout promo-msg">
-                                <isprint value="${promotion.calloutMsg}" encoding="off">
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
+        <iscomment> Custom Start: Prodcut prices shows when following requirements meet </iscomment>
+            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                <isset name="price" value="${product.price}" scope="page" />
+                <isif condition="${product.productType === 'set'}">
+                    <isinclude template="product/components/pricing/setPrice" />
+                <iselse>
+                    <isinclude template="product/components/pricing/main" />
+                </isif>
+                <isif condition="${pdict.display.isPLP && product.promotions}">
+                    <div class="promotions plp-promotions">
+                        <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                            <isif condition="${promotion.calloutMsg !== ''}">
+                                <div class="callout promo-msg">
+                                    <isprint value="${promotion.calloutMsg}" encoding="off">
+                                </div>
+                            </isif>
+                        </isloop>
+                    </div>
+                </isif>
             </isif>
         </div>
         <isinclude template="product/components/productTileName" />
@@ -85,33 +88,38 @@
             </isif>
         </isloop>
     
-        <isinclude template="product/old/components/productTileImage" />
+        <isinclude template="product/components/productTileImage" />
     
         <div class="tile-body" tabindex="0">
             <isif condition="${pdict.display.swatches !== false}">
                 <isinclude template="product/components/productTileSwatch" />
             </isif>
-            
-            <isset name="price" value="${product.price}" scope="page" />
-            <isif condition="${product.productType === 'set'}">
-                <isinclude template="product/components/pricing/setPrice" />
-            <iselse>
-                <isinclude template="product/components/pricing/main" />
+            <iscomment> Custom Start: Product Prices shows when following requirements meet </iscomment>
+            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                <isset name="price" value="${product.price}" scope="page" />
+                <isif condition="${product.productType === 'set'}">
+                    <isinclude template="product/components/pricing/setPrice" />
+                <iselse>
+                    <isinclude template="product/components/pricing/main" />
+                </isif>
             </isif>
             <isinclude template="product/components/productTileName" />
             <isif condition="${!pdict.isCompareableDisabled}"> 
                 <isinclude template="product/components/compare" />
             </isif>
-            <isif condition="${product.promotions}">
-                <div class="promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.calloutMsg !== ''}">
-                            <div class="callout promo-msg">
-                                <isprint value="${promotion.calloutMsg}" encoding="off">
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
+            <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
+            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                <isif condition="${product.promotions}">
+                    <div class="promotions">
+                        <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                            <isif condition="${promotion.calloutMsg !== ''}">
+                                <div class="callout promo-msg">
+                                    <isprint value="${promotion.calloutMsg}" encoding="off">
+                                </div>
+                            </isif>
+                        </isloop>
+                    </div>
+                </isif>
             </isif>
             <isif condition="${pdict.display.selectBonusProductsButton}">
                 <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>

@@ -17,7 +17,7 @@ module.exports.render = function (context) {
     model.swatches = content.swatches;
     model.plpTile = content.plpTile;
     model.showAddToCart = content.showAddToCart;
-
+    model.tileSize = content.tileSize;
 
     return new Template('experience/components/assets/producttile').render(model).text;
 };

@@ -10,6 +10,7 @@ var Site = require('dw/system/Site');
 var page = module.superModule;
 var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+var URLUtils = require('dw/web/URLUtils');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -37,6 +38,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
     var product = viewData.product;
     var productPrice = !empty(product) ? product.price : '';
+    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
 
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
@@ -45,8 +47,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-	/* get recommendations for product*/
+    /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
         if(product.priceModel.price.available){
@@ -60,6 +63,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled = product.custom.Emboss;
         isEngraveEnabled = product.custom.Engrave;
         isGiftWrapEnabled = product.custom.GiftWrap;
+        viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, product.ID);
+        var productDetailAttribute1 = !empty(product.custom.productDetailAttribute1) ? product.custom.productDetailAttribute1 : null;
+        var productDetailAttribute2 = !empty(product.custom.productDetailAttribute2) ? product.custom.productDetailAttribute2 : null;
+        var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
     }
 
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
@@ -70,19 +77,24 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
         isGiftWrapEnabled: isGiftWrapEnabled,
-            isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
-            moreStyleRecommendations: moreStyleRecommendations,
-            youMayLikeRecommendations: youMayLikeRecommendations,
-            collectionContentList: collectionContentList,
-            hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
-            loggedIn: req.currentCustomer.raw.authenticated,
-            socialShareEnable: socialShareEnable,
-            moreStyleGtmArray: moreStyleGtmArray,
-            wishlistGtmObj: wishlistGtmObj,
-            klarnaProductPrice: klarnaProductPrice,
-            restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-            productPrice: productPrice,
-            eswModuleEnabled: eswModuleEnabled
+        productDetailAttribute1: productDetailAttribute1,
+        productDetailAttribute2: productDetailAttribute2,
+        productDetailAttribute3: productDetailAttribute3,
+        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
+        moreStyleRecommendations: moreStyleRecommendations,
+        youMayLikeRecommendations: youMayLikeRecommendations,
+        collectionContentList: collectionContentList,
+        hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        socialShareEnable: socialShareEnable,
+        moreStyleGtmArray: moreStyleGtmArray,
+        wishlistGtmObj: wishlistGtmObj,
+        klarnaProductPrice: klarnaProductPrice,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        productPrice: productPrice,
+        eswModuleEnabled: eswModuleEnabled,
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -256,13 +268,16 @@ server.get('ShowCartButton', function (req, res, next) {
     
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        smartGiftAddToCartURL : smartGiftAddToCartURL 
     });
     next();
 });

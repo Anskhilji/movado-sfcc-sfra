@@ -11,6 +11,7 @@ var productTile = require('*/cartridge/models/product/productTile');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
@@ -35,10 +36,12 @@ function getExplicitRecommendations(pid) {
                 recommendation = productRecommendations[i];
                 productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
                 product = Object.create(null);
-                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-                productType = productHelper.getProductType(apiProduct);
-                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-                recommendationTilesList.push(productRecommendationTile);
+                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);
+                if (apiProduct.available && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
+                    productType = productHelper.getProductType(apiProduct);
+                    productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
+                    recommendationTilesList.push(productRecommendationTile);
+                }
             }
         }
     } catch (e) {
@@ -349,6 +352,29 @@ function getCollectionName(apiProduct) {
     return collectionName;
 }
 
+/**
+ * Method use to get content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+function getPDPContentAssetHTML (apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
+}
+
 module.exports = {
     getProductAttributes: getProductAttributes,
     getExplicitRecommendations: getExplicitRecommendations,
@@ -357,5 +383,6 @@ module.exports = {
     getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
     getCurrentCountry: getCurrentCountry,
     getCollectionName: getCollectionName,
-    getGtmPromotionObject: getGtmPromotionObject
+    getGtmPromotionObject: getGtmPromotionObject,
+    getPDPContentAssetHTML : getPDPContentAssetHTML
 };

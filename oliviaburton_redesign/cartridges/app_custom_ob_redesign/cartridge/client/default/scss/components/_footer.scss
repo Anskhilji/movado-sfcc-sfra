@@ -489,3 +489,30 @@
         justify-content: center;
     }
 }
+
+.footer-redesign {
+    .dropdown-country-selector {
+        max-height: rem(200);
+        overflow-y: scroll;
+     
+        .dropdown-item {
+            padding-left: rem(15) !important;
+        }
+    }
+    
+    @include media-breakpoint-down(md) {
+        .headerDropdown {
+            text-align: center;
+            width: 100% !important;
+
+            .esw-country-selector  {
+                border: none !important;
+            }
+        }
+
+        .selectCountry {
+            z-index: 99;
+        }
+    }
+
+}

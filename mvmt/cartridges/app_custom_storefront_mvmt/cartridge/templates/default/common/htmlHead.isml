@@ -1,6 +1,7 @@
 <meta charset=UTF-8>
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<isinclude template="/common/googleOptimize" sf-toolkit="off" />
 <script>
     var dataLayer = undefined;
     var pageDataGTM = undefined;
@@ -17,7 +18,9 @@
 <meta name="keywords" content="${pdict.CurrentPageMetaData.keywords ? pdict.CurrentPageMetaData.keywords : Resource.msg('global.storename','common',null)}"/>
 
 <isinclude template="/common/favicon" />
-
+<iscomment> Custom Start: Adding Google Antiflicker Optimise Script </iscomment>
+<isinclude template="/common/optimizeAntiFlickerScript" sf-toolkit="off" />
+<iscomment> Custom End </iscomment>
 <link rel="stylesheet" href="${URLUtils.staticURL('/css/global.css')}" />
 <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />

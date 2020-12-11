@@ -2,5 +2,6 @@
 <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
 	${price}
 <iselse>
-	${price.decimalPrice}
+	<iscomment>Custom: used formattedPrice instead of decimal price</iscomment>	
+	${price.formattedPrice}
 </isif>

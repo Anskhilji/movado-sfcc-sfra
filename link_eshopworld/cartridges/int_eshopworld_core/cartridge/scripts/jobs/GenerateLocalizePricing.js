@@ -73,10 +73,11 @@ function getLocalPriceBooksDetails(localizeObj) {
  */
 function getESWCurrencyFXRate(shopperCurrencyIso) {
     var fxRates = JSON.parse(eswHelper.getFxRates()),
+        baseCurrency = eswHelper.getBaseCurrencyPreference(),
         selectedFxRate = [];
     if (!empty(fxRates)) {
         selectedFxRate = fxRates.filter(function (rates) {
-            return rates.toShopperCurrencyIso === shopperCurrencyIso;
+            return rates.toShopperCurrencyIso === shopperCurrencyIso && rates.fromRetailerCurrencyIso === baseCurrency;
         });
     }
     return selectedFxRate;
@@ -174,6 +175,7 @@ function buildPriceBookSchema(writeDirPath, products, priceBook, localizeObj) {
     var File = require('dw/io/File');
     var FileWriter = require('dw/io/FileWriter');
     var XMLStreamWriter = require('dw/io/XMLStreamWriter');
+    var Site = require('dw/system/Site').getCurrent();
     var writeDir = new File(writeDirPath);
     writeDir.mkdirs();
     var totalAssignedProducts = 0;
@@ -181,7 +183,7 @@ function buildPriceBookSchema(writeDirPath, products, priceBook, localizeObj) {
     if (empty(basePriceBook)) {
         return totalAssignedProducts;
     }
-    var priceBookFile = new File(writeDirPath + 'PriceBookExport_' + priceBook.id + '.xml');
+    var priceBookFile = new File(writeDirPath + 'PriceBookExport_' + Site.getID() + '_' + priceBook.id + '.xml');
 
     priceBookFile.createNewFile();
     var priceBookFileWriter = new FileWriter(priceBookFile, 'UTF-8');
