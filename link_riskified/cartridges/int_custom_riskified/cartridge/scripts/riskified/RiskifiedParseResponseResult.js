@@ -90,6 +90,13 @@ function parseRiskifiedResponse(order) {
             }
         }
 
+        if (Site.getCurrent().preferences.custom.yotpoCartridgeEnabled) {
+            try {
+                YotpoHelper.deleteOrder(order);
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to delete order from Yotpo against order number: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+        }
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
         	var orderObj ={
@@ -102,7 +109,6 @@ function parseRiskifiedResponse(order) {
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
-        YotpoHelper.deleteOrder(order);
         
     } else {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
