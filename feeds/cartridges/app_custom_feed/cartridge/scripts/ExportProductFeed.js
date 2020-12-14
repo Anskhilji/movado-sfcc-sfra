@@ -430,27 +430,27 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("custom_label_1");
     }
 
-    if(!empty(feedColumns['priceUSD'])) {
+    if (!empty(feedColumns['priceUSD'])) {
         csvFileHeader.push("price - USD");
     }
 
-    if(!empty(feedColumns['priceGBP'])) {
+    if (!empty(feedColumns['priceGBP'])) {
         csvFileHeader.push("price - GBP");
     }
 
-    if(!empty(feedColumns['priceCAD'])) {
+    if (!empty(feedColumns['priceCAD'])) {
         csvFileHeader.push("price - CAD");
     }
 
-    if(!empty(feedColumns['priceEUR'])) {
+    if (!empty(feedColumns['priceEUR'])) {
         csvFileHeader.push("price - EUR");
     }
 
-    if(!empty(feedColumns['priceAUD'])) {
+    if (!empty(feedColumns['priceAUD'])) {
         csvFileHeader.push("price - AUD");
     }
 
-    if(!empty(feedColumns['caseDiameter'])) {
+    if (!empty(feedColumns['caseDiameter'])) {
         csvFileHeader.push("case diameter");
     }
 
@@ -507,7 +507,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if(!empty(feedColumns['productName'])) {
+    if (!empty(feedColumns['productName'])) {
         if(product.title) {
             productDetails.push(product.title);
         } else {
@@ -555,7 +555,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if(!empty(feedColumns['decimalPriceMCSUS'])) {
+    if (!empty(feedColumns['decimalPriceMCSUS'])) {
         if (product.salePrice) {
             productDetails.push(product.salePrice)
         } else {
@@ -563,7 +563,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
     
-    if(!empty(feedColumns['salePrice'])) {
+    if (!empty(feedColumns['salePrice'])) {
         if (product.salePrice) {
             productDetails.push(product.salePrice)
         } else {
@@ -571,7 +571,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
     
-    if(!empty(feedColumns['salePriceEffectiveDate'])) {
+    if (!empty(feedColumns['salePriceEffectiveDate'])) {
         if (product.salePrice) {
             productDetails.push(product.salePriceEffectiveDate)
         } else {
