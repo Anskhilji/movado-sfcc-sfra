@@ -114,6 +114,11 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
+        if (item.priceTotal.formattedSavingPrice) {
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings"> Savings ' +
+            item.priceTotal.formattedSavingPrice + '</div>');
+        }
         if (item.price.list) {
             $('.item-total-' + item.UUID + ' .price .strike-through').remove();
             $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
