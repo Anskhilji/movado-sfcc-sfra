@@ -75,12 +75,35 @@ function exportGoogleFeed(args) {
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
     var feedColumnsGoogle = {};
-    if(Site.current.ID === 'MovadoUS' || Site.current.ID === 'MCSUS') {
+    if (Site.current.ID === 'MovadoUS') {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
             "description" : 3,
             "decimalPrice" : 4,
+            "salePrice": 5,
+            "salePriceEffectiveDate": 6,
+            "link" : 7,
+            "imageLink" : 8,
+            "availability" : 9,
+            "productType" : 10,
+            "ProductCategory": 11,
+            "condition" : 12,
+            "gtin" : 13,
+            "mpn" : 14,
+            "brand" : 15,
+            "color" : 16,
+            "gender" : 17,
+            "ageGroup" : 18,
+            "productLabel" : 19,
+            "fontFamily" : 20
+        }
+    } else if (Site.current.ID === 'MCSUS') {
+        feedColumnsGoogle = {
+            "ID" : 1,
+            "metaTitle" : 2,
+            "description" : 3,
+            "decimalPriceMCSUS": 4,
             "link" : 5,
             "imageLink" : 6,
             "availability" : 7,
@@ -95,31 +118,33 @@ function exportGoogleFeed(args) {
             "ageGroup" : 16,
             "productLabel" : 17,
             "fontFamily" : 18
-                }
+        }
     } else {
         feedColumnsGoogle = {
             "ID" : 1,
             "metaTitle" : 2,
             "descriptionGoogle" : 3,
-            "decimalPrice" : 4,
-            "link" : 5,
-            "imageLink" : 6,
-            "additionalImageLink" : 7,
-            "availability" : 8,
-            "productTypeGoogle" : 9,
-            "googleProductCategory": 10,
-            "condition" : 11,
-            "gtin" : 12,
-            "mpn" : 13,
-            "brand" : 14,
-            "color" : 15,
-            "size" : 16,
-            "gender" : 17,
-            "ageGroup" : 18, 
-            "customLabel0" : 19,
-            "customLabel1" : 20,
-            "customLabel2" : 21,
-            "customLabel3" : 22
+            "decimalPrice": 4,
+            "salePrice": 5,
+            "salePriceEffectiveDate": 6,
+            "link" : 7,
+            "imageLink" : 8,
+            "additionalImageLink" : 9,
+            "availability" : 10,
+            "productTypeGoogle" : 11,
+            "googleProductCategory": 12,
+            "condition" : 13,
+            "gtin" : 14,
+            "mpn" : 15,
+            "brand" : 16,
+            "color" : 17,
+            "size" : 18,
+            "gender" : 19,
+            "ageGroup" : 20, 
+            "customLabel0" : 21,
+            "customLabel1" : 22,
+            "customLabel2" : 23,
+            "customLabel3" : 24
         }
     }
 
@@ -269,6 +294,18 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("price");
     }
 
+    if (!empty(feedColumns['decimalPriceMCSUS'])) {
+    	csvFileHeader.push("price");
+    }
+    
+    if (!empty(feedColumns['salePrice'])) {
+    	csvFileHeader.push("sale_price");
+    }
+    
+    if (!empty(feedColumns['salePriceEffectiveDate'])) {
+        csvFileHeader.push("sales_​price_​effective_​date");
+    }
+
     if (!empty(feedColumns['link'])) {
         csvFileHeader.push("link");
     }
@@ -393,27 +430,27 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("custom_label_1");
     }
 
-    if(!empty(feedColumns['priceUSD'])) {
+    if (!empty(feedColumns['priceUSD'])) {
         csvFileHeader.push("price - USD");
     }
 
-    if(!empty(feedColumns['priceGBP'])) {
+    if (!empty(feedColumns['priceGBP'])) {
         csvFileHeader.push("price - GBP");
     }
 
-    if(!empty(feedColumns['priceCAD'])) {
+    if (!empty(feedColumns['priceCAD'])) {
         csvFileHeader.push("price - CAD");
     }
 
-    if(!empty(feedColumns['priceEUR'])) {
+    if (!empty(feedColumns['priceEUR'])) {
         csvFileHeader.push("price - EUR");
     }
 
-    if(!empty(feedColumns['priceAUD'])) {
+    if (!empty(feedColumns['priceAUD'])) {
         csvFileHeader.push("price - AUD");
     }
 
-    if(!empty(feedColumns['caseDiameter'])) {
+    if (!empty(feedColumns['caseDiameter'])) {
         csvFileHeader.push("case diameter");
     }
 
@@ -470,7 +507,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if(!empty(feedColumns['productName'])) {
+    if (!empty(feedColumns['productName'])) {
         if(product.title) {
             productDetails.push(product.title);
         } else {
@@ -513,6 +550,30 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     if (!empty(feedColumns['decimalPrice'])) {
         if (product.decimalPrice) {
             productDetails.push(product.decimalPrice);
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['decimalPriceMCSUS'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salePrice)
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+    if (!empty(feedColumns['salePrice'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salePrice)
+        } else {
+            productDetails.push("");
+        }
+    }
+    
+    if (!empty(feedColumns['salePriceEffectiveDate'])) {
+        if (product.salePrice) {
+            productDetails.push(product.salePriceEffectiveDate)
         } else {
             productDetails.push("");
         }
@@ -823,16 +884,16 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
 function getProductAttributes(product, feedParameters, feedColumns) {
     var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
-    var productDecimalPrice = getProductSalePrice(product);
-    if (getProductSalePrice(product) > 0) {
-        productDecimalPrice = getProductSalePrice(product);
-    } else {
-        if (product.getPriceModel().getPrice()) {
-            if (product.getPriceModel().getPrice().decimalValue) {
-                productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
-            }
+    if (product.getPriceModel().getPrice()) {
+        if (product.getPriceModel().getPrice().decimalValue) {
+            var productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
         }
     }
+    var saleEffectiveDate = '';
+    if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
+        saleEffectiveDate = getSalePriceEffectiveDate(getProductPromoAndSalePrice(product).storefrontPromo);
+    }
+    var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != ""  ? product.getPriceModel().getPrice().currencyCode : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
     var productImages = getProductImageURL(product);
     var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
@@ -848,7 +909,8 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         decimalPrice : productDecimalPrice + " " + productCurrencyCode,
         label : product.custom.label ? product.custom.label : "",
         price:  productPrice + " " + productCurrencyCode,
-        salePrice: getProductSalePrice(product),
+        salePrice: getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode,
+        salePriceEffectiveDate: saleEffectiveDate,
         instock: product.onlineFlag,
         brand : product.brand ? product.brand : "",
         color : product.custom.color ? product.custom.color : "",
@@ -942,11 +1004,12 @@ function getProductImageURL(product) {
     return {firstImageLink: firstImageLink, additionalImageLink : additionalImageLink, isWristedImage : isWristedImage, firstImageLinkSmartGift : firstImageLinkSmartGift}
 }
 
-function getProductSalePrice(product) {
+function getProductPromoAndSalePrice(product) {
     var salePrice = '';
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
+    var storefrontPromo;
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
@@ -957,18 +1020,23 @@ function getProductSalePrice(product) {
             }
             if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                 promotionalPrice = currentPromotionalPrice;
+                storefrontPromo = promo;
             } else if (promotionalPrice.value == 0) {
                 if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
                     promotionalPrice = currentPromotionalPrice;
+                    storefrontPromo = promo;
                 }
             }
         }
     }
 
     if (promotionalPrice.available) {
-        salePrice = promotionalPrice.toNumberString();
+        salePrice = promotionalPrice.decimalValue.toString();
     }
-    return salePrice;
+    return {
+        storefrontPromo: storefrontPromo,
+        salePrice: salePrice
+    };
 }
 
 function buildCategoryPath(categories, feedParameters) {
@@ -1020,7 +1088,7 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
     Transaction.wrap(function () {
         var currency = Currency.getCurrency(currencyCode);
         session.setCurrency(currency);
-        promotionalPrice = getProductSalePrice(product);
+        promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
     });
     if (promotionalPrice > 0) {
         productDecimalPrice = promotionalPrice;
@@ -1032,6 +1100,30 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
         }
     }
     return productDecimalPrice + " " + currencyCode;
+}
+
+/**
+ * This method is used to get end date of a product campaign after promotion
+ * @param {dw.catalog.Product} promotion
+ * @returns {Date} end date.
+ */
+function getSalePriceEffectiveDate(promotion) {
+    var campaignStartingDate = '';
+    var campaignEndingDate = '';
+    var currentDateTime = new Calendar();
+    if (!empty(promotion.campaign.startDate)) {
+        campaignStartingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.endDate));
+    } else {
+        campaignStartingDate = commonUtils.formatDateTimeISO_8601(currentDateTime);
+    }
+    if (!empty(promotion.campaign.endDate)) {
+        campaignEndingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.endDate));
+    } else {
+        currentDateTime.add(currentDateTime.YEAR, "1");
+        campaignEndingDate = commonUtils.formatDateTimeISO_8601(currentDateTime);
+    }
+
+    return campaignStartingDate + Constants.PROMOTION_START_END_DATE_SEPARATOR +  campaignEndingDate;
 }
 
 module.exports = {
