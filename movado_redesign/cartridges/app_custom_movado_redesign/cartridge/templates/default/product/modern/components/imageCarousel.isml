@@ -53,7 +53,7 @@
           </isloop>
       </div>
   </div>
-  <isif condition="${isImageExist}">
+  <isif condition="${typeof isImageExist != 'undefined'}">
       <isif condition="${!isQuickView}">
           <button class="quickview js-zoom-image d-none btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
               <span class="fa-stack fa-lg">
@@ -73,7 +73,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="${product.images['pdp533'][0].url}"/></div>
+                <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="<isif condition="${typeof product.images['pdp533'][0].url != 'undefined'}">product.images['pdp533'][0].url</isif>"/></div>
                 <div class="zoom-carousel">
                     <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                       <div class="carousel-tile zoomit" data-src="${product.images.zoom1660}.url">

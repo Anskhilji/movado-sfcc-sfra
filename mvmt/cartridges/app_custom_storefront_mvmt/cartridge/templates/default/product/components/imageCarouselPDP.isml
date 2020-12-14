@@ -71,7 +71,7 @@
         <div class="main-mvmt-carousel">
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
             <div class="carousel-tile" data-thumb="${product.images.zoom1660[loopStatus.count-1].url}">
-              <img class="normal-zoom" src="${product.images.zoom1660[loopStatus.count-1].url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />
+              <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660) ? product.images.zoom1660[loopStatus.count-1].url : '' }" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
               <isset name="isImageExist" value="true" scope="page" />
             </div>
           </isloop>

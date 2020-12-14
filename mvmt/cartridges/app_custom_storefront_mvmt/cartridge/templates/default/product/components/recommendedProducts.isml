@@ -16,8 +16,7 @@
                     <div class="upsell_wrapper">
                         <input type="checkbox" autocomplete="off" class="upsell_input" name="additionalProducts" value="${recommendation.id}">
                         <div class="upsell_wrapper-inner">
-                            <img class="upsell_image" src="${recommendation.images.tile150[0].url}"/>
-                            
+                            <img class="upsell_image" src="${!empty(recommendation.images) && recommendation.images.tile150[0] ? recommendation.images.tile150[0].url : ''}"/>
                             <p class="upsell_description">${recommendation.productName}</p>
                             <div class="upsell_meta">
                                 <div class="upsell_price">

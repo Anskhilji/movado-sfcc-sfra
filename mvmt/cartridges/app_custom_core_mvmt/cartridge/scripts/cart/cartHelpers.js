@@ -87,7 +87,10 @@ cartHelpers.addProductToCart = function addProductToCart(currentBasket, productI
     var productLineItems = currentBasket.productLineItems;
     var productQuantityInCart;
     var quantityToSet;
-    var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
+    var optionModel;
+    if(product && product.optionModel) {
+        optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
+    }
     var result = {
         error: false,
         message: Resource.msg('text.alert.addedtobasket', 'product', null)
