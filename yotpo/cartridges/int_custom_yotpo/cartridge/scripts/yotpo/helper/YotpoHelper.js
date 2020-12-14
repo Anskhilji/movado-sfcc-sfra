@@ -40,7 +40,7 @@ function deleteOrderFromYotpo (ordersJSON, appKey) {
             throw Constants.DELETE_ORDER_SERVICE_ERROR;
         }
         
-    }catch (e) {
+    } catch (e) {
         YotpoLogger.logMessage('Error occured while trying to delete the record - ' + e, 'error', logLocation);
         throw Constants.DELETE_ORDER_SERVICE_ERROR;
     }
@@ -83,7 +83,14 @@ function deleteOrder(order) {
         yotpoAppKey = yotpoConfiguration.custom.appKey;
         ordersJSON = prepareJsonForOrderDelete(order, utokenAuthCode);
         if (!empty(ordersJSON)) {
-            authenticationError = deleteOrderFromYotpo(ordersJSON, yotpoAppKey);
+
+            try {
+                authenticationError = deleteOrderFromYotpo(ordersJSON, yotpoAppKey);
+            } catch (ex) {
+                YotpoLogger.logMessage('Error occured while trying to delete the order against order number:'+ order.orderNo + '. Exception is: ' + ex, 'error', logLocation);
+                authenticationError = null;
+            }
+
             if (authenticationError) {
                 authenticationResult = AuthenticationModel.authenticate(yotpoConfiguration);
                 utokenAuthCode = authenticationResult.updatedUTokenAuthCode;
