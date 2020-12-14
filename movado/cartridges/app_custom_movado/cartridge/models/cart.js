@@ -126,14 +126,17 @@ function getCustomAssets(){
 }
 
 function getSwellRedemptionID(priceAdjustments) {
-    var result;
+    var result = {
+        swellRedemptionID : '',
+        swellRedemptionText : ''
+    };
     priceAdjustments.toArray().forEach(function (priceAdjustment) {
         if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
             result = {
                 swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
                 swellRedemptionText : priceAdjustment.lineItemText
             };
-        }
+        } 
     });
     return result;
 }

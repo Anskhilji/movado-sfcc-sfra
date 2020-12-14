@@ -41,10 +41,25 @@ function updateCartTotals(data) {
         $('.shipping-discount').addClass('hide-shipping-discount');
     }
 
+    
+    // data.items.forEach(function (item) {
+    //     $('.item-' + item.UUID).empty().append(item.renderedPromotions);
+    //     $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
+    // });
     data.items.forEach(function (item) {
-        $('.item-' + item.UUID).empty().append(item.renderedPromotions);
-        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
-    });
+        // Custom Start: Updated selector and rendered HTML as per MVMT site
+            if (item.price.list) {
+                $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+                $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                    '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                    '<span class="sr-only">label.price.reduced.from</span>' +
+                    '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                    '<span class="sr-only">label.price.to</span></span></span>');
+            } else {
+                $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            }
+            $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+        });
 }
 
 /**
@@ -177,20 +192,20 @@ $(document).ready(function() {
 });
 
 function updateSwellPointsContainer  (data) {
-    if(data.swellRedemptionID !== '') {
+    if (data.swellRedemptionContainer.swellRedemptionID !== '') {
         var swellPointsContainar =
-        '<div class="redeem-rewards-promos">' +
+        '<div class="redeem-rewards-promos promotion-information col-12">' +
         '<div class="promotion-price-adjustment">'+
-        '<div class="promotion-adjustment">' +
-        '<button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemptionID +'">' +
+        '<div class="promotion-adjustment">' + data.swellRedemptionContainer.swellRedemptionText +
+        '<button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemptionContainer.swellRedemptionID +'">' +
         '<span aria-hidden="true">&times;</span>'+
         '</button>'+
         '</div>'+
-        '<div class="redeem-discount-promotion">'+
+        '<div class="coupon-applied">'+ 'applied' +
         '</div>'+
         '</div>'+
         '</div>';
-         $('.promotion-information .swell-rewards-discount').append(swellPointsContainar);
+         $('.redeem-rewards-promos.promotion-information').append(swellPointsContainar);
     }
 }
 
@@ -249,16 +264,14 @@ $('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
 $(document).on('click', '.remove-redeem-rewards', function (e) {
     e.preventDefault();
     var $removeredemptionContainer = $('.coupons-and-promos');
-    var pointRedemptionID = $(this).data('redemption-id');
+    var pointRedemptionID = $(this).find('.remove-redeem-rewards').data('redemption-id');
     $removeredemptionContainer.spinner().start();
-    swellAPI.removePointRedemptionIdFromCart(pointRedemptionID,
-        removeSwellDiscountFromCart()
-    );
+    swellAPI.removePointRedemptionIdFromCart(pointRedemptionID, removeSwellDiscountFromCart());
 });
 
 function removeSwellDiscountFromCart() {
     applySwellDiscount(null);
-    $('.swell-rewards-discount').remove();
+    $('.swell-promotion-price-adjustment').remove();
 }
 
 function applySwellDiscount(swellRedemptionId) {
