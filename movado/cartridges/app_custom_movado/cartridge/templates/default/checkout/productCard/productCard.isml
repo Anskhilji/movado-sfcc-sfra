@@ -16,9 +16,9 @@
         <div class="product-line-item-details item-info d-flex flex-row">
             <div class="item-image">
                 <img class="product-image"
-                    src="${!empty(lineItem.images) && !empty(lineItem.images.tile150) ? lineItem.images.tile150[0].url : ''}"
-                    alt="${!empty(lineItem.images) && !empty(lineItem.images.tile150) ? lineItem.images.tile150[0].alt : ''}"
-                    title="${!empty(lineItem.images) && !empty(lineItem.images.tile150) ? lineItem.images.tile150[0].title : ''}">
+                    src="<isif condition="${typeof lineItem.images.tile150[0].url != 'undefined'}">lineItem.images.tile150[0].url</isif>"
+                    alt="<isif condition="${typeof lineItem.images.tile150[0].alt != 'undefined'}">lineItem.images.tile150[0].alt</isif>"
+                    title="<isif condition="${typeof lineItem.images.tile150[0].title != 'undefined'}">lineItem.images.tile150[0].title</isif>"
             </div>
             <div class="item-attributes flex-column">
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
