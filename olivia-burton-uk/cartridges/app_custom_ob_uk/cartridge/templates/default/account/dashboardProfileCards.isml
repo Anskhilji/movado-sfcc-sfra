@@ -23,5 +23,8 @@
                 <isinclude template="account/wishlist/listCards"/>
             </div>
         </isif>
+
+        <!---MyWatches--->
+            <!--- <isinclude template="account/myWatches"/>  --->
     </div>
 </div>
