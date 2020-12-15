@@ -83,10 +83,10 @@ function getBadges(apiProduct) {
 
             if (today.after(badgeStartDate) && today.before(badgeEndDate)) {
                 if (badgeImage1) {
-                    var badgeImageUrl1 = badgeImage1.url.toString();
+                    var badgeImageUrl1 = badgeImage1.URL.toString();
                 }
                 if (badgeImage2) {
-                    var badgeImageUrl2 = badgeImage2.url.toString();
+                    var badgeImageUrl2 = badgeImage2.URL.toString();
                 }
 
 
@@ -94,7 +94,7 @@ function getBadges(apiProduct) {
                     var badge = {
                         attr: imageBadge,
                         attrType: 'image',
-                        imageUrl: badgeImage1.url,
+                        imageUrl: badgeImage1.URL,
                         imageAlt: imageBadge
                     };
                     imageBadgesObj.add(badge);
@@ -104,7 +104,7 @@ function getBadges(apiProduct) {
                     var badge = {
                         attr: imageBadge,
                         attrType: 'image',
-                        imageUrl: badgeImage2.url,
+                        imageUrl: badgeImage2.URL,
                         imageAlt: imageBadge
                     };
                     imageBadgesObj.add(badge);
