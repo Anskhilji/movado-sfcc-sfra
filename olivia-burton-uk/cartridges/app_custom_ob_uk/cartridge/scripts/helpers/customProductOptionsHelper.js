@@ -2,7 +2,6 @@
 
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
-var Site = require('dw/system/Site').getCurrent();
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 var NEWLINE = '\n';
@@ -38,21 +37,6 @@ function updateOptionLineItem(lineItemCtnr, productUUID, embossedMessage, engrav
 	 });
 }
 
-function getCurrentCountry() {
-    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    var availableCountry = 'US';
-    if (isEswEnabled) { 
-        availableCountry = eswHelper.getAvailableCountry();
-        if (availableCountry == null || empty(availableCountry)) {
-            availableCountry = 'US';
-        }
-    }
-
-    return availableCountry;
-}
-
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
-    getCurrentCountry: getCurrentCountry
 };
