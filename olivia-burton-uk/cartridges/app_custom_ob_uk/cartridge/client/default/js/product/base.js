@@ -947,7 +947,7 @@ module.exports = {
     },
     allowOnlyAlphaNumericInput: function () {
         $(document).on('keypress', '.alpha-numeric-input', function (e) {
-            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var regex = new RegExp("^[a-zA-Z0-9*\/]+$");
             var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
             if (regex.test(str)) {
                 return true;
