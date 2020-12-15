@@ -355,13 +355,16 @@ div.checkout-button-wrapper {
     border-top: 0;
 }
 
-.html-slot-container{
-  .cart-disclaimer-message{
-    .disclaimer-message{
-      font-size: rem(15);
-      color: $black;
-      font-family: $font-gills-light;
-      margin-top: rem(10);
+.html-slot-container {
+
+    .cart-disclaimer-message-movado {
+
+        .disclaimer-message {
+            font-size: rem(15);
+            color: $black;
+            font-family: $font-medium;
+            margin-top: rem(10);
+            font-weight: 600;
+        }
     }
-  }
 }
