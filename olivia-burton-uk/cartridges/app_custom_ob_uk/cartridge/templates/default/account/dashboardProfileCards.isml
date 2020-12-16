@@ -25,6 +25,8 @@
         </isif>
 
         <!---MyWatches--->
-            <!--- <isinclude template="account/myWatches"/>  --->
+        <iscomment> Custom Start: Remove Registry Watch From OB Accounts </iscomment>
+        <!--- <isinclude template="account/myWatches"/>  --->
+        <iscomment> Custom End </iscomment>
     </div>
 </div>
