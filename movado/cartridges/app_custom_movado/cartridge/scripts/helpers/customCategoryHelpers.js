@@ -18,16 +18,20 @@ function isCategoryNonCompareable(category) {
 var isCompareableDisabled = function(productID) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var product = ProductMgr.getProduct(productID);
-    var productCategories = product.getOnlineCategories();
-    var categoriesIterator = productCategories.iterator();
+    var productCategories;
     var isDisabledCompareable = false;
-    while (categoriesIterator.hasNext()) {
-        var category = categoriesIterator.next();
-        isDisabledCompareable = isCategoryNonCompareable(category);
-        if (isDisabledCompareable) {
-            break;
+    if (!empty(product) && !empty(product.getOnlineCategories())) {
+        productCategories = product.getOnlineCategories();
+        var categoriesIterator = productCategories.iterator();
+        while (categoriesIterator.hasNext()) {
+            var category = categoriesIterator.next();
+            isDisabledCompareable = isCategoryNonCompareable(category);
+            if (isDisabledCompareable) {
+                break;
+            }
         }
     }
+
     return isDisabledCompareable;
 }
 module.exports = {

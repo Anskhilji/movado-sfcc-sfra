@@ -80,7 +80,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         productDetailAttribute1: productDetailAttribute1,
         productDetailAttribute2: productDetailAttribute2,
         productDetailAttribute3: productDetailAttribute3,
-        isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
+      //  isCompareableDisabled: customCategoryHelpers.isCompareableDisabled(product.ID),
         moreStyleRecommendations: moreStyleRecommendations,
         youMayLikeRecommendations: youMayLikeRecommendations,
         collectionContentList: collectionContentList,
