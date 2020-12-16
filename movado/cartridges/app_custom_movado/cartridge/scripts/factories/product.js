@@ -19,10 +19,7 @@ module.exports = {
     get: function (params) {
         var productId = params.pid;
         var apiProduct = ProductMgr.getProduct(productId);
-        var productType;
-        if (!empty(apiProduct)) {
-            productType = productHelper.getProductType(apiProduct);
-        }
+        var productType = productHelper.getProductType(apiProduct);
         var product = Object.create(null);
         var options = null;
         var promotions;

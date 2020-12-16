@@ -1,12 +1,12 @@
 <div itemtype="http://schema.org/Product" itemscope>
-	<meta itemprop="name" content="${!empty(pdict.product) ? pdict.product.productName : ''}" />
-	<meta itemprop="description" content="${!empty(pdict.product) ? pdict.product.pageDescription : ''}" />
-	<meta itemprop="productID" content="${!empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : ''}" />
-	<link itemprop="image" href="${!empty(pdict.product) && !empty(pdict.product.images) && !empty(pdict.product.images.zoom1660) ? pdict.product.images.zoom1660[0].url : ''}" />
-	<link itemprop="url" href="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '').abs()}" />
+	<meta itemprop="name" content="${pdict.product.productName}" />
+	<meta itemprop="description" content="${pdict.product.pageDescription}" />
+	<meta itemprop="productID" content="${pdict.product.id}" />
+	<link itemprop="image" href="${pdict.product.images.zoom1660[0].url}" />
+	<link itemprop="url" href="${URLUtils.https('Product-Show','pid', pdict.product.id).abs()}" />
 	<div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
-		<meta itemprop="price" content="${!empty(price) && price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}" />
-		<meta itemprop="priceCurrency" content="${!empty(price) && price instanceof dw.value.Money ? price.currencyCode : price.currency}" />
+		<meta itemprop="price" content="${price.decimalPrice}" />
+		<meta itemprop="priceCurrency" content="${price.currency}" />
 		<isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
 			<meta itemprop="availability" content="InStock" />
 		<iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
@@ -17,12 +17,12 @@
 	</div>
 </div>
 
-<meta property='og:title' content="${!empty(pdict.product) ? pdict.product.productName : ''}"/>
-<meta property='og:description' content="${!empty(pdict.product) ? pdict.product.pageDescription : ''}"/>
-<meta property='og:image' content="${!empty(pdict.product) && !empty(pdict.product.images) && !empty(pdict.product.images.zoom1660) ? pdict.product.images.zoom1660[0].url : ''}"/>
-<meta property='og:url' content="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '').abs()}"/>
-<meta property='og:price:amount' content="${!empty(price) && price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}"/>
-<meta property='og:price:currency' content="${!empty(price) && price instanceof dw.value.Money ? price.currencyCode : price.currency}"/>
+<meta property='og:title' content="${pdict.product.productName}"/>
+<meta property='og:description' content="${pdict.product.pageDescription}"/>
+<meta property='og:image' content="${pdict.product.images.zoom1660[0].url}"/>
+<meta property='og:url' content="${URLUtils.https('Product-Show','pid', pdict.product.id).abs()}"/>
+<meta property='og:price:amount' content="${price.decimalPrice}"/>
+<meta property='og:price:currency' content="${price.currency}"/>
 <isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
 	<meta property='og:availability' content="instock"/>
 <iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">

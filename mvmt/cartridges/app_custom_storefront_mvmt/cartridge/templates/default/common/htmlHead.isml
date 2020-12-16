@@ -49,8 +49,8 @@
     <link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
     <isprint value="${pdict.content}" encoding="off"/>
 <iselseif condition="${pdict.action && pdict.action==='Product-Show'}">
-    <link rel="canonical" href="${URLUtils.https('Product-Show','pid', !empty(pdict.product) ? pdict.product.id : '')}"/>
-    <isif condition="${!empty(pdict.product) && !empty(pdict.product.raw) && !empty(pdict.product.raw.custom) && 'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml!=''}">
+    <link rel="canonical" href="${URLUtils.https('Product-Show','pid', pdict.product.id)}"/>
+    <isif condition="${'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml!=''}">
         <isprint value="${pdict.product.raw.custom.ProductSeoHtml}" encoding="off"/>
     </isif>
     <isinclude template="seo/seoTags" />

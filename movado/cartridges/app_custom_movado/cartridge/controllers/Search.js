@@ -53,7 +53,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
     var categoryTemplateReDesign = 'search/searchResults';
 
-    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
     }
 

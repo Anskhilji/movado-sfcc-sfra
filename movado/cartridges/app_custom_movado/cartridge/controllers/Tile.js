@@ -34,10 +34,10 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     // able to handle the different product types
     try {
         product = ProductFactory.get(productTileParams);
-        productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) && !empty(product.id) ? product.id : '').relative().toString();
-        quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', !empty(product) && !empty(product.id) ? product.id : '')
+        productUrl = URLUtils.url('Product-Show', 'pid', product.id).relative().toString();
+        quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', product.id)
             .relative().toString();
-        var smartGift = SmartGiftHelper.getSmartGiftCardBasket(!empty(product) && !empty(product.id) ? product.id : '');
+        var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.id);
         res.setViewData(smartGift);
 
     } catch (e) {
@@ -55,6 +55,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     }
 
+    var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);

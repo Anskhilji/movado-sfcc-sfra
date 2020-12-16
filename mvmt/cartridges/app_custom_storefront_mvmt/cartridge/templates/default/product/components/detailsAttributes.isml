@@ -9,7 +9,7 @@
                         <picture>
                             <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
                             <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                            <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                            <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${product.images.zoom830[loopStatus.count-1].url}" data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count-1].url}" />
                             <isset name="isImageExist" value="true" scope="page" />
                         </picture>
                     </div>
@@ -29,7 +29,7 @@
                             <span class="attribute-name attribute-content">${attr.displayName}</span>
                             <span class="attribute-value attribute-content">${attr.value}</span>
                         </div>
-                        <isif condition="${attr.name && attr.name.equalsIgnoreCase('strap')}">
+                        <isif condition="${attr.name.equalsIgnoreCase('strap')}">
                             <div class="attribute-detail">
                                 <iscomment>Custom Start: Hardcoded text will be removed when backend work done</iscomment>
                                 <span class="attribute-name attribute-content">name</span>

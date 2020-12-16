@@ -430,12 +430,9 @@ function getCategoryBreadcrumb(categoryObj) {
  */
 function getProductBreadcrumb(productObj) {
     try {
-        var category;
-        if(!empty(productObj) && !empty(productObj.variant) && !empty(productObj.masterProduct) && !!productObj.masterProduct.primaryCategory) {
-            category = productObj.masterProduct.primaryCategory;
-        } else if(!empty(productObj) && !empty(productObj.primaryCategory)) {
-            category = productObj.primaryCategory;
-        }
+        var category = productObj && productObj.variant && !!productObj.masterProduct.primaryCategory
+        ? productObj.masterProduct.primaryCategory
+        : productObj.primaryCategory;
         var categoryHierarchy = getCategoryBreadcrumb(category);
         return { primaryCategory: categoryHierarchy.primaryCategory };
     } catch (ex) {
@@ -512,9 +509,9 @@ function getCategoryLevelCount(category, levelCount) {
 function getPDPProductImpressionsTags(productObj, queryString) {
     try {
         var variantSize = '';
-        var productID = !empty(productObj) && !empty(productObj.ID) ? productObj.ID : '';
+        var productID = productObj.ID;
         var selectedVariant;
-        if (!empty(productObj) && !empty(productObj.master)) {
+        if (productObj.master) {
             var variantFilter = getVariantFilter(queryString);
             if (variantFilter.length > 0) {
                 selectedVariant = productObj.getVariationModel() ? productObj.getVariationModel().getVariants(variantFilter)[0] : ''; 

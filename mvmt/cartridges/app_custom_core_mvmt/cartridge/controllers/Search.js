@@ -18,9 +18,7 @@ server.append(
             for (var i = 0; i < viewData.productSearch.productIds.length; i++) {
                 var apiProduct = ProductMgr.getProduct(viewData.productSearch.productIds[i].productID);
                 var quantity = 0;
-                if (!empty(apiProduct)) {
-                    marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
-                }
+                marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
             }
             viewData.marketingProductData = JSON.stringify(marketingProductsData);
             viewData = {

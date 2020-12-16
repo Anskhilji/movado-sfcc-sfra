@@ -18,7 +18,7 @@
                 </div>
             </isif>
             <div class="col-4 hidden-xs-down">
-                <img class="img-fluid" src="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.imageURL) ? order.firstLineItem.imageURL : ''}" alt="${order.firstLineItem.alt}" title="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.title) ? order.firstLineItem.title : ''}">
+                <img class="img-fluid" src="${order.firstLineItem.imageURL}" alt="${order.firstLineItem.alt}" title="${order.firstLineItem.title}">
             </div>
             <div class="col-sm-8 col-12">
                 <isif condition="${pdict.accountlanding}">
@@ -26,7 +26,7 @@
                 </isif>
                 <p><span class="field-label">${Resource.msg('label.orderhistory.dateordered','account',null)}</span> <span class="field-value"> <isprint value="${order.creationDate}"/></span></p>
                 <p><span class="field-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span> <span class="dashboard-order-card-status field-value"><isif condition="${order.sapOrderStatus != null}">${order.sapOrderStatus}</isif></span></p>
-                <isif condition="${!empty(order.trackingUrls) && order.trackingUrls.length > 0}">
+                <isif condition="${order.trackingUrls.length > 0}">
 		            <p>${Resource.msg('label.order.tracking', 'confirmation', null)}
 		            <span class="dashboard-order-card-tracking">
 			            <isloop items="${order.trackingUrls}" var="tracking" status="status">

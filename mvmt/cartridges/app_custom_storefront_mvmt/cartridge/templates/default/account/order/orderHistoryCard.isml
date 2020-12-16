@@ -20,7 +20,7 @@
                     </div>
                 </isif>
                 <div class="col-4">
-                    <img class="img-fluid" src="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.imageURL) ? order.firstLineItem.imageURL : ''}" alt="${order.firstLineItem.alt}" title="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.title) ? order.firstLineItem.title : ''}">
+                    <img class="img-fluid" src="${order.firstLineItem.imageURL}" alt="${order.firstLineItem.alt}" title="${order.firstLineItem.title}">
                 </div>
                 <div class="col-sm-8 col-12">
                     <isif condition="${pdict.accountlanding}">
