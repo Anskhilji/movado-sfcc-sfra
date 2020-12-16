@@ -106,13 +106,13 @@ function getGtmProductClickObj(product, categoryName, position) {
         productClickGtmObj.push({
             name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
             id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            price: !empty(productObj) && !empty(productObj.master) ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+            price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                 : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
             position: position,
-            variant: !empty(productObj) && (!empty(productObj.master) || productObj.variant) ? getVariantSize(productObj) : '',
+            variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
             list: 'PLP'
         });
     }	else {
@@ -124,13 +124,13 @@ function getGtmProductClickObj(product, categoryName, position) {
         productClickGtmObj.push({
             name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
             id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            price: !empty(productObj) && !empty(productObj.master) ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+            price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
                 : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
             brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: stringUtils.removeSingleQuotes(category),
             position: position,
-            variant: !empty(productObj) && (!empty(productObj.master) || productObj.variant) ? getVariantSize(productObj) : '',
+            variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
             list: 'Search Results'
         });
     }

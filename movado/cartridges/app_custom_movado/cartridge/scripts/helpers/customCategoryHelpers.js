@@ -18,10 +18,7 @@ function isCategoryNonCompareable(category) {
 var isCompareableDisabled = function(productID) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var product = ProductMgr.getProduct(productID);
-    var productCategories;
-    if (!empty(product) && !empty(product.getOnlineCategories())) {
-        productCategories = product.getOnlineCategories();
-    }
+    var productCategories = product.getOnlineCategories();
     var categoriesIterator = productCategories.iterator();
     var isDisabledCompareable = false;
     while (categoriesIterator.hasNext()) {

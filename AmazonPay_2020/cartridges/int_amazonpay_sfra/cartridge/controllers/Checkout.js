@@ -19,10 +19,10 @@ server.prepend(
         var Transaction = require('dw/system/Transaction');
 
         var currentBasket = BasketMgr.getCurrentBasket();
-        var checkoutSessionId = !empty(currentBasket) && !empty(currentBasket.custom.amzPayCheckoutSessionId) ? currentBasket.custom.amzPayCheckoutSessionId : '';
-        var redirectUrl = !empty(currentBasket) && !empty(currentBasket.custom.amzPayRedirectURL) ? currentBasket.custom.amzPayRedirectURL : '';
+        var checkoutSessionId = currentBasket.custom.amzPayCheckoutSessionId;
+        var redirectUrl = currentBasket.custom.amzPayRedirectURL;
 
-        if (redirectUrl !== null && checkoutSessionId != null && currentBasket !== null) {
+        if (redirectUrl !== null && checkoutSessionId != null) {
             var paymentInstruments = currentBasket.getPaymentInstruments('AMAZON_PAY');
 
             Transaction.wrap(function () {
@@ -60,10 +60,7 @@ server.prepend(
         var CheckoutSessionService = require('*/cartridge/scripts/services/checkoutSession/amazonCheckoutSessionService');
 
         var currentBasket = BasketMgr.getCurrentBasket();
-        var validatedProducts;
-        if (currentBasket) {
-            validatedProducts = validationHelpers.validateProducts(currentBasket);
-        }
+        var validatedProducts = validationHelpers.validateProducts(currentBasket);
         if (!currentBasket || validatedProducts.error) {
             res.redirect(URLUtils.url('Cart-Show'));
             return next();
