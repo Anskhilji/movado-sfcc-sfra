@@ -17,7 +17,7 @@
     </isscript>
 </isif>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-    <iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
+    <iscomment>Custom Start:[MSS:931] removed total and item total prices for with amount of Qualifying products</iscomment>
     <iscomment>
         <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} 
             ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
