@@ -1,4 +1,0 @@
-<isif condition="${dw.system.Site.current.preferences.custom.yottaaEnabled}">
-    <isset name="yottaaSource" value="${!empty(dw.system.Site.current.preferences.custom.yottaaSource) ? dw.system.Site.current.preferences.custom.yottaaSource : ''}" scope="page" />
-    <isprint value="${yottaaSource}" encoding="off" />
-</isif>
