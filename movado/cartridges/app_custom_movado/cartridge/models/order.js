@@ -83,13 +83,19 @@ function getFirstProductLineItem(productLineItemsModel) {
 }
 
 function getSwellRedemptionID(priceAdjustments) {
-    var swellRedemptionID = '';
+    var result = {
+        swellRedemptionID : '',
+        swellRedemptionText : ''
+    };
     priceAdjustments.toArray().forEach(function (priceAdjustment) {
-     if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
-        swellRedemptionID = priceAdjustment.custom.swellRedemptionId;
-     }
+        if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
+            result = {
+                swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
+                swellRedemptionText : priceAdjustment.lineItemText
+            };
+        }
     });
-    return swellRedemptionID;
+    return result;
 }
 
 /**
@@ -133,7 +139,7 @@ function OrderModel(lineItemContainer, options) {
             resources: {
                 toBeDeclared: Resource.msg('tax.tbd', 'cart', null)
             },
-            swellRedemptionID: getSwellRedemptionID(lineItemContainer.getPriceAdjustments())
+            swellRedemptionContainer: getSwellRedemptionID(lineItemContainer.getPriceAdjustments())
         });
     }
     return orderObj;

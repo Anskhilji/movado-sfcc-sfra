@@ -264,7 +264,7 @@ $('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
 $(document).on('click', '.remove-redeem-rewards', function (e) {
     e.preventDefault();
     var $removeredemptionContainer = $('.coupons-and-promos');
-    var pointRedemptionID = $(this).find('.remove-redeem-rewards').data('redemption-id');
+    var pointRedemptionID = $(this).data('redemption-id');
     $removeredemptionContainer.spinner().start();
     swellAPI.removePointRedemptionIdFromCart(pointRedemptionID, removeSwellDiscountFromCart());
 });
