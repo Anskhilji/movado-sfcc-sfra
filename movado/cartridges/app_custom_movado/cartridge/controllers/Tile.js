@@ -55,7 +55,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     }
 
-    var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);

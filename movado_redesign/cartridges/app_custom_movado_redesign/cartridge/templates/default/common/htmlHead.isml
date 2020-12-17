@@ -59,7 +59,7 @@
 	<isinclude template="seo/seoTags" />
 <iselseif condition="${pdict.action && pdict.action==='Search-Show' && pdict.productSearch.category }">
 	<link rel="canonical" href="${URLUtils.https('Search-Show','cgid', pdict.productSearch.category.id)}"/>
-	<isif condition="${ pdict.productSearch.category.raw && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml!=''}">
+	<isif condition="${!empty(pdict.productSearch) && !empty(pdict.productSearch.category) && !empty(pdict.productSearch.category.raw) && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml!=''}">
     	<isprint value="${pdict.productSearch.category.raw.custom.CategorySeoHtml}" encoding="off"/>
 	</isif>
 <iselseif condition="${pdict.action && pdict.action==='Page-Show'}">
