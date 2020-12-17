@@ -410,16 +410,14 @@ $negative-spacer: -0.625rem;
     }
 }
 
-.html-slot-container {
+.cart-disclaimer-message-movado {
 
-    .cart-disclaimer-message-movado {
-
-        .disclaimer-message {
+    p {
             font-size: rem(15);
+            letter-spacing: 2px;
             color: $black;
             font-family: $font-medium;
             margin-top: rem(10);
-            font-weight: 600;
-        }
-    }
+            font-weight: 300;
+      }
 }
