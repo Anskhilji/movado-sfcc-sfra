@@ -43,7 +43,9 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
-        if (item.priceTotal.formattedSavingPrice) {
+        var savingPrice = item.priceTotal.formattedSavingPrice;
+        var formattedSavingPrice = Number(savingPrice.replace(/[^0-9\.-]+/g,""));
+        if (formattedSavingPrice > 0 ) {
             $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
             $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings">' + Resources.LABEL_SAVING_PRICE +
             item.priceTotal.formattedSavingPrice + '</div>');
