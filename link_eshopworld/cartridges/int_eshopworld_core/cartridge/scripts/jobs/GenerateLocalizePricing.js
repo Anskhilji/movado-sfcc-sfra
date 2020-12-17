@@ -231,7 +231,7 @@ function buildPriceBookSchema(writeDirPath, products, priceBook, localizeObj) {
             priceBookStreamWriter.writeCharacters('\n');
             priceBookStreamWriter.writeStartElement('amount');
             priceBookStreamWriter.writeAttribute('quantity', '1');
-            priceBookStreamWriter.writeCharacters(localizedPrice.toFixed(2));
+            priceBookStreamWriter.writeCharacters(localizedPrice);
             priceBookStreamWriter.writeEndElement();
             priceBookStreamWriter.writeCharacters('\n');
             priceBookStreamWriter.writeEndElement();
