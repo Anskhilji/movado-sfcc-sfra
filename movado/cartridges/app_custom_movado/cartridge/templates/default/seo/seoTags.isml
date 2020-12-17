@@ -6,7 +6,7 @@
     <link itemprop="url" href="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '').abs()}" />
     <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
     <isif condition="${typeof price != 'undefined'}">
-        <isif condition="price instanceof dw.value.Money">
+        <isif condition="${price instanceof dw.value.Money}">
             <meta itemprop="price" content="${price.decimalValue}" />
             <meta itemprop="priceCurrency" content="${price.currencyCode}" />
         <iselse>

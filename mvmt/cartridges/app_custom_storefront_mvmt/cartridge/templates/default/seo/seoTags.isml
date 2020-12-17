@@ -32,8 +32,8 @@
 <meta property='og:description' content="${!empty(pdict.product) ? pdict.product.pageDescription : ''}"/>
 <meta property='og:image' content="${!empty(pdict.product) && !empty(pdict.product.images) && !empty(pdict.product.images.zoom1660) ? pdict.product.images.zoom1660[0].url : ''}"/>
 <meta property='og:url' content="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '').abs()}"/>
-<isif condition="typeof price != 'undefined'">
-    <isif condition="instanceof dw.value.Money">
+<isif condition="${typeof price != 'undefined'}">
+    <isif condition="${instanceof dw.value.Money}">
         <meta property='og:price:amount' content="${price.decimalValue}"/>
         <meta property='og:price:currency' content="${price.currencyCode}"/>
     <iselse>
