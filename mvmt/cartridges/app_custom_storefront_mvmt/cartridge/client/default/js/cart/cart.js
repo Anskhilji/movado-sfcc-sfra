@@ -119,7 +119,7 @@ function updateCartTotals(data) {
         if (formattedSavingPrice > 0 ) {
             $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
             $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings">' + Resources.LABEL_SAVING_PRICE +
-            item.priceTotal.formattedSavingPrice + '</div>');
+            savingPrice + '</div>');
         }
         if (item.price.list) {
             $('.item-total-' + item.UUID + ' .price .strike-through').remove();
