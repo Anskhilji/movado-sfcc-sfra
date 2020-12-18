@@ -414,7 +414,7 @@ $negative-spacer: -0.625rem;
 
     p {
             font-size: rem(15);
-            letter-spacing: 2px;
+            letter-spacing: rem(2);
             color: $black;
             font-family: $font-medium;
             margin-top: rem(10);
