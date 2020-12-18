@@ -931,15 +931,15 @@ module.exports = function () {
 
     
     $('body').on('keyup', '.gift-text', function (event) {
-        var rows = $(this).attr('rows');
-        var lines = this.value.split("\n");
+        var $rows = $(this).attr('rows');
+        var $lines = this.value.split("\n");
         if (event.keyCode == 13) {
-            if (lines.length >= rows) {
+            if ($lines.length >= $rows) {
                 return false;
             }
         }
 
-      this.value = lines.slice(0, rows).join("\n");
+      this.value = $lines.slice(0, $rows).join("\n");
     });
 
     $('body').on('click', '.product-move .move', function (e) {
