@@ -41,25 +41,28 @@ function updateCartTotals(data) {
         $('.shipping-discount').addClass('hide-shipping-discount');
     }
 
-    
-    // data.items.forEach(function (item) {
-    //     $('.item-' + item.UUID).empty().append(item.renderedPromotions);
-    //     $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.renderedPrice);
-    // });
     data.items.forEach(function (item) {
-        // Custom Start: Updated selector and rendered HTML as per MVMT site
-            if (item.price.list) {
-                $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-                $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
-                    '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
-                    '<span class="sr-only">label.price.reduced.from</span>' +
-                    '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
-                    '<span class="sr-only">label.price.to</span></span></span>');
-            } else {
-                $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-            }
-            $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
-        });
+    // Custom Start: Updated selector and rendered HTML as per MVMT site
+        var savingPrice = item.priceTotal.formattedSavingPrice;
+        var formattedSavingPrice = Number(savingPrice.replace(/[^0-9\.-]+/g,""));
+        if (formattedSavingPrice > 0 ) {
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings">' + Resources.LABEL_SAVING_PRICE +
+            savingPrice + '</div>');
+        }
+        if (item.price.list) {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
+        } else {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+        }
+        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+    });
+    // Custom End
 }
 
 /**

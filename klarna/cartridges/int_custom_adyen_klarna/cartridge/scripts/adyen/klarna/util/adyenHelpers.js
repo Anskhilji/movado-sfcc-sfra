@@ -227,7 +227,7 @@ function buildGetPaymentDetailsRequestPayload(args) {
             var item = {
                 quantity: quantity,
                 amountExcludingTax: itemAmount,
-                taxPercentage: (new Number(vatPercentage) * 10000).toFixed(),
+                // [MSS-1089] Removed [taxPercentage: (new Number(vatPercentage) * 10000).toFixed(),] to fix Adyen internal validation error
                 description: getDescription(lineItem),
                 id: getId(lineItem),
                 taxAmount: vatAmount,

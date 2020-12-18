@@ -29,6 +29,8 @@ server.append(
         		pageKeywords: folderSearch.folder.pageKeywords };
 
         pageMetaHelper.setPageMetaData(req.pageMetaData, contentObj);
+
+        var viewData = res.getViewData();
         
         var oAuthObject = {
         		facebookOauthProvider : facebookOauthProvider,
@@ -36,6 +38,9 @@ server.append(
         }
         
         res.setViewData(oAuthObject);
+
+        viewData.ecommerceFunctionalityEnabled = Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled;
+        res.setViewData(viewData);
 
         next();
     }

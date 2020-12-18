@@ -398,6 +398,9 @@ $negative-spacer: -0.625rem;
 
 .klarna-promo-parent-container {
   margin-bottom: 5px;
+  iframe {
+    margin: 0 auto;
+  }
 }
 
 .estimated-price {
@@ -408,4 +411,16 @@ $negative-spacer: -0.625rem;
         font-weight: 500;
         display: inline-block;
     }
+}
+
+.cart-disclaimer-message-movado {
+
+    p {
+            font-size: rem(15);
+            letter-spacing: rem(2);
+            color: $black;
+            font-family: $font-medium;
+            margin-top: rem(10);
+            font-weight: 300;
+      }
 }
