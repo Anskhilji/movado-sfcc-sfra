@@ -103,7 +103,7 @@
                 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                 <isif condition="${isEswEnabled}" > 
                     <isset name="isDomesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                    <isif condition="${isDomesticAllowedCountry}" >
+                    <isif condition="${!isDomesticAllowedCountry}" >
                         <isslot id="esw-cart-disclaimer-message" description="esw cart disclaimer message" context="global" />
                     </isif>
                 </isif>
