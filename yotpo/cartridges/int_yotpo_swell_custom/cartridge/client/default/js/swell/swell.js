@@ -176,8 +176,6 @@ var onError = function(err) {
     $('#error').removeClass('d-none');
 };
 
-
-
 // depending on your cart/checkout markup the selectors will need to be updated
 var fillAndSubmitCouponCodeForm = function(couponCode) {
     // set the value for the coupon code input
