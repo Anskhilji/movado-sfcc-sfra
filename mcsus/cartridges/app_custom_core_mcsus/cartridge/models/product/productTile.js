@@ -11,7 +11,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
  * @returns {dw.catalog.ProductSearchHit} - product search hit for a given product
  */
 function getProductSearchHit(apiProduct) {
-    var searchModel = new ProductSearchModel();2
+    var searchModel = new ProductSearchModel();
     if(!empty(apiProduct)) {
         searchModel.setSearchPhrase(apiProduct.ID);
         searchModel.search();
