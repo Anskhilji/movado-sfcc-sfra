@@ -1,12 +1,12 @@
 <div class="redeem-rewards-promos promotion-information col-12">
     <isif condition="${!empty(pdict.swellRedemptionContainer.swellRedemptionID)}">
         <div class="promotion-price-adjustment swell-promotion-price-adjustment">
-        <div class="promotion-adjustment">${pdict.swellRedemptionContainer.swellRedemptionText}
-            <button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id="${!empty(pdict.swellRedemptionContainer) ? pdict.swellRedemptionContainer.swellRedemptionID : ''}">
+            <div class="promotion-adjustment">${pdict.swellRedemptionContainer.swellRedemptionText}
+                <button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id="${!empty(pdict.swellRedemptionContainer) ? pdict.swellRedemptionContainer.swellRedemptionID : ''}">
                     <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
+                </button>
+            </div>
+            <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
         </div>
     </isif>
 </div>

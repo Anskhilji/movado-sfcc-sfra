@@ -182,16 +182,23 @@ var fillAndSubmitCouponCodeForm = function(couponCode) {
     $("#coupon-code-input-element").val(couponCode);
 };
 
+/**
+ * re-renders the redemption id on the mini cart and checkout
+ * @param {Integer} id - AJAX response from the server
+ */
 var upadteSwellRedemptionId = function(id) {
     // set the value for the redemption id input
     $('.remove-redeem-rewards').attr('data-redemption-id', id);
-    
 };
 
 $(document).ready(function() {
     handleSwellPointContainer();
 });
 
+/**
+ * re-renders the swell points and the redemption id on the mini cart and checkout
+ * @param {Object} data - AJAX response from the server
+ */
 function updateSwellPointsContainer  (data) {
     if (data.swellRedemptionContainer.swellRedemptionID !== '') {
         var swellPointsContainar =
@@ -278,7 +285,7 @@ function removeSwellDiscountFromCart() {
 function applySwellDiscount(swellRedemptionId) {
     var $csrfInput = $('.swell-crf-token');
     var $redemptionContainer = $('.swell-redemption');
-    var $removeredemptionContainer = $('.coupons-and-promos');
+    var removeRedemptionContainer = $('.coupons-and-promos');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
     $.ajax({
@@ -301,11 +308,11 @@ function applySwellDiscount(swellRedemptionId) {
                 }
             }
             $redemptionContainer.spinner().stop();
-            $removeredemptionContainer.spinner().stop();
+            removeRedemptionContainer.spinner().stop();
         },
         error: function (err) {
             $('#error').empty().append(err.responseText);
-            $removeredemptionContainer.spinner().stop();
+            removeRedemptionContainer.spinner().stop();
             $redemptionContainer.spinner().stop();
         }
   });
