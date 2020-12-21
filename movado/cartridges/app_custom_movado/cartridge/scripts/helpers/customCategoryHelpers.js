@@ -23,8 +23,9 @@ var isCompareableDisabled = function(productID) {
     if (!empty(product) && !empty(product.getOnlineCategories())) {
         productCategories = product.getOnlineCategories();
         var categoriesIterator = productCategories.iterator();
+        var category;
         while (categoriesIterator.hasNext()) {
-            var category = categoriesIterator.next();
+            category = categoriesIterator.next();
             isDisabledCompareable = isCategoryNonCompareable(category);
             if (isDisabledCompareable) {
                 break;

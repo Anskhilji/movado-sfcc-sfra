@@ -7,7 +7,7 @@
             <isinclude template="/sendToFriend/defaultPricing" />
         </isloop>
     </isif>  
-<iselseif condition="${ price && price.type === 'range'}"/>
+<iselseif condition="${price && price.type === 'range'}"/>
     <isset name="origPrice" value="${price}" scope="page" />
     <isset name="price" value="${origPrice.min}" scope="page" />
     <isinclude template="/sendToFriend/defaultPricing" />

@@ -20,7 +20,7 @@
         <isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
             <meta itemprop="availability" content="InStock" />
         <iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
-                       <meta itemprop="availability" content="PreOrder" />
+            <meta itemprop="availability" content="PreOrder" />
         <iselse>
             <meta itemprop="availability" content="OutStock" />
         </isif>

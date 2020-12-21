@@ -17,11 +17,10 @@
         <meta itemprop="price" content="null" />
         <meta itemprop="priceCurrency" content="null" />
     </isif>
-        <meta itemprop="priceCurrency" content="${!empty(price) && price instanceof dw.value.Money ? price.currencyCode : price.currency}" />
         <isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
             <meta itemprop="availability" content="InStock" />
         <iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
-                       <meta itemprop="availability" content="PreOrder" />
+            <meta itemprop="availability" content="PreOrder" />
         <iselse>
             <meta itemprop="availability" content="OutStock" />
         </isif>
