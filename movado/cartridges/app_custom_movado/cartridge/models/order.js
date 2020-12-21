@@ -82,22 +82,6 @@ function getFirstProductLineItem(productLineItemsModel) {
     return null;
 }
 
-function getSwellRedemptionID(priceAdjustments) {
-    var result = {
-        swellRedemptionID : '',
-        swellRedemptionText : ''
-    };
-    priceAdjustments.toArray().forEach(function (priceAdjustment) {
-        if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
-            result = {
-                swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
-                swellRedemptionText : priceAdjustment.lineItemText
-            };
-        }
-    });
-    return result;
-}
-
 /**
  * Order class that represents the current order
  * @param {dw.order.LineItemCtnr} lineItemContainer - Current users's basket/order
@@ -138,8 +122,7 @@ function OrderModel(lineItemContainer, options) {
             firstLineItem: getFirstProductLineItem(productLineItemsModel),
             resources: {
                 toBeDeclared: Resource.msg('tax.tbd', 'cart', null)
-            },
-            swellRedemptionContainer: getSwellRedemptionID(lineItemContainer.getPriceAdjustments())
+            }
         });
     }
     return orderObj;
