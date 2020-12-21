@@ -303,7 +303,7 @@ function buildCsvHeader(feedColumns) {
     }
     
     if (!empty(feedColumns['salePriceEffectiveDate'])) {
-        csvFileHeader.push("sales_​price_​effective_​date");
+        csvFileHeader.push("sale_price_effective_date");
     }
 
     if (!empty(feedColumns['link'])) {
@@ -1112,7 +1112,7 @@ function getSalePriceEffectiveDate(promotion) {
     var campaignEndingDate = '';
     var currentDateTime = new Calendar();
     if (!empty(promotion.campaign.startDate)) {
-        campaignStartingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.endDate));
+        campaignStartingDate = commonUtils.formatDateTimeISO_8601(new Calendar(promotion.campaign.startDate));
     } else {
         campaignStartingDate = commonUtils.formatDateTimeISO_8601(currentDateTime);
     }
