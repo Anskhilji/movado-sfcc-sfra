@@ -5,18 +5,18 @@
     <link itemprop="image" href="${!empty(pdict.product) && !empty(pdict.product.images) && !empty(pdict.product.images.zoom1660) ? pdict.product.images.zoom1660[0].url : ''}" />
     <link itemprop="url" href="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '').abs()}" />
     <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
-    <isif condition="${typeof price != 'undefined'}">
-        <isif condition="${price instanceof dw.value.Money}">
-            <meta itemprop="price" content="${price.decimalValue}" />
-            <meta itemprop="priceCurrency" content="${price.currencyCode}" />
+        <isif condition="${typeof price != 'undefined'}">
+            <isif condition="${price instanceof dw.value.Money}">
+                <meta itemprop="price" content="${price.decimalValue}" />
+                <meta itemprop="priceCurrency" content="${price.currencyCode}" />
+            <iselse>
+                <meta itemprop="price" content="${price.decimalPrice}" />
+                <meta itemprop="priceCurrency" content="${price.currency}" />
+            </isif>
         <iselse>
-            <meta itemprop="price" content="${price.decimalPrice}" />
-            <meta itemprop="priceCurrency" content="${price.currency}" />
+            <meta itemprop="price" content="null" />
+            <meta itemprop="priceCurrency" content="null" />
         </isif>
-    <iselse>
-        <meta itemprop="price" content="null" />
-        <meta itemprop="priceCurrency" content="null" />
-    </isif>
         <isif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('In Stock') > -1}">
             <meta itemprop="availability" content="InStock" />
         <iselseif condition="${pdict.product && pdict.product.availability && pdict.product.availability.messages && pdict.product.availability.messages.indexOf('Pre-Order') > -1}">
