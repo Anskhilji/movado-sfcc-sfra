@@ -525,13 +525,13 @@ input[type="radio"] {
   max-width: rem(228);
 }
 .form-group {
-    .form-control-field-label {
-        font-family: $font-medium;
-        font-size: rem(14);
-        margin-bottom: rem(8);
-        display: inline-block;
-        text-transform: uppercase;
-    }
+	.form-control-field-label {
+		font-family: $font-medium;
+		font-size: rem(14);
+		margin-bottom: rem(8);
+		display: inline-block;
+		text-transform: uppercase;
+	}
   &.required {
   .form-control-label{
     &:before {
