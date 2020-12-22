@@ -125,7 +125,7 @@ function getCustomAssets(){
   return assets;
 }
 
-function getSwellRedemptionID(priceAdjustments) {
+function getSwellRedemption(priceAdjustments) {
     var result = {
         swellRedemptionID : '',
         swellRedemptionText : ''
@@ -172,7 +172,7 @@ function CartModel(basket) {
         additionalCheckout: Resource.msg('additional.checkout', 'cart', null)
       },
       assets: assets,
-      swellRedemptionContainer: getSwellRedemptionID(basket.getPriceAdjustments())
+      swellRedemption: getSwellRedemption(basket.getPriceAdjustments())
     });
     return cartObject;
 }

@@ -94,8 +94,7 @@ server.append(
             actionUrls: actionUrls,
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
-            expirationYears: creditCardExpirationYears,
-            swellRedemptionContainer: viewData.order.swellRedemptionContainer
+            expirationYears: creditCardExpirationYears
         });
 
         next();

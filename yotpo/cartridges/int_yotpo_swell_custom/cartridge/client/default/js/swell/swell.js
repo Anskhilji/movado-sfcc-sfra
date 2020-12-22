@@ -188,7 +188,7 @@ var fillAndSubmitCouponCodeForm = function(couponCode) {
  */
 var upadteSwellRedemptionId = function(id) {
     // set the value for the redemption id input
-    $('.remove-redeem-rewards').attr('data-redemption-id', id);
+    $('.swell-remove-redeem-rewards').attr('data-redemption-id', id);
 };
 
 $(document).ready(function() {
@@ -199,21 +199,21 @@ $(document).ready(function() {
  * re-renders the swell points and the redemption id on the mini cart and checkout
  * @param {Object} data - AJAX response from the server
  */
-function updateSwellPointsContainer  (data) {
-    if (data.swellRedemptionContainer.swellRedemptionID !== '') {
+function updateSwellPointsContainer(data) {
+    if (data.swellRedemption.swellRedemptionID !== '') {
         var swellPointsContainar =
         '<div class="redeem-rewards-promos promotion-information col-12">' +
         '<div class="promotion-price-adjustment">'+
-        '<div class="promotion-adjustment">' + data.swellRedemptionContainer.swellRedemptionText +
-        '<button type="button" class="float-right remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemptionContainer.swellRedemptionID +'">' +
+        '<div class="promotion-adjustment">' + data.swellRedemption.swellRedemptionText +
+        '<button type="button" class="float-right swell-remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemption.swellRedemptionID +'">' +
         '<span aria-hidden="true">&times;</span>'+
         '</button>'+
         '</div>'+
-        '<div class="coupon-applied">'+ 'applied' +
+        '<div class="coupon-applied">'+ Resources.LABEL_SWELL_POINTS_APPLIED +
         '</div>'+
         '</div>'+
         '</div>';
-         $('.redeem-rewards-promos.promotion-information').append(swellPointsContainar);
+         $('.swell-redeem-rewards-promos').append(swellPointsContainar);
     }
 }
 
@@ -269,12 +269,14 @@ $('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
     );
 });
 
-$(document).on('click', '.remove-redeem-rewards', function (e) {
+$(document).on('click', '.swell-remove-redeem-rewards', function (e) {
     e.preventDefault();
     var $removeredemptionContainer = $('.coupons-and-promos');
     var pointRedemptionID = $(this).data('redemption-id');
-    $removeredemptionContainer.spinner().start();
-    swellAPI.removePointRedemptionIdFromCart(pointRedemptionID, removeSwellDiscountFromCart());
+    if (typeof swellAPI !== 'undefined' || swellAPI !== null) {
+        $removeredemptionContainer.spinner().start();
+        swellAPI.removePointRedemptionIdFromCart(pointRedemptionID, removeSwellDiscountFromCart());
+    }
 });
 
 function removeSwellDiscountFromCart() {
