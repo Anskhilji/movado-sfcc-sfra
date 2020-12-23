@@ -202,7 +202,7 @@ $(document).ready(function() {
 function updateSwellPointsContainer(data) {
     if (data.swellRedemption.swellRedemptionID !== '') {
         var swellPointsContainar =
-        '<div class="redeem-rewards-promos promotion-information col-12">' +
+        '<div class="redeem-rewards-promos swell-promotion-information col-12">' +
         '<div class="promotion-price-adjustment">'+
         '<div class="promotion-adjustment">' + data.swellRedemption.swellRedemptionText +
         '<button type="button" class="float-right swell-remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemption.swellRedemptionID +'">' +

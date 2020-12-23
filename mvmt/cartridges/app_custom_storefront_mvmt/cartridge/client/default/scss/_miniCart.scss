@@ -467,7 +467,7 @@
                     .redeem-rewards-promos {
                         padding: 0;
                     }
-                    .promotion-information {
+                    .swell-promotion-information {
                         margin-bottom: rem(10);
                         margin-top: rem(10);
 
@@ -479,6 +479,13 @@
                                 background-color: $white;
                                 padding: rem(10);
                                 height: rem(55);
+
+                                .promotion-adjustment {
+                                    font-size: rem(16);
+                                    letter-spacing: rem(2);
+                                    text-transform: uppercase;
+                                    font-weight: 600;
+                                }
                             }
 
                             .applied-promotion-discount {
