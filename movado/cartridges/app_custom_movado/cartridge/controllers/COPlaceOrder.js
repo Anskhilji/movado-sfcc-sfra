@@ -23,7 +23,8 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
 
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        // MSS-1169 Passed true as param to fix deprecated method usage
+        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
         // fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
