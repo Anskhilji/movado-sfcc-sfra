@@ -111,7 +111,7 @@ h2 {
 
                             //out.print(reviewUrl);
 
-                            reviewUrl = URLUtils.http( false , 'PowerReviews-WriteReview', 'pid' , ProductLineItem.getProduct().ID , 'source' , 'email');
+                            reviewUrl = URLUtils.http('PowerReviews-WriteReview', 'pid' , ProductLineItem.getProduct().ID , 'source' , 'email');
                             reviewUrl = reviewUrl.toString();
                             reviewUrl = reviewUrl.replace(shop,"Sites-SiteGenesis-Site");
 

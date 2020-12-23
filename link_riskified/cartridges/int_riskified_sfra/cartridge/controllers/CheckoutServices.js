@@ -531,7 +531,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
             if (isDecoEligible) {
             	session.custom.isEligible = true;
                 // We will undo fail order if the user selects Pay with Deco
-                Transaction.wrap(function () { OrderMgr.failOrder(order); });
+                Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
                 res.json({
                 	error: false,
                 	deco: true,
@@ -544,7 +544,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
                 return next();
             }
             else{
-            	Transaction.wrap(function () { OrderMgr.failOrder(order); });
+            	Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
             	res.json({
                     error: true,
                     errorMessage: Resource.msg('confirm.error.deco', 'checkout', null)
@@ -563,7 +563,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
     var fraudDetectionStatus = HookMgr.callHook('app.fraud.detection', 'fraudDetection', currentBasket);
     if (fraudDetectionStatus.status === 'fail') {
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
         // fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -585,7 +585,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
     if (!approvedByRiskified) {
     	// fail the order, end of riskified flow
     	return Transaction.wrap(function () {
-    	    OrderMgr.failOrder(order);
+    	    OrderMgr.failOrder(order, true);
     	    res.json({
                 error: true,
                 errorMessage: Resource.msg('confirm.error.riskified', 'checkout', null)

@@ -25,7 +25,7 @@ function handlePayments(order, orderNumber) {
 
         if (paymentInstruments.length === 0) {
             adyenLogger.error('(adyenHelpers) -> handlePayments: Payment instruments length is zero due to order is failed order with order number is: ' + orderNumber + ' and going to set the result error status true');
-            Transaction.wrap(function () { OrderMgr.failOrder(order); });
+            Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
             result.error = true;
         }
         if (!result.error) {
@@ -44,7 +44,7 @@ function handlePayments(order, orderNumber) {
                     result = authorizationResult;
                     if (authorizationResult.error) {
                         adyenLogger.error('(adyenHelpers) -> handlePayments: Payment authorization has been failed due to order is failed with order number: ' + orderNumber + ' and error is: ' + authorizationResult.error + ' and going to set the result error status true');
-                        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+                        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
                         result.error = true;
                         break;
                     }
@@ -151,7 +151,7 @@ function placeOrder(order, fraudDetectionStatus) {
     } catch
         (e) {
         Transaction.wrap(function () {
-            OrderMgr.failOrder(order);
+            OrderMgr.failOrder(order, true);
         });
         adyenLogger.error('(adyenHelpers) -> placeOrder: Exception occurred and order is failed while placing an order with order number: ' + orderNumber + ' and exception is: ' + e);
         result.error = true;

@@ -45,7 +45,7 @@ function beforeStep(parameters, stepExecution) {
         PSM.setCategoryID(CatalogMgr.siteCatalog.root.ID);
         PSM.setRecursiveCategorySearch(true);
         PSM.search();
-        return PSM.getProducts();
+        return PSM.getProductSearchHits();
     });
     exportModel.writeHeader();
 }

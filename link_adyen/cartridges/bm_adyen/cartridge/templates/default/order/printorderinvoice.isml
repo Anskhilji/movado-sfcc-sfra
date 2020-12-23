@@ -7,9 +7,9 @@
 <html>
 <head>
     <title>Invoice <isprint value="${pdict.Order.orderNo}"></title>
-    <link rel="STYLESHEET" type="text/css" href="${URLUtils.webRoot()}/css/enterprisesite.css"/>
+    <link rel="STYLESHEET" type="text/css" href="${URLUtils.printorderinvoice.isml('/css/enterprisesite.css')}"/>
     <ismodule template = "inc/AddressInfoSmall_52.isml" name="AddressInfo" attribute="address">
-    <link rel="shortcut icon"  href="${URLUtils.webRoot()}/images/favicon.ico" />
+    <link rel="shortcut icon"  href="${URLUtils.printorderinvoice.isml('/images/favicon.ico')}" />
 </head>
 
 <body id="print_invoice" onload="window.print();">

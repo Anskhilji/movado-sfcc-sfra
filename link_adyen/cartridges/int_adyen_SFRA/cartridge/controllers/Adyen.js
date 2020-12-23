@@ -41,7 +41,7 @@ server.post('AuthorizeWithForm', server.middleware.https, function (req, res, ne
     // if error, return to checkout page
     if (result.error || result.Decision != 'ACCEPT') {
       Transaction.wrap(function () {
-        OrderMgr.failOrder(order);
+        OrderMgr.failOrder(order, true);
       });
       res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
       return next();
@@ -54,7 +54,7 @@ server.post('AuthorizeWithForm', server.middleware.https, function (req, res, ne
     var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
       if (placeOrderResult.error) {
       Transaction.wrap(function () {
-        OrderMgr.failOrder(order);
+        OrderMgr.failOrder(order, true);
       });
       res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
       return next();
@@ -202,7 +202,7 @@ server.get('ShowConfirmation', server.middleware.https, function (req, res, next
   }
 
   Transaction.wrap(function () {
-    OrderMgr.failOrder(order);
+    OrderMgr.failOrder(order, true);
   });
 
   res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));

@@ -11,7 +11,7 @@
 <isif condition="${!pdict.SampleSiteParameter}"> <!-- or any other useful error condition -->
 	<table border="0" cellspacing="0" cellpadding="4" width="100%" class="error_box n s e w">
 		<tr valign="top">
-			<td class="error_icon top e"><img src="${URLUtils.webRoot()}/images/error.gif" width="16" height="15" alt="" border="0"/></td>
+			<td class="error_icon top e"><img src="${URLUtils.staticURL('/images/error.gif')}" width="16" height="15" alt="" border="0"/></td>
 			<td class="error top" width="100%">
 			<p>Custom Error ...: <isprint value="${pdict.ErrorParameter}"> hasn't been defined. This is an error message sample.<br/>
 			</td>
