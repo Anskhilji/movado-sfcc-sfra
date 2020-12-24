@@ -226,8 +226,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
         checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
-		// MSS-1169 Passed true as param to fix deprecated method usage
-		Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        // MSS-1169 Passed true as param to fix deprecated method usage
+        Transaction.wrap(function () { OrderMgr.failOrder(order); });
 
 				// fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
