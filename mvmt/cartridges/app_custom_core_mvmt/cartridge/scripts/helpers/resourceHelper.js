@@ -43,7 +43,8 @@ function getResources(pageContext) {
         YOTPO_REVIEW_COUNT: Site.getCurrent().getCustomPreferenceValue('yotpoReviewsCount'),
         US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
-        LABEL_SAVING_PRICE: Resource.msg('label.saving.price', 'cart', null)
+        LABEL_SAVING_PRICE: Resource.msg('label.saving.price', 'cart', null),
+        LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null)
     };
     return resources;
 }

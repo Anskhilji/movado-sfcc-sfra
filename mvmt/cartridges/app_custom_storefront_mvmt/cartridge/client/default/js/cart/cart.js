@@ -322,7 +322,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         dataType: 'json',
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
-            $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
             $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
@@ -441,7 +441,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -541,7 +541,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -596,7 +596,7 @@ module.exports = function () {
                     $('.minicart-promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
@@ -646,7 +646,7 @@ module.exports = function () {
                     $('.promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                	$('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
