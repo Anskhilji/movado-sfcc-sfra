@@ -220,7 +220,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     	enableGridSlot = category.custom.enableGridSlot;
     }
     var searchSuggestions = productSearch.searchPhraseSuggestions;
-    this.isSearchSuggestionsAvailable = searchSuggestions ? searchSuggestions.getSearchPhraseSuggestions() : false;
+    this.isSearchSuggestionsAvailable = searchSuggestions ? searchSuggestions.hasSuggestedPhrases() : false;
 
     if (this.isSearchSuggestionsAvailable) {
         this.suggestionPhrases = getPhrases(searchSuggestions.suggestedPhrases);
