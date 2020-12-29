@@ -154,6 +154,7 @@ function showConfirmation() {
 	refusedPayment(order);
 	// fail order
 	Transaction.wrap(function () {
+		// MSS-1168 Passed true as param to fix deprecated method usage
 		OrderMgr.failOrder(order, true);
 	});
 	
@@ -390,6 +391,7 @@ function authorizeWithForm()
     if (result.error || result.Decision != 'ACCEPT') {
     	Transaction.rollback();
     	Transaction.wrap(function () {
+			// MSS-1168 Passed true as param to fix deprecated method usage
 			OrderMgr.failOrder(order, true);
 		});
 		app.getController('COSummary').Start({

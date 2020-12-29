@@ -6,8 +6,10 @@
 <html>
 <head>
     <title>Packing Slip <isprint value="${pdict.LineItemGroup.shipmentNo}"> For Order <isprint value="${pdict.Order.orderNo}"></title>
+    <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
     <link rel="STYLESHEET" type="text/css" href="${URLUtils.staticURL('/css/enterprisesite.css')}"/>
     <isinclude template="inc/GlobalJavaScript">
+    <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
     <link rel="shortcut icon"  href="${URLUtils.staticURL('/images/favicon.ico')}" />
 </head>
 

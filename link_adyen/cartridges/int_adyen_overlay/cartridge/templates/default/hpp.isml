@@ -64,6 +64,7 @@
 <isif condition="${empty(session.custom.ratePayFingerprint)}">
 	<isscript>
 		var ratePayID = dw.system.Site.getCurrent().getCustomPreferenceValue('AdyenRatePayID');
+		// MSS-1168 Passed DIGEST_SHA_512 as param to fix deprecated method usage
 		var sessionID = new dw.crypto.MessageDigest(dw.crypto.MessageDigest.DIGEST_SHA_512).digest(session.sessionID);
 		session.custom.ratePayFingerprint = sessionID;
 	</isscript>

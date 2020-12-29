@@ -41,6 +41,7 @@ server.post('AuthorizeWithForm', server.middleware.https, function (req, res, ne
     // if error, return to checkout page
     if (result.error || result.Decision != 'ACCEPT') {
       Transaction.wrap(function () {
+        // MSS-1168 Passed true as param to fix deprecated method usage
         OrderMgr.failOrder(order, true);
       });
       res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
@@ -54,6 +55,7 @@ server.post('AuthorizeWithForm', server.middleware.https, function (req, res, ne
     var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
       if (placeOrderResult.error) {
       Transaction.wrap(function () {
+        // MSS-1168 Passed true as param to fix deprecated method usage
         OrderMgr.failOrder(order, true);
       });
       res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
@@ -202,6 +204,7 @@ server.get('ShowConfirmation', server.middleware.https, function (req, res, next
   }
 
   Transaction.wrap(function () {
+    // MSS-1168 Passed true as param to fix deprecated method usage
     OrderMgr.failOrder(order, true);
   });
 
