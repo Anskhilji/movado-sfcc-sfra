@@ -13,6 +13,7 @@ var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 var Riskified = require('int_riskified/cartridge/scripts/Riskified');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var order = OrderMgr.getOrder(req.querystring.order_id);
@@ -23,6 +24,7 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
 
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
+        checkoutLogger.error('(ApplePay - COPlaceOrder) -> Submit: Fraud detected and checkout is denied and order number is: ' + order.orderNo);
         // MSS-1169 Passed true as param to fix deprecated method usage
         Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
