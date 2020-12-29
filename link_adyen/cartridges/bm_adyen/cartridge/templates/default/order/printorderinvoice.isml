@@ -8,10 +8,10 @@
 <head>
     <title>Invoice <isprint value="${pdict.Order.orderNo}"></title>
     <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
-    <link rel="STYLESHEET" type="text/css" href="${URLUtils.printorderinvoice.isml('/css/enterprisesite.css')}"/>
+    <link rel="STYLESHEET" type="text/css" href="${URLUtils.staticURL('/css/enterprisesite.css')}"/>
     <ismodule template = "inc/AddressInfoSmall_52.isml" name="AddressInfo" attribute="address">
     <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
-    <link rel="shortcut icon"  href="${URLUtils.printorderinvoice.isml('/images/favicon.ico')}" />
+    <link rel="shortcut icon"  href="${URLUtils.staticURL('/images/favicon.ico')}" />
 </head>
 
 <body id="print_invoice" onload="window.print();">
