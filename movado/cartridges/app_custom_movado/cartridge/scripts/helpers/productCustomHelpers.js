@@ -83,9 +83,11 @@ function getBadges(apiProduct) {
 
             if (today.after(badgeStartDate) && today.before(badgeEndDate)) {
                 if (badgeImage1) {
+                    // MSS-1169 Change url to URL fix deprecated method usage
                     var badgeImageUrl1 = badgeImage1.URL.toString();
                 }
                 if (badgeImage2) {
+                    // MSS-1169 Change url to URL fix deprecated method usage
                     var badgeImageUrl2 = badgeImage2.URL.toString();
                 }
 
@@ -94,6 +96,7 @@ function getBadges(apiProduct) {
                     var badge = {
                         attr: imageBadge,
                         attrType: 'image',
+                        // MSS-1169 Change url to URL fix deprecated method usage
                         imageUrl: badgeImage1.URL,
                         imageAlt: imageBadge
                     };
@@ -104,6 +107,7 @@ function getBadges(apiProduct) {
                     var badge = {
                         attr: imageBadge,
                         attrType: 'image',
+                        // MSS-1169 Change url to URL fix deprecated method usage
                         imageUrl: badgeImage2.URL,
                         imageAlt: imageBadge
                     };
