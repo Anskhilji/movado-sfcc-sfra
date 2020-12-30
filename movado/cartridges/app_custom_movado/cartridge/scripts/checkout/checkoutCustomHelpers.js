@@ -234,7 +234,8 @@ function sendShippingEmail(order) {
 
 function failOrderRisifiedCall(order, orderNumber, paymentInstrument) {
     Transaction.wrap(function () {
-	    OrderMgr.failOrder(order);
+        // MSS-1169 Passed true as param to fix deprecated method usage
+	    OrderMgr.failOrder(order, true);
 	    checkoutLogger.debug('Failed Order with RisifiedCall, for order: {0}',orderNumber);
 	  });
 	  hooksHelper(

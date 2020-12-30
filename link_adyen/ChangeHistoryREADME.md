@@ -35,3 +35,8 @@ Line No: Start from 14 to 15
 
 ## int_adyen_overlay > cartridge > templates > default > hpp.isml
 Line No: Start from 177 to 178
+
+## int_custom_adyen > controllers > Adyen.js
+- Line No: Start from 79 to 80
+- Line No: Start from 92 to 93
+- Line No: Start from 115 to 116

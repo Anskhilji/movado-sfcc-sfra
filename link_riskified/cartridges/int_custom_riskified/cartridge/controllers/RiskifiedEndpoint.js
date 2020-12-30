@@ -36,7 +36,8 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
             //if order status is CREATED
             if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and riskified failed the order and order status is failed and order number is: ' + order.orderNo);
-                OrderMgr.failOrder(order);  //Order must be in status CREATED
+                // MSS-1169 Passed true as param to fix deprecated method usage
+                OrderMgr.failOrder(order, true);  //Order must be in status CREATED
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
             } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
