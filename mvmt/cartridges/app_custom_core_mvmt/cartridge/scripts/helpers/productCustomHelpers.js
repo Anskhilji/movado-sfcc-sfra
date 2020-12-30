@@ -20,6 +20,9 @@ function escapeQuotes(value) {
 function getProductGtmObj(product, categoryName, position) {
     var productGtmObj = [];
     var productObj = ProductMgr.getProduct(product.id);
+    var watchGender = !empty(productObj.custom.watchGender[0]) ? productObj.custom.watchGender[0] : '';
+    var jewelryType = !empty(productObj.custom.jewelryType) ? productObj.custom.jewelryType : '';
+    var customCategory = watchGender + " " + jewelryType;
     var variantID = '';
     if (categoryName != null) {
         // Custom Start: Push product object in Array.
@@ -35,10 +38,12 @@ function getProductGtmObj(product, categoryName, position) {
             productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
             variantID: variantID,
             list: 'PLP',
-            position: position
+            position: position,
+            customCategory: customCategory
         });
     } else {
         var productObj = ProductMgr.getProduct(product.id);
+
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
         : '')
         : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
@@ -55,7 +60,8 @@ function getProductGtmObj(product, categoryName, position) {
             productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
             variantID: variantID,
             list: 'Search Results',
-            position: position
+            position: position,
+            customCategory: customCategory
         });
     }
 
