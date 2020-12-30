@@ -160,7 +160,6 @@ function getCurrentBasketDetails(currentLocaleID) {
 
     try {
         var swellCartTokken = yotpoConfiguration.custom.swellAPIKey + currentBasket.UUID;
-        // MSS-1168 Passed DIGEST_SHA_512 as param to fix deprecated method usage
         var messageDigest = new MessageDigest(MessageDigest.DIGEST_SHA_1);
         encryptedBasketToken = Encoding.toBase64(messageDigest.digestBytes(new Bytes(swellCartTokken, 'UTF-8')));
     } catch (ex) {
