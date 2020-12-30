@@ -166,6 +166,7 @@ $(document).on("swell:initialized", () => {
 });
 
 var onSuccess = function(redemption) {
+    $('#error').addClass('d-none');
     fillAndSubmitCouponCodeForm(redemption.couponCode);
     applySwellDiscount(redemption.id);
 };
