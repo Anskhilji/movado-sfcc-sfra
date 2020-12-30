@@ -114,6 +114,13 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
+        var savingPrice = item.priceTotal.formattedSavingPrice;
+        var formattedSavingPrice = Number(savingPrice.replace(/[^0-9\.-]+/g,""));
+        if (formattedSavingPrice > 0 ) {
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings">' + Resources.LABEL_SAVING_PRICE +
+            savingPrice + '</div>');
+        }
         if (item.price.list) {
             $('.item-total-' + item.UUID + ' .price .strike-through').remove();
             $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
@@ -315,7 +322,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         dataType: 'json',
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
-            $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
             $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
@@ -434,7 +441,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -534,7 +541,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -589,7 +596,7 @@ module.exports = function () {
                     $('.minicart-promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
@@ -639,7 +646,7 @@ module.exports = function () {
                     $('.promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                	$('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);

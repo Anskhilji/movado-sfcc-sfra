@@ -43,6 +43,13 @@ function updateCartTotals(data) {
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
+        var savingPrice = item.priceTotal.formattedSavingPrice;
+        var formattedSavingPrice = Number(savingPrice.replace(/[^0-9\.-]+/g,""));
+        if (formattedSavingPrice > 0 ) {
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').children().remove();
+            $('.line-item-total-price').children('.item-total-' + item.UUID + '.saving-price').prepend('<div class="savings">' + Resources.LABEL_SAVING_PRICE +
+            savingPrice + '</div>');
+        }
         if (item.price.list) {
             $('.item-total-' + item.UUID + ' .price .strike-through').remove();
             $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
@@ -160,7 +167,7 @@ $(document).on("swell:initialized", () => {
 
 var onSuccess = function(redemption) {
     fillAndSubmitCouponCodeForm(redemption.couponCode);
-    applySwellDiscount();
+    applySwellDiscount(redemption.id);
 };
 
 var onError = function(err) {
@@ -175,9 +182,40 @@ var fillAndSubmitCouponCodeForm = function(couponCode) {
     $("#coupon-code-input-element").val(couponCode);
 };
 
+/**
+ * re-renders the redemption id on the mini cart and checkout
+ * @param {Integer} id - AJAX response from the server
+ */
+var upadteSwellRedemptionId = function(id) {
+    // set the value for the redemption id input
+    $('.swell-remove-redeem-rewards').attr('data-redemption-id', id);
+};
+
 $(document).ready(function() {
     handleSwellPointContainer();
 });
+
+/**
+ * re-renders the swell points and the redemption id on the mini cart and checkout
+ * @param {Object} data - AJAX response from the server
+ */
+function updateSwellPointsContainer(data) {
+    if (data.swellRedemption.swellRedemptionID !== '') {
+        var swellPointsContainar =
+        '<div class="redeem-rewards-promos swell-promotion-information col-12">' +
+        '<div class="promotion-price-adjustment">'+
+        '<div class="promotion-adjustment">' + data.swellRedemption.swellRedemptionText +
+        '<button type="button" class="float-right swell-remove-redeem-rewards" aria-label="Close" data-redemption-id=" '+ data.swellRedemption.swellRedemptionID +'">' +
+        '<span aria-hidden="true">&times;</span>'+
+        '</button>'+
+        '</div>'+
+        '<div class="coupon-applied">'+ Resources.LABEL_SWELL_POINTS_APPLIED +
+        '</div>'+
+        '</div>'+
+        '</div>';
+         $('.swell-redeem-rewards-promos').append(swellPointsContainar);
+    }
+}
 
 function handleSwellPointContainer() {
     var $swellPoints = parseInt($('.swell-points-total').text());
@@ -231,9 +269,25 @@ $('.mini-cart-data').on('click', '.swell-redemption-btn', function (e) {
     );
 });
 
-function applySwellDiscount() {
+$(document).on('click', '.swell-remove-redeem-rewards', function (e) {
+    e.preventDefault();
+    var $removeredemptionContainer = $('.coupons-and-promos');
+    var pointRedemptionID = $(this).data('redemption-id');
+    if (typeof swellAPI !== 'undefined' || swellAPI !== null) {
+        $removeredemptionContainer.spinner().start();
+        swellAPI.removePointRedemptionIdFromCart(pointRedemptionID, removeSwellDiscountFromCart());
+    }
+});
+
+function removeSwellDiscountFromCart() {
+    applySwellDiscount(null);
+    $('.swell-promotion-price-adjustment').remove();
+}
+
+function applySwellDiscount(swellRedemptionId) {
     var $csrfInput = $('.swell-crf-token');
     var $redemptionContainer = $('.swell-redemption');
+    var removeRedemptionContainer = $('.coupons-and-promos');
     var $swellDiscount = $('.swell-discount');
     var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
     $.ajax({
@@ -248,11 +302,19 @@ function applySwellDiscount() {
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 validateBasket(data);
+                updateSwellPointsContainer(data);
+                if (data.swellRedemptionID !== '' & data.swellRedemptionID === null) {
+                    upadteSwellRedemptionId(data.swellRedemptionID);
+                } else {
+                    upadteSwellRedemptionId(swellRedemptionId);
+                }
             }
             $redemptionContainer.spinner().stop();
+            removeRedemptionContainer.spinner().stop();
         },
         error: function (err) {
             $('#error').empty().append(err.responseText);
+            removeRedemptionContainer.spinner().stop();
             $redemptionContainer.spinner().stop();
         }
   });
