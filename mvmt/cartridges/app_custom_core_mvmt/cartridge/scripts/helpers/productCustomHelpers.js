@@ -19,11 +19,11 @@ function escapeQuotes(value) {
 
 function getProductGtmObj(product, categoryName, position) {
     try {
-        var productGtmObj = [];
+        var productGtmObj = []; 
         var jewelryType = '';
         var watchGender = '';
         var productObj = ProductMgr.getProduct(product.id);
-        if (!empty(productObj.custom.watchGender[0])) {
+        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
             watchGender = productObj.custom.watchGender[0];
         }
         if (!empty(productObj.custom.jewelryType)) {
