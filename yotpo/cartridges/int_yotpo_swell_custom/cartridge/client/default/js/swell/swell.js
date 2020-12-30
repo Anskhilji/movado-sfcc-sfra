@@ -289,7 +289,7 @@ function applySwellDiscount(swellRedemptionId) {
     var $redemptionContainer = $('.swell-redemption');
     var removeRedemptionContainer = $('.coupons-and-promos');
     var $swellDiscount = $('.swell-discount');
-    var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value');
+    var url = $swellDiscount.data('url') + '?' + $csrfInput.attr('name') + '=' + $csrfInput.attr('value') + '&swellRedemptionId' + '=' + swellRedemptionId;
     $.ajax({
         url: url,
         type: 'get',
