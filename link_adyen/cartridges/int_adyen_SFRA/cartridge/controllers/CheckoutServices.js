@@ -174,7 +174,10 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
    // var fraudDetectionStatus = HookMgr.callHook('app.fraud.detection', 'fraudDetection', currentBasket);
   	var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        Transaction.wrap(function () {
+            // MSS-1168 Passed true as param to fix deprecated method usage 
+            OrderMgr.failOrder(order, true); 
+        });
 
         // fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);

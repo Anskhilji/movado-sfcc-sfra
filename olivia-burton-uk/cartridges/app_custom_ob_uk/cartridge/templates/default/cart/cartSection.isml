@@ -40,7 +40,7 @@
             <isinclude template="util/affirmmodule_mf" />
             <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
             <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaCartPromoMsg}"> 
-                    <isinclude template="klarna/klarnaPromotionMessage" />
+                <isinclude template="klarna/klarnaPromotionMessage" />
             </isif>
         </div>
     </isif>
