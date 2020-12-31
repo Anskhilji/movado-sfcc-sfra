@@ -18,7 +18,7 @@ function getProductSearchHit(apiProduct) {
         searchModel.search();
     }
 
-    if (searchModel.count === 0) {
+    if (!empty(apiProduct) && searchModel.count === 0) {
         searchModel.setSearchPhrase(apiProduct.ID.replace(/-/g, ' '));
         searchModel.search();
     }

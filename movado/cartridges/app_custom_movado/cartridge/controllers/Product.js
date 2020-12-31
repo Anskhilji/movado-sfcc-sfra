@@ -165,10 +165,13 @@ server.replace('Variation', function (req, res, next) {
  * replaced the base product route to save the personalization data in context object
  */
 server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var URLUtils = require('dw/web/URLUtils');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
+    var klarnaProductPrice = '0';
 
     var params = req.querystring;
     var product = ProductFactory.get(params);
@@ -177,6 +180,14 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
     var template = product.productType === 'set'
         ? 'product/setQuickView.isml'
         : 'product/quickView.isml';
+
+    var apiProduct = productMgr.getProduct(productCustomHelpers.formatProductId(product.id));
+
+    if (apiProduct) {
+        if(apiProduct.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(apiProduct.priceModel.price).toString();
+        }
+    }
     /**
      * Added productPrice to context object
      */
@@ -184,7 +195,9 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         product: product,
         addToCartUrl: addToCartUrl,
         resources: productHelper.getResources(),
-        productPrice: product.price 
+        productPrice: product.price,
+        isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
+        klarnaProductPrice: klarnaProductPrice
     };
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
