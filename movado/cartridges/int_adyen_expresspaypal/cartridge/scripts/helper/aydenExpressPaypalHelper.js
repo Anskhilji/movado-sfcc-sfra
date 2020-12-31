@@ -4,6 +4,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
+var expressRegexs = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -114,6 +115,61 @@ function addressValidation(currentBasket, addressform) {
 }
 
 /**
+ *  validation for shipping, billing and coupon codes fields
+ * @param currentBasket
+ * @param addressform
+ * @returns
+ */
+function formsValidation(currentBasket, formData) {
+    var deliveryValidationFail = false;
+    var firstName = '';
+    var lastName = '';
+    var city = '';
+    var postalCode = '';
+    var stateCode = '';
+    var address1 = '';
+    var phoneNumber = '';
+    var email = '';
+    var deliveryCountry = '';
+    var validatedFields = {};
+
+    firstName = fetechValidatedFields(fetchFromMap(formData, 'shopper.firstName'), expressRegexs.firstName);
+    lastName = fetechValidatedFields(fetchFromMap(formData, 'shopper.lastName'), expressRegexs.lastName);
+    address1 = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.street'), expressRegexs.address1);
+    city = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.city'), expressRegexs.city);
+    postalCode = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), expressRegexs.postalCode);
+    stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
+    deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
+    phoneNumber = fetechValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), expressRegexs.phone);
+
+    var isAnonymous = currentBasket.getCustomer().isAnonymous();
+    if (isAnonymous) {
+        email = (formData.shopperEmail) ? formData.shopperEmail : '';
+        email = fetechValidatedFields(email, expressRegexs.email);
+    } else {
+        email = currentBasket.getCustomer().getProfile().getEmail();
+        email = fetechValidatedFields(email, expressRegexs.email);
+    }
+    validatedFields = {
+        firstName: firstName, 
+        lastName: lastName, 
+        address1: address1, 
+        city: city, 
+        postalCode: postalCode, 
+        phoneNumber: phoneNumber, 
+        email: email, 
+        notValid: false 
+    };
+    for (var prop in validatedFields) {
+        if (validatedFields[prop] == true) {
+            validatedFields['notValid'] = true;
+        }
+    }
+
+    return validatedFields;
+}
+
+/**
 * Sets the default shipping method on the paypal returned order and calculate taxes.
 * @param {JSON} formData Form Map
 * @param {string} field string
@@ -125,6 +181,18 @@ function fetchFromMap(formData, field) {
     }
     return '';
 }
+/**
+* Sets the default shipping method on the paypal returned order and calculate taxes.
+* @param {JSON} formData Form Map
+* @param {string} field string
+* @returns {string} Request HTTP Parameter value.
+*/
+function fetechValidatedFields(fieldData, fieldRequiredRegexExpression) {
+    var results = fieldRequiredRegexExpression.test(fieldData);
+    results = !results;
+    return results;
+}
+
 
 /**
  * This method is used for checking for PO BOX string in the address passed as parameter.
@@ -168,5 +236,7 @@ module.exports.preValidations = preValidations;
 module.exports.splitAndSetAddress = splitAndSetAddress;
 module.exports.populatePaymentInstrument = populatePaymentInstrument;
 module.exports.addressValidation = addressValidation;
+module.exports.fetechValidatedFields = fetechValidatedFields;
+module.exports.formsValidation = formsValidation;
 module.exports.comparePoBox = comparePoBox;
 module.exports.isAllowedCountryCode = isAllowedCountryCode;

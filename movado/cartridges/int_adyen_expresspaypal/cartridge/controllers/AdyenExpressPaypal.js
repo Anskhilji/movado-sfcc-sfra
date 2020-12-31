@@ -110,9 +110,12 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
     var paymentProcessor = PaymentMgr.getPaymentMethod(PAYPAL).getPaymentProcessor();
     // Address validation
     var addressValidationFailed = payPalHelper.addressValidation(currentBasket, req.form);
-    if (addressValidationFailed) {
+    var shippingFormValidationFailed = payPalHelper.formsValidation(currentBasket, req.form);
+    if (shippingFormValidationFailed.notValid) {
+        var jhda = JSON.stringify(shippingFormValidationFailed);
+        res.setViewData({ shippingFormValidationFailed: shippingFormValidationFailed});
         adyenLogger.error('(AdyenExpressPaypal) -> RedirectFromExpressPay: Address verification is failed and going to the cart page');
-        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', 'true'));
+        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', jhda));
         return next();
     }
     var result = adyenHandleExpressPayPalResponse.execute(currentBasket, paymentProcessor, req.form);

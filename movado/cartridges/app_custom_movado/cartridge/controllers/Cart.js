@@ -248,7 +248,7 @@ server.append(
             marketingProductData : marketingProductsData
         });
 
-        if (req.querystring.paypalerror) {
+        if (req.querystring.paypalerror.notValid) {
         	res.setViewData({ paypalerror: true });
         }
 
