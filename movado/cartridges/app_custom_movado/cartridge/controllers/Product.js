@@ -132,6 +132,8 @@ server.replace('Variation', function (req, res, next) {
 
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
 
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+
     var attributeContext = { product: { attributes: product.attributes } };
     var attributeTemplate = 'product/components/attributesPre';
     product.attributesHtml = renderTemplateHelper.getRenderedHtml(
@@ -157,7 +159,8 @@ server.replace('Variation', function (req, res, next) {
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved,
-        badges: badges
+        badges: badges,
+        eswModuleEnabled: eswModuleEnabled
     });
     next();
 });
