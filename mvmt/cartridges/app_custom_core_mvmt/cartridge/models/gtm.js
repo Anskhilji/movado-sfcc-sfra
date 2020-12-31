@@ -142,7 +142,8 @@ function gtmModel(req) {
                     productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
                     brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
                     productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
-                    category: primarySiteSection,
+                    category : productImpressionTags && productImpressionTags.customCategory ? productImpressionTags.customCategory : '',
+                    currentCategory: primarySiteSection,
                     productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
                     list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
                     Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
@@ -511,6 +512,8 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var variantSize = '';
         var productID = productObj.ID;
         var selectedVariant;
+        var jewelryType = '';
+        var watchGender = '';
         if (productObj.master) {
             var variantFilter = getVariantFilter(queryString);
             if (variantFilter.length > 0) {
@@ -534,6 +537,13 @@ function getPDPProductImpressionsTags(productObj, queryString) {
                 }
             });
         }
+        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+            watchGender = productObj.custom.watchGender[0];
+        }
+        if (!empty(productObj.custom.jewelryType)) {
+            jewelryType = productObj.custom.jewelryType;
+        }
+        var customCategory = watchGender + " " + jewelryType;
         var productName = stringUtils.removeSingleQuotes(productObj.name);
         var brand = stringUtils.removeSingleQuotes(productObj.brand);
         var productPersonalization = '';
@@ -546,7 +556,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
