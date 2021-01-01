@@ -36,7 +36,7 @@ $(document).ready(function () {
         var $patternEmail = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         var $patternPhone = /^(?!(?=(000-000-0000|0000000000)))(\(?((\+)[1]{1}|([1]{1}))?[-]?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$/;
         var $isValidEmail = $patternEmail.test($emailInputValue);
-        var $phoneValidation = $clickedButtonValue === "emailPhone"? true : false;
+        var $phoneValidation = $clickedButtonValue === "emailPhone" ? true : false;
         var $isValidPhone = $phoneValidation ? $patternPhone.test($phoneInputValue) : true;
         if ($isValidEmail && $isValidPhone) {
             $.ajax({
