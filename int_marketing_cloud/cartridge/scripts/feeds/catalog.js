@@ -45,7 +45,8 @@ function beforeStep(parameters, stepExecution) {
         PSM.setCategoryID(CatalogMgr.siteCatalog.root.ID);
         PSM.setRecursiveCategorySearch(true);
         PSM.search();
-        return PSM.getProducts();
+        // MSS-1168 change getProducts function to getProductSearchHits to fix deprecated method usage
+        return PSM.getProductSearchHits();
     });
     exportModel.writeHeader();
 }

@@ -37,7 +37,8 @@ function getExplicitRecommendations(pid) {
                 productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
                 product = Object.create(null);
                 apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);
-                if (apiProduct.available && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
+                // MSS-1169 Change available to availabilityModel.inStock to fix deprecated method usage
+                if (apiProduct.availabilityModel.inStock && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
                     productType = productHelper.getProductType(apiProduct);
                     productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
                     recommendationTilesList.push(productRecommendationTile);
