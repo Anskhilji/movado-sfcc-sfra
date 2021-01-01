@@ -41,12 +41,12 @@ function getProductGtmObj(product, categoryName, position) {
                 currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
                 brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
                 sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-                category: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
+                category: customCategory,
                 productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
                 variantID: variantID,
                 list: 'PLP',
                 position: position,
-                customCategory: customCategory
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
@@ -63,12 +63,12 @@ function getProductGtmObj(product, categoryName, position) {
                 currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
                 brand: !empty(product.defaultVariant) ?stringUtils.removeSingleQuotes( product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
                 sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-                category: stringUtils.removeSingleQuotes(category),
+                category: customCategory,
                 productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
                 variantID: variantID,
                 list: 'Search Results',
                 position: position,
-                customCategory: customCategory
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)) 
             });
         }
 

@@ -271,11 +271,11 @@ var onLoadProductTile = function () {
             dataLayerObj.push({ name: gtmTrackingData.name,
                 id: gtmTrackingData.id,
                 price: gtmTrackingData.price,
-                category: gtmTrackingData.customCategory,
+                category: gtmTrackingData.category,
                 sku: gtmTrackingData.sku,
                 variantID: gtmTrackingData.variantID,
                 brand: gtmTrackingData.brand,
-                currentCategory: gtmTrackingData.category,
+                currentCategory: gtmTrackingData.currentCategory,
                 productType: gtmTrackingData.productType });
             currency = gtmTrackingData.currency;
         }
