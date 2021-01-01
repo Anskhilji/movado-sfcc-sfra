@@ -132,7 +132,6 @@ function gtmModel(req) {
             productObj = ProductMgr.getProduct(formatProductId(pid));
             productBreadcrumbs = getProductBreadcrumb(productObj);
             var primarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.primaryCategory) : '';
-            var testPdp = "GTM PRODUCT UIM";
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
