@@ -192,12 +192,17 @@ module.exports = {
                 $('.modal.show').find('.product-not-available-msg').addClass('d-none');
             }
 
-            // Remote Include call For List Price
-            var $eswListPriceSelector = $('.modal.show').find('.eswListPrice', response.container).length ? $('.modal.show').find('.eswListPrice', response.container) : $('.modal.show').find('.eswListPrice');
-            eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
-            // Remote Include call For Sales Price
-            var $eswPriceSelector = $('.modal.show').find('.eswPrice', response.container).length ? $('.modal.show').find('.eswPrice', response.container) : $('.modal.show').find('.eswPrice');
-            eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+            //Custom Start: Adding ESW Code Logic
+            if (typeof response.data.eswModuleEnabled !== undefined) {
+                if (response.data.eswModuleEnabled) {
+                    // Remote Include call For List Price
+                    var $eswListPriceSelector = $('.modal.show').find('.eswListPrice', response.container).length ? $('.modal.show').find('.eswListPrice', response.container) : $('.modal.show').find('.eswListPrice');
+                    eswConvertPrice($eswListPriceSelector); // eslint-disable-line no-undef
+                    // Remote Include call For Sales Price
+                    var $eswPriceSelector = $('.modal.show').find('.eswPrice', response.container).length ? $('.modal.show').find('.eswPrice', response.container) : $('.modal.show').find('.eswPrice');
+                    eswConvertPrice($eswPriceSelector); // eslint-disable-line no-undef
+                }
+            }
             //Custom End
         });
     },
