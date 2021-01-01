@@ -957,6 +957,9 @@ module.exports = {
     },
 
     updateShippingList: function () {
+        $(window).on('load',function() {
+            updateShippingMethodList($('.shipping-method-list').parents('form'));
+        });
         $('select[name$="shippingAddress_addressFields_states_stateCode"]')
             .on('change', function (e) {
                 updateShippingMethodList($(e.currentTarget.form));

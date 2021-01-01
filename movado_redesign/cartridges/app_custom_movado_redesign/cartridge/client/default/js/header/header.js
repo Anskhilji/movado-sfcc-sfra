@@ -4,6 +4,9 @@ $(document).ready(function() {
         var width = $(".desktop-menu .navbar-nav").width();
         $(".desktop-menu .sub-dropdown .menu-content").width(width);
     }).resize();
+    if (!$(".minicart").is(":visible")) {
+        $('header.new-header .user .popover').addClass('popover-cart-icon-hidden');
+    }
 });
 $('.minicart .popover').keyup(function(event) {
     if (event.key === 'Escape') {

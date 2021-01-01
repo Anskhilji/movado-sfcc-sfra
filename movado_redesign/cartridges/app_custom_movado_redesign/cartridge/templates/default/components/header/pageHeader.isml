@@ -47,10 +47,12 @@
                                 <div class="hidden-md-down  navbar-header account-wrapper search">
                                     <isinclude url="${URLUtils.url('Account-Header')}" />
                                 </div>
-
-                                <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                                    <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
-                                </div>
+                                <iscomment>Custom Start: Added condition to show cart icon if ecommerce functionality is enabled </iscomment>
+                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled}">
+                                    <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                        <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+                                    </div>
+                                </isif>
                             </div>
                         </div>
 

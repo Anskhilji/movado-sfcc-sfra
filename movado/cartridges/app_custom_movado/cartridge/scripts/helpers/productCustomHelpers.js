@@ -473,7 +473,7 @@ function getPrefrences() {
  * @returns
  */
 function validateEngraveMessage(engravedMessage) {
-    var regex = new RegExp("^[A-Za-z0-9 \\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
+    var regex = new RegExp("^[A-Za-z0-9\/\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
     var engravedMessageLines = engravedMessage.split(NEWLINE);
     var line1 = true;
     var line2 = true;
@@ -497,7 +497,7 @@ function validateEngraveMessage(engravedMessage) {
  * @returns
  */
 function validateEmbossMessage(embossMessage) {
-    var regex = new RegExp("^[A-Za-z0-9\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
+    var regex = new RegExp("^[A-Za-z0-9\/\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
     var results = '';
     if (embossMessage.length <= 2) {
         results = regex.test(embossMessage);
@@ -512,7 +512,7 @@ function validateEmbossMessage(embossMessage) {
 * @returns
 */
 function validateEmbossMessageByOrientation(embossMessage, characterLimit) {
-   var regex = new RegExp("^[A-Za-z0-9\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
+   var regex = new RegExp("^[A-Za-z0-9\/\\.\\?\\!\\,\\;\\:\\-\\(\\)\\'\\*\\&\\$\\\"\\\n]+$", 'i');
    var results = '';
    if (embossMessage.length <= characterLimit) {
        results = regex.test(embossMessage);

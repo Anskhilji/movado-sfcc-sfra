@@ -271,7 +271,7 @@ var onLoadProductTile = function () {
             dataLayerObj.push({ name: gtmTrackingData.name,
                 id: gtmTrackingData.id,
                 price: gtmTrackingData.price,
-                category: gtmTrackingData.category,
+                category: gtmTrackingData.customCategory,
                 sku: gtmTrackingData.sku,
                 variantID: gtmTrackingData.variantID,
                 brand: gtmTrackingData.brand,

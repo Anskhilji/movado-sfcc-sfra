@@ -82,11 +82,19 @@ server.append(
             res.setViewData({userTracking: JSON.stringify(userTracking)});
         }
 
+        var currentYear = new Date().getFullYear();
+        var creditCardExpirationYears = [];
+
+        for (var j = 0; j <= 10; j++) {
+            creditCardExpirationYears.push(currentYear + j);
+        }
+
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             actionUrls: actionUrls,
             totals: totals,
-            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null
+            customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
+            expirationYears: creditCardExpirationYears
         });
 
         next();

@@ -274,6 +274,10 @@ header.new-header {
       box-shadow: unset;
       border-radius: unset;
 
+      &-cart-icon-hidden {
+        left: rem(-80);
+      }
+
       a {
         font: rem(15) $font-primary;
       }

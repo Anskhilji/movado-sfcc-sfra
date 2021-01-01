@@ -9,6 +9,21 @@ var StringUtils = require('dw/util/StringUtils');
 var Constants = require('~/cartridge/scripts/utils/Constants');
 
 /**
+ * This method is used to format the Calendar object according to the ISO 8601  date format.
+ * @param {dw.util.Calendar} date - Calendar object of unformated date
+ * @returns {string} formatted date and time e.g. 2020-01-13T01:20:20
+ */
+function formatDateTimeISO_8601(date) {
+    var formatedDateTime = '';
+    if(!empty(date)) {
+        var formatedTime = StringUtils.formatCalendar(date, Constants.HOUR_MINUTE_SECOND_PATTERN);
+        var formatedDate = StringUtils.formatCalendar(date, Constants.YEAR_MONTH_DATE_PATTERN);
+        formatedDateTime =  formatedDate + Constants.DATE_TIME_SEPERATOR + formatedTime;
+    }
+    return formatedDateTime;
+}
+
+/**
  * This method is used to format the Calendar object according to the specified date format.
  * @param {dw.util.Calendar} unformattedDate - Calendar object of unformated date
  * @returns {string} formated date include day and month name e.g. 2020-01-13
@@ -76,5 +91,6 @@ module.exports = {
     getFormattedDate: getFormattedDate,
     subtractDaysFromDate : subtractDaysFromDate,
     getPriceBookId: getPriceBookId,
-    getProductPrice: getProductPrice
+    getProductPrice: getProductPrice,
+    formatDateTimeISO_8601:formatDateTimeISO_8601
 };
