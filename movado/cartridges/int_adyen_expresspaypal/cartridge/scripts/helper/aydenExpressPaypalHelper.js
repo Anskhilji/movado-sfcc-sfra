@@ -131,15 +131,28 @@ function formsValidation(currentBasket, formData) {
     var phoneNumber = '';
     var email = '';
     var deliveryCountry = '';
+    var billingAddressCity = '';
+    var billingAddressCountry = '';
+    var billingAddressState  = '';
+    var billingAddressStateOrProvince = '';
     var validatedFields = {};
 
     firstName = fetechValidatedFields(fetchFromMap(formData, 'shopper.firstName'), expressRegexs.firstName);
     lastName = fetechValidatedFields(fetchFromMap(formData, 'shopper.lastName'), expressRegexs.lastName);
-    address1 = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.street'), expressRegexs.address1);
+    address1 = addressValidation(currentBasket, formData);
     city = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.city'), expressRegexs.city);
+    billingAddressCity = fetechValidatedFields(fetchFromMap(formData, 'billingAddress.city'), expressRegexs.city);
+    billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
+    billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
+    billingAddressState = fetchFromMap(formData, 'billingAddress.state');
+    billingAddressState = (!empty(billingAddressState)) ? false : true;
+    billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
+    billingAddressStateOrProvince = (!empty(billingAddressStateOrProvince)) ? false : true;
     postalCode = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), expressRegexs.postalCode);
     stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
+    stateCode = (!empty(stateCode)) ? false : true;
     deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
+    deliveryCountry = (!empty(deliveryCountry)) ? false : true;
     phoneNumber = fetechValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), expressRegexs.phone);
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
@@ -157,12 +170,18 @@ function formsValidation(currentBasket, formData) {
         city: city, 
         postalCode: postalCode, 
         phoneNumber: phoneNumber, 
-        email: email, 
-        notValid: false 
+        email: email,
+        billingAddressCity: billingAddressCity,
+        deliveryCountry: deliveryCountry,
+        stateCode: stateCode,
+        billingAddressState: billingAddressState,
+        billingAddressCountry: billingAddressCountry,
+        billingAddressStateOrProvince: billingAddressStateOrProvince,
+        paypalerror: false 
     };
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {
-            validatedFields['notValid'] = true;
+            validatedFields['paypalerror'] = true;
         }
     }
 

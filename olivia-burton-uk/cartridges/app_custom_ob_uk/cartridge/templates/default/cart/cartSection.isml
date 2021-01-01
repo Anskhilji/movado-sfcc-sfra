@@ -18,15 +18,107 @@
         </isif>
     </div>
 </isif>
-<isif condition="${pdict.paypalerror}">
-    <div class="container cart-error-messaging cart-error mt-2">
-        <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            ${Resource.msg('cart.paypal.error', 'cart', null)}
+<isif condition="${pdict.paypalerror === true}">
+    <isif condition="${pdict.lastNameNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.lastname.error', 'cart', null)}
+            </div>
         </div>
-    </div>
+    </isif>
+    <isif condition="${pdict.firstNameNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.cityNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.city.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.emailNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.email.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.addressNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.address.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.billingAddressCityNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.billingcity.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.billingAddressCountryNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.billingcountry.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.billingAddressStateNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.billingaddressStateNotValid.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.billingAddressStateOrProvinceNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.billingaddressprovince.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.postalCodeNotValidNotValid === true}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.postalCode.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
 </isif>
 
 <div class="container cart-header-wrapper text-center">

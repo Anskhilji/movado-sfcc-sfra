@@ -108,14 +108,19 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
     // var isAnonymous = currentBasket.getCustomer().isAnonymous();
     payPalHelper.preValidations(currentBasket);
     var paymentProcessor = PaymentMgr.getPaymentMethod(PAYPAL).getPaymentProcessor();
+    var shippingFormValidationFailed;
+    var shippingFormValidationsFailed = [];
     // Address validation
     var addressValidationFailed = payPalHelper.addressValidation(currentBasket, req.form);
-    var shippingFormValidationFailed = payPalHelper.formsValidation(currentBasket, req.form);
-    if (shippingFormValidationFailed.notValid) {
-        var jhda = JSON.stringify(shippingFormValidationFailed);
-        res.setViewData({ shippingFormValidationFailed: shippingFormValidationFailed});
+    shippingFormValidationFailed = payPalHelper.formsValidation(currentBasket, req.form);
+    if (shippingFormValidationFailed.paypalerror) {
         adyenLogger.error('(AdyenExpressPaypal) -> RedirectFromExpressPay: Address verification is failed and going to the cart page');
-        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', jhda));
+        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', shippingFormValidationFailed.paypalerror, 'firstName', shippingFormValidationFailed.firstName, 'lastName', shippingFormValidationFailed.lastName, 'address1' , shippingFormValidationFailed.address1,
+        'postalCode', shippingFormValidationFailed.postalCode , 'city',  shippingFormValidationFailed.city,
+        'email', shippingFormValidationFailed.email, 'billingAddressCity' , shippingFormValidationFailed.billingAddressCity,
+        'billingAddressState', shippingFormValidationFailed.billingAddressState,
+        'billingAddressCountry', shippingFormValidationFailed.billingAddressCountry,
+        'billingAddressStateOrProvince', shippingFormValidationFailed.billingAddressStateOrProvince));
         return next();
     }
     var result = adyenHandleExpressPayPalResponse.execute(currentBasket, paymentProcessor, req.form);

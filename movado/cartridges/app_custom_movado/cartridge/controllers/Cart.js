@@ -219,7 +219,6 @@ server.append(
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
         	
-
         	if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
@@ -248,8 +247,20 @@ server.append(
             marketingProductData : marketingProductsData
         });
 
-        if (req.querystring.paypalerror.notValid) {
-        	res.setViewData({ paypalerror: true });
+        if (req.querystring.paypalerror) {
+            res.setViewData({ 
+                paypalerror: req.querystring.paypalerror,
+                firstNameNotValid:req.querystring.firstName,
+                lastNameNotValid:req.querystring.lastName,
+                cityNotValid:req.querystring.city,
+                emailNotValid:req.querystring.email,
+                addressNotValid:req.querystring.address,
+                billingAddressCityNotValid:req.querystring.billingAddressCity,
+                billingAddressCountryNotValid: req.querystring.billingAddressCountry,
+                billingAddressStateNotValid: req.querystring.billingAddressState,
+                billingAddressStateOrProvinceNotValid: req.querystring.billingAddressStateOrProvince,
+                postalCodeNotValidNotValid:req.querystring.postalCode
+             });
         }
 
         res.setViewData({
