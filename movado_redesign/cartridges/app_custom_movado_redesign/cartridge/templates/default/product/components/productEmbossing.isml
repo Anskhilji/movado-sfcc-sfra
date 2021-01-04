@@ -32,8 +32,8 @@
                     <div class="watch-image">
                         <div class="image d-inline-block">
                             <picture class="d-inline-block">
-                                <source media="(min-width: 650px)" srcset="${product.images['pdp533'][2].url}">
-                                <source media="(min-width: 465px)" srcset="${product.images['pdp533'][2].url}">
+                                <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty (product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                                <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty (product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
                                 <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="test" style="width:auto;">
                             </picture>
                             <div class="text-on-watch">
