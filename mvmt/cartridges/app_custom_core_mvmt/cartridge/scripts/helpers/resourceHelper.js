@@ -35,6 +35,8 @@ function getResources(pageContext) {
         MVMT_EMAIL_SIGNUP_GENERAL_FAILURE: Resource.msg('newsletter.signup.general.failure', 'common', null),
         MVMT_EMAIL_SIGNUP_EMPTY_EMAIL: Resource.msg('newsletter.signup.empty.email', 'common', null),
         MVMT_EMAIL_EMAIL_ERROR_INVALID: Resource.msg('newsletter.email.error.invalid', 'common', null),
+        MVMT_PHONE_ERROR_INVALID: Resource.msg('newsletter.phone.error.invalid', 'common', null),
+        MVMT_EMAIL_PHONE_ERROR_INVALID: Resource.msg('newsletter.email.phone.error.invalid', 'common', null),
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
         ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null),
         SLICK_BUTTON_MORE: Resource.msg('label.button.more', 'common', null),
