@@ -39,7 +39,7 @@
                     'sku': '${pdict.gtm.product.Sku}',
                     'variantID': '${pdict.gtm.product.variantID}',
                     'brand': '${pdict.gtm.product.brand}',
-                    'currentCategory': '${pdict.gtm.product.category}',
+                    'currentCategory': '${pdict.gtm.product.currentCategory}',
                     'productType': '${pdict.gtm.product.productType}',
                     'variant': '${pdict.gtm.product.variant}'
                 }]
