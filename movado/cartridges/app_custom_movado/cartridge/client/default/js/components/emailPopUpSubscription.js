@@ -28,13 +28,13 @@ $(document).ready(function () {
         wrapperContainer.addClass('d-none');
         var $submissionStatusDiv = $('.submission-status div');
         var $endPointUrl = $(e.target).attr('action');
-        var $params = $(this).serialize();
+        // var $params = $(this).serialize();
         var $emailInputValue = $(e.target).find('#email').val();
         var $phoneInputValue = $(e.target).find('#phoneNumber').val();
         var $clickedButton = $(this).find('button[type=submit]:focus');
         var $clickedButtonValue = $clickedButton.val();
         var $patternEmail = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        var $patternPhone = /^(?!(?=(000-000-0000|0000000000)))(\(?((\+)[1]{1}|([1]{1}))?[-]?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$/;
+        var $patternPhone = /^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$/;
         var $isValidEmail = $patternEmail.test($emailInputValue);
         var $phoneValidation;
         if ($clickedButtonValue === "emailPhone") {
@@ -43,6 +43,7 @@ $(document).ready(function () {
             $(e.target).find('#phoneNumber').val('');
             $phoneValidation = false;
         }
+        var $params = $(this).serialize();
         var $isValidPhone = $phoneValidation ? $patternPhone.test($phoneInputValue) : true;
         if ($isValidEmail && $isValidPhone) {
             $.ajax({
