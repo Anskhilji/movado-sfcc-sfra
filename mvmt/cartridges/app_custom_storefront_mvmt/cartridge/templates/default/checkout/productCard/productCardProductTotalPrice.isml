@@ -16,15 +16,12 @@
         }
     </isscript>
 </isif>
+<iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-    <iscomment>Custom Start:[MSS:931] removed total and item total prices for with amount of Qualifying products</iscomment>
-    <iscomment>
         <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} 
             ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
-        </div>
-    </iscomment>
+    </div>
     <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
-    <iscomment>
         <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
             <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
                 <isif condition="${isEswEnabled}" >
@@ -38,6 +35,5 @@
                 </isif>
             </span>
         </div>
-    </iscomment>
 </isif>
 <iscomment> Custom End </iscomment>
