@@ -250,16 +250,16 @@ server.append(
         if (req.querystring.paypalerror) {
             res.setViewData({ 
                 paypalerror: req.querystring.paypalerror,
-                firstNameNotValid:req.querystring.firstName,
-                lastNameNotValid:req.querystring.lastName,
-                cityNotValid:req.querystring.city,
-                emailNotValid:req.querystring.email,
-                addressNotValid:req.querystring.address,
-                billingAddressCityNotValid:req.querystring.billingAddressCity,
+                firstNameNotValid: req.querystring.firstName,
+                lastNameNotValid: req.querystring.lastName,
+                cityNotValid: req.querystring.city,
+                emailNotValid: req.querystring.email,
+                addressNotValid: req.querystring.address,
+                billingAddressCityNotValid: req.querystring.billingAddressCity,
                 billingAddressCountryNotValid: req.querystring.billingAddressCountry,
                 billingAddressStateNotValid: req.querystring.billingAddressState,
                 billingAddressStateOrProvinceNotValid: req.querystring.billingAddressStateOrProvince,
-                postalCodeNotValidNotValid:req.querystring.postalCode
+                postalCodeNotValidNotValid: req.querystring.postalCode
              });
         }
 

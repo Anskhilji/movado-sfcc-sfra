@@ -4,7 +4,7 @@ var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
-var expressRegexs = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
+var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -137,31 +137,31 @@ function formsValidation(currentBasket, formData) {
     var billingAddressStateOrProvince = '';
     var validatedFields = {};
 
-    firstName = fetechValidatedFields(fetchFromMap(formData, 'shopper.firstName'), expressRegexs.firstName);
-    lastName = fetechValidatedFields(fetchFromMap(formData, 'shopper.lastName'), expressRegexs.lastName);
+    firstName = fetechValidateFields(fetchFromMap(formData, 'shopper.firstName'), checkoutFieldsRegex.firstName);
+    lastName = fetechValidateFields(fetchFromMap(formData, 'shopper.lastName'), checkoutFieldsRegex.lastName);
     address1 = addressValidation(currentBasket, formData);
-    city = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.city'), expressRegexs.city);
-    billingAddressCity = fetechValidatedFields(fetchFromMap(formData, 'billingAddress.city'), expressRegexs.city);
+    city = fetechValidateFields(fetchFromMap(formData, 'deliveryAddress.city'), checkoutFieldsRegex.city);
+    billingAddressCity = fetechValidateFields(fetchFromMap(formData, 'billingAddress.city'), checkoutFieldsRegex.city);
     billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
     billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
     billingAddressState = fetchFromMap(formData, 'billingAddress.state');
     billingAddressState = (!empty(billingAddressState)) ? false : true;
     billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
     billingAddressStateOrProvince = (!empty(billingAddressStateOrProvince)) ? false : true;
-    postalCode = fetechValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), expressRegexs.postalCode);
+    postalCode = fetechValidateFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
     stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
     stateCode = (!empty(stateCode)) ? false : true;
     deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
-    phoneNumber = fetechValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), expressRegexs.phone);
+    phoneNumber = fetechValidateFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
     if (isAnonymous) {
         email = (formData.shopperEmail) ? formData.shopperEmail : '';
-        email = fetechValidatedFields(email, expressRegexs.email);
+        email = fetechValidateFields(email, checkoutFieldsRegex.email);
     } else {
         email = currentBasket.getCustomer().getProfile().getEmail();
-        email = fetechValidatedFields(email, expressRegexs.email);
+        email = fetechValidateFields(email, checkoutFieldsRegex.email);
     }
     validatedFields = {
         firstName: firstName, 
@@ -201,12 +201,12 @@ function fetchFromMap(formData, field) {
     return '';
 }
 /**
-* Sets the default shipping method on the paypal returned order and calculate taxes.
+* matches the given regex with given field data
 * @param {JSON} formData Form Map
 * @param {string} field string
-* @returns {string} Request HTTP Parameter value.
+* @returns {boolean} bool
 */
-function fetechValidatedFields(fieldData, fieldRequiredRegexExpression) {
+function fetechValidateFields(fieldData, fieldRequiredRegexExpression) {
     var results = fieldRequiredRegexExpression.test(fieldData);
     results = !results;
     return results;
@@ -255,7 +255,7 @@ module.exports.preValidations = preValidations;
 module.exports.splitAndSetAddress = splitAndSetAddress;
 module.exports.populatePaymentInstrument = populatePaymentInstrument;
 module.exports.addressValidation = addressValidation;
-module.exports.fetechValidatedFields = fetechValidatedFields;
+module.exports.fetechValidateFields = fetechValidateFields;
 module.exports.formsValidation = formsValidation;
 module.exports.comparePoBox = comparePoBox;
 module.exports.isAllowedCountryCode = isAllowedCountryCode;
