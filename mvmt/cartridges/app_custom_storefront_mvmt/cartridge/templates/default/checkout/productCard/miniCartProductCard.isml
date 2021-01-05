@@ -80,7 +80,6 @@
                 </div>
                 <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
-                    <isinclude template="cart/productCard/cartProductCardProductPrice" />
                 </isif>
                 <isif condition="${lineItem.price}">
                     <p class="line-item-pricing-info">

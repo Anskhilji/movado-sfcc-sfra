@@ -8,7 +8,7 @@
     </div>
     <!--- line item total price --->
     <div class="line-item-total-price">
-        <div class="item-total-${lineItem.UUID} saving-price">
+        <div class="item-total-${lineItem.UUID} price">
             <isinclude template="checkout/productCard/productCardProductTotalPrice" />
         </div>
     </div>
