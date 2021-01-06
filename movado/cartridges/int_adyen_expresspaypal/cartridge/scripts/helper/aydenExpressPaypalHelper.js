@@ -137,31 +137,31 @@ function formsValidation(currentBasket, formData) {
     var billingAddressStateOrProvince = '';
     var validatedFields = {};
 
-    firstName = fetechValidateFields(fetchFromMap(formData, 'shopper.firstName'), checkoutFieldsRegex.firstName);
-    lastName = fetechValidateFields(fetchFromMap(formData, 'shopper.lastName'), checkoutFieldsRegex.lastName);
+    firstName = fetchValidatedFields(fetchFromMap(formData, 'shopper.firstName'), checkoutFieldsRegex.firstName);
+    lastName = fetchValidatedFields(fetchFromMap(formData, 'shopper.lastName'), checkoutFieldsRegex.lastName);
     address1 = addressValidation(currentBasket, formData);
-    city = fetechValidateFields(fetchFromMap(formData, 'deliveryAddress.city'), checkoutFieldsRegex.city);
-    billingAddressCity = fetechValidateFields(fetchFromMap(formData, 'billingAddress.city'), checkoutFieldsRegex.city);
+    city = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.city'), checkoutFieldsRegex.city);
+    billingAddressCity = fetchValidatedFields(fetchFromMap(formData, 'billingAddress.city'), checkoutFieldsRegex.city);
     billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
     billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
     billingAddressState = fetchFromMap(formData, 'billingAddress.state');
     billingAddressState = (!empty(billingAddressState)) ? false : true;
     billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
     billingAddressStateOrProvince = (!empty(billingAddressStateOrProvince)) ? false : true;
-    postalCode = fetechValidateFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
+    postalCode = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
     stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
     stateCode = (!empty(stateCode)) ? false : true;
     deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
-    phoneNumber = fetechValidateFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
+    phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
     if (isAnonymous) {
         email = (formData.shopperEmail) ? formData.shopperEmail : '';
-        email = fetechValidateFields(email, checkoutFieldsRegex.email);
+        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
     } else {
         email = currentBasket.getCustomer().getProfile().getEmail();
-        email = fetechValidateFields(email, checkoutFieldsRegex.email);
+        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
     }
     validatedFields = {
         firstName: firstName, 
@@ -206,7 +206,7 @@ function fetchFromMap(formData, field) {
 * @param {string} field string
 * @returns {boolean} bool
 */
-function fetechValidateFields(fieldData, fieldRequiredRegexExpression) {
+function fetchValidatedFields(fieldData, fieldRequiredRegexExpression) {
     var results = fieldRequiredRegexExpression.test(fieldData);
     results = !results;
     return results;
@@ -255,7 +255,7 @@ module.exports.preValidations = preValidations;
 module.exports.splitAndSetAddress = splitAndSetAddress;
 module.exports.populatePaymentInstrument = populatePaymentInstrument;
 module.exports.addressValidation = addressValidation;
-module.exports.fetechValidateFields = fetechValidateFields;
+module.exports.fetchValidatedFields = fetchValidatedFields;
 module.exports.formsValidation = formsValidation;
 module.exports.comparePoBox = comparePoBox;
 module.exports.isAllowedCountryCode = isAllowedCountryCode;
