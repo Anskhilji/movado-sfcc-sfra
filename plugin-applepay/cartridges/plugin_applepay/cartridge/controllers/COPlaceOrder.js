@@ -23,7 +23,10 @@ server.post('Submit', csrfProtection.generateToken, function (req, res, next) {
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
     	checkoutLogger.error('(ApplePay - COPlaceOrder) -> Submit: Fraud detected and checkout is denied and order number is: ' + order.orderNo);
-    	Transaction.wrap(function () { OrderMgr.failOrder(order); });
+    	Transaction.wrap(function () {
+            // MSS-1168 Passed true as param to fix deprecated method usage 
+            OrderMgr.failOrder(order, true); 
+        });
 
         // fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);

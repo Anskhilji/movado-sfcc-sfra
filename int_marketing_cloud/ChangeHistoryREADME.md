@@ -6,3 +6,6 @@
 
 ## account.js
 - Line No: 68
+
+## int_marketing_cloud > cartridge > scripts > feeds > catalog.js
+Line No: Start from 48 to 49

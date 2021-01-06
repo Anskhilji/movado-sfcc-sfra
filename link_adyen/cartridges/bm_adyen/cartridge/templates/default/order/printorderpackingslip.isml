@@ -6,9 +6,11 @@
 <html>
 <head>
     <title>Packing Slip <isprint value="${pdict.LineItemGroup.shipmentNo}"> For Order <isprint value="${pdict.Order.orderNo}"></title>
-    <link rel="STYLESHEET" type="text/css" href="${URLUtils.webRoot()}/css/enterprisesite.css"/>
+    <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
+    <link rel="STYLESHEET" type="text/css" href="${URLUtils.staticURL('/css/enterprisesite.css')}"/>
     <isinclude template="inc/GlobalJavaScript">
-    <link rel="shortcut icon"  href="${URLUtils.webRoot()}/images/favicon.ico" />
+    <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
+    <link rel="shortcut icon"  href="${URLUtils.staticURL('/images/favicon.ico')}" />
 </head>
 
 <body id="print_packing_slip" onload="window.print();">

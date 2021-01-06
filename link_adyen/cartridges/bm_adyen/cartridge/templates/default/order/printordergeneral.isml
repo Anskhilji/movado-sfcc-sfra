@@ -5,9 +5,11 @@
 
     <head>
         <title>Order <isprint value="${pdict.Order.orderNo}"></title>
-        <link rel="STYLESHEET" type="text/css" href="${URLUtils.webRoot()}/css/enterprisesite.css"/>
+        <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
+        <link rel="STYLESHEET" type="text/css" href="${URLUtils.staticURL('/css/enterprisesite.css')}"/>
         <ismodule template = "inc/AddressInfoSmall_52.isml" name="AddressInfo" attribute="address">
-        <link rel="shortcut icon" href="${URLUtils.webRoot()}/images/favicon.ico" />
+        <!-- MSS-1168 Change link href  to URLUtils.webRoot() fix deprecated method usage -->
+        <link rel="shortcut icon" href="${URLUtils.staticURL('/images/favicon.ico')}" />
     </head>
 
     <body id="print_order" onload="window.print();">
