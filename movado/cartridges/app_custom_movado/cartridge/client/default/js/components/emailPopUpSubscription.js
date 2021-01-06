@@ -28,7 +28,6 @@ $(document).ready(function () {
         wrapperContainer.addClass('d-none');
         var $submissionStatusDiv = $('.submission-status div');
         var $endPointUrl = $(e.target).attr('action');
-        var $params = $(this).serialize();
         var $emailInputValue = $(e.target).find('#email').val();
         var $phoneInputValue = $(e.target).find('#phoneNumber').val();
         var $clickedButton = $(this).find('button[type=submit]:focus');
@@ -43,6 +42,7 @@ $(document).ready(function () {
             $(e.target).find('#phoneNumber').val('');
             $phoneValidation = false;
         }
+        var $params = $(this).serialize();
         var $isValidPhone = $phoneValidation ? $patternPhone.test($phoneInputValue) : true;
         if ($isValidEmail && $isValidPhone) {
             $.ajax({
