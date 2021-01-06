@@ -23,11 +23,21 @@ function getProductGtmObj(product, categoryName, position) {
         var jewelryType = '';
         var watchGender = '';
         var productObj = ProductMgr.getProduct(product.id);
-        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
-            watchGender = productObj.custom.watchGender[0];
-        }
-        if (!empty(productObj.custom.jewelryType)) {
-            jewelryType = productObj.custom.jewelryType;
+        var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
+        if (productObjDefaultVariant) {
+            if (productObjDefaultVariant.custom.watchGender && productObjDefaultVariant.custom.watchGender.length) {
+                watchGender = productObjDefaultVariant.custom.watchGender[0];
+            }
+            if (!empty(productObjDefaultVariant.custom.jewelryType)) {
+                jewelryType = productObjDefaultVariant.custom.jewelryType;
+            }
+        } else {
+            if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                watchGender = productObj.custom.watchGender[0];
+            }
+            if (!empty(productObj.custom.jewelryType)) {
+                jewelryType = productObj.custom.jewelryType;
+            }
         }
         var customCategory = watchGender + " " + jewelryType;
         var variantID = '';
@@ -41,7 +51,7 @@ function getProductGtmObj(product, categoryName, position) {
                 currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
                 brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
                 sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-                category: customCategory,
+                category: stringUtils.removeSingleQuotes(escapeQuotes(customCategory)),
                 productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
                 variantID: variantID,
                 list: 'PLP',
@@ -63,7 +73,7 @@ function getProductGtmObj(product, categoryName, position) {
                 currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
                 brand: !empty(product.defaultVariant) ?stringUtils.removeSingleQuotes( product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
                 sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-                category: customCategory,
+                category: stringUtils.removeSingleQuotes(escapeQuotes(customCategory)),
                 productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
                 variantID: variantID,
                 list: 'Search Results',
