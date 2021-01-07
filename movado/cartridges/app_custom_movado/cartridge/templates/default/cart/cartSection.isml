@@ -31,7 +31,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                ${Resource.msg('cart.paypal.error', 'cart', null)}
+                ${Resource.msg('cart.paypal.firstname.error', 'cart', null)}
             </div>
         </div>
     </isif>
