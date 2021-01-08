@@ -16,7 +16,13 @@
         'searchTerm': '${pdict.gtm.searchTerm}', 
 		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
 		'customerStatus': '${pdict.customerStatus}',
-		'customerID': '${pdict.customerID}'
+		'customerID': '${pdict.customerID}',
+		'referralUrl': '${pdict.gtm.referralUrl}',
+		'pageUrl': '${pdict.gtm.pageUrl}',
+		'buttonName': '',
+		'Page': '${pdict.gtm.pageType}',
+		'googleAnalyticsParameters': ''
+
 		
 		// Custom: Added country dimension on the the base of ESW enabled
 		
@@ -39,7 +45,7 @@
 					'brand': '${pdict.gtm.product.brand}',
 					'category': '${pdict.gtm.product.category}',
 					'variant': '${pdict.gtm.product.productPersonalization}',
-					'list': '${pdict.gtm.product.list}'
+					'list': '${pdict.gtm.product.list}',
 				}]
 			}
 		},
@@ -64,7 +70,14 @@
 						'revenue': '${produtArray.cartObj.revenue}',
 						'tax': '${produtArray.cartObj.tax}',
 						'shipping': '${produtArray.cartObj.shipping}',
-						'coupon': '${produtArray.cartObj.coupon}'}
+						'coupon': '${produtArray.cartObj.coupon}',
+						'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+						'currency': '${produtArray.cartObj.currency}',
+						'country': '${produtArray.cartObj.country}',
+						'productQuantity': '${produtArray.cartObj.productQuantity}',
+						'country': '${produtArray.cartObj.country}',
+						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+						'subTotal': '${produtArray.cartObj.subTotal}'}
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
@@ -118,7 +131,8 @@
 								'revenue': '${orderObj.orderObj.revenue}',
 								'tax': '${orderObj.orderObj.tax}',
 								'shipping': '${orderObj.orderObj.shipping}',
-								'coupon': '${orderObj.orderObj.orderCoupon}'}
+								'coupon': '${orderObj.orderObj.orderCoupon}',
+								'country': '${orderObj.orderObj.country}'}
 							</isif>
 						</isloop>
                             
