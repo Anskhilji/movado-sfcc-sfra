@@ -132,7 +132,7 @@ function updateShippingAddressFormValues(shipping) {
 
         if (countryCode && typeof countryCode === 'object') {
             $('select[name$=_country]', form).val(addressObject.countryCode.value);
-        } else {
+        } else if (addressObject.countryCode && addressObject.countryCode !== '') {
             $('select[name$=_country]', form).val(addressObject.countryCode);
         }
 
