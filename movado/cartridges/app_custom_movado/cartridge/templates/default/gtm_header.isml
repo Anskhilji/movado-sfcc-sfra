@@ -46,6 +46,7 @@
 					'category': '${pdict.gtm.product.category}',
 					'variant': '${pdict.gtm.product.productPersonalization}',
 					'list': '${pdict.gtm.product.list}',
+					'currency': '${pdict.gtm.product.currency}',
 				}]
 			}
 		},
@@ -77,7 +78,9 @@
 						'productQuantity': '${produtArray.cartObj.productQuantity}',
 						'country': '${produtArray.cartObj.country}',
 						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
-						'subTotal': '${produtArray.cartObj.subTotal}'}
+						'subTotal': '${produtArray.cartObj.subTotal}',
+						'discount': '${produtArray.cartObj.discount}',
+						'promo code': '${produtArray.cartObj.coupon}' }
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
@@ -101,12 +104,21 @@
 				'name':  '${produtArray.cartObj.name}',
 				'price': '${produtArray.cartObj.price}',
 				'brand': '${produtArray.cartObj.brand}',
+				'productQuantity': '${produtArray.cartObj.productQuantity}',
+				'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
 				'category': '${produtArray.cartObj.category}',
 				'variant': '${produtArray.cartObj.variant}',
 				'revenue': '${produtArray.cartObj.revenue}',
+				'currency': '${produtArray.cartObj.currency}',
 				'tax': '${produtArray.cartObj.tax}',
+				'country': '${produtArray.cartObj.country}',
 				'shipping': '${produtArray.cartObj.shipping}',
-				'coupon': '${produtArray.cartObj.coupon}'}
+				'coupon': '${produtArray.cartObj.coupon}',
+				'promo code': '${produtArray.cartObj.coupon}',
+				'discount': '${produtArray.cartObj.discount}',
+				'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+				'subTotal': '${produtArray.cartObj.subTotal}',
+				'paymentMethod': '${produtArray.cartObj.paymentMethod}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
 					]
@@ -132,7 +144,8 @@
 								'tax': '${orderObj.orderObj.tax}',
 								'shipping': '${orderObj.orderObj.shipping}',
 								'coupon': '${orderObj.orderObj.orderCoupon}',
-								'country': '${orderObj.orderObj.country}'}
+								'country': '${orderObj.orderObj.country}',
+								'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
 							</isif>
 						</isloop>
                             

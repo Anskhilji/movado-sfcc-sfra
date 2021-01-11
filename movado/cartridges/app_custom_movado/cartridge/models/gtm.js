@@ -8,6 +8,8 @@ var Resource = require('dw/web/Resource');
 var Encoding = require('dw/crypto/Encoding');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
+var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
+var Logger = require('dw/system/Logger');
 
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
@@ -98,7 +100,8 @@ function gtmModel(req) {
         	    productPersonalization: productImpressionTags.productPersonalization,
         	    category: primarySiteSection,
         	    productPrice: productImpressionTags.productPrice,
-        	    list: productImpressionTags.list
+                list: productImpressionTags.list,
+                currency: productImpressionTags.currency
     	    };
     	}    	else if (searchkeyword != null) {
     		// search count
@@ -376,11 +379,12 @@ function getPDPProductImpressionsTags(productObj) {
     var productPersonalization = '';
     var productModel = productFactory.get({pid: productID});
     var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+    var currency = (productObj.priceModel.price.available ? (productObj.priceModel.price.currencyCode) : (productObj.priceModel.minPrice.currencyCode));
 
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP' };
+    return { productID: productID, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP', currency: currency };
 }
 
 
@@ -393,12 +397,14 @@ function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
     var productQuantityTotal = currentBasket.productQuantityTotal;
-    var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + currentBasket.billingAddress.stateCode + currentBasket.billingAddress.postalCode: '';
     var currencyCode = currentBasket.currencyCode;
     var cartJSON = [];
     if (currentBasket) {
         var cartItems = currentBasket.allProductLineItems;
         var appliedCoupons = getCouponsOnOrder(currentBasket.couponLineItems);
+        var countryDisplayName = (currentBasket.billingAddress) ? currentBasket.billingAddress.countryCode.displayValue : '';
+        var paymentMethod = (currentBasket.paymentInstrument != null) ? currentBasket.paymentInstrument.paymentMethod : '';
+        var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
@@ -419,7 +425,10 @@ function getBasketParameters() {
                     totalProductQuantity: productQuantityTotal,
                     cityStateZipCode: cityStateZipCode,
                     currency: currencyCode,
-                    cityStateZip: cityStateZipCode });
+                    cityStateZip: cityStateZipCode,
+                    country: countryDisplayName,
+                    discount: getOrderLevelDiscount(cartItem),
+                    paymentMethod: paymentMethod });
             }
         });
     }
@@ -453,6 +462,8 @@ function getCartJSONArray(checkoutObject) {
         cartObj.country = cartJSON[i].country;
         cartObj.cityStateZipCode = cartJSON[i].cityStateZip;
         cartObj.subTotal = cartJSON[i].revenue;
+        cartObj.discount = cartJSON[i].discount;
+        cartObj.paymentMethod = cartJSON[i].paymentMethod;
 
         if (cartArray.length < 10) {
             cartArray.push({
@@ -583,9 +594,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var order = require('dw/order/Order');
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderId);
+    var paymentMethod = '';
     if (order != null && order.productLineItems != null) {
         var orderLevelCouponString = '';
         var itemLevelCouponString = '';
+        paymentMethod = order.paymentInstrument.paymentMethod;
         collections.forEach(order.couponLineItems, function (couponLineItem) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
@@ -633,6 +646,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.shipping = order.shippingTotalPrice.decimalValue;
         orderObj.orderCoupon = orderLevelCouponString;
         orderObj.country = order.billingAddress.countryCode.displayValue;
+        orderObj.paymentMethod = paymentMethod;
 	    orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
@@ -649,6 +663,28 @@ function formatProductId(pid) {
     }
 
     return pid;
+}
+
+/**
+ * function to get total order level discount
+ * @param {dw.order.Order} order 
+ * returns {Number} orderPriceAdjustment
+ */
+
+function getOrderLevelDiscount (order) {
+    try {
+        var orderPriceAdjustment;
+        var totalOrderPriceAdjustment = 0.0;
+        for (var i = 0; i < order.priceAdjustments.length; i++) {
+            orderPriceAdjustment = order.priceAdjustments[i];
+            totalOrderPriceAdjustment = parseFloat(totalOrderPriceAdjustment) + parseFloat(Math.abs(orderPriceAdjustment.netPrice.value));
+        }
+        return totalOrderPriceAdjustment;
+    } catch (ex) {
+        Logger.error('Error Occured while getting order adjustment for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        return 0;
+    }
+
 }
 
 module.exports = gtmModel;
