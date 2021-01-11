@@ -303,6 +303,8 @@ function Request(request, customer, session) {
     if (!request.includeRequest) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
         var Logger = require('dw/system/Logger');
+        var referralCouponHelper = require('*/cartridge/scripts/helpers/referralCouponHelper');
+        referralCouponHelper.addRefrralCoupon(request);
         if (!eswEnabled) {
             setCurrency(request, session);
         } else {
