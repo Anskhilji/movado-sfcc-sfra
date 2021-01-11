@@ -1,5 +1,9 @@
 'static';
 
+/**
+ * Checks query string for coupon code and appiles coupon to Basket
+ * @param {Request} request 
+ */
 function addRefrralCoupon(request) {
     var BasketMgr = require('dw/order/BasketMgr');
     var requestHttpParameterMap = request.getHttpParameterMap();
