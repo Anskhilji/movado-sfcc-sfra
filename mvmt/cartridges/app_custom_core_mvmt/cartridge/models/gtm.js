@@ -142,13 +142,14 @@ function gtmModel(req) {
                     productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
                     brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
                     productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
-                    category: primarySiteSection,
+                    category: productImpressionTags && productImpressionTags.customCategory ? productImpressionTags.customCategory : '',
+                    currentCategory: primarySiteSection,
                     productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
                     list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
                     Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
                     variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
                     productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
-                    variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : ''
+                    variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : '',
                 };
             } else {
                 this.product = {};
@@ -511,6 +512,8 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var variantSize = '';
         var productID = productObj.ID;
         var selectedVariant;
+        var jewelryType = '';
+        var watchGender = '';
         if (productObj.master) {
             var variantFilter = getVariantFilter(queryString);
             if (variantFilter.length > 0) {
@@ -534,6 +537,13 @@ function getPDPProductImpressionsTags(productObj, queryString) {
                 }
             });
         }
+        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+            watchGender = productObj.custom.watchGender[0];
+        }
+        if (!empty(productObj.custom.jewelryType)) {
+            jewelryType = productObj.custom.jewelryType;
+        }
+        var customCategory = watchGender + " " + jewelryType;
         var productName = stringUtils.removeSingleQuotes(productObj.name);
         var brand = stringUtils.removeSingleQuotes(productObj.brand);
         var productPersonalization = '';
@@ -546,7 +556,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
@@ -581,21 +591,32 @@ function getVariantFilter(queryStringVal) {
 // Custom changes Updated dataLayer according to mvmt
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
     var cartJSON = [];
     if (currentBasket) {
         var cartItems = currentBasket.allProductLineItems;
         var appliedCoupons = getCouponsOnOrder(currentBasket.couponLineItems);
+        var jewelryType = '';
+        var watchGender = '';
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
+                var productObj = ProductMgr.getProduct(cartItem.productID);
+                if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                    watchGender = productObj.custom.watchGender[0];
+                }
+                if (!empty(productObj.custom.jewelryType)) {
+                    jewelryType = productObj.custom.jewelryType;
+                }
+                var customCategory = watchGender + " " + jewelryType;
                 var productModel = productFactory.get({pid: cartItem.productID});
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
                     brand: stringUtils.removeSingleQuotes(cartItem.product.brand),
-                    category: cartItem.product.variant && !!cartItem.product.masterProduct.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.masterProduct.primaryCategory.ID) : (cartItem.product.primaryCategory ? stringUtils.removeSingleQuotes(cartItem.product.primaryCategory.ID) : ''),
+                    category: customCategory,
                     variant: variants,
                     imageURL: cartItem.product.image.absURL,
                     prouctUrl: URLUtils.url('Product-Show', 'pid', cartItem.productID).abs().toString(),
@@ -775,6 +796,7 @@ function getOrderIDfromQueryString(queryString) {
 function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var order = require('dw/order/Order');
     var OrderMgr = require('dw/order/OrderMgr');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var order = OrderMgr.getOrder(orderId);
     var averageOrderLevelDiscount = getAverageOrderLevelDiscount(order);
     if (order != null && order.productLineItems != null) {
@@ -795,13 +817,22 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             try {
                 var variants = getVariants(productLineItem);
                 var produtObj = {};
+                var watchGender = "";
+                var jewelryType = "";
+
+                var productObj = ProductMgr.getProduct(productLineItem.product.ID);
+                if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                    watchGender = productObj.custom.watchGender[0];
+                }
+                if (!empty(productObj.custom.jewelryType)) {
+                    jewelryType = productObj.custom.jewelryType;
+                }
+                var customCategory = watchGender + " " + jewelryType;
 
                 produtObj.id = productLineItem.product.ID;
                 produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
                 produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
-                produtObj.category = escapeQuotes(productLineItem.product.variant ? ((productLineItem.product.masterProduct != null && productLineItem.product.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.masterProduct.primaryCategory.ID)
-                    : '')
-                    : ((productLineItem.product.primaryCategory != null) ? stringUtils.removeSingleQuotes(productLineItem.product.primaryCategory.ID) : ''));
+                produtObj.category = customCategory,
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));

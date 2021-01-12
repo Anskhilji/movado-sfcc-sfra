@@ -157,7 +157,7 @@ var onPDPAddProductClickEvent = function () {
                             name: addtoCartData.name,
                             id: addtoCartData.id,
                             price: addtoCartData.price,
-                            category: addtoCartData.category,
+                            category: addtoCartData.customCategory,
                             sku: addtoCartData.id,
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
@@ -183,7 +183,7 @@ var onPDPAddProductClickEvent = function () {
                             name: addtoCartData.name,
                             id: addtoCartData.id,
                             price: addtoCartData.price,
-                            category: addtoCartData.category,
+                            category: addtoCartData.customCategory,
                             sku: addtoCartData.id,
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
@@ -219,7 +219,7 @@ var onAddtoCartClickEvent = function () {
                         name: data.name,
                         id: data.id,
                         price: data.price,
-                        category: data.category,
+                        category: data.customCategory,
                         sku: data.id,
                         variantID: data.variantID,
                         brand: data.brand,
@@ -275,7 +275,7 @@ var onLoadProductTile = function () {
                 sku: gtmTrackingData.sku,
                 variantID: gtmTrackingData.variantID,
                 brand: gtmTrackingData.brand,
-                currentCategory: gtmTrackingData.category,
+                currentCategory: gtmTrackingData.currentCategory,
                 productType: gtmTrackingData.productType });
             currency = gtmTrackingData.currency;
         }

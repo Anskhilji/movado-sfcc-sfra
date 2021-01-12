@@ -36,9 +36,17 @@ function comparePoBox(address) {
  * @returns results
  */
 function comparePostalCode(address) {
+
+    // postal code validation for US
     var postalCodeRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
-    var results = !postalCodeRegex.test(address);
-    return results;
+    var result = !postalCodeRegex.test(address);
+    if (result) {
+        // postal code validation for UK
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g;
+        result = !postalCodeRegex.test(address);
+    }
+
+    return result;
 }
 
 /**

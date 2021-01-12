@@ -76,7 +76,8 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 
                 checkoutLogger.error('(Adyen) -> AuthorizeWithForm: 3DS verification failed, going to fail the order for order number: ' + orderNo + ' and going to the payment stage');
                 Transaction.wrap(function () {
-                    OrderMgr.failOrder(order);
+                    // MSS-1169 Passed true as param to fix deprecated method usage
+                    OrderMgr.failOrder(order, true);
                 });
 
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
@@ -88,7 +89,8 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
             if (fraudDetectionStatus.status === 'fail') {
 
                 checkoutLogger.error('(Adyen) -> AuthorizeWithForm: fraud decteced, going to fail the order for order number: ' + orderNo + ' and going to the (Error-ErrorCode) error page');
-                Transaction.wrap(function () { OrderMgr.failOrder(order); });
+                // MSS-1169 Passed true as param to fix deprecated method usage
+                Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
                 // fraud detection failed
                 req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -110,7 +112,8 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 
                 checkoutLogger.error('(Adyen) -> AuthorizeWithForm: order placement failed for order number: ' + orderNo + ' and going to the placeOrder stage');
                 Transaction.wrap(function () {
-                    OrderMgr.failOrder(order);
+                    // MSS-1169 Passed true as param to fix deprecated method usage
+                    OrderMgr.failOrder(order, true);
                 });
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
                 return next();

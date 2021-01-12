@@ -9,6 +9,7 @@ server.extend(module.superModule);
 var Resource = require('dw/web/Resource');
 var URLUtils = require('dw/web/URLUtils');
 var BasketMgr = require('dw/order/BasketMgr');
+var Site = require('dw/system/Site');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var affirmHelper = require('*/cartridge/scripts/utils/affirmHelper');
@@ -77,6 +78,21 @@ server.replace(
         }
 
         affirmHelper.PostProcess(order);
+
+        // Custom Start: Salesforce Order Management attributes
+        if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+        }
+
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
         if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);

@@ -207,6 +207,9 @@ function populateByOrder(order) {
                     }
                     arrPi[i].getPaymentTransaction().setTransactionID(order.custom.Adyen_pspReference);
                     break;
+                case 'AFFIRM_PAYMENT':
+                    arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);
+                    break;
                 case 'BASIC_CREDIT':
                     if (arrPi[i].getPaymentMethod() === 'ESW_PAYMENT') {
                         arrPi[i].getPaymentTransaction().setType(dw.order.PaymentTransaction.TYPE_CAPTURE);

@@ -91,6 +91,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID)
@@ -131,6 +132,8 @@ server.replace('Variation', function (req, res, next) {
 
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
 
+    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+
     var attributeContext = { product: { attributes: product.attributes } };
     var attributeTemplate = 'product/components/attributesPre';
     product.attributesHtml = renderTemplateHelper.getRenderedHtml(
@@ -156,7 +159,8 @@ server.replace('Variation', function (req, res, next) {
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved,
-        badges: badges
+        badges: badges,
+        eswModuleEnabled: eswModuleEnabled
     });
     next();
 });
@@ -275,6 +279,7 @@ server.get('ShowCartButton', function (req, res, next) {
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         smartGiftAddToCartURL : smartGiftAddToCartURL 
     });
     next();

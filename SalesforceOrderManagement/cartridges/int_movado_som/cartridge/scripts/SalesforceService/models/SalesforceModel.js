@@ -102,7 +102,7 @@ var SalesforceModel = ({
     },
     createSAPRefundRequest: function (req) {
         return SalesforceModel.createSalesforceRestRequest({
-            url: SalesforceFactory.ENDPOINTS.SAPORDERREFUND + '?eventType=' + req.eventType + '&poNumber=' + req.poNumber + '&amount=' + req.amount + '&poStatusItems=' + req.poStatusItems,
+            url: SalesforceFactory.ENDPOINTS.SAPORDERREFUND + '?transactionType=' + req.transactionType + '&eventType=' + req.eventType + '&poNumber=' + req.poNumber + '&amount=' + req.amount + '&poStatusItems=' + req.poStatusItems,
             requestMethod: 'GET'
         });
     },

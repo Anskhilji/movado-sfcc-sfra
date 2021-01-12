@@ -74,7 +74,9 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
             setTimeout(function () {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
-            affirm.ui.refresh();
+            if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+                affirm.ui.refresh();
+            }
             if (typeof isklarnaPromoEnabled !== 'undefined' && data.isKlarnaPDPPromoEnabled) {
                 $('klarna-placement').attr("data-purchase_amount", data.klarnaProductPrice);
                 window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];

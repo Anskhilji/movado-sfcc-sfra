@@ -24,6 +24,7 @@ function getResources(pageContext) {
         ADYEN_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.adyen', 'checkout', null),
         EMAIL_POPUP_SERVER_ERROR_MSG: Resource.msg('email.popUp.server.error', 'common', null),
         COOKIE_EXPIRY_TIME_WELCOME_MAT: Site.getCurrent().getCustomPreferenceValue('cookieExpiryTimeInDays'),
+        AFFIRM_PAYMENT_METHOD_STATUS: Site.getCurrent().getCustomPreferenceValue('AffirmOnline'),
         CURRENT_SITE_ID : Site.getCurrent().getID(),
         OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
         OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
