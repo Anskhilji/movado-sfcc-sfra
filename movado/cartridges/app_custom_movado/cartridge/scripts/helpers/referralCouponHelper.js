@@ -7,8 +7,8 @@
 function addRefrralCoupon(request) {
     var BasketMgr = require('dw/order/BasketMgr');
     var requestHttpParameterMap = request.getHttpParameterMap();
-    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('couponCode'))) {
-        var couponCode = requestHttpParameterMap.get('couponCode').value;
+    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('popup_code'))) {
+        var couponCode = requestHttpParameterMap.get('popup_code').value;
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         if (couponCode && !empty(couponCode) && !empty(currentBasket)) {
             var appliedCoupon = currentBasket.getCouponLineItem(couponCode);
