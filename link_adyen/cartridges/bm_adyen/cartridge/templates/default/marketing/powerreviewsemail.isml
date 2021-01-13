@@ -111,7 +111,8 @@ h2 {
 
                             //out.print(reviewUrl);
 
-                            reviewUrl = URLUtils.http( false , 'PowerReviews-WriteReview', 'pid' , ProductLineItem.getProduct().ID , 'source' , 'email');
+                            // MSS-1168 Passed PowerReviews-WriteReview as param to fix deprecated method usage
+                            reviewUrl = URLUtils.http('PowerReviews-WriteReview', 'pid' , ProductLineItem.getProduct().ID , 'source' , 'email');
                             reviewUrl = reviewUrl.toString();
                             reviewUrl = reviewUrl.replace(shop,"Sites-SiteGenesis-Site");
 

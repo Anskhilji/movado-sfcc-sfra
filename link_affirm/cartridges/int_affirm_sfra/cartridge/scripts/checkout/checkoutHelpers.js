@@ -485,7 +485,8 @@ function handlePayments(order, orderNumber) {
 
         if (paymentInstruments.length === 0) {
             affirmLogger.warn('(checkoutHelpers) -> handlePayments: Since payment instruments length is zero thats why going to fail order with order number: ' + order.orderNo);
-            Transaction.wrap(function () { OrderMgr.failOrder(order); });
+            // MSS-1168 Passed true as param to fix deprecated method usage
+            Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
             result.error = true;
         }
 
@@ -519,7 +520,8 @@ function handlePayments(order, orderNumber) {
 
                     if (authorizationResult.error) {
                         affirmLogger.warn('(checkoutHelpers) -> handlePayments: Error occurred while Authorization of payment against order with order number: ' + order.orderNo + ' and error is: ' + authorizationResult.error);
-                        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+                        // MSS-1168 Passed true as param to fix deprecated method usage
+                        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
                         result.error = true;
                         break;
                     }
@@ -589,7 +591,8 @@ function placeOrder(order, fraudDetectionStatus) {
         Transaction.commit();
     } catch (e) {
         affirmLogger.error('(checkoutHelpers) -> placeOrder: An exception has been occurred so going to fail the order with order number: ' + order.orderNo + ' and exception is: ' + e);
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        // MSS-1168 Passed true as param to fix deprecated method usage
+        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
         result.error = true;
     }
 
