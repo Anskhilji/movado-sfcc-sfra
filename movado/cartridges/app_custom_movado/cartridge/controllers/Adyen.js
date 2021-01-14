@@ -99,7 +99,8 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         var authorized = authorizeConfirmation.authorize(requestMap);
         if (!authorized) {
             Transaction.wrap(function () {
-                OrderMgr.failOrder(order);
+                // MSS-1169 Passed true as param to fix deprecated method usage
+                OrderMgr.failOrder(order, true);
             });
             checkoutLogger.error('(Adyen) -> ShowConfirmation: Authorization is failed and order is failed and redirecting to Checkout-Begin and stage is payment and order number is: ' + order.orderNo);
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));

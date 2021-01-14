@@ -132,7 +132,7 @@ function updateShippingAddressFormValues(shipping) {
 
         if (countryCode && typeof countryCode === 'object') {
             $('select[name$=_country]', form).val(addressObject.countryCode.value);
-        } else {
+        } else if (addressObject.countryCode && addressObject.countryCode !== '') {
             $('select[name$=_country]', form).val(addressObject.countryCode);
         }
 
@@ -957,6 +957,9 @@ module.exports = {
     },
 
     updateShippingList: function () {
+        $(window).on('load',function() {
+            updateShippingMethodList($('.shipping-method-list').parents('form'));
+        });
         $('select[name$="shippingAddress_addressFields_states_stateCode"]')
             .on('change', function (e) {
                 updateShippingMethodList($(e.currentTarget.form));

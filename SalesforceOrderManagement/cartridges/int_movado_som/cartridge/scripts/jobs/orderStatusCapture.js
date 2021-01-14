@@ -204,7 +204,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             // send customer transactional email
             if (cancelledOSLineItemsRequest.object.changeOrderId) {
                 var cancellationEmailRequest = SalesforceModel.sendOrderSummaryCancelEmail({
-                    changeOrderId: cancelledOSLineItemsRequest.object.changeOrderId
+                    changeOrderIds: cancelledOSLineItemsRequest.object.changeOrderId
                 });
                 if (cancellationEmailRequest.error) {
                     Logger.error('orderStatusCapture - error sending cancellation email: ' + JSON.stringify(cancellationEmailRequest));
