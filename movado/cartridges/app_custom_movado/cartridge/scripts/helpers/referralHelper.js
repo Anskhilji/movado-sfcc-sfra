@@ -4,7 +4,7 @@
  * Checks query string for coupon code and appiles coupon to Basket
  * @param {Request} request 
  */
-function addRefrralCoupon(request) {
+function addReferralCoupon(request) {
     var BasketMgr = require('dw/order/BasketMgr');
     var requestHttpParameterMap = request.getHttpParameterMap();
     if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('popup_code'))) {
@@ -20,7 +20,7 @@ function addRefrralCoupon(request) {
                     });
                 } catch (error) {
                     var Logger = require('dw/system/Logger');
-                    Logger.error('addRefrralCoupon: Error occured while adding couponCode to basket.\n Coupon Code: {0} \n Error Message: {1} \n Stack Trace: {2}', couponCode , error.message, error.stack);
+                    Logger.error('addReferralCoupon: Error occured while adding couponCode to basket.\n Coupon Code: {0} \n Error Message: {1} \n Stack Trace: {2}', couponCode , error.message, error.stack);
                 }
             }
         }
@@ -29,5 +29,5 @@ function addRefrralCoupon(request) {
 }
 
 module.exports = {
-    addRefrralCoupon: addRefrralCoupon
+    addReferralCoupon: addReferralCoupon
 }
