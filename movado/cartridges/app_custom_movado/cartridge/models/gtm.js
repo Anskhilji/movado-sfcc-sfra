@@ -396,6 +396,7 @@ function getPDPProductImpressionsTags(productObj) {
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
+    //get total product quantity 
     var productQuantityTotal = currentBasket.productQuantityTotal;
     var currencyCode = currentBasket.currencyCode;
     var cartJSON = [];
@@ -404,6 +405,7 @@ function getBasketParameters() {
         var appliedCoupons = getCouponsOnOrder(currentBasket.couponLineItems);
         var countryDisplayName = (currentBasket.billingAddress) ? currentBasket.billingAddress.countryCode.displayValue : '';
         var paymentMethod = (currentBasket.paymentInstrument != null) ? currentBasket.paymentInstrument.paymentMethod : '';
+        // get city state zip code with pipe bars
         var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
@@ -427,7 +429,9 @@ function getBasketParameters() {
                     currency: currencyCode,
                     cityStateZip: cityStateZipCode,
                     country: countryDisplayName,
+                    // get product discount
                     discount: getOrderLevelDiscount(cartItem),
+                    // get payment method
                     paymentMethod: paymentMethod });
             }
         });
@@ -456,12 +460,16 @@ function getCartJSONArray(checkoutObject) {
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.coupon = cartJSON[i].coupon;
+        //get product quantity
         cartObj.productQuantity = cartJSON[i].quantity;
         cartObj.totalProductQuantity = cartJSON[i].totalProductQuantity;
         cartObj.currency = cartJSON[i].currency;
+        // get country
         cartObj.country = cartJSON[i].country;
         cartObj.cityStateZipCode = cartJSON[i].cityStateZip;
+        //get subtotal
         cartObj.subTotal = cartJSON[i].revenue;
+        //get discount
         cartObj.discount = cartJSON[i].discount;
         cartObj.paymentMethod = cartJSON[i].paymentMethod;
 
@@ -624,6 +632,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
+            // get currency
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
 			    produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;

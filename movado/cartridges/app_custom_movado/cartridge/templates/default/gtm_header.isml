@@ -76,11 +76,10 @@
 						'currency': '${produtArray.cartObj.currency}',
 						'country': '${produtArray.cartObj.country}',
 						'productQuantity': '${produtArray.cartObj.productQuantity}',
-						'country': '${produtArray.cartObj.country}',
 						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 						'subTotal': '${produtArray.cartObj.subTotal}',
 						'discount': '${produtArray.cartObj.discount}',
-						'promo code': '${produtArray.cartObj.coupon}' }
+						'promoCode': '${produtArray.cartObj.coupon}' }
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
@@ -114,7 +113,7 @@
 				'country': '${produtArray.cartObj.country}',
 				'shipping': '${produtArray.cartObj.shipping}',
 				'coupon': '${produtArray.cartObj.coupon}',
-				'promo code': '${produtArray.cartObj.coupon}',
+				'promoCode': '${produtArray.cartObj.coupon}',
 				'discount': '${produtArray.cartObj.discount}',
 				'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 				'subTotal': '${produtArray.cartObj.subTotal}',
