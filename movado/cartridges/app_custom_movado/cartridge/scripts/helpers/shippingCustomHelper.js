@@ -1,5 +1,7 @@
 'use strict';
 
+var constants = require('*/cartridge/scripts/util/Constants.js');
+
 function isEquivalentAddress(anAddress, address) {
     if (anAddress && address) {
         if (anAddress.address1.equalsIgnoreCase(address.address1)) {
@@ -110,9 +112,40 @@ function getTaxTotals(total) {
     return formatMoney(total);
 }
 
+/**
+ * Returns shipping methods with upgrade precedence
+ * @param {dw.order.Shipment} shipment - line items model
+ * @param {Object} applicableShippingMethods - provided shipping methods
+ * @return {Object|Object} returns applicableShippingMethods with upgraded precedence and default selected method
+*/
+function getshippingMethodsWithUpgradesPrecedence(applicableShippingMethods, selectedShippingMethod) {
+    var shippingMethodsUpgradePrecedence = constants.getShippingMethodsPrecedence();
+    var selectedShippingMethod = selectedShippingMethod;
+    if(!empty(applicableShippingMethods) && applicableShippingMethods.length != 0){
+        if(!empty(shippingMethodsUpgradePrecedence) && shippingMethodsUpgradePrecedence.length != 0) {
+            for (i = 0; i < shippingMethodsUpgradePrecedence.length; i++) {
+                for (j = 0; j < applicableShippingMethods.length; j++) {
+                    var applicableShippingMethod = applicableShippingMethods[j];
+                    if (applicableShippingMethod.ID.equalsIgnoreCase(shippingMethodsUpgradePrecedence[i]) && applicableShippingMethod.shippingCostValue == 0) {
+                        var shippingMethodWithUpgradePrecedence = applicableShippingMethods[0];
+                        applicableShippingMethods[0] = applicableShippingMethod;
+                        applicableShippingMethods[j] = shippingMethodWithUpgradePrecedence;
+                        selectedShippingMethod = applicableShippingMethod;
+
+                        return {applicableShippingMethods : applicableShippingMethods, selectedShippingMethod : selectedShippingMethod};
+                    }
+                }
+            }
+
+        }      
+    }
+    return {applicableShippingMethods : applicableShippingMethods, selectedShippingMethod : selectedShippingMethod};
+}
+
 module.exports = {
     emptyAddress: emptyAddress,
     getCompanyName: getCompanyName,
     getAssociatedAddress: getAssociatedAddress,
-    getTaxTotals: getTaxTotals
+    getTaxTotals: getTaxTotals,
+    getshippingMethodsWithUpgradesPrecedence: getshippingMethodsWithUpgradesPrecedence
 };
