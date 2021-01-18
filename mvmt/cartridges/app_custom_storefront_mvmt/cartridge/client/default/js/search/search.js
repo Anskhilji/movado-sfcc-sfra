@@ -426,13 +426,17 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
 
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var currentSelectedSortId = (urlparams.hasOwnProperty('srule') == true) ? '&srule=' + urlparams.srule : '';
+
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: e.currentTarget.href + currentSelectedSortId,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: e.currentTarget.href + currentSelectedSortId
                     },
                     method: 'GET',
                     success: function (response) {
@@ -440,7 +444,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(e.currentTarget.href + currentSelectedSortId);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
@@ -468,13 +472,18 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var currentSelectedSortId = (urlparams.hasOwnProperty('srule') == true) ? '&srule=' + urlparams.srule : '';
+
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: e.currentTarget.href + currentSelectedSortId,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: e.currentTarget.href + currentSelectedSortId 
                     },
                     method: 'GET',
                     success: function (response) {
@@ -482,7 +491,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseMobileResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(e.currentTarget.href + currentSelectedSortId);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
