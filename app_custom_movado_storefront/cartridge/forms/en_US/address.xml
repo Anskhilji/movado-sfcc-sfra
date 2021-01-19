@@ -18,7 +18,7 @@
            />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
            max-length="254" missing-error="error.card.info.missing.email"
-           regexp="^[a-z0-9][-a-z0-9.!#$%&amp;'*+-=?^_`{|}~\/]+@([-a-z0-9]+\.)+[a-z]{2,5}$" 
+           regexp="^[0-9a-zA-Z][0-9a-zA-Z.!#$%&amp;'*+-=?^_`{|}~\/]+@([0-9a-zA-Z]+\.)+[a-zA-Z]{2,5}$"
            parse-error="error.message.email.invalid"
            /> 
     <field formid="subscribetomovado"
