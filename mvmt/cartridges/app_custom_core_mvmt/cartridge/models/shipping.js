@@ -40,11 +40,11 @@ function extend(target, source) {
  */
 function shipping(shipment, address, customer, containerView) {
     var shippingModel = new Shipping(shipment, address, customer, containerView);
-    var applicableShippingMethods = shippingCustomHelper.getshippingMethodsWithUpgradesPrecedence(shippingModel.applicableShippingMethods, shippingModel.selectedShippingMethod);
+    var updatedApplicableShipppingMethods = shippingCustomHelper.getshippingMethodsWithUpgradesPrecedence(shippingModel.applicableShippingMethods, shippingModel.selectedShippingMethod);
 
     shippingObj = extend(shippingModel, {
-        applicableShippingMethods: applicableShippingMethods.applicableShippingMethods,
-        selectedShippingMethod: applicableShippingMethods.selectedShippingMethod,
+        applicableShippingMethods: updatedApplicableShipppingMethods.applicableShippingMethods,
+        selectedShippingMethod: updatedApplicableShipppingMethods.selectedShippingMethod,
     });
 
     return shippingObj;
