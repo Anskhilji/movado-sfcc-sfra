@@ -95,6 +95,13 @@
                         <isinclude template="product/components/promotions" />
                     </div>
 
+                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
+                        <div class="seefit-text-label">
+                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
+                                ${Resource.msg('label.seefit', 'product', null)}
+                            </button>
+                        </div>
+                    </isif>
                     <div class="row m-0 product-variations">
                         <!-- Attributes and Quantity -->
 
