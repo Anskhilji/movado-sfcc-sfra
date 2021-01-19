@@ -79,6 +79,7 @@ server.replace(
             });
         }
 
+
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
             passwordForm.clear();
@@ -239,6 +240,23 @@ server.append('Confirm', function (req, res, next) {
     res.setViewData({
         marketingProductData : JSON.stringify(marketingProductsData)
     });
+
+    
+    // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)
+    if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
+        if ('SFCCPriceBookId' in order.custom && !order.custom.SFCCPriceBookId) {
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
+        }
+    }
     
     var customerID = '';
     var loggedIn = req.currentCustomer.raw.authenticated;

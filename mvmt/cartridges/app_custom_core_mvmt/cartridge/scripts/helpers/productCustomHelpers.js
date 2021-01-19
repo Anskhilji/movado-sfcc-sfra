@@ -2,7 +2,7 @@
 var ProductMgr = require('dw/catalog/ProductMgr');
 var baseProductCustomHelpers = module.superModule;
 var collections = require('*/cartridge/scripts/util/collections');
-
+var Logger = require('dw/system/Logger');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 /**
@@ -18,48 +18,75 @@ function escapeQuotes(value) {
 }
 
 function getProductGtmObj(product, categoryName, position) {
-    var productGtmObj = [];
-    var productObj = ProductMgr.getProduct(product.id);
-    var variantID = '';
-    if (categoryName != null) {
-        // Custom Start: Push product object in Array.
-        productGtmObj.push({
-            name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
-            id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
-                : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
-            currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-            brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
-            sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            category: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
-            productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
-            variantID: variantID,
-            list: 'PLP',
-            position: position
-        });
-    } else {
+    try {
+        var productGtmObj = []; 
+        var jewelryType = '';
+        var watchGender = '';
         var productObj = ProductMgr.getProduct(product.id);
-        var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
-        : '')
-        : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
-        : '')) : '');
-        productGtmObj.push({
-            name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
-            id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            price:productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
-                : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
-            currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
-            brand: !empty(product.defaultVariant) ?stringUtils.removeSingleQuotes( product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
-            sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
-            category: stringUtils.removeSingleQuotes(category),
-            productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
-            variantID: variantID,
-            list: 'Search Results',
-            position: position
-        });
-    }
+        var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
+        if (productObjDefaultVariant) {
+            if (productObjDefaultVariant.custom.watchGender && productObjDefaultVariant.custom.watchGender.length) {
+                watchGender = productObjDefaultVariant.custom.watchGender[0];
+            }
+            if (!empty(productObjDefaultVariant.custom.jewelryType)) {
+                jewelryType = productObjDefaultVariant.custom.jewelryType;
+            }
+        } else {
+            if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                watchGender = productObj.custom.watchGender[0];
+            }
+            if (!empty(productObj.custom.jewelryType)) {
+                jewelryType = productObj.custom.jewelryType;
+            }
+        }
+        var customCategory = watchGender + " " + jewelryType;
+        var variantID = '';
+        if (categoryName != null) {
+        // Custom Start: Push product object in Array.
+            productGtmObj.push({
+                name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
+                id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
+                price: productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+                    : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
+                currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
+                brand: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
+                sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
+                category: stringUtils.removeSingleQuotes(escapeQuotes(customCategory)),
+                productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
+                variantID: variantID,
+                list: 'PLP',
+                position: position,
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
+            });
+        } else {
+            var productObj = ProductMgr.getProduct(product.id);
 
-    return productGtmObj[0];
+            var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
+            : '')
+            : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
+            : '')) : '');
+            productGtmObj.push({
+                name: !empty(product.defaultVariant) ? stringUtils.removeSingleQuotes(product.defaultVariant.name) :  stringUtils.removeSingleQuotes(escapeQuotes(product.productName)),
+                id: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
+                price:productObj.master ? ( product.defaultVariantPrice && product.defaultVariantPrice.list ? product.defaultVariantPrice.list.value : (product.defaultVariantPrice && product.defaultVariantPrice.sales ? product.defaultVariantPrice.sales.value : '') )
+                    : (product.price && product.price.list ? product.price.list.value : (product.price && product.price.sales ? product.price.sales.value : '')),
+                currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
+                brand: !empty(product.defaultVariant) ?stringUtils.removeSingleQuotes( product.defaultVariant.brand) : stringUtils.removeSingleQuotes(product.brand),
+                sku: !empty(product.defaultVariant) ? product.defaultVariant.ID : product.id,
+                category: stringUtils.removeSingleQuotes(escapeQuotes(customCategory)),
+                productType: productObj.master && product.defaultVariant ? 'variant' : product.productType,
+                variantID: variantID,
+                list: 'Search Results',
+                position: position,
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)) 
+            });
+        }
+
+        return productGtmObj[0];
+    } catch (ex) {
+        Logger.error('Error Occured while getting product impressions tags for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        return '';
+    }
 }
 
 function getVariantSize(apiProduct) {

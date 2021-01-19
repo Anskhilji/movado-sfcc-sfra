@@ -354,3 +354,15 @@ div.checkout-button-wrapper {
     padding: 0;
     border-top: 0;
 }
+
+.cart-disclaimer-message {
+
+    p {
+            font-size: rem(15);
+            letter-spacing: rem(2);
+            color: $black;
+            font-family: $font-medium;
+            margin-top: rem(10);
+            font-weight: 300;
+    }
+}

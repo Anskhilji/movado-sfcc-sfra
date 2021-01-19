@@ -3,6 +3,7 @@ var movadoCustomCartHelpers = module.superModule;
 var Logger = require('dw/system/Logger');
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 var Resource = require('dw/web/Resource');
@@ -21,6 +22,16 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
            var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+            var productObj = ProductMgr.getProduct(productID);
+            var jewelryType = '';
+            var watchGender = '';
+            if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                watchGender = productObj.custom.watchGender[0];
+            }
+            if (!empty(productObj.custom.jewelryType)) {
+                jewelryType = productObj.custom.jewelryType;
+            }
+            var customCategory = watchGender + " " + jewelryType;
             // Custom Start: Push current basket values in array.
             variant = getVaraintSize(pli);
             productGtmArray={
@@ -36,7 +47,8 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                 "variantID" : variantID,
                 "currency" : pli.product.priceModel.price.currencyCode,
                 "list" : Resource.msg('gtm.list.pdp.value','cart',null),
-                "cartObj" : cartJSON
+                "cartObj" : cartJSON,
+                "customCategory" : customCategory
             };
         }
     });
@@ -102,10 +114,20 @@ function removeFromCartGTMObj(productLineItems){
     var cartItemObj = [];
     var variant = '';
     var displayValue = '';
+    
     collections.forEach(productLineItems, function (pli) {
         variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
         var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
-
+        var productObj = ProductMgr.getProduct(pli.product.ID);
+        var jewelryType = '';
+        var watchGender = '';
+        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+            watchGender = productObj.custom.watchGender[0];
+        }
+        if (!empty(productObj.custom.jewelryType)) {
+            jewelryType = productObj.custom.jewelryType;
+        }
+        var customCategory = watchGender + " " + jewelryType;
         collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
             if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
                 displayValue = pli.product.variationModel.getSelectedValue(variationAttributes) ? pli.product.variationModel.getSelectedValue(variationAttributes).displayValue : '';
@@ -118,7 +140,7 @@ function removeFromCartGTMObj(productLineItems){
             'name': stringUtils.removeSingleQuotes(pli.product.name),
             'id': pli.product.ID,
             'price': price,
-            'category': !empty(pli.product.categories) ? stringUtils.removeSingleQuotes(pli.product.categories[0].ID) : '',
+            'category': customCategory,
             'sku' : pli.product.ID,
             'variantID' : pli.product.variant ? pli.product.ID : '',
             'brand': pli.product.brand,
