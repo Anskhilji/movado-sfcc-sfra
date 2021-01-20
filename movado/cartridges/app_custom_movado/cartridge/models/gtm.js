@@ -7,6 +7,7 @@ var productFactory = require('*/cartridge/scripts/factories/product');
 var Resource = require('dw/web/Resource');
 var Encoding = require('dw/crypto/Encoding');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalyticsHelpers');
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var Logger = require('dw/system/Logger');
@@ -36,11 +37,13 @@ function gtmModel(req) {
     this.secondarySiteSection = '';
     this.tertiarySiteSection = '';
     this.searchTerm = '';
+    this.googleAnalyticsParameters = '';
 
 
     	if (req.querystring != undefined) {
     		var queryString = req.querystring.urlQueryString;
-        	var searchQuery = getSearchQuery(queryString);
+            var searchQuery = getSearchQuery(queryString);
+            var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
         	searchkeyword = searchQuery.q;
         	cgid = searchQuery.cgid;
         	pid = searchQuery.pid;
@@ -133,6 +136,7 @@ function gtmModel(req) {
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
+    this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
 }
 
 
@@ -694,6 +698,37 @@ function getOrderLevelDiscount (order) {
         return 0;
     }
 
+}
+
+/**
+ *
+ * @param queryStringVal
+ * @returns searchQuery
+ */
+function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredParameters) {
+    var searchArray = [];
+    var googleAnalyticsParameters = '';
+    var googleAnalyticsParameter;
+    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+    if (queryString.indexOf('&') >= 0) {
+        searchArray = queryString.split('&');
+        if (searchArray.length != 0 && googleAnalyticsRequiredParameters.length != 0){
+            for (var j = 0; j < googleAnalyticsRequiredParameters.length; j++) {
+                for (var i = 0 ; i < searchArray.length; i++) {
+                    googleAnalyticsParameter = searchArray[i].split('=');
+                    if ((googleAnalyticsParameter[0].indexOf(googleAnalyticsRequiredParameters[j])) > -1) {
+                        if(empty(googleAnalyticsParameters)) {
+                            googleAnalyticsParameters = googleAnalyticsParameters + searchArray[i];
+                        } else {
+                            googleAnalyticsParameters = googleAnalyticsParameters + '&' + searchArray[i];
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    return googleAnalyticsParameters;
 }
 
 module.exports = gtmModel;

@@ -21,7 +21,7 @@
 		'pageUrl': '${pdict.gtm.pageUrl}',
 		'buttonName': '',
 		'Page': '${pdict.gtm.pageType}',
-		'googleAnalyticsParameters': ''
+		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}'
 
 		
 		// Custom: Added country dimension on the the base of ESW enabled
