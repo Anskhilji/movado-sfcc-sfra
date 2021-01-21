@@ -21,7 +21,8 @@
 		'pageUrl': '${pdict.gtm.pageUrl}',
 		'buttonName': '',
 		'Page': '${pdict.gtm.pageType}',
-		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}'
+		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
+		'parentCategory': '${pdict.gtm.product.category}'
 
 		
 		// Custom: Added country dimension on the the base of ESW enabled
@@ -44,9 +45,11 @@
 					'price': '${pdict.gtm.product.productPrice}',
 					'brand': '${pdict.gtm.product.brand}',
 					'category': '${pdict.gtm.product.category}',
+					'deparmentIncludedSubCategory': '${pdict.gtm.product.deparmentIncludedCategoryName}',
 					'variant': '${pdict.gtm.product.productPersonalization}',
 					'list': '${pdict.gtm.product.list}',
 					'currency': '${pdict.gtm.product.currency}',
+					'quantity': '${pdict.gtm.product.quantity}'
 				}]
 			}
 		},
@@ -79,10 +82,18 @@
 						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 						'subTotal': '${produtArray.cartObj.subTotal}',
 						'discount': '${produtArray.cartObj.discount}',
-						'promoCode': '${produtArray.cartObj.coupon}' }
+						'promoCode': '${produtArray.cartObj.coupon}' },
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
-							]
+							],
+                    "merkleCarProduct": [
+					<isloop items="${checkoutObj}" var="produtArray" status="status">
+					    {'name':  '${produtArray.cartObj.name}',
+						'id': '${produtArray.cartObj.id}',
+						'price': '${produtArray.cartObj.price}'
+					</isloop>
+					        ]
+						
 						}	
 					},
 					"event": "checkout"}
@@ -120,7 +131,25 @@
 				'paymentMethod': '${produtArray.cartObj.paymentMethod}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
-					]
+					],
+			"merkleCheckoutProducts": [
+			<isloop items="${checkoutObj}" var="produtArray" status="status">
+				{'name':  '${produtArray.cartObj.name}',
+				'id': '${produtArray.cartObj.id}',
+				'price': '${produtArray.cartObj.price}',
+				'productQuantity': '${produtArray.cartObj.productQuantity}',
+				'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}'}
+				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+    		</isloop>
+					],
+			"merkleCheckoutProductsCurrency": [
+			<isloop items="${checkoutObj}" var="produtArray" status="status">
+				{'discountTaxShipping': '${produtArray.cartObj.discount} + ${produtArray.cartObj.tax} + ${produtArray.cartObj.shipping}',
+				'promoCode': '${produtArray.cartObj.coupon}',
+				'currency': '${produtArray.cartObj.currency}'}
+				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+    		</isloop>
+					],
 				}	
 			},
 			"event": "checkout"}

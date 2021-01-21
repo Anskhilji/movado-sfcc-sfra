@@ -92,7 +92,9 @@ function gtmModel(req) {
     		var ProductMgr = require('dw/catalog/ProductMgr');
     		productObj = ProductMgr.getProduct(formatProductId(pid));
     		productBreadcrumbs = getProductBreadcrumb(productObj);
-    		var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+            var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+            var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
+            secoundarySiteSection = (!empty(secoundarySiteSection)) ? '|' + secoundarySiteSection : '';
 
     	    // get product impressions tags for PDP
     	    var productImpressionTags = getPDPProductImpressionsTags(productObj);
@@ -104,7 +106,11 @@ function gtmModel(req) {
         	    category: primarySiteSection,
         	    productPrice: productImpressionTags.productPrice,
                 list: productImpressionTags.list,
-                currency: productImpressionTags.currency
+                currency: productImpressionTags.currency,
+                // secoundary category if exist
+                deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
+                //product quantiity
+                quantity: '0'
     	    };
     	}    	else if (searchkeyword != null) {
     		// search count
@@ -315,7 +321,7 @@ function getProductBreadcrumb(productObj) {
     ? productObj.masterProduct.primaryCategory
     : productObj.primaryCategory;
     var categoryHierarchy = getCategoryBreadcrumb(category);
-    return { primaryCategory: categoryHierarchy.primaryCategory };
+    return { primaryCategory: categoryHierarchy.primaryCategory, secondaryCategory: categoryHierarchy.secondaryCategory, tertiaryCategory: categoryHierarchy.tertiaryCategory  };
 }
 
 
@@ -605,7 +611,9 @@ function getOrderIDfromQueryString(queryString) {
 function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var order = require('dw/order/Order');
     var OrderMgr = require('dw/order/OrderMgr');
+    var BasketMgr = require('dw/order/BasketMgr');
     var order = OrderMgr.getOrder(orderId);
+    var currentBasket = BasketMgr.getCurrentBasket();
     var paymentMethod = '';
     if (order != null && order.productLineItems != null) {
         var orderLevelCouponString = '';
@@ -636,6 +644,10 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
+            //get discount tax shipping with pipe bars
+            productObj.discounttaxshipping = getOrderLevelDiscount(productLineItem) + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
+            //get city state zip
+            //produtObj.cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
             // get currency
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
 
