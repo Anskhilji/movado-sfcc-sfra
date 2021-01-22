@@ -18,6 +18,7 @@ function afterPOST(order) {
             var Transaction = require('dw/system/Transaction');
             
             Transaction.wrap(function () {
+                order.custom.isCSCOrder = true;
                 populateOrderJSON.populateByOrder(order);
             });
         } catch (exSOM) {
