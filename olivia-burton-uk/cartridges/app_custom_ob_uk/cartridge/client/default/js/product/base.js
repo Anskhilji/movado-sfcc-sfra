@@ -625,7 +625,7 @@ function validateOptions($el) {
  *
  */
 function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell_input:checked');
+    var $recommendedProductSelector = $('.upsell-input:checked');
     var productArray = [];
     for (var i = 0; i < $recommendedProductSelector.length; i++) {
         var $currentRecommendedProduct = $recommendedProductSelector[i];
