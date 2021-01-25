@@ -58,6 +58,7 @@
 	</isif>
 
 	<isif condition="${pdict.gtm.action === 'cart-show'}">
+	console.log('Testing');
 	dataLayer.push (
 			
 				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
@@ -82,18 +83,10 @@
 						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 						'subTotal': '${produtArray.cartObj.subTotal}',
 						'discount': '${produtArray.cartObj.discount}',
-						'promoCode': '${produtArray.cartObj.coupon}' },
+						'promoCode': '${produtArray.cartObj.coupon}' }
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
-							],
-                    "merkleCarProduct": [
-					<isloop items="${checkoutObj}" var="produtArray" status="status">
-					    {'name':  '${produtArray.cartObj.name}',
-						'id': '${produtArray.cartObj.id}',
-						'price': '${produtArray.cartObj.price}'
-					</isloop>
-					        ]
-						
+							]
 						}	
 					},
 					"event": "checkout"}
@@ -131,25 +124,7 @@
 				'paymentMethod': '${produtArray.cartObj.paymentMethod}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
-					],
-			"merkleCheckoutProducts": [
-			<isloop items="${checkoutObj}" var="produtArray" status="status">
-				{'name':  '${produtArray.cartObj.name}',
-				'id': '${produtArray.cartObj.id}',
-				'price': '${produtArray.cartObj.price}',
-				'productQuantity': '${produtArray.cartObj.productQuantity}',
-				'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}'}
-				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-    		</isloop>
-					],
-			"merkleCheckoutProductsCurrency": [
-			<isloop items="${checkoutObj}" var="produtArray" status="status">
-				{'discountTaxShipping': '${produtArray.cartObj.discount} + ${produtArray.cartObj.tax} + ${produtArray.cartObj.shipping}',
-				'promoCode': '${produtArray.cartObj.coupon}',
-				'currency': '${produtArray.cartObj.currency}'}
-				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-    		</isloop>
-					],
+					]
 				}	
 			},
 			"event": "checkout"}
@@ -173,6 +148,7 @@
 								'shipping': '${orderObj.orderObj.shipping}',
 								'coupon': '${orderObj.orderObj.orderCoupon}',
 								'country': '${orderObj.orderObj.country}',
+								'subtotal': '${orderObj.orderObj.subtotal}',
 								'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
 							</isif>
 						</isloop>
@@ -190,7 +166,11 @@
 					'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
 					'coupon': '${orderObj.productObj.itemCoupon}',
 					'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
-					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}'
+					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+					'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
+					'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
+					'currency': '${orderObj.productObj.currency}',
+					'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}'
 					}
 					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
 				</isif>
