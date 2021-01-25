@@ -58,7 +58,6 @@
 	</isif>
 
 	<isif condition="${pdict.gtm.action === 'cart-show'}">
-	console.log('Testing');
 	dataLayer.push (
 			
 				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
