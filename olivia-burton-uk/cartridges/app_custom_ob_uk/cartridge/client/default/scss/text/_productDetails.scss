@@ -396,7 +396,7 @@
           &-description {
               width: 100%;
               color: $light-gray2;
-              font-size: rem(14);
+              font-size: rem(11);
               margin-bottom: auto;
               text-transform: capitalize;
               line-height: 1.2;
@@ -404,10 +404,6 @@
               font-weight: 500;
               letter-spacing: rem(.2);
               margin-bottom: rem(5);
-
-              @include media-breakpoint-up(sm) {
-                  font-size: rem(11);
-              }
           }
 
           &-checkbox {
@@ -444,8 +440,17 @@
 
               &-added {
                   display: none;
-                  padding-left: rem(10);
-                  background: $pink-hot url("../../images/white-checkmark.svg") left rem(32) center no-repeat;
+                  background: $pink-hot;
+
+                  &-checkmark {
+                    display: inline-block;
+                    width: rem(11);
+                    height: rem(10);
+                    background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+                    vertical-align: middle;
+                    position: relative;
+                    top: rem(-1);
+                  }
               }
           }
 
@@ -469,7 +474,6 @@
   
                       .upsell-text-added {
                           display: block;
-                          padding-left: rem(20);
                           color: $white;
                       }
                   }
