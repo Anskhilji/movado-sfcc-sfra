@@ -130,15 +130,18 @@ function getSwellRedemption(priceAdjustments) {
         swellRedemptionID : '',
         swellRedemptionText : ''
     };
-    priceAdjustments.toArray().forEach(function (priceAdjustment) {
-        if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
-            result = {
-                swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
-                swellRedemptionText : priceAdjustment.lineItemText
-            };
-        } 
-    });
-    return result;
+
+    if (!empty(priceAdjustments)) {
+        priceAdjustments.toArray().forEach(function (priceAdjustment) {
+            if (!empty(priceAdjustment) && !empty(priceAdjustment.custom.swellRedemptionId)) {
+                result = {
+                    swellRedemptionID : priceAdjustment.custom.swellRedemptionId,
+                    swellRedemptionText : priceAdjustment.lineItemText
+                };
+            } 
+        });
+        return result;
+    }
 }
 /**
  * Order class that represents the current order
@@ -172,7 +175,7 @@ function CartModel(basket) {
         additionalCheckout: Resource.msg('additional.checkout', 'cart', null)
       },
       assets: assets,
-      swellRedemption: getSwellRedemption(basket.getPriceAdjustments())
+      swellRedemption: getSwellRedemption(!empty(basket) ? basket.getPriceAdjustments() : null)
     });
     return cartObject;
 }

@@ -13,6 +13,7 @@
     <iscomment> added d-none classes </iscomment>
     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
     <isif condition="${isEswEnabled}" >
+        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
         <isif condition="${!eswHelper.getEShopWorldModuleEnabled() || !eswHelper.isESWSupportedCountry()}">
             <div class="row d-none">
                 <div class="col-6">
