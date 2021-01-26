@@ -2791,3 +2791,24 @@
         }
     }
 }
+
+.seefit-text-label {
+
+    &-select-size-head {
+        border: none;
+        text-transform: uppercase;
+        font-family: $font-bold;
+        font-size: rem(12);
+        background: none;
+        font-weight: 600;
+        padding-left: 0;
+        padding-bottom: rem(6);
+        letter-spacing: rem(2);
+
+        @include media-breakpoint-down(sm) {
+            padding-top: rem(26);
+            font-size: rem(10);
+            padding-bottom: rem(10);
+        }
+    }
+}

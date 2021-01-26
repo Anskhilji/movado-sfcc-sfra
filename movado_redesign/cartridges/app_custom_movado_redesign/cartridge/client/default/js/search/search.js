@@ -383,13 +383,20 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
 
+                // Get currently selected sort option to retain sorting rules
+                var currentValue = $("#sort-order").val();
+                var currentSelectedSortOption = $('#sort-order option').filter(function() {
+                    return this.value == currentValue;
+                }).data('id');
+                currentSelectedSortOption = '&srule=' + currentSelectedSortOption;
+
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: e.currentTarget.href + currentSelectedSortOption,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: e.currentTarget.href + currentSelectedSortOption
                     },
                     method: 'GET',
                     success: function (response) {
@@ -397,7 +404,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(e.currentTarget.href + currentSelectedSortOption);
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
