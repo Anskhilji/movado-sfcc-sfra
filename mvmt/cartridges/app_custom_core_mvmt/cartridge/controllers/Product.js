@@ -71,7 +71,10 @@ server.prepend('Variation', function (req, res, next) {
     var params = req.querystring;
     var isStrapAjax = req.querystring.isStrapAjax;
 
+    var product = ProductFactory.get(params);
+
     attributeContext = {
+        product: product,
         isStrapAjax: isStrapAjax
     };
 
