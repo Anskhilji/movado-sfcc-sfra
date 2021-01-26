@@ -3,7 +3,7 @@
 <div class="row checkout-button-wrapper">
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
     <a  href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
-    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+    <isif condition="${eswHelper.getEShopWorldModuleEnabled() && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
         ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
         role="button" aria-pressed="true">
         ${Resource.msg('button.mini.cart.checkout','cart',null)}
@@ -18,7 +18,7 @@
             <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
             <div class="shipping-express-checkout-buttons">
                 <div class="shipping-paypal-btn col">
-                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${!empty(pdict.valid) && !empty(pdict.valid.error) ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
                        role="button" aria-pressed="true">
                        <isprint value="${paypalButtonImg}" encoding="off" />
                     </a>
@@ -32,7 +32,7 @@
         <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
         <div class="shipping-express-checkout-buttons">
             <div class="shipping-paypal-btn col">
-                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${!empty(pdict.valid) && !empty(pdict.valid.error) ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
                    role="button" aria-pressed="true">
                    <isprint value="${paypalButtonImg}" encoding="off" />
                 </a>
