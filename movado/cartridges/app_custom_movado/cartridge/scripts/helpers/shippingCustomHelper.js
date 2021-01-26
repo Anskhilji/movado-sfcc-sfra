@@ -118,20 +118,22 @@ function getTaxTotals(total) {
  * @param {Object} applicableShippingMethods - provided shipping methods
  * @return {Object|Object} returns applicableShippingMethods with upgraded precedence and default selected method
 */
-function getshippingMethodsWithUpgradesPrecedence(applicableShippingMethods, selectedShippingMethod) {
-    var shippingMethodsUpgradePrecedence = movadoConstants.SHIPPING_METHODS_UPGRADES_PRECEDENCE;
-    var applicableShippingMethod;
-    shippingMethodsUpgradePrecedence = (shippingMethodsUpgradePrecedence != null) ? shippingMethodsUpgradePrecedence.split(":") : '';
-    if(!empty(applicableShippingMethods) && applicableShippingMethods.length != 0 
-      && !empty(shippingMethodsUpgradePrecedence) && shippingMethodsUpgradePrecedence.length != 0) {
-        for (i = 0; i < shippingMethodsUpgradePrecedence.length; i++) {
-            for (j = 0; j < applicableShippingMethods.length; j++) {
-                applicableShippingMethod = applicableShippingMethods[j];
-                if (applicableShippingMethod.ID.equalsIgnoreCase(shippingMethodsUpgradePrecedence[i]) && applicableShippingMethod.shippingCostValue == 0) {
-                    applicableShippingMethods[j] = applicableShippingMethods[0];
-                    applicableShippingMethods[0] = applicableShippingMethod;
-                  
-                    return {applicableShippingMethods : applicableShippingMethods, selectedShippingMethod : applicableShippingMethod};
+function getshippingMethodsWithUpgradesPrecedence(applicableShippingMethods, selectedShippingMethod, defaultShipment) {
+    if (defaultShipment && !empty(defaultShipment) && defaultShipment != 'undefined') {
+        var shippingMethodsUpgradePrecedence = movadoConstants.SHIPPING_METHODS_UPGRADES_PRECEDENCE;
+        var applicableShippingMethod;
+        shippingMethodsUpgradePrecedence = (shippingMethodsUpgradePrecedence != null) ? shippingMethodsUpgradePrecedence.split(":") : '';
+        if(!empty(applicableShippingMethods) && applicableShippingMethods.length != 0 
+          && !empty(shippingMethodsUpgradePrecedence) && shippingMethodsUpgradePrecedence.length != 0) {
+            for (i = 0; i < shippingMethodsUpgradePrecedence.length; i++) {
+                for (j = 0; j < applicableShippingMethods.length; j++) {
+                    applicableShippingMethod = applicableShippingMethods[j];
+                    if (applicableShippingMethod.ID.equalsIgnoreCase(shippingMethodsUpgradePrecedence[i]) && applicableShippingMethod.shippingCostValue == 0) {
+                        applicableShippingMethods[j] = applicableShippingMethods[0];
+                        applicableShippingMethods[0] = applicableShippingMethod;
+                      
+                        return {applicableShippingMethods : applicableShippingMethods, selectedShippingMethod : applicableShippingMethod};
+                    }
                 }
             }
         }
