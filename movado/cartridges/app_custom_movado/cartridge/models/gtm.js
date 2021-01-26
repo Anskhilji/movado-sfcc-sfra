@@ -644,7 +644,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             //subtotal
-            produtObj.subtotal = order.adjustedMerchandizeTotalNetPrice.decimalValue.toString();
+            produtObj.subtotal = order.getAdjustedMerchandizeTotalNetPrice().getDecimalValue().toString();
             //get discount tax shipping with pipe bars
             produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
             //get city state zip
