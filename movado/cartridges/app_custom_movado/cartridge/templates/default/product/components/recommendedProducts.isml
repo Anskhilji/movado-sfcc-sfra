@@ -28,7 +28,7 @@
                         </div>
                         <div class="upsell-text">
                             <p class="upsell-text-add">${Resource.msg('label.add', 'product', null)}</p>
-                            <p class="upsell-text-added">${Resource.msg('label.added', 'product', null)}</p>
+                            <p class="upsell-text-added"> <span class="upsell-text-added-checkmark"></span> ${Resource.msg('label.added', 'product', null)}</p>
                         </div>
                     </div>
                 </isif>
