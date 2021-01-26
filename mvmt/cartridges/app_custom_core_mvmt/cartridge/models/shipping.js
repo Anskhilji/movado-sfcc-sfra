@@ -38,9 +38,9 @@ function extend(target, source) {
  * @param orderModel
  * @returns
  */
-function shipping(shipment, address, customer, containerView) {
-    var shippingModel = new Shipping(shipment, address, customer, containerView);
-    var updatedApplicableShipppingMethods = shippingCustomHelper.getshippingMethodsWithUpgradesPrecedence(shippingModel.applicableShippingMethods, shippingModel.selectedShippingMethod);
+function shipping(shipment, address, customer, containerView, defaultShipment) {
+    var shippingModel = new Shipping(shipment, address, customer, containerView, defaultShipment);
+    var updatedApplicableShipppingMethods = shippingCustomHelper.getshippingMethodsWithUpgradesPrecedence(shippingModel.applicableShippingMethods, shippingModel.selectedShippingMethod, defaultShipment);
 
     shippingObj = extend(shippingModel, {
         applicableShippingMethods: updatedApplicableShipppingMethods.applicableShippingMethods,
