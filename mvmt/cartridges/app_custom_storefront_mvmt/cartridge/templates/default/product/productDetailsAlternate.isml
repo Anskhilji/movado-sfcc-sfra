@@ -89,7 +89,7 @@
                         <isinclude template="product/components/pidRating" />
                     </div>
 
-                    <div class="row m-0 product-variations">
+                    <div class="row m-0 product-variations d-none">
                         <!-- Attributes and Quantity -->
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">

@@ -1,6 +1,6 @@
 'use strict';
 
-var baseProductCustomHelper = module.superModule;
+var movadoProductCustomHelper = module.superModule;
 var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
@@ -14,42 +14,6 @@ var HashMap = require('dw/util/HashMap');
 var Constants = require('*/cartridge/scripts/util/Constants');
 
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-
-/**
- * Get explicit recommendations for product
- * @param {string} pid : The ID of Product
- * @returns {Collection} recommendationTilesList : Recommendations associated with products
- */
-function getExplicitRecommendations(pid) {
-    var apiProduct = ProductMgr.getProduct(pid);
-    var product = {};
-    var productRecommendations = apiProduct ? apiProduct.getRecommendations() : null;
-    var productTileParams = {};
-    var productType = {};
-    var recommendation;
-    var recommendationTilesList = [];
-    var productRecommendationTile = {};
-    
-    try {
-        if (productRecommendations) {
-            for (var i = 0; i < productRecommendations.length; i++) {
-                recommendation = productRecommendations[i];
-                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-                product = Object.create(null);
-                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);
-                // MSS-1169 Change available to availabilityModel.inStock to fix deprecated method usage
-                if (apiProduct.availabilityModel.inStock && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
-                    productType = productHelper.getProductType(apiProduct);
-                    productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-                    recommendationTilesList.push(productRecommendationTile);
-                }
-            }
-        }
-    } catch (e) {
-        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-    }
-    return recommendationTilesList;
-}
 
 /**
  * It is used to read json data from site preferences for category object then json categoryID pass in the CatalogMgr method 
@@ -376,14 +340,13 @@ function getPDPContentAssetHTML (apiProduct) {
     }
 }
 
-module.exports = {
-    getProductAttributes: getProductAttributes,
-    getExplicitRecommendations: getExplicitRecommendations,
-    getRefinementSwatches: getRefinementSwatches,
-    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
-    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
-    getCurrentCountry: getCurrentCountry,
-    getCollectionName: getCollectionName,
-    getGtmPromotionObject: getGtmPromotionObject,
-    getPDPContentAssetHTML : getPDPContentAssetHTML
-};
+movadoProductCustomHelper.getProductAttributes = getProductAttributes;
+movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
+movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
+movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
+movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
+movadoProductCustomHelper.getCollectionName = getCollectionName;
+movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
+movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
+
+module.exports = movadoProductCustomHelper;

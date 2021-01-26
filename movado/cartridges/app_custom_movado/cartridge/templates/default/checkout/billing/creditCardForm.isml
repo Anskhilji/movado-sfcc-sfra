@@ -31,7 +31,7 @@
 			class="form-group required ${creditFields.cardNumber.htmlName}">
 			<label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
 			<div class="card-number-wrapper">
-				<input type="text" class="form-control cardNumber" id="cardNumber"
+				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber"
                     value="${pdict.order.billing.payment.selectedPaymentInstruments
                         && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
                         ? pdict.order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber||''

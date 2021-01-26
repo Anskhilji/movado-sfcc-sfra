@@ -23,12 +23,6 @@ Template Notes:
         </span>
         <iscomment> Custom: End </iscomment>
     </label>
-    <iscomment> Custom: Start see fit button added </iscomment>
-    <isif condition="${attributeStatus.first}">
-        <button class="select-size-head-seefit-text call-see-fit-popup">
-            ${Resource.msg('label.seefit', 'product', null)}
-        </button>
-    </isif>
     
     <isif condition="${attr.id.indexOf('polarization') !== -1}">
         <button class="select-size-head-seefit-text call-why-polarized-popup ${selectedAttributeValue && selectedAttributeValue.equalsIgnoreCase('yes') ? '' : 'd-none'}">

@@ -5,6 +5,7 @@ var server = require('server');
 var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -54,11 +55,24 @@ server.append(
 	consentTracking.consent,
 	csrfProtection.generateToken,
 	function (req, res, next) {
+        var BasketMgr = require('dw/order/BasketMgr');
+        var Locale = require('dw/util/Locale');
+        var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
+        
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
+        var currentCustomer = req.currentCustomer.raw;
+        var currentLocale = Locale.getLocale(req.locale.id);
         var totals = viewData.order.totals;
+        var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
 
+        var currentBasket = BasketMgr.getCurrentBasket();
+        if (!currentBasket) {
+            res.redirect(URLUtils.url('Cart-Show'));
+            return next();
+        }
+        
         // Custom Start: Adding ESW country switch control
         var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
         if (isEswEnabled) {
@@ -89,8 +103,25 @@ server.append(
             creditCardExpirationYears.push(currentYear + j);
         }
 
+        // Loop through all shipments and make sure all are valid
+        var allValid = COHelpers.ensureValidShipments(currentBasket);
+
+        // sending default shipment flag to order model
+        var orderModel = new OrderModel(
+            currentBasket,
+            {
+                customer: currentCustomer,
+                usingMultiShipping: usingMultiShipping,
+                shippable: allValid,
+                countryCode: currentLocale.country,
+                containerView: 'basket',
+                defaultShipment: true
+            }
+        );
+
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
+            order: orderModel,
             actionUrls: actionUrls,
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
