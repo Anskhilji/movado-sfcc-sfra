@@ -138,7 +138,6 @@ function getshippingMethodsWithUpgradesPrecedence(applicableShippingMethods, sel
             }
         }
     }
-
     return {applicableShippingMethods : applicableShippingMethods, selectedShippingMethod : selectedShippingMethod};
 }
 

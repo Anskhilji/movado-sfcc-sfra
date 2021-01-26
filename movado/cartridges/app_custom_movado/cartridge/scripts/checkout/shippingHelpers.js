@@ -12,6 +12,7 @@ var ShippingModel = require('*/cartridge/models/shipping');
  * @param {dw.order.Basket} currentBasket - the target Basket object
  * @param {Object} customer - the associated Customer Model object
  * @param {string} containerView - view of the shipping models (order or basket)
+ * @param {boolean} defaultShipment - default shipment flag
  * @returns {dw.util.ArrayList} an array of ShippingModels
  */
 function getShippingModels(currentBasket, customer, containerView, defaultShipment) {

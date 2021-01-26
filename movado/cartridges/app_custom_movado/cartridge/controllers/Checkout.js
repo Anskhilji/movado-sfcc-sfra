@@ -55,16 +55,17 @@ server.append(
 	consentTracking.consent,
 	csrfProtection.generateToken,
 	function (req, res, next) {
-        var Site = require('dw/system/Site');
-        var OrderModel = require('*/cartridge/models/order');
         var BasketMgr = require('dw/order/BasketMgr');
+        var Locale = require('dw/util/Locale');
+        var OrderModel = require('*/cartridge/models/order');
+        var Site = require('dw/system/Site');
+        
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
-        var totals = viewData.order.totals;
-        var Locale = require('dw/util/Locale');
         var currentCustomer = req.currentCustomer.raw;
-        var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
         var currentLocale = Locale.getLocale(req.locale.id);
+        var totals = viewData.order.totals;
+        var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
 
         var currentBasket = BasketMgr.getCurrentBasket();
         if (!currentBasket) {
@@ -105,6 +106,7 @@ server.append(
         // Loop through all shipments and make sure all are valid
         var allValid = COHelpers.ensureValidShipments(currentBasket);
 
+        // sending default shipment flag to order model
         var orderModel = new OrderModel(
             currentBasket,
             {
