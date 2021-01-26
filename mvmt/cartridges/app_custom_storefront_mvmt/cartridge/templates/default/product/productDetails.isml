@@ -95,14 +95,7 @@
                         <isinclude template="product/components/promotions" />
                     </div>
 
-                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
-                        <div class="seefit-text-label">
-                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
-                                ${Resource.msg('label.seefit', 'product', null)}
-                            </button>
-                        </div>
-                    </isif>
-                    <div class="row m-0 product-variations">
+                    <div class="row m-0 product-variations d-none">
                         <!-- Attributes and Quantity -->
 
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
@@ -114,6 +107,14 @@
 
                     <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                         <isinclude template="product/components/variationAttributes" />
+                    </isif>
+
+                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
+                        <div class="seefit-text-label">
+                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
+                                ${Resource.msg('label.seefit', 'product', null)}
+                            </button>
+                        </div>
                     </isif>
 
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />

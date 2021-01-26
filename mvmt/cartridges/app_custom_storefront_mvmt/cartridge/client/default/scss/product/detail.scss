@@ -2794,6 +2794,10 @@
 
 .seefit-text-label {
 
+    @include media-breakpoint-down(sm) {
+        border-bottom: rem(1) solid $gray91;
+    }
+
     &-select-size-head {
         border: none;
         text-transform: uppercase;
@@ -2802,13 +2806,12 @@
         background: none;
         font-weight: 600;
         padding-left: 0;
-        padding-bottom: rem(6);
+        padding-bottom: rem(20);
         letter-spacing: rem(2);
 
         @include media-breakpoint-down(sm) {
-            padding-top: rem(26);
-            font-size: rem(10);
-            padding-bottom: rem(10);
+            padding-top: rem(20);
+            padding-bottom: rem(16);
         }
     }
 }
