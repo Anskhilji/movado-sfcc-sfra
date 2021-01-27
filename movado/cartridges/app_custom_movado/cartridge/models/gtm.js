@@ -21,7 +21,9 @@ function gtmModel(req) {
     var currentCustomer = req.currentCustomer;
     var reqQueryString = req.querystring;
     var action = req.querystring.urlAction.toLowerCase();
+    // Custom start: Added referral Url
     var referralUrl = req.referer;
+    // Custom end
     var pageUrl = URLUtils.url(action);
     var searchkeyword;
     var cgid;
@@ -43,7 +45,9 @@ function gtmModel(req) {
     	if (req.querystring != undefined) {
     		var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
+            // Custom Start : get google analytics arrat from site prefrence
             var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
+            // Custom End
         	searchkeyword = searchQuery.q;
         	cgid = searchQuery.cgid;
         	pid = searchQuery.pid;
@@ -107,10 +111,10 @@ function gtmModel(req) {
         	    productPrice: productImpressionTags.productPrice,
                 list: productImpressionTags.list,
                 currency: productImpressionTags.currency,
-                // secoundary category if exist
+                // Custom start: Added secoundary category if exist and quantity on product on pdp
                 deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
-                //product quantiity
                 quantity: '0'
+                // Custom End
     	    };
     	}    	else if (searchkeyword != null) {
     		// search count
@@ -406,8 +410,9 @@ function getPDPProductImpressionsTags(productObj) {
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
-    //get total product quantity 
+    //Custom start: get total product quantity 
     var productQuantityTotal = currentBasket.productQuantityTotal;
+    // Custom End
     var currencyCode = currentBasket.currencyCode;
     var cartJSON = [];
     if (currentBasket) {
@@ -415,8 +420,9 @@ function getBasketParameters() {
         var appliedCoupons = getCouponsOnOrder(currentBasket.couponLineItems);
         var countryDisplayName = (currentBasket.billingAddress) ? currentBasket.billingAddress.countryCode.displayValue : '';
         var paymentMethod = (currentBasket.paymentInstrument != null) ? currentBasket.paymentInstrument.paymentMethod : '';
-        // get city state zip code with pipe bars
+        // Custom Start : Added city state zip code with pipe bars
         var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
+        // Custom End
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
@@ -439,11 +445,12 @@ function getBasketParameters() {
                     currency: currencyCode,
                     cityStateZip: cityStateZipCode,
                     country: countryDisplayName,
-                    // get product discount
+                    // Custom Start : Added product discount
                     discount: getOrderLevelDiscount(cartItem),
-                    // get payment method
+                    // Custom End
+                    // Custom Start : Added payment method
                     paymentMethod: paymentMethod });
-            }
+            }       // Custom End
         });
     }
     return cartJSON;
@@ -470,17 +477,21 @@ function getCartJSONArray(checkoutObject) {
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.coupon = cartJSON[i].coupon;
-        //get product quantity
+        // Custom Start : Added product quantity into cart Object
         cartObj.productQuantity = cartJSON[i].quantity;
+        // Custom End
         cartObj.totalProductQuantity = cartJSON[i].totalProductQuantity;
         cartObj.currency = cartJSON[i].currency;
-        // get country
+        // Custom Start : Added country into cart object
         cartObj.country = cartJSON[i].country;
+        // Custom End
         cartObj.cityStateZipCode = cartJSON[i].cityStateZip;
-        //get subtotal
+        // Custom Start : Added subtotal
         cartObj.subTotal = cartJSON[i].revenue;
-        //get discount
+        // Custom End
+        // Custom Start : Added discount
         cartObj.discount = cartJSON[i].discount;
+        // Custom End
         cartObj.paymentMethod = cartJSON[i].paymentMethod;
 
         if (cartArray.length < 10) {
@@ -643,19 +654,24 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
-            //subtotal
+            // Custom Start : Added subtotal
             produtObj.subtotal = order.getAdjustedMerchandizeTotalNetPrice().getDecimalValue().toString();
-            //get discount tax shipping with pipe bars
+            // Custom End
+            // Custom Start : Added discount tax shipping with pipe bars
             produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
-            //get city state zip
+            // Custom End
+            // Custom Start : Added  city state zip
             produtObj.cityStateZipCode = (order.billingAddress) ? order.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.postalCode: '';
-            // get currency
+            // Custom End
+            // Custom Start : Added  currency
             produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
-            //get product quantity
+            // Custom End
+            // Custom Start : Added  product quantity
             produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
-            //get total product quantity
+            // Custom End
+            // Custom Start : Added  total product quantity
             produtObj.productQuantityTotal =  order.productQuantityTotal;
-
+            // Custom End
 			    produtObj.itemCoupon = itemLevelCouponString;
 
 			    if (orderJSONArray.length < 10) {
@@ -716,9 +732,10 @@ function getOrderLevelDiscount (order) {
 }
 
 /**
- *
+* function to get google analytics parameters array
  * @param queryStringVal
- * @returns searchQuery
+ * @param googleAnalyticsRequiredParameters
+ * @returns {String} googleAnalyticsParameters
  */
 function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredParameters) {
     var searchArray = [];
