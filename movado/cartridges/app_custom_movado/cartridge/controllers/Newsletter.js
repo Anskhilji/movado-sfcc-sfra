@@ -15,6 +15,8 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
+    var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
+
     var requestParams = {
         email: !empty(request.httpParameterMap.email.value) ? request.httpParameterMap.email.value : '',
         country: !empty(request.httpParameterMap.country.value) ? request.httpParameterMap.country  .value : '',
@@ -28,6 +30,11 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
         isEmailCheckDisabled: !empty(request.httpParameterMap.isEmailCheckDisabled.value) ? request.httpParameterMap.isEmailCheckDisabled.value : false
     };
     var result = SFMCApi.sendSubscriberToSFMC(requestParams);
+    var emailObj = [];
+    emailObj.push({
+        userEmail: requestParams.email,
+        submitLocation: emailSubmitLocation
+    });
     res.json(EmailSubscriptionHelper.emailSubscriptionResponse(result));
     
     var isanalyticsTrackingEnabled = Site.current.getCustomPreferenceValue('analyticsTrackingEnabled');
@@ -35,7 +42,8 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     	var userTracking = {email: requestParams.email};
         res.setViewData({
             userTracking: JSON.stringify(userTracking),
-            isanalyticsTrackingEnabled: isanalyticsTrackingEnabled
+            isanalyticsTrackingEnabled: isanalyticsTrackingEnabled,
+            emailObj: JSON.stringify(emailObj)
         });
     }
     return next();
