@@ -9,8 +9,12 @@ var Site = require('dw/system/Site');
  */
 function getGoogleAnalyticsParameters() {
     var googleAnalyticsParameters = '';
-    googleAnalyticsParameters = new ArrayList(Site.getCurrent().getCustomPreferenceValue('googleAnalyticsParameters'));
-    return (!empty(googleAnalyticsParameters)) ? googleAnalyticsParameters : '';
+    googleAnalyticsParameters = Site.getCurrent().getCustomPreferenceValue('googleAnalyticsParameters');
+    if (!empty(googleAnalyticsParameters)) {
+        googleAnalyticsParameters = new ArrayList(googleAnalyticsParameters);
+    }
+
+    return googleAnalyticsParameters;
 }
 
 module.exports = {
