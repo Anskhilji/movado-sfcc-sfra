@@ -19,7 +19,6 @@
 		'customerID': '${pdict.customerID}',
 		'referralUrl': '${pdict.gtm.referralUrl}',
 		'pageUrl': '${pdict.gtm.pageUrl}',
-		'buttonName': '',
 		'Page': '${pdict.gtm.pageType}',
 		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
 		'parentCategory': '${pdict.gtm.product.category}'
