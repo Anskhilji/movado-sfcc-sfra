@@ -768,12 +768,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
  */
 function getRecommendationProducts() {
     var $recommendedProductSelector = $('.upsell_input:checked');
-    var isLast = false;
     var productArray = [];
     for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        if ($recommendedProductSelector.length == i+1) {
-            isLast = true;
-        }
         var $currentRecommendedProduct = $recommendedProductSelector[i];
             var form = {
                 pid: $currentRecommendedProduct.value,

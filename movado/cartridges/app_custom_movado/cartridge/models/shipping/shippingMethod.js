@@ -13,8 +13,9 @@ var shippingMethodHelper = require('*/cartridge/scripts/helpers/shippingMethodHe
  */
 function ShippingMethodModel(shippingMethod, shipment) {
     ShippingMethodBase.call(this, shippingMethod, shipment);
+    this.shippingCostValue = shippingMethodHelper.getShippingCostValue(shippingMethod, shipment);
     if (session.customer && shipment && Site.current.getCustomPreferenceValue('enableActualShippingEstimations')) {
-        this.deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);
+        this.deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);   
     }
 }
 

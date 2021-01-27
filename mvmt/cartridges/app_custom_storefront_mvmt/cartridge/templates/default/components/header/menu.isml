@@ -120,7 +120,7 @@
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
     <div class="register-btn-menu">
-      <isif condition="${!pdict.loggedIn}">
+      <isif condition="${!pdict.loggedIn && !customer.isAuthenticated()}">
         <a href="${URLUtils.https('Login-Show')}">
           <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
         </a>
