@@ -196,6 +196,7 @@
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
+                        <iscomment>Remove More Style Templete For OB</iscomment>
                     </div>
 
                     <!-- Size Chart -->
