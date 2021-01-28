@@ -21,7 +21,7 @@
 		'pageUrl': '${pdict.gtm.pageUrl}',
 		'Page': '${pdict.gtm.pageType}',
 		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-		'parentCategory': '${pdict.gtm.product.category}'
+	    'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
 
 		
 		// Custom: Added country dimension on the the base of ESW enabled
@@ -81,7 +81,8 @@
 						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 						'subTotal': '${produtArray.cartObj.subTotal}',
 						'discount': '${produtArray.cartObj.discount}',
-						'promoCode': '${produtArray.cartObj.coupon}' }
+						'promoCode': '${produtArray.cartObj.coupon}',
+						'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}' }
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
