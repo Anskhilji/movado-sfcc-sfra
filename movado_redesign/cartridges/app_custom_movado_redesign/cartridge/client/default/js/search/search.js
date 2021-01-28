@@ -92,16 +92,16 @@ function getContent($element, $target) {
  * @param {string} paramValue - paramter value to be replaced
  * @return {undefined}
  */
-function replaceUrlParam(url, paramName, paramValue){
-    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)')
-    var newUrl = url
-    if (url.search(pattern)>=0 ){
-        newUrl = url.replace(pattern, (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue);
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(pattern) >= 0 ) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue);
     }
     else {
-        newUrl = newUrl + (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
     }
-    return newUrl
+    return newUrl;
 }
 
 /**
