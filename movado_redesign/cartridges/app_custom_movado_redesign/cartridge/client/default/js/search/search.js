@@ -85,6 +85,26 @@ function getContent($element, $target) {
 }
 
 /**
+ * Replace URL params
+ *
+ * @param {string} url - url
+ * @param {string} paramName - paramter name to be replaced
+ * @param {string} paramValue - paramter value to be replaced
+ * @return {undefined}
+ */
+function replaceUrlParam(url, paramName, paramValue){
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)')
+    var newUrl = url
+    if (url.search(pattern)>=0 ){
+        newUrl = url.replace(pattern, (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl
+}
+
+/**
  * Update sort option URLs from Ajax response
  *
  * @param {string} response - Ajax response HTML code
@@ -388,15 +408,23 @@ module.exports = {
                 var currentSelectedSortOption = $('#sort-order option').filter(function() {
                     return this.value == currentValue;
                 }).data('id');
-                currentSelectedSortOption = '&srule=' + currentSelectedSortOption;
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
 
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href + currentSelectedSortOption,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href + currentSelectedSortOption
+                        selectedUrl: filtersURL
                     },
                     method: 'GET',
                     success: function (response) {
@@ -404,7 +432,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href + currentSelectedSortOption);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
