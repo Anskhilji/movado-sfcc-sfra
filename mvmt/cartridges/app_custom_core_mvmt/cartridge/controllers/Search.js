@@ -8,6 +8,7 @@ var URLUtils = require('dw/web/URLUtils');
 
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
+var catalogMgr = require('dw/catalog/CatalogMgr');
 var marketingProductsData = [];
 
 server.append(
@@ -21,8 +22,11 @@ server.append(
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
             }
             viewData.marketingProductData = JSON.stringify(marketingProductsData);
+            var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
+            var watchesPlpCategory = siteRootCategory.subCategories[0].ID;
             viewData = {
-                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
+                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id),
+                watchesPlpCategory: watchesPlpCategory
             };
         }
         res.setViewData(viewData);

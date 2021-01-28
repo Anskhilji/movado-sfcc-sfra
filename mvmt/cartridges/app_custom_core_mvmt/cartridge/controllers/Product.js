@@ -11,7 +11,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
 var URLUtils = require('dw/web/URLUtils');
-
+var catalogMgr = require('dw/catalog/CatalogMgr');
 server.extend(page);
 
 /**
@@ -41,13 +41,17 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     }
 
+    var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
+    var watchesPlpCategory = siteRootCategory.subCategories[0].ID;
     viewData = {
         explicitRecommendations: explicitRecommendations,
         relativeURL: relativeURL,
+        caseDiameter: apiProduct.custom.caseDiameter,
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         resources: showProductPageHelperResult.resources,
-        breadcrumbs: showProductPageHelperResult.breadcrumbs
+        breadcrumbs: showProductPageHelperResult.breadcrumbs,
+        watchesPlpCategory: watchesPlpCategory
     };
     
     var marketingProductsData = [];
