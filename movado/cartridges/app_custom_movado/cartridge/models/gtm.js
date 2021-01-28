@@ -409,10 +409,12 @@ function getPDPProductImpressionsTags(productObj) {
  */
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
+    var TotalsModel = require('*/cartridge/models/totals');
     var currentBasket = BasketMgr.getCurrentBasket();
     //Custom start: get total product quantity 
     var productQuantityTotal = currentBasket.productQuantityTotal;
     // Custom End
+    var totalsModel = new TotalsModel(currentBasket);
     var currencyCode = currentBasket.currencyCode;
     var cartJSON = [];
     if (currentBasket) {
@@ -447,6 +449,8 @@ function getBasketParameters() {
                     country: countryDisplayName,
                     // Custom Start : Added product discount
                     discount: getOrderLevelDiscount(cartItem),
+                    subTotal: totalsModel.subTotal,
+                    orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
                     // Custom End
                     // Custom Start : Added payment method
                     paymentMethod: paymentMethod });
@@ -477,6 +481,7 @@ function getCartJSONArray(checkoutObject) {
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
         cartObj.coupon = cartJSON[i].coupon;
+        cartObj.orderlevelDiscount = cartJSON[i].orderlevelDiscount;
         // Custom Start : Added product quantity into cart Object
         cartObj.productQuantity = cartJSON[i].quantity;
         // Custom End
@@ -487,7 +492,7 @@ function getCartJSONArray(checkoutObject) {
         // Custom End
         cartObj.cityStateZipCode = cartJSON[i].cityStateZip;
         // Custom Start : Added subtotal
-        cartObj.subTotal = cartJSON[i].revenue;
+        cartObj.subTotal = cartJSON[i].subTotal;
         // Custom End
         // Custom Start : Added discount
         cartObj.discount = cartJSON[i].discount;
@@ -655,7 +660,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             // Custom Start : Added subtotal
-            produtObj.subtotal = order.getAdjustedMerchandizeTotalNetPrice().getDecimalValue().toString();
+            produtObj.subtotal = order.getAdjustedMerchandizeTotalPrice().getDecimalValue().toString();
             // Custom End
             // Custom Start : Added discount tax shipping with pipe bars
             produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;

@@ -341,6 +341,27 @@ var updateCheckoutStage = function () {
 
     $('body').on('checkOutPayment:success', function (pEvt, paymentData) {
         paymentMethod = paymentData;
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutShipping',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: {paymentMethod: paymentMethod }
+                }
+            }
+        });
+    });
+
+    $('body').on('checkOutshippingStage:success', function (pEvt, checkoutShippingStage) {
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutShipping',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: { cityStateZipCode: checkoutShippingStage.cityStateZipCode, country: checkoutShippingStage.country }
+                }
+            }
+        });
     });
 
     $('body').on('checkOutStage:success', function (evt, data) {
@@ -402,6 +423,21 @@ function onCheckoutOption(step, checkoutOption) {
         event: 'checkoutOption',
         ecommerce: {
             checkout_option: {
+                actionField: { step: step, option: checkoutOption }
+            }
+        }
+    });
+}
+
+/**
+ * A function to handle a click leading to a checkout option selection.
+ */
+function onCheckoutPaymentOption(step, checkoutOption) {
+    updateDataLayer('checkoutOption');
+    dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+            checkout_creditPaymentOption: {
                 actionField: { step: step, option: checkoutOption }
             }
         }
