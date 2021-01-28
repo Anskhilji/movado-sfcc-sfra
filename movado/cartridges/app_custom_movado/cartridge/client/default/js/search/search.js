@@ -390,10 +390,6 @@ module.exports = {
                 e.stopPropagation();
 
                 // Get currently selected sort option to retain sorting rules
-                var currentValue = $("#sort-order").val();
-                var currentSelectedSortOption = $('#sort-order option').filter(function() {
-                    return this.value == currentValue;
-                }).data('id');
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
