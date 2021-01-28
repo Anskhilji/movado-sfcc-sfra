@@ -33,6 +33,20 @@
   }
 }
 
+.ob-carousel-quickview {
+  .cs-carousel-wrapper {
+      position: relative;
+  }    
+  .quickview {
+    bottom: rem(80);
+    left: rem(15);
+    @include media-breakpoint-up(md) {
+      bottom: rem(92);
+      left: rem(24);
+    }
+  }
+}
+
 #zoomProduct {
 
   padding: 0 !important;
