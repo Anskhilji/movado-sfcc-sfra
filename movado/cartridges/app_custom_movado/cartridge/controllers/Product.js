@@ -11,6 +11,7 @@ var page = module.superModule;
 var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
+var Money = require('dw/value/Money');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -52,8 +53,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        if(product.priceModel.price.available){
+        if (product.priceModel.price.available){
             klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+        } else if (!empty(productPrice)) {
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency())).toString();
         }
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
@@ -118,6 +121,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.replace('Variation', function (req, res, next) {
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var priceHelper = require('*/cartridge/scripts/helpers/pricing');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -131,6 +135,8 @@ server.replace('Variation', function (req, res, next) {
     var product = ProductFactory.get(paramsUpdated);
 
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
+    // Custom Start: Add pricing logic for Klarna promo banners
+    product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency())).toString();
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
