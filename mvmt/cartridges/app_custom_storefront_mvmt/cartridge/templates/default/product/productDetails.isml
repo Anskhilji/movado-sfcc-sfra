@@ -67,7 +67,7 @@
 
                     <div class="product-brand-info">
                         <span>${product.collectionName}</span>
-                        <span>-</span><span>${pdict.caseDiameter}</span>
+                        <span>-</span><span>${!empty(pdict.caseDiameter)}</span>
                     </div>
 
                     <!-- Product Availability -->
