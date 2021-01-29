@@ -11,6 +11,7 @@ var page = module.superModule;
 var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
+var Money = require('dw/value/Money');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -49,12 +50,29 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isGiftWrapEnabled;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
+    var productDecimalPrice;
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        if(product.priceModel.price.available){
-            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+
+        // Custom Start: Add pricing logic for Klarna promo banners
+        if (productPrice.type === "range") {
+            if (productPrice.max.sales) {
+                productDecimalPrice = productPrice.max.sales.decimalPrice;
+            } else {
+                productDecimalPrice = productPrice.max.list.decimalPrice;
+            }
+        } else {
+            if (productPrice.sales) {
+                productDecimalPrice = productPrice.sales.decimalPrice;
+            } else {
+                productDecimalPrice = productPrice.list.decimalPrice;
+            }
         }
+        // Custom End
+
+        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productDecimalPrice, session.getCurrency())).toString();
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -118,6 +136,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.replace('Variation', function (req, res, next) {
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var priceHelper = require('*/cartridge/scripts/helpers/pricing');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -130,7 +149,18 @@ server.replace('Variation', function (req, res, next) {
 
     var product = ProductFactory.get(paramsUpdated);
 
+    var productPrice;
+
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
+
+    // Custom Start: Add pricing logic for Klarna promo banners
+    if (product.price.sales) {
+        productPrice = product.price.sales.decimalPrice;
+    } else {
+        productPrice = product.price.list.decimalPrice;
+    }
+    
+    product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency()));
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
