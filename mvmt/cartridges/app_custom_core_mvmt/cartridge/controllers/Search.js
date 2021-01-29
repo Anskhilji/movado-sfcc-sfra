@@ -21,10 +21,9 @@ server.append(
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
             }
             viewData.marketingProductData = JSON.stringify(marketingProductsData);
-            var watchesPlpCategory = viewData.productSearch.category.raw.parent.parent.ID;
+            
             viewData = {
-                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id),
-                watchesPlpCategory: watchesPlpCategory
+                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
             };
         }
         res.setViewData(viewData);
