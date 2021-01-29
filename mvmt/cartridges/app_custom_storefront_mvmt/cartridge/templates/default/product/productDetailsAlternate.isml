@@ -67,9 +67,7 @@
 
                     <div class="product-brand-info">
                         <span>${product.collectionName}</span>
-                        <isif condition="${pdict.watchesPlpCategory == 'watches'}">
-                            <span>-</span><span>${pdict.caseDiameter}</span>
-                        </isif>
+                        <span>-</span><span>${pdict.caseDiameter}</span>
                     </div>
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>

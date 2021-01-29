@@ -47,10 +47,8 @@
                 <isif condition="${pdict.display.showAddToCart}">
                     <div class="product-brand-info">
                         <span>${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
-                        <isif condition="${pdict.watchesPlpCategory == 'watches'}">
                         <span> -</span>
                         <span>${!empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : ''}</span>
-                        </isif>
                     </div>
                 </isif>
                 <isinclude template="product/components/productTileName" />
