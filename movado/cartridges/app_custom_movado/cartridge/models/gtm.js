@@ -40,6 +40,7 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
+    this.departmentCategoryName = "";
 
 
     	if (req.querystring != undefined) {
@@ -49,7 +50,7 @@ function gtmModel(req) {
             var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
             // Custom End
         	searchkeyword = searchQuery.q;
-        	cgid = searchQuery.cgid;
+            cgid = searchQuery.cgid;
         	pid = searchQuery.pid;
     	}
     	if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
@@ -91,6 +92,10 @@ function gtmModel(req) {
 
         // tenant
     var tenant = getTenant(language);
+        
+        if (cgid != null) {
+            departmentCategoryName = getPlPDepartmentCategory(req, cgid);
+        }
 
    		if (pid != null) {
     		var ProductMgr = require('dw/catalog/ProductMgr');
@@ -147,6 +152,7 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
+    this.departmentCategoryName = (departmentCategoryName != null) ? departmentCategoryName : '';
 }
 
 
@@ -767,5 +773,52 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
     }
     return googleAnalyticsParameters;
 }
+
+/**
+ * Funtion return department and category name for plp and search query pages
+ * @param req
+ * @param queryString
+ * @returns categoryNameWithoutApostrophe
+ */
+function getPlPDepartmentCategory(req, queryString) {
+    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+    var ProductSearch = require('*/cartridge/models/search/productSearch');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+
+    var productSearch;
+    var apiProductSearch = new ProductSearchModel();
+    var queryStringItems = {
+        cgid: queryString
+    };
+    apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
+    apiProductSearch.search();
+    categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+    var categoryTemplateReDesign = 'search/searchResults';
+
+    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
+        categoryTemplate = categoryTemplateReDesign;
+    }
+
+    productSearch = new ProductSearch(
+        apiProductSearch,
+        queryStringItems,
+        req.querystring.srule,
+        CatalogMgr.getSortingOptions(),
+        CatalogMgr.getSiteCatalog().getRoot()
+    );
+
+    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID){
+        var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(apiProductSearch.category.displayName);
+        categoryNameWithoutApostrophe = (apiProductSearch.category.subCategories.empty == false) ? categoryNameWithoutApostrophe + "|" + apiProductSearch.category.subCategories[0].displayName : categoryNameWithoutApostrophe;
+        return categoryNameWithoutApostrophe;
+    } else {
+        var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(req.querystring.q);
+        return searchQueryWithoutApostrophe;
+    }
+
+    return '';
+}
+
 
 module.exports = gtmModel;
