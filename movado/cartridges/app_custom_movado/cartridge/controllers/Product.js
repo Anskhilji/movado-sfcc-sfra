@@ -56,6 +56,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     if (product) {
         product = productMgr.getProduct(product.id);
 
+        // Custom Start: Add pricing logic for Klarna promo banners
         if (productPrice.type === "range") {
             if (productPrice.max.sales) {
                 productDecimalPrice = productPrice.max.sales.decimalPrice;
@@ -69,10 +70,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
                 productDecimalPrice = productPrice.list.decimalPrice;
             }
         }
+        // Custom End
 
         klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productDecimalPrice, session.getCurrency())).toString();
-
-
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
