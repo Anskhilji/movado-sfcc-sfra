@@ -50,14 +50,29 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isGiftWrapEnabled;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
+    var productDecimalPrice;
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        if (product.priceModel.price.available){
-            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
-        } else if (!empty(productPrice)) {
-            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency())).toString();
+
+        if (productPrice.type === "range") {
+            if (productPrice.max.sales) {
+                productDecimalPrice = productPrice.max.sales.decimalPrice;
+            } else {
+                productDecimalPrice = productPrice.max.list.decimalPrice;
+            }
+        } else {
+            if (productPrice.sales) {
+                productDecimalPrice = productPrice.sales.decimalPrice;
+            } else {
+                productDecimalPrice = productPrice.list.decimalPrice;
+            }
         }
+
+        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productDecimalPrice, session.getCurrency())).toString();
+
+
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -134,9 +149,18 @@ server.replace('Variation', function (req, res, next) {
 
     var product = ProductFactory.get(paramsUpdated);
 
+    var productPrice;
+
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
+
     // Custom Start: Add pricing logic for Klarna promo banners
-    product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency())).toString();
+    if (product.price.sales) {
+        productPrice = product.price.sales.decimalPrice;
+    } else {
+        productPrice = product.price.list.decimalPrice;
+    }
+    
+    product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency()));
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
