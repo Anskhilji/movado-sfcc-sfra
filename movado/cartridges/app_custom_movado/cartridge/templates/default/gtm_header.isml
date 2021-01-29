@@ -120,7 +120,8 @@
 				'discount': '${produtArray.cartObj.discount}',
 				'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
 				'subTotal': '${produtArray.cartObj.subTotal}',
-				'paymentMethod': '${produtArray.cartObj.paymentMethod}'}
+				'paymentMethod': '${produtArray.cartObj.paymentMethod}',
+				'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
 					]
@@ -169,7 +170,8 @@
 					'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
 					'currency': '${orderObj.productObj.currency}',
 					'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
-					'subtotal': '${orderObj.productObj.subtotal}'
+					'subtotal': '${orderObj.productObj.subtotal}',
+					'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
 					}
 					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
 				</isif>
