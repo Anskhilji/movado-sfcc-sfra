@@ -343,7 +343,7 @@ var updateCheckoutStage = function () {
         paymentMethod = paymentData;
         updateDataLayer('checkoutOption');
         dataLayer.push({
-            event: 'checkoutShipping',
+            event: 'checkoutBilling',
             ecommerce: {
                 checkout_shippingStage: {
                     actionField: {paymentMethod: paymentMethod }

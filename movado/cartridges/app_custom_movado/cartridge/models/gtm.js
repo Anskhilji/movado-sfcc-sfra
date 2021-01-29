@@ -34,13 +34,12 @@ function gtmModel(req) {
     var categoryBreadcrumbs;
     var productBreadcrumbs;
     var searchBreadcrumbs;
-
+    var departmentCategoryName;
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
-    this.departmentCategoryName = "";
 
 
     	if (req.querystring != undefined) {
@@ -93,8 +92,8 @@ function gtmModel(req) {
         // tenant
     var tenant = getTenant(language);
         
-        if (cgid != null) {
-            departmentCategoryName = getPlPDepartmentCategory(req, cgid);
+        if (cgid != null || searchkeyword != null) {
+            departmentCategoryName = getPlPDepartmentCategory(req, cgid, searchkeyword);
         }
 
    		if (pid != null) {
@@ -152,7 +151,7 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
-    this.departmentCategoryName = (departmentCategoryName != null) ? departmentCategoryName : '';
+    this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
 }
 
 
@@ -639,7 +638,14 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     if (order != null && order.productLineItems != null) {
         var orderLevelCouponString = '';
         var itemLevelCouponString = '';
+        var orderLevelPromotionPrice;
         paymentMethod = order.paymentInstrument.paymentMethod;
+        orderLevelPromotionPrice = (order.priceAdjustments.empty == false) ? order.priceAdjustments.iterator(): null;
+
+        if (orderLevelPromotionPrice && orderLevelPromotionPrice.hasNext()) {
+            var priceAdjustmentLineItem = orderLevelPromotionPrice.next();
+            orderLevelPromotionPrice = priceAdjustmentLineItem.priceValue * -1;
+        }
         collections.forEach(order.couponLineItems, function (couponLineItem) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
@@ -669,7 +675,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.subtotal = order.getAdjustedMerchandizeTotalPrice().getDecimalValue().toString();
             // Custom End
             // Custom Start : Added discount tax shipping with pipe bars
-            produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
+            produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + orderLevelPromotionPrice  + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
             // Custom End
             // Custom Start : Added  city state zip
             produtObj.cityStateZipCode = (order.billingAddress) ? order.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.postalCode: '';
@@ -682,6 +688,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             // Custom End
             // Custom Start : Added  total product quantity
             produtObj.productQuantityTotal =  order.productQuantityTotal;
+
+            produtObj.orderLevelPromotionPrice = orderLevelPromotionPrice;
             // Custom End
 			    produtObj.itemCoupon = itemLevelCouponString;
 
@@ -780,12 +788,12 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
  * @param queryString
  * @returns categoryNameWithoutApostrophe
  */
-function getPlPDepartmentCategory(req, queryString) {
+function getPlPDepartmentCategory(req, queryString, searchQuery) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
 
+    try {
     var productSearch;
     var apiProductSearch = new ProductSearchModel();
     var queryStringItems = {
@@ -793,31 +801,18 @@ function getPlPDepartmentCategory(req, queryString) {
     };
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
     apiProductSearch.search();
-    categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
-    var categoryTemplateReDesign = 'search/searchResults';
 
-    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
-        categoryTemplate = categoryTemplateReDesign;
-    }
-
-    productSearch = new ProductSearch(
-        apiProductSearch,
-        queryStringItems,
-        req.querystring.srule,
-        CatalogMgr.getSortingOptions(),
-        CatalogMgr.getSiteCatalog().getRoot()
-    );
-
-    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID){
+    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
         var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(apiProductSearch.category.displayName);
         categoryNameWithoutApostrophe = (apiProductSearch.category.subCategories.empty == false) ? categoryNameWithoutApostrophe + "|" + apiProductSearch.category.subCategories[0].displayName : categoryNameWithoutApostrophe;
         return categoryNameWithoutApostrophe;
     } else {
-        var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(req.querystring.q);
-        return searchQueryWithoutApostrophe;
+        return searchQuery;
     }
-
-    return '';
+    } catch (ex) {
+        Logger.error('Error Occured while getting plp categories from product search. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        return '';
+    }
 }
 
 
