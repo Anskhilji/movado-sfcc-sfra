@@ -11,6 +11,7 @@ var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalytic
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var Logger = require('dw/system/Logger');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 
 /**
  * GTM class that represents the data to be supplied to Google Tag Manager
@@ -117,7 +118,7 @@ function gtmModel(req) {
                 currency: productImpressionTags.currency,
                 // Custom start: Added secoundary category if exist and quantity on product on pdp
                 deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
-                quantity: '0'
+                quantity: '1'
                 // Custom End
     	    };
     	}    	else if (searchkeyword != null) {
@@ -638,10 +639,12 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     if (order != null && order.productLineItems != null) {
         var orderLevelCouponString = '';
         var itemLevelCouponString = '';
+        var orderSubTotal;
         var orderLevelPromotionPrice;
         paymentMethod = order.paymentInstrument.paymentMethod;
         orderLevelPromotionPrice = (order.priceAdjustments.empty == false) ? order.priceAdjustments.iterator(): null;
-
+        orderSubTotal = order.getAdjustedMerchandizeTotalPrice(false);
+        orderSubTotal = formatMoney(orderSubTotal);
         if (orderLevelPromotionPrice && orderLevelPromotionPrice.hasNext()) {
             var priceAdjustmentLineItem = orderLevelPromotionPrice.next();
             orderLevelPromotionPrice = priceAdjustmentLineItem.priceValue * -1;
@@ -672,7 +675,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             // Custom Start : Added subtotal
-            produtObj.subtotal = order.getAdjustedMerchandizeTotalPrice().getDecimalValue().toString();
+            produtObj.subtotal = orderSubTotal;
             // Custom End
             // Custom Start : Added discount tax shipping with pipe bars
             produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + orderLevelPromotionPrice  + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
@@ -794,18 +797,20 @@ function getPlPDepartmentCategory(req, queryString, searchQuery) {
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
 
     try {
-    var productSearch;
+    var plpCategory;
     var apiProductSearch = new ProductSearchModel();
     var queryStringItems = {
         cgid: queryString
     };
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
     apiProductSearch.search();
-
+    
     if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
-        var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(apiProductSearch.category.displayName);
-        categoryNameWithoutApostrophe = (apiProductSearch.category.subCategories.empty == false) ? categoryNameWithoutApostrophe + "|" + apiProductSearch.category.subCategories[0].displayName : categoryNameWithoutApostrophe;
-        return categoryNameWithoutApostrophe;
+        var productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
+        var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
+        var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
+        plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
+        return plpCategory;
     } else {
         return searchQuery;
     }
@@ -814,6 +819,5 @@ function getPlPDepartmentCategory(req, queryString, searchQuery) {
         return '';
     }
 }
-
 
 module.exports = gtmModel;
