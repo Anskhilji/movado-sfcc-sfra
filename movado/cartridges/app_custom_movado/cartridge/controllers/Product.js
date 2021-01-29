@@ -12,6 +12,7 @@ var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
 var Money = require('dw/value/Money');
+var Logger = require('dw/system/Logger');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -50,29 +51,32 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isGiftWrapEnabled;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-    var productDecimalPrice;
+    var productDecimalPrice = 0.0;
 
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
 
         // Custom Start: Add pricing logic for Klarna promo banners
-        if (productPrice.type === "range") {
-            if (productPrice.max.sales) {
-                productDecimalPrice = productPrice.max.sales.decimalPrice;
+        try {
+            if (productPrice.type === 'range') {
+                if (productPrice.max.sales) {
+                    productDecimalPrice = productPrice.max.sales.value;
+                } else {
+                    productDecimalPrice = productPrice.max.list.value;
+                }
             } else {
-                productDecimalPrice = productPrice.max.list.decimalPrice;
+                if (productPrice.sales) {
+                    productDecimalPrice = productPrice.sales.value;
+                } else {
+                    productDecimalPrice = productPrice.list.value;
+                }
             }
-        } else {
-            if (productPrice.sales) {
-                productDecimalPrice = productPrice.sales.decimalPrice;
-            } else {
-                productDecimalPrice = productPrice.list.decimalPrice;
-            }
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
+        } catch (e) {
+            Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
         // Custom End
-
-        klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productDecimalPrice, session.getCurrency())).toString();
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -149,18 +153,21 @@ server.replace('Variation', function (req, res, next) {
 
     var product = ProductFactory.get(paramsUpdated);
 
-    var productPrice;
+    var productPrice = 0.0;
 
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
 
     // Custom Start: Add pricing logic for Klarna promo banners
-    if (product.price.sales) {
-        productPrice = product.price.sales.decimalPrice;
-    } else {
-        productPrice = product.price.list.decimalPrice;
+    try {
+        if (product.price.sales) {
+            productPrice = product.price.sales.value;
+        } else {
+            productPrice = product.price.list.value;
+        }
+        product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productPrice), session.getCurrency()));
+    } catch (e) {
+        Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
-    
-    product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(productPrice, session.getCurrency()));
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 
