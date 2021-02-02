@@ -40,7 +40,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
     }
 
-    var caseDiameter = productCustomHelper.getCaseDiametter(apiProduct); 
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
         relativeURL: relativeURL,
         caseDiameter: caseDiameter,

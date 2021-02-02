@@ -322,18 +322,18 @@ function getCollectionName(apiProduct) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiametter (apiProduct) {
-    var caseDiametterHyphen;
-    var caseDiameteerWatches;
-    var caseDiameteer = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
-    if (!empty(caseDiameteer)) {
-        caseDiametterHyphen = Constants.CASE_DIAMETTER_HYPHEN;
+function getCaseDiameter (apiProduct) {
+    var caseDiameterHyphen;
+    var caseDiameterWatches;
+    var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    if (!empty(caseDiameter)) {
+        caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
     } else {
-        caseDiametterHyphen = '';
+        caseDiameterHyphen = '';
     }
-    caseDiameteerWatches = caseDiametterHyphen + '' + caseDiameteer;
+    caseDiameterWatches = caseDiameterHyphen + '' + caseDiameter;
     
-    return caseDiameteerWatches;
+    return caseDiameterWatches;
 }
 
 /**
@@ -367,6 +367,6 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
-movadoProductCustomHelper.getCaseDiametter = getCaseDiametter;
+movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 
 module.exports = movadoProductCustomHelper;
