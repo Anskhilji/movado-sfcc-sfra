@@ -275,10 +275,47 @@ footer {
     hr{
       border-color: $grey10;
     }
+    .footer-redesign-row {
+        margin-top: rem(25);
+        padding-left: rem(135);
+
+        @include media-breakpoint-down(md) {
+            padding-left: rem(15);
+            padding-right: rem(15);
+        }    
+
+        h3 a {
+            font-family: $font-book;
+            font-size: rem(15);
+            font-weight: 600;
+        }
+        .store-locator-heading {
+            margin-top: rem(15);
+        }
+    }
+    .footer-signup-container {
+
+        .footer-newsletter-email-field {
+            height: rem(55);
+        }
+        .footer-newsletter-email-button {
+            height: rem(55);
+            width: rem(50);
+        }
+    }
+    .copyright-footer-row {
+        padding-left: rem(135);
+        padding-right: rem(105);
+    }
 }
 
 .footer-item {
     letter-spacing: 1.75px;
+
+    @include media-breakpoint-down(md) {
+        margin-top: rem(12);
+    } 
+
     h3 {
         color:$light-black;
         a{
@@ -329,8 +366,7 @@ footer {
                 content: "\f106";
             }
         }
-        h3{
-          border-bottom: 1px solid $grey10;
+        h3 {
           font-family: $font-medium;
           font-weight: 500;
         }
@@ -350,6 +386,39 @@ footer {
         h3 a{
             cursor: default;
             display: inline;
+        }
+    }
+}
+.customer-satisfaction {
+    background-color: $black;
+    padding: rem(30) rem(30) rem(30) rem(30);
+
+    .container-customer-satisfaction {
+        padding-left: rem(250);
+        padding-right: rem(250);
+
+        @include media-breakpoint-down(sm) {
+            padding-left: rem(0);
+            padding-right: rem(0);
+        }
+    }
+
+    .customer-satisfaction-heading {
+        display: inline-block;
+
+        h2 {
+            color: $white;
+            font-family: $font-fotter;
+            font-size: rem(18);
+            margin-top: rem(12);
+            margin-left: rem(26);
+        }
+    }
+    .customer-icons {
+        display: inline-block;
+
+        .customer-satisfaction-icons i {
+                color: $white;
         }
     }
 }

@@ -1,55 +1,75 @@
 <isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-    <div class="home-email-signup"> 
-        <div class="container">
-            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
-                            </span>
-                        </div>
-                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
+
+
+
+    
+
+    <div class="container-fluid customer-satisfaction">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="container-customer-satisfaction">
+                    <iscontentasset aid="ca-footer-customer-care" />
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <div class="container">
-        <div class="footer-container row">
-            <isif condition="${enableUsablenetAccessibility}">
-                <div class="footer-item col-sm-3 hidden-md-up">
-                    <iscontentasset aid="ca-usablenet-mobile-link" />
-                </div>
-            </isif>
-            <div class="footer-item col-sm-3 store">
-                <iscontentasset aid="ca-footer-locate-store" />
-                <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isif condition="${isEswEnabled}" > 
-                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
-                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
-                </isif>
-                <iscomment> Custom End </iscomment>
+
+
+
+
+
+    <div class="container-fluid footer-redesign-round-2">
+        <div class="row  footer-redesign-row justify-content-center">
+            <div class="footer-item col-sm-3  collapsible-xs">
+                <iscontentasset aid="ca-footer-support" />
             </div>
             <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-account" />
             </div>
             <div class="footer-item col-sm-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-support" />
-            </div>
-            <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-about" />
             </div>
+            <div class="footer-item col-sm-3">
+                <div class="heading-container row">
+                    <div class="col-sm-12">
+                    <h3><a href="" class="title">${Resource.msg('subscribe.newsletter.heading', 'homePage', null)}</a></h3>
+                    </div>
+                </div>
+                <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+                <div class="footer-signup-container"> 
+                    <div class="container">
+                        <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+                            <div class="row">
+                                <div class="col-sm-9 p-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control footer-newsletter-email-field" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                                        <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary footer-newsletter-email-button"><i class="fa fa-arrow-right"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                                        <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="store-locator-heading">  
+                    <iscontentasset aid="ca-footer-locate-store" />
+                </div>
+                 
+            </div>
         </div>
+
+    </div>
+
+    <div class="container-fluid">
         <hr class="hidden-xs-down" />
-        <div class="row">
+        <div class="row copyright-footer-row">
             <div class="col-lg-4 col-sm-6 order-sm-2 social">
                 <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
                     <span class="fa-stack fa-lg">
@@ -64,6 +84,7 @@
             </div>
         </div>
     </div>
+
     <isif condition="${!request.httpParameterMap.get('country').value}">
         <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     </isif>
