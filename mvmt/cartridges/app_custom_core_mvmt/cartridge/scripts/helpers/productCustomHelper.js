@@ -368,4 +368,5 @@ movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiametter = getCaseDiametter;
+
 module.exports = movadoProductCustomHelper;
