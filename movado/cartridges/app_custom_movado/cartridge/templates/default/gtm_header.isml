@@ -16,7 +16,13 @@
         'searchTerm': '${pdict.gtm.searchTerm}', 
 		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
 		'customerStatus': '${pdict.customerStatus}',
-		'customerID': '${pdict.customerID}'
+		'customerID': '${pdict.customerID}',
+		'referralUrl': '${pdict.gtm.referralUrl}',
+		'pageUrl': '${pdict.gtm.pageUrl}',
+		'Page': '${pdict.gtm.pageType}',
+		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
+	    'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
+
 		
 		// Custom: Added country dimension on the the base of ESW enabled
 		
@@ -38,8 +44,11 @@
 					'price': '${pdict.gtm.product.productPrice}',
 					'brand': '${pdict.gtm.product.brand}',
 					'category': '${pdict.gtm.product.category}',
+					'deparmentIncludedSubCategory': '${pdict.gtm.product.deparmentIncludedCategoryName}',
 					'variant': '${pdict.gtm.product.productPersonalization}',
-					'list': '${pdict.gtm.product.list}'
+					'list': '${pdict.gtm.product.list}',
+					'currency': '${pdict.gtm.product.currency}',
+					'quantity': '${pdict.gtm.product.quantity}'
 				}]
 			}
 		},
@@ -64,7 +73,16 @@
 						'revenue': '${produtArray.cartObj.revenue}',
 						'tax': '${produtArray.cartObj.tax}',
 						'shipping': '${produtArray.cartObj.shipping}',
-						'coupon': '${produtArray.cartObj.coupon}'}
+						'coupon': '${produtArray.cartObj.coupon}',
+						'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+						'currency': '${produtArray.cartObj.currency}',
+						'country': '${produtArray.cartObj.country}',
+						'productQuantity': '${produtArray.cartObj.productQuantity}',
+						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+						'subTotal': '${produtArray.cartObj.subTotal}',
+						'discount': '${produtArray.cartObj.discount}',
+						'promoCode': '${produtArray.cartObj.coupon}',
+						'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}' }
 						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
             		</isloop>
 							]
@@ -88,12 +106,22 @@
 				'name':  '${produtArray.cartObj.name}',
 				'price': '${produtArray.cartObj.price}',
 				'brand': '${produtArray.cartObj.brand}',
+				'productQuantity': '${produtArray.cartObj.productQuantity}',
+				'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
 				'category': '${produtArray.cartObj.category}',
 				'variant': '${produtArray.cartObj.variant}',
 				'revenue': '${produtArray.cartObj.revenue}',
+				'currency': '${produtArray.cartObj.currency}',
 				'tax': '${produtArray.cartObj.tax}',
+				'country': '${produtArray.cartObj.country}',
 				'shipping': '${produtArray.cartObj.shipping}',
-				'coupon': '${produtArray.cartObj.coupon}'}
+				'coupon': '${produtArray.cartObj.coupon}',
+				'promoCode': '${produtArray.cartObj.coupon}',
+				'discount': '${produtArray.cartObj.discount}',
+				'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+				'subTotal': '${produtArray.cartObj.subTotal}',
+				'paymentMethod': '${produtArray.cartObj.paymentMethod}',
+				'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
 				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
     		</isloop>
 					]
@@ -118,7 +146,9 @@
 								'revenue': '${orderObj.orderObj.revenue}',
 								'tax': '${orderObj.orderObj.tax}',
 								'shipping': '${orderObj.orderObj.shipping}',
-								'coupon': '${orderObj.orderObj.orderCoupon}'}
+								'coupon': '${orderObj.orderObj.orderCoupon}',
+								'country': '${orderObj.orderObj.country}',
+								'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
 							</isif>
 						</isloop>
                             
@@ -135,7 +165,13 @@
 					'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
 					'coupon': '${orderObj.productObj.itemCoupon}',
 					'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
-					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}'
+					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+					'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
+					'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
+					'currency': '${orderObj.productObj.currency}',
+					'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
+					'subtotal': '${orderObj.productObj.subtotal}',
+					'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
 					}
 					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
 				</isif>

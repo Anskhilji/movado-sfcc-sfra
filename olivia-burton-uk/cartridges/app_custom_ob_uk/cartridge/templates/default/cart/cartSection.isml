@@ -49,6 +49,15 @@
                         </div>
                     </isif>
                 </isif>
+            <iselse>
+                <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                <isif condition="${klarnaAllowedCountry}">
+                    <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                        <div class="col-md-10 col-12 text-center text-sm-left">
+                            <isinclude template="klarna/klarnaPromotionMessage" />
+                        </div>
+                    </isif>
+                </isif>
             </isif>
         </div>
     </isif>

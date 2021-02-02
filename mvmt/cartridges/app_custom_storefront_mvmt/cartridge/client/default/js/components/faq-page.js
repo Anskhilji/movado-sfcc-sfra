@@ -51,7 +51,7 @@ module.exports = function () {
     var $headerHeight = $header.height();
     var $helpContainer = $('.help-wrapper');
     var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
-    
+
     $footer.addClass('position-relative');
     $footer.append($footerHelpContainer);
 

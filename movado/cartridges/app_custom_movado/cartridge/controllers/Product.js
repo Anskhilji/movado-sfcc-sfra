@@ -11,6 +11,8 @@ var page = module.superModule;
 var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
+var Money = require('dw/value/Money');
+var Logger = require('dw/system/Logger');
 server.extend(page);
 
 server.prepend('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
@@ -49,12 +51,32 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isGiftWrapEnabled;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
+    var productDecimalPrice = 0.0;
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
-        if(product.priceModel.price.available){
-            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(product.priceModel.price).toString();
+
+        // Custom Start: Add pricing logic for Klarna promo banners
+        try {
+            if (productPrice.type === 'range') {
+                if (productPrice.max.sales) {
+                    productDecimalPrice = productPrice.max.sales.value;
+                } else {
+                    productDecimalPrice = productPrice.max.list.value;
+                }
+            } else {
+                if (productPrice.sales) {
+                    productDecimalPrice = productPrice.sales.value;
+                } else {
+                    productDecimalPrice = productPrice.list.value;
+                }
+            }
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
+        } catch (e) {
+            Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
+        // Custom End
         youMayLikeRecommendations = productCustomHelpers.getRecommendations(youMayLikeRecommendations, product, youMayLikeRecommendationTypeIds);
         moreStyleRecommendations = productCustomHelpers.getMoreStyleRecommendations(moreStyleRecommendations, product, moreStylesRecommendationTypeIds);
         collectionContentList = productCustomHelpers.getMoreCollectionIdHeader(product);
@@ -118,6 +140,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.replace('Variation', function (req, res, next) {
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var priceHelper = require('*/cartridge/scripts/helpers/pricing');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -130,7 +153,21 @@ server.replace('Variation', function (req, res, next) {
 
     var product = ProductFactory.get(paramsUpdated);
 
+    var productPrice = 0.0;
+
     product.price.html = priceHelper.renderHtml(priceHelper.getHtmlContext(product.price));
+
+    // Custom Start: Add pricing logic for Klarna promo banners
+    try {
+        if (product.price.sales) {
+            productPrice = product.price.sales.value;
+        } else {
+            productPrice = product.price.list.value;
+        }
+        product.klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productPrice), session.getCurrency()));
+    } catch (e) {
+        Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
 
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
 

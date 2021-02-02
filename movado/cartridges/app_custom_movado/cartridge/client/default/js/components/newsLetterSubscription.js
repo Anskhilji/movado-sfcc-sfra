@@ -12,6 +12,9 @@ function processSubscription(response) {
                 $('.submission-status div').attr('class', 'error');
             }
             $('#add-to-email-list').prop('checked', response.customerFound);
+            if (response.emailObj) {
+                $('body').trigger('emailSubscribe:success', response.emailObj);
+            }
             if(response.isanalyticsTrackingEnabled && response.userTracking) {
                 setAnalyticsTrackingByAJAX.userTracking = response.userTracking;
                 window.dispatchEvent(setAnalyticsTrackingByAJAX);

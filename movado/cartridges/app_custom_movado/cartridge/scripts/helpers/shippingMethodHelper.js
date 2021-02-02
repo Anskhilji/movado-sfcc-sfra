@@ -8,6 +8,7 @@ var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var System = require('dw/system/System');
+var ShippingMgr = require('dw/order/ShippingMgr');
 
 var CommonUtils = require('*/cartridge/utils/commonUtils');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
@@ -224,7 +225,22 @@ function getShippingTime(shippingMethod) {
     }
 }
 
+/**
+ * Returns shippingCostValue property for a specific Shipment / ShippingMethod pair
+ * @param {dw.order.ShippingMethod} shippingMethod - the default shipment of the current basket
+ * @param {dw.order.Shipment} shipment - a shipment of the current basket
+ * @returns {Integer} Integer representation of Shipping Cost value
+ */
+function getShippingCostValue(shippingMethod, shipment) {
+    
+    var shipmentShippingModel = ShippingMgr.getShipmentShippingModel(shipment);
+    var shippingCost = shipmentShippingModel.getShippingCost(shippingMethod);
+
+    return shippingCost.amount.value;
+}
+
 module.exports = {
     getShippingDate: getShippingDate,
-    getShippingTime: getShippingTime
+    getShippingTime: getShippingTime,
+    getShippingCostValue: getShippingCostValue
 };

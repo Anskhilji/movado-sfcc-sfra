@@ -130,13 +130,14 @@ server.prepend(
         var password = req.form.loginPassword;
         var authenticateCustomerResult;
 
+
         Transaction.wrap(function () {
             authenticateCustomerResult = CustomerMgr.authenticateCustomer(email, password);
         });
-		
+
         customer = CustomerMgr.getCustomerByLogin(email);
         legacyCustomer = !empty(customer.profile.custom.legacyCustomer) ? customer.profile.custom.legacyCustomer : false;
-        if (legacyCustomer) {
+        if (legacyCustomer) {           
             if (authenticateCustomerResult.status == 'AUTH_OK') {
                 Transaction.wrap(function () {
                     customer.profile.custom.legacyCustomer = false;
@@ -151,6 +152,7 @@ server.prepend(
                 return;
             }
         }
+
         return next();
     }
 );
