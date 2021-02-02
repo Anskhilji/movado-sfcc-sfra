@@ -13,10 +13,12 @@ var Site = require('dw/system/Site');
  */
 function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
-    searchModel.setSearchPhrase(apiProduct.ID);
-    searchModel.search();
+    if(!empty(apiProduct)) {
+        searchModel.setSearchPhrase(apiProduct.ID);
+        searchModel.search();
+    }
 
-    if (searchModel.count === 0) {
+    if (!empty(apiProduct) && searchModel.count === 0) {
         searchModel.setSearchPhrase(apiProduct.ID.replace(/-/g, ' '));
         searchModel.search();
     }
