@@ -52,9 +52,14 @@
     border-bottom: rem(1) solid $light-gray4;
     background: linear-gradient(0deg, $white, $gray98);
     width: 100%;
-    z-index: 6;
+    z-index: 91;
     position: static;
     top: auto;
+    margin-top: rem(18);
+
+    @include media-breakpoint-up(lg) {
+        margin-top: 0;
+    }
 
     &.sticky {
         position: fixed;
@@ -780,6 +785,7 @@
     width: 100%;
     max-width: 14%;
     margin-top: rem(-80);
+    display: none;
 
     .help-heading h3 {
         font-size: rem(18.72);

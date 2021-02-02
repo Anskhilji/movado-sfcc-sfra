@@ -4,8 +4,9 @@
         <label class="form-control-label" for="login-form-email">
             ${Resource.msg('label.input.login.email', 'login', null)}
         </label>
-        <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="login-form-email" class="form-control" name="loginEmail" value="${pdict.userName}">
+        <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="login-form-email" class="form-control email-validation" name="loginEmail" value="${pdict.userName}">
         <div class="invalid-feedback"></div>
+        <div class="auauthanicated-error text-danger"></div>
     </div>
     <div class="form-group required">
         <label class="form-control-label" for="login-form-password">
@@ -13,6 +14,7 @@
         </label>
         <input type="password" placeholder="${Resource.msg('form.placeholder.password', 'account', null)}" id="login-form-password" class="form-control" name="loginPassword" autocomplete="off">
         <div class="invalid-feedback"></div>
+        
     </div>
     <div class="form-group d-flex justify-content-between">
         <div class="custom-control custom-checkbox remember-me">

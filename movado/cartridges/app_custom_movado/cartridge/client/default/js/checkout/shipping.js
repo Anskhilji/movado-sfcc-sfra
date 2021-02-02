@@ -1089,5 +1089,13 @@ module.exports = {
                 $(form).find('.gift-message').val('');
             }
         });
+    },
+
+    trimSpaces: function() {
+        $('.shipping-email').keyup(function() {
+            var $emailAddress = $(this).val();      
+            $emailAddress = $.trim($emailAddress);
+            $(this).val($emailAddress);
+        });
     }
 };

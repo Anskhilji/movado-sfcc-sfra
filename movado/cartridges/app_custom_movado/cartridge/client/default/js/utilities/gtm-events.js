@@ -1,3 +1,5 @@
+var cookieHandler = require('./cookieHandler');
+
 var updateDataLayer = function (string) {
     dataLayer.map(function (item, index, arr) {
         if (item.event && item.event === string) {
@@ -285,6 +287,16 @@ var showProductImpressionCaraousel = function (e, currency) {
     });
 };
 
+var getCookieSessionId = function () {
+    var cookieName = '_ga';
+    var googleAnalyticsSessionId = cookieHandler.getCookie(cookieName);
+
+    if (pageDataGTM != undefined && pageDataGTM) {
+        pageDataGTM.gaSessionID = googleAnalyticsSessionId;
+        dataLayer.push({ pageData: pageDataGTM });
+    }
+};
+
 var getSiteSectionOnPageLoad = function (e) {
     var urlPath = $('[data-url-path-gtm]').data('url-path-gtm');
     var pathName = window.location.pathname.split(urlPath)[1];
@@ -414,6 +426,20 @@ var onCheckoutOptionOnCart = function () {
     }
 };
 
+/**
+ * Custom Start: Create a funtion that trigeer on email subscriptions.
+ */
+
+var onEmailSubscribe = function () {
+    $('body').on('emailSubscribe:success', function (evt, data) { 
+        var userEmailData = JSON.parse(data);
+        updateDataLayer('emailSubmit');
+        dataLayer.push({
+            event: 'emailSubmit',
+            User: data
+        });
+    });
+};
 
 var onQuickViewLoad = function () {
     $('body').on('qv:success', function (evt, data) {
@@ -471,6 +497,7 @@ var onClickEvents = function () {
     onMorestyleClickEvent();
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
+    onEmailSubscribe();
 };
 
 
@@ -481,6 +508,7 @@ var onPageLoad = function () {
     onPromoImpressionsLoad();
     onLoadProductTile();
     onCheckoutOptionOnCart();
+    getCookieSessionId();
     $('body').trigger('gtmOnLoadEvents:fired');
 };
 

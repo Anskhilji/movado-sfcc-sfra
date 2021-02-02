@@ -18,6 +18,7 @@
                 <iscontentasset aid="faq-page-us-shipping-tab" />
                 <iscontentasset aid="faq-page-international-shipping-tab" />
                 <iscontentasset aid="faq-page-returns-tab" />
+                <iscontentasset aid="faq-page-promo-tab"/>
             </div>
         </div>
         <div id="faq-page-contact-tab" class="contact-tab tab-pane-control fade-in container">
