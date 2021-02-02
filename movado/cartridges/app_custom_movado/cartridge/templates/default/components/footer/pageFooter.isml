@@ -68,6 +68,28 @@
     </div>
 
     <div class="container-fluid">
+
+
+        <div class="footer-container row">
+            <isif condition="${enableUsablenetAccessibility}">
+                <div class="footer-item col-sm-3 hidden-md-up">
+                    <iscontentasset aid="ca-usablenet-mobile-link" />
+                </div>
+            </isif>
+            <div class="footer-item col-sm-3 store">
+                <iscontentasset aid="ca-footer-locate-store" />
+                <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                <isif condition="${isEswEnabled}" > 
+                    <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
+                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                </isif>
+                <iscomment> Custom End </iscomment>
+            </div>
+
+        </div>
+
+
+
         <hr class="hidden-xs-down" />
         <div class="row copyright-footer-row">
             <div class="col-lg-4 col-sm-6 order-sm-2 social">
