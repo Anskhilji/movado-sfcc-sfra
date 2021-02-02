@@ -711,6 +711,15 @@ function handleVariantResponse(response, $productContainer) {
     // Update attributes
     $productContainer.find('.main-attributes').empty()
         .html(getAttributesHtml(response.product.attributes));
+    
+    // update Klarna promo messages
+    if (window.Resources.KLARNA_PDP_MESSAGES_ENABLED) {
+        $('klarna-placement').attr('data-purchase-amount', response.product.klarnaProductPrice);
+        window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+        window.KlarnaOnsiteService.push({
+            eventName: 'refresh-placements'
+        });
+    }
 }
 
 /**
