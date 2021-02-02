@@ -322,16 +322,13 @@ function getCollectionName(apiProduct) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter (apiProduct) {
-    var caseDiameterHyphen;
+function getCaseDiameter(apiProduct) {
     var caseDiameterWatches;
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
     if (!empty(caseDiameter)) {
-        caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
-    } else {
-        caseDiameterHyphen = '';
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter;
     }
-    caseDiameterWatches = caseDiameterHyphen + '' + caseDiameter;
     
     return caseDiameterWatches;
 }
