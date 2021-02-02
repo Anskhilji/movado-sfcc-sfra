@@ -40,10 +40,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
     }
 
+    var caseDiameter = productCustomHelper.getCaseDiametter(apiProduct);
+    
     viewData = {
         explicitRecommendations: explicitRecommendations,
         relativeURL: relativeURL,
-        caseDiameter: apiProduct.custom.caseDiameter,
+        caseDiameter: caseDiameter,
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         resources: showProductPageHelperResult.resources,

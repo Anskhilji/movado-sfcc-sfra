@@ -21,7 +21,6 @@ server.append(
                 marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
             }
             viewData.marketingProductData = JSON.stringify(marketingProductsData);
-            
             viewData = {
                 relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
             };

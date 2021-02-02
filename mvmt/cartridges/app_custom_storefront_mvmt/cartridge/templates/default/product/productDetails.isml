@@ -67,7 +67,9 @@
 
                     <div class="product-brand-info">
                         <span>${product.collectionName}</span>
-                        <span>-</span><span>${!empty(pdict.caseDiameter)}</span>
+                        <isif condition="${!empty(pdict.caseDiameter)}">
+                            <span>${pdict.caseDiameter}</span>
+                        </isif>
                     </div>
 
                     <!-- Product Availability -->

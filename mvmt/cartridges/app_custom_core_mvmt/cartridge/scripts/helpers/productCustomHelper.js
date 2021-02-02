@@ -354,6 +354,25 @@ function getCollectionName(apiProduct) {
 }
 
 /**
+ * Method use to get Diameter name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }Diameter name
+ */
+function getCaseDiametter (apiProduct) {
+    var caseDiametterHyphen;
+    var caseDiameteerWatches;
+    var caseDiameteer = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    if (!empty(caseDiameteer)) {
+        caseDiametterHyphen = Constants.CASE_DIAMETTER_HYPHEN;
+    } else {
+        caseDiametterHyphen = '';
+    }
+    caseDiameteerWatches = caseDiametterHyphen + '' + caseDiameteer;
+    
+    return caseDiameteerWatches;
+}
+
+/**
  * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
  * @returns {String} content asset HTML
@@ -385,5 +404,6 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getCollectionName: getCollectionName,
     getGtmPromotionObject: getGtmPromotionObject,
-    getPDPContentAssetHTML : getPDPContentAssetHTML
+    getPDPContentAssetHTML : getPDPContentAssetHTML,
+    getCaseDiametter : getCaseDiametter
 };

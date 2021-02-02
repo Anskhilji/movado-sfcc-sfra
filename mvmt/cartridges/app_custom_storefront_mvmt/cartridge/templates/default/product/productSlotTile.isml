@@ -47,8 +47,9 @@
                 <isif condition="${pdict.display.showAddToCart}">
                     <div class="product-brand-info">
                         <span>${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
-                        <span> -</span>
-                        <span>${!empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : ''}</span>
+                        <isif condition="${!empty(product.caseDiameter)}">
+                            <span>${product.caseDiameter}</span>
+                        </isif>
                     </div>
                 </isif>
                 <isinclude template="product/components/productTileName" />
