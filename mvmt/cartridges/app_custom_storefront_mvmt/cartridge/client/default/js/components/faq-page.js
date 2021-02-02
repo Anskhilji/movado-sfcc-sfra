@@ -108,6 +108,10 @@ module.exports = function () {
         var $helpWrapperBreakPoint = 1100;
         var $scroll = $(window).scrollTop();
         var $totalHeaderSize = $headerBannerSize - 70;
+        var hT = $('footer').offset().top - 160,
+            hH = $('footer').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
 
         if ($(this).width() >= $helpWrapperBreakPoint) {
             if(!$contactTab.is(':visible')) {
@@ -121,6 +125,13 @@ module.exports = function () {
             }
         } else {
             $helpContainer.hide();
+        }
+
+        //scroll-warp top scroll when scroll reached footer
+        if (wS > (hT+hH-wH)){
+            $('.scroll-warp').addClass('stop-scroll');
+        } else {
+            $('.scroll-warp').removeClass('stop-scroll');
         }
 
         if ($scroll >= $totalHeaderSize) {
@@ -181,6 +192,7 @@ module.exports = function () {
             }
         });
     });
+
     activTabOnLoad();
 };
 

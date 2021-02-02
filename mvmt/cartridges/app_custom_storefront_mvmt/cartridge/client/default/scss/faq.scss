@@ -12,6 +12,8 @@
         pointer-events: none;
         width: 100%;
         display: block;
+        max-height: rem(180px);
+        object-fit: cover;
     }
 
     &-content {
@@ -810,10 +812,22 @@
     margin-left: 1%;
         
     @include media-breakpoint-down(lg) {
-        position: fixed;
-         width: 14%;
+        width: 14%;
         max-width: 14%;
         margin-left: 1.35%;
+    }
+
+    &.stop-scroll {
+        position: absolute;
+        bottom: rem(15);
+        top: auto !important;
+        width: rem(195);
+        margin-left: rem(13);
+        max-width: none;
+
+        @include media-breakpoint-down(lg) {
+            width: rem(165);
+        }
     }
 }
 .need-help-menu {
