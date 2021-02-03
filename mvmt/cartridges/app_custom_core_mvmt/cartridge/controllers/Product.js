@@ -8,6 +8,7 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var page = module.superModule;
 
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ProductFactory = require('*/cartridge/scripts/factories/product');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
@@ -40,8 +41,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
     }
 
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
         relativeURL: relativeURL,
+        caseDiameter: caseDiameter,
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         resources: showProductPageHelperResult.resources,

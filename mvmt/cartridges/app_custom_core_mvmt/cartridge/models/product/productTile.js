@@ -23,6 +23,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
@@ -199,6 +200,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: promotionObj
         });
     } 
+
+    if (!empty(caseDiameter)) {
+        Object.defineProperty(product, 'caseDiameter', {
+            enumerable: true,
+            value: caseDiameter
+        });
+    }
     
     return product;
 };
