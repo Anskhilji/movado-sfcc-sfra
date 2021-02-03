@@ -11,6 +11,7 @@ var adyenPaymentCheckout = require('~/cartridge/scripts/adyen/klarna/adyenPaymen
 var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var RiskifiedService = require('int_riskified');
+var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
 
 server.prepend('Redirect', server.middleware.https, function (req, res, next) {
     var order = OrderMgr.getOrder(session.custom.orderNo);
@@ -68,7 +69,7 @@ server.prepend('ShowConfirmation', server.middleware.https, function (req, res, 
                 klarnaPaymentPspReference: klarnaPaymentVerifyResult.paymentVarificationResult.pspReference
             });
             //Custom Start: Send order to swell
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
                     orderNo: orderNumber,
