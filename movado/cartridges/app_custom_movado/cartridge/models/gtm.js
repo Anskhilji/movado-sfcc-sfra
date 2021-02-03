@@ -59,7 +59,11 @@ function gtmModel(req) {
     		if (action.equals('cart-show')) {
     			this.checkoutAction = 'cart';
     			checkoutStage = 1;
-    		} else {
+            }
+            if (action.equals('checkout-begin')) {
+                this.checkoutAction = 'Checkout-Shipping';
+    			checkoutStage = 5;
+            } else {
     			checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
     			var checkoutStage = '';
     			switch (checkoutActionObject) {
@@ -176,6 +180,8 @@ function getPageType(action, searchKeyword, checkoutStage) {
             case 'placeOrder':
                 pageName = pageNameJSON['checkout-placeorder'];
                 break;
+            case 'Checkout-Shipping':
+                pageName = pageNameJSON['checkout-shipping'];
         }
 
         if (action.equals('search-show') && searchKeyword == undefined) {
