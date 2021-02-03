@@ -18,7 +18,7 @@
             <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
             <div class="shipping-express-checkout-buttons">
                 <div class="shipping-paypal-btn col">
-                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${!empty(pdict.valid.error) ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
                        role="button" aria-pressed="true">
                        <isprint value="${paypalButtonImg}" encoding="off" />
                     </a>
@@ -32,7 +32,7 @@
         <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
         <div class="shipping-express-checkout-buttons">
             <div class="shipping-paypal-btn col">
-                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${!empty(pdict.valid.error) ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
                    role="button" aria-pressed="true">
                    <isprint value="${paypalButtonImg}" encoding="off" />
                 </a>
