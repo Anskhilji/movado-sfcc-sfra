@@ -17,7 +17,7 @@ function isSwellLoyaltyAllowedCountry(deliveryCountryCode) {
                     return true;
                 }
                 else if (!empty(session.privacy.countryCode) && session.privacy.countryCode === deliveryAllowedCountryCodes[i]) {
-                   return true;
+                    return true;
                 }
                 else if ((countryCode && countryCode.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) || allCountries.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) {
                     return true;
