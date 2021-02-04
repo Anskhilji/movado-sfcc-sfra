@@ -23,10 +23,10 @@
 </isif>
 
 <div class="refine-wrapper">
-    <div class="refinements">
+    <div class="refinements movado-refinment-container">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
-                <button class="card-header text-left border-0" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                <button class="card-header movado-refeinment-type text-left border-0" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
