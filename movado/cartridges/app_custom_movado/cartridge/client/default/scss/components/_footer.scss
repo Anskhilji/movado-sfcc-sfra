@@ -389,36 +389,34 @@ footer {
         }
     }
 }
-.customer-satisfaction {
-    background-color: $black;
-    padding: rem(30) rem(30) rem(30) rem(30);
-
-    .container-customer-satisfaction {
-        padding-left: rem(250);
-        padding-right: rem(250);
-
-        @include media-breakpoint-down(sm) {
-            padding-left: rem(0);
-            padding-right: rem(0);
+.footer{
+    &-top {
+        background-color: $black;
+    
+        &-inner {
+            padding: rem(20) 0;
         }
-    }
+        &-item {
+            min-width: rem(250);
 
-    .customer-satisfaction-heading {
-        display: inline-block;
+            &-heading {
+                display: inline-block;
+        
+                h2 {
+                    color: $white;
+                    font-family: $font-fotter;
+                    font-size: rem(14);
+                    margin-left: rem(15);
+                }
+            }
 
-        h2 {
-            color: $white;
-            font-family: $font-fotter;
-            font-size: rem(18);
-            margin-top: rem(12);
-            margin-left: rem(26);
+            &-icon {
+                display: inline-block;
+
+                i {
+                    color: $white;
+                }
+            }
         }
-    }
-    .customer-icons {
-        display: inline-block;
-
-        .customer-satisfaction-icons i {
-                color: $white;
-        }
-    }
+    }   
 }

@@ -5,19 +5,15 @@
 
     
 
-    <div class="container-fluid customer-satisfaction">
+    <div class="container-fluid footer-top">
         <div class="row">
             <div class="col-sm-12">
-                <div class="container-customer-satisfaction">
+                <div class="footer-top-inner">
                     <iscontentasset aid="ca-footer-customer-care" />
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
 
     <div class="container-fluid footer-redesign-round-2">
         <div class="row  footer-redesign-row justify-content-center">
@@ -68,6 +64,7 @@
     </div>
 
     <div class="container-fluid">
+
 
 
         <div class="footer-container row">
