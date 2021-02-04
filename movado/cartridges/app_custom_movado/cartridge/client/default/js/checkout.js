@@ -9,6 +9,7 @@ $(document).ready(function() { // eslint-disable-line
         $('.error-message').show();
         $('.error-message-text').text(decodeURIComponent(error[1]));
     }
+    processInclude(require('./utilities/gtm-events'));
     processInclude(require('./checkout/billing'));
     processInclude(require('./checkout/checkout'));
     var paymentMethod = $('.payment-options .show').parent().find('.form-check').data('method-id');

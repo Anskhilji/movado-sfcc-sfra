@@ -622,7 +622,7 @@ function getBasketParameters() {
     var TotalsModel = require('*/cartridge/models/totals');
     var currentBasket = BasketMgr.getCurrentBasket();
     //Custom start: get total product quantity 
-    var productQuantityTotal = currentBasket.productQuantityTotal;
+    var productQuantityTotal = (currentBasket) ? currentBasket.productQuantityTotal : 0;
     // Custom End
     var currencyCode = currentBasket.currencyCode;
     var totalsModel = new TotalsModel(currentBasket);
@@ -705,7 +705,7 @@ function getCartJSONArray(checkoutObject) {
             cartObj.position = cartJSON[i].position;
             cartObj.revenue = cartJSON[i].revenue;
             cartObj.tax = cartJSON[i].tax;
-            cartObj.coupon = cartJSON[i].coupon;
+            cartObj.coupon = (!empty(cartJSON[i].coupon)) ? cartJSON[i].coupon : 0;
             cartObj.shipping = cartJSON[i].shipping;
             cartObj.productType = cartJSON[i].productType;
             cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
@@ -867,7 +867,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var averageOrderLevelDiscount = getAverageOrderLevelDiscount(order);
     var paymentMethod = '';
     if (order != null && order.productLineItems != null) {
-        var orderLevelCouponString = '';
+        var orderLevelCouponString = 0;
         var itemLevelCouponString = '';
         var orderLevelPromotionPrice;
         paymentMethod = order.paymentInstrument.paymentMethod;

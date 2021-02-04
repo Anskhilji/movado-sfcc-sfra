@@ -59,10 +59,6 @@ function gtmModel(req) {
     		if (action.equals('cart-show')) {
     			this.checkoutAction = 'cart';
     			checkoutStage = 1;
-            }
-            if (action.equals('checkout-begin')) {
-                this.checkoutAction = 'Checkout-Shipping';
-    			checkoutStage = 5;
             } else {
     			checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
     			var checkoutStage = '';
@@ -180,8 +176,6 @@ function getPageType(action, searchKeyword, checkoutStage) {
             case 'placeOrder':
                 pageName = pageNameJSON['checkout-placeorder'];
                 break;
-            case 'Checkout-Shipping':
-                pageName = pageNameJSON['checkout-shipping'];
         }
 
         if (action.equals('search-show') && searchKeyword == undefined) {
@@ -492,7 +486,7 @@ function getCartJSONArray(checkoutObject) {
         cartObj.revenue = cartJSON[i].revenue;
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
-        cartObj.coupon = cartJSON[i].coupon;
+        cartObj.coupon = (!empty(cartJSON[i].coupon)) ? cartJSON[i].coupon : 0;
         cartObj.orderlevelDiscount = cartJSON[i].orderlevelDiscount;
         // Custom Start : Added product quantity into cart Object
         cartObj.productQuantity = cartJSON[i].quantity;
@@ -643,7 +637,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var paymentMethod = '';
 
     if (order != null && order.productLineItems != null) {
-        var orderLevelCouponString = '';
+        var orderLevelCouponString = 0;
         var itemLevelCouponString = '';
         var orderSubTotal;
         var orderLevelPromotionPrice;
