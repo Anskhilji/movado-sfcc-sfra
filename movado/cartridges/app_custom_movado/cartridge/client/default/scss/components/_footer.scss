@@ -275,24 +275,7 @@ footer {
     hr{
       border-color: $grey10;
     }
-    .footer-redesign-row {
-        margin-top: rem(25);
-        padding-left: rem(135);
-
-        @include media-breakpoint-down(md) {
-            padding-left: rem(15);
-            padding-right: rem(15);
-        }    
-
-        h3 a {
-            font-family: $font-book;
-            font-size: rem(15);
-            font-weight: 600;
-        }
-        .store-locator-heading {
-            margin-top: rem(15);
-        }
-    }
+    
     .footer-signup-container {
 
         .footer-newsletter-email-field {
@@ -309,21 +292,6 @@ footer {
     }
 }
 
-.footer-item {
-    letter-spacing: 1.75px;
-
-    @include media-breakpoint-down(md) {
-        margin-top: rem(12);
-    } 
-
-    h3 {
-        color:$light-black;
-        a{
-            color:$light-black;
-            display: block;
-        }
-    }
-}
 #consent-tracking {
     .button-wrapper {
         button {
@@ -389,7 +357,53 @@ footer {
         }
     }
 }
+
+
 .footer{
+    &-redesign {
+        background-color: $white;
+
+        .footer-item {
+            letter-spacing: rem(0.75px);
+            padding-left: rem(30);
+        }
+
+        .selectors {
+            width: auto;
+            margin-top: rem(10);
+        }
+
+        .content {
+            li {
+                a {
+                    font-size: rem(13);
+                }
+            }
+        }
+
+        
+        h3 {
+            a {
+                font-family: $font-book;
+                font-size: rem(14);
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+        }
+        .store-locator-heading {
+            margin-top: rem(15);
+        }
+
+        .selectCountry,.selectLanguage {
+            .btn {
+                font-size: rem(12);
+                letter-spacing: rem(0.5);
+                text-transform: capitalize;
+                padding: 0;
+            }
+        }
+    }
+
     &-top {
         background-color: $black;
     
@@ -418,5 +432,30 @@ footer {
                 }
             }
         }
-    }   
+    }
+
+    &-item {
+        letter-spacing: 1.75px;
+    
+        @include media-breakpoint-down(md) {
+            margin-top: rem(12);
+        } 
+    
+        h3 {
+            color:$light-black;
+            a{
+                color:$light-black;
+                display: block;
+            }
+        }
+    }
+
+    &-redesign-row {
+        margin-top: rem(25);
+
+        @include media-breakpoint-down(md) {
+            padding-left: rem(15);
+            padding-right: rem(15);
+        }    
+    }
 }
