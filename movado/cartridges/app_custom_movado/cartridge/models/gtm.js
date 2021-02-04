@@ -486,7 +486,7 @@ function getCartJSONArray(checkoutObject) {
         cartObj.revenue = cartJSON[i].revenue;
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
-        cartObj.coupon = cartJSON[i].coupon;
+        cartObj.coupon = (!empty(cartJSON[i].coupon)) ? cartJSON[i].coupon : 0;
         cartObj.orderlevelDiscount = cartJSON[i].orderlevelDiscount;
         // Custom Start : Added product quantity into cart Object
         cartObj.productQuantity = cartJSON[i].quantity;
@@ -637,7 +637,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var paymentMethod = '';
 
     if (order != null && order.productLineItems != null) {
-        var orderLevelCouponString = '';
+        var orderLevelCouponString = 0;
         var itemLevelCouponString = '';
         var orderSubTotal;
         var orderLevelPromotionPrice;
@@ -653,6 +653,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
                     orderLevelCouponString = getCouponsOnOrder(order.couponLineItems);
+                    orderLevelCouponString = (!empty(orderLevelCouponString)) ? orderLevelCouponString : 0;
                 } else if (priceAdjustment.promotion.promotionClass == 'PRODUCT') {
                     itemLevelCouponString = getCouponsOnOrder(order.couponLineItems);
                 }
