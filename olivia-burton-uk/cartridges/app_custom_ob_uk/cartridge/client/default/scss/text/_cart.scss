@@ -290,12 +290,19 @@ div.checkout-button-wrapper {
 @include media-breakpoint-down(xs) {
   div.checkout-button-wrapper,
   .prices-add-to-cart-actions {
+    background: $black-opacity-8;
 
     .estimated-price,
     .price {
       span {
         color: $white;
       }
+    }
+  }
+
+  .cart {
+    .checkout-button-wrapper {
+      background: none;
     }
   }
 }
