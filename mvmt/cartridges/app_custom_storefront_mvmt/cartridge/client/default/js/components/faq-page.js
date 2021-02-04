@@ -108,10 +108,10 @@ module.exports = function () {
         var $helpWrapperBreakPoint = 1100;
         var $scroll = $(window).scrollTop();
         var $totalHeaderSize = $headerBannerSize - 70;
-        var hT = $('footer').offset().top - 160,
-            hH = $('footer').outerHeight(),
-            wH = $(window).height(),
-            wS = $(this).scrollTop();
+        var elementOffset = $('footer').offset().top - 160,
+            elementOuter = $('footer').outerHeight(),
+            windowHeight = $(window).height(),
+            thisScroll = $(this).scrollTop();
 
         if ($(this).width() >= $helpWrapperBreakPoint) {
             if(!$contactTab.is(':visible')) {
@@ -127,8 +127,8 @@ module.exports = function () {
             $helpContainer.hide();
         }
 
-        //scroll-warp top scroll when scroll reached footer
-        if (wS > (hT+hH-wH)){
+        //mini contactus widget stop scrolls when window scroll reach to footer
+        if (thisScroll > (elementOffset+elementOuter-windowHeight)){
             $('.scroll-warp').addClass('stop-scroll');
         } else {
             $('.scroll-warp').removeClass('stop-scroll');
