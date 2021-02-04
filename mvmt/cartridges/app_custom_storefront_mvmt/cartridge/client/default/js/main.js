@@ -31,5 +31,18 @@ $(document).ready(function () {
     processInclude(require('./videoPopup'));
 });
 
+$('.pdp-select-variations .select-variation-product').on('click', function() {
+    var $productName = $('.product-title-for-gtm').text();
+    var $variantName = $(this).data('attr-value');
+    if ($variantName !== undefined) {
+        dataLayer.push({
+          event: 'Collection Variant',
+          eventCategory: 'Collection Page Variant Selection',
+          eventAction: $productName,
+          eventLabel: $variantName
+        });
+    }
+});
+
 require('base/components/spinner');
 window.slickSlider = require('./components/slickCarousel');
