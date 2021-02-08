@@ -10,7 +10,7 @@
                     <div class="col-12 item term">
                         <div class="row">
                             <div class="col-xs-12 searched-text col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
+                                <a class="searched-text" href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
                                     ${phrase.value}
                                 </a>
                             </div>
@@ -31,11 +31,11 @@
                         <div class="row">
                             <div class="align-self-center searched-text px-3">
                                 <a href="${product.url}">
-                                    <img class="swatch-circle" alt="${product.name}" src="${product.imageUrl}" />
+                                    <img class="swatch-circle searched-text" alt="${product.name}" src="${product.imageUrl}" />
                                 </a>
                             </div>
                             <div class="name searched-text align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${product.url}">${product.name}</a>
+                                <a class="searched-text" href="${product.url}">${product.name}</a>
                             </div>
                         </div>
                     </div>
@@ -55,9 +55,9 @@
                     <div class="col-12 item">
                         <div class="row">
                             <div class="col-12 searched-text name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${category.url}">${category.name}
+                                <a class="searched-text" href="${category.url}">${category.name}
                                     <isif condition="${category.parentID !== 'root'}">
-                                        <span class="category-parent"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
+                                        <span class="category-parent searched-text"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
                                     </isif>
                                 </a>
                             </div>
@@ -78,7 +78,7 @@
                     <div class="col-12 item">
                         <div class="row">
                             <div class="col-12 searched-text  name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpReferer}"}'>
-                                <a href="${collection.url}">${collection.name}</a>
+                                <a class="searched-text" href="${collection.url}">${collection.name}</a>
                             </div>
                         </div>
                     </div>
