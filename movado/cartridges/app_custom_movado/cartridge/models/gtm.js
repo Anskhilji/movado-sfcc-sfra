@@ -653,6 +653,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
                     orderLevelCouponString = getCouponsOnOrder(order.couponLineItems);
+                    orderLevelCouponString = (!empty(orderLevelCouponString)) ? orderLevelCouponString : 0;
                 } else if (priceAdjustment.promotion.promotionClass == 'PRODUCT') {
                     itemLevelCouponString = getCouponsOnOrder(order.couponLineItems);
                 }

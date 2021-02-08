@@ -341,17 +341,19 @@ function createSAPOrderFile(args, impexFilePath, record) {
                     writeXmlElement(streamWriter, 'PersonalizationType', personalization.personalizationType);
                     writeXmlElement(streamWriter, 'LanguageID', '');
                     writeXmlElement(streamWriter, 'IsThisBillable', personalization.isThisBillable);
-                    if (personalization.text) {
-                        streamWriter.writeStartElement('Text');
-                        streamWriter.writeCharacters('');
-                        streamWriter.writeRaw('\r\n');
+                    if (personalization.textList) {
+                        personalization.textList.forEach(function (text) {
+                            streamWriter.writeStartElement('Text');
+                            streamWriter.writeCharacters('');
+                            streamWriter.writeRaw('\r\n');
 
-                        writeXmlElement(streamWriter, 'SequenceNumber', personalization.text.sequenceNumber);
-                        writeXmlElement(streamWriter, 'TextMessage', personalization.text.textMessage);
+                            writeXmlElement(streamWriter, 'SequenceNumber', text.sequenceNumber);
+                            writeXmlElement(streamWriter, 'TextMessage', text.textMessage);
 
-                        /* Create Text Elements : end */
-                        streamWriter.writeEndElement();
-                        streamWriter.writeRaw('\r\n');
+                            /* Create Text Elements : end */
+                            streamWriter.writeEndElement();
+                            streamWriter.writeRaw('\r\n');
+                        });
                     }
 
                     /* Create EcommercePOItemPersonalization Elements : end */

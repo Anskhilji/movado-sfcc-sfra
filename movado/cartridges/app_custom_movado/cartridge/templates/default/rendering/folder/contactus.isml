@@ -54,7 +54,6 @@
       </aside>
 
       <div class="right-content offset-md-1 col-md-8 text">
-        <isprint encoding="off" value="${variable}" />
         <isif condition="${pdict.content}">
           <h2 class="heading-two text-uppercase"> ${pdict.content.name} </h2>
           <isinclude template="components/content/contentAssetInc" />

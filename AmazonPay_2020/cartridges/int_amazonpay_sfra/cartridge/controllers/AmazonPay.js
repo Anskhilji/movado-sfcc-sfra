@@ -12,6 +12,7 @@ var AmazonPayRequest = require('*/cartridge/scripts/lib/AmazonPayRequest');
 var ChargePermissionService = require('*/cartridge/scripts/services/chargePermission/amazonChargePermissionService');
 var ChargeService = require('*/cartridge/scripts/services/charge/amazonChargeService');
 var CheckoutSessionService = require('*/cartridge/scripts/services/checkoutSession/amazonCheckoutSessionService');
+var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
 
 var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
@@ -125,14 +126,109 @@ server.post('CreateCheckoutSession', server.middleware.https, function (req, res
 });
 
 server.get('GetCheckoutSession', server.middleware.https, function (req, res, next) {
+    var amzPaycheckoutSessionId;
     var currentBasket = BasketMgr.getCurrentBasket();
 
+    if (currentBasket) {
+        // Get checkout session id from basket
+        amzPaycheckoutSessionId = currentBasket.custom.amzPayCheckoutSessionId;
+    } else {
+        // Get checkout session id from order
+        if (session.custom.currentOrderNumber) {
+            var OrderMgr = require('dw/order/OrderMgr');
+            var order = OrderMgr.getOrder(session.custom.currentOrderNumber);
+            amzPaycheckoutSessionId = order.custom.amzPayCheckoutSessionId;
+        }
+    }
+
     res.json({
-        checkoutSessionId: currentBasket.custom.amzPayCheckoutSessionId
+        checkoutSessionId: amzPaycheckoutSessionId
     });
 
     return next();
 });
+
+server.get('Prepare', server.middleware.https, function (req, res, next) {
+    var Logger = require('dw/system/Logger');
+    var URLUtils = require('dw/web/URLUtils');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+    var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+    var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (!currentBasket) {
+        Logger.getLogger('AmazonPay', 'Prepare').error('Error while trying to get current basket');
+
+        res.json({
+            success: false,
+            redirectUrl: URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', 'technical').toString()
+        });
+        return next();
+    }
+
+    var validatedProducts = validationHelpers.validateProducts(currentBasket);
+
+    if (validatedProducts.error) {
+        Logger.getLogger('AmazonPay', 'Prepare').error('Error while trying to validate the products');
+        res.json({
+            success: false,
+            redirectUrl: URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', 'technical').toString()
+        });
+        return next();
+    }
+
+    var validationOrderStatus = hooksHelper('app.validate.order', 'validateOrder', currentBasket, require('*/cartridge/scripts/hooks/validateOrder').validateOrder);
+
+    if (validationOrderStatus.error) {
+        Logger.getLogger('AmazonPay', 'Prepare').error('Error while trying to validate the Order: {0}', validationOrderStatus.message);
+        res.json({
+            success: false,
+            redirectUrl: URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', 'technical').toString()
+        });
+        return next();
+    }
+
+    // Calculate the basket
+    Transaction.wrap(function () {
+        basketCalculationHelpers.calculateTotals(currentBasket);
+    });
+
+    // Re-calculate the payments.
+    var calculatedPaymentTransactionTotal = COHelpers.calculatePaymentTransaction(currentBasket);
+    if (calculatedPaymentTransactionTotal.error) {
+        Logger.getLogger('AmazonPay', 'Prepare').error('Error while calculating payment transaction {0}', calculatedPaymentTransactionTotal.error);
+        res.json({
+            success: false,
+            redirectUrl: URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', 'technical').toString()
+        });
+        return next();
+    }
+
+    // Re-validates existing payment instruments
+    var validPayment = COHelpers.validatePayment(req, currentBasket);
+    if (validPayment.error) {
+        res.json({
+            success: false,
+            redirectUrl: URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', 'technical').toString()
+        });
+        return next();
+    }
+
+    var order = COHelpers.createOrder(currentBasket);
+
+    session.custom.currentOrderNumber = order.currentOrderNo;
+
+    res.json({
+        success: true
+    });
+
+    return next();
+})
 
 server.get('Review', server.middleware.https, function (req, res, next) {
     var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
@@ -575,35 +671,30 @@ server.get('Result', server.middleware.https, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Site = require('dw/system/Site');
 
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
     var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
     // Custom Start: Add custom Helper to trigger emails
     var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
-    var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
 
     var currentBasket = BasketMgr.getCurrentBasket();
     var subject;
     var text;
-
-    if (!currentBasket) {
-        res.redirect(URLUtils.url('Cart-Show', 'error', true, 'cartError', true).toString());
-
-        return next();
-    }
-
-    var validatedProducts = validationHelpers.validateProducts(currentBasket);
-
-    if (validatedProducts.error) {
-        res.redirect(URLUtils.url('Cart-Show', 'error', true, 'cartError', true).toString());
-
-        return next();
-    }
-
+    var order;
     var customer;
 
-    if (currentBasket.getCustomerEmail()) {
-        customer = CustomerMgr.getCustomerByLogin(currentBasket.getCustomerEmail());
+    if (!empty(session.custom.currentOrderNumber)) {
+        order = OrderMgr.getOrder(session.custom.currentOrderNumber);
+        session.custom.currentOrderNumber = '';
+    }
+
+    if (!order) {
+        Logger.getLogger('AmazonPay', 'Result').error('Error while trying to get the Order from session');
+        resRedirecter(res, 'technical');
+        return next();
+    }
+
+    if (order.getCustomerEmail()) {
+        customer = CustomerMgr.getCustomerByLogin(order.getCustomerEmail());
     }
 
     if (req.session.privacyCache.get('fraudDetectionStatus')) {
@@ -611,36 +702,8 @@ server.get('Result', server.middleware.https, function (req, res, next) {
         return next();
     }
 
-    var validationOrderStatus = hooksHelper('app.validate.order', 'validateOrder', currentBasket, require('*/cartridge/scripts/hooks/validateOrder').validateOrder);
-
-    if (validationOrderStatus.error) {
-        Logger.getLogger('AmazonPay', 'Result').error('Error while trying to validate the Order: {0}', validationOrderStatus.message);
-        resRedirecter(res, 'technical');
-        return next();
-    }
-
-    // Calculate the basket
-    Transaction.wrap(function () {
-        basketCalculationHelpers.calculateTotals(currentBasket);
-    });
-
-    // Re-validates existing payment instruments
-    var validPayment = COHelpers.validatePayment(req, currentBasket);
-    if (validPayment.error) {
-        resRedirecter(res, 'payment.not.valid');
-        return next();
-    }
-
-    // Re-calculate the payments.
-    var calculatedPaymentTransactionTotal = COHelpers.calculatePaymentTransaction(currentBasket);
-    if (calculatedPaymentTransactionTotal.error) {
-        Logger.getLogger('AmazonPay', 'Result').error('Error while calculating payment transaction {0}', calculatedPaymentTransactionTotal.error);
-        resRedirecter(res, 'technical');
-        return next();
-    }
-
     var amazonCheckoutSessionId = req.querystring.amazonCheckoutSessionId;
-    var amazonPayRequest = new AmazonPayRequest(currentBasket, 'GET', '', ':checkoutSessionId', amazonCheckoutSessionId);
+    var amazonPayRequest = new AmazonPayRequest('', 'GET', '', ':checkoutSessionId', amazonCheckoutSessionId);
     var result = CheckoutSessionService.get(amazonPayRequest);
 
     if (!result.ok) {
@@ -659,16 +722,13 @@ server.get('Result', server.middleware.https, function (req, res, next) {
     }
 
     Transaction.wrap(function () {
-        currentBasket.custom.amzPayChargeId = checkoutSession.chargeId;
-        currentBasket.custom.amzPayChargePermissionId = checkoutSession.chargePermissionId;
-        currentBasket.custom.amzPayCheckoutSessionState = checkoutSession.statusDetail.state;
-        currentBasket.custom.amzPayCheckoutSessionReasonCode = checkoutSession.statusDetail.reasonCode;
-        currentBasket.custom.amzPayRedirectURL = null;
+        order.custom.amzPayChargeId = checkoutSession.chargeId;
+        order.custom.amzPayChargePermissionId = checkoutSession.chargePermissionId;
+        order.custom.amzPayCheckoutSessionState = checkoutSession.statusDetail.state;
+        order.custom.amzPayCheckoutSessionReasonCode = checkoutSession.statusDetail.reasonCode;
     });
 
     if (checkoutSession.statusDetail.state === 'Completed') {
-        // Creates a new order.
-        var order = COHelpers.createOrder(currentBasket);
         if (!order) {
             Logger.getLogger('AmazonPay', 'Result').error('Error while trying to create the Order');
             resRedirecter(res, 'technical');
@@ -685,7 +745,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             return next();
         }
 
-        var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
+        var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
         if (fraudDetectionStatus.status === 'fail') {
             Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
@@ -780,7 +840,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
         if (sitePreferences.amzPayPaymentIntent.value === 'AuthorizeWithCapture' && charge.statusDetail.state === 'Authorized') {
             // Capture Charge
-            amazonPayRequest = new AmazonPayRequest(currentBasket, 'POST', '', ':chargeId', checkoutSession.chargeId);
+            amazonPayRequest = new AmazonPayRequest(order, 'POST', '', ':chargeId', checkoutSession.chargeId);
             result = ChargeService.capture(amazonPayRequest);
 
             if (!result.ok) {
@@ -849,7 +909,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 }
             }
             
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
                     orderNo: order.orderNo,
@@ -862,7 +922,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
             // Custom Start: set to true to trigger Purchase tag on confirmation page
             session.custom.orderJustPlaced = true;
-			
+            
             // Custom End
 
             session.custom.orderNumber = order.orderNo;
@@ -899,6 +959,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
                 return next();
             }
+
             // Custom Start: Salesforce Order Management attributes
             var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
@@ -913,7 +974,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
             // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
                     orderNo: order.orderNo,
@@ -930,8 +991,6 @@ server.get('Result', server.middleware.https, function (req, res, next) {
         }
     } else if (checkoutSession.statusDetail.state === 'Canceled') {
         if (checkoutSession.statusDetail.reasonCode === 'Declined') {
-            // Creates a new order.
-            var order = COHelpers.createOrder(currentBasket);
             if (!order) {
                 Logger.getLogger('AmazonPay', 'Result').error('Error while trying to create the Order');
                 resRedirecter(res, 'technical');
@@ -948,7 +1007,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 return next();
             }
 
-            var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
+            var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', order, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
             if (fraudDetectionStatus.status === 'fail') {
                 Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
@@ -969,10 +1028,13 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             Transaction.wrap(function () {
                 OrderMgr.failOrder(order, true);
                 order.addNote(checkoutSession.statusDetail.reasonCode, checkoutSession.statusDetail.reasonDescription);
-                var notes = currentBasket.getNotes().iterator();
-                while (notes.hasNext()) {
-                    var note = note.next();
-                    currentBasket.removeNote(note);
+
+                if (currentBasket) {
+                    var notes = currentBasket.getNotes().iterator();
+                    while (notes.hasNext()) {
+                        var note = note.next();
+                        currentBasket.removeNote(note);
+                    }
                 }
             });
 

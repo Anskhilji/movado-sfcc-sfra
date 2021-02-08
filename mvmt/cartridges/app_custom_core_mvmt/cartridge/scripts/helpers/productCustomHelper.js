@@ -318,6 +318,22 @@ function getCollectionName(apiProduct) {
 }
 
 /**
+ * Method use to get Diameter name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }Diameter name
+ */
+function getCaseDiameter(apiProduct) {
+    var caseDiameterWatches;
+    var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    if (!empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter;
+    }
+    
+    return caseDiameterWatches;
+}
+
+/**
  * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
  * @returns {String} content asset HTML
@@ -348,5 +364,6 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
+movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 
 module.exports = movadoProductCustomHelper;
