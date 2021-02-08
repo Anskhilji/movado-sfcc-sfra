@@ -908,7 +908,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.id = productLineItem.product.ID;
                 produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
                 produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
-                produtObj.category = customCategory,
+                produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
