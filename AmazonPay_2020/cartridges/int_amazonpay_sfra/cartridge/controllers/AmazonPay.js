@@ -12,7 +12,6 @@ var AmazonPayRequest = require('*/cartridge/scripts/lib/AmazonPayRequest');
 var ChargePermissionService = require('*/cartridge/scripts/services/chargePermission/amazonChargePermissionService');
 var ChargeService = require('*/cartridge/scripts/services/charge/amazonChargeService');
 var CheckoutSessionService = require('*/cartridge/scripts/services/checkoutSession/amazonCheckoutSessionService');
-var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
 
 var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
@@ -909,7 +908,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 }
             }
             
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
                     orderNo: order.orderNo,
@@ -974,7 +973,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
             // Custom Start: Change email helper to trigger confirmation email, Also add Swell Integration
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
-            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+            if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
                     orderNo: order.orderNo,

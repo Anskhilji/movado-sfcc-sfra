@@ -15,7 +15,6 @@ var PaymentMgr = require('dw/order/PaymentMgr');
 var Site = require('dw/system/Site');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
 
 function parseRiskifiedResponse(order) {
     var body = request.httpParameterMap.requestBodyAsString;
@@ -113,7 +112,7 @@ function parseRiskifiedResponse(order) {
         }
         
     } else {
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
                 orderNo: order.orderNo,
