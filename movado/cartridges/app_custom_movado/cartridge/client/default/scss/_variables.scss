@@ -32,6 +32,10 @@ $grey11: #6a6969 !default;
 $grey12: #eaebeb !default;
 $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
+$footer-redesign-bg: #f1f2f5 !default;
+$sonic-silver:  #78797a !default;
+$dim-gray: #696969;
+$storm-gray: #787A8A;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -61,6 +65,8 @@ $success: $green !default;
 $danger: $red !default;
 $placeholder: $grey4 !default;
 $white-smoke:#F2F2F2 !default;
+
+$container-1366: 1366px;
 
 $grid-breakpoints: (
     xs: 0,

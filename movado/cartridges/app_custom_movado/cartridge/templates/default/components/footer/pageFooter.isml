@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid container-1366 mb-5">
         <div class="row  footer-redesign-row justify-content-center">
             <div class="footer-item col-sm-3  collapsible-xs">
                 <iscontentasset aid="ca-footer-support" />
@@ -21,14 +21,14 @@
             <div class="footer-item col-sm-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-about" />
             </div>
-            <div class="footer-item col-sm-3">
+            <div class="footer-item pl-lg-0 col-sm-3">
                 <div class="heading-container row">
                     <div class="col-sm-12">
                     <h3><a href="" class="title">${Resource.msg('subscribe.newsletter.heading', 'homePage', null)}</a></h3>
                     </div>
                 </div>
                 <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-                <div class="footer-signup-container"> 
+                <div class="footer-signup-container mb-4"> 
                     <div class="container">
                         <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                             <div class="row">
@@ -37,7 +37,7 @@
                                         <input type="text" class="form-control footer-newsletter-email-field" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
                                         <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary footer-newsletter-email-button"><i class="fa fa-arrow-right"></i></button>
+                                            <button type="submit" class="btn btn-primary footer-newsletter-email-button"></button>
                                         </span>
                                     </div>
                                     <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
@@ -49,10 +49,12 @@
                         </form>
                     </div>
                 </div>
-                <div class="store-locator-heading">  
-                    <iscontentasset aid="ca-footer-locate-store" />
-                </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
+                <div class="heading-container row">
+                    <div class="col-sm-12">
+                        <h3><a href="">${Resource.msg('label.footer.shipping.language', 'common', null)}</a></h3>
+                    </div>
+                </div>
                 <isif condition="${isEswEnabled}" > 
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
@@ -63,7 +65,7 @@
 
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid container-1366">
 
 
 
@@ -79,11 +81,8 @@
 
         </div>
 
-
-
-        <hr class="hidden-xs-down" />
         <div class="row copyright-footer-row">
-            <div class="col-lg-4 col-sm-6 order-sm-2 social">
+            <div class="col-lg-3 pl-lg-0 col-sm-6 order-sm-2 social">
                 <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
                     <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
@@ -92,7 +91,7 @@
                 </button>
                 <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
             </div>
-            <div class="col-lg-8 col-sm-6 order-sm-1 copyright-notice">
+            <div class="col-lg-9 col-sm-6 order-sm-1 copyright-notice">
               <iscontentasset aid="ca-footer-copy" />
             </div>
         </div>

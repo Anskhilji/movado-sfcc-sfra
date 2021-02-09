@@ -361,16 +361,12 @@ footer {
 
 .footer{
     &-redesign {
-        background-color: $white;
+        background-color: $footer-redesign-bg;
+        padding-bottom: rem(10);
 
         .footer-item {
             letter-spacing: rem(0.75px);
             padding-left: rem(30);
-        }
-
-        .selectors {
-            width: auto;
-            margin-top: rem(10);
         }
 
         .content {
@@ -380,7 +376,6 @@ footer {
                 }
             }
         }
-
         
         h3 {
             a {
@@ -395,12 +390,161 @@ footer {
         }
 
         .selectCountry,.selectLanguage {
+            width: auto;
+
             .btn {
-                font-size: rem(12);
-                letter-spacing: rem(0.5);
+                font-size: rem(13);
+                letter-spacing: normal;
                 text-transform: capitalize;
                 padding: 0;
             }
+  
+            .content {
+                position: absolute;
+                background: $white;
+                bottom: 2.5rem;
+                width: 80%;
+                left: rem(-15);
+                padding: 0;
+                border-radius: rem(5);
+                box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.1);
+
+                &:after {
+                    content: "";
+                    width: rem(20);
+                    height: rem(20);
+                    transform: rotate(45deg);
+                    background: $white;
+                    position: absolute;
+                    z-index: 9;
+                    bottom: rem(-10);
+                    left: calc(30% - 10px);
+                    border-top-left-radius: rem(25);
+                }
+
+                .collapse-inner {
+                    max-height: rem(265);
+                    overflow-y: auto;
+                    margin: rem(10) 0;
+                }
+            }
+
+            .title {
+                font-family: $font-primary;
+                font-weight: 400;
+            }
+        }
+
+        .selectCountry {
+            min-width: rem(140);
+            .flag-icon {
+                border: none;
+                margin-right: rem(5);
+            }
+        }
+
+        .selectLanguage {
+
+            .title {
+                &:after {
+                    margin-left: rem(10);
+                }
+            }
+
+            .content {
+
+                &:after {
+                    left: auto;
+                    right: calc(17% - 10px);
+                }
+            }
+        }
+
+        .container-1366 {
+            max-width: $container-1366;
+            margin: 0 auto;
+            padding-left: 3rem;
+        }
+
+        .footer-signup-container {
+            .footer-newsletter-email-field {
+                height: rem(46);
+                font-family: $font-book;
+                font-size: rem(15);
+                border: 1px solid $sonic-silver;
+                background: transparent;
+            }
+            .footer-newsletter-email-button {
+                height: rem(46);
+                width: rem(46);
+                background: url(../../images/arrow_forward-24px.png) center center no-repeat;
+            }
+        }
+
+        .footerDropdown.selectors {
+            margin-top: 0;
+            width: auto;
+        }
+
+        .flag-icon {
+            width: rem(28);
+            height: rem(20);
+            vertical-align: middle;
+        }
+
+        #dropdownCountrySelector {
+            &::after {
+                margin-left: rem(5);
+            }
+
+
+        }
+
+        .mCSB_scrollTools {
+
+            .mCSB_dragger {
+
+                .mCSB_dragger_bar {
+                    display: none;
+                }
+            }
+
+            .mCSB_draggerRail {
+                background-color: $dim-gray;
+                width: rem(5);
+            }
+
+            .mCSB_draggerContainer {
+                right: rem(25);
+            }
+        }
+
+        .mCSB_inside > .mCSB_container {
+            margin-right: 0;
+        }
+
+        .copyright-footer-row {
+            padding: 0;
+        }
+
+        .social-links {
+            float: left;
+            a {
+                font-size: rem(25);
+            }
+            li {
+                float: left;
+                margin: 0;
+                margin-right: rem(12);
+            }
+        }
+
+        .copyright {
+            margin-top: 0;
+            color: $storm-gray;
+            font-family: $font-medium;
+            font-size: rem(15);
+            font-weight: 600;
         }
     }
 
@@ -430,6 +574,13 @@ footer {
                 i {
                     color: $white;
                 }
+            }
+        }
+        &-wrapper {
+            flex-wrap: wrap;
+
+            @include media-breakpoint-up(lg) {
+                flex-wrap: nowrap;
             }
         }
     }
