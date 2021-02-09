@@ -555,10 +555,10 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Update Family Name and Case Diameter
-    if (response.product.collectionName !== '' && response.product.collectionName !== null && typeof response.product.collectionName !== 'undefined') {
+    if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
         $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
     }
-    if (response.product.caseDiameter !== '' && response.product.caseDiameter !== null && typeof response.product.caseDiameter !== 'undefined') {
+    if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
         $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
     }
 
