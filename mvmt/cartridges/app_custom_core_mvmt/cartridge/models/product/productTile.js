@@ -6,6 +6,7 @@ var ATTRIBUTE_NAME = 'color';
 var Logger = require('dw/system/Logger');
 var URLUtils = require('dw/web/URLUtils');
 
+var Constants = require('*/cartridge/scripts/util/Constants');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
@@ -163,6 +164,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 Object.defineProperty(product, 'defaultVariantCollectionName', {
                     enumerable: true,
                     value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                });
+                
+                Object.defineProperty(product, 'defaultVariantCaseDiameter', {
+                    enumerable: true,
+                    value: !empty(defaultVariant.custom.caseDiameter) ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + defaultVariant.custom.caseDiameter : ''
                 });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
