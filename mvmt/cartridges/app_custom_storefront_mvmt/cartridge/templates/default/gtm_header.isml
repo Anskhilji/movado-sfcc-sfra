@@ -24,7 +24,7 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'country': '${pdict.gtm.country}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-	    'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
+        'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
     };
     
     if (pageDataGTM != undefined && pageDataGTM) {
@@ -85,7 +85,6 @@
                             'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'discount': '${produtArray.cartObj.discount}',
-                            'promoCode': '${produtArray.cartObj.coupon}',
                             'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
@@ -154,7 +153,6 @@
                     'country': '${produtArray.cartObj.country}',
                     'shipping': '${produtArray.cartObj.shipping}',
                     'coupon': '${produtArray.cartObj.coupon}',
-                    'promoCode': '${produtArray.cartObj.coupon}',
                     'discount': '${produtArray.cartObj.discount}',
                     'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                     'subTotal': '${produtArray.cartObj.subTotal}',
