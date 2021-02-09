@@ -121,10 +121,10 @@ function gtmModel(req) {
                 quantity: '1'
                 // Custom End
             };
-        }       else if (searchkeyword != null) {
+        } else if (searchkeyword != null) {
             // search count
-        searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
-        this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
+            searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
+            this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
             var searchQuery = { q: searchkeyword };
             var productArray = getSearchResultProducts(req, searchQuery);
@@ -239,13 +239,13 @@ function getSearchQuery(queryStringVal) {
     } else if ((queryString.indexOf('pid')) > -1) {
             searchArray = queryString.split('=');
             searchQuery = { pid: searchArray[1] };
-        }       else if ((queryString.indexOf('cgid')) > -1) {
+        } else if ((queryString.indexOf('cgid')) > -1) {
             searchArray = queryString.split('=');
-        searchQuery = { cgid: searchArray[1] };
+            searchQuery = { cgid: searchArray[1] };
         } else if ((queryString.indexOf('q')) > -1) {
-                searchArray = queryString.split('=');
-                searchQuery = { q: searchArray[1] };
-            }
+            searchArray = queryString.split('=');
+            searchQuery = { q: searchArray[1] };
+        }
     return searchQuery;
 }
 
