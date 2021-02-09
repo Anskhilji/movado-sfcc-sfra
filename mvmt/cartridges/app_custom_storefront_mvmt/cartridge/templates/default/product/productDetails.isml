@@ -66,9 +66,9 @@
                     <isinclude template="product/components/badges" />
 
                     <div class="product-brand-info">
-                        <span>${product.collectionName}</span>
+                        <span class="collection-name">${product.collectionName}</span>
                         <isif condition="${!empty(pdict.caseDiameter)}">
-                            <span>${pdict.caseDiameter}</span>
+                            <span class="case-diameter">${pdict.caseDiameter}</span>
                         </isif>
                     </div>
 

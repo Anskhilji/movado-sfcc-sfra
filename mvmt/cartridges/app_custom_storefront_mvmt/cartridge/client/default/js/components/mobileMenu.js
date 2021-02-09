@@ -50,8 +50,9 @@ module.exports = function () {
         $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
 
-        // Update Family Name
-        $productContainer.find('.product-brand-info span').text(response.product.collectionName);
+        // Update Family Name and Case Diameter
+        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
 
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');

@@ -554,8 +554,9 @@ function handleVariantResponse(response, $productContainer) {
             .attr('srcset', imageUrl.url);
     });
 
-    // Update Family Name
-    $productContainer.find('.product-brand-info span').text(response.product.collectionName);
+    // Update Family Name and Case Diameter
+    $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+    $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
