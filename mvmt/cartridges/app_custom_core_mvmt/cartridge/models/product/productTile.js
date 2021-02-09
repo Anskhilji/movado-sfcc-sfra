@@ -6,11 +6,11 @@ var ATTRIBUTE_NAME = 'color';
 var Logger = require('dw/system/Logger');
 var URLUtils = require('dw/web/URLUtils');
 
+var Constants = require('*/cartridge/scripts/util/Constants');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var Constants = require('*/cartridge/scripts/util/Constants');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 
 module.exports = function productTile(product, apiProduct, productType, params) {
