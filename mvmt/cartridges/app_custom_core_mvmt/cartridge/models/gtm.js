@@ -973,7 +973,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.discount = getOrderLevelDiscount(order);
         orderObj.discountType = getDicountType(order);
         orderObj.currencyCode = order.currencyCode;
-        orderObj.country = !empty(order.billingAddress) &&  !empty(order.billingAddress.countryCode) ? order.billingAddress.countryCode.displayValue : '';
+        orderObj.country = !empty(order.billingAddress) && !empty(order.billingAddress.countryCode) ? order.billingAddress.countryCode.displayValue : '';
         orderObj.paymentMethod = paymentMethod;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
