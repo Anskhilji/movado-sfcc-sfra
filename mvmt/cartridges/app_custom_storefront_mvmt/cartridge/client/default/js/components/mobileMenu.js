@@ -51,8 +51,13 @@ module.exports = function () {
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
 
         // Update Family Name and Case Diameter
-        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
-        $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+        if (response.product.collectionName !== '' && response.product.collectionName !== null && typeof response.product.collectionName !== 'undefined') {
+            $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        }
+        if (response.product.caseDiameter !== '' && response.product.caseDiameter !== null && typeof response.product.caseDiameter !== 'undefined') {
+            $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+        }
+        
 
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');

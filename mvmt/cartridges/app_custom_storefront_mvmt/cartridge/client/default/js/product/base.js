@@ -555,8 +555,12 @@ function handleVariantResponse(response, $productContainer) {
     });
 
     // Update Family Name and Case Diameter
-    $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
-    $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+    if (response.product.collectionName !== '' && response.product.collectionName !== null && typeof response.product.collectionName !== 'undefined') {
+        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+    }
+    if (response.product.caseDiameter !== '' && response.product.caseDiameter !== null && typeof response.product.caseDiameter !== 'undefined') {
+        $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+    }
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
