@@ -100,7 +100,6 @@
     
     <isif condition="${pdict.gtm.action ==='checkout-begin'}">
     checkoutDataLayer.push (
-            
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
             {'ecommerce':{'checkout': {
             'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
