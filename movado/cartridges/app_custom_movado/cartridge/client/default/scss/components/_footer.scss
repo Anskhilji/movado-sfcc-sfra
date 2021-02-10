@@ -277,6 +277,16 @@ footer {
     }
 }
 
+.footer-item {
+    letter-spacing: 1.75px;
+    h3 {
+        color:$light-black;
+        a{
+            color:$light-black;
+            display: block;
+        }
+    }
+}
 #consent-tracking {
     .button-wrapper {
         button {
@@ -319,7 +329,8 @@ footer {
                 content: "\f106";
             }
         }
-        h3 {
+        h3{
+          border-bottom: 1px solid $grey10;
           font-family: $font-medium;
           font-weight: 500;
         }
