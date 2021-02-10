@@ -1,4 +1,6 @@
 .footer{
+
+
     &-redesign {
         background-color: $footer-redesign-bg;
         padding-bottom: rem(10);
@@ -419,4 +421,19 @@
             }
         }
     }
+}
+
+.footer-signup-container {
+
+    .footer-newsletter-email-field {
+        height: rem(55);
+    }
+    .footer-newsletter-email-button {
+        height: rem(55);
+        width: rem(50);
+    }
+}
+.copyright-footer-row {
+    padding-left: rem(135);
+    padding-right: rem(105);
 }
