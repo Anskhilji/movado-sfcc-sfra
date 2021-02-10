@@ -1,98 +1,69 @@
-<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
-<footer class="footer-redesign">
-    <div class="container-fluid footer-top">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="footer-top-inner">
-                    <iscontentasset aid="ca-footer-customer-care" />
+<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
+<footer>
+    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+    <div class="home-email-signup"> 
+        <div class="container">
+            <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
+                            </span>
+                        </div>
+                        <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
+                          <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    <iscomment> container-1366 class addded, usablenet replaced  </iscomment>
-    <div class="container-fluid container-1366 mb-4 mb-lg-5">
+    <div class="container">
         <div class="footer-container row">
             <isif condition="${enableUsablenetAccessibility}">
-                <div class="footer-item text-center col-12 hidden-md-up">
+                <div class="footer-item col-sm-3 hidden-md-up">
                     <iscontentasset aid="ca-usablenet-mobile-link" />
                 </div>
             </isif>
-        </div>
-        <div class="row  footer-redesign-row justify-content-center">
-            <div class="footer-item col-lg-3  collapsible-xs">
-                <iscontentasset aid="ca-footer-support" />
-            </div>
-            <div class="footer-item col-lg-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-account" />
-            </div>
-            <div class="footer-item col-lg-3 collapsible-xs">
-                <iscontentasset aid="ca-footer-about" />
-            </div>
-            <iscomment> footer-item-singup class addded  </iscomment>
-            <div class="footer-item footer-item-singup pl-lg-0 col-lg-3">
-                <div class="heading-container row">
-                    <div class="col-sm-12">
-                    <h3><a href="" class="title text-sm-left text-center">${Resource.msg('subscribe.newsletter.heading', 'homePage', null)}</a></h3>
-                    </div>
-                </div>
-                <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-                <div class="footer-signup-container mb-4"> 
-                    <div class="container">
-                        <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
-                            <div class="row">
-                                <div class="col-lg-9 p-0">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control footer-newsletter-email-field" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-                                        <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary footer-newsletter-email-button"></button>
-                                        </span>
-                                    </div>
-                                    <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
-                                        <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="footer-item col-sm-3 store">
+                <iscontentasset aid="ca-footer-locate-store" />
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <div class="heading-container row">
-                    <div class="col-sm-12">
-                        <h3><a class="title text-sm-left text-center" href="">${Resource.msg('label.footer.shipping.language', 'common', null)}</a></h3>
-                    </div>
-                </div>
                 <isif condition="${isEswEnabled}" > 
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>
                 <iscomment> Custom End </iscomment>
             </div>
-        </div>
-    </div>
-
-    <iscomment> container-1366 class addded  </iscomment>
-    <div class="container-fluid container-1366">
-
-        <div class="row copyright-footer-row">
-            <div class="col-lg-9 col-sm-7 copyright-notice">
-              <iscontentasset aid="ca-footer-copy" />
+            <div class="footer-item col-sm-3 collapsible-xs">
+                <iscontentasset aid="ca-footer-account" />
             </div>
-            <div class="col-lg-3 pl-lg-0 col-sm-5 social">
+            <div class="footer-item col-sm-3 collapsible-xs">
+                <iscontentasset aid="ca-footer-support" />
+            </div>
+            <div class="footer-item col-sm-3 collapsible-xs">
+                <iscontentasset aid="ca-footer-about" />
+            </div>
+        </div>
+        <hr class="hidden-xs-down" />
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 order-sm-2 social">
                 <button class="back-to-top" aria-label="${Resource.msg('button.back_to_top', 'common', null)}" title="${Resource.msg('button.back_to_top', 'common', null)}" aria-hidden="true">
                     <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
                         <i class="fa fa-arrow-up fa-stack-1x"></i>
                     </span>
                 </button>
-                <div class="d-none d-sm-block">
-                    <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
-                </div>
+                <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
+            </div>
+            <div class="col-lg-8 col-sm-6 order-sm-1 copyright-notice">
+              <iscontentasset aid="ca-footer-copy" />
             </div>
         </div>
     </div>
-
     <isif condition="${!request.httpParameterMap.get('country').value}">
         <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     </isif>
