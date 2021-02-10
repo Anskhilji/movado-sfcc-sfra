@@ -14,8 +14,9 @@
         </isif>
     </div>
 </isif>
-<isif condtion="${pdict.paypalerror && pdict.paypalerror === true}">
-    <isif condition="${pdict.lastNameNotValid && pdict.lastNameNotValid === true}">
+<isif condition="${pdict.paypalerror && pdict.paypalerror === 'true'}">
+    <isif condition="${pdict.lastNameNotValid && pdict.lastNameNotValid === 'true'}">
+    </h1>
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -25,7 +26,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.firstNameNotValid && pdict.firstNameNotValid === true}">
+    <isif condition="${pdict.firstNameNotValid && pdict.firstNameNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +36,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.cityNotValid && pdict.cityNotValid === true}">
+    <isif condition="${pdict.cityNotValid && pdict.cityNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -45,7 +46,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.emailNotValid && pdict.emailNotValid === true}">
+    <isif condition="${pdict.emailNotValid && pdict.emailNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -55,7 +56,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.addressNotValid && pdict.addressNotValid === true}">
+    <isif condition="${pdict.addressNotValid && pdict.addressNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,7 +66,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.billingAddressCityNotValid && pdict.billingAddressCityNotValid === true}">
+    <isif condition="${pdict.billingAddressCityNotValid && pdict.billingAddressCityNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -75,7 +76,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.billingAddressCountryNotValid && pdict.billingAddressCountryNotValid === true}">
+    <isif condition="${pdict.billingAddressCountryNotValid && pdict.billingAddressCountryNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -85,7 +86,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.billingAddressStateNotValid && pdict.billingAddressStateNotValid === true}">
+    <isif condition="${pdict.billingAddressStateNotValid && pdict.billingAddressStateNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -95,7 +96,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.billingAddressStateOrProvinceNotValid && pdict.billingAddressStateOrProvinceNotValid === true}">
+    <isif condition="${pdict.billingAddressStateOrProvinceNotValid && pdict.billingAddressStateOrProvinceNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -105,7 +106,7 @@
             </div>
         </div>
     </isif>
-    <isif condition="${pdict.postalCodeNotValidNotValid && pdict.postalCodeNotValidNotValid === true}">
+    <isif condition="${pdict.postalCodeNotValidNotValid && pdict.postalCodeNotValidNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

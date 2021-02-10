@@ -254,7 +254,7 @@ server.append(
                 lastNameNotValid: req.querystring.lastName,
                 cityNotValid: req.querystring.city,
                 emailNotValid: req.querystring.email,
-                addressNotValid: req.querystring.address,
+                addressNotValid: req.querystring.address1,
                 billingAddressCityNotValid: req.querystring.billingAddressCity,
                 billingAddressCountryNotValid: req.querystring.billingAddressCountry,
                 billingAddressStateNotValid: req.querystring.billingAddressState,
