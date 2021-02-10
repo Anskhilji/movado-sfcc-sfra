@@ -369,24 +369,24 @@ var updateCheckoutStage = function () {
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
-        	 checkoutStep = '2';
-        	 pageDataGTM.pageType = 'Checkout – Shipping';
+             checkoutStep = '2';
+             pageDataGTM.pageType = 'Checkout – Shipping';
              dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'payment':
-        	 checkoutStep = '3';
-        	 pageDataGTM.pageType = 'Checkout – Billing';
+             checkoutStep = '3';
+             pageDataGTM.pageType = 'Checkout – Billing';
              dataLayer.push({ pageData: pageDataGTM});
-        	 onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep - 1, shippingMethod);
          break;
      case 'placeOrder':
-        	 checkoutStep = '4';
-        	 checkoutStage = 'Confirm';
-        	 pageDataGTM.pageType = 'Checkout – Review';
+             checkoutStep = '4';
+             checkoutStage = 'Confirm';
+             pageDataGTM.pageType = 'Checkout – Review';
              dataLayer.push({ pageData: pageDataGTM});
-        	 if (paymentMethod != undefined) {
-        		 onCheckoutOption(checkoutStep - 1, paymentMethod);
-        	 }
+             if (paymentMethod != undefined) {
+                 onCheckoutOption(checkoutStep - 1, paymentMethod);
+            }
          break;
      case 'submitted':
         	 checkoutStep = '5';
