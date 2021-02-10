@@ -1,193 +1,191 @@
 <iscomment> Custom: defined the following variable </iscomment>
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <script>
-	dataLayer = window.dataLayer = window.dataLayer || [];
-	pageDataGTM = {};
-	checkoutDataLayer = [];
-	var gtm_PageType = '${pdict.gtm.pageType}';
-	pageDataGTM = {
-		'tenant': '${pdict.gtm.tenant}',
-		'language': '${pdict.gtm.language}',
-		'loginStatus': '${pdict.gtm.loginStatus}',
-		'pageType': '${pdict.gtm.pageType}',
-		'primarySiteSection': '${pdict.gtm.primarySiteSection}', 
-		'secondarySiteSection': '${pdict.gtm.secondarySiteSection}',
-		'tertiarySiteSection': '${pdict.gtm.tertiarySiteSection}', 
+    dataLayer = window.dataLayer = window.dataLayer || [];
+    pageDataGTM = {};
+    checkoutDataLayer = [];
+    var gtm_PageType = '${pdict.gtm.pageType}';
+    pageDataGTM = {
+        'tenant': '${pdict.gtm.tenant}',
+        'language': '${pdict.gtm.language}',
+        'loginStatus': '${pdict.gtm.loginStatus}',
+        'pageType': '${pdict.gtm.pageType}',
+        'primarySiteSection': '${pdict.gtm.primarySiteSection}', 
+        'secondarySiteSection': '${pdict.gtm.secondarySiteSection}',
+        'tertiarySiteSection': '${pdict.gtm.tertiarySiteSection}', 
         'searchTerm': '${pdict.gtm.searchTerm}', 
-		'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
-		'customerStatus': '${pdict.customerStatus}',
-		'customerID': '${pdict.customerID}',
-		'referralUrl': '${pdict.gtm.referralUrl}',
-		'pageUrl': '${pdict.gtm.pageUrl}',
-		'Page': '${pdict.gtm.pageType}',
-		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-	    'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
+        'searchCount': '<isprint value="${pdict.gtm.searchCount}" formatter="#" />',
+        'customerStatus': '${pdict.customerStatus}',
+        'customerID': '${pdict.customerID}',
+        'referralUrl': '${pdict.gtm.referralUrl}',
+        'pageUrl': '${pdict.gtm.pageUrl}',
+        'Page': '${pdict.gtm.pageType}',
+        'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
+        'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
 
-		
-		// Custom: Added country dimension on the the base of ESW enabled
-		
-		<isif condition="${isEswEnabled}" > 
-			,'country': '${!empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
-		<iselse>
-			,'country': ''
-		</isif>
-		
-		
-	};
+        
+        // Custom: Added country dimension on the the base of ESW enabled
+        
+        <isif condition="${isEswEnabled}" > 
+            ,'country': '${!empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value)}' ? '${request.httpCookies['esw.location'].value}' : ''
+        <iselse>
+            ,'country': ''
+        </isif>
+        
+        
+    };
+    
+    if (pageDataGTM != undefined && pageDataGTM) {
+        dataLayer.push({ pageData: pageDataGTM});
+    }
+    
+    <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
+        dataLayer.push ({
+            'ecommerce':{ 
+            'detail': { "actionField": {"list": "detail"},
+                'products':[ {
+                    'id': '${pdict.gtm.product.productID}',
+                    'name':  '${pdict.gtm.product.productName}',
+                    'price': '${pdict.gtm.product.productPrice}',
+                    'brand': '${pdict.gtm.product.brand}',
+                    'category': '${pdict.gtm.product.category}',
+                    'deparmentIncludedSubCategory': '${pdict.gtm.product.deparmentIncludedCategoryName}',
+                    'variant': '${pdict.gtm.product.productPersonalization}',
+                    'list': '${pdict.gtm.product.list}',
+                    'currency': '${pdict.gtm.product.currency}',
+                    'quantity': '${pdict.gtm.product.quantity}'
+                }]
+            }
+        },
+        "event": "productDetail"
+        });             
+    </isif>
 
-	if (pageDataGTM != undefined && pageDataGTM) {
-	dataLayer.push({ pageData: pageDataGTM});
-	}
-	
-	<isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
-		dataLayer.push ({
-			'ecommerce':{ 
-			'detail': { "actionField": {"list": "detail"},
-				'products':[ {
-					'id': '${pdict.gtm.product.productID}',
-					'name':  '${pdict.gtm.product.productName}',
-					'price': '${pdict.gtm.product.productPrice}',
-					'brand': '${pdict.gtm.product.brand}',
-					'category': '${pdict.gtm.product.category}',
-					'deparmentIncludedSubCategory': '${pdict.gtm.product.deparmentIncludedCategoryName}',
-					'variant': '${pdict.gtm.product.productPersonalization}',
-					'list': '${pdict.gtm.product.list}',
-					'currency': '${pdict.gtm.product.currency}',
-					'quantity': '${pdict.gtm.product.quantity}'
-				}]
-			}
-		},
-		"event": "productDetail"
-		});				
-	</isif>
-
-	<isif condition="${pdict.gtm.action === 'cart-show'}">
-	dataLayer.push (
-			
-				<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-					{'ecommerce':{'checkout': {
-					'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
-					"products": [
-					<isloop items="${checkoutObj}" var="produtArray" status="status">
-						{'id': '${produtArray.cartObj.id}',
-						'name':  '${produtArray.cartObj.name}',
-						'price': '${produtArray.cartObj.price}',
-						'brand': '${produtArray.cartObj.brand}',
-						'category': '${produtArray.cartObj.category}',
-						'variant': '${produtArray.cartObj.variant}',
-						'revenue': '${produtArray.cartObj.revenue}',
-						'tax': '${produtArray.cartObj.tax}',
-						'shipping': '${produtArray.cartObj.shipping}',
-						'coupon': '${produtArray.cartObj.coupon}',
-						'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
-						'currency': '${produtArray.cartObj.currency}',
-						'country': '${produtArray.cartObj.country}',
-						'productQuantity': '${produtArray.cartObj.productQuantity}',
-						'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
-						'subTotal': '${produtArray.cartObj.subTotal}',
-						'discount': '${produtArray.cartObj.discount}',
-						'promoCode': '${produtArray.cartObj.coupon}',
-						'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}' }
-						<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-            		</isloop>
-							]
-						}	
-					},
-					"event": "checkout"}
-					<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
-				</isloop>
-		);				
-	</isif>
-	
-	<isif condition="${pdict.gtm.action ==='checkout-begin'}">
-	checkoutDataLayer.push (
-			
-			<isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-			{'ecommerce':{'checkout': {
-			'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
-			"products": [
-			<isloop items="${checkoutObj}" var="produtArray" status="status">
-				{'id': '${produtArray.cartObj.id}',
-				'name':  '${produtArray.cartObj.name}',
-				'price': '${produtArray.cartObj.price}',
-				'brand': '${produtArray.cartObj.brand}',
-				'productQuantity': '${produtArray.cartObj.productQuantity}',
-				'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
-				'category': '${produtArray.cartObj.category}',
-				'variant': '${produtArray.cartObj.variant}',
-				'revenue': '${produtArray.cartObj.revenue}',
-				'currency': '${produtArray.cartObj.currency}',
-				'tax': '${produtArray.cartObj.tax}',
-				'country': '${produtArray.cartObj.country}',
-				'shipping': '${produtArray.cartObj.shipping}',
-				'coupon': '${produtArray.cartObj.coupon}',
-				'promoCode': '${produtArray.cartObj.coupon}',
-				'discount': '${produtArray.cartObj.discount}',
-				'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
-				'subTotal': '${produtArray.cartObj.subTotal}',
-				'paymentMethod': '${produtArray.cartObj.paymentMethod}',
-				'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
-				<isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-    		</isloop>
-					]
-				}	
-			},
-			"event": "checkout"}
-			<isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
-		</isloop>
-		);				
-	</isif>
-	<isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
-	dataLayer.push (
-		<isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
-			{ "event": "purchase",'ecommerce':{
-				'currencyCode': "${orderProdutsArray[0].productObj.currency}",
-				'orderDiscountCode': "${pdict.discountCode}",
-				'purchase':{
-					'actionField':
-						<isloop items="${orderProdutsArray}" var="orderObj">
-							<isif condition= "${orderObj.orderObj}">
-								{'id': '${orderObj.orderObj.orderId}',
-								'revenue': '${orderObj.orderObj.revenue}',
-								'tax': '${orderObj.orderObj.tax}',
-								'shipping': '${orderObj.orderObj.shipping}',
-								'coupon': '${orderObj.orderObj.orderCoupon}',
-								'country': '${orderObj.orderObj.country}',
-								'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
-							</isif>
-						</isloop>
+    <isif condition="${pdict.gtm.action === 'cart-show'}">
+    dataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+            {'ecommerce':{'checkout': {
+            'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+            "products": [
+            <isloop items="${checkoutObj}" var="produtArray" status="status">
+                {'id': '${produtArray.cartObj.id}',
+                'name':  '${produtArray.cartObj.name}',
+                'price': '${produtArray.cartObj.price}',
+                'brand': '${produtArray.cartObj.brand}',
+                'category': '${produtArray.cartObj.category}',
+                'variant': '${produtArray.cartObj.variant}',
+                'revenue': '${produtArray.cartObj.revenue}',
+                'tax': '${produtArray.cartObj.tax}',
+                'shipping': '${produtArray.cartObj.shipping}',
+                'coupon': '${produtArray.cartObj.coupon}',
+                'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+                'currency': '${produtArray.cartObj.currency}',
+                'country': '${produtArray.cartObj.country}',
+                'productQuantity': '${produtArray.cartObj.productQuantity}',
+                'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+                'subTotal': '${produtArray.cartObj.subTotal}',
+                'discount': '${produtArray.cartObj.discount}',
+                'promoCode': '${produtArray.cartObj.coupon}',
+                'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}' }
+                <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+            </isloop>
+                    ]
+                }
+            },
+            "event": "checkout"}
+            <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+        </isloop>
+        );
+    </isif>
+    
+    <isif condition="${pdict.gtm.action ==='checkout-begin'}">
+    checkoutDataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+            {'ecommerce':{'checkout': {
+            'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+            "products": [
+            <isloop items="${checkoutObj}" var="produtArray" status="status">
+                {'id': '${produtArray.cartObj.id}',
+                'name':  '${produtArray.cartObj.name}',
+                'price': '${produtArray.cartObj.price}',
+                'brand': '${produtArray.cartObj.brand}',
+                'productQuantity': '${produtArray.cartObj.productQuantity}',
+                'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+                'category': '${produtArray.cartObj.category}',
+                'variant': '${produtArray.cartObj.variant}',
+                'revenue': '${produtArray.cartObj.revenue}',
+                'currency': '${produtArray.cartObj.currency}',
+                'tax': '${produtArray.cartObj.tax}',
+                'country': '${produtArray.cartObj.country}',
+                'shipping': '${produtArray.cartObj.shipping}',
+                'coupon': '${produtArray.cartObj.coupon}',
+                'promoCode': '${produtArray.cartObj.coupon}',
+                'discount': '${produtArray.cartObj.discount}',
+                'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+                'subTotal': '${produtArray.cartObj.subTotal}',
+                'paymentMethod': '${produtArray.cartObj.paymentMethod}',
+                'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+            </isloop>
+                    ]
+                }   
+            },
+            "event": "checkout"}
+            <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+        </isloop>
+        );              
+    </isif>
+    <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
+    dataLayer.push (
+        <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
+            { "event": "purchase",'ecommerce':{
+                'currencyCode': "${orderProdutsArray[0].productObj.currency}",
+                'orderDiscountCode': "${pdict.discountCode}",
+                'purchase':{
+                    'actionField':
+                        <isloop items="${orderProdutsArray}" var="orderObj">
+                            <isif condition= "${orderObj.orderObj}">
+                                {'id': '${orderObj.orderObj.orderId}',
+                                'revenue': '${orderObj.orderObj.revenue}',
+                                'tax': '${orderObj.orderObj.tax}',
+                                'shipping': '${orderObj.orderObj.shipping}',
+                                'coupon': '${orderObj.orderObj.orderCoupon}',
+                                'country': '${orderObj.orderObj.country}',
+                                'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
+                            </isif>
+                        </isloop>
                             
-			, 'products':[
-				<isloop items="${orderProdutsArray}" var="orderObj" status="status"> 
-				<isif condition= "${orderObj.productObj}">
-					{
-					'id': '${orderObj.productObj.id}',
-					'name': '${orderObj.productObj.name}',
-					'brand': '${orderObj.productObj.brand}',
-					'category': '${orderObj.productObj.category}',
-					'variant': '${orderObj.productObj.variant}',
-					'price': '${orderObj.productObj.price}',
-					'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
-					'coupon': '${orderObj.productObj.itemCoupon}',
-					'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
-					'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
-					'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
-					'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
-					'currency': '${orderObj.productObj.currency}',
-					'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
-					'subtotal': '${orderObj.productObj.subtotal}',
-					'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
-					}
-					<isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
-				</isif>
-			</isloop>
+            , 'products':[
+                <isloop items="${orderProdutsArray}" var="orderObj" status="status"> 
+                <isif condition= "${orderObj.productObj}">
+                    {
+                    'id': '${orderObj.productObj.id}',
+                    'name': '${orderObj.productObj.name}',
+                    'brand': '${orderObj.productObj.brand}',
+                    'category': '${orderObj.productObj.category}',
+                    'variant': '${orderObj.productObj.variant}',
+                    'price': '${orderObj.productObj.price}',
+                    'quantity': '<isprint value="${orderObj.productObj.quantity}" formatter="#" />',
+                    'coupon': '${orderObj.productObj.itemCoupon}',
+                    'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
+                    'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+                    'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
+                    'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
+                    'currency': '${orderObj.productObj.currency}',
+                    'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
+                    'subtotal': '${orderObj.productObj.subtotal}',
+                    'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
+                    }
+                    <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
+                </isif>
+            </isloop>
                ]
-			}
-		}
+            }
+        }
   }
-				<isif condition= "${loopStatus.index < pdict.gtm.orderConfirmation.length-1}">,</isif>
-	         </isloop>
-		);
+                <isif condition= "${loopStatus.index < pdict.gtm.orderConfirmation.length-1}">,</isif>
+             </isloop>
+        );
 </isif>
-	
+    
 </script>
