@@ -132,7 +132,7 @@ function updateShippingAddressFormValues(shipping) {
 
         if (countryCode && typeof countryCode === 'object') {
             $('select[name$=_country]', form).val(addressObject.countryCode.value);
-        } else {
+        } else if (addressObject.countryCode && addressObject.countryCode !== '') {
             $('select[name$=_country]', form).val(addressObject.countryCode);
         }
 
@@ -1088,6 +1088,14 @@ module.exports = {
                 $(form).find('.gift-message').addClass('d-none');
                 $(form).find('.gift-message').val('');
             }
+        });
+    },
+
+    trimSpaces: function() {
+        $('.shipping-email').keyup(function() {
+            var $emailAddress = $(this).val();      
+            $emailAddress = $.trim($emailAddress);
+            $(this).val($emailAddress);
         });
     }
 };

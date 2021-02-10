@@ -36,11 +36,13 @@ function extend(target, source) {
  * @param currentCustomer
  * @param addressModel
  * @param orderModel
+ * @param defaultShipment
  * @returns
  */
-function shipping(shipment, address, customer, containerView) {
-    var shippingModel = new Shipping(shipment, address, customer, containerView);
+function shipping(shipment, address, customer, containerView, defaultShipment) {
+    var shippingModel = new Shipping(shipment, address, customer, containerView, defaultShipment);
     var companyName = shippingCustomHelper.getCompanyName(shipment, customer);
+    var updatedApplicableShipppingMethods = shippingCustomHelper.getshippingMethodsWithUpgradesPrecedence(shippingModel.applicableShippingMethods, shippingModel.selectedShippingMethod, defaultShipment);
     var shippingAddress;
     var shippingObj;
 
@@ -51,6 +53,8 @@ function shipping(shipment, address, customer, containerView) {
     }
 
     shippingObj = extend(shippingModel, {
+        applicableShippingMethods: updatedApplicableShipppingMethods.applicableShippingMethods,
+        selectedShippingMethod: updatedApplicableShipppingMethods.selectedShippingMethod,
     	matchingAddressId: shippingCustomHelper.getAssociatedAddress(shipment, customer),
     	shippingAddress: shippingAddress
     });

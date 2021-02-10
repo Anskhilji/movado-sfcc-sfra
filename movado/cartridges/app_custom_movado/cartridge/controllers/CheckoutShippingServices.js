@@ -75,7 +75,7 @@ server.replace('UpdateShippingMethodsList', server.middleware.https, function (r
 
     var basketModel = new OrderModel(
         currentBasket,
-        { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+        { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket', defaultShipment: true }
     );
 
     res.json({
@@ -375,7 +375,7 @@ server.replace('SelectShippingMethod', server.middleware.https, function (req, r
 
         var basketModel = new OrderModel(
             currentBasket,
-            { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+            { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket', defaultShipment: false }
         );
 
         res.json({

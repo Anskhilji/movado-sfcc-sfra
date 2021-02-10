@@ -223,6 +223,26 @@ function updatePageURLForSortRule(href) {
 }
 
 /**
+ * Replace URL params
+ *
+ * @param {string} url - url
+ * @param {string} paramName - paramter name to be replaced
+ * @param {string} paramValue - paramter value to be replaced
+ * @return {undefined}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(pattern)>=0 ) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl;
+}
+
+/**
  * Adds page start and size to page URL for show more
  *
  * @param {string} url - facet AJAX URL
@@ -426,13 +446,24 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
 
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
+               
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: e.currentTarget.href + currentSelectedSortId
                     },
                     method: 'GET',
                     success: function (response) {
@@ -440,7 +471,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
@@ -468,13 +499,24 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: filtersURL 
                     },
                     method: 'GET',
                     success: function (response) {
@@ -482,7 +524,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseMobileResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();

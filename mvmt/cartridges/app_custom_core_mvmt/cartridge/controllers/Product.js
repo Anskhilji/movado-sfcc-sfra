@@ -4,9 +4,12 @@ var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+
 var page = module.superModule;
-var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ProductFactory = require('*/cartridge/scripts/factories/product');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
@@ -22,34 +25,32 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var product = viewData.product;
     var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
-    var explicitRecommendations = [];
     var relativeURL;
     var defaultVariant = apiProduct.variationModel.defaultVariant;
 
-    if (defaultVariant && apiProduct.master && defaultVariant.getAvailabilityModel().inStock) {
+    if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
         var pid = apiProduct.variationModel.defaultVariant.getID();
         params.pid = pid;
         apiProduct = ProductMgr.getProduct(pid);
     }
 
     var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
-    
+
     /* get recommendedProducts for product*/
     if (product) {
-        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.id);
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
-
     }
 
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
-        explicitRecommendations: explicitRecommendations,
         relativeURL: relativeURL,
+        caseDiameter: caseDiameter,
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         resources: showProductPageHelperResult.resources,
         breadcrumbs: showProductPageHelperResult.breadcrumbs
     };
-    
+
     var marketingProductsData = [];
     var quantity = 0;
     marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
@@ -69,22 +70,19 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 server.prepend('Variation', function (req, res, next) {
     var attributeContext;
     var attributeTemplateLinked;
-    var explicitRecommendations = [];
     var recommendedProductTemplate;
-    var pid = req.querystring.pid;
+    var params = req.querystring;
     var isStrapAjax = req.querystring.isStrapAjax;
-    
-    /* get recommendedProducts for product*/
-    if (pid) {
-        explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
-    }
-    
+
+    var product = ProductFactory.get(params);
+
     attributeContext = {
-        explicitRecommendations: explicitRecommendations,
+        product: product,
         isStrapAjax: isStrapAjax
     };
+
     attributeTemplateLinked = 'product/components/recommendedProducts';
-    
+
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,
             attributeTemplateLinked

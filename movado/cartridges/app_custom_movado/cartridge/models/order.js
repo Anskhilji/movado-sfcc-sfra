@@ -4,7 +4,7 @@
 var Order = module.superModule;
 var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
 var Resource = require('dw/web/Resource');
-
+var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
 /**
  * extend is use to extend super module
  * @param target - super module
@@ -120,6 +120,7 @@ function OrderModel(lineItemContainer, options) {
             shippingAddressId: orderCustomHelper.getShippingAddressId(lineItemContainer),
             customerNo: orderCustomHelper.getCustomerNo(lineItemContainer.customer),
             firstLineItem: getFirstProductLineItem(productLineItemsModel),
+            shipping: ShippingHelpers.getShippingModels(lineItemContainer, customer, options.containerView, options.defaultShipment),
             resources: {
                 toBeDeclared: Resource.msg('tax.tbd', 'cart', null)
             }

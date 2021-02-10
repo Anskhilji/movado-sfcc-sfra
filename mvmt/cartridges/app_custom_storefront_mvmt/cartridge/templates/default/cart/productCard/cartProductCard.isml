@@ -19,7 +19,7 @@
                     </div>
                     <div class="item-attributes">
                         <isloop items="${lineItem.variationAttributes}" var="attribute">
-                            <isif condition="${option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                            <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
                                 <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
                             <iselse>
                                 <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
@@ -44,7 +44,6 @@
                             </isif>
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
-                        <isinclude template="cart/productCard/cartProductCardProductPrice" />
 
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">

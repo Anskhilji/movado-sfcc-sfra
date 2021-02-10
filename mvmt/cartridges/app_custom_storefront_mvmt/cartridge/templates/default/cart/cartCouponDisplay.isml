@@ -1,5 +1,5 @@
 <div class="swell-redeem-rewards-promos">
-    <isif condition="${!empty(pdict.swellRedemption.swellRedemptionID)}">
+    <isif condition="${!empty(pdict.swellRedemption && pdict.swellRedemption.swellRedemptionID)}">
         <div class="redeem-rewards-promos swell-promotion-information col-12">
             <div class="promotion-price-adjustment swell-promotion-price-adjustment">
                 <div class="promotion-adjustment">${pdict.swellRedemption.swellRedemptionText}

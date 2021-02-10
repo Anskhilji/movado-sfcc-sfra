@@ -119,10 +119,10 @@ server.append(
     }
 );
 
-server.prepend(
+server.append(
     'Login',
     server.middleware.https,
-    csrfProtection.validateRequest,
+    csrfProtection.generateToken,
     function (req, res, next) {
         var customer;
         var legacyCustomer = false;
@@ -130,14 +130,48 @@ server.prepend(
         var password = req.form.loginPassword;
         var authenticateCustomerResult;
 
-        Transaction.wrap(function () {
+
+        var customerLoginResult = Transaction.wrap(function () {
             authenticateCustomerResult = CustomerMgr.authenticateCustomer(email, password);
+            if (authenticateCustomerResult.status !== 'AUTH_OK') {
+                var errorCodes = {
+                    ERROR_CUSTOMER_DISABLED: 'error.message.login.form',
+                    ERROR_CUSTOMER_LOCKED: 'error.message.account.locked',
+                    ERROR_CUSTOMER_NOT_FOUND: 'error.message.login.form.customer.not.found',
+                    ERROR_PASSWORD_EXPIRED: 'error.message.login.form',
+                    ERROR_PASSWORD_MISMATCH: 'error.message.login.form',
+                    ERROR_UNKNOWN: 'error.message.login.form',
+                    default: 'error.message.login.form'
+                };
+
+                var errorMessageKey = errorCodes[authenticateCustomerResult.status] || errorCodes.default;
+                var errorMessage = Resource.msg(errorMessageKey, 'login', null);
+
+
+                return {
+                    error: true,
+                    errorMessage: errorMessage,
+                    status: authenticateCustomerResult.status,
+                    authenticatedCustomer: null
+                };
+            }
+
+            return {
+                error: false
+            };
         });
-		
+
+        if (customerLoginResult.error) {
+            res.json({
+                error: [customerLoginResult.errorMessage || Resource.msg('error.message.login.form', 'login', null)]
+            });
+            return next();
+        }
+        
         customer = CustomerMgr.getCustomerByLogin(email);
         legacyCustomer = !empty(customer.profile.custom.legacyCustomer) ? customer.profile.custom.legacyCustomer : false;
         if (legacyCustomer) {
-            if (authenticateCustomerResult.status == 'AUTH_OK') {
+            if (customerLoginResult.status == 'AUTH_OK') {
                 Transaction.wrap(function () {
                     customer.profile.custom.legacyCustomer = false;
                 });
@@ -151,6 +185,7 @@ server.prepend(
                 return;
             }
         }
+
         return next();
     }
 );

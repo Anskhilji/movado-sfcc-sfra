@@ -7,7 +7,7 @@
             <div class="shop-by-collection-slide feature-list-desktop">
                 <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                     <isloop items="${menuItem.subCategories}" var="category">
-                        <a href="${category.url}"><img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" /><span>${category.name}</span> </a>
+                        <a href="${category.url}"><img alt="${category.name}" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" /><span>${category.name}</span> </a>
                     </isloop>
                 </div>
             </div>

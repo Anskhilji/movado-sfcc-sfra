@@ -1,6 +1,6 @@
 'use strict';
 
-var baseProductCustomHelper = module.superModule;
+var movadoProductCustomHelper = module.superModule;
 var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
@@ -14,41 +14,6 @@ var HashMap = require('dw/util/HashMap');
 var Constants = require('*/cartridge/scripts/util/Constants');
 
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-
-/**
- * Get explicit recommendations for product
- * @param {string} pid : The ID of Product
- * @returns {Collection} recommendationTilesList : Recommendations associated with products
- */
-function getExplicitRecommendations(pid) {
-    var apiProduct = ProductMgr.getProduct(pid);
-    var product = {};
-    var productRecommendations = apiProduct ? apiProduct.getRecommendations() : null;
-    var productTileParams = {};
-    var productType = {};
-    var recommendation;
-    var recommendationTilesList = [];
-    var productRecommendationTile = {};
-    
-    try {
-        if (productRecommendations) {
-            for (var i = 0; i < productRecommendations.length; i++) {
-                recommendation = productRecommendations[i];
-                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-                product = Object.create(null);
-                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);
-                if (apiProduct.available && apiProduct.availabilityModel.availabilityStatus != Constants.NOT_AVAILABILITY_STATUS) {
-                    productType = productHelper.getProductType(apiProduct);
-                    productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-                    recommendationTilesList.push(productRecommendationTile);
-                }
-            }
-        }
-    } catch (e) {
-        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-    }
-    return recommendationTilesList;
-}
 
 /**
  * It is used to read json data from site preferences for category object then json categoryID pass in the CatalogMgr method 
@@ -353,6 +318,22 @@ function getCollectionName(apiProduct) {
 }
 
 /**
+ * Method use to get Diameter name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }Diameter name
+ */
+function getCaseDiameter(apiProduct) {
+    var caseDiameterWatches;
+    var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    if (!empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter;
+    }
+    
+    return caseDiameterWatches;
+}
+
+/**
  * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
  * @returns {String} content asset HTML
@@ -375,14 +356,14 @@ function getPDPContentAssetHTML (apiProduct) {
     }
 }
 
-module.exports = {
-    getProductAttributes: getProductAttributes,
-    getExplicitRecommendations: getExplicitRecommendations,
-    getRefinementSwatches: getRefinementSwatches,
-    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
-    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
-    getCurrentCountry: getCurrentCountry,
-    getCollectionName: getCollectionName,
-    getGtmPromotionObject: getGtmPromotionObject,
-    getPDPContentAssetHTML : getPDPContentAssetHTML
-};
+movadoProductCustomHelper.getProductAttributes = getProductAttributes;
+movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
+movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
+movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
+movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
+movadoProductCustomHelper.getCollectionName = getCollectionName;
+movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
+movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
+movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+
+module.exports = movadoProductCustomHelper;

@@ -1,5 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
+<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
     <div class="home-email-signup"> 
@@ -60,7 +60,8 @@
         </div>
     </div>
 
-    <isif condition="${dw.system.Site.current.preferences.custom.enableCookieBanner}">
+    <isset name="enableCookieBanner" value="${!empty(dw.system.Site.current.preferences.custom.enableCookieBanner) ? dw.system.Site.current.preferences.custom.enableCookieBanner : false}" scope="page" />
+    <isif condition="${enableCookieBanner}">
         <div class="valid-cookie-warning">
             <div class="cookie-warning-messaging">
                 <iscontentasset aid="ob-uk-cookie-message"/>
