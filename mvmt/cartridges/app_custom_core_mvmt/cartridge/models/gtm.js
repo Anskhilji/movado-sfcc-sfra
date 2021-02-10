@@ -185,10 +185,10 @@ function gtmModel(req) {
         if (productArray == 0) {
             searchCount = 0;
         }
-        // Remove logic from model to render actual page type
-        //if (searchCount == 0 && pageNameJSON != null) {
-           // pageType = pageNameJSON['no-searchresult-page'];
-        //}
+
+        if (searchCount == 0 && pageNameJSON != null && empty(pageType)) {
+           pageType = pageNameJSON['no-searchresult-page'];
+        }
     }
 
     if (action.equals('order-confirm')) {
