@@ -4,8 +4,23 @@
         background-color: $footer-redesign-bg;
         padding-bottom: rem(10);
 
+        .title { 
+            &:hover, &:focus {
+                text-decoration: none;
+            }
+        }
+
         .footer-item {
-            letter-spacing: rem(0.75px);
+            letter-spacing: rem(0.75);
+            
+            h3 {
+                border-bottom: 0;
+                color:$light-black;
+                a {
+                    color:$light-black;
+                    display: block;
+                }
+            }
 
             @include media-breakpoint-up(lg) {
                 padding-left: rem(30);
@@ -235,6 +250,7 @@
             &_draggerRail {
                 background-color: $dim-gray;
                 width: rem(5);
+                margin-right: rem(10);
             }
 
             &_draggerContainer {
