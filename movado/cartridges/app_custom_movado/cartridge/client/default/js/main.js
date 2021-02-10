@@ -21,8 +21,6 @@ $(document).ready(function () {
     processInclude(require('./product/wishlistHeart'));
     processInclude(require('./utilities/swatches'));
     processInclude(require('./components/emailPopUpSubscription'));
-    processInclude(require('malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min'));
-    processInclude(require('./components/footer'));
 });
 
 require('base/components/spinner');

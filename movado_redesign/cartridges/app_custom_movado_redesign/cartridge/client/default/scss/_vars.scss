@@ -18,6 +18,12 @@ $slate-grey-light: #f5f6f8;
 $slate-grey: #A0A9BA;
 $black: #000;
 $dark-black:#060506;
+
+$footer-redesign-bg: #f1f2f5 !default;
+$sonic-silver:  #78797a !default;
+$dim-gray: #696969;
+$storm-gray: #787A8A;
+
 $font-futura-demi: futura-pt-demi, "FuturaStd-Medium", sans-serif;
 
 $heart-icon: "\F004";
@@ -45,6 +51,7 @@ $heart-icon: "\F004";
     font-weight: 400;
     font-style: normal;
 }
+$container-1366: 1366px;
 $custom-xll:1440px;
 $custom-xl:1280px;
 $custom-lg:1070px;

@@ -1,0 +1,422 @@
+.footer{
+    &-redesign {
+        background-color: $footer-redesign-bg;
+        padding-bottom: rem(10);
+
+        .footer-item {
+            letter-spacing: rem(0.75px);
+
+            @include media-breakpoint-up(lg) {
+                padding-left: rem(30);
+            }
+            @include media-breakpoint-down(md) {
+                padding: 0;
+            }
+            &.collapsible-xs {
+                
+                .title {
+                
+                    &:after {
+                        @include media-breakpoint-down(md) {
+                            content: '';
+                            width: rem(15);
+                            height: rem(15);
+                            background: url(../../images/icons/arrow-down-mobile.png) center center no-repeat;
+                            position: relative;
+                            top: rem(12);
+                        }
+                    }
+                }
+                
+                &.active {
+                    .title {
+                    
+                        &:after {
+                            @include media-breakpoint-down(md) {
+                                transform: rotate(180deg);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .content {
+            li {
+                a {
+                    font-size: rem(13);
+                }
+            }
+        }
+
+        h3 {
+            a {
+                font-family: $font-book;
+                font-size: rem(14);
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+        }
+        .store-locator-heading {
+            margin-top: rem(15);
+        }
+
+        .selectCountry,.selectLanguage {
+            width: auto;
+
+            .btn {
+                font-size: rem(13);
+                letter-spacing: normal;
+                text-transform: capitalize;
+                padding: 0;
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(12);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    font-size: rem(13);
+                }
+            }
+  
+            .content {
+                position: absolute;
+                background: $white;
+                bottom: 2.5rem;
+                width: 80%;
+                left: rem(30);
+                padding: 0;
+                border-radius: rem(5);
+                box-shadow: rem(1) rem(4) rem(8) rgba(0, 0, 0, 0.1);
+
+                @include media-breakpoint-up(sm) {
+                    width: 90%;
+                    left: rem(-15);
+                }
+                @include media-breakpoint-up(lg) {
+                    width: 80%;
+                }
+
+                &:after {
+                    content: "";
+                    width: rem(20);
+                    height: rem(20);
+                    transform: rotate(45deg);
+                    background: $white;
+                    position: absolute;
+                    z-index: 9;
+                    bottom: rem(-10);
+                    left: calc(30% - 10px);
+                    border-top-left-radius: rem(25);
+                }
+
+                .collapse-inner {
+                    max-height: rem(265);
+                    overflow-y: auto;
+                    margin: rem(10) 0;
+                }
+            }
+
+            .title {
+                font-family: $font-primary;
+                font-weight: 400;
+            }
+        }
+
+        .selectCountry {
+            min-width: rem(140);
+            .flag-icon {
+                border: none;
+                margin-right: rem(5);
+            }
+        }
+
+        .selectLanguage {
+
+            .title {
+                &:after {
+                    margin-left: rem(10);
+                }
+            }
+
+            .content {
+
+                &:after {
+                    left: auto;
+                    right: calc(17% - 10px);
+                }
+            }
+        }
+
+        .container-1366 {
+            max-width: $container-1366;
+            margin: 0 auto;
+            
+            @include media-breakpoint-up(lg) {
+                padding-left: 3rem;
+            }
+        }
+
+        .footer-signup-container {
+            .footer-newsletter-email-field {
+                height: rem(46);
+                font-family: $font-book;
+                font-size: rem(15);
+                border: rem(2) solid $sonic-silver;
+                background: transparent;
+                border-right: 0;
+            }
+            .footer-newsletter-email-button {
+                height: rem(46);
+                width: rem(46);
+                background: url(../../images/arrow_forward-24px.png) center center no-repeat;
+            }
+        }
+
+        .footerDropdown.selectors {
+            margin-top: 0;
+            width: auto;
+            text-align: center;
+
+            @include media-breakpoint-up(sm) {
+                text-align: left;
+            }
+
+            .esw-country-selector { 
+                width: auto;
+                min-width: rem(115);
+                @include media-breakpoint-up(lg) {
+                    min-width: rem(80);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    min-width: rem(115);
+                }
+                &:first-child {
+                    margin-right: rem(15);
+                    @include media-breakpoint-up(lg) {
+                        margin-right: rem(0);
+                    }
+    
+                    @include media-breakpoint-up(xl) {
+                        margin-right: rem(15);
+                    }
+                }
+            }
+        }
+
+        .flag-icon {
+            width: rem(28);
+            height: rem(20);
+            vertical-align: middle;
+        }
+
+        #dropdownCountrySelector {
+            &::after {
+                margin-left: rem(5);
+            }
+        }
+
+        .mCSB {
+
+            &_scrollTools { 
+                width: rem(16);
+
+                .mCSB_dragger {
+
+                    .mCSB_dragger_bar {
+                        display: none;
+                    }
+                }
+    
+            }
+
+            &_draggerRail {
+                background-color: $dim-gray;
+                width: rem(5);
+            }
+
+            &_draggerContainer {
+                right: rem(25);
+            }
+
+            &_inside {
+                .dropdown-item {
+                    text-align: left;
+                }
+            }
+        }
+
+        .mCSB_inside > .mCSB_container {
+            margin-right: 0;
+        }
+
+        .copyright-footer-row {
+            padding: 0;
+        }
+
+        .social-links {
+            float: left;
+            a {
+                font-size: rem(25);
+            }
+            li {
+                float: left;
+                margin: 0;
+                margin-right: rem(12);
+            }
+        }
+
+        .copyright {
+            margin-top: 0;
+            color: $storm-gray;
+            font-family: $font-medium;
+            font-size: rem(12);
+            font-weight: 600;
+            text-align: center;
+
+            @include media-breakpoint-up(sm) {
+                font-size: rem(15);
+                text-align: left;
+            }
+        }
+
+        .back-to-top {
+            bottom: rem(10);
+            right: 0;
+            position: absolute;
+
+            @include media-breakpoint-up(lg) {
+                position: relative;
+                bottom: rem(0);
+            }
+        }
+
+        .social {
+            margin-top: 0;
+        }
+
+        .UsableNetAssistive {
+            h3 {
+                font-size: rem(15);
+                font-weight: 600; 
+                text-transform: capitalize;
+            }
+        }
+
+        &-row {
+        
+            @include media-breakpoint-up(md) {
+                margin-top: rem(25);
+            }
+            @include media-breakpoint-down(md) {
+                padding-left: rem(15);
+                padding-right: rem(15);
+            }    
+        }
+    }
+
+    &-top {
+        background-color: $black;
+    
+        &-inner {
+            
+            @include media-breakpoint-up(sm) {
+                padding: rem(20) 0;
+            }
+        }
+        &-item {
+            min-width: rem(250);
+            margin-bottom: rem(40);
+            padding-left: 2rem;
+
+            &:first-child {
+                margin-top: rem(40);
+
+                @include media-breakpoint-up(sm) {
+                    margin: 0;
+                    padding: 0;
+                }
+    
+            }
+
+            @include media-breakpoint-up(sm) {
+                min-width: auto;
+                margin: 0;
+                margin-left: rem(25);
+                padding: 0;
+            }
+
+            @include media-breakpoint-up(lg) {
+                min-width: rem(250);
+                margin: 0;
+            }
+
+            &-heading {
+                display: inline-block;
+                
+                h2 {
+                    color: $white;
+                    font-family: $font-fotter;
+                    font-size: rem(14);
+                    margin: 0;
+                    margin-left: rem(15);
+
+                    @include media-breakpoint-up(sm) {
+                        margin-left: rem(5);
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        margin-left: rem(15);
+                    }
+                }
+            }
+
+            &-icon {
+                display: inline-block;
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+        &-wrapper {
+            flex-wrap: wrap;
+
+            @include media-breakpoint-up(sm) {
+                flex-wrap: nowrap;
+            }
+        }
+    }
+
+    &-item {
+        letter-spacing: 1.75px;
+        @include media-breakpoint-down(md) {
+            flex: 1;
+        }
+
+        @include media-breakpoint-down(xs) {
+            flex: auto;
+        } 
+
+        &-singup {
+            @include media-breakpoint-down(md) {
+                flex: 2;
+            }  
+            @include media-breakpoint-down(xs) {
+                flex: auto;
+            } 
+        }
+        @include media-breakpoint-down(sm) {
+            margin-top: rem(12);
+        }
+    
+        h3 {
+            color:$light-black;
+            a{
+                color:$light-black;
+                display: block;
+            }
+        }
+    }
+}
