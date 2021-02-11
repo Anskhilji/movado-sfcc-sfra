@@ -438,21 +438,7 @@ var scrollAnimate = __webpack_require__(11);
                     $('body').trigger('checkout:disableButton', '.next-step-button button');
 
                     if ($('.payment-details .amazon-pay-option').length) {
-                        
-                        $.ajax({
-                            url: $('.place-order').data('prepare'),
-                            method: 'GET',
-                            success: function (data) {
-                                // Redirect to AmazonPay
-                                if (data.success) {
-                                    window.location.replace($('.place-order').data('action'));
-                                } else if (data.redirectUrl) {
-                                // Redirect on error case
-                                    window.location.replace(data.redirectUrl);
-                                }
-                                
-                            }
-                        });
+                        window.location.replace($('.place-order').data('action'));
                     }
 
                     $.ajax({
