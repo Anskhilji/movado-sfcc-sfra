@@ -18,8 +18,8 @@
                 </div>
             </isif>
         </div>
-        <div class="row  footer-redesign-row justify-content-center">
-            <div class="footer-item col-lg-3  collapsible-xs">
+        <div class="row footer-redesign-row justify-content-center">
+            <div class="footer-item col-lg-3 collapsible-xs">
                 <iscontentasset aid="ca-footer-support" />
             </div>
             <div class="footer-item col-lg-3 collapsible-xs">

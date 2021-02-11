@@ -15,9 +15,9 @@
             
             h3 {
                 border-bottom: 0;
-                color:$light-black;
+                color: $light-black;
                 a {
-                    color:$light-black;
+                    color: $light-black;
                     display: block;
                 }
             }
@@ -407,7 +407,8 @@
     }
 
     &-item {
-        letter-spacing: 1.75px;
+        letter-spacing: rem(1.75);
+
         @include media-breakpoint-down(md) {
             flex: 1;
         }
@@ -429,9 +430,9 @@
         }
     
         h3 {
-            color:$light-black;
-            a{
-                color:$light-black;
+            color: $light-black;
+            a {
+                color: $light-black;
                 display: block;
             }
         }
