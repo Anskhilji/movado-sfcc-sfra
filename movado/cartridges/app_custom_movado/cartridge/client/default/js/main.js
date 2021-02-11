@@ -23,20 +23,5 @@ $(document).ready(function () {
     processInclude(require('./components/emailPopUpSubscription'));
 });
 
-
-$('.plp-show-more .show-more-results').on('click', function() {
-    var $pageSize = $(this).data('page-number');
-    var $plpName =  $(this).data('category-id');
-
-    if ($pageSize !== undefined) {
-        dataLayer.push({
-          event: 'Load More Results',
-          eventCategory: 'Load More Results - See More',
-          eventAction: $plpName,
-          eventLabel: $pageSize
-        });
-    }
-});
-
 require('base/components/spinner');
 window.slickSlider = require('./components/slickCarousel');

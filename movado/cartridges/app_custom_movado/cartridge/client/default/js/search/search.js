@@ -321,7 +321,19 @@ module.exports = {
         // Show more products
         $('.container').on('click', '.show-more button', function (e) {
             e.stopPropagation();
+
+            //push data on ga tracking
             var showMoreUrl = $(this).data('url');
+            var $pageSize = $(this).data('page-number');
+            var $plpName =  $(this).data('category-id');
+            if ($pageSize !== undefined && $plpName !==undefined) {
+                dataLayer.push({
+                    event: 'Load More Results',
+                    eventCategory: 'Load More Results - See More',
+                    eventAction: $plpName,
+                    eventLabel: $pageSize
+                });
+            }
 
             e.preventDefault();
 
@@ -352,6 +364,18 @@ module.exports = {
         // Show more products
     	$('.container').on('click', '.show-pagination button', function (e) {
         e.stopPropagation();
+
+        //push data on ga tracking
+        var $pageSize = $(this).data('page-size');
+        var $pageNumber =  $(this).data('page-number');
+        if ($pageNumber !== undefined && $pageNumber !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $pageNumber,
+                eventLabel: $pageSize
+            });
+        }
         var showMoreUrl = $(this).data('url');
 
         e.preventDefault();

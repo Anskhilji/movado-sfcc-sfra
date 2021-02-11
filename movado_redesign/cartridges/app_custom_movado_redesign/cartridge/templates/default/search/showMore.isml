@@ -18,8 +18,6 @@
             <div class="text-center">
                 <button class="btn btn-outline-primary show-more-results col-12 col-sm-6 col-md-4"
                         data-url="${pdict.productSearch.showMoreUrl}"
-                        data-page-size="${pdict.productSearch.pageSize}"
-                        data-product-count="${pdict.productSearch.count}"
                         data-page-number="${pdict.productSearch.pageNumber}"
                         data-category-id="${pdict.productSearch.category.id}"
                 >
