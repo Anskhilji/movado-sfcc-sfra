@@ -16,7 +16,7 @@
         </div>
         <div class="plp-show-more">
             <div class="text-center">
-                <button class="btn btn-outline-primary show-more-results col-12 col-sm-6 col-md-4"
+                <button class="btn btn-outline-primary col-12 col-sm-6 col-md-4"
                         data-url="${pdict.productSearch.showMoreUrl}"
                         data-page-number="${pdict.productSearch.pageNumber}"
                         data-category-id="${pdict.productSearch.category.id}"

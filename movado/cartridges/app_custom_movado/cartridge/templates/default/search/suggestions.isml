@@ -1,4 +1,4 @@
-<div class="suggestions product-search-suggestions">
+<div class="suggestions">
     <div class="container">
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.phrases.length>0 && pdict.suggestions.didYouMeanPresence}">
@@ -10,7 +10,7 @@
                     <div class="col-12 item term">
                         <div class="row">
                             <div class="col-xs-12 searched-text col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a class="searched-text" href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
+                                <a class="product-serach-container" href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
                                     ${phrase.value}
                                 </a>
                             </div>
@@ -54,10 +54,10 @@
                 <isloop items="${pdict.suggestions.category.categories}" var="category">
                     <div class="col-12 item">
                         <div class="row">
-                            <div class="col-12 searched-text name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a class="searched-text" href="${category.url}">${category.name}
+                            <div class="col-12 name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                <a href="${category.url}">${category.name}
                                     <isif condition="${category.parentID !== 'root'}">
-                                        <span class="category-parent searched-text"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
+                                        <span class="category-parent searched-text product-serach-container"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
                                     </isif>
                                 </a>
                             </div>
@@ -77,8 +77,8 @@
                 <isloop items="${pdict.suggestions.collection.categories}" var="collection">
                     <div class="col-12 item">
                         <div class="row">
-                            <div class="col-12 searched-text  name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpReferer}"}'>
-                                <a class="searched-text" href="${collection.url}">${collection.name}</a>
+                            <div class="col-12 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpReferer}"}'>
+                                <a class="product-serach-container" href="${collection.url}">${collection.name}</a>
                             </div>
                         </div>
                     </div>
