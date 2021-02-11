@@ -22,16 +22,6 @@
     </div>
 </isif>
 <isif condition="${pdict.paypalerror && pdict.paypalerror === 'true'}">
-    <isif condition="${pdict.lastNameNotValid && pdict.lastNameNotValid === 'true'}">
-        <div class="container cart-error-messaging cart-error mt-2">
-            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                ${Resource.msg('cart.paypal.lastname.error', 'cart', null)}
-            </div>
-        </div>
-    </isif>
     <isif condition="${pdict.firstNameNotValid && pdict.firstNameNotValid === 'true'}">
         <div class="container cart-error-messaging cart-error mt-2">
             <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
@@ -39,6 +29,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 ${Resource.msg('cart.paypal.firstname.error', 'cart', null)}
+            </div>
+        </div>
+    </isif>
+    <isif condition="${pdict.lastNameNotValid && pdict.lastNameNotValid === 'true'}">
+        <div class="container cart-error-messaging cart-error mt-2">
+            <div class="alert card alert-dismissible valid-cart-error fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                ${Resource.msg('cart.paypal.lastname.error', 'cart', null)}
             </div>
         </div>
     </isif>
