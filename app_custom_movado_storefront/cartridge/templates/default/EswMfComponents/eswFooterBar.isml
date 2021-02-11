@@ -5,7 +5,7 @@
     <div class="selectors selector-container footerDropdown">
         <isif condition=${pdict.EswFooterObject.enabledCountriesInFooter}>
             <div class="esw-country-selector selectCountry collapsible-xl"  data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
-                <a class="btn title" href="" id="dropdownCountrySelector" aria-expanded="false">
+                <a class="btn title" href="#" id="dropdownCountrySelector" aria-expanded="false">
                     <i class="flag-icon flag-icon-${pdict.EswFooterObject.selectedCountry.toLowerCase()}"></i>
                     ${pdict.EswFooterObject.selectedCountryName}
                 </a>
@@ -22,7 +22,7 @@
         </isif>
         <isif condition=${pdict.EswFooterObject.enabledLanguagesInFooter}>
             <div class="collapsible-xl esw-country-selector selectLanguage" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
-                <a class="btn title" href="" id="dropdownLangSelector" aria-expanded="false">
+                <a class="btn title" href="#" id="dropdownLangSelector" aria-expanded="false">
                     ${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}
                 </a>
                 <div class="content language-dropdown" aria-labelledby="dropdownCountrySelector">
