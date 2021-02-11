@@ -16,6 +16,7 @@
         'userFirstName': '${pdict.gtm.userFirstName}',
         'userLastName': '${pdict.gtm.userLastName}',
         'userPhone': '${pdict.gtm.userPhone}',
+        'searchTerm': '${pdict.gtm.searchTerm}', 
         'userZip': '${pdict.gtm.userZip}',
         'currencyCode': '${pdict.gtm.currencyCode}',
         'logState': '${pdict.gtm.loginStatus}',
