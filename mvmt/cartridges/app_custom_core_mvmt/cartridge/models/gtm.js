@@ -148,6 +148,8 @@ function gtmModel(req) {
             var primarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.primaryCategory) : '';
             var secondarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.secondaryCategory) : '';
             secondarySiteSection = (!empty(secondarySiteSection)) ? '|' + secondarySiteSection : '';
+            var departmentCategoryName = primarySiteSection + secondarySiteSection;
+            departmentCategoryName = (!empty(departmentCategoryName)) ? departmentCategoryName : primarySiteSection;
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
@@ -168,7 +170,7 @@ function gtmModel(req) {
                     variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : '',
                     currency: productImpressionTags && productImpressionTags.currency ? productImpressionTags.currency : '',
                     // Custom start: Added secoundary category if exist and quantity on product on pdp
-                    deparmentIncludedCategoryName: primarySiteSection + secondarySiteSection,
+                    deparmentIncludedCategoryName: departmentCategoryName,
                     quantity: '1'
                     // Custom End
                 };
