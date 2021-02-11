@@ -309,20 +309,7 @@ var scrollAnimate = require('base/components/scrollAnimate');
                     $('body').trigger('checkout:disableButton', '.next-step-button button');
 
                     if ($('.payment-details .amazon-pay-option').length) {
-                        // Validate and create order preemptively
-                        $.ajax({
-                            url: $('.place-order').data('prepare'),
-                            method: 'GET',
-                            success: function (data) {
-                                if (data.success) {
-                                    // Redirect to AmazonPay
-                                    window.location.replace($('.place-order').data('action'));
-                                } else if (data.redirectUrl) {
-                                    // Redirect on error case
-                                    window.location.replace(data.redirectUrl);
-                                }
-                            }
-                        });
+                        window.location.replace($('.place-order').data('action'));
                     }
 
                     $.ajax({
