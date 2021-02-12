@@ -326,8 +326,9 @@ function getCaseDiameter(apiProduct) {
     var caseDiameterWatches;
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    var caseDiameterUnit = Constants.MM_UNIT;
     if (!empty(caseDiameter)) {
-        caseDiameterWatches = caseDiameterHyphen + caseDiameter;
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
     }
     
     return caseDiameterWatches;
