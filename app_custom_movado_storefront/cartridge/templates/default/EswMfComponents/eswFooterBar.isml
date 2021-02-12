@@ -7,7 +7,7 @@
             <div class="esw-country-selector selectCountry collapsible-xl"  data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
                 <a class="btn title" href="#" id="dropdownCountrySelector" aria-expanded="false">
                     <i class="flag-icon flag-icon-${pdict.EswFooterObject.selectedCountry.toLowerCase()}"></i>
-                    ${pdict.EswFooterObject.selectedCountryName}
+                    <span>${pdict.EswFooterObject.selectedCountryName}</span>
                 </a>
                 <div class="content">
                     <div class="collapse-inner mCustomScrollbar">
@@ -23,7 +23,7 @@
         <isif condition=${pdict.EswFooterObject.enabledLanguagesInFooter}>
             <div class="collapsible-xl esw-country-selector selectLanguage" data-url="${URLUtils.url('Page-SetLocale')}" tabindex="0">
                 <a class="btn title" href="#" id="dropdownLangSelector" aria-expanded="false">
-                    ${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}
+                   <span> ${Resource.msg('esw.locale.'+request.getLocale(),'esw',null)}</span>
                 </a>
                 <div class="content language-dropdown" aria-labelledby="dropdownCountrySelector">
                     <div class="collapse-inner mCustomScrollbar">
