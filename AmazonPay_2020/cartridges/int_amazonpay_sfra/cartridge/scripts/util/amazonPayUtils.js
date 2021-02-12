@@ -226,11 +226,8 @@ AmazonPayUtils.generateAuthorizationHeader = function (httpRequestMethod, canoni
     return authorizationHeader;
 };
 
-/**
- * @param {LineItemCtnr} lineItemCtnr which contains the price: Order or Basket
- */
-AmazonPayUtils.getPaymentDetail = function (lineItemCtnr) {
-    var grossPrice = lineItemCtnr ? lineItemCtnr.getTotalGrossPrice() : null;
+AmazonPayUtils.getPaymentDetail = function (basket) {
+    var grossPrice = basket ? basket.getTotalGrossPrice() : null;
     var paymentDetail = {
         chargeAmount: {
             amount: grossPrice && grossPrice.value ? grossPrice.value.toString() : '',
