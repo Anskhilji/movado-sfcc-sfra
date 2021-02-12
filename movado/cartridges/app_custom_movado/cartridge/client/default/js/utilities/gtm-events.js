@@ -377,7 +377,7 @@ var updateCheckoutStage = function () {
              checkoutStep = '3';
              pageDataGTM.pageType = 'Checkout – Billing';
              dataLayer.push({ pageData: pageDataGTM});
-        	 onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep - 1, shippingMethod);
          break;
      case 'placeOrder':
              checkoutStep = '4';
