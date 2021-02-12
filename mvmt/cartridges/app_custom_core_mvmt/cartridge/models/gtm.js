@@ -142,8 +142,8 @@ function gtmModel(req) {
                     productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
                     brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
                     productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
-                    category: productImpressionTags && productImpressionTags.customCategory ? productImpressionTags.customCategory : '',
-                    currentCategory: primarySiteSection,
+                    category: stringUtils.removeSingleQuotes(productImpressionTags && productImpressionTags.customCategory) ? productImpressionTags.customCategory : '',
+                    currentCategory: stringUtils.removeSingleQuotes(primarySiteSection),
                     productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
                     list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
                     Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
@@ -543,7 +543,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         if (!empty(productObj.custom.jewelryType)) {
             jewelryType = productObj.custom.jewelryType;
         }
-        var customCategory = watchGender + " " + jewelryType;
+        var customCategory = stringUtils.removeSingleQuotes(watchGender + " " + jewelryType);
         var productName = stringUtils.removeSingleQuotes(productObj.name);
         var brand = stringUtils.removeSingleQuotes(productObj.brand);
         var productPersonalization = '';
