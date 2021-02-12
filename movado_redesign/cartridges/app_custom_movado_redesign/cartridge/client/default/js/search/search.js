@@ -339,8 +339,8 @@ module.exports = {
 
             //push data on ga tracking
             var $pageSize = $(this).data('page-number');
-            var $plpName =  $(this).data('category-id');
-            if ($pageSize !== undefined && $plpName !==undefined) {
+            var $plpName = $(this).data('category-id');
+            if ($pageSize !== undefined && $plpName !== undefined) {
                 dataLayer.push({
                     event: 'Load More Results',
                     eventCategory: 'Load More Results - See More',
@@ -381,8 +381,8 @@ module.exports = {
 
         //push data on ga tracking
         var $pageSize = $(this).data('page-size');
-        var $pageNumber =  $(this).data('page-number');
-        if ($pageNumber !== undefined && $pageNumber !==undefined) {
+        var $pageNumber = $(this).data('page-number');
+        if ($pageNumber !== undefined && $pageNumber !== undefined) {
             dataLayer.push({
                 event: 'Pagination',
                 eventCategory: 'Load More Results - Pagination',
