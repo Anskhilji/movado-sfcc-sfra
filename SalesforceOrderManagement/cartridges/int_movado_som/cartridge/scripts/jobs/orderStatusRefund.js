@@ -31,7 +31,7 @@ function processStatusRefund(SAPOrderStatus, fulfillmentOrder) {
 
         // SAP expects 9999 for shipping line item
         var poItemNumber = parseInt(orderStatusItem.POItemNumber);
-        if (poItemNumber == 9999) {
+        if (poItemNumber === 9999) {
             poItemNumber = 1000;
         }
 
