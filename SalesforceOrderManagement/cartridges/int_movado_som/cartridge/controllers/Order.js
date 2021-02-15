@@ -6,6 +6,7 @@ var URLUtils = require('dw/web/URLUtils');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Money = require('dw/value/Money');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
@@ -23,7 +24,8 @@ server.replace(
         var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
         var orders = SalesforceModel.getOrdersByCustomerEmail({
-            emailAddress: emailAddress
+            emailAddress: emailAddress,
+            salesChannel: Site.getCurrent().getID()
         });
 
         var breadcrumbs = [
