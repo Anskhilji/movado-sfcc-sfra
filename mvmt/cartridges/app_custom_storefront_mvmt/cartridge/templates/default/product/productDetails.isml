@@ -85,7 +85,7 @@
                     </iscomment>
                     <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
-                    <h1 class="product-name text-uppercase">${product.productName}</h1>
+                    <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
 
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >

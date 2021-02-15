@@ -6,7 +6,7 @@
 <footer class="ob-footer">
     <div class="footer-redesign">
         <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
-            <div class="footer-redesign-container row">
+            <div class="footer-redesign-container ob-footer-container row">
                 <div class="footer-item col-sm-12 col-md-4 store ">
                     <div class="footer-item-sub-items">
                         <div class="footer-item-social-icons hidden-sm-down">
