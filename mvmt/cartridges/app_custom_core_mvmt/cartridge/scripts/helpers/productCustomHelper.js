@@ -324,8 +324,12 @@ function getCollectionName(apiProduct) {
  */
 function getCaseDiameter(apiProduct) {
     var caseDiameterWatches;
+    var caseDiameterHyphen;
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
-    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    if (!empty(collectionName) && !empty(caseDiameter)) {
+        caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    }
     var caseDiameterUnit = Constants.MM_UNIT;
     if (!empty(caseDiameter)) {
         caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
