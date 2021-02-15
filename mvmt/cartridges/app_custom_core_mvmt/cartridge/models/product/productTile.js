@@ -168,7 +168,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 
                 Object.defineProperty(product, 'defaultVariantCaseDiameter', {
                     enumerable: true,
-                    value: !empty(defaultVariant.custom.caseDiameter) ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + defaultVariant.custom.caseDiameter : ''
+                    value: !empty(defaultVariant.custom.caseDiameter) ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + defaultVariant.custom.caseDiameter + Constants.MM_UNIT : ''
                 });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
