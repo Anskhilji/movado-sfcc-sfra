@@ -166,9 +166,19 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
                 });
                 
+                var variant = apiProduct.variationModel.defaultVariant;
+                var variantCaseDiameter = '';
+                var caseDiameter = !empty(variant.custom.caseDiameter) ? variant.custom.caseDiameter : '';
+                var familyName = !empty(variant.custom.familyName) ? variant.custom.familyName[0] : '';
+                if (!empty(familyName) && !empty(caseDiameter)) {
+                    variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + caseDiameter + Constants.MM_UNIT;
+                } else if (!empty(caseDiameter)) {
+                    variantCaseDiameter = caseDiameter + Constants.MM_UNIT;
+                }
+                
                 Object.defineProperty(product, 'defaultVariantCaseDiameter', {
                     enumerable: true,
-                    value: !empty(defaultVariant.custom.caseDiameter) ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + defaultVariant.custom.caseDiameter + Constants.MM_UNIT : ''
+                    value: !empty(variantCaseDiameter) ? variantCaseDiameter : ''
                 });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
