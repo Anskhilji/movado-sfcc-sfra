@@ -310,6 +310,18 @@ module.exports = {
             e.preventDefault();
 
             $.spinner().start();
+
+            // Push Data into gtm For Sorting Rules Filters
+            var $filteredText = $(this).find(':selected').text().trim();
+            if ($filteredText !==undefined) {
+                dataLayer.push({
+                    event: 'Collection Filtering',
+                    eventCategory: 'Collection Filter',
+                    eventAction: 'Open Filter Category',
+                    eventLabel: $filteredText
+                  });
+            }
+
             $(this).trigger('search:sort', this.value);
             $.ajax({
                 url: this.value,
@@ -340,12 +352,14 @@ module.exports = {
             //push data on ga tracking
             var $pageSize = $(this).data('page-number');
             var $plpName = $(this).data('category-id');
+            var $counter = 1;
+            var $pageCounter = $pageSize + $counter;
             if ($pageSize !== undefined && $plpName !== undefined) {
                 dataLayer.push({
                     event: 'Load More Results',
                     eventCategory: 'Load More Results - See More',
                     eventAction: $plpName,
-                    eventLabel: $pageSize
+                    eventLabel: $pageCounter
                 });
             }
 
