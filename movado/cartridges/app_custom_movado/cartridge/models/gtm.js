@@ -767,7 +767,7 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
     var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
     if (queryString.indexOf('&') >= 0) {
         searchArray = queryString.split('&');
-        if (searchArray.length != 0 && googleAnalyticsRequiredParameters.length != 0){
+        if (searchArray.length != 0 && googleAnalyticsRequiredParameters && googleAnalyticsRequiredParameters.length != 0){
             for (var j = 0; j < googleAnalyticsRequiredParameters.length; j++) {
                 for (var i = 0 ; i < searchArray.length; i++) {
                     googleAnalyticsParameter = searchArray[i].split('=');

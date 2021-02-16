@@ -121,7 +121,6 @@ function addressValidation(currentBasket, addressform) {
  * @returns
  */
 function formsValidation(currentBasket, formData) {
-    var deliveryValidationFail = false;
     var firstName = '';
     var lastName = '';
     var city = '';
@@ -250,6 +249,49 @@ function isAllowedCountryCode(countryCode) {
     return false;
 }
 
+/**
+ * get errors from paypal response 
+ * @params {Object} queryString - object containing query parameters
+ * @returns {array} paypalerrors - array containing all errors messages
+ */
+function getPaypalErrors(queryString) {
+    var Resource = require('dw/web/Resource');
+    var paypalerrors = [];
+    if (!empty(queryString) && !empty(queryString.paypalerror)){
+        if (queryString.firstName &&  queryString.firstName == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.firstname.error', 'cart', null));
+        }
+        if (queryString.lastName && queryString.lastName == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.lastname.error', 'cart', null));
+        }
+        if(queryString.city && queryString.city == 'true') {
+            paypalerrors.put(Resource.msg('cart.paypal.city.error', 'cart', null));
+        } 
+        if (queryString.email && queryString.email == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.email.error', 'cart', null))
+        }
+        if (queryString.address1 && queryString.address1 == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.address.error', 'cart', null));
+        }
+        if (queryString.billingAddressCity && queryString.billingAddressCity == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.city.error', 'cart', 'null'));
+        }
+        if(queryString.billingAddressCountry && queryString.billingAddressCountry == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.country.error', 'cart', null));
+        }
+        if (queryString.billingAddressState && queryString.billingAddressState == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.address.state.not.valid.error', 'cart', null));
+        }
+        if (queryString.billingAddressStateOrProvince && queryString.billingAddressStateOrProvince == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.address.province.error', 'cart', null));
+        }
+        if (queryString.postalCode && queryString.postalCode == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.postalCode.error', 'cart', null));
+        }
+    }
+    return paypalerrors;
+}
+
 
 module.exports.preValidations = preValidations;
 module.exports.splitAndSetAddress = splitAndSetAddress;
@@ -259,3 +301,4 @@ module.exports.fetchValidatedFields = fetchValidatedFields;
 module.exports.formsValidation = formsValidation;
 module.exports.comparePoBox = comparePoBox;
 module.exports.isAllowedCountryCode = isAllowedCountryCode;
+module.exports.getPaypalErrors = getPaypalErrors;

@@ -172,6 +172,7 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+        var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
@@ -246,20 +247,11 @@ server.append(
             cartItemObj: cartItems,
             marketingProductData : marketingProductsData
         });
-
+        var paypalerrors = aydenExpressPaypalHelper.getPaypalErrors(req.querystring);
         if (!empty(req.querystring.paypalerror)) {
             res.setViewData({ 
                 paypalerror: req.querystring.paypalerror,
-                firstNameNotValid: req.querystring.firstName,
-                lastNameNotValid: req.querystring.lastName,
-                cityNotValid: req.querystring.city,
-                emailNotValid: req.querystring.email,
-                addressNotValid: req.querystring.address1,
-                billingAddressCityNotValid: req.querystring.billingAddressCity,
-                billingAddressCountryNotValid: req.querystring.billingAddressCountry,
-                billingAddressStateNotValid: req.querystring.billingAddressState,
-                billingAddressStateOrProvinceNotValid: req.querystring.billingAddressStateOrProvince,
-                postalCodeNotValidNotValid: req.querystring.postalCode
+                paypalerrors: paypalerrors
              });
         }
 
