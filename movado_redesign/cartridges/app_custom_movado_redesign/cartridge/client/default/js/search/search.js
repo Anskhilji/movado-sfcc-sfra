@@ -382,6 +382,7 @@ module.exports = {
         //push data on ga tracking
         var $pageSize = $(this).data('page-size');
         var $pageNumber = $(this).data('page-number');
+        
         if ($pageNumber !== undefined && $pageNumber !== undefined) {
             dataLayer.push({
                 event: 'Pagination',
@@ -427,6 +428,15 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                //push data into datalayer for filters into gtm
+                var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+                dataLayer.push({
+                    event: 'Filter Sort',
+                    eventCategory: 'Filter & Sort',
+                    eventAction: $filterType,
+                    eventLabel: $(this).text().trim()
+                });
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
