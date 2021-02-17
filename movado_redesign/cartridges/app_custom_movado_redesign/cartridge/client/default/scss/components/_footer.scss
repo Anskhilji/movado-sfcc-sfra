@@ -154,7 +154,7 @@
         }
 
         .selectCountry {
-            min-width: rem(140);
+            min-width: rem(155);
             &.active {
                 span {
                     &::after, &::before {
@@ -199,9 +199,15 @@
             @include media-breakpoint-up(lg) {
                 padding-left: 3rem;
             }
+
+            @include media-breakpoint-up(xl) {
+                padding-right: 2rem;
+            }
         }
 
         .footer-signup-container {
+            max-width: none;
+
             .footer-newsletter-email-field {
                 height: rem(46) !important;
                 font-family: $font-book;
@@ -244,25 +250,8 @@
 
             .esw-country-selector { 
                 width: auto;
-                min-width: rem(115);
-                @include media-breakpoint-up(lg) {
-                    min-width: rem(80);
-                }
 
-                @include media-breakpoint-up(xl) {
-                    min-width: rem(115);
-                }
-                &:first-child {
-                    margin-right: rem(20);
-
-                    @include media-breakpoint-up(lg) {
-                        margin-right: rem(10);
-                    }
-    
-                    @include media-breakpoint-up(xl) {
-                        margin-right: rem(15);
-                    }
-                }
+                margin-right: rem(10);
             }
         }
 
@@ -332,6 +321,15 @@
 
         .social-links {
             float: left;
+            @include media-breakpoint-up(lg) {
+                padding-left: rem(10);
+            }
+
+            @include media-breakpoint-up(xl) {
+                margin-left: rem(10);
+                padding-left: 0;
+            }
+
             a {
                 font-size: rem(25);
             }
