@@ -266,7 +266,7 @@ function getPaypalErrors(queryString) {
             paypalerrors.push(Resource.msg('cart.paypal.lastname.error', 'cart', null));
         }
         if(queryString.city && queryString.city == 'true') {
-            paypalerrors.put(Resource.msg('cart.paypal.city.error', 'cart', null));
+            paypalerrors.push(Resource.msg('cart.paypal.city.error', 'cart', null));
         } 
         if (queryString.email && queryString.email == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.email.error', 'cart', null))
