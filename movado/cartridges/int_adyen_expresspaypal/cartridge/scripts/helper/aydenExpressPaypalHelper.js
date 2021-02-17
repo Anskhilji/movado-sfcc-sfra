@@ -257,8 +257,7 @@ function isAllowedCountryCode(countryCode) {
 function getPaypalErrors(queryString) {
     var Resource = require('dw/web/Resource');
     var paypalerrors = [];
-    if (!empty(queryString) && !empty(queryString.paypalerror)) {
-        paypalerrors.push(Resource.msg('cart.paypal.error', 'cart', null));
+    if (!empty(queryString)) {
         if (queryString.firstName &&  queryString.firstName == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.firstname.error', 'cart', null));
         }
@@ -291,6 +290,10 @@ function getPaypalErrors(queryString) {
         }
         if (queryString.phoneNumber && queryString.phoneNumber == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.billing.phone.error', 'cart', null));
+        }
+    } else {
+        if (!empty(queryString.paypalerror)) {
+            paypalerrors.push(Resource.msg('cart.paypal.error', 'cart', null));
         }
     }
     return paypalerrors;
