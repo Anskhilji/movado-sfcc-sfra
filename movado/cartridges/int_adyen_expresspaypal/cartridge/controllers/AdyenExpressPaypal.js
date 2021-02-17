@@ -118,6 +118,7 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
         'email', shippingFormValidationFailed.email, 'billingAddressCity' , shippingFormValidationFailed.billingAddressCity,
         'billingAddressState', shippingFormValidationFailed.billingAddressState,
         'billingAddressCountry', shippingFormValidationFailed.billingAddressCountry,
+        'phoneNumber', shippingFormValidationFailed.phoneNumber,
         'billingAddressStateOrProvince', shippingFormValidationFailed.billingAddressStateOrProvince));
         return next();
     }
