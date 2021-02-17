@@ -34,7 +34,7 @@
                     <div class="container">
                         <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                             <div class="row">
-                                <div class="col-lg-9 p-0">
+                                <div class="col-lg-12 col-xl-9 p-0">
                                     <div class="input-group">
                                         <input type="text" class="form-control footer-newsletter-email-field" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
                                         <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>

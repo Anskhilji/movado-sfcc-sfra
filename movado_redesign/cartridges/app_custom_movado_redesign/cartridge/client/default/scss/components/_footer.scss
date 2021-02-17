@@ -103,12 +103,11 @@
                 right: rem(40);
                 @include media-breakpoint-up(sm) {
                     width: 90%;
-                    left: rem(-15);
                 }
                 @include media-breakpoint-up(lg) {
-                    width: 80%;
+                    width: 100%;
+                    left: rem(-15);
                 }
-
                 .collapse-inner {
                     max-height: rem(255);
                     overflow-y: auto;
@@ -137,18 +136,18 @@
                     border-width: 0.8rem .6rem 0;
                     left: 50%;
                     transform: translateX(-50%);
-                    top: rem(-17);
+                    top: rem(-15);
                     z-index: 9;
                     display: none;
                 }
 
                 &::after {
-                    bottom: rem(-12);
+                    bottom: rem(-15);
                     border-top-color: $white;
                 }
 
                 &::before {
-                    bottom: rem(-12);
+                    bottom: rem(-15);
                     border-top-color: rgba(0,0,0,.25);
                 }
             }
@@ -165,7 +164,7 @@
             }
             .flag-icon {
                 border: none;
-                margin-right: rem(10);
+                margin-right: rem(5);
             }
         }
 
@@ -237,6 +236,7 @@
             margin-top: 0;
             width: auto;
             text-align: center;
+            position: relative;
 
             @include media-breakpoint-up(sm) {
                 text-align: left;
@@ -256,7 +256,7 @@
                     margin-right: rem(20);
 
                     @include media-breakpoint-up(lg) {
-                        margin-right: rem(0);
+                        margin-right: rem(10);
                     }
     
                     @include media-breakpoint-up(xl) {
@@ -365,9 +365,9 @@
             right: 0;
             position: absolute;
 
-            @include media-breakpoint-up(lg) {
+            @include media-breakpoint-up(sm) {
                 position: relative;
-                bottom: rem(10);
+                bottom: rem(12);
                 float: none;
                 margin-left: rem(20);
             }
