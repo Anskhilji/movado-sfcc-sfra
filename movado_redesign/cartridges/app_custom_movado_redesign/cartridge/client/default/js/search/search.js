@@ -393,10 +393,31 @@ module.exports = {
     	$('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
         e.stopPropagation();
 
+
         //push data on ga tracking
+        var $Next = $('this').attr('aria-label');
+        var $Pervious = $('this').attr('aria-label');
         var $pageSize = $(this).data('page-size');
         var $pageNumber = $(this).data('page-number');
-        
+
+        if ($Next !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $Next,
+                eventLabel: $pageSize
+            });
+        }
+
+        if ($Pervious !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $Pervious,
+                eventLabel: $pageSize
+            });
+        }
+                
         if ($pageNumber !== undefined && $pageNumber !== undefined) {
             dataLayer.push({
                 event: 'Pagination',

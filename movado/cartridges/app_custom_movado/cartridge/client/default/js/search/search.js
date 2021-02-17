@@ -381,16 +381,28 @@ module.exports = {
         e.stopPropagation();
 
         //push data on ga tracking
+        var $AriaLabel = $(this).attr('aria-label');
         var $pageSize = $(this).data('page-size');
         var $pageNumber = $(this).data('page-number');
-        if ($pageNumber !== undefined && $pageNumber !== undefined) {
+
+        if ($AriaLabel !==undefined) {
             dataLayer.push({
                 event: 'Pagination',
                 eventCategory: 'Load More Results - Pagination',
-                eventAction: $pageNumber,
+                eventAction: $AriaLabel,
                 eventLabel: $pageSize
             });
+        } else {
+            if ($pageNumber !== undefined && $pageNumber !== undefined) {
+                dataLayer.push({
+                    event: 'Pagination',
+                    eventCategory: 'Load More Results - Pagination',
+                    eventAction: $pageNumber,
+                    eventLabel: $pageSize
+                });
+            }
         }
+
         var showMoreUrl = $(this).data('url');
 
         e.preventDefault();
