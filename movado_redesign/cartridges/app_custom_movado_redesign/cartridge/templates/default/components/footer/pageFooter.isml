@@ -1,14 +1,8 @@
 <isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
 <footer class="footer-redesign">
-    <div class="container-fluid footer-top">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="footer-top-inner">
-                    <iscontentasset aid="ca-footer-customer-care" />
-                </div>
-            </div>
-        </div>
-    </div>
+    <iscomment> Footer top section moved to 'fotoer top slot' </iscomment>
+    <isslot id="footer-top-slot" description="Footer top slot" context="global" />
+    
     <iscomment> container-1366 class addded, usablenet replaced  </iscomment>
     <div class="container-fluid container-1366 mb-4 mb-lg-5">
         <div class="footer-container row">
@@ -18,18 +12,18 @@
                 </div>
             </isif>
         </div>
-        <div class="row footer-redesign-row justify-content-center">
-            <div class="footer-item col-lg-3 collapsible-xs">
+        <div class="row footer-redesign-row ">
+            <div class="footer-item collapsible-xs">
                 <iscontentasset aid="ca-footer-support" />
             </div>
-            <div class="footer-item col-lg-3 collapsible-xs">
+            <div class="footer-item collapsible-xs">
                 <iscontentasset aid="ca-footer-account" />
             </div>
-            <div class="footer-item col-lg-3 collapsible-xs">
+            <div class="footer-item collapsible-xs">
                 <iscontentasset aid="ca-footer-about" />
             </div>
             <iscomment> footer-item-singup class addded  </iscomment>
-            <div class="footer-item footer-item-singup pl-lg-0 col-lg-3">
+            <div class="footer-item footer-item-singup">
                 <div class="heading-container row">
                     <div class="col-sm-12">
                     <h3><a href="javascript:void(0);" class="title text-sm-left text-center">${Resource.msg('subscribe.newsletter.heading', 'homePage', null)}</a></h3>
@@ -76,10 +70,10 @@
     <div class="container-fluid container-1366">
 
         <div class="row copyright-footer-row">
-            <div class="col-lg-9 col-sm-7 copyright-notice">
+            <div class="col-lg-8 col-sm-7 col-xl-9 copyright-notice mr-lg-5 mr-xl-0">
               <iscontentasset aid="ca-footer-copy" />
             </div>
-            <div class="col-lg-3 pl-lg-0 col-sm-5 social">
+            <div class="col-lg-3 col-sm-5 social">
                 <div class="d-none d-sm-block">
                     <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
                 </div>
