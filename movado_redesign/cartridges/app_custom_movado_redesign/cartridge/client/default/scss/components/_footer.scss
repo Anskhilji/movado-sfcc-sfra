@@ -22,9 +22,6 @@
                 }
             }
 
-            @include media-breakpoint-up(lg) {
-                padding-left: rem(30);
-            }
             @include media-breakpoint-down(md) {
                 padding: 0;
             }
@@ -207,7 +204,7 @@
 
         .footer-signup-container {
             .footer-newsletter-email-field {
-                height: rem(46);
+                height: rem(46) !important;
                 font-family: $font-book;
                 font-size: rem(15);
                 border: rem(2) solid $sonic-silver;
@@ -342,6 +339,10 @@
                 float: left;
                 margin: 0;
                 margin-right: rem(12);
+
+                &:last-child {
+                    margin: 0;
+                }
             }
         }
 
@@ -360,14 +361,19 @@
         }
 
         .back-to-top {
-            bottom: rem(10);
+            bottom: rem(30);
             right: 0;
             position: absolute;
 
             @include media-breakpoint-up(lg) {
                 position: relative;
+                bottom: rem(10);
                 float: none;
                 margin-left: rem(20);
+            }
+
+            @include media-breakpoint-up(xl) {
+                margin-left: rem(25);
             }
         }
 
@@ -390,10 +396,14 @@
             }
         }
 
-        &-row {
-        
+        &-row { 
+            justify-content: center;
             @include media-breakpoint-up(md) {
                 margin-top: rem(25);
+            }
+            @include media-breakpoint-up(lg) {
+                justify-content: space-between;
+                padding: 0 rem(20);
             }
             @include media-breakpoint-down(md) {
                 padding-left: rem(15);
@@ -404,7 +414,6 @@
 
     &-top {
         background-color: $black;
-    
         &-inner {
             
             @include media-breakpoint-up(sm) {
@@ -484,11 +493,13 @@
 
         @include media-breakpoint-down(xs) {
             flex: auto;
+            width: 100%;
         } 
 
         &-singup {
             @include media-breakpoint-down(md) {
                 flex: 2;
+                min-width: rem(300);
             }  
             @include media-breakpoint-down(xs) {
                 flex: auto;
@@ -540,4 +551,12 @@
 .copyright-footer-row {
     padding-left: rem(135);
     padding-right: rem(105);
+
+    .social {
+        padding-left: 0;
+        @include media-breakpoint-up(xl) {
+            padding-right: rem(15);
+            padding-left: rem(15);
+        }
+    }
 }
