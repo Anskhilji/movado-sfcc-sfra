@@ -299,6 +299,12 @@ div.checkout-button-wrapper {
       }
     }
   }
+
+  .cart {
+    .checkout-button-wrapper {
+      background: none;
+    }
+  }
 }
 
 @include media-breakpoint-up(sm) {

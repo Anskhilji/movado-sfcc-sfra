@@ -15,20 +15,16 @@ $negative-spacer: -0.625rem;
 }
 
 .checkout-button-wrapper {
-  width: 100%;
-  position: fixed;
+  position: static;
+  width: auto;
   bottom: 0;
   z-index: 50;
   padding-right: 0;
   padding-left: 0;
 
   @include media-breakpoint-down(xs) {
-    background-color: rgba(255, 255, 255, 0.95);
-  }
-
-  @include media-breakpoint-up(sm) {
-    position: static;
-    width: auto;
+    padding-top: rem(13);
+    border-top: rem(1) solid $grey4;
   }
 
   .estimated-price {
@@ -44,6 +40,10 @@ $negative-spacer: -0.625rem;
 
   .checkout-btn {
     margin-bottom: rem(10);
+
+    @include media-breakpoint-down(xs) {
+      margin-bottom: rem(15);
+    }
   }
 }
 
@@ -249,10 +249,6 @@ $negative-spacer: -0.625rem;
   letter-spacing: rem(0.88);
   line-height: rem(17);
   font-weight: 500;
-  @include media-breakpoint-down(xs) {
-    padding-top: rem(13);
-    border-top: rem(1) solid $grey4;
-  }
 }
 
 .cart-header-wrapper {

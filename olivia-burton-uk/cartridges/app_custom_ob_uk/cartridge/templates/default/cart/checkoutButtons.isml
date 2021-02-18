@@ -13,7 +13,7 @@
 </div>
 <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','Control')}">
 <div class="row checkout-button-wrapper">
-    <div class="col-12 estimated-price text-center d-block d-sm-none">
+    <div class="col-12 estimated-price text-center d-none d-sm-none">
         <span>
             ${Resource.msg('label.estimatedtotal','cart',null)}
             <div class="grand-total">${pdict.totals.grandTotal}</div>
@@ -39,7 +39,7 @@
     </div>
 </div>
 <div class="row checkout-button-wrapper d-block d-sm-none d-md-none d-lg-none d-xl-none d-xxl-none">
-    <div class="col-12 estimated-price text-center d-block d-sm-none">
+    <div class="col-12 estimated-price text-center d-none d-sm-none">
         <span>
             ${Resource.msg('label.estimatedtotal','cart',null)}
             <div class="grand-total">${pdict.totals.grandTotal}</div>
@@ -56,7 +56,7 @@
 </div>
 <iselse>
 <div class="row checkout-button-wrapper">
-    <div class="col-12 estimated-price text-center d-block d-sm-none">
+    <div class="col-12 estimated-price text-center d-none d-sm-none">
         <span>
             ${Resource.msg('label.estimatedtotal','cart',null)}
             <div class="grand-total">${pdict.totals.grandTotal}</div>
