@@ -13,17 +13,21 @@
             </isif>
         </div>
         <div class="row footer-redesign-row ">
-            <div class="footer-item collapsible-xs">
-                <iscontentasset aid="ca-footer-support" />
-            </div>
-            <div class="footer-item collapsible-xs">
-                <iscontentasset aid="ca-footer-account" />
-            </div>
-            <div class="footer-item collapsible-xs">
-                <iscontentasset aid="ca-footer-about" />
+            <div class="col-lg-8 custom-col">
+                <div class="row">
+                    <div class="footer-item col-sm-4 collapsible-xs">
+                        <iscontentasset aid="ca-footer-support" />
+                    </div>
+                    <div class="footer-item col-sm-4 collapsible-xs">
+                        <iscontentasset aid="ca-footer-account" />
+                    </div>
+                    <div class="footer-item col-sm-4 collapsible-xs">
+                        <iscontentasset aid="ca-footer-about" />
+                    </div>
+                </div>
             </div>
             <iscomment> footer-item-singup class addded  </iscomment>
-            <div class="footer-item footer-item-singup">
+            <div class="footer-item col footer-item-singup">
                 <div class="heading-container row">
                     <div class="col-sm-12">
                     <h3><a href="javascript:void(0);" class="title text-sm-left text-center">${Resource.msg('subscribe.newsletter.heading', 'homePage', null)}</a></h3>
@@ -70,10 +74,10 @@
     <div class="container-fluid container-1366">
 
         <div class="row copyright-footer-row">
-            <div class="col-lg-8 col-sm-7 col-xl-9 copyright-notice mr-lg-4 mr-xl-0">
+            <div class="col-sm-8 custom-col copyright-notice">
               <iscontentasset aid="ca-footer-copy" />
             </div>
-            <div class="col-lg-3 col-sm-5 pl-sm-2 pl-md-0 social pl-xl-4 pr-0">
+            <div class="col social ">
                 <div class="d-none d-sm-block">
                     <isslot id="cs-footer-column-m" description="Content in column 1 of the Footer" context="global" />
                 </div>
