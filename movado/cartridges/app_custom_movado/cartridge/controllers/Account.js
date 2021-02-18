@@ -11,7 +11,7 @@ var URLUtils = require('dw/web/URLUtils');
 var Resource = require('dw/web/Resource');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var Transaction = require('dw/system/Transaction');
-
+ 
 server.get('MostRecentOrder', server.middleware.https, cache.applyInventorySensitiveCache, userLoggedIn.validateLoggedIn, function (req, res, next) {
 
     // Customer Email
