@@ -1,4 +1,5 @@
 'use strict';
+var Logger = require('dw/system/Logger');
 
 /**
  * setupContentFolderSearch gets the required folder
@@ -65,7 +66,7 @@ function getCategoryBreadcrumb(categoryObj) {
         if (categoryLevel == 3) {
             tertiaryCategory = categoryObj.displayName;
             secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
+            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName : '' ): '');
         } else if (categoryLevel == 2) {
             secondaryCategory = categoryObj.displayName;
             primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
@@ -115,10 +116,8 @@ function getPlPDepartmentCategory(apiProductSearch) {
             var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
             var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
             plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
-            return plpCategory;
         } 
     } catch (exception) {
-        var Logger = require('dw/system/Logger');
         Logger.error('Error Occured while getting plp categories from product search. Error: {0} \n Stack: {1} \n', exception.message, exception.stack);
     }
     return plpCategory;

@@ -1,6 +1,5 @@
 <iscomment> Custom: defined the following variable </iscomment>
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-
 <script>
 	dataLayer = window.dataLayer = window.dataLayer || [];
 	pageDataGTM = {};
@@ -21,8 +20,7 @@
 		'referralUrl': '${pdict.gtm.referralUrl}',
 		'pageUrl': '${pdict.gtm.pageUrl}',
 		'Page': '${pdict.gtm.pageType}',
-		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-	    'departmentCategoryName': ''
+		'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}'
 
 		
 		// Custom: Added country dimension on the the base of ESW enabled
