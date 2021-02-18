@@ -64,7 +64,7 @@ server.replace(
                 }
 
                 if (orders.object.orders[i].status && orders.object.orders[i].status === 'Sent to SAP') {
-                    orders.object.orders[i].status = 'Processing';
+                    orders.object.orders[i].status = Resource.msg('label.order.defaultOrderStatus', 'confirmation', null);
                 }
             }
 

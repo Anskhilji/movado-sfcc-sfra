@@ -49,7 +49,7 @@ server.get('MostRecentOrder', server.middleware.https, cache.applyInventorySensi
         }
 
         if (firstOrder.status && firstOrder.status === 'Sent to SAP') {
-            firstOrder.status = 'Processing';
+            firstOrder.status = Resource.msg('label.order.defaultOrderStatus', 'confirmation', null);
         }
     }
 
