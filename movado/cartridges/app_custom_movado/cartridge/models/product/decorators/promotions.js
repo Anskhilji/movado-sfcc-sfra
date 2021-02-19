@@ -13,7 +13,8 @@ module.exports = function (object, promotions) {
                 name: promotion.name,
                 promotionClass: promotion.promotionClass,
                 rank: promotion.rank,
-                image: promotion.image
+                image: promotion.image,
+                plpCalloutMsg: !empty(promotion.custom.calloutMessagePLP) ? promotion.custom.calloutMessagePLP.markup : ''
             };
         })
     });

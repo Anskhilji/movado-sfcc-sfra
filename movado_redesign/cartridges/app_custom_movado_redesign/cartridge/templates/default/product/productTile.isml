@@ -29,9 +29,9 @@
                 <isif condition="${pdict.display.isPLP && product.promotions}">
                     <div class="promotions plp-promotions">
                         <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                            <isif condition="${promotion.calloutMsg !== ''}">
+                            <isif condition="${promotion.plpCalloutMsg !== ''}">
                                 <div class="callout promo-msg">
-                                    <isprint value="${promotion.calloutMsg}" encoding="off">
+                                    <isprint value="${promotion.plpCalloutMsg}" encoding="off">
                                 </div>
                             </isif>
                         </isloop>
