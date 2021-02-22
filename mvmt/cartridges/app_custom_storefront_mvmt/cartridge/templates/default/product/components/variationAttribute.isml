@@ -38,23 +38,22 @@ Template Notes:
                     <a  href="${attrValue.url}" 
                         class=" product-size-options color-variation 
                                 ${attrValue.selected ? 'active' : ''}
-                                ${!attrValue.selectable ? 'disabled' : ''} "
+                                 "
                         style="background-image: url(${attrValue.images['swatch'][0].url})"
-                        ${!attrValue.selectable ? 'disabled' : ''} 
+                        
                         ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
-                            <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
+                            <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value">
                             </span>
                     </a>
                 </isif>
             </isloop>
         <iselse>
             <isloop items="${attr.values}" var="attrValue">
-                <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''} ${!attrValue.selectable ? 'disabled' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
+                <button class="product-size-options select-variation-product ${attrValue.selected ? 'active' : ''}" value="${attrValue.url}" data-attr-value="${attrValue.value}"
                     ${ product.productType === "variant" && isBundle ? "disabled" : "" }
-                    ${!attrValue.selectable ? 'disabled' : ''}
                     ${attrValue.selected ? 'selected' : ''}
                 >
-                    <span class="${attrValue.selectable ? '' : 'disabled'}">
+                    <span class="">
                         ${attrValue.value}
                     </span>
                 </button>
