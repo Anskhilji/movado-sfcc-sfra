@@ -185,7 +185,7 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         } 
-
+        // Disable if not selectable
     });
 }
 
@@ -214,8 +214,6 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-
-
 
         if (attrValue.selected) {
             $attrValue.addClass('active');
