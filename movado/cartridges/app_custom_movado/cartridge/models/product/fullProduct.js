@@ -21,6 +21,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var explicitRecommendations = productCustomHelper.getExplicitRecommendations(apiProduct.ID);
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -83,6 +84,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
     decorators.raw(product, apiProduct);
     decorators.pageMetaData(product, apiProduct);
     decorators.template(product, apiProduct);
+
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     return product;
 };

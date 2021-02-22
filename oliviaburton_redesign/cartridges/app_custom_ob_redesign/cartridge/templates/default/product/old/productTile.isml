@@ -1,0 +1,75 @@
+<div class="product-tile" itemscope itemtype="http://schema.org/Product">
+    <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+
+    <isloop items="${product.availability.messages}" var="message">
+    	<isset name="outOfStock" value="${false}" scope="page"/>
+        <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
+        	<isset name="outOfStock" value="${true}" scope="page"/>
+        </isif>
+        <isset name="preOrder" value="${false}" scope="page"/>
+        <isif condition="${message === Resource.msg('info.product.availability.preorder', 'common', null)}">
+        	<isset name="preOrder" value="${true}" scope="page"/>
+        </isif>
+    </isloop>
+
+    <isinclude template="product/components/productTileImage" />
+
+    <div class="tile-body">
+        <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
+            <isinclude template="product/components/productTileSwatch" />
+        </isif>
+
+        <isinclude template="product/components/productTileName" />
+        
+        <isif condition="${preOrder}">
+            <div class="out-of-stock">
+                ${Resource.msg('info.product.availability.preorder', 'common', null)}
+            </div>
+        </isif>
+
+		<isif condition="${outOfStock}">
+			<div class="out-of-stock">
+                ${Resource.msg('label.soldout', 'common', null)}
+            </div>
+        </isif>
+        
+			<isloop items="${product.badges.textBadges}" var="badge">
+		        <div class="exclusive-product">
+		        	${badge.text}
+		        </div>
+		    </isloop>
+
+        <isset name="price" value="${product.price}" scope="page" />
+        <isif condition="${product.productType === 'set'}">
+            <isinclude template="product/components/pricing/setPrice" />
+        <iselse>
+            <isinclude template="product/components/pricing/main" />
+        </isif>
+        <isif condition="${!pdict.isCompareableDisabled}"> 
+            <isinclude template="product/components/compare" />
+        </isif>
+        <isif condition="${product.promotions}">
+		    <div class="promotions">
+			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                    <isif condition="${promotion.calloutMsg !== ''}">
+                        <div class="callout promo-msg" title="${promotion.details}">
+                            <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
+                        </div>
+                    </isif>
+			    </isloop>
+		    </div>
+		</isif>
+        <isif condition="${pdict.display.selectBonusProductsButton}">
+            <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
+                ${Resource.msg('button.choiceofbonus.select', 'product', null)}
+            </button>
+        </isif>
+    </div>
+    <div class="row m-10">
+        <div class="col d-flex align-items-center justify-content-center">
+            <isinclude template="product/components/ratings" />
+        </div>
+    </div>
+    
+    <!-- END_dwmarker -->
+</div>

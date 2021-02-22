@@ -23,7 +23,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
-    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
