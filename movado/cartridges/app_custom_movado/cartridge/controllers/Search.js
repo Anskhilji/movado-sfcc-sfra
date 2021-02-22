@@ -61,7 +61,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
     var categoryTemplateReDesign = 'search/searchResults';
 
-    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
+    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
     }
 

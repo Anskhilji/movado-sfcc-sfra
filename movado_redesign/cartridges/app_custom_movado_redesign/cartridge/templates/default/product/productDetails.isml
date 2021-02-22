@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row movado-pdp-row">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
@@ -52,7 +52,7 @@
 	                    </div>
 	                </div>
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-capitalize">${product.productName}</h1>
+                    <h1 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h1>
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />

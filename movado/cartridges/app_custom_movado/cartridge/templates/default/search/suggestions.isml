@@ -5,12 +5,12 @@
             <div class="row items-header">
                 <div class="col-xs-12 col-sm-10 do-you-mean">${Resource.msg('label.suggest.doyoumean', 'search', null)}</div>
             </div>
-            <div class="row items">
+            <div class="row product-serach-items items">
                 <isloop items="${pdict.suggestions.product.phrases}" var="phrase">
                     <div class="col-12 item term">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
+                            <div class="col-xs-12 searched-text col-sm-10 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                <a class="product-serach-container" href="${URLUtils.url('Search-Show', 'q', phrase.value)}">
                                     ${phrase.value}
                                 </a>
                             </div>
@@ -25,7 +25,7 @@
                 <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
 
-            <div class="row items">
+            <div class="row product-serach-items items">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-12 item">
                         <div class="row">
@@ -35,7 +35,7 @@
                                 </a>
                             </div>
                             <div class="name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
-                                <a href="${product.url}">${product.name}</a>
+                                <a class="product-serach-container" href="${product.url}">${product.name}</a>
                             </div>
                         </div>
                     </div>
@@ -50,14 +50,14 @@
                 </div>
             </div>
 
-            <div class="row items">
+            <div class="row product-serach-items items">
                 <isloop items="${pdict.suggestions.category.categories}" var="category">
                     <div class="col-12 item">
                         <div class="row">
                             <div class="col-12 name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
                                 <a href="${category.url}">${category.name}
                                     <isif condition="${category.parentID !== 'root'}">
-                                        <span class="category-parent"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
+                                        <span class="category-parent product-serach-container"> ${Resource.msg('label.suggest.in', 'search', null)} ${category.parentName}</span>
                                     </isif>
                                 </a>
                             </div>
@@ -73,12 +73,12 @@
                 </div>
             </div>
 
-            <div class="row items">
+            <div class="row product-serach-items items">
                 <isloop items="${pdict.suggestions.collection.categories}" var="collection">
                     <div class="col-12 item">
                         <div class="row">
                             <div class="col-12 name gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpReferer}"}'>
-                                <a href="${collection.url}">${collection.name}</a>
+                                <a class="product-serach-container" href="${collection.url}">${collection.name}</a>
                             </div>
                         </div>
                     </div>
