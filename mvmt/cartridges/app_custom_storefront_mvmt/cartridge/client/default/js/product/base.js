@@ -185,7 +185,6 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         } 
-        // Disable if not selectable
     });
 }
 
