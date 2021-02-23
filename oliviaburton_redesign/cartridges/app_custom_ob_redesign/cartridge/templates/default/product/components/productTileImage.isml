@@ -1,5 +1,8 @@
+<isif condition="${!pdict.display.plpTile}">
+    <isinclude template="product/components/old/productTileImage" sf-toolkit="on" />
+<iselse/>
 <iscomment> Custom Start: quick view button removed</iscomment>
-    <div class="image-container">
+    <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
         <div class="badge-container">
             <isloop items="${product.badges.textBadges}" var="badge">
                 <div class="new-product mb-1 text-uppercase">
@@ -14,11 +17,6 @@
                     ${Resource.msg('info.product.availability.preorder', 'common', null)}
                 </div>
             </isif>
-            <iscomment> <isif condition="${outOfStock}">
-                <div class="out-of-stock mb-1 text-uppercase">
-                    ${Resource.msg('label.soldout', 'common', null)}
-                </div>
-            </isif> </iscomment>
         </div>
         <a href="${pdict.urls.product}">
             <iscomment> <isif condition="${product && product.images}"> 
@@ -29,15 +27,14 @@
                 </picture>
             </isif> </iscomment>
             <picture>
-                <iscomment> <isif condition="${pdict.apiProduct.images.pdp533[0]}">
-                    <img class="tile-image gtm-product" src="${pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
-                </isif> </iscomment>
-                <img class="tile-image tile-image-primary gtm-product" src="https://www.casio-intl.com/product/image/1425558093090/" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
-                <img class="tile-image tile-image-hidden" src="https://www.hublot.com/sites/default/files/styles/watch_item_desktop_1x_scale_no_crop_600_6000_/public/2021-01/Classic-Fusion-Orlinski-Blue-Magic-soldier.png?itok=GmCG-_Xi" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                <isif condition="${pdict.apiProduct.images.pdp533[0]}">
+                    <img class="tile-image gtm-product tile-image-primary" src="${pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                    <img class="tile-image gtm-product tile-image-hidden" src="${pdict.apiProduct.images.pdp533[3].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                </isif>
+                <iscomment> <img class="tile-image tile-image-primary gtm-product" src="https://www.casio-intl.com/product/image/1425558093090/" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                <img class="tile-image tile-image-hidden" src="https://www.hublot.com/sites/default/files/styles/watch_item_desktop_1x_scale_no_crop_600_6000_/public/2021-01/Classic-Fusion-Orlinski-Blue-Magic-soldier.png?itok=GmCG-_Xi" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/> </iscomment>
             </picture>
         </a>
-        <iscomment> <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-            <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
-        </isif> </iscomment>
     </div>
 <iscomment> Custom End: quick view button removed</iscomment>
+</isif>

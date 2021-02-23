@@ -7,19 +7,37 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles"; 
 .plp-redesign {
-
     .custom-col {
-        margin-bottom: rem(20);
+        margin-bottom: rem(10);
+        padding-right: rem(5);
+        padding-left: rem(5);
+
+        @include media-breakpoint-up(sm) {
+            padding-right: rem(8);
+            padding-left: rem(8);
+        }
 
         @include media-breakpoint-up(lg) {
+            margin-bottom: rem(10);
+            padding-right: rem(10);
+            padding-left: rem(10);
             flex: 0 0 20%;
             max-width: 20%;
-            padding-right: 10px;
-            padding-left: 10px;
         }
     }
     #product-search-results {
         .product {
+            &-grid {
+                margin: 0 rem(-25);
+
+                @include media-breakpoint-up(lg) {
+                    margin: 0 rem(-20);
+                }
+                @include media-breakpoint-up(lg) {
+                    margin: 0 rem(-15);
+                }
+            }
+
             &-tile {
                 background: $snow;
 
@@ -54,8 +72,15 @@
                 .image-container {
                     background: $white-smoke;
                     border: none;
-                    height: rem(340);
-    
+                    height: rem(225);
+
+
+                    @include media-breakpoint-up(sm) {
+                        height: rem(280);
+                    }
+                    @include media-breakpoint-up(lg) {
+                        height: rem(340);
+                    }
                     a {
                         height: 100%;
                         width: 100%;
@@ -65,7 +90,6 @@
                             height: 100%;
                             width: 100%;
                             transition: 0.3s all;
-                            object-fit: contain;
 
                             &-hidden {
                                 opacity: 0;
@@ -88,29 +112,57 @@
                 }
                 .tile-body {
                     text-align: left;
-                    padding: rem(15) rem(20);
-    
+                    padding: rem(10) rem(15);
+
+                    @include media-breakpoint-up(sm) {
+                        padding: rem(15) rem(20);
+                    }
+
                     .pdp-link {
-                        height: rem(44);
+                        height: rem(40);
                         margin-bottom: rem(4);
                         overflow: hidden;
 
+                        @include media-breakpoint-up(sm) {
+                            height: rem(42);
+                        }
+                        @include media-breakpoint-up(lg) {
+                            height: rem(44);
+                        }
                         a {
-                            font-size: rem(15);
+                            font-size: rem(12);
                             font-family: $font-gills-light;
-                            text-transform: capitalize;
-                            line-height: ren(20);
+                            line-height: rem(18);
                             letter-spacing: 0.5px;
+
+                            @include media-breakpoint-up(sm) {
+                                font-size: rem(13);
+                                line-height: rem(18);
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                font-size: rem(15);
+                                line-height: rem(20);
+                            }
                         }
                     }
     
                     .price {
                         &.price-to-center {
                             color: $gray20;
-                            font-size: rem(14);
+                            font-size: rem(12);
                             font-family: $font-gill-std-normal;
                             font-weight: normal;
                             letter-spacing: 0.5px;
+
+                            @include media-breakpoint-up(sm) {
+                                font-size: rem(13);
+                                line-height: rem(16);
+                            }
+                            @include media-breakpoint-up(lg) {
+                                font-size: rem(14);
+                                line-height: rem(20);
+                            }
                         }
                         @include media-breakpoint-up(sm) {
                             padding-left: 0;
@@ -120,8 +172,12 @@
                         }
 
                         .strike-through {
-                            margin-right: rem(10);
+                            margin-right: rem(5);
                             color: $dark-gray;
+
+                            @include media-breakpoint-up(lg) {
+                                margin-right: rem(10);
+                            }
                         }
                     }
                 }
@@ -139,10 +195,14 @@
                         border-radius: rem(3);
 
                         font-family: $font-gill-std-semibold;
-                        font-size: rem(15);
+                        font-size: rem(13);
                         color: $gray20;
                         font-weight: 600;
                         letter-spacing: 0.5px;
+        
+                        @include media-breakpoint-up(lg) {
+                            font-size: rem(15);
+                        }
 
                         &:hover {
                             background-color: $gray20;
@@ -160,6 +220,7 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    height: rem(24);
 
                     .price {
                         flex: 1;
@@ -179,13 +240,33 @@
 
             &-family {
                 font-family: $font-gill-std-semibold;
-                font-size: rem(15);
+                font-size: rem(12);
                 color: $gray20;
                 font-weight: 600;
                 letter-spacing: rem(1);
+                line-height: rem(14);
                 text-transform: capitalize;
                 margin-bottom: rem(5);
+                height: rem(18);
+
+                @include media-breakpoint-up(sm) {
+                    font-size: rem(13);
+                    line-height: rem(16);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(15);
+                    line-height: rem(20);
+                }
             }
+        }
+    }
+
+    .show-more {
+        button {
+            max-width: rem(400);
+            height: rem(45);
+            margin: 0 auto;
         }
     }
 }

@@ -57,7 +57,16 @@ function getCollectionName(apiProduct) {
     return collectionName;
 }
 
+function getSaveMessage(apiProduct) {
+    var saveMessage="";
+    if (!empty(apiProduct)) {
+        saveMessage = apiProduct.custom.saveMessage;
+    }
+    return saveMessage;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
-    getCollectionName: getCollectionName
+    getCollectionName: getCollectionName,
+    getSaveMessage: getSaveMessage
 };

@@ -77,9 +77,14 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     }
 
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
     Object.defineProperty(product, 'collectionName', {
         enumerable: true,
         value: collectionName
+    });
+    Object.defineProperty(product, 'saveMessage', {
+        enumerable: true,
+        value: saveMessage
     });
     return product;
 };

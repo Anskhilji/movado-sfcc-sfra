@@ -1,0 +1,36 @@
+<div class="col-12 grid-footer"
+     data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
+     data-page-size="${pdict.productSearch.pageSize}"
+     data-page-number="${pdict.productSearch.pageNumber}"
+>
+    <!--- More button --->
+        <!--- More button --->
+    <isif condition="${pdict.productSearch.count > pdict.productSearch.defaultPageSize}"> 
+        <isset name="showing" value=${pdict.productSearch.defaultPageSize} scope="page" />
+    <iselse>
+        <isset name="showing" value=${pdict.productSearch.count} scope="page" />
+    </isif>
+
+    <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
+        <div class="show-more" >
+            <div class="text-center">
+                <p id="show-more-update">
+                    <iscomment> ${Resource.msgf('label.result.show', 'search', null, pdict.productSearch.pageNumber, pdict.productSearch.pageSize)} </iscomment>
+                    ${Resource.msgf('label.result.show', 'search', null, showing, pdict.productSearch.count)}
+                </p>
+                <button class="btn btn-primary show-button"
+                        data-url="${pdict.productSearch.showMoreUrl}"
+                        data-page-number="${pdict.productSearch.pageNumber}"
+                        data-category-id="${pdict.productSearch.category.id}"
+                >
+                    ${Resource.msg('button.show.more', 'search', null)}
+                </button>
+            </div>
+        </div>
+    </isif>
+
+    <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
+    <isif condition="${pdict.productSearch.category != null}">
+        <input type="hidden" class="category-id" value="${pdict.productSearch.category.id}" />
+    </isif>
+</div>
