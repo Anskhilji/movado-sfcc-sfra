@@ -25,7 +25,7 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'country': '${pdict.gtm.country}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-        'departmentCategoryName': '${pdict.gtm.departmentCategoryName}'
+        'departmentCategoryName': ''
     };
     
     if (pageDataGTM != undefined && pageDataGTM) {

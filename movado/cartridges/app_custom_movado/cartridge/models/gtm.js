@@ -10,6 +10,8 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalyticsHelpers');
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
+var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+
 var Logger = require('dw/system/Logger');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 
@@ -30,12 +32,8 @@ function gtmModel(req) {
     var cgid;
     var pid;
     var searchCount;
-    var categoryObj;
     var productObj;
-    var categoryBreadcrumbs;
     var productBreadcrumbs;
-    var searchBreadcrumbs;
-    var departmentCategoryName;
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
     this.tertiarySiteSection = '';
@@ -93,9 +91,6 @@ function gtmModel(req) {
         // tenant
     var tenant = getTenant(language);
         
-        if (cgid != null || searchkeyword != null) {
-            departmentCategoryName = getPlPDepartmentCategory(req, cgid, searchkeyword);
-        }
 
         if (pid != null) {
             var ProductMgr = require('dw/catalog/ProductMgr');
@@ -152,7 +147,6 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
-    this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
 }
 
 
@@ -291,36 +285,6 @@ function getProductSearch(req, queryString) {
     return '';
 }
 
-
-/**
- * Function to get PDP Breadcrumbs
- * @param {Object} cgid represents category ID
- * @param {Object} pid represents product ID
- * @param {Object} breadcrumbs represents product ID
- * @returns {Object} apiProductSearch returns apiProductSearch to be searched
- */
-function getCategoryBreadcrumb(categoryObj) {
-    var primaryCategory = '';
-    var secondaryCategory = '';
-    var tertiaryCategory = '';
-
-    var levelCount = 0;
-    if (categoryObj) {
-        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-        if (categoryLevel == 3) {
-            tertiaryCategory = categoryObj.displayName;
-            secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
-        } else if (categoryLevel == 2) {
-            secondaryCategory = categoryObj.displayName;
-            primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-        } else if (categoryLevel == 1) {
-            primaryCategory = categoryObj.displayName;
-        }
-    }
-    return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
-}
-
 /**
  *
  * @param productObj
@@ -330,7 +294,7 @@ function getProductBreadcrumb(productObj) {
     var category = productObj.variant && !!productObj.masterProduct.primaryCategory
     ? productObj.masterProduct.primaryCategory
     : productObj.primaryCategory;
-    var categoryHierarchy = getCategoryBreadcrumb(category);
+    var categoryHierarchy = searchCustomHelper.getCategoryBreadcrumb(category);
     return { primaryCategory: categoryHierarchy.primaryCategory, secondaryCategory: categoryHierarchy.secondaryCategory, tertiaryCategory: categoryHierarchy.tertiaryCategory  };
 }
 
@@ -371,20 +335,6 @@ function getSearchResultProducts(req, searchQuery) {
                  CatalogMgr.getSiteCatalog().getRoot()
             );
     return productSearch.count;
-}
-
-/**
- *
- * @param category
- * @returns levelCount
- */
-function getCategoryLevelCount(category, levelCount) {
-    var currentCategory = category.parent;
-    if (!category.root) {
-        levelCount += 1;
-        levelCount = getCategoryLevelCount(currentCategory, levelCount);
-    }
-    return levelCount;
 }
 
 /**
@@ -767,7 +717,7 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
     var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
     if (queryString.indexOf('&') >= 0) {
         searchArray = queryString.split('&');
-        if (searchArray.length != 0 && googleAnalyticsRequiredParameters && googleAnalyticsRequiredParameters.length != 0){
+        if (searchArray.length != 0 && !empty(googleAnalyticsRequiredParameters) &&  googleAnalyticsRequiredParameters.length != 0){
             for (var j = 0; j < googleAnalyticsRequiredParameters.length; j++) {
                 for (var i = 0 ; i < searchArray.length; i++) {
                     googleAnalyticsParameter = searchArray[i].split('=');
@@ -784,41 +734,6 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
         }
     }
     return googleAnalyticsParameters;
-}
-
-/**
- * Funtion return department and category name for plp and search query pages
- * @param req
- * @param queryString
- * @returns categoryNameWithoutApostrophe
- */
-function getPlPDepartmentCategory(req, queryString, searchQuery) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-
-    try {
-    var plpCategory;
-    var apiProductSearch = new ProductSearchModel();
-    var queryStringItems = {
-        cgid: queryString
-    };
-    apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
-    apiProductSearch.search();
-    
-    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
-        var productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
-        var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
-        var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
-        plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
-        return plpCategory;
-    } else {
-        return searchQuery;
-    }
-    } catch (ex) {
-        Logger.error('Error Occured while getting plp categories from product search. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        return '';
-    }
 }
 
 module.exports = gtmModel;
