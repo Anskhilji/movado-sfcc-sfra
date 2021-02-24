@@ -4,7 +4,7 @@
 <iselse/>
     <div class="product-tile new-tile" style="background-color: ${pdict.tileBodyBackground}; " itemscope itemtype="http://schema.org/Product">
         <!-- dwMarker="product" dwContentID="${product.uuid}" -->
-
+        <iscomment> Product tile extra elements removed </iscomment>
         <isloop items="${product.availability.messages}" var="message">
             <isset name="outOfStock" value="${false}" scope="page"/>
             <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
@@ -29,24 +29,6 @@
             </isif>
         
             <isinclude template="product/components/productTileName" />
-            
-            <iscomment> <isif condition="${preOrder}">
-                <div class="out-of-stock">
-                    ${Resource.msg('info.product.availability.preorder', 'common', null)}
-                </div>
-            </isif>
-
-            <isif condition="${outOfStock}">
-                <div class="out-of-stock">
-                    ${Resource.msg('label.soldout', 'common', null)}
-                </div>
-            </isif>
-            
-                <isloop items="${product.badges.textBadges}" var="badge">
-                    <div class="exclusive-product">
-                        ${badge.text}
-                    </div>
-                </isloop> </iscomment>
             <div class="pricing-save">
                 <isset name="price" value="${product.price}" scope="page" />
                 <isif condition="${product.productType === 'set'}">
@@ -60,7 +42,6 @@
                         ${product.saveMessage}
                     </span>
                 </isif>
-
             </div>
 
             <isif condition="${!pdict.isCompareableDisabled}"> 
@@ -77,6 +58,7 @@
                     </isloop>
                 </div>
             </isif>
+            <iscomment> new add to card button template addded </iscomment>
             <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
             
         </div>

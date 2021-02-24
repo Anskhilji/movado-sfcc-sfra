@@ -1,3 +1,4 @@
+<iscomment> A/B test implemented </iscomment>
 <isif condition="${!dw.campaign.ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')}">
 	<isinclude template="search/old/searchResults" sf-toolkit="on" />
 
@@ -102,7 +103,7 @@
 					</isif>
 									<isinclude template="search/filterBar" />
 								</div>
-		
+								<iscomment> Column classes changed to match design </iscomment>
 								<!--- Product Grid --->
 								<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
 									<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">

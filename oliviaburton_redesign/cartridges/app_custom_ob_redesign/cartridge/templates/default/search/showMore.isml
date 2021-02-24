@@ -13,6 +13,7 @@
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
         <div class="show-more" >
             <div class="text-center">
+            <iscomment> new label added for result count </iscomment>
                 <p id="show-more-update">
                     ${Resource.msgf('label.result.show', 'search', null, showing, pdict.productSearch.count)}
                 </p>
