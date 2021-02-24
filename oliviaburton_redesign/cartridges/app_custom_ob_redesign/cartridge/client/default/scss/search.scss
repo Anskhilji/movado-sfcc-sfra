@@ -1,0 +1,33 @@
+@import "~movado/variables";
+@import "variables";
+@import "~movado/mixins";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "~movado/utilities/swatch";
+@import "~movado/components/categoryTiles";
+
+.product-tile {
+    .image-container {
+        .product-badge.redesigned {
+            left: auto;
+            right: rem(10);
+            top: rem(10);
+                 @include media-breakpoint-up(lg) { 
+                    left: auto;
+                    right: rem(20);
+                    top: rem(20);
+                }
+            img {
+                width: rem(35);
+                height:rem(35);
+
+                @include media-breakpoint-up(lg) {
+                    width: auto;
+                    height:auto;
+                }
+            }
+        }
+    }
+}
+

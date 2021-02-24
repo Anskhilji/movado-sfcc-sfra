@@ -5,6 +5,7 @@ var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
 /**
  * Get product search hit for a given product
@@ -74,5 +75,18 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (!params.availability || params.availability == true) {
         decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
     }
+
+    /**
+     * Custom Start: Redesign Changes
+     */
+    var isRedesignedBadge =  productCustomHelpers.isOnlyRedesignedBadge(product);
+    Object.defineProperty(product, 'isRedesignedBadge', {
+        enumerable: true,
+        value: isRedesignedBadge
+    });
+
+    /**
+     * Custom End:
+     */
     return product;
 };
