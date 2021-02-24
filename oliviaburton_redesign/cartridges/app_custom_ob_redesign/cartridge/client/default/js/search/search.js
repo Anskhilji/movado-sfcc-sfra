@@ -1,7 +1,7 @@
 'use strict';
 var movadoBase = require('movado/search/search');
 
-function updatePageURLForShowMore(showMoreUrl) {
+function updateURLForShowMore(showMoreUrl) {
     var params = movadoBase.getUrlParamObj(showMoreUrl);
     var start = params.start;
     var size = params.sz;
@@ -33,7 +33,6 @@ module.exports = {
         // Show more products
         $('.container, .container-fluid, .test').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
             e.stopPropagation();
-            debugger;
     
             //push data on ga tracking
             var showMoreUrl = $(this).data('url');
@@ -65,7 +64,7 @@ module.exports = {
                     $('.grid-footer').replaceWith(response);
                     movadoBase.updateSortOptions(response);
                     // edit
-                    updatePageURLForShowMore(showMoreUrl);
+                    updateURLForShowMore(showMoreUrl);
                     // edit end
                     $.spinner().stop();
                 },

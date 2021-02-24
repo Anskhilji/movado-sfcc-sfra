@@ -4,7 +4,6 @@
      data-page-number="${pdict.productSearch.pageNumber}"
 >
     <!--- More button --->
-        <!--- More button --->
     <isif condition="${pdict.productSearch.count > pdict.productSearch.defaultPageSize}"> 
         <isset name="showing" value=${pdict.productSearch.defaultPageSize} scope="page" />
     <iselse>
@@ -15,7 +14,6 @@
         <div class="show-more" >
             <div class="text-center">
                 <p id="show-more-update">
-                    <iscomment> ${Resource.msgf('label.result.show', 'search', null, pdict.productSearch.pageNumber, pdict.productSearch.pageSize)} </iscomment>
                     ${Resource.msgf('label.result.show', 'search', null, showing, pdict.productSearch.count)}
                 </p>
                 <button class="btn btn-primary show-button"

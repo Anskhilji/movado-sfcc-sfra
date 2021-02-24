@@ -7,6 +7,8 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles"; 
 .plp-redesign {
+    margin-bottom: rem(70);
+
     .custom-col {
         margin-bottom: rem(10);
         padding-right: rem(5);
@@ -18,19 +20,20 @@
         }
 
         @include media-breakpoint-up(lg) {
-            margin-bottom: rem(10);
+            margin-bottom: rem(20);
             padding-right: rem(10);
             padding-left: rem(10);
             flex: 0 0 20%;
             max-width: 20%;
         }
     }
+
     #product-search-results {
         .product {
             &-grid {
                 margin: 0 rem(-25);
 
-                @include media-breakpoint-up(lg) {
+                @include media-breakpoint-up(sm) {
                     margin: 0 rem(-20);
                 }
                 @include media-breakpoint-up(lg) {
@@ -263,10 +266,46 @@
     }
 
     .show-more {
+        margin-top: rem(10);
         button {
+            width: 100%;
             max-width: rem(400);
             height: rem(45);
             margin: 0 auto;
+            background-color: $white;
+            border: 1px solid $black;
+            border-radius: rem(3);
+            font-family: $font-gill-std-bold;
+            font-weight: 600;
+            font-size: rem(16);
+            color: $gray20;
+            line-height: rem(21);
+            transition: 0.3s all;
+            letter-spacing: 0.5px;
+
+            &:hover {
+                background-color: $black;
+                color: $white;
+            }
+        }
+
+        #show-more-update {
+            font-family: $font-gill-std-semibold;
+            font-size: rem(12);
+            font-weight: 600;
+            color: $storm-gray;
+            letter-spacing: 0.5px;
+            line-height: rem(16);
+            margin-bottom: rem(10);
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(14);
+            }
+
+            @include media-breakpoint-up(lg) {
+                line-height: rem(20);
+                font-size: rem(15);
+            }
         }
     }
 }
