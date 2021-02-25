@@ -104,6 +104,7 @@
             <div class="">
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
-        </div>
+        </div>        
+            <isinclude template="checkout/productCard/cartRecommendations" />
     </isif>
 </div>
