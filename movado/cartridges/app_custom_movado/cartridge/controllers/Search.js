@@ -21,6 +21,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var Site = require('dw/system/Site');
     var viewData = res.getViewData();
@@ -51,9 +52,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
     apiProductSearch.search();
     categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+    var departmentCategoryName = searchCustomHelper.getPlPDepartmentCategory(apiProductSearch);
+    if (empty(departmentCategoryName)) {
+        departmentCategoryName = req.querystring.q ? stringUtils.removeSingleQuotes(req.querystring.q) : '';
+    }
+    res.setViewData({
+        departmentCategoryName: departmentCategoryName 
+    });
     var categoryTemplateReDesign = 'search/searchResults';
 
-    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
+    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
     }
 

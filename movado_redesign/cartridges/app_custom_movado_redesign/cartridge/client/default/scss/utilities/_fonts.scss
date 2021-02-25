@@ -44,15 +44,17 @@ font-display:auto;font-style:normal;font-weight:700;
 
 @font-face {
     font-family: "futura-pt-demi";
-    src: url('fonts/futura-pt-demibold.otf');
+    src: url('../../../../static/default/css/product/fonts/futura-pt-demibold.otf');
     font-style: normal;
 }
 
+
 @font-face {
     font-family: "Lato-Bold";
-    src: url('fonts/Lato-Bold.ttf');
+    src: url('../../../../static/default/css/product/fonts/Lato-Bold.ttf');
     font-style: normal;
 }
+
 
 .tk-futura-pt { font-family: "futura-pt",sans-serif; }
 .tk-futura-pt-bold { font-family: "futura-pt-bold",sans-serif; }
