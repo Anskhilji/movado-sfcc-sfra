@@ -229,15 +229,15 @@ function getProductLineMetadataItems(pli) {
 	        var pliCustomAttrID = metadataItem.substring(i + 1);
 	        var pliCustomAttrValue = (pliCustomAttrID in pli.custom && !!pli.custom[pliCustomAttrID]) ? pli.custom[pliCustomAttrID] : null;
 	        
-            if (!empty(pliCustomAttrValue)) {
-                obj = {
+	        if (!empty(pliCustomAttrValue)) {
+	        	obj = {
                     name: metadataItem.substring(0, i),
                     value: pliCustomAttrValue
-                };
-                arr.push(obj);
-            }
-        }
-      
+	        	};
+	        	arr.push(obj);
+	        }
+	    }
+
         // Custom Start : Get Category Info From Product line Item
         var pliCategoryId = pli.product.primaryCategory.ID;
         if (!empty(pliCategoryId)) {
@@ -248,7 +248,6 @@ function getProductLineMetadataItems(pli) {
             arr.push(obj);
         }
         // Custom End
-        
     }
     return arr.length > 0 ? arr : null;
 }
