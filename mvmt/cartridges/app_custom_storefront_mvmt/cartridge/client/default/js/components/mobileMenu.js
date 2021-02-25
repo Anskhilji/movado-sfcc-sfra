@@ -50,8 +50,14 @@ module.exports = function () {
         $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
 
-        // Update Family Name
-        $productContainer.find('.product-brand-info span').text(response.product.collectionName);
+        // Update Family Name and Case Diameter
+        if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
+            $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        }
+        if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
+            $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+        }
+        
 
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');

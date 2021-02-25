@@ -10,6 +10,8 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalyticsHelpers');
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
+var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+
 var Logger = require('dw/system/Logger');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 
@@ -30,12 +32,8 @@ function gtmModel(req) {
     var cgid;
     var pid;
     var searchCount;
-    var categoryObj;
     var productObj;
-    var categoryBreadcrumbs;
     var productBreadcrumbs;
-    var searchBreadcrumbs;
-    var departmentCategoryName;
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
     this.tertiarySiteSection = '';
@@ -43,42 +41,42 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
 
 
-    	if (req.querystring != undefined) {
-    		var queryString = req.querystring.urlQueryString;
+        if (req.querystring != undefined) {
+            var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
             // Custom Start : get google analytics arrat from site prefrence
             var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
             // Custom End
-        	searchkeyword = searchQuery.q;
+            searchkeyword = searchQuery.q;
             cgid = searchQuery.cgid;
-        	pid = searchQuery.pid;
-    	}
-    	if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
-    		this.checkout = [];
-    		getCartJSONArray(this.checkout);
-    		if (action.equals('cart-show')) {
-    			this.checkoutAction = 'cart';
-    			checkoutStage = 1;
-    		} else {
-    			checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
-    			var checkoutStage = '';
-    			switch (checkoutActionObject) {
-    			case 'shipping':
-    				checkoutStage = 2;
-    				break;
-    			case 'payment':
-    				checkoutStage = 3;
-    				break;
-    			case 'placeOrder':
-    				checkoutStage = 4;
-    				break;
-    			}
-    		}
-    		this.checkoutStage = checkoutStage;
-    	}
+            pid = searchQuery.pid;
+        }
+        if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
+            this.checkout = [];
+            getCartJSONArray(this.checkout);
+            if (action.equals('cart-show')) {
+                this.checkoutAction = 'cart';
+                checkoutStage = 1;
+            } else {
+                checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+                var checkoutStage = '';
+                switch (checkoutActionObject) {
+                case 'shipping':
+                    checkoutStage = 2;
+                    break;
+                case 'payment':
+                    checkoutStage = 3;
+                    break;
+                case 'placeOrder':
+                    checkoutStage = 4;
+                    break;
+                }
+            }
+            this.checkoutStage = checkoutStage;
+        }
 
 
-    	// get page Type
+        // get page Type
     var pageType = escapeHyphon(getPageType(action, searchkeyword, this.checkoutAction));
 
         // login status of user
@@ -93,54 +91,51 @@ function gtmModel(req) {
         // tenant
     var tenant = getTenant(language);
         
-        if (cgid != null || searchkeyword != null) {
-            departmentCategoryName = getPlPDepartmentCategory(req, cgid, searchkeyword);
-        }
 
-   		if (pid != null) {
-    		var ProductMgr = require('dw/catalog/ProductMgr');
-    		productObj = ProductMgr.getProduct(formatProductId(pid));
-    		productBreadcrumbs = getProductBreadcrumb(productObj);
+        if (pid != null) {
+            var ProductMgr = require('dw/catalog/ProductMgr');
+            productObj = ProductMgr.getProduct(formatProductId(pid));
+            productBreadcrumbs = getProductBreadcrumb(productObj);
             var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
             var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
             secoundarySiteSection = (!empty(secoundarySiteSection)) ? '|' + secoundarySiteSection : '';
 
-    	    // get product impressions tags for PDP
-    	    var productImpressionTags = getPDPProductImpressionsTags(productObj);
-    	    this.product = {
-    	    	productID: productImpressionTags.productID,
-        	    productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
-        	    brand: productImpressionTags.brand,
-        	    productPersonalization: productImpressionTags.productPersonalization,
-        	    category: primarySiteSection,
-        	    productPrice: productImpressionTags.productPrice,
+            // get product impressions tags for PDP
+            var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            this.product = {
+                productID: productImpressionTags.productID,
+                productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
+                brand: productImpressionTags.brand,
+                productPersonalization: productImpressionTags.productPersonalization,
+                category: primarySiteSection,
+                productPrice: productImpressionTags.productPrice,
                 list: productImpressionTags.list,
                 currency: productImpressionTags.currency,
                 // Custom start: Added secoundary category if exist and quantity on product on pdp
                 deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
                 quantity: '1'
                 // Custom End
-    	    };
-    	}    	else if (searchkeyword != null) {
-    		// search count
-        searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
-        this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
+            };
+        } else if (searchkeyword != null) {
+            // search count
+            searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
+            this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
-    	    var searchQuery = { q: searchkeyword };
-    		var productArray = getSearchResultProducts(req, searchQuery);
-    		if (productArray == 0) {
-    			searchCount = 0;
-    		}
-    		if (searchCount == 0 && pageNameJSON != null) {
-    			pageType = pageNameJSON['no-searchresult-page'];
-    		}
-    	}
+            var searchQuery = { q: searchkeyword };
+            var productArray = getSearchResultProducts(req, searchQuery);
+            if (productArray == 0) {
+                searchCount = 0;
+            }
+            if (searchCount == 0 && pageNameJSON != null) {
+                pageType = pageNameJSON['no-searchresult-page'];
+            }
+        }
 
 
     if (action.equals('order-confirm')) {
-    	var orderId = getOrderIDfromQueryString(queryString);
-    	this.orderConfirmation = [];
-    	getOrderConfirmationArray(this.orderConfirmation, orderId);
+        var orderId = getOrderIDfromQueryString(queryString);
+        this.orderConfirmation = [];
+        getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
 
     this.pageUrl = pageUrl != null ? pageUrl : '';
@@ -152,7 +147,6 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
-    this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
 }
 
 
@@ -196,7 +190,7 @@ function getLoginStatus(currentCustomer) {
     if (currentCustomer.raw.authenticated) {
         userStatus = 'logged in';
     }
-	 return userStatus;
+     return userStatus;
 }
 
 /**
@@ -234,18 +228,18 @@ function getSearchQuery(queryStringVal) {
         searchArray = queryString.split('&');
         searchArray = searchArray[1].split('=');
         if ((searchArray[0].indexOf('q')) > -1) {
-        	searchQuery = { q: searchArray[1] };
+            searchQuery = { q: searchArray[1] };
         }
     } else if ((queryString.indexOf('pid')) > -1) {
-    		searchArray = queryString.split('=');
-    		searchQuery = { pid: searchArray[1] };
-    	}    	else if ((queryString.indexOf('cgid')) > -1) {
-    		searchArray = queryString.split('=');
-        searchQuery = { cgid: searchArray[1] };
-    	} else if ((queryString.indexOf('q')) > -1) {
-    			searchArray = queryString.split('=');
-    			searchQuery = { q: searchArray[1] };
-    		}
+            searchArray = queryString.split('=');
+            searchQuery = { pid: searchArray[1] };
+        } else if ((queryString.indexOf('cgid')) > -1) {
+            searchArray = queryString.split('=');
+            searchQuery = { cgid: searchArray[1] };
+        } else if ((queryString.indexOf('q')) > -1) {
+            searchArray = queryString.split('=');
+            searchQuery = { q: searchArray[1] };
+        }
     return searchQuery;
 }
 
@@ -275,7 +269,7 @@ function getProductSearch(req, queryString) {
     var apiProductSearch = new ProductSearchModel();
 
     if (queryString != undefined) {
-    	 apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
+         apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryString);
         apiProductSearch.search();
         var categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
         var productSearch = new ProductSearch(
@@ -285,40 +279,10 @@ function getProductSearch(req, queryString) {
                      CatalogMgr.getSortingOptions(),
                      CatalogMgr.getSiteCatalog().getRoot()
              );
-        	 return productSearch;
+             return productSearch;
     }
 
     return '';
-}
-
-
-/**
- * Function to get PDP Breadcrumbs
- * @param {Object} cgid represents category ID
- * @param {Object} pid represents product ID
- * @param {Object} breadcrumbs represents product ID
- * @returns {Object} apiProductSearch returns apiProductSearch to be searched
- */
-function getCategoryBreadcrumb(categoryObj) {
-    var primaryCategory = '';
-    var secondaryCategory = '';
-    var tertiaryCategory = '';
-
-    var levelCount = 0;
-    if (categoryObj) {
-        var categoryLevel = getCategoryLevelCount(categoryObj, levelCount);
-        if (categoryLevel == 3) {
-            tertiaryCategory = categoryObj.displayName;
-            secondaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-            primaryCategory = (categoryObj.parent ? (categoryObj.parent.parent ? categoryObj.parent.parent.displayName: '' ): '');
-        } else if (categoryLevel == 2) {
-            secondaryCategory = categoryObj.displayName;
-            primaryCategory = categoryObj.parent ? categoryObj.parent.displayName : '';
-        } else if (categoryLevel == 1) {
-            primaryCategory = categoryObj.displayName;
-        }
-    }
-    return { primaryCategory: primaryCategory, secondaryCategory: secondaryCategory, tertiaryCategory: tertiaryCategory };
 }
 
 /**
@@ -330,7 +294,7 @@ function getProductBreadcrumb(productObj) {
     var category = productObj.variant && !!productObj.masterProduct.primaryCategory
     ? productObj.masterProduct.primaryCategory
     : productObj.primaryCategory;
-    var categoryHierarchy = getCategoryBreadcrumb(category);
+    var categoryHierarchy = searchCustomHelper.getCategoryBreadcrumb(category);
     return { primaryCategory: categoryHierarchy.primaryCategory, secondaryCategory: categoryHierarchy.secondaryCategory, tertiaryCategory: categoryHierarchy.tertiaryCategory  };
 }
 
@@ -371,20 +335,6 @@ function getSearchResultProducts(req, searchQuery) {
                  CatalogMgr.getSiteCatalog().getRoot()
             );
     return productSearch.count;
-}
-
-/**
- *
- * @param category
- * @returns levelCount
- */
-function getCategoryLevelCount(category, levelCount) {
-    var currentCategory = category.parent;
-    if (!category.root) {
-        levelCount += 1;
-        levelCount = getCategoryLevelCount(currentCategory, levelCount);
-    }
-    return levelCount;
 }
 
 /**
@@ -486,7 +436,7 @@ function getCartJSONArray(checkoutObject) {
         cartObj.revenue = cartJSON[i].revenue;
         cartObj.tax = cartJSON[i].tax;
         cartObj.shipping = cartJSON[i].shipping;
-        cartObj.coupon = cartJSON[i].coupon;
+        cartObj.coupon = (!empty(cartJSON[i].coupon)) ? cartJSON[i].coupon : 0;
         cartObj.orderlevelDiscount = cartJSON[i].orderlevelDiscount;
         // Custom Start : Added product quantity into cart Object
         cartObj.productQuantity = cartJSON[i].quantity;
@@ -549,20 +499,20 @@ function getVariants(product) {
     var productVariants = [];
     if (product.custom.GiftWrapMessage) {
         productVariants.push(Resource.msg('text.personalization.giftWrapping', 'gtm', null));
-			 }
-		 if (product.custom.embossMessageLine1 != null) {
-			 productVariants.push(Resource.msg('text.personalization.embossed', 'gtm', null));
-		 }
-		 if (product.custom.engraveMessageLine1 != null) {
-			 productVariants.push(Resource.msg('text.personalization.engraved', 'gtm', null));
-		 }
-			 for (var i = 0; i < productVariants.length; i++) {
-				 if (variant == '') {
-					 variant = productVariants[i];
-				 } else {
-					 variant = variant + ',' + productVariants[i];
-				 }
-			 }
+             }
+         if (product.custom.embossMessageLine1 != null) {
+             productVariants.push(Resource.msg('text.personalization.embossed', 'gtm', null));
+         }
+         if (product.custom.engraveMessageLine1 != null) {
+             productVariants.push(Resource.msg('text.personalization.engraved', 'gtm', null));
+         }
+             for (var i = 0; i < productVariants.length; i++) {
+                 if (variant == '') {
+                     variant = productVariants[i];
+                 } else {
+                     variant = variant + ',' + productVariants[i];
+                 }
+             }
 
     return variant;
 }
@@ -637,7 +587,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var paymentMethod = '';
 
     if (order != null && order.productLineItems != null) {
-        var orderLevelCouponString = '';
+        var orderLevelCouponString = 0;
         var itemLevelCouponString = '';
         var orderSubTotal;
         var orderLevelPromotionPrice;
@@ -653,6 +603,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
                     orderLevelCouponString = getCouponsOnOrder(order.couponLineItems);
+                    orderLevelCouponString = (!empty(orderLevelCouponString)) ? orderLevelCouponString : 0;
                 } else if (priceAdjustment.promotion.promotionClass == 'PRODUCT') {
                     itemLevelCouponString = getCouponsOnOrder(order.couponLineItems);
                 }
@@ -694,15 +645,15 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
             produtObj.orderLevelPromotionPrice = orderLevelPromotionPrice;
             // Custom End
-			    produtObj.itemCoupon = itemLevelCouponString;
+                produtObj.itemCoupon = itemLevelCouponString;
 
-			    if (orderJSONArray.length < 10) {
-			    	orderJSONArray.push({ productObj: produtObj });
-        	    } else {
-        	    	gtmorderConfObj.push(orderJSONArray);
-        	    	orderJSONArray = [];
-        	    	orderJSONArray.push({ productObj: produtObj });
-        	    }
+                if (orderJSONArray.length < 10) {
+                    orderJSONArray.push({ productObj: produtObj });
+                } else {
+                    gtmorderConfObj.push(orderJSONArray);
+                    orderJSONArray = [];
+                    orderJSONArray.push({ productObj: produtObj });
+                }
         });
 
         var orderObj = {};
@@ -713,7 +664,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderCoupon = orderLevelCouponString;
         orderObj.country = order.billingAddress.countryCode.displayValue;
         orderObj.paymentMethod = paymentMethod;
-	    orderJSONArray.push({ orderObj: orderObj });
+        orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
 }
@@ -766,7 +717,7 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
     var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
     if (queryString.indexOf('&') >= 0) {
         searchArray = queryString.split('&');
-        if (searchArray.length != 0 && googleAnalyticsRequiredParameters.length != 0){
+        if (searchArray.length != 0 && !empty(googleAnalyticsRequiredParameters) &&  googleAnalyticsRequiredParameters.length != 0){
             for (var j = 0; j < googleAnalyticsRequiredParameters.length; j++) {
                 for (var i = 0 ; i < searchArray.length; i++) {
                     googleAnalyticsParameter = searchArray[i].split('=');
@@ -783,41 +734,6 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
         }
     }
     return googleAnalyticsParameters;
-}
-
-/**
- * Funtion return department and category name for plp and search query pages
- * @param req
- * @param queryString
- * @returns categoryNameWithoutApostrophe
- */
-function getPlPDepartmentCategory(req, queryString, searchQuery) {
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-
-    try {
-    var plpCategory;
-    var apiProductSearch = new ProductSearchModel();
-    var queryStringItems = {
-        cgid: queryString
-    };
-    apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
-    apiProductSearch.search();
-    
-    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
-        var productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
-        var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
-        var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
-        plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
-        return plpCategory;
-    } else {
-        return searchQuery;
-    }
-    } catch (ex) {
-        Logger.error('Error Occured while getting plp categories from product search. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        return '';
-    }
 }
 
 module.exports = gtmModel;

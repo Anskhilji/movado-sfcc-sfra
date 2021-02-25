@@ -129,10 +129,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     }
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
-        var billingAddressFirstName = order.billingAddress.firstName.trim();
-        var billingAddressLastName = order.billingAddress.lastName.trim();
-        var billingAddressAddress1 = order.billingAddress.address1.trim();
-        var billingAddressCity = order.billingAddress.city.trim();
+        var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
+        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
+        var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
+        var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
             deliveryValidationFail = true;
@@ -141,10 +141,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         if (order.shipments.length) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
-            var shippingAddressFirstName = orderShippingAddress.firstName.trim();
-            var shippingAddressLastName = orderShippingAddress.lastName.trim();
-            var shippingAddressAddress1 = orderShippingAddress.address1.trim();
-            var shippingAddressCity = orderShippingAddress.city.trim();
+            var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
+            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
+            var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
+            var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);

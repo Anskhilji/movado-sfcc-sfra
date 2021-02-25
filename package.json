@@ -81,6 +81,7 @@
     "flag-icon-css": "^2.3.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
     "sfra": "file:./storefront-reference-architecture/"
   },
   "browserslist": [
@@ -117,7 +118,7 @@
     "wishlist": "./plugin_wishlists",
     "base": "./storefront-reference-architecture",
     "mcsus": "./mcsus",
-	"page_designer": "./page_designer",
+    "page_designer": "./page_designer",
     "oliviaburton_redesign": "./oliviaburton_redesign"
   },
   "jsAliases": {
@@ -128,7 +129,7 @@
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/js",
     "yotpo_swell_custom": "./yotpo/cartridges/int_yotpo_swell_custom/cartridge/client/default/js",
-	"custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/js",
+    "custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/js",
     "esw": "./link_eshopworld/cartridges/int_eshopworld_sfra/cartridge/client/default/js",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/js",
     "oliviaburton_redesign": "./oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/js",
@@ -153,7 +154,7 @@
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/scss",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/scss",
     "yotpo_swell_custom": "./yotpo/cartridges/int_yotpo_swell_custom/cartridge/client/default/scss",
-	"custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/scss",
+    "custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/scss",
     "esw": "./link_eshopworld/cartridges/int_eshopworld_sfra/cartridge/client/default/scss",
     "hourtime": "./hourtime/cartridges/app_custom_storefront_hourtime/cartridge/client/default/scss",
     "boss_watches": "./boss_watches/cartridges/app_custom_storefront_boss_watches/cartridge/client/default/scss",
