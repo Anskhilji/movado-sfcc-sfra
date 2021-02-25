@@ -234,9 +234,21 @@ function getProductLineMetadataItems(pli) {
                     name: metadataItem.substring(0, i),
                     value: pliCustomAttrValue
 	        	};
-	        	arr.push(obj);
+                arr.push(obj);
 	        }
 	    }
+      
+        // Custom Start : Get Category Info From Product line Item
+        var pliCategoryId = pli.product.primaryCategory.ID;
+        if (!empty(pliCategoryId)) {
+            obj = {
+                name: 'Category',
+                value: pliCategoryId
+            };
+            arr.push(obj);
+        }
+        // Custom End
+        
     }
     return arr.length > 0 ? arr : null;
 }
