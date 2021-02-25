@@ -66,7 +66,12 @@
                     <isinclude template="product/components/badges" />
 
                     <div class="product-brand-info">
-                        <span>${product.collectionName}</span>
+                        <isif condition="${!empty(product.collectionName)}">
+                            <span class="collection-name">${product.collectionName}</span>
+                        </isif>
+                        <isif condition="${!empty(pdict.caseDiameter)}">
+                            <span class="case-diameter">${pdict.caseDiameter}</span>
+                        </isif>
                     </div>
 
                     <!-- Product Availability -->
@@ -80,7 +85,7 @@
                     </iscomment>
                     <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
-                    <h1 class="product-name text-uppercase">${product.productName}</h1>
+                    <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
 
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >

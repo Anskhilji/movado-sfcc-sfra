@@ -1,4 +1,4 @@
-<isif condition="${pdict.display.compare}">
+<isif condition="${pdict.display && pdict.display.compare}">
 <isif condition="${!('display' in pdict && 'compareAttr' in pdict.display && pdict.display.compareAttr == false)}">
     <div class="compare hidden-xs-down">
     <div class="custom-control custom-checkbox">
