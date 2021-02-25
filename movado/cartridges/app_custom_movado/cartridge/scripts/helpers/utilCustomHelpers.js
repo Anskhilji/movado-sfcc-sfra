@@ -4,7 +4,7 @@ var Site = require('dw/system/Site');
 
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants.js');
 
-function isSwellLoyaltyAllowedCountry() {
+function isSwellLoyaltyAllowedCountry(deliveryCountryCode) {
     
     var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
     var allCountries = Constants.ALL_COUNTRIES;
@@ -13,7 +13,13 @@ function isSwellLoyaltyAllowedCountry() {
         var deliveryAllowedCountryCodes = Site.getCurrent().preferences.custom.swellLoyaltyAllowedCountries;
         if (!empty(deliveryAllowedCountryCodes)) {
             for (var i = 0; i < deliveryAllowedCountryCodes.length; i++) {
-                if ((countryCode && countryCode.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) || allCountries.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) {
+                if (!empty(deliveryCountryCode) && deliveryCountryCode !== 'undefined' && deliveryCountryCode === deliveryAllowedCountryCodes[i]) {
+                    return true;
+                }
+                else if (!empty(session.privacy.countryCode) && session.privacy.countryCode === deliveryAllowedCountryCodes[i]) {
+                    return true;
+                }
+                else if ((countryCode && countryCode.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) || allCountries.equalsIgnoreCase(deliveryAllowedCountryCodes[i])) {
                     return true;
                 }
             }

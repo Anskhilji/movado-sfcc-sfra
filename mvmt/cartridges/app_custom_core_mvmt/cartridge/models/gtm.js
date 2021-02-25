@@ -8,13 +8,15 @@ var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
 var Logger = require('dw/system/Logger');
 var HashMap = require('dw/util/HashMap');
-
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 
 var collections = require('*/cartridge/scripts/util/collections');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var pageNameJSON = JSON.parse(Site.current.getCustomPreferenceValue('pageNameJSON'));
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalyticsHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 
 var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
         Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
@@ -29,6 +31,10 @@ function gtmModel(req) {
     var currentCustomer = req.currentCustomer;
     var reqQueryString = req.querystring;
     var action = req.querystring.urlAction.toLowerCase();
+    // Custom start: Added referral Url
+    var referralUrl = req.referer;
+    // Custom end
+    var pageUrl = URLUtils.url(action);
     var searchkeyword;
     var cgid;
     var pid;
@@ -39,19 +45,27 @@ function gtmModel(req) {
     var productBreadcrumbs;
     var searchBreadcrumbs;
     var userShippingDetails;
+    var departmentCategoryName;
 
     this.primarySiteSection = '';
     this.secondarySiteSection = '';
     this.tertiarySiteSection = '';
     this.searchTerm = '';
+    this.googleAnalyticsParameters = '';
 
 
         if (!empty(req.querystring)) {
             var queryString = req.querystring.urlQueryString;
             var searchQuery = getSearchQuery(queryString);
+            // Custom Start : get google analytics arrat from site prefrence
+            var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
+            // Custom End
             searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
+        }            
+        if (cgid != null || searchkeyword != null) {
+            departmentCategoryName = getPLPDepartmentCategory(req, cgid, searchkeyword);
         }
         if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
             this.checkout = [];
@@ -132,6 +146,10 @@ function gtmModel(req) {
             productObj = ProductMgr.getProduct(formatProductId(pid));
             productBreadcrumbs = getProductBreadcrumb(productObj);
             var primarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.primaryCategory) : '';
+            var secondarySiteSection = productBreadcrumbs ? escapeQuotes(productBreadcrumbs.secondaryCategory) : '';
+            secondarySiteSection = (!empty(secondarySiteSection)) ? '|' + secondarySiteSection : '';
+            var departmentCategoryName = primarySiteSection + secondarySiteSection;
+            departmentCategoryName = (!empty(departmentCategoryName)) ? departmentCategoryName : primarySiteSection;
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
@@ -142,14 +160,19 @@ function gtmModel(req) {
                     productName: productImpressionTags && productImpressionTags.productName ? stringUtils.removeSingleQuotes(productImpressionTags.productName) : '',
                     brand: productImpressionTags && productImpressionTags.brand ? productImpressionTags.brand : '',
                     productPersonalization: productImpressionTags && productImpressionTags.productPersonalization ? productImpressionTags.productPersonalization : '',
-                    category: productImpressionTags && productImpressionTags.customCategory ? productImpressionTags.customCategory : '',
-                    currentCategory: primarySiteSection,
+                    category: stringUtils.removeSingleQuotes(productImpressionTags && productImpressionTags.customCategory) ? productImpressionTags.customCategory : '',
+                    currentCategory: stringUtils.removeSingleQuotes(primarySiteSection),
                     productPrice: productImpressionTags && productImpressionTags.productPrice ? productImpressionTags.productPrice : '',
                     list: productImpressionTags && productImpressionTags.list ? productImpressionTags.list : '',
                     Sku: productImpressionTags && productImpressionTags.Sku ? productImpressionTags.Sku : '',
                     variantID: productImpressionTags && productImpressionTags.variantID ? productImpressionTags.variantID : '',
                     productType: productImpressionTags && productImpressionTags.productType ? productImpressionTags.productType : '',
                     variant: productImpressionTags && productImpressionTags.variant ? productImpressionTags.variant : '',
+                    currency: productImpressionTags && productImpressionTags.currency ? productImpressionTags.currency : '',
+                    // Custom start: Added secoundary category if exist and quantity on product on pdp
+                    deparmentIncludedCategoryName: departmentCategoryName,
+                    quantity: '1'
+                    // Custom End
                 };
             } else {
                 this.product = {};
@@ -164,8 +187,9 @@ function gtmModel(req) {
         if (productArray == 0) {
             searchCount = 0;
         }
-        if (searchCount == 0 && pageNameJSON != null) {
-            pageType = pageNameJSON['no-searchresult-page'];
+
+        if (searchCount == 0 && pageNameJSON != null && empty(pageType)) {
+           pageType = pageNameJSON['no-searchresult-page'];
         }
     }
 
@@ -176,8 +200,10 @@ function gtmModel(req) {
         userShippingDetails = getUserShippingDetails(orderId);
     }
     // Custom Start Updated PageData values according to mvmt
+    this.pageUrl = !empty(pageUrl) ? pageUrl : '';
     this.action = action != null ? action : '';
     this.tenant = !empty(tenant) ? tenant : '';
+    this.referralUrl = !empty(referralUrl) ? referralUrl : '';
     this.language = (language != null && language != undefined) ? language : '';
     this.pageType = (pageType != null && pageType != undefined) ? pageType : '';
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
@@ -191,6 +217,8 @@ function gtmModel(req) {
     this.customerType = (customerType != null && customerType != undefined) ? customerType : '';
     this.userZip = userShippingDetails && !empty (userShippingDetails.userShippingPostalCode) ? userShippingDetails.userShippingPostalCode : (!empty(userZip) ? userZip : '');
     this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
+    this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
+    this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
 }
 
 
@@ -435,7 +463,7 @@ function getProductBreadcrumb(productObj) {
         ? productObj.masterProduct.primaryCategory
         : productObj.primaryCategory;
         var categoryHierarchy = getCategoryBreadcrumb(category);
-        return { primaryCategory: categoryHierarchy.primaryCategory };
+        return { primaryCategory: categoryHierarchy.primaryCategory, secondaryCategory: categoryHierarchy.secondaryCategory, tertiaryCategory: categoryHierarchy.tertiaryCategory   };
     } catch (ex) {
         Logger.error('Error occured while getting product bread crumb. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
@@ -514,6 +542,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var selectedVariant;
         var jewelryType = '';
         var watchGender = '';
+        var currency = (productObj.priceModel.price && productObj.priceModel.price.available ? (productObj.priceModel.price.currencyCode) : (productObj.priceModel.minPrice.currencyCode));
         if (productObj.master) {
             var variantFilter = getVariantFilter(queryString);
             if (variantFilter.length > 0) {
@@ -543,7 +572,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         if (!empty(productObj.custom.jewelryType)) {
             jewelryType = productObj.custom.jewelryType;
         }
-        var customCategory = watchGender + " " + jewelryType;
+        var customCategory = stringUtils.removeSingleQuotes(watchGender + " " + jewelryType);
         var productName = stringUtils.removeSingleQuotes(productObj.name);
         var brand = stringUtils.removeSingleQuotes(productObj.brand);
         var productPersonalization = '';
@@ -556,7 +585,7 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP' };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP', currency: currency };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
@@ -592,11 +621,22 @@ function getVariantFilter(queryStringVal) {
 function getBasketParameters() {
     var BasketMgr = require('dw/order/BasketMgr');
     var ProductMgr = require('dw/catalog/ProductMgr');
+    var TotalsModel = require('*/cartridge/models/totals');
     var currentBasket = BasketMgr.getCurrentBasket();
+    //Custom start: get total product quantity 
+    var productQuantityTotal = !empty(currentBasket) && !empty(currentBasket.productQuantityTotal) ? currentBasket.productQuantityTotal : 0;
+    // Custom End
+    var currencyCode = !empty(currentBasket) && !empty(currentBasket.currencyCode) ? currentBasket.currencyCode : '';
+    var totalsModel = new TotalsModel(currentBasket);
     var cartJSON = [];
     if (currentBasket) {
         var cartItems = currentBasket.allProductLineItems;
         var appliedCoupons = getCouponsOnOrder(currentBasket.couponLineItems);
+        var countryDisplayName = (currentBasket.billingAddress) ? currentBasket.billingAddress.countryCode.displayValue : '';
+        var paymentMethod = !empty(currentBasket.paymentInstrument) ? currentBasket.paymentInstrument.paymentMethod : '';
+        // Custom Start : Added city state zip code with pipe bars
+        var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
+        // Custom End
         var jewelryType = '';
         var watchGender = '';
         collections.forEach(cartItems, function (cartItem) {
@@ -625,9 +665,20 @@ function getBasketParameters() {
                     description: stringUtils.removeSingleQuotes(cartItem.product.shortDescription.markup),
                     quantity:cartItem.quantityValue,
                     revenue: cartItem.grossPrice.decimalValue,
+                    totalProductQuantity: productQuantityTotal,
                     tax: cartItem.tax.decimalValue,
                     shipping: cartItem.shipment.shippingTotalGrossPrice.decimalValue,
-                    coupon: appliedCoupons });
+                    coupon: appliedCoupons,
+                    currency: currencyCode,
+                    cityStateZip: cityStateZipCode,
+                    country: countryDisplayName,
+                    // Custom Start : Added product discount
+                    discount: getOrderLevelDiscount(cartItem),
+                    subTotal: totalsModel.subTotal,
+                    orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
+                    // Custom End
+                    // Custom Start : Added payment method
+                    paymentMethod: paymentMethod });
             }
         });
     }
@@ -656,12 +707,29 @@ function getCartJSONArray(checkoutObject) {
             cartObj.position = cartJSON[i].position;
             cartObj.revenue = cartJSON[i].revenue;
             cartObj.tax = cartJSON[i].tax;
+            cartObj.coupon = (!empty(cartJSON[i].coupon)) ? cartJSON[i].coupon : 0;
             cartObj.shipping = cartJSON[i].shipping;
             cartObj.productType = cartJSON[i].productType;
             cartObj.description = stringUtils.removeSingleQuotes(escape(cartJSON[i].description.markup));
             cartObj.quantity = cartJSON[i].quantity;
             cartObj.imageURL = cartJSON[i].imageURL;
             cartObj.prouctUrl = cartJSON[i].prouctUrl;
+            // Custom Start : Added product quantity into cart Object
+            cartObj.productQuantity = cartJSON[i].quantity;
+            // Custom End
+            cartObj.totalProductQuantity = cartJSON[i].totalProductQuantity;
+            cartObj.currency = cartJSON[i].currency;
+            // Custom Start : Added country into cart object
+            cartObj.country = cartJSON[i].country;
+            // Custom End
+            cartObj.cityStateZipCode = cartJSON[i].cityStateZip;
+            // Custom Start : Added subtotal
+            cartObj.subTotal = cartJSON[i].subTotal;
+            // Custom End
+            // Custom Start : Added discount
+            cartObj.discount = cartJSON[i].discount;
+            // Custom End
+            cartObj.paymentMethod = cartJSON[i].paymentMethod;
     
             if (cartArray.length < 10) {
                 cartArray.push({
@@ -799,9 +867,19 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var order = OrderMgr.getOrder(orderId);
     var averageOrderLevelDiscount = getAverageOrderLevelDiscount(order);
+    var paymentMethod = '';
     if (order != null && order.productLineItems != null) {
-        var orderLevelCouponString = '';
+        var orderLevelCouponString = 0;
         var itemLevelCouponString = '';
+        var orderLevelPromotionPrice;
+        paymentMethod = order.paymentInstrument.paymentMethod;
+        orderLevelPromotionPrice = (order.priceAdjustments.empty == false) ? order.priceAdjustments.iterator(): null;
+        orderSubTotal = order.getAdjustedMerchandizeTotalPrice(false);
+        orderSubTotal = formatMoney(orderSubTotal);
+        if (orderLevelPromotionPrice && orderLevelPromotionPrice.hasNext()) {
+            var priceAdjustmentLineItem = orderLevelPromotionPrice.next();
+            orderLevelPromotionPrice = priceAdjustmentLineItem.priceValue * -1;
+        }
         collections.forEach(order.couponLineItems, function (couponLineItem) {
             collections.forEach(couponLineItem.priceAdjustments, function (priceAdjustment) {
                 if (priceAdjustment.promotion.promotionClass == 'ORDER') {
@@ -832,11 +910,31 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.id = productLineItem.product.ID;
                 produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
                 produtObj.brand = stringUtils.removeSingleQuotes(productLineItem.product.brand);
-                produtObj.category = customCategory,
+                produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
+                // Custom Start : Added subtotal
+                produtObj.subtotal = orderSubTotal;
+                // Custom End
+                // Custom Start : Added discount tax shipping with pipe bars
+                produtObj.discountTaxShipping = getOrderLevelDiscount(productLineItem) + orderLevelPromotionPrice  + Constants.MOVADO_SHIPPING_PIPE_BARS +  productLineItem.tax.decimalValue + Constants.MOVADO_SHIPPING_PIPE_BARS + productLineItem.shipment.shippingTotalGrossPrice.decimalValue;
+                // Custom End
+                // Custom Start : Added  city state zip
+                produtObj.cityStateZipCode = (order.billingAddress) ? order.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + order.billingAddress.postalCode: '';
+                // Custom End
+                // Custom Start : Added  currency
+                produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
+                // Custom End
+                // Custom Start : Added  product quantity
+                produtObj.quantity = productLineItem.product.priceModel.basePriceQuantity.value;
+                // Custom End
+                // Custom Start : Added  total product quantity
+                produtObj.productQuantityTotal =  order.productQuantityTotal;
+
+                produtObj.orderLevelPromotionPrice = orderLevelPromotionPrice;
+                // Custom End
                 if (!empty(productLineItem.product.shortDescription)) {
                     produtObj.description = stringUtils.removeSingleQuotes(productLineItem.product.shortDescription.markup);
                 }
@@ -877,6 +975,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.discount = getOrderLevelDiscount(order);
         orderObj.discountType = getDicountType(order);
         orderObj.currencyCode = order.currencyCode;
+        orderObj.country = !empty(order.billingAddress) && !empty(order.billingAddress.countryCode) ? order.billingAddress.countryCode.displayValue : '';
+        orderObj.paymentMethod = paymentMethod;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
@@ -975,6 +1075,73 @@ function formatProductId(pid) {
     }
 
     return pid;
+}
+
+/**
+* function to get google analytics parameters array
+ * @param queryStringVal
+ * @param googleAnalyticsRequiredParameters
+ * @returns {String} googleAnalyticsParameters
+ */
+function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredParameters) {
+    var searchArray = [];
+    var googleAnalyticsParameters = '';
+    var googleAnalyticsParameter;
+    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+    if (queryString.indexOf('&') >= 0) {
+        searchArray = queryString.split('&');
+        if (searchArray.length != 0 && !empty(googleAnalyticsRequiredParameters)){
+            for (var j = 0; j < googleAnalyticsRequiredParameters.length; j++) {
+                for (var i = 0 ; i < searchArray.length; i++) {
+                    googleAnalyticsParameter = searchArray[i].split('=');
+                    if ((googleAnalyticsParameter[0].indexOf(googleAnalyticsRequiredParameters[j])) > -1) {
+                        if(empty(googleAnalyticsParameters)) {
+                            googleAnalyticsParameters = googleAnalyticsParameters + searchArray[i];
+                        } else {
+                            googleAnalyticsParameters = googleAnalyticsParameters + '&' + searchArray[i];
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    return googleAnalyticsParameters;
+}
+
+/**
+ * Funtion return department and category name for plp and search query pages
+ * @param req
+ * @param queryString
+ * @returns categoryNameWithoutApostrophe
+ */
+function getPLPDepartmentCategory(req, queryString, searchQuery) {
+    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+
+    try {
+    var plpCategory;
+    var apiProductSearch = new ProductSearchModel();
+    var queryStringItems = {
+        cgid: queryString
+    };
+    apiProductSearch = searchHelper.setupSearch(apiProductSearch, queryStringItems);
+    apiProductSearch.search();
+    
+    if (apiProductSearch && apiProductSearch.category && apiProductSearch.category.ID) {
+        var productBreadcrumbs  = getCategoryBreadcrumb(apiProductSearch.category);
+        var primaryCategory = escapeQuotes(productBreadcrumbs.primaryCategory);
+        var secoundaryCategory = escapeQuotes(productBreadcrumbs.secondaryCategory);
+        plpCategory = (!empty(secoundaryCategory)) ? primaryCategory + '|' + secoundaryCategory : primaryCategory;
+        return plpCategory;
+    } else {
+        return searchQuery;
+    }
+    } catch (ex) {
+        Logger.error('Error Occured while getting plp categories from product search. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        return '';
+    }
 }
 
 module.exports = gtmModel;

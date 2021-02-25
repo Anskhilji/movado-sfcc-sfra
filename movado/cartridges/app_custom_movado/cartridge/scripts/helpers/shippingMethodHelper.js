@@ -14,7 +14,7 @@ var CommonUtils = require('*/cartridge/utils/commonUtils');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 
 function getShippingDate(shippingMethod) {
-    if (!ABTestMgr.isParticipant('EstimatedShippingDatesABTest', 'render-old-experience')) {
+    if (!ABTestMgr.isParticipant('EstimatedShippingDatesABTest', 'render-old-experience') && !empty(shippingMethod)) {
         var siteCustomPreferences = Site.getCurrent().preferences.custom;
         var cutOffTimeHours = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeHours : 0;
         var cutOffTimeMinutes = siteCustomPreferences.shippingCutOffTimeHours ? siteCustomPreferences.shippingCutOffTimeMinutes : 0;

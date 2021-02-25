@@ -7,7 +7,7 @@
             <isloop items="${slotcontent.content}" var="category">
                 <a href="${URLUtils.url('Search-Show', 'cgid', category.ID)}" title="${category.displayName}">
                     <div class="strap-category-tile">
-                        <img class="img-fluid" src="${category.image.getURL()}" alt="${category.displayName}"/>
+                        <img class="img-fluid" src="${!empty(category) && !empty(category.image) ? category.image.getURL() : ''}" alt="${category.displayName}"/>
                         <h3>
                             <isprint value="${category.displayName}" encoding="htmlcontent"/>
                         </h3>
@@ -20,7 +20,7 @@
             <isloop items="${slotcontent.content}" var="category">
                 <a href="${URLUtils.url('Search-Show', 'cgid', category.ID)}" title="${category.displayName}">
                     <div class="strap-category-tile">
-                        <img class="img-fluid" src="${category.image.getURL()}" alt="${category.displayName}"/>
+                        <img class="img-fluid" src="${!empty(category) && !empty(category.image) ? category.image.getURL() : ''}" alt="${category.displayName}"/>
                         <h3>
                             <isprint value="${category.displayName}" encoding="htmlcontent"/>
                         </h3>

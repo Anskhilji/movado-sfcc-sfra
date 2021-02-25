@@ -5,14 +5,21 @@
     resource bundle in JavaScript.
 </iscomment>
 <isscript>
+    var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
+    var amazonPayUtils;
+    var amazonURLs;
+    var amazonSitePreferences;
     var ResourceHelper = require('*/cartridge/scripts/helpers/resourceHelper');
-    var amazonPayUtils = require('*/cartridge/scripts/util/amazonPayUtils.js');
+    if(sitePreferences.amzPayEnabled == true) {
+        amazonPayUtils = require('*/cartridge/scripts/util/amazonPayUtils.js');
+        amazonURLs = JSON.stringify(amazonPayUtils.getURLs())
+        amazonSitePreferences = JSON.stringify(amazonPayUtils.getPreferences(request, session))
+    }
 </isscript>
 <script>
     (function(){
         window.Resources = <isprint value="${JSON.stringify(ResourceHelper.getResources())}" encoding="off"/>;
-        window.AmazonURLs = ${JSON.stringify(amazonPayUtils.getURLs())};
-        window.AmazonSitePreferences = ${JSON.stringify(amazonPayUtils.getPreferences(request, session))};
+        window.AmazonURLs = ${amazonURLs};
+        window.AmazonSitePreferences = ${amazonSitePreferences};
     }());
 </script>
-

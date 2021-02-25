@@ -296,6 +296,18 @@ module.exports = {
         	e.preventDefault();
 
             $.spinner().start();
+
+            // Push Data into gtm For Sorting Rules Filters
+            var $filteredText = $(this).find(':selected').text().trim();
+            if ($filteredText !==undefined) {
+                dataLayer.push({
+                    event: 'Collection Filtering',
+                    eventCategory: 'Collection Filter',
+                    eventAction: 'Open Filter Category',
+                    eventLabel: $filteredText
+                  });
+            }
+            
             $(this).trigger('search:sort', this.value);
             $.ajax({
                 url: this.value,
@@ -321,7 +333,22 @@ module.exports = {
         // Show more products
         $('.container').on('click', '.show-more button', function (e) {
             e.stopPropagation();
+
+            //push data on ga tracking
             var showMoreUrl = $(this).data('url');
+            var $pageSize = $(this).data('page-number');
+            var $plpName = $(this).data('category-id');
+            var $counter = 1;
+            var $pageCounter = $pageSize + $counter;
+            
+            if ($pageSize !== undefined && $plpName !== undefined) {
+                dataLayer.push({
+                    event: 'Load More Results',
+                    eventCategory: 'Load More Results - See More',
+                    eventAction: $plpName,
+                    eventLabel: $pageCounter
+                });
+            }
 
             e.preventDefault();
 
@@ -352,6 +379,30 @@ module.exports = {
         // Show more products
     	$('.container').on('click', '.show-pagination button', function (e) {
         e.stopPropagation();
+
+        //push data on ga tracking
+        var $AriaLabel = $(this).attr('aria-label');
+        var $pageSize = $(this).data('page-size');
+        var $pageNumber = $(this).data('page-number');
+
+        if ($AriaLabel !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $AriaLabel,
+                eventLabel: $pageSize
+            });
+        } else {
+            if ($pageNumber !== undefined && $pageNumber !== undefined) {
+                dataLayer.push({
+                    event: 'Pagination',
+                    eventCategory: 'Load More Results - Pagination',
+                    eventAction: $pageNumber,
+                    eventLabel: $pageSize
+                });
+            }
+        }
+
         var showMoreUrl = $(this).data('url');
 
         e.preventDefault();
@@ -388,6 +439,15 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                //push data into datalayer for filters into gtm
+                var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+                dataLayer.push({
+                    event: 'Filter Sort',
+                    eventCategory: 'Filter & Sort',
+                    eventAction: $filterType,
+                    eventLabel: $(this).text().trim()
+                });
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);

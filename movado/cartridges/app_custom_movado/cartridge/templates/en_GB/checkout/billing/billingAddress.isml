@@ -124,7 +124,7 @@
                     && pdict.order.billing.billingAddress.address.stateCode
                     ? pdict.order.billing.billingAddress.address.stateCode
                     : ''}"
-                <isprint value="${pdict.addressForm.states.stateCode}" encoding="off" />
+                <isprint value="${!empty(pdict.addressForm) && !empty(pdict.addressForm.states) && !emtpy(pdict.addressForm.states.stateCode) ? pdict.addressForm.states.stateCode : ''}" encoding="off" />
                 autocomplete="shipping address-level1">
             </input>
             <div class="invalid-feedback"></div>
