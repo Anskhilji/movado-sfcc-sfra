@@ -42,12 +42,12 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
-    var explicitRecommendations = productCustomHelper.getExplicitRecommendations(apiProduct.ID);
-    //Custom Start: Added property to get recommendations
-    if (explicitRecommendations) {
-        Object.defineProperty(product, 'explicitRecommendations', {
+    var hasRecommendations = productCustomHelper.hasRecommendations(apiProduct);
+    //Custom Start: Added property to get recommendations status
+    if (hasRecommendations) {
+        Object.defineProperty(product, 'hasRecommendations', {
             enumerable: true,
-            value: explicitRecommendations
+            value: hasRecommendations
         });
     }
     // Custom End
