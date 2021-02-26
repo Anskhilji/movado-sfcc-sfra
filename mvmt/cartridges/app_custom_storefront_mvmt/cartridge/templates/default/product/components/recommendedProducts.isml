@@ -1,6 +1,5 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
 <div class="linked-product-list">
-    <isset name="product" value="${pdict.product}" scope="page" />
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <div class="linked-head">
             <isprint value="${pdict.strapGuideText}" encoding="off" />

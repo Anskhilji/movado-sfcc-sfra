@@ -85,8 +85,6 @@ server.prepend('Variation', function (req, res, next) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
 
-    // var product = ProductFactory.get(params);
-
     attributeContext = {
         explicitRecommendations: explicitRecommendations,
         isStrapAjax: isStrapAjax,
