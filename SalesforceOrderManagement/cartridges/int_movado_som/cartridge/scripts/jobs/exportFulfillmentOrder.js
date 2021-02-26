@@ -341,6 +341,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
                     writeXmlElement(streamWriter, 'PersonalizationType', personalization.personalizationType);
                     writeXmlElement(streamWriter, 'LanguageID', '');
                     writeXmlElement(streamWriter, 'IsThisBillable', personalization.isThisBillable);
+                    if (Object.hasOwnProperty.call(personalization, 'font')) {
+                        writeXmlElement(streamWriter, 'Font', personalization.font, true);
+                    }
                     if (personalization.textList) {
                         personalization.textList.forEach(function (text) {
                             streamWriter.writeStartElement('Text');
