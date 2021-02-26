@@ -239,7 +239,7 @@ function getProductLineMetadataItems(pli) {
 	    }
 
         // Custom Start : Get Category Info From Product line Item
-        var pliCategoryId = pli.product.primaryCategory.ID;
+        var pliCategoryId = !empty(pli.product) && !empty(pli.product.primaryCategory) ? pli.product.primaryCategory.ID : null;
         if (!empty(pliCategoryId)) {
             obj = {
                 name: 'Category',
