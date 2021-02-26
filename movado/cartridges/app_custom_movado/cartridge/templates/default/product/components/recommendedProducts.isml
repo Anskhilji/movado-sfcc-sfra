@@ -2,12 +2,12 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="linked-product-list">
     <isset name="product" value="${pdict.product}" scope="page" />
-    <isif condition="${!empty(product.explicitRecommendations) && product.explicitRecommendations.length > 0}">
+    <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <div class="linked-head">
             <iscontentasset aid="style-with-text-configs" />
         </div>
         <div class="recomended-products">
-            <isloop items="${product.explicitRecommendations}" var="recommendation">
+            <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
                         <input type="checkbox" autocomplete="off" class="upsell-input" name="additionalProducts" value="${recommendation.id}">
