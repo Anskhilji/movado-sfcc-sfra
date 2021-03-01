@@ -19,8 +19,6 @@ var Site = require('dw/system/Site');
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-    var explicitRecommendations = productCustomHelper.getExplicitRecommendations(apiProduct.ID);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -67,15 +65,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
     // Custom end
-
-    //Custom Start: Added property to get recommendations
-    if (explicitRecommendations) {
-        Object.defineProperty(product, 'explicitRecommendations', {
-            enumerable: true,
-            value: explicitRecommendations
-        });
-    }
-    // Custom End
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);

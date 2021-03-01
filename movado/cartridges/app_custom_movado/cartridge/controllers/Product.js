@@ -3,7 +3,9 @@
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
@@ -35,6 +37,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
+    var explicitRecommendations = [];
     var viewData = res.getViewData();
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
@@ -53,9 +56,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     var productDecimalPrice = 0.0;
 
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
         // Custom Start: Add pricing logic for Klarna promo banners
         try {
@@ -116,7 +123,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
-        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
+        explicitRecommendations: explicitRecommendations,
+        strapGuideText: strapGuideText
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
