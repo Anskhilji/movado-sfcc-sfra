@@ -58,7 +58,7 @@ function getCollectionName(apiProduct) {
 }
 
 function getSaveMessage(apiProduct) {
-    var saveMessage="";
+    var saveMessage = "";
     if (!empty(apiProduct)) {
         saveMessage = apiProduct.custom.saveMessage;
     }

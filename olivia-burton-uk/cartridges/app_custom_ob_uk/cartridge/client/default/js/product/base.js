@@ -1008,7 +1008,6 @@ module.exports = {
     getQuantitySelected: getQuantitySelected,
     addToCartPLP : function() {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
-            debugger;
             $.spinner().start();
             var addToCartUrl;
             var $this = $(this);
