@@ -1,5 +1,10 @@
 <!--- TEMPLATENAME: trackingFooter.isml --->
-
+<script>
+    if (pageDataGTM != undefined && pageDataGTM) {
+        pageDataGTM.departmentCategoryName = "${pdict.departmentCategoryName ? pdict.departmentCategoryName : ''}"
+        dataLayer.push({ pageData: pageDataGTM});
+    }
+</script>
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')}">
     <script>
         var setAnalyticsTrackingByAJAX = new CustomEvent('analyticsTracking');

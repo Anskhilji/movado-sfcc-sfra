@@ -86,5 +86,17 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         enumerable: true,
         value: saveMessage
     });
+    /**
+     * Custom Start: Redesign Changes
+     */
+    var isRedesignedBadge =  productCustomHelper.isOnlyRedesignedBadge(product);
+    Object.defineProperty(product, 'isRedesignedBadge', {
+        enumerable: true,
+        value: isRedesignedBadge
+    });
+
+    /**
+     * Custom End:
+     */
     return product;
 };

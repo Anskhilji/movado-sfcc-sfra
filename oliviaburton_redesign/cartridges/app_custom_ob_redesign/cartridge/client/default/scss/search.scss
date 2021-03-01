@@ -100,6 +100,25 @@
                         }
                     }
 
+                    .product-badge.redesigned {
+                        left: auto;
+                        right: rem(10);
+                        top: rem(10);
+                        @include media-breakpoint-up(lg) { 
+                            left: auto;
+                            right: rem(20);
+                            top: rem(20);
+                        }
+                        img {
+                            width: rem(35);
+                            height: rem(35);
+                            @include media-breakpoint-up(lg) {
+                                width: auto;
+                                height: auto;
+                            }
+                        }
+                    }
+
                     &:hover {
                         a {
                             .tile-image {
