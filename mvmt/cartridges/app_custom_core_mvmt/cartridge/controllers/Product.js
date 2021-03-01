@@ -3,6 +3,7 @@
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 
 var page = module.superModule;
@@ -70,15 +71,24 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 server.prepend('Variation', function (req, res, next) {
     var attributeContext;
     var attributeTemplateLinked;
+    var explicitRecommendations = [];
     var recommendedProductTemplate;
-    var params = req.querystring;
+    var pid = req.querystring.pid;
     var isStrapAjax = req.querystring.isStrapAjax;
 
-    var product = ProductFactory.get(params);
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
+    
+    /* get recommendedProducts for product*/
+    if (pid) {
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
+    }
 
     attributeContext = {
-        product: product,
-        isStrapAjax: isStrapAjax
+        explicitRecommendations: explicitRecommendations,
+        isStrapAjax: isStrapAjax,
+        strapGuideText: strapGuideText
     };
 
     attributeTemplateLinked = 'product/components/recommendedProducts';
