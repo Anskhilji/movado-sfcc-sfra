@@ -5,9 +5,6 @@
         assets.addCss('/css/search.css');
     </isscript>
 
-    <isif condition=${false}>
-        <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-    </isif>
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
@@ -24,7 +21,7 @@
         <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
     </isif>
 	</div>
-	<div class="container search-results">
+	<div class="container search-results" >
 	   <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 			<isif condition="${!pdict.productSearch.isCategorySearch}">
 	    <div class="row">
@@ -143,15 +140,11 @@
 	</div>
 	</div>
 	
-
-    <isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-        <isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-    <iselse>
-        <isif condition="${pdict.productSearch.category}">
-            <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-        </isif>
+    
+    <isif condition="${pdict.productSearch.category}">
+        <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
-
+    
     <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
         <div class="d-none" id="color-swatch-images">
             <isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
