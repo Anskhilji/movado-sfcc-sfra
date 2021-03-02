@@ -6,6 +6,7 @@ var decorators = require('*/cartridge/models/product/decorators/index');
 var promotionCache = require('*/cartridge/scripts/util/promotionCache');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 
 /**
  * Get product search hit for a given product
@@ -89,7 +90,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     /**
      * Custom Start: Redesign Changes
      */
-    var isRedesignedBadge =  productCustomHelper.isOnlyRedesignedBadge(product);
+    var isRedesignedBadge =  productCustomHelpers.isOnlyRedesignedBadge(product);
     Object.defineProperty(product, 'isRedesignedBadge', {
         enumerable: true,
         value: isRedesignedBadge
