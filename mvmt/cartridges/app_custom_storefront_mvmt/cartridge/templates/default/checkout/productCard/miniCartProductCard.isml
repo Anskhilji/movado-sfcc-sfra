@@ -105,9 +105,7 @@
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
         </div>
-        <isif condition="${lineItem.hasRecommendations}">
-            <button class="btn-cart-recommendations"> Recommendations</button>
+            <div class="cart-recommendations d-none"> Cart recommendations </div>
             <iscomment> <isinclude template="checkout/productCard/cartRecommendations" /> </iscomment>
-        </isif>
     </isif>
 </div>

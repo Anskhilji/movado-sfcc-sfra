@@ -42,15 +42,6 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
-    var hasRecommendations = productCustomHelper.hasRecommendations(apiProduct);
-    //Custom Start: Added property to get recommendations status
-    if (hasRecommendations) {
-        Object.defineProperty(product, 'hasRecommendations', {
-            enumerable: true,
-            value: hasRecommendations
-        });
-    }
-    // Custom End
     Object.defineProperty(product, 'bonusProductText', {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? apiProduct.custom.bonusProductText : ''

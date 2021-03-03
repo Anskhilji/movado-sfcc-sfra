@@ -42,19 +42,6 @@ function getExplicitRecommendations(pid) {
     }
     return recommendationTilesList;
 }
-// Custom start (Method to check recommendations)
-function hasRecommendations(apiProduct) {
-    var hasRecommendations = false;
-    if (apiProduct) {
-        var productRecommendations =  apiProduct.getRecommendations();
-        if (productRecommendations && productRecommendations.length > 0) {
-            hasRecommendations = true;
-        }
-    }
-    return hasRecommendations;
-}
-
 module.exports = {
-    hasRecommendations: hasRecommendations,
     getExplicitRecommendations: getExplicitRecommendations
 };
