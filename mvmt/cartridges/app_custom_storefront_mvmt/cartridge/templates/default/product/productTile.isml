@@ -48,6 +48,9 @@
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
+        <iscomment>
+            Custom Start: Added logic to hide promotion message for top search and suggestion product tiles
+        </iscomment>
         <isif condition="${!(pdict.display && ( pdict.display.isTopSearch || pdict.display.isSuggestionTile) )}">
             <isif condition="${product.promotions}">
                 <div class="promotions">
@@ -61,6 +64,9 @@
                 </div>
             </isif>
         </isif>
+        <iscomment>
+            Custom End: 
+        </iscomment>
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}
