@@ -1,4 +1,4 @@
-<div class="product-tile" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -15,7 +15,7 @@
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false}">
+        <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 
@@ -40,23 +40,33 @@
 		    </isloop>
 
         <isset name="price" value="${product.price}" scope="page" />
-        <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
-        <iscomment> Custom: End </iscomment>
+        <isif condition="${product.productType === 'set'}">
+            <isinclude template="product/components/pricing/setPrice" />
+        <iselse>
+            <isinclude template="product/components/pricing/main" />
+        </isif>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
-        <isif condition="${product.promotions}">
-		    <div class="promotions">
-			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                    <isif condition="${promotion.plpCalloutMsg !== ''}">
-                        <div class="callout promo-msg">
-                            <isprint value="${promotion.plpCalloutMsg}" encoding="off">
-                        </div>
-                    </isif>
-			    </isloop>
-		    </div>
-		</isif>
+        <iscomment>
+            Custom Start: Added logic to hide promotion message for top search and suggestion product tiles
+        </iscomment>
+        <isif condition="${!(pdict.display && ( pdict.display.isTopSearch || pdict.display.isSuggestionTile) )}">
+            <isif condition="${product.promotions}">
+                <div class="promotions">
+                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                        <isif condition="${promotion.plpCalloutMsg !== ''}">
+                            <div class="callout promo-msg">
+                                <isprint value="${promotion.plpCalloutMsg}" encoding="off">
+                            </div>
+                        </isif>
+                    </isloop>
+                </div>
+            </isif>
+        </isif>
+        <iscomment>
+            Custom End: 
+        </iscomment>
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}

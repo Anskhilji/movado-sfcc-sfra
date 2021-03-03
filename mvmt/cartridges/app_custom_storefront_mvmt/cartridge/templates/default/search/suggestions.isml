@@ -34,7 +34,13 @@
             <div class="row items d-none d-lg-flex">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-sm-4 item">
-                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+                        <iscomment>
+                            Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template
+                        </iscomment>
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true)}"/>
+                        <iscomment>
+                            Custom End:
+                        </iscomment>
                     </div>
                 </isloop>
             </div>
