@@ -300,7 +300,7 @@ module.exports = {
             // Push Data into gtm For Sorting Rules Filters
             var $filteredText = $(this).find(':selected').text().trim();
             var $filterCategory = $(this).find(':selected').data('filter-category');
-            var $OpenFilter = "Open";
+            var $OpenFilter = 'Open';
             var $OpenFilterCategory = $filterCategory + " " + $OpenFilter;
             if ($filteredText !==undefined) {
                 dataLayer.push({
