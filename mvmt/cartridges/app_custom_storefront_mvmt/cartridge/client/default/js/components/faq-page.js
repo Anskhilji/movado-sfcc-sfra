@@ -17,6 +17,19 @@ function activTabOnLoad() {
 
 $(window).on('load', function() {
     var $generaltab = $('.faq-nav-control-bar-link');
+    $('html, body').animate({ scrollTop: 0 }, "fast");
+    $('.tab-pane-control').addClass('d-none');
+    var $id = $($generaltab.attr('href'));
+    $id.removeClass('d-none');
+
+    $('.faq-nav-control-bar-inner').removeClass('active');
+    $('.faq-nav-control-bar-btn span').text($(this).text());
+    var showHelpContainer = $generaltab.data('show-help');
+    if (showHelpContainer) {
+        $helpContainer.removeClass('d-none');
+    } else {
+        $helpContainer.addClass('d-none');
+    }
     if ($generaltab.length > 0) {
         var $activeTabSelector = $('#active-tab-selector').val();
         $generaltab.forEach(function(value){
@@ -50,10 +63,8 @@ module.exports = function () {
     var $header = $('header');
     var $headerHeight = $header.height();
     var $helpContainer = $('.help-wrapper');
-    var $footerHelpContainer = $helpContainer.clone().removeClass('help-wrapper').addClass('help-wrapper-footer');
 
     $footer.addClass('position-relative');
-    $footer.append($footerHelpContainer);
 
     $('.form-control-textarea').val(function(_, v){
         return v.replace(/\s+/g, '');
@@ -85,10 +96,8 @@ module.exports = function () {
         var showHelpContainer = $(this).data('show-help');
         if (showHelpContainer) {
             $helpContainer.removeClass('d-none');
-            $footerHelpContainer.removeClass('d-none');
         } else {
             $helpContainer.addClass('d-none');
-            $footerHelpContainer.addClass('d-none');
         }
     });
 
@@ -99,6 +108,10 @@ module.exports = function () {
         var $helpWrapperBreakPoint = 1100;
         var $scroll = $(window).scrollTop();
         var $totalHeaderSize = $headerBannerSize - 70;
+        var elementOffset = $('footer').offset().top - 160,
+            elementOuter = $('footer').outerHeight(),
+            windowHeight = $(window).height(),
+            thisScroll = $(this).scrollTop();
 
         if ($(this).width() >= $helpWrapperBreakPoint) {
             if(!$contactTab.is(':visible')) {
@@ -109,17 +122,16 @@ module.exports = function () {
                     $helpContainer.removeAttr('style');
                     $helpContainer.removeClass('scroll-warp');
                 }
-                if (typeof $footer !== 'undefined' && typeof $footer.offset() !== 'undefined' && $scroll >= $footer.offset().top - 400) {
-                    $helpContainer.hide();
-                    $footerHelpContainer.show();
-                } else {
-                    $footerHelpContainer.hide();
-                    $helpContainer.show();
-                }
             }
         } else {
             $helpContainer.hide();
-            $footerHelpContainer.hide();
+        }
+
+        //mini contactus widget stop scrolls when window scroll reach to footer
+        if (thisScroll > (elementOffset+elementOuter-windowHeight)){
+            $('.scroll-warp').addClass('stop-scroll');
+        } else {
+            $('.scroll-warp').removeClass('stop-scroll');
         }
 
         if ($scroll >= $totalHeaderSize) {
@@ -180,6 +192,7 @@ module.exports = function () {
             }
         });
     });
+
     activTabOnLoad();
 };
 

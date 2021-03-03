@@ -5,7 +5,7 @@
         	${Resource.msg('label.myWatches','account',null)}
         </h4>
         <a href="${URLUtils.https('Account-RegisterWatch')}" class="pull-right">
-        <isif condition="${pdict.fetchWatchList && pdict.fetchWatchList.items.length > 0}">
+        <isif condition="${pdict.fetchWatchList && pdict.fetchWatchList.items && pdict.fetchWatchList.items.length > 0}">
         	${Resource.msg('label.myWatches.registeranother','account',null)}
         <iselse>
 			${Resource.msg('label.myWatches.register','account',null)}

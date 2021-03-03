@@ -6,6 +6,7 @@ var ATTRIBUTE_NAME = 'color';
 var Logger = require('dw/system/Logger');
 var URLUtils = require('dw/web/URLUtils');
 
+var Constants = require('*/cartridge/scripts/util/Constants');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
@@ -23,6 +24,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
@@ -164,6 +166,21 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
                 });
                 
+                var variant = apiProduct.variationModel.defaultVariant;
+                var variantCaseDiameter = '';
+                var caseDiameter = !empty(variant.custom.caseDiameter) ? variant.custom.caseDiameter : '';
+                var familyName = !empty(variant.custom.familyName) ? variant.custom.familyName[0] : '';
+                if (!empty(familyName) && !empty(caseDiameter)) {
+                    variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + caseDiameter + Constants.MM_UNIT;
+                } else if (!empty(caseDiameter)) {
+                    variantCaseDiameter = caseDiameter + Constants.MM_UNIT;
+                }
+                
+                Object.defineProperty(product, 'defaultVariantCaseDiameter', {
+                    enumerable: true,
+                    value: !empty(variantCaseDiameter) ? variantCaseDiameter : ''
+                });
+                
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
                     value: priceFactory.getPrice(apiProduct.variationModel.defaultVariant, null, false, options.promotions, options.optionModel)
@@ -199,6 +216,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: promotionObj
         });
     } 
+
+    if (!empty(caseDiameter)) {
+        Object.defineProperty(product, 'caseDiameter', {
+            enumerable: true,
+            value: caseDiameter
+        });
+    }
     
     return product;
 };

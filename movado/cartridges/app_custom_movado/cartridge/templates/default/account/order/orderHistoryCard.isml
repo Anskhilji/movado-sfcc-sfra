@@ -41,6 +41,9 @@
                         </isif>
                     </div>
                 </div>
+            </isif>
+            <div class="col-4 hidden-xs-down">
+                <img class="img-fluid" src="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.imageURL) ? order.firstLineItem.imageURL : ''}" alt="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.alt) ? order.firstLineItem.alt : ''}" title="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.title) ? order.firstLineItem.title : ''}">
             </div>
             <div class="card-footer">
                 <div class="row">

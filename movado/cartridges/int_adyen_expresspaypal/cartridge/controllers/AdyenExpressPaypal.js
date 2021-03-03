@@ -108,11 +108,18 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
     // var isAnonymous = currentBasket.getCustomer().isAnonymous();
     payPalHelper.preValidations(currentBasket);
     var paymentProcessor = PaymentMgr.getPaymentMethod(PAYPAL).getPaymentProcessor();
-    // Address validation
-    var addressValidationFailed = payPalHelper.addressValidation(currentBasket, req.form);
-    if (addressValidationFailed) {
+    var shippingFormValidationFailed;
+    // shipping and billing validation
+    shippingFormValidationFailed = payPalHelper.formsValidation(currentBasket, req.form);
+    if (shippingFormValidationFailed.paypalerror) {
         adyenLogger.error('(AdyenExpressPaypal) -> RedirectFromExpressPay: Address verification is failed and going to the cart page');
-        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', 'true'));
+        res.redirect(URLUtils.url('Cart-Show', 'paypalerror', shippingFormValidationFailed.paypalerror, 'firstName', shippingFormValidationFailed.firstName, 'lastName', shippingFormValidationFailed.lastName, 'address1' , shippingFormValidationFailed.address1,
+        'postalCode', shippingFormValidationFailed.postalCode , 'city',  shippingFormValidationFailed.city,
+        'email', shippingFormValidationFailed.email, 'billingAddressCity' , shippingFormValidationFailed.billingAddressCity,
+        'billingAddressState', shippingFormValidationFailed.billingAddressState,
+        'billingAddressCountry', shippingFormValidationFailed.billingAddressCountry,
+        'phoneNumber', shippingFormValidationFailed.phoneNumber,
+        'billingAddressStateOrProvince', shippingFormValidationFailed.billingAddressStateOrProvince));
         return next();
     }
     var result = adyenHandleExpressPayPalResponse.execute(currentBasket, paymentProcessor, req.form);

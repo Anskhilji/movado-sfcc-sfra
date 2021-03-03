@@ -101,7 +101,7 @@ server.replace(
 
         var order = OrderMgr.getOrder(req.querystring.orderID);
         var orderCustomerNo = req.currentCustomer.profile.customerNo;
-        var currentCustomerNo = order.customer.profile.customerNo;
+        var currentCustomerNo = !empty(order) ? order.customer.profile.customerNo : '';
         var breadcrumbs = [
             {
                 htmlValue: Resource.msg('global.home', 'common', null),

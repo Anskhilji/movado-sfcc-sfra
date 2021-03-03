@@ -172,6 +172,7 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+        var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
@@ -219,7 +220,6 @@ server.append(
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
         	
-
         	if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
@@ -247,9 +247,12 @@ server.append(
             cartItemObj: cartItems,
             marketingProductData : marketingProductsData
         });
-
-        if (req.querystring.paypalerror) {
-        	res.setViewData({ paypalerror: true });
+        var paypalerrors = aydenExpressPaypalHelper.getPaypalErrors(req.querystring);
+        if (!empty(req.querystring.paypalerror)) {
+            res.setViewData({ 
+                paypalerror: req.querystring.paypalerror,
+                paypalerrors: paypalerrors
+             });
         }
 
         res.setViewData({

@@ -1,4 +1,4 @@
-<isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
+<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
     <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
     <div class="home-email-signup"> 
@@ -22,7 +22,7 @@
             </form>
         </div>
     </div>
-    <div class="container">
+    <div class="container movado-footer-container">
         <div class="footer-container row">
             <isif condition="${enableUsablenetAccessibility}">
                 <div class="footer-item col-sm-3 hidden-md-up">

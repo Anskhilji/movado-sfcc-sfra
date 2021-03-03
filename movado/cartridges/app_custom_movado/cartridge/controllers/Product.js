@@ -3,7 +3,9 @@
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
@@ -35,6 +37,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
+    var explicitRecommendations = [];
     var viewData = res.getViewData();
     var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
     var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
@@ -53,9 +56,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     var productDecimalPrice = 0.0;
 
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
         // Custom Start: Add pricing logic for Klarna promo banners
         try {
@@ -116,7 +123,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         productPrice: productPrice,
         eswModuleEnabled: eswModuleEnabled,
-        relativeURL: URLUtils.url('Product-Show','pid', product.ID)
+        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
+        explicitRecommendations: explicitRecommendations,
+        strapGuideText: strapGuideText
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -205,10 +214,13 @@ server.replace('Variation', function (req, res, next) {
  * replaced the base product route to save the personalization data in context object
  */
 server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (req, res, next) {
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var URLUtils = require('dw/web/URLUtils');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var isKlarnaPDPPromoEnabled = Site.current.getCustomPreferenceValue('klarnaPdpPromoMsg');
+    var klarnaProductPrice = '0';
 
     var params = req.querystring;
     var product = ProductFactory.get(params);
@@ -217,6 +229,14 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
     var template = product.productType === 'set'
         ? 'product/setQuickView.isml'
         : 'product/quickView.isml';
+
+    var apiProduct = productMgr.getProduct(productCustomHelpers.formatProductId(product.id));
+
+    if (apiProduct) {
+        if(apiProduct.priceModel.price.available){
+            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(apiProduct.priceModel.price).toString();
+        }
+    }
     /**
      * Added productPrice to context object
      */
@@ -224,7 +244,9 @@ server.replace('ShowQuickView', cache.applyPromotionSensitiveCache, function (re
         product: product,
         addToCartUrl: addToCartUrl,
         resources: productHelper.getResources(),
-        productPrice: product.price 
+        productPrice: product.price,
+        isKlarnaPDPPromoEnabled: isKlarnaPDPPromoEnabled,
+        klarnaProductPrice: klarnaProductPrice
     };
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;

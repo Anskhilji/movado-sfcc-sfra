@@ -12,8 +12,10 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
  */
 function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
-    searchModel.setSearchPhrase(apiProduct.ID);
-    searchModel.search();
+    if(!empty(apiProduct)) {
+        searchModel.setSearchPhrase(apiProduct.ID);
+        searchModel.search();
+    }
 
     if (searchModel.count === 0) {
         searchModel.setSearchPhrase(apiProduct.ID.replace(/-/g, ' '));
