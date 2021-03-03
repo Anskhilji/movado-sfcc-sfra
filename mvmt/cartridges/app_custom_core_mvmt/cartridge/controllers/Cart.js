@@ -84,5 +84,28 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     }
     next();
 });
+server.get('Recommendations', function (req, res, next) {
+    var pid = req.querystring.pid;
+    var explicitRecommendations;
+
+/* get recommendedProducts for product*/
+
+    if (pid) {
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
+    }
+    attributeContext = {
+        explicitRecommendations: explicitRecommendations
+    };
+    var attributeTemplateLinked = 'product/components/recommendedProducts';
+    recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
+        attributeContext,
+        attributeTemplateLinked
+    );
+    res.json({
+        recommendedProductTemplate: recommendedProductTemplate
+    });
+
+    next();
+});
 
 module.exports = server.exports();
