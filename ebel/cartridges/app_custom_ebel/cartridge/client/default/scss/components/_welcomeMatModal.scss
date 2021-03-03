@@ -1,28 +1,18 @@
+@import '~movado/components/_welcomeMatModal';
+
 .welcomeMat {
 
-    span {
-        font-size: rem(24);
-    }
+    .movado-welcome-mat {
 
-    .logo-link {
-        img {
-            height: rem(48);
-        }
-    }
+        .eswModalWrapper {
 
-    @include media-breakpoint-down(sm) {
-        .logo-link {
-            img {
-                height: rem(28);
+            .eswModal {
+
+                .esw-header-wrapper {
+
+                    background-color: $white;
+                }
             }
-        }
-    }
-
-    select + i {
-        &.fa {
-            right: rem(4);
-            font-size: rem(24);
-            top: rem(6.4);
         }
     }
 }
