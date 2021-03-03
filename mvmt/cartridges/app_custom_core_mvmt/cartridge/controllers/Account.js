@@ -22,7 +22,8 @@ server.get('MostRecentOrder', server.middleware.https, cache.applyInventorySensi
 
     // Retrieve most recent order details
     var orderResult = SalesforceModel.getOrderRecentByCustomerEmail({
-        emailAddress: emailAddress
+        emailAddress: emailAddress,
+        salesChannel: Site.getCurrent().getID()
 	});
 
     var firstOrder;
