@@ -84,19 +84,21 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     }
     next();
 });
-server.get('Recommendations', function (req, res, next) {
-    var pid = req.querystring.pid;
-    var explicitRecommendations;
 
-/* get recommendedProducts for product*/
+server.get('Recommendations', function (req, res, next) {
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var explicitRecommendations;
+    var recommendedProductTemplate = '';
+    var pid = req.querystring.pid;
 
     if (pid) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
-    attributeContext = {
+    var attributeContext = {
         explicitRecommendations: explicitRecommendations
     };
-    var attributeTemplateLinked = 'product/components/recommendedProducts';
+    var attributeTemplateLinked = 'cart/recommendedProducts';
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
         attributeContext,
         attributeTemplateLinked

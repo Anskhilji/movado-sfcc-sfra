@@ -1,0 +1,20 @@
+<isset name="items" value="${pdict.items}" scope="page"/>
+<h2>${pdict.items.length}</h2>
+<isset name="lineItem" value="${pdict.items[pdict.items.length - 1]}" scope="page" />
+<isif condition="${!empty(lineItem)}">
+    <div class="row">
+        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+            <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                <div class="card-body">
+                    <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+                </div>
+            </div>
+        <iselse/>
+            <div class="card uuid-${lineItem.UUID}">
+                <div class="card-body">
+                    <isinclude template="checkout/productCard/miniCartProductCard" />
+                </div>
+            </div>
+        </isif>
+    </div>
+</isif>

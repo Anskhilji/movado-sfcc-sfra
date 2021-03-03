@@ -47,6 +47,7 @@ function openMiniCart () {
             $('#footer-overlay').addClass('footer-form-overlay');
             setMiniCartProductSummaryHeight();
             $('.mini-cart-data .popover').addClass('show');
+            $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
             $.spinner().stop();
         });
@@ -56,6 +57,7 @@ function openMiniCart () {
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
             $('.mini-cart-data .popover').addClass('show');
+            $('body').trigger('miniCart:recommendations'); 
             updateMiniCart = false;
             $.spinner().stop();
         });
@@ -964,9 +966,40 @@ movadoBase.addToCart = function () {
                 },
                 error: function () {
                     $.spinner().stop();
+                },
+                complete: function () {
+                    $('body').trigger('miniCart:recommendations'); 
                 }
             });
         }
+    });
+}
+
+movadoBase.addCartRecommendationToCart = function () {
+    $(document).on('click', '.minicart-add-to-cart', function (e) {
+        e.preventDefault();
+        $.spinner().start();
+        var $this = $(this);
+        var url = $this.data('url');
+        var pid = $this.data('pid');
+        var form = {
+            pid: pid,
+            quantity: 1,
+            isCartRecommendation: true
+        };
+        $.ajax({
+            url: url,
+            data: form,
+            method: "POST",
+            success: function (response) {
+                $('.mini-cart-data .product-summary').append(response.productCardHtml);
+                
+                $.spinner().stop();
+            },
+            error: function () {
+                $.spinner().stop();
+            }
+        });
     });
 }
 
