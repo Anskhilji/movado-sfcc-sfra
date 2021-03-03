@@ -30,9 +30,10 @@ server.append('GetEswHeader', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
+    var customLanguageCode = eswCustomHelper.eswLanguageCode();
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
@@ -73,9 +74,10 @@ server.append('GetEswFooter', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
+    var customLanguageCode = eswCustomHelper.eswLanguageCode();
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
@@ -120,9 +122,10 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var selectedLanguage = null;
 ​
     var customCountries = eswCustomHelper.getCustomCountries();
+    var customLanguageCode = eswCustomHelper.eswLanguageCode();
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;

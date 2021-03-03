@@ -51,7 +51,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         }
 
         var customCountries = eswCustomHelper.getCustomCountries();
-        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+        var customLanguageCode = eswCustomHelper.eswLanguageCode();
+        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
         obLandingObject.isGeoLocation = false;
 
         if (!empty(geoLocationCountry)) {

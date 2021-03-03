@@ -154,10 +154,10 @@ function getSelectedCountry(countryCode) {
  * @param {Map} customCountries : Map of Custom Countries
  * @returns {ArrayList} countries : Array list of countries
  */
-function getAlphabeticallySortedCustomCountries(customCountries, locale) {
+function getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode) {
     var countries = null;
     try {
-        countries = customCountries.get(locale);
+        countries = customCountries.get(customLanguageCode);
         countries.sort(function(a, b) {
             let x = a.displayValue.toUpperCase(),
             y = b.displayValue.toUpperCase();
@@ -242,6 +242,20 @@ function isCurrentDomesticAllowedCountry() {
     return isexpressCheckoutEnable;
 }
 
+/**
+ * This method is used to get language code
+ * @returns {language}
+ */
+function eswLanguageCode() {
+    var languages = null;
+    var language = null;
+    customLanguages = getCustomLanguages();
+    languages = getAlphabeticallySortedLanguages(customLanguages);
+    for (var i = 0; i < languages.length; i++) {
+        language = languages[i].value;
+    }
+    return language;
+}
 
 module.exports = {
     getCustomCountries: getCustomCountries,
@@ -255,5 +269,6 @@ module.exports = {
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
-    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
+    eswLanguageCode: eswLanguageCode
 };
