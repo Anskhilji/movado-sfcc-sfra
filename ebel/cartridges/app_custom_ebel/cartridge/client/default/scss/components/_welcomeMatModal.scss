@@ -2,6 +2,24 @@
 
 .welcomeMat {
 
+    span {
+        font-size: rem(24);
+    }
+
+    .esw-country-selector {
+
+        .current-country {
+
+            span {
+                font-size: rem(18);
+            }
+        }
+    }
+
+    .modal-header {
+        background-color: $white;
+    }
+
     .movado-welcome-mat {
 
         .eswModalWrapper {
