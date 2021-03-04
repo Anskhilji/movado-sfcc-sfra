@@ -30,7 +30,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
-    
+    var testingVariation = apiProduct.variationModel.getSelectedVariant();
+
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
         decorators.variationsAttributes(product, options.variationModel, {
@@ -191,6 +192,15 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
             }
+
+            if (apiProduct.variationModel && apiProduct.variationModel.selectedVariant) {
+                var options = productHelper.getConfig(apiProduct.variationModel.selectedVariant, { pid: product.id });
+
+                Object.defineProperty(product, 'SelectedVariantAvailabilityStatus', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.selectedVariant.getAvailabilityModel().availabilityStatus
+                });
+            } 
             
         }
     } catch (e) {
@@ -221,6 +231,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'caseDiameter', {
             enumerable: true,
             value: caseDiameter
+        });
+    }
+
+    if (!empty(testingVariation)) {
+        Object.defineProperty(product, 'testingVariation', {
+            enumerable: true,
+            value: testingVariation
         });
     }
     
