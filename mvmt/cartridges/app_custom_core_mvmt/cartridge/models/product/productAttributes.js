@@ -56,7 +56,7 @@ function getAllAttrValues(
             };
 
             if (attr.attributeID == "polarization" && processedAttr.selectable && isSelected == false) {
-                isSelected = true;
+                var isSelected = true;
                 var processedAttr = {
                     id: value.ID,
                     description: value.description,
