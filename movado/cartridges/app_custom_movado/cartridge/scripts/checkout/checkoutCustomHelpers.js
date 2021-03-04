@@ -290,7 +290,22 @@ function declineOrder(order) {
                 OrderMgr.failOrder(order);  //Order must be in status CREATED
             } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
                 checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
-                OrderMgr.cancelOrder(order);
+                /* Reject in OMS - Do not process to fulfillment status */
+                if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+                    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                    try {
+                        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                        var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                            orderSummaryNumber: order.getOrderNo(),
+                            status: 'Cancelled'
+                        });
+                    }
+                    catch (exSOM) {
+                        somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+                    }
+                } else {
+                    OrderMgr.cancelOrder(order);
+                }
             }
         });
     } catch (ex) {
