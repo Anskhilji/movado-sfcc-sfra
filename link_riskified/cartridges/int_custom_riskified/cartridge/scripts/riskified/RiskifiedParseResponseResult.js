@@ -82,23 +82,8 @@ function parseRiskifiedResponse(order) {
                         order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                     } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
                         checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
-                        /* Reject in OMS - Do not process to fulfillment status */
-                        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
-                            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-                            try {
-                                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-                                var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
-                                    orderSummaryNumber: order.getOrderNo(),
-                                    status: 'Cancelled'
-                                });
-                            }
-                            catch (exSOM) {
-                                somLog.error('RiskifiedParseResponseResult - ' + exSOM);
-                            }
-                        } else {
-                            OrderMgr.cancelOrder(order);
-                            order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-                        }
+                        OrderMgr.cancelOrder(order);
+                        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                     }
                 });
             } catch (ex) {
