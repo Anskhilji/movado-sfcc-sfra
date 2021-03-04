@@ -26,6 +26,80 @@ function setMiniCartProductSummaryHeight () {
 }
 
 /**
+ * re-renders the order totals and the number of items in the cart
+ * @param {Object} data - AJAX response from the server
+ */
+function updateCartTotals(data) {
+    var $noOfItems = $('.number-of-items');
+    var $shippingCostSelector = $('.shipping-cost');
+    var $totalTaxSelector = $('.tax-total');
+    var $subTotalSelector = $('.grand-total, .cart-total');
+    var $subTotalSelector = $('.sub-total');
+    var $affirmPriceSelector = $('.affirm-as-low-as');
+    var $orderDiscountSelector = $('.order-discount');
+
+    if ($noOfItems.length > 0) {
+        $noOfItems.empty().append(data.resources.numberOfItems);
+    }
+    if ($shippingCostSelector.length > 0) {
+        $shippingCostSelector.empty().append(data.totals.totalShippingCost);
+    }
+    if ($totalTaxSelector.length > 0) {
+        $totalTaxSelector.empty().append(data.totals.totalTax);
+    }
+    if ($subTotalSelector.length > 0) {
+        $subTotalSelector.empty().append(data.totals.subTotaladjustedNetPrice);
+    }
+    if ($subTotalSelector.length > 0) {
+        $subTotalSelector.empty().append(data.totals.subTotal);
+    }
+
+    /* Affirm block for refreshing promo message */
+    if ($affirmPriceSelector.length > 0) {
+        var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+
+        $affirmPriceSelector.attr('data-amount', (totalCalculated * 100).toFixed());
+
+        if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+            affirm.ui.refresh();
+        }
+    }
+
+    if (data.totals.orderLevelDiscountTotal.value > 0) {
+        $orderDiscountSelectorremoveClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $orderDiscountSelector.addClass('hide-order-discount');
+    }
+
+    if (data.totals.shippingLevelDiscountTotal.value > 0) {
+        $('.shipping-discount').removeClass('hide-shipping-discount');
+        $('.shipping-discount-total').empty().append('- ' +
+            data.totals.shippingLevelDiscountTotal.formatted);
+    } else {
+        $('.shipping-discount').addClass('hide-shipping-discount');
+    }
+
+    data.items.forEach(function (item) {
+    // Custom Start: Updated selector and rendered HTML as per MVMT site
+        if (item.price.list) {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
+        } else {
+            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+        }
+        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+    });
+    // Custom End
+}
+
+
+/**
  * Retrieve contextual quantity selector
  * @param {jquery} $el - DOM container for the relevant quantity
  * @return {jquery} - quantity selector DOM container
@@ -976,7 +1050,7 @@ movadoBase.addToCart = function () {
 }
 
 movadoBase.addCartRecommendationToCart = function () {
-    $(document).on('click', '.minicart-add-to-cart', function (e) {
+    $('body').on('click', '.mini-cart-add-to-cart', function (e) {   
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);
@@ -987,17 +1061,33 @@ movadoBase.addCartRecommendationToCart = function () {
             quantity: 1,
             isCartRecommendation: true
         };
+
         $.ajax({
             url: url,
             data: form,
             method: "POST",
             success: function (response) {
-                $('.mini-cart-data .product-summary').append(response.productCardHtml);
-                
+                if (response.error) {
+                    $.spinner().stop();
+                    return;
+                }
+                var $quantitySelector = $('.quantity-select[data-pid="' + pid + '"]');
+                if ($quantitySelector.length > 0) { 
+                    var $quantity = parseInt($quantitySelector.val());
+                    $quantity = $quantity + 1;
+                    $quantitySelector.val($quantity);
+                } else {
+                    $('.mini-cart-data .product-summary').append(response.recommendedProductCardHtml);
+                }
+                updateCartTotals(response.cart); 
+                handlePostCartAdd(response); 
                 $.spinner().stop();
             },
-            error: function () {
+            error: function() {
                 $.spinner().stop();
+            },
+            complete: function () {
+                $('body').trigger('miniCart:recommendations');
             }
         });
     });

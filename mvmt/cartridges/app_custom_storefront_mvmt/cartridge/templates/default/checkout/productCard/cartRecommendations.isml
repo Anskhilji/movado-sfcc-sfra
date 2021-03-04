@@ -1,7 +1,7 @@
-    <div class="linked-product-list">
+    <div class="mini-cart-product-list">
     <isset name="product" value="${lineItem}" scope="page" />
     <isif condition="${!empty(product.explicitRecommendations) && product.explicitRecommendations.length > 0}">
-        <div class="linked-products">
+        <div class="mini-cart-products">
         <button class="get-recommendation-btn" id="get-recommendation-btn" data-pid="" data-url="${URLUtils.url('Cart-recommendation', 'pid', lineItem.id)}" type="button"> GET AN EXTRA STRAP </button>
             <div class="get-recommendation-container hidden" id="get-recommendation-btn"> </div>
             <isloop items="${product.explicitRecommendations}" var="recommendation">
