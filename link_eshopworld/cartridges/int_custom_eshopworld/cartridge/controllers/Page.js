@@ -60,6 +60,8 @@ server.replace(
 
             // Custom End
             var language = req.querystring.language;
+            var countryCode = req.querystring.country;
+            var locale = language + '_' + countryCode;
 
             if (eswHelper.checkIsEswAllowedCountry(selectedCountry) != null) {
                 if (req.setLocale(language)) {
@@ -76,7 +78,7 @@ server.replace(
                         }
                         //Custom End
                     }
-                    eswHelper.selectCountry(selectedCountry, currencyCode, language);
+                    eswHelper.selectCountry(selectedCountry, currencyCode, locale);
                     delete session.privacy.countryCode;
                     session.privacy.countryCode = selectedCountry;
                 }
@@ -87,11 +89,11 @@ server.replace(
                     if (item.countryCode === selectedCountry) {
                         var currency = Currency.getCurrency(item.currencyCode);
                         eswHelper.createCookie('esw.currency', item.currencyCode, '/');
-                        eswHelper.createCookie('esw.LanguageIsoCode', req.querystring.language, '/');
+                        eswHelper.createCookie('esw.LanguageIsoCode', locale, '/');
                         eswHelper.setAllAvailablePriceBooks();
                         eswHelper.setBaseCurrencyPriceBook(req, item.currencyCode);
-                        req.setLocale(req.querystring.language);
-                        language = req.querystring.language;
+                        req.setLocale(locale);
+                        language = locale;
                         return true;
                     }
                 });
