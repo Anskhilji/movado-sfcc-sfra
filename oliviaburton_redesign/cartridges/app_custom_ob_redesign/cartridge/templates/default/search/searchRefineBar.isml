@@ -1,0 +1,86 @@
+<isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
+<isif condition="${pdict.productSearch.category}">
+    <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+</isif>    
+
+<div class="refine-wrapper">
+    <div class="plp-filter-bar">
+        <div class="plp-filter-bar-inner ">
+            <div class="plp-filter-options">
+                <div class="plp-filter-lists">
+                    <div class="refinements">
+                        <iscomment> Start: Create category slot for straps </iscomment>
+                        <isif condition="${pdict.productSearch.category}">
+                            <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+                        </isif>
+                        <iscomment> End </iscomment>
+                        <isloop items="${refinements}" var="refinement">
+                            <div class="plp-filter-list">
+                                <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                                    ${refinement.displayName}
+                                </button>
+
+                                <div class="filter-group">
+                                    <div class="filter-group-outer">
+                                        <!--- CATEGORY REFINEMENTS --->
+                                        <isif condition="${refinement.isCategoryRefinement}">
+                                            <isset name="categories" value="${refinement.values}" scope="page" />
+                                            <isinclude template="search/refinements/categories" />
+                                        </isif>
+
+                                        <!--- ATTRIBUTE REFINEMENTS --->
+                                        <isif condition="${refinement.isAttributeRefinement}">
+                                            <isinclude template="search/refinements/attributes" />
+                                        </isif>
+
+                                        <!--- PRICE REFINEMENTS --->
+                                        <isif condition="${refinement.isPriceRefinement}">
+                                            <isinclude template="search/refinements/prices" />
+                                        </isif>
+                                    </div>
+                                    <div class="plp-active-filter">
+                                        <div class="plp-active-filter-list">
+                                            <div class="filter-result-count">
+                                                <div class="grid-header">
+                                                    <div class="result-count">
+                                                        <isinclude template="search/resultsCount" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="active-filters">
+                                                <div class="row m-0 filter-bar">
+                                                    <isinclude template="search/filterBar" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="filter-close-btn">
+                                            ${Resource.msgf('label.button.close', 'common', null, pdict.productSearch.count)}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </isloop>
+                    </div>
+                    <isinclude template="search/sortOrderMenu" />
+                </div>
+            </div>
+        </div>
+        <div class="plp-active-filter sticky">
+            <div class="plp-active-filter-list">
+                <div class="filter-result-count">
+                    <div class="grid-header">
+                        <div class="result-count">
+                            <isinclude template="search/resultsCount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="active-filters">
+                    <div class="row m-0 filter-bar">
+                        <isinclude template="search/filterBar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

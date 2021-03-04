@@ -24,7 +24,7 @@
         <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
     </isif>
 	</div>
-	<div class="container container-fluid search-results plp-redesign">
+	<div class="container search-results">
 	   <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 			<isif condition="${!pdict.productSearch.isCategorySearch}">
 	    <div class="row">
@@ -59,9 +59,8 @@
 		<div class="row">
 			<div class="tab-content col-12">
 				<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
+	
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<isinclude url="${pdict.refineurl}" />
-
 						<div class="row grid-header">
 							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
 								<iselse>
@@ -70,21 +69,36 @@
 					</isif>
 					<isinclude template="search/resultsCount" />
 				</div>
-                <isif condition="${pdict.productSearch.productIds.length > 0}">
-
-                    <div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
-                        <button type="button" class="btn btn-primary filter-results col-12">
-                            ${Resource.msg('button.filter', 'search', null)}
-                        </button>
-                    </div>
-                </isif>
+				<isif condition="${pdict.productSearch.productIds.length > 0}">
+					<div class="col-6 col-sm-3 order-sm-1 sort-col">
+						<isinclude template="search/sortOrderMenu" />
+					</div>
+	
+					<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
+						<button type="button" class="btn btn-primary filter-results col-12">
+							${Resource.msg('button.filter', 'search', null)}
+						</button>
+					</div>
+				</isif>
 			</div>
 	
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="refinement-bar col-md-3">
+						<isinclude url="${pdict.refineurl}" />
+					</div>
+	
+					<div class="col-sm-12 col-md-9">
 						<div class="container">
+							<!--- Selected filters bar --->
+							<div class="row filter-bar d-md-none">
+	            <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+	              <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+	            </isif>
+								<isinclude template="search/filterBar" />
+							</div>
+	
 							<!--- Product Grid --->
 							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
 								<isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
