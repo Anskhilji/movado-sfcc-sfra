@@ -12,7 +12,7 @@
                 <a href="${URLUtils.url('Order-Details', 'orderID', order.num, 'orderFilter', pdict.orderFilter)}">${Resource.msg('link.view','account',null)}</a>
             </div>
         </isif>
-        <isif condition="${!empty(order)}" >
+        <isif condition="${!empty(order)}">
             <div class="card-body card-info-group">
                 <div class="row">
                     <isif condition="${pdict.accountlanding}">
@@ -41,7 +41,7 @@
                         </isif>
                     </div>
                 </div>
-            </isif>
+            </div>
             <div class="col-4 hidden-xs-down">
                 <img class="img-fluid" src="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.imageURL) ? order.firstLineItem.imageURL : ''}" alt="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.alt) ? order.firstLineItem.alt : ''}" title="${!empty(order) && !empty(order.firstLineItem) && !empty(order.firstLineItem.title) ? order.firstLineItem.title : ''}">
             </div>
