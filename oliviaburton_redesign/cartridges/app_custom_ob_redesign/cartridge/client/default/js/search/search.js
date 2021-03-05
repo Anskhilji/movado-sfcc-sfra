@@ -609,7 +609,7 @@ module.exports = {
 
         $(document).on('click', '.sort-dropdown', function(e) {
             e.preventDefault();
-            $(this).find('.sort-dropdown-toggle').toggleClass('active');
+            $(this).find('.sort-dropdown-toggle, .sort-dropdown-list').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
         });
     },
