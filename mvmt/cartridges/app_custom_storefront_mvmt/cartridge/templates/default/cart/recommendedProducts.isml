@@ -1,14 +1,14 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
 <div class="mini-cart-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
-        <button class="mini-cart-show-recommendations" >Add recommended Product</button>
+        <button class="mini-cart-show-recommendations" >${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
         <button class="mini-cart-hide-recommendations d-none" >Hide Recommended Products</button>
         <div class="mini-cart-recommendations d-none">
              <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
                         <div class="upsell-wrapper-inner">
-                        <span>${!empty(recommendation.defaultVariantCollectionName) ? recommendation.defaultVariantCollectionName : recommendation.collectionName}</span>
+                        <span class="upsell-collection">${!empty(recommendation.defaultVariantCollectionName) ? recommendation.defaultVariantCollectionName : recommendation.collectionName}</span>
                             <img class="upsell-image" src="${recommendation.images.tile150[0].url}"/>
                             
                             <p class="upsell_description">${recommendation.productName}</p>

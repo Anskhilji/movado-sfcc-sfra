@@ -1,18 +1,62 @@
 .mini-cart {
 
+    &-show-recommendations { 
+        background-color: $nobel;
+        font-family: $font-book;
+        font-size: rem(14);
+        display: block;
+        color: $white;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &-hide-recommendations {
+        position: absolute;
+        display: block;
+        height: rem(15);
+        width: rem(15);
+        line-height: 0;
+        font-size: 0;
+        z-index: 9;
+        cursor: pointer;
+        right: 0;
+        transform: rotateZ(90deg); 
+        padding: 0;
+        border: none;
+        background: url("../../images/arrow-left.svg") center center no-repeat; 
+
+        &:focus {
+            outline: none;
+        }
+        
+    }
+
     &-product-list {
         margin-bottom: rem(20);
-        padding-top: rem(15);
-        border-top: rem(2) solid $white-gray;
+        margin: 0 rem(-16.1); 
     }
 
     &-recommendations {
         background-color: $gray94;
-        .slick-slide {
-            padding: 0 rem(10);  
-        }  
+
 
         .upsell {
+
+            &-collection {
+                padding: 0 rem(10);
+                font-family: $font-book;
+                font-weight: bold;
+                font-size: rem(10);
+                display: block;
+                height: rem(14);
+                padding: 0 rem(10);
+            }
 
             &-wrapper {
                 text-align: center;
@@ -27,10 +71,6 @@
                         }
                     }
                 }
-
-                &-inner {
-                    border: rem(1) solid $white-gray;
-                }
             }
 
             &-price {
@@ -43,6 +83,7 @@
                     color: $black;
                     padding: 0;
                     padding-bottom: rem(2);
+                    height: rem(27.5);
 
                     span {
                         display: block;
@@ -100,12 +141,12 @@
         }
 
         .slick-next {
-            right: rem(-10);
+            right: rem(10);
             background: url("../../images/arrow-right.svg") center center no-repeat;
         }
 
         .slick-prev {
-            left: rem(-10);
+            left: rem(10);
             background: url("../../images/arrow-left.svg") center center no-repeat;
         }
     }
