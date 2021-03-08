@@ -286,30 +286,31 @@ function declineOrder(order) {
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
 
-        Transaction.wrap(function () {
-            if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
-                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
-                OrderMgr.failOrder(order);  //Order must be in status CREATED
-            } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
-                /* Reject in OMS - Do not process to fulfillment status */
-                if (SOMIntegrationEnabled) {
-                    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-                    try {
-                        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-                        var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
-                            orderSummaryNumber: order.getOrderNo(),
-                            status: 'Cancelled'
-                        });
-                    }
-                    catch (exSOM) {
-                        somLog.error('RiskifiedParseResponseResult - ' + exSOM);
-                    }
-                } else {
-                    OrderMgr.cancelOrder(order);
+        if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
+            checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
+            Transaction.begin();
+            OrderMgr.failOrder(order);  //Order must be in status CREATED
+        } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+            /* Reject in OMS - Do not process to fulfillment status */
+            if (SOMIntegrationEnabled) {
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                try {
+                    checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: OMS is enabled therfore send order to OMS for cancellation: ' + orderNo);
+                    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                    var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                        orderSummaryNumber: order.getOrderNo(),
+                        status: 'Cancelled'
+                    });
                 }
+                catch (exSOM) {
+                    somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+                }
+            } else {
+                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
+                OrderMgr.cancelOrder(order);
+                Transaction.commit();
             }
-        });
+        }
     } catch (ex) {
         checkoutLogger.error('(checkoutCustomHelpers) -> declineOrder: Exception occured while try to decline the order for order number: ' + orderNo + ' and exception is: ' + ex);
     }
