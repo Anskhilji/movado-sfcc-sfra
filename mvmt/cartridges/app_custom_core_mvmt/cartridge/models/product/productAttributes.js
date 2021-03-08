@@ -52,8 +52,7 @@ function getAllAttrValues(
                 displayValue: value.displayValue,
                 value: value.value,
                 selected: isSelected,
-                selectable: variationModel.hasOrderableVariants(attr, value),
-                selectedOptionsQueryParams: selectedOptionsQueryParams
+                selectable: variationModel.hasOrderableVariants(attr, value)
             };
 
             if (processedAttr.selectable) {

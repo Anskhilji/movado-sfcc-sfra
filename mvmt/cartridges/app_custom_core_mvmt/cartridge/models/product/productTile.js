@@ -30,6 +30,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
+    
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
         decorators.variationsAttributes(product, options.variationModel, {
