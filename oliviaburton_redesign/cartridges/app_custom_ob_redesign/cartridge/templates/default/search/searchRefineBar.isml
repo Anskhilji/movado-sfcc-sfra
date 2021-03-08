@@ -20,6 +20,7 @@
                                 </button>
 
                                 <div class="filter-group">
+                                    <button class="filter-close-btn">x</button>
                                     <div class="filter-group-outer">
                                         <!--- CATEGORY REFINEMENTS --->
                                         <isif condition="${refinement.isCategoryRefinement}">
@@ -37,26 +38,6 @@
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
                                     </div>
-                                    <iscomment> <div class="plp-active-filter">
-                                        <div class="plp-active-filter-list">
-                                            <div class="filter-result-count">
-                                                <div class="grid-header">
-                                                    <div class="result-count">
-                                                        <isinclude template="search/resultsCount" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="active-filters">
-                                                <div class="row m-0 filter-bar">
-                                                    <isinclude template="search/filterBar" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <button class="filter-close-btn">
-                                            ${Resource.msgf('label.button.close', 'common', null, pdict.productSearch.count)}
-                                        </button>
-                                    </div> </iscomment>
                                 </div>
                             </div>
                         </isloop>
@@ -65,21 +46,5 @@
                 </div>
             </div>
         </div>
-        <iscomment> <div class="plp-active-filter sticky">
-            <div class="plp-active-filter-list">
-                <div class="filter-result-count">
-                    <div class="grid-header">
-                        <div class="result-count">
-                            <isinclude template="search/resultsCount" />
-                        </div>
-                    </div>
-                </div>
-                <div class="active-filters">
-                    <div class="row m-0 filter-bar">
-                        <isinclude template="search/filterBar" />
-                    </div>
-                </div>
-            </div>
-        </div> </iscomment>
     </div>
 </div>

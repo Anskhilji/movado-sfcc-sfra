@@ -62,13 +62,12 @@
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<isinclude url="${pdict.refineurl}" />
 
-						<div class="row grid-header">
+						<div class="row grid-header d-none">
 							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
-								<iselse>
+					<iselse>
 									<div class="row grid-header justify-content-center">
 										<div class="result-count col">
 					</isif>
-					<isinclude template="search/resultsCount" />
 				</div>
                 <isif condition="${pdict.productSearch.productIds.length > 0}">
 
@@ -79,7 +78,11 @@
                     </div>
                 </isif>
 			</div>
-	
+			<isif condition="${pdict.productSearch.productIds.length > 0}">
+				<div class="row m-0 filter-bar">
+					<isinclude template="search/filterBar" />
+				</div>
+			</isif>
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
 				<div class="row">

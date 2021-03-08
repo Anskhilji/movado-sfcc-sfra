@@ -63,9 +63,10 @@ function parseResults(response) {
         '.product-grid',
         '.show-more',
         '.filter-bar',
+        '.refine-wrapper .result-count',
         '.mobile-filter-menu',
-        '.sort-dropdown',
-        '.mobile-sort-order'
+        '.sort-dropdown-list',
+        '.mobile-sort-order',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -90,7 +91,7 @@ function parseMobileResults(response) {
         '.show-more',
         '.filter-bar',
         '.mobile-filter-menu',
-        '.sort-dropdown',
+        '.sort-dropdown-list',
         '.mobile-sort-order'
     ].forEach(function (selector) {
         updateDom($results, selector);
@@ -328,18 +329,11 @@ module.exports = {
 
     closeRefinments: function () {
         // Refinements close button
-        $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
+        $('.container, .container-fluid').on('click', '.refinement button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
         });
     },
-
-    resize: function () {
-        // Close refinement bar and hide modal background if user resizes browser
-        $(window).resize(function () {
-            $('.refinement-bar, .modal-background').hide();
-       });
-    },
-
+    
     sort: function () {
 
         // Handle sort order menu selection for mobile
@@ -348,6 +342,7 @@ module.exports = {
             e.preventDefault();
             $.spinner().start();
             $(this).trigger('search:sort', url);
+            var thisText = $(this).text();
             $.ajax({
                 url: url,
                 data: { selectedUrl: url },
@@ -361,6 +356,7 @@ module.exports = {
                     // edit
                     $.spinner().stop();
 
+                    $('.sort-dropdown-list .sort-dropdown-toggle').text(thisText);
                     $('.mobile-sort-menu').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
@@ -441,7 +437,7 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.refinements li a, .refinement-bar a.reset, .plp-filter-reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -490,57 +486,7 @@ module.exports = {
                 });
             });
     },
-    //Custom Start: Make this fucntion for mobile filter
-    applyFilterMobile: function () {
-        // Handle refinement value selection and reset click
-        $('.container, .container-fluid').on(
-            'click',
-            '.mobile-filter .mobile-selection-inner a, .mobile-active-actions .mobile-active-clear-btn',
-            function (e) {
-                e.preventDefault();
-                e.stopPropagation();
 
-                // Get currently selected sort option to retain sorting rules
-                var urlparams = getUrlParamObj(document.location.href);
-                var filtersURL = e.currentTarget.href;
-                var currentSelectedSortId = '';
-                if (urlparams.hasOwnProperty('srule') == true) {
-                    if (urlparams.srule) {
-                        currentSelectedSortId = urlparams.srule;
-                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-                    }
-                }
-                $.spinner().start();
-                $(this).trigger('search:filter', e);
-                $.ajax({
-                    url: filtersURL,
-                    data: {
-                        page: $('.grid-footer').data('page-number'),
-                        selectedUrl: filtersURL 
-                    },
-                    method: 'GET',
-                    success: function (response) {
-                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                    	$('body').trigger('facet:success', [gtmFacetArray]);
-                        parseMobileResults(response);
-                        // edit start
-                        updatePageURLForFacets(filtersURL);
-                        // edit end
-                        $.spinner().stop();
-                        moveFocusToTop();
-                        swatches.showSwatchImages();
-                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('body').removeClass('lock-bg');
-                        $('.mvmt-plp .grid-header .sort-col').remove();
-                        $('.mvmt-plp .grid-header .filter-col').remove()
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                    }
-                });
-            });
-    },
     // Custom End
     showContentTab: function () {
         // Display content results from the search
@@ -585,7 +531,6 @@ module.exports = {
 
         $(document).on('click', '.filter-close-btn', function(e) {
             $(".filter-group").removeClass('active loaded');
-            $(".plp-active-filter").removeClass('loaded');
             $(".plp-filter-bar .plp-filter-btn").removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
         });
@@ -613,130 +558,5 @@ module.exports = {
             $(this).find('.dropdown-menu').slideToggle('fast');
         });
     },
-
-    stickyFilterBar: function () {
-        $(window).scroll( function (event) {
-            var $headerSize = $('.header-menu-wrapper').height();
-            var $headerBannerSize = $('.hero').height();
-            var $totalHeaderSize = $headerBannerSize - 50;
-            if ($(this).scrollTop() > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
-                $('.plp-filter-bar').addClass('sticky');
-                $('.plp-filter-bar').css('top', $headerSize);
-            } else {
-                $('.plp-filter-bar').removeClass('sticky');
-                $('.plp-filter-bar').css('top', '');
-            }
-        });
-    },
-
-    mobileSortFilterMenu: function () {
-
-        $(document).on("click", '.mobile-filter-btn-list button', function(e) {
-            var  menu = $(this).data('menu');
-            var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
-            $(''+ menu +'').addClass('active').removeClass('disable-events');
-            $('body').addClass('lock-bg');
-            setTimeout (function (){
-                $(''+ selectors +'').addClass('loaded');
-                $(''+ menu +' .mobile-selection').addClass('border-radius-transform-transition skip-animation');
-            }, 300);
-        });
-
-        $(document).on("click", '.filter-open button', function(e) {
-            var  menu = $(this).data('menu');
-            $('body').addClass('lock-bg');
-            setTimeout (function (){
-                $(''+ menu +' .mobile-selection.active .mobile-active-filters, '+ menu +' .mobile-selection.active .mobile-active-actions').addClass('skip-animation loaded');
-                $(''+ menu +' .mobile-selection:not(.acitve) .mobile-active-filters, '+ menu +' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
-            }, 300);
-        });
-
-        $(document).on("click", '.mobile-menu-close, .mobile-close-menu', function(e) {
-            var  menuClose = $(this).data('close-menu');
-            $(''+ menuClose +'').removeClass('active').addClass('disable-events');
-            $('body').removeClass('lock-bg');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions, .mobile-selection .mobile-selection-outer, .mobile-selection .mobile-menu-close').removeClass('loaded');
-            $('.mobile-selection').removeClass('skip-animation');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').removeClass('skip-animation loaded');
-        });
-
-        $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
-            $('.mobile-filter-btn-list').addClass('filter-open');
-        });
-
-        $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function(e) {
-            var str = $(this).data('option-select');
-            var optionMenu = str.split(" ")[0];
-            $('body').addClass('lock-bg');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions, .mobile-selection .mobile-selection-outer, .mobile-selection .mobile-menu-close').removeClass('loaded');
-            $('.mobile-selection').removeClass('active');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').addClass('skip-animation');
-
-            var loadClass = ''+ optionMenu +' .mobile-selection-outer, '+ optionMenu +' .mobile-selection-close';
-            $(''+ optionMenu +' .mobile-menu-close').addClass('loaded');
-            $(''+ optionMenu +'').addClass('active');
-
-            setTimeout (function (){
-                $(''+ loadClass +'').addClass('loaded');
-                $(''+ optionMenu +' .mobile-active-filters, '+ optionMenu +' .mobile-active-actions').addClass('loaded skip-animation');
-            }, 500);
-        });
-    },
-
-    swatchesSlider: function () {
-        $('.product-tile-redesign .swatches').slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: false,
-            arrows: true,
-            responsive: [
-                {
-                    breakpoint: 544,
-                    settings: {
-                        slidesToShow: 3,
-                    }
-                },
-            ]
-        });
-    },
-
-    strapNavSlider: function() {
-        $('.straps-guide-nav').resize();
-        var svgRight = '<svg width="5px" height="8px" viewBox="0 0 9 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Press-Slider" transform="translate(-1360.000000, -140.000000)" fill="#2B2B2B"><g id="right-arrow-white"><polygon points="1361.6855 140 1360 141.633333 1365.53808 147 1360 152.366667 1361.6855 154 1368.90909 147"></polygon></g></g></g></svg>';
-        $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
-        $('.straps-nav-mobile .slick-next').prepend(svgRight);
-
-        $(window).on('resize', function() {
-            $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text('');
-
-            setTimeout( function(){ 
-                $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
-                $('.straps-nav-mobile .slick-next').prepend(svgRight);
-            }, 100);
-        });
-    },
-
-    strapNavMobileSticky: function () {
-        $(window).scroll( function (event) {
-            var $headerSize = $('.header-menu-wrapper').height();
-            var $searchBannerSize = $('.search-banner').height();
-            var $totalHeaderSize = $searchBannerSize + 70;
-    
-            if ($(this).scrollTop() > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
-                $('.straps-nav-mobile').addClass('sticky');
-                $('.straps-nav-mobile').css('top', $headerSize + 17);
-            } else {
-                $('.straps-nav-mobile').removeClass('sticky');
-                $('.straps-nav-mobile').css('top', '');
-            }
-        });
-    }
     // Custom End
 };
