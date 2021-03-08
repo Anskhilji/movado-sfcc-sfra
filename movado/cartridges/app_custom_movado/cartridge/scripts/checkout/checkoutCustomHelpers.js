@@ -285,11 +285,13 @@ function declineOrder(order) {
                 false,
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
-
+        
         if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
             checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
             Transaction.begin();
-            OrderMgr.failOrder(order);  //Order must be in status CREATED
+            OrderMgr.failOrder(order);
+            Transaction.commit();  //Order must be in status CREATED
+
         } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
             /* Reject in OMS - Do not process to fulfillment status */
             if (SOMIntegrationEnabled) {
@@ -307,6 +309,7 @@ function declineOrder(order) {
                 }
             } else {
                 checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
+                Transaction.begin();
                 OrderMgr.cancelOrder(order);
                 Transaction.commit();
             }
