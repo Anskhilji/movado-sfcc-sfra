@@ -445,6 +445,7 @@
             background-color: $white;
             display: block;
             box-shadow: 0px rem(-5) rem(5) rem(-5) $light-gray9;
+            z-index: 2;
 
             @include media-breakpoint-down(md) {
                 position: absolute;

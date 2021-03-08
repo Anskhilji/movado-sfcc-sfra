@@ -11,7 +11,7 @@
                         <span class="upsell-collection">${!empty(recommendation.defaultVariantCollectionName) ? recommendation.defaultVariantCollectionName : recommendation.collectionName}</span>
                             <img class="upsell-image" src="${recommendation.images.tile150[0].url}"/>
                             
-                            <p class="upsell_description">${recommendation.productName}</p>
+                            <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell_meta">
                                 <div class="upsell-price">
                                     <isset name="price" value="${recommendation.price}" scope="page" />

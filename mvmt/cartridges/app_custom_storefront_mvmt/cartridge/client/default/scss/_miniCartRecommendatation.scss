@@ -23,7 +23,7 @@
         width: rem(15);
         line-height: 0;
         font-size: 0;
-        z-index: 9;
+        z-index: 2;
         cursor: pointer;
         right: 0;
         transform: rotateZ(90deg); 
@@ -43,19 +43,26 @@
     }
 
     &-recommendations {
-        background-color: $gray94;
+        background-color: $white;
 
 
         .upsell {
 
             &-collection {
-                padding: 0 rem(10);
-                font-family: $font-book;
+                width: 100%;
+                letter-spacing: rem(1.5);
+                margin: 0;
+                font-family: $font-bold;
                 font-weight: bold;
-                font-size: rem(10);
-                display: block;
-                height: rem(14);
-                padding: 0 rem(10);
+                text-decoration: none;
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 90%;
+                text-overflow: ellipsis;
+                text-transform: uppercase;
+                color: $black; 
+                height: rem(21);
             }
 
             &-wrapper {
@@ -77,32 +84,46 @@
                 margin-bottom: rem(5);
 
                 .price {
-                    font-family: $font-book;
-                    font-size: rem(10);
+                    font-family: $font-bold;
+                    font-weight: bold;
+                    font-size: rem(12);
                     line-height: 1.1;
                     color: $black;
                     padding: 0;
                     padding-bottom: rem(2);
-                    height: rem(27.5);
+                    height: rem(30.5);
+                    font-weight: bold; 
+
+                    .sales .value {
+                        font-weight: bold; 
+                        font-size: rem(12)
+                    }
 
                     span {
                         display: block;
                         margin: 0;
+
+                        .strike-through .value {
+                            font-weight: bold;   
+                            font-size: rem(12)
+                        }
+
                     }
                 }
             }
 
             &-description {
                 width: 100%;
-                color: $light-gray2;
                 font-size: rem(14);
                 margin-bottom: auto;
                 text-transform: capitalize;
                 line-height: 1.2;
-                font-family: $font-medium;
-                font-weight: 500;
+                font-family:$font-bold;
+                font-weight: bold; 
                 letter-spacing: rem(.2);
                 margin-bottom: rem(5);
+                text-transform: uppercase; 
+                color: $black; 
 
                 @include media-breakpoint-up(sm) {
                     font-size: rem(11);
@@ -123,7 +144,7 @@
             width: rem(15);
             line-height: 0;
             font-size: 0;
-            z-index: 9;
+            z-index: 1;
             cursor: pointer;
             top: 50%;
             transform: translateY(-50%);
@@ -152,9 +173,12 @@
     }
 
     &-add-to-cart {
-        background-color: $emerald;
+        background-color: $emerald; 
         width: 100%;
+        color: $white;
+
+        &:hover {
+            color: $white;
+        }
     }
 }
-
-

@@ -33,9 +33,9 @@ function updateCartTotals(data) {
     var $noOfItems = $('.number-of-items');
     var $shippingCostSelector = $('.shipping-cost');
     var $totalTaxSelector = $('.tax-total');
-    var $subTotalSelector = $('.grand-total, .cart-total');
+    var $grandTotalSelector = $('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     var $subTotalSelector = $('.sub-total');
-    var $affirmPriceSelector = $('.affirm-as-low-as');
+    var $affirmPriceSelector = $('.affirm-as-low-as'); 
     var $orderDiscountSelector = $('.order-discount');
 
     if ($noOfItems.length > 0) {
@@ -47,11 +47,13 @@ function updateCartTotals(data) {
     if ($totalTaxSelector.length > 0) {
         $totalTaxSelector.empty().append(data.totals.totalTax);
     }
-    if ($subTotalSelector.length > 0) {
-        $subTotalSelector.empty().append(data.totals.subTotaladjustedNetPrice);
+    if ($grandTotalSelector.length > 0) {
+        $grandTotalSelector.each(function () {
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+        });
     }
     if ($subTotalSelector.length > 0) {
-        $subTotalSelector.empty().append(data.totals.subTotal);
+        $subTotalSelector.empty().text(data.totals.subTotal);
     }
 
     /* Affirm block for refreshing promo message */

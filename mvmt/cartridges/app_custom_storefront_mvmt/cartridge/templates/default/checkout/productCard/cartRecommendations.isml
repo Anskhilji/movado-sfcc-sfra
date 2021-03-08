@@ -1,4 +1,4 @@
-    <div class="mini-cart-product-list">
+<div class="mini-cart-product-list">
     <isset name="product" value="${lineItem}" scope="page" />
     <isif condition="${!empty(product.explicitRecommendations) && product.explicitRecommendations.length > 0}">
         <div class="mini-cart-products">
@@ -31,4 +31,4 @@
             </isloop>
         </div>
     </isif>
-    </div>
+</div>

@@ -1,5 +1,4 @@
 <isset name="items" value="${pdict.items}" scope="page"/>
-<h2>${pdict.items.length}</h2>
 <isset name="lineItem" value="${pdict.items[pdict.items.length - 1]}" scope="page" />
 <isif condition="${!empty(lineItem)}">
     <div class="row">
