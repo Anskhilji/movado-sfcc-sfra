@@ -305,7 +305,7 @@ function declineOrder(order) {
                     });
                 }
                 catch (exSOM) {
-                    somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+                    somLog.error('checkoutCustomHelpers - ' + exSOM);
                 }
             } else {
                 checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
