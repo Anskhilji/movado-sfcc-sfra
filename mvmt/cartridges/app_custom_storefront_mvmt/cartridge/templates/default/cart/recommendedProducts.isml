@@ -2,9 +2,9 @@
 <div class="mini-cart-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <button class="mini-cart-show-recommendations" >${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
-        <button class="mini-cart-hide-recommendations d-none" >Hide Recommended Products</button>
+        <button class="mini-cart-hide-recommendations d-none" >${Resource.msg('label.minicart.hide.recommendatation.text', 'cart', null)}</button>
         <div class="mini-cart-recommendations d-none">
-             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
+            <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
                         <div class="upsell-wrapper-inner">

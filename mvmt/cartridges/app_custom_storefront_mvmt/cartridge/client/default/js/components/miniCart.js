@@ -415,7 +415,7 @@ module.exports = function () {
         });
     });
 
-    $('body').on('click', '.mini-cart-show-recommendations', function () {
+    $('body').on('click', '.mini-cart-show-recommendations', function() {
         var $this = $(this);
         $this.addClass('d-none');
         $this.siblings('.mini-cart-hide-recommendations').removeClass('d-none');
@@ -431,7 +431,7 @@ module.exports = function () {
         }
     });
 
-    $('body').on('click', '.mini-cart-hide-recommendations', function () { 
+    $('body').on('click', '.mini-cart-hide-recommendations', function() { 
         var $this = $(this);
         $this.addClass('d-none');
         $this.siblings('.mini-cart-recommendations').addClass('d-none');

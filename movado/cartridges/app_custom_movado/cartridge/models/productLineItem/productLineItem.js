@@ -2,7 +2,6 @@
 
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
-var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 /**
  * Decorate product with product line item information
@@ -42,6 +41,7 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
+    
     Object.defineProperty(product, 'bonusProductText', {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? apiProduct.custom.bonusProductText : ''

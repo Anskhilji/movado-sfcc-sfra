@@ -22,7 +22,7 @@
     if ($totalTaxSelector.length > 0) {
         $totalTaxSelector.empty().append(data.totals.totalTax);
     }
-     if ($grandTotalSelector.length > 0) {
+    if ($grandTotalSelector.length > 0) {
          $grandTotalSelector.each(function () {
              $(this).empty().append(data.totals.subTotaladjustedNetPrice);
          });
@@ -44,8 +44,7 @@
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $orderDiscountSelectorremoveClass('hide-order-discount');
-        $('.order-discount-total').empty()
-            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+        $('.order-discount-total').empty().append('- ' + data.totals.orderLevelDiscountTotal.formatted);
     } else {
         $orderDiscountSelector.addClass('hide-order-discount');
     }
@@ -96,7 +95,7 @@
             window.dispatchEvent(setAnalyticsTrackingByAJAX);
         }
         if(response.addCartGtmArray !== undefined){
-             $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+            $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
         }   
     }
 }
@@ -112,7 +111,7 @@ $(document).ready(function (params) {
             pid: pid,
             quantity: 1,
             isCartRecommendation: true
-        };
+            };
 
         $.ajax({
             url: url,

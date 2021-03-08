@@ -42,6 +42,7 @@ function getExplicitRecommendations(pid) {
     }
     return recommendationTilesList;
 }
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations
 };

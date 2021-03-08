@@ -1051,8 +1051,8 @@ movadoBase.addToCart = function () {
     });
 }
 
-movadoBase.addCartRecommendationToCart = function () {
-    $('body').on('click', '.mini-cart-add-to-cart', function (e) {   
+movadoBase.addCartRecommendationToCart = function() {
+    $('body').on('click', '.mini-cart-add-to-cart', function(e) {   
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);
