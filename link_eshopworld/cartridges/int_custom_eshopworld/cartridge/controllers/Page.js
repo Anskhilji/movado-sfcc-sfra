@@ -3,6 +3,7 @@
 
 var server = require('server');
 server.extend(module.superModule);
+var constant = require('~/cartridge/scripts/helpers/constants');
 
 server.replace(
     'SetLocale',
@@ -61,7 +62,7 @@ server.replace(
             // Custom End
             var language = req.querystring.language;
             var countryCode = req.querystring.country;
-            var locale = language + '_' + countryCode;
+            var locale = language + constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
 
             if (eswHelper.checkIsEswAllowedCountry(selectedCountry) != null) {
                 if (req.setLocale(language)) {
