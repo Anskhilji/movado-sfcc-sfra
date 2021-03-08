@@ -1,3 +1,4 @@
+<iscomment> Select removed, toggle added accroding to design requirements </iscomment>
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <div class="sort-dropdown">
         <div class="sort-dropdown-list">

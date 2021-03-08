@@ -1,3 +1,4 @@
+<iscomment> Clear button added </iscomment>
 <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
     <a class="plp-filter-reset reset  iin" href="${pdict.productSearch.resetLink}">
         ${Resource.msg('link.clear', 'search', null)}
