@@ -13,7 +13,7 @@
             left: auto;
             right: rem(10);
             top: rem(10);
-            @include media-breakpoint-up(lg) { 
+            @include media-breakpoint-up(xl) { 
                 left: auto;
                 right: rem(20);
                 top: rem(20);
@@ -21,9 +21,9 @@
             img {
                 width: rem(35);
                 height: rem(35);
-                @include media-breakpoint-up(lg) {
-                    width: auto;
-                    height: auto;
+                @include media-breakpoint-up(xl) {
+                    width: rem(60);
+                    height: rem(60);
                 }
             }
         }
