@@ -43,7 +43,7 @@
     }
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
-        $orderDiscountSelectorremoveClass('hide-order-discount');
+        $orderDiscountSelector.removeClass('hide-order-discount');
         $('.order-discount-total').empty().append('- ' + data.totals.orderLevelDiscountTotal.formatted);
     } else {
         $orderDiscountSelector.addClass('hide-order-discount');
