@@ -3,6 +3,7 @@
 var server = require('server');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Site = require('dw/system/Site');
+var constant = require('*/cartridge/scripts/helpers/constants');
 
 server.get('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
@@ -45,8 +46,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             }
 
             var customCountries = eswCustomHelper.getCustomCountries();
-            var customLanguageCode = eswCustomHelper.eswLanguageCode();
-            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
+            var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
             movadoLandingObject.isGeoLocation = false;
 
             if (!empty(geoLocationCountry)) {

@@ -242,21 +242,6 @@ function isCurrentDomesticAllowedCountry() {
     return isexpressCheckoutEnable;
 }
 
-/**
- * This method is used to get language code
- * @returns {language}
- */
-function eswLanguageCode() {
-    var languages = null;
-    var language = null;
-    customLanguages = getCustomLanguages();
-    languages = getAlphabeticallySortedLanguages(customLanguages);
-    for (var i = 0; i < languages.length; i++) {
-        language = languages[i].value;
-    }
-    return language;
-}
-
 module.exports = {
     getCustomCountries: getCustomCountries,
     getCustomLanguages: getCustomLanguages,
@@ -269,6 +254,5 @@ module.exports = {
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
-    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
-    eswLanguageCode: eswLanguageCode
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
 };

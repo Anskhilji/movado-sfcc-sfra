@@ -4,6 +4,7 @@ var server = require('server');
 server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+var constant = require('*/cartridge/scripts/helpers/constants');
 ​
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
@@ -30,10 +31,10 @@ server.append('GetEswHeader', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = eswCustomHelper.eswLanguageCode();
+    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
@@ -74,10 +75,10 @@ server.append('GetEswFooter', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = eswCustomHelper.eswLanguageCode();
+    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
@@ -122,10 +123,10 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var selectedLanguage = null;
 ​
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = eswCustomHelper.eswLanguageCode();
+    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
