@@ -107,6 +107,12 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 
             checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Going to place the order of order number: ' + orderNo);
 
+            Transaction.begin();
+            if (!empty(paymentInstrument)) {
+                paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
+            }
+            Transaction.commit();
+
             // Places the order
             var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
             if (placeOrderResult.error) {
@@ -133,10 +139,6 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
                 order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                 order.custom.is3DSecureTransactionAlreadyCompleted = true;
-            }
-
-            if (!empty(paymentInstrument)) {
-                paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
             }
 
             Transaction.commit();
