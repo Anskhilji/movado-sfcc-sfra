@@ -1,6 +1,6 @@
 <isdecorate template="common/layout/page">
-	<isscript>
-        var assets = require('*/cartridge/scripts/assets');
+    <isscript>
+         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
     </isscript>
@@ -10,18 +10,15 @@
 	</isif>
 	<div class="hero search-banner container">
 		<isif condition="${pdict.productSearch.isCategorySearch}">
-			<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-				<isinclude
-					url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}" />
-			</isif>
-			<isslot id="cs-plp-banner-image" description="Category banner Image" context="category"
-				context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-			<iselse>
-				<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-					<isinclude
-						url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}" />
-				</isif>
-				<isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
+            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}" />
+            </isif>
+            <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+		<iselse>
+            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}" />
+            </isif>
+            <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
 		</isif>
 	</div>
 	<div class="container search-results">
@@ -60,13 +57,12 @@
 		<div class="row">
 			<div class="tab-content col-12">
 				<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
-
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="row grid-header">
 							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
-								<iselse>
-									<div class="row grid-header justify-content-center">
-										<div class="result-count col">
+					<iselse>
+                        <div class="row grid-header justify-content-center">
+                            <div class="result-count col">
 					</isif>
 					<isinclude template="search/resultsCount" />
 				</div>
@@ -95,8 +91,7 @@
 							<!--- Selected filters bar --->
 							<div class="row filter-bar d-md-none">
 								<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-									<span
-										class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+									<span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
 								</isif>
 								<isinclude template="search/filterBar" />
 							</div>
@@ -104,33 +99,20 @@
 							<!--- Product Grid --->
 							<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
 								<isloop items="${pdict.productSearch.productIds}" var="product" status="prodStatus">
-									<isif
-										condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus
-                 	.index === 4}">
+									<isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
 										<div class="col-6 col-sm-4">
-											<isslot id="cs-category-fifth-tile" context="category"
-												description="5th slot on PLP"
-												context-object="${pdict.productSearch.category.raw}" />
+											<isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}" />
 										</div>
 									</isif>
 
-									<isif
-										condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch
-                 	.defaultPageSize - 1)}">
+									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize - 1)}">
 										<iselse>
-											<div class="col-6 col-sm-4"
-												data-gtm-refinements='${product.productSearchHit.productID}'>
+											<div class="col-6 col-sm-4" data-gtm-refinements='${product.productSearchHit.productID}'>
 												<isobject object="${product.productSearchHit}" view="searchhit">
-
 													<isif condition="${pdict.productSearch.category}">
-														<isinclude
-															url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch
-                	.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName', pdict
-                	.productSearch.category.name)}" />
-														<iselse>
-															<isinclude
-																url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict
-                 	.compareBoxEnabled, 'position', prodStatus.count)}" />
+														<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName', pdict.productSearch.category.name)}" />
+												    <iselse>
+														<isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
 													</isif>
 												</isobject>
 											</div>
@@ -139,8 +121,8 @@
 
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />
-									<iselse>
-										<isinclude template="search/showMore" />
+								<iselse>
+									<isinclude template="search/showMore" />
 								</isif>
 							</div>
 						</div>
@@ -152,7 +134,6 @@
 		<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
 			<div id="content-search-results" class="content-grid-header"></div>
 		</div>
-
 	</div>
 	</div>
 	</div>

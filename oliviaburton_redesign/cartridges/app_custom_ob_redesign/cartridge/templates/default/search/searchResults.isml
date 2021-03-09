@@ -1,6 +1,6 @@
 <isdecorate template="common/layout/page">
     <isscript>
-        var assets = require('*/cartridge/scripts/assets');
+         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
     </isscript>
@@ -136,7 +136,6 @@
 		<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
 			<div id="content-search-results" class="content-grid-header"></div>
 		</div>
-
 	</div>
 	</div>
 	</div>
