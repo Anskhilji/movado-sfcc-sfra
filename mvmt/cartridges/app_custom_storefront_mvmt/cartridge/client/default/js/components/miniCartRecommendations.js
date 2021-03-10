@@ -101,6 +101,44 @@
 }
 
 $(document).ready(function (params) {
+        
+    
+    $('body').on('miniCart:recommendations', function () {
+        $('.cart-recommendations').each(function (event) {
+            var $this = $(this);
+            if (!$this.is(':empty')) {
+                return;
+            }
+            var url = $this.data('url');
+            $.get(url, function (response) {
+                $this.html(response.recommendedProductTemplate);
+            });
+        });
+    });
+
+    $('body').on('click', '.mini-cart-show-recommendations', function() {
+        var $this = $(this);
+        $this.addClass('d-none');
+        $this.siblings('.mini-cart-hide-recommendations').removeClass('d-none');
+        var $recommendationContainer = $this.siblings('.mini-cart-recommendations')
+        $recommendationContainer.removeClass('d-none');
+        if (!$recommendationContainer.hasClass('slick-slider')) {
+            $recommendationContainer.slick({
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,      
+                arrows: true
+            }); 
+        }
+    });
+
+    $('body').on('click', '.mini-cart-hide-recommendations', function() { 
+        var $this = $(this);
+        $this.addClass('d-none');
+        $this.siblings('.mini-cart-recommendations').addClass('d-none');
+        $this.siblings('.mini-cart-show-recommendations').removeClass('d-none');  
+    });
+    
     $('body').on('click', '.mini-cart-add-to-cart', function (e) {   
         e.preventDefault();
         $.spinner().start();
