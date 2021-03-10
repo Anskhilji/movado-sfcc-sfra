@@ -6,6 +6,7 @@ var URLUtils = require('dw/web/URLUtils');
 var Transaction = require('dw/system/Transaction');
 var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
@@ -106,6 +107,12 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
 
             checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Going to place the order of order number: ' + orderNo);
 
+            Transaction.begin();
+            if (!empty(paymentInstrument)) {
+                paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
+            }
+            Transaction.commit();
+
             // Places the order
             var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
             if (placeOrderResult.error) {
@@ -134,12 +141,23 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 order.custom.is3DSecureTransactionAlreadyCompleted = true;
             }
 
-            if (!empty(paymentInstrument)) {
-                paymentInstrument.paymentTransaction.transactionID = result.RequestToken;
-            }
-
             Transaction.commit();
             clearForms();
+
+            // Salesforce Order Management requirement.  
+            if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+                var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                somLog.debug('Processing Order ' + order.orderNo);
+                try {
+                    Transaction.wrap(function () {
+                        populateOrderJSON.populateByOrder(order);
+                    });
+                } catch (exSOM) {
+                    somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+                }
+            }
+            
             checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Order placed going to redirect the user to order confirmation for order number: ' + orderNo);
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
             return next();
