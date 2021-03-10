@@ -495,7 +495,7 @@ module.exports = {
                 getContent($(this), $('#content-search-results'));
             }
         });
-
+ 
         // Display the next page of content results from the search
         $('.container').on('click', '.show-more-content button', function () {
             getContent($(this), $('#content-search-results .result-count'));
@@ -559,4 +559,19 @@ module.exports = {
         });
     },
     // Custom End
+
+    mobileFilter: function () {
+        $(".search-results.plp-redesign .filter-btn").click(function(){
+            $(".modal-background").addClass("d-block")
+            $("body").addClass("no-overflow");
+            $(".search-results.plp-redesign .refinement-bar").removeClass("slide-in").addClass("slide-in");
+        });
+    
+        $(document).on("click",".search-results.plp-redesign  .close-refinebar, .modal-background", function (e) {
+            e.preventDefault();
+            $("body").removeClass("no-overflow");
+            $(".search-results.plp-redesign  .refinement-bar").removeClass("slide-in");
+            $(".modal-background").removeClass("d-block");
+        });
+    }
 };

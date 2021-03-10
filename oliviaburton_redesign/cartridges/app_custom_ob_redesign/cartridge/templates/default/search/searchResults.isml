@@ -61,7 +61,16 @@
 				<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<isinclude url="${pdict.refineurl}" />
-
+						<div class="d-lg-none">
+							<div class="row grid-header plp-filter-mobile-row justify-content-between">
+								<div class="result-count">
+									<isinclude template="search/resultsCount" />
+								</div>
+                                <div class="filter-btn">
+                                    <button>${Resource.msg('label.sort.filter', 'search', null)}</button>
+                                </div>
+							</div>
+						</div>
 						<div class="row grid-header d-none">
 							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
 					<iselse>
@@ -70,7 +79,6 @@
 					</isif>
 				</div>
                 <isif condition="${pdict.productSearch.productIds.length > 0}">
-
                     <div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
                         <button type="button" class="btn btn-primary filter-results col-12">
                             ${Resource.msg('button.filter', 'search', null)}
