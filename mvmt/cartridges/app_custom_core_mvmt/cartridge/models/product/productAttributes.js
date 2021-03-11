@@ -55,40 +55,7 @@ function getAllAttrValues(
                 selectable: variationModel.hasOrderableVariants(attr, value)
             };
 
-            if (attr.attributeID == "polarization" && processedAttr.selectable && isSelected == false) {
-                var isSelected = true;
-                var processedAttr = {
-                    id: value.ID,
-                    description: value.description,
-                    displayValue: value.displayValue,
-                    value: value.value,
-                    selected: isSelected,
-                    selectable: variationModel.hasOrderableVariants(attr, value)
-                };
-            
-            } 
-            
-            if (attr.attributeID == "polarization" && !processedAttr.selectable && isSelected == true ) {
-                var isSelected = false;
-                var processedAttr = {
-                    id: value.ID,
-                    description: value.description,
-                    displayValue: value.displayValue,
-                    value: value.value,
-                    selected: isSelected,
-                    selectable: variationModel.hasOrderableVariants(attr, value)
-                };
-            }
-
             if (processedAttr.selectable) {
-                valueUrl = (isSelected && endPoint !== 'Show')
-                    ? variationModel.urlUnselectVariationValue(actionEndpoint, attr)
-                    : variationModel.urlSelectVariationValue(actionEndpoint, attr, value);
-                processedAttr.url = urlHelper.appendQueryParams(valueUrl, [selectedOptionsQueryParams,
-                    'quantity=' + quantity]);
-            }
-
-            if (!processedAttr.selectable) {
                 valueUrl = (isSelected && endPoint !== 'Show')
                     ? variationModel.urlUnselectVariationValue(actionEndpoint, attr)
                     : variationModel.urlSelectVariationValue(actionEndpoint, attr, value);
