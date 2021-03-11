@@ -239,11 +239,17 @@ function getProductLineMetadataItems(pli) {
 	    }
 
         // Custom Start : Get Category Info From Product line Item
-        var pliCategoryId = !empty(pli.product) && !empty(pli.product.primaryCategory) ? pli.product.primaryCategory.ID : null;
-        if (!empty(pliCategoryId)) {
+        if (!empty(pli.product.custom.watchGender) && !empty(pli.product.custom.watchGender.length)) {
+            var watchGender = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.watchGender[0]: null;
+        }
+        if (!empty(pli.product.custom.jewelryType)) {
+            var jewelryType = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.jewelryType: null;
+        }
+        var customCategory = watchGender + " " + jewelryType;
+        if (!empty(customCategory)) {
             obj = {
                 name: 'Category',
-                value: pliCategoryId
+                value: customCategory
             };
             arr.push(obj);
         }
