@@ -240,10 +240,10 @@ function getProductLineMetadataItems(pli) {
 
         // Custom Start : Get Category Info From Product line Item
         var customCategory;
-        if (!empty(pli.product.custom.watchGender) && !empty(pli.product.custom.watchGender.length)) {
+        if (!empty(pli.product) && !empty(pli.product.custom.watchGender) && !empty(pli.product.custom.watchGender.length)) {
             var watchGender = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.watchGender[0]: null;
         }
-        if (!empty(pli.product.custom.jewelryType)) {
+        if (!empty(pli.product) && !empty(pli.product.custom.jewelryType)) {
             var jewelryType = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.jewelryType: null;
         }
         if (!empty(watchGender) && !empty(jewelryType)) {
