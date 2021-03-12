@@ -40,7 +40,7 @@ function handleRefinements($results) {
         $results.find('.' + $(this)[0].className.replace(/ /g, '.')).addClass('active');
     });
 
-    updateDom($results, '.refinements');
+    updateDom($results, '.plp-filter-desktop .refinements');
 }
 
 /**
@@ -51,22 +51,23 @@ function handleRefinements($results) {
  */
 function parseResults(response) {
     var $results = $(response);
+    // $('.testing').html(response);
     var specialHandlers = {
-        '.refinements': handleRefinements
+        '.plp-filter-desktop': handleRefinements
     };
 
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
         '.header-bar',
-        '.header.page-title',
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.refine-wrapper .result-count',
-        '.mobile-filter-menu',
         '.sort-dropdown-list',
-        '.mobile-sort-order',
+        '.plp-filter-desktop .result-count',
+        '.plp-filter-desktop .refinements',
+        '.plp-filter-mobile .refinements',
+        '.plp-filter-mobile .result-count',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -80,19 +81,22 @@ function parseResults(response) {
 function parseMobileResults(response) {
     var $results = $(response);
     var specialHandlers = {
-        '.mobile-filter-menu': handleRefinements
+        '.plp-filter-mobile': handleRefinements
     };
 
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.header-bar',
         '.header.page-title',
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.mobile-filter-menu',
         '.sort-dropdown-list',
-        '.mobile-sort-order'
+        '.plp-filter-desktop .result-count',
+        '.plp-filter-desktop .refinements',
+        '.plp-filter-mobile .refinements',
+        '.plp-filter-mobile .result-count',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -101,6 +105,7 @@ function parseMobileResults(response) {
         specialHandlers[selector]($results);
     });
 }
+
 // Custom End
 /**
  * This function retrieves another page of content to display in the content search grid
@@ -357,6 +362,7 @@ module.exports = {
                     $.spinner().stop();
 
                     $('.sort-dropdown-list .sort-dropdown-toggle').text(thisText);
+                    $('.sort-dropdown-list .sort-dropdown-toggle').prepend('<span class="d-lg-none">Sort By</span>');
                     $('.mobile-sort-menu').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
@@ -435,9 +441,9 @@ module.exports = {
 
     applyFilter: function () {
         // Handle refinement value selection and reset click
-        $('.container, .container-fluid').on(
+        $('.container, .container-fluid').off('click').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .plp-filter-reset, .filter-value a, .swatch-filter a',
+            '.plp-filter-desktop .refinements li a, .plp-filter-reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -472,21 +478,60 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
-
-                        $('.mobile-filter-menu').removeClass('active');
-                        $('body').removeClass('lock-bg');
-                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
-                        $('.plp-grid-overlay').removeClass('active');
                     },
                     error: function () {
                         $.spinner().stop();
                     }
                 });
-            });
+        });
     },
 
+    //Custom Start: Make this fucntion for mobile filter
+    applyFilterMobile: function () {
+        // Handle refinement value selection and reset click
+        $('.container, .container-fluid').on(
+            'click',
+            '.plp-filter-mobile .refinements li a, .plp-filter-mobile .refinement-bar a.reset, .plp-filter-mobile .swatch-filter a',
+            function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
+                $.spinner().start();
+                $(this).trigger('search:filter', e);
+                $.ajax({
+                    url: filtersURL,
+                    data: {
+                        page: $('.grid-footer').data('page-number'),
+                        selectedUrl: filtersURL 
+                    },
+                    method: 'GET',
+                    success: function (response) {
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
+                        parseMobileResults(response);
+                        // edit start
+                        updatePageURLForFacets(filtersURL);
+                        // edit end
+                        $.spinner().stop();
+                        moveFocusToTop();
+                        swatches.showSwatchImages();
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+        });
+    },
     // Custom End
     showContentTab: function () {
         // Display content results from the search

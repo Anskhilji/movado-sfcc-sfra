@@ -23,7 +23,7 @@
 
         <div class="refine-wrapper">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
-                <div class="mb-3 sort-col position-relative">
+                <div class="sort-col position-relative">
                     <isinclude template="search/sortOrderMenu" />
                 </div>
             </isif>
@@ -54,6 +54,14 @@
                 </isloop>
             </div>
         </div>   
+    </div>
+    <div class="plp-filter-mobile-row row justify-content-between">
+        <div class="result-count">
+            <isinclude template="search/resultsCount" />
+        </div>
+        <div class="filter-btn">
+            <button>${Resource.msg('label.sort.filter', 'search', null)}</button>
+        </div>
     </div>
 </div>
 
