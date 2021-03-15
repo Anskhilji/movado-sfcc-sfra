@@ -5,6 +5,7 @@ var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
+var Constants = require('*/cartridge/utils/Constants');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -144,15 +145,30 @@ function formsValidation(currentBasket, formData) {
     billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
     billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
     billingAddressState = fetchFromMap(formData, 'billingAddress.state');
-    billingAddressState = (!empty(billingAddressState)) ? false : true;
     billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
-    billingAddressStateOrProvince = (!empty(billingAddressStateOrProvince)) ? false : true;
     postalCode = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
     stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
-    stateCode = (!empty(stateCode)) ? false : true;
     deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
     phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
+
+    if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+        stateCode = false;
+    } else {
+        stateCode = true;
+    }
+
+    if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressState = false;
+    } else {
+        billingAddressState = true;
+    }
+
+    if (!empty(billingAddressStateOrProvince) || (empty(billingAddressStateOrProvince) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressStateOrProvince = false;
+    } else {
+        billingAddressStateOrProvince = true;
+    }
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
     if (isAnonymous) {
