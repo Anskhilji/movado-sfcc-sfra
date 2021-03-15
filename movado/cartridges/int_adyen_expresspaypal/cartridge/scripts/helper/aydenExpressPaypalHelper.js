@@ -1,5 +1,6 @@
 'use strict';
 
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
@@ -130,6 +131,7 @@ function formsValidation(currentBasket, formData) {
     var address1 = '';
     var phoneNumber = '';
     var email = '';
+    var emailValue = '';
     var deliveryCountry = '';
     var billingAddressCity = '';
     var billingAddressCountry = '';
@@ -152,11 +154,19 @@ function formsValidation(currentBasket, formData) {
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
     phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
 
+    if (postalCode) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Postal code is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.postalCode'));
+    }
+    if (phoneNumber) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Phone number is not valid and value is: ' + fetchFromMap(formData, 'shopper.telephoneNumber'));
+    }
+
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
         stateCode = false;
     } else {
         stateCode = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
     }
 
     // MSS-1263 Improve check in case of state code
@@ -164,6 +174,7 @@ function formsValidation(currentBasket, formData) {
         billingAddressState = false;
     } else {
         billingAddressState = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
     }
 
     // MSS-1263 Improve check in case of state code
@@ -171,15 +182,20 @@ function formsValidation(currentBasket, formData) {
         billingAddressStateOrProvince = false;
     } else {
         billingAddressStateOrProvince = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state or province is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.stateOrProvince'));
     }
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
+    
     if (isAnonymous) {
-        email = (formData.shopperEmail) ? formData.shopperEmail : '';
-        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
+        emailValue = (formData.shopperEmail) ? formData.shopperEmail : '';
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
     } else {
-        email = currentBasket.getCustomer().getProfile().getEmail();
-        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
+        emailValue = currentBasket.getCustomer().getProfile().getEmail();
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
+    }
+    if (email) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Email address is not valid and value is: ' + emailValue);
     }
     validatedFields = {
         firstName: firstName, 
