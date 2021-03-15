@@ -93,9 +93,9 @@
 						<div class="container">
 							<!--- Selected filters bar --->
 							<div class="row filter-bar d-md-none">
-                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-                                <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
-                                </isif>
+								<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+									<span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+								</isif>
 								<isinclude template="search/filterBar" />
 							</div>
 	
