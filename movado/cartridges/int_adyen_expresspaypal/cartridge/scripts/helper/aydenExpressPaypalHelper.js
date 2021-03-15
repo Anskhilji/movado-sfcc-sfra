@@ -152,18 +152,21 @@ function formsValidation(currentBasket, formData) {
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
     phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
 
+    // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
         stateCode = false;
     } else {
         stateCode = true;
     }
 
+    // MSS-1263 Improve check in case of state code
     if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
         billingAddressState = false;
     } else {
         billingAddressState = true;
     }
 
+    // MSS-1263 Improve check in case of state code
     if (!empty(billingAddressStateOrProvince) || (empty(billingAddressStateOrProvince) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
         billingAddressStateOrProvince = false;
     } else {
