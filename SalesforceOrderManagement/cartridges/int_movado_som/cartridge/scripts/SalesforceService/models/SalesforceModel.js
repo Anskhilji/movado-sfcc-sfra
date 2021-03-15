@@ -235,7 +235,8 @@ var SalesforceModel = ({
     },
     getOrdersByCustomerEmail: function (req) {
         var requestData = {
-            emailAddress: req.emailAddress
+            emailAddress: req.emailAddress,
+            salesChannel: req.salesChannel
         };
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
@@ -246,6 +247,7 @@ var SalesforceModel = ({
     getOrderRecentByCustomerEmail: function (req) {
         var requestData = {
             emailAddress: req.emailAddress,
+            salesChannel: req.salesChannel,
             maxOrders: '1'
         };
         return SalesforceModel.createSalesforceRestRequest({

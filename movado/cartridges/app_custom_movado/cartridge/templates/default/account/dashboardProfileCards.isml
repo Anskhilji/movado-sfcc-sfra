@@ -1,3 +1,4 @@
+<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 <div class="row justify-content-center">
     <div class="col-sm-6">
         <!---Profile--->
@@ -13,9 +14,13 @@
     </div>
     <div class="col-sm-6">
         <!---Order History--->
-        <isif condition="${pdict.account.orderHistory}">
-            <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
-            <isinclude template="account/order/orderHistoryCard"/>
+        <isif condition="${sitePreferences.SOMIntegrationEnabled}">
+            <isinclude url="${URLUtils.url('Account-MostRecentOrder','c',pdict.account.profile.email)}" />
+        <iselse/>
+            <isif condition="${pdict.account.orderHistory}">
+                <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
+                <isinclude template="account/order/orderHistoryCard"/>
+            </isif>
         </isif>
         <isif condition="${pdict.account.wishlist}">
             <!---Wishlist--->

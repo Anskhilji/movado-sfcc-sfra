@@ -262,6 +262,8 @@ function declineOrder(order) {
     var paymentInstrument = order.paymentInstrument;
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
 
+    var SOMIntegrationEnabled = Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled;
+
     try {
         var orderNo = order.getOrderNo();
         if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
@@ -283,16 +285,19 @@ function declineOrder(order) {
                 false,
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
+        
+        if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
+            checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefore going to fail the order and order number: ' + orderNo);
+            Transaction.begin();
+            OrderMgr.failOrder(order);
+            Transaction.commit();  //Order must be in status CREATED
 
-        Transaction.wrap(function () {
-            if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
-                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefor going to fail the order and order number: ' + orderNo);
-                OrderMgr.failOrder(order);  //Order must be in status CREATED
-            } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-                checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefor going to cancel the order and order number: ' + orderNo);
-                OrderMgr.cancelOrder(order);
-            }
-        });
+        } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+            checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order is already placed therefore going to cancel the order and order number: ' + orderNo);
+            Transaction.begin();
+            OrderMgr.cancelOrder(order);
+            Transaction.commit();
+        }
     } catch (ex) {
         checkoutLogger.error('(checkoutCustomHelpers) -> declineOrder: Exception occured while try to decline the order for order number: ' + orderNo + ' and exception is: ' + ex);
     }
