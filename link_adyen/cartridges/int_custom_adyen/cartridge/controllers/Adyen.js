@@ -126,22 +126,30 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 return next();
             }
 
-            Transaction.begin();
-            //If riskified analysis status is approved(2) then set payment status to paid otherwise set to not paid
-            if (order.custom.riskifiedOrderAnalysis && order.custom.riskifiedOrderAnalysis.value == 2) {
-                checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Riskifed statuses is approved going to set the status for order number: ' + orderNo);
-                order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_PAID);
-                order.setExportStatus(dw.order.Order.EXPORT_STATUS_READY);
-                order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_CONFIRMED);
-                COCustomHelpers.sendOrderConfirmationEmail(order, req.locale.id);
-            } else {
-                checkoutLogger.debug('(Adyen) -> AuthorizeWithForm: Riskifed status is not approved going to set status to not paid and not confirmed for order number: ' + orderNo);
-                order.setPaymentStatus(dw.order.Order.PAYMENT_STATUS_NOTPAID);
-                order.setConfirmationStatus(dw.order.Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-                order.custom.is3DSecureTransactionAlreadyCompleted = true;
+            //  [MSS-1257] Riskified Api Call to Check Order Status                                   
+            var checkoutDecisionStatus = hooksHelper(
+                'app.fraud.detection.create',
+                'create',
+                orderNo,
+                paymentInstrument,
+                require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+            if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
+        	    // call hook for auth reverse using call cancelOrRefund api for safe side
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Going to call the hook for auth reverse using call cancelOrRefund api for order number: ' + orderNumber + ' and going to set the error status true');
+                hooksHelper(
+                    'app.riskified.paymentrefund',
+                    'paymentRefund',
+                    order,
+                    order.getTotalGrossPrice().value,
+                    true,
+                    require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
+                    checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + orderNo);
+                    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+                    return next();
             }
 
-            Transaction.commit();
+            //[MSS-1257] If Riskified status is approved then set payment status to paid Code Removed
+
             clearForms();
 
             // Salesforce Order Management requirement.  
