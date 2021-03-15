@@ -25,33 +25,35 @@
 	   <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 			<isif condition="${!pdict.productSearch.isCategorySearch}">
 				<div class="row">
-					<div class="search-nav">
-						<div class="nav-tabs-wrapper">
-							<ul class="nav nav-tabs nav-fill" role="tablist">
+				    <div class="search-nav">
+				        <div class="nav-tabs-wrapper">
+				            <ul class="nav nav-tabs nav-fill" role="tablist">
 
-								<li class="nav-item">
-									<a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
-										aria-expanded="true">
-										<isif condition="${pdict.productSearch.count>0}">
-											${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
-											<iselse />
-											${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
-										</isif>
-									</a>
-								</li>
+				                <li class="nav-item">
+				                    <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab"
+				                        role="tab" aria-expanded="true">
+				                        <isif condition="${pdict.productSearch.count>0}">
+				                            ${Resource.msgf('tab.nav.search.productsresults', 'search', null,
+				                            pdict.productSearch.count)}
+				                            <iselse />
+				                            ${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
+				                        </isif>
+				                    </a>
+				                </li>
 
-								<isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
-									<li class="nav-item">
-										<a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab"
-											aria-expanded="false"
-											data-url="${URLUtils.url('Search-Content', 'q', pdict.productSearch.searchKeywords, 'startingPage', 0)}">
-											${Resource.msgf('tab.nav.search.artclesresults', 'search', null, pdict.contentSearch.contentCount)}
-										</a>
-									</li>
-								</isif>
-							</ul>
-						</div>
-					</div>
+				                <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
+				                    <li class="nav-item">
+				                        <a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab"
+				                            role="tab" aria-expanded="false"
+				                            data-url="${URLUtils.url('Search-Content', 'q', pdict.productSearch.searchKeywords, 'startingPage', 0)}">
+				                            ${Resource.msgf('tab.nav.search.artclesresults', 'search', null,
+				                            pdict.contentSearch.contentCount)}
+				                        </a>
+				                    </li>
+				                </isif>
+				            </ul>
+				        </div>
+				    </div>
 				</div>
 			</isif>
 		<div class="row">
@@ -91,9 +93,9 @@
 						<div class="container">
 							<!--- Selected filters bar --->
 							<div class="row filter-bar d-md-none">
-	            <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-	              <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
-	            </isif>
+                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                                <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+                                </isif>
 								<isinclude template="search/filterBar" />
 							</div>
 	
