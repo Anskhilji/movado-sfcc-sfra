@@ -27,15 +27,23 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
     var relativeURL;
-    var defaultVariant = apiProduct.variationModel.defaultVariant;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
 
-    if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
-        var pid = apiProduct.variationModel.defaultVariant.getID();
-        params.pid = pid;
-        apiProduct = ProductMgr.getProduct(pid);
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = ProductMgr.getProduct(pid);
+        }
+    
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+        
+        viewData.product =  showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
     }
 
-    var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
 
     /* get recommendedProducts for product*/
     if (product) {
@@ -45,11 +53,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
         relativeURL: relativeURL,
-        caseDiameter: caseDiameter,
-        product: showProductPageHelperResult.product,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl,
-        resources: showProductPageHelperResult.resources,
-        breadcrumbs: showProductPageHelperResult.breadcrumbs
+        caseDiameter: caseDiameter
     };
 
     var marketingProductsData = [];
