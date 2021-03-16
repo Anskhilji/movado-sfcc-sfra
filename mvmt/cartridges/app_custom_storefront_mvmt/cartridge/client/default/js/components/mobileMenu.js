@@ -88,6 +88,7 @@ module.exports = function () {
         
         var $productNameSelector = $productContainer.find('.product-name');
         $productNameSelector.text(response.product.productName);
+        $productNameSelector.attr('href', $product.selectedProductUrl);
         
         var variationPID = response.product.id;
         var isVariationQantityExist = response.product.quantities;
