@@ -5,7 +5,7 @@
     <div class="shop-by-collection-slide">
         <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
             <isloop items="${menuItem.subCategories}" var="category">
-                <p class="gtm-collections ga-collections" ><a href="${category.url}"><img alt="${category.name}" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" /><span>${category.name}</span> </a></p>
+                <p class="gtm-collections ga-collections" ><a href="${category.url}"><img class="ga-collection-image" alt="${category.name}" src="${!empty(category.categoryImageURL) ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" /><span>${category.name}</span> </a></p>
             </isloop>
         </div>
     </div>

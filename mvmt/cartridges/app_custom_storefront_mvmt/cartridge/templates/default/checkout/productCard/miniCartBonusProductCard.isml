@@ -100,4 +100,7 @@
         <isinclude template="checkout/productCard/embeddedBonusProduct" />
         </div>
     </isloop>
+    <isif condition="${dw.system.Site.current.preferences.custom.enableCartRecommendations}">
+        <div class="cart-recommendations" data-url="${URLUtils.url('Cart-Recommendations', 'pid', lineItem.id)}"></div>
+    </isif>
 </div>
