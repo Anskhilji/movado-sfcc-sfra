@@ -78,7 +78,10 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         loggedIn: req.currentCustomer.raw.authenticated,
         isTopSearch: req.querystring.isTopSearch,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        tileImageBackground: Site.getCurrent().preferences.custom.tileImageBackgroundColor ? Site.getCurrent().preferences.custom.tileImageBackgroundColor : '',
+        tileBodyBackground: Site.getCurrent().preferences.custom.tileBodyBackgroundColor ? Site.getCurrent().preferences.custom.tileBodyBackgroundColor : '',
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
 
     Object.keys(req.querystring).forEach(function (key) {

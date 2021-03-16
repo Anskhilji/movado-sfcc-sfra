@@ -1005,5 +1005,38 @@ module.exports = {
     },
 
     getPidValue: getPidValue,
-    getQuantitySelected: getQuantitySelected
+    getQuantitySelected: getQuantitySelected,
+    addToCartPLP : function() {
+        $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
+            $.spinner().start();
+            var addToCartUrl;
+            var $this = $(this);
+
+            $('body').trigger('product:beforeAddToCart', this);
+
+            addToCartUrl = getAddToCartUrl();
+
+            var form = {
+                pid: $this.data('pid'),
+                quantity: 1
+            };
+
+            if (addToCartUrl) {
+                $.ajax({
+                    url: addToCartUrl,
+                    method: 'POST',
+                    data: form,
+                    success: function (data) {
+                        updateCartPage(data);
+                        handlePostCartAdd(data);
+                        $('body').trigger('product:afterAddToCart', data);
+                        $.spinner().stop();
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            }
+        });
+    }
 };

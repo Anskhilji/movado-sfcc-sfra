@@ -1,30 +1,24 @@
-<div class="image-container">
-    <isloop items="${product.badges.imageBadges}" var="imageBadge">
-    	<div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
-    </isloop>
-    <a href="${pdict.urls.product}">
-	    <isif condition="${product && product.images}">
-	        <picture>
-	            <isif condition="${typeof pdict.display.isHighResolutionImage !== 'undefined' && pdict.display.isHighResolutionImage == true}">
-                    <isif condition="${product.images.tile533[0]}"><img class="tile-image gtm-product" src="${product.images.tile533[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                    <isif condition="${product.images.tile533[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile533[0].url}" /></isif>
-                <iselse>
-                    <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" src="${product.images.tile256[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
+<isif condition="${!pdict.display.plpTile}">
+    <isinclude template="product/components/old/productTileImage" sf-toolkit="on" />
+<iselse/>
+<iscomment> Custom Start: quick view button removed</iscomment>
+    <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
+        <isloop items="${product.badges.imageBadges}" var="imageBadge">
+            <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+        </isloop>
+        <a href="${pdict.urls.product}">
+            <picture class="tile-picture tile-picture-primary">
+                <isif condition="${pdict.apiProduct.images.pdp533[0]}">
+                    <img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.pdp533[0]) && !empty(pdict.apiProduct.images.pdp533[0].url) ? pdict.apiProduct.images.pdp533[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
                 </isif>
-	        </picture>
-        </isif>
-    </a>
-    <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
-    <isif condition="${pdict.display.showQuickView !== false}">
-        <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
-            <a class="quickview hidden-xs-down" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
-                <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                    <i class="fa fa-expand fa-stack-1x"></i>
-                </span>
-                <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
-            </a>
-        </isif>
-    </isif>
-</div>
+            </picture>
+        
+            <picture class="tile-picture tile-picture-hidden">
+                <isif condition="${pdict.apiProduct.images.pdp533[3]}">
+                    <img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.pdp533[3]) && !empty(pdict.apiProduct.images.pdp533[3].url) ? pdict.apiProduct.images.pdp533[3].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                </isif>
+            </picture>
+        </a>
+    </div>
+<iscomment> Custom End: quick view button removed</iscomment>
+</isif>
