@@ -558,7 +558,7 @@ module.exports = {
     },
 
     // Custom Start: Make these fucntions for custom events
-    sortMenuDesktop: function () {
+    sortMenuDesktop: function () { 
         $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
             var button = this
             $(button).next().toggleClass('active');

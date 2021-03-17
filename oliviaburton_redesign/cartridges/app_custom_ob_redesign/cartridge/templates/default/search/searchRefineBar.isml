@@ -1,0 +1,51 @@
+<iscomment> HTML structure changed according to design requirments </iscomment>
+<isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
+<isif condition="${pdict.productSearch.category}">
+    <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+</isif>    
+
+<div class="refine-wrapper">
+    <div class="plp-filter-bar">
+        <div class="plp-filter-bar-inner ">
+            <div class="plp-filter-options">
+                <div class="plp-filter-lists">
+                    <div class="result-count">
+                        <isinclude template="search/resultsCount" />
+                    </div>
+                    <div class="refinements">
+                        <span class="plp-filter-label">${Resource.msg('label.filter.by', 'search', null)}</span>
+                        <isloop items="${refinements}" var="refinement">
+                            <div class="plp-filter-list">
+                                <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                                    ${refinement.displayName}
+                                </button>
+
+                                <div class="filter-group">
+                                    <button class="filter-close-btn">x</button>
+                                    <div class="filter-group-outer">
+                                        <!--- CATEGORY REFINEMENTS --->
+                                        <isif condition="${refinement.isCategoryRefinement}">
+                                            <isset name="categories" value="${refinement.values}" scope="page" />
+                                            <isinclude template="search/refinements/categories" />
+                                        </isif>
+
+                                        <!--- ATTRIBUTE REFINEMENTS --->
+                                        <isif condition="${refinement.isAttributeRefinement}">
+                                            <isinclude template="search/refinements/attributes" />
+                                        </isif>
+
+                                        <!--- PRICE REFINEMENTS --->
+                                        <isif condition="${refinement.isPriceRefinement}">
+                                            <isinclude template="search/refinements/prices" />
+                                        </isif>
+                                    </div>
+                                </div>
+                            </div>
+                        </isloop>
+                    </div>
+                    <isinclude template="search/sortOrderMenu" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
