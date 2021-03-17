@@ -3,6 +3,7 @@
     <div class="sort-dropdown">
         <div class="sort-dropdown-list">
             <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="d-lg-none">Sort by</span>
                 <isloop items="${pdict.productSearch.productSort.options}" var="option">
                     <isif condition="${pdict.productSearch.productSort.ruleId === option.id }">
                         ${option.displayName}
