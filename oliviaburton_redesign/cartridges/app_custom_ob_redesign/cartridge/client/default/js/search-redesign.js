@@ -3,5 +3,5 @@
 var processInclude = require('base/util');
 
 $(document).ready(function () {
-    processInclude(require('./search/search'));
+    processInclude(require('./search/search-redesign'));
 });

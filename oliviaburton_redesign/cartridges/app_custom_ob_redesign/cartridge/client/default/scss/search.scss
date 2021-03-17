@@ -7,75 +7,16 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 
-.product-tile {
-    .image-container {
-        .product-badge.redesigned {
-            left: auto;
-            right: rem(10);
-            top: rem(10);
-            @include media-breakpoint-up(xl) { 
-                left: auto;
-                right: rem(20);
-                top: rem(20);
-            }
-            img {
-                width: rem(35);
-                height: rem(35);
-                @include media-breakpoint-up(xl) {
-                    width: rem(60);
-                    height: rem(60);
-                }
-            }
-        }
-    }
-
-    .show-more {
-        margin-top: rem(10);
-        button {
-            width: 100%;
-            max-width: rem(400);
-            height: rem(45);
-            margin: 0 auto;
-            background-color: $white;
-            border: 1px solid $black;
-            border-radius: rem(3);
-            font-family: $font-gill-std-bold;
-            font-weight: 600;
-            font-size: rem(16);
-            color: $gray20;
-            line-height: rem(21);
-            transition: 0.3s all;
-            letter-spacing: 0.5px;
-
-            &:hover {
-                background-color: $black;
-                color: $white;
-            }
-        }
-
-        #show-more-update {
-            font-family: $font-gill-std-semibold;
-            font-size: rem(12);
-            font-weight: 600;
-            color: $storm-gray;
-            letter-spacing: 0.5px;
-            line-height: rem(16);
-            margin-bottom: rem(10);
-
-            @include media-breakpoint-up(lg) {
-                font-size: rem(14);
-            }
-
-            @include media-breakpoint-up(lg) {
-                line-height: rem(20);
-                font-size: rem(15);
-            }
-        }
-    }
-}
-
 .plp-redesign {
-    margin-bottom: rem(70);
+    margin-bottom: rem(40);
+    
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(70);
+    }
+    
+    &.search-banner {
+        margin: 0;
+    }
 
     &.container-fluid {
         max-width: initial;
@@ -424,11 +365,11 @@
         }
 
         &-label {
-            font-family: $font-gill-std-bold;
+            font-family: $font-gill-std-normal;
             font-size: rem(15);
             font-weight: 600;
             line-height: rem(20);
-            letter-spacing: normal;
+            letter-spacing: 0.5;
             color: $dark-gray;
             margin-right: rem(10);
             padding: rem(20) 0;
@@ -446,6 +387,8 @@
         }
 
         &-mobile {
+            margin-top: rem(20);
+
             @include media-breakpoint-up(lg) {
                 display: none;
             }
@@ -530,20 +473,18 @@
             
                     .values {
                         list-style: none;
-                        margin: 0;
+                        margin: 0 rem(-5);
                         padding: 0;
                         label {
                             margin: 0;
                         }
                         li {
                             padding: 0;
-                            margin-bottom: rem(10);
                             width: auto;
                             display: inline-block;
                             float: left;
-                            &:nth-child(odd) {
-                                margin-right: rem(10);
-                            }
+                            margin: 0 rem(5);
+                            margin-bottom: rem(10);
                             a {
                                 display: block;
                                 text-align: center;
@@ -958,8 +899,6 @@
 
         @include media-breakpoint-up(lg) {
             margin-bottom: rem(20);
-            padding-right: rem(10);
-            padding-left: rem(10);
             flex: 0 0 20%;
             max-width: 20%;
         }
@@ -972,9 +911,6 @@
 
                 @include media-breakpoint-up(sm) {
                     margin: 0 rem(-20);
-                }
-                @include media-breakpoint-up(lg) {
-                    margin: 0 rem(-15);
                 }
             }
 
@@ -1014,11 +950,13 @@
                     border: none;
                     height: rem(225);
 
-
                     @include media-breakpoint-up(sm) {
-                        height: rem(280);
+                        height: rem(240);
                     }
                     @include media-breakpoint-up(lg) {
+                        height: rem(260);
+                    }
+                    @include media-breakpoint-up(xxl) {
                         height: rem(340);
                     }
                     a {
@@ -1047,7 +985,7 @@
                         left: auto;
                         right: rem(10);
                         top: rem(10);
-                        @include media-breakpoint-up(lg) { 
+                        @include media-breakpoint-up(xl) { 
                             left: auto;
                             right: rem(20);
                             top: rem(20);
@@ -1055,9 +993,9 @@
                         img {
                             width: rem(35);
                             height: rem(35);
-                            @include media-breakpoint-up(lg) {
-                                width: auto;
-                                height: auto;
+                            @include media-breakpoint-up(xl) {
+                                width: rem(60);
+                                height: rem(60);
                             }
                         }
                     }
@@ -1256,6 +1194,13 @@
                 font-size: rem(15);
             }
         }
+    }
+}
+
+.plp-carousel {
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(30);
     }
 }
 

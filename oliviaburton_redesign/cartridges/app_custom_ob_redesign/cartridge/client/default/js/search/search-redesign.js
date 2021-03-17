@@ -276,38 +276,6 @@ function replaceUrlParam(url, paramName, paramValue) {
 }
 
 /**
- * Adds page start and size to page URL for show more
- *
- * @param {string} url - facet AJAX URL
- * @return {undefined}
- */
-function updatePageURLForShowMore(showMoreUrl) {
-    var params = getUrlParamObj(showMoreUrl);
-    var start = params.start;
-    var size = params.sz;
-    var newSize = parseInt(start) + parseInt(size);
-    var url;
-    var currentProductCount = $('#show-more-update').text();
-    var res = currentProductCount.replace(size, newSize);
-    $('#show-more-update').text(res);
-    
-    if (history.pushState) {
-    	if (document.location.href.indexOf('?') > -1) {
-    		if (document.location.href.indexOf('sz=') > -1) {
-    			var tempUrlParams = document.location.search;
-    			tempUrlParams = replaceQueryParam('sz', newSize, tempUrlParams);
-    			url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
-    		} else {
-    			url = document.location.href + '&start=0&sz=' + newSize;
-    		}
-    } else {
-        url = document.location.href + '?start=0&sz=' + newSize;
-    }
-        window.history.pushState({ path: url }, '', url);
-    }
-}
-
-/**
  * Adds page start and size to page URL for pagination
  *
  * @param {string} url - facet AJAX URL
@@ -354,7 +322,7 @@ module.exports = {
     movadoBase: movadoBase,
     showMore:  function () {
         // Show more products
-        $('.container, .container-fluid, .test').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
+        $('body').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
             e.stopPropagation();
     
             //push data on ga tracking

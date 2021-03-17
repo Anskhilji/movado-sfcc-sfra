@@ -51,3 +51,12 @@ $eclipse: #3A3A3A;
 $grey: #868686;
 $gray90: #E5E5E5;
 $white-smoke: #F0F0F0;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);

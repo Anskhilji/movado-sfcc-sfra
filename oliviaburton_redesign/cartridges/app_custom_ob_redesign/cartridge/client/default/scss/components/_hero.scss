@@ -146,11 +146,18 @@
     padding: 0;
     .carousel-title {
         font-family: $font-gill-std-bold;
-        font-size: rem(34);
+        font-size: rem(26);
         font-weight: 600;
-        line-height: rem(41);
+        line-height: rem(30);
         color: $black;
         letter-spacing: normal;
+        margin-bottom: rem(10);
+
+        @include media-breakpoint-up(lg) {
+            font-size: rem(34);
+            line-height: rem(41);
+            margin-bottom: 1.25rem;
+        }
     }
 
     .slick {
@@ -165,19 +172,23 @@
 
         &-list {
             margin: 0;
-            padding: 0 rem(50) !important;
+            padding: 0 !important;
 
             @include media-breakpoint-up(sm) {
                 padding: 0 rem(150) !important;
             }
 
             @include media-breakpoint-up(lg) {
-                padding: 0 rem(310) !important;
+                padding: 0 rem(335) !important;
             }
         }
 
         &-slide {
-            margin: 0 rem(5);
+            margin: 0;
+            img {
+                width: 100%;
+            }
+
             @include media-breakpoint-up(lg) {
                 margin: 0 rem(10);
             }

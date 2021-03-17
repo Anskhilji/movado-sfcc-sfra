@@ -65,11 +65,11 @@
 									<div class="row grid-header justify-content-center">
 										<div class="result-count col">
 					</isif>
-					<isinclude template="search/resultsCount" />
+					<isinclude template="search/old/resultsCount" />
 				</div>
 				<isif condition="${pdict.productSearch.productIds.length > 0}">
 					<div class="col-6 col-sm-3 order-sm-1 sort-col">
-						<isinclude template="search/sortOrderMenu" />
+						<isinclude template="search/old/sortOrderMenu" />
 					</div>
 	
 					<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
@@ -93,7 +93,7 @@
 								<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
 									<span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
 								</isif>
-								<isinclude template="search/filterBar" />
+								<isinclude template="search/old/filterBar" />
 							</div>
 
 							<!--- Product Grid --->
@@ -122,7 +122,7 @@
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />
 								<iselse>
-									<isinclude template="search/showMore" />
+									<isinclude template="search/old/showMore" />
 								</isif>
 							</div>
 						</div>
