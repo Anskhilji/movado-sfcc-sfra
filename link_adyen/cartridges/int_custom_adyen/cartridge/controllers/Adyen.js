@@ -113,19 +113,7 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
             }
             Transaction.commit();
 
-            // Places the order
-            var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
-            if (placeOrderResult.error) {
-
-                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: order placement failed for order number: ' + orderNo + ' and going to the placeOrder stage');
-                Transaction.wrap(function () {
-                    // MSS-1169 Passed true as param to fix deprecated method usage
-                    OrderMgr.failOrder(order, true);
-                });
-                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
-                return next();
-            }
-
+            session.custom.delayRiskifiedStatus = true;
             //  [MSS-1257] Riskified Api Call to Check Order Status                                   
             var checkoutDecisionStatus = hooksHelper(
                 'app.fraud.detection.create',
@@ -134,7 +122,7 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                 paymentInstrument,
                 require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
             if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
-        	    // call hook for auth reverse using call cancelOrRefund api for safe side
+                // call hook for auth reverse using call cancelOrRefund api for safe side
                 checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Going to call the hook for auth reverse using call cancelOrRefund api for order number: ' + orderNumber + ' and going to set the error status true');
                 hooksHelper(
                     'app.riskified.paymentrefund',
@@ -143,13 +131,48 @@ server.replace('AuthorizeWithForm', server.middleware.https, function (req, res,
                     order.getTotalGrossPrice().value,
                     true,
                     require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
-                    checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + orderNo);
-                    res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
-                    return next();
+                Transaction.wrap(function () {
+                    if (!empty(session.custom.riskifiedOrderAnalysis)) {
+                        order.custom.riskifiedOrderAnalysis = session.custom.riskifiedOrderAnalysis;
+                    }
+                    OrderMgr.failOrder(order, true);
+                });
+                delete session.custom.delayRiskifiedStatus;
+                delete session.custom.riskifiedOrderAnalysis;
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + orderNo);
+                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
+                return next();
             }
 
-            //[MSS-1257] If Riskified status is approved then set payment status to paid Code Removed
+            // Places the order
+            var placeOrderResult = adyenHelpers.placeOrder(order, fraudDetectionStatus);
 
+            if (placeOrderResult.error) {
+                var statusOrder;
+                checkoutLogger.error('(Adyen) -> AuthorizeWithForm: order placement failed for order number: {0} redirecting user to Checkout-Begin', orderNo);
+                Transaction.wrap(function () {
+                    if (!empty(session.custom.riskifiedOrderAnalysis)) {
+                        order.custom.riskifiedOrderAnalysis = session.custom.riskifiedOrderAnalysis;
+                    }
+                    // MSS-1169 Passed true as param to fix deprecated method usage
+                    statusOrder =  OrderMgr.failOrder(order, true);
+                });
+                delete session.custom.delayRiskifiedStatus;
+                delete session.custom.riskifiedOrderAnalysis;
+                res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder', 'paymentError', Resource.msg('error.technical', 'checkout', null)));
+                return next();
+            }
+
+            checkoutLogger.info('(Adyen) -> AuthorizeWithForm: order placed successfully with orderNo {0}', orderNo);
+            if (!empty(session.custom.riskifiedOrderAnalysis)) {
+                Transaction.wrap(function () {
+                    order.custom.riskifiedOrderAnalysis = session.custom.riskifiedOrderAnalysis;
+                });
+                
+                delete session.custom.delayRiskifiedStatus;
+                delete session.custom.riskifiedOrderAnalysis;
+            }
+            
             clearForms();
 
             // Salesforce Order Management requirement.  
