@@ -449,6 +449,7 @@ module.exports = {
     });
     },
 
+    //Custom Start: Make this fucntion for desktop filter
     applyFilter: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').off('click').on(
@@ -495,6 +496,7 @@ module.exports = {
                 });
         });
     },
+    // Custom End
 
     //Custom Start: Make this fucntion for mobile filter
     applyFilterMobile: function () {
@@ -542,6 +544,7 @@ module.exports = {
                 });
         });
     },
+    
     // Custom End
     showContentTab: function () {
         // Display content results from the search
@@ -560,7 +563,7 @@ module.exports = {
 
     // Custom Start: Make these fucntions for custom events
     sortMenuDesktop: function () { 
-        $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
+        $(document).on('click', '.plp-filter-bar .plp-filter-btn', function(e) {
             var button = this
             $(button).next().toggleClass('active');
             $(button).toggleClass('active');
@@ -579,14 +582,15 @@ module.exports = {
                 $(button).next().children('.plp-active-filter').toggleClass('loaded');
             }, 500);
 
-            $(".plp-filter-bar .plp-filter-btn").not($(this)).removeClass('active');
-            $(".filter-group").not($(this).next()).removeClass('active loaded');
-            $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
+            $('.plp-filter-bar .plp-filter-btn').not($(this)).removeClass('active');
+            $('.filter-group').not($(this).next()).removeClass('active loaded');
+            $('.plp-active-filter').not($(this).next().children('.plp-active-filter')).removeClass('loaded');
         });
 
+        // This is to close filter dropdown on desktop
         $(document).on('click', '.filter-close-btn', function(e) {
-            $(".filter-group").removeClass('active loaded');
-            $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
         });
 
@@ -616,17 +620,17 @@ module.exports = {
     // Custom End
 
     mobileFilter: function () {
-        $(".search-results.plp-redesign .filter-btn").click(function(){
-            $(".modal-background").addClass("d-block")
-            $("body").addClass("no-overflow");
-            $(".search-results.plp-redesign .refinement-bar").removeClass("slide-in").addClass("slide-in");
+        $('.search-results.plp-redesign .filter-btn').click(function(){
+            $('.modal-background').addClass('d-block');
+            $('body').addClass('no-overflow');
+            $('.search-results.plp-redesign .refinement-bar').removeClass('slide-in').addClass('slide-in');
         });
     
-        $(document).on("click",".search-results.plp-redesign  .close-refinebar, .modal-background", function (e) {
+        $(document).on('click','.search-results.plp-redesign  .close-refinebar, .modal-background', function (e) {
             e.preventDefault();
-            $("body").removeClass("no-overflow");
-            $(".search-results.plp-redesign  .refinement-bar").removeClass("slide-in");
-            $(".modal-background").removeClass("d-block");
+            $('body').removeClass('no-overflow');
+            $('.search-results.plp-redesign  .refinement-bar').removeClass('slide-in');
+            $('.modal-background').removeClass('d-block');
         });
     }
 };
