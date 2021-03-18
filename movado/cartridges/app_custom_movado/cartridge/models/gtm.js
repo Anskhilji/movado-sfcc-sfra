@@ -54,24 +54,23 @@ function gtmModel(req) {
         if (action.equals('checkout-login') || action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
             this.checkout = [];
             getCartJSONArray(this.checkout);
-            if (action.equals('checkout-login')) {
-                this.checkoutAction = action;
-                checkoutStage = 1;
-            } else {
-                checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
-                var checkoutStage = '';
-                switch (checkoutActionObject) {
-                case 'shipping':
-                    checkoutStage = 2;
-                    break;
-                case 'payment':
-                    checkoutStage = 3;
-                    break;
-                case 'placeOrder':
-                    checkoutStage = 4;
-                    break;
-                }
+            this.checkoutAction = action;
+            this.checkoutStage  = 1;
+        } else {
+            checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+            var checkoutStage = '';
+            switch (checkoutActionObject) {
+            case 'shipping':
+                checkoutStage = 2;
+                break;
+            case 'payment':
+                checkoutStage = 3;
+                break;
+            case 'placeOrder':
+                checkoutStage = 4;
+                break;
             }
+        
             this.checkoutStage = checkoutStage;
         }
 
