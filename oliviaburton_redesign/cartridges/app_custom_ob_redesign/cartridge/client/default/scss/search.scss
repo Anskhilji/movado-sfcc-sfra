@@ -111,7 +111,7 @@
             .result-count {
                 padding-bottom: 0.938em;
                 font-size: rem(12);
-                letter-spacing: 2px;
+                letter-spacing: rem(2);
                 line-height: rem(14);
             }
 
@@ -155,7 +155,7 @@
             overflow: auto;
             margin-bottom: rem(5);
             li {
-              padding-left: 1px;
+              padding-left: rem(1);
               list-style-type: none;
     
               &.color-attribute {
@@ -177,10 +177,10 @@
               a {
                   font-size: rem(16);
                   font-weight: 300;
-                  letter-spacing: 1px;
+                  letter-spacing: rem(1);
                   line-height: rem(20);
                   @include media-breakpoint-up(sm){
-                      letter-spacing: 2px;
+                      letter-spacing: rem(2);
                   }
               }
               .fa-square-o{
@@ -654,7 +654,7 @@
                             right: 0;
                             top: rem(7);
                             width: rem(20);
-                            height: 20px;
+                            height: rem(20);
                         }
                     }
             
@@ -1347,7 +1347,7 @@
             height: rem(45);
             margin: 0 auto;
             background-color: $white;
-            border: 1px solid $black;
+            border: rem(1) solid $black;
             border-radius: rem(3);
             font-family: $font-gill-std-bold;
             font-weight: 600;
