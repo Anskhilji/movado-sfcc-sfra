@@ -7,6 +7,193 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 
+.plp-old {
+    .refinement {
+        margin-bottom: rem(8);
+        padding-bottom: rem(4);
+    
+        &.card {
+            border-top: 0 none;
+            border-left: 0 none;
+            border-right: 0 none;
+            border-radius: 0;
+            box-shadow: none;
+            .card-body{
+                    display:none;
+                    opacity:0;
+            }
+            .card-header {
+                border-bottom: 0 none;
+                padding: 0.25rem 1rem;
+                cursor: pointer;
+                text-transform: uppercase;
+              @include headline(18);
+              line-height: rem(22);
+                    &::after {
+                    display: block;
+                  position: absolute;
+                  width: rem(16);
+                  height: rem(16);
+                  content: "\f107";
+                  font-family: "FontAwesome";
+                  right: rem(12);
+                  top: rem(2);
+                  font-weight:400;
+                }
+            }
+            &.active {
+                    .card-header {
+                     &::after {
+                          content: "\f106";
+                     }
+                 }
+                 .card-body{
+                     display:block;
+                     transition: opacity 1s ease-out;
+                        opacity: 1;
+                 }
+            }
+        }
+    
+
+        .card-body {
+            padding: 0 1rem;
+        }
+    
+        a {
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+    
+        &.refinement-category {
+            li {
+                margin-left: 0.938em;
+                display: block;
+            }
+    
+            > ul > li {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .secondary-bar {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 1em;
+        overflow: auto;
+    
+        a.reset {
+            width:100%;
+        }
+    
+        @include media-breakpoint-only(sm) {
+            padding: 0.938em 2.813em;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            a.reset {
+                width:auto;
+            }
+        }
+    
+        @include media-breakpoint-only(xs) {
+            padding: 0.938em;
+        }
+    }
+
+    .grid-header,
+    .content-grid-header {
+        margin-top: 1em;
+        margin-bottom: 1em;
+
+        @include media-breakpoint-only(xs) {
+            .result-count {
+                padding-bottom: 0.938em;
+                font-size: rem(12);
+                letter-spacing: 2px;
+                line-height: rem(14);
+            }
+
+            .filter-results {
+                display: block;
+                width: 100%;
+                @include headline;
+                line-height: rem(14);
+                padding: rem(11) rem(12);
+            }
+            .sort-col{
+            padding-right: rem(7);
+            }
+            .filter-col{
+            padding-left:rem(7);
+            }
+        }
+
+        select {
+            width: 100%;
+        }
+        .card{
+            border:none;
+            box-shadow: none;
+        }
+        .card-header{
+            border:none;
+            padding-bottom: 0;
+            h3{
+            margin-bottom: 0;
+            }
+        }
+    }
+
+    .refinements {
+        @include media-breakpoint-down(xs) {
+          padding: 0;
+        }
+        .values {
+            padding: 0.313em 0;
+            overflow: auto;
+            margin-bottom: rem(5);
+            li {
+              padding-left: 1px;
+              list-style-type: none;
+    
+              &.color-attribute {
+                display: inline-block;
+                padding-left: 0;
+                @include media-breakpoint-down(md){
+                  padding-right:rem(10);
+                }
+              }
+              &.disabled {
+                  opacity: 0.5;
+              }
+              @include media-breakpoint-only(sm) {
+                display: inline-block;
+              }
+              &:not(:last-child):not(.color-attribute){
+                margin-bottom: rem(10);
+              }
+              a {
+                  font-size: rem(16);
+                  font-weight: 300;
+                  letter-spacing: 1px;
+                  line-height: rem(20);
+                  @include media-breakpoint-up(sm){
+                      letter-spacing: 2px;
+                  }
+              }
+              .fa-square-o{
+                font-size: rem(20);
+              }
+              span{
+                vertical-align: text-bottom;
+              }
+            }
+        }
+    }
+}
+
 .plp-redesign {
     margin-bottom: rem(40);
     

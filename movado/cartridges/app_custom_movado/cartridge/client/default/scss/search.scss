@@ -104,10 +104,10 @@
             margin-bottom: rem(10);
           }
           a {
-              font-size: rem(16);
-              font-weight: 300;
-              letter-spacing: 1px;
-              line-height: rem(20);
+            font-size: .75rem;
+            letter-spacing: 1.6px;
+            font-weight: 300;
+            text-transform: uppercase;
               @include media-breakpoint-up(sm){
                   letter-spacing: 2px;
               }
