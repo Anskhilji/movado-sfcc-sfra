@@ -82,6 +82,39 @@ function getCustomLanguages() {
 }
 
 /**
+ * This method is used to get languages from site preferences. After getting languages then it iterated the languages 
+ * and created the language object. After that putting the language object in the languagesMap.
+ * @returns {HashMap} countriesMap : HashMap of countriesMap
+ */
+ function getEswPreferedLocale(countryCode, locale) {
+    var eswPreferedlanguagesObject = null;
+    try {
+        var customCountries = getCustomCountriesJson();
+        if (!empty(customCountries)) {
+            for (var countryIndex = 0; countryIndex < customCountries.length; countryIndex++) {
+                var customCountry = customCountries[countryIndex];
+                if (customCountry.countryCode.equalsIgnoreCase(countryCode)) {
+                    var preferedLocales = customCountries[countryIndex].preferedLocale;
+                    for (var preferedLocaleIndex = 0; preferedLocaleIndex < preferedLocales.length; preferedLocaleIndex++) {
+                        var eswCheckoutLocale = preferedLocales[preferedLocaleIndex].eswCheckoutLocale;
+                        var languageCode = preferedLocales[preferedLocaleIndex].languageCode;
+                        if (languageCode === locale) {
+                            var eswPreferedlanguagesObject = {
+                                value: languageCode,
+                                eswPreferedLocale: eswCheckoutLocale
+                            };
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        Logger.error('(eswCustomHelper.js -> getPreferdLocale) Error occured while reading the languages json from the site preferences: ' + e);
+    }
+    return eswPreferedlanguagesObject;
+}
+
+/**
  * This method is used to get countries from site preferences. After getting countries then it iterate the countries 
  * and create the country object. Getting languages from current country and iterated languages and getting the array 
  * list of countries and Adding the country object in the list of countries. After that putting the language code 
@@ -254,5 +287,6 @@ module.exports = {
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
-    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
+    getEswPreferedLocale: getEswPreferedLocale
 };

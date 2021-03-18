@@ -58,6 +58,7 @@ server.append('GetEswFooter', function (req, res, next) {
     var allCountries = null;
     var customLanguages = null;
     var locale = request.getLocale();
+    
     var languages = null;
     var selectedLanguage = null;
     var geoLocationCountry = null;

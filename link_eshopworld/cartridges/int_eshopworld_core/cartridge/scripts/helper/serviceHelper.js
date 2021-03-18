@@ -48,7 +48,8 @@ function preparePreOrderV2() {
             'deliveryCountryIso': request.getHttpCookies()['esw.location'].value,
             'retailerCheckoutExperience': this.getExpansionPairs(),
             'shopperCheckoutExperience': getShopperCheckoutExperience(),
-            'DeliveryOptions': getShippingRates()
+            'DeliveryOptions': getShippingRates(),
+            'EswPreferedLocale': request.getHttpCookies()['esw.PeferedLocale'].value
         };
     }
     return requestObj;
