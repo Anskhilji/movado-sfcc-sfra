@@ -173,9 +173,10 @@ function createSabrixRequestObject(basket, svc){
       line.setQUANTITY(1);
       line.setUOM(lineUOM);
       line.ID = lineItem.ID;
-      var taxClass = lineItem.taxClassID;
-      if (empty(taxClass)) {
-        taxClass = shippingLineItemDefaultTaxClassID;
+      if(lineItem.adjustedPrice.value > 0) {
+        var taxClass = shippingLineItemDefaultTaxClassID;
+      } else {
+        var taxClass = lineItem.taxClassID;
       }
       line.setPRODUCTCODE(taxClass);
     } else {
