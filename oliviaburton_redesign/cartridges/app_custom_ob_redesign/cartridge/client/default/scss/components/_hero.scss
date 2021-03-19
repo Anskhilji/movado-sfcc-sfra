@@ -179,6 +179,10 @@
             }
 
             @include media-breakpoint-up(lg) {
+                padding: 0 rem(310) !important;
+            }
+
+            @include media-breakpoint-up(xxl) {
                 padding: 0 rem(335) !important;
             }
         }
