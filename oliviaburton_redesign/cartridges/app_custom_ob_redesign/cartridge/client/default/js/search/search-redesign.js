@@ -1,4 +1,5 @@
 'use strict';
+// Custome Start: Requring movado search to reuse existing code. 
 var movadoBase = require('movado/search/search');
 var swatches = require('movado/utilities/swatches');
 
@@ -320,6 +321,8 @@ function moveFocusToTop() {
 
 module.exports = {
     movadoBase: movadoBase,
+
+    // Custom Start: Make these fucntions to update showMore function according to requirement
     showMore:  function () {
         // Show more products
         $('body').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
@@ -544,7 +547,7 @@ module.exports = {
                 });
         });
     },
-    
+
     // Custom End
     showContentTab: function () {
         // Display content results from the search
@@ -619,6 +622,7 @@ module.exports = {
     },
     // Custom End
 
+    // Custom Start: Make these fucntions to show and close mobile filterbar
     mobileFilter: function () {
         $('.search-results.plp-redesign .filter-btn').click(function(){
             $('.modal-background').addClass('d-block');

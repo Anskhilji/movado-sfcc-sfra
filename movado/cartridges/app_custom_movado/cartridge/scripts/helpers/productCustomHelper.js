@@ -60,7 +60,7 @@ function getCollectionName(apiProduct) {
 function getSaveMessage(apiProduct) {
     var saveMessage = "";
     if (!empty(apiProduct)) {
-        saveMessage = apiProduct.custom.saveMessage;
+        saveMessage = apiProduct.custom.saveMessage ? apiProduct.custom.saveMessage : "";
     }
     return saveMessage;
 }
