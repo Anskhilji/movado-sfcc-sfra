@@ -31,10 +31,10 @@ server.append('GetEswHeader', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswHeaderObject.selectedCountry = geoLocationCountry.countryCode;
@@ -58,7 +58,6 @@ server.append('GetEswFooter', function (req, res, next) {
     var allCountries = null;
     var customLanguages = null;
     var locale = request.getLocale();
-    
     var languages = null;
     var selectedLanguage = null;
     var geoLocationCountry = null;
@@ -76,7 +75,7 @@ server.append('GetEswFooter', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
@@ -124,7 +123,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var selectedLanguage = null;
 ​
     var customCountries = eswCustomHelper.getCustomCountries();
-    var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);

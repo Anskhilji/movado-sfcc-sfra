@@ -67,9 +67,11 @@ function getCustomLanguages() {
                 var languages = customCountries[countryIndex].lang;
                 for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
                     var languageCode = languages[languageIndex].languageCode;
+                    var preferedLocale = languages[languageIndex].eswPreferedLocale;
                     var languageObj = {
                         displayValue: languages[languageIndex].languageName,
-                        value: languageCode
+                        value: languageCode,
+                        eswPreferedLocale: preferedLocale
                     };
                     languagesMap.put(languageCode, languageObj);
                 }
@@ -79,39 +81,6 @@ function getCustomLanguages() {
         Logger.error('(eswCustomHelper.js -> getCustomLanguages) Error occured while reading the languages json from the site preferences: ' + e);
     }
     return languagesMap;
-}
-
-/**
- * This method is used to get languages from site preferences. After getting languages then it iterated the languages 
- * and created the language object. After that putting the language object in the languagesMap.
- * @returns {HashMap} countriesMap : HashMap of countriesMap
- */
- function getEswPreferedLocale(countryCode, locale) {
-    var eswPreferedlanguagesObject = null;
-    try {
-        var customCountries = getCustomCountriesJson();
-        if (!empty(customCountries)) {
-            for (var countryIndex = 0; countryIndex < customCountries.length; countryIndex++) {
-                var customCountry = customCountries[countryIndex];
-                if (customCountry.countryCode.equalsIgnoreCase(countryCode)) {
-                    var preferedLocales = customCountries[countryIndex].preferedLocale;
-                    for (var preferedLocaleIndex = 0; preferedLocaleIndex < preferedLocales.length; preferedLocaleIndex++) {
-                        var eswCheckoutLocale = preferedLocales[preferedLocaleIndex].eswCheckoutLocale;
-                        var languageCode = preferedLocales[preferedLocaleIndex].languageCode;
-                        if (languageCode === locale) {
-                            var eswPreferedlanguagesObject = {
-                                value: languageCode,
-                                eswPreferedLocale: eswCheckoutLocale
-                            };
-                        }
-                    }
-                }
-            }
-        }
-    } catch (e) {
-        Logger.error('(eswCustomHelper.js -> getPreferdLocale) Error occured while reading the languages json from the site preferences: ' + e);
-    }
-    return eswPreferedlanguagesObject;
 }
 
 /**
@@ -187,10 +156,10 @@ function getSelectedCountry(countryCode) {
  * @param {Map} customCountries : Map of Custom Countries
  * @returns {ArrayList} countries : Array list of countries
  */
-function getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode) {
+function getAlphabeticallySortedCustomCountries(customCountries, locale) {
     var countries = null;
     try {
-        countries = customCountries.get(customLanguageCode);
+        countries = customCountries.get(locale);
         countries.sort(function(a, b) {
             let x = a.displayValue.toUpperCase(),
             y = b.displayValue.toUpperCase();
@@ -287,6 +256,5 @@ module.exports = {
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
-    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
-    getEswPreferedLocale: getEswPreferedLocale
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
 };

@@ -48,8 +48,7 @@ function preparePreOrderV2() {
             'deliveryCountryIso': request.getHttpCookies()['esw.location'].value,
             'retailerCheckoutExperience': this.getExpansionPairs(),
             'shopperCheckoutExperience': getShopperCheckoutExperience(),
-            'DeliveryOptions': getShippingRates(),
-            'EswPreferedLocale': request.getHttpCookies()['esw.PeferedLocale'].value
+            'DeliveryOptions': getShippingRates()
         };
     }
     return requestObj;
@@ -261,7 +260,7 @@ function getShopperCheckoutExperience() {
         'useDeliveryContactDetailsForPaymentContactDetails': eswHelper.isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled() ? true : false,
         'emailMarketingOptIn': false,
         'registeredProfileId': customer.profile ? customer.profile.customerNo : null,
-        'shopperCultureLanguageIso': request.getHttpCookies()['esw.LanguageIsoCode'].value.replace('_', '-'),
+        'shopperCultureLanguageIso': request.getHttpCookies()['esw.PeferedLocale'].value.replace('_', '-'),
         'expressPaymentMethod': null,
         'metadataItems': null
     }

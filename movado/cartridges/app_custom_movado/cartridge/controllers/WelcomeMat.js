@@ -46,8 +46,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             }
 
             var customCountries = eswCustomHelper.getCustomCountries();
-            var customLanguageCode = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
-            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
+            locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
             movadoLandingObject.isGeoLocation = false;
 
             if (!empty(geoLocationCountry)) {
