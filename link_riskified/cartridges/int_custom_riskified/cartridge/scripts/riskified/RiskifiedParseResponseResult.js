@@ -119,21 +119,19 @@ function parseRiskifiedResponse(order) {
                 orderState: 'created'
             });
         }
-        if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
-            // riskifiedStatus as approved then mark as confirmed
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
-            if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
-                Transaction.wrap(function () {
-                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                    order.setExportStatus(Order.EXPORT_STATUS_READY);
-                });
-            }
-            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-            COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+
+        //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
+        // riskifiedStatus as approved then mark as confirmed
+        checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
+        if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
             Transaction.wrap(function () {
-                order.custom.is3DSecureTransactionAlreadyCompleted = false;
+                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                order.setExportStatus(Order.EXPORT_STATUS_READY);
             });
         }
+        var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+        COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+        
 
         /* Accept in OMS */
         if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {

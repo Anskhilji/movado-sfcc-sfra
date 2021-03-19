@@ -289,7 +289,7 @@ function declineOrder(order) {
         if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
             checkoutLogger.warn('(checkoutCustomHelpers) -> declineOrder: order status is created therefore going to fail the order and order number: ' + orderNo);
             Transaction.begin();
-            OrderMgr.failOrder(order);
+            OrderMgr.failOrder(order, true);
             Transaction.commit();  //Order must be in status CREATED
 
         } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
