@@ -137,6 +137,7 @@ function createSabrixRequestObject(basket, svc){
   var lineUOM = Site.getCurrent().preferences.custom.sabrixLineQuantityUOM;
   var lineItemTaxDeafultTaxClassID = Site.getCurrent().preferences.custom.sabrixLineItemTaxClass;
   var shippingLineItemDefaultTaxClassID = Site.getCurrent().preferences.custom.sabrixShippingLineItemTaxClass;
+  var paidShippingTaxClassID = Site.getCurrent().preferences.custom.sabrixPaidShippingTaxClass;
   var linePointOfTransfer = Site.getCurrent().preferences.custom.sabrixLinePointOfTitleTransfer;
   var lineIsExempt = Site.getCurrent().preferences.custom.sabrixLineIsExempt;
   for (var i = 0; i < svc.orderOrBasket.allLineItems.length; i++){
@@ -173,10 +174,12 @@ function createSabrixRequestObject(basket, svc){
       line.setQUANTITY(1);
       line.setUOM(lineUOM);
       line.ID = lineItem.ID;
+      var taxClass = lineItem.taxClassID;
+      if (empty(taxClass)){
+        taxClass = lineItemTaxDeafultTaxClassID;
+      }
       if(lineItem.adjustedPrice.value > 0) {
-        var taxClass = shippingLineItemDefaultTaxClassID;
-      } else {
-        var taxClass = lineItem.taxClassID;
+        taxClass = paidShippingTaxClassID;
       }
       line.setPRODUCTCODE(taxClass);
     } else {
