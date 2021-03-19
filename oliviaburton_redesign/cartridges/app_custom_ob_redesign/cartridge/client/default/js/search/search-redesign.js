@@ -1,6 +1,34 @@
 'use strict';
-
+// Custome Start: Requring movado search to reuse existing code. 
+var movadoBase = require('movado/search/search');
 var swatches = require('movado/utilities/swatches');
+
+function updateURLForShowMore(showMoreUrl) {
+    var params = movadoBase.getUrlParamObj(showMoreUrl);
+    var start = params.start;
+    var size = params.sz;
+    var newSize = parseInt(start) + parseInt(size);
+    var url;
+    var currentProductCount = $('#show-more-update').text();
+    var res = currentProductCount.replace(size, newSize);
+    $('#show-more-update').text(res);
+    
+    if (history.pushState) {
+    	if (document.location.href.indexOf('?') > -1) {
+    		if (document.location.href.indexOf('sz=') > -1) {
+    			var tempUrlParams = document.location.search;
+    			tempUrlParams = movadoBase.replaceQueryParam('sz', newSize, tempUrlParams);
+    			url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
+    		} else {
+    			url = document.location.href + '&start=0&sz=' + newSize;
+    		}
+    } else {
+        url = document.location.href + '?start=0&sz=' + newSize;
+    }
+        window.history.pushState({ path: url }, '', url);
+    }
+}
+
 
 /**
  * Update DOM elements with Ajax results
@@ -40,7 +68,7 @@ function handleRefinements($results) {
         $results.find('.' + $(this)[0].className.replace(/ /g, '.')).addClass('active');
     });
 
-    updateDom($results, '.refinements');
+    updateDom($results, '.plp-filter-desktop .refinements');
 }
 
 /**
@@ -51,21 +79,23 @@ function handleRefinements($results) {
  */
 function parseResults(response) {
     var $results = $(response);
+    // $('.testing').html(response);
     var specialHandlers = {
-        '.refinements': handleRefinements
+        '.plp-filter-desktop': handleRefinements
     };
 
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
         '.header-bar',
-        '.header.page-title',
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.mobile-filter-menu',
-        '.sort-dropdown',
-        '.mobile-sort-order'
+        '.sort-dropdown-list',
+        '.plp-filter-desktop .result-count',
+        '.plp-filter-desktop .refinements',
+        '.plp-filter-mobile .refinements',
+        '.plp-filter-mobile .result-count',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -79,19 +109,22 @@ function parseResults(response) {
 function parseMobileResults(response) {
     var $results = $(response);
     var specialHandlers = {
-        '.mobile-filter-menu': handleRefinements
+        '.plp-filter-mobile': handleRefinements
     };
 
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.header-bar',
         '.header.page-title',
         '.product-grid',
         '.show-more',
         '.filter-bar',
-        '.mobile-filter-menu',
-        '.sort-dropdown',
-        '.mobile-sort-order'
+        '.sort-dropdown-list',
+        '.plp-filter-desktop .result-count',
+        '.plp-filter-desktop .refinements',
+        '.plp-filter-mobile .refinements',
+        '.plp-filter-mobile .result-count',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -100,6 +133,7 @@ function parseMobileResults(response) {
         specialHandlers[selector]($results);
     });
 }
+
 // Custom End
 /**
  * This function retrieves another page of content to display in the content search grid
@@ -243,38 +277,6 @@ function replaceUrlParam(url, paramName, paramValue) {
 }
 
 /**
- * Adds page start and size to page URL for show more
- *
- * @param {string} url - facet AJAX URL
- * @return {undefined}
- */
-function updatePageURLForShowMore(showMoreUrl) {
-    var params = getUrlParamObj(showMoreUrl);
-    var start = params.start;
-    var size = params.sz;
-    var newSize = parseInt(start) + parseInt(size);
-    var url;
-    var currentProductCount = $('#show-more-update').text();
-    var res = currentProductCount.replace(size, newSize);
-    $('#show-more-update').text(res);
-    
-    if (history.pushState) {
-    	if (document.location.href.indexOf('?') > -1) {
-    		if (document.location.href.indexOf('sz=') > -1) {
-    			var tempUrlParams = document.location.search;
-    			tempUrlParams = replaceQueryParam('sz', newSize, tempUrlParams);
-    			url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
-    		} else {
-    			url = document.location.href + '&start=0&sz=' + newSize;
-    		}
-    } else {
-        url = document.location.href + '?start=0&sz=' + newSize;
-    }
-        window.history.pushState({ path: url }, '', url);
-    }
-}
-
-/**
  * Adds page start and size to page URL for pagination
  *
  * @param {string} url - facet AJAX URL
@@ -318,6 +320,54 @@ function moveFocusToTop() {
 // Added container-fluid class alongside container
 
 module.exports = {
+    movadoBase: movadoBase,
+
+    // Custom Start: Make these fucntions to update showMore function according to requirement
+    showMore:  function () {
+        // Show more products
+        $('body').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
+            e.stopPropagation();
+    
+            //push data on ga tracking
+            var showMoreUrl = $(this).data('url');
+            var $pageSize = $(this).data('page-number');
+            var $plpName = $(this).data('category-id');
+            var $counter = 1;
+            var $pageCounter = $pageSize + $counter;
+            
+            if ($pageSize !== undefined && $plpName !== undefined) {
+                dataLayer.push({
+                    event: 'Load More Results',
+                    eventCategory: 'Load More Results - See More',
+                    eventAction: $plpName,
+                    eventLabel: $pageCounter
+                });
+            }
+    
+            e.preventDefault();
+    
+            $.spinner().start();
+            $(this).trigger('search:showMore', e);
+            $.ajax({
+                url: showMoreUrl,
+                data: { selectedUrl: showMoreUrl },
+                method: 'GET',
+                success: function (response) {
+                    var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                    $('body').trigger('facet:success', [gtmFacetArray]);
+                    $('.grid-footer').replaceWith(response);
+                    movadoBase.updateSortOptions(response);
+                    // edit
+                    updateURLForShowMore(showMoreUrl);
+                    // edit end
+                    $.spinner().stop();
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
+        });
+    },
 
     filter: function () {
         // Display refinements bar when Menu icon clicked
@@ -328,18 +378,11 @@ module.exports = {
 
     closeRefinments: function () {
         // Refinements close button
-        $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
+        $('.container, .container-fluid').on('click', '.refinement button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
         });
     },
-
-    resize: function () {
-        // Close refinement bar and hide modal background if user resizes browser
-        $(window).resize(function () {
-            $('.refinement-bar, .modal-background').hide();
-       });
-    },
-
+    
     sort: function () {
 
         // Handle sort order menu selection for mobile
@@ -348,6 +391,7 @@ module.exports = {
             e.preventDefault();
             $.spinner().start();
             $(this).trigger('search:sort', url);
+            var thisText = $(this).text();
             $.ajax({
                 url: url,
                 data: { selectedUrl: url },
@@ -361,40 +405,11 @@ module.exports = {
                     // edit
                     $.spinner().stop();
 
+                    $('.sort-dropdown-list .sort-dropdown-toggle').text(thisText);
+                    $('.sort-dropdown-list .sort-dropdown-toggle').prepend('<span class="d-lg-none">Sort By</span>');
                     $('.mobile-sort-menu').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
-                },
-                error: function () {
-                    $.spinner().stop();
-                }
-            });
-        });
-    },
-
-    showMore: function () {
-        // Show more products
-        $('.container, .container-fluid').on('click', '.plp-show-more button, .show-more button', function (e) {
-            e.stopPropagation();
-            var showMoreUrl = $(this).data('url');
-
-            e.preventDefault();
-
-            $.spinner().start();
-            $(this).trigger('search:showMore', e);
-            $.ajax({
-                url: showMoreUrl,
-                data: { selectedUrl: showMoreUrl },
-                method: 'GET',
-                success: function (response) {
-                	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                	$('body').trigger('facet:success', [gtmFacetArray]);
-                    $('.grid-footer').replaceWith(response);
-                    updateSortOptions(response);
-                    // edit
-                    updatePageURLForShowMore(showMoreUrl);
-                    // edit end
-                    $.spinner().stop();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -437,11 +452,12 @@ module.exports = {
     });
     },
 
+    //Custom Start: Make this fucntion for desktop filter
     applyFilter: function () {
         // Handle refinement value selection and reset click
-        $('.container, .container-fluid').on(
+        $('.container, .container-fluid').off('click').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.plp-filter-desktop .refinements li a, .plp-filter-reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -476,26 +492,21 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
-
-                        $('.mobile-filter-menu').removeClass('active');
-                        $('body').removeClass('lock-bg');
-                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
-                        $('.plp-grid-overlay').removeClass('active');
                     },
                     error: function () {
                         $.spinner().stop();
                     }
                 });
-            });
+        });
     },
+    // Custom End
+
     //Custom Start: Make this fucntion for mobile filter
     applyFilterMobile: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.mobile-filter .mobile-selection-inner a, .mobile-active-actions .mobile-active-clear-btn',
+            '.plp-filter-mobile .refinements li a, .plp-filter-mobile .refinement-bar a.reset, .plp-filter-mobile .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -520,8 +531,8 @@ module.exports = {
                     },
                     method: 'GET',
                     success: function (response) {
-                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                    	$('body').trigger('facet:success', [gtmFacetArray]);
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
                         parseMobileResults(response);
                         // edit start
                         updatePageURLForFacets(filtersURL);
@@ -529,18 +540,14 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
-                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('body').removeClass('lock-bg');
-                        $('.mvmt-plp .grid-header .sort-col').remove();
-                        $('.mvmt-plp .grid-header .filter-col').remove()
                     },
                     error: function () {
                         $.spinner().stop();
                     }
                 });
-            });
+        });
     },
+
     // Custom End
     showContentTab: function () {
         // Display content results from the search
@@ -549,7 +556,7 @@ module.exports = {
                 getContent($(this), $('#content-search-results'));
             }
         });
-
+ 
         // Display the next page of content results from the search
         $('.container').on('click', '.show-more-content button', function () {
             getContent($(this), $('#content-search-results .result-count'));
@@ -559,7 +566,7 @@ module.exports = {
 
     // Custom Start: Make these fucntions for custom events
     sortMenuDesktop: function () { 
-        $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
+        $(document).on('click', '.plp-filter-bar .plp-filter-btn', function(e) {
             var button = this
             $(button).next().toggleClass('active');
             $(button).toggleClass('active');
@@ -578,15 +585,15 @@ module.exports = {
                 $(button).next().children('.plp-active-filter').toggleClass('loaded');
             }, 500);
 
-            $(".plp-filter-bar .plp-filter-btn").not($(this)).removeClass('active');
-            $(".filter-group").not($(this).next()).removeClass('active loaded');
-            $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
+            $('.plp-filter-bar .plp-filter-btn').not($(this)).removeClass('active');
+            $('.filter-group').not($(this).next()).removeClass('active loaded');
+            $('.plp-active-filter').not($(this).next().children('.plp-active-filter')).removeClass('loaded');
         });
 
+        // This is to close filter dropdown on desktop
         $(document).on('click', '.filter-close-btn', function(e) {
-            $(".filter-group").removeClass('active loaded');
-            $(".plp-active-filter").removeClass('loaded');
-            $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
         });
 
@@ -609,134 +616,25 @@ module.exports = {
 
         $(document).on('click', '.sort-dropdown', function(e) {
             e.preventDefault();
-            $(this).find('.sort-dropdown-toggle').toggleClass('active');
+            $(this).find('.sort-dropdown-toggle, .sort-dropdown-list').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
         });
     },
+    // Custom End
 
-    stickyFilterBar: function () {
-        $(window).scroll( function (event) {
-            var $headerSize = $('.header-menu-wrapper').height();
-            var $headerBannerSize = $('.hero').height();
-            var $totalHeaderSize = $headerBannerSize - 50;
-            if ($(this).scrollTop() > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
-                $('.plp-filter-bar').addClass('sticky');
-                $('.plp-filter-bar').css('top', $headerSize);
-            } else {
-                $('.plp-filter-bar').removeClass('sticky');
-                $('.plp-filter-bar').css('top', '');
-            }
+    // Custom Start: Make these fucntions to show and close mobile filterbar
+    mobileFilter: function () {
+        $('.search-results.plp-redesign .filter-btn').click(function(){
+            $('.modal-background').addClass('d-block');
+            $('body').addClass('no-overflow');
+            $('.search-results.plp-redesign .refinement-bar').removeClass('slide-in').addClass('slide-in');
         });
-    },
-
-    mobileSortFilterMenu: function () {
-
-        $(document).on("click", '.mobile-filter-btn-list button', function(e) {
-            var  menu = $(this).data('menu');
-            var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
-            $(''+ menu +'').addClass('active').removeClass('disable-events');
-            $('body').addClass('lock-bg');
-            setTimeout (function (){
-                $(''+ selectors +'').addClass('loaded');
-                $(''+ menu +' .mobile-selection').addClass('border-radius-transform-transition skip-animation');
-            }, 300);
-        });
-
-        $(document).on("click", '.filter-open button', function(e) {
-            var  menu = $(this).data('menu');
-            $('body').addClass('lock-bg');
-            setTimeout (function (){
-                $(''+ menu +' .mobile-selection.active .mobile-active-filters, '+ menu +' .mobile-selection.active .mobile-active-actions').addClass('skip-animation loaded');
-                $(''+ menu +' .mobile-selection:not(.acitve) .mobile-active-filters, '+ menu +' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
-            }, 300);
-        });
-
-        $(document).on("click", '.mobile-menu-close, .mobile-close-menu', function(e) {
-            var  menuClose = $(this).data('close-menu');
-            $(''+ menuClose +'').removeClass('active').addClass('disable-events');
-            $('body').removeClass('lock-bg');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions, .mobile-selection .mobile-selection-outer, .mobile-selection .mobile-menu-close').removeClass('loaded');
-            $('.mobile-selection').removeClass('skip-animation');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').removeClass('skip-animation loaded');
-        });
-
-        $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
-            $('.mobile-filter-btn-list').addClass('filter-open');
-        });
-
-        $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function(e) {
-            var str = $(this).data('option-select');
-            var optionMenu = str.split(" ")[0];
-            $('body').addClass('lock-bg');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions, .mobile-selection .mobile-selection-outer, .mobile-selection .mobile-menu-close').removeClass('loaded');
-            $('.mobile-selection').removeClass('active');
-
-            $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').addClass('skip-animation');
-
-            var loadClass = ''+ optionMenu +' .mobile-selection-outer, '+ optionMenu +' .mobile-selection-close';
-            $(''+ optionMenu +' .mobile-menu-close').addClass('loaded');
-            $(''+ optionMenu +'').addClass('active');
-
-            setTimeout (function (){
-                $(''+ loadClass +'').addClass('loaded');
-                $(''+ optionMenu +' .mobile-active-filters, '+ optionMenu +' .mobile-active-actions').addClass('loaded skip-animation');
-            }, 500);
-        });
-    },
-
-    swatchesSlider: function () {
-        $('.product-tile-redesign .swatches').slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: false,
-            arrows: true,
-            responsive: [
-                {
-                    breakpoint: 544,
-                    settings: {
-                        slidesToShow: 3,
-                    }
-                },
-            ]
-        });
-    },
-
-    strapNavSlider: function() {
-        $('.straps-guide-nav').resize();
-        var svgRight = '<svg width="5px" height="8px" viewBox="0 0 9 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Press-Slider" transform="translate(-1360.000000, -140.000000)" fill="#2B2B2B"><g id="right-arrow-white"><polygon points="1361.6855 140 1360 141.633333 1365.53808 147 1360 152.366667 1361.6855 154 1368.90909 147"></polygon></g></g></g></svg>';
-        $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
-        $('.straps-nav-mobile .slick-next').prepend(svgRight);
-
-        $(window).on('resize', function() {
-            $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text('');
-
-            setTimeout( function(){ 
-                $('.straps-nav-mobile .slick-prev, .straps-nav-mobile .slick-next').text(Resources.SLICK_BUTTON_MORE);
-                $('.straps-nav-mobile .slick-next').prepend(svgRight);
-            }, 100);
-        });
-    },
-
-    strapNavMobileSticky: function () {
-        $(window).scroll( function (event) {
-            var $headerSize = $('.header-menu-wrapper').height();
-            var $searchBannerSize = $('.search-banner').height();
-            var $totalHeaderSize = $searchBannerSize + 70;
     
-            if ($(this).scrollTop() > $totalHeaderSize) {
-                $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
-                $('.straps-nav-mobile').addClass('sticky');
-                $('.straps-nav-mobile').css('top', $headerSize + 17);
-            } else {
-                $('.straps-nav-mobile').removeClass('sticky');
-                $('.straps-nav-mobile').css('top', '');
-            }
+        $(document).on('click','.search-results.plp-redesign  .close-refinebar, .modal-background', function (e) {
+            e.preventDefault();
+            $('body').removeClass('no-overflow');
+            $('.search-results.plp-redesign  .refinement-bar').removeClass('slide-in');
+            $('.modal-background').removeClass('d-block');
         });
     }
-    // Custom End
 };

@@ -503,5 +503,9 @@ module.exports = {
             getContent($(this), $('#content-search-results .result-count'));
             $('.show-more-content').remove();
         });
-    }
+    },
+    updatePageURLForShowMore: updatePageURLForShowMore,
+    updateSortOptions: updateSortOptions,
+    replaceQueryParam: replaceQueryParam,
+    getUrlParamObj: getUrlParamObj
 };

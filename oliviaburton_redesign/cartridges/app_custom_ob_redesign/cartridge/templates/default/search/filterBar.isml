@@ -1,0 +1,34 @@
+<iscomment> Clear button added </iscomment>
+<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+    <a class="plp-filter-reset reset" href="${pdict.productSearch.resetLink}">
+        ${Resource.msg('link.clear', 'search', null)}
+    </a>
+</isif>
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
+    <ul>
+        <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
+            <isif condition="${refinement.type === 'color'}">
+                <li class="swatch-filter ${refinement.presentationId}" title="${refinement.title}">
+                    <a href="${refinement.url}"></a>
+                </li>
+            <iselse>
+                <li class="filter-value" title="${refinement.title}">
+                    <a href="${refinement.url}">
+                        ${refinement.displayValue}
+                    </a>
+                </li>
+            </isif>
+        </isloop>
+    </ul>
+<iselse>
+    <ul>
+        <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
+                <li class="filter-value SDAS" title="${refinement.title}">
+                    <a href="${refinement.url}">
+                        ${refinement.displayValue}
+                    </a>
+                </li>
+        </isloop>
+    </ul>
+</isif>
+
