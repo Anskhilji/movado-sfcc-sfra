@@ -73,9 +73,11 @@ server.append(
             return next();
         }
 
+        // Custom Start: [MSS-126] Remove Klarnaflag from sesion for riskified response
         if (!empty(session.custom.klarnaRiskifiedFlag) && session.custom.klarnaRiskifiedFlag) {
             delete session.custom.klarnaRiskifiedFlag;
         }
+        // Custom End
 
         // Custom Start: Adding ESW country switch control
         var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
