@@ -164,23 +164,25 @@ var onPDPAddProductClickEvent = function () {
 };
 var onAddtoCartClickEvent = function () {
     $('body').on('click', '.gtm-addtocart', function (evt) {
-        var $currentTarget = $(evt.currentTarget);
-        var data = $currentTarget.data('gtm-addtocart');
-        updateDataLayer('addToCart');
-        dataLayer.push({
-            event: 'addToCart',
-            ecommerce: { currencyCode: data.currency,
-                add: { actionField: { list: data.list },
-                    products: [{
-                        id: data.id,
-                        name: data.name,
-                        price: data.price,
-                        category: data.category,
-                        variant: data.variant
-                    }]
+        if ($('[data-action]').data('action') != 'Search-Show') {
+            var $currentTarget = $(evt.currentTarget);
+            var data = $currentTarget.data('gtm-addtocart');
+            updateDataLayer('addToCart');
+            dataLayer.push({
+                event: 'addToCart',
+                ecommerce: { currencyCode: data.currency,
+                    add: { actionField: { list: data.list },
+                        products: [{
+                            id: data.id,
+                            name: data.name,
+                            price: data.price,
+                            category: data.category,
+                            variant: data.variant
+                        }]
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 };
 
