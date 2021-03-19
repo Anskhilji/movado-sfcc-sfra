@@ -72,9 +72,11 @@ server.append(
             res.redirect(URLUtils.url('Cart-Show'));
             return next();
         }
+
         if (!empty(session.custom.klarnaRiskifiedFlag) && session.custom.klarnaRiskifiedFlag) {
             delete session.custom.klarnaRiskifiedFlag;
         }
+
         // Custom Start: Adding ESW country switch control
         var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
         if (isEswEnabled) {
