@@ -37,7 +37,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             var geoLocationCountry = null;
             var geoLocationCountryCode = request.geolocation.countryCode;
             var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
-            var locale = request.getLocale();
+            var locale =request.getLocale();
             var movadoLandingObject = {};
             session.custom.isWelcomeMat = true;
 
@@ -58,7 +58,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             } else {
                 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
                 movadoLandingObject.selectedCountry = eswHelper.getAvailableCountry();
-                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
+                locale = request.getLocale();
+                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale[0]);
                 movadoLandingObject.selectedCurrency = '';
             }
             var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');

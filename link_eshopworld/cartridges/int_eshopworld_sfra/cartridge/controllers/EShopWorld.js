@@ -33,14 +33,6 @@ function setInitialCookies(req) {
     if (empty(currencyCode)) {
         currencyCode = (countryFromJson != null) ? countryFromJson.currencyCode : session.getCurrency();
     }
-    var locale = request.getLocale();
-    var customLanguages = eswCustomHelper.getCustomLanguages();
-    var preferedLocale = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
-    if (request.httpCookies['esw.PeferedLocale'] == null) {
-        if (!empty(preferedLocale.eswPreferedLocale)) {
-            eswHelper.createCookie('esw.PeferedLocale', preferedLocale.eswPreferedLocale, '/');
-        }
-    }
     eswHelper.createCookie('esw.InternationalUser', true, '/');
     eswHelper.createCookie('esw.sessionid', customer.ID, '/');
     if (request.httpCookies['esw.location'] == null) {

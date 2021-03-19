@@ -64,7 +64,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         } else {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
             obLandingObject.selectedCountry = eswHelper.getAvailableCountry();
-            obLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
+            obLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale[0]);
             obLandingObject.selectedCurrency = '';
         }
         var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');

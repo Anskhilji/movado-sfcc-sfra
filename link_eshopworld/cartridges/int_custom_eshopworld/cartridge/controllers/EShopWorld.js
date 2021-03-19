@@ -5,11 +5,19 @@ server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var constant = require('*/cartridge/scripts/helpers/constants');
-​
+​var Cookie = require('dw/web/Cookie');
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+
+function setInitialCookies(selectedLanguage) {
+    var eswPreferedLocale = selectedLanguage.eswPreferedLocale;
+        if (!empty(eswPreferedLocale)) {
+            var test = eswHelper.createCookie('esw.PeferedLocale', eswPreferedLocale, '/');
+            var testing = test;
+        }
+}
 ​
 server.append('GetEswHeader', function (req, res, next) {
     var allCountries = null;
@@ -46,8 +54,8 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.selectedCountry = queriedCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = queriedCountry.displayName;
     }
-
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale[0]);
+    setInitialCookies(selectedLanguage);
     res.viewData.EswHeaderObject.languages = languages;
     res.viewData.EswHeaderObject.selectedLanguage = selectedLanguage;
     res.viewData.EswHeaderObject.allCountries = allCountries;
@@ -107,8 +115,8 @@ server.append('GetEswFooter', function (req, res, next) {
         }
     }
     // Custom End:
-
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale[0]);
+    setInitialCookies(selectedLanguage);
     res.viewData.EswFooterObject.languages = languages;
     res.viewData.EswFooterObject.selectedLanguage = selectedLanguage;
     res.viewData.EswFooterObject.allCountries = allCountries;
@@ -144,7 +152,8 @@ server.append('GetEswLandingPage', function (req, res, next) {
         }
     }
     // Custom End:
-    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale);
+    selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale[0]);
+    setInitialCookies(selectedLanguage);
     res.viewData.EswLandingObject.languages = languages;
     res.viewData.EswLandingObject.selectedLanguage = selectedLanguage;
     res.viewData.EswLandingObject.allCountries = allCountries;
