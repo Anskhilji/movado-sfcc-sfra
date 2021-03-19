@@ -78,7 +78,7 @@ server.append('GetEswFooter', function (req, res, next) {
     locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
 
     if (isGeoLocation && !empty(geoLocationCountry) && empty(session.privacy.geoLocated)) {
         res.viewData.EswFooterObject.selectedCountry = geoLocationCountry.countryCode;
@@ -126,7 +126,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
     locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
-    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, customLanguageCode[0]);
+    allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
