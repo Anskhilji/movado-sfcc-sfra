@@ -175,7 +175,7 @@ function createSabrixRequestObject(basket, svc){
       line.setUOM(lineUOM);
       line.ID = lineItem.ID;
       var taxClass = lineItem.taxClassID;
-      if (empty(taxClass)){
+      if (empty(taxClass)) {
         taxClass = shippingLineItemDefaultTaxClassID;
       }
       if(lineItem.adjustedPrice.value > 0) {
