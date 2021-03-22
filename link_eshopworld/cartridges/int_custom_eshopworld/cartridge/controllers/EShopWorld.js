@@ -13,7 +13,7 @@ var Transaction = require('dw/system/Transaction');
 function setInitialCookies(selectedLanguage) {
     var eswPreferedLocale = selectedLanguage.eswPreferedLocale;
         if (!empty(eswPreferedLocale)) {
-            eswHelper.createCookie('esw.PeferedLocale', eswPreferedLocale, '/');
+            eswHelper.createCookie('esw.PreferedLocale', eswPreferedLocale, '/');
         }
 }
 ​

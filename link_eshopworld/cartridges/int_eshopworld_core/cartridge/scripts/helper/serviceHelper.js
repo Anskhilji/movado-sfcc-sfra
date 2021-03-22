@@ -260,7 +260,7 @@ function getShopperCheckoutExperience() {
         'useDeliveryContactDetailsForPaymentContactDetails': eswHelper.isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled() ? true : false,
         'emailMarketingOptIn': false,
         'registeredProfileId': customer.profile ? customer.profile.customerNo : null,
-        'shopperCultureLanguageIso': request.getHttpCookies()['esw.PeferedLocale'].value.replace('_', '-'),
+        'shopperCultureLanguageIso': request.getHttpCookies()['esw.PreferedLocale'].value.replace('_', '-'),
         'expressPaymentMethod': null,
         'metadataItems': null
     }
