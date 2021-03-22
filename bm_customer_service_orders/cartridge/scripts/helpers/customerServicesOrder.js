@@ -16,9 +16,14 @@ function afterPOST(order) {
         somLog.debug('Processing Order ' + order.orderNo);
         try {
             var Transaction = require('dw/system/Transaction');
-            
+
             Transaction.wrap(function () {
                 order.custom.isCSCOrder = true;
+                order.custom.riskifiedOrderAnalysis = 2;
+                order.custom.Adyen_eventCode = "AUTHORISATION";
+                order.custom.Adyen_paymentMethod = "visa";
+                order.custom.Adyen_pspReference = "BLANK";
+                order.custom.Adyen_value = "0.0";
                 populateOrderJSON.populateByOrder(order);
             });
         } catch (exSOM) {
