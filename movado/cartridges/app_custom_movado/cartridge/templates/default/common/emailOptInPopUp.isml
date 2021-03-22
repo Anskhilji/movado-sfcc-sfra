@@ -9,14 +9,14 @@
          data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
          data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
         <div class=" modal-dialog quick-view-dialog email-popup-container popup-form" role="dialog" aria-label="modal">
-            <!-- Modal content--> 
+            <!-- Modal content-->
             <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
                 <div class="modal-body">
                     <div class="email-optin-control">
-                        <isslot id="cs-email-pop-configrations" description="Email Popup Configrations" context="global" />   
+                        <iscontentasset aid="${pdict.popUpSettings.popupFormContentAssetID}"/>
                     </div>
                     <div class="thankyou-note-control d-none">
-                        <isslot id="cs-email-pop-thank-you-note-configrations" description="Email Popup Configrations" context="global" /> 
+                        <iscontentasset aid="${pdict.popUpSettings.popupMessageContentAssetID}"/>
                     </div>
                 </div>
             </div>
