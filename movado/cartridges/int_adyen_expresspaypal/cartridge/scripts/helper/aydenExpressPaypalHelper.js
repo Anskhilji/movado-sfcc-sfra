@@ -1,10 +1,12 @@
 'use strict';
 
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
+var Constants = require('*/cartridge/utils/Constants');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -129,6 +131,7 @@ function formsValidation(currentBasket, formData) {
     var address1 = '';
     var phoneNumber = '';
     var email = '';
+    var emailValue = '';
     var deliveryCountry = '';
     var billingAddressCity = '';
     var billingAddressCountry = '';
@@ -144,23 +147,55 @@ function formsValidation(currentBasket, formData) {
     billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
     billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
     billingAddressState = fetchFromMap(formData, 'billingAddress.state');
-    billingAddressState = (!empty(billingAddressState)) ? false : true;
     billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
-    billingAddressStateOrProvince = (!empty(billingAddressStateOrProvince)) ? false : true;
     postalCode = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
     stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
-    stateCode = (!empty(stateCode)) ? false : true;
     deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
     deliveryCountry = (!empty(deliveryCountry)) ? false : true;
     phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
 
-    var isAnonymous = currentBasket.getCustomer().isAnonymous();
-    if (isAnonymous) {
-        email = (formData.shopperEmail) ? formData.shopperEmail : '';
-        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
+    if (postalCode) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Postal code is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.postalCode'));
+    }
+    if (phoneNumber) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Phone number is not valid and value is: ' + fetchFromMap(formData, 'shopper.telephoneNumber'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+        stateCode = false;
     } else {
-        email = currentBasket.getCustomer().getProfile().getEmail();
-        email = fetchValidatedFields(email, checkoutFieldsRegex.email);
+        stateCode = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressState = false;
+    } else {
+        billingAddressState = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(billingAddressStateOrProvince) || (empty(billingAddressStateOrProvince) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressStateOrProvince = false;
+    } else {
+        billingAddressStateOrProvince = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state or province is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.stateOrProvince'));
+    }
+
+    var isAnonymous = currentBasket.getCustomer().isAnonymous();
+    
+    if (isAnonymous) {
+        emailValue = (formData.shopperEmail) ? formData.shopperEmail : '';
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
+    } else {
+        emailValue = currentBasket.getCustomer().getProfile().getEmail();
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
+    }
+    if (email) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Email address is not valid and value is: ' + emailValue);
     }
     validatedFields = {
         firstName: firstName, 

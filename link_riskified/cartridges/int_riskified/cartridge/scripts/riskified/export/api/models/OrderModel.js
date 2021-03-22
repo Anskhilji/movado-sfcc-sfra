@@ -221,9 +221,15 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     RCLogger.logMessage('The order analysis status is: ' + status, 'debug', logLocation);
 
     try {
-        Transaction.wrap(function () {
-            order.custom.riskifiedOrderAnalysis = status;
-        });
+        if (empty(session.custom.delayRiskifiedStatus)) {
+            Transaction.wrap(function () {
+                order.custom.riskifiedOrderAnalysis = status;
+            });
+        } else {
+            RCLogger.logMessage('Deffered riskified order analysis status: ' + status + ' for order No: ' + order.getOrderNo(), 'info', logLocation);
+            session.custom.riskifiedOrderAnalysis = status;
+        }
+
     } catch (e) {
         RCLogger.logMessage(
             'Error occurred while setting order analysis status error is ' + e, 'error', logLocation);

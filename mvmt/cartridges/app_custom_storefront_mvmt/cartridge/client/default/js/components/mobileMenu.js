@@ -76,7 +76,7 @@ module.exports = function () {
 
         //update price
         var $readyToOrder = response.product.readyToOrder;
-        var $variationPriceSelector = $productContainer.find('.tile-body > .price');
+        var $variationPriceSelector = $productContainer.find('.tile-body .price');
         if (response.product.price) {
             $variationPriceSelector.replaceWith(response.product.price.html);
         }
@@ -88,6 +88,7 @@ module.exports = function () {
         
         var $productNameSelector = $productContainer.find('.product-name');
         $productNameSelector.text(response.product.productName);
+        $productNameSelector.attr('href', $product.selectedProductUrl);
         
         var variationPID = response.product.id;
         var isVariationQantityExist = response.product.quantities;

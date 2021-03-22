@@ -3,6 +3,7 @@
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 
 var page = module.superModule;
@@ -26,15 +27,23 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
     var relativeURL;
-    var defaultVariant = apiProduct.variationModel.defaultVariant;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
 
-    if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
-        var pid = apiProduct.variationModel.defaultVariant.getID();
-        params.pid = pid;
-        apiProduct = ProductMgr.getProduct(pid);
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = ProductMgr.getProduct(pid);
+        }
+    
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+        
+        viewData.product =  showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
     }
 
-    var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
 
     /* get recommendedProducts for product*/
     if (product) {
@@ -44,11 +53,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
         relativeURL: relativeURL,
-        caseDiameter: caseDiameter,
-        product: showProductPageHelperResult.product,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl,
-        resources: showProductPageHelperResult.resources,
-        breadcrumbs: showProductPageHelperResult.breadcrumbs
+        caseDiameter: caseDiameter
     };
 
     var marketingProductsData = [];
@@ -70,15 +75,24 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 server.prepend('Variation', function (req, res, next) {
     var attributeContext;
     var attributeTemplateLinked;
+    var explicitRecommendations = [];
     var recommendedProductTemplate;
-    var params = req.querystring;
+    var pid = req.querystring.pid;
     var isStrapAjax = req.querystring.isStrapAjax;
 
-    var product = ProductFactory.get(params);
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
+    
+    /* get recommendedProducts for product*/
+    if (pid) {
+        explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
+    }
 
     attributeContext = {
-        product: product,
-        isStrapAjax: isStrapAjax
+        explicitRecommendations: explicitRecommendations,
+        isStrapAjax: isStrapAjax,
+        strapGuideText: strapGuideText
     };
 
     attributeTemplateLinked = 'product/components/recommendedProducts';

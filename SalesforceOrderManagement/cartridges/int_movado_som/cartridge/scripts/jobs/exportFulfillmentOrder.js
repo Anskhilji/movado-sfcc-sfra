@@ -339,8 +339,19 @@ function createSAPOrderFile(args, impexFilePath, record) {
                     streamWriter.writeRaw('\r\n');
 
                     writeXmlElement(streamWriter, 'PersonalizationType', personalization.personalizationType);
-                    writeXmlElement(streamWriter, 'LanguageID', '');
                     writeXmlElement(streamWriter, 'IsThisBillable', personalization.isThisBillable);
+                    if (Object.hasOwnProperty.call(personalization, 'languageID')) {
+                        writeXmlElement(streamWriter, 'LanguageID', personalization.languageID);
+                    }
+                    else {
+                        writeXmlElement(streamWriter, 'LanguageID', '');
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'font')) {
+                        writeXmlElement(streamWriter, 'Font', personalization.font);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'orientation')) {
+                        writeXmlElement(streamWriter, 'Orientation', personalization.orientation);
+                    }
                     if (personalization.textList) {
                         personalization.textList.forEach(function (text) {
                             streamWriter.writeStartElement('Text');

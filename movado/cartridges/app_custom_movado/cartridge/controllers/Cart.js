@@ -23,6 +23,9 @@ server.append('AddProduct', function (req, res, next) {
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var recommendedProductCardHtml = '';
+
 
     if (!viewData.error) {
 		// variables for personalization message
@@ -73,6 +76,11 @@ server.append('AddProduct', function (req, res, next) {
             viewData.cartPageHtml = customCartHelpers.getcartPageHtml(req);
         }
 
+        if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
+        }
+
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         viewData.addCartGtmArray = addCartGtmArray;
 
@@ -115,7 +123,10 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        res.setViewData({quantityTotal : quantityTotal});
+        res.setViewData({
+            quantityTotal: quantityTotal,
+            recommendedProductCardHtml: recommendedProductCardHtml
+        });
     }
     return next();
 });

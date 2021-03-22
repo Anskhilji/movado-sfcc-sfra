@@ -79,55 +79,80 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateCartTotals(data) {
-    $('.number-of-items').empty().append(data.resources.numberOfItems);
-    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
-    $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total, .cart-total').empty().append(data.totals.subTotaladjustedNetPrice);
-    $('.sub-total').empty().append(data.totals.subTotal);
+ function updateCartTotals(data) { 
+    if (data.numItems) {
+        $('.minicart .minicart-quantity').text(data.numItems);
+    }
+    var $miniCartSelector = $('.mini-cart-data');
+    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
+    var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
+    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
+    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $subTotalSelector = $miniCartSelector.find('.sub-total');
+    var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
+    var $orderDiscountSelector = $miniCartSelector.find('.order-discount'); 
+
+    if ($noOfItems.length > 0) {
+        $noOfItems.empty().append(data.resources.numberOfItems);
+    }
+    if ($shippingCostSelector.length > 0) {
+        $shippingCostSelector.empty().append(data.totals.totalShippingCost);
+    }
+    if ($totalTaxSelector.length > 0) {
+        $totalTaxSelector.empty().append(data.totals.totalTax);
+    }
+    if ($grandTotalSelector.length > 0) {
+         $grandTotalSelector.each(function () {
+             $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+         });
+    }
+    if ($subTotalSelector.length > 0) {
+        $subTotalSelector.empty().append(data.totals.subTotal);
+    }
+
     /* Affirm block for refreshing promo message */
-    var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
-    $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
-    if ($('.affirm-as-low-as').length > 0) {
+    if ($affirmPriceSelector.length > 0) {
+        var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+
+        $affirmPriceSelector.attr('data-amount', (totalCalculated * 100).toFixed());
+
         if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
             affirm.ui.refresh();
         }
     }
 
-    $('.minicart-quantity').empty().append(data.numItems);
-
     if (data.totals.orderLevelDiscountTotal.value > 0) {
-        $('.order-discount').removeClass('hide-order-discount');
-        $('.order-discount-total').empty()
-            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+        $orderDiscountSelector.removeClass('hide-order-discount');
+        $miniCartSelector.find('.order-discount-total').empty().append('- ' + data.totals.orderLevelDiscountTotal.formatted);
     } else {
-        $('.order-discount').addClass('hide-order-discount');
+        $orderDiscountSelector.addClass('hide-order-discount');
     }
 
     if (data.totals.shippingLevelDiscountTotal.value > 0) {
-        $('.shipping-discount').removeClass('hide-shipping-discount');
-        $('.shipping-discount-total').empty().append('- ' +
+        $miniCartSelector.find('.shipping-discount').removeClass('hide-shipping-discount');
+        $miniCartSelector.find('.shipping-discount-total').empty().append('- ' +
             data.totals.shippingLevelDiscountTotal.formatted);
     } else {
-        $('.shipping-discount').addClass('hide-shipping-discount');
+        $miniCartSelector.find('.shipping-discount').addClass('hide-shipping-discount');
     }
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
         if (item.price.list) {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price').prepend('<span class="strike-through list">' +
                 '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
                 '<span class="sr-only">label.price.reduced.from</span>' +
                 '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
                 '<span class="sr-only">label.price.to</span></span></span>');
         } else {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
-        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+        $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
 }
+
 
 /**
  * re-renders the order totals and the number of items in the cart

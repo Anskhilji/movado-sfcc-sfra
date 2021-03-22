@@ -1,20 +1,18 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
-<isinclude template="/components/modules" sf-toolkit="off" />
-<div class="linked-product-list">
+<div class="mini-cart-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
-        <div class="linked-head">
-            <iscontentasset aid="style-with-text-configs" />
-        </div>
-        <div class="recomended-products">
+        <button class="mini-cart-show-recommendations" >${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
+        <button class="mini-cart-hide-recommendations d-none" >${Resource.msg('label.minicart.hide.recommendatation.text', 'cart', null)}</button>
+        <div class="mini-cart-recommendations d-none">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
-                        <input type="checkbox" autocomplete="off" class="upsell-input" name="additionalProducts" value="${recommendation.id}">
                         <div class="upsell-wrapper-inner">
-                            <img class="upsell-image" alt="" src="${recommendation.images.tile150[0].url}"/>
+                        <span class="upsell-collection">${!empty(recommendation.defaultVariantCollectionName) ? recommendation.defaultVariantCollectionName : recommendation.collectionName}</span>
+                            <img class="upsell-image" src="${recommendation.images.tile150[0].url}"/>
                             
                             <p class="upsell-description">${recommendation.productName}</p>
-                            <div class="upsell-meta">
+                            <div class="upsell_meta">
                                 <div class="upsell-price">
                                     <isset name="price" value="${recommendation.price}" scope="page" />
                                     <isif condition="${recommendation.productType === 'set'}">
@@ -25,10 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="upsell-text">
-                            <p class="upsell-text-add">${Resource.msg('label.add', 'product', null)}</p>
-                            <p class="upsell-text-added"> <span class="upsell-text-added-checkmark"></span> ${Resource.msg('label.added', 'product', null)}</p>
-                        </div>
+                        <button class="mini-cart-add-to-cart btn " data-pid="${recommendation.id}" data-url="${URLUtils.url('Cart-AddProduct')}"> Add To Cart</button>
                     </div>
                 </isif>
             </isloop>

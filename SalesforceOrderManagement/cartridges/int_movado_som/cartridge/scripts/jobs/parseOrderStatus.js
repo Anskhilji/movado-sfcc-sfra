@@ -48,7 +48,7 @@ function parseOrderStatus(args) {
 
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         var file = new File(filesToParse[fileCount]);
-        Logger.error('parseOrderStatus - Starting FILE ' + file.getFullPath());
+        Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
         var fileReader = new FileReader(file);
         var xmlReader = new XMLStreamReader(fileReader);
 
@@ -76,9 +76,10 @@ function parseOrderStatus(args) {
                     if (resultOrderStatus.error) {
                         status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
                     }
-                }
-                else {
-                    Logger.error('parseOrderStatus - encountered unknown node - ' + tempLocalName);
+                } else {
+                    if (tempLocalName !== 'root') {
+                        Logger.error('parseOrderStatus - encountered unknown node - ' + tempLocalName);
+                    }
                 }
             }
         }
@@ -106,7 +107,7 @@ function processStatusOrder(SAPOrderStatus) {
     // Retrieve SOM Fulfillment Order
     //
 
-    Logger.error('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+    Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
 
     var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
         method: 'GET',
