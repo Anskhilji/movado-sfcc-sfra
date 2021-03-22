@@ -13,10 +13,10 @@
             <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
                 <div class="modal-body">
                     <div class="email-optin-control">
-                        <isslot id="email-popup-configrations" description="Email Popup Configrations" context="global" />   
+                        <isslot id="email-popup-configurations" description="Email Popup Configurations" context="global" />   
                     </div>
                     <div class="thankyou-note-control d-none">
-                        <isslot id="email-popup-thank-you-note-configrations" description="Email Popup Configrations" context="global" /> 
+                        <isslot id="email-popup-thank-you-note-configurations" description="Email Popup thank You Note" context="global" /> 
                     </div>
                 </div>
             </div>
