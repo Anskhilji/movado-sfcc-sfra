@@ -5,7 +5,6 @@ server.extend(module.superModule);
 var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var constant = require('*/cartridge/scripts/helpers/constants');
-​var Cookie = require('dw/web/Cookie');
 var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
@@ -14,8 +13,7 @@ var Transaction = require('dw/system/Transaction');
 function setInitialCookies(selectedLanguage) {
     var eswPreferedLocale = selectedLanguage.eswPreferedLocale;
         if (!empty(eswPreferedLocale)) {
-            var test = eswHelper.createCookie('esw.PeferedLocale', eswPreferedLocale, '/');
-            var testing = test;
+            eswHelper.createCookie('esw.PeferedLocale', eswPreferedLocale, '/');
         }
 }
 ​
