@@ -10,13 +10,13 @@
         <isset name="showing" value=${pdict.productSearch.count} scope="page" />
     </isif>
 
-    <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
         <div class="show-more" >
             <div class="text-center">
             <iscomment> new label added for result count </iscomment>
-                <p id="show-more-update">
+                <p id="show-more-update" data-total-size=${pdict.productSearch.count}>
                     ${Resource.msgf('label.result.show', 'search', null, showing, pdict.productSearch.count)}
                 </p>
+                <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
                 <button class="btn btn-primary show-button"
                         data-url="${pdict.productSearch.showMoreUrl}"
                         data-page-number="${pdict.productSearch.pageNumber}"
@@ -24,9 +24,10 @@
                 >
                     ${Resource.msg('button.show.more', 'search', null)}
                 </button>
+                </isif>
             </div>
         </div>
-    </isif>
+    
 
     <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
     <isif condition="${pdict.productSearch.category != null}">

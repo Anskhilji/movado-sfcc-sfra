@@ -10,6 +10,14 @@ function updateURLForShowMore(showMoreUrl) {
     var newSize = parseInt(start) + parseInt(size);
     var url;
     var currentProductCount = $('#show-more-update').text();
+    
+    // Custom start: Update total product counter
+    var totalSize = $('#show-more-update').data('total-size');
+    if (newSize > totalSize) {
+        newSize = totalSize;
+    }
+    // Custom End
+
     var res = currentProductCount.replace(size, newSize);
     $('#show-more-update').text(res);
     
