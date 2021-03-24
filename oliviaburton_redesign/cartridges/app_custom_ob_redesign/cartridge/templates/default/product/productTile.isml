@@ -25,7 +25,7 @@
             </isif>
 
             <isif condition="${pdict.plpProductFamilyName}">
-                <h3 class="product-family">${product.collectionName ? product.collectionName :''}</h3>
+               <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
             </isif>
         
             <isinclude template="product/components/productTileName" />
@@ -36,8 +36,7 @@
                 <iselse>
                     <isinclude template="product/components/pricing/main" />
                 </isif>
-                
-                <isif condition="${product.saveMessage}">
+                <isif condition="${!empty(product.saveMessage)}">
                     <span class="save-value">
                         ${product.saveMessage}
                     </span>
