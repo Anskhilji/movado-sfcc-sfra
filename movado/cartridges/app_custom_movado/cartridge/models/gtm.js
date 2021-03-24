@@ -51,26 +51,27 @@ function gtmModel(req) {
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
         }
-        if (action.equals('checkout-login') || action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
+        if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
             this.checkout = [];
             getCartJSONArray(this.checkout);
-            this.checkoutAction = action;
-            this.checkoutStage  = 1;
-        } else {
-            checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
-            var checkoutStage = '';
-            switch (checkoutActionObject) {
-            case 'shipping':
-                checkoutStage = 2;
-                break;
-            case 'payment':
-                checkoutStage = 3;
-                break;
-            case 'placeOrder':
-                checkoutStage = 4;
-                break;
+            if (action.equals('checkout-login')) {
+                this.checkoutAction = 'checkout';
+                checkoutStage = 1;
+            } else {
+                var checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+                var checkoutStage = '';
+                switch (checkoutActionObject) {
+                case 'shipping':
+                    checkoutStage = 2;
+                    break;
+                case 'payment':
+                    checkoutStage = 3;
+                    break;
+                case 'placeOrder':
+                    checkoutStage = 4;
+                    break;
+                }
             }
-        
             this.checkoutStage = checkoutStage;
         }
 
