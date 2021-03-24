@@ -24,6 +24,8 @@ function afterPOST(order) {
                 order.custom.Adyen_paymentMethod = "visa";
                 order.custom.Adyen_pspReference = "BLANK";
                 order.custom.Adyen_value = "0.0";
+                order.billingAddress.phone = "555-555-5555";
+                order.shipments[0].shippingAddress.phone = "555-555-5555";
                 populateOrderJSON.populateByOrder(order);
             });
         } catch (exSOM) {
