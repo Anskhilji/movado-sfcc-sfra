@@ -46,7 +46,7 @@ var onPromoClickEvent = function () {
         dataLayer.push({ event: 'promoClick',
             ecommerce: {
                 promoClick: {
-                    promotions: JSON.parse(dataLayerObj)
+                    promotions: dataLayerObj
                 }
             }
         });

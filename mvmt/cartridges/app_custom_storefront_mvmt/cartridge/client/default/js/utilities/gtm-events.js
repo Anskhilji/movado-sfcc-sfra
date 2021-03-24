@@ -55,17 +55,34 @@ var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promotion-view', function (evt) {
         var $currentTarget = $(this);
         updateDataLayer('promoClick');
-        var dataLayerObj = '';
+        var dataLayerObj = [];
         var pageType = $currentTarget.data('page-type'); 
-        var gtmTrackingData = $currentTarget.data('gtm-product-promo');
-    
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj = gtmTrackingData;
-        }
+        dataLayerObj.push($currentTarget.data('gtm-product-promo'));
+
+        dataLayer.push({ 
+            event: 'promoClick',
+            pageType: pageType,
+            ecommerce: {
+                promoClick: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
+    });
+};
+
+/**
+ * Custom Start: update function Added promoclick Campaign selector and data attributes change data layer structure according to mvmt
+ **/
+
+var onPromoCampaignClickEvent = function () {
+    $('body').on('click', '.gtm-event', function (evt) {
+        var $currentTarget = $(evt.currentTarget);
+        updateDataLayer('promoClick');
+        var dataLayerObj = [];
+        dataLayerObj.push($currentTarget.data('gtm-tracking'));
 
         dataLayer.push({ event: 'promoClick',
-            event: 'promotionalClick',
-            pageType: pageType,
             ecommerce: {
                 promoClick: {
                     promotions: dataLayerObj
@@ -626,6 +643,7 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
+    onPromoCampaignClickEvent();
     onSiteSearch();
     onLoginIn();
 };
