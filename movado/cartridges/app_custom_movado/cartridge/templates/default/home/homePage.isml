@@ -13,7 +13,4 @@
         <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
         <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" />
     </div>
-    <div class="content-slot-wrapper campaign-promo-tracking">
-        <isslot id="cs-homepage-promo-slot" description="Campaign Promo Tracking" context="global" />
-    </div>
 </isdecorate>
