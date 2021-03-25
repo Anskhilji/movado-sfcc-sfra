@@ -10,7 +10,7 @@ function updateURLForShowMore(showMoreUrl) {
     var newSize = parseInt(start) + parseInt(size);
     var url;
     var currentProductCount = $('#show-more-update').text();
-    
+
     // Custom start: Update total product counter
     var totalSize = $('#show-more-update').data('total-size');
     if (newSize > totalSize) {
@@ -20,19 +20,19 @@ function updateURLForShowMore(showMoreUrl) {
 
     var res = currentProductCount.replace(size, newSize);
     $('#show-more-update').text(res);
-    
+
     if (history.pushState) {
-    	if (document.location.href.indexOf('?') > -1) {
-    		if (document.location.href.indexOf('sz=') > -1) {
-    			var tempUrlParams = document.location.search;
-    			tempUrlParams = movadoBase.replaceQueryParam('sz', newSize, tempUrlParams);
-    			url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
-    		} else {
-    			url = document.location.href + '&start=0&sz=' + newSize;
-    		}
-    } else {
-        url = document.location.href + '?start=0&sz=' + newSize;
-    }
+        if (document.location.href.indexOf('?') > -1) {
+            if (document.location.href.indexOf('sz=') > -1) {
+                var tempUrlParams = document.location.search;
+                tempUrlParams = movadoBase.replaceQueryParam('sz', newSize, tempUrlParams);
+                url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
+            } else {
+                url = document.location.href + '&start=0&sz=' + newSize;
+            }
+        } else {
+            url = document.location.href + '?start=0&sz=' + newSize;
+        }
         window.history.pushState({ path: url }, '', url);
     }
 }
@@ -224,10 +224,10 @@ function updatePageURLForFacets(href) {
 
     if (history.pushState) {
         if (document.location.href.indexOf('?') > -1) {
-        var url = document.location.href.substring(0, document.location.href.indexOf('?')) + '?' + urlParams;
-    } else {
-        var url = document.location.href + '?' + urlParams;
-    }
+            var url = document.location.href.substring(0, document.location.href.indexOf('?')) + '?' + urlParams;
+        } else {
+            var url = document.location.href + '?' + urlParams;
+        }
         window.history.pushState({ path: url }, '', url);
     }
 }
@@ -273,9 +273,9 @@ function updatePageURLForSortRule(href) {
  * @return {undefined}
  */
 function replaceUrlParam(url, paramName, paramValue) {
-    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var pattern = new RegExp('(\\?|\\&)(' + paramName + '=).*?(&|$)');
     var newUrl = url;
-    if (url.search(pattern)>=0 ) {
+    if (url.search(pattern) >= 0) {
         newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
     }
     else {
@@ -331,18 +331,18 @@ module.exports = {
     movadoBase: movadoBase,
 
     // Custom Start: Make these fucntions to update showMore function according to requirement
-    showMore:  function () {
+    showMore: function () {
         // Show more products
         $('body').off('click', '.show-more .show-button').on('click', '.show-more button', function (e) {
             e.stopPropagation();
-    
+
             //push data on ga tracking
             var showMoreUrl = $(this).data('url');
             var $pageSize = $(this).data('page-number');
             var $plpName = $(this).data('category-id');
             var $counter = 1;
             var $pageCounter = $pageSize + $counter;
-            
+
             if ($pageSize !== undefined && $plpName !== undefined) {
                 dataLayer.push({
                     event: 'Load More Results',
@@ -351,9 +351,9 @@ module.exports = {
                     eventLabel: $pageCounter
                 });
             }
-    
+
             e.preventDefault();
-    
+
             $.spinner().start();
             $(this).trigger('search:showMore', e);
             $.ajax({
@@ -390,7 +390,7 @@ module.exports = {
             $('.refinement-bar, .modal-background').hide();
         });
     },
-    
+
     sort: function () {
 
         // Handle sort order menu selection for mobile
@@ -415,49 +415,60 @@ module.exports = {
 
                     $('.sort-dropdown-list .sort-dropdown-toggle').text(thisText);
                     $('.sort-dropdown-list .sort-dropdown-toggle').prepend('<span class="d-lg-none">Sort By</span>');
-                    $('.mobile-sort-menu').removeClass('active');
+                    $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
                     $('body').removeClass('lock-bg');
-                    $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
+                    $('.sort-dropdown-menu').hide();
+
                 },
                 error: function () {
                     $.spinner().stop();
                 }
             });
         });
+
+        $(document).mouseup(function (e) {
+            var container = $('.sort-dropdown-list');
+
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
+                $('.sort-dropdown-menu').hide();
+            }
+        });
     },
 
     showPagination: function () {
         // Show more products
-    	$('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
-        e.stopPropagation();
-        var showMoreUrl = $(this).data('url');
+        $('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
+            e.stopPropagation();
+            var showMoreUrl = $(this).data('url');
 
-        e.preventDefault();
+            e.preventDefault();
 
-        $.spinner().start();
-        $(this).trigger('search:showPagination', e);
-        $.ajax({
-            url: showMoreUrl,
-            data: { selectedUrl: showMoreUrl },
-            method: 'GET',
-            success: function (response) {
-                $('.product-grid').html(response);
-                updateSortOptions(response);
-                var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                $('body').trigger('facet:success', [gtmFacetArray]);
-                // edit
-                updatePageURLForPagination(showMoreUrl);
-                // Get products for marketing data
-                var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
-                updateMarketingProducts(marketingProductsData);
-                $.spinner().stop();
-                moveFocusToTop();
-            },
-            error: function () {
-                $.spinner().stop();
-            }
+            $.spinner().start();
+            $(this).trigger('search:showPagination', e);
+            $.ajax({
+                url: showMoreUrl,
+                data: { selectedUrl: showMoreUrl },
+                method: 'GET',
+                success: function (response) {
+                    $('.product-grid').html(response);
+                    updateSortOptions(response);
+                    var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                    $('body').trigger('facet:success', [gtmFacetArray]);
+                    // edit
+                    updatePageURLForPagination(showMoreUrl);
+                    // Get products for marketing data
+                    var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
+                    updateMarketingProducts(marketingProductsData);
+                    $.spinner().stop();
+                    moveFocusToTop();
+                },
+                error: function () {
+                    $.spinner().stop();
+                }
+            });
         });
-    });
     },
 
     //Custom Start: Make this fucntion for desktop filter
@@ -480,7 +491,7 @@ module.exports = {
                         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                     }
                 }
-               
+
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
@@ -491,8 +502,8 @@ module.exports = {
                     },
                     method: 'GET',
                     success: function (response) {
-                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                    	$('body').trigger('facet:success', [gtmFacetArray]);
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
                         updatePageURLForFacets(filtersURL);
@@ -500,12 +511,15 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
+
+                        $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
+                        $('.sort-dropdown-menu').hide();
                     },
                     error: function () {
                         $.spinner().stop();
                     }
                 });
-        });
+            });
     },
     // Custom End
 
@@ -535,7 +549,7 @@ module.exports = {
                     url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: filtersURL 
+                        selectedUrl: filtersURL
                     },
                     method: 'GET',
                     success: function (response) {
@@ -553,7 +567,7 @@ module.exports = {
                         $.spinner().stop();
                     }
                 });
-        });
+            });
     },
 
     // Custom End
@@ -564,7 +578,7 @@ module.exports = {
                 getContent($(this), $('#content-search-results'));
             }
         });
- 
+
         // Display the next page of content results from the search
         $('.container').on('click', '.show-more-content button', function () {
             getContent($(this), $('#content-search-results .result-count'));
@@ -573,12 +587,12 @@ module.exports = {
     },
 
     // Custom Start: Make these fucntions for custom events
-    sortMenuDesktop: function () { 
-        $(document).on('click', '.plp-filter-bar .plp-filter-btn', function(e) {
+    sortMenuDesktop: function () {
+        $(document).on('click', '.plp-filter-bar .plp-filter-btn', function (e) {
             var button = this
             $(button).next().toggleClass('active');
             $(button).toggleClass('active');
-            setTimeout(function(){
+            setTimeout(function () {
                 $(button).next().toggleClass('loaded');
             }, 300);
 
@@ -589,7 +603,7 @@ module.exports = {
                 $('.plp-grid-overlay').removeClass('active');
             }
 
-            setTimeout(function(){
+            setTimeout(function () {
                 $(button).next().children('.plp-active-filter').toggleClass('loaded');
             }, 500);
 
@@ -599,13 +613,13 @@ module.exports = {
         });
 
         // This is to close filter dropdown on desktop
-        $(document).on('click', '.filter-close-btn', function(e) {
+        $(document).on('click', '.filter-close-btn', function (e) {
             $('.filter-group').removeClass('active loaded');
             $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
         });
 
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             var scroll = $(window).scrollTop();
 
             if (scroll >= 300) {
@@ -615,14 +629,14 @@ module.exports = {
             }
         });
 
-        $('.scroll-top').click(function(){
-            $('html, body').animate({scrollTop:0}, 1000);
+        $('.scroll-top').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 1000);
             return false;
         });
 
         // Show hide popover
 
-        $(document).on('click', '.sort-dropdown', function(e) {
+        $(document).on('click', '.sort-dropdown', function (e) {
             e.preventDefault();
             $(this).find('.sort-dropdown-toggle, .sort-dropdown-list').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
@@ -632,13 +646,13 @@ module.exports = {
 
     // Custom Start: Make these fucntions to show and close mobile filterbar
     mobileFilter: function () {
-        $('.search-results.plp-redesign .filter-btn').click(function(){
+        $('.search-results.plp-redesign .filter-btn').click(function () {
             $('.modal-background').addClass('d-block');
             $('body').addClass('no-overflow');
             $('.search-results.plp-redesign .refinement-bar').removeClass('slide-in').addClass('slide-in');
         });
-    
-        $(document).on('click','.search-results.plp-redesign  .close-refinebar, .modal-background', function (e) {
+
+        $(document).on('click', '.search-results.plp-redesign  .close-refinebar, .modal-background', function (e) {
             e.preventDefault();
             $('body').removeClass('no-overflow');
             $('.search-results.plp-redesign  .refinement-bar').removeClass('slide-in');

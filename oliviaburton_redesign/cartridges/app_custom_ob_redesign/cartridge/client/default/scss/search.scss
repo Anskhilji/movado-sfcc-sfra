@@ -378,8 +378,7 @@
                     right: 0;
                     width: rem(200);
                     text-align: left;
-                    padding: rem(20);
-                    padding-bottom: 0;
+                    padding: rem(19) rem(20);
 
                     &::after {
                         content: "";
@@ -1099,7 +1098,7 @@
                     @include media-breakpoint-up(lg) {
                         margin-bottom: rem(-56);
                         position: relative;
-                        z-index: 9;
+                        z-index: 5;
                     }
 
                     .cta-add-to-cart {
