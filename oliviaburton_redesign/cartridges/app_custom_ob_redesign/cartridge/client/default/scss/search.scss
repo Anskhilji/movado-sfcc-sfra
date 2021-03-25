@@ -205,7 +205,7 @@
     }
 
     &.container-fluid {
-        max-width: initial;
+        max-width: none;
     }
 
     .plp-filter {
@@ -1259,7 +1259,7 @@
                         background: transparent;
                         border: rem(1) solid $black;
                         border-radius: rem(3);
-                        font-family: $font-gill-std-semibold;
+                        font-family: $font-gill-std-normal;
                         font-size: rem(13);
                         color: $gray20;
                         font-weight: 600;
@@ -1312,7 +1312,7 @@
                 }
 
                 h3 {
-                    font-family: $font-gill-std-semibold;
+                    font-family: $font-gill-std-normal;
                     font-size: rem(12);
                     color: $gray20;
                     font-weight: 600;
@@ -1365,11 +1365,11 @@
         }
 
         #show-more-update {
-            font-family: $font-gill-std-semibold;
+            font-family: $font-gill-std-normal;
             font-size: rem(12);
             font-weight: 600;
             color: $storm-gray;
-            letter-spacing: 0.5px;
+            letter-spacing: rem(1);
             line-height: rem(16);
             margin-bottom: rem(10);
 

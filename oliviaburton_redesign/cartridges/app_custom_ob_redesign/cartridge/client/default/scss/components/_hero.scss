@@ -2,6 +2,7 @@
 
 .plp-redesign {
     &.search-banner {
+        padding: 0;
         picture {
             img {
                 width: 100%;
@@ -31,12 +32,12 @@
                     left: rem(15);
                     text-align: left;
                     width: auto;
-                    transform: initial;
+                    transform: none;
                 }
             }
 
             &-title {
-                font-family: $font-gill-std-bold;
+                font-family: $font-gill-std-semibold;
                 font-size: rem(20);
                 font-weight: 600;
                 line-height: rem(35);
@@ -138,6 +139,10 @@
                 }
             }
         }
+
+        .html-slot-container {
+            position: relative;
+        }
     }
 }
 
@@ -184,6 +189,9 @@
 
             @include media-breakpoint-up(xxl) {
                 padding: 0 rem(355) !important;
+            }
+            @include media-breakpoint-up(xxxl) {
+                padding: 0 rem(450) !important;
             }
         }
 
