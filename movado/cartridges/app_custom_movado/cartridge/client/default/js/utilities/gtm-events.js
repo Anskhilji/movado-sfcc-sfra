@@ -37,24 +37,7 @@ var onWishlistClickEvent = function () {
 };
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-event', function (evt) {
-        var $currentTarget = $(evt.currentTarget);
-        updateDataLayer('promoClick');
-        var dataLayerObj = [];
-        dataLayerObj.push($currentTarget.data('gtm-tracking'));
-
-        dataLayer.push({ event: 'promoClick',
-            ecommerce: {
-                promoClick: {
-                    promotions: JSON.parse(dataLayerObj)
-                }
-            }
-        });
-    });
-};
-
-var onPromoCampaignClickEvent = function () {
-    $(document).on('click', '.gtm-view', function (evt) {
+    $('body').on('click', '.gtm-promotion-view', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = [];
@@ -555,7 +538,6 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
-    onPromoCampaignClickEvent();
 };
 
 

@@ -56,39 +56,30 @@ var onPromoClickEvent = function () {
         var $currentTarget = $(this);
         updateDataLayer('promoClick');
         var dataLayerObj = [];
-        var pageType = $currentTarget.data('page-type'); 
-        dataLayerObj.push($currentTarget.data('gtm-product-promo'));
-
-        dataLayer.push({ 
-            event: 'promoClick',
-            pageType: pageType,
-            ecommerce: {
-                promoClick: {
-                    promotions: dataLayerObj
+        var pageType = $currentTarget.data('page-type');
+         
+        var productPromoTrcking = $currentTarget.data('gtm-product-promo');
+        var campaginPromoTrcking = $currentTarget.data('gtm-tracking');
+        if (productPromoTrcking !== undefined && productPromoTrcking !=='') {
+            dataLayer.push({
+                event: 'promoClick',
+                pageType: pageType,
+                ecommerce: {
+                    promoClick: {
+                        promotions: productPromoTrcking
+                    }
                 }
-            }
-        });
-    });
-};
-
-/**
- * Custom Start: update function Added promoclick Campaign selector and data attributes change data layer structure according to mvmt
- **/
-
-var onPromoCampaignClickEvent = function () {
-    $('body').on('click', '.gtm-event', function (evt) {
-        var $currentTarget = $(evt.currentTarget);
-        updateDataLayer('promoClick');
-        var dataLayerObj = [];
-        dataLayerObj.push($currentTarget.data('gtm-tracking'));
-
-        dataLayer.push({ event: 'promoClick',
-            ecommerce: {
-                promoClick: {
-                    promotions: dataLayerObj
+            });
+        } else {
+            dataLayer.push({
+                event: 'promoClick',
+                ecommerce: {
+                    promoClick: {
+                        promotions: campaginPromoTrcking
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 };
 
@@ -643,7 +634,6 @@ var onClickEvents = function () {
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
     onEmailSubscribe();
-    onPromoCampaignClickEvent();
     onSiteSearch();
     onLoginIn();
 };
