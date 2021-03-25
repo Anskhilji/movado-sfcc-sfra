@@ -54,11 +54,11 @@ function gtmModel(req) {
         if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
             this.checkout = [];
             getCartJSONArray(this.checkout);
-            if (action.equals('cart-show')) {
-                this.checkoutAction = 'cart';
+            if (action.equals('checkout-login')) {
+                this.checkoutAction = 'checkout';
                 checkoutStage = 1;
             } else {
-                checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+                var checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
                 var checkoutStage = '';
                 switch (checkoutActionObject) {
                 case 'shipping':

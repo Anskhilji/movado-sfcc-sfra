@@ -371,13 +371,14 @@ var updateCheckoutStage = function () {
      case 'shipping':
              checkoutStep = '2';
              pageDataGTM.pageType = 'Checkout – Shipping';
-             dataLayer.push({ pageData: pageDataGTM});
+            dataLayer.push({ pageData: pageDataGTM });
+            onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'payment':
              checkoutStep = '3';
              pageDataGTM.pageType = 'Checkout – Billing';
              dataLayer.push({ pageData: pageDataGTM});
-             onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'placeOrder':
              checkoutStep = '4';
@@ -385,7 +386,7 @@ var updateCheckoutStage = function () {
              pageDataGTM.pageType = 'Checkout – Review';
              dataLayer.push({ pageData: pageDataGTM});
              if (paymentMethod != undefined) {
-                 onCheckoutOption(checkoutStep - 1, paymentMethod);
+                 onCheckoutOption(checkoutStep, paymentMethod);
             }
          break;
      case 'submitted':
