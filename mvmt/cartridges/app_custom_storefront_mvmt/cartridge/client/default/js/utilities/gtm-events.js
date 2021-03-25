@@ -55,18 +55,16 @@ var onPromoClickEvent = function () {
     $('body').on('click', '.gtm-promotion-view', function (evt) {
         var $currentTarget = $(this);
         updateDataLayer('promoClick');
-        var dataLayerObj = [];
         var pageType = $currentTarget.data('page-type');
-         
-        var productPromoTrcking = $currentTarget.data('gtm-product-promo');
-        var campaginPromoTrcking = $currentTarget.data('gtm-tracking');
+        var productPromoTracking = $currentTarget.data('gtm-product-promo');
+        var campaginPromoTracking = $currentTarget.data('gtm-tracking');
         if (productPromoTrcking !== undefined && productPromoTrcking !=='') {
             dataLayer.push({
                 event: 'promoClick',
                 pageType: pageType,
                 ecommerce: {
                     promoClick: {
-                        promotions: productPromoTrcking
+                        promotions: productPromoTracking
                     }
                 }
             });
@@ -75,7 +73,7 @@ var onPromoClickEvent = function () {
                 event: 'promoClick',
                 ecommerce: {
                     promoClick: {
-                        promotions: campaginPromoTrcking
+                        promotions: campaginPromoTracking
                     }
                 }
             });
