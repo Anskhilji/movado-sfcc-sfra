@@ -12,11 +12,11 @@
 
         @include media-breakpoint-up(lg) {
             max-width: rem(400);
-            top: rem(68);
+            top: 50%;
+            transform: translateY(-50%);
             left: rem(15);
             text-align: left;
             width: auto;
-            transform: none;
         }
     }
 
@@ -140,9 +140,7 @@
             img {
                 width: 100%;
                 min-height: rem(150);
-                @include media-breakpoint-up(sm) {
-                    min-height: rem(250);
-                }
+
                 @include media-breakpoint-up(lg) {
                     min-height: rem(350);
                 }
