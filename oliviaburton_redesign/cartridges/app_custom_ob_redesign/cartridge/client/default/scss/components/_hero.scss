@@ -190,6 +190,9 @@
             @include media-breakpoint-up(xxl) {
                 padding: 0 rem(355) !important;
             }
+            @include media-breakpoint-up(xxxl) {
+                padding: 0 rem(450) !important;
+            }
         }
 
         &-slide {
