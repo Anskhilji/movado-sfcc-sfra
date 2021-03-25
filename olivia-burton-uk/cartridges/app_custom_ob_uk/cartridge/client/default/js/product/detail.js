@@ -110,6 +110,36 @@ module.exports = {
             }
         });
     },
+    linkedSlider: function () {
+        $('.recomended-products').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: false,
+            arrows: true,
+        });
+    },
+    updatePrice: function () {
+        $(document).on('click', '.upsell-input', function() {
+            var upselprice = $(this).siblings('.upsell-wrapper-inner').find('.sales .value').attr('content');
+            var currentPrice = $('.prices .sales .value').attr('content');
+            var updatedPrice;
+            var updatedText;
+            if ($(this).is(':checked')) {
+                updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
+            } else {
+                updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
+            }
+
+            if (updatedPrice && !isNaN(updatedPrice)) {
+                $('.prices .sales .value').each(function() {
+                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
+                    $(this).text(updatedText).attr('content', updatedPrice);
+                });
+            }
+        });
+    },
     sizeChart: function () {
         var $sizeChart = $('.size-chart-collapsible');
         $('.size-chart a').on('click', function (e) {
@@ -140,11 +170,13 @@ $( document ).ready(function() {
 });
 
 function refreshAffirmUI() {
-    if (document.readyState === "complete") {
-        affirm.ui.refresh();
-    } else {
-        setTimeout(function() {
-            refreshAffirmUI();
-        }, 200);
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        if (document.readyState === "complete") {
+            affirm.ui.refresh();
+        } else {
+            setTimeout(function() {
+                refreshAffirmUI();
+            }, 200);
+        }
     }
 }

@@ -141,6 +141,9 @@ var getEswHelper = {
     isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
         return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
     },
+    getLocalizedPricingCountries: function () {
+        return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
@@ -166,7 +169,6 @@ var getEswHelper = {
                 var eswLocation = request.getHttpCookies()['esw.location'];
                 this.updateCookieValue(eswLocation, country);
             }
-            session.custom.countryCode = country;
         }
 
         if (!this.getEnableCurrencyFooterBar() || !this.getEnableCurrencyHeaderBar() || !this.getEnableCurrencyLandingBar()) {
@@ -207,10 +209,12 @@ var getEswHelper = {
             	return rule.deliveryCountryIso == country;
             });
 
-        	//Custom Start: Removing selectedRoundingModel[0] that creating error of undefined
-            selectedRoundingRule = roundingModels.filter(function (rule) {
-                return rule.currencyIso == eswCurrency.value;
-            });
+        	//Custom Start: Add defensive check for undefined error handing
+            if (!empty(selectedRoundingModel)) {
+                selectedRoundingRule = selectedRoundingModel[0].roundingModels.filter(function (rule) {
+                    return rule.currencyIso == eswCurrency.value;
+                });
+            }
             //Custom End
         }
 
@@ -270,10 +274,33 @@ var getEswHelper = {
      * Function to set initial selected country from cookie or geolocation or preferences
      */
     getAvailableCountry: function () {
-        if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        //Custom Change: updated the getAvailableCountry logic with an addition of session country code condition
+        if (!empty(session.privacy.countryCode)) {
+            return session.privacy.countryCode;
+        } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
             return request.getHttpCookies()['esw.location'].value;
         } else if (this.getGeoLookup()) {
             var geolocation = request.geolocation.countryCode;
+            /**
+             * Custom Start: Override geolocation if country or countryCode parameter is present in request
+             */
+            var requestHttpParameterMap = request.getHttpParameterMap();
+            var country;
+            var countryCode;
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('country'))) {
+                country = requestHttpParameterMap.get('country').value;
+            }
+
+            if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('countryCode'))) {
+                countryCode = requestHttpParameterMap.get('countryCode').value;
+            }
+            
+            if (!empty(country) || !empty(countryCode)) { 
+                geolocation = !empty(country) ? country : countryCode;
+            }
+            /**
+             * Custom End: 
+             */ 
             var matchCountry = this.getAllCountries().filter(function (value) {
                 if (value.value == geolocation) {
                     return geolocation;
@@ -321,7 +348,8 @@ var getEswHelper = {
         }
         try {
             var baseCurrency = this.getBaseCurrencyPreference(),
-                billingPrice = (typeof price == 'object') ? new Number(price.value) : new Number(price),
+                // setting price to zero if it is null
+                billingPrice = (typeof price == 'object') ? new Number(price.value || 0) : new Number(price || 0),
                 selectedCountry = this.getAvailableCountry(),
                 selectedFxRate = !empty(session.privacy.fxRate) ? JSON.parse(session.privacy.fxRate) : false;
 
@@ -358,91 +386,119 @@ var getEswHelper = {
             }
             // applying the rounding model
             if (billingPrice > 0 && !noRounding && empty(isFixedPriceCountry)) {
-                billingPrice = this.applyRoundingModel(billingPrice);
+                billingPrice = this.applyRoundingModel(billingPrice, false);
             }
             billingPrice = new dw.value.Money(billingPrice, selectedFxRate.toShopperCurrencyIso);
             return (formatted == null) ? formatMoney(billingPrice) : billingPrice;
-        } catch (e) {
+        } catch (e) { 
             logger.error('Error converting price {0} {1}', e.message, e.stack);
         }
     },
+
+    applyRoundingMethod: function (price, model, roundingModel, isFractionalPart) {
+        var roundingMethod = model.split(/(\d+)/)[0];
+        var roundedPrice;
+        if (roundingMethod.equalsIgnoreCase('none')) {
+            if (isFractionalPart) {
+                return (price / 100) % 1;
+            }
+            return price;
+        }
+        var roundingTarget = model.split(/(\d+)/)[1];
+        var rTLength = roundingTarget.length;
+        if (isFractionalPart) {
+            roundingTarget = rTLength == 1 ? roundingTarget + '0' : roundingTarget.substring(0, 2);
+            rTLength = roundingTarget.length;
+        }
+        if (roundingMethod.equalsIgnoreCase('fixed')) {
+            var otherPart = price % Math.pow(10, rTLength);
+            var priceWithoutOtherPart = price - otherPart;
+            // Logic for fixed rounding method.
+            if (roundingModel.direction.equalsIgnoreCase('up')) {
+                roundedPrice = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+            } else if (roundingModel.direction.equalsIgnoreCase('down')) {
+                roundedPrice = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                roundedPrice = roundedPrice < 0 && !isFractionalPart ? price : roundedPrice;
+            } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
+                var roundedUp = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                var roundedDown = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                roundedDown = roundedDown < 0 && !isFractionalPart ? price : roundedDown;
+                roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
+            }
+        } else {
+            // Logic for multiple rounding method.
+            if (roundingModel.direction.equalsIgnoreCase('up')) {
+                roundedPrice = Math.ceil(price / roundingTarget) * roundingTarget;
+            } else if (roundingModel.direction.equalsIgnoreCase('down')) {
+                roundedPrice = Math.floor(price / roundingTarget) * roundingTarget;
+            } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
+                var roundedUp = Math.ceil(price / roundingTarget) * roundingTarget,
+                    roundedDown = Math.floor(price / roundingTarget) * roundingTarget,
+                roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
+            }
+        }
+        if (isFractionalPart) {
+            return roundedPrice / Math.pow(10, rTLength);
+        }
+        return roundedPrice;
+    },
     /*
-     * applies rounding model received from V2 pricefeed
-     */
-    applyRoundingModel: function (price) {
-        var roundedPrice,
-            roundedUp,
-            roundedDown,
-            roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+    * applies rounding model received from V3 price feed.
+    */
+    applyRoundingModel: function (price, roundingModel) {
         try {
+            if (!roundingModel) {
+                roundingModel = !empty(session.privacy.rounding) ? JSON.parse(session.privacy.rounding) : false;
+            }
             if (!roundingModel || empty(roundingModel) || price == 0) {
                 return price;
             }
 
             if (!empty(roundingModel)) {
-                if (roundingModel.model.equalsIgnoreCase('none')) {
-                    if (roundingModel.direction.equalsIgnoreCase('none')) {
-                        roundedPrice = parseInt(Math.round(price * Math.pow(10, roundingModel.currencyExponent)));
-                    } else if (roundingModel.direction.equalsIgnoreCase('up')) {
-                        roundedPrice = Math.ceil(price * Math.pow(10, roundingModel.currencyExponent));
-                    } else if (roundingModel.direction.equalsIgnoreCase('down')) {
-                        roundedPrice = Math.floor(price * Math.pow(10, roundingModel.currencyExponent));
-                    }
-                    roundedPrice = roundedPrice / Math.pow(10, roundingModel.currencyExponent);
-                } else if (/^[n|N]{1}[0-9]{1}$/.test(roundingModel.model)) {
-                    if (roundingModel.direction.equalsIgnoreCase('none')) {
-                        return price;
-                    }
+                var roundedWholeNumber = 0, roundedfractionalPart = 0, roundedPrice = 0;
+                price = price.toFixed(2);
 
-                    var priceWithoutSecondDecimal = parseInt(price * 10) / 10,
-                        secondDecimal = parseInt(Math.round((price * 10 - parseInt(price * 10)) * 10)),
-                        lastDigitOfModel = roundingModel.model.charAt(1);
+                var wholeNumber = parseInt(price);
+                var model = roundingModel.model.split('.')[0];
 
-                    if (secondDecimal > lastDigitOfModel) {
-                        roundedUp = (priceWithoutSecondDecimal + 0.1 + lastDigitOfModel / 100).toFixed(2);
-                        roundedDown = (priceWithoutSecondDecimal + lastDigitOfModel / 100).toFixed(2);
-                    } else if (secondDecimal < lastDigitOfModel) {
-                        roundedUp = (priceWithoutSecondDecimal + lastDigitOfModel / 100).toFixed(2);
-                        roundedDown = (priceWithoutSecondDecimal - 0.1 + lastDigitOfModel / 100).toFixed(2);
-                    } else {
-                        roundedUp = (priceWithoutSecondDecimal + lastDigitOfModel / 100).toFixed(2);
-                        roundedDown = roundedUp;
-                    }
+                var fractionalPart = Math.round((price % 1) * 100);
+                var fractionalModel = roundingModel.model.split('.')[1];
 
-                    if (roundingModel.direction.equalsIgnoreCase('up')) {
-                        roundedPrice = roundedUp;
-                    } else if (roundingModel.direction.equalsIgnoreCase('down')) {
-                        roundedPrice = roundedDown;
-                    } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
-                        roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
-                    }
-                } else {
-                    if (roundingModel.direction.equalsIgnoreCase('up')) {
-                        roundedPrice = roundingModel.model >= parseInt((price - parseInt(price)) * 100) ? parseInt(price) + roundingModel.model / 100 : parseInt(price) + 1 + roundingModel.model / 100;
-                    } else if (roundingModel.direction.equalsIgnoreCase('down')) {
-                        roundedPrice = roundingModel.model <= parseInt((price - parseInt(price)) * 100) ? parseInt(price) + roundingModel.model / 100 : parseInt(price) - 1 + roundingModel.model / 100;
-                    } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
-                        var roundedUp = roundingModel.model >= parseInt((price - parseInt(price)) * 100) ? parseInt(price) + roundingModel.model / 100 : parseInt(price) + 1 + roundingModel.model / 100,
-                            roundedDown = roundingModel.model <= parseInt((price - parseInt(price)) * 100) ? parseInt(price) + roundingModel.model / 100 : parseInt(price) - 1 + roundingModel.model / 100;
-                        roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
-                    }
-                }
-                if (roundedPrice == 0) {
-                    return price;
-                }
-                var strNum = roundedPrice.toString();
-                if (strNum.indexOf('.') != -1) {
-                    return new Number(strNum.substring(0, (strNum.indexOf('.')) + roundingModel.currencyExponent + 1));
-                } else {
-                    return roundedPrice;
-                }
+                // First, Apply rounding on the fractional part.
+                roundedFractionalPart = this.applyRoundingMethod(fractionalPart, fractionalModel, roundingModel, true);
+
+                // Update the whole number based on the fractional part rounding.
+                wholeNumber = parseInt(wholeNumber + roundedFractionalPart);
+                roundedFractionalPart = (wholeNumber + roundedFractionalPart) % 1;
+
+                // then, Apply rounding on the whole number.
+                roundedWholeNumber = this.applyRoundingMethod(wholeNumber, model, roundingModel, false);
+
+                roundedPrice = roundedWholeNumber + roundedFractionalPart;
+
+                return roundingModel.currencyExponent == 0 ? parseInt(roundedPrice) : roundedPrice.toFixed(roundingModel.currencyExponent);
             }
         } catch (e) {
             logger.error('Error applying rounding {0} {1}', e.message, e.stack);
             return price;
         }
-
         return price;
+    },
+    /*
+    * This function is used to get shipping discount if it exist
+    */
+    getShippingDiscount: function (cart) {
+        var totalDiscount = 0;
+        var that = this;
+        if (cart != null) {
+            cart.defaultShipment.shippingPriceAdjustments.toArray().forEach(function (adjustment) {
+                totalDiscount += that.getMoneyObject(adjustment.price, true, false, true).value;
+            });
+        }
+        if (totalDiscount < 0) {
+            totalDiscount *= -1;
+        }
+        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
     },
     /*
      * This function is used to get total of cart or productlineitems based on input
@@ -640,7 +696,8 @@ var getEswHelper = {
             }
             return this.shortenName(this.getAllCountryFromCountryJson(eswHelper.getAvailableCountry()).name['en_GB']);
         }
-        return this.shortenName(allESWCountryName[0].displayValue);
+        var shortName = !empty(allESWCountryName[0]) ? allESWCountryName[0].displayValue : '';
+        return this.shortenName(shortName);
     },
     /*
      * Function to apply pricebook if country is override country
@@ -692,7 +749,9 @@ var getEswHelper = {
                 selectedFxRate = fxRates.filter(function (rates) {
                     return rates.toShopperCurrencyIso == overrideCountry[0].currencyCode;
                 });
-            } else {
+            }
+
+            if (empty(fxRates) || empty(selectedFxRate)) {
                 var currencyFxRate = {
                     'fromRetailerCurrencyIso': this.getBaseCurrencyPreference(),
                     'rate': '1',
@@ -865,7 +924,20 @@ var getEswHelper = {
      */
     getCurrentEswCurrencyCode: function () {
     	return request.httpCookies['esw.currency'].value;
+    },
+    /**
+    * Merges properties from source object to target object
+    * @param {Object} target object
+    * @param {Object} source object
+    * @returns {Object} target object
+    */
+    extendObject: function (target, source) {
+        Object.keys(source).forEach(function (prop) {
+            target[prop] = source[prop];
+        });
+        return target;
     }
+
 };
 
 module.exports = {

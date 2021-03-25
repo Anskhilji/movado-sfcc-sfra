@@ -15,10 +15,14 @@
     
     <div class="hero search-banner plp-new-design container-fluid p-0">
         <isif condition="${pdict.productSearch.isCategorySearch}">
-        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
+            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
+            </isif>
             <isslot id="cs-plp-banner-image" description="Category banner Image" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
         <iselse>
-            <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+            <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+                <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.search', 'eum', null))}"/>
+            </isif>
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
     </div>
@@ -75,7 +79,7 @@
                                             </div>
                                         </div>
                                         <div class="filter-btn d-none d-md-inline-block">
-                                            <button>${Resource.msg('label.selectedfilter', 'search', null)}</button>
+                                            <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
                                         </div>
                                         <isif condition="${pdict.productSearch.productIds.length > 0}">
                                             <div class="d-md-none filter-btn">

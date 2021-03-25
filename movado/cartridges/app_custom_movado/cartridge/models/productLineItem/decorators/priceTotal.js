@@ -65,7 +65,8 @@ function getTotalPrice(lineItem) {
         // If order placed using calculated price model
         if (eswShopperCurrencyCode != null) {
             price = new Number((lineItem.custom.eswShopperCurrencyItemPriceInfo * lineItem.quantityValue)); // eslint-disable-line no-new-wrappers
-            result.price = formatMoney(new dw.value.Money(price, eswShopperCurrencyCode));
+            price = Money(price, eswShopperCurrencyCode);
+            result.price = formatMoney(price);
         } else {
             price = lineItem.adjustedPrice;
             // The platform does not include prices for selected option values in a line item product's

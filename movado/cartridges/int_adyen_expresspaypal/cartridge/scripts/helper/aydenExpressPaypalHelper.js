@@ -1,9 +1,12 @@
 'use strict';
 
+var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
+var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
+var Constants = require('*/cartridge/utils/Constants');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -114,6 +117,112 @@ function addressValidation(currentBasket, addressform) {
 }
 
 /**
+ *  validation for shipping, billing and coupon codes fields
+ * @param currentBasket
+ * @param addressform
+ * @returns
+ */
+function formsValidation(currentBasket, formData) {
+    var firstName = '';
+    var lastName = '';
+    var city = '';
+    var postalCode = '';
+    var stateCode = '';
+    var address1 = '';
+    var phoneNumber = '';
+    var email = '';
+    var emailValue = '';
+    var deliveryCountry = '';
+    var billingAddressCity = '';
+    var billingAddressCountry = '';
+    var billingAddressState  = '';
+    var billingAddressStateOrProvince = '';
+    var validatedFields = {};
+
+    firstName = fetchValidatedFields(fetchFromMap(formData, 'shopper.firstName'), checkoutFieldsRegex.firstName);
+    lastName = fetchValidatedFields(fetchFromMap(formData, 'shopper.lastName'), checkoutFieldsRegex.lastName);
+    address1 = addressValidation(currentBasket, formData);
+    city = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.city'), checkoutFieldsRegex.city);
+    billingAddressCity = fetchValidatedFields(fetchFromMap(formData, 'billingAddress.city'), checkoutFieldsRegex.city);
+    billingAddressCountry = fetchFromMap(formData, 'billingAddress.country');
+    billingAddressCountry = (!empty(billingAddressCountry)) ? false : true;
+    billingAddressState = fetchFromMap(formData, 'billingAddress.state');
+    billingAddressStateOrProvince = fetchFromMap(formData, 'billingAddress.stateOrProvince');
+    postalCode = fetchValidatedFields(fetchFromMap(formData, 'deliveryAddress.postalCode'), checkoutFieldsRegex.postalCode);
+    stateCode = fetchFromMap(formData, 'deliveryAddress.stateOrProvince');
+    deliveryCountry = fetchFromMap(formData, 'deliveryAddress.country');
+    deliveryCountry = (!empty(deliveryCountry)) ? false : true;
+    phoneNumber = fetchValidatedFields(fetchFromMap(formData, 'shopper.telephoneNumber'), checkoutFieldsRegex.phone);
+
+    if (postalCode) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Postal code is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.postalCode'));
+    }
+    if (phoneNumber) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Phone number is not valid and value is: ' + fetchFromMap(formData, 'shopper.telephoneNumber'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+        stateCode = false;
+    } else {
+        stateCode = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressState = false;
+    } else {
+        billingAddressState = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
+    }
+
+    // MSS-1263 Improve check in case of state code
+    if (!empty(billingAddressStateOrProvince) || (empty(billingAddressStateOrProvince) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        billingAddressStateOrProvince = false;
+    } else {
+        billingAddressStateOrProvince = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state or province is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.stateOrProvince'));
+    }
+
+    var isAnonymous = currentBasket.getCustomer().isAnonymous();
+    
+    if (isAnonymous) {
+        emailValue = (formData.shopperEmail) ? formData.shopperEmail : '';
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
+    } else {
+        emailValue = currentBasket.getCustomer().getProfile().getEmail();
+        email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
+    }
+    if (email) {
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Email address is not valid and value is: ' + emailValue);
+    }
+    validatedFields = {
+        firstName: firstName, 
+        lastName: lastName, 
+        address1: address1, 
+        city: city, 
+        postalCode: postalCode, 
+        phoneNumber: phoneNumber, 
+        email: email,
+        billingAddressCity: billingAddressCity,
+        deliveryCountry: deliveryCountry,
+        stateCode: stateCode,
+        billingAddressState: billingAddressState,
+        billingAddressCountry: billingAddressCountry,
+        billingAddressStateOrProvince: billingAddressStateOrProvince,
+        paypalerror: false 
+    };
+    for (var prop in validatedFields) {
+        if (validatedFields[prop] == true) {
+            validatedFields['paypalerror'] = true;
+        }
+    }
+
+    return validatedFields;
+}
+
+/**
 * Sets the default shipping method on the paypal returned order and calculate taxes.
 * @param {JSON} formData Form Map
 * @param {string} field string
@@ -125,6 +234,18 @@ function fetchFromMap(formData, field) {
     }
     return '';
 }
+/**
+* matches the given regex with given field data
+* @param {JSON} formData Form Map
+* @param {string} field string
+* @returns {boolean} bool
+*/
+function fetchValidatedFields(fieldData, fieldRequiredRegexExpression) {
+    var results = fieldRequiredRegexExpression.test(fieldData);
+    results = !results;
+    return results;
+}
+
 
 /**
  * This method is used for checking for PO BOX string in the address passed as parameter.
@@ -163,10 +284,63 @@ function isAllowedCountryCode(countryCode) {
     return false;
 }
 
+/**
+ * get errors from paypal response 
+ * @params {Object} queryString - object containing query parameters
+ * @returns {array} paypalerrors - array containing all errors messages
+ */
+function getPaypalErrors(queryString) {
+    var Resource = require('dw/web/Resource');
+    var paypalerrors = [];
+    if (!empty(queryString)) {
+        if (queryString.firstName &&  queryString.firstName == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.firstname.error', 'cart', null));
+        }
+        if (queryString.lastName && queryString.lastName == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.lastname.error', 'cart', null));
+        }
+        if(queryString.city && queryString.city == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.city.error', 'cart', null));
+        } 
+        if (queryString.email && queryString.email == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.email.error', 'cart', null))
+        }
+        if (queryString.address1 && queryString.address1 == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.address.error', 'cart', null));
+        }
+        if (queryString.billingAddressCity && queryString.billingAddressCity == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.city.error', 'cart', 'null'));
+        }
+        if(queryString.billingAddressCountry && queryString.billingAddressCountry == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.country.error', 'cart', null));
+        }
+        if (queryString.billingAddressState && queryString.billingAddressState == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.address.state.not.valid.error', 'cart', null));
+        }
+        if (queryString.billingAddressStateOrProvince && queryString.billingAddressStateOrProvince == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.address.province.error', 'cart', null));
+        }
+        if (queryString.postalCode && queryString.postalCode == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.postalCode.error', 'cart', null));
+        }
+        if (queryString.phoneNumber && queryString.phoneNumber == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.billing.phone.error', 'cart', null));
+        }
+    } else {
+        if (!empty(queryString.paypalerror)) {
+            paypalerrors.push(Resource.msg('cart.paypal.error', 'cart', null));
+        }
+    }
+    return paypalerrors;
+}
+
 
 module.exports.preValidations = preValidations;
 module.exports.splitAndSetAddress = splitAndSetAddress;
 module.exports.populatePaymentInstrument = populatePaymentInstrument;
 module.exports.addressValidation = addressValidation;
+module.exports.fetchValidatedFields = fetchValidatedFields;
+module.exports.formsValidation = formsValidation;
 module.exports.comparePoBox = comparePoBox;
 module.exports.isAllowedCountryCode = isAllowedCountryCode;
+module.exports.getPaypalErrors = getPaypalErrors;

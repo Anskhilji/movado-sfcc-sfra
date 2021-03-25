@@ -12,6 +12,9 @@ var clearSelection = function (element) {
 
 $(document).ready(function() {
     var visitAccessibility = true;
+    if ($('#emailOptInPopUp').is(':visible') || $('.email-popup-container').is(':visible')) {
+        visitAccessibility = false;
+    }
     $(document).keydown(function(e) {
         if (e.keyCode == 9 && visitAccessibility == true) {
             e.preventDefault();

@@ -237,6 +237,30 @@ function getProductLineMetadataItems(pli) {
 	        	arr.push(obj);
 	        }
 	    }
+
+        // Custom Start : Get Category Info From Product line Item
+        var customCategory;
+        if (!empty(pli.product) && !empty(pli.product.custom.watchGender) && !empty(pli.product.custom.watchGender.length)) {
+            var watchGender = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.watchGender[0]: null;
+        }
+        if (!empty(pli.product) && !empty(pli.product.custom.jewelryType)) {
+            var jewelryType = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.jewelryType: null;
+        }
+        if (!empty(watchGender) && !empty(jewelryType)) {
+            customCategory = watchGender + " " + jewelryType;
+        } else if (!empty(watchGender)) {
+            customCategory = watchGender
+        } else {
+            customCategory = jewelryType;
+        }
+        if (!empty(customCategory)) {
+            obj = {
+                name: 'Category',
+                value: customCategory
+            };
+            arr.push(obj);
+        }
+        // Custom End
     }
     return arr.length > 0 ? arr : null;
 }
@@ -372,8 +396,8 @@ function getShippingRates() {
                         'ShopperCurrencyOveridePriceInfo': {
                             'Title': 'SCOPI_Title',
                             'Description': 'SCOPI_Description',
-                            'Price': currencyIso + eswHelper.getMoneyObject(cart.adjustedShippingTotalPrice, true, false, true).value
-                        },
+                            'Price': currencyIso + eswHelper.getMoneyObject(cart.adjustedShippingTotalPrice,true, false, false).value
+                        },                        
                         'MetadataItems': null
                     };
                     shippingRates.push(shippingRate);

@@ -99,7 +99,8 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         var authorized = authorizeConfirmation.authorize(requestMap);
         if (!authorized) {
             Transaction.wrap(function () {
-                OrderMgr.failOrder(order);
+                // MSS-1169 Passed true as param to fix deprecated method usage
+                OrderMgr.failOrder(order, true);
             });
             checkoutLogger.error('(Adyen) -> ShowConfirmation: Authorization is failed and order is failed and redirecting to Checkout-Begin and stage is payment and order number is: ' + order.orderNo);
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
@@ -205,17 +206,18 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             smartGiftHelper.sendSmartGiftDetails(session.custom.trackingCode, orderNumber);
         }
 
-        // Salesforce Order Management requirement.  Convert the 'Adyen' payment method to 'CREDIT_CARD' so that the order ingestion process can recognize it
-        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-        somLog.debug('Processing Order ' + order.orderNo);
-        try {
-            Transaction.wrap(function () {
-                populateOrderJSON.populateByOrder(order);
-                populateOrderJSON.addDummyPaymentTransaction(order);
-            });
-        } catch (exSOM) {
-            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        // Salesforce Order Management requirement.  
+        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            somLog.debug('Processing Order ' + order.orderNo);
+            try {
+                Transaction.wrap(function () {
+                    populateOrderJSON.populateByOrder(order);
+                });
+            } catch (exSOM) {
+                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+            }
         }
 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to send the order confirmation email to the user and order number is: ' + orderNumber);

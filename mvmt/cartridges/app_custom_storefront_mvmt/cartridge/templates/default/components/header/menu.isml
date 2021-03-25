@@ -24,9 +24,6 @@
            </isif>
          </isloop>
        </isif>
-
-       <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
-       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
      </ul>
     </div>
   </nav>
@@ -69,7 +66,7 @@
                 <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
                   <li class="menu-list-item">
                     <a href="${thirdLevelCategory.url}" class="menu-item-link">
-                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL}" title="${thirdLevelCategory.name}" />
+                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" />
                       <span>${thirdLevelCategory.name}</span>
                     </a>
                   </li>
@@ -102,8 +99,8 @@
           <isif condition="${category.subCategories}">
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
-              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span> 
+              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
+              <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
               <isset name="topCat" value="${category}" scope="page"/>
               <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
@@ -112,8 +109,8 @@
           <iselse/>
             <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button">
-                <img alt="${category.name}" src="${category.categoryImageURL}" title="${category.name}" />
                 <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
+                <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
               </a>
             </li>
           </isif>
@@ -123,7 +120,7 @@
       <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
     </ul>
     <div class="register-btn-menu">
-      <isif condition="${!pdict.loggedIn}">
+      <isif condition="${!pdict.loggedIn && !customer.isAuthenticated()}">
         <a href="${URLUtils.https('Login-Show')}">
           <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
         </a>

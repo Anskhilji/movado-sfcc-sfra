@@ -12,6 +12,7 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
     var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
     var _ = require('*/cartridge/scripts/libs/underscore');
 
+    var startTimeStamp = Date.now();
     var pendingFOCancelChangeItems = [];
     var pendingOSCancelChangeItems = [];
     var fulfillmentOrderRecord = fulfillmentOrder.object.records[0];
@@ -19,9 +20,13 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
     var orderSummaryId = fulfillmentOrderRecord.OrderSummary.Id;
     var fulfillmentOrderLineItems = fulfillmentOrderRecord.FulfillmentOrderLineItems.records;
 
-    if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'CANCELLATION') {
+    if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'CANCELLATION' && 
+        SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'VOID') {
         return new Status(Status.ERROR, 'ERROR', 'unknown EventType: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
     }
+
+    // Determine if this is an eShopWorld Order
+    var isESWOrder = (fulfillmentOrderRecord.OrderSummary.eswOrderNo__c && fulfillmentOrderRecord.OrderSummary.eswOrderNo__c !== '');
 
     // Find a Delivery Charge in the fulfillment order line items
     var foShippingLineItem = _.find(fulfillmentOrderLineItems, function (r) {
@@ -30,7 +35,6 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
 
     // Process each item update
     SAPOrderStatus.EcommerceOrderStatusItem.forEach(function (orderStatusItem) {
-        var orderedQuantity = parseInt(orderStatusItem.OrderQuantity);
         var rejectedQuantity = parseInt(orderStatusItem.RejectedQuantity);
         var poItemNumber = parseInt(orderStatusItem.POItemNumber);
 
@@ -42,8 +46,13 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('processStatusVoid - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
             return;
         }
-        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber) {
-            Logger.error('processStatusVoid - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+        try {
+            if (foLineItem.OrderItemSummary.ProductCode.toUpperCase() !== orderStatusItem.SKUNumber.toUpperCase()) {
+                Logger.error('processStatusVoid - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+            }
+        }
+        catch (exProductComparison) {
+            Logger.error('processStatusCapture - Error comparing ProductCode to SKUNumber- ' + exProductComparison.message);
         }
 
         // Cancel rejected amounts from the OrderSummary and Fulfillment Order
@@ -82,7 +91,6 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
     // Fulfillment Order Item Cancellation(s)
     //
     if (pendingFOCancelChangeItems.length > 0) {
-
         // Send OM API request
         var cancelledLineItemsAPIResponse = SalesforceModel.createFulfillmentOrderCancelRequest({
             fulfillmentOrderId: fulfillmentOrderId,
@@ -91,24 +99,34 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
 
         if (!cancelledLineItemsAPIResponse.ok || !cancelledLineItemsAPIResponse.object.success) {
             // Do not attempt order summary cancellation or quantity shipped update
-            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledLineItemsAPIRequest.status + ',errorMessage:' + cancelledLineItemsAPIRequest.errorMessage);
+            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to FO item perform cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledLineItemsAPIResponse.status + ',errorMessage:' + cancelledLineItemsAPIResponse.errorMessage);
         }
-
-        // Send Platform Event Notification
-        // var
     }
 
     //
     // Order Item Summary cancellations
     //
     if (pendingOSCancelChangeItems.length > 0) {
+
+        // Also trigger platform event to send cancellation to eShopWorld
+        if (isESWOrder) {
+            var cancelledESWLineItemsResponse = SalesforceModel.createESWCancelRequest({
+                orderSummaryId: orderSummaryId,
+                changeItems: pendingOSCancelChangeItems
+            });
+            Logger.debug('cancelledESWLineItemsResponse: ' + JSON.stringify(cancelledESWLineItemsResponse));
+            if (!cancelledESWLineItemsResponse.ok || !cancelledESWLineItemsResponse.object || !cancelledESWLineItemsResponse.object.success) {
+                Logger.error('Order Summary: ' + orderSummaryId + ', cancelledESWLineItemsResponse: ' + JSON.stringify(cancelledESWLineItemsResponse));
+            }
+        }
+
         var cancelledOSLineItemsResponse = SalesforceModel.createOrderSummaryCancelRequest({
             orderSummaryId: orderSummaryId,
             changeItems: pendingOSCancelChangeItems
         });
         Logger.debug('OrderSummary: ' + orderSummaryId + ', cancelledOSLineItemsResponse: ' + JSON.stringify(cancelledOSLineItemsResponse));
         if (!cancelledOSLineItemsResponse.ok || !cancelledOSLineItemsResponse.object || !cancelledOSLineItemsResponse.object.success) {
-            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to perform OS item cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledOSLineItemsRequest.status + ',errorMessage:' + cancelledOSLineItemsRequest.errorMessage);
+            return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to perform OS item cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelledOSLineItemsResponse.status + ',errorMessage:' + cancelledOSLineItemsResponse.errorMessage);
         }
 
         // Create refund for the change order balance
@@ -125,10 +143,16 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             }
         }
 
-        // Publish platform events
-        var cancelledOSLineItemsEventResponse = SalesforceModel.publishOrderSummaryCancelItemsEvent({
-            changeItems: pendingOSCancelChangeItems
-        });
+        // Send transactional email
+        if (cancelledOSLineItemsResponse.object.changeOrderId) {
+            var cancellationEmailRequest = SalesforceModel.sendOrderSummaryCancelEmail({
+                changeOrderIds: cancelledOSLineItemsResponse.object.changeOrderId
+            });
+            if (cancellationEmailRequest.error) {
+                Logger.error('orderStatusVoid - error sending cancellation email: ' + JSON.stringify(cancellationEmailRequest));
+            }
+        }
+
     }
 
     // Platform event to trigger Fulfillment order status change process and flow
@@ -136,6 +160,19 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
     requestPlatformEvent.push(
         SalesforceModel.buildCompositeFulfillmentOrderPlatformEvent({
             fulfillmentOrderId: fulfillmentOrderId
+        })
+    );
+
+    // Add Operation Log
+    requestPlatformEvent.push(
+        SalesforceModel.buildCompositeOperationLog({
+            orderSummaryId: orderSummaryId,
+            fulfillmentOrderId: fulfillmentOrderId,
+            operationComponent: 'VOID/CANCELLATION',
+            operationStartTime: startTimeStamp,
+            dataInput: JSON.stringify(SAPOrderStatus),
+            dataOutput: JSON.stringify(pendingOSCancelChangeItems),
+            statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType
         })
     );
 

@@ -299,6 +299,12 @@ div.checkout-button-wrapper {
       }
     }
   }
+
+  .cart {
+    .checkout-button-wrapper {
+      background: none;
+    }
+  }
 }
 
 @include media-breakpoint-up(sm) {
@@ -353,4 +359,16 @@ div.checkout-button-wrapper {
 .checkout-button-without-sticky + .more-ways-text {
     padding: 0;
     border-top: 0;
+}
+
+.cart-disclaimer-message {
+
+    p {
+            font-size: rem(15);
+            letter-spacing: rem(2);
+            color: $black;
+            font-family: $font-medium;
+            margin-top: rem(10);
+            font-weight: 300;
+    }
 }

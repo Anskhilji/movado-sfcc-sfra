@@ -31,6 +31,25 @@ function comparePoBox(address) {
 }
 
 /**
+ * This method is used for checking for Postal Code validation in the address passed as parameter.
+ * @param address
+ * @returns results
+ */
+function comparePostalCode(address) {
+
+    // postal code validation for US
+    var postalCodeRegex = /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/g;
+    var result = !postalCodeRegex.test(address);
+    if (result) {
+        // postal code validation for UK
+        postalCodeRegex = /(^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$)/g;
+        result = !postalCodeRegex.test(address);
+    }
+
+    return result;
+}
+
+/**
  *	After Authorization Order Payment hook implementation for Apple pay
  * @param order
  * @param payment
@@ -39,7 +58,9 @@ function comparePoBox(address) {
  * @returns status
  */
 exports.afterAuthorization = function (order, payment, custom, status) {
-    
+    var isBillingPostalNotValid;
+    var orderShippingAddress;
+    var isShippingPostalNotValid;
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -106,6 +127,33 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
     	deliveryValidationFail = true;
     }
+    try {
+        isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
+        var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
+        var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
+        var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
+        var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
+        if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
+            addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+            deliveryValidationFail = true;
+            Logger.error('There is something missing or invalid in billing address for order: {0}', order.orderNo);
+        }
+        if (order.shipments.length) {
+            orderShippingAddress = order.shipments[0].getShippingAddress();
+            isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
+            var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
+            var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
+            var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
+            var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
+        }
+        if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
+            addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+            deliveryValidationFail = true;
+            Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
+        }
+    } catch(e) {
+        Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
+    }
     hooksHelper(
         'app.fraud.detection.create',
         'create',
@@ -134,16 +182,17 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
     });
     
-    // Salesforce Order Management attributes
-    var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-    var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-    try {
-        Transaction.wrap(function () {
-            populateOrderJSON.populateByOrder(Order);
-            populateOrderJSON.addDummyPaymentTransaction(Order);
-        });
-    } catch (exSOM) {
-        somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+    if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        // Salesforce Order Management attributes
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        try {
+            Transaction.wrap(function () {
+                populateOrderJSON.populateByOrder(Order);
+            });
+        } catch (exSOM) {
+            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        }
     }
     // End Salesforce Order Management
     

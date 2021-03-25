@@ -13,6 +13,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
     var _ = require('*/cartridge/scripts/libs/underscore');
 
+    var startTimeStamp = Date.now();
     var pendingFOLineItems = [];
     var pendingFOCancelChangeItems = [];
     var pendingOSCancelChangeItems = [];
@@ -20,10 +21,12 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var fulfillmentOrderId = fulfillmentOrder.object.records[0].Id;
     var fulfilledToName = fulfillmentOrder.object.records[0].FulfilledToName;
     var fulfillmentOrderLineItems = fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records;
+    var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
 
-    var trackingGroups = [];
+    var trackingGroups = [];    
 
-    if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'BILLING') {
+    if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'BILLING' &&
+        SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'FREE') {
         return new Status(Status.ERROR, 'ERROR', 'unknown EventType: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
     }
 
@@ -47,8 +50,13 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             Logger.error('processStatusCapture - could not find matching fulfillment order line: ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
             return;
         }
-        if (foLineItem.OrderItemSummary.ProductCode !== orderStatusItem.SKUNumber) {
-            Logger.error('processStatusCapture - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+        try {
+            if (foLineItem.OrderItemSummary.ProductCode.toUpperCase() !== orderStatusItem.SKUNumber.toUpperCase() && orderStatusItem.SKUNumber !== 'FIXEDFREIGHT') {
+                Logger.error('processStatusCapture - SKUNumber (' + orderStatusItem.SKUNumber + ') does not match ProductCode (' + foLineItem.OrderItemSummary.ProductCode + ')');
+            }
+        }
+        catch (exProductComparison) {
+            Logger.error('processStatusCapture - Error comparing ProductCode to SKUNumber- ' + exProductComparison.message);
         }
 
         // Update FO Line Item custom attribute for quantity fulfilled
@@ -85,6 +93,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 trackingGroups.push({
                     TrackingNumber: orderStatusItem.TrackingNumber,
                     CarrierCode: orderStatusItem.CarrierCode,
+                    DeliveryNumber: orderStatusItem.DeliveryNumber,
                     FulfillmentOrderLineItems: [foLineItem.Id]
                 });
                 trackingGroup = trackingGroups[0];
@@ -126,12 +135,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     //
 
     // Find fulfillment order items missing from SAP XML.  Cancel them to move them back to the OrderSummary
-    // var missingItems = _.filter(fulfillmentOrderLineItems, function (foLineItem) {
-    //     return _.find(SAPOrderStatus.EcommerceOrderStatusItem, function (orderStatusItem) {
-    //         return foLineItem.OrderItemSummary.LineNumber === orderStatusItem.POItemNumber;
-    //     });
-    // });
-
     for (var i = 0; i < fulfillmentOrderLineItems.length; i++) {
         var found = false;
         for (var j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
@@ -176,7 +179,6 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
         // For rejected items, also cancel the Order Item Summary
         if (pendingOSCancelChangeItems.length > 0) {
-            var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
             var cancelledOSLineItemsRequest = SalesforceModel.createOrderSummaryCancelRequest({
                 orderSummaryId: orderSummaryId,
                 changeItems: pendingOSCancelChangeItems
@@ -199,17 +201,39 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 }
             }
 
+            // send customer transactional email
+            if (cancelledOSLineItemsRequest.object.changeOrderId) {
+                var cancellationEmailRequest = SalesforceModel.sendOrderSummaryCancelEmail({
+                    changeOrderIds: cancelledOSLineItemsRequest.object.changeOrderId
+                });
+                if (cancellationEmailRequest.error) {
+                    Logger.error('orderStatusCapture - error sending cancellation email: ' + JSON.stringify(cancellationEmailRequest));
+                }
+            }
         }
     }
 
     //
-    // Update FulfillmentOrder Line Items (Quantity Fulfilled)
+    // Update Operation Log with input XML and output FulfillmentOrder Line Items (Quantity Fulfilled)
     // Send FulfillmentOrder change platform event  (This triggers SF Process "Fulfillment Order Workflow Actions Process")
     // Create Shipment(s)
     //
 
-    // Copy Quantity updates
-    var requestCompositeItemsShipment = pendingFOLineItems.slice();
+    // Copy Quantity updates - send in batches of 25 via composite API
+    var requestCompositeFOLineItemUpdates = []
+
+    var foLineItemArray = [];
+    var chunk = 25;
+    for (var i = 0; i < pendingFOLineItems.length; i += chunk) {
+        foLineItemArray = pendingFOLineItems.slice(i, i + chunk);
+
+        var foItemsAPIResponse = SalesforceModel.createSalesforceCompositeRequest(true, foLineItemArray);
+        if (!foItemsAPIResponse.ok || !foItemsAPIResponse.object || !foItemsAPIResponse.object.compositeResponse || foItemsAPIResponse.object.compositeResponse.length < 1) {
+            Logger.error('Failed to update quantities assumed shipped. foItemsAPIResponse:' + JSON.stringify(foItemsAPIResponse));
+        }
+    }
+
+    var requestCompositeItemsShipment = [];
 
     // Add Shipment request(s)
     var shipmentCount = 0;
@@ -221,6 +245,8 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 TrackingNumber: '',
                 TrackingURL: 'Not Applicable',
                 Description: '',
+                SAPCarrierCode__c: '',
+                SAPDeliveryNumber__c: '',
                 ReferenceCount: shipmentCount++,
                 FulfillmentOrderLineItems: null
             })
@@ -232,8 +258,10 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                     fulfillmentOrderId: fulfillmentOrderId,
                     ShipToName: fulfilledToName,
                     TrackingNumber: trackingGroup.TrackingNumber,
-                    TrackingURL: 'https://www.ups.com/track?loc=en_US&tracknum=' + trackingGroup.TrackingNumber.toString(),
+                    TrackingURL: '',
                     Description: trackingGroup.CarrierCode,
+                    SAPCarrierCode: trackingGroup.CarrierCode,
+                    SAPDeliveryNumber: trackingGroup.DeliveryNumber,
                     ReferenceCount: shipmentCount++,
                     FulfillmentOrderLineItems: trackingGroup.FulfillmentOrderLineItems
                 })
@@ -248,7 +276,18 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
         })
     );
 
-    // return new Status(Status.ERROR, 'ERROR', 'testing');
+    // Add Operation Log entry
+    requestCompositeItemsShipment.push(
+        SalesforceModel.buildCompositeOperationLog({
+            orderSummaryId: orderSummaryId,
+            fulfillmentOrderId: fulfillmentOrderId,
+            operationComponent: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType,
+            statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType,
+            operationStartTime: startTimeStamp,
+            dataInput: JSON.stringify(SAPOrderStatus),
+            dataOutput: JSON.stringify(requestCompositeItemsShipment)
+        })
+    );
 
     // Send the composite request
     var shipmentItemsAPIResponse = SalesforceModel.createSalesforceCompositeRequest(true, requestCompositeItemsShipment);

@@ -3,6 +3,8 @@
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
         <isinclude template="reporting/reportingUrls" />
     </isif>
+    <isinclude template="cart/switchToCountryMessage" />
+    
     <div>
         <div class="row">
             <div class="col-12">
@@ -55,7 +57,7 @@
                 <p class="sub-total-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
             </div>
             <div class="col-5">
-                <p class="text-right sub-total">${pdict.totals.subTotal}</p>
+                <p class="text-right sub-total">${pdict.totals && pdict.totals.subTotal}</p>
             </div>
         </div>
 

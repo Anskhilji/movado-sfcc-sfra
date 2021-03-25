@@ -1,0 +1,6 @@
+'use strict';
+
+exports.DEFAULT_COUNTRYCODE = 'US';
+exports.NOT_AVAILABILITY_STATUS = 'NOT_AVAILABLE';
+exports.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR = ' - ';
+exports.MM_UNIT='MM';

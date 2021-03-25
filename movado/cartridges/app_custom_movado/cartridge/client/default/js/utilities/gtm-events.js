@@ -1,3 +1,5 @@
+var cookieHandler = require('./cookieHandler');
+
 var updateDataLayer = function (string) {
     dataLayer.map(function (item, index, arr) {
         if (item.event && item.event === string) {
@@ -285,6 +287,16 @@ var showProductImpressionCaraousel = function (e, currency) {
     });
 };
 
+var getCookieSessionId = function () {
+    var cookieName = '_ga';
+    var googleAnalyticsSessionId = cookieHandler.getCookie(cookieName);
+
+    if (pageDataGTM != undefined && pageDataGTM) {
+        pageDataGTM.gaSessionID = googleAnalyticsSessionId;
+        dataLayer.push({ pageData: pageDataGTM });
+    }
+};
+
 var getSiteSectionOnPageLoad = function (e) {
     var urlPath = $('[data-url-path-gtm]').data('url-path-gtm');
     var pathName = window.location.pathname.split(urlPath)[1];
@@ -329,6 +341,27 @@ var updateCheckoutStage = function () {
 
     $('body').on('checkOutPayment:success', function (pEvt, paymentData) {
         paymentMethod = paymentData;
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutBilling',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: {paymentMethod: paymentMethod }
+                }
+            }
+        });
+    });
+
+    $('body').on('checkOutshippingStage:success', function (pEvt, checkoutShippingStage) {
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutShipping',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: { cityStateZipCode: checkoutShippingStage.cityStateZipCode, country: checkoutShippingStage.country }
+                }
+            }
+        });
     });
 
     $('body').on('checkOutStage:success', function (evt, data) {
@@ -336,21 +369,25 @@ var updateCheckoutStage = function () {
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
-        	 checkoutStep = '2';
-        	 pageDataGTM.pageType = 'Checkout – Shipping';
+             checkoutStep = '2';
+             pageDataGTM.pageType = 'Checkout – Shipping';
+            dataLayer.push({ pageData: pageDataGTM });
+            onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'payment':
-        	 checkoutStep = '3';
-        	 pageDataGTM.pageType = 'Checkout – Billing';
-        	 onCheckoutOption(checkoutStep - 1, shippingMethod);
+             checkoutStep = '3';
+             pageDataGTM.pageType = 'Checkout – Billing';
+             dataLayer.push({ pageData: pageDataGTM});
+             onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'placeOrder':
-        	 checkoutStep = '4';
-        	 checkoutStage = 'Confirm';
-        	 pageDataGTM.pageType = 'Checkout – Review';
-        	 if (paymentMethod != undefined) {
-        		 onCheckoutOption(checkoutStep - 1, paymentMethod);
-        	 }
+             checkoutStep = '4';
+             checkoutStage = 'Confirm';
+             pageDataGTM.pageType = 'Checkout – Review';
+             dataLayer.push({ pageData: pageDataGTM});
+             if (paymentMethod != undefined) {
+                 onCheckoutOption(checkoutStep, paymentMethod);
+            }
          break;
      case 'submitted':
         	 checkoutStep = '5';
@@ -399,6 +436,21 @@ function onCheckoutOption(step, checkoutOption) {
 /**
  * A function to handle a click leading to a checkout option selection.
  */
+function onCheckoutPaymentOption(step, checkoutOption) {
+    updateDataLayer('checkoutOption');
+    dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+            checkout_creditPaymentOption: {
+                actionField: { step: step, option: checkoutOption }
+            }
+        }
+    });
+}
+
+/**
+ * A function to handle a click leading to a checkout option selection.
+ */
 var onCheckoutOptionOnCart = function () {
     updateDataLayer('checkoutOption');
     var checkoutOptionData = $('[data-gtm-shipping-method]').data('gtm-shipping-method');
@@ -414,6 +466,20 @@ var onCheckoutOptionOnCart = function () {
     }
 };
 
+/**
+ * Custom Start: Create a funtion that trigeer on email subscriptions.
+ */
+
+var onEmailSubscribe = function () {
+    $('body').on('emailSubscribe:success', function (evt, data) { 
+        var userEmailData = JSON.parse(data);
+        updateDataLayer('emailSubmit');
+        dataLayer.push({
+            event: 'emailSubmit',
+            User: data
+        });
+    });
+};
 
 var onQuickViewLoad = function () {
     $('body').on('qv:success', function (evt, data) {
@@ -471,6 +537,7 @@ var onClickEvents = function () {
     onMorestyleClickEvent();
     onMorestyleLoadEvent();
     onAddtoCartClickEvent();
+    onEmailSubscribe();
 };
 
 
@@ -481,6 +548,7 @@ var onPageLoad = function () {
     onPromoImpressionsLoad();
     onLoadProductTile();
     onCheckoutOptionOnCart();
+    getCookieSessionId();
     $('body').trigger('gtmOnLoadEvents:fired');
 };
 

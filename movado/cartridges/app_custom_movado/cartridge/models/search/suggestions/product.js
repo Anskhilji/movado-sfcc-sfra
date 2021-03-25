@@ -37,13 +37,16 @@ function getProducts(suggestedProducts, maxItems) {
     for (var i = 0; i < maxItems; i++) {
         if (suggestedProducts.hasNext()) {
             product = suggestedProducts.next().productSearchHit.product;
-            products.push({
-                id: product.ID,
-                name: product.name,
-                imageUrl: getImageUrl(product),
-                url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID),
-                hasPrimaryCategory: product.primaryCategory ? true : false
-            });
+            if (product !== null) {
+                products.push({
+                    id: product.ID,
+                    name: product.name,
+                    imageUrl: getImageUrl(product),
+                    url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID),
+                    hasPrimaryCategory: product.primaryCategory ? true : false
+                });
+            }
+
         }
     }
 

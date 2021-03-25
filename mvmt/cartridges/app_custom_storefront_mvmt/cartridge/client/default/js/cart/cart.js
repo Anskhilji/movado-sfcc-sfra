@@ -2,6 +2,31 @@
 
 var base = require('../product/base');
 
+// Minicart Product summary cart height
+function setMiniCartProductSummaryHeight () {
+    var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
+    var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
+    var $miniCartHeaderHeight = $miniCartHeaderTitle + $miniCartCountrySelector;
+    if ($('.mini-cart-header').is(':visible')) {
+        $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle + $miniCartCountrySelector;
+    }
+    var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
+    $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
+    var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
+    $('.mini-cart-data .product-summary').css('max-height', '');
+    var screenSize = $(window).width();
+    var mediumScreenSize = 992; // mobile break point
+
+    // check screen size for mobile and desktop
+    if (screenSize != null) {
+        if (screenSize <= mediumScreenSize) {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
+        } else {
+            $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
+        }
+    }
+}
+
 /**
  * appends params to a url
  * @param {string} url - Original url
@@ -54,53 +79,80 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateCartTotals(data) {
-    $('.number-of-items').empty().append(data.resources.numberOfItems);
-    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
-    $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
-    $('.sub-total').empty().append(data.totals.subTotal);
-    /* Affirm block for refreshing promo message */
-    var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
-    $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
-    if ($('.affirm-as-low-as').length > 0) {
-        affirm.ui.refresh();
+ function updateCartTotals(data) { 
+    if (data.numItems) {
+        $('.minicart .minicart-quantity').text(data.numItems);
+    }
+    var $miniCartSelector = $('.mini-cart-data');
+    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
+    var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
+    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
+    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $subTotalSelector = $miniCartSelector.find('.sub-total');
+    var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
+    var $orderDiscountSelector = $miniCartSelector.find('.order-discount'); 
+
+    if ($noOfItems.length > 0) {
+        $noOfItems.empty().append(data.resources.numberOfItems);
+    }
+    if ($shippingCostSelector.length > 0) {
+        $shippingCostSelector.empty().append(data.totals.totalShippingCost);
+    }
+    if ($totalTaxSelector.length > 0) {
+        $totalTaxSelector.empty().append(data.totals.totalTax);
+    }
+    if ($grandTotalSelector.length > 0) {
+         $grandTotalSelector.each(function () {
+             $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+         });
+    }
+    if ($subTotalSelector.length > 0) {
+        $subTotalSelector.empty().append(data.totals.subTotal);
     }
 
-    $('.minicart-quantity').empty().append(data.numItems);
+    /* Affirm block for refreshing promo message */
+    if ($affirmPriceSelector.length > 0) {
+        var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
+
+        $affirmPriceSelector.attr('data-amount', (totalCalculated * 100).toFixed());
+
+        if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+            affirm.ui.refresh();
+        }
+    }
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
-        $('.order-discount').removeClass('hide-order-discount');
-        $('.order-discount-total').empty()
-            .append('- ' + data.totals.orderLevelDiscountTotal.formatted);
+        $orderDiscountSelector.removeClass('hide-order-discount');
+        $miniCartSelector.find('.order-discount-total').empty().append('- ' + data.totals.orderLevelDiscountTotal.formatted);
     } else {
-        $('.order-discount').addClass('hide-order-discount');
+        $orderDiscountSelector.addClass('hide-order-discount');
     }
 
     if (data.totals.shippingLevelDiscountTotal.value > 0) {
-        $('.shipping-discount').removeClass('hide-shipping-discount');
-        $('.shipping-discount-total').empty().append('- ' +
+        $miniCartSelector.find('.shipping-discount').removeClass('hide-shipping-discount');
+        $miniCartSelector.find('.shipping-discount-total').empty().append('- ' +
             data.totals.shippingLevelDiscountTotal.formatted);
     } else {
-        $('.shipping-discount').addClass('hide-shipping-discount');
+        $miniCartSelector.find('.shipping-discount').addClass('hide-shipping-discount');
     }
 
     data.items.forEach(function (item) {
     // Custom Start: Updated selector and rendered HTML as per MVMT site
         if (item.price.list) {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
-            $('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price').prepend('<span class="strike-through list">' +
                 '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
                 '<span class="sr-only">label.price.reduced.from</span>' +
                 '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
                 '<span class="sr-only">label.price.to</span></span></span>');
         } else {
-            $('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
-        $('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+        $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
 }
+
 
 /**
  * re-renders the order totals and the number of items in the cart
@@ -288,7 +340,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
         dataType: 'json',
         success: function (data) {
             $('.quantity[data-uuid="' + $uuid + '"]').val($quantity);
-            $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+            $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
             $('.minicart-footer .subtotal-total-discount').empty().append(data.totals.subTotal);
             updateCartTotals(data);
             updateApproachingDiscounts(data.approachingDiscounts);
@@ -407,7 +459,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -507,7 +559,7 @@ module.exports = function () {
                     if (!data.basket.hasBonusProduct) {
                         $('.bonus-product').remove();
                     }
-                    $('.coupons-and-promos').empty().append(data.basket.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     updateCartTotals(data.basket);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
@@ -562,13 +614,14 @@ module.exports = function () {
                     $('.minicart-promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                    $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
                 }
                 $('.coupon-code-field').val('');
                 $('.minicart-promo-code-form').spinner().stop();
+                setMiniCartProductSummaryHeight();
             },
             error: function (err) {
                 if (err.responseJSON.redirectUrl) {
@@ -577,6 +630,7 @@ module.exports = function () {
                     createErrorNotification(err.errorMessage);
                     $('.minicart-promo-code-form').spinner().stop();
                 }
+                setMiniCartProductSummaryHeight();
             }
         });
         return false;
@@ -610,7 +664,7 @@ module.exports = function () {
                     $('.promo-code-form .form-control').addClass('is-invalid');
                     $('.coupon-error-message').empty().append(data.errorMessage);
                 } else {
-                    $('.coupons-and-promos').empty().append(data.totals.discountsHtml);
+                	$('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.totals.discountsHtml);
                     updateCartTotals(data);
                     updateApproachingDiscounts(data.approachingDiscounts);
                     validateBasket(data);
@@ -660,6 +714,7 @@ module.exports = function () {
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
                 validateBasket(data);
                 $('.coupon-price-adjustment').spinner().stop();
+                setMiniCartProductSummaryHeight();
             },
             error: function (err) {
                 if (err.responseJSON.redirectUrl) {
@@ -668,6 +723,7 @@ module.exports = function () {
                     createErrorNotification(err.responseJSON.errorMessage);
                     $('.coupon-price-adjustment').spinner().stop();
                 }
+                setMiniCartProductSummaryHeight();
             }
         });
     });

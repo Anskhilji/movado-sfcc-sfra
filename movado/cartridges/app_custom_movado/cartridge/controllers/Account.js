@@ -7,7 +7,64 @@ var customAccountHelper = require('*/cartridge/scripts/helpers/customAccountHelp
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
+var Resource = require('dw/web/Resource');
+var cache = require('*/cartridge/scripts/middleware/cache');
 var Transaction = require('dw/system/Transaction');
+ 
+server.get('MostRecentOrder', server.middleware.https, cache.applyInventorySensitiveCache, userLoggedIn.validateLoggedIn, function (req, res, next) {
+
+    // Customer Email
+    var emailAddress = req.currentCustomer.profile.email;
+    var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+
+    // Retrieve most recent order details
+    var orderResult = SalesforceModel.getOrderRecentByCustomerEmail({
+        emailAddress: emailAddress,
+        salesChannel: Site.getCurrent().getID()
+    });
+
+    var firstOrder;
+    if (orderResult.object.orders && orderResult.object.orders.length > 0) {
+        var ProductImageDIS = require('*/cartridge/scripts/helpers/ProductImageDIS');
+        var formatCurrency = require('*/cartridge/scripts/util/formatting').formatCurrency;
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        firstOrder = orderResult.object.orders[0];
+
+		// Currency Format
+        if (firstOrder.total) {
+            firstOrder.total = formatCurrency(firstOrder.total, firstOrder.currencyISO);
+        }
+
+        var product = ProductMgr.getProduct(firstOrder.productCode);
+        var firstImage = new ProductImageDIS(product, 'tile150');
+        if (firstImage) {
+            firstOrder.imageURL = firstImage.getURL();
+            firstOrder.imageAlt = firstImage.getAlt();
+            firstOrder.imageTitle = firstImage.getTitle();
+        } else {
+            firstOrder.imageURL = '';
+            firstOrder.imageTitle = '';
+            firstOrder.imageAlt = '';
+        }
+
+        if (firstOrder.status && firstOrder.status === 'Sent to SAP') {
+            firstOrder.status = Resource.msg('label.order.defaultOrderStatus', 'confirmation', null);
+        }
+    }
+
+    res.render('account/order/orderHistoryRecent', {
+        order: firstOrder,
+        accountlanding: true,
+        breadcrumbs: [
+            {
+                htmlValue: Resource.msg('global.home', 'common', null),
+                url: URLUtils.home().toString()
+            }
+        ]
+    });
+    next();
+});
 
 server.replace(
     'Show',
@@ -73,6 +130,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var registrationFormObj = null;
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+    var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -222,6 +280,21 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
+            // Custom Start: Yotpo Swell Integration 
+            if (isYotpoSwellLoyaltyEnabled) {
+                var viewData = res.getViewData();
+                if (viewData.success) {
+                    var email = registrationForm.email;
+                    var customerAPI = CustomerMgr.getCustomerByLogin(email);
+                    if (customerAPI) {
+                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                        SwellExporter.exportCustomer({
+                            customerNo: customerAPI.profile.customerNo
+                        });
+                    }
+                }
+            }
+            // Custom End: Yotpo Swell Integration 
         });
     } else {
         res.json({
@@ -239,6 +312,7 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	        var Resource = require('dw/web/Resource');
 	        var URLUtils = require('dw/web/URLUtils');
 	        var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
+	        var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -348,6 +422,17 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	                        fields: formErrors.getFormErrors(profileForm)
 	                    });
 	                }
+	             // Custom Start: Yotpo Swell Integration 
+	                if (isYotpoSwellLoyaltyEnabled) {
+	                    var viewData = res.getViewData();
+	                    if (viewData.success) {
+	                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+	                        SwellExporter.exportCustomer({
+	                            customerNo: req.currentCustomer.profile.customerNo
+	                        });
+	                    }
+	                }
+	                // Custom End: Yotpo Swell Integration 
 	            });
 	        } else {
 	            res.json({
@@ -660,5 +745,14 @@ server.post(
     next();
 }
 );
+
+server.prepend('Header', server.middleware.include, function (req, res, next) {
+    var viewData = res.getViewData();
+    viewData = {
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
+    }
+    res.setViewData(viewData);
+    next();
+});
 
 module.exports = server.exports();

@@ -3,6 +3,10 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<isinclude template="/common/googleOptimize" sf-toolkit="off" />
+<iscomment> Custom Start: Adding Google Antiflicker Optimise Script </iscomment>
+<isinclude template="/common/optimizeAntiFlickerScript" sf-toolkit="off" />
+<iscomment> Custom End </iscomment>
 <script>
 	var dataLayer = undefined;
 	var pageDataGTM = undefined;
@@ -17,6 +21,14 @@
 <meta name="description" content="${pdict.CurrentPageMetaData.description ? pdict.CurrentPageMetaData.description : Resource.msg('global.storename','common',null)}"/>
 <meta name="keywords" content="${pdict.CurrentPageMetaData.keywords ? pdict.CurrentPageMetaData.keywords : Resource.msg('global.storename','common',null)}"/>
 <link rel="stylesheet" href="${URLUtils.staticURL('/css/global.css')}" />
+
+<iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<isif condition="${isEswEnabled}" > 
+    <script defer type="text/javascript" src="${URLUtils.staticURL('/js/EswHooks.js')}"></script>
+    <link rel="stylesheet" href="${URLUtils.staticURL('/css/EswCss.css')}" />
+</isif>
+<iscomment> Custom End </iscomment>
 <isloop items="${ require('*/cartridge/scripts/assets.js').styles }" var="style">
     <link rel="stylesheet" href="${style}" />
 </isloop>
@@ -39,18 +51,18 @@
 <isif condition="${pdict.action && pdict.action ==='Home-Show'}">
 	<link rel="canonical" href="${URLUtils.https('Home-Show').abs()}" />
 	<isprint value="${pdict.content}" encoding="off"/>
-<iselseif condition="${pdict.action && pdict.action==='Product-Show'}">
-	<link rel="canonical" href="${URLUtils.https('Product-Show','pid', pdict.product.id)}"/>
-	<isif condition="${'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml!=''}">
+<iselseif condition="${pdict.action && pdict.action === 'Product-Show'}">
+	<link rel="canonical" href="${URLUtils.https('Product-Show','pid', !empty(pdict.product) && !empty(pdict.product.id) ? pdict.product.id : '')}"/>
+	<isif condition="${!empty(pdict.product) && !empty(pdict.product.raw) && !empty(pdict.product.raw.custom) && 'ProductSeoHtml' in pdict.product.raw.custom && pdict.product.raw.custom.ProductSeoHtml != ''}">
     	<isprint value="${pdict.product.raw.custom.ProductSeoHtml}" encoding="off"/>
 	</isif>
 	<isinclude template="seo/seoTags" />
-<iselseif condition="${pdict.action && pdict.action==='Search-Show' && pdict.productSearch.category }">
+<iselseif condition="${pdict.action && pdict.action === 'Search-Show' && pdict.productSearch && pdict.productSearch.category}">
 	<link rel="canonical" href="${URLUtils.https('Search-Show','cgid', pdict.productSearch.category.id)}"/>
-	<isif condition="${ pdict.productSearch.category.raw && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml!=''}">
+	<isif condition="${!empty(pdict.productSearch) && !empty(pdict.productSearch.category) && !empty(pdict.productSearch.category.raw) && 'CategorySeoHtml' in pdict.productSearch.category.raw.custom && pdict.productSearch.category.raw.custom.CategorySeoHtml != ''}">
     	<isprint value="${pdict.productSearch.category.raw.custom.CategorySeoHtml}" encoding="off"/>
 	</isif>
-<iselseif condition="${pdict.action && pdict.action==='Page-Show'}">
+<iselseif condition="${pdict.action && pdict.action === 'Page-Show'}">
 	<link rel="canonical" href="${URLUtils.https('Page-Show','cid', pdict.content.ID)}"/>
 	<isif condition="${'ContentSeoHtml' in pdict.content.raw.custom && pdict.content.raw.custom.ContentSeoHtml!=''}">
     	<isprint value="${pdict.content.raw.custom.ContentSeoHtml}" encoding="off"/>
@@ -67,4 +79,6 @@
 </iscomment>
 <isinclude template="include/yotpoheader"/>
 
-<isinclude url="${URLUtils.url('EUMData-IncludeHeader')}"/>
+<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+    <isinclude url="${URLUtils.url('EUMData-IncludeHeader')}"/>
+</isif>

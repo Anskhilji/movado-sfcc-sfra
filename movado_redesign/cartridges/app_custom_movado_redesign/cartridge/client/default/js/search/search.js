@@ -85,6 +85,26 @@ function getContent($element, $target) {
 }
 
 /**
+ * Replace URL params
+ *
+ * @param {string} url - url
+ * @param {string} paramName - paramter name to be replaced
+ * @param {string} paramValue - paramter value to be replaced
+ * @return {undefined}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(pattern) >= 0 ) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl;
+}
+
+/**
  * Update sort option URLs from Ajax response
  *
  * @param {string} response - Ajax response HTML code
@@ -290,6 +310,18 @@ module.exports = {
             e.preventDefault();
 
             $.spinner().start();
+
+            // Push Data into gtm For Sorting Rules Filters
+            var $filteredText = $(this).find(':selected').text().trim();
+            if ($filteredText !==undefined) {
+                dataLayer.push({
+                    event: 'Collection Filtering',
+                    eventCategory: 'Collection Filter',
+                    eventAction: 'Open Filter Category',
+                    eventLabel: $filteredText
+                  });
+            }
+
             $(this).trigger('search:sort', this.value);
             $.ajax({
                 url: this.value,
@@ -316,6 +348,20 @@ module.exports = {
         $('.container, .container-fluid').on('click', '.plp-show-more button, .show-more button', function (e) {
             e.stopPropagation();
             var showMoreUrl = $(this).data('url');
+
+            //push data on ga tracking
+            var $pageSize = $(this).data('page-number');
+            var $plpName = $(this).data('category-id');
+            var $counter = 1;
+            var $pageCounter = $pageSize + $counter;
+            if ($pageSize !== undefined && $plpName !== undefined) {
+                dataLayer.push({
+                    event: 'Load More Results',
+                    eventCategory: 'Load More Results - See More',
+                    eventAction: $plpName,
+                    eventLabel: $pageCounter
+                });
+            }
 
             e.preventDefault();
 
@@ -346,6 +392,41 @@ module.exports = {
         // Show more products
     	$('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
         e.stopPropagation();
+
+
+        //push data on ga tracking
+        var $Next = $('this').attr('aria-label');
+        var $Pervious = $('this').attr('aria-label');
+        var $pageSize = $(this).data('page-size');
+        var $pageNumber = $(this).data('page-number');
+
+        if ($Next !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $Next,
+                eventLabel: $pageSize
+            });
+        }
+
+        if ($Pervious !==undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $Pervious,
+                eventLabel: $pageSize
+            });
+        }
+                
+        if ($pageNumber !== undefined && $pageNumber !== undefined) {
+            dataLayer.push({
+                event: 'Pagination',
+                eventCategory: 'Load More Results - Pagination',
+                eventAction: $pageNumber,
+                eventLabel: $pageSize
+            });
+        }
+
         var showMoreUrl = $(this).data('url');
 
         e.preventDefault();
@@ -382,14 +463,34 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                //push data into datalayer for filters into gtm
+                var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+                dataLayer.push({
+                    event: 'Filter Sort',
+                    eventCategory: 'Filter & Sort',
+                    eventAction: $filterType,
+                    eventLabel: $(this).text().trim()
+                });
+
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
 
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: filtersURL
                     },
                     method: 'GET',
                     success: function (response) {
@@ -397,7 +498,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();

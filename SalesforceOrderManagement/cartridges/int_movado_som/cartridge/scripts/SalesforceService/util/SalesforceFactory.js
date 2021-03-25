@@ -6,6 +6,7 @@
 
 /* API Modules */
 var Logger = require('dw/system/Logger');
+const APIROOT = '/services/data/v49.0';
 
 // Public
 var SalesforceFactory = {
@@ -23,12 +24,18 @@ var SalesforceFactory = {
         rest: 'salesforce.rest'
     },
     ENDPOINTS: {
-        COMMERCE: '/services/data/v49.0/commerce',
-        FULFILLMENTORDER: '/services/data/v49.0/sobjects/FulfillmentOrder',
-        FULFILLMENTORDERLINEITEM: '/services/data/v49.0/sobjects/FulfillmentOrderLineItem',
-        FULFILLMENTSTATUSCHANGE: '/services/data/v49.0/sobjects/Fulfillment_Status_Change__e',
-        FULFILLMENTITEMCANCEL: '/services/data/v49.0/sobjects/Item_Cancellation__e',
-        SHIPMENT: '/services/data/v49.0/sobjects/Shipment'
+        COMMERCE: APIROOT + '/commerce',
+        ORDERSUMMARY: APIROOT + '/sobjects/OrderSummary',
+        FRAUDSTATUS: '/services/apexrest/ordersummaryupdatefraudstatus',
+        FULFILLMENTORDER: APIROOT + '/sobjects/FulfillmentOrder',
+        FULFILLMENTORDERLINEITEM: APIROOT + '/sobjects/FulfillmentOrderLineItem',
+        FULFILLMENTSTATUSCHANGE: APIROOT + '/sobjects/Fulfillment_Status_Change__e',
+        FULFILLMENTITEMCANCEL: APIROOT + '/sobjects/Item_Cancellation__e',
+        SHIPMENT: APIROOT + '/sobjects/Shipment',
+        CANCELLATIONEMAIL: '/services/apexrest/ordercancellationemail',
+        SAPORDERREFUND: '/services/apexrest/saporderrefund',
+        CUSTOMERORDERHISTORY: '/services/apexrest/orderhistory',
+        OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c'
     },
 
     /**

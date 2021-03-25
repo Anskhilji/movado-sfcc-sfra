@@ -2,8 +2,8 @@
 <div id="footer-overlay"></div>
 <iscomment> Custom End </iscomment>
 <iscomment> Custom Start: Template is changed according to the mvmt footer design and new content assest are added like mvmt-shop, join-the-mvmt and company-info.</iscomment> 
+<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
 
     <div class="banner-with-contents">
         <iscontentasset aid="footer-banner" />
@@ -26,6 +26,11 @@
                     <div class="footer-item col-sm-4 desktop-view">
                         <iscontentasset aid="join-the-mvmt" />
                     </div>
+                    <isif condition="${enableUsablenetAccessibility}">
+                        <div class=" col-md-4 hidden-md-up">
+                            <iscontentasset aid="ca-usablenet-mobile-link" />
+                        </div>
+                    </isif>
                     <div class="footer-item col-md-4 mobile-view">
                         <iscontentasset aid="footer-menu-1" />
                     </div>
@@ -52,7 +57,8 @@
                     </div>
                 </div>
                 <iscomment> Custom Start: Adding ESW Logic </iscomment>
-                <isif condition="${isEswEnabled}" > 
+                <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
+                <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableFooterBar()}" >
                     <isinclude url="${URLUtils.url('EShopWorld-GetEswFooter', 'countryCode', 
                     !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
                 </isif>
@@ -64,6 +70,9 @@
     <div class="terms-and-conditions justify-content-center row">
         <iscontentasset aid="ca-footer-copy" />
     </div>
+    
+    <iscomment>Slot for Snackbar Popup</iscomment>
+    <isslot id="snackbar-popup-slot" description="Snackbar Popup content Slot" context="global" />
     <isif condition="${!request.httpParameterMap.get('country').value}">
         <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     </isif>

@@ -46,7 +46,6 @@
             <option optionid="OK"   label="state.us.oklahoma"       value="OK"/>
             <option optionid="OR"   label="state.us.oregon"         value="OR"/>
             <option optionid="PA"   label="state.us.pennsylvania"   value="PA"/>
-            <option optionid="PR"   label="state.us.puertorico"     value="PR"/>
             <option optionid="RI"   label="state.us.rhodeisland"    value="RI"/>
             <option optionid="SC"   label="state.us.southcarolina"  value="SC"/>
             <option optionid="SD"   label="state.us.southdakota"    value="SD"/>

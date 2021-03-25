@@ -45,6 +45,15 @@ var SalesforceModel = ({
 
         return createSalesforceCompositeResult;
     },
+    updateOrderSummaryFraudStatus: function(req) {
+        var requestData = {};
+        requestData.Status = req.status;
+
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.FRAUDSTATUS + '?ordersummarynumber=' + req.orderSummaryNumber + '&status=' + req.status,
+            requestMethod: 'GET'
+        });
+    },
     createOrderSummaryCancelRequest: function (req) {
         var requestData = {};
         requestData.changeItems = req.changeItems;
@@ -55,12 +64,9 @@ var SalesforceModel = ({
             requestData: requestData
         });
     },
-    /*
-    TODO TEST
-    */
-    publishOrderSummaryCancelItemsEvent: function (req) {
+    createESWCancelRequest: function (req) {
         var requestData = {};
-        requestData.changeItems = req.changeItems;
+        requestData.Item_Cancel_JSON__c = JSON.stringify(req);
 
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTITEMCANCEL,
@@ -92,6 +98,12 @@ var SalesforceModel = ({
             url: SalesforceFactory.ENDPOINTS.COMMERCE + '/order-management/order-summaries/' + req.orderSummaryId + '/async-actions/ensure-refunds-async',
             requestMethod: 'POST',
             requestData: requestData
+        });
+    },
+    createSAPRefundRequest: function (req) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.SAPORDERREFUND + '?transactionType=' + req.transactionType + '&eventType=' + req.eventType + '&poNumber=' + req.poNumber + '&amount=' + req.amount + '&poStatusItems=' + req.poStatusItems,
+            requestMethod: 'GET'
         });
     },
     buildCompositeFulfillmentOrderUpdateRequest: function (req) {
@@ -127,6 +139,28 @@ var SalesforceModel = ({
         };
         return requestData;
     },
+    buildCompositeFullfillmentOrderStatusUpdate: function (req) {
+        var requestData = {
+            url: SalesforceFactory.ENDPOINTS.FULFILLMENTORDER + '/' + req.fulfillmentOrderId,
+            method: 'PATCH',
+            referenceId: 'FOSTATUS' + req.fulfillmentOrderId,
+            body: {
+                Status: req.status
+            }
+        };
+        return requestData;
+    },
+    buildCompositeOrderSummaryStatusUpdate: function (req) {
+        var requestData = {
+            url: SalesforceFactory.ENDPOINTS.ORDERSUMMARY + '/' + req.orderSummaryId,
+            method: 'PATCH',
+            referenceId: 'OSSTATUS' + req.orderSummaryId,
+            body: {
+                Status: req.status
+            }
+        };
+        return requestData;
+    },
     buildCompositeInvoiceCreationRequest: function (req) {
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.COMMERCE + '/fulfillment/fulfillment-orders/' + req.fulfillmentOrderId + '/actions/create-invoice',
@@ -137,6 +171,10 @@ var SalesforceModel = ({
         return requestData;
     },
     buildCompositeShipmentCreationRequest: function (req) {
+        var description = '';
+        if (req.FulfillmentOrderLineItems && req.FulfillmentOrderLineItems.length > 0) {
+            description = JSON.stringify(req.FulfillmentOrderLineItems);
+        }
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.SHIPMENT,
             method: 'POST',
@@ -146,7 +184,32 @@ var SalesforceModel = ({
                 ShipToName: req.ShipToName,
                 TrackingNumber: req.TrackingNumber,
                 TrackingURL: req.TrackingURL || '',
-                Description: req.Description || ''
+                Description: description,
+                SAPCarrierCode__c: req.SAPCarrierCode,
+                SAPDeliveryNumber__c: req.SAPDeliveryNumber
+            }
+        };
+        return requestData;
+    },
+    buildCompositeOperationLog: function (req) {
+        var requestData = {
+            url: SalesforceFactory.ENDPOINTS.OPERATIONLOG,
+            method: 'POST',
+            referenceId: 'OPLOG-' + req.orderSummaryId,
+            body: {
+                Order_Summary__c: req.orderSummaryId,
+                Fulfillment_Order__c: req.fulfillmentOrderId,
+                Operation_Name__c: 'SAP Order Status',
+                Operation_Component__c: req.operationComponent,
+                Description__c: 'SFCC - SFTP Proxy',
+                Type__c: 'Shipment',
+                Step__c: 'Completed',
+                Status__c: 'Success',
+                Operation_Start_Time__c: req.operationStartTime,
+                Operation_End_Time__c: Date.now(),
+                Data_Input__c: req.dataInput,
+                Data_Output__c: req.dataOutput,
+                Status_Description__c: req.statusDescription || ''
             }
         };
         return requestData;
@@ -159,6 +222,39 @@ var SalesforceModel = ({
             shippingReductionFlag: req.shippingReductionFlag || true
         };
         return requestData;
+    },
+    sendOrderSummaryCancelEmail: function (req) {
+        var requestData = {
+            changeOrderIds: req.changeOrderIds
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CANCELLATIONEMAIL,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
+    },
+    getOrdersByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress,
+            salesChannel: req.salesChannel
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
+    },
+    getOrderRecentByCustomerEmail: function (req) {
+        var requestData = {
+            emailAddress: req.emailAddress,
+            salesChannel: req.salesChannel,
+            maxOrders: '1'
+        };
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.CUSTOMERORDERHISTORY,
+            requestMethod: 'POST',
+            requestData: requestData
+        });
     }
 });
 

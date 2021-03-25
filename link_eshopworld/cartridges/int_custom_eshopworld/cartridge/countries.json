@@ -466,12 +466,12 @@
 	{
 		"countryCode": "DE",
 		"name": {
-			"de_DE": "Germany",
 			"en_GB": "Germany",
-			"en_US": "Germany"
+			"en_US": "Germany",
+			"de_DE": "Germany"
 		},
 		"continent": "europe",
-		"locales": ["de_DE", "en_GB", "en_US"],
+		"locales": ["en_GB", "en_US", "de_DE"],
 		"currencyCode": "EUR",
 		"taxation": {
 			"type": "net"

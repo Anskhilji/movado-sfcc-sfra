@@ -1,0 +1,17 @@
+<isset name="enableGoogleOptimiseAntiFlicker" value="${!empty(dw.system.Site.current.preferences.custom.enableGoogleOptimiseAntiFlicker) ? dw.system.Site.current.preferences.custom.enableGoogleOptimiseAntiFlicker : false}" scope="page" />
+<isif condition="${enableGoogleOptimiseAntiFlicker}">
+    <isset name="optContainerID" value="${!empty(dw.system.Site.current.preferences.custom.optContainerID) ? dw.system.Site.current.preferences.custom.optContainerID : ''}" scope="page" />
+    <isset name="googleOptimseAntiFlickerLoadTime" value="${!empty(dw.system.Site.current.preferences.custom.googleOptimseAntiFlickerLoadTime) ? dw.system.Site.current.preferences.custom.googleOptimseAntiFlickerLoadTime : ''}" scope="page" />
+    <style>
+        .async-hide { 
+            opacity: 0 !important
+        } 
+    </style>
+    <script>
+        (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+        })(window,document.documentElement,'async-hide','dataLayer',${googleOptimseAntiFlickerLoadTime},
+        {'${optContainerID}':true});
+    </script>
+</isif>

@@ -21,6 +21,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var Site = require('dw/system/Site');
     var viewData = res.getViewData();
@@ -51,9 +52,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
     apiProductSearch.search();
     categoryTemplate = searchHelper.getCategoryTemplate(apiProductSearch);
+    var departmentCategoryName = searchCustomHelper.getPlPDepartmentCategory(apiProductSearch);
+    if (empty(departmentCategoryName)) {
+        departmentCategoryName = req.querystring.q ? stringUtils.removeSingleQuotes(req.querystring.q) : '';
+    }
+    res.setViewData({
+        departmentCategoryName: departmentCategoryName 
+    });
     var categoryTemplateReDesign = 'search/searchResults';
 
-    if (categoryTemplateReDesign && (categoryTemplate.indexOf('searchResults') > 0)) {
+    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
     }
 
@@ -243,9 +251,29 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 });
 
 server.append('UpdateGrid', function (req, res, next) {
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+
+    var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+    var marketingProductsData = [];
+    var marketingProduct;
+    var quantity = 0;
+    var marketingProductData;
+
+    if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
+        for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
+            apiProduct = ProductMgr.getProduct(res.viewData.productSearch.productIds[i].productID);
+            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProduct !== null) {
+                marketingProductsData.push(marketingProduct);
+            }
+        }
+        marketingProductData = JSON.stringify(marketingProductsData);
+    }
     res.setViewData({
-    	compareBoxEnabled: compareBoxEnabled
+        compareBoxEnabled: compareBoxEnabled,
+        marketingProductData: marketingProductData
     });
     return next();
 });

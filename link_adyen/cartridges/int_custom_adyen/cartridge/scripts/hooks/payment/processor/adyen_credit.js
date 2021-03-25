@@ -113,26 +113,6 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         session.custom.order = order;
         session.custom.paymentInstrument = paymentInstrument;
         session.custom.amount = paymentInstrument.paymentTransaction.amount;
-        var checkoutDecisionStatus = hooksHelper(
-            'app.fraud.detection.create',
-            'create',
-            orderNumber,
-            paymentInstrument,
-            require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-        if (checkoutDecisionStatus.status === 'fail') {
-        	// call hook for auth reverse using call cancelOrRefund api for safe side
-            checkoutLogger.error('(adyen_credit) -> Authorize: Going to Cancel/Refund payment since a fraud has been detected by Riskified for order with order number: ' + orderNumber + ' and going to set the error status true');
-            hooksHelper(
-                'app.riskified.paymentrefund',
-                'paymentRefund',
-                order,
-                order.getTotalGrossPrice().value,
-                true,
-                require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
-            return {
-                error: true
-            };
-        }
         order.custom.Adyen_eventCode = 'AUTHORISATION';
         if ('PspReference' in result && !empty(result.PspReference)) {
             checkoutLogger.debug('(adyen_credit) -> Authorize: Going to set the PspReference in the both paymentInstrument and order custom attributes and order number is: ' + orderNumber);
@@ -175,27 +155,8 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
         Transaction.commit();
         
-        var checkoutDecisionStatus = hooksHelper(
-                'app.fraud.detection.create',
-                'create',
-                orderNumber,
-                paymentInstrument,
-                require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-        if (checkoutDecisionStatus.status && checkoutDecisionStatus.status === 'fail') {
-        	// call hook for auth reverse using call cancelOrRefund api for safe side
-            checkoutLogger.error('(adyen_credit) -> Authorize: Going to call the hook for auth reverse using call cancelOrRefund api for order number: ' + orderNumber + ' and going to set the error status true');
-            hooksHelper(
-                'app.riskified.paymentrefund',
-                'paymentRefund',
-                order,
-                order.getTotalGrossPrice().value,
-                true,
-                require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
-            return {
-                error: true
-            };
-        }
-
+        // [MSS-1257] Removed Riskifed order creation and reversal request and move it inside AuthorizedWithForm endpoint
+        
         return {
             error: false,
             authorized: true,

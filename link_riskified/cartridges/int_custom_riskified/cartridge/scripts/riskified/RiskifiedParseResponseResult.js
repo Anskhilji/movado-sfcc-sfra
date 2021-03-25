@@ -55,20 +55,49 @@ function parseRiskifiedResponse(order) {
 					false,
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         }
-        
-        Transaction.wrap(function () {
-        	//if order status is CREATED
-        	if(order.getStatus() == Order.ORDER_STATUS_CREATED){
-            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
-        		OrderMgr.failOrder(order);  //Order must be in status CREATED
-        		order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        	}else{ //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-            	checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
-        		OrderMgr.cancelOrder(order);
-        		order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
-        	}
-        });
-        
+
+        /* Reject in OMS - Do not process to fulfillment status */
+        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+            try {
+                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                    orderSummaryNumber: order.getOrderNo(),
+                    status: 'Cancelled'
+                });
+            }
+            catch (exSOM) {
+                somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+            }
+        }
+
+        if (!Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            try {
+                Transaction.wrap(function () {
+                    //if order status is CREATED
+                    if (order.getStatus() == Order.ORDER_STATUS_CREATED){
+                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+                        // MSS-1169 Passed true as param to fix deprecated method usage
+                        OrderMgr.failOrder(order, true);  //Order must be in status CREATED
+                        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                    } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+                        checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+                        OrderMgr.cancelOrder(order);
+                        order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+                    }
+                });
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+        }
+
+        if (Site.getCurrent().preferences.custom.yotpoCartridgeEnabled) {
+            try {
+                YotpoHelper.deleteOrder(order);
+            } catch (ex) {
+                checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to delete order from Yotpo against order number: ' + order.orderNo + ' and exception is: ' + ex);
+            }
+        }
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
         	var orderObj ={
@@ -81,32 +110,45 @@ function parseRiskifiedResponse(order) {
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
-        YotpoHelper.deleteOrder(order);
         
     } else {
-        var isSwellAllowedCountry = require('*/cartridge/scripts/helpers/utilCustomHelpers').isSwellLoyaltyAllowedCountry();
-        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled && isSwellAllowedCountry) {
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
             SwellExporter.exportOrder({
                 orderNo: order.orderNo,
                 orderState: 'created'
             });
         }
-        if (!order.custom.is3DSecureOrder || order.custom.is3DSecureTransactionAlreadyCompleted) {
-            // riskifiedStatus as approved then mark as confirmed
-            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
-            if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
-                Transaction.wrap(function () {
-                    order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
-                    order.setExportStatus(Order.EXPORT_STATUS_READY);
-                });
-            }
-            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-            COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+
+        //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
+        // riskifiedStatus as approved then mark as confirmed
+        checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
+        if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
             Transaction.wrap(function () {
-                order.custom.is3DSecureTransactionAlreadyCompleted = false;
+                order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
+                order.setExportStatus(Order.EXPORT_STATUS_READY);
             });
         }
+        var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+        COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+        
+
+        /* Accept in OMS */
+        if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+            try {
+                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                var responseFraudUpdateStatus = SalesforceModel.updateOrderSummaryFraudStatus({
+                    orderSummaryNumber: order.getOrderNo(),
+                    status: 'Approved'
+                });
+                // 204 response only
+            }
+            catch (exSOM) {
+                somLog.error('RiskifiedParseResponseResult - ' + exSOM);
+            }
+        }
+
     }
 }
 

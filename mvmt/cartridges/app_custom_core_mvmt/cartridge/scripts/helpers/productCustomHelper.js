@@ -1,6 +1,6 @@
 'use strict';
 
-var baseProductCustomHelper = module.superModule;
+var movadoProductCustomHelper = module.superModule;
 var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
@@ -11,39 +11,9 @@ var productTile = require('*/cartridge/models/product/productTile');
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
-/**
- * Get explicit recommendations for product
- * @param {string} pid : The ID of Product
- * @returns {Collection} recommendationTilesList : Recommendations associated with products
- */
-function getExplicitRecommendations(pid) {
-    var apiProduct = ProductMgr.getProduct(pid);
-    var product = {};
-    var productRecommendations = apiProduct ? apiProduct.getRecommendations() : null;
-    var productTileParams = {};
-    var productType = {};
-    var recommendation;
-    var recommendationTilesList = [];
-    var productRecommendationTile = {};
-    
-    try {
-        if (productRecommendations) {
-            for (var i = 0; i < productRecommendations.length; i++) {
-                recommendation = productRecommendations[i];
-                productTileParams = { pview: 'tile', pid: recommendation.recommendedItem.ID };
-                product = Object.create(null);
-                apiProduct = ProductMgr.getProduct(recommendation.recommendedItem.ID);;
-                productType = productHelper.getProductType(apiProduct);
-                productRecommendationTile = productTile(product, apiProduct, productType, productTileParams);
-                recommendationTilesList.push(productRecommendationTile);
-            }
-        }
-    } catch (e) {
-        Logger.error('productCustomHelper: Error occured while getting explicit recommendations and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-    }
-    return recommendationTilesList;
-}
+var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 
 /**
  * It is used to read json data from site preferences for category object then json categoryID pass in the CatalogMgr method 
@@ -143,6 +113,45 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get category object of current product
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @param {Object} categories - categories json configured in site preference
+ * @returns {Object} - category object
+ */
+
+function getCategoryConfig(apiProduct, categoriesConfig) {
+    var categoryConfigFound = false;
+    var category = null;
+    var currentCategory;
+
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        category = categoriesConfig[currentCategory.ID];
+        
+        if (!empty(category)) {
+            break;
+        }
+
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory)) {
+                category = categoriesConfig[currentCategory.ID];
+                if (!empty(category)) {
+                    categoryConfigFound = true;
+                    break;
+                }
+            }
+        } //End inner while
+
+        if (categoryConfigFound) {
+            break;
+        }
+    } //End outer while
+    return category;
+}
+
+/**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
@@ -153,19 +162,15 @@ function getProductAttributes(apiProduct) {
     var pdpDetailAttributes = [];
     var pdpSpecAttributes = [];
     try {
-        var CatalogMgr = require('dw/catalog/CatalogMgr');
-        var categories = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
-        if (!empty(categories) && !empty(apiProduct)) {
-            for (var categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-                var categoryObj = categories[categoryIndex];
-                var gettingCategoryFromCatelog = !empty(categoryObj.categoryID) ? CatalogMgr.getCategory(categoryObj.categoryID) : '';
-                var categoryAssignment = !empty(gettingCategoryFromCatelog) ? apiProduct.getCategoryAssignment(gettingCategoryFromCatelog) : '';
-                if (!empty(categoryAssignment)) {
-                    category = categoryObj;
-                    break;
-                }
-            }
+        var categoriesConfig = !empty(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCustomPreferenceValue('specDetailsAttributesConfigJSON')) : '';
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
         }
+
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
+
         if (!empty(category)) {
             var attributes = category.attributes;
             if (!empty(attributes)) {
@@ -276,7 +281,7 @@ function getGtmPromotionObject (promotions) {
         try {
             for (var i = 0; i < promotions.length; i++) {
                 var promotionId = promotions[i].ID;
-                var promotionName = promotions[i].name;
+                var promotionName = stringUtils.removeSingleQuotes(promotions[i].name);
                 var promotionCreated = promotions[i].startDate;
                 var promotionPostistion = promotions[i].promotionClass;
                 var pageType = session.custom.gtmPageType;
@@ -299,66 +304,69 @@ function getGtmPromotionObject (promotions) {
 }
 
 /**
- * 
- * @param {Product Model} product
- * @returns eswPriceHTML
+ * Method use to get collection name from product's custom attribute family name`
+ * @param {Product} apiProduct
+ * @returns {String }collection name
  */
-function getESWPrice(product) {
-    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-    if (isEswEnabled && !empty(product.price)) {
-        var priceObj = product.price;
-        var price, lineItemID, lineItemUUID = null;
-        var updatedPriceObj = {};
-    
-        if (!empty(priceObj.list)) {
-            price = priceObj.list.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.list = convertedPrice;
-    
+function getCollectionName(apiProduct) {
+    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    if (empty(collectionName) && apiProduct.variant) {
+        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
+    }
+
+    return collectionName;
+}
+
+/**
+ * Method use to get Diameter name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }Diameter name
+ */
+function getCaseDiameter(apiProduct) {
+    var caseDiameterWatches = '';
+    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    var caseDiameterUnit = Constants.MM_UNIT;
+    var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
+    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    if (!empty(collectionName) && !empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
+    } else if (!empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameter + caseDiameterUnit;
+    }
+    return caseDiameterWatches;
+}
+
+/**
+ * Method use to get content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+function getPDPContentAssetHTML (apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
         }
-    
-        if (!empty(priceObj.type) && priceObj.type == 'range') {
-            var maxPrice = eswHelper.getMoneyObject(priceObj.max.sales.decimalPrice, false);
-            var minPrice = eswHelper.getMoneyObject(priceObj.min.sales.decimalPrice, false);
-            updatedPriceObj.range = {
-                maxPrice: maxPrice,
-                minPrice: minPrice
-            };
-    
-        } 
-    
-        if (!empty(priceObj.sales)) {
-            price = priceObj.sales.decimalPrice;
-            var convertedPrice = eswHelper.getMoneyObject(price, false);
-            updatedPriceObj.sales = convertedPrice;
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
         }
-    
-        var eswHtml;
-        var path = 'product/components/pricing/ajaxPricingMain.isml';
-        var template = new Template(path);
-        var result = new HashMap();
-    
-        result.put('price', product.price);
-        result.put('eswPrice', updatedPriceObj);
-        result.put('product', product);
-        eswHtml = template.render(result);
-        var eswPrice = {
-            price: updatedPriceObj,
-            html: eswHtml.text
-        }
-        return eswPrice;
-    } else {
-        return null;
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
     }
 }
 
-module.exports = {
-    getProductAttributes: getProductAttributes,
-    getExplicitRecommendations: getExplicitRecommendations,
-    getRefinementSwatches: getRefinementSwatches,
-    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
-    getPdpCollectionContentAssetID: getPdpCollectionContentAssetID,
-    getCurrentCountry: getCurrentCountry,
-    getESWPrice: getESWPrice,
-    getGtmPromotionObject: getGtmPromotionObject
-};
+movadoProductCustomHelper.getProductAttributes = getProductAttributes;
+movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
+movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
+movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
+movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
+movadoProductCustomHelper.getCollectionName = getCollectionName;
+movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
+movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
+movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+
+module.exports = movadoProductCustomHelper;

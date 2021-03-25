@@ -49,8 +49,10 @@ $('.desktop-view .feature-dropdown').hover(
 );
 
 $(window).on('resize', function () {
-    var $leftMargin = $('.desktop-view .navbar-nav').position().left;
-    $('.desktop-view .categories-dropdown').css('padding-left', $leftMargin + 'px');
+    if ($('.desktop-view .navbar-nav').length) {
+        var $leftMargin = $('.desktop-view .navbar-nav').position().left;
+        $('.desktop-view .categories-dropdown').css('padding-left', $leftMargin + 'px');
+    }
 }).resize();
 
 $('.redesign-header .desktop-view .sub-ob-dropdown').mouseenter( function () {

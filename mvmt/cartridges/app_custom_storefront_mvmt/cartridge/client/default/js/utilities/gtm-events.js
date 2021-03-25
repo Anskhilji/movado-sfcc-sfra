@@ -1,4 +1,5 @@
 var debounce = require('lodash/debounce');
+var cookieHandler = require('movado/utilities/cookieHandler');
 
 var updateDataLayer = function (string) {
     dataLayer.map(function (item, index, arr) {
@@ -34,6 +35,16 @@ var onWishlistClickEvent = function () {
         updateDataLayer('dataTrack');
         dataLayer.push(pdata);
     });
+};
+
+var getCookieSessionId = function () {
+    var cookieName = '_ga';
+    var googleAnalyticsSessionId = cookieHandler.getCookie(cookieName);
+
+    if (pageDataGTM != undefined && pageDataGTM) {
+        pageDataGTM.gaSessionID = googleAnalyticsSessionId;
+        dataLayer.push({ pageData: pageDataGTM });
+    }
 };
 
 /**
@@ -88,7 +99,7 @@ var onProductClickEvent = function () {
                             sku: val.id,
                             price: val.price,
                             category: val.category,
-                            variant: val.variantID }]
+                            variant: val.variant }]
                     }
                 }
             });
@@ -157,11 +168,12 @@ var onPDPAddProductClickEvent = function () {
                             name: addtoCartData.name,
                             id: addtoCartData.id,
                             price: addtoCartData.price,
-                            category: addtoCartData.category,
+                            category: addtoCartData.customCategory,
                             sku: addtoCartData.id,
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
                             currentCategory: addtoCartData.category,
+                            productType: addtoCartData.productType,
                             variant: addtoCartData.variant,
                             quantity: addtoCartData.quantity
                         }]
@@ -182,7 +194,7 @@ var onPDPAddProductClickEvent = function () {
                             name: addtoCartData.name,
                             id: addtoCartData.id,
                             price: addtoCartData.price,
-                            category: addtoCartData.category,
+                            category: addtoCartData.customCategory,
                             sku: addtoCartData.id,
                             variantID: addtoCartData.variantID,
                             brand: addtoCartData.brand,
@@ -218,7 +230,7 @@ var onAddtoCartClickEvent = function () {
                         name: data.name,
                         id: data.id,
                         price: data.price,
-                        category: data.category,
+                        category: data.customCategory,
                         sku: data.id,
                         variantID: data.variantID,
                         brand: data.brand,
@@ -274,7 +286,7 @@ var onLoadProductTile = function () {
                 sku: gtmTrackingData.sku,
                 variantID: gtmTrackingData.variantID,
                 brand: gtmTrackingData.brand,
-                currentCategory: gtmTrackingData.category,
+                currentCategory: gtmTrackingData.currentCategory,
                 productType: gtmTrackingData.productType });
             currency = gtmTrackingData.currency;
         }
@@ -398,20 +410,43 @@ var updateCheckoutStage = function () {
 
     $('body').on('checkOutPayment:success', function (pEvt, paymentData) {
         paymentMethod = paymentData;
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutBilling',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: {paymentMethod: paymentMethod }
+                }
+            }
+        });
     });
 
-    $('body').on('checkOutStage:success', function (evt, data) {
+    $('body').on('checkOutshippingStage:success', function (pEvt, checkoutShippingStage) {
+        updateDataLayer('checkoutOption');
+        dataLayer.push({
+            event: 'checkoutShipping',
+            ecommerce: {
+                checkout_shippingStage: {
+                    actionField: { cityStateZipCode: checkoutShippingStage.cityStateZipCode, country: checkoutShippingStage.country }
+                }
+            }
+        });
+    });
+
+    $('body').off('checkOutStage:success').on('checkOutStage:success', function (evt, data) {
         updateDataLayer('checkout');
         checkoutStage = data;
 		 switch (data) {
      case 'shipping':
              checkoutStep = ['2'];
-             pageDataGTM.pageType = 'Checkout – Shipping';
+                 pageDataGTM.pageType = 'Checkout – Shipping';
+                 dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'payment':
              checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
              onCheckoutOption(checkoutStep - 1, shippingMethod);
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'placeOrder':
              checkoutStep = ['4'];
@@ -420,6 +455,7 @@ var updateCheckoutStage = function () {
              if (paymentMethod != undefined) {
                  onCheckoutOption(checkoutStep - 1, paymentMethod);
              }
+             dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'submitted':
              checkoutStep = ['5'];
@@ -601,6 +637,7 @@ var onPageLoad = function () {
     onPromoImpressionsLoad();
     onLoadProductTile();
     onCheckoutOptionOnCart();
+    getCookieSessionId();
     $('body').trigger('gtmOnLoadEvents:fired');
 };
 

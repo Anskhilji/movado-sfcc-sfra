@@ -1,6 +1,9 @@
 <div class="primary-images">
     <div class="product-badges">
-      <isinclude template="product/components/newnessBadge"/>
+        <!-- First two conditions are for PLP and the last is applicable on PDP -->
+        <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+            <isinclude template="product/components/newnessBadge"/>
+        </isif>
     </div>
     <isscript>
       var primaryImageCarouselConfig = {

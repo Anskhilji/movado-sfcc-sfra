@@ -21,7 +21,8 @@ module.exports = function () {
             success: function (data) {
                 form.spinner().stop();
                 if (!data.success) {
-                    formValidation(form, data);
+                    $(".email-validation").addClass("border-danger");
+                    $(".auauthanicated-error").text(data.error);
                     $('form.login').trigger('login:error', data);
                 } else {
                     $('form.login').trigger('login:success', data);
@@ -32,6 +33,7 @@ module.exports = function () {
                 if (data.responseJSON.redirectUrl) {
                     window.location.href = data.responseJSON.redirectUrl;
                 } else {
+                    $(".email-validation").addClass("border-danger");
                     $('form.login').trigger('login:error', data);
                     form.spinner().stop();
                 }
@@ -97,6 +99,9 @@ module.exports = function () {
                     formValidation(form, data);
                 } else {
                     $('form.registration').trigger('registration:success', data);
+                    if (data.emailObj) { 
+                        $('body').trigger('emailSubscribe:success', data.emailObj);
+                    }
                     location.href = data.redirectUrl;
                 }
             },

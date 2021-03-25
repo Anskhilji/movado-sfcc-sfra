@@ -6,7 +6,9 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
+    </isif>
 
     <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isif condition="${!empty(sitePref.enableSmartGift)}">
@@ -58,7 +60,7 @@
                     </div>
 
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
+                    <h1 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h1>
 
                     <div class="d-block d-md-block d-sm-none">
                         <isinclude template="product/components/pidRating" />

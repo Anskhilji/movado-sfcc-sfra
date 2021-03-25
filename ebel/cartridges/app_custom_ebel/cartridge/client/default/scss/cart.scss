@@ -15,39 +15,34 @@ $negative-spacer: -0.625rem;
 }
 
 .checkout-button-wrapper {
-  width: 100%;
-  position: fixed;
+  position: static;
+  width: auto;
   bottom: 0;
   z-index: 50;
   padding-right: 0;
   padding-left: 0;
 
   @include media-breakpoint-down(xs) {
-    background-color: $grey-transparent-1;
-  }
-
-  @include media-breakpoint-up(sm) {
-    position: static;
-    width: auto;
+    padding-top: rem(13);
+    border-top: rem(1) solid $grey4;
   }
 
   .estimated-price {
     font-family: $font-medium;
     font-size: rem(16);
-    letter-spacing: rem(0.4);
+    letter-spacing: rem(2);
     line-height: rem(19);
     font-weight: 500;
-    color: $white;
+    color: $grey14;
     text-transform: uppercase;
     margin: rem(10) 0;
   }
 
   .checkout-btn {
     margin-bottom: rem(10);
+
     @include media-breakpoint-down(xs) {
-      border-color: $white;
-    color: $white;
-    background: transparent;
+      margin-bottom: rem(15);
     }
   }
 }
@@ -255,8 +250,7 @@ $negative-spacer: -0.625rem;
   line-height: rem(19);
   font-weight: 500;
   @include media-breakpoint-down(xs) {
-    padding-top: rem(13);
-    border-top: rem(1) solid $grey4;
+    padding-top: rem(5);
   }
 }
 

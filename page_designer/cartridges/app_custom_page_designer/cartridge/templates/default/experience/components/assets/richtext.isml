@@ -1,4 +1,4 @@
-<div class="richtext">
+<div class="richtext text-${pdict.alignment_mobile} text-lg-${pdict.alignment_desktop}">
     <isprint value="${pdict.richtext}" encoding="off"/>
 </div>
 

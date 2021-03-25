@@ -132,7 +132,7 @@ function updateShippingAddressFormValues(shipping) {
 
         if (countryCode && typeof countryCode === 'object') {
             $('select[name$=_country]', form).val(addressObject.countryCode.value);
-        } else {
+        } else if (addressObject.countryCode && addressObject.countryCode !== '') {
             $('select[name$=_country]', form).val(addressObject.countryCode);
         }
 
@@ -493,6 +493,7 @@ function createErrorNotification(message) {
  */
 function shippingFormResponse(defer, data) {
     var isMultiShip = $('#checkout-main').hasClass('multi-ship');
+    var $shippingFormMode = $('.shipping-form').attr('data-address-mode');
     var formSelector = isMultiShip
         ? '.multi-shipping .active form'
         : '.single-shipping form';
@@ -503,6 +504,16 @@ function shippingFormResponse(defer, data) {
             data.fieldErrors.forEach(function (error) {
                 if (Object.keys(error).length) {
                     formHelpers.loadFormErrors(formSelector, error);
+                    if ( $shippingFormMode !== 'details') {
+                        $('.shipping-form').attr('data-address-mode', 'details');
+
+                        // trigger click event to save shipping address for register users by default
+                        if ($('.data-checkout-stage').data('customer-type') === 'registered') {
+                            $('.shipping-address .saveShippingAddress').trigger('click');
+                        }
+
+                        $('.btn-show-details').click();
+                    }
                 }
                 var scrollUtil = require('../utilities/scrollUtil');
                 scrollUtil.scrollInvalidFields(formSelector, -80, 300);
@@ -529,6 +540,9 @@ function shippingFormResponse(defer, data) {
             order: data.order,
             customer: data.customer
         });
+        if (data.emailObj) {
+            $('body').trigger('emailSubscribe:success', data.emailObj);
+        }
 
         if (data.customer && data.customer.profile && data.customer.profile.email) {
             $('#email').val(data.customer.profile.email);
@@ -943,6 +957,9 @@ module.exports = {
     },
 
     updateShippingList: function () {
+        $(window).on('load',function() {
+            updateShippingMethodList($('.shipping-method-list').parents('form'));
+        });
         $('select[name$="shippingAddress_addressFields_states_stateCode"]')
             .on('change', function (e) {
                 updateShippingMethodList($(e.currentTarget.form));
@@ -1071,6 +1088,14 @@ module.exports = {
                 $(form).find('.gift-message').addClass('d-none');
                 $(form).find('.gift-message').val('');
             }
+        });
+    },
+
+    trimSpaces: function() {
+        $('.shipping-email').keyup(function() {
+            var $emailAddress = $(this).val();      
+            $emailAddress = $.trim($emailAddress);
+            $(this).val($emailAddress);
         });
     }
 };

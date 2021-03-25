@@ -8,6 +8,7 @@ var Logger = require('dw/system/Logger');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
@@ -17,7 +18,9 @@ server.get(
     server.middleware.https,
     userLoggedIn.validateLoggedIn,
     function (req, res, next) {
-        res.render('account/mvmtInsider');
+        res.render('account/mvmtInsider', {
+			isMvmtInsider: true
+		});
 
         next();
     }
@@ -38,18 +41,34 @@ server.append(
 server.append(
     'SubmitRegistration',
     function (req, res, next) {
+        var Bytes = require('dw/util/Bytes');
+        var Encoding = require('dw/crypto/Encoding');
+        var viewData = res.viewData;
         var accountLoginLocation = !empty(req.querystring) ? req.querystring.pageType : '';
         res.setViewData({
             accountLoginLocation: accountLoginLocation
         });
+        if (viewData.addToEmailList) { 
+            var userHashedEmail = Encoding.toHex(new Bytes(viewData.email, 'UTF-8'));
+            var emailObj = [];
+            emailObj.push({
+                userEmail: viewData.email,
+                userHashedEmail: userHashedEmail,
+                submitLocation: 'Create Account'
+            });
+            res.json({
+                emailObj: JSON.stringify(emailObj)
+            });
+        }
+
         next();
     }
 );
 
-server.prepend(
+server.append(
     'Login',
     server.middleware.https,
-    csrfProtection.validateRequest,
+    csrfProtection.generateToken,
     function (req, res, next) {
         var customer;
         var legacyCustomer = false;
@@ -57,16 +76,52 @@ server.prepend(
         var password = req.form.loginPassword;
         var authenticateCustomerResult;
 
-        Transaction.wrap(function () {
+
+        var customerLoginResult = Transaction.wrap(function () {
             authenticateCustomerResult = CustomerMgr.authenticateCustomer(email, password);
+            if (authenticateCustomerResult.status !== 'AUTH_OK') {
+                var errorCodes = {
+                    ERROR_CUSTOMER_DISABLED: 'error.message.login.form',
+                    ERROR_CUSTOMER_LOCKED: 'error.message.account.locked',
+                    ERROR_CUSTOMER_NOT_FOUND: 'error.message.login.form.customer.not.found',
+                    ERROR_PASSWORD_EXPIRED: 'error.message.login.form',
+                    ERROR_PASSWORD_MISMATCH: 'error.message.login.form',
+                    ERROR_UNKNOWN: 'error.message.login.form',
+                    default: 'error.message.login.form'
+                };
+
+                var errorMessageKey = errorCodes[authenticateCustomerResult.status] || errorCodes.default;
+                var errorMessage = Resource.msg(errorMessageKey, 'login', null);
+
+
+                return {
+                    error: true,
+                    errorMessage: errorMessage,
+                    status: authenticateCustomerResult.status,
+                    authenticatedCustomer: null
+                };
+            }
+
+            return {
+                error: false
+            };
         });
-        
-        if (authenticateCustomerResult.status !== 'AUTH_OK') {
+
+        if (customerLoginResult.error) {
+            res.json({
+                error: [customerLoginResult.errorMessage || Resource.msg('error.message.login.form', 'login', null)]
+            });
             return next();
-        } else {
-            customer = CustomerMgr.getCustomerByLogin(email);
-            legacyCustomer = customer.profile.custom.legacyCustomer;
-            if (legacyCustomer) {
+        }
+        
+        customer = CustomerMgr.getCustomerByLogin(email);
+        legacyCustomer = !empty(customer.profile.custom.legacyCustomer) ? customer.profile.custom.legacyCustomer : false;
+        if (legacyCustomer) {
+            if (customerLoginResult.status == 'AUTH_OK') {
+                Transaction.wrap(function () {
+                    customer.profile.custom.legacyCustomer = false;
+                });
+            } else {
                 session.custom.legecyCustomerEmail = email;
                 res.json({
                     success: true,
@@ -75,8 +130,8 @@ server.prepend(
                 this.emit('route:Complete', req, res);
                 return;
             }
-           
         }
+
         return next();
     }
 );
@@ -122,6 +177,7 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	        var URLUtils = require('dw/web/URLUtils');
             var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
             var customAccountHelper = require('*/cartridge/scripts/helpers/customAccountHelpers');
+            var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
 
 	        var formErrors = require('*/cartridge/scripts/formErrors');
 
@@ -233,6 +289,17 @@ server.replace('SaveProfile', server.middleware.https, csrfProtection.validateAj
 	                        fields: formErrors.getFormErrors(profileForm)
 	                    });
 	                }
+	             // Custom Start: Yotpo Swell Integration 
+	                if (isYotpoSwellLoyaltyEnabled) {
+	                    var viewData = res.getViewData();
+	                    if (viewData.success) {
+	                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+	                        SwellExporter.exportCustomer({
+	                            customerNo: req.currentCustomer.profile.customerNo
+	                        });
+	                    }
+	                }
+	                // Custom End: Yotpo Swell Integration 
 	            });
 	        } else {
 	            res.json({

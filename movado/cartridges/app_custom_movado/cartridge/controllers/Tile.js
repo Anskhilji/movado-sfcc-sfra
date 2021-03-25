@@ -34,10 +34,10 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     // able to handle the different product types
     try {
         product = ProductFactory.get(productTileParams);
-        productUrl = URLUtils.url('Product-Show', 'pid', product.id).relative().toString();
-        quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', product.id)
+        productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
+        quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', !empty(product) ? product.id : '')
             .relative().toString();
-        var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.id);
+        var smartGift = SmartGiftHelper.getSmartGiftCardBasket(!empty(product) ? product.id : '');
         res.setViewData(smartGift);
 
     } catch (e) {
@@ -77,7 +77,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         qvGtmObj: qvGtmObj,
         loggedIn: req.currentCustomer.raw.authenticated,
         isTopSearch: req.querystring.isTopSearch,
-        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
     };
 
     Object.keys(req.querystring).forEach(function (key) {

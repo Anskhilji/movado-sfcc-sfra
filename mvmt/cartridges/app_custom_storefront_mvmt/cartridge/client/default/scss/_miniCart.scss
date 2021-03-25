@@ -33,12 +33,17 @@
             flex-direction: column;
             width: 90%;
             max-width: 90%;
-            height: calc(100vh - 54px);
-            max-height: 100%;
+            max-height: 93.1%;
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
-            top: rem(54);
+        }
+        
+        &.afterSticky {
+            @include media-breakpoint-down(md) {
+                height: calc(100vh - 54px) !important;
+                top: rem(54) !important;
+            }
         }
 
         @include media-breakpoint-down(xs) {
@@ -142,6 +147,7 @@
 
                     .card {
                         border-bottom: none;
+                        margin-bottom: 0;
                     }
                 }
             }
@@ -200,7 +206,13 @@
                                     font-weight: 400;
                                     text-indent: rem(15);
                                     margin-right: rem(20);
-    
+                                    -moz-appearance: textfield;
+
+                                    @include media-breakpoint-down(sm) {
+                                        font-size: rem(16);
+                                        padding: 0;
+                                    }
+
                                     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
                                         -webkit-appearance: none;
                                         margin: 0;
@@ -217,6 +229,10 @@
                                 top: 50%;
                                 transform: translateY(-50%);
 
+                                @include media-breakpoint-down(md) {
+                                    right: rem(21);
+                                }
+
                                 button {
                                     width: rem(12);
                                     height: rem(10);
@@ -225,6 +241,11 @@
                                     outline: none;
                                     background-color: $grey2;
                                     color: $grey3;
+
+                                    @include media-breakpoint-down(md) {
+                                        width: rem(18);
+                                        height: rem(24);
+                                    }
 
                                     &:hover {
                                         background-color: $light-silver;
@@ -236,7 +257,11 @@
                                         top: 50%;
                                         left: 50%;
                                         transform: translate(-50%, -50%);
-                                    }   
+
+                                        @include media-breakpoint-down(md) {
+                                            width: rem(13);
+                                        }
+                                    }
                                 }
                             }
     
@@ -276,7 +301,7 @@
                             width: 65%;
                             padding-right: rem(16);
                             flex: 1;
-                            height: rem(90);
+                            min-height: rem(90);
                             overflow: hidden;
 
                             p {
@@ -420,6 +445,7 @@
             background-color: $white;
             display: block;
             box-shadow: 0px rem(-5) rem(5) rem(-5) $light-gray9;
+            z-index: 2;
 
             @include media-breakpoint-down(md) {
                 position: absolute;
@@ -439,6 +465,56 @@
                 .coupons-and-promos {
                     width: 100%;
 
+                    .redeem-rewards-promos {
+                        padding: 0;
+                    }
+                    .swell-promotion-information {
+                        margin-bottom: rem(10);
+                        margin-top: rem(10);
+
+                            .promotion-price-adjustment {
+                                margin: rem(6);
+                                box-shadow: rem(0) rem(2) rem(2) rem(0) $light-black-shadow;
+                                border-radius: rem(3);
+                                border: rem(1) solid $grey3;
+                                background-color: $white;
+                                padding: rem(10);
+                                height: rem(55);
+
+                                .promotion-adjustment {
+                                    font-size: rem(16);
+                                    letter-spacing: rem(2);
+                                    text-transform: uppercase;
+                                    font-weight: 600;
+                                }
+                            }
+
+                            .applied-promotion-discount {
+                                font-family: $font-medium;
+                                font-size: rem(12);
+                                letter-spacing: rem(1);
+                                line-height: rem(14);
+                                text-transform: uppercase;
+                                position: relative;
+                                left: rem(14);
+                                top: rem(5);
+                            }
+
+                            .swell-remove-redeem-rewards {
+                                border: none;
+                                background: transparent;
+                                padding: 0;
+                                position: relative;
+                                bottom: rem(10);
+                                font-size: rem(23);
+                                color: $black;
+                                font-weight: 600;
+                            }
+                            .redeem-discount-promotion {
+                                position: relative;
+                                top: rem(15);
+                            }
+                    }
                     .coupon-price-adjustment {
                         margin: rem(6);
                     }
@@ -597,7 +673,7 @@
                     align-items: center;
                     display: flex;
                     justify-content: space-between;
-                    padding: rem(14) rem(16);
+                    padding: rem(10) rem(16);
                 }
 
                 &-label, &-value {
@@ -733,6 +809,10 @@
                             margin: 0 rem(8) rem(8) rem(8);
                         }
 
+                        .checkout-btn {
+                            margin-bottom: rem(10);
+                        }
+
                         .apple-pay-btn {
                             font-weight: 600;
                             font-size: rem(14);
@@ -747,6 +827,67 @@
                             flex-basis: 100%;
                             height: 0;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+                    }
+                    .shipping-express-checkout {
+
+                        .shipping-express-checkout_label {
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            border-bottom: rem(1) solid $black;
+                            line-height: rem(0);
+                            margin: rem(10) rem(15) rem(10) rem(15);
+
+                            .shipping-express-checkout_span {
+                                background: $white;
+                                padding: 0 rem(10);
+                           }
+                        }
+                       
+                        .paypal-btn {
+                            flex: 1;
+                            padding-top: rem(5);
+                            padding-bottom: rem(5);
+                        }
+
+                        .shipping-paypal-btn {
+                            display: flex;
+                            position: relative;
+
+                            img {
+                                height: rem(30);
+                                width: auto;
+                            }
+
+                             @include media-breakpoint-down(sm) {
+
+                                 img {
+                                     width: auto;
+                                     height: auto;
+                                 }
+                             }
+                        }
+                       
+                        .apple-pay-cart {
+                            flex: 1;
+                            font-weight: 600;
+                            font-size: rem(14);
+                            display: block;
+                            background-color: $black;
+                            color: $white;
+                            width: -webkit-fill-available;
+                            text-align: center;
+                            line-height: 0.1em;
+                            margin: rem(3) rem(0) rem(0) rem(5);
+                            height: rem(35);
+                            padding: 0;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+
+                            .apple-pay-cart {
+                                height: rem(32);
+                            }
                         }
                     }
 
@@ -996,6 +1137,10 @@
             }
         }
     }
+}
+
+.footer-form-overlay {
+    height: 100vh;
 }
 
 .empty-mini-cart {

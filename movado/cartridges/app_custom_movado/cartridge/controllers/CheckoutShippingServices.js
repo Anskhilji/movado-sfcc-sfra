@@ -75,7 +75,7 @@ server.replace('UpdateShippingMethodsList', server.middleware.https, function (r
 
     var basketModel = new OrderModel(
         currentBasket,
-        { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+        { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket', defaultShipment: true }
     );
 
     res.json({
@@ -97,10 +97,16 @@ server.replace(
     csrfProtection.validateAjaxRequest,
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
+        var Bytes = require('dw/util/Bytes');
+        var Encoding = require('dw/crypto/Encoding');
+        var Site = require('dw/system/Site');
+        var Transaction = require('dw/system/Transaction');
         var URLUtils = require('dw/web/URLUtils');
+
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-        var Transaction = require('dw/system/Transaction');
+
+        var emailObj = [];
 
         var currentBasket = BasketMgr.getCurrentBasket();
         checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Inside SubmitShipping to submit shipping form');
@@ -161,6 +167,17 @@ server.replace(
                 }
                 if (!empty(requestParams) && !empty(requestParams.email)) {
                     sfmcApi.sendSubscriberToSFMC(requestParams);
+                    var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
+                    if (isGtmEnabled) {
+                        var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';
+                        var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
+                        emailObj.push({
+                            userEmail: userEmail,
+                            userHashedEmail: userHashedEmail,
+                            submitLocation: 'checkout'
+                        });
+                        result.emailObj = JSON.stringify(emailObj);
+                    }
                 }
             }
             
@@ -358,7 +375,7 @@ server.replace('SelectShippingMethod', server.middleware.https, function (req, r
 
         var basketModel = new OrderModel(
             currentBasket,
-            { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket' }
+            { usingMultiShipping: usingMultiShipping, countryCode: currentLocale.country, containerView: 'basket', defaultShipment: false }
         );
 
         res.json({

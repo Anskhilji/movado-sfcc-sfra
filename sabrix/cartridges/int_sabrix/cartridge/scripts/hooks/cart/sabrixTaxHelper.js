@@ -137,6 +137,7 @@ function createSabrixRequestObject(basket, svc){
   var lineUOM = Site.getCurrent().preferences.custom.sabrixLineQuantityUOM;
   var lineItemTaxDeafultTaxClassID = Site.getCurrent().preferences.custom.sabrixLineItemTaxClass;
   var shippingLineItemDefaultTaxClassID = Site.getCurrent().preferences.custom.sabrixShippingLineItemTaxClass;
+  var paidShippingTaxClassID = Site.getCurrent().preferences.custom.sabrixPaidShippingTaxClass;
   var linePointOfTransfer = Site.getCurrent().preferences.custom.sabrixLinePointOfTitleTransfer;
   var lineIsExempt = Site.getCurrent().preferences.custom.sabrixLineIsExempt;
   for (var i = 0; i < svc.orderOrBasket.allLineItems.length; i++){
@@ -145,7 +146,14 @@ function createSabrixRequestObject(basket, svc){
     var line = new svc.webReference.IndataLineType();
 
     line.setLINENUMBER(i);
-    line.setGROSSAMOUNT(lineItem.basePrice.value);
+    
+    // Custom Start: make the price conditional, added the adjustedPrice to avoid the negative tax possibility  [MSS-992]
+    if (lineItem instanceof dw.order.PriceAdjustment) {
+      line.setGROSSAMOUNT(lineItem.basePrice.value);
+    } else {
+      line.setGROSSAMOUNT(lineItem.adjustedPrice.value);
+    }
+    // Custom End
 
     if (lineItem instanceof ProductLineItem) {
       line.setQUANTITY(lineItem.quantityValue);
@@ -170,6 +178,9 @@ function createSabrixRequestObject(basket, svc){
       if (empty(taxClass)) {
         taxClass = shippingLineItemDefaultTaxClassID;
       }
+      if(lineItem.adjustedPrice.value > 0) {
+        taxClass = paidShippingTaxClassID;
+      }
       line.setPRODUCTCODE(taxClass);
     } else {
       line.setQUANTITY(lineItem.quantity); //
@@ -181,6 +192,12 @@ function createSabrixRequestObject(basket, svc){
       if (empty(taxClass)){
         taxClass = lineItemTaxDeafultTaxClassID;
       }
+      // Custom Start: Get the tax class from site preference in case of adjustment to avoid the negative tax possibility [MSS-992]
+      var priceAdjustmentTaxClass = Site.getCurrent().preferences.custom.priceAdjustmentTaxClass;
+      if (priceAdjustmentTaxClass) {
+        taxClass = priceAdjustmentTaxClass;
+      }
+      // Custom End
       line.setPRODUCTCODE(taxClass);
     }
     line.setISCREDIT(isCredit);

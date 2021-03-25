@@ -17,14 +17,51 @@ server.append('AddProduct', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
     var basketModel = new CartModel(currentBasket);
     var viewData = res.getViewData();
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var recommendedProductCardHtml = '';
+
 
     if (!viewData.error) {
 		// variables for personalization message
         var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
         var engravedMessage = req.form.EngravedMessage;
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var apiProduct;
+        var marketingProductsData = [];
+        var marketingProductData;
+
+        // Custom logic to add product recommendation
+        if (!empty(req.form.recommendationArray)) {
+            var recommendationArray = JSON.parse(req.form.recommendationArray);
+            if (recommendationArray.length > 0 ) {
+                recommendationArray.forEach(function (recommendation) {
+
+                    Transaction.wrap(function () {
+                        quantity = 1;
+                        result = cartHelper.addProductToCart(
+                                currentBasket,
+                                recommendation.pid,
+                                recommendation.quantity,
+                                [],
+                                []
+                            );
+                        if (!result.error) {
+                            cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                            basketCalculationHelpers.calculateTotals(currentBasket);
+                        }
+                    });
+                });
+            }
+        }
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var productLineItem;
+        var quantity;
         if (embossedMessage || engravedMessage) {
             customCartHelpers.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         }
@@ -37,6 +74,11 @@ server.append('AddProduct', function (req, res, next) {
 
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
             viewData.cartPageHtml = customCartHelpers.getcartPageHtml(req);
+        }
+
+        if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
@@ -55,7 +97,36 @@ server.append('AddProduct', function (req, res, next) {
                 cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)
             });
         }
+
+        while (productLineItems.hasNext()) {
+            productLineItem = productLineItems.next();
+            quantity = productLineItem.getQuantity().value;
+            apiProduct = productLineItem.getProduct();
+            marketingProductData = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProductData !== null) {
+                marketingProductsData.push(marketingProductData);
+            }
+        }
+        marketingProductsData = JSON.stringify(marketingProductsData);
+        res.setViewData({marketingProductData : marketingProductsData});
+        if (!session.custom.addToCartPerSession || empty(session.custom.addToCartPerSession)) {
+            session.custom.addToCartPerSession = true;
+            res.setViewData({addToCartPerSession : true});
+        }
         res.setViewData({viewData: viewData});
+
+        var quantityTotal;
+
+        if (currentBasket) {
+            quantityTotal = currentBasket.productQuantityTotal;
+        } else {
+            quantityTotal = 0;
+        }
+
+        res.setViewData({
+            quantityTotal: quantityTotal,
+            recommendedProductCardHtml: recommendedProductCardHtml
+        });
     }
     return next();
 });
@@ -112,11 +183,15 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+        var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var productLineItems = currentBasket.productLineItems.iterator();
+        var marketingProductsData = [];
 
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
@@ -143,13 +218,19 @@ server.append(
                 });
             }
             res.setViewData(viewData);
+            // Custom Start: Adding country switch control
+            var countrySwitch = customCartHelpers.getCountrySwitch();
+
+            if (countrySwitch && !empty(countrySwitch)) {
+                res.viewData.countrySwitch = countrySwitch;
+            }
+
         }
         // Custom End
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
         	
-
         	if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
@@ -165,13 +246,24 @@ server.append(
             });
         }
 
+        while (productLineItems.hasNext()) {
+            var productLineItem = productLineItems.next();
+            var quantity = productLineItem.getQuantity().value;
+            var apiProduct = productLineItem.getProduct();
+            marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+        }
+        marketingProductsData = JSON.stringify(marketingProductsData);
         res.setViewData({
             wishlistGTMObj: wishlistGTMObj,
-        	cartItemObj: cartItems
+            cartItemObj: cartItems,
+            marketingProductData : marketingProductsData
         });
-
-        if (req.querystring.paypalerror) {
-        	res.setViewData({ paypalerror: true });
+        var paypalerrors = aydenExpressPaypalHelper.getPaypalErrors(req.querystring);
+        if (!empty(req.querystring.paypalerror)) {
+            res.setViewData({ 
+                paypalerror: req.querystring.paypalerror,
+                paypalerrors: paypalerrors
+             });
         }
 
         res.setViewData({
@@ -314,7 +406,17 @@ server.append('MiniCartShow', function(req, res, next){
     var Site = require('dw/system/Site');
     
     var basketModel = new CartModel(currentBasket);
-
+    // Custom Start: Adding ESW country switch control
+    var isEswEnabled = !empty(Site.current.preferences.custom.eswEshopworldModuleEnabled) ? Site.current.preferences.custom.eswEshopworldModuleEnabled : false;
+    
+    if (isEswEnabled) {
+        var countrySwitch = customCartHelpers.getCountrySwitch();
+        if (countrySwitch && !empty(countrySwitch)) {
+            res.viewData.countrySwitch = countrySwitch;
+        }    
+    }
+    // Custom End
+    
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var cartAnalyticsTrackingData;
     	if(basketModel.items.length > 0) {

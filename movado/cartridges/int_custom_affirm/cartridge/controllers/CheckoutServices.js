@@ -86,6 +86,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 	  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
+	  var Site = require('dw/system/Site');
 
 	  var currentBasket = BasketMgr.getCurrentBasket();
 	  checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Inside PlaceOrder to validate the payment and order');
@@ -225,7 +226,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
     var fraudDetectionStatus = hooksHelper('app.fraud.detection', 'fraudDetection', currentBasket, require('*/cartridge/scripts/hooks/fraudDetection').fraudDetection);
     if (fraudDetectionStatus.status === 'fail') {
         checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
-    	Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        // MSS-1169 Passed true as param to fix deprecated method usage
+        Transaction.wrap(function () { OrderMgr.failOrder(order); });
 
 				// fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -266,18 +268,19 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    return next();
 	  }
 
-	// Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM doesn't support all objects for custom attributes.  Uses order ingestion functionality as of April 2020.  As it's imporoved, you may want to eliminate some of this:
-	var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-	var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-	somLog.debug('Processing Order ' + order.orderNo);
-	try {
-		Transaction.wrap(function () {
-			populateOrderJSON.populateByOrder(order);
-			populateOrderJSON.addDummyPaymentTransaction(order);
-		});
-	} catch (exSOM) {
-		somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
-	}
+      // Salesforce Order Management attributes.  Note: The Order Ingestion process that pushes orders from SFCC to SOM doesn't support all objects for custom attributes.  Uses order ingestion functionality as of April 2020.  As it's imporoved, you may want to eliminate some of this:
+	  if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        somLog.debug('Processing Order ' + order.orderNo);
+        try {
+			Transaction.wrap(function () {
+				populateOrderJSON.populateByOrder(order);
+			});
+        } catch (exSOM) {
+			somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        }
+	  }
 	  COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 	  res.json({
 	    error: false,

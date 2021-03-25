@@ -6,7 +6,9 @@
         assets.addJs('/js/profile.js');
     </isscript>
    
-    <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.mywatches', 'eum', null))}"/>
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.mywatches', 'eum', null))}"/>
+    </isif>
 
     <div class="hero container account-image">
         <isslot id="cs-watches-list" description="My Watches List" context="global" />

@@ -160,6 +160,15 @@ function updatePaymentInformation(order) {
     var $paymentSummary = $('.payment-details');
     var htmlToAppend = '';
 
+    if (order.billing.billingAddress && order.billing.billingAddress.address) {
+        var cityStateZipCode = order.billing.billingAddress.address.city + "|" + order.billing.billingAddress.address.stateCode +  "|" +  order.billing.billingAddress.address.postalCode;
+        var country = order.billing.billingAddress.address.countryCode.displayValue;
+        var checkoutShippingStage = {
+            cityStateZipCode: cityStateZipCode,
+            country: country
+        }
+        $('body').trigger('checkOutshippingStage:success', checkoutShippingStage);
+    }
     if (order.billing.payment && order.billing.payment.selectedPaymentInstruments
       && order.billing.payment.selectedPaymentInstruments.length > 0) {
         if (order.billing.payment.selectedPaymentInstruments[0].paymentMethod == 'CREDIT_CARD') {

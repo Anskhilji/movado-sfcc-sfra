@@ -15,6 +15,19 @@ function updateDom($results, selector) {
 }
 
 /**
+ * this method use to get products for GTM Product object
+ * @param {Object} response 
+ */
+
+function updateMarketingProducts(response) {
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== 'undefined') {
+        setMarketingProductsByAJAX.cartMarketingData = null;
+        setMarketingProductsByAJAX.plpMarketingData = response;
+        window.dispatchEvent(setMarketingProductsByAJAX);
+    }
+}
+
+/**
  * Keep refinement panes expanded/collapsed after Ajax refresh
  *
  * @param {Object} $results - jQuery DOM element
@@ -210,6 +223,26 @@ function updatePageURLForSortRule(href) {
 }
 
 /**
+ * Replace URL params
+ *
+ * @param {string} url - url
+ * @param {string} paramName - paramter name to be replaced
+ * @param {string} paramValue - paramter value to be replaced
+ * @return {undefined}
+ */
+function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('(\\?|\\&)('+ paramName +'=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(pattern)>=0 ) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl;
+}
+
+/**
  * Adds page start and size to page URL for show more
  *
  * @param {string} url - facet AJAX URL
@@ -385,13 +418,15 @@ module.exports = {
             data: { selectedUrl: showMoreUrl },
             method: 'GET',
             success: function (response) {
-            	$('.product-grid').html(response);
-            	updateSortOptions(response);
-            	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-            	$('body').trigger('facet:success', [gtmFacetArray]);
-            	// edit
-            	updatePageURLForPagination(showMoreUrl);
-            	// edit
+                $('.product-grid').html(response);
+                updateSortOptions(response);
+                var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                $('body').trigger('facet:success', [gtmFacetArray]);
+                // edit
+                updatePageURLForPagination(showMoreUrl);
+                // Get products for marketing data
+                var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
+                updateMarketingProducts(marketingProductsData);
                 $.spinner().stop();
                 moveFocusToTop();
             },
@@ -411,13 +446,24 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
 
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
+               
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: e.currentTarget.href + currentSelectedSortId
                     },
                     method: 'GET',
                     success: function (response) {
@@ -425,7 +471,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();
@@ -453,13 +499,24 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // Get currently selected sort option to retain sorting rules
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: e.currentTarget.href,
+                    url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href
+                        selectedUrl: filtersURL 
                     },
                     method: 'GET',
                     success: function (response) {
@@ -467,7 +524,7 @@ module.exports = {
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseMobileResults(response);
                         // edit start
-                        updatePageURLForFacets(e.currentTarget.href);
+                        updatePageURLForFacets(filtersURL);
                         // edit end
                         $.spinner().stop();
                         moveFocusToTop();

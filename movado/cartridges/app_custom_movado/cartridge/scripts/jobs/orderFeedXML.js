@@ -1071,22 +1071,22 @@ function getPromotionalTaxBreakup(priceAdj) {
 
     for (var k = 0; k < priceAdj.length; k++) {
         if (priceAdj[k].custom.sabrixCityTotal) {
-            cityTotal += priceAdj[k].custom.sabrixCityTotal;
+            cityTotal += parseInt(priceAdj[k].custom.sabrixCityTotal);
         }
         if (priceAdj[k].custom.sabrixStateTotal) {
-            stateTotal += priceAdj[k].custom.sabrixStateTotal;
+            stateTotal += parseInt(priceAdj[k].custom.sabrixStateTotal);
         }
         if (priceAdj[k].custom.sabrixDistrictTotal) {
-            districtTotal += priceAdj[k].custom.sabrixDistrictTotal;
+            districtTotal += parseInt(priceAdj[k].custom.sabrixDistrictTotal);
         }
         if (priceAdj[k].custom.sabrixAdditionalDistrictTotal) {
-            additionalDistrictTotal += priceAdj[k].custom.sabrixAdditionalDistrictTotal;
+            additionalDistrictTotal += parseInt(priceAdj[k].custom.sabrixAdditionalDistrictTotal);
         }
         if (priceAdj[k].custom.sabrixCountyTotal) {
-            countyTotal += priceAdj[k].custom.sabrixCountyTotal;
+            countyTotal += parseInt(priceAdj[k].custom.sabrixCountyTotal);
         }
         if (priceAdj[k].custom.sabrixAdditionalCityTotal) {
-            additionalCityTotal += priceAdj[k].custom.sabrixAdditionalCityTotal;
+            additionalCityTotal += parseInt(priceAdj[k].custom.sabrixAdditionalCityTotal);
         }
     }
 

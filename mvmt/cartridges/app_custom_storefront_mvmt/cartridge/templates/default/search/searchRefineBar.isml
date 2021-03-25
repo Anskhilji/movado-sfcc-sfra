@@ -113,7 +113,9 @@
     </div>
 </div>
 
-<isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+<isif condition="${pdict.productSearch.category}">
+    <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+</isif>    
 
 <div class="refine-wrapper">
     <div class="plp-filter-bar">
@@ -121,9 +123,11 @@
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
                     <div class="refinements">
-                    <iscomment> Start: Create category slot for straps </iscomment>
-                        <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-                    <iscomment> End </iscomment>
+                        <iscomment> Start: Create category slot for straps </iscomment>
+                        <isif condition="${pdict.productSearch.category}">
+                            <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+                        </isif>
+                        <iscomment> End </iscomment>
                         <isloop items="${refinements}" var="refinement">
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">

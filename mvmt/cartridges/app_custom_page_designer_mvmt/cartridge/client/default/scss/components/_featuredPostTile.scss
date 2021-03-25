@@ -435,6 +435,25 @@
 
         width: 100% ;
     }
+
+    &.left-aligned {
+
+        .article-grid-item {
+
+            &-main {
+                right: auto;
+            }
+
+            &-image {
+                margin-left: auto;
+            }
+
+            &-link:first-child {
+                display: flex;
+            }
+        }
+        
+    }
 }
 
 .post-container {
@@ -446,5 +465,91 @@
 
     .article-grid-item {
         height: 93%; 
+    }
+
+    &.grid-featured-tile {
+
+        @include media-up ($mvmt-custom-xxl) {
+            width: 66.6%;
+        }
+
+        .blog-featured-post {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+
+            .article-grid-item {
+                height: 100%;
+
+                @include media-down ($mvmt-custom-down-xxl) {
+                    height: 93%;
+                    box-shadow: 0 0 rem(27) rem(-3) rgba(0, 0, 0, .3);
+                }
+
+                &-link {
+                    height: 100%;
+
+                    @include media-down ($mvmt-custom-down-xxl) {
+                        display: block;
+                        height: auto;
+                    }
+                }
+
+                &-main {
+                    top: 25%;
+                    width: 50%;
+
+                    @include media-down ($mvmt-custom-down-xxl) {
+                        position: relative;
+                        top: 0;
+                        width: 100%;
+                        box-shadow: none;
+                        text-align: center;
+                        margin: 0;
+                    }
+                }
+
+                &-tag {
+
+                    &-wrapper {
+
+                        @include media-down ($mvmt-custom-down-xxl) {
+                            margin: 0 0 rem(40) 0;
+                            justify-content: center;    
+                        }
+                        
+                    }
+                }
+
+                &-title {
+                    
+                    @include media-down ($mvmt-custom-down-xxl) {
+                        text-size-adjust: 100%;
+                        text-align: center;
+                        color: inherit;
+                        font-family: $blog-font-primary;
+                        box-sizing: inherit;
+                        font-weight: bold;
+                        letter-spacing: rem(1.5);
+                        text-transform: uppercase;
+                        margin: 0;
+                        margin-bottom: rem(10);
+                        line-height: 1;
+                        font-size: rem(24);
+                        padding: 0 rem(25);
+                    }
+                }
+
+                &-image {
+                    height: 93%;
+                    width: 85%;
+
+                    @include media-down ($mvmt-custom-down-xxl) {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+        }
     }
 }

@@ -133,7 +133,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot) {
         currentStart
     );
 
-    if (pageSize > hitsCount) {
+    if (pageSize >= hitsCount) {
         return '';
     } else if (pageSize > DEFAULT_PAGE_SIZE) {
         nextStart = pageSize;
@@ -220,6 +220,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     	enableGridSlot = category.custom.enableGridSlot;
     }
     var searchSuggestions = productSearch.searchPhraseSuggestions;
+    // MSS-1169 Change getSearchPhraseSuggestions to hasSuggestedPhrases fix deprecated method usage
     this.isSearchSuggestionsAvailable = searchSuggestions ? searchSuggestions.hasSuggestedPhrases() : false;
 
     if (this.isSearchSuggestionsAvailable) {

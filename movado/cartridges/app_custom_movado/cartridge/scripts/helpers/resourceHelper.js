@@ -24,13 +24,16 @@ function getResources(pageContext) {
         ADYEN_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.adyen', 'checkout', null),
         EMAIL_POPUP_SERVER_ERROR_MSG: Resource.msg('email.popUp.server.error', 'common', null),
         COOKIE_EXPIRY_TIME_WELCOME_MAT: Site.getCurrent().getCustomPreferenceValue('cookieExpiryTimeInDays'),
+        AFFIRM_PAYMENT_METHOD_STATUS: Site.getCurrent().getCustomPreferenceValue('AffirmOnline'),
         CURRENT_SITE_ID : Site.getCurrent().getID(),
         OBUK_SITE_ID: Resource.msg('info.obuk.site.id', 'common', null),
         OBUS_SITE_ID: Resource.msg('info.obus.site.id', 'common', null),
         INVALID_EMAIL_ERROR: Resource.msg('newsletter.email.error.invalid', 'common', null),
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),
-        LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null)
+        LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
+        CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
+        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false
     };
     return resources;
 }

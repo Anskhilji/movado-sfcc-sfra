@@ -1,7 +1,10 @@
 <isscript> 
 	var merchantDomainAddressOnRiskified : String = dw.system.Site.getCurrent().preferences.custom.merchantDomainAddressOnRiskified; 
 </isscript>
-<script type="text/javascript">
+<isset name="isOneTrustCookieEnabled" value="${!empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false}" scope="page"/>
+<isset name="Constants" value="${require('*/cartridge/scripts/helpers/utils/Constants')}" scope="page" />
+<iscomment> Changed type and add class if one trust cookie is enabled </iscomment>
+<script type="${isOneTrustCookieEnabled ? 'text/plain' : 'text/javascript'}" class="${isOneTrustCookieEnabled ? Constants.ONETRUST_STRICTLY_NECESSARY_COOKIES_CLASS : ''}">
 	//<![CDATA[
 	(function() {
 		function riskifiedBeaconLoad() {

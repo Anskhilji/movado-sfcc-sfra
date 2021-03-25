@@ -6,8 +6,10 @@ var ATTRIBUTE_NAME = 'color';
 var Logger = require('dw/system/Logger');
 var URLUtils = require('dw/web/URLUtils');
 
+var Constants = require('*/cartridge/scripts/util/Constants');
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 
@@ -21,9 +23,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
-    var eswPrice = productCustomHelper.getESWPrice(product);
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
+    var variationParam = '';
+    var variationParamValue = '';
+    var otherVariantValues = '';
     
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -31,33 +37,75 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             attributes: '*',
             endPoint: 'Variation'
         });
-        
+
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
-                if (product.variationsAttributes[key].id == ATTRIBUTE_NAME) {
+                if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME) {
+                    defaultVariant = apiProduct.variationModel.defaultVariant;
+                    otherVariantValues = product.variationsAttributes[key].values;
+                    if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
+                        Object.keys(otherVariantValues).forEach(function (value) {
+                            if (defaultVariant.custom[product.variationsAttributes[key].id] === otherVariantValues[value].id) {
+                                variationParam = product.variationsAttributes[key].id;
+                                variationParamValue = otherVariantValues[value].id;
+                            }
+                        });
+                    } else {
+                        variationParam = product.variationsAttributes[key].id;
+                        variationParamValue = product.variationsAttributes[key].values[0].id;
+                    }
+                }
+
+                if (product.variationsAttributes[key].id === ATTRIBUTE_NAME) {
                     colorVariations = product.variationsAttributes[key];
-                    if (!empty(colorVariations) && !empty(colorVariations.values)) {
-                        Object.keys(colorVariations.values).forEach(function (key) {
-                            if (colorVariations.values[key]) {
+                }
+
+                if (!empty(colorVariations) && !empty(colorVariations.values)) {
+                    Object.keys(colorVariations.values).forEach(function (key) {
+                        if (colorVariations.values[key]) {
+                            colorVariations.values[key].swatchesURL = URLUtils.url(
+                                    'Product-Variation',
+                                    'dwvar_' + product.id + '_color',
+                                    colorVariations.values[key].id,
+                                    'pid',
+                                    product.id,
+                                    'quantity',
+                                    '1'
+                                    ).toString();
+
+                            colorVariations.values[key].pdpURL = URLUtils.url(
+                                    'Product-Show',
+                                    'pid',
+                                    product.id,
+                                    'dwvar_' + product.id + '_color',
+                                    colorVariations.values[key].id
+                                    ).toString();
+
+                            if (!empty(variationParam) && !empty(variationParamValue)) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
                                         'Product-Variation',
                                         'dwvar_' + product.id + '_color',
                                         colorVariations.values[key].id,
+                                        'dwvar_' + product.id + '_' + variationParam,
+                                        variationParamValue,
                                         'pid',
                                         product.id,
                                         'quantity',
                                         '1'
                                         ).toString();
+
                                 colorVariations.values[key].pdpURL = URLUtils.url(
                                         'Product-Show',
                                         'pid',
                                         product.id,
                                         'dwvar_' + product.id + '_color',
-                                        colorVariations.values[key].id
+                                        colorVariations.values[key].id,
+                                        'dwvar_' + product.id + '_' + variationParam,
+                                        variationParamValue
                                         ).toString();
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             });
         }
@@ -112,10 +160,35 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.getAvailabilityModel().availabilityStatus
                 });
+
+                Object.defineProperty(product, 'defaultVariantCollectionName', {
+                    enumerable: true,
+                    value: !empty(defaultVariant.custom.familyName) ? defaultVariant.custom.familyName[0] : ''
+                });
+                
+                var variant = apiProduct.variationModel.defaultVariant;
+                var variantCaseDiameter = '';
+                var caseDiameter = !empty(variant.custom.caseDiameter) ? variant.custom.caseDiameter : '';
+                var familyName = !empty(variant.custom.familyName) ? variant.custom.familyName[0] : '';
+                if (!empty(familyName) && !empty(caseDiameter)) {
+                    variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + caseDiameter + Constants.MM_UNIT;
+                } else if (!empty(caseDiameter)) {
+                    variantCaseDiameter = caseDiameter + Constants.MM_UNIT;
+                }
+                
+                Object.defineProperty(product, 'defaultVariantCaseDiameter', {
+                    enumerable: true,
+                    value: !empty(variantCaseDiameter) ? variantCaseDiameter : ''
+                });
                 
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
                     value: priceFactory.getPrice(apiProduct.variationModel.defaultVariant, null, false, options.promotions, options.optionModel)
+                });
+
+                Object.defineProperty(product, 'defaultVariantBadges', {
+                    enumerable: true,
+                    value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
             }
             
@@ -132,12 +205,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         
     }
 
-    if (!empty(eswPrice)) {
-        Object.defineProperty(product, 'eswPrice', {
-            enumerable: true,
-            value: eswPrice
-        });
-    }
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     if (!empty(promotionObj)) {
         Object.defineProperty(product, 'promotionObj', {
@@ -145,6 +216,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: promotionObj
         });
     } 
+
+    if (!empty(caseDiameter)) {
+        Object.defineProperty(product, 'caseDiameter', {
+            enumerable: true,
+            value: caseDiameter
+        });
+    }
     
     return product;
 };

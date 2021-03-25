@@ -4,6 +4,7 @@ var debounce = require('lodash/debounce');
 var endpoint = $('.suggestions-wrapper').data('url');
 var minChars = $('input.search-field').data('queryThreshold');
 var $suggestionsSlots = $('.search-recomendation');
+var currentCount;
 
 /**
  * Retrieves Suggestions element relative to scope
@@ -127,25 +128,26 @@ function processResponse(response) {
  *
  * @param {Object} scope - Search field DOM element
  */
+
 function getSuggestions(scope) {
     if ($(scope).val().length >= minChars) {
+        currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
-        $(scope).prop("disabled", true);
+        $.spinner().stop();
         $.spinner().start();
         $.ajax({
             context: scope,
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
-            success: function() {
-                $(scope).prop("disabled", false).focus();
-                $('body').trigger('siteSearch:success', $(scope).val());
+            success: function (data) {
+                var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
+                if (resposeCount == currentCount) { 
+                    $('body').trigger('siteSearch:success', $(scope).val());
+                }
             },
 
-            error: function () {
-                $(scope).prop("disabled", true);
-                $.spinner().stop();
-            }
+            error: function () { $.spinner().stop();}
         });
     } else {
         clearModals();

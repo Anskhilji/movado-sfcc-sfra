@@ -23,7 +23,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
-    var eswPrice = productCustomHelper.getESWPrice(product);
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
+
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -95,10 +98,23 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(eswPrice)) {
-        Object.defineProperty(product, 'eswPrice', {
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
+
+
+    if (pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
             enumerable: true,
-            value: eswPrice
+            value: pdpContentAssetHTML
+        });
+    }
+
+    if (!empty(caseDiameter)) {
+        Object.defineProperty(product, 'caseDiameter', {
+        enumerable: true,
+        value: caseDiameter
         });
     }
 

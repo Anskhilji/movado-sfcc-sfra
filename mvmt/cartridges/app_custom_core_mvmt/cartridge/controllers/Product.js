@@ -3,9 +3,14 @@
 var server = require('server');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+
 var page = module.superModule;
+
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ProductFactory = require('*/cartridge/scripts/factories/product');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
@@ -21,33 +26,45 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var product = viewData.product;
     var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
-    var explicitRecommendations = [];
     var relativeURL;
-    var defaultVariant = apiProduct.variationModel.defaultVariant;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
 
-    if (defaultVariant && apiProduct.master && defaultVariant.getAvailabilityModel().inStock) {
-        var pid = apiProduct.variationModel.defaultVariant.getID();
-        params.pid = pid;
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = ProductMgr.getProduct(pid);
+        }
+    
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+        
+        viewData.product =  showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
     }
 
-    var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
-    
+
     /* get recommendedProducts for product*/
     if (product) {
-        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.id);
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
-
     }
 
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
     viewData = {
-        explicitRecommendations: explicitRecommendations,
         relativeURL: relativeURL,
-        product: showProductPageHelperResult.product,
-        addToCartUrl: showProductPageHelperResult.addToCartUrl,
-        resources: showProductPageHelperResult.resources,
-        breadcrumbs: showProductPageHelperResult.breadcrumbs
+        caseDiameter: caseDiameter
     };
 
+    var marketingProductsData = [];
+    var quantity = 0;
+    marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
+    viewData.marketingProductData = JSON.stringify(marketingProductsData);
+
+    var display = {
+        plpTile : false
+    }
+    viewData.display = display;
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);
@@ -62,18 +79,24 @@ server.prepend('Variation', function (req, res, next) {
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
     var isStrapAjax = req.querystring.isStrapAjax;
+
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
     
     /* get recommendedProducts for product*/
     if (pid) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
-    
+
     attributeContext = {
         explicitRecommendations: explicitRecommendations,
-        isStrapAjax: isStrapAjax
+        isStrapAjax: isStrapAjax,
+        strapGuideText: strapGuideText
     };
+
     attributeTemplateLinked = 'product/components/recommendedProducts';
-    
+
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,
             attributeTemplateLinked

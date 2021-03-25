@@ -1,3 +1,8 @@
+$comet: #6A6C77;
+$comet2: #6B6D76;
+$dark-gray: #333;
+$deep-orange-yellow: #f7dd52;
+$grey-chateau: #a2a09f;
 $gunpowder: #2b2e38;
 $gray1: #808080;
 $gray7: #777777;
@@ -63,6 +68,7 @@ $white-smoke2: #efefef;
 $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
 $transparent-black: rgba(0, 0, 0, 0.4);
+$light-black-shadow:  rgba(0, 0, 0, 0.24);
 
 $white: #ffffff;
 $dark-gray: #222222;
@@ -70,7 +76,6 @@ $dark-gray1: #212121;
 $black: #000000;
 $cyan-blue: #f7f8f9;
 $cyan-blue1: #ced4da;
-$dark-orange1: #231103;
 $red: #a40000;
 $green: #53c563;
 $gray94: #f0f0f0 !default;
@@ -79,6 +84,7 @@ $gray-x11: #bcbec0 !default;
 $regent-grey: #787A8A !default;
 $gray90: #E5E5E5 !default;
 $gray91: #e8e8e8 !default;
+$gray93: #ededed;
 $gull-gray-light: rgba(160, 169, 186, 0.1) !default;
 $parrot-green: #99CB7F !default;
 $gray-green: rgba(102,152,76,0.1) !default;
@@ -96,6 +102,8 @@ $gray36: #5c5c5c;
 $snow: #fcfcfc;
 $night-rider: #2C2C2C;
 $alice-dark: #f9f9f9;
+$emerald: #4BC760;
+$nobel: #B7B7B7;
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;
@@ -148,6 +156,7 @@ $grid-breakpoints: (
     md: 769px,
     lg: 992px,
     xl: 1280px,
+    xl-custom: 1440px,
     xxl: 1920px
 ) !default;
 

@@ -273,6 +273,16 @@
                     font-weight: 400;
                     font-style: normal;
                 }
+
+                .cart-message {
+                    padding: 0;
+
+                    p {
+                        font-family: $font-book;
+                        font-size: rem(14);
+                        text-transform: none;
+                    }
+                }
             }
         }
 

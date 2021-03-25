@@ -1,0 +1,89 @@
+.dreamers {
+    position: relative;
+    
+    @include media-up ($mvmt-custom-md1) {
+        margin-bottom: rem(20);
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    &-background {
+        display: none;
+
+        @include media-up ($mvmt-custom-md1) {
+            display: block;
+            margin-left: rem(310);
+        }
+
+        img {
+            @include media-up ($mvmt-custom-md1) {
+                height: rem(1330);
+            }
+        }
+    }
+
+    &-main {
+        position: relative;
+        z-index: 0;
+        top: 0;
+        padding: rem(20);
+        background-color: $honeyDew;
+
+        @include media-up ($mvmt-custom-md1) {
+            width: 54.72%;
+            position: absolute;
+            z-index: rem(2);
+            top: rem(130);
+            max-width: rem(670);
+            padding-left: rem(92);
+            padding-right: rem(92);
+            padding-bottom: rem(65);
+            background-color: $white;
+            box-shadow: 0 0 rem(27) rem(-3) rgba(0, 0, 0, .3);
+        }
+
+        &-image {
+            width: 100%;
+
+            @include media-up ($mvmt-custom-md1) {
+                margin-top: rem(-100);
+            }
+
+            img {
+                width: 100%; 
+            }
+        }
+    }
+}
+
+.lifeStyle {
+
+    &-row {
+        background-color: $honeyDew;
+
+        @include media-up ($mvmt-custom-md1) {
+            background-color: transparent;
+            margin-right: 3%;
+            margin-left: 3%;
+            justify-content: space-between;
+        }
+    }
+
+    &-image {
+        width: 100%;
+        margin-top: rem(30);
+
+        @include media-up ($mvmt-custom-md1) {
+            width: 30%;
+        }
+    }
+
+    &-background {
+
+        @include media-up ($mvmt-custom-md1) {
+            display: none;
+        }
+    }
+}

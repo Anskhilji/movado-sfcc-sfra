@@ -7,6 +7,7 @@ var FileHelper = require('*/cartridge/scripts/file/FileHelper');
 var XMLStreamReader = require('dw/io/XMLStreamReader');
 var XMLStreamConstants = require('dw/io/XMLStreamConstants');
 var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+var StringUtils = require('dw/util/StringUtils');
 var JXON = require('*/cartridge/scripts/util/JXON');
 var Logger = require('dw/system/Logger').getLogger('SOM', 'parseOrderStatus');
 var _ = require('*/cartridge/scripts/libs/underscore');
@@ -14,6 +15,7 @@ var _ = require('*/cartridge/scripts/libs/underscore');
 var OrderStatusCapture = require('*/cartridge/scripts/jobs/orderStatusCapture');
 var OrderStatusVoid = require('*/cartridge/scripts/jobs/orderStatusVoid');
 var OrderStatusRefund = require('*/cartridge/scripts/jobs/orderStatusRefund');
+var OrderStatusNotification = require('*/cartridge/scripts/jobs/orderStatusNotification');
 
 /**
  * parseOrderStatus Grabs an order status file and parses it to be
@@ -25,7 +27,6 @@ function parseOrderStatus(args) {
     Logger.debug('Starting');
 
     var status = new Status();
-    var SAPOrderStatusJSON = [];
     var filesToParse;
     var filesWithError = [];
 
@@ -47,42 +48,38 @@ function parseOrderStatus(args) {
 
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         var file = new File(filesToParse[fileCount]);
+        Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
         var fileReader = new FileReader(file);
         var xmlReader = new XMLStreamReader(fileReader);
 
+        var parseEvent;
+        var tempLocalName = '';
+        var XMLToParse;
+
         while (xmlReader.hasNext()) {
-            var parseEvent = xmlReader.next();
+            parseEvent = xmlReader.next();
             if (parseEvent === XMLStreamConstants.START_ELEMENT) {
-                var XMLToParse = xmlReader.readXMLObject();
-                SAPOrderStatusJSON = JXON.toJS(XMLToParse);
+                tempLocalName = StringUtils.trim(xmlReader.getLocalName());
 
-                if (!SAPOrderStatusJSON) {
-                    status.addItem(new StatusItem(Status.ERROR, 'FILE', 'parseOrderStatus Failed - to parse order status XML', null));
-                    return status;
-                }
+                if (tempLocalName === 'EcommerceOrderStatus') {
+                    XMLToParse = xmlReader.readXMLObject();
+                    var nodeStatus = JXON.toJS(XMLToParse);
 
-                if (Object.hasOwnProperty.call(SAPOrderStatusJSON, 'root') && Object.hasOwnProperty.call(SAPOrderStatusJSON.root, 'EcommerceOrderStatus')) {
-                    /**
-                     * If there is only one element in the EcommerceOrderStatus object, the JSON
-                     * parser does not return an array, so we manually convert
-                     */
-                    if (!Array.isArray(SAPOrderStatusJSON.root.EcommerceOrderStatus)) {
-                        SAPOrderStatusJSON.root.EcommerceOrderStatus = [SAPOrderStatusJSON.root.EcommerceOrderStatus];
+                    if (!nodeStatus || !nodeStatus.EcommerceOrderStatus || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusHeader || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem) {
+                        Logger.error('parseOrderStatus - bad or missing node encountered - ' + JSON.stringify(nodeStatus));
                     }
-                    SAPOrderStatusJSON.root.EcommerceOrderStatus.forEach(function (SAPOrderStatus) {
-                        if (!Array.isArray(SAPOrderStatus.EcommerceOrderStatusItem)) {
-                            SAPOrderStatus.EcommerceOrderStatusItem = [SAPOrderStatus.EcommerceOrderStatusItem];
-                        }
 
-                        // Each order
-                        var res = processStatusOrder(SAPOrderStatus);
-
-                        if (res.error) {
-                            status.addItem(new StatusItem(Status.ERROR, 'ORDER_ERROR', res.message));
-                        }
-                    });
+                    if (!Array.isArray(nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem)) {
+                        nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem = [nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem];
+                    }
+                    var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
+                    if (resultOrderStatus.error) {
+                        status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
+                    }
                 } else {
-                    status.addItem(new StatusItem(Status.ERROR, 'ERROR', 'Unexpected Contents. File: ' + filePath));
+                    if (tempLocalName !== 'root') {
+                        Logger.error('parseOrderStatus - encountered unknown node - ' + tempLocalName);
+                    }
                 }
             }
         }
@@ -109,11 +106,14 @@ function parseOrderStatus(args) {
 function processStatusOrder(SAPOrderStatus) {
     // Retrieve SOM Fulfillment Order
     //
+
+    Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+
     var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
         method: 'GET',
         url: '/services/data/v49.0/query/?q=' +
             'SELECT+' +
-            'Id,Status,OrderSummary.Id,FulfilledToName,' +
+            'Id,Status,OrderSummary.Id,OrderSummary.eswOrderNo__c,FulfilledToName,' +
             '(SELECT+' +
             'Id,Type,Quantity,' +
             'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
@@ -150,8 +150,39 @@ function processStatusOrder(SAPOrderStatus) {
             // Process refunds
             return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
 
+        case 'REJECTION':
+            // Notification for refunds
+            return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+
+        case 'CANCELLATION':
+            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                case 'RETURN':
+                    // Notification for refunds
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                default:
+                    Logger.error('Unknown EventType for CANCELLATION TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType);
+                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType CANCELLATION: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+            }
+
+        case 'UPDATE':
+            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                case 'FREE':
+                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                case 'BILLING':
+                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                case 'CANCELLATION':
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                case 'RETURN':
+                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                case 'UNDELIVERABLE':
+                    return OrderStatusNotification.processStatusNotification(SAPOrderStatus, fulfillmentOrder);
+                default:
+                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType UPDATE: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+            }
+
         default:
-            return new Status(Status.ERROR, 'ERROR', 'unknown TransactionType: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+            Logger.error('Unknown TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType);
+            break;
 
     }
     return new Status(Status.OK);
