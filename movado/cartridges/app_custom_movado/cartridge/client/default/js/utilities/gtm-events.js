@@ -37,7 +37,7 @@ var onWishlistClickEvent = function () {
 };
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-promotion-view', function (evt) {
+    $('body').on('click', '.gtm-promotion-view, .gtm-event', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = [];

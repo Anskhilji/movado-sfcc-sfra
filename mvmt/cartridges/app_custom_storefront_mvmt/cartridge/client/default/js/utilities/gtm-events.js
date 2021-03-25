@@ -52,13 +52,13 @@ var getCookieSessionId = function () {
  **/
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-promotion-view', function (evt) {
+    $('body').on('click', '.gtm-promotion-view, .gtm-event', function (evt) {
         var $currentTarget = $(this);
         updateDataLayer('promoClick');
         var pageType = $currentTarget.data('page-type');
         var productPromoTracking = $currentTarget.data('gtm-product-promo');
         var campaginPromoTracking = $currentTarget.data('gtm-tracking');
-        if (productPromoTrcking !== undefined && productPromoTrcking !=='') {
+        if (productPromoTracking !== undefined && productPromoTracking !=='') {
             dataLayer.push({
                 event: 'promoClick',
                 pageType: pageType,
