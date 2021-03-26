@@ -426,7 +426,7 @@ module.exports = {
             });
         });
 
-        $(document).mouseup(function (e) {
+        $(document).on('mouseup', function (e) {
             var container = $('.sort-dropdown-list');
 
             // if the target of the click isn't the container nor a descendant of the container
@@ -619,6 +619,18 @@ module.exports = {
             $('.plp-grid-overlay').removeClass('active');
         });
 
+        
+        $(document).on('mouseup', function (e) {
+            var filterContainer = $('.plp-filter-desktop');
+
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!filterContainer.is(e.target) && filterContainer.has(e.target).length === 0) {
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
+            }
+        });
+
         $(window).scroll(function () {
             var scroll = $(window).scrollTop();
 
@@ -640,6 +652,9 @@ module.exports = {
             e.preventDefault();
             $(this).find('.sort-dropdown-toggle, .sort-dropdown-list').toggleClass('active');
             $(this).find('.dropdown-menu').slideToggle('fast');
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
         });
     },
     // Custom End

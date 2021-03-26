@@ -350,6 +350,7 @@
                     padding: rem(8) rem(20);
                     display: block;
                     font-family: $font-gill-std-bold;
+                    font-weight: 600;
                     font-size: rem(15);
                     color: $black;
                     line-height: rem(21);
@@ -369,6 +370,7 @@
                 &-toggle {
                     font-family: $font-gill-std-bold;
                     font-size: rem(15);
+                    font-weight: 600;
                     color: $gray20;
                     letter-spacing: normal;
                     text-transform: capitalize;
@@ -414,7 +416,7 @@
                     li {
                         a {
                             display: block;
-                            min-width: rem(124);
+                            min-width: rem(144);
                             height: rem(36);
                             padding: 0 rem(10);
                             border: rem(1) solid rgba(0, 0, 0, 0.26);
@@ -422,7 +424,7 @@
                             line-height: rem(36);
                             font-family: $font-gill-std-normal;
                             font-size: rem(14);
-                            font-weight: 500;
+                            font-weight: 400;
                             text-transform: capitalize;
                             color: $gray20;
                             transition: 0.3s all;
@@ -458,6 +460,7 @@
                 .category-name {
                     font-family: $font-gill-std-bold;
                     font-size: rem(15);
+                    font-weight: 600;
                     color: $gray20;
                     letter-spacing: normal;
                     text-transform: capitalize;
@@ -496,7 +499,7 @@
         &-btn {
             font-family: $font-gill-std-normal;
             font-size: rem(15);
-            font-weight: 500;
+            font-weight: 400;
             line-height: rem(20);
             letter-spacing: normal;
             text-transform: capitalize;
@@ -545,7 +548,7 @@
         }
 
         &-label {
-            font-family: $font-gill-std-normal;
+            font-family: $font-gill-std-semibold;
             font-size: rem(15);
             font-weight: 600;
             line-height: rem(20);
@@ -553,7 +556,7 @@
             color: $dark-gray;
             margin-right: rem(10);
             padding: rem(20) 0;
-            opacity: 64%;
+            opacity: 0.64;
         }
 
         &-reset {
@@ -629,6 +632,7 @@
 
                     .card-header {
                         font-family: $font-gill-std-normal;
+                        font-weight: 400;
                         font-size: rem(14);
                         line-height: rem(16);
                         color: $eclipse;
@@ -676,7 +680,7 @@
                                 line-height: rem(35);
                                 font-family: $font-gill-std-normal;
                                 font-size: rem(12);
-                                font-weight: 500;
+                                font-weight: 400;
                                 text-transform: capitalize;
                                 color: $gray20;
                                 transition: 0.3s all;
@@ -684,7 +688,7 @@
                                 &:hover,
                                 &.selected {
                                     border-color: $black;
-                                    background: rgba(123, 123, 123, 0.13);
+                                    background: $pink-snow;
                                     font-weight: 600;
                                     text-decoration: none;
                                     span {
@@ -772,6 +776,7 @@
                     .category-name {
                         font-family: $font-gill-std-bold;
                         font-size: rem(12);
+                        font-weight: 600;
                         color: $gray20;
                         letter-spacing: normal;
                         text-transform: capitalize;
@@ -800,7 +805,7 @@
                         padding: 0;
                         padding-right: rem(25);
                         background: url("../images/filter-icon.svg") right center no-repeat;
-                        font-family: $font-gill-std-normal;
+                        font-family: $font-gill-std-semibold;
                         font-size: rem(12);
                         font-weight: 600;
                         color: $gray20;
@@ -817,7 +822,7 @@
                 width: 100%;
                 border: rem(1) solid $gray90;
                 border-radius: rem(5);
-                font-family: $font-gill-std-normal;
+                font-family: $font-gill-std-semibold;
                 font-size: rem(12);
                 line-height: rem(16);
                 font-weight: 600;
@@ -856,7 +861,7 @@
                 }
 
                 span {
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(12);
                     line-height: rem(16);
                     font-weight: 600;
@@ -874,7 +879,7 @@
                 a {
                     display: block;
                     padding: rem(10) rem(20);
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(12);
                     line-height: rem(16);
                     font-weight: 600;
@@ -936,7 +941,7 @@
             }
 
             &-outer {
-                max-width: rem(860);
+                max-width: rem(830);
                 margin: 0 auto;
                 display: flex;
                 flex-wrap: wrap;
@@ -945,24 +950,22 @@
                 position: relative;
                 top: rem(20);
                 transition: opacity 0.3s, top 0.3s;
+                justify-content: center;
 
-                @include media-breakpoint-up(lg) {
-                    max-width: 90%;
-                    justify-content: center;
-                }
 
                 ul {
                     padding: 0;
                     margin: 0;
                     list-style: none;
-                    max-width: 60%;
-                    text-align: center;
+                    text-align: left;
+                    display: inline-block;
 
                     li {
                         display: inline-block;
                         text-align: center;
                         margin-bottom: rem(20);
                         line-height: rem(24);
+                        padding: 0 rem(25);
                         label {
                             margin-bottom: 0;
                         }
@@ -970,11 +973,21 @@
                             display: block;
                             padding: 0;
                             text-align: center;
-                            font-size: rem(11);
                             line-height: 1.5;
-                            letter-spacing: rem(1.5);
                             cursor: pointer;
                             text-transform: capitalize;
+                            font-family: $font-gill-std-normal;
+                            font-size: rem(14);
+                            line-height: rem(16);
+                            font-weight: 400;
+                            letter-spacing: rem(0.5);
+                        }
+
+                        a.selected {
+                            span {
+                                font-family: $font-gill-std-semibold;
+                                font-weight: 600;
+                            }
                         }
                     }
                 }
@@ -1197,6 +1210,7 @@
                         a {
                             font-size: rem(12);
                             font-family: $font-gills-light;
+                            font-weight: 300;
                             line-height: rem(18);
                             letter-spacing: 0.5px;
 
@@ -1217,6 +1231,7 @@
                             color: $gray20;
                             font-size: rem(12);
                             font-family: $font-gill-std-normal;
+                            font-weight: 400;
                             font-weight: normal;
                             letter-spacing: 0.5px;
 
@@ -1258,7 +1273,7 @@
                         background: transparent;
                         border: rem(1) solid $black;
                         border-radius: rem(3);
-                        font-family: $font-gill-std-normal;
+                        font-family: $font-gill-std-semibold;
                         font-size: rem(13);
                         color: $gray20;
                         font-weight: 600;
@@ -1311,7 +1326,7 @@
                 }
 
                 h3 {
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(12);
                     color: $gray20;
                     font-weight: 600;
@@ -1364,7 +1379,7 @@
         }
 
         #show-more-update {
-            font-family: $font-gill-std-normal;
+            font-family: $font-gill-std-semibold;
             font-size: rem(12);
             font-weight: 600;
             color: $storm-gray;
