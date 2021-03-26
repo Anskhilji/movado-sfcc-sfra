@@ -2,7 +2,7 @@
 <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe', 'pageType', 'footer')}" method="POST">
     <div class="input-group">
         <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
-        <input type="text" class="email-signup-honeypot" autocomplete="off" id="hpEmailSignUpHoneyPot" name="hpEmailSignUpHoneyPot" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+        <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         <div class="invalid-feedback"></div>
         <iscomment> Custom Start: Removing id and type of button then it will not display the footer popup form. </iscomment>
         <iscomment>

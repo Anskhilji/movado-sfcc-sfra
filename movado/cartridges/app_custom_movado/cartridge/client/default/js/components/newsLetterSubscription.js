@@ -30,8 +30,8 @@ $('#newsletterSubscribe').submit(function (e) {
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
-    var $honeyPortEmailValue = $('.email-signup-honeypot').val();
-    if ($honeyPortEmailValue.length > 0 || $honeyPortEmailValue !== '') {
+    var $emailVerification = $('.email-verification').val();
+    if ($emailVerification.length > 0 || $emailVerification !== '') {
         return;
     }
     if (inputValue !== '') {

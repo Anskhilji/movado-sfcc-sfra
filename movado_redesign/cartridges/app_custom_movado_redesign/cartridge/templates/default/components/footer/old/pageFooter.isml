@@ -8,7 +8,7 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
-                            <input type="text" class="email-signup-honeypot" autocomplete="off" id="hpEmailSignUpHoneyPot" name="hpEmailSignUpHoneyPot" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
                             <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>

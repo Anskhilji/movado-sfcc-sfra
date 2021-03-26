@@ -75,8 +75,8 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
     var $submisstionStatus = $('.submission-status');
     var $submisstionStatusDiv = $('.submission-status div');
     var $footermorefields = $('.footer-more-fields');
-    var $honeyPortEmailValue = $('.email-signup-honeypot').val();
-    if ($honeyPortEmailValue.length > 0 || $honeyPortEmailValue !== '') {
+    var $emailVerification = $('.email-verification').val();
+    if ($emailVerification.length > 0 || $emailVerification !== '') {
         return;
     }
     if (inputValue !== '') {

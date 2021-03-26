@@ -75,9 +75,9 @@
   }
 }
 
-.email-signup-honeypot {
+.email-verification {
     opacity: 0;
-    position: absolute;
+    position: absolute !important;
     top: 0;
     left: 0;
     height: 0;
