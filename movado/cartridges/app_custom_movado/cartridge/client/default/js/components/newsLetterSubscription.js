@@ -30,6 +30,10 @@ $('#newsletterSubscribe').submit(function (e) {
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
+    var $honeyPortEmailValue = $('.email-signup-honeypot').val();
+    if ($honeyPortEmailValue.length > 0 || $honeyPortEmailValue !== '') {
+        return;
+    }
     if (inputValue !== '') {
         var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
             if(!pattern.test(inputValue)) {

@@ -36,6 +36,10 @@ $(document).ready(function () {
         var $patternPhone = /^(?!(?=(000-000-0000|0000000000)))(\(?((\+)[1]{1}|([1]{1}))?[-]?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$/;
         var $isValidEmail = $patternEmail.test($emailInputValue);
         var $phoneValidation;
+        var $honeyPortEmailValue = $('.email-signup-honeypot').val();
+        if ($honeyPortEmailValue.length > 0 || $honeyPortEmailValue !== '') {
+            return;
+        }
         if ($clickedButtonValue === "emailPhone") {
             $phoneValidation = true;
         } else {
