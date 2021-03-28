@@ -349,6 +349,97 @@
     }
 }
 
+.img-slide {
+    position: relative;
+
+    .slide-text {
+        position: absolute;
+        bottom: rem(20);
+        text-align: center;
+
+        @include media-breakpoint-up(sm) {
+            bottom: rem(30);
+        }
+
+        @include media-breakpoint-up(lg) {
+            bottom: rem(40);
+        }
+
+        &.left {
+            left: rem(25);
+
+            @include media-breakpoint-up(sm) {
+                left: rem(35);
+            }
+
+            @include media-breakpoint-up(lg) {
+                left: rem(45);
+            }
+        }
+        &.right {
+            right: rem(20);
+
+            @include media-breakpoint-up(sm) {
+                right: rem(30);
+            }
+
+            @include media-breakpoint-up(lg) {
+                right: rem(45);
+            }
+        }
+
+        h2 {
+            font-family: $font-gill-std-bold;
+            font-size: rem(24);
+            font-weight: 600;
+            line-height: rem(26);
+            color: $black;
+            letter-spacing: normal;
+            margin-bottom: rem(10);
+
+            @include media-breakpoint-up(sm) {
+                font-size: rem(28);
+                line-height: rem(36);
+            }
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(34);
+                line-height: rem(41);
+                margin-bottom: rem(25);
+            }
+        }
+
+        button {
+            font-family: $font-gill-std-normal;
+            font-size: rem(12);
+            font-weight: 400;
+            line-height: rem(16);
+            padding: rem(7) rem(15);
+            background: transparent;
+            border: rem(1) solid $black;
+            border-radius: rem(3);
+            letter-spacing: normal;
+
+            @include media-breakpoint-up(sm) {
+                font-size: rem(14);
+                line-height: rem(18);
+                padding: rem(9) rem(15);
+            }
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(16);
+                line-height: rem(21);
+                padding: rem(11) rem(16);
+            }
+
+            &:hover {
+                background-color: $black;
+                color: $white;
+            }
+        }
+    }
+}
+
 .search-results {
     margin-bottom: rem(30);
 }

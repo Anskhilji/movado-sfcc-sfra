@@ -412,6 +412,17 @@
             .refinements {
                 display: flex;
 
+                &-list {
+                    display: flex;
+                    flex-flow:row;
+                    overflow-x: auto;
+                    max-width: 55vw;
+
+                    @include media-breakpoint-up(xl) {
+                        max-width: none;
+                    }
+                }
+
                 .values {
                     li {
                         a {
@@ -500,6 +511,15 @@
             }
         }
 
+        &-list {
+            @include media-breakpoint-up(lg) {
+                flex: 1;
+            }
+            @include media-breakpoint-up(xl) {
+                flex: auto;
+            }
+        }
+
         &-btn {
             font-family: $font-gill-std-normal;
             font-size: rem(15);
@@ -517,12 +537,14 @@
             padding: rem(20) 0;
             border-bottom: rem(1) solid transparent;
             @include media-breakpoint-up(lg) {
+                min-width: rem(80);
                 margin: 0 rem(10);
                 font-size: rem(13);
             }
             @include media-breakpoint-up(xl) {
                 margin: 0 rem(20);
                 font-size: rem(15);
+                min-width: auto;
             }
             &::after {
                 content: "";
@@ -561,6 +583,13 @@
             margin-right: rem(10);
             padding: rem(20) 0;
             opacity: 0.64;
+
+            @include media-breakpoint-up(lg) {
+                min-width: rem(80);
+            }
+            @include media-breakpoint-up(xl) {
+                min-width: auto;
+            }
         }
 
         &-reset {
@@ -1162,7 +1191,7 @@
                     }
                 }
                 .image-container {
-                    background: $white-smoke;
+                    background: $pink-smoke;
                     border: none;
                     height: rem(225);
 
