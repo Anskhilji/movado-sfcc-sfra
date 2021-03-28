@@ -556,7 +556,7 @@
             font-size: rem(15);
             font-weight: 600;
             line-height: rem(20);
-            letter-spacing: 0.5;
+            letter-spacing: rem(0.5);
             color: $dark-gray;
             margin-right: rem(10);
             padding: rem(20) 0;
@@ -1254,15 +1254,15 @@
                         }
                     }
 
-                    .price {
-                        &.price-to-center {
+                    .pricing-save {
+                        > .price {
                             color: $gray20;
                             font-size: rem(12);
                             font-family: $font-gill-std-normal;
                             font-weight: 400;
                             font-weight: normal;
                             letter-spacing: 0.5px;
-
+    
                             @include media-breakpoint-up(sm) {
                                 font-size: rem(13);
                                 line-height: rem(16);
@@ -1271,20 +1271,20 @@
                                 font-size: rem(15);
                                 line-height: rem(20);
                             }
-                        }
-                        @include media-breakpoint-up(sm) {
-                            padding-left: 0;
-                            &.price-to-center {
-                                float: none;
+                            @include media-breakpoint-up(sm) {
+                                padding-left: 0;
+                                &.price-to-center {
+                                    float: none;
+                                }
                             }
-                        }
-
-                        .strike-through {
-                            margin-right: rem(5);
-                            color: $dark-gray;
-
-                            @include media-breakpoint-up(lg) {
-                                margin-right: rem(10);
+    
+                            .strike-through {
+                                margin-right: rem(5);
+                                color: $dark-gray;
+    
+                                @include media-breakpoint-up(lg) {
+                                    margin-right: rem(10);
+                                }
                             }
                         }
                     }
@@ -1334,6 +1334,7 @@
                     .price {
                         flex: 1;
                     }
+
                     .save-value {
                         font-family: $font-gill-std-semibold;
                         font-size: rem(12);
