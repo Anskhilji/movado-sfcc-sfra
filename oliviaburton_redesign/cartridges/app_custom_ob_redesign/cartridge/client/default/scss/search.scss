@@ -431,15 +431,19 @@
 
                             &:hover,
                             &.selected,
-                            :focus {
+                            &:focus {
                                 border-color: $black;
-                                background: rgba(123, 123, 123, 0.13);
+                                background: $pink-snow;
                                 text-decoration: none;
                                 outline: none;
                             }
 
                             span {
                                 line-height: rem(32);
+
+                                &:focus {
+                                    outline: none;
+                                }
                             }
                         }
                     }
@@ -652,6 +656,9 @@
                             top: rem(7);
                             width: rem(20);
                             height: rem(20);
+                            float: right;
+                            display: block;
+                            clear: both;
                         }
                     }
 
@@ -691,6 +698,8 @@
                                     background: $pink-snow;
                                     font-weight: 600;
                                     text-decoration: none;
+                                    outline: none;
+                                    color: $black;
                                     span {
                                         line-height: rem(32);
                                         font-weight: 600;
@@ -704,18 +713,24 @@
                         }
                     }
 
+                    .card-body {
+                        display: none;
+                        padding: 0;
+                        margin-top: rem(10);
+                        margin-bottom: 0;
+                    }
+
                     &.active {
                         .card-header {
                             &:after {
                                 transform: rotate(180deg);
                             }
                         }
-                    }
 
-                    .card-body {
-                        padding: 0;
-                        margin-top: rem(10);
-                        margin-bottom: 0;
+                        .card-body {
+                            display: block;
+                            margin: rem(10) 0;
+                        }
                     }
                 }
 

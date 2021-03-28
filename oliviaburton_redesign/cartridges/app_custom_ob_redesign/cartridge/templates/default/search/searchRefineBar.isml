@@ -14,10 +14,12 @@
                     <button class="close-refinebar pull-left" aria-label="close filter">${Resource.msg('label.filter', 'search', null)}</button>
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <div class="pull-right">
-                            <div class="secondary-bar p-0">
-                                <a class="reset" href="${pdict.productSearch.resetLink}">
-                                    ${Resource.msg('link.clear', 'search', null)}
-                                </a>
+                            <div class="secondary-bar s p-0">
+                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                                    <a class="reset" href="${pdict.productSearch.resetLink}">
+                                        ${Resource.msg('link.clear', 'search', null)}
+                                    </a>
+                                </isif>
                             </div>
                         </div>
                     </isif>
