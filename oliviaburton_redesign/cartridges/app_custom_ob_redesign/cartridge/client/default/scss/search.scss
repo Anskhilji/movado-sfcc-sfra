@@ -787,6 +787,11 @@
 
             &-row {
                 padding: 0 rem(10);
+                
+                @include media-breakpoint-up(sm) {
+                    padding: 0 rem(18);
+                }
+                
                 .result-count {
                     .category-name {
                         font-family: $font-gill-std-bold;
@@ -1026,8 +1031,16 @@
     .filter-bar {
         padding: 0 rem(10);
 
+        @include media-breakpoint-up(sm) {
+            padding: 0 rem(18);
+        }
+
         @include media-breakpoint-up(lg) {
             padding: 0 rem(25);
+        }
+
+        .label-container {
+            display: none !important;
         }
 
         ul {
