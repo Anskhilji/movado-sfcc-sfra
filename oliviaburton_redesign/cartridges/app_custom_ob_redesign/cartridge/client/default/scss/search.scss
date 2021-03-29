@@ -798,7 +798,7 @@
                     .close-refinebar {
                         background-color: transparent;
                         border: none;
-                        font-family: $font-gill-std-normal;
+                        font-family: $font-futura-pt-demi;
                         font-size: rem(15);
                         font-weight: 600;
                         letter-spacing: normal;
@@ -1120,10 +1120,6 @@
 
                 &:after {
                     content: none;
-                }
-
-                &:hover {
-                    text-decoration: underline;
                 }
             }
         }

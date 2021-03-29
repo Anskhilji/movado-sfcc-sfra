@@ -15,6 +15,7 @@
 /*{"last_published":"2020-03-06 05:08:18 UTC"}*/
 
 @import url("https://p.typekit.net/p.css?s=1&k=dhz6mzh&ht=tk&f=39297.39302.39306.39307&a=3707185&app=typekit&e=css");
+@import url("https://p.typekit.net/p.css?s=1&k=gcr2cjz&ht=tk&f=10879.10880.10884.10886.15586.15587.32874&a=3707185&app=typekit&e=css");
 
 @font-face {
     font-family:"gill-sans-nova";
@@ -39,17 +40,21 @@
     src:url("https://use.typekit.net/af/fae4e4/00000000000000003b9b1f8b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3") format("woff2"),url("https://use.typekit.net/af/fae4e4/00000000000000003b9b1f8b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3") format("woff"),url("https://use.typekit.net/af/fae4e4/00000000000000003b9b1f8b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i6&v=3") format("opentype");
     font-display:auto;font-style:italic;font-weight:600;
 }
+    
+    
+@font-face {
+    font-family:"futura-pt-demi";
+    src:url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("opentype");
+    font-display:auto;font-style:normal;font-weight:600;
+}
 
 .tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
-
-
-
-
 
 $font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
 $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
+$font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
 $font-awesome: "FontAwesome";
 
 $pink-snow: #FBF7F7;
