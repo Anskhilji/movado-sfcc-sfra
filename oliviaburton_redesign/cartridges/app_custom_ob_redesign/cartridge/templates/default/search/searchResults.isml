@@ -67,12 +67,13 @@
 					<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
 						<isif condition="${pdict.productSearch.productIds.length > 0}">
 							<isinclude url="${pdict.refineurl}" />
-							<div class="row grid-header d-none">
+							<div class="row grid-header">
 								<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
 						<iselse>
 										<div class="row grid-header justify-content-center">
 											<div class="result-count col">
 						</isif>
+						<isinclude template="search/resultsCount" />
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">

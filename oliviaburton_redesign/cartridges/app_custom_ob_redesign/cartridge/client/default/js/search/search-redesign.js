@@ -619,7 +619,7 @@ module.exports = {
 
         
         $(document).on('mouseup', function (e) {
-            var filterContainer = $('.plp-filter-desktop');
+            var filterContainer = $('.plp-filter-desktop .refinements');
 
             // if the target of the click isn't the container nor a descendant of the container
             if (!filterContainer.is(e.target) && filterContainer.has(e.target).length === 0) {
