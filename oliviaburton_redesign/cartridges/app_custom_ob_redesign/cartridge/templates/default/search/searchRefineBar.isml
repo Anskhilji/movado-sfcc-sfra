@@ -14,10 +14,12 @@
                     <button class="close-refinebar pull-left" aria-label="close filter">${Resource.msg('label.filter', 'search', null)}</button>
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <div class="pull-right">
-                            <div class="secondary-bar p-0">
-                                <a class="reset" href="${pdict.productSearch.resetLink}">
-                                    ${Resource.msg('link.clear', 'search', null)}
-                                </a>
+                            <div class="secondary-bar s p-0">
+                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                                    <a class="reset" href="${pdict.productSearch.resetLink}">
+                                        ${Resource.msg('link.clear', 'search', null)}
+                                    </a>
+                                </isif>
                             </div>
                         </div>
                     </isif>
@@ -78,34 +80,36 @@
                         </div>
                         <div class="refinements">
                             <span class="plp-filter-label">${Resource.msg('label.filter.by', 'search', null)}</span>
-                            <isloop items="${refinements}" var="refinement">
-                                <div class="plp-filter-list">
-                                    <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
-                                        ${refinement.displayName}
-                                    </button>
+                            <div class="refinements-list">
+                                <isloop items="${refinements}" var="refinement">
+                                    <div class="plp-filter-list">
+                                        <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                                            ${refinement.displayName}
+                                        </button>
 
-                                    <div class="filter-group">
-                                        <button class="filter-close-btn">x</button>
-                                        <div class="filter-group-outer">
-                                            <!--- CATEGORY REFINEMENTS --->
-                                            <isif condition="${refinement.isCategoryRefinement}">
-                                                <isset name="categories" value="${refinement.values}" scope="page" />
-                                                <isinclude template="search/refinements/categories" />
-                                            </isif>
+                                        <div class="filter-group">
+                                            <button class="filter-close-btn">x</button>
+                                            <div class="filter-group-outer">
+                                                <!--- CATEGORY REFINEMENTS --->
+                                                <isif condition="${refinement.isCategoryRefinement}">
+                                                    <isset name="categories" value="${refinement.values}" scope="page" />
+                                                    <isinclude template="search/refinements/categories" />
+                                                </isif>
 
-                                            <!--- ATTRIBUTE REFINEMENTS --->
-                                            <isif condition="${refinement.isAttributeRefinement}">
-                                                <isinclude template="search/refinements/attributes" />
-                                            </isif>
+                                                <!--- ATTRIBUTE REFINEMENTS --->
+                                                <isif condition="${refinement.isAttributeRefinement}">
+                                                    <isinclude template="search/refinements/attributes" />
+                                                </isif>
 
-                                            <!--- PRICE REFINEMENTS --->
-                                            <isif condition="${refinement.isPriceRefinement}">
-                                                <isinclude template="search/refinements/prices" />
-                                            </isif>
+                                                <!--- PRICE REFINEMENTS --->
+                                                <isif condition="${refinement.isPriceRefinement}">
+                                                    <isinclude template="search/refinements/prices" />
+                                                </isif>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </isloop>
+                                </isloop>
+                            </div>
                         </div>
                         <isinclude template="search/sortOrderMenu" />
                     </div>
