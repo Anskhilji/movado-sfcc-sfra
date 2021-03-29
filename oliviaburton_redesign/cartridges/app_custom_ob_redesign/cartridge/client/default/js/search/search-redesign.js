@@ -1,10 +1,9 @@
 'use strict';
 // Custome Start: Requring movado search to reuse existing code. 
-var movadoBase = require('movado/search/search');
 var swatches = require('movado/utilities/swatches');
 
 function updateURLForShowMore(showMoreUrl) {
-    var params = movadoBase.getUrlParamObj(showMoreUrl);
+    var params = getUrlParamObj(showMoreUrl);
     var start = params.start;
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
@@ -25,7 +24,7 @@ function updateURLForShowMore(showMoreUrl) {
         if (document.location.href.indexOf('?') > -1) {
             if (document.location.href.indexOf('sz=') > -1) {
                 var tempUrlParams = document.location.search;
-                tempUrlParams = movadoBase.replaceQueryParam('sz', newSize, tempUrlParams);
+                tempUrlParams = replaceQueryParam('sz', newSize, tempUrlParams);
                 url = document.location.href.substring(0, document.location.href.indexOf('?')) + tempUrlParams;
             } else {
                 url = document.location.href + '&start=0&sz=' + newSize;
@@ -328,7 +327,6 @@ function moveFocusToTop() {
 // Added container-fluid class alongside container
 
 module.exports = {
-    movadoBase: movadoBase,
 
     // Custom Start: Make these fucntions to update showMore function according to requirement
     showMore: function () {
@@ -364,7 +362,7 @@ module.exports = {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.grid-footer').replaceWith(response);
-                    movadoBase.updateSortOptions(response);
+                    updateSortOptions(response);
                     // edit
                     updateURLForShowMore(showMoreUrl);
                     // edit end
