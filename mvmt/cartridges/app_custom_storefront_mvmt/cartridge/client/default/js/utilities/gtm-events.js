@@ -305,23 +305,40 @@ var onLoadProductTile = function () {
  **/
 
 var onPromoImpressionsLoad = function (e) {
-    updateDataLayer('promotionalView');
-    var dataLayerObj = '';
+    updateDataLayer('promoImpressions');
+    var dataLayerObj = [];
     var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
+    var gtmTrackingPromo = $('.gtm-promotion-view').data('gtm-tracking');
 
-    if (gtmTrackingData !== undefined) {
+    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
         dataLayerObj = gtmTrackingData;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
+    }
+    
+    if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
+        dataLayerObj = gtmTrackingPromo;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
     }
 
-    updateDataLayer('promotionalView');
-    dataLayer.push({
-        event: 'promotionalView',
-        ecommerce: {
-            promoView: {
-                promotions: dataLayerObj
-            }
-        }
-    });
+
 };
 
 /**

@@ -230,7 +230,7 @@ var onLoadProductTile = function () {
 
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
-    var $currentTarget = $('.gtm-view');
+    var $currentTarget = $('.gtm-promotion-view');
     var dataLayerObj = [];
     $.each($currentTarget, function () {
         var gtmTrackingData = $(this).attr('data-gtm-tracking');
