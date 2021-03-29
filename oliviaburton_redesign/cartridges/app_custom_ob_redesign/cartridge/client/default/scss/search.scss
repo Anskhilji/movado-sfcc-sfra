@@ -575,7 +575,7 @@
 
         &-label {
             font-family: $font-gill-std-semibold;
-            font-size: rem(15);
+            font-size: rem(16);
             font-weight: 600;
             line-height: rem(20);
             letter-spacing: rem(0.5);
@@ -1450,6 +1450,44 @@
                 font-size: rem(15);
             }
         }
+    }
+    
+    .grid-header {
+
+        .result-count.text-center,
+        .sort-col,
+        .filter-col {
+            display: none;
+        }
+
+        .search-tips {
+            padding: 0 rem(20);
+        }
+        span,h5 {
+            font-family: $font-gill-std-bold;
+            font-weight: 600;
+            font-size: rem(16);
+        }
+        span.make-bold {
+            color: $black;
+        }
+        span:not(.make-bold) {
+            margin: rem(20) 0;
+            font-size: rem(20);
+            display: block;
+            padding: 0 rem(20);
+            color: $black;
+        }
+        ul {
+            margin: 0;
+
+            li {
+                font-family: $font-gill-std-bold;
+                font-weight: 400;
+                font-size: rem(15);
+            }
+        }
+
     }
 }
 
