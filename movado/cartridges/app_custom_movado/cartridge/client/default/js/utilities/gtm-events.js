@@ -232,12 +232,10 @@ var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
     var $currentTarget = $('.gtm-promotion-view');
     var dataLayerObj = [];
-    $.each($currentTarget, function () {
-        var gtmTrackingData = $(this).attr('data-gtm-tracking');
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj.push(JSON.parse(gtmTrackingData));
-        }
-    });
+    var gtmTrackingData = $currentTarget.attr('data-gtm-tracking');
+    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+        dataLayerObj.push(JSON.parse(gtmTrackingData));
+    }
     updateDataLayer('productImpressions');
     dataLayer.push({
         event: 'promoImpressions',
