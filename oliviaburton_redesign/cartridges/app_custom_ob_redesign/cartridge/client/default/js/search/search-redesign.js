@@ -8,7 +8,6 @@ function updateURLForShowMore(showMoreUrl) {
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
     var url;
-    var currentProductCount = $('#show-more-update').text();
 
     // Custom start: Update total product counter
     var totalSize = $('#show-more-update').data('total-size');
@@ -17,8 +16,11 @@ function updateURLForShowMore(showMoreUrl) {
     }
     // Custom End
 
-    var res = currentProductCount.replace(size, newSize);
-    $('#show-more-update').text(res);
+    
+    $('#show-more-update, #show-more-update-mobile').each(function () {
+        var res = $(this).text().replace(size, newSize);
+        $(this).text(res);
+    })
 
     if (history.pushState) {
         if (document.location.href.indexOf('?') > -1) {
