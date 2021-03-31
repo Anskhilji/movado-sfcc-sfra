@@ -1,9 +1,5 @@
 <iscomment> HTML structure changed according to design requirments </iscomment>
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
-<isif condition="${pdict.productSearch.category}">
-    <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-</isif>    
-
 <div class="plp-filter-mobile">
     <div class="refinement-bar">
         <div class="filter-header">
