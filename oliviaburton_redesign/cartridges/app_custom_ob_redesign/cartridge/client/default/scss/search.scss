@@ -12,6 +12,12 @@
         margin-bottom: rem(8);
         padding-bottom: rem(4);
 
+        &-bar {
+            @include media-breakpoint-up(md) {
+                display: block !important; 
+            }
+        }
+
         &.card {
             border-top: 0 none;
             border-left: 0 none;

@@ -35,6 +35,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
     var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
+    /**
+     * Custom Start: Added logic for OB Redesign.
+     */
+    if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+        resultsTemplate = viewData.resultsTemplate;
+    }
+    /**
+     * Custom End:
+     */
+
     var apiProductSearch = new ProductSearchModel();
     var maxSlots = 4;
     var reportingURLs;
@@ -64,6 +74,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
     }
+
+    /**
+     * Custom Start: Added logic for OB Redesign.
+     */
+    if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+        categoryTemplate = viewData.resultsTemplate;
+    }
+    /**
+     * Custom End:
+     */
 
     productSearch = new ProductSearch(
         apiProductSearch,
