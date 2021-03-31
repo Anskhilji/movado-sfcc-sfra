@@ -271,21 +271,21 @@ module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.container').on('click', 'button.filter-results', function () {
-            $('.refinement-bar, .modal-background').show();
+            $('.refinement-bar, .movado-modal').show();
         });
     },
 
     closeRefinments: function () {
         // Refinements close button
         $('.container').on('click', '.refinement-bar button.close, .modal-background', function () {
-            $('.refinement-bar, .modal-background').hide();
+            $('.refinement-bar, .movado-modal').hide();
         });
     },
 
     resize: function () {
         // Close refinement bar and hide modal background if user resizes browser
         $(window).resize(function () {
-            $('.refinement-bar, .modal-background').hide();
+            $('.movado-refinebar, .movado-modal').hide();
         });
     },
 
