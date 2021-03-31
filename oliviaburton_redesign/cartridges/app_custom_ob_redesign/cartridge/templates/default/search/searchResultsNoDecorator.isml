@@ -1,6 +1,8 @@
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 	<isinclude template="reporting/reportingUrls" />
 </isif>
+<isset name="isAjaxSearchPage" value="${true}" scope="page" />
+
 
 <div class="hero search-banner" <!--- If no image, default is specified in search.scss> .search-banner --->
 	<isif condition="${pdict.productSearch.bannerImageUrl}">
@@ -15,7 +17,7 @@
 		</isif>
 	</h1>
 </div>
-<div class="container search-results">
+<div class="container container-fluid search-results plp-redesign">
 	<isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 	<isif condition="${!pdict.productSearch.isCategorySearch}">
 		<div class="row">
@@ -70,32 +72,34 @@
 			</isif>
 		</div>
 
-		<isif condition="${pdict.productSearch.productIds.length > 0}">
-			<!--- Refinement bar --->
-			<div class="row">
-				<div class="refinement-bar col-md-3">
-					<isinclude url="${pdict.refineurl}" />
-				</div>
 
-				<div class="col-sm-12 col-md-9">
-					<div class="container">
-						<!--- Selected filters bar --->
-						<div class="row filter-bar d-md-none">
-							<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-								<span
-									class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
-							</isif>
-							<isinclude template="search/filterBar" />
-						</div>
+		<!--- Refinement bar --->
+		<div class="row">
+			<div class="refinement-bar col-md-3">
+				<isinclude url="${pdict.refineurl}" />
+			</div>
 
-						<!--- Product Grid --->
+			<div class="col-sm-12 col-md-9">
+				<div class="container">
+					<!--- Selected filters bar --->
+					<div class="row filter-bar d-md-none">
+						<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+							<span
+								class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+						</isif>
+						<isinclude template="search/filterBar" />
+					</div>
+
+					<!--- Product Grid --->
+					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
 							<isinclude template="search/productGrid" />
 						</div>
-					</div>
+					</isif>
 				</div>
 			</div>
-		</isif>
+		</div>
+
 	</div>
 	<!--- Content Grid --->
 	<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
