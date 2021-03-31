@@ -580,15 +580,20 @@
             line-height: rem(20);
             letter-spacing: rem(0.5);
             color: $dark-gray;
-            margin-right: rem(10);
             padding: rem(20) 0;
             opacity: 0.64;
 
             @include media-breakpoint-up(lg) {
-                min-width: rem(80);
+                min-width: rem(70);
+                font-size: rem(14);
             }
             @include media-breakpoint-up(xl) {
                 min-width: auto;
+                font-size: rem(16);
+            }
+            @include media-breakpoint-up(xxl) {
+                min-width: auto;
+                margin-right: rem(10);
             }
         }
 
@@ -1141,6 +1146,12 @@
 
         @include media-breakpoint-up(lg) {
             margin-bottom: rem(20);
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        @include media-breakpoint-up(xl) {
+            margin-bottom: rem(20);
             flex: 0 0 20%;
             max-width: 20%;
         }
@@ -1153,6 +1164,14 @@
 
                 @include media-breakpoint-up(sm) {
                     margin: 0 rem(-20);
+                }
+
+                .grid-footer {
+                    padding: 0 rem(5);
+
+                    @include media-breakpoint-up(sm) {
+                        padding: 0 rem(15);
+                    }
                 }
             }
 
@@ -1287,6 +1306,7 @@
                             font-weight: 400;
                             font-weight: normal;
                             letter-spacing: 0.5px;
+                            line-height: rem(12);
     
                             @include media-breakpoint-up(sm) {
                                 font-size: rem(13);
@@ -1316,11 +1336,13 @@
                 }
                 .cta-add-to-cart {
                     display: block;
+                    margin-top: rem(8);
+
                     @include media-breakpoint-up(lg) {
                         display: none;
+                        margin-top: rem(15);
                     }
 
-                    margin-top: rem(15);
                     .add-to-cart-plp-redesign {
                         width: 100%;
                         background: transparent;
@@ -1387,12 +1409,13 @@
                     letter-spacing: rem(1);
                     line-height: rem(14);
                     text-transform: capitalize;
-                    margin-bottom: rem(5);
+                    margin-bottom: rem(3);
                     height: rem(18);
     
                     @include media-breakpoint-up(sm) {
                         font-size: rem(13);
                         line-height: rem(16);
+                        margin-bottom: rem(5);
                     }
     
                     @include media-breakpoint-up(lg) {
@@ -1416,11 +1439,15 @@
             border-radius: rem(3);
             font-family: $font-gill-std-bold;
             font-weight: 600;
-            font-size: rem(16);
+            font-size: rem(15);
             color: $gray20;
             line-height: rem(21);
             transition: 0.3s all;
             letter-spacing: 0.5px;
+
+            @include media-breakpoint-up(lg) {
+                font-size: rem(16);
+            }
 
             &:hover,
             &:focus,
@@ -1433,11 +1460,27 @@
         }
 
         #show-more-update {
+            display: none;
+
+            &-mobile {
+                display: block;
+
+                @include media-breakpoint-up(lg) {
+                    display: none;
+                }
+            }
+
+            @include media-breakpoint-up(lg) {
+                display: block;
+            }
+        }
+
+        .show-more-update {
             font-family: $font-gill-std-semibold;
             font-size: rem(12);
             font-weight: 600;
             color: $storm-gray;
-            letter-spacing: rem(1);
+            letter-spacing: normal;
             line-height: rem(16);
             margin-bottom: rem(10);
 
@@ -1445,7 +1488,7 @@
                 font-size: rem(14);
             }
 
-            @include media-breakpoint-up(lg) {
+            @include media-breakpoint-up(xl) {
                 line-height: rem(20);
                 font-size: rem(15);
             }
