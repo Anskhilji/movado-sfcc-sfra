@@ -82,7 +82,7 @@
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
 				<div class="row">
-					<div class="refinement-bar col-md-3">
+					<div class="refinement-bar movado-refinebar col-md-3">
 						<isinclude url="${pdict.refineurl}" />
 					</div>
 	

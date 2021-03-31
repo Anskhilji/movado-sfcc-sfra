@@ -24,7 +24,7 @@
             <isinclude template="/resources/appresources" />
         </div>
         <div class="error-messaging"></div>
-        <div class="modal-background"></div>
+        <div class="modal-background movado-modal"></div>
         <iscontentasset aid="cookie_hint" />
          <!--[if lt IE 10]>-->
             <isinclude sf-toolkit="off" template="/common/scripts" />
