@@ -7,6 +7,7 @@ var page = module.superModule;
 server.extend(page);
 
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Site = require('dw/system/Site');
@@ -19,7 +20,7 @@ var ABTestMgr = require('dw/campaign/ABTestMgr');
  * Prepending controller for PLP A/B testing
  */
 
-server.prepend('Show', consentTracking.consent, function (req, res, next) {
+server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var resultsTemplate;
     var viewData = res.getViewData();
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
@@ -39,7 +40,7 @@ server.prepend('Show', consentTracking.consent, function (req, res, next) {
 /**
  * Replacing controller from base as need to remove cache and apply A/B test
  */
-server.replace('Refinebar', function (req, res, next) {
+server.replace('Refinebar', cache.applyShortPromotionSensitiveCache,  function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
@@ -73,7 +74,7 @@ server.replace('Refinebar', function (req, res, next) {
 /**
  * Replacing controller from base as need to remove cache and apply A/B test
  */
-server.replace('UpdateGrid', function (req, res, next) {
+server.replace('UpdateGrid', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
