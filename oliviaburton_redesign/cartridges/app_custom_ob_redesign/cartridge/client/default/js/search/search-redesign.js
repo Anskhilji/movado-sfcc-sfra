@@ -480,7 +480,6 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
@@ -532,6 +531,10 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                if ($(this).hasClass('.remove-all-filters.reset')) {
+                    $(this).hide();
+                }
 
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
