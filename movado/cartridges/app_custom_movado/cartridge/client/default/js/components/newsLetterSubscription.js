@@ -30,7 +30,7 @@ $('#newsletterSubscribe').submit(function (e) {
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
-    var $emailVerification = $('.email-verification').val();
+    var $emailVerification = $(e.target).find('.email-verification').val();
     if ($emailVerification !== '' || $emailVerification.length > 0) {
         return;
     }

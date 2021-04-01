@@ -75,7 +75,7 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
     var $submisstionStatus = $('.submission-status');
     var $submisstionStatusDiv = $('.submission-status div');
     var $footermorefields = $('.footer-more-fields');
-    var $emailVerification = $('.email-verification').val();
+    var $emailVerification = $(e.target).find('.email-verification').val();
     if ($emailVerification !== '' || $emailVerification.length > 0) {
         return;
     }
