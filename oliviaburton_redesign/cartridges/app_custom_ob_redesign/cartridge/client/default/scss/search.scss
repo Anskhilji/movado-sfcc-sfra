@@ -349,6 +349,18 @@
           margin-right: -30px;
         }
     }
+
+    #product-search-results {
+
+        .product-tile {
+            .tile-body {
+                .price {
+                    width: 100%;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
 }
 
 .plp-redesign {
