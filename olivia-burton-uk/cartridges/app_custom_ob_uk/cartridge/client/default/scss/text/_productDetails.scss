@@ -329,15 +329,17 @@
       display: inline-block;
 
       label {
-        font-size: rem(12);
+        font-size: rem(20);
         font-weight: 600;
-        font-family: $font-family-adobe;
+        font-family: $font-adobe;
+        line-height: rem(25);
+        letter-spacing: rem(1.71);
         color: $black;
         display: block;
         text-align: center;
         padding-bottom: rem(10);
+        text-transform: capitalize;
       }
-      
     }
   }
 }
