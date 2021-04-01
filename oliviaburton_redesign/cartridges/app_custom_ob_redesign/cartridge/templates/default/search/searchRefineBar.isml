@@ -7,14 +7,14 @@
             <div class="header-bar clearfix">
                 <button class="close-refinebar pull-left" aria-label="close filter">${Resource.msg('label.filter', 'search', null)}</button>
                 <div class="pull-right">
-                    <div class="secondary-bar s p-0">
+                    <div class="secondary-bar p-0">
                         <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
                             <a class="reset" href="${pdict.productSearch.resetLink}">
                                 ${Resource.msg('link.clear', 'search', null)}
                             </a>
                             <iselseif condition="${pdict.productSearch.count == 0}" />
                                 <a class="reset remove-all-filters" href="${pdict.productSearch.resetLink}">
-                                   Remove All Filters
+                                   ${Resource.msg('link.remove.all', 'search', null)}
                                 </a>
                             </iselseif>
                         </isif>
