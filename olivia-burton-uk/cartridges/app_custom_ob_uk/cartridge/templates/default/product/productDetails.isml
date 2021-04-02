@@ -57,7 +57,7 @@
                         <isinclude template="product/components/pidRating" />
                     </div>
 
-                    <div class="price-availability d-flex">
+                    <div class="price-availability d-flex align-items-center">
                         <!-- Prices -->
                         <div class="prices">
                             <isset name="price" value="${product.price}" scope="page" />
@@ -196,18 +196,18 @@
                         </isif>
 
                         <div class="col-12">
-                            <div class="wishlist-row row">
+                            <div class="row description">
+                                <isinclude template="product/components/productWhyBuyMe" />
+                            </div>
+                            <div class="row description description-text">
+                                <isinclude template="product/components/description" />
+                            </div>
+                           <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <!-- Social Sharing Icons -->
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
                                 </isif>
-                            </div>
-                            <div class="row description">
-                                <isinclude template="product/components/productWhyBuyMe" />
-                            </div>
-                            <div class="row description">
-                                <isinclude template="product/components/description" />
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
