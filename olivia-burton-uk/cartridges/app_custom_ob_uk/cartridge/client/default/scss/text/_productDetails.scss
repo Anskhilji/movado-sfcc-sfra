@@ -329,9 +329,8 @@
       display: inline-block;
 
       label {
-        font-size: rem(20);
-        font-weight: 600;
         font-family: $font-adobe;
+        font-size: rem(20);
         line-height: rem(25);
         letter-spacing: rem(1.71);
         color: $black;
@@ -521,5 +520,12 @@
           left: rem(-10);
           background: url("../../images/arrow-left.svg") center center no-repeat;
       }
+  }
+}
+
+.price-availability {
+
+  .product-availability {
+    font-family: $font-gills-light;
   }
 }

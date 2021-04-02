@@ -57,18 +57,24 @@
                         <isinclude template="product/components/pidRating" />
                     </div>
 
+                    <div class="price-availability d-flex">
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <!-- Product Availability -->
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+
+                    </div>
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
                             <isinclude template="product/components/badges" />
-
-                            <!-- Product Availability -->
-                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
-                            </div>
 
                             <!-- Applicable Promotions -->
                             <div class="promotions">
@@ -179,7 +185,7 @@
                         <iselse>
                             <div class="col-12 prices-add-to-cart-actions">
                                 <!-- Prices -->
-                                <div class="prices">
+                                <div class="prices d-lg-none">
                                     <isset name="price" value="${product.price}" scope="page" />
                                     <isinclude template="product/components/pricing/main" />
                                 </div>
