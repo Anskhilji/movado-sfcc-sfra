@@ -284,9 +284,12 @@ header.new-header {
             color: black;
 
             .header-border-right {
-                padding-top: rem(8);
-                padding-left: 0;
-                padding-right: rem(3);
+                padding-right: 0;
+                margin-right: 20px;
+
+                &:last-child {
+                    margin: 0;
+                }
             }
 
             li:before {
