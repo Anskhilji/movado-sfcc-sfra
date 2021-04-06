@@ -50,6 +50,13 @@ server.get(
         } else {
             headerTemplate = '/components/header/old/pageHeader';
         }
+        var countryCode = "";
+        if (!empty(request.httpParameterMap.get('countryCode').value)) {
+            countryCode = request.httpParameterMap.get('countryCode').value;
+        }
+        var viewData = res.getViewData();
+        viewData.countryCode = countryCode
+        res.setViewData(viewData);
         res.render(headerTemplate);
         next();
     }
@@ -73,11 +80,16 @@ server.get(
         }
         var parentController = req.querystring.parentController;
         var homeFlag = false;
+        var countryCode = "";
+        if (!empty(request.httpParameterMap.get('countryCode').value)) {
+            countryCode = request.httpParameterMap.get('countryCode').value;
+        }
         var viewData = res.getViewData();
 
         if (parentController == 'Home-Show' || parentController == 'Account-Show') {
             homeFlag = true;
         }
+        viewData.countryCode = countryCode
         viewData.homeFlag = homeFlag;
         res.setViewData(viewData);
         res.render(footerTemplate);
