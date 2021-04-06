@@ -135,7 +135,7 @@ header.new-header {
       max-width: $container-max-width;
       width: 100%;
 
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
         padding: rem(14) rem(10);
         padding-right: rem(17);
       }
@@ -145,6 +145,13 @@ header.new-header {
         > div {
           padding: 0;
         }
+      }
+
+      
+      &.logo-left {
+        @include media-breakpoint-down(md) {
+          padding-right: rem(10);
+        }        
       }
     }
   }
@@ -465,6 +472,19 @@ header.new-header {
       text-align: right;
     }
 
+    &.right {
+      .mobile-cart-close-icon { 
+        width: rem(15);
+      }
+
+      .mobile-cart-close-icon {
+        svg {
+          width: rem(15);
+          height: rem(13);
+        }
+      }
+    }
+
     li {
       position: relative;
       border-color: transparent;
@@ -500,6 +520,16 @@ header.new-header {
 
     .mobile-cart-btn {
       padding: 0;
+    }
+
+    &.right {
+
+      li {
+        
+        svg {
+          top: 0;
+        }
+      }
     }
   }
 
@@ -1162,6 +1192,13 @@ header.new-header.mvmt-header-design {
             height: rem(20);
           }
         }
+
+        &.left {
+          .logo-link {
+            display: flex;
+            justify-content: left;
+          }
+        }
     }
 
     .menu-icon-mvmt-hamburger {
@@ -1197,6 +1234,17 @@ header.new-header.mvmt-header-design {
       .desktop-search-icon {
         svg {
           width: rem(11);
+          height: rem(11);
+          top: rem(3);
+        }
+      }
+
+      &.right {
+        .desktop-search-icon {
+
+          svg {
+            top: rem(2);
+          }
         }
       }
     }
