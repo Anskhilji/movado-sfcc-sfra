@@ -1,0 +1,117 @@
+/*
+@TODO
+1. Update font size of texts all of the text used in design
+2. Update checkbox to be black after click
+3. Font 
+*/
+
+/*
+Font family has been assigned in PDP SCSS of each site
+*/
+.bis {
+
+    &-button {
+        display: none;
+        position: absolute;
+        right: 0;
+    }
+
+    &-confirmation-copy {
+        height: rem(20);
+        width: rem(320);
+        color: $granite-gray;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.5);
+        line-height: rem(17);
+        margin-left: rem(4);
+    }
+
+    &-email {
+        width: 100%;
+        border-radius: 0;
+        border: rem(1) solid $black;
+        height: rem(45);
+
+        &:focus {
+            outline: $black;
+        }
+    }
+
+    &-email-notification-copy {
+        height: rem(18);
+        color: $black;
+        font-size: rem(14);
+        font-weight: 300;
+        letter-spacing: rem(1.2);
+        line-height: rem(18);
+        margin-bottom: rem(12);
+    }
+
+    &-form {
+        display: flex;
+    }
+
+    &-marketing-container {
+        display: flex;
+        margin-top: rem(20);
+
+        .checkmark {
+            height: rem(13);
+            position: absolute;
+            width: rem(13);
+            content: "";
+            margin-top: rem(3);
+
+            &:after {
+                height: rem(13);
+                position: absolute;
+                left: 0;
+                width: rem(13);
+                background-color: $white;
+                border: solid $black rem(1);
+                content: "";
+            }
+        }
+
+        input {
+            height: rem(20);
+            opacity: 0;
+            z-index: 1;
+
+            &:checked {
+                ~.checkmark {
+                    background-color: $black;
+
+                    &:after {
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                        border: solid $white;
+                        border-width: 0 rem(1) rem(1) 0;
+                        height: 10px;
+                        left: rem(4);
+                        width: rem(5);
+                        background-color: $black;
+                    }
+                }
+
+            }
+        }
+    }
+
+    &-container-success {
+        display: flex;
+
+        p {
+            height: rem(24);
+            color: $apple;
+            font-size: rem(14);
+            font-weight: 500;
+            letter-spacing: rem(0.26);
+            line-height: rem(24);
+        }
+    }
+
+}

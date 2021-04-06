@@ -150,6 +150,8 @@
                         </div>
                     </isif>
 
+                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+
                     <isif condition="${product.options && product.options.length > 0}">
                         <isinclude template="product/components/options" />
                     </isif>

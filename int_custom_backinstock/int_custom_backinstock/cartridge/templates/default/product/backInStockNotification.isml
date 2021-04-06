@@ -1,0 +1,36 @@
+<isif condition="${product.isBackInStockEnabled}">
+    <div class="bis-container" data-pid="${product.id}" data-url="${URLUtils.url('BackInStockNotification-Subscribe')}">
+        <iscomment>
+            <isslot id="cs-pdp-back-in-stock-notification" context="global"
+                description="Content slot for back in stock notification on pdp" context-object="" preview-url="" />
+        </iscomment>
+        <div class="bis-container-main">
+            <p class="bis-email-notification-copy">
+                Email me when back in stock
+            </p>
+            <form class="bis-form">
+                <input class="bis-email" type="email" placeholder="Email" name="bisEmail" value="">
+                <button class="bis-button" type="submit">Confirm</button>
+            </form>
+            <p class="bis-invalid-email d-none bis-error">
+                Please Enter a valid email
+            </p>
+            <p class="bis-technical-error d-none bis-error"> 
+                You are already Subscribed
+            </p>
+        </div>
+        <div class="bis-container-success d-none">
+
+            <p>
+                You will be notified when this item is in stock
+            </p>
+        </div>
+        <div class="bis-marketing-container">
+            <input type="checkbox" id="bisMarketingCloudPreference" name="bisMarketingCloudPreference">
+            <span class="checkmark"></span>
+            <p class="bis-confirmation-copy ">
+                Sign up for exclusive offers, new arrivals and more
+            </p>
+        </div>
+    </div>
+</isif>
