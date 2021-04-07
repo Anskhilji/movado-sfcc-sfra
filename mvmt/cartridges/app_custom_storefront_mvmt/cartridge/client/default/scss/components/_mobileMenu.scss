@@ -291,12 +291,18 @@ header.new-header {
 
             .header-border-right {
                 padding-right: 0;
-                margin-right: rem(16);
+                margin-right: rem(23);
                 display: flex;
                 align-items: center;
 
                 &:last-child {
                     margin: 0;
+                }
+            }
+
+            &.right {
+                .header-border-right {
+                    margin-right: rem(25);
                 }
             }
 

@@ -19,16 +19,15 @@ server.append(
 server.get(
     'IncludeHeader',
     server.middleware.include,
-    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
         var ABTestMgr = require('dw/campaign/ABTestMgr');
-
+        var assigned = ABTestMgr.getAssignedTestSegments();
         var headerTemplate = null;
         // A/B testing for header design
-        if (!ABTestMgr.isParticipant('MVMT-header-redesign','MobileHeader-right')) {
-            headerTemplate = '/components/header/old/pageHeader';
-        } else {
+        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','HamburgerRight')) {
             headerTemplate = '/components/header/pageHeader';
+        } else {
+            headerTemplate = '/components/header/old/pageHeader';
         }
         res.render(headerTemplate);
         next();

@@ -1,6 +1,8 @@
 @import 'variables';
 @import '~movado/components/header';
-
+#mainContent {
+  background: antiquewhite;
+}
 .cart-and-checkout-header {
   width: 100%;
   background-color: $black;
@@ -136,7 +138,7 @@ header.new-header {
       width: 100%;
 
       @include media-breakpoint-down(md) {
-        padding: rem(14) rem(10);
+        padding: rem(12.5) rem(10);
         padding-right: rem(17);
       }
 
@@ -468,13 +470,19 @@ header.new-header {
 
     .mobile-cart-close-icon {
       display: none;
-      width: rem(18);
-      text-align: right;
+      width: rem(15);
+      text-align: center;
     }
-
+    .mobile-cart-close-icon {
+      svg {
+        width: rem(12);
+        height: rem(13);
+      }
+    }
     &.right {
       .mobile-cart-close-icon { 
         width: rem(15);
+        margin-top: rem(2);
       }
 
       .mobile-cart-close-icon {
@@ -1181,12 +1189,12 @@ header.new-header.mvmt-header-design {
     .mvmt-mobile-header-logo {
         p {
           margin: 0;
+          display: flex;
+          justify-content: center;
         }
   
         .logo-link {
           display: flex;
-          justify-content: center;
-
           svg {
             width: rem(80);
             height: rem(20);
@@ -1194,8 +1202,7 @@ header.new-header.mvmt-header-design {
         }
 
         &.left {
-          .logo-link {
-            display: flex;
+          p {
             justify-content: left;
           }
         }
@@ -1210,32 +1217,28 @@ header.new-header.mvmt-header-design {
     
     .header-nav-right-mobile {
       li {
+        .mobile-cart-icon {
+          position: relative;
+
+          .minicart {
+            position: initial;
+          }
           svg {
-              height: rem(16);
+            width: rem(15);
+            height: rem(13);
           }
-
-          .mobile-cart-icon {
-            position: relative;
-
-            .minicart {
-              position: initial;
-            }
-            svg {
-              width: rem(15);
-              height: rem(13);
-            }
-            .minicart-quantity {
-              top: rem(-4);
-              right: rem(-4);
-            }
+          .minicart-quantity {
+            top: rem(-4);
+            right: rem(-4);
           }
+        }
       }
 
       .desktop-search-icon {
         svg {
           width: rem(11);
           height: rem(11);
-          top: rem(3);
+          top: rem(2);
         }
       }
 
@@ -1243,7 +1246,9 @@ header.new-header.mvmt-header-design {
         .desktop-search-icon {
 
           svg {
-            top: rem(2);
+            top: rem(1);
+            width: rem(13);
+            height: rem(13);
           }
         }
       }
