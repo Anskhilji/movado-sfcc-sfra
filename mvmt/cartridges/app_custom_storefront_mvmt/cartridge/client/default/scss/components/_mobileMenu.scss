@@ -454,6 +454,20 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 
 .bottom-sticky-header {
     .bottom-navbar-diplay {
-        display: contents;
+        display: contents !important;
     }
+    .bottom-sticky-header-link  {
+        > svg {
+            display: flex;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .bottom-sticky-header-text {
+            font-family: Futura PT Medium;
+            font-size: 9px;
+            line-height: 12px;
+            letter-spacing: 0.61px;
+            text-align: center;
+        }
+    }   
 }

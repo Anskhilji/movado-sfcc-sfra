@@ -162,3 +162,16 @@ document.addEventListener('animationstart', function (event) {
         }
     }
 }, true);
+
+$(window).scroll(function (event) {
+    var elementOffset = $('footer').offset().top - 160,
+        elementOuter = $('footer').outerHeight(),
+        windowHeight = $(window).height(),
+        thisScroll = $(this).scrollTop();
+
+        if (thisScroll > (elementOffset+elementOuter-windowHeight)){
+            $('.bottom-sticky-header').addClass('d-none');
+        } else {
+            $('.bottom-sticky-header').removeClass('d-none');
+        }
+ });
