@@ -31,7 +31,7 @@ $('#newsletterSubscribe').submit(function (e) {
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
     var $emailVerification = $(e.target).find('.email-verification').val();
-    if ($emailVerification !== '' || $emailVerification.length > 0) {
+    if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
         return;
     }
     if (inputValue !== '') {

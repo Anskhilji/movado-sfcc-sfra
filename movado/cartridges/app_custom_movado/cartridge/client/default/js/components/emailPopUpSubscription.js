@@ -37,7 +37,7 @@ $(document).ready(function () {
         var $isValidEmail = $patternEmail.test($emailInputValue);
         var $phoneValidation;
         var $emailVerification = $(e.target).find('.email-verification').val();
-        if ($emailVerification !== '' || $emailVerification.length > 0) {
+        if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
             return;
         }
         if ($clickedButtonValue === "emailPhone") {
