@@ -451,3 +451,9 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 	    display: block;
     }
 }
+
+.bottom-sticky-header {
+    .bottom-navbar-diplay {
+        display: contents;
+    }
+}

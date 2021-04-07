@@ -262,5 +262,11 @@
     </div>
 </div>
 
+<div class="container-fluid bottom-sticky-header">
+    <div class="justify-content-center row">
+        <isslot id="cs-bottom-sticky-header" description="Content For Bottom Sticky Header" context="global" />
+    </div>
+</nav>
+
 <div id="overlay"></div>
 <div class="search-modal-open"></div>
