@@ -11,9 +11,26 @@ Font family has been assigned in PDP SCSS of each site
 .bis {
 
     &-button {
-        display: none;
         position: absolute;
-        right: 0;
+        right: rem(15);
+        background: transparent;
+        border: none;
+        height: rem(45);
+        width: rem(67);
+        color: $cerulean;
+        font-size: rem(14);
+        font-weight: 500;
+        letter-spacing: rem(1);
+        line-height: rem(18);
+        text-align: right;
+        display: none;
+        text-transform: uppercase;
+      
+
+        &:hover {
+            background: transparent;
+            border: none;
+        }
     }
 
     &-confirmation-copy {
@@ -25,6 +42,7 @@ Font family has been assigned in PDP SCSS of each site
         letter-spacing: rem(0.5);
         line-height: rem(17);
         margin-left: rem(4);
+        text-align: left;
     }
 
     &-email {
@@ -32,6 +50,8 @@ Font family has been assigned in PDP SCSS of each site
         border-radius: 0;
         border: rem(1) solid $black;
         height: rem(45);
+        padding-left: rem(15);
+        padding-right: rem(82);
 
         &:focus {
             outline: $black;
@@ -46,6 +66,7 @@ Font family has been assigned in PDP SCSS of each site
         letter-spacing: rem(1.2);
         line-height: rem(18);
         margin-bottom: rem(12);
+        text-align: left;
     }
 
     &-form {
@@ -103,6 +124,7 @@ Font family has been assigned in PDP SCSS of each site
 
     &-container-success {
         display: flex;
+        margin-bottom: rem(10);
 
         p {
             height: rem(24);
@@ -111,6 +133,7 @@ Font family has been assigned in PDP SCSS of each site
             font-weight: 500;
             letter-spacing: rem(0.26);
             line-height: rem(24);
+            margin-bottom: 0;
         }
     }
 

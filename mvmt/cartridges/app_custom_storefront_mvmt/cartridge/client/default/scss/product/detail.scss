@@ -1,5 +1,6 @@
 @import '../variables';
 @import '~movado/product/detail';
+@import '../components/backInStockNotification';
 
 .pdp-tabs-nav {
     border-bottom: rem(4) solid $light-gray6;

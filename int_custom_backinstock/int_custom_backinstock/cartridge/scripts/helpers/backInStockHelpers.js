@@ -28,7 +28,7 @@ function isBackInStockEnabled() {
  */
 function isProductBackInStockEnabled(product, apiProduct) {
     var isProductBackInStockEnabled = false;
-    if (isBackInStockEnabled() && !empty(apiProduct) && !empty(product) && product.available) {
+    if (isBackInStockEnabled() && !empty(apiProduct) && !empty(product) && !product.available) {
         isProductBackInStockEnabled = !empty(apiProduct.custom.enableBackInStock) ? apiProduct.custom.enableBackInStock : false;
     }
     return isProductBackInStockEnabled;
@@ -52,7 +52,7 @@ function saveBackInStockNotificationObj(params) {
             backInStockObj.custom.email = params.email;
             backInStockObj.custom.productID = params.productID;
             backInStockObj.custom.enabledMarketing = params.enabledMarketing;
-            backInStockObj.custom.exportedMarketing = false;
+            backInStockObj.custom.exportedToCSV = false;
             success = true;
         });
     } catch (error) {

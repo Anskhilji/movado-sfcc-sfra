@@ -56,17 +56,27 @@ module.exports = {
             if (event.key == 'Enter' && triggerEmail) {
                 event.preventDefault();
                 triggerEmail = false;
-                console.log('Enter Pressed');
                 var $selector = $('.bis-container');
                 submitBackInStockEmail($selector);
             }
         });
+
+        $(document).off('keyup', '.bis-email').on('keyup', '.bis-email', function (event) {
+            var $emailField = $('.bis-email');
+            var $bisConfirmButton = $('.bis-button');
+            if ($emailField.val().length > 0) {
+                $bisConfirmButton.addClass('d-block');
+            } else {
+                $bisConfirmButton.removeClass('d-block');
+            }
+        });
+
         $(document).off('click', '.bis-button').on('click', '.bis-button', function (event) {
             if (triggerEmail) {
                 event.preventDefault();
                 triggerEmail = false;
                 var $selector = $('.bis-container');
-                submitBackInStockEmail($selector);
+                submitBackInStockEmail($selector); 
             }
         })
     }
