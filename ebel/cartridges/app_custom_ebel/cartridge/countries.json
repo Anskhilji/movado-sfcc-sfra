@@ -10300,7 +10300,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "KWD",
         "taxation": {
             "type": "net"
         },
@@ -13280,7 +13280,7 @@
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
         "languages": ["en"],
-        "currencyCode": "USD",
+        "currencyCode": "QAR",
         "taxation": {
             "type": "net"
         },
