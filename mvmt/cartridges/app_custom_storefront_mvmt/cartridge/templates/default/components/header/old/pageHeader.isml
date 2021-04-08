@@ -8,8 +8,8 @@
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableLandingPage()}" >
-        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
-        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+    <iscomment>Add Country paramater from Pipleline Becuase we dont have country paramater in request </iscomment>
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode',!empty(pdict.countryCode) ?  pdict.countryCode : '')}"/>
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
