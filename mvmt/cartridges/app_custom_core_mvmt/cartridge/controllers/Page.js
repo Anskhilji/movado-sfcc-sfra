@@ -30,6 +30,14 @@ server.get(
         } else {
             headerTemplate = '/components/header/old/pageHeader';
         }
+
+        var countryCode = "";
+        if (!empty(request.httpParameterMap.get('countryCode').value)) {
+            countryCode = request.httpParameterMap.get('countryCode').value;
+        }
+        var viewData = res.getViewData();
+        viewData.countryCode = countryCode
+        res.setViewData(viewData);
         res.render(headerTemplate);
         next();
     }
