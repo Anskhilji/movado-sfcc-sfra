@@ -35,8 +35,14 @@ server.get(
         if (!empty(request.httpParameterMap.get('countryCode').value)) {
             countryCode = request.httpParameterMap.get('countryCode').value;
         }
+        var productSearch = "";
+        if (!empty(request.httpParameterMap.get('productSearch').value)) {
+            productSearch = request.httpParameterMap.get('productSearch').value;
+        }
+
         var viewData = res.getViewData();
-        viewData.countryCode = countryCode
+        viewData.productSearch = productSearch;
+        viewData.countryCode = countryCode;
         res.setViewData(viewData);
         res.render(headerTemplate);
         next();
