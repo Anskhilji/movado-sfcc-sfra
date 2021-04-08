@@ -19,6 +19,7 @@ server.append(
 server.get(
     'IncludeHeader',
     server.middleware.include,
+    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
         var ABTestMgr = require('dw/campaign/ABTestMgr');
         var assigned = ABTestMgr.getAssignedTestSegments();

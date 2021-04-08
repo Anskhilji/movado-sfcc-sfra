@@ -1,6 +1,5 @@
-<h2>NEW DESIGN</h2>
+<iscomment> Mobile menu icon placement changed, Hamburger right aligned </iscomment>
 <div class="header-banner order-2 order-lg-1">
-
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 </div><iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
