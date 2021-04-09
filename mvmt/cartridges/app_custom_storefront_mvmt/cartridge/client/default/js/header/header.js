@@ -166,8 +166,8 @@ document.addEventListener('animationstart', function (event) {
 $(window).scroll(function (event) {
     var $footer = $('.footer');
     if ($footer.length > 0) {
-        var $elementOffset = $('footer').offset().top - 160,
-        $elementOuter = $('footer').outerHeight(),
+        var $elementOffset = $footer.offset().top - 160,
+        $elementOuter = $footer.outerHeight(),
         $windowHeight = $(window).height(),
         $thisScroll = $(this).scrollTop();
 
