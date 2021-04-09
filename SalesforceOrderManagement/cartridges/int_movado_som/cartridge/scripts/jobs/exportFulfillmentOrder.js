@@ -44,7 +44,6 @@ function writeXmlElement(sw, elementName, elementValue, isCurrency) {
  * @return {null}
  */
 function createSAPOrderFile(args, impexFilePath, record) {
-    var WebOrderCreationTimeZone = Site.getCurrent().getCustomPreferenceValue('webOrderCreationTimeZone');
     var filePattern = args.FilePattern;
 
     // SAP requires the delivery charge to be the last PO line item.  SFDC returns JSON as backwards alpha sort, so we re-sort by poItemNumber here
