@@ -463,11 +463,12 @@ header.new-header .main-menu .dropdown-selector  li:hover {
             margin: 0 auto;
         }
         .bottom-sticky-header-text {
-            font-family: Futura PT Medium;
-            font-size: 9px;
-            line-height: 12px;
-            letter-spacing: 0.61px;
+            font-family: $font-medium;
+            font-size: rem(0.563);
+            line-height: rem(0.75);
+            letter-spacing: rem(0.038);
             text-align: center;
+            color: $light-blue-icons;
         }
     }   
 }
