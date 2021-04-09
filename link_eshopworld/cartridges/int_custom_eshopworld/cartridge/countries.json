@@ -923,9 +923,9 @@
 	{
 		"countryCode": "HK",
 		"name": {
-			"en_GB": "Hong Kong",
-			"en_US": "Hong Kong",
-			"de_DE": "Hong Kong"
+			"en_GB": "Hong Kong, China",
+			"en_US": "Hong Kong, China",
+			"de_DE": "Hong Kong, China"
 		},
 		"continent": "asia",
 		"locales": ["en_GB", "en_US", "de_DE"],
@@ -9486,9 +9486,9 @@
     },{
         "countryCode": "HK",
         "name": {
-            "en_US": "Hong Kong",
-            "default": "Hong Kong",
-            "en": "Hong Kong"
+            "en_US": "Hong Kong, China",
+            "default": "Hong Kong, China",
+            "en": "Hong Kong, China"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
@@ -10590,9 +10590,9 @@
     },{
         "countryCode": "MO",
         "name": {
-            "en_US": "Macao",
-            "default": "Macao",
-            "en": "Macao"
+            "en_US": "Macao, China",
+            "default": "Macao, China",
+            "en": "Macao, China"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
@@ -14366,9 +14366,9 @@
     },{
         "countryCode": "TW",
         "name": {
-            "en_US": "Taiwan",
-            "default": "Taiwan",
-            "en": "Taiwan"
+            "en_US": "Taiwan, China",
+            "default": "Taiwan, China",
+            "en": "Taiwan, China"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
