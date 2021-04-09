@@ -468,3 +468,27 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 	    display: block;
     }
 }
+
+.bottom-sticky-header {
+    .bottom-navbar-display {
+        display: contents !important;
+        
+        .active {
+            color: $light-blue-icons;
+        } 
+    }
+    .bottom-sticky-header-link  {
+        > svg {
+            display: flex;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .bottom-sticky-header-text {
+            font-family: $font-medium;
+            font-size: rem(0.563);
+            line-height: rem(0.75);
+            letter-spacing: rem(0.038);
+            text-align: center;
+        }
+    }   
+}
