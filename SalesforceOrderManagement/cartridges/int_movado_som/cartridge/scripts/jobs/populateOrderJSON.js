@@ -76,7 +76,7 @@ function searchAndPopulateByOrderID() {
         orderIterator = OrderMgr.searchOrders("(custom.SOMAddressData = NULL OR custom.SOMAddressData='') AND (status != 0 AND status != 8)", null, null);
     } 
     catch (exSearch) {
-        var al = exSearch;
+        logger.error('OrderMgr.searchOrders FAILED: ' + exSearch.toString());
     }
     while (orderIterator.hasNext()) {
 		try {
@@ -88,9 +88,7 @@ function searchAndPopulateByOrderID() {
 
         } 
         catch (e) {
-            var bl = e;
-            //failedOrders.push({ orderNo: order.orderNo });
-            //Logger.getLogger('MigrateOrders').error('Order Not Migrated for Order No : ' + order.orderNo + ' with error as : ' + e + '\n' + e.stack);
+            logger.error('populateByOrder FAILED: ' + e.toString());
         }
     }
 }
