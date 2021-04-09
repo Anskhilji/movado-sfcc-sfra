@@ -29,6 +29,7 @@ var customScrollValue = $(window).scrollTop();
                 $thisInstance.addClass('sticky-header').css({
                     top: 0 + (opts.offsetTop || 0)
                 });
+                
                 // CUSTOM START: added custom class
                 $('.desktop-side-search,.mobile-side-search').addClass('search-bar-header-padding');
                 $('.custom-clp-social').addClass('sticky');
