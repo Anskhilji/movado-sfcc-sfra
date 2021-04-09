@@ -27,7 +27,8 @@
 </div>
 <iscomment> Custom Start: Adding check for express, amazonpay and applepay buttons to show only when country US is selected</iscomment>
 <isif condition="${isEswEnabled}" > 
-    <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
+    <isset name="isexpressCheckoutEnable" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+    <isif condition="${isexpressCheckoutEnable}">
         <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
         <div class="row more-options">
             <div class="col col-sm-12">

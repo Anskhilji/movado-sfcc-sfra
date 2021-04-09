@@ -3,6 +3,7 @@
 var server = require('server');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Site = require('dw/system/Site');
+var constant = require('*/cartridge/scripts/helpers/constants');
 
 server.get('Show', server.middleware.https, consentTracking.consent, function (req, res, next) {
     var ContentMgr = require('dw/content/ContentMgr');
@@ -36,7 +37,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             var geoLocationCountry = null;
             var geoLocationCountryCode = request.geolocation.countryCode;
             var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
-            var locale = request.getLocale();
+            var locale =request.getLocale();
             var movadoLandingObject = {};
             session.custom.isWelcomeMat = true;
 
@@ -45,7 +46,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             }
 
             var customCountries = eswCustomHelper.getCustomCountries();
-            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+            locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+            allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
             movadoLandingObject.isGeoLocation = false;
 
             if (!empty(geoLocationCountry)) {
@@ -56,7 +58,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (r
             } else {
                 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
                 movadoLandingObject.selectedCountry = eswHelper.getAvailableCountry();
-                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
+                locale = request.getLocale();
+                movadoLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale[0]);
                 movadoLandingObject.selectedCurrency = '';
             }
             var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');
