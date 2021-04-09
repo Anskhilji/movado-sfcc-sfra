@@ -39,8 +39,10 @@ server.get(
         if (!empty(request.httpParameterMap.get('productSearch').value)) {
             productSearch = request.httpParameterMap.get('productSearch').value;
         }
-
-        var httpURL = request.httpURL;
+        var httpURL = "";
+        if (!empty(request.httpParameterMap.get('httpURL').value)) {
+            httpURL = request.httpParameterMap.get('httpURL').value;
+        }
 
         var viewData = res.getViewData();
         viewData.productSearch = productSearch;
