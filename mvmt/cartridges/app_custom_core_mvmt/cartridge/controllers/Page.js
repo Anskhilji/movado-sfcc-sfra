@@ -40,9 +40,12 @@ server.get(
             productSearch = request.httpParameterMap.get('productSearch').value;
         }
 
+        var httpURL = request.httpURL;
+
         var viewData = res.getViewData();
         viewData.productSearch = productSearch;
         viewData.countryCode = countryCode;
+        viewData.httpURL = httpURL;
         res.setViewData(viewData);
         res.render(headerTemplate);
         next();
