@@ -64,6 +64,36 @@ function getPriceAdjustmentObject(priceAdjustment) {
     return ret;
 }
 
+/**
+ * searchAndPopulateByOrderID Queries for order objects with blank attributes then runs populateByOrder
+ * @param {Object} args the passed in arguments
+ * @return {dw.system.Status} Status of the job
+ */
+function searchAndPopulateByOrderID() {
+    var OrderMgr = require('dw/order/OrderMgr');
+    var orderIterator;
+    try {
+        orderIterator = OrderMgr.searchOrders("(custom.SOMAddressData = NULL OR custom.SOMAddressData='') AND (status != 0 AND status != 8)", null, null);
+    } 
+    catch (exSearch) {
+        var al = exSearch;
+    }
+    while (orderIterator.hasNext()) {
+		try {
+
+			var order = orderIterator.next();
+            Transaction.wrap(function () {
+                populateByOrder(order);
+            });
+
+        } 
+        catch (e) {
+            var bl = e;
+            //failedOrders.push({ orderNo: order.orderNo });
+            //Logger.getLogger('MigrateOrders').error('Order Not Migrated for Order No : ' + order.orderNo + ' with error as : ' + e + '\n' + e.stack);
+        }
+    }
+}
 
 /**
  * populateByOrderID Queries order object then runs populateByOrder
@@ -109,7 +139,7 @@ function populateByOrder(order) {
          * Add pricebookID to Order
          */
         var pricebooks = collections.map(order.productLineItems, function (productLineItem) {
-            return productLineItem.product.priceModel.priceInfo.priceBook.ID;
+            return productLineItem.product ? productLineItem.product.priceModel.priceInfo.priceBook.ID : 'DEFAULT';
         });
 
         // Set the PriceBook ID
@@ -239,5 +269,6 @@ function populateByOrder(order) {
 
 module.exports = {
     populateByOrder: populateByOrder,
-    populateByOrderID: populateByOrderID
+    populateByOrderID: populateByOrderID,
+    searchAndPopulateByOrderID: searchAndPopulateByOrderID
 };

@@ -87,7 +87,7 @@ function createSAPOrderFile(args, impexFilePath, record) {
             writeXmlElement(streamWriter, 'ReasonCode', '');
         }
         writeXmlElement(streamWriter, 'WebOrderCreationTimeStamp', record.poHeader.webOrderCreationTimeStamp);
-        writeXmlElement(streamWriter, 'WebOrderCreationTimeZone', WebOrderCreationTimeZone);
+        writeXmlElement(streamWriter, 'WebOrderCreationTimeZone', record.poHeader.webOrderCreationTimeZone);
         writeXmlElement(streamWriter, 'PONumber', record.poHeader.poNumber);
         writeXmlElement(streamWriter, 'PODate', record.poHeader.poDate);
         writeXmlElement(streamWriter, 'ReferenceOrder', record.poHeader.referenceOrder);
@@ -463,6 +463,11 @@ function exportAppeasementOrder(args) {
         Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
     }
 
+    if (exportData.error && exportData.error === 500) {
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
+    }
+
     var responseBody = exportData.ok ? exportData.object.toArray() : [];
 
     Logger.debug('Retrieved ' + responseBody.length + ' change/appeasement order objects');
@@ -496,6 +501,11 @@ function exportReturnOrder(args) {
     });
     if (!exportData || exportData.error || exportData.msg !== 'OK') {
         Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+    }
+
+    if (exportData.error && exportData.error === 500) {
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
     }
 
     var responseBody = exportData.ok ? exportData.object.toArray() : [];
