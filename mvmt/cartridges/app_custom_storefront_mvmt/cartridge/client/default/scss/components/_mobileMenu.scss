@@ -453,8 +453,12 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 }
 
 .bottom-sticky-header {
-    .bottom-navbar-diplay {
+    .bottom-navbar-display {
         display: contents !important;
+        
+        .active {
+            color: $light-blue-icons;
+        } 
     }
     .bottom-sticky-header-link  {
         > svg {
@@ -468,7 +472,6 @@ header.new-header .main-menu .dropdown-selector  li:hover {
             line-height: rem(0.75);
             letter-spacing: rem(0.038);
             text-align: center;
-            color: $light-blue-icons;
         }
     }   
 }
