@@ -64,7 +64,6 @@
            missing-error="error.message.required">
         <options>
             <option optionid="US" label="select.option.country.unitedstates" value="US"/>
-            
         </options>
     </field>
 
