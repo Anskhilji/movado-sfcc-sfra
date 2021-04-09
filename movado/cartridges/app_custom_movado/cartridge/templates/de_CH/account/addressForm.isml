@@ -101,26 +101,8 @@
             </div>
         </div>
 
-        <!-- State  -->
-        <div class="col-6">
-            <div class="form-group
-                ${pdict.addressForm.states.stateCode.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="state">
-                    <isprint value="${pdict.addressForm.states.stateCode.label}" encoding="htmlcontent" />
-                </label>
-                <input class="form-control" id="state"
-                    <isprint value="${pdict.addressForm.states.stateCode.attributes}" encoding="off" />
-                    autocomplete="region">
-                </input>
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- City -->
-    <div class="row">
-        <div class="col-6">
         <!-- City  -->
+        <div class="col-6">
             <div class="form-group
                 ${pdict.addressForm.city.mandatory === true ? 'required' : ''}">
                 <label class="form-control-label" for="city">
@@ -132,7 +114,9 @@
                 <div class="invalid-feedback"></div>
             </div>
         </div>
+    </div>
 
+    <div class="row">
         <!-- ZIP Code -->
         <div class="col-6">
             <div class="form-group
@@ -146,18 +130,19 @@
                 <div class="invalid-feedback"></div>
             </div>
         </div>
-    </div>
-
-     <!-- Phone Number -->
-    <div class="form-group
-        ${pdict.addressForm.phone.mandatory === true ? 'required' : ''}">
-        <label class="form-control-label" for="phone">
-            <isprint value="${pdict.addressForm.phone.label}" encoding="htmlcontent" />
-        </label>
-        <input type="text" class="form-control" id="phone"
-            <isprint value="${pdict.addressForm.phone.attributes}" encoding="off" />
-            autocomplete="tel">
-        <div class="invalid-feedback"></div>
+        <div class="col-6">
+        <!-- City  -->
+            <div class="form-group
+                ${pdict.addressForm.phone.mandatory === true ? 'required' : ''}">
+                <label class="form-control-label" for="phone">
+                    <isprint value="${pdict.addressForm.phone.label}" encoding="htmlcontent" />
+                </label>
+                <input type="text" class="form-control" id="phone"
+                    <isprint value="${pdict.addressForm.phone.attributes}" encoding="off" />
+                    autocomplete="tel">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
     </div>
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
