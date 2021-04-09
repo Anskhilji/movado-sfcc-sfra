@@ -39,7 +39,7 @@
                             <isslot id="brand-logo" description="Brand Logo" context="global" />
                         </div>
 
-                        <div class="justify-content-end justfiy-content-end right">
+                        <div class="justify-content-end right">
                             <ul class="header-nav-right-mobile">
                                 <li class="header-border-right">
                                     <div class="main-level-item">
