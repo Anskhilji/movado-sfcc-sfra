@@ -18,8 +18,8 @@ var baseFullProduct = module.superModule;
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
-    var backInStockHelpers = require('*/cartridge/scripts/helpers/backInStockHelpers');
-    var isBackInStockEnabled = backInStockHelpers.isProductBackInStockEnabled(product, apiProduct);
+    var backInStockNotificationHelpers = require('*/cartridge/scripts/helpers/backInStockNotificationHelpers');
+    var isBackInStockEnabled = backInStockNotificationHelpers.isProductBackInStockEnabled(product, apiProduct);
 
     Object.defineProperty(product, 'isBackInStockEnabled', {
         enumerable: true,

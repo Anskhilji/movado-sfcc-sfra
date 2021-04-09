@@ -1,5 +1,5 @@
 /**
- * Contains methods utilized for back in stock functionallity
+ * Contains methods utilized for back in stock functionality
  */
 
 'use strict';
@@ -39,7 +39,7 @@ function isProductBackInStockEnabled(product, apiProduct) {
  * @param {Object} params 
  * @returns {Boolean} success
  */
-function saveBackInStockNotificationObj(params) {
+function saveBackInStockNotificationObj(backInStockObj) {
     var CustomObjectMgr = require('dw/object/CustomObjectMgr');
     var Transaction = require('dw/system/Transaction');
     var UUIDUtils = require('dw/util/UUIDUtils');
