@@ -21,8 +21,7 @@
                             <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
                             <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
                             <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableHeaderBar()}" >
-                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
-                                !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                                <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode',!empty(pdict.countryCode) ?  pdict.countryCode : '')}"/>
                             <iselse>
                                 <isslot id="country-selector" description="country selector" context="global" />
                             </isif>
@@ -82,7 +81,8 @@
             </div>
             
         <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
-        <isif condition="${!request.httpParameterMap.get('country').value}">
+        <iscomment>Custom: Revert this logic becuase pageFooter is remote include and we need to pass country parameter from Pipeline</iscomment>
+        <isif condition="${empty(pdict.countryCode))}">
             <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
         </isif>
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">

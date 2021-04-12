@@ -9,30 +9,12 @@ var Site = require('dw/system/Site');
 var Util = require('dw/util');
 var Logger = require('dw/system/Logger');
 var currentSite = Site.getCurrent();
-var PromotionMgr = require('dw/campaign/PromotionMgr');
-var ContentMgr = require('dw/content/ContentMgr');
-var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 /**
  * Gets all pop up settings from custom preferences
  */
 movadoEmailPopUpHelper.getPopUpSettings =  function getPopUpSettings() {
 
     var popUpSettings = new Util.HashMap();
-
-
-    // Content Asset Ids for US
-    if (isUSCountry()) { 
-        popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') : null);
-        popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') : null);
-    } else {
-            // Content Asset Ids
-        popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : null);
-        popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : null);
-    }
 
     // Mute for Days and Wait Time
     popUpSettings.put('emailPopupMuteForDays', currentSite.getCustomPreferenceValue('emailPopupMuteForDays') 
@@ -80,47 +62,6 @@ movadoEmailPopUpHelper.getPopUpSettings =  function getPopUpSettings() {
     return popUpSettings;
 }
 
-/**
- * Checks if current country is US
- * @returns {boolean}
- */
-function isUSCountry() {
-    var isUSCountry =false
-    var selectedCountryCode = eswHelper.getAvailableCountry();
-    if (selectedCountryCode.equalsIgnoreCase('US')) {
-        isUSCountry = true;
-    }
-    return isUSCountry;
-}
-
-/*
- * Check if content Assets are online
- */
- function isContentAssetEnabled() {
-
-    var popupFormContentAssetID;
-    var popupMessageContentAssetID;
-    if (isUSCountry()) {
-        popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS')
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetIDUS') : false;
-        popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS')
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetIDUS') : false;
-    } else { 
-        popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : false;
-        popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : false;
-    }
-    if (popupFormContentAssetID && popupMessageContentAssetID) {
-        var popupFormContentAsset = ContentMgr.getContent(popupFormContentAssetID);
-        var popupMessageContentAsset = ContentMgr.getContent(popupMessageContentAssetID);
-        if (popupFormContentAsset && popupMessageContentAsset && popupFormContentAsset.online &&  popupMessageContentAsset.online &&
-                !empty(popupFormContentAsset.custom.body) && !empty(popupMessageContentAsset.custom.body) ) {
-            return true;
-        }
-    }
-    return false;
-}
 
 /*
  * Checks if popUp is enabled or disabled
@@ -130,14 +71,7 @@ function isUSCountry() {
 movadoEmailPopUpHelper.isEmailPopUpEnabled =  function isEmailPopUpEnabled () {
     var emailPopupEnabled = currentSite.getCustomPreferenceValue('emailPopupEnabled');
     if (emailPopupEnabled) {
-        var campaignId = currentSite.getCustomPreferenceValue('popupCampaignID');
-        var campaign = PromotionMgr.getCampaign(campaignId);
-        if (campaign && campaign.enabled && campaign.active) {
-            var isContentAsset = isContentAssetEnabled();
-            if (isContentAsset) {
-                return true;
-            }
-        }
+      return true;
     }
     return false;
 }
