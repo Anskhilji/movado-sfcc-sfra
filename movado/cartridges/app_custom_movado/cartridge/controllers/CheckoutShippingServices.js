@@ -163,7 +163,8 @@ server.replace(
             var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
             if (subscribeToMovado) {
                 var requestParams = {
-                    email: form.shippingAddress.addressFields.email.htmlValue
+                    email: form.shippingAddress.addressFields.email.htmlValue,
+                    requestLocation: 'CHECKOUT_SERVICE'
                 }
                 if (!empty(requestParams) && !empty(requestParams.email)) {
                     sfmcApi.sendSubscriberToSFMC(requestParams);
