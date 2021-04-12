@@ -20,6 +20,7 @@ var customScrollValue = $(window).scrollTop();
         var headerContainer = $('.header-container').outerHeight(true);
         var $headerHeight = bannerHeight + headerContainer;
         var mediumScreenSize = 992;
+        $headerBannerLower = $('.header-banner-lower');
 
         var _setElementPosition = function ($thisInstance) {
             var prevOffset = $thisInstance.prev(opts.stickyPlaceholder).length ? $thisInstance.prev(opts.stickyPlaceholder).offset().top : 0;
@@ -35,6 +36,7 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').addClass('sticky');
                 $('.mini-cart-data .popover').addClass('afterSticky');
                 $thisInstance.parent().addClass('fixed-header');
+                $headerBannerLower.addClass('header-banner-lower-tuck');
             } else {
                 $thisInstance.removeClass('sticky-header');
                 // CUSTOM START: removed custom class                
@@ -53,6 +55,7 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').removeClass('sticky');
                 $('.mini-cart-data .popover').removeClass('afterSticky');
                 $thisInstance.parent().removeClass('fixed-header');
+                $headerBannerLower.removeClass('header-banner-lower-tuck');
             }
         };
 

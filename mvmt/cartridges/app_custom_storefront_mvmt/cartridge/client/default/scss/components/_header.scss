@@ -72,6 +72,18 @@
 
 .header-banner-lower {
   z-index: auto;
+
+  &-tuck {
+    position: relative;
+    top: rem(-39);
+    transition: all .25s ease;
+    animation: fade-in 0.01s linear forwards;
+
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+  }
+  }
 }
 
 header.new-header {
