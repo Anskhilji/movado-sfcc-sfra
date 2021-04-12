@@ -103,6 +103,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 OrderMgr.failOrder(order, true);
             });
             checkoutLogger.error('(Adyen) -> ShowConfirmation: Authorization is failed and order is failed and redirecting to Checkout-Begin and stage is payment and order number is: ' + order.orderNo);
+            session.custom.klarnaRiskifiedFlag = '';
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
         }
@@ -191,6 +192,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                     true,
                     require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
                 checkoutLogger.error('(Adyen) -> ShowConfirmation: A fraud has been detected by Riskified thats why going to refund payment against order with order number: ' + orderNumber + ' and redirecting to Checkout-Begin and stage is payment ');
+                session.custom.klarnaRiskifiedFlag = '';
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
             }
@@ -198,6 +200,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             // put logger
             checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
             checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
+            session.custom.klarnaRiskifiedFlag = '';
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
         }
@@ -230,6 +233,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
     checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
     checkoutLogger.error('(Adyen) -> ShowConfirmation: Order is Failed due to payment result is not authorized and redirecting to the Checkout-Begin and stage is payment and order number: ' + orderNumber);
+    session.custom.klarnaRiskifiedFlag = '';
     res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
     return next();
 });
