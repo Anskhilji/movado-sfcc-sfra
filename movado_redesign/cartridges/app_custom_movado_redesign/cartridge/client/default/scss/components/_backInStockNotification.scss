@@ -1,0 +1,27 @@
+.bis {
+
+    &-button {
+        font-family: $font-medium;
+    }
+
+    &-confirmation-copy {
+        font-family: $font-medium;
+    }
+
+    &-email-notification-copy {
+        color: $mine-shaft;
+        font-family: $font-medium;
+        font-size: rem(17);
+        font-weight: 300;
+        letter-spacing: rem(1);
+        line-height: rem(22);
+    }
+
+    &-form {
+        max-width: rem(350);
+
+        @include media-breakpoint-down(lg) {
+            max-width: 100%;
+        }
+    }
+}

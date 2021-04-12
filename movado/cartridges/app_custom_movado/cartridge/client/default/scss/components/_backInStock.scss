@@ -25,11 +25,18 @@ Font family has been assigned in PDP SCSS of each site
         text-align: right;
         display: none;
         text-transform: uppercase;
-      
+
 
         &:hover {
             background: transparent;
             border: none;
+            outline: none;
+        }
+
+        &:focus {
+            background: transparent;
+            border: none;
+            outline: none;
         }
     }
 
@@ -71,6 +78,7 @@ Font family has been assigned in PDP SCSS of each site
 
     &-form {
         display: flex;
+        position: relative;
     }
 
     &-marketing-container {
@@ -134,7 +142,12 @@ Font family has been assigned in PDP SCSS of each site
             letter-spacing: rem(0.26);
             line-height: rem(24);
             margin-bottom: 0;
+            text-align: left;
         }
+    }
+
+    &-invalid-email {
+        text-align: left;
     }
 
 }

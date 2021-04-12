@@ -39,7 +39,7 @@ function isProductBackInStockEnabled(product, apiProduct) {
  * @param {Object} params 
  * @returns {Boolean} success
  */
-function saveBackInStockNotificationObj(backInStockObj) {
+function saveBackInStockNotificationObj(params) {
     var CustomObjectMgr = require('dw/object/CustomObjectMgr');
     var Transaction = require('dw/system/Transaction');
     var UUIDUtils = require('dw/util/UUIDUtils');
