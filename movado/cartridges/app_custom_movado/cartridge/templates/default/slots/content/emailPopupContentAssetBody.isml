@@ -1,0 +1,18 @@
+<isif condition="${slotcontent != null && !!slotcontent.content.length}">
+	<isloop items="${slotcontent.content}" var="contentAsset">
+        <isif condition="${!empty(contentAsset.custom.body)}">
+            <isprint value="${contentAsset.custom.body}" encoding="off"/>
+        <iselse>
+            <script>
+                var element = document.getElementById("emailOptInPopUp"); 
+                element.classList.add("d-none");  
+            </script>	
+        </isif>
+	</isloop>
+<iselse>
+    <script>
+         var element = document.getElementById("emailOptInPopUp"); 
+         element.classList.add("d-none");  
+    </script>	
+</isif>
+

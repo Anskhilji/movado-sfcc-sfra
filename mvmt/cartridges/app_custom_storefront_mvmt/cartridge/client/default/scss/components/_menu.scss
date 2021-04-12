@@ -581,6 +581,30 @@
 }
 .main-menu.menu-toggleable-left {
 
+  &.right {
+    transition: right 0.5s cubic-bezier(0, 1, 0.5, 1);
+    right: rem(-340);
+    left: auto;
+    background-color: $light-gray11;
+  
+    .dropdown-menu {
+      left: auto;
+      overflow-x: hidden;
+      right: rem(-300);
+      transition: right 0.5s cubic-bezier(0, 1, 0.5, 1);
+    }
+  
+    &.in {
+      right: 0;
+      margin: 0;
+      .show {
+        > .dropdown-menu{
+          right: 0;
+        }
+      }
+    }
+  }
+
   &.in {
  
     .dropdown-menu {

@@ -13,10 +13,10 @@
             <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
                 <div class="modal-body">
                     <div class="email-optin-control">
-                        <iscontentasset aid="${pdict.popUpSettings.popupFormContentAssetID}"/>
+                        <isslot id="email-popup-content" description="Email Popup Content" context="global" />   
                     </div>
                     <div class="thankyou-note-control d-none">
-                        <iscontentasset aid="${pdict.popUpSettings.popupMessageContentAssetID}"/>
+                        <isslot id="email-popup-thank-you-note-content" description="Email Popup thank You Note Content" context="global" /> 
                     </div>
                 </div>
             </div>

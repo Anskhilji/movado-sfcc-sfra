@@ -2,20 +2,12 @@ var Site = require('dw/system/Site');
 var Util = require('dw/util');
 var Logger = require('dw/system/Logger');
 var currentSite = Site.getCurrent();
-var PromotionMgr = require('dw/campaign/PromotionMgr');
-var ContentMgr = require('dw/content/ContentMgr');
 /**
  * Gets all pop up settings from custom preferences
  */
 function getPopUpSettings() {
 
     var popUpSettings = new Util.HashMap();
-
-    // Content Asset Ids
-    popUpSettings.put('popupFormContentAssetID', currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : null);
-    popUpSettings.put('popupMessageContentAssetID', currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : null);
 
     // Mute for Days and Wait Time
     popUpSettings.put('emailPopupMuteForDays', currentSite.getCustomPreferenceValue('emailPopupMuteForDays') 
@@ -89,33 +81,7 @@ function isWhiteListed(pipeline, seoURL , request) {
 function isEmailPopUpEnabled () {
     var emailPopupEnabled = currentSite.getCustomPreferenceValue('emailPopupEnabled');
     if (emailPopupEnabled) {
-        var campaignId = currentSite.getCustomPreferenceValue('popupCampaignID');
-        var campaign = PromotionMgr.getCampaign(campaignId);
-        if (campaign && campaign.enabled && campaign.active) {
-            var isContentAsset = isContentAssetEnabled();
-            if (isContentAsset) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-/*
- * Check if content Assets are online
- */
-function isContentAssetEnabled () {
-    var popupFormContentAssetID = currentSite.getCustomPreferenceValue('popupFormContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupFormContentAssetID') : false;
-    var popupMessageContentAssetID = currentSite.getCustomPreferenceValue('popupMessageContentAssetID') 
-            ? currentSite.getCustomPreferenceValue('popupMessageContentAssetID') : false;
-    if (popupFormContentAssetID && popupMessageContentAssetID) {
-        var popupFormContentAsset = ContentMgr.getContent(popupFormContentAssetID);
-        var popupMessageContentAsset = ContentMgr.getContent(popupMessageContentAssetID);
-        if (popupFormContentAsset && popupMessageContentAsset && popupFormContentAsset.online &&  popupMessageContentAsset.online &&
-                !empty(popupFormContentAsset.custom.body) && !empty(popupMessageContentAsset.custom.body) ) {
-            return true;
-        }
+       return true;
     }
     return false;
 }

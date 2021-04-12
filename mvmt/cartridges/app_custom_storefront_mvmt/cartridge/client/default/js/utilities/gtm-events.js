@@ -52,26 +52,32 @@ var getCookieSessionId = function () {
  **/
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-promotion-view', function (evt) {
+    $('body').on('click', '.gtm-promotion-view, .gtm-event', function (evt) {
         var $currentTarget = $(this);
         updateDataLayer('promoClick');
-        var dataLayerObj = '';
-        var pageType = $currentTarget.data('page-type'); 
-        var gtmTrackingData = $currentTarget.data('gtm-product-promo');
-    
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj = gtmTrackingData;
-        }
-
-        dataLayer.push({ event: 'promoClick',
-            event: 'promotionalClick',
-            pageType: pageType,
-            ecommerce: {
-                promoClick: {
-                    promotions: dataLayerObj
+        var pageType = $currentTarget.data('page-type');
+        var productPromoTracking = $currentTarget.data('gtm-product-promo');
+        var campaginPromoTracking = $currentTarget.data('gtm-tracking');
+        if (productPromoTracking !== undefined && productPromoTracking !=='') {
+            dataLayer.push({
+                event: 'promoClick',
+                pageType: pageType,
+                ecommerce: {
+                    promoClick: {
+                        promotions: productPromoTracking
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            dataLayer.push({
+                event: 'promoClick',
+                ecommerce: {
+                    promoClick: {
+                        promotions: campaginPromoTracking
+                    }
+                }
+            });
+        }
     });
 };
 
@@ -299,23 +305,40 @@ var onLoadProductTile = function () {
  **/
 
 var onPromoImpressionsLoad = function (e) {
-    updateDataLayer('promotionalView');
-    var dataLayerObj = '';
+    updateDataLayer('promoImpressions');
+    var dataLayerObj = [];
     var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
+    var gtmTrackingPromo = $('.gtm-promotion-view').data('gtm-tracking');
 
-    if (gtmTrackingData !== undefined) {
+    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
         dataLayerObj = gtmTrackingData;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
+    }
+    
+    if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
+        dataLayerObj = gtmTrackingPromo;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
     }
 
-    updateDataLayer('promotionalView');
-    dataLayer.push({
-        event: 'promotionalView',
-        ecommerce: {
-            promoView: {
-                promotions: dataLayerObj
-            }
-        }
-    });
+
 };
 
 /**

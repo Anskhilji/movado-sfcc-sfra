@@ -58,40 +58,79 @@
             }
         },
         "event": "productDetail"
-        });             
+        });
     </isif>
 
     <isif condition="${pdict.gtm.action === 'cart-show'}">
-    dataLayer.push (
+        dataLayer.push (
             <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-            {'ecommerce':{'checkout': {
-            'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
-            "products": [
-            <isloop items="${checkoutObj}" var="produtArray" status="status">
-                {'id': '${produtArray.cartObj.id}',
-                'name':  '${produtArray.cartObj.name}',
-                'price': '${produtArray.cartObj.price}',
-                'brand': '${produtArray.cartObj.brand}',
-                'category': '${produtArray.cartObj.category}',
-                'variant': '${produtArray.cartObj.variant}',
-                'revenue': '${produtArray.cartObj.revenue}',
-                'tax': '${produtArray.cartObj.tax}',
-                'shipping': '${produtArray.cartObj.shipping}',
-                'coupon': '${produtArray.cartObj.coupon}',
-                'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
-                'currency': '${produtArray.cartObj.currency}',
-                'country': '${produtArray.cartObj.country}',
-                'productQuantity': '${produtArray.cartObj.productQuantity}',
-                'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
-                'subTotal': '${produtArray.cartObj.subTotal}',
-                'discount': '${produtArray.cartObj.discount}',
-                'promoCode': '${produtArray.cartObj.coupon}',
-                'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}' }
-                <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-            </isloop>
+                {'ecommerce':{
+                    "products": [
+                        <isloop items="${checkoutObj}" var="produtArray" status="status">
+                            {'name': '${produtArray.cartObj.name}',
+                            'id':  '${produtArray.cartObj.id}',
+                            'price': '${produtArray.cartObj.price}',
+                            'category': '${produtArray.cartObj.category}',
+                            'quantity': '${produtArray.cartObj.quantity}',
+                            'sku': '${produtArray.cartObj.id}',
+                            'productType': '${produtArray.cartObj.productType}',
+                            'description': unescape('${produtArray.cartObj.description}'),
+                            'imageURL': '${produtArray.cartObj.imageURL}',
+                            'productURL': '${produtArray.cartObj.prouctUrl}',
+                            'barnd': '${produtArray.cartObj.brand}',
+                            'tax': '${produtArray.cartObj.tax}',
+                            'shipping': '${produtArray.cartObj.shipping}',
+                            'coupon': '${produtArray.cartObj.coupon}',
+                            'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+                            'currency': '${produtArray.cartObj.currency}',
+                            'country': '${produtArray.cartObj.country}',
+                            'productQuantity': '${produtArray.cartObj.productQuantity}',
+                            'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+                            'subTotal': '${produtArray.cartObj.subTotal}',
+                            'discount': '${produtArray.cartObj.discount}',
+                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
                     ]
+                },
                 }
-            },
+                <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
+            </isloop>
+        );
+    </isif>
+
+    <isif condition="${pdict.gtm.action === 'checkout-login'}">
+        dataLayer.push (
+            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+                {'ecommerce':{'checkout': {
+                    'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+                    "products": [
+                        <isloop items="${checkoutObj}" var="produtArray" status="status">
+                            {'id': '${produtArray.cartObj.id}',
+                            'name':  '${produtArray.cartObj.name}',
+                            'price': '${produtArray.cartObj.price}',
+                            'brand': '${produtArray.cartObj.brand}',
+                            'productQuantity': '${produtArray.cartObj.productQuantity}',
+                            'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+                            'category': '${produtArray.cartObj.category}',
+                            'variant': '${produtArray.cartObj.variant}',
+                            'revenue': '${produtArray.cartObj.revenue}',
+                            'currency': '${produtArray.cartObj.currency}',
+                            'tax': '${produtArray.cartObj.tax}',
+                            'country': '${produtArray.cartObj.country}',
+                            'shipping': '${produtArray.cartObj.shipping}',
+                            'coupon': '${produtArray.cartObj.coupon}',
+                            'promoCode': '${produtArray.cartObj.coupon}',
+                            'discount': '${produtArray.cartObj.discount}',
+                            'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+                            'subTotal': '${produtArray.cartObj.subTotal}',
+                            'paymentMethod': '${produtArray.cartObj.paymentMethod}',
+                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
+                            ]
+                        }
+                    },
             "event": "checkout"}
             <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
         </isloop>
@@ -100,40 +139,40 @@
     
     <isif condition="${pdict.gtm.action ==='checkout-begin'}">
     checkoutDataLayer.push (
-            <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+        <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
             {'ecommerce':{'checkout': {
-            'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
-            "products": [
-            <isloop items="${checkoutObj}" var="produtArray" status="status">
-                {'id': '${produtArray.cartObj.id}',
-                'name':  '${produtArray.cartObj.name}',
-                'price': '${produtArray.cartObj.price}',
-                'brand': '${produtArray.cartObj.brand}',
-                'productQuantity': '${produtArray.cartObj.productQuantity}',
-                'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
-                'category': '${produtArray.cartObj.category}',
-                'variant': '${produtArray.cartObj.variant}',
-                'revenue': '${produtArray.cartObj.revenue}',
-                'currency': '${produtArray.cartObj.currency}',
-                'tax': '${produtArray.cartObj.tax}',
-                'country': '${produtArray.cartObj.country}',
-                'shipping': '${produtArray.cartObj.shipping}',
-                'coupon': '${produtArray.cartObj.coupon}',
-                'promoCode': '${produtArray.cartObj.coupon}',
-                'discount': '${produtArray.cartObj.discount}',
-                'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
-                'subTotal': '${produtArray.cartObj.subTotal}',
-                'paymentMethod': '${produtArray.cartObj.paymentMethod}',
-                'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
-                <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
-            </isloop>
-                    ]
-                }   
+                'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
+                "products": [
+                    <isloop items="${checkoutObj}" var="produtArray" status="status">
+                        {'id': '${produtArray.cartObj.id}',
+                        'name':  '${produtArray.cartObj.name}',
+                        'price': '${produtArray.cartObj.price}',
+                        'brand': '${produtArray.cartObj.brand}',
+                        'productQuantity': '${produtArray.cartObj.productQuantity}',
+                        'totalProductQuantity': '${produtArray.cartObj.totalProductQuantity}',
+                        'category': '${produtArray.cartObj.category}',
+                        'variant': '${produtArray.cartObj.variant}',
+                        'revenue': '${produtArray.cartObj.revenue}',
+                        'currency': '${produtArray.cartObj.currency}',
+                        'tax': '${produtArray.cartObj.tax}',
+                        'country': '${produtArray.cartObj.country}',
+                        'shipping': '${produtArray.cartObj.shipping}',
+                        'coupon': '${produtArray.cartObj.coupon}',
+                        'promoCode': '${produtArray.cartObj.coupon}',
+                        'discount': '${produtArray.cartObj.discount}',
+                        'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
+                        'subTotal': '${produtArray.cartObj.subTotal}',
+                        'paymentMethod': '${produtArray.cartObj.paymentMethod}',
+                        'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                        <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                    </isloop>
+                ]
+                }
             },
             "event": "checkout"}
             <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
         </isloop>
-        );              
+        );
     </isif>
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
     dataLayer.push (
