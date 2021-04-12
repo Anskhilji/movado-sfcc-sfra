@@ -45,3 +45,9 @@
                which means you need to put privacy information into another remote include
 </iscomment>
 ${dw.system.HookMgr.callHook('app.template.htmlHead', 'htmlHead') || ''}
+
+  <isset name="fontStyleSheet"
+    value="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('fontStyleSheet')) ? dw.system.Site.getCurrent()
+         .getCustomPreferenceValue('fontStyleSheet') : false}"
+    scope="page" />
+  <isprint value="${fontStyleSheet}" encoding="off" />

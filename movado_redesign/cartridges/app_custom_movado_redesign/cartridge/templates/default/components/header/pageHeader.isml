@@ -7,8 +7,6 @@
         !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
     <iscomment> Custom End </iscomment>
-    <isset name="fontStyleSheet" value = "${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('fontStyleSheet')) ? dw.system.Site.getCurrent().getCustomPreferenceValue('fontStyleSheet') : false}" scope="page" />
-    <isprint value="${fontStyleSheet}" encoding="off" />
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>

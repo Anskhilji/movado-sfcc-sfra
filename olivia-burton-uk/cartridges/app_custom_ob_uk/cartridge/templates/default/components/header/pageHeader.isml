@@ -1,7 +1,5 @@
 <isslot id="header-banner-m" description="Slot above the site header" context="global"/>
 <header>
-    <isset name="fontStyleSheet" value = "${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('fontStyleSheet')) ? dw.system.Site.getCurrent().getCustomPreferenceValue('fontStyleSheet') : false}" scope="page" />
-    <isprint value="${fontStyleSheet}" encoding="off" />
   <nav>
     <div class="sticky-header-wrapper">
       <div class="sticky-header-placeholder"></div>
