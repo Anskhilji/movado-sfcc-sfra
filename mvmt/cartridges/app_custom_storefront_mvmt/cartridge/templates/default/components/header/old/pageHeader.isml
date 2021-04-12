@@ -157,7 +157,7 @@
     </nav>
 </header>
 
-<div class="header-banner lower-header-banner order-2 order-lg-1">
+<div class="header-banner lower-header-banner">
     <isslot id="lower-header-banner" description="Slot above the site header" context="global" />
 </div>
 
