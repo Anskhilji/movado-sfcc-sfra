@@ -311,12 +311,11 @@
 
 .mobile-search-close {
     position: absolute;
-    right: 0;
+    right: rem(14);
     background: $white;
-    width: calc(100vw - 133px);
-    height: rem(54);
+    width: rem(44);
     text-align: center;
-    padding-top: rem(17);
+    padding-top: rem(25);
     text-decoration: underline;
     font-family: $font-medium;
     font-size: rem(12);
