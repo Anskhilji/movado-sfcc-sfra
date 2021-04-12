@@ -36,11 +36,19 @@ var cookieHandler = require('./cookieHandler');
         var emailPopUpDelayTime = $('.email-popup').data('emailpopupdelaytime');
         if (emailPopUpDelayTime) {
             setTimeout(function() { 
-                $('.email-popup').show();
-                },
+                if ($('.email-optin-control').children().length > 0) {
+                    $('.email-popup').show();
+                } else {
+                    $('.email-popup').remove();
+                }
+            },
             (emailPopUpDelayTime*60000));
         } else {
-            $('.email-popup').show();
+            if ($('.email-optin-control').children().length > 0) {
+                $('.email-popup').show();
+            } else {
+                $('.email-popup').remove();
+            }
         }
         $('#welcomeMat').on('shown.bs.modal', function() {
             $(document).off('focusin.modal');

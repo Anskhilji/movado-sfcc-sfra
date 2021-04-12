@@ -41,6 +41,9 @@
                                 <div class="col-12 p-0">
                                     <div class="input-group">
                                         <input type="text" class="form-control footer-newsletter-email-field" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                                        <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
+                                            <input type="text" class="form-control footer-newsletter-email-field email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                                        </isif>
                                         <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary footer-newsletter-email-button"></button>
