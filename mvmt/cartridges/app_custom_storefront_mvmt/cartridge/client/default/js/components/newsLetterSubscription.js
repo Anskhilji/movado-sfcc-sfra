@@ -75,6 +75,10 @@ $('#newsletterSubscribe').off('submit').on('submit', function (e) {
     var $submisstionStatus = $('.submission-status');
     var $submisstionStatusDiv = $('.submission-status div');
     var $footermorefields = $('.footer-more-fields');
+    var $emailVerification = $(e.target).find('.email-verification').val();
+    if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
+        return;
+    }
     if (inputValue !== '') {
         var pattern = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             if(!pattern.test(inputValue)) {

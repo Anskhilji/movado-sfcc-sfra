@@ -923,9 +923,9 @@
 	{
 		"countryCode": "HK",
 		"name": {
-			"en_GB": "Hong Kong",
-			"en_US": "Hong Kong",
-			"de_DE": "Hong Kong"
+			"en_GB": "Hong Kong, China",
+			"en_US": "Hong Kong, China",
+			"de_DE": "Hong Kong, China"
 		},
 		"continent": "asia",
 		"locales": ["en_GB", "en_US", "de_DE"],
