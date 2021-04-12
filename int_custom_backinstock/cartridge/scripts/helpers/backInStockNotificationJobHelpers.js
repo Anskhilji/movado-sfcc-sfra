@@ -22,13 +22,13 @@ var emailFooterContent = ContentMgr.getContent('email-footer');
 var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
 
 /**
- * Appends current datetime stamp to provided string
+ * Appends current datetime stamp to provided string and prepends Site ID
  * @param {String} string 
  * @returns {String} 
  */
 function appedDateTimeStamp(string) {
     var currentDateTime = new Calendar();
-    return string + Constants.FILE_NAME_AND_DATE_TIME_SEPARATOR + currentDateTime.toString();
+    return Site.current.ID + string + Constants.FILE_NAME_AND_DATE_TIME_SEPARATOR + StringUtils.formatCalendar(currentDateTime, Constants.FILE_DATE_TIME_FORMAT);
 }
 
 /**
@@ -159,9 +159,10 @@ function writeObjectToCSV(csvStreamWriter, backInStockObj) {
     var success = true;
     try {
         var backInStockCSVObj = new Array();
+        var creationDate = new Calendar(backInStockObj.getCreationDate());
         backInStockCSVObj.push(backInStockObj.custom.email);
-        backInStockCSVObj.push(StringUtils.formatCalendar(backInStockObj.getCreationDate(), Constants.DATE_TIME_FORMAT));
-        backInStockCSVObj.push(Site.ID);
+        backInStockCSVObj.push(StringUtils.formatCalendar(creationDate,  Constants.DATE_TIME_FORMAT));
+        backInStockCSVObj.push(Site.current.ID);
         backInStockCSVObj.push(backInStockObj.custom.productID);
         backInStockCSVObj.push(backInStockObj.custom.enabledMarketing);
         csvStreamWriter.writeNext(backInStockCSVObj);
@@ -202,7 +203,8 @@ module.exports = {
     sendBackInStockNotificationEmail: sendBackInStockNotificationEmail,
     createDirectoryAndFile: createDirectoryAndFile,
     writeCSVHeader: writeCSVHeader,
-    writeObjectToCSV: writeObjectToCSV
+    writeObjectToCSV: writeObjectToCSV,
+    getBackInStockNotificationObjs: getBackInStockNotificationObjs
 }
 
 

@@ -1,19 +1,15 @@
 {
     "step-types": {
-        "chunk-script-module-step": [
+        "script-module-step": [
             {
                 "@type-id":"custom.notifyBackInStockSubscribers",
-                "@supports-organization-context": false,
-                "@supports-parallel-execution":"false",
-                "@supports-site-context":"true",
-                "chunk-size": 20,
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
                 "description": "Notify backinstock subscriber",
                 "module": "int_custom_backinstock/cartridge/scripts/jobs/notifySubscribers.js",
-                "before-step-function":"beforeStep",
-                "total-count-function":"getTotalCount",
-                "read-function":"read",
-                "process-function":"process",
-                "after-step-function":"afterStep",
+                "function": "execute",
+                "transactional": "true",
                 "parameters": {
                     "parameter": [{
                         "@name": "targetFolder",
@@ -21,7 +17,7 @@
                         "@required": "true",
                         "@trim": "true",
                         "description": "Target folder path (in IMPEX)",
-                        "default-value": "/src/feeds/GoogleFeed/"
+                        "default-value": "/src/feeds/BackInStockNotification/"
                     },
                     {
                         "@name": "fileName",
@@ -29,20 +25,8 @@
                         "@type": "string",
                         "@required": "false",
                         "@trim": "true",
-                        "default-value": "GoogleProductFeed"
+                        "default-value": "BackInStockNotification"
                     }
-                    ]
-                },
-                "status-codes": {
-                    "status": [
-                        {
-                            "@code": "ERROR",
-                            "description": "Used when an error occurred."
-                        },
-                        {
-                            "@code": "OK",
-                            "description": "Used when everything went well."
-                        }
                     ]
                 }
             }
