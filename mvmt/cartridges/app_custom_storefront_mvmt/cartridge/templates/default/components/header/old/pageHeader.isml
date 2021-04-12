@@ -19,7 +19,12 @@
                 <div class="header-wrapper">
                     <div class="row overlay"></div>
                     <div class="row header-container order-1 order-lg-2">
-                        <div class="p-0 nav-left main-menu desktop-menu">
+                        <div class="justify-content-start navbar-header header-logo">
+                            <div class="d-none d-lg-inline-block">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                            </div>
+                        </div>
+                        <div class="p-0 nav-left justify-content-center main-menu desktop-menu">
                             <div class="d-none d-lg-inline-block">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 <iscomment>Custom Start: Here it is not needed
@@ -38,12 +43,8 @@
                         <div class="center-align nav-center mvmt-mobile-header-logo d-lg-none d-block">
                             <isslot id="brand-logo" description="Brand Logo" context="global" />
                         </div>
-                        <div class="nav-center navbar-header header-logo">
-                            <div class="d-none d-lg-inline-block">
-                                <isslot id="brand-logo" description="Brand Logo" context="global" />
-                            </div>
-                        </div>
-                        <div class="nav-right justify-content-end right">
+
+                        <div class="justify-content-end right">
                             <ul class="header-nav-right-mobile">
                                 <li class="header-border-right">
                                     <div class="main-level-item">
