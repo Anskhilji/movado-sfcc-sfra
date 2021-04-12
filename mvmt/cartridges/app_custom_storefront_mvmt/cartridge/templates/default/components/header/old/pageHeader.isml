@@ -157,9 +157,9 @@
     </nav>
 </header>
 
-<div class="header-banner header-banner-lower order-2 order-lg-1">
-    <isslot id="header-banner-lower" description="Slot above the site header" context="global" />
-</div><iscomment> Custom: HTML Structure change</iscomment>
+<div class="header-banner lower-header-banner order-2 order-lg-1">
+    <isslot id="lower-header-banner" description="Slot above the site header" context="global" />
+</div>
 
 <div class="mini-cart-data">
     <div class="popover popover-bottom"></div>
