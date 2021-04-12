@@ -163,7 +163,6 @@
     <isslot id="lower-header-banner" description="Slot above the site header" context="global" />
 </div>
 
-
 <div class="mini-cart-data">
     <div class="popover popover-bottom"></div>
 </div>
