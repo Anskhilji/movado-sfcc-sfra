@@ -140,6 +140,12 @@ header.new-header {
         padding-right: rem(17);
       }
 
+      &.header-mobile-right {
+        @include media-breakpoint-down(md) {
+          padding-right: rem(10);
+        }
+      }
+
       @include media-breakpoint-down(sm) {
 
         > div {

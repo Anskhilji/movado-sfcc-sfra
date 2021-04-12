@@ -18,7 +18,7 @@
             <div class="header-menu-wrapper non-sticky">
                 <div class="header-wrapper">
                     <div class="row overlay"></div>
-                    <div class="row header-container order-1 order-lg-2">
+                    <div class="row header-container header-mobile-right order-1 order-lg-2">
                         <div class="justify-content-start navbar-header header-logo">
                             <div class="d-none d-lg-inline-block">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
