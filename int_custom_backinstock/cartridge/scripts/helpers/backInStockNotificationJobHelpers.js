@@ -33,32 +33,34 @@ function appedDateTimeStamp(string) {
 
 /**
  * Processes BackInStockNotification Object and sends back in stock notification email  
- * @param {Object} backInStockObj 
+ * @param {Object} backInStockNotificationObj 
  * @returns {Object} result
  */
-function processBackInStockObject(csvStreamWriter, backInStockObj) {
+function processBackInStockObject(csvStreamWriter, backInStockNotificationObj) {
     var result = {
         success: false
     };
     try {
-        var product = productFactory.get({ pid: backInStockObj.custom.productID });
+        var product = productFactory.get({ pid: backInStockNotificationObj.custom.productID });
         if (!empty(product)) {
-            exportObjectToCSV(csvStreamWriter, backInStockObj);
+            if (!backInStockNotificationObj.custom.exportedToCSV) {
+                exportObjectToCSV(csvStreamWriter, backInStockNotificationObj);
+            }
             if (product.available) {
-                result.success = sendBackInStockNotificationEmail(backInStockObj, product);
+                result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
                 if (result.success) {
-                    removeBackInStockObj(backInStockObj);
+                    removeBackInStockObj(backInStockNotificationObj);
                 }
             }
         } else {
             Logger.inf('No product found for product ID : {0}, while processing BackInStockNotification Object {1}',
-                backInStockObj.productID, JSON.stringify(backInStockObj));
+                backInStockNotificationObj.productID, JSON.stringify(backInStockNotificationObj));
         }
 
     } catch (error) {
         result.success = false;
-        Logger.error('Error occured while processing backInStockObj.\n Object: {0} \n Error: {1} \n Stack Trace: {2}',
-            JSON.stringify(backInStockObj), error.message, error.stack);
+        Logger.error('Error occured while processing backInStockNotificationObj.\n Object: {0} \n Error: {1} \n Stack Trace: {2}',
+            JSON.stringify(backInStockNotificationObj), error.message, error.stack);
     }
 
     return result;
@@ -66,30 +68,30 @@ function processBackInStockObject(csvStreamWriter, backInStockObj) {
 
 /**
  * Removes custom object from system
- * @param {Object} backInStockObj - BackInStockNotification custom Object
+ * @param {Object} backInStockNotificationObj - BackInStockNotification custom Object
  */
-function removeBackInStockObj(backInStockObj) {
+function removeBackInStockObj(backInStockNotificationObj) {
     try {
         Transaction.wrap(function () {
-            CustomObjectMgr.remove(backInStockObj);
+            CustomObjectMgr.remove(backInStockNotificationObj);
         });
     } catch (error) {
         Logger.error('Error occured while removing BackInStockNotification Object. \n  Object: {0} \n Error: {1} \n Stack Trace: {2}',
-            JSON.stringify(backInStockObj), error.message, error.stack);
+            JSON.stringify(backInStockNotificationObj), error.message, error.stack);
     }
 }
 
 /**
  * Sends back in stock notification email
- * @param {Object} backInStockObj - BackInStockNotification custom Object
+ * @param {Object} backInStockNotificationObj - BackInStockNotification custom Object
  * @param {Object} product - product object built using fullProductModel
  * @returns {Boolean} success
  */
-function sendBackInStockNotificationEmail(backInStockObj, product) {
+function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
     var success = true;
     try {
         var emailObj = {
-            to: backInStockObj.custom.email,
+            to: backInStockNotificationObj.custom.email,
             subject: Resource.msg('subject.back.in.stock.email', 'common', null),
             from: Site.current.getCustomPreferenceValue('customerServiceEmail'),
         };
@@ -101,11 +103,11 @@ function sendBackInStockNotificationEmail(backInStockObj, product) {
             bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
             product: product
         }
-        emailHelpers.send(emailObj, 'product/backInNotificationEmail', contextObj);
+        emailHelpers.send(emailObj, 'mail/backInStockNotifiactionEmail', contextObj);
     } catch (error) {
         success = false;
         Logger.error('Error occured while sending back in stock notifiaction email. BackInStockNotification Obj: {0} \n Error: {1} \n Stack Trace: {2}',
-            JSON.stringify(backInStockObj), error.message, error.stack);
+            JSON.stringify(backInStockNotificationObj), error.message, error.stack);
     }
 
     return success;
@@ -152,24 +154,24 @@ function writeCSVHeader(csvStreamWriter) {
 /**
  * Writes BackInStockNotification Object data to CSV file
  * @param {dw.io.CSVStreamWriter} csvStreamWriter 
- * @param {Object} backInStockObj 
+ * @param {Object} backInStockNotificationObj 
  * @returns {Boolean} success
  */
-function writeObjectToCSV(csvStreamWriter, backInStockObj) {
+function writeObjectToCSV(csvStreamWriter, backInStockNotificationObj) {
     var success = true;
     try {
         var backInStockCSVObj = new Array();
-        var creationDate = new Calendar(backInStockObj.getCreationDate());
-        backInStockCSVObj.push(backInStockObj.custom.email);
+        var creationDate = new Calendar(backInStockNotificationObj.getCreationDate());
+        backInStockCSVObj.push(backInStockNotificationObj.custom.email);
         backInStockCSVObj.push(StringUtils.formatCalendar(creationDate,  Constants.DATE_TIME_FORMAT));
         backInStockCSVObj.push(Site.current.ID);
-        backInStockCSVObj.push(backInStockObj.custom.productID);
-        backInStockCSVObj.push(backInStockObj.custom.enabledMarketing);
+        backInStockCSVObj.push(backInStockNotificationObj.custom.productID);
+        backInStockCSVObj.push(backInStockNotificationObj.custom.enabledMarketing);
         csvStreamWriter.writeNext(backInStockCSVObj);
     } catch (error) {
         success = false;
         Logger.error('Error occured while writting BackInStockNotification Obj: {0}, Error :{1}, Stack Trace: {2}',
-            JSON.stringify(backInStockObj), error.message, error.stack);
+            JSON.stringify(backInStockNotificationObj), error.message, error.stack);
     }
     return success;
 }
@@ -177,12 +179,12 @@ function writeObjectToCSV(csvStreamWriter, backInStockObj) {
 /**
  * Exports Object to CSV and updates its exportedToCSV attribute
  * @param {dw.io.CSVStreamWriter} csvStreamWriter 
- * @param {Object} backInStockObj 
+ * @param {Object} backInStockNotificationObj 
  */
-function exportObjectToCSV(csvStreamWriter, backInStockObj) {
-    var exportStatus = writeObjectToCSV(csvStreamWriter, backInStockObj);
+function exportObjectToCSV(csvStreamWriter, backInStockNotificationObj) {
+    var exportStatus = writeObjectToCSV(csvStreamWriter, backInStockNotificationObj);
     Transaction.wrap(function () {
-        backInStockObj.custom.exportedToCSV = exportStatus;
+        backInStockNotificationObj.custom.exportedToCSV = exportStatus;
     });
 }
 
