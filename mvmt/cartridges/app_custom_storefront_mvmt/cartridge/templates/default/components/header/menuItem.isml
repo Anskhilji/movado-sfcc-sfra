@@ -28,7 +28,7 @@
                         <isif condition="${categoryItem.headerMenuBanner}">
                             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                                 <div class="header-tiles">
-                                <isprint value="${categoryItem.headerMenuBanner}" encoding="off"/>
+                                    <isprint value="${categoryItem.headerMenuBanner}" encoding="off"/>
                                 </div>
                             </div>
                         </isif>
