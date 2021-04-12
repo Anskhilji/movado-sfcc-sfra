@@ -69,8 +69,18 @@ function openMiniCart () {
     //Custom End
 }
 
+function updateCartIcons() {
+    var cartItems = $('.cart-quantity-items').data('quantity-id');
+    var fillCartIcon = ('.fill-cart-icon');
+    if (cartItems !== undefined && cartItems !==0) {
+        fillCartIcon.removeClass('d-none');
+    } else {
+        fillCartIcon.addClass('d-none');
+    } 
+}
+
 /**
- * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
+ * Updates the Mini-Cart quantity value after the customer has pressed the 'Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
 function handlePostCartAdd(response) { 
@@ -966,6 +976,7 @@ movadoBase.addToCart = function () {
                     updateCartPage(data);
                     handlePostCartAdd(data);
                     openMiniCart();
+                    updateCartIcons();
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
