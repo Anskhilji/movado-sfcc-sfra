@@ -8,7 +8,9 @@ var processResponse = function ($selector, data) {
         if (!data.success) {
             if (!data.isValidEmail) {
                 $selector.find('.bis-invalid-email').removeClass('d-none');
-            } else {
+            } else if (data.isAlreadySubscribed) {
+                $selector.find('.bis-already-subscribed').removeClass("d-none");
+            }else {
                 $selector.find('.bis-technical-error').removeClass('d-none');
             }
         }
@@ -41,7 +43,12 @@ var submitBackInStockEmail = function ($selector) {
         data: form,
         method: 'POST',
         success: function (response) {
-            processResponse($selector, response.result);
+            if (response.result) {
+                processResponse($selector, response.result);
+            } else {
+                $selector.find('.bis-technical-error').removeClass('d-none');
+                $selector.spinner().stop();
+            }
         },
         error: function (response) {
             $selector.spinner().stop();
@@ -61,7 +68,7 @@ module.exports = {
             }
         });
 
-        $(document).off('keyup', '.bis-email').on('keyup', '.bis-email', function (event) {
+        $(document).off('keyup', '.bis-email').on('keyup , focus', '.bis-email', function (event) {
             var $emailField = $('.bis-email');
             var $bisConfirmButton = $('.bis-button');
             if ($emailField.val().length > 0) {

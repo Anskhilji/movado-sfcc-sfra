@@ -11,6 +11,7 @@ var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
@@ -20,6 +21,7 @@ var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
 var emailHeaderContent = ContentMgr.getContent('email-header');
 var emailFooterContent = ContentMgr.getContent('email-footer');
 var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
+var backInStockNotificationEmailContent = ContentMgr.getContent('ca-back-in-stock-notification-email');
 
 /**
  * Appends current datetime stamp to provided string and prepends Site ID
@@ -92,7 +94,7 @@ function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
     try {
         var emailObj = {
             to: backInStockNotificationObj.custom.email,
-            subject: Resource.msg('subject.back.in.stock.email', 'common', null),
+            subject: Resource.msg('subject.back.in.stock.email', 'backInStockNotification', null),
             from: Site.current.getCustomPreferenceValue('customerServiceEmail'),
         };
 
@@ -101,7 +103,7 @@ function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
             emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
             emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
             bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
-            product: product
+            emailContent: getEmailContent(product)
         }
         emailHelpers.send(emailObj, 'mail/backInStockNotifiactionEmail', contextObj);
     } catch (error) {
@@ -111,6 +113,24 @@ function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
     }
 
     return success;
+}
+
+/**
+ * Prepares email content for BackInStockNotificationEmail
+ * @param {Object} product - Product Model
+ * @returns {String} backInStockNotificationEmailContent
+ */
+function getEmailContent(product) {
+    var backInStockNotificationEmailHTML = backInStockNotificationEmailContent && backInStockNotificationEmailContent.custom && backInStockNotificationEmailContent.custom.body ?
+        backInStockNotificationEmailContent.custom.body : '';
+    var emailContent = ''
+    var productImage = product.images.pdp533[0] ? product.images.pdp533[0].url : '';
+    var productURl = URLUtils.abs('Product-Show', 'pid', product.id);
+    if (!empty(backInStockNotificationEmailHTML) && !empty(backInStockNotificationEmailHTML.markup)) {
+        emailContent = backInStockNotificationEmailHTML.markup.replace(Constants.PRODUCT_IMAGE_PLACEHOLDER, productImage);
+        emailContent = emailContent.replace(Constants.PRODUCT_URL_PLACEHOLDER, productURl);
+    }
+    return emailContent;
 }
 
 /**
@@ -163,7 +183,7 @@ function writeObjectToCSV(csvStreamWriter, backInStockNotificationObj) {
         var backInStockCSVObj = new Array();
         var creationDate = new Calendar(backInStockNotificationObj.getCreationDate());
         backInStockCSVObj.push(backInStockNotificationObj.custom.email);
-        backInStockCSVObj.push(StringUtils.formatCalendar(creationDate,  Constants.DATE_TIME_FORMAT));
+        backInStockCSVObj.push(StringUtils.formatCalendar(creationDate, Constants.DATE_TIME_FORMAT));
         backInStockCSVObj.push(Site.current.ID);
         backInStockCSVObj.push(backInStockNotificationObj.custom.productID);
         backInStockCSVObj.push(backInStockNotificationObj.custom.enabledMarketing);

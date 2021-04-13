@@ -26,6 +26,7 @@ function execute(args) {
   } catch (error) {
     Logger.error("Error occured while executing notifySubscribers job. \n Error: {0} , Stack Trace: {1}",
       error.message, error.stack);
+      return new Status(Status.ERROR, 'ERROR', error.message);
   }
 
 }

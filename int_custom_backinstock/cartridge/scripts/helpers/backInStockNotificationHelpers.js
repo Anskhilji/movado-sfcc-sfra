@@ -48,11 +48,11 @@ function saveBackInStockNotificationObj(params) {
     var UUID = UUIDUtils.createUUID();
     try {
         Transaction.wrap( function() {
-            var backInStockObj = CustomObjectMgr.createCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, UUID);
-            backInStockObj.custom.email = params.email;
-            backInStockObj.custom.productID = params.productID;
-            backInStockObj.custom.enabledMarketing = params.enabledMarketing;
-            backInStockObj.custom.exportedToCSV = false;
+            var backInStockNotificationObj = CustomObjectMgr.createCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, UUID);
+            backInStockNotificationObj.custom.email = params.email;
+            backInStockNotificationObj.custom.productID = params.productID;
+            backInStockNotificationObj.custom.enabledMarketing = params.enabledMarketing;
+            backInStockNotificationObj.custom.exportedToCSV = false;
             success = true;
         });
     } catch (error) {
@@ -77,9 +77,26 @@ function isValidEmail(email) {
     return isValid;
 }
 
+/**
+ * Checks is user has already subscribed
+ * @param {Object} params - Object containing subscription data
+ * @returns {Boolean} isSubscribed
+ */
+function isAlreadySubscribed(params) {
+    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+    var isSubscribed = false;
+    var queryString  = "custom.email = {0} AND custom.productID = {1}"
+    var backInStockNotificationObjs = CustomObjectMgr.queryCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, params.email, params.productID);
+    if (backInStockNotificationObjs && !empty(backInStockNotificationObjs)) {
+        isSubscribed = true;
+    }
+    return isSubscribed;
+}
+
 module.exports = {
     isBackInStockEnabled: isBackInStockEnabled,
     isProductBackInStockEnabled: isProductBackInStockEnabled,
     saveBackInStockNotificationObj: saveBackInStockNotificationObj,
-    isValidEmail: isValidEmail
+    isValidEmail: isValidEmail,
+    isAlreadySubscribed: isAlreadySubscribed
 }

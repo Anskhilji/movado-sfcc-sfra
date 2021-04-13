@@ -1,12 +1,5 @@
 /*
-@TODO
-1. Update font size of texts all of the text used in design
-2. Update checkbox to be black after click
-3. Font 
-*/
-
-/*
-Font family has been assigned in PDP SCSS of each site
+Font family and minor adjustments have been made in _backInStockNotification SCSS of each site
 */
 .bis {
 
@@ -146,8 +139,10 @@ Font family has been assigned in PDP SCSS of each site
         }
     }
 
-    &-invalid-email {
+    &-invalid-email, &-technical-error, &-already-subscribed {
         text-align: left;
+        color: $red;
+        margin-top: rem(5);
     }
 
 }
