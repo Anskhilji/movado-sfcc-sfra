@@ -17,6 +17,12 @@
         line-height: rem(22);
     }
 
+    &-container-success {
+        p {
+            color: $black;
+        }
+    }
+
     &-form {
         max-width: rem(350);
 
