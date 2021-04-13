@@ -74,8 +74,7 @@
   z-index: auto;
 
   &-tuck {
-    position: relative;
-    top: rem(-39);
+    display: none;
   }
 }
 
