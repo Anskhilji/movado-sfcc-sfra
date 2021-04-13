@@ -605,7 +605,7 @@ function handleVariantResponse(response, $productContainer) {
     /**
     * Custom Start: Add logic to handle back in stock notifiaction content for variations
     */
-    var $backInStockContanier = $('.bis-container');
+    var $backInStockContanier = $('.back-in-stock-notification-container');
     if ($backInStockContanier.length > 0) {
         if (response.product.isBackInStockEnabled) {
             $backInStockContanier.removeClass('d-none');
