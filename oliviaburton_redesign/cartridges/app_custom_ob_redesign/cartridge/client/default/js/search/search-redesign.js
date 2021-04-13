@@ -439,7 +439,7 @@ module.exports = {
 
     showPagination: function () {
         // Show more products
-        $('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
+        $('body').on('click', '.show-pagination button', function (e) {
             e.stopPropagation();
             var showMoreUrl = $(this).data('url');
 
