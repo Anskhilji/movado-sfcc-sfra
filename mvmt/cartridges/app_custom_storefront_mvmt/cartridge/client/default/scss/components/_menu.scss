@@ -518,6 +518,7 @@
   }
 
   &-content {
+    
     &-list {
       display: none;
 
@@ -602,6 +603,7 @@
   &-links-list {
     padding: 0
   }
+
   &-img-link {
     align-items: center;
     display: flex;
@@ -611,6 +613,7 @@
       margin: 0;
     }
   }
+
   &-link {
     @include font-medium;
     font-size: rem(12);
