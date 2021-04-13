@@ -70,12 +70,10 @@ function openMiniCart () {
 }
 
 function updateCartIcons() {
-    var cartItems = $('.cart-quantity-items').data('quantity-id');
-    var fillCartIcon = ('.fill-cart-icon');
-    if (cartItems !== undefined && cartItems !==0) {
-        fillCartIcon.removeClass('d-none');
-    } else {
-        fillCartIcon.addClass('d-none');
+    var $cartItems = $('.cart-quantity-items').data('quantity-id');
+    var $cartIcon = $('.cart-icon');
+    if ($cartItems !== undefined && $cartItems !==0) {
+        $cartIcon.addClass('fill-cart-icon');
     } 
 }
 
