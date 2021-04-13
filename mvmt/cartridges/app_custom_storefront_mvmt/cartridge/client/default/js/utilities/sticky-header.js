@@ -36,7 +36,9 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').addClass('sticky');
                 $('.mini-cart-data .popover').addClass('afterSticky');
                 $thisInstance.parent().addClass('fixed-header');
-                $lowerHeaderBanner.addClass('lower-header-banner-tuck');
+                if (typeof $lowerHeaderBanner !== 'undefined' || $lowerHeaderBanner !== '' || $lowerHeaderBanner !== null) {
+                    $lowerHeaderBanner.addClass('lower-header-banner-tuck');
+                }
             } else {
                 $thisInstance.removeClass('sticky-header');
                 // CUSTOM START: removed custom class                
@@ -55,7 +57,9 @@ var customScrollValue = $(window).scrollTop();
                 $('.custom-clp-social').removeClass('sticky');
                 $('.mini-cart-data .popover').removeClass('afterSticky');
                 $thisInstance.parent().removeClass('fixed-header');
-                $lowerHeaderBanner.removeClass('lower-header-banner-tuck');
+                if (typeof $lowerHeaderBanner !== 'undefined' || $lowerHeaderBanner !== '' || $lowerHeaderBanner !== null) {
+                    $lowerHeaderBanner.removeClass('lower-header-banner-tuck');
+                }
             }
         };
 
