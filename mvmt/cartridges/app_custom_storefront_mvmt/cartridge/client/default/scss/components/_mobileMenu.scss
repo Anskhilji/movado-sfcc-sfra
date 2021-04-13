@@ -478,12 +478,14 @@ header.new-header .main-menu .dropdown-selector  li:hover {
         } 
     }
     .bottom-sticky-header-link  {
+        cursor: pointer;
         > svg {
             display: flex;
             text-align: center;
             margin: 0 auto;
         }
         .bottom-sticky-header-text {
+            cursor: pointer;
             font-family: $font-medium;
             font-size: rem(0.563);
             line-height: rem(0.75);

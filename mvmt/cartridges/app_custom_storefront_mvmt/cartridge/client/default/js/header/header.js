@@ -179,3 +179,22 @@ $(window).scroll(function (event) {
     }
 
  });
+
+jQuery(function($) {
+    var $path = window.location.href;
+    var $BasePath = $('.bottom-navbar-display').data('base-url');
+    if ($path !== $BasePath) {
+        $('.bottom-navbar-display > li.active').removeClass('active');
+        $('.bottom-navbar-display > li > a > span.active').removeClass('active');
+        $('.bottom-navbar-display li a').find('#M09').css("fill","#000000");
+        $('.bottom-navbar-display li:nth-child(4) a').find('#M09').css("fill","transparent");
+    }
+    $('.bottom-navbar-display > .bottom-sticky-header-item a').each(function() {
+	if (this.href === $path) {
+	    $(this).find('span').addClass('active');
+        $(this).find('#M09').css("fill","#1D9ED9");
+	}
+    
+	});
+});
+
