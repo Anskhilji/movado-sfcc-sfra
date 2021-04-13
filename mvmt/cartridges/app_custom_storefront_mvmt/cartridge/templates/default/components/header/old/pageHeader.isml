@@ -158,7 +158,7 @@
 </header>
 
 <div class="header-banner lower-header-banner">
-    <isslot id="lower-header-banner" description="Slot above the site header" context="global" />
+    <isslot id="lower-header-banner" description="Slot below the site header" context="global" />
 </div>
 
 <div class="mini-cart-data">
