@@ -2,7 +2,6 @@
 
 var server = require('server');
 
-
 var backInStockNotificationHelpers = require('*/cartridge/scripts/helpers/backInStockNotificationHelpers');
 
 server.post('Subscribe',
