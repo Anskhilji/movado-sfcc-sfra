@@ -70,6 +70,14 @@
   }
 }
 
+.lower-header-banner {
+  z-index: auto;
+
+  &-tuck {
+    display: none;
+  }
+}
+
 header.new-header {
   position: relative;
 
