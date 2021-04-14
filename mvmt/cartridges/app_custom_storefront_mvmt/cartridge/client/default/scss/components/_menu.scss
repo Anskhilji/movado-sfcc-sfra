@@ -608,6 +608,7 @@
     padding: 0;
     max-height: rem(380);
     overflow: auto;
+    min-width: rem(190);
 
     li {
       line-height: rem(20);
