@@ -55,7 +55,7 @@ function processBackInStockObject(csvStreamWriter, backInStockNotificationObj) {
                 }
             }
         } else {
-            Logger.inf('No product found for product ID : {0}, while processing BackInStockNotification Object {1}',
+            Logger.info('No product found for product ID : {0}, while processing BackInStockNotification Object {1}',
                 backInStockNotificationObj.productID, JSON.stringify(backInStockNotificationObj));
         }
 
