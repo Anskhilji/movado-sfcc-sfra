@@ -597,11 +597,24 @@
   }
 
   &-block {
-    margin-left: rem(100);
+    margin-left: rem(70);
+
+    @include media-breakpoint-up(xl) {
+      margin-left: rem(100);
+    }
   }
 
   &-links-list {
-    padding: 0
+    padding: 0;
+
+    li {
+
+      &:last-child {
+        a {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   &-img-link {
@@ -670,8 +683,8 @@
       }
   
       img {
-        height: rem(62);
-        width: rem(62);
+        height: rem(52);
+        width: rem(52);
         margin-right: rem(25);
         display: inline-block;
         border-radius: 50%;
