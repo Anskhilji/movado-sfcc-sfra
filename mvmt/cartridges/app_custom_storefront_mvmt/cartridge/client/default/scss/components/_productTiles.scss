@@ -420,3 +420,25 @@
 .product-tile, .product-tile-redesign {
     height: 100%;
 }
+
+.cart-icon {
+    width: rem(20);
+    height: rem(15);
+    background: url("../../images/Empty.svg") center center no-repeat;
+
+    @include media-breakpoint-down(sm) {
+        width: rem(15);
+        height: rem(21);
+    }
+    
+    &.fill-cart-icon {
+        width: rem(20);
+        height: rem(15);
+        background: url("../../images/Full.svg") center center no-repeat;
+
+        @include media-breakpoint-down(sm) {
+            width: rem(15);
+            height: rem(21);
+        }
+    }
+}
