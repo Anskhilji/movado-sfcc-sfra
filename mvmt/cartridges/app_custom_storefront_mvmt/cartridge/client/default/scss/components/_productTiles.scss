@@ -428,7 +428,7 @@
 
     @include media-breakpoint-down(sm) {
         width: rem(15);
-        height: 21px;
+        height: rem(21);
     }
     
     &.fill-cart-icon {

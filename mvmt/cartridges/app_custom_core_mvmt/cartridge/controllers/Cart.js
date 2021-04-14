@@ -57,10 +57,8 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     res.viewData.marketingProductData = JSON.stringify(marketingProductsData);
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;
-    
-    res.setViewData({
-        quantityTotal: quantityTotal
-    });
+    res.viewData.quantityTotal = quantityTotal;
+
     next();
 });
 

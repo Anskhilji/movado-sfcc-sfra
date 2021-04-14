@@ -37,7 +37,7 @@
             <a class="minicart-link header-icon m-0">
                 ${Resource.msg('label.minicart.cart', 'account', null)}
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
-                    <div class="cart-icon">
+                    <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
 
                     </div>
                     <span data-item-count="" data-cart-render="item_count"

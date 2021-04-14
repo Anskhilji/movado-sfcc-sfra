@@ -72,13 +72,13 @@ function openMiniCart () {
 function updateCartIcons() {
     var $cartItems = $('.cart-quantity-items').data('quantity-id');
     var $cartIcon = $('.cart-icon');
-    if ($cartItems !== undefined && $cartItems !==0) {
+    if ($cartItems !== undefined && $cartItems !== 0) {
         $cartIcon.addClass('fill-cart-icon');
-    } 
+    }
 }
 
 /**
- * Updates the Mini-Cart quantity value after the customer has pressed the 'Add to Cart" button
+ * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
 function handlePostCartAdd(response) { 
