@@ -498,5 +498,20 @@ header.new-header .main-menu .dropdown-selector  li:hover {
             text-align: center;
 
         }
+    }
+    .bottom-nav-icon-unactive {
+        fill: $black;
+    }
+    .bottom-nav-icon-transparent {
+        fill: transparent;
+    }
+    .bottom-nav-icon-active {
+        fill: $light-blue-icons;
+    }
+    .bottom-nav-stroke {
+        stroke: $light-blue-icons;
+    }
+    .bottom-nav-stroke-unactive {
+        fill: none;
     }   
 }

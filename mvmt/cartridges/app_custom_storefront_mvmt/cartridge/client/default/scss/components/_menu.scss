@@ -608,10 +608,6 @@
     align-items: center;
     display: flex;
     margin-bottom: rem(20);
-
-    &:last-child {
-      margin-bottom: rem(0);
-    }
     
     .category-custom-link {
       margin: 0;
@@ -628,10 +624,6 @@
     letter-spacing: 0.82px;
     margin-bottom: rem(20);
     line-height: rem(20);
-
-    &:last-child {
-      margin-bottom: rem(0);
-    }
 
     &::before {
       content: "";
@@ -678,8 +670,8 @@
       }
   
       img {
-        height: rem(52);
-        width: rem(52);
+        height: rem(62);
+        width: rem(62);
         margin-right: rem(25);
         display: inline-block;
         border-radius: 50%;
