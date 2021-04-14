@@ -469,6 +469,11 @@ header.new-header .main-menu .dropdown-selector  li:hover {
     }
 }
 
+.bottom-navigation-header {
+    background-color: $white;
+    box-shadow: rem(0) rem(-1) rem(8) rem(0) $white-shadow;
+}
+
 .bottom-sticky-header {
     .bottom-navbar-display {
         display: contents !important;
@@ -478,17 +483,35 @@ header.new-header .main-menu .dropdown-selector  li:hover {
         } 
     }
     .bottom-sticky-header-link  {
+        cursor: pointer;
         > svg {
             display: flex;
             text-align: center;
             margin: 0 auto;
         }
         .bottom-sticky-header-text {
+            cursor: pointer;
             font-family: $font-medium;
-            font-size: rem(0.563);
-            line-height: rem(0.75);
-            letter-spacing: rem(0.038);
+            font-size: rem(9);
+            line-height: rem(12);
+            letter-spacing: rem(0.61);
             text-align: center;
+
         }
+    }
+    .bottom-nav-icon-unactive {
+        fill: $black;
+    }
+    .bottom-nav-icon-transparent {
+        fill: transparent;
+    }
+    .bottom-nav-icon-active {
+        fill: $light-blue-icons;
+    }
+    .bottom-nav-stroke {
+        stroke: $light-blue-icons;
+    }
+    .bottom-nav-stroke-unactive {
+        fill: none;
     }   
 }
