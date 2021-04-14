@@ -11,10 +11,15 @@ exports.SFMC_DATA_API_ENDPOINT = {
 }
 exports.SERVICE_ID = {
     INSTANT_AUTH: 'mc.instant.auth.api',
+    INSTANT_CHECKOUT_AUTH: 'mc.instant.auth.checkout.api',
     BATCH_AUTH: 'mc.batch.auth.api',
+    BATCH_MVMT_AUTH: 'mc.batch.mvmt.auth.api',
     INSTANT_DATA: 'mc.instant.data.api',
+    INSTANT_CHECKOUT_DATA: 'mc.instant.data.checkout.api',
     BATCH_DATA: 'mc.batch.data.api',
-    UPDATE_DATA: 'mc.update.event.api'
+    BATCH_MVMT_DATA: 'mc.batch.mvmt.data.api',
+    UPDATE_DATA: 'mc.update.event.api',
+    UPDATE_CHECKOUT_DATA: 'mc.update.event.checkout.api'
 }
 exports.SFMC_SERVICE_API_TYPE = {
     CONTACT: 'CONTACT',
