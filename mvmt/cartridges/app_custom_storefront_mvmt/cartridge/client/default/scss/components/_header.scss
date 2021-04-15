@@ -74,6 +74,7 @@
   z-index: auto;
   justify-content: center;
   background-color: $light-gray12;
+  transition: transform .5s ease-in-out .1s;
 
   .html-slot-container {
     letter-spacing: rem(0.82);
@@ -91,7 +92,8 @@
   }
 
   &-tuck {
-    display: none;
+    position: absolute;
+    transform: translateY(-66px);
   }
 }
 
