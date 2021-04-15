@@ -86,8 +86,8 @@ function isAlreadySubscribed(params) {
     var CustomObjectMgr = require('dw/object/CustomObjectMgr');
     var isSubscribed = false;
     var queryString  = "custom.email = {0} AND custom.productID = {1}"
-    var backInStockNotificationObjs = CustomObjectMgr.queryCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, params.email, params.productID);
-    if (backInStockNotificationObjs && !empty(backInStockNotificationObjs)) {
+    var backInStockNotificationObj = CustomObjectMgr.queryCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, params.email, params.productID);
+    if (backInStockNotificationObj && !empty(backInStockNotificationObj)) {
         isSubscribed = true;
     }
     return isSubscribed;

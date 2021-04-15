@@ -2,7 +2,7 @@
 
 var server = require('server');
 
-var backInStockNotificationHelpers = require('*/cartridge/scripts/helpers/backInStockNotificationHelpers');
+var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
 
 server.post('Subscribe',
     server.middleware.https,
@@ -14,7 +14,7 @@ server.post('Subscribe',
             isAlreadySubscribed: false
         };
         if (!empty(form)) {
-            if (backInStockNotificationHelpers.isValidEmail(form.email)) {
+            if (backInStockNotificationHelper.isValidEmail(form.email)) {
                 result.isValidEmail = true;
                 if (!empty(form.pid)) {
                     var backInStockNotificationObj = {
@@ -22,9 +22,9 @@ server.post('Subscribe',
                         productID: form.pid,
                         enabledMarketing: !empty(form.enabledMarketing) && (form.enabledMarketing == 'true' || form.enabledMarketing == true) ? true : false
                     }
-                    result.isAlreadySubscribed = backInStockNotificationHelpers.isAlreadySubscribed(backInStockNotificationObj);
+                    result.isAlreadySubscribed = backInStockNotificationHelper.isAlreadySubscribed(backInStockNotificationObj);
                     if (!result.isAlreadySubscribed) {
-                        result.success = backInStockNotificationHelpers.saveBackInStockNotificationObj(backInStockNotificationObj);
+                        result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
                     }
                 }
             }

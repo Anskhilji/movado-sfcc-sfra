@@ -9,5 +9,4 @@ $(document).ready(function () {
     processInclude(require('./share/sendToFriend'));
     processInclude(require('./product/wishlist'));
     processInclude(require('./utilities/spaceBelowBodyOnFixedButton'));
-    processInclude(require('./components/backInStockNotification'));
 });

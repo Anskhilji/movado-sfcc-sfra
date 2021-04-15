@@ -4,7 +4,7 @@ var Status = require('dw/system/Status');
 
 function execute(args) {
   try {
-    var backInStockNotificationJobHelpers = require('*/cartridge/scripts/helpers/backInStockNotificationJobHelpers');
+    var backInStockNotificationJobHelper = require('*/cartridge/scripts/helpers/backInStockNotificationJobHelper');
     var backInStockNotificationObj;
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
@@ -12,13 +12,13 @@ function execute(args) {
       return new Status(Status.ERROR, 'ERROR', 'One or more mandatory parameters are missing.');
     }
 
-    var fileArgs = backInStockNotificationJobHelpers.createDirectoryAndFile(targetFolder, fileName);
-    var backInStockNotificationObjs = backInStockNotificationJobHelpers.getBackInStockNotificationObjs();
-    backInStockNotificationJobHelpers.writeCSVHeader(fileArgs.csvStreamWriter);
+    var fileArgs = backInStockNotificationJobHelper.createDirectoryAndFile(targetFolder, fileName);
+    var backInStockNotificationObjs = backInStockNotificationJobHelper.getBackInStockNotificationObjs();
+    backInStockNotificationJobHelper.writeCSVHeader(fileArgs.csvStreamWriter);
 
     while (backInStockNotificationObjs.hasNext()) {
       backInStockNotificationObj = backInStockNotificationObjs.next();
-      backInStockNotificationJobHelpers.processBackInStockObject(fileArgs.csvStreamWriter, backInStockNotificationObj);
+      backInStockNotificationJobHelper.exportObjectToCSV(fileArgs.csvStreamWriter, backInStockNotificationObj);
     }
 
     fileArgs.fileWriter.close();

@@ -2,14 +2,14 @@
     "step-types": {
         "script-module-step": [
             {
-                "@type-id":"custom.notifyBackInStockSubscribers",
+                "@type-id":"custom.exportNotifySubscribers",
                 "@supports-parallel-execution": "false",
                 "@supports-site-context": "true",
                 "@supports-organization-context": "false",
                 "description": "Notify backinstock subscriber",
-                "module": "int_custom_backinstock/cartridge/scripts/jobs/notifySubscribers.js",
+                "module": "int_custom_backinstock/cartridge/scripts/jobs/exportNotifySubscribers.js",
                 "function": "execute",
-                "transactional": "true",
+                "transactional": "false",
                 "parameters": {
                     "parameter": [{
                         "@name": "targetFolder",
@@ -26,8 +26,20 @@
                         "@required": "false",
                         "@trim": "true",
                         "default-value": "BackInStockNotification"
-                    }
-                    ]
+                    }]
+                }
+            },
+            {
+                "@type-id":"custom.notifyBackInStockSubscribers",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "Notify backinstock subscriber",
+                "module": "int_custom_backinstock/cartridge/scripts/jobs/notifySubscribers.js",
+                "function": "execute",
+                "transactional": "false",
+                "parameters": {
+                    "parameter": []
                 }
             }
         ]

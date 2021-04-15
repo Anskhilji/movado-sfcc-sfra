@@ -38,16 +38,13 @@ function appedDateTimeStamp(string) {
  * @param {Object} backInStockNotificationObj 
  * @returns {Object} result
  */
-function processBackInStockObject(csvStreamWriter, backInStockNotificationObj) {
+function processBackInStockObject(backInStockNotificationObj) {
     var result = {
         success: false
     };
     try {
         var product = productFactory.get({ pid: backInStockNotificationObj.custom.productID });
         if (!empty(product)) {
-            if (!backInStockNotificationObj.custom.exportedToCSV) {
-                exportObjectToCSV(csvStreamWriter, backInStockNotificationObj);
-            }
             if (product.available) {
                 result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
                 if (result.success) {
@@ -202,10 +199,17 @@ function writeObjectToCSV(csvStreamWriter, backInStockNotificationObj) {
  * @param {Object} backInStockNotificationObj 
  */
 function exportObjectToCSV(csvStreamWriter, backInStockNotificationObj) {
-    var exportStatus = writeObjectToCSV(csvStreamWriter, backInStockNotificationObj);
-    Transaction.wrap(function () {
-        backInStockNotificationObj.custom.exportedToCSV = exportStatus;
-    });
+    try {
+        if (!backInStockNotificationObj.custom.exportedToCSV) {
+            var exportStatus = writeObjectToCSV(csvStreamWriter, backInStockNotificationObj);
+            Transaction.wrap(function () {
+                backInStockNotificationObj.custom.exportedToCSV = exportStatus;
+            });
+        }
+    } catch (error) {
+        Logger.error('Error occured while exporting BackInStockNotification Object \n  backInStockNotificationObj : {0} \n Error : {1} \n Stack Trace: {2}',
+            JSON.stringify(backInStockNotificationObj), error.message, error.stack);
+    }
 }
 
 /**
