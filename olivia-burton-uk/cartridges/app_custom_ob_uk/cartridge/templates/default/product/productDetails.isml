@@ -200,7 +200,7 @@
                             </div>
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                           </isif>
+                            </isif>
                             <div class="row description">
                                 <isinclude template="product/components/productWhyBuyMe" />
                             </div>

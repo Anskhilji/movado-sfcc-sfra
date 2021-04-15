@@ -30,7 +30,7 @@
                 }
             },
             {
-                "@type-id":"custom.notifyBackInStockSubscribers",
+                "@type-id":"custom.notifySubscribers",
                 "@supports-parallel-execution": "false",
                 "@supports-site-context": "true",
                 "@supports-organization-context": "false",
