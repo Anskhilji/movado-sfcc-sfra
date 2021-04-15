@@ -3,7 +3,7 @@
     <button class="js-trigger-cart-mobile mobile-cart-btn">
         <div class="header-nav-cart-icon header-icon mobile-cart-icon">
             <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
-                    <div class="cart-icon">
+                    <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
 
                     </div>
                 <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
