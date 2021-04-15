@@ -157,8 +157,14 @@ header.new-header {
     .header-container {
       margin: 0 auto;
       height: auto;
-      max-width: $container-max-width;
+      max-width: rem(1680);
+      padding: 0 rem(60);
       width: 100%;
+
+      @include media-breakpoint-up(lg) {
+        max-width: rem(1680);
+        padding: 0 rem(60);
+      }
 
       @include media-breakpoint-down(md) {
         padding: rem(12.5) rem(10);
