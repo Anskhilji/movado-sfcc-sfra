@@ -366,11 +366,7 @@
 }
 
 .plp-redesign {
-    margin-bottom: rem(40);
-
-    @include media-breakpoint-up(lg) {
-        margin-bottom: rem(70);
-    }
+    margin-bottom: 0;
 
     &.search-banner {
         margin: 0;
@@ -1746,6 +1742,10 @@
             }
         }
 
+    }
+
+    .pagination-container {
+        margin-bottom: 0;
     }
 }
 
