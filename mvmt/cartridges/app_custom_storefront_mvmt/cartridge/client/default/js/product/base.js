@@ -609,6 +609,22 @@ function handleVariantResponse(response, $productContainer) {
         }
    }
     
+    
+    /**
+    * Custom Start: Add logic to handle back in stock notifiaction content for variations
+    */
+    var $backInStockContanier = $('.back-in-stock-notification-container');
+    if ($backInStockContanier.length > 0) {
+        if (response.product.isBackInStockEnabled) {
+            $backInStockContanier.removeClass('d-none');
+        } else {
+            $backInStockContanier.addClass('d-none');
+        }
+    }
+
+    /**
+    * Custom End:
+    */
 
     // Attach Slider and Zoom
     zoomfeature(); 
