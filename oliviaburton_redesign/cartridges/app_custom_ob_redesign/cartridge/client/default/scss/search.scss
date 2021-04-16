@@ -1650,7 +1650,7 @@
 
             &-mobile {
                 display: block;
-                margin-bottom: 0px;
+                margin-bottom: 0;
 
                 @include media-breakpoint-up(lg) {
                     display: none;
