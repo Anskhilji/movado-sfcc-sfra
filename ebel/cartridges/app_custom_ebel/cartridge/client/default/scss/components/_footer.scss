@@ -161,3 +161,14 @@ footer {
         }
     }
 }
+
+.movado-footer-container {
+
+    .footerDropdown {
+        display: initial;
+    }
+
+    span {
+        padding-left: 0;
+    }
+}

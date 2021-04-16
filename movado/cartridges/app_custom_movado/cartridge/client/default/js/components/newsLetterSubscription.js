@@ -30,6 +30,10 @@ $('#newsletterSubscribe').submit(function (e) {
     wrapperContainer.addClass('d-none');
     var endPointUrl = $(e.target).attr('action');
     var inputValue = $(e.target).find('.form-control').val();
+    var $emailVerification = $(e.target).find('.email-verification').val();
+    if (typeof $emailVerification !== 'undefined'  && ($emailVerification !== '' || $emailVerification.length > 0)) {
+        return;
+    }
     if (inputValue !== '') {
         var pattern = /^[\sA-Z0-9.!#$%'*+-/=?_{|}~]+@[A-Z0-9.-]+\.[\sA-Z]{2,}$/i
             if(!pattern.test(inputValue)) {

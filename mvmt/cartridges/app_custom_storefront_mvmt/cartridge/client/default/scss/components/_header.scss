@@ -70,6 +70,31 @@
   }
 }
 
+.lower-header-banner {
+  z-index: auto;
+  justify-content: center;
+  background-color: $light-gray12;
+
+  .html-slot-container {
+    letter-spacing: rem(0.82);
+
+    @include media-breakpoint-up(lg) {
+      font-family: $font-book;
+      font-size: rem(12);
+      line-height: rem(16);
+      letter-spacing: rem(3.6);
+      align-content: center;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+  }
+
+  &-tuck {
+    display: none;
+  }
+}
+
 header.new-header {
   position: relative;
 
@@ -143,7 +168,13 @@ header.new-header {
 
       @include media-breakpoint-down(md) {
         padding: rem(12.5) rem(10);
-        padding-right: rem(17);
+        padding-right: rem(15);
+      }
+
+      &.header-mobile-right {
+        @include media-breakpoint-down(md) {
+          padding-right: rem(10);
+        }
       }
 
       @include media-breakpoint-down(sm) {

@@ -308,6 +308,15 @@
           }
         }
       }
+
+      + .featured-promotion {
+
+        .header-tiles {
+          > div:not(.no-margin) {
+            margin-top: rem(31);
+          }
+        }
+      }
     }
 
     .featured-promotion {
@@ -346,7 +355,7 @@
             display: flex;
             max-width: rem(930);
             overflow-x: auto;
-            overflow-y: hidden;
+            overflow-y: auto;
             padding-bottom: rem(20);
 
             .html-content {
@@ -513,6 +522,7 @@
   }
 
   &-content {
+    
     &-list {
       display: none;
 
@@ -583,6 +593,115 @@
     }
   }
 }
+
+.category-custom {
+
+  &-content  {
+    align-items: flex-start;
+  }
+
+  &-block {
+    margin-left: rem(70);
+
+    @include media-breakpoint-up(xl) {
+      margin-left: rem(100);
+    }
+  }
+
+  &-links-list {
+    padding: 0;
+    max-height: rem(380);
+    overflow: auto;
+    min-width: rem(190);
+
+    li {
+      line-height: rem(20);
+
+      &:last-child {
+        a {
+          margin-bottom: rem(5);
+        }
+      }
+    }
+  }
+
+  &-img-link {
+    align-items: center;
+    display: flex;
+    margin-bottom: rem(20);
+    
+    .category-custom-link {
+      margin: 0;
+    }
+  }
+
+  &-link {
+    @include font-medium;
+    font-size: rem(12);
+    transition: transform .24s ease 0s;
+    display: inline-block;
+    position: relative;
+    text-transform: capitalize;
+    letter-spacing: 0.82px;
+    margin-bottom: rem(20);
+    line-height: normal;
+  
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: rem(-4);
+      right: 0;
+      left: 0;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity .3s ease 0s,transform .24s ease 0s;
+      width: 100%;
+      height: rem(1);
+      background: $black;
+    }
+
+    &:hover {
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  &-img {
+
+    &-link {
+      
+      &:hover {
+
+        .category-custom-link {
+
+          &::before {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &-wrap {
+
+      &.no-img {
+        opacity: 0;
+        width: 0;
+      }
+  
+      img {
+        height: rem(52);
+        width: rem(52);
+        margin-right: rem(25);
+        display: inline-block;
+        border-radius: 50%;
+        min-width: auto;
+      }
+    }
+  }
+}
+
 .main-menu.menu-toggleable-left {
 
   &.right {

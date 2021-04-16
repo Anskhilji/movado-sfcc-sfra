@@ -93,7 +93,8 @@ function updateCountryList () {
     			currency = $("#selected-country").closest('.select-field').find('.country a:first').attr('data-currency');
     		}
     		if(!language){
-    			language = $("#selected-country").closest('.select-field').find('.country a:first').attr('data-locale');
+    			var locale = $("#selected-country").closest('.select-field').find('.country a:first').attr('data-locale').split('_');
+    			language = locale[0];
     		}
     	}else if (language){
     		if(!currency){
@@ -108,6 +109,8 @@ function updateCountryList () {
     		}
     		if(!language){
     			language = $("#selected-currency").closest('.select-field').find('.country a:first').attr('data-locale');
+    			var locale = $("#selected-country").closest('.select-field').find('.country a:first').attr('data-locale').split('_');
+    			language = locale[0];
     		}
     	}
     	var dataObj = {
@@ -124,10 +127,11 @@ function updateCountryList () {
     });
 
     $('.esw-country-selector').on('click','a.selected-link',function(){
+    	var locale = $(this).attr('data-locale').split('_');
         var dataObj = {
             	  'country': $(this).attr('data-country'),
             	  'currency': $(this).attr('data-currency'),
-            	  'language': $(this).attr('data-locale'),
+            	  'language': locale[0],
             	  'url': $(this).attr('data-url'),
             	  'action': $('.page').data('action'),
             	  'queryString': $('.page').data('querystring')
