@@ -2,13 +2,13 @@
 .tk-futura-pt-bold { font-family: "futura-pt-bold",sans-serif; }
 
 @mixin font-medium {
-    font-family: "futura-pt-medium",sans-serif, "futura-pt", Arial, sans-serif;
+    font-family: "futura-pt",sans-serif, Arial, sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: "futura-pt",sans-serif,"futura-pt", Arial, sans-serif;
+    font-family: "futura-pt",sans-serif, Arial, sans-serif;
     font-weight: 300;
     font-style: normal;
 }
