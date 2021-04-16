@@ -347,6 +347,7 @@ header.new-header {
     color: $black;
     line-height: 1;
     padding: rem(30) rem(24) rem(30);
+    padding-right: rem(5);
 
     @include media-breakpoint-down(lg) {
       padding: rem(30) rem(11) rem(30);

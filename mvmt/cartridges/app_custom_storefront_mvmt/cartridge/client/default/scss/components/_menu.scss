@@ -117,10 +117,10 @@
   }
 
   .menu-group {
-    margin-left: rem(155);
+    margin-left: rem(150);
 
     @include media-breakpoint-down(lg) {
-      margin-left: rem(75);
+      margin-left: rem(70);
     }
 
     &:hover {
