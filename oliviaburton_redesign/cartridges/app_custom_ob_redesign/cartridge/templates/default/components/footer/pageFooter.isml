@@ -82,7 +82,7 @@
             
         <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
         <iscomment>Custom: Revert this logic becuase pageFooter is remote include and we need to pass country parameter from Pipeline</iscomment>
-        <isif condition="${empty(pdict.countryCode))}">
+        <isif condition="${empty(pdict.countryCode)}">
             <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
         </isif>
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
