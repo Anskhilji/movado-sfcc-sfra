@@ -427,6 +427,11 @@ header.new-header {
     svg {
       height: rem(25);
     }
+
+    .logo-link {
+      position: relative;
+      right: rem(6);
+    }
   }
 
   .nav-left, .nav-center, .nav-right {
