@@ -1,8 +1,5 @@
-<isinclude template="/components/modules" sf-toolkit="off" />
-<isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
-<footer>
-    <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', pdict.action)}" />
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
+<isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', !empty(pdict.action) ? pdict.action: '' , 'countryCode',!empty(pdict.countryCode) ?  pdict.countryCode : '')}" />
+<isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
 
     <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
     <isinclude template="resources/appresources"/>
