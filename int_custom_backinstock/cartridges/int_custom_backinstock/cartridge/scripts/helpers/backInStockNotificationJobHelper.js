@@ -221,6 +221,16 @@ function getBackInStockNotificationObjs() {
     return backInStockNotificationObjs;
 }
 
+/**
+ * Gets BackInStockNotification Objs which have not been exported to CSV
+ * @returns {dw.util.SeekableIterator} backInStockNotificationObjs
+ */
+function getBackInStockNotificationObjsForExport() {
+    var queryString = "custom.exportedToCSV = {0}";
+    var backInStockNotificationObjs = CustomObjectMgr.queryCustomObjects(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, null, false);
+    return backInStockNotificationObjs;
+}
+
 module.exports = {
     exportObjectToCSV: exportObjectToCSV,
     appedDateTimeStamp: appedDateTimeStamp,
@@ -230,7 +240,8 @@ module.exports = {
     createDirectoryAndFile: createDirectoryAndFile,
     writeCSVHeader: writeCSVHeader,
     writeObjectToCSV: writeObjectToCSV,
-    getBackInStockNotificationObjs: getBackInStockNotificationObjs
+    getBackInStockNotificationObjs: getBackInStockNotificationObjs,
+    getBackInStockNotificationObjsForExport: getBackInStockNotificationObjsForExport 
 }
 
 
