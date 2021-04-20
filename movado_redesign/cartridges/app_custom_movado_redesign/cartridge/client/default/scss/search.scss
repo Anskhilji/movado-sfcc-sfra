@@ -677,8 +677,7 @@
 
       .product-name {
         font-size: rem(15);
-        @include font-medium;
-        font-weight: bold;
+        @include font-demi;
         color: $grey8;
         letter-spacing: normal;
         text-transform: capitalize;
