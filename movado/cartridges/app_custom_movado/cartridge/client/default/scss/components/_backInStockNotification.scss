@@ -18,6 +18,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: right;
         display: none;
         text-transform: uppercase;
+        margin-right: rem(15);
 
 
         &:hover {
@@ -41,7 +42,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         font-weight: 300;
         letter-spacing: rem(0.5);
         line-height: rem(17);
-        margin-left: rem(4);
+        margin-left: rem(12.5);
         text-align: left;
     }
 
@@ -51,7 +52,8 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         border: rem(1) solid $black;
         height: rem(45);
         padding-left: rem(15);
-        padding-right: rem(82);
+        padding-right: rem(97);
+        background: transparent;
 
         &:focus {
             outline: $black;
@@ -83,7 +85,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
             position: absolute;
             width: rem(13);
             content: "";
-            margin-top: rem(3);
+            margin-top: rem(2);
 
             &:after {
                 height: rem(13);

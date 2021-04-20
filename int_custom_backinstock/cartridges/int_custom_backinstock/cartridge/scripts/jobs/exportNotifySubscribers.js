@@ -5,6 +5,10 @@ var Status = require('dw/system/Status');
 function execute(args) {
   try {
     var backInStockNotificationJobHelper = require('*/cartridge/scripts/helpers/backInStockNotificationJobHelper');
+    var backInStockNotificationObjs = backInStockNotificationJobHelper.getBackInStockNotificationObjsForExport();
+    if (!backInStockNotificationObjs  || (backInStockNotificationObjs && backInStockNotificationObjs.count == 0)) {
+      return new Status(Status.OK);
+    }
     var backInStockNotificationObj;
     var targetFolder = args.targetFolder;
     var fileName = args.fileName;
@@ -13,7 +17,6 @@ function execute(args) {
     }
 
     var fileArgs = backInStockNotificationJobHelper.createDirectoryAndFile(targetFolder, fileName);
-    var backInStockNotificationObjs = backInStockNotificationJobHelper.getBackInStockNotificationObjs();
     backInStockNotificationJobHelper.writeCSVHeader(fileArgs.csvStreamWriter);
 
     while (backInStockNotificationObjs.hasNext()) {
