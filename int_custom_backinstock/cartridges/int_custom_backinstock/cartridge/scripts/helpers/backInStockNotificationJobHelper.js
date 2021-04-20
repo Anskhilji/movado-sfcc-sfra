@@ -126,6 +126,7 @@ function getEmailContent(product) {
     if (!empty(backInStockNotificationEmailHTML) && !empty(backInStockNotificationEmailHTML.markup)) {
         emailContent = backInStockNotificationEmailHTML.markup.replace(Constants.PRODUCT_IMAGE_PLACEHOLDER, productImage);
         emailContent = emailContent.replace(Constants.PRODUCT_URL_PLACEHOLDER, productURl);
+        emailContent = emailContent.replace(Constants.OUTLOOK_PRODUCT_URL_PLACEHOLDER, productURl);
     }
     return emailContent;
 }
