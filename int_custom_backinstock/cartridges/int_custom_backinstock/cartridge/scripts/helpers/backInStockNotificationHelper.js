@@ -4,6 +4,7 @@
 
 'use strict';
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site');
 var currentSite = Site.getCurrent();
@@ -30,6 +31,9 @@ function isProductBackInStockEnabled(product, apiProduct) {
     var isProductBackInStockEnabled = false;
     if (isBackInStockEnabled() && !empty(apiProduct) && !empty(product) && !product.available) {
         isProductBackInStockEnabled = !empty(apiProduct.custom.enableBackInStock) ? apiProduct.custom.enableBackInStock : false;
+        if (checkBackInStockProductCapitalLimit(apiProduct)) {
+            isProductBackInStockEnabled = false;
+        }
     }
     return isProductBackInStockEnabled;
 }
@@ -83,7 +87,6 @@ function isValidEmail(email) {
  * @returns {Boolean} isSubscribed
  */
 function isAlreadySubscribed(params) {
-    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
     var isSubscribed = false;
     var queryString  = "custom.email = {0} AND custom.productID = {1}"
     var backInStockNotificationObj = CustomObjectMgr.queryCustomObject(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, params.email, params.productID);
@@ -91,6 +94,23 @@ function isAlreadySubscribed(params) {
         isSubscribed = true;
     }
     return isSubscribed;
+}
+
+/**
+ * Checks if product Back In Stock Capital has reached its limit
+ * @param {*} apiProduct 
+ * @returns {Boolean} isCaptialReached
+ */
+function checkBackInStockProductCapitalLimit(apiProduct) {
+    var isCaptialReached = false;
+    var backInStockCapital = !empty(apiProduct.custom.backInStockCapital) ? apiProduct.custom.backInStockCapital : 0;
+    var queryString  = "custom.productID = {0}"
+    var backInStockNotificationObjs = CustomObjectMgr.queryCustomObjects(Constants.BACK_IN_STOCK_NOTIFICATION_OBJECT, queryString, null, apiProduct.ID);
+    if (backInStockCapital != 0 && backInStockNotificationObjs && backInStockNotificationObjs.count == backInStockCapital) {
+        isCaptialReached = true;
+    }
+
+    return isCaptialReached;
 }
 
 module.exports = {
