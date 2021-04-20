@@ -30,8 +30,8 @@ $font-fotter: "futura-pt", sans-serif;
 $heart-icon: "\F004";
 
 @mixin font-bold {
-    font-family: "futura-pt", sans-serif;
-    font-weight: 600;
+    font-family: "futura-pt-bold", sans-serif;
+    font-weight: 700;
     font-style: normal;
 }
 

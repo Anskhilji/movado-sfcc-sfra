@@ -21,12 +21,12 @@
 }
 
 @mixin font-demi {
-    font-family: "futura-pt-demi", sans-serif,Arial;
-    font-weight: 500;
+    font-family: "futura-pt", sans-serif,Arial;
+    font-weight: 600;
     font-style: normal;
 }
 
 @mixin font-lato-bold {
-    font-family: "Lato-Bold", sans-serif,Arial;
+    font-family: "lato", sans-serif,Arial;
     font-display:auto;font-style:normal;font-weight:700;
 }
