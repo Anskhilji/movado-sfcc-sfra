@@ -1276,6 +1276,7 @@ header.new-header.mvmt-header-design {
           .minicart {
             position: initial;
           }
+          
           svg {
             width: rem(15);
             height: rem(13);
@@ -1285,7 +1286,7 @@ header.new-header.mvmt-header-design {
             right: rem(7);
           }
           .cart-icon.fill-cart-icon +span.minicart-quantity{
-           color:#fff;
+           color: $white
           }
         }
       }
@@ -1320,9 +1321,12 @@ header.new-header.mvmt-header-design {
 }
 
 @media only screen and (max-width:$custom-md-width){
-  header.new-header.mvmt-header-design{
+  header.new-header.mvmt-header-design {
+
     .header-nav-right-mobile {
+
       li{
+
         .mobile-cart-icon {
           position: relative;
   
@@ -1333,12 +1337,14 @@ header.new-header.mvmt-header-design {
             width: rem(15);
             height: rem(13);
           }
+
           .minicart-quantity {
             top: rem(5.4);
             right: rem(7);
           }
-          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity{
-            color:#fff;
+
+          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity {
+            color: $white
           }
         }
       }
@@ -1346,9 +1352,11 @@ header.new-header.mvmt-header-design {
   }
 }
 
-@media only screen and (max-width:$custom-sm-width){
-  header.new-header.mvmt-header-design{
+@media only screen and (max-width:$custom-sm-width) {
+  header.new-header.mvmt-header-design {
+
     .header-nav-right-mobile {
+
       li{
         .mobile-cart-icon {
           position: relative;
@@ -1356,23 +1364,25 @@ header.new-header.mvmt-header-design {
           .minicart {
             position: initial;
           }
+
           svg {
             width: rem(15);
             height: rem(13);
           }
+
           .minicart-quantity {
             top: rem(8);
             right: rem(5.2);
           }
-          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity{
-            color:#fff;
+
+          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity {
+            color: $white;
           }
         }
       }
     }
   }
 }
-
 
 .accessible-link {
   right: 0;
