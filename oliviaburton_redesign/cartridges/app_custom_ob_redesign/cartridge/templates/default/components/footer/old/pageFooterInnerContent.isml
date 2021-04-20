@@ -1,3 +1,4 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
     <div class="home-email-signup"> 
         <div class="container">
