@@ -4,7 +4,8 @@
 <isslot id="cs-footer-slot1" description="Content in column 1 of the Footer" context="global" />
 
 <footer class="ob-footer">
-        <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', pdict.action)}" />
+    <div class="footer-redesign">
+
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>
