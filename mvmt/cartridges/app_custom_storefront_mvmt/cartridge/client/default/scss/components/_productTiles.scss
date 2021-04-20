@@ -422,8 +422,8 @@
 }
 
 .cart-icon {
-    width: rem(20);
-    height: rem(15);
+    width: rem(16);
+    height: rem(16);
     background: url("../../images/Empty.svg") center center no-repeat;
 
     @include media-breakpoint-down(sm) {
@@ -432,10 +432,14 @@
     }
     
     &.fill-cart-icon {
-        width: rem(20);
-        height: rem(15);
+        width: rem(16);
+        height: rem(16);
         background: url("../../images/Full.svg") center center no-repeat;
-
+        
+        span.minicart-quantity{
+            color: $white;
+        }
+        
         @include media-breakpoint-down(sm) {
             width: rem(15);
             height: rem(21);

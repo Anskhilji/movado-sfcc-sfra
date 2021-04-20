@@ -167,7 +167,8 @@ $custom-xl: 1280px;
 $custom-lg: 1070px;
 $custom-sm: 800px;
 $custom-md-width: 991px;
-
+$custom-sm-width: 767px;
+$custom-mobile: 600px;
 /* Button Mixins */
 
 @mixin btn-outline-primary {
