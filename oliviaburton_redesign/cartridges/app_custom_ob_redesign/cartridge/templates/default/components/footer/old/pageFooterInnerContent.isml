@@ -74,6 +74,6 @@
     </isif>
     
     <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
-    <isif condition="${!request.httpParameterMap.get('country').value}">
+    <isif condition="${empty(pdict.countryCode)}">
         <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     </isif>
