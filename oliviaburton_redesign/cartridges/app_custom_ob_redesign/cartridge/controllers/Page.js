@@ -72,11 +72,11 @@ server.get(
         var footerTemplate = null;
         // A/B testing for header design
         if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
-            footerTemplate = '/components/footer/old/pageFooter';
+            footerTemplate = '/components/footer/old/pageFooterInnerContent';
         } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
-            footerTemplate = '/components/footer/pageFooter';
+            footerTemplate = '/components/footer/pageFooterInnerContent';
         } else {
-            footerTemplate = '/components/footer/old/pageFooter';
+            footerTemplate = '/components/footer/old/pageFooterInnerContent';
         }
         var parentController = req.querystring.parentController;
         var homeFlag = false;
