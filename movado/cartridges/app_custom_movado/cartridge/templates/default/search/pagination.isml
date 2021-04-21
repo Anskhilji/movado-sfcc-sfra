@@ -17,7 +17,7 @@
 	            </p>
             </isif>
             <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disablePreviousButton')} prev">
-              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.prev', 'search', null)}" data-page-size="${pdict.productSearch.pageSize}" data-page-number="${pdict.productSearch.pageNumber}" data-url="${pdict.productSearch.paginationUrls.get('previous')}">
+              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.prev', 'search', null)}" data-page-size="${pdict.productSearch.pageSize}" data-page-number="${pdict.productSearch.pageNumber}" data-url="${pdict.productSearch.paginationUrls.get('previous') == null ? pdict.productSearch.paginationUrls.get('firstPage') : pdict.productSearch.paginationUrls.get('previous')}">
                   &#60;
                 </button>
             </p>
@@ -34,7 +34,7 @@
             </ul>
             
             <p class="page-item show-pagination ${pdict.productSearch.paginationUrls.get('disableNextButton')} next">
-              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.next', 'search', null)}" data-page-size="${pdict.productSearch.pageSize}" data-page-number="${pdict.productSearch.pageNumber}" data-url="${pdict.productSearch.paginationUrls.get('next')}" >
+              <button class="btn btn-outline-primary gtm-refinements" aria-label="${Resource.msg('label.next', 'search', null)}" data-page-size="${pdict.productSearch.pageSize}" data-page-number="${pdict.productSearch.pageNumber}" data-url="${pdict.productSearch.paginationUrls.get('next') == null ? pdict.productSearch.paginationUrls.get('lastPage') : pdict.productSearch.paginationUrls.get('next') }" >
                   &#62;
                 </button>
             </p>
