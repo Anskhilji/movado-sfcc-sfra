@@ -1,7 +1,7 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
-<isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+<isinclude url="${URLUtils.url('Compare-Bar','urlAction', pdict.action)}" />
     <div class="home-email-signup"> 
         <div class="container">
             <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
