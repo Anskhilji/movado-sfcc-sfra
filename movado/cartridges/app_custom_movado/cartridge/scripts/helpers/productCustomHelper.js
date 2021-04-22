@@ -43,6 +43,28 @@ function getExplicitRecommendations(pid) {
     return recommendationTilesList;
 }
 
+
+/**
+ * Gets video configs for PDP slider
+ * @param {dw.catalog.Product} apiProduct
+ * @returns {Object} pdpVideoConfigs
+ */
+function getPdpVideoConfigs(apiProduct) {
+    var pdpVideoConfigs = {
+        videoURL: '',
+        imageIndex: 2
+    }
+    if (apiProduct && !empty(apiProduct.custom.pdpVideoURL)) {
+        var splittedURL = apiProduct.custom.pdpVideoURL.split('|');
+        pdpVideoConfigs.videoURL = splittedURL[0];
+        if (splittedURL.length > 1) {
+            pdpVideoConfigs.imageIndex = splittedURL[1];
+        }
+    }
+    return pdpVideoConfigs;
+}
+
 module.exports = {
-    getExplicitRecommendations: getExplicitRecommendations
+    getExplicitRecommendations: getExplicitRecommendations,
+    getPdpVideoConfigs: getPdpVideoConfigs
 };

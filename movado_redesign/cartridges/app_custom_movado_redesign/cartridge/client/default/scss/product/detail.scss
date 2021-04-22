@@ -238,6 +238,14 @@ $arrow-height: 1.25em;
                     }
                 }
             }
+
+            .slide-video {
+
+                @include media-breakpoint-up(xl) {
+                    padding-left: 15%;
+                    padding-right: 15%;
+                }
+            }
         }
 
         .carousel-nav {

@@ -831,7 +831,7 @@
                         }
                     }
 
-                    .normal-zoom {
+                    .normal-zoom, .slide-video {
                         max-width: rem(320);
                         margin: 0 auto;
                         width: 100%;
@@ -839,6 +839,18 @@
                         @include media-breakpoint-up(md-down) {
                             max-width: rem(600);
                         }
+                    }
+
+                    .slide-video {
+                        position: absolute;
+                        min-width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        width: inherit;
+                        max-height: 100%;
+                        object-fit: cover;
+                        margin: 0 auto;
+                        right: 0;
                     }
                 }
 

@@ -341,5 +341,17 @@ module.exports = {
             }
         });
     },
+    handlePdpVideos: function () {
+        var $slideVideo = $('.slide-video');
+        var video = document.createElement('video');
+        video.onerror = function (data) {
+            if (!data.target.error) {
+                $slideVideo.removeClass('d-none');
+            } else if ((data.target.error.code == '4' || data.target.error.code == 4)) {
+                $slideVideo.removeClass('d-none');
+            }
+        }
+        video.src = $slideVideo.attr('src');
+    },
     base: base
 };
