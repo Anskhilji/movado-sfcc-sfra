@@ -17,10 +17,8 @@ var Constants = require('~/cartridge/scripts/utils/Constants');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var productFactory = require('*/cartridge/scripts/factories/product');
 
-var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
 var emailHeaderContent = ContentMgr.getContent('email-header');
 var emailFooterContent = ContentMgr.getContent('email-footer');
-var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
 var backInStockNotificationEmailContent = ContentMgr.getContent('ca-back-in-stock-notification-email');
 
 /**
@@ -98,8 +96,6 @@ function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
         var contextObj = {
             emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
             emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
-            emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-            bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
             emailContent: getEmailContent(product)
         }
         emailHelpers.send(emailObj, 'mail/backInStockNotifiactionEmail', contextObj);
