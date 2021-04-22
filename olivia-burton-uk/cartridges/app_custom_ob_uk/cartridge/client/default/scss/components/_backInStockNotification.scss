@@ -1,5 +1,6 @@
 @import "~oliviaburton_redesign/_variables";
 .back-in-stock-notification-container {
+    margin-bottom: rem(30);
 
     .back-in-stock-notification {
 
@@ -17,6 +18,7 @@
     
         &-confirmation-copy {
             font-family: $font-gill-std-semibold;
+            margin-bottom: 0;
         }
     
         &-container-success {
