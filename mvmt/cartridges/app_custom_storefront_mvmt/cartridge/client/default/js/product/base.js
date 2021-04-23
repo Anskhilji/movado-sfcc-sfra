@@ -615,10 +615,14 @@ function handleVariantResponse(response, $productContainer) {
     */
     var $backInStockContanier = $('.back-in-stock-notification-container');
     if ($backInStockContanier.length > 0) {
+        var $ctaAddToCart = $('.cta-add-to-cart');
+        $backInStockContanier.data('pid', response.product.id);
         if (response.product.isBackInStockEnabled) {
             $backInStockContanier.removeClass('d-none');
+            $ctaAddToCart.addClass('d-none');
         } else {
             $backInStockContanier.addClass('d-none');
+            $ctaAddToCart.removeClass('d-none');
         }
     }
 
