@@ -1262,6 +1262,12 @@ header.new-header.mvmt-header-design {
     }
 
     .menu-icon-mvmt-hamburger {
+      position: relative;
+      top: rem(1);
+
+      @include media-breakpoint-up(lg) {
+        position: static;
+      }
 
       > div {
         display: flex;
@@ -1293,8 +1299,8 @@ header.new-header.mvmt-header-design {
 
       .desktop-search-icon {
         svg {
-          width: rem(11);
-          height: rem(11);
+          width: rem(16);
+          height: rem(16);
           top: rem(2);
         }
       }
@@ -1330,7 +1336,9 @@ header.new-header.mvmt-header-design {
 
         .mobile-cart-icon {
           position: relative;
-  
+          display: flex;
+          margin: 0;
+
           .minicart {
             position: initial;
           }
@@ -1341,11 +1349,12 @@ header.new-header.mvmt-header-design {
           }
 
           .minicart-quantity {
-            top: rem(5.4);
-            right: rem(7);
+            top: auto;
+            bottom: rem(1);
+            right: auto;
           }
 
-          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity {
+          .cart-icon.fill-cart-icon + div.minicart span.minicart-quantity {
             color: $white
           }
         }
@@ -1362,7 +1371,9 @@ header.new-header.mvmt-header-design {
       li{
         .mobile-cart-icon {
           position: relative;
-  
+          display: flex;
+          margin: 0;
+
           .minicart {
             position: initial;
           }
@@ -1373,8 +1384,9 @@ header.new-header.mvmt-header-design {
           }
 
           .minicart-quantity {
-            top: rem(8);
-            right: rem(5.2);
+            top: auto;
+            bottom: rem(1);
+            right: auto;
           }
 
           .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity {

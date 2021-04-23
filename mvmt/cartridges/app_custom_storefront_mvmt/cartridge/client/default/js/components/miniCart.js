@@ -89,7 +89,7 @@ module.exports = function () {
     /**
      * This event is override from movado and it is used to show miniCart on the click event.
      */
-     $('body').off('click touchstart', '.minicart').on('click touchstart', '.minicart', function (event) {
+     $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
 
@@ -97,6 +97,8 @@ module.exports = function () {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
                 $('#footer-overlay').addClass('footer-form-overlay');
+                $('.mobile-cart-icon').hide();
+                $('.mobile-cart-close-icon').show();
                 return;
             }
             $.get($url, function (data) {
@@ -107,12 +109,15 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
-
+                $('.mobile-cart-icon').hide();
+                $('.mobile-cart-close-icon').show();
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
                 $('#footer-overlay').addClass('footer-form-overlay');
+                $('.mobile-cart-icon').hide();
+                $('.mobile-cart-close-icon').show();
                 return;
             }
             $.get($url, function (data) {
@@ -122,35 +127,37 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
+                $('.mobile-cart-icon').hide();
+                $('.mobile-cart-close-icon').show();
             });
          }
-         $('.mobile-cart-icon').hide();
-         $('.mobile-cart-close-icon').show();
      });
 
     $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-btn', function(event) {
         var $url = $('.minicart').data('action-url');
         var $count = parseInt($('.mini-cart-data .mini-cart-data-quantity').text());
-        if ($('.mobile-cart-icon').is(':visible')) {
-            if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
-                $.get($url, function (data) {
-                    $('.mobile-cart-icon').hide();
-                    $('.mobile-cart-close-icon').show();
-                    $('.mini-cart-data .popover').empty();
-                    $('.mini-cart-data .popover').append(data);
-                    $('#footer-overlay').addClass('footer-form-overlay');
-                    setMiniCartProductSummaryHeight();
-                    $('.mini-cart-data .popover').addClass('show');
-                    $('body').trigger('miniCart:recommendations');
-                });
-            }
-        } else {
-            $('.mobile-cart-close-icon').hide();
-            $('.mobile-cart-icon').show();
-            $('#footer-overlay').removeClass('footer-form-overlay');
-            $('.mini-cart-data .popover').removeClass('show');
+        if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
+            $.get($url, function (data) {
+                $('.mobile-cart-icon').hide();
+                $('.mini-cart-data .popover').empty();
+                $('.mini-cart-data .popover').append(data);
+                $('#footer-overlay').addClass('footer-form-overlay');
+                setMiniCartProductSummaryHeight();
+                $('.mini-cart-data .popover').addClass('show');
+                $('body').trigger('miniCart:recommendations');
+                $('.mobile-cart-icon').hide();
+                $('.mobile-cart-close-icon').show();
+            });
         }
-  });
+    });
+    
+    $('body').off('click', '.mobile-cart-close-icon').on('click', '.mobile-cart-close-icon', function(event) {
+        $('#footer-overlay').removeClass('footer-form-overlay');
+        $('.mini-cart-data .popover').removeClass('show');
+        $('.mobile-cart-icon').show();
+        $('.mobile-cart-close-icon').hide();
+    });
+    
 
     /**
      * This event is used to close the mini cart.
