@@ -173,16 +173,41 @@ function createSAPOrderFile(args, impexFilePath, record) {
         if (Object.hasOwnProperty.call(record.poHeader, 'vatInclusive')) {
             writeXmlElement(streamWriter, 'VATInclusive', record.poHeader.vatInclusive);
         }
-        if (Object.hasOwnProperty.call(record.poHeader, 'paymentMethod')) {
-            writeXmlElement(streamWriter, 'PaymentMethod', record.poHeader.paymentMethod);
+
+        // MVMT-366
+        if (record.poHeader.payment) {
+            record.poHeader.payment.forEach(function (p) {
+                /* Payment Type and Amount */
+                streamWriter.writeStartElement('Payment');
+                streamWriter.writeCharacters('');
+                streamWriter.writeRaw('\r\n');
+
+                writeXmlElement(streamWriter, 'PaymentMethod', p.paymentMethod);
+                writeXmlElement(streamWriter, 'PaymentAmount', p.paymentAmount.toFixed(2), true);
+
+                streamWriter.writeEndElement();
+            }
         }
-        if (Object.hasOwnProperty.call(record.poHeader, 'paymentID')) {
-            writeXmlElement(streamWriter, 'PaymentID', record.poHeader.paymentID);
-        }
+
+
         if (Object.hasOwnProperty.call(record.poHeader, 'authExpirationDate')) {
             writeXmlElement(streamWriter, 'AuthExpirationDate', record.poHeader.authExpirationDate);
         } else {
             writeXmlElement(streamWriter, 'AuthExpirationDate', moment().add(10, 'days').format('YYYYMMDD'));
+        }
+        
+        // POS
+        if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledStatus')) {
+            writeXmlElement(streamWriter, 'FulfilledStatus', record.poHeader.fulfilledStatus);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledDate')) {
+            writeXmlElement(streamWriter, 'FulfilledDate', record.poHeader.fulfilledDate);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'multiOrderStatus')) {
+            writeXmlElement(streamWriter, 'MultiOrderStatus', record.poHeader.multiOrderStatus);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'taxExemptionCode')) {
+            writeXmlElement(streamWriter, 'TaxExemptionCode', record.poHeader.taxExemptionCode);
         }
 
         // ESW
