@@ -173,10 +173,10 @@ $(window).scroll(function (event) {
 
         if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
             $('.bottom-sticky-header').addClass('d-none');
-            $('.prices-add-to-cart-actions').removeClass('bottom')
+            $('.prices-add-to-cart-actions').removeClass('add-cart-bottom-navigation')
         } else {
             $('.bottom-sticky-header').removeClass('d-none');
-            $('.prices-add-to-cart-actions').addClass('bottom')
+            $('.prices-add-to-cart-actions').addClass('add-cart-bottom-navigation')
         }
     }
 
@@ -187,7 +187,7 @@ $(window).scroll(function (event) {
     var $basePath = $('.bottom-navbar-display').data('base-url');
     try {
         if ($basePath !== undefined && $basePath !== '') {
-            $('.prices-add-to-cart-actions').addClass('bottom')
+            $('.prices-add-to-cart-actions').addClass('add-cart-bottom-navigation')
             if ($path !== $basePath) {
                 $('.bottom-navbar-display > li.active').removeClass('active');
                 $('.bottom-navbar-display > li > a > span.active').removeClass('active');
