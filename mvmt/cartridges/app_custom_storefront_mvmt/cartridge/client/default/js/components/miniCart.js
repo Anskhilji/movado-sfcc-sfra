@@ -151,7 +151,8 @@ module.exports = function () {
         }
     });
     
-    $('body').off('click', '.mobile-cart-close-icon').on('click', '.mobile-cart-close-icon', function(event) {
+    $('body').off('click', '.mobile-cart-btn').on('click', '.mobile-cart-close-icon', function(event) {
+        event.preventDefault();
         $('#footer-overlay').removeClass('footer-form-overlay');
         $('.mini-cart-data .popover').removeClass('show');
         $('.mobile-cart-icon').show();

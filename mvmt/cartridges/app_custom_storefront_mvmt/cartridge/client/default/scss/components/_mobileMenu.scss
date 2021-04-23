@@ -486,6 +486,7 @@ header.new-header .main-menu .dropdown-selector  li:hover {
     &-link  {
         cursor: pointer;
         text-align: center;
+        padding: rem(8) rem(15);
         > svg {
             display: block;
             text-align: center;
