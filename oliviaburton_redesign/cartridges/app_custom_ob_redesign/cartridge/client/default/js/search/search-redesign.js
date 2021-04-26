@@ -16,7 +16,7 @@ function updateURLForShowMore(showMoreUrl) {
     }
     // Custom End
 
-    
+
     $('#show-more-update, #show-more-update-mobile').each(function () {
         var res = $(this).text().replace(size, newSize);
         $(this).text(res);
@@ -210,7 +210,6 @@ function getUrlParamObj(url) {
         var parts = val.split('=', 2);
         params[parts[0]] = parts[1];
     });
-
     return params;
 }
 
@@ -439,7 +438,7 @@ module.exports = {
 
     showPagination: function () {
         // Show more products
-        $('.container, .container-fluid').on('click', '.show-pagination button', function (e) {
+        $('body').on('click', '.show-pagination button', function (e) {
             e.stopPropagation();
             var showMoreUrl = $(this).data('url');
 
@@ -622,15 +621,15 @@ module.exports = {
             $('.plp-grid-overlay').removeClass('active');
         });
 
-        
+
         $(document).on('mouseup', function (e) {
             var filterContainer = $('.plp-filter-desktop .refinements');
 
             // if the target of the click isn't the container nor a descendant of the container
             if (!filterContainer.is(e.target) && filterContainer.has(e.target).length === 0) {
-            $('.filter-group').removeClass('active loaded');
-            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
-            $('.plp-grid-overlay').removeClass('active');
+                $('.filter-group').removeClass('active loaded');
+                $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+                $('.plp-grid-overlay').removeClass('active');
             }
         });
 
