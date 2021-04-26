@@ -69,6 +69,7 @@ $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
 $transparent-black: rgba(0, 0, 0, 0.4);
 $light-black-shadow:  rgba(0, 0, 0, 0.24);
+$white-shadow: rgba(214,214,214,0.5);
 
 $white: #ffffff;
 $dark-gray: #222222;
@@ -104,6 +105,7 @@ $night-rider: #2C2C2C;
 $alice-dark: #f9f9f9;
 $emerald: #4BC760;
 $nobel: #B7B7B7;
+$light-blue-icons: #1D9ED9;
 
 @mixin font-bold {
     font-family: futura-pt, FuturaStd-Bold, sans-serif;

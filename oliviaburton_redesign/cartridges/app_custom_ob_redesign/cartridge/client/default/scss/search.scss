@@ -366,7 +366,11 @@
 }
 
 .plp-redesign {
-    margin-bottom: 0;
+    margin-bottom: rem(20);
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(70);
+    }
 
     &.search-banner {
         margin: 0;
@@ -1625,6 +1629,7 @@
             line-height: rem(21);
             transition: 0.3s all;
             letter-spacing: 0.5px;
+            margin-top: rem(10);
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(16);
@@ -1645,6 +1650,7 @@
 
             &-mobile {
                 display: block;
+                margin-bottom: 0;
 
                 @include media-breakpoint-up(lg) {
                     display: none;
