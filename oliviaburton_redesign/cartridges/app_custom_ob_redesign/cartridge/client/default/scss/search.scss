@@ -1669,7 +1669,7 @@
             color: $storm-gray;
             letter-spacing: normal;
             line-height: rem(16);
-            margin-bottom: rem(10);
+            margin-bottom: rem(0);
 
             @include media-breakpoint-up(lg) {
                 font-size: rem(14);
@@ -1752,6 +1752,14 @@
 
     .pagination-container {
         margin-bottom: 0;
+        margin-top: rem(10);
+
+        .page-wrapper {
+
+            > * {
+                margin-bottom: 0;
+            }
+        }
     }
 }
 
