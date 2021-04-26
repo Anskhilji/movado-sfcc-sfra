@@ -40,5 +40,15 @@
     margin: 0 auto;
     right: 0;
     top: 0;
+    display: none;
   }
+  
+  .slick-active {
+
+    .slide-video {
+      display: block;
+    }
+
+  }
+
 }
