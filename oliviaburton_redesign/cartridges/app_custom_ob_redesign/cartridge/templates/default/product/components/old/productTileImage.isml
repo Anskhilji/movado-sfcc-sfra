@@ -1,6 +1,8 @@
 <div class="image-container">
     <isloop items="${product.badges.imageBadges}" var="imageBadge">
-    	<div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+        <isif condition="${!imageBadge.isRedesigned}">
+            <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+        </isif>
     </isloop>
     <a href="${pdict.urls.product}">
 	    <isif condition="${product && product.images}">
