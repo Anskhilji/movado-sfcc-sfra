@@ -1214,7 +1214,6 @@ function getProductImageURL(product) {
 }
 
 function getProductPromoAndSalePrice(product, currencyCode) {
-    var Transaction = require('dw/system/Transaction');
     var Currency = require('dw/util/Currency');
     var salePrice = '';
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
@@ -1224,10 +1223,8 @@ function getProductPromoAndSalePrice(product, currencyCode) {
     var defaultCurrency;
 
     if (currencyCode) {
-        Transaction.wrap(function () {
-            defaultCurrency = session.getCurrency();
-            session.setCurrency(Currency.getCurrency(currencyCode));
-        });
+        defaultCurrency = session.getCurrency();
+        session.setCurrency(Currency.getCurrency(currencyCode));
     }
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
