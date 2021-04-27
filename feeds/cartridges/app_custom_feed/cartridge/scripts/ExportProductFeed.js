@@ -1100,14 +1100,14 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         availability: product.availabilityModel.availabilityStatus,
         caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
         pageDescription: product.pageDescription,
-        price_CA: getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " CAD",
-        salePrice_CA: getProductPromoAndSalePrice(product, Constants.CURRENCY_CAD).salePrice + " CAD",
-        link_CA: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=CA',
-        availability_CA: getProductAvailability(product, 'CA'),
-        price_FR: getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " EUR",
-        salePrice_FR: getProductPromoAndSalePrice(product, Constants.CURRENCY_EUR).salePrice + " EUR",
-        link_FR: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=FR',
-        availability_FR: getProductAvailability(product, 'FR'),
+        price_CA: getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD,
+        salePrice_CA: getProductPromoAndSalePrice(product, Constants.CURRENCY_CAD).salePrice + " " + Constants.CURRENCY_CAD,
+        link_CA: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=' + Constants.COUNTRY_CA,
+        availability_CA: getProductAvailability(product, Constants.COUNTRY_CA),
+        price_FR: getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR,
+        salePrice_FR: getProductPromoAndSalePrice(product, Constants.CURRENCY_EUR).salePrice + " " + Constants.CURRENCY_EUR,
+        link_FR: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=' + Constants.COUNTRY_FR,
+        availability_FR: getProductAvailability(product, Constants.COUNTRY_FR),
     };
     if (!empty(feedColumns['priceUSD'])) {
         productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product);
