@@ -44,7 +44,7 @@ $arrow-height: 1.25em;
     }
 
     .product-name {
-        @include font-bold;
+        @include font-demi;
         font-size: rem(34);
         color: $grey8;
         letter-spacing: normal;
