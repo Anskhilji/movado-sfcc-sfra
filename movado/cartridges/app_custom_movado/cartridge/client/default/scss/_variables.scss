@@ -107,9 +107,9 @@ $table-border-color: $grey3 !default;
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 
 //font Families:
-$font-medium : "futura-pt", Arial, sans-serif !default;
-$font-book : "futura-pt", Arial, sans-serif !default;
-$font-bold : "futura-pt", Arial, sans-serif !default;
+$font-medium : "FuturaStd-Medium", Arial, sans-serif !default;
+$font-book : "FuturaStd-Book", Arial, sans-serif !default;
+$font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
 
 $font-awesome: "FontAwesome";
