@@ -40,12 +40,16 @@
     margin: 0 auto;
     right: 0;
     top: 0;
-    display: none;
+
+    &-ie{
+      display: none;
+    }
+
   }
   
   .slick-active {
 
-    .slide-video {
+    .slide-video-ie {
       display: block;
     }
 

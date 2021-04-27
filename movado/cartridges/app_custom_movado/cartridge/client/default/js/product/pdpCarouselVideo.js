@@ -24,6 +24,9 @@ var videoStatusChecker = setInterval(function () {
 $(document).ready(function () {
     var $slideVideo = $('.slide-video');
     if ($slideVideo.length > 0) {
+        if (document.documentMode && document.documentMode != 'undefined') {
+            $slideVideo.addClass('slide-video-ie');
+        }
         $('.primary-images .slick-arrow, .primary-images .slick-dots').on('click', function (event) {
             var $primaryImagesContainer = $('.primary-images');
             var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
