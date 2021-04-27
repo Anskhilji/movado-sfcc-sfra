@@ -63,7 +63,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
             enumerable: true,
             value: eswHelper.isProductRestricted(apiProduct.custom)
         });
-}
+    }
     // Custom end
     Object.defineProperty(product, 'pdpVideoConfigs', {
         enumerable: true,
