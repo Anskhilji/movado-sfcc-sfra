@@ -17,7 +17,9 @@ function ShippingMethodModel(shippingMethod, shipment) {
     if (session.customer && shipment && Site.current.getCustomPreferenceValue('enableActualShippingEstimations')) {
         this.deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);   
     }
-    this.validShippingMethods = !empty(shippingMethod.custom.isHiddenFromCheckout) ? shippingMethod.custom.isHiddenFromCheckout: false;
+    if (shipment) {
+        this.validShippingMethods = !empty(shippingMethod.custom.isHiddenFromCheckout) ? shippingMethod.custom.isHiddenFromCheckout: false;
+    }
 }
 
 module.exports = ShippingMethodModel;
