@@ -62,7 +62,7 @@ server.replace(
             // Custom End
             var language = req.querystring.language;
             var countryCode = req.querystring.country;
-            var locale = language + constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
+            var locale = language + constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
 
             if (eswHelper.checkIsEswAllowedCountry(selectedCountry) != null) {
                 if (req.setLocale(language)) {

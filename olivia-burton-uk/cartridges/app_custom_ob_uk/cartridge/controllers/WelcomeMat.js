@@ -52,7 +52,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         }
 
         var customCountries = eswCustomHelper.getCustomCountries();
-        locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+        locale = locale.split(constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
         allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
         obLandingObject.isGeoLocation = false;
 
