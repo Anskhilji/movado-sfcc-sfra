@@ -19,7 +19,7 @@ var Site = require('dw/system/Site');
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
-
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
     decorators.mgattributes(product, apiProduct);
@@ -65,6 +65,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
     // Custom end
+    Object.defineProperty(product, 'pdpVideoConfigs', {
+        enumerable: true,
+        value: productCustomHelper.getPdpVideoConfigs(apiProduct)
+    });
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);
