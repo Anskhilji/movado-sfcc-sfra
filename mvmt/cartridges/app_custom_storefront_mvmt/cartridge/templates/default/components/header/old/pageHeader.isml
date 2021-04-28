@@ -19,7 +19,12 @@
                 <div class="header-wrapper">
                     <div class="row overlay"></div>
                     <div class="row header-container order-1 order-lg-2">
-                        <div class="p-0 nav-left main-menu desktop-menu">
+                        <div class="justify-content-start navbar-header header-logo">
+                            <div class="d-none d-lg-inline-block">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                            </div>
+                        </div>
+                        <div class="p-0 nav-left justify-content-center main-menu desktop-menu">
                             <div class="d-none d-lg-inline-block">
                                 <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 <iscomment>Custom Start: Here it is not needed
@@ -38,12 +43,8 @@
                         <div class="center-align nav-center mvmt-mobile-header-logo d-lg-none d-block">
                             <isslot id="brand-logo" description="Brand Logo" context="global" />
                         </div>
-                        <div class="nav-center navbar-header header-logo">
-                            <div class="d-none d-lg-inline-block">
-                                <isslot id="brand-logo" description="Brand Logo" context="global" />
-                            </div>
-                        </div>
-                        <div class="nav-right justify-content-end right">
+
+                        <div class="justify-content-end right">
                             <ul class="header-nav-right-mobile">
                                 <li class="header-border-right">
                                     <div class="main-level-item">
@@ -156,6 +157,10 @@
     </nav>
 </header>
 
+<div class="header-banner lower-header-banner">
+    <isslot id="lower-header-banner" description="Slot below the site header" context="global" />
+</div>
+
 <div class="mini-cart-data">
     <div class="popover popover-bottom"></div>
 </div>
@@ -186,7 +191,7 @@
                     <input class="form-control search-field header-search-field"
                         type="search" name="q"
                         title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                        value="${pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords:''}"
+                        value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords:''}"
                         placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
                         autocomplete="off"
                         data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
@@ -237,7 +242,7 @@
                 <input class="search-field header-search-field mobile-search-field"
                     type="search" name="q"
                     title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                    value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                    value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords:''}"
                     placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
                     autocomplete="off"
                     data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
@@ -253,6 +258,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="container-fluid bottom-sticky-header">
+    <div class="justify-content-center row">
+        <isslot id="cs-bottom-sticky-header" description="Content For Bottom Sticky Header" context="global" />
     </div>
 </div>
 

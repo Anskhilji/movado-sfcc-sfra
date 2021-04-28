@@ -69,6 +69,7 @@ $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
 $transparent-black: rgba(0, 0, 0, 0.4);
 $light-black-shadow:  rgba(0, 0, 0, 0.24);
+$white-shadow: rgba(214,214,214,0.5);
 
 $white: #ffffff;
 $dark-gray: #222222;
@@ -107,25 +108,25 @@ $nobel: #B7B7B7;
 $light-blue-icons: #1D9ED9;
 
 @mixin font-bold {
-    font-family: futura-pt, FuturaStd-Bold, sans-serif;
-    font-weight: 600;
+    font-family: "futura-pt-bold", sans-serif;
+    font-weight: 700;
     font-style: normal;
 }
 
 @mixin font-medium {
-    font-family: futura-pt, FuturaStd-Medium, sans-serif;
+    font-family: "futura-pt", "sans-serif";
     font-weight: 500;
     font-style: normal;
 }
 
 @mixin font-light {
-    font-family: futura-pt, FuturaStd-Book, sans-serif;
+    font-family: "futura-pt", "sans-serif";
     font-weight: 300;
     font-style: normal;
 }
 
 @mixin font-book {
-    font-family: futura-pt, FuturaStd-Book, sans-serif;
+    font-family: "futura-pt", "sans-serif";
     font-weight: 400;
     font-style: normal;
 }
@@ -135,18 +136,18 @@ $blue: #0051b2;
 
 
 //font Families:
-$font-medium : "futura-pt-medium", Arial, sans-serif !default;
-$font-book : "futura-pt-book", Arial, sans-serif !default;
+$font-medium : "futura-pt", Arial, sans-serif !default;
+$font-book : "futura-pt", Arial, sans-serif !default;
 $font-bold : "futura-pt-bold", Arial, sans-serif !default;
 $font-primary: "futura-pt", Arial, sans-serif !default;
-$font-sans-serif: sans-serif, futura-pt, Arial;
+$font-sans-serif: "sans-serif", "futura-pt", Arial;
 
-$font-oswald-regular: "Oswald-Regular", futura-pt-book, Arial !default;
-$font-oswald-bold: "Oswald-Bold", futura-pt-book, Arial !default;
-$font-oswald-semi-bold: "Oswald-SemiBold", futura-pt-book, Arial !default;
-$font-oswald-medium: "Oswald-Medium", futura-pt-book, Arial !default;
-$font-oswald-light: "Oswald-Light", futura-pt-book, Arial !default;
-$font-oswald-extra-light: "Oswald-ExtraLight", futura-pt-book, Arial !default;
+$font-oswald-regular: "oswald", "futura-pt", Arial !default;
+$font-oswald-bold: "oswald", "futura-pt", Arial !default;
+$font-oswald-semi-bold: "oswald", "futura-pt", Arial !default;
+$font-oswald-medium: "oswald", "futura-pt", Arial !default;
+$font-oswald-light: "oswald", "futura-pt", Arial !default;
+$font-oswald-extra-light: "oswald", "futura-pt", Arial !default;
 $custom-xl: 1440px;
 
 $grid-breakpoints: (
@@ -162,12 +163,12 @@ $grid-breakpoints: (
 ) !default;
 
 $container-max-width: 1440px;
-$container-max-width-center: 1560px;
 $custom-xl: 1280px;
 $custom-lg: 1070px;
 $custom-sm: 800px;
 $custom-md-width: 991px;
-
+$custom-sm-width: 767px;
+$custom-mobile: 600px;
 /* Button Mixins */
 
 @mixin btn-outline-primary {
