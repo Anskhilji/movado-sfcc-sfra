@@ -264,7 +264,7 @@
 
         .add-to-cart {
             width: 100%;
-            font-family: $font-bold;
+            font-family: $font-primary;
             font-weight: 600;
             font-size: rem(9);
             padding: rem(15) 0;
@@ -419,4 +419,22 @@
 
 .product-tile, .product-tile-redesign {
     height: 100%;
+}
+
+.cart-icon {
+    width: rem(17);
+    height: rem(17);
+    background: url("../../images/Empty.svg") center center no-repeat;
+    background-size: contain;
+
+    &.fill-cart-icon {
+        width: rem(17);
+        height: rem(17);
+        background: url("../../images/Full.svg") center center no-repeat;
+        background-size: contain;
+
+        span.minicart-quantity {
+            color: $white;
+        }
+    }
 }

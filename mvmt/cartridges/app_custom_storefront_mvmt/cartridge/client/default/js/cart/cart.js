@@ -449,6 +449,10 @@ module.exports = function () {
                     $('.mini-cart-data .popover').empty();
                     updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);
+                    var $cartIcon = $('.cart-icon');
+                    if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
+                        $cartIcon.removeClass('fill-cart-icon');
+                    }
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -545,6 +549,10 @@ module.exports = function () {
                     $('.minicart .popover').removeClass('show');
                     $('body').removeClass('modal-open');
                     $('html').removeClass('veiled');
+                    var $cartIcon = $('.cart-icon');
+                    if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
+                        $cartIcon.removeClass('fill-cart-icon');
+                    }
                     if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                         setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);

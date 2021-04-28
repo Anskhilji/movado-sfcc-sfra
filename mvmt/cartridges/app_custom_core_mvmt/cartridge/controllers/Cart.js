@@ -45,10 +45,20 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
         var quantity = productLineItem.getQuantity().value;
         marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
     }
-    res.viewData.marketingProductData = JSON.stringify(marketingProductsData);
 
+    var quantityTotal;
+
+    if (currentBasket) {
+        quantityTotal = currentBasket.productQuantityTotal;
+    } else {
+        quantityTotal = 0;
+    }
+
+    res.viewData.marketingProductData = JSON.stringify(marketingProductsData);
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;
+    res.viewData.quantityTotal = quantityTotal;
+
     next();
 });
 

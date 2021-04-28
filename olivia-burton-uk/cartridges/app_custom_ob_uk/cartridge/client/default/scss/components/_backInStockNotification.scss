@@ -1,0 +1,54 @@
+@import "~oliviaburton_redesign/_variables";
+.back-in-stock-notification-container {
+    margin-bottom: rem(30);
+
+    .back-in-stock-notification {
+
+        &-form {
+            max-width: rem(430);
+    
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
+        }
+    
+        &-button {
+            font-family: $font-gill-std-semibold;
+        }
+    
+        &-confirmation-copy {
+            font-family: $font-gill-std-semibold;
+            margin-bottom: 0;
+        }
+    
+        &-container-success {
+    
+            p {
+                font-family: $font-gill-std-semibold;
+                font-size: 16px;
+                letter-spacing: 0.3px;
+                line-height: 24px;
+                color: $sinbad;
+            }
+        }
+    
+        &-email {
+            font-family: $font-gill-std-semibold;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            line-height: rem(20);
+            color: $black;
+        }
+    
+        &-email-notification-copy {
+            height: rem(21);
+            font-family: $font-adobe;
+            font-size: rem(20);
+            letter-spacing: rem(1.71);
+            line-height: rem(25);
+            font-style: initial;
+        }
+    
+    }
+}
