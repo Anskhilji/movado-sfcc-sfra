@@ -1,0 +1,32 @@
+<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+    <div class="d-flex justify-content-center">
+        <div class="details-img">
+            <h5>image here</h5>
+            <isif condition="${product && product.images}"> 
+                <picture>
+                    <isif condition="${pdict.apiProduct.images.pdp533[3] || pdict.apiProduct.images.pdp533[0]}">
+                        <img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.pdp533[3]) && !empty(pdict.apiProduct.images.pdp533[3].url) ? pdict.apiProduct.images.pdp533[3].url : pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                    </isif>
+                </picture>
+            </isif>
+            <isif condition="${product && product.images}">
+                <div class="carousel-tile">
+                    <picture>
+                        <source media="(min-width: 992px)" srcset="${product.images.pdp533[3].url}" />
+                        <source media="(max-width: 991px)" srcset="${product.images.pdp533[3].url}" />
+                        <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                    </picture>
+                </div>
+            </isif>
+        </div>
+        <div class="details-list">
+            <isloop items="${product.pdpAttributesList}" var="attr">
+                <div class="attribute-detail">
+                    <span class="attribute-name">${attr.name}</span>
+                    <h3 class="attribute-value">${attr.value}</h3>
+                </div>
+            </isloop>
+        </div>
+
+    </div>
+</isif>

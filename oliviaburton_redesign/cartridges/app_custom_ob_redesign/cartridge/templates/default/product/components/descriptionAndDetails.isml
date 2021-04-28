@@ -1,0 +1,22 @@
+<div class="description-and-detail">
+    
+    <isinclude template="product/components/productWhyBuyMe" />
+    <isif condition="${product.longDescription}">
+        <div class="col-sm-12 bottom-detail mb-4">
+            <isprint value="${product.longDescription}" encoding="off"/>
+        </div>
+    </isif>
+    <isif condition="${!pdict.isCompareableDisabled}">
+        <isif condition="${product.attributes && product.attributes.length}">
+            <hr/>
+            <div class="row product-attributes">
+                <isinclude template="product/components/detailsAttributes" />
+            </div>
+        </isif>
+    </isif>
+
+    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+     then appropriate template should be overridden. </iscomment>
+    <isinclude template="widget/yotporeviewswidget" />
+    <hr />
+</div>
