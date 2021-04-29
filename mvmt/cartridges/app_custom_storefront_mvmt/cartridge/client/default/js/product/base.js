@@ -198,10 +198,8 @@ function processSwatchValues(attr, $productContainer) {
         } 
         // Disable if not selectable
         if (!attrValue.selectable) {
-            $swatchAnchor.attr('disabled', true);
             $swatchAnchor.addClass('disabled');
         } else {
-            $swatchAnchor.attr('disabled', false);
             $swatchAnchor.removeClass('disabled')
         }
     });
@@ -234,10 +232,8 @@ function processNonSwatchValues(attr, $productContainer) {
             .removeAttr('disabled');
 
         if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
             $attrValue.addClass('disabled');
         } else {
-            $attrValue.attr('disabled', false);
             $attrValue.removeClass('disabled')
         }
 
