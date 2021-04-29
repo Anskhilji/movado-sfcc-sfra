@@ -320,13 +320,22 @@ function Request(request, customer, session) {
                 if (!empty(countryCode)) {
                     session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+                   
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
                         var language = country.lang[0].languageCode;
                         var currencyCode = country.currencyCode;
                         countryCode = country.countryCode;
+                        var constant = require('*/cartridge/scripts/helpers/constants');
+                        var locale = language + constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
                         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-                        if (request.setLocale(language)) {
+                        var isLocaleSet;
+                        if (eswHelper.checkIsEswAllowedCountry(countryCode) != null) {
+                            isLocaleSet = request.setLocale(language);
+                        } else {
+                            isLocaleSet = request.setLocale(locale);
+                        }
+                        if (isLocaleSet) {
                             if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
                                 eswHelper.setAllAvailablePriceBooks();
                                 //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
@@ -340,7 +349,7 @@ function Request(request, customer, session) {
                                 }
                                 //Custom End  
                             }
-                            eswHelper.selectCountry(countryCode, currencyCode, language);
+                            eswHelper.selectCountry(countryCode, currencyCode, locale);
                             delete session.privacy.countryCode;
                             session.privacy.countryCode = countryCode;
                         }
