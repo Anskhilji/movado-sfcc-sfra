@@ -752,6 +752,28 @@ function handleVariantResponse(response, $productContainer) {
             eventName: 'refresh-placements'
         });
     }
+    
+    // Add check for master product in case of backinstcok
+    var $backInStockContanier = $('.back-in-stock-notification-container');
+    if ($backInStockContanier.length > 0 && response.product.productType == "master") {
+        $backInStockContanier.addClass('d-none');
+    }
+
+    // Handle out of stock button scenario for new varition secnarios
+    var $addToCartSelector = $('button.add-to-cart');
+    if (response.product.available && response.product.readyToOrder) {
+        $addToCartSelector.removeClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', false);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('add-to-cart-text'));
+        });
+    } else {
+        $addToCartSelector.addClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', true);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('out-of-stock-text'));
+        });
+    }
 }
 
 /**
