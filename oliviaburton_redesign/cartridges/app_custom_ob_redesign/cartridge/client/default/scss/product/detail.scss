@@ -1,5 +1,67 @@
 @import "~movado/product/detail";
-@import "variables";
-body {
+@import "../variables";
+.product-detail {
+    &-redesign {
 
+        .description-and-detail {
+
+            .details {
+                &-img {
+                    width: rem(500);
+                    height: rem(500);
+                }
+
+                &-list {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    height: rem(450);
+                    position: relative;
+
+                    &.five-height {
+                        @include media-breakpoint-up(lg) {
+                            height: rem(456);
+                            top: rem(10);
+                        }
+                    }
+
+                    &.six-height {
+                        @include media-breakpoint-up(lg) {
+                            height: rem(486);
+                            top: rem(10);
+                        }
+                    }
+
+                    .attribute {
+                        &-detail {
+                            margin-top: 0;
+                            margin-left: rem(50);
+                            margin-bottom: rem(30);
+
+                            &:last-child {
+                                margin-bottom: rem(0);
+                            }
+                        }
+
+                        &-name {
+                            @include font-gill ($font-weight:300);
+                            color: $gray20;
+                            line-height: rem(25);
+                            letter-spacing: 0;
+                            margin-bottom: rem(5);
+                        }
+                        
+                        &-value {
+                            @include font-gill ($font-weight: 600);
+                            color: $gray20;
+                            line-height: rem(21);
+                            letter-spacing: 0;
+                            text-transform: capitalize;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

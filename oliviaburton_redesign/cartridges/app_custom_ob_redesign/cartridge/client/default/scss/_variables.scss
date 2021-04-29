@@ -55,6 +55,7 @@ $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
 $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
+$font-primary: "gill-sans-nova", Arial, sans-serif;
 $font-awesome: "FontAwesome";
 
 $pink-snow: #FBF7F7;
@@ -92,3 +93,10 @@ $grid-breakpoints: (
   xxl: 1400px,
   xxxl: 1600px
 );
+
+// Mixins //
+@mixin font-gill ($font-size:15, $font-weight:400) {
+    font-family: $font-primary;
+    font-size: rem($font-size);
+    font-weight: $font-weight;
+}
