@@ -18,7 +18,7 @@ function ShippingMethodModel(shippingMethod, shipment) {
         this.deliveryDate = shippingMethodHelper.getShippingDate(shippingMethod);   
     }
     if (shipment) {
-        this.validShippingMethods = !empty(shippingMethod.custom.isHideFromCheckout) ? shippingMethod.custom.isHideFromCheckout: false;
+        this.validShippingMethod = !empty(shippingMethod.custom.isHideFromCheckout) ? shippingMethod.custom.isHideFromCheckout: false;
     }
 }
 
