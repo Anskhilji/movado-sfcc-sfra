@@ -1248,6 +1248,8 @@ header.new-header.mvmt-header-design {
   
         .logo-link {
           display: flex;
+          margin-left: rem(33);
+
           svg {
             width: rem(80);
             height: rem(20);
