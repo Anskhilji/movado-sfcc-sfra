@@ -40,7 +40,11 @@ $(document).ready(function () {
                 $zoomButtons.addClass('d-none');
                 $imageSlide.addClass('cursor-context pointer-none');
                 $primaryImagesContainer.find('.slick-slide.slick-current').addClass('cursor-context pointer-none');
+
+            } else {
+                $zoomButtons.removeClass('d-none');
                 $imageSlide.removeClass('cursor-context pointer-none');
+                $primaryImagesContainer.find('.slick-slide.slick-current').removeClass('cursor-context pointer-none');
             }
         });
 
