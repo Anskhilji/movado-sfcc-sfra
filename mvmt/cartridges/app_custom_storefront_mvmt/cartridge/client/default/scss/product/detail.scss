@@ -926,6 +926,14 @@
                 }
             }
 
+            .pointer-none {
+                pointer-events: none;
+            }
+        
+            .cursor-context {
+                cursor: context-menu;
+            }
+
             .zoom-img.zoomed-img {
                 cursor: zoom-out;
             }
