@@ -1102,11 +1102,11 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         pageDescription: product.pageDescription,
         price_CA: getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD,
         salePrice_CA: getProductPromoAndSalePrice(product, Constants.CURRENCY_CAD).salePrice + " " + Constants.CURRENCY_CAD,
-        link_CA: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=' + Constants.COUNTRY_CA,
+        link_CA: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_CA).abs().toString(),
         availability_CA: getProductAvailability(product, Constants.COUNTRY_CA),
         price_FR: getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR,
         salePrice_FR: getProductPromoAndSalePrice(product, Constants.CURRENCY_EUR).salePrice + " " + Constants.CURRENCY_EUR,
-        link_FR: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString() + '?country=' + Constants.COUNTRY_FR,
+        link_FR: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_FR).abs().toString(),
         availability_FR: getProductAvailability(product, Constants.COUNTRY_FR),
     };
     if (!empty(feedColumns['priceUSD'])) {
@@ -1146,8 +1146,8 @@ function getProductPriceByCurrencyCode(product, currencyCode) {
 function getProductAvailability(product, country) {
     var result = 'NOT_AVAILABLE';
     if (product.custom.eswProductRestrictedCountries) {
-        value = product.custom.eswProductRestrictedCountries.filter(function (e) {
-            return e == country
+       var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
+            return restrictedCountry == country
         });
         if (!empty(value)) {
             return 'NOT_AVAILABLE';
