@@ -1101,11 +1101,11 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
         pageDescription: product.pageDescription,
         price_CA: getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD,
-        salePrice_CA: getProductPromoAndSalePrice(product, Constants.CURRENCY_CAD).salePrice + " " + Constants.CURRENCY_CAD,
+        salePrice_CA: getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product),
         link_CA: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_CA).abs().toString(),
         availability_CA: getProductAvailability(product, Constants.COUNTRY_CA),
         price_FR: getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR,
-        salePrice_FR: getProductPromoAndSalePrice(product, Constants.CURRENCY_EUR).salePrice + " " + Constants.CURRENCY_EUR,
+        salePrice_FR: getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product),
         link_FR: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_FR).abs().toString(),
         availability_FR: getProductAvailability(product, Constants.COUNTRY_FR),
     };
@@ -1213,19 +1213,14 @@ function getProductImageURL(product) {
     return { firstImageLink: firstImageLink, additionalImageLink: additionalImageLink, isWristedImage: isWristedImage, firstImageLinkSmartGift: firstImageLinkSmartGift }
 }
 
-function getProductPromoAndSalePrice(product, currencyCode) {
+function getProductPromoAndSalePrice(product) {
     var Currency = require('dw/util/Currency');
     var salePrice = '';
     var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var storefrontPromo;
-    var defaultCurrency;
-
-    if (currencyCode) {
-        defaultCurrency = session.getCurrency();
-        session.setCurrency(Currency.getCurrency(currencyCode));
-    }
+    
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
         if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
@@ -1249,9 +1244,7 @@ function getProductPromoAndSalePrice(product, currencyCode) {
     if (promotionalPrice.available) {
         salePrice = promotionalPrice.decimalValue.toString();
     }
-    if (currencyCode && defaultCurrency) {
-        session.setCurrency(defaultCurrency);
-    }
+    
     return {
         storefrontPromo: storefrontPromo,
         salePrice: salePrice
@@ -1304,10 +1297,15 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
     var Currency = require('dw/util/Currency');
     var promotionalPrice;
     var productDecimalPrice = '';
+    var defaultCurrency;
 
     Transaction.wrap(function () {
+    
+    if (currencyCode) {
+        defaultCurrency = session.getCurrency();
         var currency = Currency.getCurrency(currencyCode);
         session.setCurrency(currency);
+    }
         promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
     });
     if (promotionalPrice > 0) {
@@ -1318,6 +1316,10 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
                 productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
             }
         }
+    }
+
+    if (currencyCode && defaultCurrency) {
+        session.setCurrency(defaultCurrency);
     }
 
     return productDecimalPrice + " " + currencyCode;
