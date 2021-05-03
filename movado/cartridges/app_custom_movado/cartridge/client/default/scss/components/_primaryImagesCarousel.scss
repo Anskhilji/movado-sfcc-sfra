@@ -55,4 +55,12 @@
 
   }
 
+  .pointer-none {
+    pointer-events: none;
+  }
+
+  .cursor-context {
+    cursor: context-menu;
+  }
+
 }
