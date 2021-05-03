@@ -140,7 +140,7 @@
                             @include media-breakpoint-up(lg) {
                                 margin-top: 0;
                                 margin-left: rem(0);
-                                padding-bottom: rem(0);
+                                padding: 0;
                                 margin-bottom: rem(30);
                                 border: none;
                             }
