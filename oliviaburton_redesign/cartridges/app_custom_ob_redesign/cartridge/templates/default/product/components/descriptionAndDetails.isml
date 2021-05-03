@@ -1,14 +1,12 @@
 <div class="description-and-detail">
-    
     <isinclude template="product/components/productWhyBuyMe" />
     <isif condition="${product.longDescription}">
-        <div class="col-sm-12 bottom-detail mb-4">
-            <isprint value="${product.longDescription}" encoding="off"/>
+        <div class="bottom-description">
+            <p><isprint value="${product.longDescription}" encoding="off"/> </p>
         </div>
     </isif>
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
-            <hr/>
             <div class="row product-attributes">
                 <isinclude template="product/components/detailsAttributes" />
             </div>

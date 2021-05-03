@@ -1,20 +1,28 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
-    <div class="col-12 d-flex justify-content-center align-items-center">
+    <div class="details-img-atrribute col-12 d-lg-flex justify-content-center align-items-center">
         <div class="details-img">
             <isif condition="${product && product.images}">
                 <img src="${!empty(product.images) && !empty(product.images.pdp533[2]) && !empty(product.images.pdp533[3].url) ? product.images.pdp533[2].url : product.images.pdp533[0].url}" alt="${image.alt}" itemprop="image" />
             </isif>
         </div>
-        <div>
-            <div class="details-list ${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 'six-height': 'five-height') : '' }">
-                <isloop items="${product.pdpAttributesList}"  var="attr">
-                    <div class="attribute-detail">
-                        <span class="attribute-name">${attr.name}</span>
-                        <h3 class="attribute-value">${attr.value}</h3>
-                    </div>
-                </isloop>
-            </div>
-        </div>
 
+        <div class="details-list-height ${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 'six-height': 'five-height') : '' }">
+            <isset name="maxCloumnItems" value="${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
+            <isloop items="${product.pdpAttributesList}" var="attr" status="loopStatus">
+                <isif condition="${loopStatus.first}">
+                    <div class="details-list">
+                </isif>
+                <div class="attribute-detail">
+                    <span class="attribute-name">${attr.name}</span>
+                    <h3 class="attribute-value">${attr.value}</h3>
+                </div>
+                <isif condition="${(loopStatus.count % maxCloumnItems) == 0}">
+                    </div>
+                    <isif condition="${!loopStatus.last}">
+                        <div class="details-list">
+                    </isif>
+                </isif>
+            </isloop>
+        </div>
     </div>
 </isif>

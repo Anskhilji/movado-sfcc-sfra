@@ -217,7 +217,7 @@
             </div>
         </div>
 
-        <div class="container-fluid product-detail-redesign">
+        <div class="container-fluid detail-specs product-detail-redesign">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
