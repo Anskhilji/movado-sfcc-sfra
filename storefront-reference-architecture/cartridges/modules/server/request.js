@@ -329,30 +329,27 @@ function Request(request, customer, session) {
                         var constant = require('*/cartridge/scripts/helpers/constants');
                         var locale = language + constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
                         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-                        var isLocaleSet;
                         if (eswHelper.checkIsEswAllowedCountry(countryCode) != null) {
-                            isLocaleSet = request.setLocale(language);
+                            request.setLocale(language);
                         } else {
-                            isLocaleSet = request.setLocale(locale);
+                            request.setLocale(locale);
                         }
-                        if (isLocaleSet) {
-                            if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
-                                eswHelper.setAllAvailablePriceBooks();
-                                //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
-                                var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
-                                    return country.value == countryCode;
-                                });
-                                if (empty(isFixedPriceCountry)) {
-                                    eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
-                                } else {
-                                    eswHelper.setBaseCurrencyPriceBook(request, currencyCode);
-                                }
-                                //Custom End  
+                        if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
+                            eswHelper.setAllAvailablePriceBooks();
+                            //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
+                            var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
+                                return country.value == countryCode;
+                            });
+                            if (empty(isFixedPriceCountry)) {
+                                eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
+                            } else {
+                                eswHelper.setBaseCurrencyPriceBook(request, currencyCode);
                             }
-                            eswHelper.selectCountry(countryCode, currencyCode, locale);
-                            delete session.privacy.countryCode;
-                            session.privacy.countryCode = countryCode;
+                            //Custom End  
                         }
+                        eswHelper.selectCountry(countryCode, currencyCode, locale);
+                        delete session.privacy.countryCode;
+                        session.privacy.countryCode = countryCode;
                     }
                 }
             } catch (e) {
