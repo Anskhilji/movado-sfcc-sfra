@@ -20,7 +20,6 @@
                 <iscomment>
                     Add condition to block rendering of Shop By Color Category in old design. 
                 </iscomment>
-                <iscomment> <isif condition="${!category.showColorSwatchForSubcategories}"> </iscomment>
                     <isif condition="${category.subCategories}">
                         <ul class="browse-collection">
                             <li class="dropdown-item dropdown" role="menuitem" >
@@ -30,7 +29,6 @@
                             </li>
                         </ul>
                     </isif>
-                <iscomment> </isif> </iscomment>
             </isloop>
         </div>
         <isif condition="${topCat.headerMenuBanner}">
