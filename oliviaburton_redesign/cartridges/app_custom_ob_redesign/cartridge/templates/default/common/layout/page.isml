@@ -23,7 +23,8 @@
             <div id="mainContent">
                 <isreplace/>
             </div>
-            <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', pdict.action)}" />
+            <isinclude template="/components/footer/pageFooter"/>
+            
             <iscomment>
                 This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeFooter.
                 <isinclude template="/components/footer/pageFooter" />
