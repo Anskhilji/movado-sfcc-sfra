@@ -149,6 +149,9 @@
                             <isinclude template="product/components/recommendedProducts" />
                         </div>
                     </isif>
+                    <isif condition="${sitePref.enableBackInStock}">
+                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                    </isif>
 
                     <isif condition="${product.options && product.options.length > 0}">
                         <isinclude template="product/components/options" />

@@ -14,12 +14,11 @@
             <isloop items="${menuItem.subCategories}" var="category"  status="loopStatus">
                 <isset name="categoryItem" value="${category}" scope="page"/>
                 <div class="submenu-container ${loopStatus.first == true ? 'active' : 'd-none' }" data-parentcategory = ${category.id}>
-                    <isif condition="${category.subCategories}">
-                        <a href="${category.url}" id="${category.id+'list'}" class="sub-menu-title" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
-                    </isif>
+
                     <div class="d-flex">
                         <isif condition="${category.subCategories}">
                             <div class="browse-collection ${categoryItem.headerMenuBanner == null ? 'no-static-content' : ''}">
+                                <a href="${category.url}" id="${category.id+'list'}" class="sub-menu-title" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${category.name}</a>
                                 <div class="dropdown" role="menuitem" >
                                     <isinclude template="components/header/menuItemList"/>
                                 </div>
@@ -28,7 +27,7 @@
                         <isif condition="${categoryItem.headerMenuBanner}">
                             <div class="featured-promotion gtm-customEvent" data-gtm-tracking='${gtmCategoryVal}'>
                                 <div class="header-tiles">
-                                <isprint value="${categoryItem.headerMenuBanner}" encoding="off"/>
+                                    <isprint value="${categoryItem.headerMenuBanner}" encoding="off"/>
                                 </div>
                             </div>
                         </isif>
