@@ -113,7 +113,11 @@ server.replace(
             var requestAction = req.querystring.action;
             var qsConnector = requestAction.indexOf('?') >= 0 ? '&' : '?';
 
-            if (empty(requestAction) || requestAction == '') {
+            if (empty(requestAction) || requestAction == '' || 
+                requestAction.toLowerCase().indexOf('sites') >= 0 || 
+                requestAction.toLowerCase().indexOf('site') >= 0 ||
+                requestAction == 'Sites-' + currentSite.ID + '-Site') 
+            {
                 requestAction = 'Home-Show';
             }
 
