@@ -100,8 +100,9 @@ $grid-breakpoints: (
 );
 
 // Mixins //
-@mixin font-gill ($font-size:15, $font-weight:400) {
+@mixin font-gill ($font-size:15, $font-weight:400, $letter-spacing: 0) {
     font-family: $font-primary;
     font-size: rem($font-size);
     font-weight: $font-weight;
+    letter-spacing: rem($letter-spacing);
 }
