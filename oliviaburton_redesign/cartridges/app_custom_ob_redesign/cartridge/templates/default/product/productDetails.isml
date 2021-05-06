@@ -31,6 +31,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h1 class="product-name text-uppercase product-title-for-gtm " itemprop="name">${product.productName}</h1>
+
                             </div>
                         </div>
 
@@ -51,7 +52,7 @@
                     <div class="col-12 col-sm-5 product-top-detail">
 
                         <!-- Family Name -->
-                        <h1 class="family-name">${product.custom.familyName}</h1>
+                        <h1 class="family-name">${pdict.collectionName}</h1>
 
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h1>
