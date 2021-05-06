@@ -1,0 +1,62 @@
+.back-in-stock-notification-container {
+
+    margin-top: rem(30);
+
+    .back-in-stock-notification {
+        &-form {
+            height: rem(45);
+            box-sizing: border-box;
+            max-width: rem(430);
+            border: rem(1) solid #000000;
+        }
+        
+        &-email {
+            width: rem(305);
+            opacity: 0.5;
+            color: #000000;
+            font-family: "Gill Sans MT Std";
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            line-height: rem(20);
+            border: none;
+        }
+
+        &-email-notification-copy {
+            margin-bottom: rem(16);
+            height: rem(21);
+            width: rem(430);
+            color: #000000;
+            font-family: "Adobe Garamond Pro";
+            font-size: rem(20);
+            font-style: italic;
+            letter-spacing: rem(1.71);
+            line-height: rem(25);
+        }
+
+        &-marketing-container {
+            margin-top: rem(10);
+        }
+
+        &-confirmation-copy{
+            height: rem(20);
+            width: rem(360);
+            color: #5C5C5C;
+            font-family: "Gill Sans";
+            font-size: rem(13);
+            letter-spacing: rem(0.5);
+            line-height: rem(15);
+        }
+    }
+
+    &-success p {
+        color: #000000;
+        font-family: "Gill Sans";
+        margin-left: rem(10);
+    }
+
+    &-success img {
+        height: rem(20.83);
+        width: rem(20.83);
+    }
+}
