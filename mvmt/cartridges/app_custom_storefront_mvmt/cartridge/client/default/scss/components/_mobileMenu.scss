@@ -476,42 +476,59 @@ header.new-header .main-menu .dropdown-selector  li:hover {
 
 .bottom-sticky-header {
     .bottom-navbar-display {
-        display: contents !important;
+        display: contents;
         
         .active {
             color: $light-blue-icons;
         } 
     }
-    .bottom-sticky-header-link  {
+
+    &-link  {
         cursor: pointer;
+        text-align: center;
+        padding: rem(8) rem(15);
         > svg {
-            display: flex;
+            display: block;
             text-align: center;
             margin: 0 auto;
+            max-width: rem(19);
+            max-height: rem(18);
+            margin-bottom: rem(8);
         }
-        .bottom-sticky-header-text {
-            cursor: pointer;
-            font-family: $font-medium;
-            font-size: rem(9);
-            line-height: rem(12);
-            letter-spacing: rem(0.61);
-            text-align: center;
+    }
 
+    &-text {
+        cursor: pointer;
+        font-family: $font-medium;
+        font-size: rem(9);
+        line-height: rem(12);
+        letter-spacing: rem(0.61);
+        text-align: center;
+        display: block;
+    }
+
+    .bottom-nav {
+
+        &-icon {
+            &-unactive {
+                fill: $black;
+            }
+
+            &-transparent {
+                fill: transparent;
+            }
+
+            &-active {
+                fill: $light-blue-icons;
+            }
         }
-    }
-    .bottom-nav-icon-unactive {
-        fill: $black;
-    }
-    .bottom-nav-icon-transparent {
-        fill: transparent;
-    }
-    .bottom-nav-icon-active {
-        fill: $light-blue-icons;
-    }
-    .bottom-nav-stroke {
-        stroke: $light-blue-icons;
-    }
-    .bottom-nav-stroke-unactive {
-        fill: none;
+
+        &-stroke {
+            stroke: $light-blue-icons;
+
+            &-unactive {
+                fill: none;
+            }
+        }
     }   
 }

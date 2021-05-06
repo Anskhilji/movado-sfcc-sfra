@@ -117,7 +117,11 @@
   }
 
   .menu-group {
-    margin-left: rem(25);
+    margin-left: rem(150);
+
+    @include media-breakpoint-down(lg) {
+      margin-left: rem(70);
+    }
 
     &:hover {
       .dropdown-menu {
@@ -606,12 +610,16 @@
 
   &-links-list {
     padding: 0;
+    max-height: rem(380);
+    overflow: auto;
+    min-width: rem(190);
 
     li {
+      line-height: rem(20);
 
       &:last-child {
         a {
-          margin-bottom: 0;
+          margin-bottom: rem(5);
         }
       }
     }
@@ -636,8 +644,8 @@
     text-transform: capitalize;
     letter-spacing: 0.82px;
     margin-bottom: rem(20);
-    line-height: rem(20);
-
+    line-height: normal;
+  
     &::before {
       content: "";
       position: absolute;

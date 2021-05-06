@@ -193,7 +193,7 @@
                     <input class="form-control search-field header-search-field"
                         type="search" name="q"
                         title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                        value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                        value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords:''}"
                         placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
                         autocomplete="off"
                         data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
@@ -244,7 +244,7 @@
                 <input class="search-field header-search-field mobile-search-field"
                     type="search" name="q"
                     title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
-                    value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                    value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords) ? pdict.productSearch.searchKeywords:''}"
                     placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
                     autocomplete="off"
                     data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />

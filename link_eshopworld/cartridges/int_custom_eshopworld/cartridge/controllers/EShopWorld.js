@@ -37,7 +37,7 @@ server.append('GetEswHeader', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
@@ -81,7 +81,7 @@ server.append('GetEswFooter', function (req, res, next) {
     }
 
     var customCountries = eswCustomHelper.getCustomCountries();
-    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
@@ -129,7 +129,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
     var selectedLanguage = null;
 ​
     var customCountries = eswCustomHelper.getCustomCountries();
-    locale = locale.split(constant.LNAGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+    locale = locale.split(constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
     customLanguages = eswCustomHelper.getCustomLanguages();
     languages = eswCustomHelper.getAlphabeticallySortedLanguages(customLanguages);
     allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);

@@ -74,6 +74,7 @@
   z-index: auto;
   justify-content: center;
   background-color: $light-gray12;
+  transition: transform .5s ease-in-out .1s;
 
   .html-slot-container {
     letter-spacing: rem(0.82);
@@ -91,7 +92,8 @@
   }
 
   &-tuck {
-    display: none;
+    position: absolute;
+    transform: translateY(-66px);
   }
 }
 
@@ -126,15 +128,23 @@ header.new-header {
     top: rem(1);
 
     .minicart-quantity {
-      top: rem(-6);
-      right: rem(-7);
+      top: auto;
+      bottom: rem(0.7px);
+      right: auto;
+      left:50%;
+      transform:translateX(-50%);
       color: $black;
       font-size: rem(9);
       line-height: rem(10);
+      letter-spacing: 0px;
       height: auto;
-      width: auto;
+      width: 100%;
       background: none;
     }
+
+    .cart-icon.fill-cart-icon +span.minicart-quantity {
+       color: $white;
+     }
   }
 
   .menu-text {
@@ -157,8 +167,14 @@ header.new-header {
     .header-container {
       margin: 0 auto;
       height: auto;
-      max-width: $container-max-width;
+      max-width: rem(1680);
+      padding: 0 rem(60);
       width: 100%;
+
+      @include media-breakpoint-up(lg) {
+        max-width: rem(1680);
+        padding: 0 rem(60);
+      }
 
       @include media-breakpoint-down(md) {
         padding: rem(12.5) rem(10);
@@ -339,6 +355,9 @@ header.new-header {
     color: $black;
     line-height: 1;
     padding: rem(30) rem(24) rem(30);
+    padding-right: rem(5);
+    display: flex;
+    align-items: center;
 
     @include media-breakpoint-down(lg) {
       padding: rem(30) rem(11) rem(30);
@@ -383,6 +402,8 @@ header.new-header {
 
       .minicart-link {
         background: none;
+        display: flex;
+        align-items: center;
       }
 
       .logo-link {
@@ -417,6 +438,11 @@ header.new-header {
 
     svg {
       height: rem(25);
+    }
+
+    .logo-link {
+      position: relative;
+      right: rem(6);
     }
   }
 
@@ -466,6 +492,7 @@ header.new-header {
     position: relative;
     display: inline-block;
     vertical-align: top;
+    margin-left: rem(2);
 
     svg {
       height: rem(13);
@@ -504,8 +531,9 @@ header.new-header {
     }
     .mobile-cart-close-icon {
       svg {
-        width: rem(12);
-        height: rem(13);
+        width: rem(15);
+        height: rem(15);
+        top: rem(3);
       }
     }
     &.right {
@@ -1159,11 +1187,8 @@ header.new-header {
 }
 
 @media only screen and (max-width: $custom-lg) {
-
   header.new-header {
-
     .desktop-menu {
-
       .nav-item {
         margin-left: 10px;
         margin-right: 0;
@@ -1224,6 +1249,8 @@ header.new-header.mvmt-header-design {
   
         .logo-link {
           display: flex;
+          margin-left: rem(33);
+
           svg {
             width: rem(80);
             height: rem(20);
@@ -1238,6 +1265,12 @@ header.new-header.mvmt-header-design {
     }
 
     .menu-icon-mvmt-hamburger {
+      position: relative;
+      top: rem(1);
+
+      @include media-breakpoint-up(lg) {
+        position: static;
+      }
 
       > div {
         display: flex;
@@ -1252,21 +1285,25 @@ header.new-header.mvmt-header-design {
           .minicart {
             position: initial;
           }
+          
           svg {
             width: rem(15);
             height: rem(13);
           }
           .minicart-quantity {
-            top: rem(-4);
-            right: rem(-4);
+            top: rem(5.4);
+            right: rem(7);
+          }
+          .cart-icon.fill-cart-icon +span.minicart-quantity {
+           color: $white
           }
         }
       }
 
       .desktop-search-icon {
         svg {
-          width: rem(11);
-          height: rem(11);
+          width: rem(16);
+          height: rem(16);
           top: rem(2);
         }
       }
@@ -1290,6 +1327,78 @@ header.new-header.mvmt-header-design {
             }
         }
      }
+}
+
+@media only screen and (max-width:$custom-md-width) {
+  
+  header.new-header.mvmt-header-design {
+
+    .header-nav-right-mobile {
+
+      li {
+
+        .mobile-cart-icon {
+          position: relative;
+          display: flex;
+          margin: 0;
+
+          .minicart {
+            position: initial;
+          }
+          
+          svg {
+            width: rem(15);
+            height: rem(13);
+          }
+
+          .minicart-quantity {
+            top: auto;
+            bottom: rem(1);
+            right: auto;
+          }
+
+          .cart-icon.fill-cart-icon + div.minicart span.minicart-quantity {
+            color: $white
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width:$custom-sm-width) {
+  header.new-header.mvmt-header-design {
+
+    .header-nav-right-mobile {
+
+      li{
+        .mobile-cart-icon {
+          position: relative;
+          display: flex;
+          margin: 0;
+
+          .minicart {
+            position: initial;
+          }
+
+          svg {
+            width: rem(15);
+            height: rem(13);
+          }
+
+          .minicart-quantity {
+            top: auto;
+            bottom: rem(1);
+            right: auto;
+          }
+
+          .cart-icon.fill-cart-icon +div.minicart span.minicart-quantity {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
 }
 
 .accessible-link {

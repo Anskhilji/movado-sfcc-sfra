@@ -264,7 +264,7 @@
 
         .add-to-cart {
             width: 100%;
-            font-family: $font-bold;
+            font-family: $font-primary;
             font-weight: 600;
             font-size: rem(9);
             padding: rem(15) 0;
@@ -422,23 +422,19 @@
 }
 
 .cart-icon {
-    width: rem(20);
-    height: rem(15);
+    width: rem(17);
+    height: rem(17);
     background: url("../../images/Empty.svg") center center no-repeat;
+    background-size: contain;
 
-    @include media-breakpoint-down(sm) {
-        width: rem(15);
-        height: rem(21);
-    }
-    
     &.fill-cart-icon {
-        width: rem(20);
-        height: rem(15);
+        width: rem(17);
+        height: rem(17);
         background: url("../../images/Full.svg") center center no-repeat;
+        background-size: contain;
 
-        @include media-breakpoint-down(sm) {
-            width: rem(15);
-            height: rem(21);
+        span.minicart-quantity {
+            color: $white;
         }
     }
 }
