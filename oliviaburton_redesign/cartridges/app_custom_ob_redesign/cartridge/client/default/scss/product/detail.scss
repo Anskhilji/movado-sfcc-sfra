@@ -36,7 +36,21 @@
 
             .price-rating {
                 margin-top: rem(20);
-                margin-bottom: rem(40);
+
+                align-items: center;
+
+                .ratings {
+                    margin-left: rem(30);
+                    margin-top: 0;
+                }
+
+                .yotpo {
+                    a {
+                        @include font-gill ($font-weight: 300);
+                        color: $gray20 !important;
+                        margin-left: rem(20);
+                    }
+                }
             }
 
             .prices {
@@ -49,7 +63,52 @@
                 }
             }
 
+            .affirm {
+                &-as-low-as {
+                    @include font-gill ($font-size: 13);
+                    line-height: rem(18);
+                    color: $gray20;
+                    margin-top: rem(20);
+                }
+
+                &-modal-trigger {
+                    padding: 0;
+                    @include font-gill ($font-size: 13);
+                    line-height: rem(18);
+                    color: $gray20;
+                    display: inline-block;
+                    margin-left: rem(2);
+                }
+            }
+
+            .klarna-promo-parent-container {
+                margin-bottom: 0;
+                margin-top: rem(20);
+
+                .container {
+                    border: none;
+                    max-width: initial;
+                    padding: 0;
+                    @include font-gill ($font-size: 13);
+                    line-height: rem(18);
+                    color: $gray20;
+                    margin-top: rem(20);
+                    background: transparent;
+                    text-align: left;
+                    
+                    .link {
+                        padding: 0;
+                        @include font-gill ($font-size: 13);
+                        line-height: rem(18);
+                        color: $gray20;
+                        display: inline-block;
+                        margin-left: rem(2);
+                    }
+                }
+            }
+
             .description {
+                margin-top: rem(40);
 
                 .value {
                     @include font-gill ($font-weight: 300);
@@ -256,23 +315,26 @@
         }
 
         .shipping-callout {
-            @include font-gill ($font-weight: 600);
-            line-height: rem(20);
-            color: $dark-gray;
-            text-transform: capitalize;
-            position: relative;
-            padding-left: rem(10);
-            margin-left: rem(10);
 
-            &::before {
-                content: '';
-                position: absolute;
-                height: rem(13);
-                width: rem(1);
-                background: $dark-gray;
-                left: 0;
-                top: 50%;
-                transform: translateY(-45%);
+            span {
+                @include font-gill ($font-weight: 600);
+                line-height: rem(20);
+                color: $dark-gray;
+                text-transform: capitalize;
+                position: relative;
+                padding-left: rem(10);
+                margin-left: rem(10);
+    
+                &::before {
+                    content: '';
+                    position: absolute;
+                    height: rem(13);
+                    width: rem(1);
+                    background: $dark-gray;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-45%);
+                }
             }
         }
 
