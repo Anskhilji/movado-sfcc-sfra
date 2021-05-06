@@ -15,7 +15,8 @@
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
-        <div class="custom-bg" style="background-color: ${topLevelBackground};">
+        <iscomment> ${topLevelBackground}; </iscomment>
+        <div class="custom-bg" style="background-color: #FFF3F1;">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
                 <!---Breadcrumbs--->
@@ -72,11 +73,11 @@
                         
                         <div class = "d-block d-md-none">
                             <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </isif>
+                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                <isinclude template="util/affirmmodule_mf" />
+                                <isaffirmpromo context="pdp"
+                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            </isif>
                         </div>
                         <div class = "d-none d-md-block">
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
@@ -86,19 +87,13 @@
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                             </isif>
                         </div>
-                        <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                            <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                            </div>
-                        </isif>
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
+
+                        <div>
+                            <isinclude template="util/affirmmodule_mf" />
+                            <isaffirmpromo context="pdp"
+                                fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+
+                                <p class="affirm-as-low-as" data-category="shop-all-watches" data-brand="OLIVIA BURTON LONDON" data-amount="14000" data-affirm-color="black" data-page-type="product" data-sku="OB16WG82">Or 3 interest-free payments of <span class="affirm-ala-price">$47</span> with <span class="__affirm-logo __affirm-logo-black __ligature__affirm_full_logo__ __processed">Affirm</span>. <a class="affirm-modal-trigger" aria-label="Learn More about Affirm Financing (opens in modal)" href="javascript:void(0)">Learn More</a></p>
                         </div>
 
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
@@ -121,57 +116,63 @@
                                 </isif>
                             </isif>
                         </isif>
+                        <div class="product-section-mobile">
+                            <!-- Product Rating -->
+                            <div class="ratings ratings-mobile d-lg-none">
+                                <isinclude template="product/components/productRating" />
+                            </div>
+                            <div class="description">
+                                <isinclude template="product/components/description" />
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                                <!-- Product Availability -->
+                                <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                    data-available="${product.available}">
+                                    <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                                </div>
+                                <div class="shipping-callout">
+                                    <iscontentasset aid="ca-shipping-callout" />
+                                </div>
+                            </div>
+                            <div class="add-to-cart-actions">
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            </div>
 
-                        <div class="description">
-                            <isinclude template="product/components/description" />
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <!-- Product Availability -->
-                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                            </div>
-                            <div class="shipping-callout">
-                                <iscontentasset aid="ca-shipping-callout" />
-                            </div>
-                        </div>
-                        <div class="add-to-cart-actions">
-                            <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                        </div>
-                        <div class="row mr-0">
-                            <!-- Attributes and Quantity -->
-                            <div class="col-md-10 col-12">
-                                <!-- Applicable Promotions -->
-                                <div class="promotions">
-                                    <isinclude template="product/components/promotions" />
+                            <div class="row hidden-md-down mr-0">
+                                <!-- Attributes and Quantity -->
+                                <div class="col-md-10 col-12">
+                                    <!-- Applicable Promotions -->
+                                    <div class="promotions">
+                                        <isinclude template="product/components/promotions" />
+                                    </div>
+
+                                    <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                                        <div class="simple-quantity">
+                                            <isinclude template="product/components/quantity" />
+                                        </div>
+                                    </isif>
+                                </div>
+                                <isif condition="${product.options && product.options.length > 0}">
+                                    <isinclude template="product/components/options" />
+                                </isif>
+                                <div class="col-md-10 col-12">
+                                    <isinclude template="product/components/mainAttributes" />
                                 </div>
 
-                                <isif condition="${!product.variationAttributes && product.options.length === 0}">
-                                    <div class="simple-quantity">
-                                        <isinclude template="product/components/quantity" />
+                                <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                                    <isinclude template="product/components/variationAttributes" />
+                                </isif>
+
+                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
+                                <isif condition="${isRecommendationsEnabled}" >
+                                    <div class="col-md-10 col-12">
+                                        <div class="linked-product-container">
+                                            <isinclude template="product/components/recommendedProducts" />
+                                        </div>
                                     </div>
                                 </isif>
                             </div>
-                            <isif condition="${product.options && product.options.length > 0}">
-                                <isinclude template="product/components/options" />
-                            </isif>
-                            <div class="col-md-10 col-12">
-                                <isinclude template="product/components/mainAttributes" />
-                            </div>
-
-                            <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                                <isinclude template="product/components/variationAttributes" />
-                            </isif>
-
-                            <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-                            <isif condition="${isRecommendationsEnabled}" >
-                                <div class="col-md-10 col-12">
-                                    <div class="linked-product-container">
-                                        <isinclude template="product/components/recommendedProducts" />
-                                    </div>
-                                </div>
-                            </isif>
                         </div>
                     </div>
                 </div>
