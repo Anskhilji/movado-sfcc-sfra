@@ -162,3 +162,57 @@ document.addEventListener('animationstart', function (event) {
         }
     }
 }, true);
+
+$(window).scroll(function (event) {
+    var $footer = $('.footer');
+    if ($footer.length > 0) {
+        var $elementOffset = $footer.offset().top - 160,
+        $elementOuter = $footer.outerHeight(),
+        $windowHeight = $(window).height(),
+        $thisScroll = $(this).scrollTop();
+
+        if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
+            $('.bottom-sticky-header').addClass('d-none');
+            $('.prices-add-to-cart-actions').removeClass('add-cart-bottom-navigation')
+        } else {
+            $('.bottom-sticky-header').removeClass('d-none');
+            $('.prices-add-to-cart-actions').addClass('add-cart-bottom-navigation')
+        }
+    }
+
+ });
+
+ $(document).ready(function() {
+    var $path = window.location.href;
+    var $basePath = $('.bottom-navbar-display').data('base-url');
+    try {
+        if ($basePath !== undefined && $basePath !== '') {
+            $('.prices-add-to-cart-actions').addClass('add-cart-bottom-navigation')
+            if ($path !== $basePath) {
+                $('.bottom-navbar-display > li.active').removeClass('active');
+                $('.bottom-navbar-display > li > a > span.active').removeClass('active');
+                $('.bottom-navbar-display li a').find('#M09').addClass('bottom-nav-icon-unactive');
+                $('.bottom-navbar-display li:nth-child(4) a').find('#M09').addClass('bottom-nav-icon-transparent');
+            }
+        }
+    } catch(err) {
+        console.log('error during remove active Class' + err);
+    }
+    
+        $('.bottom-navbar-display > .bottom-sticky-header-item a').each(function() {
+            try {
+                if (this.href === $path) {
+                    $(this).find('span').addClass('active');
+                    $(this).find('#M09').addClass('bottom-nav-icon-active');
+                    if ($(this).hasClass('nav-bottom-offers')) {
+                        $('.bottom-navbar-display li:nth-child(4) a').find('#M09').find('path').addClass('bottom-nav-stroke');
+                        $('.bottom-navbar-display li:nth-child(4) a').find('#M09').addClass('bottom-nav-stroke-unactive');
+                    }
+                }
+            } catch(err) {
+                console.log('error during add active class to clicked element' + err);
+            }
+        });
+ 
+});
+
