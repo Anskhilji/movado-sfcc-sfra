@@ -135,6 +135,10 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
+                    <isif condition="${sitePref.enableBackInStock}">
+                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                    </isif>
+
                     <div class="row">
                         <div class="col-12 prices-add-to-cart-actions">
                             <div class="d-block">

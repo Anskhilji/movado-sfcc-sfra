@@ -4,6 +4,7 @@ var server = require('server');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Site = require('dw/system/Site');
 var ContentMgr = require('dw/content/ContentMgr');
+var constant = require('*/cartridge/scripts/helpers/constants');
 
 server.get('Show', server.middleware.https, consentTracking.consent, function (
   req,
@@ -51,7 +52,8 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         }
 
         var customCountries = eswCustomHelper.getCustomCountries();
-        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale);
+        locale = locale.split(constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR);
+        allCountries = eswCustomHelper.getAlphabeticallySortedCustomCountries(customCountries, locale[0]);
         obLandingObject.isGeoLocation = false;
 
         if (!empty(geoLocationCountry)) {
@@ -62,7 +64,7 @@ server.get('Show', server.middleware.https, consentTracking.consent, function (
         } else {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
             obLandingObject.selectedCountry = eswHelper.getAvailableCountry();
-            obLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale);
+            obLandingObject.selectedCountryName = eswHelper.getNameFromLocale(locale[0]);
             obLandingObject.selectedCurrency = '';
         }
         var crossBorderWelcomeMatContent = ContentMgr.getContent('cross-border-welcomemat');

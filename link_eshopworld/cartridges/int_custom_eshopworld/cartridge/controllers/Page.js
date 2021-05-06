@@ -3,6 +3,7 @@
 
 var server = require('server');
 server.extend(module.superModule);
+var constant = require('~/cartridge/scripts/helpers/constants');
 
 server.replace(
     'SetLocale',
@@ -60,6 +61,8 @@ server.replace(
 
             // Custom End
             var language = req.querystring.language;
+            var countryCode = req.querystring.country;
+            var locale = language + constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
 
             if (eswHelper.checkIsEswAllowedCountry(selectedCountry) != null) {
                 if (req.setLocale(language)) {
@@ -76,7 +79,7 @@ server.replace(
                         }
                         //Custom End
                     }
-                    eswHelper.selectCountry(selectedCountry, currencyCode, language);
+                    eswHelper.selectCountry(selectedCountry, currencyCode, locale);
                     delete session.privacy.countryCode;
                     session.privacy.countryCode = selectedCountry;
                 }
@@ -87,11 +90,11 @@ server.replace(
                     if (item.countryCode === selectedCountry) {
                         var currency = Currency.getCurrency(item.currencyCode);
                         eswHelper.createCookie('esw.currency', item.currencyCode, '/');
-                        eswHelper.createCookie('esw.LanguageIsoCode', req.querystring.language, '/');
+                        eswHelper.createCookie('esw.LanguageIsoCode', locale, '/');
                         eswHelper.setAllAvailablePriceBooks();
                         eswHelper.setBaseCurrencyPriceBook(req, item.currencyCode);
-                        req.setLocale(req.querystring.language);
-                        language = req.querystring.language;
+                        req.setLocale(locale);
+                        language = locale;
                         return true;
                     }
                 });

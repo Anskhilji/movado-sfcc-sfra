@@ -2,40 +2,50 @@
 <isif condition="${pdict.isMobile.equalsIgnoreCase('true')}">
     <button class="js-trigger-cart-mobile mobile-cart-btn">
         <div class="header-nav-cart-icon header-icon mobile-cart-icon">
-            <span aria-hidden="true">
-                <svg width="17" height="15" viewBox="0 0 17 15" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.751 14.928c.746 0 1.352-.59 1.352-1.315 0-.726-.606-1.316-1.352-1.316-.745 0-1.352.59-1.352 1.316 0 .725.607 1.315 1.352 1.315zM13.2 14.928h.1c.358-.03.686-.184.924-.455.239-.26.348-.6.328-.957-.05-.716-.696-1.267-1.441-1.219-.746.049-1.302.687-1.253 1.403a1.34 1.34 0 0 0 1.342 1.228zM.596 1.853h1.71l2.435 8.568c.07.252.309.426.577.426h7.485a.598.598 0 0 0 .546-.348l2.724-6.093a.573.573 0 0 0-.05-.551.596.596 0 0 0-.497-.262h-8.27a.59.59 0 0 0-.596.58c0 .32.268.58.596.58h7.356l-2.207 4.933h-6.64L3.33 1.118a.594.594 0 0 0-.577-.426H.596a.59.59 0 0 0-.596.58c0 .32.268.58.596.58z"/>
-                </svg>
+            <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
+                    <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
+
+                    </div>
                 <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                    <span data-item-count="" data-cart-render="item_count" class="minicart-quantity header-nav-cart-count" aria-label="cart count"> <isprint value="${pdict.quantityTotal !==0 ? pdict.quantityTotal : '0'}" formatter="##" /></span>
+                    <span data-item-count="" data-cart-render="item_count"
+                        class="minicart-quantity header-nav-cart-count" aria-label="cart count">
+                        <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />
+                    </span>
                 </div>
             </span>
         </div>
         <div class="header-nav-cart-icon mobile-cart-close-icon">
-            <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B" fill="#2B2B2B">
-                    <g id="Iconography" transform="translate(27.000000, 827.000000)">
-                    <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
-                        <polygon id="close-black" points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7"></polygon>
+                    <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B"
+                        fill="#2B2B2B">
+                        <g id="Iconography" transform="translate(27.000000, 827.000000)">
+                            <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
+                                <polygon id="close-black"
+                                    points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7">
+                                </polygon>
+                            </g>
+                        </g>
                     </g>
-                    </g>
-                </g>
                 </g>
             </svg>
         </div>
     </button>
-<iselse>
-    <div class="minicart-total hide-link-med">
-        <a class="minicart-link header-icon m-0">
-            ${Resource.msg('label.minicart.cart', 'account', null)}
-            <span class="header-nav-cart-icon" aria-hidden="true">
-                <svg width="17" height="15" viewBox="0 0 17 15" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.751 14.928c.746 0 1.352-.59 1.352-1.315 0-.726-.606-1.316-1.352-1.316-.745 0-1.352.59-1.352 1.316 0 .725.607 1.315 1.352 1.315zM13.2 14.928h.1c.358-.03.686-.184.924-.455.239-.26.348-.6.328-.957-.05-.716-.696-1.267-1.441-1.219-.746.049-1.302.687-1.253 1.403a1.34 1.34 0 0 0 1.342 1.228zM.596 1.853h1.71l2.435 8.568c.07.252.309.426.577.426h7.485a.598.598 0 0 0 .546-.348l2.724-6.093a.573.573 0 0 0-.05-.551.596.596 0 0 0-.497-.262h-8.27a.59.59 0 0 0-.596.58c0 .32.268.58.596.58h7.356l-2.207 4.933h-6.64L3.33 1.118a.594.594 0 0 0-.577-.426H.596a.59.59 0 0 0-.596.58c0 .32.268.58.596.58z"></path>
-                </svg>
-                <span data-item-count="" data-cart-render="item_count" class="minicart-quantity header-nav-cart-count" aria-label="cart count"> <isprint value="${pdict.quantityTotal !==0 ? pdict.quantityTotal : '0'}" formatter="##" /></span>
-            </span>
-        </a>
-    </div>
+    <iselse>
+        <div class="minicart-total hide-link-med">
+            <a class="minicart-link header-icon m-0">
+                ${Resource.msg('label.minicart.cart', 'account', null)}
+                <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
+                    <div class="cart-icon ${pdict.quantityTotal > 0 ? 'fill-cart-icon' : ''}">
+
+                    </div>
+                    <span data-item-count="" data-cart-render="item_count"
+                        class="minicart-quantity header-nav-cart-count" aria-label="cart count">
+                        <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />
+                    </span>
+                </span>
+            </a>
+        </div>
 </isif>
 <iscomment> Custom End </iscomment>
