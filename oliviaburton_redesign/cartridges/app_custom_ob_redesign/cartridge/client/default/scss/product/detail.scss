@@ -85,6 +85,11 @@
 
             .product-options {
                 margin-bottom: rem(20);
+                text-align: center;
+
+                @include media-breakpoint-up(lg) {
+                    text-align: initial;
+                }
             }
 
             .ratings {
