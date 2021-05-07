@@ -1,28 +1,40 @@
+@import '~movado/components/_welcomeMatModal';
+
 .welcomeMat {
 
     span {
         font-size: rem(24);
     }
 
-    .logo-link {
-        img {
-            height: rem(48);
-        }
-    }
+    .esw-country-selector {
 
-    @include media-breakpoint-down(sm) {
-        .logo-link {
-            img {
-                height: rem(28);
+        .current-country {
+
+            span {
+                font-size: rem(18);
             }
         }
     }
 
-    select + i {
-        &.fa {
-            right: rem(4);
-            font-size: rem(24);
-            top: rem(6.4);
+    .modal-header {
+        background-color: $white;
+    }
+
+    .movado-welcome-mat {
+
+        .eswModalWrapper {
+
+            .eswModal {
+
+                .esw-header-wrapper {
+
+                    background-color: $white;
+                }
+
+                .esw-btn {
+                    letter-spacing: rem(2);
+                }
+            }
         }
     }
 }
