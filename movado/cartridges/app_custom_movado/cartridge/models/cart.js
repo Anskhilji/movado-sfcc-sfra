@@ -63,7 +63,8 @@ function getLineItemGiftMessage(basket){
             var lineItemGiftMsgObject = {};
             lineItemGiftMsgObject.giftMessage = item.custom.GiftWrapMessage;
             lineItemGiftMsgObject.giftCharLimit = item.custom.GiftWrapMessage ? 
-                                                            ((!empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0) - item.custom.GiftWrapMessage.length).toFixed():
+                                                            (!empty(!empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0) ?
+                                                            (!empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0) - item.custom.GiftWrapMessage.length : 0).toFixed():
                                                             !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0;
             lineItemsGiftMsgObject[item.UUID] = lineItemGiftMsgObject;
         });
