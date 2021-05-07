@@ -1111,9 +1111,6 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     if (!empty(feedColumns['salePrice_CA'])) {
         productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product);
     }
-    if (!empty(feedColumns['salePrice_CA'])) {
-        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product);
-    }
     if (!empty(feedColumns['availability_CA'])) {
         productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
     }
