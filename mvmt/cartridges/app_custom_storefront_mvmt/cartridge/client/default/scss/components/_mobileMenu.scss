@@ -11,12 +11,11 @@
 
 
 .main-menu.menu-toggleable-left.navbar-toggleable-sm {
-    width: 70%;
+    width: rem(265);
 
     &.in {
         background-color: $light-gray11;
         z-index: 999999;
-        max-width: rem(365);
         overflow-y: auto;
         padding-bottom: rem(80);
         overflow-x: hidden;
@@ -255,6 +254,13 @@
         padding: 0;
         width: rem(30);
     }
+
+    .right {
+        .menu-icon-mvmt-hamburger {
+            max-width: rem(30);
+            width: auto;
+        }
+    }
 }
 
 header.new-header {
@@ -281,12 +287,23 @@ header.new-header {
         }
         
         .header-nav-right-mobile {
-            color: black;
+            color: $black;
 
             .header-border-right {
-                padding-top: rem(8);
-                padding-left: 0;
-                padding-right: rem(3);
+                padding-right: 0;
+                margin-right: rem(23);
+                display: flex;
+                align-items: center;
+
+                &:last-child {
+                    margin: 0;
+                }
+            }
+
+            &.right {
+                .header-border-right {
+                    margin-right: rem(25);
+                }
             }
 
             li:before {
@@ -450,4 +467,68 @@ header.new-header .main-menu .dropdown-selector  li:hover {
     .wrapper-dropdown:hover .dropdown-selector-cntry {
 	    display: block;
     }
+}
+
+.bottom-navigation-header {
+    background-color: $white;
+    box-shadow: rem(0) rem(-1) rem(8) rem(0) $white-shadow;
+}
+
+.bottom-sticky-header {
+    .bottom-navbar-display {
+        display: contents;
+        
+        .active {
+            color: $light-blue-icons;
+        } 
+    }
+
+    &-link  {
+        cursor: pointer;
+        text-align: center;
+        padding: rem(8) rem(15);
+        > svg {
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            max-width: rem(19);
+            max-height: rem(18);
+            margin-bottom: rem(8);
+        }
+    }
+
+    &-text {
+        cursor: pointer;
+        font-family: $font-medium;
+        font-size: rem(9);
+        line-height: rem(12);
+        letter-spacing: rem(0.61);
+        text-align: center;
+        display: block;
+    }
+
+    .bottom-nav {
+
+        &-icon {
+            &-unactive {
+                fill: $black;
+            }
+
+            &-transparent {
+                fill: transparent;
+            }
+
+            &-active {
+                fill: $light-blue-icons;
+            }
+        }
+
+        &-stroke {
+            stroke: $light-blue-icons;
+
+            &-unactive {
+                fill: none;
+            }
+        }
+    }   
 }

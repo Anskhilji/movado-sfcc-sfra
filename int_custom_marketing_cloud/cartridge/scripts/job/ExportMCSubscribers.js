@@ -18,7 +18,12 @@ function exportAllSavedSubscribers() {
     var dataExtensionService;
     var batchResult = true;
     var subscriber;
-
+    var authServiceID = Constants.SERVICE_ID.BATCH_AUTH;
+    var dataServiceID = Constants.SERVICE_ID.BATCH_DATA;
+    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+        authServiceID = Constants.SERVICE_ID.BATCH_MVMT_AUTH;
+        dataServiceID = Constants.SERVICE_ID.BATCH_MVMT_DATA;
+    } 
     var params = {
         email: null,
         isExpired: false,
@@ -26,30 +31,30 @@ function exportAllSavedSubscribers() {
         eventDefinationKey: Site.current.getCustomPreferenceValue('mcEventDefinationKey'),
         accountID: Site.current.getCustomPreferenceValue('mcAccountID'),
         dataExtensionKey: Site.current.getCustomPreferenceValue('mcDataExtensionKey'),
-        authServiceID: Constants.SERVICE_ID.BATCH_AUTH
+        authServiceID: authServiceID
     }
     var accesToken = SFMCAPIHelper.getAuthToken(params);
-    var contactService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accesToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
+    var contactService = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accesToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
     if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {
-        eventService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accesToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
+        eventService = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accesToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
         isMovadoOrOB = true;
     } else {
         var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}', params.dataExtensionKey);
-        dataExtensionService = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.BATCH_DATA, endpoint, accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+        dataExtensionService = SFMCAPIHelper.getDataAPIService(dataServiceID, endpoint, accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
     }
 
     var mcSubscribersObjectIterator = SFMCCOHelper.getEmailSubscribers();
-    while (mcSubscribersObjectIterator.hasNext()) { 
+    while (mcSubscribersObjectIterator.hasNext()) {
         try {
             subscriber = mcSubscribersObjectIterator.next();
             if (subscriber) {
-                
-                
+
+
                 if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
                     var result;
                     var service;
 
-                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+                    service = SFMCAPIHelper.getDataAPIService(dataServiceID, '', accesToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
                     var payload = JSON.parse(subscriber.custom.mcPayload);
                     params.email = !empty(payload.email) ? payload.email : '';
                     params.country = !empty(payload.country) ? payload.country : '';
@@ -79,7 +84,7 @@ function exportAllSavedSubscribers() {
                     } else {
                         result = SFMCAPIHelper.addContactToDataExtension(params, dataExtensionService);
                     }
-                    
+
                     if (result.success === true || result.message == Resource.msg('newsletter.email.error.subscription.exist', 'common', null)) {
                         Transaction.wrap(function () {
                             CustomObjectMgr.remove(subscriber);
@@ -87,11 +92,11 @@ function exportAllSavedSubscribers() {
                     }
                 }
             }
-       } catch (e) {
-           Logger.debug('MarketingCloud: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-           batchResult = false;
-       }
-   }
+        } catch (e) {
+            Logger.debug('MarketingCloud: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+            batchResult = false;
+        }
+    }
     return batchResult;
 }
 
