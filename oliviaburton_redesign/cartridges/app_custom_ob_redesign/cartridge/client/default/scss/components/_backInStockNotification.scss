@@ -1,5 +1,4 @@
 .back-in-stock-notification-container {
-
     margin-top: rem(30);
 
     .back-in-stock-notification {
@@ -7,14 +6,14 @@
             height: rem(45);
             box-sizing: border-box;
             max-width: rem(430);
-            border: rem(1) solid #000000;
+            border: rem(1) solid $black;
         }
         
         &-email {
             width: rem(305);
             opacity: 0.5;
-            color: #000000;
-            font-family: "Gill Sans MT Std";
+            color: $black;
+            font-family: $font-gill-std-semibold;
             font-size: rem(15);
             font-weight: 500;
             letter-spacing: rem(1);
@@ -26,8 +25,8 @@
             margin-bottom: rem(16);
             height: rem(21);
             width: rem(430);
-            color: #000000;
-            font-family: "Adobe Garamond Pro";
+            color: $black;
+            font-family: $font-GaramondPro;
             font-size: rem(20);
             font-style: italic;
             letter-spacing: rem(1.71);
@@ -41,8 +40,8 @@
         &-confirmation-copy{
             height: rem(20);
             width: rem(360);
-            color: #5C5C5C;
-            font-family: "Gill Sans";
+            color: $gray36;
+            font-family: $font-primary;
             font-size: rem(13);
             letter-spacing: rem(0.5);
             line-height: rem(15);
@@ -50,8 +49,8 @@
     }
 
     &-success p {
-        color: #000000;
-        font-family: "Gill Sans";
+        color: $black;
+        font-family: $font-primary;
         margin-left: rem(10);
     }
 
