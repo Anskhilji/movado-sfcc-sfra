@@ -1,0 +1,177 @@
+@import "~movado/product/detail";
+@import "../variables";
+.product-detail {
+
+    &-redesign {
+        &.detail-specs {
+            padding: 0;
+            @include media-breakpoint-up(lg) {
+                padding-right: rem(15);
+                padding-left: rem(15);
+            }
+        }
+
+        .description-and-detail {
+            margin: 0;
+            padding: rem(30) 0 rem(40) 0;
+            text-align: center;
+
+            @include media-breakpoint-up(lg) {
+                text-align: initial;
+                padding: rem(60) 0 rem(100) 0;
+            }
+
+            .product-attributes {
+                margin: 0;
+                @include media-breakpoint-up(lg) {
+                    margin-right: rem(-15);
+                    margin-left: rem(-15);
+                }
+            }
+
+            .why-buy-me-details {
+                color: $gray20;
+                font-family: $font-GaramondMTPro-italic;
+                font-size: rem(20);
+                letter-spacing: 0;
+                line-height: rem(25);
+                text-align: center;
+                margin-bottom: rem(20);
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(40);
+                    line-height: rem(48);
+                    margin-bottom: rem(30);
+                }
+            }
+
+            .bottom-description {
+                max-width: rem(550);
+                margin: 0 auto;
+                margin-bottom: rem(40);
+                padding: 0 rem(15);
+                position: relative;
+
+                p {
+                    @include font-gill($font-weight: 300);
+                    letter-spacing: 0;
+                    line-height: rem(25);
+                    text-align: center;
+                }
+
+                @include media-breakpoint-up(lg) {
+                    padding: 0;
+                    height: auto;
+                }
+
+                .show-text {
+                    position: absolute;
+                    background-color: $white;
+                    @include font-gill($font-weight: 300);
+                    text-decoration: underline;
+                    bottom: rem(1);
+                    right: rem(22);
+                    padding-left: rem(5);
+                    text-transform: lowercase;
+                }
+
+                .morecontent  {
+
+                    span {
+                        display: none;
+                        @include media-breakpoint-up(lg) {
+                            display: inline;
+                        }
+                    }
+
+                    .morelink {
+                        text-transform: lowercase;
+                        text-decoration: underline;
+                        @include media-breakpoint-up(lg) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .details {
+
+                &-img-atrribute {
+                    padding: 0;
+
+                    @include media-breakpoint-up(lg) {
+                        padding-right: rem(15);
+                        padding-left: rem(15);
+                    }
+                }
+
+                &-img {
+
+                    img {
+                        margin-bottom: rem(20);
+                        @include media-breakpoint-up(lg) {
+                            height: rem(500);
+                            width: rem(500);
+                            margin-bottom: rem(0);
+                        }  
+                    }
+                }
+
+                &-list {
+
+                    @include media-breakpoint-up(lg) {
+                        display: flex;
+                        flex-direction: column;
+                        flex-wrap: wrap;
+                        position: relative;
+                        margin-left: rem(50);
+                    }
+                    .attribute {
+                        &-detail {
+                            margin-top: 0;
+                            margin-left: rem(0);
+                            padding: rem(10) 0;
+                            border-bottom: rem(1) solid $cyan-blue;
+
+                            &:last-child {
+                                margin: rem(0);
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                margin-top: 0;
+                                margin-left: rem(0);
+                                padding: 0;
+                                margin-bottom: rem(30);
+                                border: none;
+                            }
+                        }
+
+                        &-name {
+                            @include font-gill ($font-weight:300);
+                            color: $gray20;
+                            line-height: rem(25);
+                            letter-spacing: 0;
+                            margin-bottom: rem(5);
+                        }
+                        
+                        &-value {
+                            @include font-gill ($font-weight: 600);
+                            color: $gray20;
+                            line-height: rem(21);
+                            letter-spacing: 0;
+                            text-transform: capitalize;
+                            margin: 0;
+                        }
+                    }
+
+                    &-height {
+
+                        @include media-breakpoint-up(lg) {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
