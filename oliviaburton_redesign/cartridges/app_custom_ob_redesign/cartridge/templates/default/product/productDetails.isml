@@ -16,41 +16,15 @@
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
-        <div class="custom-bg" style="background-color: #FFF3F1;">
+        <div class="custom-bg" style="background-color: ${topLevelBackground};">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
-                <!---Breadcrumbs--->
-                <div class="product-breadcrumb hidden-sm-down">
-                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                </div>
-
-                <div class="row hidden-xs-down d-md-none">
-                    <div class="col-12">
-                        <!---Breadcrumbs--->
-
-                        <!-- Product Name -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 class="product-name text-uppercase product-title-for-gtm " itemprop="name">${product.productName}</h1>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <isinclude template="product/components/pidRating" />
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <hr class="hidden-xs-down d-md-none"/>
 
                 <div class="row">
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
-                    <div class="col-12 col-sm-5 product-top-detail">
+                    <div class="col-12 col-lg-5 product-top-detail">
 
                         <!-- Family Name -->
                         <h1 class="family-name">${pdict.collectionName}</h1>
@@ -71,23 +45,6 @@
                         </div>
                         <!-- Affirm Text -->
                         
-                        <div class = "d-block d-md-none">
-                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </isif>
-                        </div>
-                        <div class = "d-none d-md-block">
-                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </isif>
-                        </div>
-
                         <div>
                             <isinclude template="util/affirmmodule_mf" />
                             <isaffirmpromo context="pdp"
@@ -117,6 +74,7 @@
                             </isif>
                         </isif>
                         <div class="product-section-mobile">
+
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none">
                                 <isinclude template="product/components/productRating" />
@@ -124,6 +82,9 @@
                             <div class="description">
                                 <isinclude template="product/components/description" />
                             </div>
+                            <isif condition="${product.options && product.options.length > 0}">
+                                <isinclude template="product/components/options" />
+                            </isif>
                             <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
@@ -153,9 +114,6 @@
                                         </div>
                                     </isif>
                                 </div>
-                                <isif condition="${product.options && product.options.length > 0}">
-                                    <isinclude template="product/components/options" />
-                                </isif>
                                 <div class="col-md-10 col-12">
                                     <isinclude template="product/components/mainAttributes" />
                                 </div>
