@@ -73,3 +73,17 @@
     }
   }
 }
+
+@include media-breakpoint-up(lg) {
+  .olivia-burtonuk-header {
+      .browse-collection {
+        margin-left: rem(16);
+        margin-right: rem(0);
+
+        .dropdown-menu {
+          padding-left: rem(0);
+          display: inline;
+        }
+      }  
+  }
+}
