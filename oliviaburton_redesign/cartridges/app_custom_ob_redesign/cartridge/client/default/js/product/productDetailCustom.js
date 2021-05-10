@@ -46,7 +46,7 @@ module.exports = {
             e.preventDefault();
         });  
 
-        $('.product-detail-redesign .debossing-cancel').on('click', function(e) {
+        $('.product-detail-redesign .debossing-cancel, .product-detail-redesign .close-option-popup').on('click', function(e) {
             if ($('.pdp-v-one .debossing-text').text() === '') {
                 e.stopPropagation();
                 $('.pdp-v-one .debossing-input').val('');
