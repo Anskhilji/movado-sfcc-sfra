@@ -34,5 +34,16 @@ module.exports = {
             $(this).prev().toggle();
             return false;
         });
+    },
+
+    personlizePopup: function () {
+        $('.product-detail-redesign [pd-popup-open]').on('click', function(e) {
+            e.stopPropagation();
+            var targeted_popup_class = $(this).attr('pd-popup-open');
+            $('[pd-popup="' + targeted_popup_class + '"]').fadeIn(100).addClass('popup-opened');
+            $('.prices-add-to-cart-actions').addClass('extra-z-index');
+            $('body, html').addClass('no-overflow');
+            e.preventDefault();
+        });  
     }
 }
