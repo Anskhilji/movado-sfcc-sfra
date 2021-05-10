@@ -64,7 +64,6 @@ function getLineItemGiftMessage(basket){
             lineItemGiftMsgObject.giftMessage = item.custom.GiftWrapMessage;
 
             if (!empty(item.custom.GiftWrapMessage) && Site.current.preferences.custom.cartGiftMessageLimit && !empty(Site.current.preferences.custom.cartGiftMessageLimit)) {
-
                 lineItemGiftMsgObject.giftCharLimit = (Site.current.preferences.custom.cartGiftMessageLimit - item.custom.GiftWrapMessage.length).toFixed()
             }
             else if (empty(Site.current.preferences.custom.cartGiftMessageLimit)) {
