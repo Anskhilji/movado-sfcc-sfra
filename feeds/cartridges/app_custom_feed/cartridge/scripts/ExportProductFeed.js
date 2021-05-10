@@ -1100,15 +1100,31 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         availability: product.availabilityModel.availabilityStatus,
         caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
         pageDescription: product.pageDescription,
-        price_CA: getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD,
-        salePrice_CA: getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product),
         link_CA: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_CA).abs().toString(),
-        availability_CA: getProductAvailability(product, Constants.COUNTRY_CA),
-        price_FR: getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR,
-        salePrice_FR: getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product),
         link_FR: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_FR).abs().toString(),
-        availability_FR: getProductAvailability(product, Constants.COUNTRY_FR),
     };
+
+    //Custom Columns for MovadoUS and OBUK
+    if (!empty(feedColumns['price_CA'])) {
+        productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
+    }
+    if (!empty(feedColumns['salePrice_CA'])) {
+        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product);
+    }
+    if (!empty(feedColumns['availability_CA'])) {
+        productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
+    }
+    if (!empty(feedColumns['price_FR'])) {
+        productAttributes.price_FR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
+    }
+    if (!empty(feedColumns['salePrice_FR'])) {
+        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product);
+    }
+    if (!empty(feedColumns['availability_FR'])) {
+        productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
+    }
+    //End Custom Columns for MovadoUS and OBUK
+    
     if (!empty(feedColumns['priceUSD'])) {
         productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product);
     }
