@@ -50,8 +50,6 @@
                             <isinclude template="util/affirmmodule_mf" />
                             <isaffirmpromo context="pdp"
                                 fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-
-                                <p class="affirm-as-low-as" data-category="shop-all-watches" data-brand="OLIVIA BURTON LONDON" data-amount="14000" data-affirm-color="black" data-page-type="product" data-sku="OB16WG82">Or 3 interest-free payments of <span class="affirm-ala-price">$47</span> with <span class="__affirm-logo __affirm-logo-black __ligature__affirm_full_logo__ __processed">Affirm</span>. <a class="affirm-modal-trigger" aria-label="Learn More about Affirm Financing (opens in modal)" href="javascript:void(0)">Learn More</a></p>
                         </div>
 
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />

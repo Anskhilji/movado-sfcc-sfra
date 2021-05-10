@@ -45,5 +45,31 @@ module.exports = {
             $('body, html').addClass('no-overflow');
             e.preventDefault();
         });  
+
+        $('.product-detail-redesign .debossing-cancel').on('click', function(e) {
+            if ($('.pdp-v-one .debossing-text').text() === '') {
+                e.stopPropagation();
+                $('.pdp-v-one .debossing-input').val('');
+                $(".prices-add-to-cart-actions").removeClass('extra-z-index');
+                $('body, html').removeClass('no-overflow');
+                $('body').removeClass('no-scroll');
+                $('.popup-opened').hide();
+                e.preventDefault();
+                return;
+            } else {
+                $('.debossing-cancel').removeClass('submitted');
+                $('.debossing-cancel').removeAttr('form');
+                $('.debossing-cancel').removeAttr('type');
+            }
+    
+            $('.pdp-v-one .debossing-text').text('');
+            $('.pdp-v-one .debossing-form .text-on-watch span').text('');
+            $('.pdp-v-one .debossing-input').val('');
+            var targeted_popup_class = jQuery(this).attr('pd-popup-close');
+            $('[pd-popup="' + targeted_popup_class + '"]').fadeOut(200).removeClass('popup-opened');
+            $('body, html').removeClass('no-overflow');
+            $('body').removeClass('no-scroll');
+            $('.popup-opened').hide();
+        });
     }
 }

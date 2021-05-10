@@ -53,7 +53,7 @@
 
 <form action="" name="embossing" class="debossing-form" id="embossingForm">
     <div class="debossing-btn">
-        <a href="javascript:void(0); "class="btn btn-primary" pd-popup-open="debossing-popup">
+        <a href="javascript:void(0); "class="btn  btn-primary" pd-popup-open="debossing-popup">
             <span class="open-popup">${Resource.msg('label.product.add.debossing', 'product', 'null')}</span>
             <span class="edit-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}</span>
         </a>
@@ -79,9 +79,10 @@
                 </div>
                 <div class="popup-head mb-3">
                     <h1>${Resource.msg('label.product.add.debossing', 'product', 'null')}</h1>
+                    <p>${pdict.product.assets.embossingTop}</p>
                 </div>
                 <div class="popup-body">
-                    <p>${pdict.product.assets.embossingTop}</p>
+
                     <div class="watch-image">
                         <div class="image d-inline-block">
                             <picture class="d-inline-block">
