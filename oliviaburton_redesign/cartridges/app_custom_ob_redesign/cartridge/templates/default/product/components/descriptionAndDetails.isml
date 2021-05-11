@@ -1,5 +1,8 @@
+<iscomment> Custom Comment: change in HTML structure</iscomment>
 <div class="description-and-detail">
+    <iscomment> Custom Comment: Why buy me added here</iscomment>
     <isinclude template="product/components/productWhyBuyMe" />
+    <iscomment> Custom Comment: Long Description added here</iscomment>
     <isif condition="${product.longDescription}">
         <div class="bottom-description">
             <p><isprint value="${product.longDescription}" encoding="off"/> </p>
@@ -12,9 +15,4 @@
             </div>
         </isif>
     </isif>
-
-    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-     then appropriate template should be overridden. </iscomment>
-    <isinclude template="widget/yotporeviewswidget" />
-    <hr />
 </div>

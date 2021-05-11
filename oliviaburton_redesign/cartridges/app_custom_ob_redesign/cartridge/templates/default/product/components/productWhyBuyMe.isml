@@ -1,3 +1,4 @@
+<iscomment> Custom Comment: Why buy me heading removed</iscomment>
 <isif condition="${product.whyBuyMe}">
     <div class="col-12 why-buy-me-details">
         <isprint value="${product.whyBuyMe}" encoding="off" />
