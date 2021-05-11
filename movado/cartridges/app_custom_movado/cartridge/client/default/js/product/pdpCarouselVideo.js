@@ -8,9 +8,15 @@ function checkVideoStatus() {
         $slideVideo.get(0).play();
         pdpVideoLoaded = true;
         var $primaryImagesContainer = $('.primary-images');
+        var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
         var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
-        $zoomButtons.addClass('d-none');
-        $primaryImagesContainer.find('.slick-slide.slick-current, .slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom').addClass('cursor-context pointer-none');
+        var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+
+        if ($videoSlide.length > 0 && pdpVideoLoaded) {
+            $zoomButtons.addClass('d-none');
+            $imageSlide.css('pointer-events', 'none');
+            $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+        }
         $slideVideo.removeClass('d-none');
 
         clearInterval(videoStatusChecker);
@@ -36,15 +42,15 @@ $(document).ready(function () {
             var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
             var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
             var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+
             if ($videoSlide.length > 0 && pdpVideoLoaded) {
                 $zoomButtons.addClass('d-none');
-                $imageSlide.addClass('cursor-context pointer-none');
-                $primaryImagesContainer.find('.slick-slide.slick-current').addClass('cursor-context pointer-none');
-
+                $imageSlide.css('pointer-events', 'none');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
             } else {
                 $zoomButtons.removeClass('d-none');
-                $imageSlide.removeClass('cursor-context pointer-none');
-                $primaryImagesContainer.find('.slick-slide.slick-current').removeClass('cursor-context pointer-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
             }
         });
 
@@ -55,14 +61,15 @@ $(document).ready(function () {
             var $videoSlide = $nextSlide.find('.slide-video');
             var $imageSlide = $nextSlide.find('.carousel-tile, .normal-zoom');
             var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+
             if ($videoSlide.length > 0 && pdpVideoLoaded) {
                 $zoomButtons.addClass('d-none');
-                $imageSlide.addClass('cursor-context pointer-none');
-                $primaryImagesContainer.find('.slick-slide.slick-current').addClass('cursor-context pointer-none');
+                $imageSlide.css('pointer-events', 'none');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
             } else {
                 $zoomButtons.removeClass('d-none');
-                $imageSlide.removeClass('cursor-context pointer-none');
-                $primaryImagesContainer.find('.slick-slide.slick-current').removeClass('cursor-context pointer-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
             }
         });
     }
