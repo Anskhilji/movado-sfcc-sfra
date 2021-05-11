@@ -76,7 +76,7 @@
                                 ${Resource.msg('button.next.place.order', 'checkout', null)}
                             </button>
 
-                            <button class="btn btn-primary btn-block place-order" data-action="${pdict.order.amzPayRedirectURL || URLUtils.url('CheckoutServices-PlaceOrder')}"
+                            <button class="btn btn-primary btn-block place-order" data-action="${pdict.order.amzPayRedirectURL ? URLUtils.url('AmazonPay-UpdateAmazonPayCheckout', 'amzPayRedirectURL', pdict.order.amzPayRedirectURL) : URLUtils.url('CheckoutServices-PlaceOrder')}"
                                     type="submit" name="submit" value="place-order">${Resource.msg('button.place.order', 'checkout', null)}
                             </button>
                         </div>
