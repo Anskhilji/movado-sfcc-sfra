@@ -581,7 +581,7 @@
 
     .popup {
         width: 100%;
-        height: rem(700);
+        height: 100%;
         display: none;
         position: fixed;
         top: 0;
@@ -589,6 +589,11 @@
         background: rgba(0, 0, 0, 0.75);
         z-index: 9999;
         text-align: center;
+
+        @include media-breakpoint-up(lg) {
+            height: rem(700);
+            padding-bottom: 0;
+        }
 
         &:before {
             content: '';
@@ -623,6 +628,20 @@
             left: 0;
             padding-bottom: rem(5);
             height: 100vh;
+            max-height: rem(700);
+            left:50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+
+            .scroll-div {
+                height: 100%;
+                overflow-y: auto;
+
+                @include media-breakpoint-up(lg) {
+                    height: auto;
+                    padding-bottom: 0;
+                }
+            }
         
             @include media-breakpoint-up(lg) {
                 left:50%;
@@ -636,22 +655,39 @@
         &-head {
             margin-bottom: rem(35);
             h1 {
-                @include font-gill ($font-size: 34, $font-weight: 600);
-                line-height: rem(41);
+                @include font-gill ($font-size: 28, $font-weight: 600);
+                line-height: rem(40);
                 color: $black;
                 letter-spacing: 0;
-                margin-bottom: rem(18);
+                margin-bottom: rem(20);
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(34);
+                    line-height: rem(41);
+                    margin-bottom: rem(18);
+                }
             }
 
             p {
-                @include font-gill ($font-size: 15, $font-weight: 300);
-                line-height: rem(25);
+                font-family: $font-futura-book;
+                font-size: rem(12);
+                line-height: rem(16);
                 color: $gray20;
+                padding: 0 rem(10);
                 max-width: rem(610);
                 margin: 0 auto;
-                
+                margin-bottom: rem(10);
+
+                @include media-breakpoint-up(lg) {
+                    @include font-gill ($font-size: 15, $font-weight: 300);
+                    line-height: rem(25);
+                    margin-bottom: rem(8);
+                    padding: 0;
+                }
                 &.bold {
+                    font-family: $font-gill-std-normal;
                     font-weight: 600;
+                    margin: 0 auto;
                 }
             }
         }
@@ -687,9 +723,14 @@
                         height: rem(50);
                         line-height: rem(18);
                         height: rem(45);
-                        width: rem(155);
+                        width: rem(130);
                         margin-right: rem(20);
     
+                        
+                        @include media-breakpoint-up(lg) {
+                            width: rem(155);
+                        }
+
                         &:focus {
                             box-shadow: none;
                         }
@@ -750,16 +791,24 @@
                         color: $black;
                     }
                 }
-    
-                .dont-add {
-                    margin-left: rem(40);
-                    @include font-gill ($font-size: 14, $font-weight: 600);
-                    line-height: rem(20);
-                    color: $gray20;
+            }
 
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                
+            .dont-add {
+                @include font-gill ($font-size: 14, $font-weight: 600);
+                line-height: rem(20);
+                color: $gray20;
+                display: block;
+                margin-top: rem(17);
+                text-decoration: underline;
+                @include media-breakpoint-up(lg) {
+                    margin-left: rem(40);
+                    margin-top: 0;
+                    display: inline-block;
+                    text-decoration: none;
+                }
+                &:hover {
+                    text-decoration: underline;
                 }
             }
         }

@@ -74,39 +74,40 @@
 
         <div class="popup" pd-popup="debossing-popup">
             <div class="popup-inner pb-4">
-                <button type="button" class="popup-close-btn close" data-dismiss="modal"></button>
-                <div class="popup-head">
-                    <isslot id="debossing-popup-title" description="Debossing Popup Title" context="global" />
-                    <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
-                </div>
-                <div class="popup-body">
-                    <ul class="nav popup-tabs">
-                        <li><a data-toggle="tab" class="active" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
-                        <li><a data-toggle="tab" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
-                    </ul>
-                    <div class="watch-image">
-                        <div class="image d-inline-block">
-                            <picture class="d-inline-block">
-                                <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
-                                <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
-                                <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="test" style="width:auto;">
-                            </picture>
-                        </div>
+                <div class="scroll-div">
+                    <button type="button" class="popup-close-btn close" data-dismiss="modal"></button>
+                    <div class="popup-head">
+                        <isslot id="debossing-popup-title" description="Debossing Popup Title" context="global" />
+                        <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
                     </div>
-                    <div class="text-area">
-                        <div class="option-message">
-                            <input  id="horizontal-text" type="text" class="form-control debossing-input tab-pane fade in active" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingHorizontalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
-                            <input id="vertical-text" type="text" class="form-control debossing-input tab-pane fade" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingVerticalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                    <div class="popup-body">
+                        <ul class="nav popup-tabs">
+                            <li><a data-toggle="tab" class="active" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
+                            <li><a data-toggle="tab" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
+                        </ul>
+                        <div class="watch-image">
+                            <div class="image d-inline-block">
+                                <picture class="d-inline-block">
+                                    <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                                    <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                                    <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="test" style="width:auto;">
+                                </picture>
+                            </div>
                         </div>
-                        <div class="popup-action-btns save">
-                            <button type="submit" class="btn btn-primary save" form="embossingForm">
-                                <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
-                                <span class="edit">${Resource.msg('buttom.option.text.edit', 'product', null)}</span>
-                            </button>
+                        <div class="text-area">
+                            <div class="option-message">
+                                <input  id="horizontal-text" type="text" class="form-control debossing-input tab-pane fade in active" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingHorizontalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                                <input id="vertical-text" type="text" class="form-control debossing-input tab-pane fade" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingVerticalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                            </div>
+                            <div class="popup-action-btns save">
+                                <button type="submit" class="btn btn-primary save" form="embossingForm">
+                                    <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
+                                </button>
+                            </div>
                             <a href="javascript:void(0);" class="dont-add">${Resource.msg('button.dont.add', 'product', null)}</a>
                         </div>
+                        <label for="${'input_' + option.id}" class="hidden-label">${product.resources.embossingPlaceholder}</label>
                     </div>
-                    <label for="${'input_' + option.id}" class="hidden-label">${product.resources.embossingPlaceholder}</label>
                 </div>
             </div>
         </div>
