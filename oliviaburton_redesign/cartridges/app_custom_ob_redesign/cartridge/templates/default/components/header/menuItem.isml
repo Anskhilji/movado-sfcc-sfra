@@ -39,7 +39,7 @@
                     </isloop>
                 </ul>
                 <isloop items="${menuItem.subCategories}" var="category">
-                    <isif condition="${!category.showColorSwatchForSubcategories === 'true'}">
+                    <isif condition="${!category.showColorSwatchForSubcategories}">
                         <isif condition="${category.subCategories}">
                             <ul class="browse-collection">
                                 <li class="dropdown-item dropdown" role="menuitem" >
@@ -49,7 +49,7 @@
                                 </li>
                             </ul>
                         </isif>
-                    <iselse/>
+                    <iselse>
                         <iscomment>
                             Color refinements added. 
                         </iscomment>
