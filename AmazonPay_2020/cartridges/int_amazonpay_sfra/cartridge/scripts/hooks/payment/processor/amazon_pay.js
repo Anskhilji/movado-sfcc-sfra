@@ -34,7 +34,7 @@ function Handle(basket, checkoutSession) {
         collections.forEach(paymentInstruments, function (item) { 
             currentBasket.removePaymentInstrument(item);
         });
-
+        //Update call to amazon pay [MSS-1345] Code moved to AmazonPay.js (UpdateAmazonPayCheckout Method)
         var paymentInstrument = currentBasket.createPaymentInstrument(
             'AMAZON_PAY', currentBasket.totalGrossPrice
         );
