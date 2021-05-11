@@ -90,8 +90,8 @@
                             </picture>
                         </div>
                     </div>
-                    <div class="text-area d-flex">
-                        <div class="mb-3 option-message">
+                    <div class="text-area">
+                        <div class="option-message">
                             <input type="text" class="form-control debossing-input" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
                         </div>
                         <div class="popup-action-btns save">

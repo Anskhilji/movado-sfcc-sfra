@@ -600,7 +600,7 @@
         &-body {
 
             .watch-image {
-    
+                margin-bottom: rem(60);
                 img {
                     object-fit: none;
                     height: rem(280);
@@ -609,21 +609,26 @@
             }
 
             .text-area {
-                max-width: rem(260);
+
                 margin: 0 auto;
-    
+                
                 .option-message {
                     position: relative;
+                    display: inline-block;
+                    vertical-align: middle;
                     .engraving-input, .debossing-input {
                         @include font-gill;
                         font-size: rem(15);
                         color: $storm-gray;
                         letter-spacing: normal;
-                        border-color: rgb(255, 255, 255);
+                        border-color: $cadet-blue;
                         border-radius: rem(3);
                         resize: none;
                         height: rem(50);
                         line-height: rem(18);
+                        height: rem(45);
+                        width: rem(155);
+                        margin-right: rem(20);
     
                         &:focus {
                             box-shadow: none;
@@ -652,21 +657,28 @@
             }
     
             .popup-action-btns {
-                display: flex;
+                display: inline-block;
 
-                .save, .cancel {
+                .save {
                     width: rem(120);
                     height: rem(45);
-                    @include font-gill;
+                    @include font-gill($font-weight:500);
                     font-size: rem(15);
                     letter-spacing: normal;
-                    line-height: rem(32);
+                    line-height: rem(20);
                     transition: 0.3s;
-                    background-color: $black;
+                    background: $black;
+                    border-color: $black;
                     color: $white;
+                    border-radius: rem(3);
     
                     &:focus {
                         box-shadow: none;
+                    }
+
+                    &:hover {
+                        background: transparent;
+                        color: $black;
                     }
                 }
     
@@ -677,14 +689,14 @@
                     color: $gray20;
 
                     &:hover {
-                        background: $black;
-                        color: $white;
+                        text-decoration: underline;
                     }
                 }
             }
         }
 
         &-head {
+            margin-bottom: rem(35);
             h1 {
                 @include font-gill ($font-size: 34, $font-weight: 600);
                 line-height: rem(41);
@@ -717,9 +729,9 @@
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
             background: $white;
             text-align: center;
-            top: 50%;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY0(-50%);
             padding-bottom: rem(5);
         
             @include media-breakpoint-down(sm) {
