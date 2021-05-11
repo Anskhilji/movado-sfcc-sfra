@@ -597,6 +597,16 @@
             vertical-align: top;
         }
 
+        &-close-btn {
+            width: rem(20);
+            height: rem(20);
+            position: absolute;
+            top: rem(20);
+            right: rem(20);
+            background: url("../../images/close.svg") center center no-repeat;
+            opacity: 1;
+        }
+
         &-body {
 
             .watch-image {
@@ -618,6 +628,7 @@
                     vertical-align: middle;
                     .engraving-input, .debossing-input {
                         @include font-gill;
+                        font-family: 'NewsGothicStdBold';
                         font-size: rem(15);
                         color: $storm-gray;
                         letter-spacing: normal;
@@ -632,6 +643,15 @@
     
                         &:focus {
                             box-shadow: none;
+                        }
+                    }
+
+                    input {
+                        display: none;
+
+                        &.active {
+                            display: block;
+                            opacity: 1;
                         }
                     }
                 }
@@ -729,15 +749,42 @@
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
             background: $white;
             text-align: center;
-            top: 10%;
+            top: 2%;
             left: 50%;
-            transform: translateY0(-50%);
+            transform: translateX(-50%);
             padding-bottom: rem(5);
+            max-width: rem(1200);
         
             @include media-breakpoint-down(sm) {
                 left:50%;
                 height: 100vh;
                 max-width: 100%;
+            }
+        }
+
+        &-tabs {
+            display: inline-flex;
+            justify-content: center;
+            border: rem(1) solid $tutu;
+            border-radius: rem(3);
+            margin-bottom: rem(20);
+            a {
+                width: rem(100);
+                height: rem(35);
+                @include font-gill ($font-size: 12, $font-weight: 400);
+                line-height: rem(16);
+                text-align: center;
+                color: $black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                &:hover, &.active {
+                    background: $tutu;
+                }
+                &.active {
+                    font-weight: 600;
+                }
             }
         }
     }

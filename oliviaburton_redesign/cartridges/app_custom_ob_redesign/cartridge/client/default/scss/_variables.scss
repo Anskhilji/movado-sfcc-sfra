@@ -1,4 +1,6 @@
 @font-face {font-family: 'GaramondMTPro-Italic';src: url('../webfonts/39E093_7_0.eot');src: url('../webfonts/39E093_7_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_7_0.woff2') format('woff2'),url('../webfonts/39E093_7_0.woff') format('woff'),url('../webfonts/39E093_7_0.ttf') format('truetype');}
+@font-face {font-family: 'NewsGothicStdBold';src: url('../webfonts/NewsGothicStdBold.ttf') format('truetype');}
+
 @import url("https://p.typekit.net/p.css?s=1&k=pap8rpj&ht=tk&f=10879.10880.10884.10886.10887.15586.15705.32874.32875&a=68515858&app=typekit&e=css");
 @font-face {
   font-family:"futura-pt";
@@ -34,7 +36,7 @@ $light-grey: #d2d2d2;
 $pink-grey: #ead7d5;
 $cyan-blue: rgba(160,169,186,0.24);
 $cadet-blue: #a0a9ba;
-
+$tutu: #F6E5E4;
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $black-russian: #00091B;
 $gainsboro: #D8D8D8;
