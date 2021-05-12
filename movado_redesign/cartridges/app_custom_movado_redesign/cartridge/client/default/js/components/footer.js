@@ -1,8 +1,6 @@
-(function($){
-    $(window).on('load',function(){
-        $('.collapse-inner.mCustomScrollbar').mCustomScrollbar();
-    });
-})(jQuery);
+$(document).on('ready',function () {
+    $('.collapse-inner.mCustomScrollbar').mCustomScrollbar();
+});
 
 $('footer .esw-country-selector').on('click', function(){
     $('footer .esw-country-selector.active').not(this).removeClass('active');
