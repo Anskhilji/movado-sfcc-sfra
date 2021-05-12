@@ -55,7 +55,7 @@
     <div class="debossing-btn">
         <a href="javascript:void(0);"class="btn  btn-primary" pd-popup-open="debossing-popup">
             <span class="open-popup">${Resource.msg('label.product.add.debossing', 'product', 'null')}</span>
-            <span class="edit-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}:<pre class="debossing-text"></pre></span>
+            <span class="edit-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}:<b class="debossing-text"></b> <label>edit</label></span>
         </a>
         <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
         <isloop items="${option.values}" var="value" status="optionLoopStatus">
