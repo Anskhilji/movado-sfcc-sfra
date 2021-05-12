@@ -10,14 +10,19 @@ var SFMCAPIHelper = require('~/cartridge/scripts/helper/SFMCAPIHelper');
 var SFMCCOHelper = require('~/cartridge/scripts/helper/SFMCCOHelper');
 
 function sendSubscriberToSFMC(requestParams) {
+    var authServiceID = Constants.SERVICE_ID.INSTANT_AUTH;
+    var dataServiceID = Constants.SERVICE_ID.INSTANT_DATA;
     var result = {
         success: true
     }
-
+    if (!empty(requestParams.requestLocation) && requestParams.requestLocation === 'CHECKOUT_SERVICE') {
+        authServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_AUTH;
+        dataServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_DATA;
+    }
     if (!requestParams.isEmailCheckDisabled || empty(requestParams.isEmailCheckDisabled)) {
         if (empty(requestParams.email)) {
             result.success = false;
-            return result; 
+            return result;
         }
     }
 
@@ -30,11 +35,11 @@ function sendSubscriberToSFMC(requestParams) {
             eventDefinationKey: Site.current.getCustomPreferenceValue('mcEventDefinationKey'),
             accountID: Site.current.getCustomPreferenceValue('mcAccountID'),
             dataExtensionKey: Site.current.getCustomPreferenceValue('mcDataExtensionKey'),
-            authServiceID: Constants.SERVICE_ID.INSTANT_AUTH
+            authServiceID: authServiceID
         }
         var accessToken = SFMCAPIHelper.getAuthToken(params);
         if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
-            params.email = !empty(requestParams.email) ? requestParams.email: '';
+            params.email = !empty(requestParams.email) ? requestParams.email : '';
             params.country = !empty(requestParams.country) ? requestParams.country : require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry();
             params.firstName = !empty(requestParams.firstName) ? requestParams.firstName : '';
             params.lastName = !empty(requestParams.lastName) ? requestParams.lastName : '';
@@ -43,23 +48,28 @@ function sendSubscriberToSFMC(requestParams) {
             params.birthday = !empty(requestParams.birthday) ? requestParams.birthday : '';
             params.gender = !empty(requestParams.gender) ? requestParams.gender : '';
             params.phoneNumber = !empty(requestParams.phoneNumber) ? requestParams.phoneNumber : '';
-            service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            if (!empty(requestParams.requestLocation) && requestParams.requestLocation === 'CHECKOUT_SERVICE') {
+                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_CHECKOUT_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            } else {
+                service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.UPDATE_DATA, '', accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+            }
             result = SFMCAPIHelper.updateEvent(params, service);
         } else {
-            var service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
+            var service = null;
+            service = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
             result = SFMCAPIHelper.addContactToMC(params, service);
             if (result.success) {
                 if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {
-                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accessToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
+                    service = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.EVENT, accessToken, Constants.SFMC_SERVICE_API_TYPE.EVENT);
                     result = SFMCAPIHelper.addContactToJourney(params, service);
                 } else {
-                    var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}',params.dataExtensionKey);
-                    service = SFMCAPIHelper.getDataAPIService(Constants.SERVICE_ID.INSTANT_DATA, endpoint, accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
+                    var endpoint = Constants.SFMC_DATA_API_ENDPOINT.DATA_EXTENSION.replace('{dataExtensionKey}', params.dataExtensionKey);
+                    service = SFMCAPIHelper.getDataAPIService(dataServiceID, endpoint, accessToken, Constants.SFMC_SERVICE_API_TYPE.DATA_EXTENSION);
                     result = SFMCAPIHelper.addContactToDataExtension(params, service);
                 }
             }
         }
-    }  catch (e) {
+    } catch (e) {
         Logger.error('MarketingCloud sendSubscriberToSFMC: some exception occured while exporting subscriber - {0}', e.toString());
         SFMCCOHelper.saveEmailSubscriber(params.email);
     }
@@ -69,4 +79,3 @@ function sendSubscriberToSFMC(requestParams) {
 module.exports = {
     sendSubscriberToSFMC: sendSubscriberToSFMC
 }
-

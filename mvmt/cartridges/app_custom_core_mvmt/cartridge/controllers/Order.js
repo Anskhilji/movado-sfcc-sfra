@@ -13,7 +13,8 @@ server.append('Confirm', function (req, res, next) {
         var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
         var order = OrderMgr.getOrder(orderNo);
         var requestParams = {
-            email : order.getCustomerEmail() ? order.getCustomerEmail() : ''
+            email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
+            requestLocation: 'CHECKOUT_SERVICE'
         }
 
         if (!empty(requestParams.email)) {

@@ -67,9 +67,11 @@ function getCustomLanguages() {
                 var languages = customCountries[countryIndex].lang;
                 for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
                     var languageCode = languages[languageIndex].languageCode;
+                    var preferedLocale = languages[languageIndex].eswPreferedLocale;
                     var languageObj = {
                         displayValue: languages[languageIndex].languageName,
-                        value: languageCode
+                        value: languageCode,
+                        eswPreferedLocale: preferedLocale
                     };
                     languagesMap.put(languageCode, languageObj);
                 }
@@ -241,7 +243,6 @@ function isCurrentDomesticAllowedCountry() {
     }
     return isexpressCheckoutEnable;
 }
-
 
 module.exports = {
     getCustomCountries: getCustomCountries,

@@ -12,6 +12,7 @@
 
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
         <div class="container product-detail pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
@@ -70,7 +71,7 @@
                         </div>
 
                     </div>
-<iscomment> Asad </iscomment>
+
                      <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
                             <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
@@ -91,7 +92,7 @@
                                 </isif>
                             </isif>
                         </isif>
-    <iscomment> Asad </iscomment>
+
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
@@ -209,6 +210,15 @@
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
                                 </isif>
+                            </div>
+                            <isif condition="${sitePref.enableBackInStock}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
+                            <div class="row description">
+                                <isinclude template="product/components/productWhyBuyMe" />
+                            </div>
+                            <div class="row description">
+                                <isinclude template="product/components/description" />
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>

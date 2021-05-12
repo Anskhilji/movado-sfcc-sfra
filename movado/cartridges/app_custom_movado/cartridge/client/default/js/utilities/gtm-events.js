@@ -37,7 +37,7 @@ var onWishlistClickEvent = function () {
 };
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-event', function (evt) {
+    $('body').on('click', '.gtm-promotion-view, .gtm-event', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = [];
@@ -46,12 +46,13 @@ var onPromoClickEvent = function () {
         dataLayer.push({ event: 'promoClick',
             ecommerce: {
                 promoClick: {
-                    promotions: JSON.parse(dataLayerObj)
+                    promotions: dataLayerObj
                 }
             }
         });
     });
 };
+
 var onProductClickEvent = function () {
     $('body').on('click', '.gtm-product', function (evt) {
         var $currentTarget = $(evt.currentTarget);
@@ -164,23 +165,25 @@ var onPDPAddProductClickEvent = function () {
 };
 var onAddtoCartClickEvent = function () {
     $('body').on('click', '.gtm-addtocart', function (evt) {
-        var $currentTarget = $(evt.currentTarget);
-        var data = $currentTarget.data('gtm-addtocart');
-        updateDataLayer('addToCart');
-        dataLayer.push({
-            event: 'addToCart',
-            ecommerce: { currencyCode: data.currency,
-                add: { actionField: { list: data.list },
-                    products: [{
-                        id: data.id,
-                        name: data.name,
-                        price: data.price,
-                        category: data.category,
-                        variant: data.variant
-                    }]
+        if ($('[data-action]').data('action') != 'Search-Show') {
+            var $currentTarget = $(evt.currentTarget);
+            var data = $currentTarget.data('gtm-addtocart');
+            updateDataLayer('addToCart');
+            dataLayer.push({
+                event: 'addToCart',
+                ecommerce: { currencyCode: data.currency,
+                    add: { actionField: { list: data.list },
+                        products: [{
+                            id: data.id,
+                            name: data.name,
+                            price: data.price,
+                            category: data.category,
+                            variant: data.variant
+                        }]
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 };
 
@@ -229,14 +232,12 @@ var onLoadProductTile = function () {
 
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
-    var $currentTarget = $('.gtm-view');
+    var $currentTarget = $('.gtm-promotion-view');
     var dataLayerObj = [];
-    $.each($currentTarget, function () {
-        var gtmTrackingData = $(this).attr('data-gtm-tracking');
-        if (gtmTrackingData !== undefined) {
-            dataLayerObj.push(JSON.parse(gtmTrackingData));
-        }
-    });
+    var gtmTrackingData = $currentTarget.attr('data-gtm-tracking');
+    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+        dataLayerObj.push(JSON.parse(gtmTrackingData));
+    }
     updateDataLayer('productImpressions');
     dataLayer.push({
         event: 'promoImpressions',
@@ -371,13 +372,14 @@ var updateCheckoutStage = function () {
      case 'shipping':
              checkoutStep = '2';
              pageDataGTM.pageType = 'Checkout – Shipping';
-             dataLayer.push({ pageData: pageDataGTM});
+            dataLayer.push({ pageData: pageDataGTM });
+            onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'payment':
              checkoutStep = '3';
              pageDataGTM.pageType = 'Checkout – Billing';
              dataLayer.push({ pageData: pageDataGTM});
-             onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep, shippingMethod);
          break;
      case 'placeOrder':
              checkoutStep = '4';
@@ -385,7 +387,7 @@ var updateCheckoutStage = function () {
              pageDataGTM.pageType = 'Checkout – Review';
              dataLayer.push({ pageData: pageDataGTM});
              if (paymentMethod != undefined) {
-                 onCheckoutOption(checkoutStep - 1, paymentMethod);
+                 onCheckoutOption(checkoutStep, paymentMethod);
             }
          break;
      case 'submitted':

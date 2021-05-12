@@ -1,0 +1,6 @@
+<html>
+<head>
+    <isprint value="${pdict.emailHeader}" encoding="off" />
+<body>
+    <isprint value="${pdict.emailContent}" encoding="off" />
+    <isprint value="${pdict.emailFooter}" encoding="off" />

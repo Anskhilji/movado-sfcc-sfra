@@ -1,5 +1,6 @@
 @import '../variables';
 @import '~movado/product/detail';
+@import '../components/backInStockNotification';
 
 .pdp-tabs-nav {
     border-bottom: rem(4) solid $light-gray6;
@@ -1734,6 +1735,13 @@
                 }
             }
         }
+/*
+    This .bottom class is used with prices-add-to-cart-actions to move add to cart button 
+    on top on bottom-navigation-header on PDP page
+*/ 
+        .add-cart-bottom-navigation {
+            bottom: rem(70);
+        }
 
         .cart-and-ipay  {
             padding: 0;
@@ -2201,7 +2209,7 @@
     margin: rem(60) auto;
     max-width: rem(1270);
     padding: 0 rem(10) rem(50);
-    font-family: $font-bold;
+    font-family: $font-primary;
 
     &-video {
         margin-bottom: rem(35);

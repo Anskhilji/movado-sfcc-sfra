@@ -1,7 +1,7 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="enableUsablenetAccessibility" value="${!empty(dw.system.Site.current.preferences.custom.enableUsablenetAccessibility) ? dw.system.Site.current.preferences.custom.enableUsablenetAccessibility : false}" scope="page" />
 <footer>
-    <isinclude url="${URLUtils.url('Compare-Bar','urlAction',pdict.action)}" />
+<isinclude url="${URLUtils.url('Compare-Bar','urlAction', pdict.action)}" />
     <div class="home-email-signup"> 
         <div class="container">
             <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
@@ -9,6 +9,9 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
+                                <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            </isif>
                             <label for="hpEmailSignUp" class="hidden-label">${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}</label>
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary">${Resource.msg('button.form.emailsignup', 'homePage', null)}</button>
@@ -71,15 +74,6 @@
     </isif>
     
     <iscomment>Custom: Added a check if country parameter exist then hide the welcome mat</iscomment>
-    <isif condition="${!request.httpParameterMap.get('country').value}">
+    <isif condition="${empty(pdict.countryCode)}">
         <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
     </isif>
-    
-    <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
-
-    <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
-    <isinclude template="resources/appresources"/>
-
-    <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
-    <isinclude template="include/yotpofooter"/>
-</footer>

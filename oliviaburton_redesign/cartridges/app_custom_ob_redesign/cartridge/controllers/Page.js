@@ -50,6 +50,13 @@ server.get(
         } else {
             headerTemplate = '/components/header/old/pageHeader';
         }
+        var countryCode = "";
+        if (!empty(request.httpParameterMap.get('countryCode').value)) {
+            countryCode = request.httpParameterMap.get('countryCode').value;
+        }
+        var viewData = res.getViewData();
+        viewData.countryCode = countryCode;
+        res.setViewData(viewData);
         res.render(headerTemplate);
         next();
     }
@@ -65,19 +72,24 @@ server.get(
         var footerTemplate = null;
         // A/B testing for header design
         if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
-            footerTemplate = '/components/footer/old/pageFooter';
+            footerTemplate = '/components/footer/old/pageFooterInnerContent';
         } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
-            footerTemplate = '/components/footer/pageFooter';
+            footerTemplate = '/components/footer/pageFooterInnerContent';
         } else {
-            footerTemplate = '/components/footer/old/pageFooter';
+            footerTemplate = '/components/footer/old/pageFooterInnerContent';
         }
         var parentController = req.querystring.parentController;
         var homeFlag = false;
+        var countryCode = "";
+        if (!empty(request.httpParameterMap.get('countryCode').value)) {
+            countryCode = request.httpParameterMap.get('countryCode').value;
+        }
         var viewData = res.getViewData();
 
         if (parentController == 'Home-Show' || parentController == 'Account-Show') {
             homeFlag = true;
         }
+        viewData.countryCode = countryCode;
         viewData.homeFlag = homeFlag;
         res.setViewData(viewData);
         res.render(footerTemplate);

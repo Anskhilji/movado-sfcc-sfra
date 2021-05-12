@@ -4,6 +4,8 @@
 @import '../utilities/fonts';
 @import "animate.css/animate";
 @import "../custom-animation";
+@import "../components/_backInStockNotification";
+
 $arrow-height: 1.25em;
 .dw-apple-pay-button.apple-pay-pdp,
 .dw-apple-pay-button.apple-pay-pdp:hover {
@@ -1582,7 +1584,7 @@ body {
         &-btn-redesign {
             width: 88%;
             font-family: $font-futura-demi;
-            font-weight: 500;
+            font-weight: 600;
             font-style: normal;
             font-size: 1rem;
             letter-spacing: normal;

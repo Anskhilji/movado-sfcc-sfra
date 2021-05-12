@@ -14,7 +14,7 @@
         </isscript>
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
-            <isinclude url="${URLUtils.url('Page-IncludeHeader')}" />
+            <isinclude url="${URLUtils.url('Page-IncludeHeader','countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}" />
             <iscomment>
                 This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeHeader.
                 <isinclude template="/components/header/pageHeader" />
@@ -23,7 +23,8 @@
             <div id="mainContent">
                 <isreplace/>
             </div>
-            <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', pdict.action)}" />
+            <isinclude template="/components/footer/pageFooter"/>
+            
             <iscomment>
                 This template should be included when A/B testing is finishied. Then above remote include should be removed along with the controller Page-IncludeFooter.
                 <isinclude template="/components/footer/pageFooter" />
