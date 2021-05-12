@@ -1316,7 +1316,9 @@ server.get('UpdateAmazonPayCheckout', function (req, res, next) {
                 Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(result.toString());
             }
         });
-    } catch (error) { }
+    } catch (error) {
+        Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(error.toString());
+    }
 
     if (req.querystring.amzPayRedirectURL) {
         res.redirect(req.querystring.amzPayRedirectURL);
