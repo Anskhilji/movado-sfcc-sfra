@@ -198,10 +198,8 @@ function processSwatchValues(attr, $productContainer) {
         } 
         // Disable if not selectable
         if (!attrValue.selectable) {
-            $swatchAnchor.attr('disabled', true);
             $swatchAnchor.addClass('disabled');
         } else {
-            $swatchAnchor.attr('disabled', false);
             $swatchAnchor.removeClass('disabled')
         }
     });
@@ -234,10 +232,8 @@ function processNonSwatchValues(attr, $productContainer) {
             .removeAttr('disabled');
 
         if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
             $attrValue.addClass('disabled');
         } else {
-            $attrValue.attr('disabled', false);
             $attrValue.removeClass('disabled')
         }
 
@@ -754,6 +750,28 @@ function handleVariantResponse(response, $productContainer) {
         window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
         window.KlarnaOnsiteService.push({
             eventName: 'refresh-placements'
+        });
+    }
+    
+    // Add check for master product in case of backinstcok
+    var $backInStockContanier = $('.back-in-stock-notification-container');
+    if ($backInStockContanier.length > 0 && response.product.productType == "master") {
+        $backInStockContanier.addClass('d-none');
+    }
+
+    // Handle out of stock button scenario for new varition secnarios
+    var $addToCartSelector = $('button.add-to-cart');
+    if (response.product.available && response.product.readyToOrder) {
+        $addToCartSelector.removeClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', false);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('add-to-cart-text'));
+        });
+    } else {
+        $addToCartSelector.addClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', true);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('out-of-stock-text'));
         });
     }
 }
