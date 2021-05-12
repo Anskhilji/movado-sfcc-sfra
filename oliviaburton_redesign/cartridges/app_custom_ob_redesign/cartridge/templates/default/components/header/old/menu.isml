@@ -1,4 +1,4 @@
-<nav class="navbar olivia-burtonuk-header navbar-expand-lg bg-inverse col-12">
+<nav class="navbar olivia-burtonuk-header ob-old-menu-design navbar-expand-lg bg-inverse col-12">
   <div class="close-menu clearfix hidden-lg-up">
     <a class="back" href="${'#'}" role="button">
       <span class="caret-left"></span>
