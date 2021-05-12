@@ -591,7 +591,6 @@
         text-align: center;
 
         @include media-breakpoint-up(lg) {
-            height: rem(700);
             padding-bottom: 0;
         }
 
@@ -621,7 +620,7 @@
             max-width: 90%;
             width: 100%;
             padding: rem(20) 0;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
+            box-shadow: 0px rem(2) rem(6) rgba(0, 0, 0, 1);
             background: $white;
             text-align: center;
             max-width: rem(600);
@@ -632,28 +631,33 @@
             left:50%;
             top: 50%;
             transform: translate(-50%,-50%);
-
-            .scroll-div {
-                height: 100%;
-                overflow-y: auto;
-
-                @include media-breakpoint-up(lg) {
-                    height: auto;
-                    padding-bottom: 0;
-                }
-            }
         
             @include media-breakpoint-up(lg) {
                 left:50%;
-                top: 2%;
-                transform: translateX(-50%);
-                height: auto;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                height: rem(600);
                 max-width: rem(1200);
+            }
+            @include media-breakpoint-up(xxl) {
+                height: rem(700);
+            }
+            
+            .scroll-div {
+                height: 100%;
+                overflow-y: auto;
             }
         }
 
         &-head {
-            margin-bottom: rem(35);
+            margin-bottom: rem(36);
+            @include media-breakpoint-up(lg) {
+                margin-bottom: rem(15);
+            }
+            @include media-breakpoint-up(xxl) {
+                margin-bottom: rem(36);
+            }
+
             h1 {
                 @include font-gill ($font-size: 28, $font-weight: 600);
                 line-height: rem(40);
@@ -664,6 +668,10 @@
                 @include media-breakpoint-up(lg) {
                     font-size: rem(34);
                     line-height: rem(41);
+                    margin-bottom: rem(10);
+                }
+
+                @include media-breakpoint-up(xxl) {
                     margin-bottom: rem(18);
                 }
             }
@@ -680,9 +688,13 @@
 
                 @include media-breakpoint-up(lg) {
                     @include font-gill ($font-size: 15, $font-weight: 300);
-                    line-height: rem(25);
+                    line-height: rem(20);
                     margin-bottom: rem(8);
                     padding: 0;
+                }
+
+                @include media-breakpoint-up(xxl) {
+                    line-height: rem(25);
                 }
                 &.bold {
                     font-family: $font-gill-std-normal;
@@ -695,7 +707,16 @@
         &-body {
 
             .watch-image {
-                margin-bottom: rem(60);
+                margin-bottom: rem(62);
+
+                @include media-breakpoint-up(lg) {
+                    margin-bottom: rem(25);
+                }
+ 
+                @include media-breakpoint-up(xxl) {
+                    margin-bottom: rem(62);
+                }
+
                 img {
                     object-fit: none;
                     height: rem(280);
@@ -711,9 +732,8 @@
                     position: relative;
                     display: inline-block;
                     vertical-align: middle;
-                    .engraving-input, .debossing-input {
-                        @include font-gill;
-                        font-family: 'NewsGothicStdBold';
+                    .debossing-input {
+                        font-family: $font-news-gothic-bold;
                         font-size: rem(15);
                         color: $storm-gray;
                         letter-spacing: normal;
