@@ -46,6 +46,9 @@ function getBadges(apiProduct) {
 	// Contains image url / text to be displayed on storefront
     var badgeImage1 = Site.getCurrent().getCustomPreferenceValue('imageBadge1');
     var badgeImage2 = Site.getCurrent().getCustomPreferenceValue('imageBadge2');
+    var badgeEcoFriendly = Site.getCurrent().getCustomPreferenceValue('badgeEcoFriendly');
+    var badgeVeganFriendly = Site.getCurrent().getCustomPreferenceValue('badgeVeganFriendly');
+    var badgeStatus = Site.getCurrent().getCustomPreferenceValue('badgeStatus');
     var badgeText = JSON.parse(Site.getCurrent().getCustomPreferenceValue('textForBadges'));
 
     var attrDef = SystemObjectMgr.describe('Product');
@@ -90,6 +93,12 @@ function getBadges(apiProduct) {
                     // MSS-1169 Change url to URL fix deprecated method usage
                     var badgeImageUrl2 = badgeImage2.URL.toString();
                 }
+                if (badgeEcoFriendly && badgeStatus) {
+                    var badgeEcoFriendlyUrl = badgeEcoFriendly.URL.toString();
+                }
+                if (badgeVeganFriendly && badgeStatus) {
+                    var badgeVeganFriendlyUrl = badgeVeganFriendly.URL.toString();
+                }
 
 
                 if (badgeImageUrl1 && badgeImageUrl1.indexOf(imageBadge) > -1) {
@@ -110,6 +119,26 @@ function getBadges(apiProduct) {
                         // MSS-1169 Change url to URL fix deprecated method usage
                         imageUrl: badgeImage2.URL,
                         imageAlt: imageBadge
+                    };
+                    imageBadgesObj.add(badge);
+                }
+                if (badgeEcoFriendlyUrl && badgeStatus && badgeEcoFriendlyUrl.indexOf(imageBadge) > -1) {
+                    var badge = {
+                        attr: imageBadge,
+                        attrType: 'image',
+                        imageUrl: badgeEcoFriendly.URL,
+                        imageAlt: imageBadge,
+                        isRedesigned: true
+                    };
+                    imageBadgesObj.add(badge);
+                }
+                if (badgeVeganFriendlyUrl && badgeStatus && badgeVeganFriendlyUrl.indexOf(imageBadge) > -1) {
+                    var badge = {
+                        attr: imageBadge,
+                        attrType: 'image',
+                        imageUrl: badgeVeganFriendly.URL,
+                        imageAlt: imageBadge,
+                        isRedesigned: true
                     };
                     imageBadgesObj.add(badge);
                 }
@@ -945,6 +974,21 @@ function getMarketingProducts(apiProduct, quantity) {
     }
 }
 
+/**
+ * Checks for redesigned 
+ * @param {Object} product - 
+ * @returns {boolean} isRedesignedBadge - Returns true if redesigned badge
+ */
+function isOnlyRedesignedBadge(product) {
+    var isRedesignedBadge = false;
+    if( product.badges && product.badges.imageBadges && product.badges.imageBadges.length == 1 
+        && ((product.badges.imageBadges[0].imageUrl.toString().indexOf('badgeVeganFriendly') > -1) 
+        ||  (product.badges.imageBadges[0].imageUrl.toString().indexOf('badgeEcoFriendly') > -1 ))) {
+            isRedesignedBadge = true
+    }
+    return isRedesignedBadge;
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -968,5 +1012,6 @@ module.exports = {
     getMoreStyleGtmArray: getMoreStyleGtmArray,
     formatProductId: formatProductId,
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
-    getMarketingProducts : getMarketingProducts
+    getMarketingProducts : getMarketingProducts,
+    isOnlyRedesignedBadge: isOnlyRedesignedBadge
 };

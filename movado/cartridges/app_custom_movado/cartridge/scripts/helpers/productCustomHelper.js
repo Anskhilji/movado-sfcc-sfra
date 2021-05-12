@@ -43,7 +43,27 @@ function getExplicitRecommendations(pid) {
     return recommendationTilesList;
 }
 
+/**
+ * Method use to get collection name from product's custom attribute family name`
+ * @param {Product} apiProduct
+ * @returns {String }collection name
+ */
+function getCollectionName(apiProduct) {
+    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
+    if (empty(collectionName) && apiProduct.variant) {
+        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
+    }
 
+    return collectionName;
+}
+
+function getSaveMessage(apiProduct) {
+    var saveMessage = "";
+    if (!empty(apiProduct)) {
+        saveMessage = apiProduct.custom.saveMessage ? apiProduct.custom.saveMessage : "";
+    }
+    return saveMessage;
+}
 /**
  * Gets video configs for PDP slider
  * @param {dw.catalog.Product} apiProduct
@@ -66,5 +86,7 @@ function getPdpVideoConfigs(apiProduct) {
 
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
+    getCollectionName: getCollectionName,
+    getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs
 };

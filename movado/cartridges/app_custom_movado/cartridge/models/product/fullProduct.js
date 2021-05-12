@@ -20,6 +20,8 @@ var Site = require('dw/system/Site');
 module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
+
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
     decorators.mgattributes(product, apiProduct);
@@ -76,6 +78,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
     decorators.raw(product, apiProduct);
     decorators.pageMetaData(product, apiProduct);
     decorators.template(product, apiProduct);
+
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     return product;
 };
