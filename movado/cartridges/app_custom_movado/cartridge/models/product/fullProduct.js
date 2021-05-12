@@ -67,6 +67,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
     // Custom end
+    Object.defineProperty(product, 'pdpVideoConfigs', {
+        enumerable: true,
+        value: productCustomHelper.getPdpVideoConfigs(apiProduct)
+    });
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);
