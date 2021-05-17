@@ -171,10 +171,10 @@ $( document ).ready(function() {
 });
 function updateKlarnaPayment(updatedPrice){
     $('klarna-placement').attr('data-purchase_amount', updatedPrice * 100);
-            window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
-            window.KlarnaOnsiteService.push({
-            eventName: 'refresh-placements'
-        });
+        window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+        window.KlarnaOnsiteService.push({
+        eventName: 'refresh-placements'
+    });
 }
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
