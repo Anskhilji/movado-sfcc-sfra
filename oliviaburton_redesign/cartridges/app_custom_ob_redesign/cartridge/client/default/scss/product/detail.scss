@@ -5,6 +5,7 @@
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
+
         &.detail-specs {
             padding: 0;
             @include media-breakpoint-up(lg) {
@@ -30,6 +31,7 @@
                 line-height: rem(30);
                 color: $gray20;
                 text-transform: capitalize;
+                width: auto;
             }
 
             .price-rating {
@@ -55,20 +57,28 @@
                     color: $gray20;
                 }
             }
-        }
 
-        .primary-images {
+            .product-top-detail {
+                flex: 0 0 40.3%;
+                max-width: 40.3%;     
+            }
 
-            .slick {
-                &-slide {
-                    img {
-                        margin: 0 auto;
-                        height: rem(450);
-                        width: rem(450);
+            .primary-images {
+                flex: 0 0 59.7%;
+                max-width: 59.7%;   
+                .slick {
+                    &-slide {
+                        img {
+                            margin: 0 auto;
+                            height: rem(450);
+                            width: rem(450);
+                        }
                     }
                 }
             }
         }
+
+
 
         .description-and-detail {
             margin: 0;
@@ -291,6 +301,7 @@
                 }
             }
         }
+
         .product-availability {
             margin: 0;
         }
@@ -319,12 +330,12 @@
             &::before {
                 content: '';
                 position: absolute;
-                height: rem(10);
-                width: rem(2);
+                height: rem(13);
+                width: rem(1);
                 background: $dark-gray;
                 left: 0;
                 top: 50%;
-                transform: translateY(-50%);
+                transform: translateY(-45%);
             }
         }
 
@@ -389,6 +400,7 @@
                 text-transform: uppercase;
                 color: $white;
                 border-color: $black;
+                border-radius: rem(3);
 
                 &:hover, &:focus {
                     background-color: transparent;
