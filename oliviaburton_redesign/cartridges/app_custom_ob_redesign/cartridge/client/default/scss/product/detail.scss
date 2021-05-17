@@ -1,5 +1,6 @@
 @import "~movado/product/detail";
 @import "../variables";
+@import "../components/recommendation";
 .product-detail {
 
     &-redesign {
@@ -171,6 +172,20 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+.primary-images {
+    .product-badges {
+        .badge-right {
+            left: auto;
+            right: rem(20);
+            top: rem(20);
+            img {
+                width: rem(60);
+                height: rem(60);
             }
         }
     }
