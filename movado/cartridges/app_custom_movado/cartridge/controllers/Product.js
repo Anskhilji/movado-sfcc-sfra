@@ -52,6 +52,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    var collectionName;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
     var productDecimalPrice = 0.0;
@@ -59,9 +60,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
+
+   
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
         // Custom Start: Add pricing logic for Klarna promo banners
@@ -125,7 +130,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
-        strapGuideText: strapGuideText
+        strapGuideText: strapGuideText,
+        collectionName: collectionName
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

@@ -1,4 +1,5 @@
 <iscomment>Updated carousel configuration</iscomment>
+<iscomment> bootstrap column classes changed </iscomment>
 <div class="primary-images col-12 col-lg-7">
   <div class="product-badges">
     <isinclude template="product/components/newnessBadge"/>
