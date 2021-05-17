@@ -3,11 +3,70 @@
 @import "../components/recommendation";
 .product-detail {
     &-redesign {
+        max-width: rem(1440);
+        margin: 0 auto;
         &.detail-specs {
             padding: 0;
             @include media-breakpoint-up(lg) {
                 padding-right: rem(15);
                 padding-left: rem(15);
+            }
+        }
+
+        &.product-wrapper {
+            position: relative;
+            padding-top: rem(140);
+
+            .family-name {
+                @include font-gill ($font-size: 34, $font-weight: 600);
+                line-height: rem(41);
+                color: $black;
+                margin-bottom: rem(5);
+                text-transform: capitalize;
+            }
+
+            .product-name {
+                @include font-gill ($font-size: 20, $font-weight: 300);
+                line-height: rem(30);
+                color: $gray20;
+                text-transform: capitalize;
+            }
+
+            .price-rating {
+                margin-top: rem(20);
+                margin-bottom: rem(40);
+            }
+
+            .prices {
+                padding-bottom: 0;
+
+                span {
+                    @include font-gill ($font-size: 34, $font-weight: 300);
+                    line-height: rem(41);
+                    color: $gray20;
+                }
+            }
+
+            .description {
+
+                .value {
+                    @include font-gill ($font-weight: 300);
+                    line-height: rem(25);
+                    color: $gray20;
+                }
+            }
+        }
+
+        .primary-images {
+
+            .slick {
+                &-slide {
+                    img {
+                        margin: 0 auto;
+                        height: rem(450);
+                        width: rem(450);
+                    }
+                }
             }
         }
 
@@ -33,7 +92,6 @@
                 color: $gray20;
                 font-family: $font-GaramondMTPro-italic;
                 font-size: rem(20);
-                letter-spacing: 0;
                 line-height: rem(25);
                 text-align: center;
                 margin-bottom: rem(20);
@@ -54,7 +112,6 @@
 
                 p {
                     @include font-gill($font-weight: 300);
-                    letter-spacing: 0;
                     line-height: rem(25);
                     text-align: center;
                 }
@@ -231,6 +288,112 @@
                             display: flex;
                         }
                     }
+                }
+            }
+        }
+        .product-availability {
+            margin: 0;
+        }
+
+        .availability-msg {
+
+            li {
+                div {
+                    @include font-gill ($font-weight: 600);
+                    line-height: rem(20);
+                    color: $dark-gray;
+                    text-transform: capitalize !important;
+                }
+            }
+        }
+
+        .shipping-callout {
+            @include font-gill ($font-weight: 600);
+            line-height: rem(20);
+            color: $dark-gray;
+            text-transform: capitalize;
+            position: relative;
+            padding-left: rem(10);
+            margin-left: rem(10);
+
+            &::before {
+                content: '';
+                position: absolute;
+                height: rem(10);
+                width: rem(2);
+                background: $dark-gray;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .product-breadcrumb {
+            position: absolute;
+            top: rem(20);
+            left: rem(20);
+            display: none;
+            @include media-breakpoint-up(lg) {
+                display: block;
+            }
+    
+            .breadcrumb {
+    
+                &-item {
+                    a {
+                        @include font-gill ($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
+                        line-height: rem(16);
+                        color: $black;
+                        margin-left: rem(5);
+                    }
+    
+                    &:first-child {
+                        a {
+                            margin-left: 0;
+                        }
+                    }
+    
+                    &:last-child {
+                        a {
+                            color: $dark-gray;
+                        }
+                    }
+    
+                    + .breadcrumb-item {
+                        padding-left: rem(10);
+    
+                        &::before {
+                            content: "";
+                            display: inline-block;
+                            width: rem(6);
+                            height: rem(10);
+                            background: url(../../images/next.svg) center center no-repeat;
+                            position: relative;
+                            background-size: contain;
+                            margin: 0 rem(2);
+                            top: rem(1);
+                        }
+                    }
+                }
+            }
+        }
+
+        .add-to-cart-actions {
+            margin-top: rem(20);
+            .add-to-cart {
+                width: rem(330);
+                height: rem(45);
+                background: $black;
+                @include font-gill ($font-weight: 600);
+                line-height: rem(20);
+                text-transform: uppercase;
+                color: $white;
+                border-color: $black;
+
+                &:hover, &:focus {
+                    background-color: transparent;
+                    box-shadow: none;
+                    color: $black;
                 }
             }
         }
