@@ -11,6 +11,7 @@ var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var Logger = require('dw/system/Logger');
 
 server.replace(
     'Confirm',
@@ -298,5 +299,20 @@ server.append('Confirm', function (req, res, next) {
     }
     next();
 });
+server.get('FBConversion', function (req, res, next) {
+    var OrderMgr = require('dw/order/OrderMgr');
 
+    var FBConversionAPI = require('*/cartridge/scripts/api/fbConversionAPI');
+    var order = OrderMgr.getOrder(req.querystring.order_no);
+    try {
+        var result = FBConversionAPI.fbConversionAPI(order);
+    } catch (error) {
+        Logger.error('(Order.js -> FBConversion) Error is occurred in FBConversionAPI.fbConversionAPI', error);
+    }
+    res.json({
+        message: result.message,
+        success: result.success,
+    });
+    return next();
+})
 module.exports = server.exports();
