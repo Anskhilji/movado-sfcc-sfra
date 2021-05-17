@@ -1,38 +1,54 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
 <div class="primary-images ob-carousel-quickview col-12 col-lg-7">
     <div class="product-badges">
-        <isinclude template="product/components/newnessBadge" />
+        <!-- First two conditions are for PLP and the last is applicable on PDP -->
+        <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+            <isinclude template="product/components/newnessBadge"/>
+        </isif>
     </div>
     <isscript>
-        var primaryImageCarouselConfig = {
+         var primaryImageCarouselConfig = {
         "slidesToShow": 1,
         "slidesToScroll": 1,
         "dots": true,
-        "centerMode": true
+        "centerMode": true,
+        "arrows": true,
+        "fade": true,
+        responsive: [
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: true,
+              dots:true
+            }
+          },
+        ],
       }
+      
     </isscript>
+   
+
     <div class="cs-carousel-wrapper">
-        <div class="js-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
-            <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
-                <div class="carousel-tile">
-                    <picture>
-                        <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
-                        <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
-                        <img src="${image.url}" alt="${image.alt}" itemprop="image"
-                        data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
-                        data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <isset name="isImageExist" value="true" scope="page" />
-                    </picture>
-                </div>
-            </isloop>
+        <div class="js-carousel cs-carousel main-mvmt-carousel">
+           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
+          <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+            <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+              <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+              <isset name="isImageExist" value="true" scope="page" />
+              <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                <video class="slide-video d-none" loop muted autoplay playsinline>
+                  <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                </video>
+              </isif>
+            </div>
+          </isloop>
         </div>
         <isif condition="${isImageExist}">
             <isif condition="${!isQuickView}">
                 <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                        <i class="fa fa-expand fa-stack-1x"></i>
-                    </span>
+                
                 </button>
             </isif>
         </isif>

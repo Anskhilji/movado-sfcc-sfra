@@ -22,6 +22,7 @@ module.exports = {
             }
         });
 
+
         $(".morelink").on('click',function(){
             if($(this).hasClass("less")) {
                 $(this).removeClass("less");
@@ -34,5 +35,24 @@ module.exports = {
             $(this).prev().toggle();
             return false;
         });
-    }
+    },
+
+    primarySlider: function () {
+        $('.primary-images .main-mvmt-carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:true,
+            focusOnSelect: true,
+            fade: true,
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+
+        $( "img" ).dblclick(function() {
+            $(".js-zoom-image").trigger( "click" );
+          });
+    },
 }

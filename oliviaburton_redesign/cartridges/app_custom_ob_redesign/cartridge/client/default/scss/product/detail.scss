@@ -6,7 +6,209 @@
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
+        padding: rem(16) 0 0;
 
+        &.product-wrapper {
+            height: rem(740);
+        }
+        .primary-images {
+            position: relative;
+            width: 100%;
+            text-align: center;
+    
+            .cs-carousel-wrapper {
+                position: relative;
+                margin-bottom: 0;
+            }
+    
+            .main-mvmt-carousel {
+    
+                padding: rem(10) rem(40) 0;
+    
+                @include media-breakpoint-up(md) {
+                    padding: 0;
+                }
+    
+                @include media-breakpoint-up(lg) {
+                    padding-left: rem(100);
+                }
+    
+                .slick {
+
+                   
+    
+                    &-slide {
+                        text-align: center;
+                        img {
+                            display: inline-block;
+    
+                        }
+    
+                        .carousel-tile {
+                            overflow: visible !important;
+    
+                            &.active {
+                                min-height: 80vh;
+                            }
+    
+                            &.disabled {
+                                @include media-breakpoint-down(md) {
+                                    pointer-events: none;
+                                }
+                            }
+                        }
+    
+                        .slide-video {
+                            position: absolute;
+                            min-width: 100%;
+                            max-width: 100%;
+                            height: 100%;
+                            width: inherit;
+                            max-height: 100%;
+                            object-fit: cover;
+                            margin: 0 auto;
+                            right: 0;
+                            display: block;
+                        }
+                    }
+    
+                    &-dots {
+                        background: #D5D5D5;
+                        margin: 0 auto;
+                        display: flex;
+                        max-width: rem(200);
+                        justify-content: center;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin-right: rem(12);
+                          
+    
+                        @include media-breakpoint-up(lg) {
+                            width: rem(150);
+                            margin-top: 0;
+                            position: absolute;
+                            top: 0;
+                            left: 50px;
+                            display: block;
+                            background: transparent;
+                            height: 400px;
+                            overflow-y: scroll;
+                            &::-webkit-scrollbar {
+                                width: 0;
+                            }
+                        }
+    
+                        li {
+                            height: rem(1);
+                            margin: 0;
+                            flex: 1;
+                            max-width: rem(130);
+            
+                            button {
+                                height: 100%;
+                                width: 100%;
+                                border-radius: 0;
+                                background: $gainsboro;
+                                vertical-align: text-top;
+
+                                @include media-breakpoint-up(lg) {
+                                    background: transparent;
+                                    outline: none;
+                                    vertical-align: initial;
+                                }
+
+                            
+                                &:focus {
+                                    outline: none;
+                                }
+
+                                img{
+                                    display: none;
+                                    @include media-breakpoint-up(lg) {
+                                        width: 100%;
+                                        height: 100%;
+                                        display: block;
+                                    }
+                                }
+                            }
+            
+                            &.slick-active {
+                                button {
+                                    background: $black;
+                                }
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                height: rem(82);
+                                width: rem(82);
+                                border-radius: 100%;
+                                overflow: hidden;
+                                margin: 0 rem(5);
+                                margin-bottom: rem(12);
+                                cursor: pointer;
+                                transition: all .4s;
+                                box-shadow: 0 rem(2) rem(4) 0 hsla(0,0%,78%,.6);
+                                border: rem(2) solid transparent;
+                                display: inline-block;
+
+                                &:hover {
+                                    box-shadow: 0 rem(6) rem(4) 0 hsla(0,0%,78%,.6);
+                                    border-color: $light-grey;
+                                }
+                            }
+                        }
+                    }
+    
+                    &-arrow {
+                        position: absolute;
+                        outline: none;
+                        &.slick-prev{
+                            background: url("../../images/LeftArrowMob.svg") center center no-repeat;
+                            @include media-breakpoint-up(lg) {
+                                display: none !important;
+                           
+                            }
+                        }
+
+                        &.slick-next{
+
+                            background: url("../../images/RightArrowMob.svg") center center no-repeat;
+                                @include media-breakpoint-up(lg) {
+                                    background: url("../../images/RightArrow.svg") center center no-repeat;
+                                }
+                           
+
+                        }
+                    }
+                }
+    
+                .pointer-none {
+                    pointer-events: none;
+                }
+            
+                .cursor-context {
+                    cursor: context-menu;
+                }
+            }
+        }
+
+        .js-zoom-image{
+            background: url("../../images/zoom_in.svg") center center no-repeat;
+            width:40px;
+            height: 40px;
+            position: absolute;
+            margin-left: 20px;
+            top: 400px;
+            outline: none;
+            @include media-breakpoint-up(lg) {
+                position: absolute;
+                margin-left: 150px;
+                top: 475px;
+                
+            }
+        }
+
+      
         &.detail-specs {
             padding: 0;
             @include media-breakpoint-up(lg) {
