@@ -63,7 +63,6 @@
                     padding: 0;
                     height: auto;
                 }
-
                 .show-text {
                     position: absolute;
                     background-color: $white;
@@ -76,23 +75,34 @@
                 }
 
                 .morecontent  {
-
-                    span {
-                        display: none;
-                        @include media-breakpoint-up(lg) {
-                            display: inline;
-                        }
+                    .show-text {
+                        position: absolute;
+                        background-color: $white;
+                        @include font-gill($font-weight: 300);
+                        text-decoration: underline;
+                        bottom: rem(1);
+                        right: rem(22);
+                        padding-left: rem(5);
+                        text-transform: lowercase;
                     }
 
-                    .morelink {
-                        text-transform: lowercase;
-                        text-decoration: underline;
-                        @include media-breakpoint-up(lg) {
+                    .morecontent  {
+                        span {
                             display: none;
+                            @include media-breakpoint-up(lg) {
+                                display: inline;
+                            }
+                        }
+
+                        .morelink {
+                            text-transform: lowercase;
+                            text-decoration: underline;
+                            @include media-breakpoint-up(lg) {
+                                display: none;
+                            }
                         }
                     }
                 }
-            }
 
             .details {
 
@@ -172,6 +182,9 @@
                             @include media-breakpoint-up(lg) {
                                 height: rem(486);
                                 top: rem(10);
+                                padding-bottom: rem(0);
+                                margin-bottom: rem(30);
+                                border: none;
                             }
                         }
 
@@ -209,6 +222,13 @@
                             @include media-breakpoint-up(lg) {
                                 display: flex;
                             }
+                        }
+                    }
+
+                    &-height {
+
+                        @include media-breakpoint-up(lg) {
+                            display: flex;
                         }
                     }
                 }

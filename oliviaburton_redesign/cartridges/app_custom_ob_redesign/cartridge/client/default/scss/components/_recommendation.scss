@@ -150,7 +150,7 @@
                             height: 40px;
                             width: 220px;
                             color: $gray20;
-                            font-family: $font-gill-sans;
+                            font-family: $gill-sans-font-stack;
                             font-size: 15px;
                             font-weight: 300;
                             letter-spacing: 0;
@@ -175,7 +175,7 @@
                             height: rem(18);
                             width: rem(31);
                             color: $gray20;
-                            font-family: $font-gill-sans;
+                            font-family: $gill-sans-font-stack;
                             font-size: rem(13);
                             letter-spacing: 0;
                             line-height: rem(18);
@@ -257,7 +257,7 @@
                     align-items: center;
                     height: rem(18);
                     color: $gray20;
-                    font-family: $font-gill-sans;
+                    font-family: $gill-sans-font-stack;
                     margin-bottom: rem(6);
     
                     .price {
@@ -323,7 +323,7 @@
     .carousel-title {
         margin-right: rem(25);
         color: $black;
-        font-family: $font-gill-sans;
+        font-family: $gill-sans-font-stack;
         font-size: rem(28);
         font-weight: 600;
         letter-spacing: 0;
