@@ -76,7 +76,7 @@
                 justify-content: center;
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
-                    justify-content: initial;
+                    justify-content: flex-start;
                 }
                 .estimated-text {
                     display: none;
@@ -88,7 +88,7 @@
                 text-align: center;
 
                 @include media-breakpoint-up(lg) {
-                    text-align: initial;
+                    text-align: left;
                 }
             }
 
@@ -118,7 +118,7 @@
                         float: initial;
                         justify-content: center;
                         @include media-breakpoint-up(lg) {
-                            justify-content: initial;
+                            justify-content: flex-start;
                             float: left;
                         }
                     }
@@ -209,7 +209,7 @@
                 padding: 0;
                 @include media-breakpoint-up(lg) {
                     flex: 0 0 43.4%;
-                    max-width: 45.4%;
+                    max-width: 43.4%;
                     padding-right: rem(15);
                     padding-left: rem(60);
                 }  
@@ -267,7 +267,7 @@
             text-align: center;
 
             @include media-breakpoint-up(lg) {
-                text-align: initial;
+                text-align: left;
                 padding: rem(60) 0 rem(100) 0;
             }
 
@@ -432,6 +432,10 @@
 
         .product-availability {
             margin: 0;
+
+            .col-12 {
+                flex: none;
+            }
         }
 
         .availability-msg {
@@ -444,6 +448,7 @@
                 font-size: rem(15);
                 line-height: rem(20);
             }
+
             li {
                 text-transform: capitalize !important;
             }
@@ -537,7 +542,7 @@
             text-align: center;
             @include media-breakpoint-up(lg) {
                 margin-top: rem(20);
-                text-align: initial;
+                text-align: left;
             }
             .add-to-cart {
                 width: 100%;
