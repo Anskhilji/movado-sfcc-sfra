@@ -1,5 +1,7 @@
 'use strict';
 
+const { load } = require("cheerio");
+
 module.exports = {
     showMoreText: function () {
 
@@ -46,19 +48,22 @@ module.exports = {
             e.preventDefault();
         });  
 
+        var popoupTitle = $('.debossing-form .popup-title').text();
+        $('.debossing-btn .open-popup').text(popoupTitle);
 
         $(document).on('click', 'form[name="embossing"] button', function (e) {
             $(this).removeClass('submitted');
         });
 
         $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-            $('.debossing-btn > edit-popup').addClass('show-deboss-text');
+            $('.debossing-btn edit-popup').addClass('show-deboss-text');
             var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
             setTimeout(function() {
-                var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
+                var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());
                 if(debossingtext == undefined || debossingtext == "") {
                     $('.pdp-v-one .debossing-text').text("");
                 } else {
+                    $('.debossing-btn').addClass('submitted');
                     $('.pdp-v-one .debossing-text').text(debossingtext);
                     $('.debossing-cancel').attr('form', 'embossingForm');
                     $('.debossing-cancel').attr('type', 'submit');
@@ -78,5 +83,11 @@ module.exports = {
             $('.popup-opened').hide();
             e.preventDefault();
         });
+
+        $('.pdp-v-one .dont-add').on('click', function(e) { 
+            $('.debossing-btn').removeClass('submitted');
+        });
     }
 }
+
+
