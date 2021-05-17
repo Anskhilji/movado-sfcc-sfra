@@ -466,11 +466,20 @@
             top: rem(20);
             left: rem(20);
             display: none;
+
+            .col {
+                padding: 0;
+            }
+
+            .row {
+                margin: 0;
+            }
             @include media-breakpoint-up(lg) {
                 display: block;
             }
     
             .breadcrumb {
+                padding: 0;
     
                 &-item {
                     a {
