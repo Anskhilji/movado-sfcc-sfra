@@ -25,7 +25,7 @@ server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var viewData = res.getViewData();
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
     && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    if (!ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
+    if (!ABTestMgr.isParticipant('OBRedesignPLPABTest','render-new-design')) {
         resultsTemplate = isAjax ? 'search/old/searchResultsNoDecorator' : 'search/old/searchResults';
     } else {
         resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
@@ -57,7 +57,7 @@ server.replace('Refinebar', cache.applyShortPromotionSensitiveCache,  function (
     );
     
     var refineBarTemplate;
-    if (!ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
+    if (!ABTestMgr.isParticipant('OBRedesignPLPABTest','render-new-design')) {
         refineBarTemplate = '/search/old/searchRefineBar';
     } else {
         refineBarTemplate ='/search/searchRefineBar';
@@ -91,7 +91,7 @@ server.replace('UpdateGrid', cache.applyShortPromotionSensitiveCache, function (
     );
 
     var productGridTemplate;
-    if (!ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
+    if (!ABTestMgr.isParticipant('OBRedesignPLPABTest','render-new-design')) {
         productGridTemplate = '/search/old/productGrid';
     } else {
         productGridTemplate ='/search/productGrid';
