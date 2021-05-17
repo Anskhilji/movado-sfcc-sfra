@@ -1109,7 +1109,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
     }
     if (!empty(feedColumns['salePrice_CA'])) {
-        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product);
+        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true);
     }
     if (!empty(feedColumns['availability_CA'])) {
         productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
@@ -1118,7 +1118,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.price_FR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
     }
     if (!empty(feedColumns['salePrice_FR'])) {
-        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product);
+        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true);
     }
     if (!empty(feedColumns['availability_FR'])) {
         productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
@@ -1308,7 +1308,7 @@ function buildStringAttributes(attributeArray, feedParameters) {
  * @returns {String} product price decimal.
  */
 
-function getPromotionalPricePerPriceBook(currencyCode, product) {
+function getPromotionalPricePerPriceBook(currencyCode, product, skipOriginalPrice) {
     var Transaction = require('dw/system/Transaction');
     var Currency = require('dw/util/Currency');
     var promotionalPrice;
@@ -1326,7 +1326,7 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
     });
     if (promotionalPrice > 0) {
         productDecimalPrice = promotionalPrice;
-    } else {
+    } else if(!skipOriginalPrice) {
         if (product.getPriceModel().getPrice()) {
             if (product.getPriceModel().getPrice().decimalValue) {
                 productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
@@ -1338,7 +1338,7 @@ function getPromotionalPricePerPriceBook(currencyCode, product) {
         session.setCurrency(defaultCurrency);
     }
 
-    return productDecimalPrice + " " + currencyCode;
+    return productDecimalPrice !== '' ? productDecimalPrice + " " + currencyCode : '';
 }
 
 /**
