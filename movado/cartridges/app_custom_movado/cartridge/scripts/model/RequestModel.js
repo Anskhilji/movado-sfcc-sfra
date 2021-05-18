@@ -10,7 +10,7 @@ var URLUtils = require('dw/web/URLUtils');
  * @param {Date} orderCreationTime – It is order creation dateTime in the Date object.
  * @returns {string} orderCreationTimeInUnix – It will return GMT Unix timeStamp.
  */
- var getOrderTimeInGMTUnixTimeStamp = function (orderCreationTime) {
+var getOrderTimeInGMTUnixTimeStamp = function (orderCreationTime) {
     var orderCreationTimeInUnix = '';
     try {
         var orderCalendar = new Calendar(orderCreationTime);
@@ -57,12 +57,12 @@ function generateFBConversionAPIPayLoad(order) {
             client_user_agent: order.custom.userAgent,
             fbc: !empty(request.httpCookies['_fbc']) ? request.httpCookies['_fbc'].value : '',
             fbp: !empty(request.httpCookies['_fbp']) ? request.httpCookies['_fbp'].value : '',
-            em: convertDataInto_SHA256_HASH(order.customerEmail.toLowerCase()),
-            fn: convertDataInto_SHA256_HASH(order.billingAddress.firstName.toLowerCase()),
-            ln: convertDataInto_SHA256_HASH(order.billingAddress.lastName.toLowerCase()),
-            country: convertDataInto_SHA256_HASH(order.billingAddress.countryCode.value.toLowerCase()),
-            st: convertDataInto_SHA256_HASH(order.billingAddress.stateCode.toLowerCase()),
-            ct: convertDataInto_SHA256_HASH(order.billingAddress.city.trim().toLowerCase()),
+            em: convertDataInto_SHA256_HASH(order.customerEmail != null ? order.customerEmail.toLowerCase() : ''),
+            fn: convertDataInto_SHA256_HASH(order.billingAddress.firstName != null ? order.billingAddress.firstName.toLowerCase() : ''),
+            ln: convertDataInto_SHA256_HASH(order.billingAddress.lastName != null ? order.billingAddress.lastName.toLowerCase() : ''),
+            country: convertDataInto_SHA256_HASH(order.billingAddress.countryCode.value != null ? order.billingAddress.countryCode.value.toLowerCase() : ''),
+            st: convertDataInto_SHA256_HASH(order.billingAddress.stateCode != null ? order.billingAddress.stateCode.toLowerCase() : ''),
+            ct: convertDataInto_SHA256_HASH(order.billingAddress.city != null ? order.billingAddress.city.trim().toLowerCase() : ''),
             zp: convertDataInto_SHA256_HASH(order.billingAddress.postalCode),
             ph: convertDataInto_SHA256_HASH(order.billingAddress.phone),
             external_id: order.customerNo
