@@ -307,7 +307,7 @@ server.get('FBConversion', function (req, res, next) {
     try {
         var result = FBConversionAPI.fbConversionAPI(order);
     } catch (error) {
-        Logger.error('(Order.js -> FBConversion) Error is occurred in FBConversionAPI.fbConversionAPI', error);
+        Logger.error('(Order.js -> FBConversion) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
     }
     res.json({
         message: result.message,
