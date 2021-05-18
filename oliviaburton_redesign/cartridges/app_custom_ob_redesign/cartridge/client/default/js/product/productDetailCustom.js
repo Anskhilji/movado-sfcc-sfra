@@ -64,10 +64,16 @@ module.exports = {
                 if((debossingtext == undefined || debossingtext == "") && (debossingtextEdit == undefined || debossingtextEdit == "") && (debossingtextVertical == undefined || debossingtextVertical == "") ) {
                     $('.pdp-v-one .debossing-text').text("");
                 } else {
-                    $('.debossing-btn').addClass('submitted');
-                    $('.pdp-v-one .debossing-text').text(debossingtext);
-                    $('.pdp-v-one .debossing-text').text(debossingtextEdit);
-                    $('.pdp-v-one .debossing-text').text(debossingtextVertical);
+                    $('.debossing-btn').addClass('submitted'); 
+                    if (debossingtext !=='' && debossingtext !==undefined) {
+                        $('.pdp-v-one .debossing-text').text(debossingtext);
+                    }
+                    if (debossingtextEdit !=='' && debossingtextEdit !==undefined) {
+                        $('.pdp-v-one .debossing-text').text(debossingtextEdit);
+                    }
+                    if (debossingtextVertical !=='' && debossingtextVertical !==undefined) {
+                        $('.pdp-v-one .debossing-text').text(debossingtextVertical);
+                    }
                     $('.debossing-cancel').attr('form', 'embossingForm');
                     $('.debossing-cancel').attr('type', 'submit');
                     $('.option-message input').attr("readonly", false);
