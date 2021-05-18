@@ -3,6 +3,7 @@ var Logger = require('dw/system/Logger');
 var MessageDigest = require('dw/crypto/MessageDigest');
 var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 /**
  * It is used to convert the order creation date time into GMT Unix timeStamp.
  *
@@ -48,7 +49,7 @@ function generateFBConversionAPIPayLoad(order) {
     bodyObject.data.push({
         event_name: sitePreferences.eventName,
         event_time: getOrderTimeInGMTUnixTimeStamp(order.creationDate),
-        event_source_url: sitePreferences.sourceUrl,
+        event_source_url: sitePreferences.sourceUrl || URLUtils.url('Order-Confirm'),
         action_source: sitePreferences.actionSource,
         event_id: order.orderNo,
         user_data: {
