@@ -48,9 +48,6 @@ module.exports = {
             e.preventDefault();
         });  
 
-        var popoupTitle = $('.debossing-form .popup-title').text();
-        $('.debossing-btn .open-popup').text(popoupTitle);
-
         $(document).on('click', 'form[name="embossing"] button', function (e) {
             $(this).removeClass('submitted');
         });
@@ -119,6 +116,20 @@ module.exports = {
             $('body, html').removeClass('no-overflow');
             $('body').removeClass('no-scroll');
             $('.popup-opened').hide();
+        });
+
+        $('.pdp-v-one .popup-tabs .debossing-tabs').on('click', function(e) {
+            var $popuptab = $(this).data('id');
+            if ($popuptab !==undefined && $popuptab !=='') {
+                if ($popuptab == 'horizontal-text') {
+                    $('.pdp-v-one .popup-body .orientation-switch .orientation-horizontal').attr('checked',true);
+                    $('.pdp-v-one .popup-body .orientation-switch .orientation-vertical').attr('checked',false)
+                }
+                if ($popuptab == 'vertical-text') {
+                    $('.pdp-v-one .popup-body .orientation-switch .orientation-vertical').attr('checked',true);
+                    $('.pdp-v-one .popup-body .orientation-switch .orientation-horizontal').attr('checked',false);
+                }
+            }
         });
     }
 }
