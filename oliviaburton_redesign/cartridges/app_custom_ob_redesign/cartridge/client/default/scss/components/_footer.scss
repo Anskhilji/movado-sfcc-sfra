@@ -109,7 +109,7 @@
     
                 @include media-breakpoint-down(sm) {
                     padding: rem(16);
-                    background-color: $white-smoke;
+                    background-color: $pink-smoke;
                 }
             }
     
@@ -415,7 +415,7 @@
 
 
 .sub-footer-container {
-    background-color: $white-smoke;
+    background-color: $pink-smoke;
     padding: rem(28) rem(25);
     
     @include media-breakpoint-down(sm) {
