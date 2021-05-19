@@ -12,6 +12,10 @@
         
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
+            <isset name="eswEshopworldModuleEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+            <isif condition="${eswEshopworldModuleEnabled}">
+                <isinclude url="${URLUtils.url('EShopWorld-SetRequestCountryParamCurrency','countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}" />
+            </isif>
             <isinclude url="${URLUtils.url('Page-IncludeHeader','countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' , 'productSearch', !empty(pdict.productSearch) ? pdict.productSearch : '' , 'httpURL' , !empty(request.httpURL) ? request.httpURL : '')}" />
             <isinclude url="${URLUtils.url('EmailPopUp-Show', 'RefererPath', request.httpPath)}">
             <div id="mainContent">
