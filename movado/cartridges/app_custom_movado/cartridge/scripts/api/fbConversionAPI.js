@@ -1,6 +1,6 @@
 'use strict';
 
-var Logger = require('dw/system/Logger');
+var Logger = require('dw/system/Logger').getLogger('Conversion');;
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var fbConversionAPIHelper = require('~/cartridge/scripts/helpers/fbConversionAPIHelper');
 
@@ -14,7 +14,7 @@ function fbConversionAPI(order) {
         result = fbConversionAPIHelper.fbConversionAPICall(order, service);
 
     } catch (e) {
-        Logger.error('FB Conversion API fbConversionAPI: some exception occured - {0}', e.toString());
+        Logger.error('Error Occured during fbConversionAPICall: error is : {0}', e.toString());
     }
     return result;
 }

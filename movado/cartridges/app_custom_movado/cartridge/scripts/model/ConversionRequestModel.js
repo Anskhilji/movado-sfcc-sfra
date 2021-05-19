@@ -1,5 +1,5 @@
 'use strict';
-var Logger = require('dw/system/Logger');
+var Logger = require('dw/system/Logger').getLogger('Conversion');;
 var MessageDigest = require('dw/crypto/MessageDigest');
 var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
@@ -17,7 +17,7 @@ var getOrderTimeInGMTUnixTimeStamp = function (orderCreationTime) {
         orderCalendar.setTimeZone('GMT');
         orderCreationTimeInUnix = parseInt(orderCalendar.getTime() / 1000).toFixed(0);
     } catch (e) {
-        Logger.error('(FBConversionAPI.js -> getOrderTimeInGMTUnixTimeStamp) Error is occurred while converting the order datetime into GMT Unix time stamp. {0}', e.toString());
+        Logger.error('(ConversionRequestModel.js -> getOrderTimeInGMTUnixTimeStamp) Error is occurred while converting the order datetime into GMT Unix time stamp. {0}', e.toString());
     }
     return orderCreationTimeInUnix;
 };
@@ -35,14 +35,14 @@ var convertDataInto_SHA256_HASH = function (data) {
             messageDigest = new MessageDigest(MessageDigest.DIGEST_SHA_256);
             hash_SHA_256_String = messageDigest.digest(data);
         } catch (e) {
-            Logger.error('(RequestModel.js -> convertDataInto_SHA256_HASH) Error is occurred while converting the ' + data + ' into SHA256_HASH. {0}', e.toString());
+            Logger.error('(ConversionRequestModel.js -> convertDataInto_SHA256_HASH) Error is occurred while converting the ' + data + ' into SHA256_HASH. {0}', e.toString());
         }
     }
     return hash_SHA_256_String;
 };
 
 function generateFBConversionAPIPayLoad(order) {
-    var sitePreferences = Site.getCurrent().getPreferences().getCustom();
+    var sitePreferences = Site.current.preferences.custom;
     var bodyObject = {
         data: []
     };

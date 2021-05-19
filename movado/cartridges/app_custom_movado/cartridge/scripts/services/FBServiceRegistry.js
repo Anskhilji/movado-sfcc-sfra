@@ -18,7 +18,7 @@ function getAPIServiceConfigs() {
 }
 
 function getFBAPIService(serviceID) {
-    var sitePreferences = Site.getCurrent().getPreferences().getCustom();
+    var sitePreferences = Site.current.preferences.custom;
     var serviceConfig = getAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
 
