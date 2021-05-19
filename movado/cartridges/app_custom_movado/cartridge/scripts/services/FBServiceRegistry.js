@@ -6,10 +6,9 @@ var Site = require('dw/system/Site');
 function getAPIServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
-            var requestJSONString = JSON.stringify(args);
             svc.addHeader('Content-Type', 'application/json');
             svc.setRequestMethod('POST');
-            return requestJSONString;
+            return args;
         },
         parseResponse: function (svc, client) {
             return JSON.parse(client.text);

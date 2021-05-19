@@ -22,13 +22,12 @@ function fbConversionAPICall(order, service) {
         Logger.error('FACEBOOK Conversion API: {0}', e.toString());
     }
 
-    if (!empty(responsePayload.object) && !empty(responsePayload.object.empty)) {
-        if (!responsePayload.object.empty) {
-            result.success = true;
-        } else {
-            result.message = responsePayload.errorMessage;
-            result.success = false;
-        }
+    if (!empty(responsePayload.object) && !empty(responsePayload.object.fbtrace_id)) {
+        result.success = true;
+        result.message = responsePayload.msg;
+    } else {
+        result.success = false;
+        result.message = responsePayload.errorMessage;
     }
     return result;
 }
