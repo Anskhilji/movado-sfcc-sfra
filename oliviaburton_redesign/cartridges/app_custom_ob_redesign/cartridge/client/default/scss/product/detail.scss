@@ -100,7 +100,10 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-                    margin-bottom: rem(15);
+
+                    .yotpo-bottomline {
+                        margin-bottom: rem(15);
+                    }
                 }
 
                 .yotpo {
