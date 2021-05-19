@@ -1,15 +1,13 @@
 'use-strict'
 $(document).ready(function () {
-    var url = $('#FBConversion').data('url');
-    var order = {
-        order_no: $('#FBConversion').data('order-number')
-    }
-    if (url) {
+    var $fbConversion = $('#fb-conversion');
+    var url = $fbConversion.data('url');
+    var order_no = $fbConversion.data('order-number')
+    if (url && order_no) {
         $.ajax({
             url: url,
-            type: 'GET',
-            data: order,
-            dataType: 'json'
+            method: 'POST',
+            data: { order_no: order_no }
         });
     }
 })

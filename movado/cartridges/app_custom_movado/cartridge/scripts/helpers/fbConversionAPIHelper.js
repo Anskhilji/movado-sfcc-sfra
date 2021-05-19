@@ -2,7 +2,7 @@
 
 var FBServiceRegistry = require('~/cartridge/scripts/services/FBServiceRegistry');
 var ConversionRequestModel = require('~/cartridge/scripts/model/ConversionRequestModel');
-var Logger = require('dw/system/Logger').getLogger('Conversion');
+var Logger = require('dw/system/Logger').getLogger('OrderConversion');
 var Resource = require('dw/web/Resource');
 
 function getFBConversionAPIService(serviceID) {

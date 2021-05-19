@@ -298,13 +298,13 @@ server.append('Confirm', function (req, res, next) {
     }
     next();
 });
-server.get('FBConversion', function (req, res, next) {
+server.post('FBConversion', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
-    var ConversionLog = require('dw/system/Logger').getLogger('Conversion');
-    var FBConversionAPI = require('*/cartridge/scripts/api/fbConversionAPI');
-    var order = OrderMgr.getOrder(req.querystring.order_no);
+    var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
+    var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
+    var order = OrderMgr.getOrder(request.httpParameterMap.order_no.value);
     try {
-        var result = FBConversionAPI.fbConversionAPI(order);
+        var result = fbConversionAPI.fbConversionAPI(order);
     } catch (error) {
         ConversionLog.error('(Order.js -> FBConversion) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
     }

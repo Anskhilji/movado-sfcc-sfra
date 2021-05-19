@@ -1,5 +1,5 @@
 'use strict';
-var Logger = require('dw/system/Logger').getLogger('Conversion');;
+var Logger = require('dw/system/Logger').getLogger('OrderConversion');
 var MessageDigest = require('dw/crypto/MessageDigest');
 var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
@@ -43,10 +43,10 @@ var convertDataInto_SHA256_HASH = function (data) {
 
 function generateFBConversionAPIPayLoad(order) {
     var sitePreferences = Site.current.preferences.custom;
-    var bodyObject = {
+    var payLoad = {
         data: []
     };
-    bodyObject.data.push({
+    payLoad.data.push({
         event_name: sitePreferences.eventName,
         event_time: getOrderTimeInGMTUnixTimeStamp(order.creationDate),
         event_source_url: sitePreferences.sourceUrl || URLUtils.url('Order-Confirm'),
@@ -74,7 +74,7 @@ function generateFBConversionAPIPayLoad(order) {
         },
         opt_out: false
     });
-    return JSON.stringify(bodyObject);
+    return JSON.stringify(payLoad);
 }
 module.exports = {
     generateFBConversionAPIPayLoad: generateFBConversionAPIPayLoad

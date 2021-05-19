@@ -1,6 +1,6 @@
 'use strict';
 
-var Logger = require('dw/system/Logger').getLogger('Conversion');;
+var Logger = require('dw/system/Logger').getLogger('OrderConversion');;
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var fbConversionAPIHelper = require('~/cartridge/scripts/helpers/fbConversionAPIHelper');
 
