@@ -193,6 +193,10 @@ $arrow-height: 1.25em;
 
     .primary-images {
 
+        .js-zoom-image {
+            display: none;
+        }
+
         .cs-carousel-wrapper {
             margin-bottom: rem(10);
 
@@ -1012,6 +1016,10 @@ $arrow-height: 1.25em;
 .container-fluid.pdp-v-two {
     padding-top: rem(40);
 
+    .js-zoom-image {
+        display: none;
+    }
+    
     .mobile-detail-head {
         margin-bottom: rem(30);
     }
