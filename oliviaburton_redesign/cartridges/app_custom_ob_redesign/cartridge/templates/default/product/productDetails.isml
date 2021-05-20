@@ -32,7 +32,7 @@
 
                         <!-- Family Name -->
                         <isif condition="${pdict.plpProductFamilyName}">
-                            <h1 class="family-name s">${pdict.collectionName}</h1>
+                            <h1 class="family-name">${pdict.collectionName}</h1>
                         </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
