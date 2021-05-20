@@ -70,13 +70,16 @@
       font-weight: normal;
     }
 
-    .embossing-attribute {
-      color: $light-black;
-      .embossing-color {
-        color: $light-black;
-      }
-    }
+    .embossing {
 
+      &-attribute {
+         color: $light-black;
+         
+      &-color {
+          color: $light-black;
+        }
+      }
+    }  
     .option-message {
       .form-control {
         font-family: $font-gills-light;
