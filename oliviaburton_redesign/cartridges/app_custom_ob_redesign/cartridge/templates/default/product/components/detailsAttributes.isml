@@ -1,11 +1,12 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
     <div class="details-img-atrribute col-12 d-lg-flex justify-content-center align-items-center">
+        <iscomment> Custom Comment: Product 3rd image added </iscomment>
         <div class="details-img">
             <isif condition="${product && product.images}">
-                <img src="${!empty(product.images) && !empty(product.images.pdp533[2]) && !empty(product.images.pdp533[3].url) ? product.images.pdp533[2].url : product.images.pdp533[0].url}" alt="${image.alt}" itemprop="image" />
+                <img src="${!empty(product.images) && !empty(product.images.pdp533[2]) && !empty(product.images.pdp533[2].url) ? product.images.pdp533[2].url : product.images.pdp533[0].url}" alt="${image.alt}" itemprop="image" />
             </isif>
         </div>
-
+        <iscomment> Custom Comment: Logic implemented to render new column 6 attribute according to design requirment </iscomment>
         <div class="details-list-height ${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 'six-height': 'five-height') : '' }">
             <isset name="maxCloumnItems" value="${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
             <isloop items="${product.pdpAttributesList}" var="attr" status="loopStatus">

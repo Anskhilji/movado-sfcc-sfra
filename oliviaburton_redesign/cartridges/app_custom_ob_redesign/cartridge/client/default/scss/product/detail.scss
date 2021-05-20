@@ -1,5 +1,6 @@
 @import "~movado/product/detail";
 @import "../variables";
+@import '../components/backInStockNotification';
 .product-detail {
 
     &-redesign {
@@ -813,17 +814,17 @@
         }
 
         .availability-msg {
+            @include font-gill ($font-size:12, $font-weight: 600);
+            line-height: rem(20);
+            color: $dark-gray;
+            text-transform: capitalize !important;
 
-            div {
-                @include font-gill ($font-size:12, $font-weight: 600);
+            @include media-breakpoint-up(lg) {
+                font-size: rem(15);
                 line-height: rem(20);
-                color: $dark-gray;
+            }
+            li {
                 text-transform: capitalize !important;
-
-                @include media-breakpoint-up(lg) {
-                    font-size: rem(15);
-                    line-height: rem(20);
-                }
             }
         }
 

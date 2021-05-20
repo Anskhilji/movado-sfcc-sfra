@@ -106,8 +106,8 @@
                 </div>
             </div>
         </div>
-
-
+        
+        <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
         <div class="container-fluid detail-specs product-detail-redesign">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
