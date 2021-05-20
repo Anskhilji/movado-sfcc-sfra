@@ -44,7 +44,7 @@ $arrow-height: 1.25em;
     }
 
     .product-name {
-        @include font-bold;
+        @include font-demi;
         font-size: rem(34);
         color: $grey8;
         letter-spacing: normal;
@@ -193,6 +193,10 @@ $arrow-height: 1.25em;
 
     .primary-images {
 
+        .js-zoom-image {
+            display: none;
+        }
+
         .cs-carousel-wrapper {
             margin-bottom: rem(10);
 
@@ -238,6 +242,14 @@ $arrow-height: 1.25em;
                         min-width: auto;
                         max-width: 70%;
                     }
+                }
+            }
+
+            .slide-video {
+
+                @include media-breakpoint-up(xl) {
+                    padding-left: 15%;
+                    padding-right: 15%;
                 }
             }
         }
@@ -1004,6 +1016,10 @@ $arrow-height: 1.25em;
 .container-fluid.pdp-v-two {
     padding-top: rem(40);
 
+    .js-zoom-image {
+        display: none;
+    }
+    
     .mobile-detail-head {
         margin-bottom: rem(30);
     }

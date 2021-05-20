@@ -113,9 +113,8 @@
     button{
       border: none;
       font-size:rem(15);
-      @include font-medium;
+      @include font-demi;
       color: $black;
-      font-weight: bold;
       outline: none;
       padding-left: rem(25);
       background: url("../images/filter.png") left center no-repeat;
@@ -141,8 +140,7 @@
     }
 
     .make-bold, .category-name {
-        @include font-medium;
-        font-weight: bold;
+        @include font-demi;
         font-size: rem(17);
         margin: 0;
         margin-right: rem(5);
@@ -411,10 +409,9 @@
         .reset {
           color: $regent-grey;
           font-size: rem(15);
-          @include font-medium;
+          @include font-demi;
           padding: 0;
           border-bottom: 1px solid $regent-grey;
-          font-weight: bold;
           letter-spacing: normal;
           text-decoration: none;
           display: block;

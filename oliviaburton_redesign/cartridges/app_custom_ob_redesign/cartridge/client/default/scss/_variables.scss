@@ -1,10 +1,16 @@
+.tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
+
 $font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
 $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
+$font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
+$font-awesome: "FontAwesome";
 
+$pink-snow: #FBF7F7;
 $pink-rose: #E9D7D5;
-$white-smoke:  #FFF3F1;
+$pink-smoke:  #FFF3F1;
+$pink-hot: #e9a9c6;
 $gray20: #333333;
 $dark-gray: #7B7B7B;
 $custom-xl: rem(1440);
@@ -13,4 +19,26 @@ $black-pearl: #010B19;
 $storm-gray: #787A8A;
 $seashell: #fdfbfa;
 $pink: pink;
+$snow: #fcf9f9;
+$mercury:  #e4e4e4;
+$light-grey: #d2d2d2;
+$pink-grey: #ead7d5;
+
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
+$black-russian: #00091B;
+$gainsboro: #D8D8D8;
+$pale-rose: #E9D7D5;
+$eclipse: #3A3A3A;
+$grey: #868686;
+$gray90: #E5E5E5;
+$white-smoke: #F0F0F0;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px
+);

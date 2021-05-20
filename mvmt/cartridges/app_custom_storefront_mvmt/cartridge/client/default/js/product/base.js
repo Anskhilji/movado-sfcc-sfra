@@ -1,6 +1,8 @@
 'use strict';
 var movadoBase = require('movado/product/base');
 var updateMiniCart = true;
+var pdpVideoLoaded = false;
+var videoStatusChecker;
 function setMiniCartProductSummaryHeight () {
     var $miniCartHeaderTitle = parseInt($('.mini-cart-data .popover .title-free-shipping').outerHeight(true));
     var $miniCartCountrySelector = parseInt($('.mini-cart-data .popover .cart-country-selector').outerHeight(true));
@@ -198,10 +200,8 @@ function processSwatchValues(attr, $productContainer) {
         } 
         // Disable if not selectable
         if (!attrValue.selectable) {
-            $swatchAnchor.attr('disabled', true);
             $swatchAnchor.addClass('disabled');
         } else {
-            $swatchAnchor.attr('disabled', false);
             $swatchAnchor.removeClass('disabled')
         }
     });
@@ -234,10 +234,8 @@ function processNonSwatchValues(attr, $productContainer) {
             .removeAttr('disabled');
 
         if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
             $attrValue.addClass('disabled');
         } else {
-            $attrValue.attr('disabled', false);
             $attrValue.removeClass('disabled')
         }
 
@@ -408,6 +406,30 @@ var updateCartPage = function(data) {
     }
 };
 
+function checkVideoStatus() {
+    var $slideVideo = $('.slide-video');
+    var firstVideoSlide = $slideVideo[0];
+    if (firstVideoSlide && firstVideoSlide.readyState == '4') {
+        $slideVideo.get(0).play();
+        pdpVideoLoaded = true;
+        var $primaryImagesContainer = $('.primary-images');
+        var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+        var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+        var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+
+        if ($videoSlide.length > 0 && pdpVideoLoaded) {
+            $zoomButtons.addClass('d-none');
+            $imageSlide.css('pointer-events', 'none');
+            $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+        }
+        $slideVideo.removeClass('d-none');
+
+        clearInterval(videoStatusChecker);
+    } else if (document.readyState == 'complete') {
+        clearInterval(videoStatusChecker);
+    }
+}
+
 /**
  * Add gallery slider in functionality in PDP Primary images
  */
@@ -564,6 +586,19 @@ function handleVariantResponse(response, $productContainer) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+    // pdp Video for variations
+    var pdpVideoConfigs = response.product.pdpVideoConfigs;
+    if (pdpVideoConfigs && pdpVideoConfigs != 'undefined' && pdpVideoConfigs != '') {
+        pdpVideoLoaded = false;
+        var $videoSlide = $('.primary-images .carousel-tile .slide-video');
+        $videoSlide.addClass('d-none');
+        if (pdpVideoConfigs.videoURL != '') {
+            $videoSlide.attr('src', pdpVideoConfigs.videoURL);
+            videoStatusChecker = setInterval(function () {
+                checkVideoStatus();
+            }, 1000);
+        }
+    }
 
     // Update Family Name and Case Diameter
     if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
@@ -754,6 +789,28 @@ function handleVariantResponse(response, $productContainer) {
         window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
         window.KlarnaOnsiteService.push({
             eventName: 'refresh-placements'
+        });
+    }
+    
+    // Add check for master product in case of backinstcok
+    var $backInStockContanier = $('.back-in-stock-notification-container');
+    if ($backInStockContanier.length > 0 && response.product.productType == "master") {
+        $backInStockContanier.addClass('d-none');
+    }
+
+    // Handle out of stock button scenario for new varition secnarios
+    var $addToCartSelector = $('button.add-to-cart');
+    if (response.product.available && response.product.readyToOrder) {
+        $addToCartSelector.removeClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', false);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('add-to-cart-text'));
+        });
+    } else {
+        $addToCartSelector.addClass('out-of-stock-btn');
+        $addToCartSelector.prop('disabled', true);
+        $addToCartSelector.each(function (index, button) {
+            $(button).contents().first().replaceWith($addToCartSelector.data('out-of-stock-text'));
         });
     }
 }

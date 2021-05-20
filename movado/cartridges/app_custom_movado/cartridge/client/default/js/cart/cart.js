@@ -376,7 +376,7 @@ function handleAddGiftCheckbox() {
 function enterGiftMessageHandler($element) {
     var $this = $element;
     var value = $this.val();
-    var maxchars = 140;
+    var maxchars = Resources.CART_GIFT_MESSAGE_LIMIT;
     var currentLength = value.length;
     var charsRemaining = maxchars - currentLength;
     var currentCard = $this.closest('.product-gift-wrap');

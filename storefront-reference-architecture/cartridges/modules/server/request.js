@@ -320,30 +320,36 @@ function Request(request, customer, session) {
                 if (!empty(countryCode)) {
                     session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+                   
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
                         var language = country.lang[0].languageCode;
                         var currencyCode = country.currencyCode;
                         countryCode = country.countryCode;
+                        var constant = require('*/cartridge/scripts/helpers/constants');
+                        var locale = language + constant.LANGUAGE_NAME_AND_COUNTRY_CODE_SEPARATOR + countryCode;
                         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-                        if (request.setLocale(language)) {
-                            if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
-                                eswHelper.setAllAvailablePriceBooks();
-                                //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
-                                var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
-                                    return country.value == countryCode;
-                                });
-                                if (empty(isFixedPriceCountry)) {
-                                    eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
-                                } else {
-                                    eswHelper.setBaseCurrencyPriceBook(request, currencyCode);
-                                }
-                                //Custom End  
-                            }
-                            eswHelper.selectCountry(countryCode, currencyCode, language);
-                            delete session.privacy.countryCode;
-                            session.privacy.countryCode = countryCode;
+                        if (eswHelper.checkIsEswAllowedCountry(countryCode) != null) {
+                            request.setLocale(language);
+                        } else {
+                            request.setLocale(locale);
                         }
+                        if (!eswHelper.overridePrice(request, countryCode, currencyCode)) {
+                            eswHelper.setAllAvailablePriceBooks();
+                            //Custom Start: Changing second parameter eswHelper.getBaseCurrencyPreference() into currencyCode if country is fixed price
+                            var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
+                                return country.value == countryCode;
+                            });
+                            if (empty(isFixedPriceCountry)) {
+                                eswHelper.setBaseCurrencyPriceBook(request, eswHelper.getBaseCurrencyPreference());
+                            } else {
+                                eswHelper.setBaseCurrencyPriceBook(request, currencyCode);
+                            }
+                            //Custom End  
+                        }
+                        eswHelper.selectCountry(countryCode, currencyCode, locale);
+                        delete session.privacy.countryCode;
+                        session.privacy.countryCode = countryCode;
                     }
                 }
             } catch (e) {

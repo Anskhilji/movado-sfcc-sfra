@@ -492,7 +492,7 @@ header.new-header {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    margin-left:3px;
+    margin-left: rem(2);
 
     svg {
       height: rem(13);
@@ -531,8 +531,9 @@ header.new-header {
     }
     .mobile-cart-close-icon {
       svg {
-        width: rem(12);
-        height: rem(13);
+        width: rem(15);
+        height: rem(15);
+        top: rem(3);
       }
     }
     &.right {
@@ -1248,6 +1249,8 @@ header.new-header.mvmt-header-design {
   
         .logo-link {
           display: flex;
+          margin-left: rem(33);
+
           svg {
             width: rem(80);
             height: rem(20);
