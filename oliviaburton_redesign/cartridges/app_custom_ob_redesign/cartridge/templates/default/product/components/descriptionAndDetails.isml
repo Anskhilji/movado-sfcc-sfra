@@ -8,11 +8,9 @@
             <p><isprint value="${product.longDescription}" encoding="off"/> </p>
         </div>
     </isif>
-    <isif condition="${!pdict.isCompareableDisabled}">
-        <isif condition="${product.attributes && product.attributes.length}">
-            <div class="row product-attributes">
-                <isinclude template="product/components/detailsAttributes" />
-            </div>
-        </isif>
+    <isif condition="${product.attributes && product.attributes.length}">
+        <div class="row product-attributes">
+            <isinclude template="product/components/detailsAttributes" />
+        </div>
     </isif>
 </div>
