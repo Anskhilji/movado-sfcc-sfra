@@ -25,7 +25,7 @@
 @font-face {font-family: 'RockwellStd';src: url('../webfonts/39E094_0_0.eot');src: url('../webfonts/39E094_0_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_0_0.woff2') format('woff2'),url('../webfonts/39E094_0_0.woff') format('woff'),url('../webfonts/39E094_0_0.ttf') format('truetype');}
  
   
-@font-face {font-family: 'Gill-Sans-MT-Light';src: url('../webfonts/39E094_1_0.eot');src: url('../webfonts/39E094_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_1_0.woff2') format('woff2'),url('../webfonts/39E094_1_0.woff') format('woff'),url('../webfonts/39E094_1_0.ttf') format('truetype');}
+@font-face {font-family: 'GillSansMTStd-Light';src: url('../webfonts/39E094_1_0.eot');src: url('../webfonts/39E094_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_1_0.woff2') format('woff2'),url('../webfonts/39E094_1_0.woff') format('woff'),url('../webfonts/39E094_1_0.ttf') format('truetype');}
  
   
 @font-face {font-family: 'GaramondMTStd-Italic';src: url('../webfonts/39E094_2_0.eot');src: url('../webfonts/39E094_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_2_0.woff2') format('woff2'),url('../webfonts/39E094_2_0.woff') format('woff'),url('../webfonts/39E094_2_0.ttf') format('truetype');}
@@ -35,9 +35,9 @@
 //font family
 $font-museo-std: "MuseoSlab-500", "Courier New", monospace;
 $font-museo-light: "MuseoSlab-300", "Courier New", monospace;
-$font-gill-std: "Gill-Sans-MT-Light", Arial, sans-serif;
+$font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
 $font-gill-std-medium: "Gill-Sans-MT-Medium", Arial, sans-serif;
-$font-gills-light: "Gill-Sans-MT-Light", Arial, sans-serif;
+$font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;
 $font-family-adobe: "GaramondMTPro-Italic", Times, serif;
 $font-adobe: "GaramondMTPro-Italic", Times, serif;
 
