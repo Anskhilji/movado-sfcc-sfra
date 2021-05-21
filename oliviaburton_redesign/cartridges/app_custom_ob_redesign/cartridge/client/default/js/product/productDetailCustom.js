@@ -131,7 +131,26 @@ module.exports = {
                 }
             }
         });
-    }
+    },
+    
+    primarySlider: function () {
+        $('.primary-images .main-ob-carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:true,
+            focusOnSelect: true,
+            fade: true,
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+
+        $( "img" ).dblclick(function() {
+            $(".js-zoom-image").trigger( "click" );
+        });
+    },
 }
 
 

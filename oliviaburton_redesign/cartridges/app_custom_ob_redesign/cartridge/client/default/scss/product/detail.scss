@@ -6,8 +6,207 @@
         max-width: rem(1440);
         margin: 0 auto;
 
+        &.product-wrapper {
+            height: rem(740);
+        }
+
+        .primary-images {
+            position: relative;
+            width: 100%;
+            text-align: center;
+
+            .cs-carousel-wrapper {
+                position: relative;
+                margin-bottom: 0;
+            }
+
+            .main-ob-carousel {
+                padding: rem(10) rem(40) 0;
+
+                @include media-breakpoint-up(md) {
+                    padding: 0;
+                }
+
+                @include media-breakpoint-up(lg) {
+                    padding-left: rem(100);
+                }
+
+                .slick {
+                    
+                    &-slide {
+                        text-align: center;
+
+                        img {
+                            display: inline-block;
+                        }
+
+                        .carousel-tile {
+                            overflow: visible;
+
+                            &.active {
+                                min-height: 80vh;
+                            }
+
+                            &.disabled {
+                                @include media-breakpoint-down(md) {
+                                    pointer-events: none;
+                                }
+                            }
+                        }
+
+                        .slide-video {
+                            position: absolute;
+                            min-width: 100%;
+                            max-width: 100%;
+                            height: 100%;
+                            width: inherit;
+                            max-height: 100%;
+                            object-fit: cover;
+                            margin: 0 auto;
+                            right: 0;
+                            display: block;
+                        }
+                    }
+
+                    &-dots {
+                        background: $light-grey2;
+                        margin: 0 auto;
+                        display: flex;
+                        max-width: rem(200);
+                        justify-content: center;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin-right: rem(12);
+
+                        @include media-breakpoint-up(lg) {
+                            width: rem(150);
+                            margin-top: 0;
+                            position: absolute;
+                            top: 0;
+                            left: rem(50);
+                            display: block;
+                            background: transparent;
+                            height: rem(400);
+                            overflow-y: scroll;
+
+                            &::-webkit-scrollbar {
+                                width: 0;
+                            }
+                        }
+
+                        li {
+                            height: rem(1);
+                            margin: 0;
+                            flex: 1;
+                            max-width: rem(130);
+
+                            button {
+                                height: 100%;
+                                width: 100%;
+                                border-radius: 0;
+                                background: $gainsboro;
+                                vertical-align: text-top;
+
+                                @include media-breakpoint-up(lg) {
+                                    background: transparent;
+                                    outline: none;
+                                    vertical-align: initial;
+                                }
+
+                                &:focus {
+                                    outline: none;
+                                }
+
+                                img {
+                                    display: none;
+
+                                    @include media-breakpoint-up(lg) {
+                                        width: 100%;
+                                        height: 100%;
+                                        display: block;
+                                    }
+                                }
+                            }
+
+                            &.slick-active {
+                                button {
+                                    background: $black;
+                                }
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                height: rem(82);
+                                width: rem(82);
+                                border-radius: 100%;
+                                overflow: hidden;
+                                margin: 0 rem(5);
+                                margin-bottom: rem(12);
+                                cursor: pointer;
+                                transition: all 0.4s;
+                                box-shadow: 0 rem(2) rem(4) 0 hsla(0, 0%, 78%, 0.6);
+                                border: rem(2) solid transparent;
+                                display: inline-block;
+
+                                &:hover {
+                                    box-shadow: 0 rem(6) rem(4) 0 hsla(0, 0%, 78%, 0.6);
+                                    border-color: $light-grey;
+                                }
+                            }
+                        }
+                    }
+
+                    &-arrow {
+                        position: absolute;
+                        outline: none;
+
+                        &.slick-prev {
+                            background: url("../../images/LeftArrowMob.svg") center center no-repeat;
+
+                            @include media-breakpoint-up(lg) {
+                                display: none !important;
+                            }
+                        }
+
+                        &.slick-next {
+                            background: url("../../images/RightArrowMob.svg") center center no-repeat;
+
+                            @include media-breakpoint-up(lg) {
+                                background: url("../../images/RightArrow.svg") center center no-repeat;
+                                right: rem(-48);
+                            }
+                        }
+                    }
+                }
+
+                .pointer-none {
+                    pointer-events: none;
+                }
+
+                .cursor-context {
+                    cursor: context-menu;
+                }
+            }
+        }
+
+        .js-zoom-image {
+            background: url("../../images/zoom_in.svg") center center no-repeat;
+            width: rem(40);
+            height: rem(40);
+            position: absolute;
+            margin-left: rem(20);
+            top: rem(400);
+            outline: none;
+
+            @include media-breakpoint-up(lg) {
+                position: absolute;
+                margin-left: rem(150);
+                top: rem(475);
+            }
+        }
+
         &.detail-specs {
             padding: 0;
+
             @include media-breakpoint-up(lg) {
                 padding-right: rem(15);
                 padding-left: rem(15);
@@ -17,6 +216,7 @@
         &.product-wrapper {
             position: relative;
             padding-top: rem(70);
+
             @include media-breakpoint-up(lg) {
                 padding-top: rem(140);
             }
@@ -29,6 +229,7 @@
                     border-radius: rem(40) rem(40) 0 0;
                     box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     position: relative;
+
                     &::before {
                         content: "";
                         position: absolute;
@@ -75,10 +276,12 @@
                 margin-top: rem(10);
                 align-items: center;
                 justify-content: center;
+
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
                     justify-content: initial;
                 }
+
                 .estimated-text {
                     display: none;
                 }
@@ -104,6 +307,7 @@
                 margin-left: rem(30);
                 margin-top: 0;
                 background: transparent;
+
                 &-mobile {
                     margin: 0;
                     padding: 0;
@@ -125,6 +329,7 @@
                     .yotpo-bottomline {
                         float: initial;
                         justify-content: center;
+
                         @include media-breakpoint-up(lg) {
                             justify-content: initial;
                             float: left;
@@ -214,8 +419,11 @@
             }
 
             .product-top-detail {
+                margin-top: rem(80);
                 padding: 0;
+
                 @include media-breakpoint-up(lg) {
+                    margin-top: rem(0);
                     flex: 0 0 43.4%;
                     max-width: 45.4%;
                     padding-right: rem(15);
@@ -239,6 +447,7 @@
                     flex: 0 0 56.6%;
                     max-width: 56.6%;
                 }
+
                 .slick {
                     &-slide {
                         img {
@@ -658,6 +867,7 @@
 
             .product-attributes {
                 margin: 0;
+
                 @include media-breakpoint-up(lg) {
                     margin-right: rem(-15);
                     margin-left: rem(-15);
@@ -711,6 +921,7 @@
                 .morecontent {
                     span {
                         display: none;
+
                         @include media-breakpoint-up(lg) {
                             display: inline;
                         }
@@ -719,6 +930,7 @@
                     .morelink {
                         text-transform: lowercase;
                         text-decoration: underline;
+
                         @include media-breakpoint-up(lg) {
                             display: none;
                         }
@@ -739,6 +951,7 @@
                 &-img {
                     img {
                         margin-bottom: rem(20);
+
                         @include media-breakpoint-up(lg) {
                             height: rem(500);
                             width: rem(500);
@@ -755,6 +968,7 @@
                         position: relative;
                         margin-left: rem(50);
                     }
+
                     .attribute {
                         &-detail {
                             margin-top: 0;
@@ -814,6 +1028,7 @@
                 font-size: rem(15);
                 line-height: rem(20);
             }
+
             li {
                 text-transform: capitalize !important;
             }
@@ -903,10 +1118,12 @@
         .add-to-cart-actions {
             margin-top: rem(15);
             text-align: center;
+
             @include media-breakpoint-up(lg) {
                 margin-top: rem(20);
                 text-align: initial;
             }
+
             .add-to-cart {
                 width: 100%;
                 height: rem(45);
