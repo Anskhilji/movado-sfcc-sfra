@@ -33,6 +33,23 @@ function notifyHttpParameterMap (hpm) {
 
     return notify(notificationData);
 }
+
+/**
+ * Removes order from pre order processing list.
+ * @params {Object} notificationData - notificationData object containing adyen notifiaction data 
+ */
+function removeOrderFromPreOrders(notificationData) {
+    var pspReference = notificationData.pspReference;
+    var OrderMgr = require('dw/order/OrderMgr');
+    if (!empty(pspReference)) {
+        var order = OrderMgr.searchOrder('custom.Adyen_pspReference={0}', pspReference);
+        if(!empty(order)) {
+            order.custom.isPreorderProcessing = false;
+        }
+    }
+}
+
+
 function notify (notificationData) {
     // Check the input parameters
     if (notificationData == null) {
@@ -59,10 +76,14 @@ function notify (notificationData) {
             case "AUTHORISATION" :
                 // Save all request to custom attribute for Authorization event
                 customObj.custom.Adyen_log = JSON.stringify(notificationData);
+            case "CAPTURE":
+                removeOrderFromPreOrders(notificationData);
             case "CANCELLATION" :
+                removeOrderFromPreOrders(notificationData);
             case "CANCEL_OR_REFUND" :
             case "REFUND" :
             case "CAPTURE_FAILED" :
+                removeOrderFromPreOrders(notificationData);
             case "ORDER_OPENED" :
             case "ORDER_CLOSED" :
             case "PENDING" :
