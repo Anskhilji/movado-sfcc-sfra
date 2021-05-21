@@ -322,6 +322,7 @@
                             max-width: rem(1200);
                             padding: rem(30) 0 rem(50) 0;
                         }
+                        
                         @include media-breakpoint-up(xxl) {
                             height: rem(700);
                         }
