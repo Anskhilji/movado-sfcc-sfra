@@ -37,7 +37,9 @@
                     <isprint value="${pdict.paypalButtonImg}" encoding="off" />
                 </a>
             </div>
-            <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+            <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+            </isif>
         </div>
     </isif>
 <iselse>
