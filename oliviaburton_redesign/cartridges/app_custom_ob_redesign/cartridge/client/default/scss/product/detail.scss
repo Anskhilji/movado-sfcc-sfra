@@ -1,8 +1,7 @@
 @import "~movado/product/detail";
 @import "../variables";
-@import '../components/backInStockNotification';
+@import "../components/backInStockNotification";
 .product-detail {
-
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
@@ -27,21 +26,21 @@
                     padding-top: rem(30);
                     background-color: $white;
                     border-radius: rem(40) rem(40) 0 0;
-                    box-shadow: 0 0 rem(6) 0 rgba(196,196,196,0.5);
+                    box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     position: relative;
                     &::before {
-                        content: '';
+                        content: "";
                         position: absolute;
                         width: 100%;
                         height: rem(5);
                         background-color: $white;
                         bottom: rem(-5);
-                    }   
+                    }
                 }
             }
 
             .family-name {
-                @include font-gill ($font-size: 20, $font-weight: 600);
+                @include font-gill($font-size: 20, $font-weight: 600);
                 line-height: rem(35);
                 color: $black;
                 text-transform: capitalize;
@@ -57,7 +56,7 @@
             }
 
             .product-name {
-                @include font-gill ($font-size: 20, $font-weight: 300);
+                @include font-gill($font-size: 20, $font-weight: 300);
                 line-height: rem(35);
                 color: $gray20;
                 text-transform: capitalize;
@@ -105,7 +104,7 @@
 
                 .yotpo {
                     a {
-                        @include font-gill ($font-size: 12, $font-weight: 300);
+                        @include font-gill($font-size: 12, $font-weight: 300);
                         color: $gray20 !important;
                         margin-left: rem(10);
 
@@ -130,7 +129,7 @@
                 padding: 0;
 
                 span {
-                    @include font-gill ($font-size: 28, $font-weight: 300);
+                    @include font-gill($font-size: 28, $font-weight: 300);
                     line-height: rem(45);
                     color: $gray20;
 
@@ -143,7 +142,7 @@
 
             .affirm {
                 &-as-low-as {
-                    @include font-gill ($font-size: 13);
+                    @include font-gill($font-size: 13);
                     line-height: rem(18);
                     color: $gray20;
                     margin: rem(20) 0;
@@ -157,7 +156,7 @@
 
                 &-modal-trigger {
                     padding: 0;
-                    @include font-gill ($font-size: 13);
+                    @include font-gill($font-size: 13);
                     line-height: rem(18);
                     color: $gray20;
                     display: inline-block;
@@ -173,16 +172,16 @@
                     border: none;
                     max-width: initial;
                     padding: 0;
-                    @include font-gill ($font-size: 13);
+                    @include font-gill($font-size: 13);
                     line-height: rem(18);
                     color: $gray20;
                     margin-top: rem(20);
                     background: transparent;
                     text-align: left;
-                    
+
                     .link {
                         padding: 0;
-                        @include font-gill ($font-size: 13);
+                        @include font-gill($font-size: 13);
                         line-height: rem(18);
                         color: $gray20;
                         display: inline-block;
@@ -200,7 +199,7 @@
                 }
 
                 .value {
-                    @include font-gill ($font-weight: 300);
+                    @include font-gill($font-weight: 300);
                     line-height: rem(25);
                     color: $gray20;
                 }
@@ -213,7 +212,7 @@
                     max-width: 45.4%;
                     padding-right: rem(15);
                     padding-left: rem(60);
-                }  
+                }
 
                 .cart-and-ipay {
                     @include media-breakpoint-down(md) {
@@ -228,7 +227,6 @@
             }
 
             .primary-images {
-
                 @include media-breakpoint-up(lg) {
                     flex: 0 0 56.6%;
                     max-width: 56.6%;
@@ -312,8 +310,7 @@
                     text-transform: lowercase;
                 }
 
-                .morecontent  {
-
+                .morecontent {
                     span {
                         display: none;
                         @include media-breakpoint-up(lg) {
@@ -332,7 +329,6 @@
             }
 
             .details {
-
                 &-img-atrribute {
                     padding: 0;
 
@@ -343,19 +339,17 @@
                 }
 
                 &-img {
-
                     img {
                         margin-bottom: rem(20);
                         @include media-breakpoint-up(lg) {
                             height: rem(500);
                             width: rem(500);
                             margin-bottom: rem(0);
-                        }  
+                        }
                     }
                 }
 
                 &-list {
-
                     @include media-breakpoint-up(lg) {
                         display: flex;
                         flex-direction: column;
@@ -384,14 +378,14 @@
                         }
 
                         &-name {
-                            @include font-gill ($font-weight:300);
+                            @include font-gill($font-weight: 300);
                             color: $gray20;
                             line-height: rem(25);
                             margin-bottom: rem(5);
                         }
-                        
+
                         &-value {
-                            @include font-gill ($font-weight: 600);
+                            @include font-gill($font-weight: 600);
                             color: $gray20;
                             line-height: rem(21);
                             text-transform: capitalize;
@@ -400,7 +394,6 @@
                     }
 
                     &-height {
-
                         @include media-breakpoint-up(lg) {
                             display: flex;
                         }
@@ -414,7 +407,7 @@
         }
 
         .availability-msg {
-            @include font-gill ($font-size:12, $font-weight: 600);
+            @include font-gill($font-size: 12, $font-weight: 600);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -429,9 +422,8 @@
         }
 
         .shipping-callout {
-
             span {
-                @include font-gill ($font-size:12, $font-weight: 600);
+                @include font-gill($font-size: 12, $font-weight: 600);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
@@ -443,9 +435,9 @@
                     font-size: rem(15);
                     line-height: rem(20);
                 }
-    
+
                 &::before {
-                    content: '';
+                    content: "";
                     position: absolute;
                     height: rem(10);
                     width: rem(1);
@@ -453,7 +445,7 @@
                     left: 0;
                     top: 50%;
                     transform: translateY(-45%);
-                    
+
                     @include media-breakpoint-up(lg) {
                         height: rem(13);
                     }
@@ -469,32 +461,31 @@
             @include media-breakpoint-up(lg) {
                 display: block;
             }
-    
+
             .breadcrumb {
-    
                 &-item {
                     a {
-                        @include font-gill ($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
+                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
                     }
-    
+
                     &:first-child {
                         a {
                             margin-left: 0;
                         }
                     }
-    
+
                     &:last-child {
                         a {
                             color: $dark-gray;
                         }
                     }
-    
+
                     + .breadcrumb-item {
                         padding-left: rem(10);
-    
+
                         &::before {
                             content: "";
                             display: inline-block;
@@ -522,7 +513,7 @@
                 width: 100%;
                 height: rem(45);
                 background: $black;
-                @include font-gill ($font-weight: 600);
+                @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
                 color: $white;
@@ -536,7 +527,8 @@
                     width: rem(330);
                 }
 
-                &:hover, &:focus {
+                &:hover,
+                &:focus {
                     background-color: transparent;
                     box-shadow: none;
                     color: $black;
