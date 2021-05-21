@@ -31,26 +31,17 @@
       }
       
     </isscript>
-
-
+    
     <div class="cs-carousel-wrapper">
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                <div class="carousel-tile"
-                    data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count - 1]) ? product.images.tile150[loopStatus
-                                .count - 1].url : ''}">
-                    <img class="normal-zoom"
-                        src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[
-                             loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"
-                        alt="${image.alt}" itemprop="image"
-                        data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[
-                                              loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
-                        data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[
-                                               loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
+                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count - 1]) ? product.images.tile150[loopStatus.count - 1].url : ''}">
+                    <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" alt="${image.alt}" itemprop="image"
+                        data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
+                        data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     <isset name="isImageExist" value="true" scope="page" />
-                    <isif
-                        condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
+                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
                         <video class="slide-video d-none" loop muted autoplay playsinline>
                             <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
                         </video>
@@ -60,8 +51,7 @@
         </div>
         <isif condition="${isImageExist}">
             <isif condition="${!isQuickView}">
-                <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct"
-                    aria-label="${product.resources.Zoom}">
+                <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
 
                 </button>
             </isif>
