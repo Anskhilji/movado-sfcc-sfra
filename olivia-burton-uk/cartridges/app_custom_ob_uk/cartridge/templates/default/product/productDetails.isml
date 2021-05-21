@@ -77,7 +77,7 @@
                             <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                             <isif condition="${klarnaAllowedCountry}">
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-                                    <div class="col-md-10 col-12 text-center text-sm-left">
+                                    <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
                                         <isinclude template="klarna/klarnaPromotionMessage" />
                                     </div>
                                 </isif>
@@ -86,7 +86,7 @@
                             <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                             <isif condition="${klarnaAllowedCountry}">
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-                                    <div class="col-md-10 col-12 text-center text-sm-left">
+                                    <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
                                         <isinclude template="klarna/klarnaPromotionMessage" />
                                     </div>
                                 </isif>
@@ -214,12 +214,6 @@
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
-                            <div class="row description">
-                                <isinclude template="product/components/productWhyBuyMe" />
-                            </div>
-                            <div class="row description">
-                                <isinclude template="product/components/description" />
-                            </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                     </div>

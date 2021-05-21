@@ -70,6 +70,16 @@
       font-weight: normal;
     }
 
+    .embossing {
+
+      &-attribute {
+        color: $light-black;
+      }
+      
+      &-color {
+        color: $light-black;
+      }
+    }  
     .option-message {
       .form-control {
         font-family: $font-gills-light;
@@ -570,6 +580,9 @@
         }
       }
     }
+    .total-price-text {
+      display: none;
+    }
   }
   .product-availability {
     font-family: $font-gills-light;
@@ -580,3 +593,10 @@
     margin-top: 0;
   }
 }
+@include media-breakpoint-down(md) {
+  .price-availability {
+    justify-content: center;
+  }
+}
+
+
