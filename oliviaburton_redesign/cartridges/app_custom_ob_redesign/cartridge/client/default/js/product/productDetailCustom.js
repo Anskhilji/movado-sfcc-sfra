@@ -22,7 +22,6 @@ module.exports = {
             }
         });
 
-
         $(".morelink").on('click',function(){
             if($(this).hasClass("less")) {
                 $(this).removeClass("less");
@@ -36,7 +35,7 @@ module.exports = {
             return false;
         });
     },
-
+    
     primarySlider: function () {
         $('.primary-images .main-ob-carousel').slick({
             slidesToShow: 1,
