@@ -17,7 +17,7 @@
         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
         <isif condition="${isEswEnabled}">
             <isset name="isDomesticCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-            <isif condition="${isDomesticCountry}">
+            <isif condition="${isDomesticCountry && !product.isProductRestricted}">
                 <isif condition="${product.available && product.readyToOrder}">
                     <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
                 </isif>
