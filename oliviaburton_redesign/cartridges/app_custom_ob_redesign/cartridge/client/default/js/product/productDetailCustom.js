@@ -38,7 +38,7 @@ module.exports = {
     },
 
     primarySlider: function () {
-        $('.primary-images .main-mvmt-carousel').slick({
+        $('.primary-images .main-ob-carousel').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true,
@@ -53,6 +53,6 @@ module.exports = {
 
         $( "img" ).dblclick(function() {
             $(".js-zoom-image").trigger( "click" );
-          });
+        });
     },
 }

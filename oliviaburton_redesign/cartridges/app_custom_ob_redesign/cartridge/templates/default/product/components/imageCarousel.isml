@@ -31,7 +31,7 @@
    
 
     <div class="cs-carousel-wrapper">
-        <div class="js-carousel cs-carousel main-mvmt-carousel">
+        <div class="js-carousel cs-carousel main-ob-carousel">
            <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
             <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">

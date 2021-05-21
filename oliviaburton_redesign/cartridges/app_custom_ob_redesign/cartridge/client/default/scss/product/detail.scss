@@ -3,7 +3,6 @@
 @import "../components/backInStockNotification";
 
 .product-detail {
-
   &-redesign {
     max-width: rem(1440);
     margin: 0 auto;
@@ -22,7 +21,7 @@
         margin-bottom: 0;
       }
 
-      .main-mvmt-carousel {
+      .main-ob-carousel {
         padding: rem(10) rem(40) 0;
 
         @include media-breakpoint-up(md) {
