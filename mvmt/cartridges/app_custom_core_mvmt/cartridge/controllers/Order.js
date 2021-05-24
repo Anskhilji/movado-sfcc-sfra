@@ -14,7 +14,8 @@ server.append('Confirm', function (req, res, next) {
         var order = OrderMgr.getOrder(orderNo);
         var requestParams = {
             email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
-            requestLocation: 'CHECKOUT_SERVICE'
+            requestLocation: 'CHECKOUT_SERVICE',
+            campaignName: 'Checkout'
         }
 
         if (!empty(requestParams.email)) {
