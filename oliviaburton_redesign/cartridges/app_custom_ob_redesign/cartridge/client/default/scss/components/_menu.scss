@@ -748,3 +748,13 @@
     }
 
 } 
+
+.main-menu {
+    .ob-old-menu-design {
+       .navbar-nav.ie {
+            @include media-breakpoint-up(lg) {
+                position: static;
+            }
+        }
+    }
+}
