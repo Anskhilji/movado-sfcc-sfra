@@ -70,7 +70,7 @@
     "url": "^0.11.0",
     "wdio-sauce-service": "^0.4.8",
     "webdriverio": "^3.3.0",
-    "webpack": "^4.29.6",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.2.3",
     "xml2js": "^0.4.17"
   },
@@ -120,12 +120,12 @@
     "mcsus": "./mcsus",
     "page_designer": "./page_designer",
     "oliviaburton_redesign": "./oliviaburton_redesign",
-	"custom_backinstock": "./int_custom_backinstock"
+    "custom_backinstock": "./int_custom_backinstock"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
-	"custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
+    "custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/js",
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",

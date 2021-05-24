@@ -1,7 +1,8 @@
+@import "../variables";
 .product-detail {
     &-redesign {
         .product {
-            height: rem(458);
+            height: rem(426);
             width: rem(260);
             opacity: rem(0.15);
             background-color: $bone;
@@ -311,15 +312,45 @@
         }
     }
 }
-.cs-carousel-wrapper.plp-carousel {
-        .slick-list {
-            margin: 0 rem(-25);
-            .slick-slide {
-                @include media-breakpoint-up(lg) {
-                    margin: 0 rem(25);
+
+.cs-carousel-wrapper.pdp-carousel {
+
+    max-width: rem(750);
+    margin: 0 auto;
+    
+    .slick-dots  {
+        button {
+            box-sizing: border-box;
+            height: 1px;
+            width: rem(85);
+            background-color: $dark-grey2;
+            cursor: pointer;
+            margin-right: rem(-5);
+        }
+
+        .slick-active {
+            button {
+                box-sizing: border-box;
+                height: rem(1);
+                border: rem(1) solid $black;
+                width: rem(133.33);
+                
+                &:focus {
+                    background-color: $black;
+                    outline: none;
                 }
             }
         }
+    }
+    .slick-list {
+        margin: 0 rem(-25);
+        .slick-slide {
+            @include media-breakpoint-up(lg) {
+                margin: 0 rem(25);
+                transform: translateX(-20px);
+            }
+        }
+    }
     .carousel-title {
         margin-right: rem(25);
         color: $black;
@@ -332,3 +363,4 @@
         text-transform: capitalize;
     }
   }
+  

@@ -36,7 +36,6 @@
 
                     &.show {
                         display: block;
-                        box-shadow: rem(1) rem(7) rem(8) rem(-7) $storm-gray;
                     }
 
                     .dropdown-wrapper {
@@ -154,6 +153,7 @@
                 &:not(.feature-dropdown) {
 
                     .dropdown-menu {
+                        
                         justify-content: flex-start;
                     }
                 }
@@ -698,3 +698,53 @@
     position: relative;
     z-index: 999;
 }
+
+.main-menu{
+    .nav-item{
+        > .dropdown-menu{
+            @include media-breakpoint-up(lg) {
+                width: auto;
+                min-width: 100%;
+            }
+    
+        }
+
+    }
+   
+}
+
+.main-menu {
+
+    .browse-collection {
+        @include media-breakpoint-up(lg) {
+            margin: 0;
+            margin-left: rem(70);
+        }
+
+}
+}
+
+.main-menu{
+    .menu-pane{
+        > .ul{
+            @include media-breakpoint-up(lg) {
+                margin-left: rem(70);
+            }
+        }
+        
+    }
+}
+
+.main-menu {
+    .dropdown-menu{
+        .featured-promotion{
+
+            @include media-breakpoint-up(lg) {
+                min-width: rem(200);
+                margin-left: rem(70);
+            }
+        }
+
+    }
+
+} 
