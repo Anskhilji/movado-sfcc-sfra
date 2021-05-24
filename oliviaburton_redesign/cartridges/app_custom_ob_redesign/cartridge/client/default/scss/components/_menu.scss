@@ -718,7 +718,7 @@
     .browse-collection {
         @include media-breakpoint-up(lg) {
             margin: 0;
-            margin-left: rem(16);
+            margin-left: rem(70);
         }
 
 }
@@ -748,3 +748,13 @@
     }
 
 } 
+
+.main-menu {
+    .ob-old-menu-design {
+       .navbar-nav.ie {
+            @include media-breakpoint-up(lg) {
+                position: static;
+            }
+        }
+    }
+}

@@ -65,3 +65,15 @@ $('.redesign-header .desktop-view .sub-ob-dropdown').mouseleave( function () {
     $('.header-banner').removeClass('ob-redesign-header-banner');
 });
 
+function isIE() {
+    ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    return is_ie; 
+  }
+  /* Create an alert to show if the browser is IE or not */
+  if (isIE()){
+      $('.main-menu .navbar-nav').addClass('ie');
+  } else{
+    $('.main-menu .navbar-nav').removeClass('ie');
+}
