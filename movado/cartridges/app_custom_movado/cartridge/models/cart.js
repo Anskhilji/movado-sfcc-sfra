@@ -1,7 +1,10 @@
 'use strict';
 
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
+
 var Cart = module.superModule;
+
 var collections = require('*/cartridge/scripts/util/collections');
 var GIFTWRAPPED = 'GiftWrapped';
 /**
@@ -38,7 +41,7 @@ function getGiftMessagingObject(){
     var giftMessagingObject = {};
     giftMessagingObject.giftText = Resource.msg('cart.gift.message.text','cart',null);
     giftMessagingObject.giftCharLimitText = Resource.msg('cart.gift.message.char.limit.text','cart',null);
-    giftMessagingObject.giftCharLimit = Resource.msg('cart.gift.message.char.limit','cart',null);
+    giftMessagingObject.giftCharLimit = !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0;
     giftMessagingObject.giftTextPlaceholder = Resource.msg('cart.gift.message.placeholder','cart',null);
     giftMessagingObject.buttonText = Resource.msg('cart.gift.message.button.text','cart',null);
     giftMessagingObject.missingText = Resource.msg('cart.gift.message.missing', 'cart', null);
@@ -59,9 +62,17 @@ function getLineItemGiftMessage(basket){
         collections.forEach(prodLineItems, function (item) {
             var lineItemGiftMsgObject = {};
             lineItemGiftMsgObject.giftMessage = item.custom.GiftWrapMessage;
-            lineItemGiftMsgObject.giftCharLimit = item.custom.GiftWrapMessage ? 
-                                                            ((Resource.msg('cart.gift.message.char.limit','cart',null) - item.custom.GiftWrapMessage.length).toFixed()):
-                                                            Resource.msg('cart.gift.message.char.limit','cart',null);
+
+            if (!empty(item.custom.GiftWrapMessage) && Site.current.preferences.custom.cartGiftMessageLimit && !empty(Site.current.preferences.custom.cartGiftMessageLimit)) {
+                lineItemGiftMsgObject.giftCharLimit = (Site.current.preferences.custom.cartGiftMessageLimit - item.custom.GiftWrapMessage.length).toFixed()
+            }
+            else if (empty(Site.current.preferences.custom.cartGiftMessageLimit)) {
+                lineItemGiftMsgObject.giftCharLimit = 0;
+            }
+            else{
+                lineItemGiftMsgObject.giftCharLimit = !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0;
+            }
+
             lineItemsGiftMsgObject[item.UUID] = lineItemGiftMsgObject;
         });
     }

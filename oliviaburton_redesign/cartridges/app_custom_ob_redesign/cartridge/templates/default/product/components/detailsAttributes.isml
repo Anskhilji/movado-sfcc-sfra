@@ -3,7 +3,7 @@
         <iscomment> Custom Comment: Product 3rd image added </iscomment>
         <div class="details-img">
             <isif condition="${product && product.images}">
-                <img src="${!empty(product.images) && !empty(product.images.pdp533[2]) && !empty(product.images.pdp533[3].url) ? product.images.pdp533[2].url : product.images.pdp533[0].url}" alt="${image.alt}" itemprop="image" />
+                <img src="${!empty(product.images) && !empty(product.images.pdp533[2]) && !empty(product.images.pdp533[2].url) ? product.images.pdp533[2].url : product.images.pdp533[0].url}" alt="${image.alt}" itemprop="image" />
             </isif>
         </div>
         <iscomment> Custom Comment: Logic implemented to render new column 6 attribute according to design requirment </iscomment>
