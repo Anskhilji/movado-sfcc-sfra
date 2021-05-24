@@ -14,7 +14,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container product-detail pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
