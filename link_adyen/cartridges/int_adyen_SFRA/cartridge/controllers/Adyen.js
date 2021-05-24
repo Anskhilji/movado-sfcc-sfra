@@ -246,7 +246,7 @@ server.post('Notify', server.middleware.https, function (req, res, next) {
         res.render('/error');
         return {};
     }
-    var	handleNotify = require('int_adyen_overlay/cartridge/scripts/handleNotify');
+    var	handleNotify = require('*/cartridge/scripts/handleNotify');
     Transaction.wrap(function () {
         handleNotify.notify(req.form);
     });
