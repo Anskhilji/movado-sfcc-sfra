@@ -33,7 +33,6 @@ function notifyHttpParameterMap (hpm) {
 
     return notify(notificationData);
 }
-
 function notify (notificationData) {
     // Check the input parameters
     if (notificationData == null) {
@@ -60,7 +59,7 @@ function notify (notificationData) {
             case "AUTHORISATION" :
                 // Save all request to custom attribute for Authorization event
                 customObj.custom.Adyen_log = JSON.stringify(notificationData);
-
+            case "CANCELLATION" :
             case "CANCEL_OR_REFUND" :
             case "REFUND" :
             case "CAPTURE_FAILED" :
