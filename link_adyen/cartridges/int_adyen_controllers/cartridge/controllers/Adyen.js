@@ -36,8 +36,13 @@ function notify() {
     	app.getView().render('error');
     	return {};
 	}
-
-	var	handleNotify = require('*/cartridge/scripts/handleNotify');
+	/**
+	 * Custom Start: Chnaged path to get file from overriding cartridge 
+	 */
+	var handleNotify = require('*/cartridge/scripts/handleNotify');
+	/**
+	 * Custom End:
+	 */
 	Transaction.wrap(function () {
    		handleNotify.notifyHttpParameterMap(request.httpParameterMap);
 	});

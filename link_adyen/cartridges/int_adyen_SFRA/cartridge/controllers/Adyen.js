@@ -245,8 +245,14 @@ server.post('Notify', server.middleware.https, function (req, res, next) {
     if (!status) {
         res.render('/error');
         return {};
-    }
-    var	handleNotify = require('*/cartridge/scripts/handleNotify');
+  }
+  /**
+   * Custom Start: Chnaged path to get file from overriding cartridge 
+   */
+  var handleNotify = require('*/cartridge/scripts/handleNotify');
+  /**
+   * Custom: End:
+   */
     Transaction.wrap(function () {
         handleNotify.notify(req.form);
     });
