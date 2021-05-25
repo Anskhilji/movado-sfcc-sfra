@@ -37,7 +37,7 @@ function notify() {
     	return {};
 	}
 	/**
-	 * Custom Start: Chnaged path to get file from overriding cartridge 
+	 * Custom Start: Chnaged path to get file from overriding cartridge in ticket MSS-1388
 	 */
 	var handleNotify = require('*/cartridge/scripts/handleNotify');
 	/**
