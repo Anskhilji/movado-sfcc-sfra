@@ -1304,10 +1304,22 @@ server.post(
         return next();
     }
 );
+
 server.get('UpdateAmazonPayCheckout', function (req, res, next) {
+    var HookMgr = require('dw/system/HookMgr');
+
     try {
         var currentBasket = BasketMgr.getCurrentBasket();
+
         Transaction.wrap(function () {
+            
+            if (currentBasket) {
+                if (session.privacy.taxError) { //if sabrix call fails
+                    HookMgr.callHook('dw.order.calculateTax', 'calculateTax', currentBasket);
+                    delete session.privacy.taxError;
+                }
+            }
+
             //Update call to amazon pay [MSS-1345] Code shifted from amazon_pay.js (Handle Method)
             var amazonPayRequest = new AmazonPayRequest(currentBasket, 'PATCH', '', ':checkoutSessionId', currentBasket.custom.amzPayCheckoutSessionId);
             var result = CheckoutSessionService.update(amazonPayRequest);
