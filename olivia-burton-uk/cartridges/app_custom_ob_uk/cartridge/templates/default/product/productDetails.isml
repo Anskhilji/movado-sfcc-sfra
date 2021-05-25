@@ -198,6 +198,9 @@
                         </isif>
 
                         <div class="col-12">
+                            <isif condition="${sitePref.enableBackInStock}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
                             <div class="row description">
                                 <isinclude template="product/components/productWhyBuyMe" />
                             </div>
@@ -211,9 +214,6 @@
                                     <isinclude template="product/components/socialIcons" />
                                 </isif>
                             </div>
-                            <isif condition="${sitePref.enableBackInStock}">
-                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                            </isif>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                     </div>
