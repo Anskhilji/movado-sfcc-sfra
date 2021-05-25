@@ -42,7 +42,7 @@
 
             <div class="row">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarousel" />
+                <isinclude template="product/components/old/imageCarousel" />
 
                 <div class="col-12 col-sm-6">
                     <!---Breadcrumbs--->
@@ -83,7 +83,7 @@
                             <hr />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
-                            <isinclude template="product/components/options" />
+                            <isinclude template="product/components/old/options" />
                         </isif>
                         <div class="col-md-10 col-12">
                             <isinclude template="product/components/mainAttributes" />
@@ -198,10 +198,10 @@
                                 </isif>
                             </div>
                             <div class="row description">
-                                <isinclude template="product/components/productWhyBuyMe" />
+                                <isinclude template="product/components/old/productWhyBuyMe" />
                             </div>
                             <div class="row description">
-                                <isinclude template="product/components/description" />
+                                <isinclude template="product/components/old/description" />
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
@@ -218,7 +218,7 @@
         </div>
 
         <div class="container">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/components/old/descriptionAndDetails" />
         </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
