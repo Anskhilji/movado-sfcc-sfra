@@ -3,7 +3,7 @@ var triggerEmail = true;
 var processResponse = function ($selector, data) {
     if (data.success) {
         $selector.find('.back-in-stock-notification-container-main, .back-in-stock-notification-marketing-container').addClass('d-none');
-        $('.back-in-stock-notification-container-success').removeClass('d-none');
+        $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
     } else {
         if (!data.success) {
             if (!data.isValidEmail) {
