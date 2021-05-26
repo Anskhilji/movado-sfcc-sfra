@@ -358,6 +358,19 @@ function getPDPContentAssetHTML (apiProduct) {
         return '';
     }
 }
+/**
+ * Method use to get color name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }color name
+ */
+ function getColor(apiProduct) {
+    var color = apiProduct.custom.color || '';
+    if (empty(color) && apiProduct.variant) {
+        color = apiProduct.masterProduct.custom.color || '';
+    }
+
+    return color;
+}
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
@@ -368,5 +381,6 @@ movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+movadoProductCustomHelper.getColor = getColor;
 
 module.exports = movadoProductCustomHelper;

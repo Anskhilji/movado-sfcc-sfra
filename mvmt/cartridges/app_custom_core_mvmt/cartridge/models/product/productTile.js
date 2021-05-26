@@ -25,6 +25,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var swatchesURL;
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
@@ -190,6 +191,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
+                Object.defineProperty(product, 'defaultVariantColor', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.color || ''
+                });
             }
             
         }
@@ -221,6 +226,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'caseDiameter', {
             enumerable: true,
             value: caseDiameter
+        });
+    }
+
+    if (!empty(color)) {
+        Object.defineProperty(product, 'color', {
+            enumerable: true,
+            value: color
         });
     }
     
