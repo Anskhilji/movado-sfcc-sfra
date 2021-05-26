@@ -365,7 +365,9 @@ footer {
 }
 
 .store-pickup-model {
-
+    &-header {
+        border: none;
+    }
     &-title {
         color: #333333;
         font-family: "Futura PT";
@@ -376,6 +378,86 @@ footer {
         text-transform: uppercase;
         padding-left: 32px;
     }
+
+    .store-pickup-zip-code {
+        display: inline;
+        padding-left: 32px;
+        position: relative;
+        bottom: 4px;
+
+        .store-pickup-zipcode-field {
+            box-sizing: border-box;
+            height: 40px;
+            width: 220px;
+            border: 1px solid #999999;
+            background-color: #FFFFFF;
+            padding-left: 10px;
+        
+            ::placeholder {
+                color: #666666;
+                font-family: "Futura PT";
+                font-size: 14px;
+                font-weight: 300;
+                letter-spacing: 0.4px;
+                line-height: 24px;
+            }
+        }
+
+    }   
+    .store-pickup-radius {
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+
+        .store-pickup-dropdown-field {
+            box-sizing: border-box;
+            height: 40px;
+            width: 220px;
+            border: 1px solid #999999;
+            background-color: #FFFFFF;
+            color: #000000;
+            font-family: "Futura PT";
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.4px;
+            line-height: 24px;
+            padding-left: 5px;
+            padding-top: 10px;
+      
+        }
+        .store-pickup-dropdown-label{
+            color: #666666;
+            font-family: "Futura PT";
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 0.29px;
+            line-height: 24px;
+            position: absolute;
+            left: 10px;
+            top: -2px;
+        }
+    }
+    .store-pickup-search-store {
+        display: inline-block;
+        margin-left: 20px;
+        position: relative;
+        bottom: 5px;
+        
+        .store-pickup-search-btn {
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            height: 40px;
+            width: 125px;
+            background-color: #FFFFFF;
+            color: #333333;
+            font-family: "Futura PT";
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.7px;
+            line-height: 24px;
+            text-align: center;
+        }
+    }
 }
 
 .set-your-store {
@@ -385,4 +467,13 @@ footer {
     font-weight: 300;
     letter-spacing: 1px;
     line-height: 18px;
+    position: relative;
+    bottom: 4.80px;
+  }
+
+  .store-pickup-button {
+    text-decoration: none;
+    position: relative;
+    top: 3px;
+    left: 12px;
   }

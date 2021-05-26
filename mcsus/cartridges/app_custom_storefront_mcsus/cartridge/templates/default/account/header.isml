@@ -4,7 +4,7 @@
       <i class="fa fa-sign-in" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
-    <a href="javascript:void(0);" class="" data-toggle="modal" data-target="#storePickUpModel">
+    <a href="" class="store-pickup-button" data-toggle="modal" data-target="#storePickUpModel">
         <span>
             <?xml version="1.0" encoding="UTF-8"?>
             <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
