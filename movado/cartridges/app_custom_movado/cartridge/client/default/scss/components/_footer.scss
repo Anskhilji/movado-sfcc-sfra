@@ -363,3 +363,26 @@ footer {
     width: 0 !important;
     z-index: -1;
 }
+
+.store-pickup-model {
+
+    &-title {
+        color: #333333;
+        font-family: "Futura PT";
+        font-size: 20px;
+        font-weight: 300;
+        letter-spacing: 0.88px;
+        line-height: 24px;
+        text-transform: uppercase;
+        padding-left: 32px;
+    }
+}
+
+.set-your-store {
+    color: #1E1E1E;
+    font-family: "Futura PT";
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 18px;
+  }
