@@ -1,0 +1,53 @@
+.mvmt-plp {
+    
+    &-redesign {
+
+        .image-container {
+        
+            .product-tag-content {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                margin: 0;
+                height: auto;
+
+                .exclusive-badges {
+                    margin: 0;
+                    .badge {
+                        background-color: $gray88;
+                        color: $black; 
+                    }
+                }
+    
+                .badge  {
+                    font-size: rem(10);
+                    font-weight: 500;
+                    border-radius: rem(20);
+                    height: auto;
+                    margin: 0;
+                    padding: rem(2.5) rem(15.5);
+                    line-height: rem(20);
+                    letter-spacing: rem(0.83);
+
+                    @include media-breakpoint-up(lg) {
+                        
+                        letter-spacing: rem(0.6);
+                        font-size: rem(12);
+                    }
+
+                    &.red-tag {
+                        background-color: $speech-red-light;
+                    }
+                }
+            }
+        }
+
+        .tile {
+            &-body {
+                margin-top: rem(10);
+                padding-top: 0;
+            }
+        }
+    }
+}

@@ -56,15 +56,4 @@
         </a>
       </isif>
     </isif>
-
-    
-    <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
-        <div class="m-0">
-            <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
-                ${Resource.msg('label.soldout', 'common', null)}
-            </div>
-        </div>
-
-        <isinclude template="product/components/badges" />
-    </div>
 </div>
