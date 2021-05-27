@@ -1,0 +1,40 @@
+<div class="col-12 grid-footer"
+     data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
+     data-page-size="${pdict.productSearch.pageSize}"
+     data-page-number="${pdict.productSearch.pageNumber}"
+>
+    <!--- More button --->
+    <isif condition="${pdict.productSearch.count > pdict.productSearch.defaultPageSize}"> 
+        <isset name="showing" value=${pdict.productSearch.defaultPageSize} scope="page" />
+    <iselse>
+        <isset name="showing" value=${pdict.productSearch.count} scope="page" />
+    </isif>
+
+        <div class="show-more" >
+            <div class="text-center">
+                <iscomment> new label added for result count </iscomment>
+                <p id="show-more-update-mobile" class="show-more-update" data-total-size=${pdict.productSearch.count}>
+                    ${Resource.msgf('label.result.show.mobile', 'search', null, showing, pdict.productSearch.count)}
+                </p>
+                <p id="show-more-update" class="show-more-update" data-total-size=${pdict.productSearch.count}>
+                    ${Resource.msgf('label.result.show', 'search', null, showing, pdict.productSearch.count)}
+                </p>
+                <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
+                <button class="btn btn-primary show-button"
+                        data-url="${pdict.productSearch.showMoreUrl}"
+                        data-page-number="${pdict.productSearch.pageNumber}"
+                        data-category-id="${pdict.productSearch.category.id}"
+                >
+                   <span class="d-lg-none">${Resource.msg('button.show.more.mobile', 'search', null)}</span>
+                   <span class="d-none d-lg-block">${Resource.msg('button.show.more', 'search', null)}</span>
+                </button>
+                </isif>
+            </div>
+        </div>
+    
+
+    <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
+    <isif condition="${pdict.productSearch.category != null}">
+        <input type="hidden" class="category-id" value="${pdict.productSearch.category.id}" />
+    </isif>
+</div>
