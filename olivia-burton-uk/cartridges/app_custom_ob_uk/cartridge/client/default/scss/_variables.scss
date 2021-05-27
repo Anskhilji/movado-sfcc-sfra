@@ -30,11 +30,13 @@
   
 @font-face {font-family: 'GaramondMTStd-Italic';src: url('../webfonts/39E094_2_0.eot');src: url('../webfonts/39E094_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_2_0.woff2') format('woff2'),url('../webfonts/39E094_2_0.woff') format('woff'),url('../webfonts/39E094_2_0.ttf') format('truetype');}
  
-
+@font-face {font-family: 'Gill-Sans-MT-Medium';src: url('../webfonts/Gill-Sans-MT-Medium.woff') format('woff');}
+ 
 //font family
 $font-museo-std: "MuseoSlab-500", "Courier New", monospace;
 $font-museo-light: "MuseoSlab-300", "Courier New", monospace;
 $font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
+$font-gill-std-medium: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;
 $font-family-adobe: "GaramondMTPro-Italic", Times, serif;
 $font-adobe: "GaramondMTPro-Italic", Times, serif;
@@ -89,7 +91,10 @@ $extra-light-grey: #ccc;
 $alice-dark: #f9f9f9;
 $gray10: #ddd;
 $aqua-blue: #00a1e0;
+$cod-gray: #121212;
+$gray92: #EBEBEB;
 $sinbad: #9CD1C8;
+$light-black: #191919;
 
 $white-gray: #f7f8f9 !default;
 $light-green: #53c563 !default;
