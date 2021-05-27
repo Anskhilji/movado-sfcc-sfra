@@ -14,13 +14,10 @@
 
                 .exclusive-badges {
                     margin: 0;
-                    .badge {
-                        background-color: $gray88;
-                        color: $black; 
-                    }
                 }
     
                 .badge  {
+                    background-color: $gray88;
                     font-size: rem(10);
                     font-weight: 500;
                     border-radius: rem(20);
@@ -29,15 +26,16 @@
                     padding: rem(2.5) rem(15.5);
                     line-height: rem(20);
                     letter-spacing: rem(0.83);
+                    color: $black;
 
                     @include media-breakpoint-up(lg) {
-                        
                         letter-spacing: rem(0.6);
                         font-size: rem(12);
                     }
 
                     &.red-tag {
                         background-color: $speech-red-light;
+                        color: $white;
                     }
                 }
             }

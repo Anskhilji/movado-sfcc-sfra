@@ -44,6 +44,7 @@
                         </isif>
                     </div>
                 </isif>
+     
                 <isinclude template="product/components/productTileName" />
 
                 <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
