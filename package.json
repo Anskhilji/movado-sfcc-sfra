@@ -153,6 +153,7 @@
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/scss",
+    "omnichannel": "./omnichannel/cartridges/int_omnichannel/cartridge/client/default/scss",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/scss",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/scss",
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/scss",
