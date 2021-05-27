@@ -1,0 +1,19 @@
+<div class="modal fade" id="pickupStoreModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h1>This is Modal</h1>
+                <select class="form-control custom-select radius" id="radius" name="radius"
+                    data-action-url="${pdict.stores.actionUrl}">
+                    <isloop items="${pdict.radiusOptions}" var="option">
+                        <option value="${StringUtils.formatInteger(option)}">${StringUtils.formatInteger(option)}
+                            ${Resource.msg('storelocator.distance.unit.miles', 'storeLocator', null)}</option>
+                    </isloop>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
