@@ -48,6 +48,7 @@
         .copyright {
             color: $gray20;
             font-family: $font-gill-std-normal;
+            font-weight: 400;
             font-size: rem(14);
             line-height: rem(22);
     
@@ -78,7 +79,7 @@
     
             a {
                 font-size: rem(26);
-                
+ 
                 &.title {
                    color: $black;
                    font-family: $font-gill-std-semibold;
@@ -108,7 +109,7 @@
     
                 @include media-breakpoint-down(sm) {
                     padding: rem(16);
-                    background-color: $white-smoke;
+                    background-color: $pink-smoke;
                 }
             }
     
@@ -414,7 +415,7 @@
 
 
 .sub-footer-container {
-    background-color: $white-smoke;
+    background-color: $pink-smoke;
     padding: rem(28) rem(25);
     
     @include media-breakpoint-down(sm) {
@@ -493,7 +494,7 @@
 
 .footer-redesign {
     .dropdown-country-selector {
-        max-height: rem(200);
+        max-height: rem(152);
         overflow-y: scroll;
      
         .dropdown-item {

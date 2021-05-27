@@ -13,3 +13,7 @@ exports.ONETRUST_FUNCTIONAL_COOKIES_CLASS = 'optanon-category-C0003';
 exports.ONETRUST_FUNCTIONAL_AND_TARGETING_COOKIES_CLASS = 'optanon-category-C0003-C0004';
 exports.SHIPPING_METHODS_UPGRADES_PRECEDENCE = Site.getCurrent().preferences.custom.shippingMethodUpgradesPrecedence;
 
+exports.SERVICE_ID = {
+    FB_CONVERSION: 'fb.conversion.event.api',
+}
+

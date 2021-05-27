@@ -7,6 +7,13 @@
             margin-left: rem(13);
         }
     }
+
+    &-marketing-container {
+        
+        .checkmark { 
+            left: 0;
+        }
+    }
     
     &-email-notification-copy {
         font-family: $font-primary;

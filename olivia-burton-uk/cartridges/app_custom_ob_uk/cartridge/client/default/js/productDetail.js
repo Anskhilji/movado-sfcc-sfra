@@ -9,4 +9,5 @@ $(document).ready(function () {
     processInclude(require('movado/share/sendToFriend'));
     processInclude(require('movado/product/wishlist'));
     processInclude(require('movado/utilities/spaceBelowBodyOnFixedButton'));
+    processInclude(require('movado/product/pdpCarouselVideo'));
 });
