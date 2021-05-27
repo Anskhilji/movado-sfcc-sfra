@@ -47,6 +47,8 @@ function getProductSearchHit(apiProduct) {
 module.exports = function productTile(product, apiProduct, productType, params) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productSearchHit = getProductSearchHit(apiProduct);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     if (!productSearchHit) {
         return null;
     }
@@ -80,6 +82,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     if (!params.availability || params.availability == true) {
         decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
     }
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     //Custom Start: Adding esw latest cartridge code
     if (isEswEnabled) {

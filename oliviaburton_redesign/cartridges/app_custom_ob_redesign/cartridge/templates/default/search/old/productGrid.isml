@@ -1,0 +1,6 @@
+<isinclude template="search/components/old/productTiles" />
+<isif condition="${pdict.productSearch.enablePagination}">
+	<isinclude template="search/pagination" />
+<iselse>
+    <isinclude template="search/old/showMore" />
+</isif>
