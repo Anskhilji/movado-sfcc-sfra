@@ -13,6 +13,7 @@
         <form>
             <div class="row">
                 <div class="col-sm-12">
+                    <div class="store-pickup-form-wrapper">
                     <div class="store-pickup-zip-code">
                         <input class="store-pickup-zipcode-field" type="text" placeholder="Enter city, state, or zip " name="">
                     </div>
@@ -27,6 +28,7 @@
                     </div>
                     <div class="store-pickup-search-store">
                         <button class="store-pickup-search-btn"  name="">Search</button>
+                    </div>
                     </div>
                 </div>
             </div>
