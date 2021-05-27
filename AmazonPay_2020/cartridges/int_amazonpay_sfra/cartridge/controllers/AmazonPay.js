@@ -198,7 +198,7 @@ server.get('Review', server.middleware.https, function (req, res, next) {
     if (empty(lastName) && amzShippingAddress.countryCode !== 'JP') {
         lastName = '-';
     }
-    
+
     var address1 = '';
     var address2 = '';
 
@@ -541,7 +541,7 @@ server.get('OneReview', server.middleware.https, function (req, res, next) {
         result = HookMgr.callHook('app.payment.processor.' + paymentProcessor.ID.toLowerCase(),
             'Handle',
             currentBasket,
-            data.paymentInformation
+            checkoutSession
         );
     } else {
         result = HookMgr.callHook('app.payment.processor.default', 'Handle');
@@ -848,7 +848,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
                 }
             }
-            
+
             if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
                 var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
                 SwellExporter.exportOrder({
@@ -856,13 +856,13 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                     orderState: 'created'
                 });
             }
-            
+
             // Custom Start: Change email helper to trigger confirmation email
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
             // Custom Start: set to true to trigger Purchase tag on confirmation page
             session.custom.orderJustPlaced = true;
-			
+
             // Custom End
 
             session.custom.orderNumber = order.orderNo;
@@ -921,7 +921,7 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 });
             }
             // Custom End 
-            
+
             session.custom.orderNumber = order.orderNo;
 
             res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'error', false, 'token', order.orderToken));
@@ -1275,7 +1275,7 @@ server.post(
             }
 
             // Custom: Change contactInfoFields to creditCardFields
-            hooksHelper('app.customer.subscription', 'subscribeTo', [paymentForm.subscribe.checked, paymentForm.creditCardFields.email.htmlValue], function () {});
+            hooksHelper('app.customer.subscription', 'subscribeTo', [paymentForm.subscribe.checked, paymentForm.creditCardFields.email.htmlValue], function () { });
 
             var currentLocale = Locale.getLocale(req.locale.id);
 
@@ -1304,4 +1304,37 @@ server.post(
         return next();
     }
 );
+
+server.get('UpdateAmazonPayCheckout', function (req, res, next) {
+    var HookMgr = require('dw/system/HookMgr');
+
+    try {
+        var currentBasket = BasketMgr.getCurrentBasket();
+
+        Transaction.wrap(function () {
+            
+            if (currentBasket) {
+                if (session.privacy.taxError) { //if sabrix call fails
+                    HookMgr.callHook('dw.order.calculateTax', 'calculateTax', currentBasket);
+                    delete session.privacy.taxError;
+                }
+            }
+
+            //Update call to amazon pay [MSS-1345] Code shifted from amazon_pay.js (Handle Method)
+            var amazonPayRequest = new AmazonPayRequest(currentBasket, 'PATCH', '', ':checkoutSessionId', currentBasket.custom.amzPayCheckoutSessionId);
+            var result = CheckoutSessionService.update(amazonPayRequest);
+
+            if (!result.ok) {
+                Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(result.toString());
+            }
+        });
+    } catch (error) {
+        Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(error.toString());
+    }
+
+    if (req.querystring.amzPayRedirectURL) {
+        res.redirect(req.querystring.amzPayRedirectURL);
+    }
+    return next();
+});
 module.exports = server.exports();

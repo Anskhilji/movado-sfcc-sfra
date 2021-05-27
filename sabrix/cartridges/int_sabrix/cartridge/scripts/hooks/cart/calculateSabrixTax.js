@@ -61,29 +61,34 @@ function calculateTax(basket) {
       statusMessage = 'service resulted in empty response';
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
+      session.privacy.taxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
       return new Status(Status.ERROR);
     } else if (result.status == 'SERVICE_UNAVAILABLE') {
       statusMessage = result.errorMessage;
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
+      session.privacy.taxError = true;
       return new Status(Status.ERROR);
     } else if (result.status == 'ERROR') {
       statusMessage = result.errorMessage;
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
+      session.privacy.taxError = true;
       return new Status(Status.ERROR);
     }
     try {
       var responseWrapper = sabrixTaxHelper.updateLineItemSabrixTax(result, taxService);
       sabrixTaxHelper.populateTaxBreakupInSFCC(responseWrapper);
       Logger.getLogger('SabrixTaxHelper').debug('Tax successfully updated in basket : ');
+      delete session.privacy.taxError;
       return new Status(Status.OK);
     } catch (e) {
 			/* clear line tax attributes as service resulted in error */
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       Logger.getLogger('SabrixTaxHelper').debug('Error occured while updating tax in order with error log : ' + e);
+      session.privacy.taxError = true;
       return new Status(Status.ERROR);
     }
   }

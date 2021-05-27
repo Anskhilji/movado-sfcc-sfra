@@ -1,0 +1,118 @@
+<iscomment> HTML structure changed according to design requirments </iscomment>
+<isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
+
+<div class="plp-filter-mobile">
+    <div class="refinement-bar">
+        <div class="filter-header">
+            <div class="header-bar clearfix">
+                <button class="close-refinebar pull-left" aria-label="close filter">${Resource.msg('label.filter', 'search', null)}</button>
+                <div class="pull-right">
+                    <div class="secondary-bar p-0">
+                        <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                            <a class="reset" href="${pdict.productSearch.resetLink}">
+                                ${Resource.msg('link.clear', 'search', null)}
+                            </a>
+                            <iselseif condition="${pdict.productSearch.count == 0}" />
+                                <a class="reset remove-all-filters" href="${pdict.productSearch.resetLink}">
+                                   ${Resource.msg('link.remove.all', 'search', null)}
+                                </a>
+                            </iselseif>
+                        </isif>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="refine-wrapper">
+            <isif condition="${pdict.productSearch.productIds.length > 0}">
+                <div class="sort-col position-relative">
+                    <isinclude template="search/sortOrderMenu" />
+                </div>
+            </isif>
+            <div class="refinements movado-refinements-container">
+                <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                    <div class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                        <button class="card-header movado-refinements-type text-left border-0" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                            ${refinement.displayName}
+                        </button>
+                        <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
+
+                            <isif condition="${refinement.isCategoryRefinement}">
+                                <isset name="categories" value="${refinement.values}" scope="page" />
+                                <isinclude template="search/refinements/categories" />
+                            </isif>
+
+
+                            <isif condition="${refinement.isAttributeRefinement}">
+                                <isinclude template="search/refinements/attributes" />
+                            </isif>
+
+
+                            <isif condition="${refinement.isPriceRefinement}">
+                                <isinclude template="search/refinements/prices" />
+                            </isif>
+                        </div>
+                    </div>
+                </isloop>
+            </div>
+        </div>   
+    </div> 
+    <div class="plp-filter-mobile-row row justify-content-between">
+        <div class="result-count">
+            <isinclude template="search/resultsCount" />
+        </div>
+        <div class="filter-btn">
+            <button>${Resource.msg('label.sort.filter', 'search', null)}</button>
+        </div>
+    </div>
+</div>
+
+<isif condition="${pdict.productSearch.productIds.length > 0}">
+    <div class="refine-wrapper plp-filter-desktop">
+        <div class="plp-filter-bar">
+            <div class="plp-filter-bar-inner ">
+                <div class="plp-filter-options">
+                    <div class="plp-filter-lists">
+                        <div class="result-count">
+                            <isinclude template="search/resultsCount" />
+                        </div>
+                        <div class="refinements">
+                            <span class="plp-filter-label">${Resource.msg('label.filter.by', 'search', null)}</span>
+                            <div class="refinements-list">
+                                <isloop items="${refinements}" var="refinement">
+                                    <div class="plp-filter-list">
+                                        <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
+                                            ${refinement.displayName}
+                                        </button>
+
+                                        <div class="filter-group">
+                                            <button class="filter-close-btn">x</button>
+                                            <div class="filter-group-outer">
+                                                <!--- CATEGORY REFINEMENTS --->
+                                                <isif condition="${refinement.isCategoryRefinement}">
+                                                    <isset name="categories" value="${refinement.values}" scope="page" />
+                                                    <isinclude template="search/refinements/categories" />
+                                                </isif>
+
+                                                <!--- ATTRIBUTE REFINEMENTS --->
+                                                <isif condition="${refinement.isAttributeRefinement}">
+                                                    <isinclude template="search/refinements/attributes" />
+                                                </isif>
+
+                                                <!--- PRICE REFINEMENTS --->
+                                                <isif condition="${refinement.isPriceRefinement}">
+                                                    <isinclude template="search/refinements/prices" />
+                                                </isif>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </isloop>
+                            </div>
+                        </div>
+                        <isinclude template="search/sortOrderMenu" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>

@@ -10,6 +10,7 @@
 
     .carousel-tile {
       display: table-cell;
+      position: relative;
       width: 100%;
     }
 
@@ -27,4 +28,39 @@
       right: 0;
     }
   }
+
+  .slide-video {
+    position: absolute;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    width: inherit;
+    max-height: 100%;
+    object-fit: cover;
+    margin: 0 auto;
+    right: 0;
+    top: 0;
+
+    &-ie{
+      display: none;
+    }
+
+  }
+  
+  .slick-active {
+
+    .slide-video-ie {
+      display: block;
+    }
+
+  }
+
+  .pointer-none {
+    pointer-events: none;
+  }
+
+  .cursor-context {
+    cursor: context-menu;
+  }
+
 }
