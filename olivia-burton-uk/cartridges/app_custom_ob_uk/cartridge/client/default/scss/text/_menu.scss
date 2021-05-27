@@ -73,3 +73,19 @@
     }
   }
 }
+
+
+.ob-old-menu-design {
+  .browse-collection {
+    @include media-breakpoint-up(lg) {
+      margin-left: rem(16);
+      margin-right: 0;
+    }
+    .dropdown-menu {
+      @include media-breakpoint-up(lg) {
+        padding-left: 0;
+        display: inline;
+      }
+    }
+  } 
+}
