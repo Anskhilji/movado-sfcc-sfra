@@ -14,6 +14,7 @@ processInclude(require('movado/components/mod_video'));
 processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
 
+
 $(document).ready(function () {
     processInclude(require('./components/slickCarousel'));
     processInclude(require('./components/collapsibleItem'));
@@ -30,6 +31,8 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./videoPopup'));
     processInclude(require('./components/miniCartRecommendations'));
+
+    
 });
 
 require('base/components/spinner');

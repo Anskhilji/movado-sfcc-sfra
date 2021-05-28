@@ -128,11 +128,12 @@
         <div class="plp-grid-overlay">
         </div>
     </isif>
-
+    
     <isif condition="${pdict.productSearch.category}">
         <div class="search-bottom-content extra-large-container">
             <isslot id="cs_plp_bottom_content_slot" context="category" description="Category content slot at the bottom of PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </div>
+      
         <div class="search-bottom-text">
             <isslot id="cs_plp_bottom_text_slot" context="category" description="Category text slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </div>
