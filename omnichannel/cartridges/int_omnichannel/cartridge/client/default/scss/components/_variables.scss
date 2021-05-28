@@ -1,0 +1,18 @@
+
+
+$black-dark: #000000 !default;
+$white-dark: #FFFFFF !default;
+$light-gary-black: #333333;
+$light-gray-white: #999999;
+$light-gray-brown: #666666;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 544px,
+    md: 769px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+//font Families:
+$font-demi: "futura-pt", sans-serif, Arial;
