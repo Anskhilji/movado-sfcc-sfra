@@ -737,6 +737,25 @@ module.exports = {
                 $('.straps-nav-mobile').css('top', '');
             }
         });
+        var data = $('footer').html();
+        $('footer').html('');
+        function lazyload(){
+            var wt = $(window).scrollTop();    //* top of the window
+            var wb = wt + $(window).height();  //* bottom of the window
+            $("footer").each(function(){
+               var ot = $(this).offset().top;  //* top of object (i.e. advertising div)
+               var ob = ot + $(this).height(); //* bottom of object
+               if(!$(this).attr("loaded") && wt<=ob && wb >= ot){
+                  $(this).html(data);
+                  $(this).attr("loaded",true);
+               }
+            });
+         }
+        $(document).ready(function(){
+            $(window).on('scroll',lazyload);
+            // lazyload();
+        });
+
     }
     // Custom End
 };
