@@ -560,7 +560,6 @@ module.exports = {
     // Custom Start: Make these fucntions for custom events
     sortMenuDesktop: function () {
         $(document).on("click", '.plp-filter-bar .plp-filter-btn', function(e) {
-            $("#refinement-filter-lazy-load").html('<img src={refinementValue.swatchImageURL} loading="lazy"/>');
             var button = this
             $(button).next().toggleClass('active');
             $(button).toggleClass('active');
