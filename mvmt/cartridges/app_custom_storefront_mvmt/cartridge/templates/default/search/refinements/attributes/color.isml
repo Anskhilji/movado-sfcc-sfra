@@ -25,9 +25,13 @@
             <label class="color-elements">
                 <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} color-swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-color-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                     <isif condition="${refinementValue.selected && refinementValue.selectable}">
-                        <div id="refinement-filter-lazy-load" class="fa fa-check-square rounded-color" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                        <div class"fa fa-check-square rounded-color" >
+                            <img src="${refinementValue.swatchImageURL}" loading="lazy" alt="bg-image">
+                        </div>
                     <iselse>
-                        <div id="refinement-filter-lazy-load" class="fa fa-square-o rounded-color" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                        <div class="fa fa-square-o rounded-color" >
+                            <img src="${refinementValue.swatchImageURL}" loading="lazy" alt="bg-image">
+                        </div>                    
                     </isif>
                 </a>
                 <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
