@@ -298,5 +298,20 @@ server.append('Confirm', function (req, res, next) {
     }
     next();
 });
-
+server.post('FBConversion', function (req, res, next) {
+    var OrderMgr = require('dw/order/OrderMgr');
+    var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
+    var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
+    var order = OrderMgr.getOrder(request.httpParameterMap.order_no.value);
+    try {
+        var result = fbConversionAPI.fbConversionAPI(order);
+    } catch (error) {
+        ConversionLog.error('(Order.js -> FBConversion) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
+    }
+    res.json({
+        message: result.message,
+        success: result.success,
+    });
+    return next();
+})
 module.exports = server.exports();

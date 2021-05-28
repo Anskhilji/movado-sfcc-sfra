@@ -297,6 +297,7 @@ var formHelpers = require('base/checkout/formErrors');
 
                   if ($('.payment-details .amazon-pay-option').length) {
                       window.location.replace($('.place-order').data('action'));
+                      return;
                   }
 
                   $.ajax({
