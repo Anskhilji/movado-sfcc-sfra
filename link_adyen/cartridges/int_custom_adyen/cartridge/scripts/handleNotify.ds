@@ -16,10 +16,10 @@ var handleNotify = module.superModule;
  * @params {Object} notificationData - notificationData object containing adyen notifiaction data 
  */
 function removeOrderFromPreOrders(notificationData) {
-    var pspReference = notificationData.pspReference;
+    var orderNo = notificationData.merchantReference;
     var OrderMgr = require('dw/order/OrderMgr');
-    if (!empty(pspReference)) {
-        var order = OrderMgr.searchOrder('custom.Adyen_pspReference={0}', pspReference);
+    if (!empty(orderNo)) {
+        var order = OrderMgr.getOrder(orderNo);
         if(!empty(order)) {
             order.custom.isPreorderProcessing = false;
         }
