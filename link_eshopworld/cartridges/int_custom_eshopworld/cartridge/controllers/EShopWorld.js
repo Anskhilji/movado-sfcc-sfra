@@ -55,10 +55,11 @@ server.append('GetEswHeader', function (req, res, next) {
     }
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
-    if (queryCountryCode && !empty(queriedCountry)) {
-        availableCountry = queriedCountry.countryCode
-    }
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    if (queryCountryCode && !empty(queriedCountry)) {
+        availableCountry = queriedCountry.countryCode;
+        currency = queriedCountry.currencyCode;
+    }
     var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
         return country.value == availableCountry;
     });
@@ -119,11 +120,12 @@ server.append('GetEswFooter', function (req, res, next) {
     }
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
-    if (queryCountryCode && !empty(queriedCountry)) {
-        availableCountry = queriedCountry.countryCode
-    }
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
-    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+    if (queryCountryCode && !empty(queriedCountry)) {
+        availableCountry = queriedCountry.countryCode;
+        currency = queriedCountry.currencyCode;
+    }
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
         return country.value == availableCountry;
     });
 
@@ -244,7 +246,7 @@ server.append('NotifyV2', function(req, res, next) {
      }
      if (queryCountryCode && !empty(queriedCountry)) {
          var availableCountry = queriedCountry.countryCode
-         var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+         var currency = queriedCountry.currencyCode;
          var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
              return country.value == availableCountry;
          });
