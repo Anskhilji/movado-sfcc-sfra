@@ -8,6 +8,8 @@ server.append('Confirm', function (req, res, next) {
     var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
     var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
+    var Constants = require('*/cartridge/scripts/util/Constants');
+
     try {
         var viewData = res.getViewData();
         var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
@@ -15,7 +17,7 @@ server.append('Confirm', function (req, res, next) {
         var requestParams = {
             email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
             requestLocation: 'CHECKOUT_SERVICE',
-            campaignName: 'Checkout'
+            campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
         }
 
         if (!empty(requestParams.email)) {
