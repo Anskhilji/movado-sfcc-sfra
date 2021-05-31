@@ -58,6 +58,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.top-refinements',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -441,7 +442,7 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();

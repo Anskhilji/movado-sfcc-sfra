@@ -26,60 +26,7 @@
                     <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
             </isif>
         </div>
-        <div class="top-refinements mvmt-plp mvmt-plp-redesign">
-            <div class="filter-group-outer">
-                <ul class="values content">
-                    <li title="Refine by Category: Watches" class="col-sm-auto col-md-12 ">
-                        <label class="elements">
-                            <a role="checkbox" aria-checked="false" tabindex="0"
-                                href="/last-chance/mens-last-chance/?prefn1=jewelryType&amp;prefv1=Watches"
-                                class=" swatch-image ">
-                                <div class="fa fa-square-o rounded-image" style="background-image: url('https://www.mvmt.com/on/demandware.static/-/Sites-MVMTUS-Library/default/dw606028e2/images/swatches/filter_category_mens_watches.png')">
-                                </div>
-                            </a>
-                            <span class="">Watches</span>
-                        </label>
-                    </li>
-                    <li title="Refine by Category: Bracelet" class="col-sm-auto col-md-12 ">
-                        <label class="elements">
-                            <a role="checkbox" aria-checked="false" tabindex="0"
-                                href="/last-chance/mens-last-chance/?prefn1=jewelryType&amp;prefv1=Bracelet"
-                                class=" swatch-image ">
-                                <div class="fa fa-square-o rounded-image"
-                                    style="background-image: url('https://www.mvmt.com/on/demandware.static/-/Sites-MVMTUS-Library/default/dw0ff6a819/images/swatches/filter_category_mens_bracelets.png')">
-                                </div>
-                            </a>
-                            <span class="">Bracelet</span>
-                        </label>
-                    </li>
-                    <li title="Refine by Category: Glasses" class="col-sm-auto col-md-12 ">
-                        <label class="elements">
-                            <a role="checkbox" aria-checked="false" tabindex="0"
-                                href="/last-chance/mens-last-chance/?prefn1=jewelryType&amp;prefv1=Glasses"
-                                class=" swatch-image ">
-                                <div class="fa fa-square-o rounded-image"
-                                    style="background-image: url('https://www.mvmt.com/on/demandware.static/-/Sites-MVMTUS-Library/default/dw5ddd1bb7/images/swatches/filter_category_glasses.png')">
-                                </div>
-                            </a>
-                            <span class="">Glasses</span>
-                        </label>
-                    </li>
-                    <li title="Refine by Category: Rings" class="col-sm-auto col-md-12 ">
-                        <label class="elements">
-                            <a role="checkbox" aria-checked="false" tabindex="0"
-                                href="/last-chance/mens-last-chance/?prefn1=jewelryType&amp;prefv1=Rings"
-                                class=" swatch-image ">
-                                <div class="fa fa-square-o rounded-image"
-                                    style="background-image: url('https://www.mvmt.com/on/demandware.static/-/Sites-MVMTUS-Library/default/dw2f2a8795/images/swatches/filter_category_rings copy.png')">
-                                </div>
-                            </a>
-                            <span class="">Rings</span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
 
-        </div>
         <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results">
             <isif condition="${!pdict.productSearch.isCategorySearch}">
                 <div class="row">
