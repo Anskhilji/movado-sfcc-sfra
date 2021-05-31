@@ -76,18 +76,6 @@
                             <span class="">Rings</span>
                         </label>
                     </li>
-                    <li title="Refine by Category: Sunglasses" class="col-sm-auto col-md-12 ">
-                        <label class="elements">
-                            <a role="checkbox" aria-checked="false" tabindex="0"
-                                href="/last-chance/mens-last-chance/?prefn1=jewelryType&amp;prefv1=Sunglasses"
-                                class=" swatch-image ">
-                                <div class="fa fa-square-o rounded-image"
-                                    style="background-image: url('https://www.mvmt.com/on/demandware.static/-/Sites-MVMTUS-Library/default/dw3fbeb52c/images/swatches/filter_category_sunglasses copy.png')">
-                                </div>
-                            </a>
-                            <span class="">Sunglasses</span>
-                        </label>
-                    </li>
                 </ul>
             </div>
 

@@ -50,29 +50,51 @@
 
         &.top-refinements {
             padding: rem(30) 0;
+
             .filter-group-outer {
                 opacity: 1;
                 transform: none;
+                justify-content: center;
                 .values {
                     min-height: auto;
+                    max-width: 100%;
                     li {
                         padding: 0;
-                        margin: 0 rem(20);
-                        width: rem(90);
+                        margin: 0 rem(5);
+                        width: rem(80);
                         min-width: auto;
+                        max-width: rem(80);
+
+                        @include media-breakpoint-up(lg) {
+                            margin: 0 rem(20);
+                            width: rem(90);
+                            max-width: auto;
+                        }
+    
                         .elements {
                             height: auto;
                             margin-bottom: 0;
                         }
+                        
                         a {
-                            background-color: $silver-extra-light;
+                            background-color: $gainsboro-light;
+                            border-color: $gainsboro-light;
                             display: flex;
                             align-items: center;
-                            height: rem(90);
-                            width: rem(90);
+                            height: rem(80);
+                            width: rem(80);
                             padding: rem(15);
-                            margin-bottom: rem(15);
+                            margin-bottom: rem(5);
                             transition: 0.3s;
+                            
+                            @include media-breakpoint-up(lg) {
+                                background-color: $silver-extra-light;
+                                border-color: $silver-extra-light;
+                                margin-bottom: rem(15);
+                                height: rem(90);
+                                width: rem(90);
+                            }
+
                             &.swatch-image {
                                 border-color: $silver-extra-light;
                                 &:hover {
@@ -83,20 +105,33 @@
                             .rounded-image {
                                 border: none;
                                 margin: 0 auto;
-                                width: rem(60);
-                                height: rem(60);
+                                width: rem(50);
+                                height: rem(50);
+
+                                @include media-breakpoint-up(lg) {
+                                    width: rem(60);
+                                    height: rem(60);
+                                }
                             }
                         }
 
                         span {
                             font-family: $font-medium;
-                            font-weight: 500;
-                            font-size: rem(14);
-                            letter-spacing: rem(1);
+                            font-weight: 400;
+                            font-size: rem(10);
+                            letter-spacing: rem(0.83);
                             line-height: rem(20);
                             text-transform: uppercase;
-                            opacity: 0.7;
+                            opacity: 1;
                             color: $black;
+
+                            @include media-breakpoint-up(lg) {
+                                font-weight: 500;
+                                font-size: rem(14);
+                                letter-spacing: rem(1);
+                                line-height: rem(20);
+                                opacity: 0.7;
+                            }
                         }
                     }
                 }
