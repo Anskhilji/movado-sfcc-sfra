@@ -1,18 +1,62 @@
-<div class="modal fade" id="pickupStoreModal" role="dialog">
-    <div class="modal-dialog">
+<!-- Modal -->
+<div class="modal fade store-pickup-model" id="pickupStoreModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
+            <div class="modal-header store-pickup-model-header">
+                <p class="store-pickup-model-title" id="exampleModalLongTitle">Pickup in Store</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <h1>This is Modal</h1>
-                <select class="form-control custom-select radius" id="radius" name="radius"
-                    data-action-url="${pdict.stores.actionUrl}">
-                    <isloop items="${pdict.radiusOptions}" var="option">
-                        <option value="${StringUtils.formatInteger(option)}">${StringUtils.formatInteger(option)}
-                            ${Resource.msg('storelocator.distance.unit.miles', 'storeLocator', null)}</option>
-                    </isloop>
-                </select>
+                <div class="row pickup-store-pdetail">
+                    <div class="col-md-3">
+                        <picture>
+                            <img src="${product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
+                                alt="${product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
+                                itemprop="image" />
+                            <isset name="isImageExist" value="true" scope="page" />
+                        </picture>
+                    </div>
+                    <div class="col-md-9 pickup-store-pdspecification">
+                        <div class="pickup-store-productNumber">
+                            <isinclude template="product/components/productNumber" />
+                        </div>
+                        <h5 class="pickup-store-productname text-uppercase">${product.productName}</h1>
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="store-pickup-form-wrapper">
+                            <div class="store-pickup-zip-code">
+                                <input class="store-pickup-zipcode-field" type="text" id="zip-code"
+                                    placeholder="Enter city, state, or zip " name="" minlength="4" maxlength="10"
+                                    pattern="(^[a-zA-Z0-9 ]+$)">
+                            </div>
+                            <div class="store-pickup-radius">
+                                <label class="store-pickup-dropdown-label" for="radius">Search radius</label>
+                                <select class="form-select store-pickup-dropdown-field" id="radius" name="radius">
+                                    <isloop items="${pdict.radiusOptions}" var="option">
+                                        <option value="${StringUtils.formatInteger(option)}">
+                                            ${StringUtils.formatInteger(option)}
+                                            ${Resource.msg('storelocator.distance.unit.miles', 'storeLocator', null)}
+                                        </option>
+                                    </isloop>
+                                </select>
+                            </div>
+                            <div class="store-pickup-search-store">
+                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList')}'>Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="store-list">
+                    
+                </div>
             </div>
         </div>
     </div>

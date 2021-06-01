@@ -58,6 +58,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+    var radiusOptions = [15, 30, 50, 100, 300];
 
     /* get recommendations for product*/
     if (product) {
@@ -125,7 +126,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
-        strapGuideText: strapGuideText
+        strapGuideText: strapGuideText,
+        radiusOptions: radiusOptions
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
