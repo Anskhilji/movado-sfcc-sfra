@@ -258,6 +258,7 @@ function updatePageURLForShowMore(showMoreUrl) {
     var url;
     var currentProductCount = $('#show-more-update').text();
     var res = currentProductCount.replace(size, newSize);
+    $('#show-more-update').text(res);
     if (history.pushState) {
     	if (document.location.href.indexOf('?') > -1) {
     		if (document.location.href.indexOf('sz=') > -1) {
@@ -405,7 +406,7 @@ module.exports = {
     },
 
     loadMoreProductsOnScroll: function () {
-        $(window).scroll(function(e){
+        $(window).scroll(function(e) {
             if (!loadMoreInProcessing) {
                 loadMoreInProcessing = true;
             } else {
@@ -419,12 +420,9 @@ module.exports = {
             
             // Load more products on scroll
             if (scrollPostion >= nextLoadMorePosition && loadMoreInProcessing && isLoadOnScroll && (($('#product-search-results .product-tile').length % 20) == 0 )) {
-                
+                e.preventDefault();
                 e.stopPropagation();
                 var showMoreUrl = $('.show-more button').data('url');
-
-                e.preventDefault();
-
                 $.spinner().start();
                 $(this).trigger('search:loadMoreProductsOnScroll', e);
                 $.ajax({
@@ -438,8 +436,7 @@ module.exports = {
                         $('.grid-footer').replaceWith(response);
                         updateSortOptions(response);
                         updatePageURLForShowMore(showMoreUrl);
-                        loadMoreInProcessing =false;
-                        
+                        loadMoreInProcessing = false;
                         // edit end
                         $.spinner().stop();
                     },
