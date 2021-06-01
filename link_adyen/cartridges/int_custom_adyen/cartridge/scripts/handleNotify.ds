@@ -48,21 +48,29 @@ function notify (notificationData) {
             catch (e) {
             }
         }
-
+        // Save all request to custom attribute for Authorization event
+        customObj.custom.Adyen_log = JSON.stringify(notificationData);
         switch(notificationData.eventCode) {
+            
             case "AUTHORISATION" :
-                // Save all request to custom attribute for Authorization event
-                customObj.custom.Adyen_log = JSON.stringify(notificationData);
+                break;
             case "CAPTURE":
                 removeOrderFromPreOrders(notificationData);
+                break;
             case "CANCELLATION" :
                 removeOrderFromPreOrders(notificationData);
+                break;
             case "CANCEL_OR_REFUND" :
+                break;
             case "REFUND" :
+                break;
             case "CAPTURE_FAILED" :
                 removeOrderFromPreOrders(notificationData);
+                break;
             case "ORDER_OPENED" :
+                break;
             case "ORDER_CLOSED" :
+                break;
             case "PENDING" :
                 customObj.custom.updateStatus = "PROCESS";
                 Logger.getLogger("Adyen").info ("Received notification for merchantReference {0} with status {1}. Custom Object set up to 'PROCESS' status.", notificationData.merchantReference, notificationData.eventCode);
