@@ -118,6 +118,12 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
+
+                            <div class="pdp-store-pickup-wraper row">
+                                <isinclude template="product/components/pdpStorePickUp" />
+                            </div>
+
+
                             <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
