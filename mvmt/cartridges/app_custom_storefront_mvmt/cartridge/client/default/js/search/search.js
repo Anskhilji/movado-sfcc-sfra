@@ -393,6 +393,7 @@ module.exports = {
                     updateSortOptions(response);
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
+                    loadMoreIndex = $('#product-search-results .product-tile').length -11;
                     // edit end
                     $.spinner().stop();
                 },
