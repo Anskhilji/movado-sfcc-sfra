@@ -303,19 +303,6 @@ function getGtmPromotionObject (promotions) {
     }
 }
 
-/**
- * Method use to get collection name from product's custom attribute family name`
- * @param {Product} apiProduct
- * @returns {String }collection name
- */
-function getCollectionName(apiProduct) {
-    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    if (empty(collectionName) && apiProduct.variant) {
-        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
-    }
-
-    return collectionName;
-}
 
 /**
  * Method use to get Diameter name from product's custom attribute`
@@ -377,7 +364,6 @@ movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
-movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;

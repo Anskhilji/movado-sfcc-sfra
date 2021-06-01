@@ -99,11 +99,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    Object.defineProperty(product, 'collectionName', {
-        enumerable: true,
-        value: collectionName
-    });
-
 
     if (pdpContentAssetHTML) {
         Object.defineProperty(product, 'pdpContentAssetHTML', {

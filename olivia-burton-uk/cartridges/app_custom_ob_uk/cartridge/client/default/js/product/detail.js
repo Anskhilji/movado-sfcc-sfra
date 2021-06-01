@@ -138,6 +138,7 @@ module.exports = {
                     $(this).text(updatedText).attr('content', updatedPrice);
                 });
             }
+            updateKlarnaPayment(updatedPrice);
         });
     },
     sizeChart: function () {
@@ -168,7 +169,15 @@ module.exports = {
 $( document ).ready(function() {
     refreshAffirmUI();
 });
-
+function updateKlarnaPayment(updatedPrice) {
+    if (typeof isklarnaPromoEnabled !== 'undefined' && isklarnaPromoEnabled) {
+        $('klarna-placement').attr('data-purchase_amount', updatedPrice * 100);
+        window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
+        window.KlarnaOnsiteService.push({
+            eventName: 'refresh-placements'
+        });
+    }
+}
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {

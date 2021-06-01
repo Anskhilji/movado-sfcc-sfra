@@ -1,0 +1,31 @@
+<iscomment> Select removed, toggle added accroding to design requirements </iscomment>
+<isset name="initialSortSet" value="${false}" scope="page" />
+<isif condition="${pdict.productSearch.productIds.length > 0}">
+    <div class="sort-dropdown">
+        <div class="sort-dropdown-list">
+            <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="d-lg-none">Sort by</span>
+                <isloop items="${pdict.productSearch.productSort.options}" var="option" status="loopStatus">
+                    <isif condition="${pdict.productSearch.productSort.ruleId === option.id }">
+                        ${option.displayName}
+                        <isset name="initialSortSet" value="${true}" scope="page" />
+                        
+                    </isif>
+                </isloop>
+                <isif condition="${!initialSortSet}">
+                    ${pdict.productSearch.productSort.options[0].displayName}
+                </isif>
+            </button>
+            <div class="sort-dropdown-menu dropdown-menu">
+                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                    <a class="${option.id} sort-dropdown-item" href="${option.url}"
+                        data-id="${option.id}"
+                        ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                    >
+                        ${option.displayName}
+                    </a>
+                </isloop>
+            </div>
+        </div>
+    </div>
+</isif>
