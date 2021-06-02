@@ -29,7 +29,7 @@
                     <iselseif condition="${product.available}">
                         ${Resource.msg('button.addtocart', 'common', null)} 
                     <iselse>
-                        ${Resource.msg('button.sold.out', 'product', null)}
+                        ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}"> 
                         <span class="product-price-mobile"> 
@@ -61,7 +61,7 @@
                     <iselseif condition="${product.available}">
                         ${Resource.msg('button.addtocart', 'common', null)} 
                     <iselse>
-                        ${Resource.msg('button.sold.out', 'product', null)}
+                        ${Resource.msg('button.out.of.stock', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}">
                         <span class="product-price-mobile"> 
@@ -79,7 +79,7 @@
                     ${outOfStock ? "disabled" : ""}>
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${outOfStock}">
-                        ${Resource.msg('button.sold.out', 'product', null)}
+                        ${Resource.msg('button.out.of.stock', 'product', null)}
                     <iselseif condition="${preOrder}">
                         ${Resource.msg('button.preorder.now', 'common', null)}
                     <iselse>
