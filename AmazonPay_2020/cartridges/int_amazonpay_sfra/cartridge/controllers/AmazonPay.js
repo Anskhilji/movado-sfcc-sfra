@@ -12,6 +12,7 @@ var AmazonPayRequest = require('*/cartridge/scripts/lib/AmazonPayRequest');
 var ChargePermissionService = require('*/cartridge/scripts/services/chargePermission/amazonChargePermissionService');
 var ChargeService = require('*/cartridge/scripts/services/charge/amazonChargeService');
 var CheckoutSessionService = require('*/cartridge/scripts/services/checkoutSession/amazonCheckoutSessionService');
+var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
@@ -676,6 +677,21 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             return next();
         }
 
+        /**
+         * Custom Start: Adding preOrder Logic for Amazon
+         */
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function (){
+                order.custom.isPreorder = isPreOrder;
+            });
+        }
+        /**
+         * Custom End:
+         */
+
         // Handles payment authorization
         var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
         if (handlePaymentResult.error) {
@@ -938,6 +954,21 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
                 return next();
             }
+
+            /**
+             * Custom Start: Adding preOrder Logic for Amazon
+             */
+            //Check if order includes Pre-Order item
+            var isPreOrder = orderCustomHelpers.isPreOrder(order);
+            //Set order custom attribute if there is any pre-order item exists in order
+            if (isPreOrder) {
+                Transaction.wrap(function (){
+                    order.custom.isPreorder = isPreOrder;
+                });
+            }
+            /**
+             * Custom End:
+             */
 
             // Handles payment authorization
             var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
