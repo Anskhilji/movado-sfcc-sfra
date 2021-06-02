@@ -418,7 +418,7 @@ module.exports = {
 
             var productTileHeigth = $('#product-search-results .product-tile').outerHeight();
             var scrollPostion = $(window).scrollTop() + productTileHeigth;
-            var isLoadOnScroll = ($('#product-search-results .product-tile').length % (3 * (initiallyLoadedProducts))) != 0 ? true : false;
+            var isLoadOnScroll = ($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) != 0 ? true : false;
             var nextLoadMorePosition = $('#product-search-results .product-tile').eq(loadMoreIndex).offset().top;
 
             if (scrollPostion >= nextLoadMorePosition && loadMoreInProcessing && isLoadOnScroll && (($('#product-search-results .product-tile').length % initiallyLoadedProducts) == 0)) {
