@@ -17,6 +17,8 @@
             </isif>
         </isloop>
     </isif>
+    <div class="plp-image-carousel">
+
     <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
         <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
 	        <picture>
@@ -53,7 +55,7 @@
               <isif condition="${product.images.tile256[3]}"><img class="tile-image gtm-product" src="${product.images.tile256[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
             </picture>
         </a>
-
+    </div>
     <isif condition="${!empty(product.saveMessage)}">
         <div class="product-tag-content">
             <span class="badge">${product.saveMessage}</span>
