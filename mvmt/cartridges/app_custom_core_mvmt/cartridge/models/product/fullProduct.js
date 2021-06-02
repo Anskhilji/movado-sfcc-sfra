@@ -24,7 +24,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
     var color = productCustomHelper.getColor(apiProduct);
-    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
 

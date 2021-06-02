@@ -186,9 +186,9 @@
             @include font-bold;
 
             span {
-                font-size: rem(10);
-                letter-spacing: rem(1.5);
-                line-height: 1;
+                font-size: rem(11);
+                letter-spacing: rem(1);
+                line-height: rem(20);
                 color: $black;
 
                 @include media-breakpoint-up(sm) {
@@ -202,38 +202,42 @@
         }
 
         .product-brand-info {
-            font-size: rem(9);
+            font-size: rem(11);
             color: $black;
             text-transform: uppercase;
-            line-height: rem(12);
             min-height: rem(12);
+            line-height: rem(20);
+            letter-spacing: rem(1);
             @include font-medium;
 
             @include media-breakpoint-up(md-down) {
-                font-size: rem(16);
-            }
+                font-size: rem(14);
+        }
 
             @include media-breakpoint-up(sm) {
-                font-size: rem(16);
+                font-size: rem(14);
             }
         }
 
         .pdp-link {
-            margin: 0;
+            margin: 0 0 rem(10) 0;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
+            letter-spacing: rem(1);
+            @include font-book;
 
             @include media-breakpoint-up(lg) {
-                margin: rem(4) 0;
-            }
+                margin: 0 0 rem(10) 0;
+                line-height: rem(20);
+        }
 
             a {
-                margin: rem(5) 0;
                 font-size: rem(11);
-                line-height: 1.2;
+                line-height: rem(20);
                 letter-spacing: rem(1.5);
+                text-transform: none;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -246,7 +250,7 @@
                 }
 
                 @include media-breakpoint-up(lg) {
-                    font-size: rem(16);
+                    font-size: rem(14);
                 }
             }
         }
