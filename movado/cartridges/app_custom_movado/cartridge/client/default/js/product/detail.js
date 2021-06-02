@@ -152,6 +152,7 @@ module.exports = {
 
 $( document ).ready(function() {
     refreshAffirmUI();
+    updateStorepickup();
 });
 
 function refreshAffirmUI() {
@@ -164,4 +165,20 @@ function refreshAffirmUI() {
             }, 200);
         }
     }
+}
+
+function updateStorepickup() {
+    if(localStorage.getItem("currentStore") != ""){
+        var StorePickup;
+        try {
+            StorePickup = JSON.parse(localStorage.getItem("currentStore"));
+            var storeAddress = StorePickup.address1 +' '+ StorePickup.stateCode +' '+ StorePickup.phone;
+            $('.available-for-store').text('Available for Store Pickup');
+            $('.available-pickup-stores').text(storeAddress);
+            $('.pick-up-store-change-store').text('Change');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
 }

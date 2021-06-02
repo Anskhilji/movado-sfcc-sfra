@@ -3,9 +3,9 @@
 
 .pdp-store-pickup-wraper {
     width: auto;
-    background-color: #F9F9F9;
-    margin-bottom: 20px;
-    height: 120px;
+    background-color: $light-white;
+    margin-bottom: rem(20);
+    height: rem(140);
 
     .pdp-store-pickup {
 
@@ -17,33 +17,33 @@
             display: inline-block;
             margin: 0;
             width: 23%;
-            padding-top: 20px;
-            padding-left: 15px;
+            padding-top: rem(20);
+            padding-left: rem(15);
         }
 
         &-delevery {
             display: inline-block;
             width: 73%;
             position: absolute;
-            margin-top: 20px;
+            margin-top: rem(20);
         }
     }
     .stock-for-deliver {
-        color: #060506;
+        color: $dark-light-black;
         font-family: $font-book;
-        font-size: 14px;
+        font-size: rem(14);
         font-weight: 700;
-        letter-spacing: 0.61px;
-        line-height: 17px;
+        letter-spacing: rem(0.61);
+        line-height: rem(17);
     }
     .pick-up-store-openings {
         opacity: 0.8;
-        color: #1E1E1E;
+        color: $light-black;
         font-family: $font-book;
-        font-size: 12px;
+        font-size: rem(12);
         font-weight: 300;
-        letter-spacing: 0.76px;
-        line-height: 20px;
+        letter-spacing: rem(0.76);
+        line-height: rem(20);
         margin: 0;
     }
 
@@ -57,42 +57,42 @@
             display: inline-block;
             margin: 0;
             width: 23%;
-            padding-top: 20px;
-            padding-left: 15px;
+            padding-top: rem(20);
+            padding-left: rem(15);
         }
 
         &-availabilty {
             display: inline-block;
             width: 73%;
             position: absolute;
-            margin-top: 20px;
+            margin-top: rem(20);
         }
     }
     .available-for-store {
-        color: #060506;
+        color: $dark-light-black;
         font-family: $font-book;
-        font-size: 14px;
+        font-size: rem(14);
         font-weight: 700;
-        letter-spacing: 0.61px;
-        line-height: 17px;
+        letter-spacing: rem(0.61);
+        line-height: rem(17);
     }
     .available-pickup-stores {
         opacity: 0.8;
-        color: #1E1E1E;
+        color: $light-black;
         font-family: $font-book;
-        font-size: 12px;
+        font-size: rem(12);
         font-weight: 300;
-        line-height: 20px;
+        line-height: rem(20);
         margin: 0;
     }
     .pick-up-store-change-store {
         opacity: 0.8;
-        color: #1E1E1E;
+        color: $light-black;
         font-family: $font-book;
-        font-size: 12px;
+        font-size: rem(12);
         font-weight: 300;
-        letter-spacing: 0.76px;
-        line-height: 20px;
+        letter-spacing: rem(0.76);
+        line-height: rem(20);
         margin: 0;
         text-decoration: underline;
         cursor: pointer;

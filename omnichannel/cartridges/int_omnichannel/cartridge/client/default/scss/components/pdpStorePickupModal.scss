@@ -2,120 +2,120 @@
 @import "bootstrap/scss/mixins/breakpoints";
 
 .pickup-store-pdetail {
-  padding-left: 20px;
+  padding-left: rem(20);
 }
 
 .pickup-store-productname {
   color: $light-gary-black;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 300;
-  letter-spacing: 0.7px;
-  line-height: 24px;
+  letter-spacing: rem(0.7);
+  line-height: rem(24);
 }
 
 .pickup-store-pdetail .pickup-store-pdspecification {
-  padding-top: 15px;
+  padding-top: rem(15);
 }
 
 .pickup-store-pdetail .price {
-  font-size: 12px;
+  font-size: rem(12);
   color: $black-dark;
 }
 
 .pickup-store-productNumber {
   color: $light-gray-brown;
-  font-size: 12px;
+  font-size: rem(12);
   font-weight: 300;
-  letter-spacing: 0.53px;
-  line-height: 24px;
+  letter-spacing: rem(0.53);
+  line-height: rem(24);
 }
 
 .total-stores {
   color: $black-dark;
-  font-size: 10px;
+  font-size: rem(10);
   font-weight: 500;
-  letter-spacing: 0.44px;
-  line-height: 20px;
-  margin-left: 33px;
+  letter-spacing: rem(0.44);
+  line-height: rem(20);
+  margin-left: rem(33);
   text-transform: uppercase;
 }
 
 .store-list {
-  padding: 0 33px;
+  padding: 0 rem(33);
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .store-name {
   color: $black-dark;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 500;
-  letter-spacing: 0.61px;
-  line-height: 24px;
+  letter-spacing: rem(0.61);
+  line-height: rem(24);
 }
 
 .store-address {
   color: $light-gray-brown;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 300;
-  letter-spacing: 0.61px;
-  line-height: 20px;
+  letter-spacing: rem(0.61);
+  line-height: rem(20);
 }
 
 .store-distance {
   color: $green;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 500;
-  letter-spacing: 0.61px;
-  line-height: 20px;
+  letter-spacing: rem(0.61);
+  line-height: rem(20);
 }
 
 .store-available {
   color: $light-gary-black;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 500;
-  letter-spacing: 0.61px;
-  line-height: 24px;
+  letter-spacing: rem(0.61);
+  line-height: rem(24);
 }
 
 .store-hours label {
   color: $black-dark;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 300;
-  letter-spacing: 0.61px;
-  line-height: 20px;
+  letter-spacing: rem(0.61);
+  line-height: rem(20);
   text-transform: none;
 }
 
 .storeHours-title {
   &::after {
     content: "\F106";
-    font-size: 1.5rem;
+    font-size: rem(24);
     font-family: "FontAwesome";
     float: right;
-    padding-left: 10px;
+    padding-left: rem(10);
   }
 }
 
 .storeHours-title.collapsed {
   &::after {
     content: "\F107";
-    font-size: 1.5rem;
+    font-size: rem(24);
     font-family: "FontAwesome";
     float: right;
-    padding-left: 10px;
+    padding-left: rem(10);
   }
 }
 
 .store-pickup-select {
-  height: 25px;
-  width: 120px;
-  border: 1px solid $black-dark;
+  height: rem(25);
+  width: rem(120);
+  border: rem(1) solid $black-dark;
   background-color: $black-dark;
   color: $white-dark;
 }
 
 .no-store {
-  padding: 20px 33px;
+  padding: rem(20) rem(33);
   text-align: center;
 }

@@ -19,4 +19,5 @@
       <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
     </div>
   </div>
+  <isinclude template="modalpopup/modelPopUpButton"/>
 </isif>

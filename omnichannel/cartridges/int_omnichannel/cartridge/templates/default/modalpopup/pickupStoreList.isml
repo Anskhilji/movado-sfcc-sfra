@@ -1,5 +1,5 @@
 <isif condition="${param.stores.stores.length > 0}">
-    <div id="total-results" class="total-stores">${param.stores.stores.length.toString()} results</div>
+    <div id="total-results" class="total-stores">${param.stores.stores.length.toString()}${Resource.msg('store.pickup.search.results.text', 'pdpStorePickUp', null)}</div>
     <div class="store-list">
         <isloop items="${param.stores.stores}" var="store">
             <div class="row">
@@ -15,9 +15,11 @@
                     </isif>
                 </div>
                 <div class="col-md-3">
-                    <div class="store-product-available">
-                        1 Available
-                    </div>
+                    <isif condition="${param.isPDP === true}">
+                        <div class="store-product-available">
+                            1 Available 
+                        </div>
+                    </isif>    
                     <isif condition="${store.storeHours}">
                         <div class="store-hours">
                             <label class="storeHours-title collapsed" data-toggle="collapse"
@@ -33,10 +35,10 @@
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="store-pickup-select"
-                        data-store="${JSON.stringify(store)}">Select</button>
+                        data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
                 </div>
             </div>
         </isloop>
     <iselse/>
-        <div class='no-store'>We're sorry, we couldn't find results for your search.</div>
+        <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null)}</div>
 </isif>
