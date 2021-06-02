@@ -83,8 +83,9 @@
                 <div class="col-sm-12">
 
                     <!--- Product Grid --->
-                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
-                        <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
+                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${dw.system.Site.current.preferences.custom.pageSize}" >
+                        <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus" >
+                        
                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
                                 <div class="col-6 col-sm-4 col-lg-3">
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
