@@ -346,14 +346,6 @@ function getPDPContentAssetHTML (apiProduct) {
     }
 }
 
-function getSaveMessage(apiProduct) {
-    var saveMessage = "";
-    if (!empty(apiProduct)) {
-        saveMessage = apiProduct.custom.saveMessage ? apiProduct.custom.saveMessage : "";
-    }
-    return saveMessage;
-}
-
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
@@ -362,6 +354,5 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
-movadoProductCustomHelper.getSaveMessage = getSaveMessage;
 
 module.exports = movadoProductCustomHelper;
