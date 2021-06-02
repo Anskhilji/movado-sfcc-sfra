@@ -1,0 +1,114 @@
+/**
+ * Extended script to handle pre Orders after OMS update 
+ * @input CurrentHttpParameterMap : Object
+ *
+ */
+importPackage( dw.system );
+importPackage( dw.util );
+importPackage( dw.value);
+importPackage( dw.order);
+importPackage( dw.object );
+
+var handleNotify = module.superModule;
+
+/**
+ * Removes order from pre order processing list.
+ * @params {Object} notificationData - notificationData object containing adyen notifiaction data 
+ */
+function removeOrderFromPreOrders(notificationData) {
+    var orderNo = notificationData.merchantReference;
+    var OrderMgr = require('dw/order/OrderMgr');
+    if (!empty(orderNo)) {
+        var order = OrderMgr.getOrder(orderNo);
+        if(!empty(order)) {
+            order.custom.isPreorderProcessing = false;
+        }
+    }
+}
+
+
+function notify (notificationData) {
+    // Check the input parameters
+    if (notificationData == null) {
+        Logger.getLogger("Adyen", "adyen").fatal("Handling of Adyen notification has failed. No input parameters were provided.");
+        return PIPELET_NEXT;
+    }
+
+    try {
+        var msg : String = createLogMessage(notificationData);
+        Logger.getLogger("Adyen").debug(msg);
+
+        var calObj: Calendar = new Calendar();
+        var keyValue: String = notificationData.merchantReference + "-" + StringUtils.formatCalendar(calObj, "yyyyMMddhhmmss");
+        var customObj: CustomObject = CustomObjectMgr.createCustomObject("adyenNotification", keyValue);
+        for (var field in notificationData) {
+            try {
+                customObj.custom[field] = notificationData[field];
+            }
+            catch (e) {
+            }
+        }
+        // Save all request to custom attribute for Authorization event
+        customObj.custom.Adyen_log = JSON.stringify(notificationData);
+        switch(notificationData.eventCode) {
+            
+            case "AUTHORISATION" :
+                break;
+            case "CAPTURE":
+                removeOrderFromPreOrders(notificationData);
+                break;
+            case "CANCELLATION" :
+                removeOrderFromPreOrders(notificationData);
+                break;
+            case "CANCEL_OR_REFUND" :
+                break;
+            case "REFUND" :
+                break;
+            case "CAPTURE_FAILED" :
+                removeOrderFromPreOrders(notificationData);
+                break;
+            case "ORDER_OPENED" :
+                break;
+            case "ORDER_CLOSED" :
+                break;
+            case "PENDING" :
+                customObj.custom.updateStatus = "PROCESS";
+                Logger.getLogger("Adyen").info ("Received notification for merchantReference {0} with status {1}. Custom Object set up to 'PROCESS' status.", notificationData.merchantReference, notificationData.eventCode);
+                break;
+            default:
+                customObj.custom.updateStatus = "PENDING";
+                Logger.getLogger("Adyen").info ("Received notification for merchantReference {0} with status {1}. Custom Object set up to 'PENDING' status.", notificationData.merchantReference, notificationData.eventCode);
+        }
+
+    }
+	catch (e){
+        Logger.getLogger("Adyen", "adyen").error(e.message);
+	}
+
+	return PIPELET_NEXT;
+}
+
+function createLogMessage(notificationData){
+	var VERSION : String= "4d";
+	var msg = "";
+	msg = "AdyenNotification v " + VERSION;
+	msg = msg + "\n================================================================\n";
+	msg = msg + "reason : " + notificationData.reason;
+	msg = msg + "\neventDate : " + notificationData.eventDate;
+	msg = msg + "\nmerchantReference : " + notificationData.merchantReference;
+	msg = msg + "\ncurrency : " + notificationData.currency;
+	msg = msg + "\npspReference : " + notificationData.pspReference;
+	msg = msg + "\nmerchantAccountCode : " + notificationData.merchantAccountCode;
+	msg = msg + "\neventCode : " + notificationData.eventCode;
+	msg = msg + "\nvalue : " + notificationData.value;
+	msg = msg + "\noperations : " + notificationData.operations;
+	msg = msg + "\nsuccess : " + notificationData.success;
+	msg = msg + "\npaymentMethod : " + notificationData.paymentMethod;
+	msg = msg + "\nlive : " + notificationData.live;
+	return msg;
+}
+
+handleNotify.removeOrderFromPreOrders = removeOrderFromPreOrders;
+handleNotify.notify = notify;
+
+module.exports = handleNotify;
