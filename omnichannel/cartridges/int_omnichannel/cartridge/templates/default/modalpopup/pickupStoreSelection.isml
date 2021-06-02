@@ -54,7 +54,7 @@
                                 </select>
                             </div>
                             <div class="store-pickup-search-store">
-                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList')}'>Search</button>
+                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList','isPdp',true)}'>Search</button>
                             </div>
                         </div>
                     </div>

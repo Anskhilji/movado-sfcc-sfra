@@ -1,6 +1,6 @@
 <isscript>
     var assets = require('*/cartridge/scripts/assets');
-    assets.addCss('/css/storePickupMain.css');
+    assets.addCss('/css/components/pdpStorePickUp.css');
 </isscript>
 <div class="col-sm-6 pdp-store-pickup-inventory">
     <div class="pdp-store-pickup-inventory-icon">

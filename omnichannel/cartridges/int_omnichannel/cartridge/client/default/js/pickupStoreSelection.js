@@ -39,6 +39,7 @@ $(document).on('click', '.store-pickup-select', function () {
             $('.available-for-store').text('Available for Store Pickup');
             $('.available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
+            $('#pickupStoreModal').modal('hide');
         } catch (error) {
             console.log(error);
         }

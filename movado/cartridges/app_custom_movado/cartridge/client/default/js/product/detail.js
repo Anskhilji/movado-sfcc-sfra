@@ -176,6 +176,7 @@ function updateStorepickup() {
             $('.available-for-store').text('Available for Store Pickup');
             $('.available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
+
         } catch (error) {
             console.log(error);
         }

@@ -32,7 +32,7 @@ server.get('ShowMcsAffirmText', function (req, res, next) {
 
 server.get('getStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
-    var isPdp = req.querystring.ipdPsdp;
+    var isPdp = true;
     var zipCode = req.querystring.zipCode;
     var geolocation = req.geolocation;
     var radiusOptions = [15, 30, 50, 100, 300];
