@@ -73,17 +73,18 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = categoryTemplateReDesign;
+        /**
+        * Custom Start: Added logic for OB Redesign.
+        */
+        if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+            categoryTemplate = viewData.resultsTemplate;
+        }
+        /**
+        * Custom End:
+        */
     }
 
-    /**
-     * Custom Start: Added logic for OB Redesign.
-     */
-    if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
-        categoryTemplate = viewData.resultsTemplate;
-    }
-    /**
-     * Custom End:
-     */
+
 
     productSearch = new ProductSearch(
         apiProductSearch,
