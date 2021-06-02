@@ -1,7 +1,7 @@
 <form action="" name="embossing" id="embossingForm">
     <div class="embossing-attribute">
         <a class="togglePersonalizationOpt" href="javascript:void(0);">
-            <span class="add">
+            <span class="add embossing-color">
                 <i class="fa fa-plus"></i>
                 <span>${Resource.msg('label.product.personalizaion.add', 'product', null)}</span>
             </span>

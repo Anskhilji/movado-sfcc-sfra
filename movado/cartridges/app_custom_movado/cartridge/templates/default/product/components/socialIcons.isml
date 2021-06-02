@@ -1,5 +1,5 @@
 <isif condition="${pdict.socialShareEnable}">
-  <div class="col-auto col-sm-8 social-container">
+  <div class="col-sm-8 social-container">
     <div class="addthis_toolbox social-icons">
       <a class="addthis_button_pinterest unlink" role="button" tabindex="0">
         <i class="fa fa-pinterest"></i>
