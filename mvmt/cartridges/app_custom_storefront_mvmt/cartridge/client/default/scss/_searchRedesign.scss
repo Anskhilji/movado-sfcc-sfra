@@ -41,6 +41,48 @@
                     }
                 }
             }
+
+            .plp-image-carousel {
+                position: relative;
+                .slick {
+
+                    &-dots {
+                        position: absolute;
+                        display: flex;
+                        padding: 0;
+                        top: rem(10);
+                        right: rem(10);
+
+                        li {
+                            margin-right: rem(5);
+
+                            &:last-child {
+                                margin-right: rem(0);
+                            }
+
+                            button {
+                                font-size: 0;
+                                width: rem(5);
+                                height: rem(5);
+                                padding: 0;
+                                border: 0;
+                                border-radius: 100%;
+                                background-color: rgba(0, 0, 0, 0.2);
+
+                                &:focus {
+                                    outline: none;
+                                }
+                            }
+
+                            &.slick-active {
+                                button {
+                                    background-color: $black;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .tile {
