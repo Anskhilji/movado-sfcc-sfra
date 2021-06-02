@@ -46,7 +46,9 @@ module.exports = function () {
         }
 
         var $productNameSelector = $productContainer.find('.product-name');
+        //Custom Start  [MSS-1375] response.product.productName changed to response.product.color
         $productNameSelector.text(response.product.color);
+        //Custom End
         $productNameSelector.attr('href', $product.selectedProductUrl);
 
         var variationPID = response.product.id;
