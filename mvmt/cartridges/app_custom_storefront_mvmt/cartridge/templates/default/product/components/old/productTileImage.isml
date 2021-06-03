@@ -56,14 +56,4 @@
         </a>
       </isif>
     </isif>
-
-    <isif condition="${!empty(product.saveMessage)}">
-        <div class="product-tag-content">
-            <span class="badge">${product.saveMessage}</span>
-        </div>
-    <iselse/>
-        <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
-            <isinclude template="product/components/badges" />
-        </div>
-    </isif>
 </div>
