@@ -24,7 +24,7 @@
         </isif>
     </div>
 
-    <div class="mvmt-plp container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" >
+    <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" >
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
           <div class="search-nav px-5 mt-2">
