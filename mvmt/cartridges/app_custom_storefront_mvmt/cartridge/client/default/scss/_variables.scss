@@ -52,6 +52,7 @@ $curious-blue: #1d93d9;
 $light-red: #f74e38;
 $speech-red: #cb0707;
 $corvette: #E7BF74;
+$speech-red-light: rgba(203,7,7,0.89);
 
 $white-gray: #f7f8f9;
 $dark-blue: #3b5998;
@@ -74,7 +75,6 @@ $white-shadow: rgba(214,214,214,0.5);
 $white: #ffffff;
 $dark-gray: #222222;
 $dark-gray1: #212121;
-$black: #000000;
 $cyan-blue: #f7f8f9;
 $cyan-blue1: #ced4da;
 $red: #a40000;
@@ -96,7 +96,7 @@ $dark-pink: #ead7dc !default;
 $grey9-light:  #d6d7d8 !default;
 $gray98: #fafafa !default;
 $zircon: #eaebeb;
-$black: #000;
+$black: #000000;
 $apple-green: #53c563;
 $alice-blue: #F7F8F9;
 $gray36: #5c5c5c;
@@ -106,6 +106,10 @@ $alice-dark: #f9f9f9;
 $emerald: #4BC760;
 $nobel: #B7B7B7;
 $light-blue-icons: #1D9ED9;
+$gray88: rgba(224, 224, 224, 0.89);
+$gray88-solid: #E0E0E0;
+$badge-bg: rgba(238,238,238,0.69);
+$emerald: #53C56F;
 
 @mixin font-bold {
     font-family: "futura-pt-bold", sans-serif;

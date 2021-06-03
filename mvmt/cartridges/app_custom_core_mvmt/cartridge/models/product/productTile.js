@@ -30,7 +30,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
-    
+
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
         decorators.variationsAttributes(product, options.variationModel, {
@@ -229,6 +229,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: color
         });
     }
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
+    Object.defineProperty(product, 'saveMessage', {
+        enumerable: true,
+        value: saveMessage
+    });
     
     return product;
 };
