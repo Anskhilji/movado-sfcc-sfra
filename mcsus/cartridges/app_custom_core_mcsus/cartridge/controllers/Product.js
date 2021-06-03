@@ -32,14 +32,14 @@ server.get('ShowMcsAffirmText', function (req, res, next) {
 
 server.get('getStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
-    var isPdp = true;
+    var isPdp = req.querystring.isPdp || false;
     var zipCode = req.querystring.zipCode;
     var geolocation = req.geolocation;
     var radiusOptions = [15, 30, 50, 100, 300];
-    geolocation = {
-        countryCode: "CA",
-        latitude: 49.206217, longitude: -122.985902
-    }
+    // geolocation = {
+    //     countryCode: "CA",
+    //     latitude: 49.206217, longitude: -122.985902
+    // }
 
     var stores = storeHelpers.getStores(radius, null, null, geolocation, zipCode, false);
     var path = '/modalpopup/pickupStoreList.isml';
@@ -48,7 +48,6 @@ server.get('getStoresList', function (req, res, next) {
 
     data.put('stores', stores);
     data.put('isPdp', isPdp);
-    data.put('radiusOptions', radiusOptions);
     
     var html = tmplate.render(data);
     var result = {
@@ -59,5 +58,12 @@ server.get('getStoresList', function (req, res, next) {
     next();
 });
 
+server.post('setStoreIDSession', function (req, res, next) {
+
+    var storeID = request.httpParameterMap.storeID.value;
+    session.privacy.pickupStoreID = storeID;
+    res.json(true);
+    next();
+});
 
 module.exports = server.exports();

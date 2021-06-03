@@ -18,8 +18,8 @@
                 <div class="row pickup-store-pdetail">
                     <div class="col-md-3">
                         <picture>
-                            <img src="${product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
-                                alt="${product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
+                            <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
+                                alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
                                 itemprop="image" />
                             <isset name="isImageExist" value="true" scope="page" />
                         </picture>
@@ -28,9 +28,9 @@
                         <div class="pickup-store-productNumber">
                             <isinclude template="product/components/productNumber" />
                         </div>
-                        <h5 class="pickup-store-productname text-uppercase">${product.productName}</h1>
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}" />
+                        <h5 class="pickup-store-productname text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
+                            <isset name="price" value="${product != null && product != undefined && ? product.price : ''}" scope="page" />
+                            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
                     </div>
                 </div>
                 <hr />
@@ -54,14 +54,12 @@
                                 </select>
                             </div>
                             <div class="store-pickup-search-store">
-                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList','isPdp',true)}'>Search</button>
+                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList','isPdp', pdict.isPdpStorePickup)}'>Search</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="store-list">
-                    
-                </div>
+                <div id="store-list"></div>
             </div>
         </div>
     </div>

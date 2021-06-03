@@ -30,18 +30,33 @@ $(document).ready(function () {
 $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
     localStorage.setItem("currentStore", stringifyData);
-    console.log(JSON.parse(localStorage.getItem("currentStore")));
-    
-    var StorePickup = JSON.parse(localStorage.getItem("currentStore"));
-    if (StorePickup !=='') {
+    var StoreJson = localStorage.getItem("currentStore");
+    if (StoreJson !== '') {
         try {
-            var storeAddress = StorePickup.address1 +' '+ StorePickup.stateCode +' '+ StorePickup.phone;
+            var StorePickup = JSON.parse(StoreJson);
+            var storeAddress = StorePickup.address1 + ' ' + StorePickup.stateCode + ' ' + StorePickup.phone;
             $('.available-for-store').text('Available for Store Pickup');
+            $('.set-your-store').text(StorePickup.address1);
             $('.available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
             $('#pickupStoreModal').modal('hide');
+            setStoreInSession($(this).data('url'))
         } catch (error) {
-            console.log(error);
+
         }
     }
 })
+
+function setStoreInSession(url) {
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        success: function (resData) {
+            $.spinner().stop();
+        }, error: function (error) {
+            $.spinner().stop();
+        }
+
+    })
+}

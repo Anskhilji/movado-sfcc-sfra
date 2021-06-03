@@ -168,11 +168,12 @@ function refreshAffirmUI() {
 }
 
 function updateStorepickup() {
-    if(localStorage.getItem("currentStore") != ""){
+    var storeJson = localStorage.getItem("currentStore");
+    if (storeJson != "") {
         var StorePickup;
         try {
-            StorePickup = JSON.parse(localStorage.getItem("currentStore"));
-            var storeAddress = StorePickup.address1 +' '+ StorePickup.stateCode +' '+ StorePickup.phone;
+            StorePickup = JSON.parse(storeJson);
+            var storeAddress = StorePickup.address1 + ' ' + StorePickup.stateCode + ' ' + StorePickup.phone;
             $('.available-for-store').text('Available for Store Pickup');
             $('.available-pickup-stores').text(storeAddress);
             $('.pick-up-store-change-store').text('Change');
@@ -181,5 +182,5 @@ function updateStorepickup() {
             console.log(error);
         }
     }
-    
+
 }
