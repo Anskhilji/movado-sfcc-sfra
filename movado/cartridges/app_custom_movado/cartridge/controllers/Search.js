@@ -70,18 +70,25 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName 
     });
     var categoryTemplateReDesign = 'search/searchResults';
-
-    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-        categoryTemplate = categoryTemplateReDesign;
-        /**
-        * Custom Start: Added logic for OB Redesign.
-        */
-        if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
-            categoryTemplate = viewData.resultsTemplate;
+    var categoryTemplateEyewear = 'search/searchResultsEyewear';
+    if (categoryTemplate == categoryTemplateEyewear) {
+        if (categoryTemplateEyewear && categoryTemplate && (categoryTemplate.indexOf('searchResultsEyewear') > 0)){
+            categoryTemplate = categoryTemplateEyewear;
+            var eyewearPageSize = Site.getCurrent().getCustomPreferenceValue('eyewearPageSize');
         }
-        /**
-        * Custom End:
-        */
+    } else {
+        if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+            categoryTemplate = categoryTemplateReDesign;
+            /**
+            * Custom Start: Added logic for OB Redesign.
+            */
+            if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+                categoryTemplate = viewData.resultsTemplate;
+            }
+            /**
+            * Custom End:
+            */
+        } 
     }
 
 
