@@ -36,7 +36,9 @@ var BANGLE = 'bangle';
 var NEWLINE = '\n';
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-
+var POWER_RESERVE  = 'powerReserve';
+var MOVEMENT_FUNCTIONS = 'movementFunctions';
+var CALIBER = 'caliber';
 
 function getBadges(apiProduct) {
 	// Contains what attributes needs to display image/text
@@ -289,6 +291,12 @@ function getPdpAttributes(apiProduct) {
     }				else if (attr == ATTR_GEM_CLARITY && apiProduct.custom.gemstoneClarity) {
         attributes = pushAttributeToList(attributes, attrNameMapping.gemstoneClarity, apiProduct.custom.gemstoneClarity, gemstoneClarityImage.URL);
     }
+    } else if (attr == CALIBER && apiProduct.custom.caliber) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.caliber, apiProduct.custom.caliber, null);
+    } else if (attr == MOVEMENT_FUNCTIONS && apiProduct.custom.movementFunctions) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.movementFunctions, apiProduct.custom.movementFunctions, null);
+    } else if (attr == POWER_RESERVE && apiProduct.custom.powerReserve) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.powerReserve, apiProduct.custom.powerReserve, null);
     }
         }
     } catch (e) {
