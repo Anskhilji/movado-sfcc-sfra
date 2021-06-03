@@ -3,7 +3,7 @@
 var swatches = require('movado/utilities/swatches');
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
-var isenablePagination = $('.mvmt-plp.container-fluid').data('enable-pagination');
+var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
 var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
 
 var loadMoreInProcessing = false;
@@ -398,7 +398,7 @@ module.exports = {
                     updateSortOptions(response);
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
-                    if (isInfiniteScrollEnabled && (isenablePagination == false)) {
+                    if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                     }
                     // edit end
@@ -413,7 +413,7 @@ module.exports = {
 
     loadMoreProductsOnScroll: function () {
         // Load more products on scroll
-        if (isInfiniteScrollEnabled && (isenablePagination == false)) {
+        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
             $(window).scroll(function (e) {
                 if (!loadMoreInProcessing) {
                     loadMoreInProcessing = true;
