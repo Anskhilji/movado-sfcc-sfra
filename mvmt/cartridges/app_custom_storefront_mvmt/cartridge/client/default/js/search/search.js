@@ -414,7 +414,9 @@ module.exports = {
     loadMoreProductsOnScroll: function () {
         // Load more products on scroll
         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+
             $(window).scroll(function (e) {
+                
                 if (!loadMoreInProcessing) {
                     loadMoreInProcessing = true;
                 } else {
