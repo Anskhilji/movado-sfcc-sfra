@@ -28,6 +28,7 @@
             margin-top: rem(20);
         }
     }
+
     .stock-for-deliver {
         color: $dark-light-black;
         font-family: $font-book;
@@ -36,6 +37,7 @@
         letter-spacing: rem(0.61);
         line-height: rem(17);
     }
+
     .pick-up-store-openings {
         opacity: 0.8;
         color: $light-black;
@@ -68,6 +70,7 @@
             margin-top: rem(20);
         }
     }
+
     .available-for-store {
         color: $dark-light-black;
         font-family: $font-book;
@@ -76,6 +79,7 @@
         letter-spacing: rem(0.61);
         line-height: rem(17);
     }
+
     .available-pickup-stores {
         opacity: 0.8;
         color: $light-black;
@@ -85,6 +89,7 @@
         line-height: rem(20);
         margin: 0;
     }
+
     .pick-up-store-change-store {
         opacity: 0.8;
         color: $light-black;
