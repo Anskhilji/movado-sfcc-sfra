@@ -8,7 +8,8 @@ $(document).ready(function () {
         url = $searchStore.data('url');
         data = {
             zipCode: $zipCode.val(),
-            radius: $radius.val()
+            radius: $radius.val(),
+            isSearch: true
         }
         $.spinner().start();
         $.ajax({

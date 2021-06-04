@@ -47,7 +47,7 @@
                                 <label class="store-pickup-dropdown-label" for="radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
                                 <select class="form-select store-pickup-dropdown-field" id="radius" name="radius">
                                     <option value="15">15 miles</option>
-                                    <option value="30">30 miles</option>
+                                    <option value="30" selected>30 miles</option>
                                     <option value="50">50 miles</option>
                                     <option value="100">100 miles</option>
                                     <option value="300">300 miles</option>

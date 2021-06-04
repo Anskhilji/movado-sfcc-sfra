@@ -20,7 +20,7 @@
             <div id="mainContent">
               <isreplace/>
             </div>
-            <isinclude template="modalpopup/pickupStoreSelection"/>
+            <isinclude template="modalpopup/pickupStoreSelectionModal"/>
             <isinclude template="/components/footer/pageFooter" />
             <isinclude template="/resources/appresources" />
         </div>

@@ -19,34 +19,36 @@
                         </div>
                     </isif>
                 </div>
-
                 <div class="col-md-3">
-                    <isif condition="${param.isPdp}">
-                        <div class="store-availibilty-hours">
-                            <div class="store-product-available">
-                                <span>1 Available</span>
-                            </div>
-                            <isif condition="${store.storeHours}">
-                                <div class="store-hours">
-                                    <label class="storeHours-title collapsed" data-toggle="collapse"
-                                        data-target="${'#storeHours-' + store.ID}" aria-expanded="false"
-                                        aria-controls="${'storeHours-' + store.ID}"
-                                        for="${'storeHours-' + store.ID}">Store
-                                        Hours</label>
-                                    <div class="row collapse" id="storeHours-${store.ID}">
-                                        <div class="col-sm-12 store-hours-time">
-                                            <isprint value="${store.storeHours}" encoding="off" />
-                                        </div>
+                    <div class="store-availibilty-hours">
+                        <div class="store-product-available">
+                            <span>1 Available</span>
+                        </div>
+                        <isif condition="${store.storeHours}">
+                            <div class="store-hours">
+                                <label class="storeHours-title collapsed" data-toggle="collapse"
+                                    data-target="${'#storeHours-' + store.ID}" aria-expanded="false"
+                                    aria-controls="${'storeHours-' + store.ID}" for="${'storeHours-' + store.ID}">Store
+                                    Hours</label>
+                                <div class="row collapse" id="storeHours-${store.ID}">
+                                    <div class="col-sm-12 store-hours-time">
+                                        <isprint value="${store.storeHours}" encoding="off" />
                                     </div>
                                 </div>
-                            </isif>
-                        </div>
-                    </isif>
+                            </div>
+                        </isif>
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="store-select-button">
-                        <button type="button" class="store-pickup-select"
-                          data-url="${URLUtils.https('Product-setStoreIDSession','storeID', store.ID)}" data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
+                        <isif condition="${param.selectedStore == store.ID}">
+                            <button type="button" class="store-pickup-select"
+                                disabled>${Resource.msg('store.pickup.selected.button', 'pdpStorePickUp', null)}</button>
+                        <iselse/>
+                            <button type="button" class="store-pickup-select"
+                                data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
+                                data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
+                        </isif>
                     </div>
                 </div>
             </div>

@@ -44,10 +44,10 @@
   padding: 0 rem(33);
   overflow-x: hidden;
   overflow-y: auto;
-    .store-list-details {
-      padding-top: rem(15);
-      padding-bottom: rem(15);
-    }
+  .store-list-details {
+    padding-top: rem(15);
+    padding-bottom: rem(15);
+  }
 }
 
 .store-name {
@@ -150,8 +150,13 @@
     background-color: $black-dark;
     color: $white-dark;
     text-transform: uppercase;
+    cursor: pointer;
+    &:disabled {
+      border: rem(1) solid $light-gray-brown;
+      background-color: $light-gray-brown;
+      cursor: default;
+    }
   }
-
 }
 .store-availibilty-hours {
   padding-top: rem(25);
