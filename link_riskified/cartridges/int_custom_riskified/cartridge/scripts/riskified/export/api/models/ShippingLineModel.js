@@ -22,14 +22,14 @@ function create(order) {
         }
 
         /**
-         * Custom Start: Add logic to updated shipmentTitle in case of BOPIS
+         * Custom Start: [MSS-1414] Add logic to updated shipmentTitle in case of BOPIS
          */
         var Constants = require("*/cartridge/scripts/riskified/utils/Constants");
         if (!empty(shipment.shippingMethod) && shipment.shippingMethod.custom.storePickupEnabled) {
             shipmentTitle = Constants.STORE_PICKUP;
         }
         /**
-         * Custom End:
+         * Custom End: [MSS-1414]
          */
 
         shipments.push({
