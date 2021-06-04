@@ -24,6 +24,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
@@ -189,6 +190,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
+                Object.defineProperty(product, 'defaultVariantColor', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.color || ''
+                });
             }
             
         }
@@ -218,6 +223,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
 
+    if (!empty(color)) {
+        Object.defineProperty(product, 'color', {
+            enumerable: true,
+            value: color
+        });
+    }
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
     Object.defineProperty(product, 'saveMessage', {

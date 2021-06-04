@@ -14,23 +14,25 @@
 
                 .exclusive-badges {
                     margin: 0;
+                    display: flex;
                 }
     
                 .badge  {
-                    background-color: $gray88;
+                    background-color: $badge-bg;
+                    border: rem(1) solid $gray88-solid;
                     font-size: rem(10);
                     font-weight: 500;
-                    border-radius: rem(20);
-                    height: auto;
+                    border-radius: rem(13);
                     margin: 0;
-                    padding: rem(2.5) rem(15.5);
-                    line-height: rem(20);
+                    padding: rem(2) rem(15);
+                    line-height: normal;
                     letter-spacing: rem(0.83);
                     color: $black;
+                    height: auto;
 
                     @include media-breakpoint-up(lg) {
-                        letter-spacing: rem(0.6);
-                        font-size: rem(12);
+                        letter-spacing: rem(0.5);
+                        padding: rem(3) rem(15);
                     }
 
                     &.red-tag {

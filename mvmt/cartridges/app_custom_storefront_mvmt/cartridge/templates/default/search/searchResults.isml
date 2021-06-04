@@ -27,23 +27,22 @@
             </isif>
         </div>
 
-        <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results">
+        <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" >
             <isif condition="${!pdict.productSearch.isCategorySearch}">
                 <div class="row">
                     <div class="search-nav px-5 mt-2">
                         <div class="nav-tabs-wrapper">
                             <ul class="nav nav-tabs nav-fill" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active product-search" href="#product-search-results"
-                                        data-toggle="tab" role="tab" aria-expanded="true">
-                                        <isif condition="${pdict.productSearch.count > 0}">
+                                    <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
+                                    aria-expanded="true">
+                                        <isif condition="${pdict.productSearch.count>0}" >
                                             ${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
                                         <iselse/>
                                             ${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
                                         </isif>
                                     </a>
                                 </li>
-
                                 <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
                                     <li class="nav-item">
                                         <a class="nav-link content-search" href="#content-search-results-pane"
@@ -99,27 +98,15 @@
                                     </div>
                                 </isif>
 
-                                <isif
-                                    condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch
-                                               .defaultPageSize - 1)}">
-                                    <iselse>
-                                        <div class="col-6 col-sm-4 col-lg-3"
-                                            data-gtm-refinements='${product.productSearchHit.productID}'>
-                                            <isobject object="${product.productSearchHit}" view="searchhit">
-                                                <isif condition="${pdict.productSearch.category}">
-                                                    <isinclude
-                                                        url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings',
-                                                             true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count,
-                                                             'categoryName', pdict.productSearch.category.name)}" />
-                                                    <iselse>
-                                                        <isinclude
-                                                            url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings',
-                                                                 true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
-                                                </isif>
-                                            </isobject>
-                                        </div>
-                                </isif>
-                            </isloop>
+                    <!--- Product Grid --->
+                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" >
+                        <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus" >
+                        
+                            <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
+                                <div class="col-6 col-sm-4 col-lg-3">
+                                    <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
+                                </div>
+                            </isif>
 
                             <isif condition="${pdict.productSearch.enablePagination}">
                                 <isinclude template="search/pagination" />
@@ -138,6 +125,15 @@
         </div>
         </div>
         </div>
+        <isslot id="cs_plp_collection_bottom_slot" context="category" description="Collection content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <isslot id="cs_plp_second_bottom_slot" context="category" description="Second Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+    </isif>
+    <iscomment> Start: Create category slots for strapsd design </iscomment>
+    <isif condition=${false}>
+        <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" /> 
+    </isif>
 
         <button class="scroll-top"></button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
