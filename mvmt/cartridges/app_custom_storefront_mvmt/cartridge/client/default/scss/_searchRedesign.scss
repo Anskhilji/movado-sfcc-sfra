@@ -87,6 +87,9 @@
                     .values {
                         min-height: auto;
                         max-width: 100%;
+                        overflow: auto;
+                        flex-wrap: nowrap;
+
                         li {
                             padding: 0;
                             width: rem(80);
