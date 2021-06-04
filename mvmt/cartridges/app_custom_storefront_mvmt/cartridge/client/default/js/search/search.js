@@ -620,6 +620,7 @@ module.exports = {
             var $headerSize = $('.header-menu-wrapper').height();
             var $headerBannerSize = $('.hero').height();
             var $totalHeaderSize = $headerBannerSize - 50;
+            $totalHeaderSize =+ $('.top-refinements').outerHeight();
             if ($(this).scrollTop() > $totalHeaderSize) {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.plp-filter-bar').addClass('sticky');

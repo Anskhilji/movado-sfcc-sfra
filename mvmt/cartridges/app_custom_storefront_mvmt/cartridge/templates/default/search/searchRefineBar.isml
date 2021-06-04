@@ -1,10 +1,9 @@
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
 <div class="top-refinements mvmt-plp mvmt-plp-redesign">
     <isloop items="${refinements}" var="refinement">
-        <isif condition="${refinement.displayName == 'dialStyle'}">
+        <isif condition="${refinement.values && (refinement.values.length > 0 ) && (refinement.values[0].id == 'dialStyle')}">
             <div class="top-refinements-content ">
                 <h2 class="refinement-name">${refinement.displayName}</h2>
-                <h2>${JSON.stringify(refinement)}</h2>
                 <div class="filter-group-outer">
                     <ul class="values content">
                         <isloop items="${refinement.values}" var="refinementValue" status="loopStatus" >
@@ -158,7 +157,7 @@
                         </isif>
                         <iscomment> End </iscomment>
                         <isloop items="${refinements}" var="refinement">
-                        <isif condition="${refinement.displayName != 'Collection'}">
+                        <isif condition="${refinement.values && (refinement.values.length > 0 ) && (refinement.values[0].id != 'dialStyle')}">
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
                                     ${refinement.displayName}
