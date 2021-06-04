@@ -226,7 +226,6 @@
             flex-wrap: wrap;
             justify-content: center;
             letter-spacing: rem(1);
-            @include font-book;
 
             @include media-breakpoint-up(lg) {
                 margin: 0 0 rem(10) 0;
@@ -243,6 +242,7 @@
                 overflow: hidden;
                 padding: 0 rem(10);
                 color: $light-gray2;
+                @include font-book;
 
                 @include media-breakpoint-up(sm) {
                     font-size: rem(14);
