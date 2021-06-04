@@ -5,6 +5,7 @@ var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
 var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
 var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
+var totalProductCount = $('.total-product-count').data('total-product-count');
 
 var loadMoreInProcessing = false;
 
@@ -420,6 +421,10 @@ module.exports = {
                 if (!loadMoreInProcessing) {
                     loadMoreInProcessing = true;
                 } else {
+                    return;
+                }
+
+                if (totalProductCount == $('#product-search-results .product-tile').length) {
                     return;
                 }
 
