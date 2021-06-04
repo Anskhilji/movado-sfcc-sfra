@@ -1,12 +1,10 @@
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
-<isloop items="${refinements}" var="refinement">
-
-    <isif condition="${refinement.displayName == 'Collection'}">
-    <isset name="isTop" value="" scope="page" />
-    
-        <div class="top-refinements mvmt-plp mvmt-plp-redesign">
+<div class="top-refinements mvmt-plp mvmt-plp-redesign">
+    <isloop items="${refinements}" var="refinement">
+        <isif condition="${refinement.displayName == 'dialStyle'}">
             <div class="top-refinements-content ">
                 <h2 class="refinement-name">${refinement.displayName}</h2>
+                <h2>${JSON.stringify(refinement)}</h2>
                 <div class="filter-group-outer">
                     <ul class="values content">
                         <isloop items="${refinement.values}" var="refinementValue" status="loopStatus" >
@@ -20,16 +18,15 @@
                                     </a>
                                     <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
                                 </label>
-
                             </li>
                         </isloop>
                     </ul>
                 </div>
             </div>
-        </div>
         </isbreak>
-    </isif>
-</isloop>
+        </isif>
+    </isloop>
+</div>
 
 <div class="mobile-filter">
     <div class="mobile-filter-bar">
