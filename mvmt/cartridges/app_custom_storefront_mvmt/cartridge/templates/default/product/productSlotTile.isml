@@ -24,7 +24,7 @@
 	            </isif>
             </isloop>
         </isif>
-        <isinclude template="product/components/productTileImage" />
+        <isinclude template="product/components/productTileImageWatches" />
 
         <div class="tile-body">
             <div class="tile-badges">
