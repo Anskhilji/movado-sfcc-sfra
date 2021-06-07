@@ -20,7 +20,6 @@
     <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
         <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
 	        <picture>
-            <h1>${pdict.display.lazyload ? "loading='lazy'" : ''},  ${pdict.display.lazyload}</h1>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
 	          <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
