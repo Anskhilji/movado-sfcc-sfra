@@ -67,9 +67,9 @@ function getAllAttrValues(
                 
                 // Custom Start : getting large type image against each variant
                 
-                var largeImages = new ImageModel(value, { types: ['tile533', 'tile256', 'tile217', 'tile150'], quantity: 'single' });
+                var largeImages = new ImageModel(value, { types: ['tile533','tileEyeWear', 'tile256', 'tile217', 'tile150'], quantity: 'single' });
                 processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
-                
+                processedAttr.eyeWearImage = !empty(largeImages.tileEyeWear[0]) ? largeImages.tileEyeWear[0] : '';
                 // Custom End
             }
 
