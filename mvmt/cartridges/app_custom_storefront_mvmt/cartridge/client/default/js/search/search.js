@@ -25,7 +25,6 @@ function updateDom($results, selector) {
  * this method use to get products for GTM Product object
  * @param {Object} response 
  */
-
 function updateMarketingProducts(response) {
     if (typeof setMarketingProductsByAJAX !== 'undefined' && response !== 'undefined') {
         setMarketingProductsByAJAX.cartMarketingData = null;
@@ -265,6 +264,7 @@ function updatePageURLForShowMore(showMoreUrl) {
     var currentProductCount = $('#show-more-update').text();
     var res = currentProductCount.replace(size, newSize);
     $('#show-more-update').text(res);
+
     if (history.pushState) {
         if (document.location.href.indexOf('?') > -1) {
             if (document.location.href.indexOf('sz=') > -1) {
@@ -808,6 +808,7 @@ module.exports = {
                 $('.straps-nav-mobile').css('top', '');
             }
         });
-    },
+
+    }
     // Custom End
 };
