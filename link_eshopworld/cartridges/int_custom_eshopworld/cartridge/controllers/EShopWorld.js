@@ -9,6 +9,7 @@ var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 function setInitialCookies(selectedLanguage) {
     var eswPreferedLocale = selectedLanguage.eswPreferedLocale;
@@ -22,6 +23,7 @@ server.append('GetEswHeader', function (req, res, next) {
     var customLanguages = null;
     var locale = request.getLocale();
     var languages = null;
+    var queriedCountry = null;
     var selectedLanguage = null;
     var geoLocationCountry = null;
     var isGeoLocation = eswCustomHelper.isGeoLocationEnabled();
@@ -52,6 +54,27 @@ server.append('GetEswHeader', function (req, res, next) {
         res.viewData.EswHeaderObject.selectedCountry = queriedCountry.countryCode;
         res.viewData.EswHeaderObject.selectedCountryName = queriedCountry.displayName;
     }
+    // Custom Start: Adding Logic to show price for country selected via geolocation
+    var availableCountry = eswHelper.getAvailableCountry();
+    var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
+    if (queryCountryCode && !empty(queriedCountry)) {
+        availableCountry = queriedCountry.countryCode;
+        currency = queriedCountry.currencyCode;
+    }
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+        return country.value == availableCountry;
+    });
+
+    if (empty(isFixedPriceCountry) && !empty(currency)) {
+        eswHelper.setAllAvailablePriceBooks();
+        eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+    } else {
+    ​    if (!empty(currency)) {
+            eswHelper.setAllAvailablePriceBooks();
+            eswHelper.setBaseCurrencyPriceBook(req, currency);
+        }
+    }
+    // Custom End:
     selectedLanguage = eswCustomHelper.getSelectedLanguage(customLanguages, locale[0]);
     setInitialCookies(selectedLanguage);
     res.viewData.EswHeaderObject.languages = languages;
@@ -99,7 +122,11 @@ server.append('GetEswFooter', function (req, res, next) {
     // Custom Start: Adding Logic to show price for country selected via geolocation
     var availableCountry = eswHelper.getAvailableCountry();
     var currency = !empty(request.httpCookies['esw.currency']) ? request.httpCookies['esw.currency'].value : eswCustomHelper.getSelectedCountry(availableCountry).currencyCode;
-    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+    if (queryCountryCode && !empty(queriedCountry)) {
+        availableCountry = queriedCountry.countryCode;
+        currency = queriedCountry.currencyCode;
+    }
+    var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) {
         return country.value == availableCountry;
     });
 
@@ -201,13 +228,43 @@ server.append('NotifyV2', function(req, res, next) {
         var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
             email: billingCustomer[0].email,
-            country: deliveryCountry
+            country: deliveryCountry,
+            campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
             SFMCApi.sendSubscriberToSFMC(requestParams);
         }
     }
     return next();
+});
+
+/**
+ * Set currency according to country params
+ */
+ server.get('SetRequestCountryParamCurrency', function (req, res, next) {
+     var queryCountryCode = req.querystring.countryCode;
+     if (queryCountryCode) {
+        queriedCountry = eswCustomHelper.getCustomCountryByCountryCode(queryCountryCode);
+     }
+     if (queryCountryCode && !empty(queriedCountry)) {
+         var availableCountry = queriedCountry.countryCode
+         var currency = queriedCountry.currencyCode;
+         var isFixedPriceCountry = eswHelper.getFixedPriceModelCountries().filter(function (country) { 
+             return country.value == availableCountry;
+         });
+     
+         if (empty(isFixedPriceCountry) && !empty(currency)) {
+             eswHelper.setAllAvailablePriceBooks();
+             eswHelper.selectCountry(availableCountry, currency, req.locale.id);
+         } else {
+         ​    if (!empty(currency)) {
+                 eswHelper.setAllAvailablePriceBooks();
+                 eswHelper.setBaseCurrencyPriceBook(req, currency);
+             }
+         }
+    }
+     return;
+    next();
 });
 
 module.exports = server.exports();

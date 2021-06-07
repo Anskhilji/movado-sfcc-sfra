@@ -1,4 +1,4 @@
-        <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', !empty(pdict.action) ? pdict.action: '' , 'countryCode', !empty(pdict.countryCode) ?  pdict.countryCode : '')}" />
+        <isinclude url="${URLUtils.url('Page-IncludeFooter', 'parentController', !empty(pdict.action) ? pdict.action: '' , 'countryCode', !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}" />
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml">
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>

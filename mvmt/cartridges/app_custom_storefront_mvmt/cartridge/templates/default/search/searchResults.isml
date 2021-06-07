@@ -24,7 +24,7 @@
         </isif>
     </div>
 
-    <div class="mvmt-plp container-fluid p-0 search-results">
+    <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" >
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
           <div class="search-nav px-5 mt-2">
@@ -83,8 +83,9 @@
                 <div class="col-sm-12">
 
                     <!--- Product Grid --->
-                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
-                        <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
+                    <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product" data-initial-products="${sitePref.pageSize}" >
+                        <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus" >
+                        
                             <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
                                 <div class="col-6 col-sm-4 col-lg-3">
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
@@ -139,6 +140,7 @@
         </div>
         <isslot id="cs_plp_collection_bottom_slot" context="category" description="Collection content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+        <isslot id="cs_plp_second_bottom_slot" context="category" description="Second Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         <isslot id="shop-all-bottom-slot" description="Shop all bottom slot" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
     <iscomment> Start: Create category slots for strapsd design </iscomment>

@@ -1,4 +1,4 @@
-<div class="col-12 grid-footer"
+<div class="col-12 grid-footer ${ dw.system.Site.current.preferences.custom.isInfiniteScrollEnabled ? 'd-none' : ''}" 
      data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
      data-page-size="${pdict.productSearch.pageSize}"
      data-page-number="${pdict.productSearch.pageNumber}"

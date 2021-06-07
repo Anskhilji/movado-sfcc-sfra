@@ -303,19 +303,6 @@ function getGtmPromotionObject (promotions) {
     }
 }
 
-/**
- * Method use to get collection name from product's custom attribute family name`
- * @param {Product} apiProduct
- * @returns {String }collection name
- */
-function getCollectionName(apiProduct) {
-    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    if (empty(collectionName) && apiProduct.variant) {
-        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
-    }
-
-    return collectionName;
-}
 
 /**
  * Method use to get Diameter name from product's custom attribute`
@@ -358,15 +345,39 @@ function getPDPContentAssetHTML (apiProduct) {
         return '';
     }
 }
+/**
+ * Method use to get color name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }color name
+ */
+function getColor(apiProduct, product) {
+    var color = '';
+    color = apiProduct.custom.color || '';
+    if (apiProduct.master && product && product.variationAttributes.length > 0) {
+        try {
+            product.variationAttributes[0].values.forEach(function (attribute) {
+                if (attribute.selected) {
+                    color = attribute.value;
+                    return;
+                }
+            })
+        } catch (error) {
+            Logger.error('(productCustomHepler.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
+            return;
+        }
+    }
+
+    return color || '';
+}
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
-movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+movadoProductCustomHelper.getColor = getColor;
 
 module.exports = movadoProductCustomHelper;

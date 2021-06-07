@@ -23,14 +23,14 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
-    var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
-    
+
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
         decorators.variationsAttributes(product, options.variationModel, {
@@ -190,6 +190,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
+                Object.defineProperty(product, 'defaultVariantColor', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.color || ''
+                });
             }
             
         }
@@ -205,11 +209,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         
     }
 
-    Object.defineProperty(product, 'collectionName', {
-        enumerable: true,
-        value: collectionName
-    });
-
     if (!empty(promotionObj)) {
         Object.defineProperty(product, 'promotionObj', {
             enumerable: true,
@@ -223,6 +222,19 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: caseDiameter
         });
     }
+
+    if (!empty(color)) {
+        Object.defineProperty(product, 'color', {
+            enumerable: true,
+            value: color
+        });
+    }
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
+    Object.defineProperty(product, 'saveMessage', {
+        enumerable: true,
+        value: saveMessage
+    });
     
     return product;
 };
