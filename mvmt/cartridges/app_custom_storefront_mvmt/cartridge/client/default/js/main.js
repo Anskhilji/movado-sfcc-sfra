@@ -30,7 +30,7 @@ $(document).ready(function () {
     processInclude(require('./login/login'));
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./videoPopup'));
-    processInclude(require('./components/miniCartRecommendations'));    
+    processInclude(require('./components/miniCartRecommendations'));
 });
 
 require('base/components/spinner');

@@ -20,7 +20,7 @@
           <div class="js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
             <isloop items="${slotcontent.content}" var="product">
                 <div class="carousel-tile">
-                  <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'lazyload', true)}"/>
+                  <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true)}"/>
                 </div>
             </isloop>
           </div>
