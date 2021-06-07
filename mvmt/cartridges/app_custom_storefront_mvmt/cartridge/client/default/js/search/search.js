@@ -64,6 +64,7 @@ function parseResults(response) {
     // Update DOM elements that do not require special handling
     [
         '.grid-header',
+        '.top-refinements',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -510,7 +511,7 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -688,6 +689,7 @@ module.exports = {
             var $headerSize = $('.header-menu-wrapper').height();
             var $headerBannerSize = $('.hero').height();
             var $totalHeaderSize = $headerBannerSize - 50;
+            $totalHeaderSize += $('.top-refinements').outerHeight();
             if ($(this).scrollTop() > $totalHeaderSize) {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.plp-filter-bar').addClass('sticky');
