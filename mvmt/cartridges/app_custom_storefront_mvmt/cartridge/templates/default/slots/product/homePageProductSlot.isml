@@ -5,7 +5,7 @@
     <isloop items="${slotcontent.content}" var="product" status="loopState">
 
         <div class="col-6">
-            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, "lazyload", true)}"/>
+            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'lazyload', true)}"/>
         </div>
     </isloop>
 </div>

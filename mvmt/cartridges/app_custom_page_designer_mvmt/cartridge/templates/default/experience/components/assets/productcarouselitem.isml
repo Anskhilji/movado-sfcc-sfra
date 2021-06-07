@@ -1,5 +1,5 @@
 <div class="carousel-tile">
     <div class="">
-        <isinclude url="${URLUtils.url('Tile-Show', 'pid', pdict.productID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, "lazyload", true)}"/>
+        <isinclude url="${URLUtils.url('Tile-Show', 'pid', pdict.productID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, 'lazyload', true)}"/>
     </div>
 </div>
