@@ -1,0 +1,169 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.pickup-store-pdetail {
+  padding-left: rem(20);
+}
+
+.pickup-store-productname {
+  color: $light-gary-black;
+  font-size: rem(16);
+  font-weight: 300;
+  letter-spacing: rem(0.7);
+  line-height: rem(24);
+}
+
+.pickup-store-pdetail .pickup-store-pdspecification {
+  padding-top: rem(15);
+}
+
+.pickup-store-pdetail .price {
+  font-size: rem(12);
+  color: $black-dark;
+}
+
+.pickup-store-productNumber {
+  color: $light-gray-brown;
+  font-size: rem(12);
+  font-weight: 300;
+  letter-spacing: rem(0.53);
+  line-height: rem(24);
+}
+
+.total-stores {
+  color: $black-dark;
+  font-size: rem(10);
+  font-weight: 500;
+  letter-spacing: rem(0.44);
+  line-height: rem(20);
+  margin-left: rem(33);
+  text-transform: uppercase;
+}
+
+.store-list {
+  padding: 0 rem(33);
+  overflow-x: hidden;
+  overflow-y: auto;
+  .store-list-details {
+    padding-top: rem(15);
+    padding-bottom: rem(15);
+  }
+}
+
+.store-name {
+  span {
+    color: $black-dark;
+    font-family: $font-book;
+    font-size: rem(12);
+    font-weight: 700;
+    letter-spacing: rem(0.61);
+    line-height: rem(24);
+  }
+}
+
+.store-address {
+  span {
+    color: $light-gray-brown;
+    font-family: $font-book;
+    font-size: rem(14);
+    font-weight: 300;
+    letter-spacing: rem(0.61);
+    line-height: rem(20);
+  }
+}
+
+.store-distance {
+  span {
+    color: $green;
+    font-family: $font-book;
+    font-size: rem(14);
+    font-weight: 500;
+    letter-spacing: rem(0.61);
+    line-height: rem(20);
+  }
+}
+.store-product-available {
+  span {
+    color: $light-gary-black;
+    font-size: rem(12);
+    font-family: $font-book;
+    font-weight: 700;
+    letter-spacing: rem(0.61);
+    line-height: rem(24);
+  }
+}
+
+.store-hours label {
+  color: $black-dark;
+  font-family: $font-book;
+  font-size: rem(12);
+  font-weight: 700;
+  letter-spacing: rem(0.61);
+  line-height: rem(20);
+  text-transform: none;
+}
+
+.storeHours-title {
+  &::after {
+    content: "\F106";
+    font-size: rem(15);
+    font-family: "FontAwesome";
+    float: right;
+    padding-left: rem(10);
+    font-weight: 700;
+  }
+}
+
+.storeHours-title.collapsed {
+  &::after {
+    content: "\F107";
+    font-size: rem(15);
+    font-family: "FontAwesome";
+    float: right;
+    padding-left: rem(10);
+    font-weight: 700;
+  }
+}
+.store-hours-time {
+  span {
+    color: $black-dark;
+    font-family: $font-book;
+    font-size: rem(12);
+    font-weight: 300;
+    letter-spacing: rem(0.61);
+    line-height: rem(20);
+  }
+}
+.store-select-button {
+  padding-top: rem(35);
+
+  .store-pickup-select {
+    height: rem(25);
+    width: rem(120);
+    font-family: $font-book;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.53);
+    line-height: rem(18);
+    text-align: center;
+    border: rem(1) solid $black-dark;
+    background-color: $black-dark;
+    color: $white-dark;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:disabled {
+      border: rem(1) solid $light-gray-brown;
+      background-color: $light-gray-brown;
+      cursor: default;
+    }
+  }
+}
+
+.store-availibilty-hours {
+  padding-top: rem(25);
+}
+
+.no-store {
+  padding: rem(20) rem(33);
+  text-align: center;
+}

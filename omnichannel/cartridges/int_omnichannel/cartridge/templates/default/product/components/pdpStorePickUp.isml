@@ -1,0 +1,43 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addCss('/css/components/pdpStorePickUp.css');
+</isscript>
+<div class="col-sm-6 pdp-store-pickup-inventory">
+    <div class="pdp-store-pickup-inventory-icon">
+        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="MCS_Updated_User_Journey_May2021" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="03/Desktop/PDP_03A" transform="translate(-755.000000, -508.000000)">
+                    <g id="task_alt_black_24dp" transform="translate(755.000000, 508.000000)">
+                        <rect id="Rectangle" x="0" y="0" width="20" height="20"></rect>
+                        <path d="M17.7416667,4.90833333 L9.40833333,13.2416667 C9.08333333,13.5666667 8.55833333,13.5666667 8.23333333,13.2416667 L5.875,10.8833333 C5.55,10.5583333 5.55,10.0333333 5.875,9.70833333 L5.875,9.70833333 C6.2,9.38333333 6.725,9.38333333 7.05,9.70833333 L8.81666667,11.475 L16.5583333,3.73333333 C16.8833333,3.40833333 17.4083333,3.40833333 17.7333333,3.73333333 L17.7333333,3.73333333 C18.0666667,4.05833333 18.0666667,4.58333333 17.7416667,4.90833333 Z M13.1416667,2.28333333 C11.7333333,1.70833333 10.1333333,1.50833333 8.46666667,1.80833333 C5.075,2.41666667 2.36666667,5.15 1.79166667,8.54166667 C0.841666667,14.1666667 5.525,18.9833333 11.1166667,18.2583333 C14.4166667,17.8333333 17.1833333,15.375 18.05,12.1666667 C18.3833333,10.9416667 18.4166667,9.75833333 18.225,8.65 C18.1166667,7.98333333 17.2916667,7.725 16.8083333,8.2 L16.8083333,8.2 C16.6166667,8.39166667 16.5333333,8.675 16.5833333,8.94166667 C16.7666667,10.05 16.6833333,11.2333333 16.15,12.4916667 C15.1833333,14.75 13.0833333,16.4083333 10.6416667,16.6333333 C6.39166667,17.025 2.86666667,13.425 3.39166667,9.15 C3.75,6.2 6.125,3.8 9.06666667,3.39166667 C10.5083333,3.19166667 11.875,3.46666667 13.0416667,4.06666667 C13.3666667,4.23333333 13.7583333,4.175 14.0166667,3.91666667 L14.0166667,3.91666667 C14.4166667,3.51666667 14.3166667,2.84166667 13.8166667,2.58333333 C13.5916667,2.48333333 13.3666667,2.375 13.1416667,2.28333333 Z" id="Shape" fill="#50A12E" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div> 
+    <div class="pdp-store-pickup-delevery">
+        <h3 class="stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</h3>
+        <p class="pick-up-store-openings">${Resource.msg('pick.up.store.openings.days', 'pdpStorePickUp', null)}</p>  
+    </div>
+</div>
+<div class="col-sm-6 pdp-store-pickup-address">
+    <div class="selected-available-store">
+        <div class="pdp-store-pickup-store-icon">
+            <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="MCS_Updated_User_Journey_May2021" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="00/Desktop/Homepage_01" transform="translate(-264.000000, -61.000000)">
+                        <g id="place_black_24dp" transform="translate(264.000000, 61.000000)">
+                            <polygon id="Path" points="0 0 20 0 20 20 0 20"></polygon>
+                            <path d="M10,10 C9.08333333,10 8.33333333,9.25 8.33333333,8.33333333 C8.33333333,7.41666667 9.08333333,6.66666667 10,6.66666667 C10.9166667,6.66666667 11.6666667,7.41666667 11.6666667,8.33333333 C11.6666667,9.25 10.9166667,10 10,10 Z M15,8.5 C15,5.475 12.7916667,3.33333333 10,3.33333333 C7.20833333,3.33333333 5,5.475 5,8.5 C5,10.45 6.625,13.0333333 10,16.1166667 C13.375,13.0333333 15,10.45 15,8.5 Z M10,1.66666667 C13.5,1.66666667 16.6666667,4.35 16.6666667,8.5 C16.6666667,11.2666667 14.4416667,14.5416667 10,18.3333333 C5.55833333,14.5416667 3.33333333,11.2666667 3.33333333,8.5 C3.33333333,4.35 6.5,1.66666667 10,1.66666667 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="pdp-store-pickup-availabilty">
+            <h3 class="available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'pdpStorePickUp', null)}</h3>
+            <p class="available-pickup-stores">${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
+            <span class="pick-up-store-change-store storeModal" data-url='${URLUtils.https('Product-getStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
+        </div>
+    </div>
+</div>

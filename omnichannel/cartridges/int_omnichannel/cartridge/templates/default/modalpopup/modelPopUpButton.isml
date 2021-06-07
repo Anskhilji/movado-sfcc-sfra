@@ -1,0 +1,18 @@
+<span class="store-pickup-button storeModal" data-url='${URLUtils.https('Product-getStoresList', 'isPdp', pdict.isPdp)}'>
+    <span>
+        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="MCS_Updated_User_Journey_May2021" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="00/Desktop/Homepage_01" transform="translate(-264.000000, -61.000000)">
+                    <g id="place_black_24dp" transform="translate(264.000000, 61.000000)">
+                        <polygon id="Path" points="0 0 20 0 20 20 0 20"></polygon>
+                        <path
+                            d="M10,10 C9.08333333,10 8.33333333,9.25 8.33333333,8.33333333 C8.33333333,7.41666667 9.08333333,6.66666667 10,6.66666667 C10.9166667,6.66666667 11.6666667,7.41666667 11.6666667,8.33333333 C11.6666667,9.25 10.9166667,10 10,10 Z M15,8.5 C15,5.475 12.7916667,3.33333333 10,3.33333333 C7.20833333,3.33333333 5,5.475 5,8.5 C5,10.45 6.625,13.0333333 10,16.1166667 C13.375,13.0333333 15,10.45 15,8.5 Z M10,1.66666667 C13.5,1.66666667 16.6666667,4.35 16.6666667,8.5 C16.6666667,11.2666667 14.4416667,14.5416667 10,18.3333333 C5.55833333,14.5416667 3.33333333,11.2666667 3.33333333,8.5 C3.33333333,4.35 6.5,1.66666667 10,1.66666667 Z"
+                            id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </span>
+    <span class="set-your-store">${pdict.storeObject.address1 || Resource.msg('store.pickup.set.your.store.btn', 'pdpStorePickUp', null)}</span>
+</span>

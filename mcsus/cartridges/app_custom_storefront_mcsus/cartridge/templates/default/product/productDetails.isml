@@ -23,6 +23,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
+    <isinclude template="modalpopup/pickupStoreSelectionModal" />
         <div class="container product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
@@ -117,6 +118,12 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
+
+                            <div class="pdp-store-pickup-wraper row">
+                                <isinclude url="${URLUtils.url('Product-getPreferredStore', 'isPdp', pdict.isPdpStorePickup)}"/>
+                            </div>
+
+
                             <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
