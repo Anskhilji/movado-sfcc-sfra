@@ -183,16 +183,15 @@
             display: block;
             float: initial;
             padding: 0;
-            @include font-bold;
 
             span {
-                font-size: rem(11);
+                font-size: rem(12);
                 letter-spacing: rem(1);
                 line-height: rem(20);
                 color: $black;
 
                 @include media-breakpoint-up(sm) {
-                    font-size: rem(11);
+                    font-size: rem(12);
                 }
 
                 @include media-breakpoint-up(md-down) {
@@ -202,7 +201,7 @@
         }
 
         .product-brand-info {
-            font-size: rem(11);
+            font-size: rem(9);
             color: $black;
             text-transform: uppercase;
             min-height: rem(12);
@@ -210,11 +209,11 @@
             letter-spacing: rem(1);
             @include font-medium;
 
-            @include media-breakpoint-up(md-down) {
-                font-size: rem(14);
-        }
-
             @include media-breakpoint-up(sm) {
+                font-size: rem(12);
+            }
+
+            @include media-breakpoint-up(lg) {
                 font-size: rem(14);
             }
         }
@@ -226,12 +225,11 @@
             flex-wrap: wrap;
             justify-content: center;
             letter-spacing: rem(1);
-            @include font-book;
 
             @include media-breakpoint-up(lg) {
                 margin: 0 0 rem(10) 0;
                 line-height: rem(20);
-        }
+            }
 
             a {
                 font-size: rem(11);
@@ -243,6 +241,7 @@
                 overflow: hidden;
                 padding: 0 rem(10);
                 color: $light-gray2;
+                @include font-book;
 
                 @include media-breakpoint-up(sm) {
                     font-size: rem(14);

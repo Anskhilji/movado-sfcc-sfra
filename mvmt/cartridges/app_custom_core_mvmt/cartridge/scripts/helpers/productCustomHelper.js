@@ -367,7 +367,7 @@ function getColor(apiProduct, product) {
         }
     }
 
-    return color;
+    return color || '';
 }
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
