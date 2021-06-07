@@ -23,7 +23,7 @@
         <a href="${pdict.urls.product}">
             <isif condition="${product && product.images}"> 
                 <picture>
-                    <isif condition="${pdict.apiProduct.images.pdp533[0]}"><img class="tile-image gtm-product" src="${pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${pdict.apiProduct.images.pdp533[0]}"><img class="tile-image gtm-product" ${pdict.display.lazyLoad ? "loading='lazy'" :''} src="${pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
             </isif>
         </a>

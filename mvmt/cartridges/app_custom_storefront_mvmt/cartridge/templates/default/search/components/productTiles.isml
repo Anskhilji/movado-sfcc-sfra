@@ -13,9 +13,9 @@
     	<div class="col-6 col-sm-4 col-lg-3">
     		<isobject object="${product.productSearchHit}" view="searchhit">
 	            <isif condition="${pdict.productSearch.category}">
-	                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'ratings', true, 'plpTile', true, 'showAddToCart', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
+	                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'ratings', true, 'plpTile', true, 'showAddToCart', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, "lazyload", true)}" />
 	            <iselse>
-	                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'ratings', true,' plpTile', true, 'showAddToCart', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
+	                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'ratings', true,' plpTile', true, 'showAddToCart', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, "lazyload", true)}" />
 	            </isif>
 	        </isobject>
 		</div>
