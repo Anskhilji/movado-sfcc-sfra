@@ -5,9 +5,18 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
-        $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
-        $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('category-template');
+        if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate == 'search/searchResults') {
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        }
+        if ($categoryRendringTemplate !==undefined && $categoryRendringTemplate =='search/searchResultsEyewear') {
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tileEyeWear[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tileEyeWear[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        }
+
 
         // Update Family Name and Case Diameter
         if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
