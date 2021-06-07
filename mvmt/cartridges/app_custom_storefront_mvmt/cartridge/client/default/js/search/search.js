@@ -808,6 +808,6 @@ module.exports = {
                 $('.straps-nav-mobile').css('top', '');
             }
         });
-    }
+    },
     // Custom End
 };
