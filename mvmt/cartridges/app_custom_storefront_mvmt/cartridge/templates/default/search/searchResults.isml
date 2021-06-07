@@ -97,9 +97,9 @@
                                 <div class="col-6 col-sm-4 col-lg-3" data-gtm-refinements='${product.productSearchHit.productID}'>
                                     <isobject object="${product.productSearchHit}" view="searchhit">
                                         <isif condition="${pdict.productSearch.category}">
-                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'lazyload', true)}" />
+                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
                                         <iselse>
-                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'lazyload', true)}" />
+                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
                                         </isif>
                                     </isobject>
                                 </div>
@@ -129,12 +129,11 @@
         <div class="plp-grid-overlay">
         </div>
     </isif>
-    
+
     <isif condition="${pdict.productSearch.category}">
         <div class="search-bottom-content extra-large-container">
             <isslot id="cs_plp_bottom_content_slot" context="category" description="Category content slot at the bottom of PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </div>
-      
         <div class="search-bottom-text">
             <isslot id="cs_plp_bottom_text_slot" context="category" description="Category text slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </div>
