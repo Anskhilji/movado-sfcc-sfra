@@ -24,7 +24,7 @@
 	            </isif>
             </isloop>
         </isif>
-        <isif condition="${product.categoryRendringTemplate == 'search/searchResultsEyewear'}">
+        <isif condition="${pdict.display.isEyewearTile}">
             <isinclude template="product/components/productTileImageEyewear" />
         <iselse>
             <isinclude template="product/components/productTileImage" />
@@ -34,7 +34,7 @@
             <div class="tile-badges">
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                        <isif condition="${product.categoryRendringTemplate == 'search/searchResultsEyewear'}">
+                        <isif condition="${pdict.display.isEyewearTile}">
                             <isinclude template="product/components/productTileEyewearSwatch" />
                         <iselse>
                             <isinclude template="product/components/productTileSwatch" />

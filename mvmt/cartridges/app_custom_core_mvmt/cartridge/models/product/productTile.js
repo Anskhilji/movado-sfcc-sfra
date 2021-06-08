@@ -253,10 +253,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         value: saveMessage
     });
 
-    Object.defineProperty(product, 'categoryRendringTemplate', {
-        enumerable: true,
-        value: apiProduct.categories[0].template
-    });
     
     return product;
 };

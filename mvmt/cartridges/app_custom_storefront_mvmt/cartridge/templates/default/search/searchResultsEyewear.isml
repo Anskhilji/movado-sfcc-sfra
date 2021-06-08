@@ -114,11 +114,11 @@
                                                     <isinclude
                                                         url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings',
                                                              true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count,
-                                                             'categoryName', pdict.productSearch.category.name)}" />
+                                                             'categoryName', pdict.productSearch.category.name, 'isEyewearTile', true)}" />
                                                     <iselse>
                                                         <isinclude
                                                             url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings',
-                                                                 true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
+                                                                 true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'isEyewearTile', true)}" />
                                                 </isif>
                                             </isobject>
                                         </div>

@@ -6,10 +6,10 @@ module.exports = function () {
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
         var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('category-template');
-        if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == 'search/searchResultsEyewear') { 
-            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tileEyeWear[0].url);
+        if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == true) { 
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url);
             $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
-            $imageContainer.attr('src', primaryImageUrls.tileEyeWear[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         } else {
             $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
