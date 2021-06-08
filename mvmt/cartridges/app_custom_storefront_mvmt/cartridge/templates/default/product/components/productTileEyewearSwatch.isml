@@ -1,23 +1,23 @@
 <isif condition="${product.variationsAttributes && product.variationsAttributes.length > 0}">
-<isif condition="${product.variationsAttributes[0].values.length > 0}">
-    <div class="color-swatches color-Attribute" data-attr="colorVar" data-category-template="${product.categoryRendringTemplate}">
-        <div class="swatches">
-            <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
-                <isif condition="${swatch.images != null
-                                && swatch.images.swatch[0] != null
-                                && swatch.images.swatch[0].url != null}">
-                    <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}">
-                        <span>
-                            <img class='swatch swatch-circle ${(product.selectedSwatch.id == swatch.id) ? "is-active" : ""}'
-                                 data-index="${loopState.count-1}"
-                                 style="background-image: url(${swatch.images.swatch[0].url})"
-                                 src="${swatch.images.swatch[0].url}"
-                                 alt="${swatch.images.swatch[0].alt}"/>
-                        </span>
-                    </a>
-                </isif>
-            </isloop>
+    <isif condition="${product.variationsAttributes[0].values.length > 0}">
+        <div class="color-swatches color-Attribute" data-attr="colorVar" data-category-template="${product.categoryRendringTemplate}">
+            <div class="swatches">
+                <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
+                    <isif condition="${swatch.images != null
+                                    && swatch.images.swatch[0] != null
+                                    && swatch.images.swatch[0].url != null}">
+                        <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}">
+                            <span>
+                                <img class='swatch swatch-circle ${(product.selectedSwatch.id == swatch.id) ? "is-active" : ""}'
+                                    data-index="${loopState.count-1}"
+                                    style="background-image: url(${swatch.images.swatch[0].url})"
+                                    src="${swatch.images.swatch[0].url}"
+                                    alt="${swatch.images.swatch[0].alt}"/>
+                            </span>
+                        </a>
+                    </isif>
+                </isloop>
+            </div>
         </div>
-    </div>
-</isif>
+    </isif>
 </isif>
