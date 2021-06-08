@@ -31,6 +31,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParamValue = '';
     var otherVariantValues = '';
     var tileImage206;
+    var tile512X640;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
