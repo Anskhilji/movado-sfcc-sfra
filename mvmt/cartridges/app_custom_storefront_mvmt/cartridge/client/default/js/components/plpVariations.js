@@ -5,7 +5,8 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+        $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile206[0].url);
+        $productContainer.find('.image-container').find('source:first-child').attr('srcset', primaryImageUrls.pdp533[0].url);
         $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
         $productContainer.find('.image-container').find('a').attr('href', pdpURL);
 
