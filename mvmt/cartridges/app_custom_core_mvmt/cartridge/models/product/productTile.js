@@ -122,6 +122,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
                         tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                        tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
+
                     }
                 });
             } else {
@@ -130,6 +132,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
                 tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
             }
             
             Object.defineProperty(product, 'defaultVariantImageDIS', {
@@ -137,10 +140,14 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 value: defaultVariantImage
             });
             
-            
             Object.defineProperty(product, 'defaultVariantTileImage206', {
                 enumerable: true,
                 value: tileImage206
+            });
+
+            Object.defineProperty(product, 'defaultVariantTile512X640', {
+                enumerable: true,
+                value: tile512X640
             });
 
             Object.defineProperty(product, 'variationPdpURL', {
