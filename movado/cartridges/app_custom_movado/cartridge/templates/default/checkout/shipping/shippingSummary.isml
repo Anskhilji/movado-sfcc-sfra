@@ -16,6 +16,9 @@
                 </div>
             </div>
 
+        <isif condition="${session.privacy.pickupFromStore}">
+            <isinclude url="${URLUtils.url('Checkout-checkoutPickupStore', 'isBilling', true)}" />
+        <iselse/>
             <!--- Shipping information --->
             <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
             <div class="row summary-details leading-lines justify-content-between">
@@ -23,8 +26,10 @@
                     <p class="shipping-method">
                         <span class="shipping-method-title">${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.displayName) ? shippingModel.selectedShippingMethod.displayName : ''}</span>
                         <span class="shipping-method-arrival-time">
-                            <isif condition="${shippingModel.selectedShippingMethod && shippingModel.selectedShippingMethod.estimatedArrivalTime}">
-                                ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) ? shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
+                            <isif
+                                condition="${shippingModel.selectedShippingMethod && shippingModel.selectedShippingMethod.estimatedArrivalTime}">
+                                ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) ?
+                                shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
                             </isif>
                         </span>
                     </p>
@@ -37,6 +42,7 @@
                     </p>
                 </div>
             </div>
+        </isif>
             <isinclude template="checkout/shipping/giftMessageSummary" />
         </div>
     </isif>

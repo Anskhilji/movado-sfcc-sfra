@@ -1,7 +1,7 @@
 <isif condition="${param.stores.stores.length > 0}">
     <div class="col-sm-12 p-0">
         <div id="total-results" class="total-stores">
-            ${param.stores.stores.length.toString()}${Resource.msg('store.pickup.search.results.text', 'pdpStorePickUp', null)}</div>
+            ${param.stores.stores.length.toString()}${Resource.msg('store.pickup.search.results.text', 'storePickUp', null)}</div>
     </div>
     <div class="store-list">
         <isloop items="${param.stores.stores}" var="store">
@@ -43,11 +43,11 @@
                     <div class="store-select-button">
                         <isif condition="${param.selectedStore == store.ID}">
                             <button type="button" class="store-pickup-select"
-                                disabled>${Resource.msg('store.pickup.selected.button', 'pdpStorePickUp', null)}</button>
+                                disabled>${Resource.msg('store.pickup.selected.button', 'storePickUp', null)}</button>
                         <iselse/>
                             <button type="button" class="store-pickup-select"
                                 data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
-                                data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
+                                data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
                         </isif>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
     <iselse/>
         <div class="row">
             <div class="col-sm-12 p-0">
-                <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null)}</div>
+                <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'storePickUp', null)}</div>
             </div>
         </div>
 </isif>

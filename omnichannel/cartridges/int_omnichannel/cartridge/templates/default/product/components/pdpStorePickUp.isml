@@ -16,8 +16,8 @@
         </svg>
     </div> 
     <div class="pdp-store-pickup-delevery">
-        <h3 class="stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</h3>
-        <p class="pick-up-store-openings">${Resource.msg('pick.up.store.openings.days', 'pdpStorePickUp', null)}</p>  
+        <h3 class="stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
+        <p class="pick-up-store-openings">${Resource.msg('pick.up.store.openings.days', 'storePickUp', null)}</p>  
     </div>
 </div>
 <div class="col-sm-6 pdp-store-pickup-address">
@@ -35,9 +35,9 @@
             </svg>
         </div>
         <div class="pdp-store-pickup-availabilty">
-            <h3 class="available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'pdpStorePickUp', null)}</h3>
+            <h3 class="available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'storePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'storePickUp', null)}</h3>
             <p class="available-pickup-stores">${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
-            <span class="pick-up-store-change-store storeModal" data-url='${URLUtils.https('Product-getStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
+            <span class="pick-up-store-change-store storeModal" data-url='${URLUtils.https('Product-getStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('storepickup.check.available.store', 'storePickUp', null)}</span>
         </div>
     </div>
 </div>

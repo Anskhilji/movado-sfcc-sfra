@@ -69,6 +69,7 @@ server.post('setStoreIDSession', function (req, res, next) {
 
     var storeID = request.httpParameterMap.storeID.value;
     session.privacy.pickupStoreID = storeID;
+    session.privacy.pickupFromStore = true;
     res.json(true);
     next();
 });

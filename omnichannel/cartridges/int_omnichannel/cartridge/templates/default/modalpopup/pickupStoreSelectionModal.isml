@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header store-pickup-model-header">
-                <p class="store-pickup-model-title" id="exampleModalLongTitle">${Resource.msg('store.pickup.model.title', 'pdpStorePickUp', null)}</p>
+                <p class="store-pickup-model-title" id="exampleModalLongTitle">${Resource.msg('store.pickup.model.title', 'storePickUp', null)}</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,7 +44,7 @@
                                     pattern="(^[a-zA-Z0-9 ]+$)">
                             </div>
                             <div class="store-pickup-radius">
-                                <label class="store-pickup-dropdown-label" for="radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
+                                <label class="store-pickup-dropdown-label" for="radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
                                 <select class="form-select store-pickup-dropdown-field" id="radius" name="radius">
                                     <option value="15">15 miles</option>
                                     <option value="30" selected>30 miles</option>
