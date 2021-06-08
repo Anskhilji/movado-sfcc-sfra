@@ -71,11 +71,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
     var categoryTemplateReDesign = 'search/searchResults';
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
-    if (categoryTemplate == categoryTemplateEyewear) {
-        if (categoryTemplateEyewear && categoryTemplate && (categoryTemplate.indexOf('searchResultsEyewear') > 0)){
-            categoryTemplate = categoryTemplateEyewear;
-            var eyewearPageSize = Site.getCurrent().getCustomPreferenceValue('eyewearPageSize');
-        }
+    if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
+        categoryTemplate = categoryTemplateEyewear;
     } else {
         if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
             categoryTemplate = categoryTemplateReDesign;
