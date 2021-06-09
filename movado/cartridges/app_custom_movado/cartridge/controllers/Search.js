@@ -85,8 +85,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             /**
             * Custom End:
             */
-        }    
-    } 
+        }
+    }
 
 
 
