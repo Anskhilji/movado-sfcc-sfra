@@ -19,6 +19,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     
     var colorVariations;
     var defaultVariantImage;
+    var defulatVariantEyewearImage;
     var defaultVariant;
     var selectedSwatch;
     var variationPdpURL;
@@ -118,6 +119,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 Object.keys(varAttr).forEach(function (key) {
                     if (variant.custom.color == varAttr[key].id) {
                         defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
+                        defulatVariantEyewearImage = !empty(varAttr[key].eyeWearImage) ? varAttr[key].eyeWearImage.url : '';
                         variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
@@ -125,6 +127,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     }
                 });
             } else {
+                defulatVariantEyewearImage = !empty(varAttr[0].eyeWearImage) ? varAttr[0].eyeWearImage.url : '';
                 defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
@@ -135,6 +138,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             Object.defineProperty(product, 'defaultVariantImageDIS', {
                 enumerable: true,
                 value: defaultVariantImage
+            });
+
+            Object.defineProperty(product, 'defulatVariantEyewearImage', {
+                enumerable: true,
+                value: defulatVariantEyewearImage
             });
             
             
@@ -244,6 +252,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         enumerable: true,
         value: saveMessage
     });
+
     
     return product;
 };

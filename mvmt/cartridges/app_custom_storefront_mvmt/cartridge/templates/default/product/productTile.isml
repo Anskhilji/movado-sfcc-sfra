@@ -11,12 +11,19 @@
         	<isset name="preOrder" value="${true}" scope="page"/>
         </isif>
     </isloop>
-
-    <isinclude template="product/components/productTileImage" />
-
+    <isif condition="${pdict.display.isEyewearTile}">
+        <isinclude template="product/components/productTileImageEyewear" />
+    <iselse>
+        <isinclude template="product/components/productTileImage" />
+    </isif>
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
-            <isinclude template="product/components/productTileSwatch" />
+                <isif condition="${pdict.display.isEyewearTile}">
+                    <isinclude template="product/components/productTileEyewearSwatch" />
+                <iselse>
+                    <isinclude template="product/components/productTileSwatch" />
+                </isif>
+            
         </isif>
 
         <isinclude template="product/components/productTileName" />
