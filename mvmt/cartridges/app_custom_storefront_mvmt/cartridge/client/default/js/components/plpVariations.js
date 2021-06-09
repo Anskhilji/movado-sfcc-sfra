@@ -8,12 +8,12 @@ module.exports = function () {
         var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
         if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == true) { 
             $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url);
-            $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
+            $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile206[0].url);
             $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         } else {
             $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url);
-            $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
+            $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile206[0].url);
             $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         }
