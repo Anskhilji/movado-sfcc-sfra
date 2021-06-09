@@ -32,6 +32,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParamValue = '';
     var otherVariantValues = '';
     var tileImage206;
+    var tile512X640;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -124,6 +125,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
                         tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                        tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
+
                     }
                 });
             } else {
@@ -132,7 +135,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
-                tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                tileImage206 = !empty(varAttr[0].tileImage206) ? varAttr[0].tileImage206.url : '';
+                tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
             }
             
             Object.defineProperty(product, 'defaultVariantImageDIS', {
@@ -145,10 +149,14 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 value: defulatVariantEyewearImage
             });
             
-            
             Object.defineProperty(product, 'defaultVariantTileImage206', {
                 enumerable: true,
                 value: tileImage206
+            });
+
+            Object.defineProperty(product, 'defaultVariantTile512X640', {
+                enumerable: true,
+                value: tile512X640
             });
 
             Object.defineProperty(product, 'variationPdpURL', {
