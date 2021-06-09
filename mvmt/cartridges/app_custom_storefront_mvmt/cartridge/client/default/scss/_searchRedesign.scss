@@ -129,15 +129,16 @@
                         justify-content: center;
                     }
                     .values {
-                        min-height: auto;
+                        min-height: 100%;
                         max-width: 100%;
                         overflow: auto;
                         flex-wrap: nowrap;
+                        overflow-y: hidden;
 
                         li {
                             padding: 0;
                             width: rem(80);
-                            min-width: auto;
+                            min-width: rem(80);
                             max-width: rem(80);
                             line-height: normal;
                             margin: 0;
@@ -150,6 +151,7 @@
                                 margin-left: rem(20);
                                 width: rem(90);
                                 max-width: none;
+                                min-width: rem(90);
                             }
         
                             .elements {
