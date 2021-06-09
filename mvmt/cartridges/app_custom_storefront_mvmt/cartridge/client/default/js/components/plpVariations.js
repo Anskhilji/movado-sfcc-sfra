@@ -5,7 +5,7 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('category-template');
+        var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
         if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == true) { 
             $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url);
             $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
