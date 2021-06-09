@@ -70,22 +70,18 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName 
     });
     var categoryTemplateReDesign = 'search/searchResults';
-    var categoryTemplateEyewear = 'search/searchResultsEyewear';
-    if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
-        categoryTemplate = categoryTemplateEyewear;
-    } else {
-        if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-            categoryTemplate = categoryTemplateReDesign;
-            /**
-            * Custom Start: Added logic for OB Redesign.
-            */
-            if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
-                categoryTemplate = viewData.resultsTemplate;
-            }
-            /**
-            * Custom End:
-            */
-        } 
+
+    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+        categoryTemplate = categoryTemplateReDesign;
+        /**
+        * Custom Start: Added logic for OB Redesign.
+        */
+        if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+            categoryTemplate = viewData.resultsTemplate;
+        }
+        /**
+        * Custom End:
+        */
     }
 
 
@@ -123,6 +119,13 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     });
 
+    if (!empty(productSearch) && !empty(productSearch.category.id)){
+        var currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
+            var isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
+        }
+    }
+
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
@@ -148,6 +151,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (isAjax) {
             res.render(resultsTemplate, {
                 productSearch: productSearch,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
@@ -156,6 +160,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         } else {
             res.render(categoryTemplate, {
                 productSearch: productSearch,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 category: apiProductSearch.category,
                 reportingURLs: reportingURLs,
@@ -168,6 +173,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     } else {
         res.render(resultsTemplate, {
             productSearch: productSearch,
+            isEnableSingleProductRow: isEnableSingleProductRow,
             maxSlots: maxSlots,
             reportingURLs: reportingURLs,
             refineurl: refineurl,
