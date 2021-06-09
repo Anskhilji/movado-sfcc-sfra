@@ -132,7 +132,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
-                tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                tileImage206 = !empty(varAttr[0].tileImage206) ? varAttr[0].tileImage206.url : '';
                 tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
             }
             
