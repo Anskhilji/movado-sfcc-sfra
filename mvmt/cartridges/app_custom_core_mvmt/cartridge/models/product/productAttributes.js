@@ -67,10 +67,10 @@ function getAllAttrValues(
                 
                 // Custom Start : getting large type image against each variant
                 
-                var largeImages = new ImageModel(value, { types: ['tile533', 'tile256', 'tile217', 'tile150', 'tile206','image512X640'], quantity: 'single' });
+                var largeImages = new ImageModel(value, { types: ['tile533', 'tile256', 'tile217', 'tile150', 'tile206','tile512X640'], quantity: 'single' });
                 processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
                 processedAttr.tileImage206 = !empty(largeImages.tile206[0]) ? largeImages.tile206[0] : '';
-                processedAttr.tileImage512X640 = !empty(largeImages.image512X640[0]) ? largeImages.image512X640[0] : '';
+                processedAttr.tileImage512X640 = !empty(largeImages.tile512X640[0]) ? largeImages.tile512X640[0] : '';
                 // Custom End
             }
 
