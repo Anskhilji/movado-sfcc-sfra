@@ -12,9 +12,9 @@ module.exports = function () {
             $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         } else {
-            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url);
             $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
-            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
         }
 
