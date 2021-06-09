@@ -5,10 +5,18 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile206[0].url);
-        $productContainer.find('.image-container').find('source:first-child').attr('srcset', primaryImageUrls.pdp533[0].url);
-        $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
-        $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
+        if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == true) { 
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url);
+            $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
+            $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        } else {
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container').find('source:last-child').attr('srcset', primaryImageUrls.tile206[0].url);
+            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
+            $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+        }
 
         // Update Family Name and Case Diameter
         if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
