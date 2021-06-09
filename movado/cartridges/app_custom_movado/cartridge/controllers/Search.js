@@ -70,19 +70,23 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName 
     });
     var categoryTemplateReDesign = 'search/searchResults';
-
-    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-        categoryTemplate = categoryTemplateReDesign;
-        /**
-        * Custom Start: Added logic for OB Redesign.
-        */
-        if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
-            categoryTemplate = viewData.resultsTemplate;
-        }
-        /**
-        * Custom End:
-        */
-    }
+    var categoryTemplateEyewear = 'search/searchResultsEyewear';
+    if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
+        categoryTemplate = categoryTemplateEyewear;
+    } else {
+        if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+            categoryTemplate = categoryTemplateReDesign;
+            /**
+            * Custom Start: Added logic for OB Redesign.
+            */
+            if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+                categoryTemplate = viewData.resultsTemplate;
+            }
+            /**
+            * Custom End:
+            */
+        }    
+    } 
 
 
 
