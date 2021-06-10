@@ -14,10 +14,11 @@
         }
 
         &-inventory-icon {
+            background: url('../../images/pickup-store-inventory-icon.svg') no-repeat center;
             display: inline-block;
             margin: 0;
             width: 23%;
-            padding-top: rem(20);
+            padding-top: rem(58);
             padding-left: rem(15);
         }
 
@@ -56,10 +57,11 @@
         }
 
         &-store-icon {
+            background: url('../../images/pickupstore-icon.svg') no-repeat center;
             display: inline-block;
             margin: 0;
             width: 23%;
-            padding-top: rem(20);
+            padding-top: rem(58);
             padding-left: rem(15);
         }
 
