@@ -123,12 +123,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     });
 
-    if (!empty(productSearch) && !empty(productSearch.category.id)){
-        var currentCategory = CatalogMgr.getCategory(productSearch.category.id);
-        if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
-            var isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
-        }
-    }
+    var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
 
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
