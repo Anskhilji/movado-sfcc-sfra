@@ -10,17 +10,28 @@
             </isif>
             <div class="summary-details shipping">
                 <isinclude template="checkout/addressSummary" />
+            <isif condition="${session.privacy.pickupFromStore}">
+                <div class="shipping-phone">
+                    ${shippingModel.shippingAddress && shippingModel.shippingAddress.phone ? shippingModel.shippingAddress.phone : ''}
+                </div>
+                <span class="order-summary-email">${pdict.order.orderEmail}</span>
+            <iselse/>
                 <span class="order-summary-email">${pdict.order.orderEmail}</span>
                 <div class="shipping-phone">
                     ${shippingModel.shippingAddress && shippingModel.shippingAddress.phone ? shippingModel.shippingAddress.phone : ''}
                 </div>
+            </isif>
             </div>
 
         <isif condition="${session.privacy.pickupFromStore}">
             <isinclude url="${URLUtils.url('Checkout-checkoutPickupStore', 'isBilling', true)}" />
         <iselse/>
             <!--- Shipping information --->
-            <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
+            <isif condition="${session.privacy.pickupFromStore}">
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.your.detail', 'confirmation', null)}:</p>
+            <iselse/>
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
+            </isif>
             <div class="row summary-details leading-lines justify-content-between">
                 <div class="start-lines">
                     <p class="shipping-method">

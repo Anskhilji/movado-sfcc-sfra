@@ -17,10 +17,19 @@
             <div class="card-header">
                  <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
                 <isif condition="${pdict.order.amzPayRedirectURL}">
-                    <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                    <isif condition="${session.privacy.pickupFromStore}">
+                        <h4 class="pull-left">${Resource.msg('heading.checkout.store.pickup', 'checkout', null)}</h4>
+                    <iselse/>
+                        <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                    </isif>
+                
                     <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
-                <iselse>
-                    <h4>${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                    <iselse>
+                        <isif condition="${session.privacy.pickupFromStore}">
+                            <h4 class="pull-left">${Resource.msg('heading.checkout.store.pickup', 'checkout', null)}</h4>
+                        <iselse/>
+                            <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                        </isif>
                 </isif>
                  <iscomment> Custom End </iscomment>
             </div>

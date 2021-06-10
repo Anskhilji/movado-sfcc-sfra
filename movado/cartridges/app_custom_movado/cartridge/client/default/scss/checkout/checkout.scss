@@ -116,6 +116,14 @@ span.ship-to-city-st-zip {
                 text-transform: uppercase;
             }
         }
+        .order-pickup-item-total {
+            text-transform: uppercase;
+            font-family: $font-medium;
+            font-size: rem(16);
+            line-height: rem(24);
+            letter-spacing: rem(1.14);
+            margin-bottom: rem(10);
+        }
     }
 
     .card-header {
@@ -397,4 +405,14 @@ header {
         left: 50%;
         transform: translateX(-50%);
     }
+}
+
+.shipping-your-detail {
+    text-transform: uppercase;
+    font-family: $font-demi;
+    line-height: rem(18);
+    font-size: rem(14);
+    color: $grey14;
+    font-weight: 500;
+    margin-bottom: rem(15);
 }

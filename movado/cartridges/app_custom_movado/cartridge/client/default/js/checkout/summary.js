@@ -38,6 +38,7 @@ function updateTotals(totals) {
 function updateOrderProductSummaryInformation(order) {
     var $productSummary = $('<div />');
     order.shipping.forEach(function (shipping) {
+        $productSummary.prepend($('.order-pickup-item-total'));
         shipping.productLineItems.items.forEach(function (lineItem) {
             var pli = $('[data-product-line-item=' + lineItem.UUID + ']');
             $productSummary.append(pli);

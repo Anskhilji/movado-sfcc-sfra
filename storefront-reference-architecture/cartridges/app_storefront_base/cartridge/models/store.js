@@ -1,6 +1,6 @@
 'use strict';
 
-/**`
+/**
  * @constructor
  * @classdesc The stores model
  * @param {dw.catalog.Store} storeObject - a Store objects
