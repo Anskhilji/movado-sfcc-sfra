@@ -1,6 +1,6 @@
 module.exports = {
     plpTileCarousel: function () {
-        $('.plp-image-carousel').slick({
+        $('.product-grid .plp-image-carousel').slick({
             lazyLoad: 'ondemand',
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -9,7 +9,7 @@ module.exports = {
             arrows: false,
         });
 
-        $(document).on('beforeChange', '.plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
+        $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
             var nextSlide = slick.$slides.get(nextSlide);
             var $slideSoureSets = $(nextSlide).find('source');
             $($slideSoureSets).each(function () {

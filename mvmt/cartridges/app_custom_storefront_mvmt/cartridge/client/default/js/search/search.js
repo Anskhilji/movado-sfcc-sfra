@@ -282,7 +282,7 @@ function updatePageURLForShowMore(showMoreUrl) {
 }
 
 function bulidLifeStyleCarousel () {
-    $('.plp-image-carousel:not(.slick-initialized)').slick({
+    $('.product-grid .plp-image-carousel:not(.slick-initialized)').slick({
         lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -291,7 +291,7 @@ function bulidLifeStyleCarousel () {
         arrows: false,
     });
 
-    $(document).on('beforeChange', '.plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
+    $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
         var nextSlide = slick.$slides.get(nextSlide);
         var $slideSoureSets = $(nextSlide).find('source');
         $($slideSoureSets).each(function () {
