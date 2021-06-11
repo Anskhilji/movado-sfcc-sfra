@@ -283,13 +283,14 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
     var marketingProduct;
     var quantity = 0;
     var marketingProductData;
+    var isEnableSingleProductRow;
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
@@ -300,10 +301,14 @@ server.append('UpdateGrid', function (req, res, next) {
             }
         }
         marketingProductData = JSON.stringify(marketingProductsData);
+        isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
     }
+    
+
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
-        marketingProductData: marketingProductData
+        marketingProductData: marketingProductData,
+        isEnableSingleProductRow: isEnableSingleProductRow
     });
     return next();
 });
