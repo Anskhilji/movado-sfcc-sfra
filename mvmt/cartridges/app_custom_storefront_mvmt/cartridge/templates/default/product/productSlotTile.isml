@@ -1,5 +1,5 @@
 <iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
-<div class="product-tile-redesign grid-tile-design" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile-redesign grid-tile-design ${pdict.display.isEyewearTile}" itemscope itemtype="http://schema.org/Product">
     <div class="tile-content">
         <isset name="availabilityStatus" value="${false}" scope="page" />
         <isset name="outOfStock" value="${false}" scope="page"/>

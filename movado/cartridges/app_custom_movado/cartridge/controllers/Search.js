@@ -284,6 +284,7 @@ server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
@@ -291,6 +292,8 @@ server.append('UpdateGrid', function (req, res, next) {
     var quantity = 0;
     var marketingProductData;
     var isEnableSingleProductRow;
+    var isEyewearTile = false;
+    var categoryTemplate;
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
@@ -302,13 +305,19 @@ server.append('UpdateGrid', function (req, res, next) {
         }
         marketingProductData = JSON.stringify(marketingProductsData);
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
+        categoryTemplate = res.viewData.productSearch.category.raw.template
+        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        if (categoryTemplate == categoryTemplateEyewear) {
+            isEyewearTile = true;
+        }
     }
     
 
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
         marketingProductData: marketingProductData,
-        isEnableSingleProductRow: isEnableSingleProductRow
+        isEnableSingleProductRow: isEnableSingleProductRow,
+        isEyewearTile: isEyewearTile
     });
     return next();
 });
