@@ -28,7 +28,7 @@
             </isif>
         </div>
 
-        <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results">
+        <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}">
             <isif condition="${!pdict.productSearch.isCategorySearch}">
                 <div class="row">
                     <div class="search-nav px-5 mt-2">
@@ -89,7 +89,7 @@
 
                         <!--- Product Grid --->
                         <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product"
-                            data-initial-products="${dw.system.Site.current.preferences.custom.pageSize}">
+                            data-initial-products="${sitePref.eyewearPageSize}">
                             <isloop items="${pdict.productSearch.productIds}" var="product" status="prodStatus">
 
                                 <isif
