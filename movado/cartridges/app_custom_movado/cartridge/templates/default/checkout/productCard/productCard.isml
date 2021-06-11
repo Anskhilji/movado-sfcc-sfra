@@ -1,6 +1,6 @@
-            <isif condition="${session.privacy.pickupFromStore}">
-                <div class="order-pickup-item-total">${Resource.msgf('label.number.pickup.store.items.in.cart', 'cart', null, pdict.order.items.totalQuantity)}</div>
-            </isif>
+<isif condition="${session.privacy.pickupFromStore && !pdict.order.orderNumber}">
+    <div class="order-pickup-item-total">${Resource.msgf('label.number.pickup.store.items.in.cart', 'cart', null, pdict.order.items.totalQuantity)}</div>
+</isif>
 <div class="card product-line-item product-card-wrapper" data-product-line-item="${lineItem.UUID}">
 
     <div class="line-item-header">

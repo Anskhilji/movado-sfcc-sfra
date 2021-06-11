@@ -245,7 +245,7 @@
 </div>
 </isif>
 <isif condition="${pdict.customer.registeredUser}">
-    <div class="row">
+    <div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
         <div class="col">
             <div class="form-group
                 ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}

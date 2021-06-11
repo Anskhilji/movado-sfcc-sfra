@@ -44,6 +44,9 @@ server.replace(
         var lastOrderID = Object.prototype.hasOwnProperty.call(req.session.raw.custom, 'orderID') ? req.session.raw.custom.orderID : null;
         if (lastOrderID === req.querystring.ID) {
             session.custom.orderJustPlaced = false;
+            //Custom Start[MSS-1410 Checkout and Shipping changes for PickupInStore Logic] Delete session value if exists
+            if (session.privacy.pickupFromStore) delete session.privacy.pickupFromStore;
+            //Custom End
             res.redirect(URLUtils.url('Home-Show'));
             return next();
         }
@@ -79,7 +82,7 @@ server.replace(
             });
         }
         //delete session variable for pickup from store checkout
-        delete session.privacy.pickupFromStore
+       
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');

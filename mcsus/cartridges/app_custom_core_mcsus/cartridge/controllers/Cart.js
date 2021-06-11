@@ -5,6 +5,10 @@ var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
+var BasketMgr = require('dw/order/BasketMgr');
+var Transaction = require('dw/system/Transaction');
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var Logger = require('dw/system/Logger')
 
 var page = module.superModule;
 server.extend(page);
@@ -16,7 +20,24 @@ server.prepend(
     userLoggedIn.validateLoggedInMCS,
     csrfProtection.generateToken,
     function (req, res, next) {
-
+        //Custom Start: This code will update with the checkbox of pickup from store once we implement slide 12,13 in BOPIS
+        var currentBasket;
+        if (session.privacy.pickupFromStore) {
+            try {
+                currentBasket = BasketMgr.getCurrentBasket();
+                Transaction.wrap(function () {
+                    if (currentBasket) {
+                        currentBasket.custom.pickInStore = true;
+                        for (lineItem in currentBasket.productLineItems) {
+                            currentBasket.productLineItems[lineItem].custom.pickInStore = true;
+                        }
+                    }
+                });
+            } catch (error) {
+                Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems, Error: {0}', error.toString());
+            }
+        }
+        //Custom End
         next();
     }
 );
