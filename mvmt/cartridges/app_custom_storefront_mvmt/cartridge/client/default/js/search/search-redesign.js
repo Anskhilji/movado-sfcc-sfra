@@ -8,5 +8,13 @@ module.exports = {
             dots: true,
             arrows: false,
         });
+
+        $(document).on('beforeChange', '.plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
+            var nextSlide = slick.$slides.get(nextSlide);
+            var $slideSoureSets = $(nextSlide).find('source');
+            $($slideSoureSets).each(function () {
+                $(this).attr('srcset', $(this).data('lazy'));
+            });
+        });
     },
 }

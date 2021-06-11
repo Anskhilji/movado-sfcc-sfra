@@ -33,6 +33,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var otherVariantValues = '';
     var tileImage206;
     var tile512X640;
+    var defaultVariantLifeStyleImage;
+    var defaultVariantLifeStyleImage206;
+    var defaultVariantEyeWearLifeStyleImage;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -126,6 +129,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         selectedSwatch = varAttr[key];
                         tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
                         tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
+                        defaultVariantLifeStyleImage = !empty(varAttr[key].lifeStyleImage) ? varAttr[key].lifeStyleImage.url : '';
+                        defaultVariantLifeStyleImage206 = !empty(varAttr[key].lifeStyleImage206) ? varAttr[key].lifeStyleImage206.url : '';
+                        defaultVariantEyeWearLifeStyleImage = !empty(varAttr[key].eyeWearLifeStyleImage) ? varAttr[key].eyeWearLifeStyleImage.url : '';
+                        
 
                     }
                 });
@@ -137,8 +144,26 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 selectedSwatch = varAttr[0];
                 tileImage206 = !empty(varAttr[0].tileImage206) ? varAttr[0].tileImage206.url : '';
                 tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
+                defaultVariantLifeStyleImage = !empty(varAttr[0].lifeStyleImage) ? varAttr[0].lifeStyleImage.url : '';
+                defaultVariantLifeStyleImage206 = !empty(varAttr[0].lifeStyleImage206) ? varAttr[0].lifeStyleImage206.url : '';
+                defaultVariantEyeWearLifeStyleImage = !empty(varAttr[0].eyeWearLifeStyleImage) ? varAttr[0].eyeWearLifeStyleImage.url : '';
             }
-            
+
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage', {
+                enumerable: true,
+                value: defaultVariantLifeStyleImage
+            });
+
+            Object.defineProperty(product, 'defaultVariantEyeWearLifeStyleImage', {
+                enumerable: true,
+                value: defaultVariantEyeWearLifeStyleImage
+            });
+
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage206', {
+                enumerable: true,
+                value: defaultVariantLifeStyleImage206
+            });
+
             Object.defineProperty(product, 'defaultVariantImageDIS', {
                 enumerable: true,
                 value: defaultVariantImage
