@@ -24,8 +24,8 @@
                     <iscomment> duplicate this template from productTileimage and change tile size for eyewear images </iscomment>
                     <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile532X300[0].url}" /></isif>
                     <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile532X300[0].url}" /></isif>
-                    <isif condition="${product.images.tile206[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile206[0].url}" /></isif>
-                    <isif condition="${product.images.tile532X300[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" data-lazy="${product.images.tile532X300[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile532X300[0].url}" /></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.images.tile532X300[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
             </a>
         <iselseif condition="${product && product.images && (product.productType != 'master' || !product.variationPdpURL)}" >
@@ -34,8 +34,8 @@
                     <iscomment> duplicate this template from productTileimage and change tile size for eyewear images </iscomment>
                     <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile532X300[0].url}" /></isif>
                     <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile532X300[0].url}" /></isif>
-                    <isif condition="${product.images.tile206[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile206[0].url}" /></isif>
-                    <isif condition="${product.images.tile532X300[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" data-lazy="${product.images.tile532X300[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile532X300[0].url}" /></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.images.tile532X300[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
             </a>
             <isif condition="${!empty(product.images.tile532X300[3])}">
@@ -54,8 +54,8 @@
                     <iscomment> duplicate this template from productTileimage and change default varaint tile size for eyewear images </iscomment>
                     <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 992px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
                     <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 544px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
-                    <isif condition="${product.defaultVariantTileImage206}"><source media="(min-width: 320px)" srcset="${product.defaultVariantTileImage206}" /></isif>
-                    <isif condition="${product.defulatVariantEyewearImage}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" data-lazy="${product.defulatVariantEyewearImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 320px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
+                    <isif condition="${product.defulatVariantEyewearImage}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defulatVariantEyewearImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
             </a>
             <isif condition="${!empty(product.defaultVariantEyeWearLifeStyleImage)}">

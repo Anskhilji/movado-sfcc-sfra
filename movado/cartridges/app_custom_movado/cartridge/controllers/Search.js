@@ -85,7 +85,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             /**
             * Custom End:
             */
-        } 
+        }
     }
 
 
@@ -123,6 +123,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     });
 
+    var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
+
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
@@ -148,6 +150,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (isAjax) {
             res.render(resultsTemplate, {
                 productSearch: productSearch,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
@@ -156,6 +159,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         } else {
             res.render(categoryTemplate, {
                 productSearch: productSearch,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 category: apiProductSearch.category,
                 reportingURLs: reportingURLs,
@@ -168,6 +172,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     } else {
         res.render(resultsTemplate, {
             productSearch: productSearch,
+            isEnableSingleProductRow: isEnableSingleProductRow,
             maxSlots: maxSlots,
             reportingURLs: reportingURLs,
             refineurl: refineurl,
@@ -278,13 +283,17 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
     var marketingProduct;
     var quantity = 0;
     var marketingProductData;
+    var isEnableSingleProductRow;
+    var isEyewearTile = false;
+    var categoryTemplate;
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
@@ -295,10 +304,20 @@ server.append('UpdateGrid', function (req, res, next) {
             }
         }
         marketingProductData = JSON.stringify(marketingProductsData);
+        isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
+        categoryTemplate = res.viewData.productSearch.category.raw.template
+        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        if (categoryTemplate == categoryTemplateEyewear) {
+            isEyewearTile = true;
+        }
     }
+    
+
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
-        marketingProductData: marketingProductData
+        marketingProductData: marketingProductData,
+        isEnableSingleProductRow: isEnableSingleProductRow,
+        isEyewearTile: isEyewearTile
     });
     return next();
 });

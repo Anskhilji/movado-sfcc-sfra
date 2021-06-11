@@ -123,7 +123,21 @@ function getPlPDepartmentCategory(apiProductSearch) {
     return plpCategory;
 }
 
+function getSingleColumnPerRow(productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var currentCategory;
+    var isEnableSingleProductRow;
+    if (!empty(productSearch) && !empty(productSearch.category.id)) {
+        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
+            isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
+        }
+    }
+    return isEnableSingleProductRow;
+}
+
 exports.getBreadCrumbs = getBreadCrumbs;
+exports.getSingleColumnPerRow= getSingleColumnPerRow;
 exports.setupContentFolderSearch = setupContentFolderSearch;
 exports.getPlPDepartmentCategory = getPlPDepartmentCategory;
 exports.getCategoryBreadcrumb = getCategoryBreadcrumb;
