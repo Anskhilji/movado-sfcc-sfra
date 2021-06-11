@@ -124,11 +124,12 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
 
     var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
+    var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
 
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
-    
+ 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
             var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
@@ -150,6 +151,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (isAjax) {
             res.render(resultsTemplate, {
                 productSearch: productSearch,
+                isEyewearTile: isEyewearTile,
                 isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 reportingURLs: reportingURLs,
@@ -159,6 +161,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         } else {
             res.render(categoryTemplate, {
                 productSearch: productSearch,
+                isEyewearTile: isEyewearTile,
                 isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 category: apiProductSearch.category,
@@ -173,6 +176,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         res.render(resultsTemplate, {
             productSearch: productSearch,
             isEnableSingleProductRow: isEnableSingleProductRow,
+            isEyewearTile: isEyewearTile,
             maxSlots: maxSlots,
             reportingURLs: reportingURLs,
             refineurl: refineurl,
@@ -305,11 +309,7 @@ server.append('UpdateGrid', function (req, res, next) {
         }
         marketingProductData = JSON.stringify(marketingProductsData);
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
-        categoryTemplate = res.viewData.productSearch.category.raw.template
-        var categoryTemplateEyewear = 'search/searchResultsEyewear';
-        if (categoryTemplate == categoryTemplateEyewear) {
-            isEyewearTile = true;
-        }
+        isEyewearTile = searchCustomHelper.getEyewearTile(res.viewData.productSearch);
     }
     
 
