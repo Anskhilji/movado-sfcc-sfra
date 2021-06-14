@@ -136,8 +136,21 @@ function getSingleColumnPerRow(productSearch) {
     return isEnableSingleProductRow;
 }
 
+function getEyewearTile(productSearch) {
+    var isEyewearTile = false;
+    if (!empty(productSearch)) {
+        var currentCategoryTemplate = productSearch.category.raw.template;
+        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        if (currentCategoryTemplate == categoryTemplateEyewear) {
+            isEyewearTile = true;
+        }
+    }
+    return isEyewearTile;
+}
+
 exports.getBreadCrumbs = getBreadCrumbs;
 exports.getSingleColumnPerRow= getSingleColumnPerRow;
+exports.getEyewearTile= getEyewearTile;
 exports.setupContentFolderSearch = setupContentFolderSearch;
 exports.getPlPDepartmentCategory = getPlPDepartmentCategory;
 exports.getCategoryBreadcrumb = getCategoryBreadcrumb;
