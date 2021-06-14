@@ -45,6 +45,21 @@
             .plp-image-carousel {
                 position: relative;
 
+                .life-style-image {
+                    img {
+                        padding-left: 2%;
+                    }
+                }
+
+                .slick-active {
+
+                    .life-style-image {
+                        img {
+                            padding-left: 0;
+                        }
+                    }
+                }
+
                 .slick {
 
                     &-dots {
@@ -76,7 +91,7 @@
                             }
 
                             &.slick-active {
-                                
+
                                 button {
                                     background-color: $black;
                                 }

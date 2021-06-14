@@ -127,7 +127,7 @@ function getSingleColumnPerRow(productSearch) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
     var currentCategory;
     var isEnableSingleProductRow;
-    if (!empty(productSearch) && !empty(productSearch.category.id)) {
+    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
         currentCategory = CatalogMgr.getCategory(productSearch.category.id);
         if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
             isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;

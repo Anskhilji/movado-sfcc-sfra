@@ -72,7 +72,7 @@ function getAllAttrValues(
                 processedAttr.eyeWearImage = !empty(largeImages.tile532X300[0]) ? largeImages.tile532X300[0] : '';
                 processedAttr.tileImage206 = !empty(largeImages.tile206[0]) ? largeImages.tile206[0] : '';
                 processedAttr.tileImage512X640 = !empty(largeImages.tile512X640[0]) ? largeImages.tile512X640[0] : '';
-                processedAttr.lifeStyleImage = !empty(largeImages.tile256[3]) ? largeImages.tile256[3] : '';
+                processedAttr.lifeStyleImage = !empty(largeImages.tile512X640[3]) ? largeImages.tile512X640[3] : '';
                 processedAttr.lifeStyleImage206 = !empty(largeImages.tile206[3]) ? largeImages.tile206[3] : '';
                 processedAttr.eyeWearLifeStyleImage = !empty(largeImages.tile532X300[3]) ? largeImages.tile532X300[3] : '';
                   
