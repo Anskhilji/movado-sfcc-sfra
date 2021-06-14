@@ -28,29 +28,6 @@
             position: absolute;
             margin-top: rem(20);
         }
-    }
-
-    .stock-for-deliver {
-        color: $dark-light-black;
-        font-family: $font-book;
-        font-size: rem(14);
-        font-weight: 700;
-        letter-spacing: rem(0.61);
-        line-height: rem(17);
-    }
-
-    .pick-up-store-openings {
-        opacity: 0.8;
-        color: $light-black;
-        font-family: $font-book;
-        font-size: rem(12);
-        font-weight: 300;
-        letter-spacing: rem(0.76);
-        line-height: rem(20);
-        margin: 0;
-    }
-
-    .pdp-store-pickup {
 
         &-address {
             width: 50%;
@@ -71,6 +48,26 @@
             position: absolute;
             margin-top: rem(20);
         }
+    }
+
+    .stock-for-deliver {
+        color: $dark-light-black;
+        font-family: $font-book;
+        font-size: rem(14);
+        font-weight: 700;
+        letter-spacing: rem(0.61);
+        line-height: rem(17);
+    }
+
+    .pick-up-store-openings {
+        opacity: 0.8;
+        color: $light-black;
+        font-family: $font-book;
+        font-size: rem(12);
+        font-weight: 300;
+        letter-spacing: rem(0.76);
+        line-height: rem(20);
+        margin: 0;
     }
 
     .available-for-store {
@@ -106,4 +103,3 @@
     }
     
 }
-  
