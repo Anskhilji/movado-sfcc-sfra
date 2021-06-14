@@ -5,7 +5,8 @@
     width: auto;
     background-color: $light-white;
     margin-bottom: rem(20);
-    height: rem(140);
+    height: auto;
+    min-height: 100%;
 
     .pdp-store-pickup {
 
