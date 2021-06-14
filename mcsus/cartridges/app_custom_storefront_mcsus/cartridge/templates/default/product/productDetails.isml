@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="pdp-store-pickup-wraper row">
-                                <isinclude url="${URLUtils.url('Product-getPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid')}"/>
+                                <isinclude url="${URLUtils.url('Product-getPreferredStore', 'isPdp', pdict.isPdpStorePickup)}"/>
                             </div>
 
 
