@@ -30,10 +30,6 @@
   }
 }
 
-
-
-
-
 .total-stores {
   color: $black-dark;
   font-size: rem(10);
@@ -144,7 +140,7 @@
     }
   }
 
-  .storeHours-title {
+  .store-hours-title {
     &::after {
       content: "\F106";
       font-size: rem(15);
@@ -155,7 +151,7 @@
     }
   }
   
-  .storeHours-title.collapsed {
+  .store-hours-title.collapsed {
     &::after {
       content: "\F107";
       font-size: rem(15);

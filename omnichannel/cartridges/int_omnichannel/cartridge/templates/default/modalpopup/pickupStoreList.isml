@@ -27,7 +27,7 @@
                         </div>
                         <isif condition="${store.storeHours}">
                             <div class="store-hours">
-                                <label class="storeHours-title collapsed" data-toggle="collapse"
+                                <label class="store-hours-title collapsed" data-toggle="collapse"
                                     data-target="${'#storeHours-' + store.ID}" aria-expanded="false"
                                     aria-controls="${'storeHours-' + store.ID}" for="${'storeHours-' + store.ID}">Store
                                     Hours</label>

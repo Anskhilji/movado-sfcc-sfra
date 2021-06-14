@@ -47,8 +47,7 @@ function getResources(pageContext) {
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
         LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null),
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
-        BOPIS_STORE_FETCHING_ERROR: Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null) 
-    };NOT
+    };
     return resources;
 }
 
