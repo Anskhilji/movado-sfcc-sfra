@@ -209,10 +209,8 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     this.productSearch = productSearch;
     var category = catalogMgr.getCategory(productSearch.categoryID);
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
-    if (category.template == categoryTemplateEyewear) {
+    if (category && category.template == categoryTemplateEyewear) {
         this.pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
-    } else {
-        this.pageSize = parseInt(httpParams.sz, 10) || DEFAULT_PAGE_SIZE;
     }
     var startIdx = httpParams.start || 0;
     var paging = getPagingModel(
