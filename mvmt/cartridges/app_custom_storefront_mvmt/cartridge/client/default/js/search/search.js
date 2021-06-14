@@ -281,6 +281,26 @@ function updatePageURLForShowMore(showMoreUrl) {
     }
 }
 
+function bulidLifeStyleCarousel() {
+
+    $('.product-grid .plp-image-carousel:not(.slick-initialized)').slick({
+        lazyLoad: 'ondemand',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: true,
+        arrows: false,
+    });
+
+    $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
+        var nextSlide = slick.$slides.get(nextSlide);
+        var $slideSourceSets = $(nextSlide).find('source');
+        $($slideSourceSets).each(function () {
+            $(this).attr('srcset', $(this).data('lazy'));
+        });
+    });
+}
+
 /**
  * Adds page start and size to page URL for pagination
  *
@@ -371,6 +391,7 @@ module.exports = {
                     $('.mobile-sort-menu').removeClass('active');
                     $('body').removeClass('lock-bg');
                     $('.mobile-menu-close, .mobile-sort-order').removeClass('loaded');
+                    bulidLifeStyleCarousel();
                 },
                 error: function () {
                     $.spinner().stop();
@@ -403,6 +424,7 @@ module.exports = {
                     if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                     }
+                    bulidLifeStyleCarousel();
                     // edit end
                     $.spinner().stop();
                 },
@@ -458,6 +480,7 @@ module.exports = {
                             if (($('#product-search-results .product-tile').length % (3 * initiallyLoadedProducts)) == 0) {
                                 $('.grid-footer').removeClass('d-none');
                             }
+                            bulidLifeStyleCarousel();
                             // edit end
                             $.spinner().stop();
                         },
@@ -497,8 +520,10 @@ module.exports = {
                     // Get products for marketing data
                     var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
                     updateMarketingProducts(marketingProductsData);
+                    bulidLifeStyleCarousel();
                     $.spinner().stop();
                     moveFocusToTop();
+
                 },
                 error: function () {
                     $.spinner().stop();
@@ -553,6 +578,7 @@ module.exports = {
                         $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
                         $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
                         $('.plp-grid-overlay').removeClass('active');
+                        bulidLifeStyleCarousel();
                     },
                     error: function () {
                         $.spinner().stop();

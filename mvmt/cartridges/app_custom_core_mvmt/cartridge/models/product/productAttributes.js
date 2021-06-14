@@ -67,11 +67,15 @@ function getAllAttrValues(
                 
                 // Custom Start : getting large type image against each variant
                 
-                var largeImages = new ImageModel(value, { types: ['tile533','tile532X300', 'tile256', 'tile217', 'tile150','tile206','tile512X640'], quantity: 'single' });
+                var largeImages = new ImageModel(value, { types: ['tile533','tile532X300', 'tile256', 'tile217', 'tile150','tile206','tile512X640'], quantity: 'all' });
                 processedAttr.largeImage = !empty(largeImages.tile256[0]) ? largeImages.tile256[0] : '';
                 processedAttr.eyeWearImage = !empty(largeImages.tile532X300[0]) ? largeImages.tile532X300[0] : '';
                 processedAttr.tileImage206 = !empty(largeImages.tile206[0]) ? largeImages.tile206[0] : '';
                 processedAttr.tileImage512X640 = !empty(largeImages.tile512X640[0]) ? largeImages.tile512X640[0] : '';
+                processedAttr.lifeStyleImage = !empty(largeImages.tile256[3]) ? largeImages.tile256[3] : '';
+                processedAttr.lifeStyleImage206 = !empty(largeImages.tile206[3]) ? largeImages.tile206[3] : '';
+                processedAttr.eyeWearLifeStyleImage = !empty(largeImages.tile532X300[3]) ? largeImages.tile532X300[3] : '';
+                  
                 // Custom End
             }
 
