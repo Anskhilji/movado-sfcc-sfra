@@ -33,8 +33,7 @@
                                 <isset name="price"
                                     value="${product != null && product != undefined && ? product.price : ''}"
                                     scope="page" />
-                                <isinclude
-                                    url="${URLUtils.https('PickupStore-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
+                                <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
                         </div>
                     </div>
                     <hr />
