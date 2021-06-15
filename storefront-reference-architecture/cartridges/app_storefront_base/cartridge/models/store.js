@@ -1,6 +1,6 @@
 'use strict';
 
-/**`
+/**
  * @constructor
  * @classdesc The stores model
  * @param {dw.catalog.Store} storeObject - a Store objects
@@ -35,7 +35,6 @@ function store(storeObject) {
         if (storeObject.storeHours) {
             this.storeHours = storeObject.storeHours.markup;
         }
-
     }
 }
 

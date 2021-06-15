@@ -2,11 +2,12 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/components/pdpStorePickUp.css');
 </isscript>
+<isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : false}" scope="page" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
     <div class="pdp-store-pickup-inventory-icon"></div> 
     <div class="pdp-store-pickup-delevery">
         <h3 class="stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</h3>
-        <p class="pick-up-store-openings">${Resource.msg('pick.up.store.openings.days', 'pdpStorePickUp', null)}</p>  
+        <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>  
     </div>
 </div>
 <div class="col-sm-6 pdp-store-pickup-address">
@@ -15,7 +16,7 @@
         <div class="pdp-store-pickup-availabilty">
             <h3 class="available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'pdpStorePickUp', null)}</h3>
             <p class="available-pickup-stores">${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
-            <span class="pick-up-store-change-store storeModal" data-url='${URLUtils.https('Product-getStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
+            <span class="pick-up-store-change-store storeModal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
         </div>
     </div>
 </div>

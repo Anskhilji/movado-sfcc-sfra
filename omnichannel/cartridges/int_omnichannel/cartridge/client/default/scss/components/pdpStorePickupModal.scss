@@ -9,7 +9,7 @@
   }
   
   &-productname {
-    color: $light-gary-black;
+    color: $light-gray-black;
     font-size: rem(16);
     font-weight: 300;
     letter-spacing: rem(0.7);
@@ -29,10 +29,6 @@
     color: $black-dark;
   }
 }
-
-
-
-
 
 .total-stores {
   color: $black-dark;
@@ -121,7 +117,7 @@
 
   .store-product-available {
     span {
-      color: $light-gary-black;
+      color: $light-gray-black;
       font-size: rem(12);
       font-family: $font-book;
       font-weight: 700;

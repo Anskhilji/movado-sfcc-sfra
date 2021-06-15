@@ -4,7 +4,7 @@
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
         </a>
-        <isinclude url="${URLUtils.url('Product-getPreferredStore')}"/>
+        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore')}"/>
     </div>
 <iselse/>
     <div class="user hidden-md-down" tabindex="0">
@@ -19,5 +19,5 @@
             <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
         </div>
     </div>
-    <isinclude url="${URLUtils.url('Product-getPreferredStore')}"/>
+    <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore')}"/>
 </isif>

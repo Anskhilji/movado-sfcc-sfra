@@ -47,7 +47,7 @@
                                 disabled>${Resource.msg('store.pickup.selected.button', 'pdpStorePickUp', null)}</button>
                             <iselse>
                                 <button type="button" class="store-pickup-select"
-                                    data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
+                                    data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
                                     data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
                         </isif>
                     </div>
