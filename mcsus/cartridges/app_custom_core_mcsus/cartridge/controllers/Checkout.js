@@ -41,7 +41,7 @@ server.prepend(
         next();
 });
 
-server.get('checkoutPickupStore', function (req, res, next) {
+server.get('CheckoutPickupStore', function (req, res, next) {
     var isBilling = req.querystring.isBilling;
     var preferedPickupStore;
     if (session.privacy.pickupStoreID) {

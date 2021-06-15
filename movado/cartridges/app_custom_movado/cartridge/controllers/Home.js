@@ -36,7 +36,7 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     viewData.content = content && content.custom && content.custom.body ? content.custom.body : '';
     viewData.relativeURL = relativeURL;
     //Custom Start[MSS-1410 Checkout and Shipping changes for PickupInStore Logic] Delete session value if exists
-        if(session.privacy.pickupFromStore) delete session.privacy.pickupFromStore;
+    if(session.privacy.pickupFromStore) delete session.privacy.pickupFromStore;
     //Custom End
     res.setViewData(viewData);
     return next();

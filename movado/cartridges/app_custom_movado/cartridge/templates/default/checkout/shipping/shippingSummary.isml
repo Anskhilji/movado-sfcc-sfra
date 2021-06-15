@@ -24,7 +24,7 @@
             </div>
 
         <isif condition="${session.privacy.pickupFromStore}">
-            <isinclude url="${URLUtils.url('Checkout-checkoutPickupStore', 'isBilling', true)}" />
+            <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore', 'isBilling', true)}" />
         <iselse/>
             <!--- Shipping information --->
             <isif condition="${session.privacy.pickupFromStore}">

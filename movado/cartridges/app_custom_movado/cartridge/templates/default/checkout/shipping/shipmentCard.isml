@@ -34,7 +34,7 @@
 
             <isif condition="${session.privacy.pickupFromStore}">
                 <div>
-                    <isinclude url="${URLUtils.url('Checkout-checkoutPickupStore')}" />
+                    <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore')}" />
                 </div>
             <iselse/>
                 <fieldset class="shipping-method-block">

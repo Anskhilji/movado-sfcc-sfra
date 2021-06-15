@@ -81,8 +81,6 @@ server.replace(
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
             });
         }
-        //delete session variable for pickup from store checkout
-       
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
