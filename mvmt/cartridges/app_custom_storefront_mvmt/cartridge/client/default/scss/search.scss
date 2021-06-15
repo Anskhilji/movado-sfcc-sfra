@@ -76,6 +76,15 @@
 
 .mvmt-plp {
 
+    .marketing-content-injection {
+        height: 95%;
+        width: auto;
+        @media (max-width: 543.98px) { 
+            height: 95%;
+            width: auto;
+        }
+    }
+
     .custom-select {
         position: absolute;
         width: 0;
