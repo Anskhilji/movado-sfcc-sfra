@@ -2,7 +2,7 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/components/pdpStorePickUp.css');
 </isscript>
-<isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : false}" scope="page" />
+<isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : ''}" scope="page" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
     <div class="pdp-store-pickup-inventory-icon"></div> 
     <div class="pdp-store-pickup-delevery">
