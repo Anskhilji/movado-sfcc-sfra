@@ -3,12 +3,10 @@
 var server = require('server');
 var URLUtils = require('dw/web/URLUtils');
 var Site = require('dw/system/Site');
-var Template = require('dw/util/Template');
-var HashMap = require('dw/util/HashMap');
 var page = module.superModule;
 server.extend(page);
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
+
 
 server.get('ShowMcsProdutPrice', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);

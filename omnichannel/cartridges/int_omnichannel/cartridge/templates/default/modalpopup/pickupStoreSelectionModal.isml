@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <isif condition="${pdict.isPdpStorePickup === true}">
+                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
                         <div class="col-md-3">
                             <picture>
@@ -25,11 +25,11 @@
                                 <isset name="isImageExist" value="true" scope="page" />
                             </picture>
                         </div>
-                        <div class="col-md-9 pickup-store-pdetail-pdspecification">
-                            <div class="pickup-store-pdetail-productNumber">
+                        <div class="col-md-9 pickup-store-pdetail-pd-specification">
+                            <div class="pickup-store-pdetail-product-number">
                                 <isinclude template="product/components/productNumber" />
                             </div>
-                            <h1 class="pickup-store-pdetail-productname text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
+                            <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
                                 <isset name="price"
                                     value="${product != null && product != undefined && ? product.price : ''}"
                                     scope="page" />
@@ -51,11 +51,11 @@
                                     for="radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
                                 <select class="form-select store-pickup-radius-dropdown-field" id="radius"
                                     name="radius">
-                                    <option value="15">15 miles</option>
-                                    <option value="30" selected>30 miles</option>
-                                    <option value="50">50 miles</option>
-                                    <option value="100">100 miles</option>
-                                    <option value="300">300 miles</option>
+                                    <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 15);}</option>
+                                    <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 30);}</option>
+                                    <option value="50">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 50);}</option>
+                                    <option value="100">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 100);}</option>
+                                    <option value="300">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 300);}</option>
                                 </select>
                             </div>
                             <div class="store-pickup-search-store">

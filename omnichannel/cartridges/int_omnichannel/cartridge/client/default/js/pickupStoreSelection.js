@@ -1,10 +1,10 @@
 
 $(document).ready(function () {
-    var $searchStore = $("#search-store");
+    var $searchStore = $('#search-store');
     $searchStore.click(function () {
 
-        var $zipCode = $("#zip-code");
-        var $radius = $("#radius");
+        var $zipCode = $('#zip-code');
+        var $radius = $('#radius');
         url = $searchStore.data('url');
         data = {
             zipCode: $zipCode.val(),
@@ -16,11 +16,11 @@ $(document).ready(function () {
             url: url,
             type: 'GET',
             data: data,
-            success: function (resData) {
-                $("#store-list").html(resData.html);
+            success: function (response) {
+                $('#store-list').html(response.html);
                 $.spinner().stop();
             }, error: function (error) {
-                $("#store-list").html("<div class='no-store'>"+Resources.BOPIS_STORE_FETCHING_ERROR+"</div>");
+                $('#store-list').html('<div class="no-store">'+Resources.BOPIS_STORE_FETCHING_ERROR+'</div>');
                 $.spinner().stop();
             }
 
@@ -47,7 +47,7 @@ function setStoreInSession(url) {
     $.ajax({
         url: url,
         type: 'POST',
-        success: function (resData) {
+        success: function (response) {
             $.spinner().stop();
         }, error: function (error) {
             $.spinner().stop();

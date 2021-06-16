@@ -20,13 +20,13 @@ server.get('GetStoresList', function (req, res, next) {
     var stores = storeHelpers.getStores(radius || session.privacy.pickupStoreRadius, null, null, geolocation, zipCode || session.privacy.pickupStoreZipCode, false);
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
-    var data = new HashMap();
+    var map = new HashMap();
 
-    data.put('pickupStore', stores);
-    data.put('isPdp', isPdp);
-    data.put('selectedStore', session.privacy.pickupStoreID);
+    map.put('pickupStore', stores);
+    map.put('isPdp', isPdp);
+    map.put('selectedStore', session.privacy.pickupStoreID);
 
-    var html = tmplate.render(data);
+    var html = tmplate.render(map);
     var result = {
         html: html.text,
         zipCode: session.privacy.pickupStoreZipCode,
