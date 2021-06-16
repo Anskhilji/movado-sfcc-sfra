@@ -36,12 +36,7 @@ server.get('getStoresList', function (req, res, next) {
     var zipCode = req.querystring.zipCode;
     var isSearch = req.querystring.isSearch;
     var geolocation = req.geolocation;
-    //Custom Start: This code used for store list by geolocation, it should be removed before deployment
-        // geolocation = {
-        //     countryCode: "CA",
-        //     latitude: 49.206217, longitude: -122.985902
-        // }
-    //Custom End
+
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
         session.privacy.pickupStoreZipCode = zipCode;
