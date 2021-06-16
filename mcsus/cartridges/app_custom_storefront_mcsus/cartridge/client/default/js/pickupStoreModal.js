@@ -1,5 +1,6 @@
 
 $(document).on('click', '.js-store-modal', function (event) {
+    event.preventDefault();
     var url = $(this).data('url');
     $.spinner().start();
     $.ajax({
@@ -15,5 +16,4 @@ $(document).on('click', '.js-store-modal', function (event) {
             $.spinner().stop();
         }
     })
-    event.preventDefault();
 })
