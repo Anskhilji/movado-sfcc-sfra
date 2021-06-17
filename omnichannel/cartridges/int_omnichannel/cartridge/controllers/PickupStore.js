@@ -11,10 +11,7 @@ server.get('GetStoresList', function (req, res, next) {
     var zipCode = req.querystring.zipCode;
     var isSearch = req.querystring.isSearch;
     var geolocation = req.geolocation;
-    geolocation = {
-        countryCode: "CA",
-        latitude: 49.206217, longitude: -122.985902
-    }
+
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
         session.privacy.pickupStoreZipCode = zipCode;
@@ -43,6 +40,7 @@ server.get('GetStoresList', function (req, res, next) {
 server.post('SetStoreIDSession', function (req, res, next) {
     var storeID = req.querystring.storeID;
     session.privacy.pickupStoreID = storeID;
+    session.privacy.pickupFromStore = storeID;
     res.json(true);
     next();
 });

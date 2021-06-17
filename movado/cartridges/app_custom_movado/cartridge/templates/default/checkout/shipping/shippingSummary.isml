@@ -28,7 +28,7 @@
         <iselse/>
             <!--- Shipping information --->
             <isif condition="${session.privacy.pickupFromStore}">
-                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.your.detail', 'confirmation', null)}:</p>
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
             <iselse/>
                 <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
             </isif>

@@ -42,7 +42,7 @@
                 <div class="card shipping-summary">
                     <div class="card-header flex justify-content-between align-items-center">
                     <isif condition="${session.privacy.pickupFromStore}">
-                        <h4 class="pull-left">${Resource.msg('heading.checkout.store.pickup.detail', 'checkout', null)}</h4>
+                        <h4 class="pull-left">${Resource.msg('heading.checkout.store.pickup.detail', 'storePickUp', null)}</h4>
                     <iselse/>
                         <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
                     </isif>

@@ -6,7 +6,7 @@
 <div class="card-body shipping-content">
 <isif condition="${session.privacy.pickupFromStore}">
     <div class="shipping-your-detail">
-        ${Resource.msg('label.order.your.detail', 'confirmation', null)}
+        ${Resource.msg('label.order.your.detail', 'storePickUp', null)}
     </div>
 </isif>
     <form class="shipping-form" autocomplete="on" novalidate
