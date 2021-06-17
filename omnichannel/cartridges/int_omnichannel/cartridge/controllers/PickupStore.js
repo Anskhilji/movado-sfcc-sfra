@@ -3,7 +3,6 @@
 var server = require('server');
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
-var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
 var storeHelper = require('*/cartridge/scripts/helpers/storeHelper');
 
 server.get('GetStoresList', function (req, res, next) {
