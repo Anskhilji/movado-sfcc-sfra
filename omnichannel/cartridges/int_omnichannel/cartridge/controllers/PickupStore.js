@@ -4,6 +4,7 @@ var server = require('server');
 var Template = require('dw/util/Template');
 var HashMap = require('dw/util/HashMap');
 var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
+var storeHelper = require('*/cartridge/scripts/helpers/storeHelper');
 
 server.get('GetStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
@@ -17,7 +18,7 @@ server.get('GetStoresList', function (req, res, next) {
         session.privacy.pickupStoreZipCode = zipCode;
     }
 
-    var stores = storeHelpers.getStores(radius || session.privacy.pickupStoreRadius, null, null, geolocation, zipCode || session.privacy.pickupStoreZipCode, false);
+    var stores = storeHelper.getStores(radius || session.privacy.pickupStoreRadius, geolocation, zipCode || session.privacy.pickupStoreZipCode);
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
     var map = new HashMap();
