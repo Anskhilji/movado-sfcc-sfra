@@ -28,7 +28,7 @@
                 </picture>
             </a>
         <iselseif condition="${product && product.images && (product.productType != 'master' || !product.variationPdpURL)}" >
-            <isif condition="${pdict.display.isLifeStyleEnabled)}">
+            <isif condition="${pdict.display.isLifeStyleEnabled}">
                 <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
                     <picture>
                         <isif condition="${product.images.tile512X640[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512X640[0].url}" /></isif>
