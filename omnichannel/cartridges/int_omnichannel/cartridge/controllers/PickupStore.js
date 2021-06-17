@@ -40,7 +40,6 @@ server.get('GetStoresList', function (req, res, next) {
 server.post('SetStoreIDSession', function (req, res, next) {
     var storeID = req.querystring.storeID;
     session.privacy.pickupStoreID = storeID;
-    session.privacy.pickupFromStore = storeID;
     res.json(true);
     next();
 });
