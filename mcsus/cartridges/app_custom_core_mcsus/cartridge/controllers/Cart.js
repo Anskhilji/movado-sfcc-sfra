@@ -28,8 +28,10 @@ server.prepend(
                 Transaction.wrap(function () {
                     if (currentBasket) {
                         currentBasket.custom.pickInStore = true;
-                        for (lineItem in currentBasket.productLineItems) {
-                            currentBasket.productLineItems[lineItem].custom.pickInStore = true;
+                        var productLineItemsIterator = currentBasket.productLineItems.iterator();
+                        while (productLineItemsIterator.hasNext()) {
+                            var productLineItem = productLineItemsIterator.next();
+                            productLineItem.custom.pickInStore = true;
                         }
                     }
                 });
