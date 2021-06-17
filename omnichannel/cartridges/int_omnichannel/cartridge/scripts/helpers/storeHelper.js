@@ -10,16 +10,14 @@ function getStores (radius, geolocation, zipCode){
     var stores = null;
     var status = null;
     var showMap = false;
-    var queryCountryCode = 'undefiend';
     if (zipCode) {
         //Custom Start: Updated the regex of the zipCode
         zipCode = zipCode.replace(/[\s,]+/g, '+').trim();
         //Custom End
     }
 
-    if (zipCode && queryCountryCode) {
+    if (zipCode) {
         var params = {
-            countryCodeFromRequest: queryCountryCode,
             address: zipCode
         };
 
@@ -39,7 +37,7 @@ function getStores (radius, geolocation, zipCode){
                     googleServiceResult.geometry.location.lat,
                     googleServiceResult.geometry.location.lng,
                     geolocation,
-                    queryCountryCode,
+                    null,
                     showMap,
                     null,
                     status);
