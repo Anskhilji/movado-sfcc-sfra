@@ -35,10 +35,6 @@ function store(storeObject) {
         if (storeObject.storeHours) {
             this.storeHours = storeObject.storeHours.markup;
         }
-
-        if (storeObject.custom.distance) {
-            this.distance = storeObject.custom.distance;
-        }
     }
 }
 

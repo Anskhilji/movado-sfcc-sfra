@@ -8,53 +8,59 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header store-pickup-model-header">
-                <p class="store-pickup-model-title" id="exampleModalLongTitle">${Resource.msg('store.pickup.model.title', 'storePickUp', null)}</p>
+                <p class="store-pickup-model-title">
+                    ${Resource.msg('store.pickup.model.title', 'storePickUp', null)}</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            <isif condition="${pdict.isPdpStorePickup === true}">
-                <div class="row pickup-store-pdetail">
-                    <div class="col-md-3">
-                        <picture>
-                            <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
-                                alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
-                                itemprop="image" />
-                            <isset name="isImageExist" value="true" scope="page" />
-                        </picture>
-                    </div>
-                    <div class="col-md-9 pickup-store-pdspecification">
-                        <div class="pickup-store-productNumber">
-                            <isinclude template="product/components/productNumber" />
+                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
+                    <div class="row pickup-store-pdetail">
+                        <div class="col-md-3">
+                            <picture>
+                                <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
+                                    alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
+                                    itemprop="image" />
+                                <isset name="isImageExist" value="true" scope="page" />
+                            </picture>
                         </div>
-                        <h5 class="pickup-store-productname text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
-                            <isset name="price" value="${product != null && product != undefined && ? product.price : ''}" scope="page" />
-                            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
+                        <div class="col-md-9 pickup-store-pdetail-pd-specification">
+                            <div class="pickup-store-pdetail-product-number">
+                                <isinclude template="product/components/productNumber" />
+                            </div>
+                            <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
+                                <isset name="price"
+                                    value="${product != null && product != undefined && ? product.price : ''}"
+                                    scope="page" />
+                                <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
+                        </div>
                     </div>
-                </div>
-                <hr />
-            </isif>    
+                    <hr />
+                </isif>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="store-pickup-form-wrapper">
                             <div class="store-pickup-zip-code">
-                                <input class="store-pickup-zipcode-field" type="text" id="zip-code"
+                                <input class="store-pickup-zip-code-field" type="text" id="zip-code"
                                     placeholder="Enter city, state, or zip " name="" minlength="4" maxlength="10"
                                     pattern="(^[a-zA-Z0-9 ]+$)">
                             </div>
                             <div class="store-pickup-radius">
-                                <label class="store-pickup-dropdown-label" for="radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
-                                <select class="form-select store-pickup-dropdown-field" id="radius" name="radius">
-                                    <option value="15">15 miles</option>
-                                    <option value="30" selected>30 miles</option>
-                                    <option value="50">50 miles</option>
-                                    <option value="100">100 miles</option>
-                                    <option value="300">300 miles</option>
+                                <label class="store-pickup-radius-dropdown-label"
+                                    for="radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
+                                <select class="form-select store-pickup-radius-dropdown-field" id="radius"
+                                    name="radius">
+                                    <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 15);}</option>
+                                    <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 30);}</option>
+                                    <option value="50">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 50);}</option>
+                                    <option value="100">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 100);}</option>
+                                    <option value="300">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 300);}</option>
                                 </select>
                             </div>
                             <div class="store-pickup-search-store">
-                                <button class="store-pickup-search-btn" id="search-store" data-url='${URLUtils.https('Product-getStoresList','isPdp', pdict.isPdpStorePickup)}'>Search</button>
+                                <button class="store-pickup-search-store-btn" id="search-store"
+                                    data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup)}'>Search</button>
                             </div>
                         </div>
                     </div>
