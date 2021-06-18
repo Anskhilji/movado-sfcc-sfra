@@ -1,13 +1,13 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
     <li title="${refinementValue.title}" class="color-attribute ${!refinementValue.selectable ? 'disabled' : ''}">
-        <a href="${refinementValue.url}">
+        <a class="plp-filters-redesign-refinements" href="${refinementValue.url}">
             <span class="${refinementValue.swatchId} swatch-circle color-value swatch-mark <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif><isif condition="${!refinementValue.selectable}">disabled</isif>"></span>
         </a>
     </li>
 <iselse>
 <iscomment> Custom: span and icon removed, class added with condition</iscomment>
     <li title="${refinementValue.title}" class="col-6 ${!refinementValue.selectable ? 'disabled' : ''}">
-        <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+        <a class="plp-filters-redesign-refinements" role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
             ${refinementValue.displayValue}
         </a>
     </li>

@@ -1,5 +1,5 @@
 <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
-    <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+    <a class="plp-filters-redesign-refinements" role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
         <isif condition="${refinementValue.selected && refinementValue.selectable}">
             <i class="fa fa-check-square"></i>
         <iselse>

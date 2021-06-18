@@ -2,7 +2,7 @@
 <ul class="values content row m-0">
     <isloop items="${refinement.values}" var="refinementValue">
         <li class="col-6" title="${refinementValue.title}">
-            <a href="${refinementValue.url}" class="selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>">
+            <a class="plp-filters-redesign-refinements" href="${refinementValue.url}" class="selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>">
                 ${refinementValue.displayValue}
             </a>
         </li>

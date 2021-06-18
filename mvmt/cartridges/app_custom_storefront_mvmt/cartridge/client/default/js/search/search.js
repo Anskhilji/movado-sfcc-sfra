@@ -590,6 +590,11 @@ module.exports = {
             $('.plp-grid-overlay').removeClass('active');
         });
 
+        $(document).on('click', 'filter-redesigned-mobile .filter-group-outer ul li a', function(e) {
+            $(".mobile-sort-menu").removeClass('active loaded');
+            $(".plp-filter-btn-redesign").removeClass('active');
+        });
+
         $(window).scroll(function() {
             var scroll = $(window).scrollTop();
 
@@ -630,9 +635,11 @@ module.exports = {
         });
     },
 
+
+
     mobileSortFilterMenu: function () {
 
-        $(document).on("click", '.mobile-filter-btn-list button', function(e) {
+        $(document).on("click", '.mobile-filter-sort-redesign', function(e) {
             var  menu = $(this).data('menu');
             var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
             $(''+ menu +'').addClass('active').removeClass('disable-events');
@@ -642,7 +649,6 @@ module.exports = {
                 $(''+ menu +' .mobile-selection').addClass('border-radius-transform-transition skip-animation');
             }, 300);
         });
-
         $(document).on("click", '.filter-open button', function(e) {
             var  menu = $(this).data('menu');
             $('body').addClass('lock-bg');
@@ -664,7 +670,12 @@ module.exports = {
         });
 
         $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
-            $('.mobile-filter-btn-list').addClass('filter-open');
+            $('.mobile-filter-sort-redesign').addClass('filter-open');
+        });
+
+        $(document).on("click", '.plp-filter-btn-redesign', function(e) {
+            $(this).toggleClass('active');
+            $(this).next().toggleClass('active loaded');
         });
 
         $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function(e) {
@@ -680,6 +691,7 @@ module.exports = {
             var loadClass = ''+ optionMenu +' .mobile-selection-outer, '+ optionMenu +' .mobile-selection-close';
             $(''+ optionMenu +' .mobile-menu-close').addClass('loaded');
             $(''+ optionMenu +'').addClass('active');
+            $('.mobile-filter-menu').addClass('active').removeClass('disable-events');
 
             setTimeout (function (){
                 $(''+ loadClass +'').addClass('loaded');
