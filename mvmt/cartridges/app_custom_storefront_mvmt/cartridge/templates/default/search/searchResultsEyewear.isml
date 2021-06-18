@@ -92,9 +92,7 @@
                             data-initial-products="${sitePref.eyewearPageSize}">
                             <isloop items="${pdict.productSearch.productIds}" var="product" status="prodStatus">
 
-                                <isif
-                                    condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus
-                                               .index === 4}">
+                                <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (sitePref.marketingContentInjectionTileNumber - 1 )}">
                                     <div class="col-12 col-sm-4 col-lg-4">
                                         <isslot id="cs-category-fifth-tile" context="category"
                                             description="5th slot on PLP"
