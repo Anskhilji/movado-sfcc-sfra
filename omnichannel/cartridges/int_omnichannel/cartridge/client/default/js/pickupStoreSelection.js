@@ -33,10 +33,10 @@ $(document).on('click', '.store-pickup-select', function () {
     if (stringifyData !== '') {
         var storePickup = JSON.parse(stringifyData);
         var storeAddress = storePickup.address1 + ' ' + storePickup.stateCode + ' ' + storePickup.phone;
-        $('.available-for-store, .pick-up-store-available-for-store').html(Resources.BOPIS_STORE_AVAILABLE_TEXT);
-        $('.set-your-store').html(storePickup.address1);
-        $('.available-pickup-stores, .pick-up-store-available-pickup-stores').html(storeAddress);
-        $('.pick-up-store-change-store').html('Change');
+        $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
+        $('.set-your-store').text(storePickup.address1);
+        $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
+        $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
         setStoreInSession($(this).data('url'))
     }
