@@ -78,4 +78,5 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+    <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
