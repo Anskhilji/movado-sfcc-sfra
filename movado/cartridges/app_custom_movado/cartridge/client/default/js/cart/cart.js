@@ -341,13 +341,14 @@ function fillModalElement(editProductUrl) {
  * @param {string} productName - product name
  * @param {string} uuid - uuid
  */
-function confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj) {
+function confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj, pickupStoreAvailable) {
     var $deleteConfirmBtn = $('.cart-delete-confirmation-btn');
     var $productToRemoveSpan = $('.product-to-remove');
-
     $deleteConfirmBtn.data('pid', productID);
     $deleteConfirmBtn.data('action', actionUrl);
     $deleteConfirmBtn.data('uuid', uuid);
+    $deleteConfirmBtn.data('uuid', uuid);
+    $deleteConfirmBtn.data('store-pickup-available', pickupStoreAvailable);
     $('.gtm-cart').attr('data-gtm-cart', JSON.stringify(gtmProdObj));
 
     $productToRemoveSpan.empty().append(productName);
@@ -413,6 +414,18 @@ function displayMessageAndRemoveFromCart(data) {
     }, 2000);
 }
 
+function updateStorePickupProductAvailability() {
+    $('.remove-product').each(function (index, removeProduct) {
+        var storePickupAvailable = $(removeProduct).data('store-pickup-available');
+        if (storePickupAvailable == false) {
+            $('.checkout-btn').addClass('disabled');
+            return;
+        } else {
+            $('.checkout-btn').removeClass('disabled');
+        }
+    });
+}
+
 module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
     handleAddGiftCheckbox();
@@ -425,12 +438,13 @@ module.exports = function () {
         var productName = $(this).data('name');
         var uuid = $(this).data('uuid');
         var gtmProdObj = $(this).data('gtm-cart');
-        confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj);
+        var pickupStoreAvailable = $(this).data('store-pickup-available');
+        confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj, pickupStoreAvailable);
     });
 
     $('body').on('afterRemoveFromCart', function (e, data) {
         e.preventDefault();
-        confirmDelete(data.actionUrl, data.productID, data.productName, data.uuid);
+        confirmDelete(data.actionUrl, data.productID, data.productName, data.uuid, data.pickupStoreAvailable);
     });
 
     $('.optional-promo').click(function (e) {
@@ -444,6 +458,7 @@ module.exports = function () {
         var productID = $(this).data('pid');
         var url = $(this).data('action');
         var uuid = $(this).data('uuid');
+        var pickupStoreAvailable = $(this).data('store-pickup-available');
         var urlParams = {
             pid: productID,
             uuid: uuid
@@ -496,7 +511,9 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
-
+                if(pickupStoreAvailable != null && pickupStoreAvailable != undefined){
+                    updateStorePickupProductAvailability();
+                }
                 $.spinner().stop();
             },
             error: function (err) {

@@ -1,0 +1,15 @@
+<div class="pickup-store-rectangle ${!session.privacy.pickupStoreID ? "d-none" : ''}">
+    <div class="form-group checkbox">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input form-check cart-store-pickup" id="enableStorePickup" data-url="${URLUtils.url('Cart-SetPickupFromStore')}"
+            <isif condition="${session.privacy.pickupFromStore}">checked</isif>>
+            <label class="custom-control-label checkbox-label pickup-checkbox" for="enableStorePickup">
+                ${Resource.msg('store.pickup.cart.avalibility.checkbox', 'storePickUp', null);}
+            </label>
+        </div>
+    </div>
+    <div class="pickup-store-rectangle-store-detail">
+        <span class="pickup-store-cart-address">${pdict.pickupStore.address1 || ""}</span>
+        <span class="change storeModal" data-url="${URLUtils.https('Product-getStoresList')}">${session.privacy.pickupStoreID ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('store.pickup.set.your.store.btn', 'storePickUp', null)}</span>
+    </div>
+</div>

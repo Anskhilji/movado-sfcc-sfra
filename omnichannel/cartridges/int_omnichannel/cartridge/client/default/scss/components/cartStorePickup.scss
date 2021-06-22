@@ -1,0 +1,131 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.pickup-store {
+
+  &-line-item-name {
+    margin-left: rem(10);
+    margin-top: rem(10);
+
+    a {
+      color: $dark-light-black;
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+  }
+
+  &-total-amount {
+    font-family: $font-demi !important;
+  }
+
+  &-product-detail {
+    margin-top: rem(15);
+  }
+
+  &-cart-availability {
+    margin-bottom: rem(45);
+  }
+
+  &-product-info {
+    border: rem(1) solid $light-gray-info;
+    box-shadow: 0 rem(2) rem(6) 0 $gray-shadow;
+  }
+
+  &-inventory {
+    
+    &-seperator {
+      height: rem(110);
+      border-left: rem(2) solid $light-gray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    &-status {
+      display: flex;
+      align-items: flex-start;
+      line-height: rem(20);
+
+      &-icon {
+        padding: rem(10);
+        margin-right: rem(10);
+        
+        &-available {
+          background: url("../../images/pickup-store-inventory-icon.svg")
+            no-repeat center;
+        }
+
+        &-unavailable {
+          background: url("../../images/pickup-store-inventory-icon.svg")
+            no-repeat center;
+        }
+        
+        &-online {
+          background: url("../../images/pickup-store-inventory-icon.svg")
+            no-repeat center;
+            margin-bottom: rem(15);
+        }
+      }
+
+      span {
+        color: $dark-light-black;
+        font-family: $font-demi;
+        font-size: rem(14);
+        font-weight: 300;
+        letter-spacing: rem(0.61);
+        line-height: rem(18);
+      }
+
+      .unavailable-text {
+        color: $alert;
+      }
+    }
+  }
+
+  &-rectangle {
+    box-sizing: border-box;
+    height: rem(86);
+    border: rem(1) solid $light-gray-info;
+    background-color: $gray-info;
+    box-shadow: 0 rem(2) rem(6) 0 $gray-shadow;
+    margin-bottom: rem(20);
+    padding: rem(20);
+
+    .checkbox {
+        margin-bottom: rem(5);
+
+        &-label {
+            color: $light-black;
+            font-family: $font-demi;
+            font-size: rem(16);
+            font-weight: 500;
+            letter-spacing: rem(1.14);
+            line-height: rem(24);
+        }
+    }
+
+    &-store-detail {
+        color: $light-black;
+        font-family: $font-book;
+        font-size: rem(14);
+        font-weight: 300;
+        letter-spacing: rem(1);
+        line-height: rem(20);
+        margin-left: rem(23);
+
+        .change {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .custom-checkbox .pickup-checkbox {
+      &::before {
+        border: rem(2) solid $black-dark;
+        border-radius: rem(3);
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+  }
+}

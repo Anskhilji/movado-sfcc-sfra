@@ -20,7 +20,7 @@ $(document).ready(function () {
                 $("#store-list").html(resData.html);
                 $.spinner().stop();
             }, error: function (error) {
-                $("#store-list").html("<div class='no-store'>"+Resources.BOPIS_STORE_FETCHING_ERROR+"</div>");
+                $("#store-list").html("<div class='no-store'>" + Resources.BOPIS_STORE_FETCHING_ERROR + "</div>");
                 $.spinner().stop();
             }
 
@@ -30,26 +30,35 @@ $(document).ready(function () {
 
 $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
-    localStorage.setItem("currentStore", stringifyData);
-    var StoreJson = localStorage.getItem("currentStore");
-    if (StoreJson !== '') {
-        var StorePickup = JSON.parse(StoreJson);
-        var storeAddress = StorePickup.address1 + ' ' + StorePickup.stateCode + ' ' + StorePickup.phone;
+    if (stringifyData !== '') {
+        var storePickup = JSON.parse(stringifyData);
+        var storeAddress = storePickup.address1 + ' ' + storePickup.stateCode + ' ' + storePickup.phone;
         $('.available-for-store').text('Available for Store Pickup');
-        $('.set-your-store').text(StorePickup.address1);
+        $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
-        setStoreInSession($(this).data('url'))
+        if (storePickup.inventory && storePickup.inventory[0].records[0].reserved > 0) {
+            $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
+        }
+        if ($('.pickup-store-cart-address')) {
+            setStoreInSession($(this).data('url'), true);
+        } else {
+            setStoreInSession($(this).data('url'), false);
+        }
+
     }
 })
 
-function setStoreInSession(url) {
+function setStoreInSession(url, isFromCart) {
 
     $.ajax({
         url: url,
         type: 'POST',
-        success: function (resData) {
+        success: function (response) {
+            if (isFromCart) {
+                window.location.reload();
+            }
             $.spinner().stop();
         }, error: function (error) {
             $.spinner().stop();

@@ -34,12 +34,23 @@
         }
 
         &-store-icon {
-            background: url('../../images/pickupstore-icon.svg') no-repeat center;
             display: inline-block;
             margin: 0;
             width: 23%;
             padding-top: rem(58);
             padding-left: rem(15);
+            
+            &-default {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            }
+
+            &-available {
+                background: url('../../images/pickup-store-inventory-icon.svg') no-repeat center;
+            }
+
+            &-unavailable {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            } 
         }
 
         &-availabilty {

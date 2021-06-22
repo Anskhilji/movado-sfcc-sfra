@@ -1,11 +1,11 @@
-<isif condition="${param.pickupStore.stores.length > 0}">
+<isif condition="${param.pickupStore.length > 0}">
     <div class="col-sm-12 p-0">
         <div id="total-results" class="total-stores">
-            ${param.pickupStore.stores.length.toString()}${Resource.msg('store.pickup.search.results.text', 'pdpStorePickUp', null)}
+            ${param.pickupStore.length.toString()}${Resource.msg('store.pickup.search.results.text', 'storePickUp', null)}
         </div>
     </div>
     <div class="store-list">
-        <isloop items="${param.pickupStore.stores}" var="store">
+        <isloop items="${param.pickupStore}" var="store">
             <div class="row">
                 <div class="col-md-6 store-list-details">
                     <div class="store-name">
@@ -21,16 +21,17 @@
                     </isif>
                 </div>
                 <div class="col-md-3">
-                    <div class="store-availibilty-hours">
+                    <isif condition="${store.inventory}">
+                        <div class="store-availibilty-hours">
                         <div class="store-product-available">
-                            <span>1 Available</span>
+                            <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp' , null, store.inventory[0].records[0].reserved)}</span>
                         </div>
                         <isif condition="${store.storeHours}">
                             <div class="store-hours">
                                 <label class="store-hours-title collapsed" data-toggle="collapse"
                                     data-target="${'#storeHours-' + store.ID}" aria-expanded="false"
                                     aria-controls="${'storeHours-' + store.ID}"
-                                    for="${'storeHours-' + store.ID}">${Resource.msg('store.pickup.store.hours.label', 'pdpStorePickUp', null)}</label>
+                                    for="${'storeHours-' + store.ID}">${Resource.msg('store.pickup.store.hours.label', 'storePickUp', null)}</label>
                                 <div class="row collapse" id="storeHours-${store.ID}">
                                     <div class="col-sm-12 store-hours-time">
                                         <isprint value="${store.storeHours}" encoding="off" />
@@ -39,16 +40,18 @@
                             </div>
                         </isif>
                     </div>
+                    </isif>
                 </div>
                 <div class="col-md-3">
                     <div class="store-select-button">
                         <isif condition="${param.selectedStore == store.ID}">
+                            <button type="button" class="store-pickup-select" disabled>${Resource.msg('store.pickup.selected.button', 'storePickUp', null)}</button>
+                        <iselseif condition="${store.inventory && store.inventory[0].records[0].reserved == 0}" />
+                            <button type="button" class="store-pickup-select" disabled>${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
+                        <iselse/>
                             <button type="button" class="store-pickup-select"
-                                disabled>${Resource.msg('store.pickup.selected.button', 'pdpStorePickUp', null)}</button>
-                            <iselse>
-                                <button type="button" class="store-pickup-select"
-                                    data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
-                                    data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'pdpStorePickUp', null)}</button>
+                                data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
+                                data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
                         </isif>
                     </div>
                 </div>
@@ -58,7 +61,7 @@
 <iselse/>
     <div class="row">
         <div class="col-sm-12 p-0">
-            <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null)}</div>
+            <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'storePickUp', null)}</div>
         </div>
     </div>
 </isif>

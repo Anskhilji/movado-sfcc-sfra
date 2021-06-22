@@ -10,6 +10,9 @@ server.extend(page);
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
 
+var OmniChannelLog = require('dw/system/Logger').getLogger('OmniChannel');
+var omniChannelAPI  = require('*/cartridge/scripts/api/omniChannelAPI');
+
 server.get('ShowMcsProdutPrice', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     res.render('product/components/mcsProductPrice', {
@@ -32,26 +35,31 @@ server.get('ShowMcsAffirmText', function (req, res, next) {
 
 server.get('getStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
-    var isPdp = req.querystring.isPdp || false;
+    var pid = req.querystring.pid;
     var zipCode = req.querystring.zipCode;
     var isSearch = req.querystring.isSearch;
     var geolocation = req.geolocation;
-    geolocation = {
-        countryCode: "CA",
-        latitude: 49.206217, longitude: -122.985902
-    }
+    var productInventoryInStore = null;
+
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
         session.privacy.pickupStoreZipCode = zipCode;
     }
-
-    var stores = storeHelpers.getStores(radius || session.privacy.pickupStoreRadius, null, null, geolocation, zipCode || session.privacy.pickupStoreZipCode, false);
+    var pickupStores = storeHelpers.getStores(radius || session.privacy.pickupStoreRadius, null, null, geolocation, zipCode || session.privacy.pickupStoreZipCode, false);
+    if(pid) {
+        var productIds = [];
+        productIds.push(pid);
+        try {
+            productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, pickupStores.stores);
+        } catch (error) {
+            OmniChannelLog.error('(Product.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI', error.toString());
+        }
+    }
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
     var data = new HashMap();
 
-    data.put('pickupStore', stores);
-    data.put('isPdp', isPdp);
+    data.put('pickupStore', productInventoryInStore && productInventoryInStore.success ? productInventoryInStore.response : pickupStores.stores);
     data.put('selectedStore', session.privacy.pickupStoreID);
 
     var html = tmplate.render(data);
@@ -76,21 +84,43 @@ server.post('setStoreIDSession', function (req, res, next) {
 server.get('getPreferredStore', function (req, res, next) {
     var StoreMgr = require('dw/catalog/StoreMgr');
     var preferedPickupStore;
-    var isPdp = req.querystring.isPdp;
+    var isPdp = req.querystring.isPdp || false;
+    var pid = req.querystring.pid;
     var address1;
     var phone;
+    var inventory = 0;
+    var productInventoryInCurrentStore;
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
         address1 = preferedPickupStore.address1;
         phone = preferedPickupStore.phone;
+        if (pid) {
+            try {
+                var storeArray = [];
+                var productIds = [];
+                productIds.push(pid);
+                storeArray.push(preferedPickupStore);
+                var productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
+                productInventoryInCurrentStore = productInventoryInStore.success
+                    && productInventoryInStore.response[0].inventory
+                    && productInventoryInStore.response[0].inventory.length > 0
+                    ? productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
+            } catch (error) {
+                OmniChannelLog.error('(Product.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI ' + error.toString());
+            }
+
+        }
     }
-    var storeObject = {
+    var store = {
         address1: address1,
-        phone: phone
+        phone: phone,
+        inventory: productInventoryInCurrentStore
     }
     res.render(isPdp ? 'product/components/pdpStorePickUp' : 'modalpopup/modelPopUpButton', {
-        storeObject: storeObject,
+        store: store,
+        pid: pid,
         isPdp: isPdp
+
     });
     return next();
 });

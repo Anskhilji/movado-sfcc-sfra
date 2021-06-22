@@ -1,0 +1,19 @@
+<div class="col-lg-6 pickup-store-cart-availability ${session.privacy.pickupFromStore ? "" : " d-none"}">
+    <div class="pickup-store-inventory-seperator">
+        <div>
+            <div class="pickup-store-inventory-status">
+                <span class="pickup-store-inventory-status-icon pickup-store-inventory-status-icon-online"></span>
+                <span>${Resource.msg('store.pickup.available.online', 'storePickUp', null)}</span>
+            </div>
+            <div class="pickup-store-inventory-status">
+                <isif condition="${lineItem.storePickupAvailable}">
+                    <span class="pickup-store-inventory-status-icon pickup-store-inventory-status-icon-available"></span>
+                    <span>${Resource.msg('storepickup.avalibilty', 'storePickUp', null)}</span>
+                <iselse/>
+                    <span class="pickup-store-inventory-status-icon pickup-store-inventory-status-icon-unavailable"></span>
+                    <span class="unavailable-text">${Resource.msg('storepickup.unavalibilty', 'storePickUp', null)}</span>
+                </isif>
+            </div>
+        </div>
+    </div>
+</div>

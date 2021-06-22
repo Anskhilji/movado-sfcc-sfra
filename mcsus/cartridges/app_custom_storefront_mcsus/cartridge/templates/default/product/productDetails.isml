@@ -119,9 +119,8 @@
                             </div>
 
                             <div class="pdp-store-pickup-wraper row">
-                                <isinclude url="${URLUtils.url('Product-getPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid')}"/>
+                                <isinclude url="${URLUtils.url('Product-getPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid', product.id)}"/>
                             </div>
-
 
                             <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->

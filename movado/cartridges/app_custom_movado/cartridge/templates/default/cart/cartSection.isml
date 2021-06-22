@@ -1,7 +1,13 @@
 <iscontent type="text/html" charset="UTF-8" compact="true" />
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+        assets.addCss('/css/components/cartStorePickup.css');
+        assets.addJs('/js/cartPickupStoreSelection.js');
+</isscript>
 <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
+<div class="cart-pickup-store-checkbox" data-url="${URLUtils.url('Cart-GetProductLineItemInventory')}"></div>
 <isif condition="${pdict.items.length !== 0}">
     <div class="container cart-error-messaging cart-error mt-2">
         <isif condition="${pdict.valid.error}">
@@ -51,6 +57,7 @@
         <div class="row">
             <!---product cards--->
             <div class="col-sm-7 col-md-8">
+            <isinclude url="${URLUtils.url('Cart-GetCartPickupStore')}" />
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
