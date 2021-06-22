@@ -142,7 +142,7 @@
     <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
 </isif>    
 
-<div class="refine-wrapper plp-filter-redesign">
+<div class="refine-wrapper">
     <div class="plp-filter-bar">
         <div class="plp-filter-bar-inner ">
             <div class="plp-filter-options">
@@ -158,9 +158,7 @@
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
                                     ${refinement.displayName}
-                                    <span class="arrow-down"></span>
                                 </button>
-
 
                                 <div class="filter-group">
                                     <div class="filter-group-outer">

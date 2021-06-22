@@ -380,6 +380,7 @@ module.exports = {
                 data: { selectedUrl: url },
                 method: 'GET',
                 success: function (response) {
+                    
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);

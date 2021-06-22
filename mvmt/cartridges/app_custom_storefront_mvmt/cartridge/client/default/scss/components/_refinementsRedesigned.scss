@@ -1,0 +1,87 @@
+.plp-filter-redesign {
+    padding-top: rem(30);
+
+    .plp-filter {
+
+        &-bar {
+            border-top: none;
+            border-bottom: none;
+            background: $white;
+
+            &-inner {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+            }
+        }
+
+        &-list {
+            box-sizing: border-box;
+            height: rem(41);
+            border: rem(1) solid $black;
+            border-radius: rem(3);
+            margin-left: rem(20);
+
+            .filter-group {
+
+                &-outer {
+                    justify-content: flex-start
+                }
+            }
+        }
+
+
+        &-btn {
+            border: none;
+            background: $white;
+            line-height: normal;
+            height: 100%;
+            padding-right: rem(20.5);
+            padding-left: rem(20.5);
+            text-transform: none;
+
+            &:focus,
+            &:hover {
+                outline: none;
+                background: $black;
+                background-color: $black;
+                color: $white;
+            }
+
+            .arrow-down {
+                border: solid $black;
+                border-width: 0 rem(3) rem(3) 0;
+                display: inline-block;
+                padding: rem(3);
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+
+            &.active {
+
+                .arrow-down  {
+                    border: solid $white;
+                    border-width: 0 rem(3) rem(3) 0;
+                    transform: rotate(-135deg);
+                    -webkit-transform: rotate(-135deg);
+                }
+
+            }
+
+        }
+
+        .sort-dropdown {
+            border: rem(1) solid $black;
+            border-radius: rem(3);
+
+            &:focus,
+            &:active,
+            &:hover {
+                outline: none;
+                background: $black;
+                background-color: $black;
+            }
+
+        }
+    }
+
+}
