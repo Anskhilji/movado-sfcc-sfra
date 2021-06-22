@@ -85,7 +85,7 @@
                     <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
                 </svg>
                 <span class="filter-by-heading">
-                    ${Resource.msgf('lable.filter.by', 'search', null)} ${refinement.displayName}
+                    ${Resource.msgf('label.filter.and.sort', 'search', null)}
                 </span>
             </div>
             <div class="row">
