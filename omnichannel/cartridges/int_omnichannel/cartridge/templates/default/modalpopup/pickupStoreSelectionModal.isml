@@ -14,7 +14,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body store-pickup-modal-body">
                 <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
                         <div class="col-md-3">
@@ -48,8 +48,8 @@
                             </div>
                             <div class="store-pickup-radius">
                                 <label class="store-pickup-radius-dropdown-label"
-                                    for="radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
-                                <select class="form-select store-pickup-radius-dropdown-field" id="radius"
+                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
+                                <select class="form-select store-pickup-radius-dropdown-field" id="store-pickup-radius"
                                     name="radius">
                                     <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 15);}</option>
                                     <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 30);}</option>

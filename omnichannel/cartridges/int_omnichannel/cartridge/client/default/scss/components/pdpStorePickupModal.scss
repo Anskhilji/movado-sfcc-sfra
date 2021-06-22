@@ -1,6 +1,10 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
 
+.store-pickup-modal-body {
+  min-height: rem(534);
+}
+
 .pickup-store-pdetail {
   padding-left: rem(20);
 
@@ -37,6 +41,7 @@
   letter-spacing: rem(0.44);
   line-height: rem(20);
   margin-left: rem(33);
+  margin-top: rem(15);
   text-transform: uppercase;
 }
 
@@ -45,7 +50,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   height: auto;
-  max-height: rem(312);
+  max-height: rem(320);
 
   &-details {
     padding-top: rem(15);
