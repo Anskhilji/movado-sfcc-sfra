@@ -1,7 +1,8 @@
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <div class="sort-dropdown">
         <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ${Resource.msgf('lable.btn.filter.sort', 'search', null)}
+            ${Resource.msgf('lable.btn.filter.sort', 'search', null)} 
+                <span class="selected-value"> </span>
         </button>
         <div class="sort-dropdown-menu dropdown-menu">
             <isloop items="${pdict.productSearch.productSort.options}" var="option">
