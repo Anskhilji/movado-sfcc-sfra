@@ -10,6 +10,7 @@
 
     &-header {
         border: none;
+        padding: rem(20);
     }
 
     &-title {
@@ -21,6 +22,8 @@
         line-height: rem(24);
         text-transform: uppercase;
         padding-left: rem(32);
+        position: absolute;
+        top: 18px;
     }
 
     .store-pickup {
@@ -53,9 +56,10 @@
 
         &-radius {
             display: inline-block;
-            margin-left: rem(20);
+            margin-left: rem(15);
             position: relative;
             width: rem(135);
+            bottom: 6px;
     
             &-dropdown-field {
                 box-sizing: border-box;
@@ -71,6 +75,7 @@
                 line-height: rem(24);
                 padding-left: rem(5);
                 padding-top: rem(10);
+                @include select-appearance(none);
             }
     
             &-dropdown-label {
@@ -81,7 +86,7 @@
                 letter-spacing: rem(0.29);
                 line-height: rem(24);
                 position: absolute;
-                left: rem(10);
+                left: rem(7);
                 top: rem(-2);
                 text-transform: capitalize;
             }
@@ -89,7 +94,7 @@
 
         &-search-store {
             display: inline-block;
-            margin-left: rem(20);
+            margin-left: rem(15);
             position: relative;
             bottom: rem(5);
             

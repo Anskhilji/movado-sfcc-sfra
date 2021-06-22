@@ -5,8 +5,19 @@
   min-height: rem(534);
 }
 
+.store-pickup-modal-body .store-list-wpdp {
+  max-height: rem(410);
+}
+
+.store-pickup-form-wrapper {
+  position: absolute;
+  top: 10px;
+}
+
 .pickup-store-pdetail {
   padding-left: rem(20);
+  position: relative;
+  bottom: rem(13);
 
   &-pd-specification {
     padding-top: rem(15);
