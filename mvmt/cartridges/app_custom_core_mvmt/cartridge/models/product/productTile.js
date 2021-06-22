@@ -31,10 +31,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
-    var tileImage206;
+    var tileImage300X375;
     var tile512X640;
     var defaultVariantLifeStyleImage;
-    var defaultVariantLifeStyleImage206;
+    var defaultVariantLifeStyleImage300X375;
     var defaultVariantEyeWearLifeStyleImage;
 
     try {
@@ -127,10 +127,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
-                        tileImage206 = !empty(varAttr[key].tileImage206) ? varAttr[key].tileImage206.url : '';
+                        tileImage300X375 = !empty(varAttr[key].tileImage300X375) ? varAttr[key].tileImage300X375.url : '';
                         tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
                         defaultVariantLifeStyleImage = !empty(varAttr[key].lifeStyleImage) ? varAttr[key].lifeStyleImage.url : '';
-                        defaultVariantLifeStyleImage206 = !empty(varAttr[key].lifeStyleImage206) ? varAttr[key].lifeStyleImage206.url : '';
+                        defaultVariantLifeStyleImage300X375 = !empty(varAttr[key].lifeStyleImage300X375) ? varAttr[key].lifeStyleImage300X375.url : '';
                         defaultVariantEyeWearLifeStyleImage = !empty(varAttr[key].eyeWearLifeStyleImage) ? varAttr[key].eyeWearLifeStyleImage.url : '';
                         
 
@@ -142,10 +142,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
-                tileImage206 = !empty(varAttr[0].tileImage206) ? varAttr[0].tileImage206.url : '';
+                tileImage300X375 = !empty(varAttr[0].tileImage300X375) ? varAttr[0].tileImage300X375.url : '';
                 tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
                 defaultVariantLifeStyleImage = !empty(varAttr[0].lifeStyleImage) ? varAttr[0].lifeStyleImage.url : '';
-                defaultVariantLifeStyleImage206 = !empty(varAttr[0].lifeStyleImage206) ? varAttr[0].lifeStyleImage206.url : '';
+                defaultVariantLifeStyleImage300X375 = !empty(varAttr[0].lifeStyleImage300X375) ? varAttr[0].lifeStyleImage300X375.url : '';
                 defaultVariantEyeWearLifeStyleImage = !empty(varAttr[0].eyeWearLifeStyleImage) ? varAttr[0].eyeWearLifeStyleImage.url : '';
             }
 
@@ -159,9 +159,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 value: defaultVariantEyeWearLifeStyleImage
             });
 
-            Object.defineProperty(product, 'defaultVariantLifeStyleImage206', {
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage300X375', {
                 enumerable: true,
-                value: defaultVariantLifeStyleImage206
+                value: defaultVariantLifeStyleImage300X375
             });
 
             Object.defineProperty(product, 'defaultVariantImageDIS', {
@@ -174,9 +174,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 value: defulatVariantEyewearImage
             });
             
-            Object.defineProperty(product, 'defaultVariantTileImage206', {
+            Object.defineProperty(product, 'defaultVariantTileImage300X375', {
                 enumerable: true,
-                value: tileImage206
+                value: tileImage300X375
             });
 
             Object.defineProperty(product, 'defaultVariantTile512X640', {

@@ -22,13 +22,13 @@ module.exports = function () {
             }
         } else {
             $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
-            $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile206[0].url).data('lazy', primaryImageUrls.tile206[0].url);
+            $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[0].url).data('lazy', primaryImageUrls.tile300X375[0].url);
             $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
             // life style image handling
             if ($lifeStyleImageContainer.length > 0) {
                 $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
-                $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile206[3].url).data('lazy', primaryImageUrls.tile206[3].url);
+                $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
                 $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
             }
         }
