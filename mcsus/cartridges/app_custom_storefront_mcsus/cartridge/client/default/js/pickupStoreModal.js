@@ -9,7 +9,7 @@ $(document).on('click', '.js-store-modal', function (event) {
         success: function (response) {
             $('#store-list').html(response.html);
             $('#pickupStoreModal').modal('show');
-            $('#radius').val(response.radius || 15);
+            $('#store-pickup-radius').val(response.radius || 15);
             $('#zip-code').val(response.zipCode || '');
             $.spinner().stop();
         }, error: function (error) {

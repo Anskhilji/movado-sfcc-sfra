@@ -25,6 +25,7 @@ server.get('GetStoresList', function (req, res, next) {
     map.put('pickupStore', stores);
     map.put('isPdp', isPdp);
     map.put('selectedStore', session.privacy.pickupStoreID);
+    map.put('isFirstTime', session.privacy.pickupStoreRadius ? false : true)
 
     var html = tmplate.render(map);
     var result = {

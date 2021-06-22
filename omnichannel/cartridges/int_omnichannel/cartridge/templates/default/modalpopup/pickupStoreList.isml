@@ -55,7 +55,7 @@
             </div>
         </isloop>
     </div>
-<iselse/>
+<iselseif condition="${!param.isFirstTime}"/>
     <div class="row">
         <div class="col-sm-12 p-0">
             <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null)}</div>

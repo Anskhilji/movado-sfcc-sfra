@@ -4,7 +4,7 @@ $(document).ready(function () {
     $searchStore.click(function () {
 
         var $zipCode = $('#zip-code');
-        var $radius = $('#radius');
+        var $radius = $('#store-pickup-radius');
         url = $searchStore.data('url');
         data = {
             zipCode: $zipCode.val(),
