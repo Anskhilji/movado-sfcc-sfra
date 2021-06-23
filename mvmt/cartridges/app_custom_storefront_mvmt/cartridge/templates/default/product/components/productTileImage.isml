@@ -57,9 +57,9 @@
                         <isif condition="${product.images.tile512X640[3]}"><source  media="(min-width: 992px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
                         <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 544px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
                         <isif condition="${pdict.display.isEnableSingleProductRow}">
-                            <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 320px)" srcset="${product.images.tile512X640[3].url}" /></isif>
+                            <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
                         <iselse>
-                            <isif condition="${product.images.tile300X375[3]}"><source media="(min-width: 320px)" srcset="${product.images.tile300X375[3].url}" /></isif>
+                            <isif condition="${product.images.tile300X375[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile300X375[3].url}" /></isif>
                         </isif>                        
                         <isif condition="${product.images.tile512X640[3]}"><img class="tile-image gtm-product"  data-lazy="${product.images.tile512X640[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                     </picture>
