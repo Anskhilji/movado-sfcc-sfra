@@ -81,7 +81,7 @@
             i {
                 position: absolute;
                 right: rem(10);
-                top: rem(12)
+                top: rem(15);
             }
     
             &-dropdown-field {
@@ -99,6 +99,7 @@
                 padding-left: rem(5);
                 padding-top: rem(12);
                 @include select-appearance(none);
+                cursor: pointer;
             }
     
             &-dropdown-label {
@@ -135,6 +136,7 @@
                 line-height: rem(24);
                 text-align: center;
                 text-transform: uppercase;
+                cursor: pointer;
             }
         }
     }
