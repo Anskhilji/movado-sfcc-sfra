@@ -1,11 +1,16 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
+@import "../mixins";
 .store-pickup-model {
 
     @include media-breakpoint-up(sm) { 
         .modal-lg {
             width: rem(620);
         }
+    }
+
+    .ie-model {
+        margin-top: rem(170);
     }
 
     &-header {
@@ -24,6 +29,10 @@
         padding-left: rem(32);
         position: absolute;
         top: 18px;
+
+        @include media-breakpoint-down(md) {
+            padding-left: rem(10);
+        }
     }
 
     .store-pickup {
@@ -34,6 +43,10 @@
             position: relative;
             bottom: rem(5);
 
+            @include media-breakpoint-down(md) {
+                padding-left: rem(10);
+            }
+
             &-field {
                 box-sizing: border-box;
                 height: rem(40);
@@ -42,6 +55,10 @@
                 background-color: $white-dark;
                 padding-left: rem(10);
                 font-size: rem(14);
+
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                }
             
                 &:placeholder {
                     color: $light-gray-brown;
@@ -60,6 +77,11 @@
             position: relative;
             width: rem(135);
             bottom: 6px;
+
+            i {
+                position: absolute;
+                right: 10px;
+            }
     
             &-dropdown-field {
                 box-sizing: border-box;
