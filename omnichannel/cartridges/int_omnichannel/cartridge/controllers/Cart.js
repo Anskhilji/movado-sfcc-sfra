@@ -47,7 +47,7 @@ server.append(
             //Custom:Start  Update lineItems array if its available for pickup store
             var itemInventory = [];
             items.forEach(function (item) {
-                if (lineItemsInventory.length > 0) {
+                if (lineItemsInventory && lineItemsInventory.length > 0) {
                     var currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == item.id });
                     var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].reserved : 0;
                     var loopInventory = itemInventory.filter(function (i) { return i.itemId == item.id }).map(function (obj) { return obj.remain });
@@ -107,14 +107,17 @@ server.get(
         var preferedPickupStore;
         var address1;
         var phone;
+        var stateCode;
         if (session.privacy.pickupStoreID) {
             preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             address1 = preferedPickupStore.address1;
             phone = preferedPickupStore.phone;
+            stateCode = preferedPickupStore.stateCode;
         }
         var store = {
             address1: address1,
-            phone: phone
+            phone: phone,
+            stateCode: stateCode
         }
         res.render('product/cart/cartPickupStoreAvailability', {
             pickupStore: store,

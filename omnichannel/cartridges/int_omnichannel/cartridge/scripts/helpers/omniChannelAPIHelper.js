@@ -39,19 +39,21 @@ function getAuthToken(params) {
 function makeStoreList(apiResponse, prmStoresList) {
     var storeList = [];
 
-    for (var store in prmStoresList) {
+    prmStoresList.forEach(function (store) {
         storeList.push({
-            ID: prmStoresList[store].ID,
-            name: prmStoresList[store].name,
-            address1: prmStoresList[store].address1,
-            address2: prmStoresList[store].address2,
-            storeHours: prmStoresList[store].storeHours,
-            distance: prmStoresList[store].custom ? prmStoresList[store].custom.distance : prmStoresList[store].distance,
-            inventory: apiResponse.locations.filter(function (currentStore) { 
-                return currentStore.ID == prmStoresList[store].ID || "warehouse5" 
+            ID: store.ID,
+            name: store.name,
+            address1: store.address1,
+            address2: store.address2,
+            phone: store.phone,
+            storeHours: store.storeHours,
+            stateCode: store.stateCode,
+            distance: store.custom ? store.custom.distance : store.distance,
+            inventory: apiResponse.locations.filter(function (currentStore) {
+                return currentStore.ID == store.ID
             })
         });
-    }
+    })
     return storeList;
 }
 

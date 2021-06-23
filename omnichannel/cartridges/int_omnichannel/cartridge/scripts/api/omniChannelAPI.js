@@ -1,6 +1,6 @@
 'use strict';
 
-var Logger = require('dw/system/Logger').getLogger('omniChannel');;
+var Logger = require('dw/system/Logger').getLogger('omniChannel');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 

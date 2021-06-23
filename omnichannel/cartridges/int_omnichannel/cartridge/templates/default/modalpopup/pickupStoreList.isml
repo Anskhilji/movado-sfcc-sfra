@@ -12,7 +12,7 @@
                         <span>${store.name}</span>
                     </div>
                     <div class="store-address">
-                        <span>${store.address1}</span>
+                        <span>${(store.address1 || '') + ' ' + (store.stateCode || '') + ' ' + (store.phone || '') }</span>
                     </div>
                     <isif condition="${store.distance}">
                         <div class="store-distance">
@@ -50,7 +50,7 @@
                             <button type="button" class="store-pickup-select" disabled>${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
                         <iselse/>
                             <button type="button" class="store-pickup-select"
-                                data-url="${URLUtils.https('Product-setStoreIDSession', 'storeID', store.ID)}"
+                                data-url="${URLUtils.https('PickupStore-SetStoreIDSession', 'storeID', store.ID)}"
                                 data-store="${JSON.stringify(store)}">${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
                         </isif>
                     </div>
@@ -58,7 +58,7 @@
             </div>
         </isloop>
     </div>
-<iselse/>
+<iselseif condition="${!param.isFirstTime}"/>
     <div class="row">
         <div class="col-sm-12 p-0">
             <div class='no-store'>${Resource.msg('store.pickup.search.result.error', 'storePickUp', null)}</div>

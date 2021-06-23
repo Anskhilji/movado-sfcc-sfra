@@ -1,22 +1,26 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
 
+.store-pickup-modal-body {
+  min-height: rem(534);
+}
+
 .pickup-store-pdetail {
   padding-left: rem(20);
 
-  &-pdspecification {
+  &-pd-specification {
     padding-top: rem(15);
   }
   
-  &-productname {
-    color: $light-gary-black;
+  &-product-name {
+    color: $light-gray-black;
     font-size: rem(16);
     font-weight: 300;
     letter-spacing: rem(0.7);
     line-height: rem(24);
   }
 
-  &-productNumber {
+  &-product-number {
     color: $light-gray-brown;
     font-size: rem(12);
     font-weight: 300;
@@ -30,10 +34,6 @@
   }
 }
 
-
-
-
-
 .total-stores {
   color: $black-dark;
   font-size: rem(10);
@@ -41,6 +41,7 @@
   letter-spacing: rem(0.44);
   line-height: rem(20);
   margin-left: rem(33);
+  margin-top: rem(15);
   text-transform: uppercase;
 }
 
@@ -48,16 +49,18 @@
   padding: 0 rem(33);
   overflow-x: hidden;
   overflow-y: auto;
+  height: auto;
+  max-height: rem(320);
 
   &-details {
     padding-top: rem(15);
     padding-bottom: rem(15);
+    font-family: $font-book;
 
       .store-name {
         span {
           color: $black-dark;
           line-height: initial;
-          font-family: $font-book;
           font-size: rem(12);
           font-weight: 700;
           letter-spacing: rem(0.61);
@@ -68,7 +71,6 @@
       .store-address {
         span {
           color: $light-gray-brown;
-          font-family: $font-book;
           font-size: rem(14);
           font-weight: 300;
           letter-spacing: rem(0.61);
@@ -79,7 +81,6 @@
       .store-distance {
         span {
           color: $green;
-          font-family: $font-book;
           font-size: rem(14);
           font-weight: 500;
           letter-spacing: rem(0.61);
@@ -121,7 +122,7 @@
 
   .store-product-available {
     span {
-      color: $light-gary-black;
+      color: $light-gray-black;
       font-size: rem(12);
       font-family: $font-book;
       font-weight: 700;

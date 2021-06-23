@@ -13,7 +13,7 @@
     }
 
     &-title {
-        color: $light-gary-black;
+        color: $light-gray-black;
         font-family: $font-demi;
         font-size: rem(20);
         font-weight: 300;
@@ -99,7 +99,7 @@
                 height: rem(40);
                 width: rem(125);
                 background-color: $white-dark;
-                color: $light-gary-black;
+                color: $light-gray-black;
                 font-family: $font-demi;
                 font-size: rem(16);
                 font-weight: 700;
@@ -123,7 +123,7 @@
     bottom: rem(4.80);
     }
 
-  .store-pickup-button {
+.store-pickup-button {
     text-decoration: none;
     position: relative;
     top: rem(3);
@@ -136,4 +136,4 @@
       height: rem(20);
       display: inline-block;
     }
-  }
+}
