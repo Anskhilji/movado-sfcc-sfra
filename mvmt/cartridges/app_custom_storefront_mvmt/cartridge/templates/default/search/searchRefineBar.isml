@@ -7,9 +7,11 @@
                     ${Resource.msgf('label.filter.and.sort', 'search', null)}
                 </button>
                 <isloop items="${refinements}" var="refinement">
-                    <button class="mvmt-redesign-filter-button" data-option-select=".mobile-${refinement.displayName}">
-                        <span>${refinement.displayName}</span>
-                    </button>
+                    <isif condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
+                        <button class="mvmt-redesign-filter-button" data-option-select=".mobile-${refinement.displayName}">
+                            <span>${refinement.displayName}</span>
+                        </button>
+                    </isif>
                 </isloop>
             </div> 
         </div>
@@ -35,42 +37,44 @@
         <div class="mobile-filter-menu">
             <div class="mobile-filter-options">
                 <isloop items="${refinements}" var="refinement">
-                    <div class="mobile-selection mobile-${refinement.displayName}">
-                        <div class="mobile-selection-group">
-                            <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
-                                <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
-                                </svg>
-                                <span class="filter-by-heading">
-                                    ${Resource.msgf('lable.filter.by', 'search', null)} ${refinement.displayName}
-                                </span>
+                    <isif condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
+                        <div class="mobile-selection mobile-${refinement.displayName}">
+                            <div class="mobile-selection-group">
+                                <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B" fill="#2B2B2B"></path>
+                                    </svg>
+                                    <span class="filter-by-heading">
+                                        ${Resource.msgf('lable.filter.by', 'search', null)} ${refinement.displayName}
+                                    </span>
+                                </div>
+                                <div class="mobile-selection-outer">
+                                    <div class="mobile-selection-inner">
+                                        <!--- CATEGORY REFINEMENTS --->
+                                        <isif condition="${refinement.isCategoryRefinement}">
+                                            <isset name="categories" value="${refinement.values}" scope="page" />
+                                            <isinclude template="search/refinements/categories" />
+                                        </isif>
+
+                                        <!--- ATTRIBUTE REFINEMENTS --->
+                                        <isif condition="${refinement.isAttributeRefinement}">
+                                            <isinclude template="search/refinements/attributes" />
+                                        </isif>
+
+                                        <!--- PRICE REFINEMENTS --->
+                                        <isif condition="${refinement.isPriceRefinement}">
+                                            <isinclude template="search/refinements/prices" />
+                                        </isif>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mobile-selection-outer">
-                                <div class="mobile-selection-inner">
-                                    <!--- CATEGORY REFINEMENTS --->
-                                    <isif condition="${refinement.isCategoryRefinement}">
-                                        <isset name="categories" value="${refinement.values}" scope="page" />
-                                        <isinclude template="search/refinements/categories" />
-                                    </isif>
-
-                                    <!--- ATTRIBUTE REFINEMENTS --->
-                                    <isif condition="${refinement.isAttributeRefinement}">
-                                        <isinclude template="search/refinements/attributes" />
-                                    </isif>
-
-                                    <!--- PRICE REFINEMENTS --->
-                                    <isif condition="${refinement.isPriceRefinement}">
-                                        <isinclude template="search/refinements/prices" />
-                                    </isif>
+                            <div class="mobile-active-option">
+                                <div class="mobile-active-actions">
+                                    <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)} <isinclude template="search/resultsCount" /></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="mobile-active-option">
-                            <div class="mobile-active-actions">
-                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)} <isinclude template="search/resultsCount" /></button>
-                            </div>
-                        </div>
-                    </div>
+                    </isif>
                 </isloop>
                 <div class="mobile-filter-actions">
                     <button type="button" class="mobile-close-menu" data-close-menu=".mobile-filter-menu">
@@ -93,7 +97,7 @@
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <div class="sort-dropdown">
                             <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ${Resource.msgf('lable.btn.filter.sort', 'search', null)}
+                                ${Resource.msgf('lable.filter.sort', 'search', null)}<span>:</span>
                                 <span class="selected-value"></span>
                             </button>
                             <div class="sort-dropdown-menu dropdown-menu">
@@ -254,38 +258,3 @@
         </div>
     </div>
 </div>
-
-
-
-<div class="refine-wrapper d-none">
-    <div class="mvmt-redesign-filter-bar">
-        <div class="mvmt-redesign-filter-inner">
-            <div class="plp-filter-options">
-                <div class="plp-filter-lists">
-                    <div class="refinements">
-                        <iscomment> Start: Create category slot for straps </iscomment>
-                        <isif condition="${pdict.productSearch.category}">
-                            <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-                        </isif>
-                        <iscomment> End </iscomment>
-                        <isloop items="${refinements}" var="refinement">
-                            <div class="mvmt-redesign-filter-list">
-                                <!--- <button class="plp-filter-btn" role="tab" aria-expanded="false" >
-                                    ${refinement.displayName}
-                                </button> --->
-                                <button  class="mvmt-redesign-filter-button dropdown-toggle" data-option-select=".mobile-${refinement.displayName}" id="${refinement.displayName}Heading" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${refinement.displayName}
-                                </button>
-                            </div>
-                                    
-                        </isloop>
-                    </div>
-                    <!--- <isinclude template="search/sortOrderMenu" /> --->
-                </div>
-            </div>
-        </div>
-        <div class="plp-active-filter sticky">
-
-        </div>
-    </div>
- </div>

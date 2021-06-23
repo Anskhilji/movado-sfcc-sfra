@@ -65,8 +65,10 @@ function parseResults(response) {
         '.filter-bar',
         '.mobile-filter-menu',
         '.sort-dropdown',
-        '.mobile-sort-order'
+        '.mobile-sort-order',
+        '.mvmt-redesign-filter-bar',
     ].forEach(function (selector) {
+        debugger;
         updateDom($results, selector);
     });
 
@@ -345,6 +347,7 @@ module.exports = {
         // Handle sort order menu selection for mobile
         $(document).on('click', '.mobile-sort-order a, .sort-dropdown .sort-dropdown-item', function (e) {
             var url = $(this).attr('href');
+            var $slectedItem = $(this);
             e.preventDefault();
             $.spinner().start();
             $(this).trigger('search:sort', url);
@@ -358,6 +361,7 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
+                    $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($slectedItem.text());
                     // edit
                     $.spinner().stop();
 
@@ -478,6 +482,7 @@ module.exports = {
                         swatches.showSwatchImages();
 
                         $('.mobile-filter-menu').removeClass('active');
+                        $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
                         $('body').removeClass('lock-bg');
                         $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
@@ -590,11 +595,6 @@ module.exports = {
             $('.plp-grid-overlay').removeClass('active');
         });
 
-        $(document).on('click', 'filter-redesigned-mobile .filter-group-outer ul li a', function(e) {
-            $(".mobile-sort-menu").removeClass('active loaded');
-            $(".plp-filter-btn-redesign").removeClass('active');
-        });
-
         $(window).scroll(function() {
             var scroll = $(window).scrollTop();
 
@@ -657,6 +657,11 @@ module.exports = {
                 $(''+ menu +' .mobile-selection:not(.acitve) .mobile-active-filters, '+ menu +' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
             }, 300);
         });
+
+        // $(document).on('click','.sort-dropdown-menu a',function(){
+        //     var currentText = $(this).text();
+        //     $(this).closest('.sort-drodown').find('button').text('SORT BY: '+currentText);
+        // });
 
         $(document).on("click", '.mobile-menu-close, .mobile-close-menu', function(e) {
             var  menuClose = $(this).data('close-menu');
