@@ -27,8 +27,8 @@ function getAPIServiceConfigs() {
                 "records": [
                     {
                         "sku": "sku123",
-                        "atf": 1137.65,
-                        "ato": 1147.9,
+                        "atf": 2,
+                        "ato": 2,
                         "onHand": 0,
                         "reserved": 2,
                         "safetyStockCount": 0,
@@ -49,8 +49,8 @@ function getAPIServiceConfigs() {
                 "records": [
                     {
                         "sku": "sku123",
-                        "atf": 1137.65,
-                        "ato": 1147.9,
+                        "atf": 2,
+                        "ato": 2,
                         "onHand": 0,
                         "reserved": 2,
                         "safetyStockCount": 0,

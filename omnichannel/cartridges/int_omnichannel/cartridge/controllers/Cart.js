@@ -49,7 +49,7 @@ server.append(
             items.forEach(function (item) {
                 if (lineItemsInventory && lineItemsInventory.length > 0) {
                     var currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == item.id });
-                    var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].reserved : 0;
+                    var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
                     var loopInventory = itemInventory.filter(function (i) { return i.itemId == item.id }).map(function (obj) { return obj.remain });
                     if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
                         item.storePickupAvailable = true;

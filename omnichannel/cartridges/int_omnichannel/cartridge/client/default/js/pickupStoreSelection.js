@@ -38,7 +38,7 @@ $(document).on('click', '.store-pickup-select', function () {
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
-        if (storePickup.inventory && storePickup.inventory[0].records[0].reserved > 0) {
+        if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
         }
         if ($('.pickup-store-cart-address').length) {
