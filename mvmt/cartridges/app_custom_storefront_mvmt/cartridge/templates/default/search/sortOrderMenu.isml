@@ -1,25 +1,24 @@
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <div class="sort-dropdown">
         <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ${Resource.msgf('lable.btn.filter.sort', 'search', null)} 
+            <span class="sort-by-text">${Resource.msg('lable.filter.sort.by', 'search', null)} </span>
             <isloop items="${pdict.productSearch.productSort.options}" var="option">
-
-                <isif condition="${pdict.productSearch.productSort.ruleId === option.id}">
+                <isif condition="${pdict.productSearch.productSort.ruleId == option.id}">
                     <span class="selected-value"> ${option.displayName} </span>
-                    <isset name="isSortSelcted" value="${true}" scope="page" />
+                    <isset name="isSortSelcted" value="true" scope="page" />
                     <isbreak/>
                 </isif>
             </isloop>
-            <isif condition="${isSortSelcted != true}">
+            <isif condition="${isSortSelcted == undefined}">
                 <span class="selected-value"> </span>
             </isif>
-
+            <span class="arrow-down"></span>
         </button>
         <div class="sort-dropdown-menu dropdown-menu">
             <isloop items="${pdict.productSearch.productSort.options}" var="option">
                 <a class="${option.id} sort-dropdown-item" href="${option.url}"
                     data-id="${option.id}"
-                    ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                    ${pdict.productSearch.productSort.ruleId == option.id ? 'selected' : '' }
                 >
                     ${option.displayName}
                 </a>

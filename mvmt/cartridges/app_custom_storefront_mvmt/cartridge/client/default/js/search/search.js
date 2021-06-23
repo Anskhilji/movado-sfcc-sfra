@@ -374,19 +374,22 @@ module.exports = {
             var url = $(this).attr('href');
             e.preventDefault();
             $.spinner().start();
+            var $slectedItem = $(this);
+
             $(this).trigger('search:sort', url);
             $.ajax({
                 url: url,
                 data: { selectedUrl: url },
                 method: 'GET',
                 success: function (response) {
-                    
+
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
-                    // edit
+                    $("  .sort-dropdown-toggle").find('span.selected-value').text($slectedItem.text());
+                    // edit 
                     $.spinner().stop();
 
                     $('.mobile-sort-menu').removeClass('active');

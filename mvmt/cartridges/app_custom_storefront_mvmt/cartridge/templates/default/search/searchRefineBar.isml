@@ -164,6 +164,8 @@
 
                                 <div class="filter-group">
                                     <div class="filter-group-outer">
+                                        <h2 class="refinement-name">${refinement.displayName}</h2>
+
                                         <!--- CATEGORY REFINEMENTS --->
                                         <isif condition="${refinement.isCategoryRefinement}">
                                             <isset name="categories" value="${refinement.values}" scope="page" />
@@ -179,26 +181,6 @@
                                         <isif condition="${refinement.isPriceRefinement}">
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
-                                    </div>
-                                    <div class="plp-active-filter">
-                                        <div class="plp-active-filter-list">
-                                            <div class="filter-result-count">
-                                                <div class="grid-header">
-                                                    <div class="result-count">
-                                                        <isinclude template="search/resultsCount" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="active-filters">
-                                                <div class="row m-0 filter-bar">
-                                                    <isinclude template="search/filterBar" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <button class="filter-close-btn">
-                                            ${Resource.msgf('label.button.close', 'common', null, pdict.productSearch.count)}
-                                        </button>
                                     </div>
                                 </div>
                             </div>
