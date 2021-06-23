@@ -4,7 +4,7 @@
             ${param.pickupStore.stores.length.toString()}${Resource.msg('store.pickup.search.results.text', 'pdpStorePickUp', null)}
         </div>
     </div>
-    <div class="store-list">
+    <div class="sb-container store-list">
         <isloop items="${param.pickupStore.stores}" var="store">
             <div class="row">
                 <div class="col-md-6 store-list-details">

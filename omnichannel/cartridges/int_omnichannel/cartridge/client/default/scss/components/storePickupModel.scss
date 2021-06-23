@@ -1,6 +1,6 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
-@import "../mixins";
+@import '~movado/global';
 .store-pickup-model {
 
     @include media-breakpoint-up(sm) { 
@@ -73,7 +73,7 @@
 
         &-radius {
             display: inline-block;
-            margin-left: rem(15);
+            margin-left: rem(20);
             position: relative;
             width: rem(135);
             bottom: rem(5);
@@ -118,15 +118,17 @@
 
         &-search-store {
             display: inline-block;
-            margin-left: rem(15);
+            margin-left: rem(20);
             position: relative;
             bottom: rem(5);
+            height: rem(40);
+            width: rem(125);
             
             &-btn {
                 border: rem(1) solid $black-dark;
                 box-sizing: border-box;
-                height: rem(40);
-                width: rem(125);
+                height: 100%;
+                width: 100%;
                 background-color: $white-dark;
                 color: $light-gray-black;
                 font-family: $font-demi;

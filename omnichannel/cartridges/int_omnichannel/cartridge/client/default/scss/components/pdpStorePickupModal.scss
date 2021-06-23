@@ -10,8 +10,8 @@
 }
 
 .store-pickup-form-wrapper {
-  position: absolute;
-  top: rem(10);
+  position: relative;
+  padding-top: rem(10);
   display: flex;
 }
 
@@ -63,7 +63,6 @@
   overflow-y: auto;
   height: auto;
   max-height: rem(320);
-
 
   &-details {
     padding-top: rem(15);
