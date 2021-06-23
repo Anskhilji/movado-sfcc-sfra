@@ -64,6 +64,7 @@
   height: auto;
   max-height: rem(320);
 
+
   &-details {
     padding-top: rem(15);
     padding-bottom: rem(15);
@@ -194,4 +195,6 @@
 .no-store {
   padding: rem(20) rem(33);
   text-align: center;
+  position: relative;
+  top: 55px;
 }

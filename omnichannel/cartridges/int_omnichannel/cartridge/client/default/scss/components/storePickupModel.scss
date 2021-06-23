@@ -76,11 +76,12 @@
             margin-left: rem(15);
             position: relative;
             width: rem(135);
-            bottom: 6px;
+            bottom: rem(5);
 
             i {
                 position: absolute;
-                right: 10px;
+                right: rem(10);
+                top: rem(12)
             }
     
             &-dropdown-field {
@@ -91,12 +92,12 @@
                 background-color: $white-dark;
                 color: $black-dark;
                 font-family: $font-demi;
-                font-size: rem(14);
+                font-size: rem(12);
                 font-weight: 300;
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
                 padding-left: rem(5);
-                padding-top: rem(10);
+                padding-top: rem(12);
                 @include select-appearance(none);
             }
     
