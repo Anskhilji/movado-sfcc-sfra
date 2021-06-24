@@ -896,7 +896,7 @@
                             border-radius: rem(5);
                             padding: rem(8) rem(15);
                             font-size: rem(10);
-                            font-family: "Futura PT";
+                            font-family: $font-medium;
                             text-transform: uppercase;
                             font-weight: 300;
                             letter-spacing: rem(0.83);
@@ -1133,7 +1133,7 @@
         }
 
         .filter-by-heading {
-            color: #000000;
+            color: $black;
             font-family: $font-medium;
             font-size: rem(16);
             font-weight: 700;
@@ -2016,7 +2016,7 @@
         &-bar {
             height: auto;
             width: 100%;
-            background-color: #F5F5F5;
+            background-color: $light-gray6;
             padding: rem(10);
             overflow-x: auto;
         } 
@@ -2031,7 +2031,6 @@
             max-width: 100%;
             z-index: 7;
         }
-        
     }
         
 .mobile-sort-menu {
@@ -2047,47 +2046,47 @@
             z-index: 10;
             list-style: none;
             padding: 0;
-            background-color: #ffffff;
-            border-left: 0.0625rem solid #e8e8e8;
+            background-color: $white;
+            border-left: rem(1) solid $gray91;
             overflow: hidden;
-            max-height: 15.625rem;
+            max-height: rem(250);
             transition: max-height .3s;
             border-top: 0;
             border-radius: 0;
         }
 
         &-item {
-            padding: 0.34375rem 1.5625rem;
+            padding: rem(5.5) rem(25);
             display: block;
-            font-family: "futura-pt", Arial, sans-serif;
-            font-size: 0.75rem;
+            font-family: $font-medium;
+            font-size: rem(12);
             font-weight: 500;
-            color: #000;
-            line-height: 1.767rem;
+            color: $black;
+            line-height: rem(28.27);
             height: rem(45);
-            letter-spacing: 0.03125rem;
+            letter-spacing: rem(0.5);
             border: none;
-            border-bottom: 0.0625rem solid #e8e8e8;
+            border-bottom: rem(1) solid $gray91;
             cursor: pointer;
-            background: #FFFFFF;
+            background: $white;
             width: 100%;
 
             &:hover {
-                background-color: #FFFFFF;
+                background-color: $white;
                 text-decoration: none;
             }
         }
 
         &-toggle {
-            font-family: "futura-pt", Arial, sans-serif;
-            font-size: 0.6875rem;
+            font-family: $font-medium;
+            font-size: rem(11);
             font-weight: 500;
-            line-height: 2.875rem;
-            letter-spacing: 0.09375rem;
+            line-height: rem(46);
+            letter-spacing: rem(1.5);
             text-transform: uppercase;
             transition: background-color .25s ease-out;
-            background-color: #ffffff;
-            border: rem(1) solid #CDCDCD;
+            background-color: $white;
+            border: rem(1) solid $chinese-silver2;
             border-radius: rem(3);
             position: absolute;
             right: 0;
@@ -2101,7 +2100,7 @@
 
             span.selected-value {
                 font-weight: 700;
-                font-family: 'FuturaStd-Medium';
+                font-family: $font-medium;
             }
 
             &::after {
@@ -2125,7 +2124,7 @@
             }
 
             &:hover {
-                background-color: #ffffff;
+                background-color:$white;
             }
 
             &.active {
@@ -2147,7 +2146,7 @@
         .plp-filter {
 
             &-bar-mobile {
-                background: #F7F8F9;
+                background: $white-gray;
                 border: none;
                 position: relative;
                 width: 86.3%;
@@ -2164,8 +2163,8 @@
 
             &-bar-inner {
                 display: block;
-                border-top: rem(1) solid rgba(0, 0, 0, .5);
-                border-bottom: rem(1) solid rgba(0, 0, 0, .5);
+                border-top: rem(1) solid $transparent-black;
+                border-bottom: rem(1) solid $transparent-black;
             }
 
             &-options {
@@ -2181,11 +2180,11 @@
                     .plp-filter {
 
                         &-list {
-                            background: #F7F8F9;
+                            background: $cyan-blue;
                             width: 100%;
 
                             &:not(:first-child) {
-                                border-top: rem(1) solid rgba(0, 0, 0, .5);
+                                border-top: rem(1) solid $transparent-black;
                             }
 
                         }
@@ -2203,7 +2202,7 @@
                             padding: 0;
 
                             &.active {
-                                background: #F7F8F9;
+                                background: $cyan-blue;
 
                                 .arrow-down {
                                     transform: rotate(180deg);
@@ -2214,7 +2213,7 @@
                             &:focus,
                             &:active,
                             &:hover {
-                                background: #F7F8F9;
+                                background: $cyan-blue;
                                 outline: none;
                             }
 
@@ -2243,7 +2242,7 @@
                     display: none;
                     position: relative;
                     top: 0;
-                    background: #F7F8F9;
+                    background: $cyan-blue;
                     overflow-y: auto;
 
                     &.active {
@@ -2369,7 +2368,7 @@
                     background-color: rgba(83,197,110,0.07);
     
                     a {
-                        color: #000000;
+                        color: $black;
                         font-family: $font-book;
                         font-size: rem(12);
                         font-weight: 300;
