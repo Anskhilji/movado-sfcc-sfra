@@ -181,6 +181,7 @@
                                         <isif condition="${refinement.isPriceRefinement}">
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
+                                        <span class="close-icon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -193,13 +194,6 @@
         </div>
         <div class="plp-active-filter sticky">
             <div class="plp-active-filter-list">
-                <div class="filter-result-count">
-                    <div class="grid-header">
-                        <div class="result-count">
-                            <isinclude template="search/resultsCount" />
-                        </div>
-                    </div>
-                </div>
                 <div class="active-filters">
                     <div class="row m-0 filter-bar">
                         <isinclude template="search/filterBar" />

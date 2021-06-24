@@ -358,6 +358,10 @@ module.exports = {
         $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
         });
+
+        $(document).on('click', '.plp-filter-redesign .filter-group .close-icon', function () {
+            $('.plp-filter-btn.active').trigger('click');
+        });
     },
 
     resize: function () {
