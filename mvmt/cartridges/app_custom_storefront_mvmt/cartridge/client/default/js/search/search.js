@@ -373,7 +373,7 @@ module.exports = {
         // Handle sort order menu selection for mobile
         $(document).on('click', '.mobile-sort-order a, .sort-dropdown .sort-dropdown-item', function (e) {
             var url = $(this).attr('href');
-            var $slectedItem = $(this);
+            var $selectedItem = $(this);
             e.preventDefault();
             $.spinner().start();
             $(this).trigger('search:sort', url);
@@ -385,10 +385,8 @@ module.exports = {
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
-                    // edit
                     updatePageURLForSortRule(url);
-                    $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($slectedItem.text());
-                    // edit
+                    $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($selectedItem.text());
                     $.spinner().stop();
 
                     $('.mobile-sort-menu').removeClass('active');
@@ -422,13 +420,11 @@ module.exports = {
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.grid-footer').replaceWith(response);
                     updateSortOptions(response);
-                    // edit
                     updatePageURLForShowMore(showMoreUrl);
                     if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                     }
                     bulidLifeStyleCarousel();
-                    // edit end
                     $.spinner().stop();
                 },
                 error: function () {
@@ -484,7 +480,6 @@ module.exports = {
                                 $('.grid-footer').removeClass('d-none');
                             }
                             bulidLifeStyleCarousel();
-                            // edit end
                             $.spinner().stop();
                         },
                         error: function () {
@@ -518,9 +513,7 @@ module.exports = {
                     updateSortOptions(response);
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
-                    // edit
                     updatePageURLForPagination(showMoreUrl);
-                    // Get products for marketing data
                     var marketingProductsData = $('#marketingProductData', $(response).context).data('marketing-product-data');
                     updateMarketingProducts(marketingProductsData);
                     bulidLifeStyleCarousel();
@@ -568,9 +561,7 @@ module.exports = {
                         var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                         $('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
-                        // edit start
                         updatePageURLForFacets(filtersURL);
-                        // edit end
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
@@ -753,11 +744,6 @@ module.exports = {
                 $('' + menu + ' .mobile-selection:not(.acitve) .mobile-active-filters, ' + menu + ' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
             }, 300);
         });
-
-        // $(document).on('click','.sort-dropdown-menu a',function(){
-        //     var currentText = $(this).text();
-        //     $(this).closest('.sort-drodown').find('button').text('SORT BY: '+currentText);
-        // });
 
         $(document).on("click", '.mobile-menu-close, .mobile-close-menu', function(e) {
             var  menuClose = $(this).data('close-menu');
