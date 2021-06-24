@@ -40,7 +40,13 @@
                                 <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
                         </div>
                     </div>
-                    <hr />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="product-seprator-line">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
                 </isif>
                 <div class="row">
                     <div class="col-sm-12">

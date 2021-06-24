@@ -53,8 +53,9 @@
   letter-spacing: rem(0.44);
   line-height: rem(20);
   margin-left: rem(33);
-  margin-top: rem(15);
+  margin-top: rem(10);
   text-transform: uppercase;
+  font-family: $font-medium;
 }
 
 .store-list {
@@ -62,18 +63,20 @@
   overflow-x: hidden;
   overflow-y: auto;
   height: auto;
-  max-height: rem(320);
+  max-height: rem(400);
+
+  
 
   &-details {
     padding-top: rem(15);
     padding-bottom: rem(15);
-    font-family: $font-book;
+    font-family: $font-medium;
 
       .store-name {
         span {
-          color: $black-dark;
+          color: $light-gray-black;
           line-height: initial;
-          font-size: rem(12);
+          font-size: rem(14);
           font-weight: 700;
           letter-spacing: rem(0.61);
           line-height: rem(24);
@@ -103,6 +106,18 @@
 
 }
 
+.store-list::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.store-list::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	background-color: #979797;
+}
+
 .store-select-button {
   padding-top: rem(35);
 
@@ -122,8 +137,8 @@
     cursor: pointer;
 
     &:disabled {
-      border: rem(1) solid $light-gray-brown;
-      background-color: $light-gray-brown;
+      border: rem(1) solid $disabled-gray;
+      background-color: $disabled-gray;
       cursor: default;
     }
   }
@@ -135,8 +150,8 @@
   .store-product-available {
     span {
       color: $light-gray-black;
-      font-size: rem(12);
-      font-family: $font-book;
+      font-size: rem(14);
+      font-family: $font-medium;
       font-weight: 700;
       letter-spacing: rem(0.61);
       line-height: rem(24);
@@ -147,7 +162,7 @@
     label {
       color: $black-dark;
       font-family: $font-book;
-      font-size: rem(12);
+      font-size: rem(14);
       font-weight: 700;
       letter-spacing: rem(0.61);
       line-height: rem(20);
@@ -196,4 +211,14 @@
   text-align: center;
   position: relative;
   top: rem(55);
+}
+
+.product-seprator-line {
+  padding-left: rem(32);
+  padding-right: rem(32);
+}
+
+.mCustomScrollbar {
+  width: 100%;
+  overflow: auto;
 }

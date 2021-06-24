@@ -68,7 +68,3 @@ if (isIE()){
 } else {
     $('.store-pickup-model .store-pickup-model-container').removeClass('ie-model');
 }
-
-$(document).ready(function () {
-    $('.store-list').mCustomScrollbar();
-});
