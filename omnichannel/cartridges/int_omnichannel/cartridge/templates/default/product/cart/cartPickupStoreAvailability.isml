@@ -13,3 +13,4 @@
         <span class="change js-store-modal" data-url="${URLUtils.https('PickupStore-GetStoresList')}">${session.privacy.pickupStoreID ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('store.pickup.set.your.store.btn', 'storePickUp', null)}</span>
     </div>
 </div>
+<isinclude template="product/cart/cartPickupStoreError" />

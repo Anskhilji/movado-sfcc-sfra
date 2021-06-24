@@ -422,6 +422,7 @@ function updateStorePickupProductAvailability() {
             return;
         } else {
             $('.checkout-btn').removeClass('disabled');
+            $('.pickup-store-error').remove();
         }
     });
 }

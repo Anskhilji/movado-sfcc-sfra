@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div class="modal-body store-pickup-modal-body">
-                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
+                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
                         <div class="col-md-3">
                             <picture>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="store-pickup-search-store">
                                 <button class="store-pickup-search-store-btn" id="search-store"
-                                        data-pid="${product != undefined && product != null ? product.id : ''}" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', product != undefined && product != null ? product.id : '')}'>Search</button>
+                                        data-pid="${!empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : ''}" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>Search</button>
                             </div>
                         </div>
                     </div>

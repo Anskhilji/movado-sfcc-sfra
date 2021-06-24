@@ -60,9 +60,11 @@ server.append(
                         itemInventory.filter(function (i) { return i.itemId == item.id }).map(function (obj) { obj.remain = obj.remain - 1 });
                     } else {
                         item.storePickupAvailable = false;
+                        viewData.isAllItemsAvailable = false;
                     }
                 } else {
                     item.storePickupAvailable = false;
+                    viewData.isAllItemsAvailable = false;
                 }
             });
             //Custom:End

@@ -2,7 +2,6 @@
 @import "bootstrap/scss/mixins/breakpoints";
 
 .pickup-store {
-
   &-line-item-name {
     margin-left: rem(10);
     margin-top: rem(10);
@@ -32,7 +31,7 @@
   }
 
   &-inventory {
-    
+
     &-seperator {
       height: rem(110);
       border-left: rem(2) solid $light-gray;
@@ -40,7 +39,7 @@
       justify-content: center;
       align-items: center;
     }
-    
+
     &-status {
       display: flex;
       align-items: flex-start;
@@ -49,7 +48,7 @@
       &-icon {
         padding: rem(10);
         margin-right: rem(10);
-        
+
         &-available {
           background: url("../../images/pickup-store-inventory-icon.svg")
             no-repeat center;
@@ -59,11 +58,11 @@
           background: url("../../images/pickup-store-inventory-icon.svg")
             no-repeat center;
         }
-        
+
         &-online {
           background: url("../../images/pickup-store-inventory-icon.svg")
             no-repeat center;
-            margin-bottom: rem(15);
+          margin-bottom: rem(15);
         }
       }
 
@@ -92,31 +91,31 @@
     padding: rem(20);
 
     .checkbox {
-        margin-bottom: rem(5);
+      margin-bottom: rem(5);
 
-        &-label {
-            color: $light-black;
-            font-family: $font-demi;
-            font-size: rem(16);
-            font-weight: 500;
-            letter-spacing: rem(1.14);
-            line-height: rem(24);
-        }
+      &-label {
+        color: $light-black;
+        font-family: $font-demi;
+        font-size: rem(16);
+        font-weight: 500;
+        letter-spacing: rem(1.14);
+        line-height: rem(24);
+      }
     }
 
     &-store-detail {
-        color: $light-black;
-        font-family: $font-book;
-        font-size: rem(14);
-        font-weight: 300;
-        letter-spacing: rem(1);
-        line-height: rem(20);
-        margin-left: rem(23);
+      color: $light-black;
+      font-family: $font-book;
+      font-size: rem(14);
+      font-weight: 300;
+      letter-spacing: rem(1);
+      line-height: rem(20);
+      margin-left: rem(23);
 
-        .change {
-            text-decoration: underline;
-            cursor: pointer;
-        }
+      .change {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
 
     .custom-checkbox .pickup-checkbox {
@@ -126,6 +125,39 @@
         box-shadow: none;
         background: transparent;
       }
+    }
+  }
+
+  &-error {
+    display: flex;
+    align-items: center;
+
+    &-rectangle {
+      box-sizing: border-box;
+      height: rem(71);
+      border: rem(1) solid $alert-box;
+      border-radius: 0 0 rem(3) rem(3);
+      background-color: $alert-box-bg;
+      margin-bottom: rem(20);
+      padding: rem(15.5);
+    }
+
+    &-text {
+      color: $alert-text;
+      font-family: $font-demi;
+      font-size: rem(14);
+      font-weight: 300;
+      letter-spacing: rem(0.82);
+      line-height: rem(20);
+      width: rem(650);
+    }
+
+    &-icon {
+      padding: rem(10);
+      background: url("../../images/warning.svg")
+      no-repeat center;
+      margin-right: rem(20);
+      margin-left: rem(10.5);
     }
   }
 }

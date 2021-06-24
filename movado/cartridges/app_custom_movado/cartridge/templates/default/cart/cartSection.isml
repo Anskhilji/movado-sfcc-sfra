@@ -57,7 +57,7 @@
         <div class="row">
             <!---product cards--->
             <div class="col-sm-7 col-md-8">
-            <isinclude url="${URLUtils.url('Cart-GetCartPickupStore')}" />
+                <isinclude url="${URLUtils.url('Cart-GetCartPickupStore')}" />
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
