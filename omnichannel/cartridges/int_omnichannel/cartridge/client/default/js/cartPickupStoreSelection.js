@@ -18,6 +18,7 @@ $(document).on('click', '.cart-store-pickup', function (event) {
                 $('.pickup-store-cart-availability').addClass('d-none');
                 $('.default-product-availability').removeClass('d-none');
                 $('.checkout-btn').removeClass('disabled');
+                $('.apple-pay-cart').attr('disabled', false);
                 updateCartCSS(pickupFromStore);
             }
             $.spinner().stop();
@@ -49,10 +50,14 @@ function updateStorePickupProductAvailability() {
         var storePickupAvailable = $(removeProduct).data('store-pickup-available');
         if (pickupFromStore && storePickupAvailable == false) {
             $('.checkout-btn').addClass('disabled');
+            setTimeout(function() {
+                $('.apple-pay-cart').attr('disabled', true);
+            }, 300);
             $('.pickup-store-error').removeClass('d-none');
             return;
         } else {
             $('.checkout-btn').removeClass('disabled');
+            $('.apple-pay-cart').attr('disabled', false);
             $('.pickup-store-error').addClass('d-none');
         }
     });

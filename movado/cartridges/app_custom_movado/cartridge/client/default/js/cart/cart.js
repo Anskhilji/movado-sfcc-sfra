@@ -419,9 +419,12 @@ function updateStorePickupProductAvailability() {
         var storePickupAvailable = $(removeProduct).data('store-pickup-available');
         if (storePickupAvailable == false) {
             $('.checkout-btn').addClass('disabled');
+            $('.apple-pay-cart').attr('disabled', true);
+
             return;
         } else {
             $('.checkout-btn').removeClass('disabled');
+            $('.apple-pay-cart').attr('disabled', false);
             $('.pickup-store-error').remove();
         }
     });
