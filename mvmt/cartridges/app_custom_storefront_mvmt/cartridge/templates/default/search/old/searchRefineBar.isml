@@ -203,7 +203,7 @@
                         </isif>
                         </isloop>
                     </div>
-                    <isinclude template="search/sortOrderMenu" />
+                    <isinclude template="search/old/sortOrderMenu" />
                 </div>
             </div>
         </div>

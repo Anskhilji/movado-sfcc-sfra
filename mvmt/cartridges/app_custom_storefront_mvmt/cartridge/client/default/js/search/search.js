@@ -354,6 +354,7 @@ module.exports = {
     },
 
     closeRefinments: function () {
+
         // Refinements close button
         $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
@@ -378,7 +379,7 @@ module.exports = {
             var url = $(this).attr('href');
             e.preventDefault();
             $.spinner().start();
-            var $slectedItem = $(this);
+            var $selectedItem = $(this);
 
             $(this).trigger('search:sort', url);
             $.ajax({
@@ -392,7 +393,17 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
-                    $("  .sort-dropdown-toggle").find('span.selected-value').text($slectedItem.text());
+                    /**
+                     * Custom Start: Filter Redesign
+                     */
+
+                    $(".plp-filter-redesign .sort-dropdown-toggle").find('span.selected-value').text($selectedItem.text());
+                    $('.plp-filter-redesign .sort-dropdown .sort-dropdown-item').removeClass('selected');
+                    $selectedItem.addClass('selected');
+
+                    /**
+                     * Custom End:
+                     */
                     // edit 
                     $.spinner().stop();
 

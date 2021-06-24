@@ -140,7 +140,7 @@
 
 <isif condition="${pdict.productSearch.category}">
     <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
-</isif>    
+</isif>
 
 <div class="refine-wrapper plp-filter-redesign">
     <div class="plp-filter-bar">
