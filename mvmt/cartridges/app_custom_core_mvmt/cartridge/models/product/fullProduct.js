@@ -23,6 +23,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var detailAndSpecAttributes = productCustomHelper.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpCollectionContentAssetID = productCustomHelper.getPdpCollectionContentAssetID(apiProduct);
     var currentCountry = productCustomHelper.getCurrentCountry();
+    var color = productCustomHelper.getColor(apiProduct, product);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
 
@@ -109,6 +110,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'caseDiameter', {
         enumerable: true,
         value: caseDiameter
+        });
+    }
+
+    if (!empty(color)) {
+        Object.defineProperty(product, 'color', {
+        enumerable: true,
+        value: color
         });
     }
 

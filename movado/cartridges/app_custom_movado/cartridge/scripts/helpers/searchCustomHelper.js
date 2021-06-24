@@ -123,7 +123,34 @@ function getPlPDepartmentCategory(apiProductSearch) {
     return plpCategory;
 }
 
+function getSingleColumnPerRow(productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var currentCategory;
+    var isEnableSingleProductRow;
+    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
+        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
+            isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
+        }
+    }
+    return isEnableSingleProductRow;
+}
+
+function getEyewearTile(productSearch) {
+    var isEyewearTile = false;
+    if (!empty(productSearch)) {
+        var currentCategoryTemplate = productSearch.category.raw.template;
+        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        if (currentCategoryTemplate == categoryTemplateEyewear) {
+            isEyewearTile = true;
+        }
+    }
+    return isEyewearTile;
+}
+
 exports.getBreadCrumbs = getBreadCrumbs;
+exports.getSingleColumnPerRow= getSingleColumnPerRow;
+exports.getEyewearTile= getEyewearTile;
 exports.setupContentFolderSearch = setupContentFolderSearch;
 exports.getPlPDepartmentCategory = getPlPDepartmentCategory;
 exports.getCategoryBreadcrumb = getCategoryBreadcrumb;

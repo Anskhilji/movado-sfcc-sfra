@@ -28,10 +28,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     if (options.variationModel) {
         // Custom Start: Define view type 'gallery' for DIS
-        decorators.images(product, options.variationModel, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, options.variationModel, { types: ['pdp533','tile532X300','tile150', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256'], quantity: 'all' });
     } else {
      // Custom Start: Define view type for 'gallery' for DIS
-        decorators.images(product, apiProduct, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, apiProduct, { types: ['pdp533','tile532X300','tile150', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256'], quantity: 'all' });
     }
     decorators.emailImage(product, apiProduct, { types: ['tile150'], quantity: 'single' });
     decorators.quantity(product, apiProduct, options.quantity);

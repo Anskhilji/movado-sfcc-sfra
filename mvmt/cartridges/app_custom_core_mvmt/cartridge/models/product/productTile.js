@@ -19,17 +19,24 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     
     var colorVariations;
     var defaultVariantImage;
+    var defulatVariantEyewearImage;
     var defaultVariant;
     var selectedSwatch;
     var variationPdpURL;
     var swatchesURL;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
     var variationParam = '';
     var variationParamValue = '';
     var otherVariantValues = '';
-    
+    var tileImage300X375;
+    var tile512X640;
+    var defaultVariantLifeStyleImage;
+    var defaultVariantLifeStyleImage300X375;
+    var defaultVariantEyeWearLifeStyleImage;
+
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
         decorators.variationsAttributes(product, options.variationModel, {
@@ -116,23 +123,67 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 Object.keys(varAttr).forEach(function (key) {
                     if (variant.custom.color == varAttr[key].id) {
                         defaultVariantImage = !empty(varAttr[key].largeImage) ? varAttr[key].largeImage.url : '';
+                        defulatVariantEyewearImage = !empty(varAttr[key].eyeWearImage) ? varAttr[key].eyeWearImage.url : '';
                         variationPdpURL = !empty(varAttr[key].pdpURL) ? varAttr[key].pdpURL : '';
                         defaultVariant = variant;
                         selectedSwatch = varAttr[key];
+                        tileImage300X375 = !empty(varAttr[key].tileImage300X375) ? varAttr[key].tileImage300X375.url : '';
+                        tile512X640 = !empty(varAttr[key].tileImage512X640) ? varAttr[key].tileImage512X640.url : '';
+                        defaultVariantLifeStyleImage = !empty(varAttr[key].lifeStyleImage) ? varAttr[key].lifeStyleImage.url : '';
+                        defaultVariantLifeStyleImage300X375 = !empty(varAttr[key].lifeStyleImage300X375) ? varAttr[key].lifeStyleImage300X375.url : '';
+                        defaultVariantEyeWearLifeStyleImage = !empty(varAttr[key].eyeWearLifeStyleImage) ? varAttr[key].eyeWearLifeStyleImage.url : '';
+                        
+
                     }
                 });
             } else {
+                defulatVariantEyewearImage = !empty(varAttr[0].eyeWearImage) ? varAttr[0].eyeWearImage.url : '';
                 defaultVariantImage = !empty(varAttr[0].largeImage) ? varAttr[0].largeImage.url : '';
                 variationPdpURL = !empty(varAttr[0].pdpURL) ? varAttr[0].pdpURL : '';
                 defaultVariant = varAttr[0];
                 selectedSwatch = varAttr[0];
+                tileImage300X375 = !empty(varAttr[0].tileImage300X375) ? varAttr[0].tileImage300X375.url : '';
+                tile512X640 = !empty(varAttr[0].tileImage512X640) ? varAttr[0].tileImage512X640.url : '';
+                defaultVariantLifeStyleImage = !empty(varAttr[0].lifeStyleImage) ? varAttr[0].lifeStyleImage.url : '';
+                defaultVariantLifeStyleImage300X375 = !empty(varAttr[0].lifeStyleImage300X375) ? varAttr[0].lifeStyleImage300X375.url : '';
+                defaultVariantEyeWearLifeStyleImage = !empty(varAttr[0].eyeWearLifeStyleImage) ? varAttr[0].eyeWearLifeStyleImage.url : '';
             }
-            
+
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage', {
+                enumerable: true,
+                value: defaultVariantLifeStyleImage
+            });
+
+            Object.defineProperty(product, 'defaultVariantEyeWearLifeStyleImage', {
+                enumerable: true,
+                value: defaultVariantEyeWearLifeStyleImage
+            });
+
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage300X375', {
+                enumerable: true,
+                value: defaultVariantLifeStyleImage300X375
+            });
+
             Object.defineProperty(product, 'defaultVariantImageDIS', {
                 enumerable: true,
                 value: defaultVariantImage
             });
+
+            Object.defineProperty(product, 'defulatVariantEyewearImage', {
+                enumerable: true,
+                value: defulatVariantEyewearImage
+            });
             
+            Object.defineProperty(product, 'defaultVariantTileImage300X375', {
+                enumerable: true,
+                value: tileImage300X375
+            });
+
+            Object.defineProperty(product, 'defaultVariantTile512X640', {
+                enumerable: true,
+                value: tile512X640
+            });
+
             Object.defineProperty(product, 'variationPdpURL', {
                 enumerable: true,
                 value: variationPdpURL
@@ -189,6 +240,10 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
                 });
+                Object.defineProperty(product, 'defaultVariantColor', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.custom.color || ''
+                });
             }
             
         }
@@ -217,6 +272,20 @@ module.exports = function productTile(product, apiProduct, productType, params) 
             value: caseDiameter
         });
     }
+
+    if (!empty(color)) {
+        Object.defineProperty(product, 'color', {
+            enumerable: true,
+            value: color
+        });
+    }
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var saveMessage = productCustomHelper.getSaveMessage(apiProduct);
+    Object.defineProperty(product, 'saveMessage', {
+        enumerable: true,
+        value: saveMessage
+    });
+
     
     return product;
 };

@@ -24,21 +24,22 @@
 	            </isif>
             </isloop>
         </isif>
-        <isif condition="${pdict.display.isEyewearTile}">
-            <isinclude template="product/components/productTileImageEyewear" />
-        <iselse>
-            <isinclude template="product/components/productTileImage" />
-        </isif>
+        <isinclude template="product/components/productTileImage" />
 
-        <div class="tile-body">
+        <div class="tile-body pt-2">
             <div class="tile-badges">
+                <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
+                    <div class="m-0">
+                        <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
+                            ${Resource.msg('label.soldout', 'common', null)}
+                        </div>
+                    </div>
+
+                    <isinclude template="product/components/badges" />
+                </div>
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                        <isif condition="${pdict.display.isEyewearTile}">
-                            <isinclude template="product/components/productTileEyewearSwatch" />
-                        <iselse>
-                            <isinclude template="product/components/productTileSwatch" />
-                        </isif>
+                        <isinclude template="product/components/productTileSwatch" />
                     </div>
                 </isif>
             </div>
@@ -52,7 +53,6 @@
                         </isif>
                     </div>
                 </isif>
-     
                 <isinclude template="product/components/productTileName" />
 
                 <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">

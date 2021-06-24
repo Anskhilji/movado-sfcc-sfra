@@ -190,6 +190,7 @@
                         </isif>
                         <iscomment> End </iscomment>
                         <isloop items="${refinements}" var="refinement">
+                        <isif condition="${refinement.values && (refinement.values.length > 0 ) && (refinement.values[0].id != 'dialStyle')}">
                             <div class="plp-filter-list">
                                 <button class="plp-filter-btn" role="tab" aria-expanded="false" id="${refinement.displayName}Heading">
                                     ${refinement.displayName}
@@ -234,6 +235,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </isif>
                         </isloop>
                     </div>
                     <isinclude template="search/sortOrderMenu" />

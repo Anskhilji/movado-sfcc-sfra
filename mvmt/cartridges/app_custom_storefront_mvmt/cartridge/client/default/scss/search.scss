@@ -76,6 +76,11 @@
 
 .mvmt-plp {
 
+    .marketing-content-injection {
+        height: 95%;
+        width: auto;
+    }
+
     .custom-select {
         position: absolute;
         width: 0;
@@ -434,7 +439,7 @@
                 margin: 0 auto;
                 display: flex;
                 flex-wrap: wrap;
-                height: auto;
+                height: 100%;
                 opacity: 0;
                 transform: translateY(rem(20));
                 transition: opacity .3s,transform .3s;
@@ -2405,3 +2410,5 @@
     }
 }
 
+// MVMT PLP redesign style
+@import 'searchRedesign';
