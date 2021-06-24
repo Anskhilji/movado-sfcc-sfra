@@ -21,11 +21,16 @@
                     </isif>
                 </div>
                 <div class="col-md-3">
-                    <isif condition="${store.inventory}">
-                        <div class="store-availibilty-hours">
-                        <div class="store-product-available">
-                            <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp' , null, store.inventory[0].records[0].ato)}</span>
-                        </div>
+                    <div class="store-availibilty-hours">
+                        <isif condition="${store.inventory.length != 0}">
+                            <div class="store-product-available">
+                                <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, store.inventory[0].records[0].ato)}</span>
+                            </div>
+                        <iselseif condition="${param.isPdp}"/>
+                            <div class="store-product-available">
+                                <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, 0)}</span>
+                            </div>
+                        </isif>
                         <isif condition="${store.storeHours}">
                             <div class="store-hours">
                                 <label class="store-hours-title collapsed" data-toggle="collapse"
@@ -40,13 +45,12 @@
                             </div>
                         </isif>
                     </div>
-                    </isif>
                 </div>
                 <div class="col-md-3">
                     <div class="store-select-button">
                         <isif condition="${param.selectedStore == store.ID}">
                             <button type="button" class="store-pickup-select" disabled>${Resource.msg('store.pickup.selected.button', 'storePickUp', null)}</button>
-                        <iselseif condition="${store.inventory && store.inventory[0].records[0].ato == 0}" />
+                        <iselseif condition="${(store.inventory[0] != undefined && store.inventory[0].records[0].ato == 0) || (store.inventory[0] == undefined && param.isPdp) }" />
                             <button type="button" class="store-pickup-select" disabled>${Resource.msg('store.pickup.select.button', 'storePickUp', null)}</button>
                         <iselse/>
                             <button type="button" class="store-pickup-select"

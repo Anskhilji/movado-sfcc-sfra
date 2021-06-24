@@ -60,7 +60,7 @@
                             </div>
                             <div class="store-pickup-search-store">
                                 <button class="store-pickup-search-store-btn" id="search-store"
-                                    data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true)}'>Search</button>
+                                        data-pid="${product != undefined && product != null ? product.id : ''}" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', product != undefined && product != null ? product.id : '')}'>Search</button>
                             </div>
                         </div>
                     </div>

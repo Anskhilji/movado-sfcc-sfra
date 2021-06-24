@@ -50,7 +50,7 @@ function makeStoreList(apiResponse, prmStoresList) {
             stateCode: store.stateCode,
             distance: store.custom ? store.custom.distance : store.distance,
             inventory: apiResponse.locations.filter(function (currentStore) {
-                return currentStore.ID == store.ID
+                return currentStore.ID == store.ID 
             })
         });
     })

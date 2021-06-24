@@ -35,7 +35,6 @@ function store(storeObject) {
         if (storeObject.storeHours) {
             this.storeHours = storeObject.storeHours.markup;
         }
-
     }
 }
 

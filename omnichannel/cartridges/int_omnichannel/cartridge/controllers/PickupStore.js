@@ -27,17 +27,19 @@ server.get('GetStoresList', function (req, res, next) {
         try {
             productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, pickupStores.stores);
         } catch (error) {
-            OmniChannelLog.error('(Product.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI', error.toString());
+            OmniChannelLog.error('(PickupStore.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI', error.toString());
         }
     }
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
-    var data = new HashMap();
+    var map = new HashMap();
 
-    data.put('pickupStore', productInventoryInStore && productInventoryInStore.success ? productInventoryInStore.response : pickupStores.stores);
-    data.put('selectedStore', session.privacy.pickupStoreID);
+    map.put('pickupStore', productInventoryInStore && productInventoryInStore.success ? productInventoryInStore.response : pickupStores.stores);
+    map.put('selectedStore', session.privacy.pickupStoreID);
+    map.put('isPdp', pid ? true : false);
+    map.put('isFirstTime', session.privacy.pickupStoreRadius ? false : true)
 
-    var html = tmplate.render(data);
+    var html = tmplate.render(map);
     var result = {
         html: html.text,
         zipCode: session.privacy.pickupStoreZipCode,
