@@ -90,6 +90,7 @@
             .filter-group {
                 padding-left: rem(20);
                 top: rem(41);
+                padding-top: rem(50);
                 background-color: $white;
 
                 @include media-breakpoint-up(md) {
@@ -125,7 +126,7 @@
                         cursor: pointer;
                         background: url("../images/clear-24px.svg") center center no-repeat;
                         position: absolute;
-                        top: 0%;
+                        top: rem(5);
                         right: rem(20);
                         padding: rem(5) rem(8);
                         transform: translate(0%, -50%);
