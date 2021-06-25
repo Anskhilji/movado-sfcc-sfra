@@ -1,6 +1,6 @@
 <iscomment> Custom: span and icon removed, class added with condition</iscomment>
 <li title="${refinementValue.title}" class="col-6 ${!refinementValue.selectable ? 'disabled' : ''}">
-    <a class="plp-filters-redesign-refinements" role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+    <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} selection-tab <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
         <isif condition="${refinementValue.title.indexOf(Resource.msg('refinement.collection', 'search', null)) !== -1}"> 
             <isif condition="${refinementValue.imgURL}"> 
 	            <img src="${refinementValue.imgURL}" />

@@ -463,10 +463,17 @@
                         display: inline-block;
                         text-align: center;
                         margin-bottom: rem(20);
-                        width: 50%;
-                        min-width: 50%;
+                        width: rem(120);
+                        min-width: rem(120);
+                        max-width: rem(120);
                         line-height: rem(24);
                         flex: 1;
+
+                        @include media-breakpoint-down(lg) {
+                            width: 50%;
+                            min-width: 50%;
+                            flex: 1;
+                        }
 
                         .color-elements {
                             height: rem(52);
@@ -944,6 +951,7 @@
                         &.color-swatch {
                             flex-basis: 33.33333%;
                             width: 33.33333%;
+                            min-width:33.33333%;
                         }
                     }
                 }
@@ -2012,11 +2020,12 @@
 
 }
 
-    .mvmt-redesign-filter{
+    .mvmt-redesign-filter {
+
         &-bar {
             height: auto;
             width: 100%;
-            background-color: $light-gray6;
+            background-color: $light-gray14;
             padding: rem(10);
             overflow-x: auto;
         } 
@@ -2268,8 +2277,7 @@
                                 }
                             }
                         
-                            .btn-boolean-redesign
-                            {
+                            .btn-boolean-redesign {
                                 background: $white;
                                 border: rem(1) solid $gray90;
                                 border-radius: rem(5);
@@ -2284,7 +2292,7 @@
                                 cursor: pointer;
                                 position: relative;
 
-                                &.elements{
+                                &.elements {
                                     display:flex;
                                     align-items: center;
                                     justify-content: center;
@@ -2309,6 +2317,7 @@
                         }
                     }
                 }
+                
                 .filter-group::-webkit-scrollbar {
                     display: none;
                 }
