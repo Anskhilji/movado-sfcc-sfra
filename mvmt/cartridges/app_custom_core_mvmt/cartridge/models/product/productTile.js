@@ -40,7 +40,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var tileImage300X300;
     var defaultVariantLifeStyleImage300X300;
     var isNonWatchesTileEnable = (!empty(params.isNonWatchesTileEnable) && params.isNonWatchesTileEnable) ? params.isNonWatchesTileEnable : false;
-    //var isNonWatchesTileEnabled = searchCustomHelper.getIsNonWatchesTileAttribute(apiProduct);
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });

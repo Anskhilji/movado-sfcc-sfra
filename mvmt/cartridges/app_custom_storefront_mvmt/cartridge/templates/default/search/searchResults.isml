@@ -91,6 +91,7 @@
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
                                 </div>
                             </isif>
+                            
                             <div class="${pdict.isEnableSingleProductRow ? 'col-12 col-sm-4 col-lg-4' : 'col-6 col-sm-4 col-lg-3'}" data-gtm-refinements='${product.productSearchHit.productID}'>
                                 <isobject object="${product.productSearchHit}" view="searchhit">
                                     <isif condition="${pdict.productSearch.category}">
