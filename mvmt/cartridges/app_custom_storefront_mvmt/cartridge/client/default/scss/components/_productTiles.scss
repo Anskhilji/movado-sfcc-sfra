@@ -278,14 +278,14 @@
             min-height: rem(50);
             max-height: rem(50);
             height: rem(50);
-            border-color: $black;
+            border-color: $emerald;
             color: $white;
             line-height: rem(12);
             border-width: rem(2);
             position: relative;
+            border-radius: rem(2.33008);
 
             @include media-breakpoint-up(lg) {
-                color: $black;
                 font-size: rem(12);
                 bottom: rem(-54);
                 background-color: transparent;
@@ -301,8 +301,14 @@
             }
 
             @include media-breakpoint-down(xs) {
-                line-height: rem(11);
+                line-height: 0;
                 font-size: rem(9);
+                border: none;
+                min-height: rem(35);
+                max-height: rem(35);
+                width: 100%;
+                display: block;
+                background-color: $emerald;
             }
 
             &:hover {
@@ -310,20 +316,26 @@
                 color: $white;
 
                 @include media-breakpoint-up(lg) {
-                    background: $black;
+                    background: $light-green;
                     color: $white;
                 }
             }
 
             &.out-of-stock-btn {
-                background: linear-gradient($gray13,$gray12);
-                border-color: $gray13;
-                color: $white;
+                background: $light-grey10;
                 cursor: auto;
+                opacity: 0.5;
+                color: $black;
+                font-family: $font-futura-pt-bold;
+                font-size: rem(12);
+                font-weight: 500;
+                text-align: center;
+                letter-spacing: 0;
+                border: none;
 
                 &:hover {
-                    background: linear-gradient($gray13,$gray12);
-                    border-color: $gray13;
+                    background: $light-grey10;
+                    border-color: $light-grey10;
                 }
             }
         }
