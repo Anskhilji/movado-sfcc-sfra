@@ -1,4 +1,28 @@
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
+<div class="top-refinements mvmt-plp mvmt-plp-redesign">
+    <isloop items="${refinements}" var="refinement">
+        <isif condition="${refinement.values && (refinement.values.length > 0 ) && (refinement.values[0].id == 'dialStyle')}">
+            <div class="top-refinements-content ">
+                <h2 class="refinement-name">${refinement.displayName}</h2>
+                <div class="filter-group-outer">
+                    <ul class="values content">
+                        <isloop items="${refinement.values}" var="refinementValue" status="loopStatus" >
+                            <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
+                                <label class="elements">
+                                    <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+                                        <div class="fa fa-square-o rounded-image" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                                    </a>
+                                    <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+                                </label>
+                            </li>
+                        </isloop>
+                    </ul>
+                </div>
+            </div>
+        </isbreak>
+        </isif>
+    </isloop>
+</div>
 <div class="mobile-filter mobile-filter-redesign">
     <div class="mvmt-redesign-filter-bar">
         <div class="mvmt-redesign-filter-inner">
