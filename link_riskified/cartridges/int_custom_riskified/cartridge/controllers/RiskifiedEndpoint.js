@@ -8,21 +8,17 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
-var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
-var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
-
 var Order = require('dw/order/Order');
 var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
+var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
 
-var body = request.httpParameterMap.requestBodyAsString;
-var jsonObj = JSON.parse(body);
-var orderId = jsonObj.order.id;
-var order = OrderMgr.getOrder(orderId);
+
 
 /**
  * This function used to check if order is being placed then let Riskified
@@ -31,23 +27,28 @@ var order = OrderMgr.getOrder(orderId);
 
 server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     var moduleName = "AnalysisNotificationEndpoint";
-	var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
+    var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
+
+    var body = request.httpParameterMap.requestBodyAsString;
+    var jsonObj = JSON.parse(body);
+    var orderId = jsonObj.order.id;
+    var order = OrderMgr.getOrder(orderId);
 	
 	if(!RCUtilities.isCartridgeEnabled()) {
-		RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
+	    RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
 		
-		res.render('riskified/riskifiedorderanalysisresponse', {
-			CartridgeDisabled: true
-		});
+        res.render('riskified/riskifiedorderanalysisresponse', {
+            CartridgeDisabled: true
+	    });
         this.emit('route:Complete', req, res);
-		return;
+        return;
 	}
 
     if (order && !order.custom.isOrderCompleted) {
         res.render('riskified/riskifiedorderanalysisresponse', {
-			AnalysisUpdateError:true,
-			AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
-		});
+            AnalysisUpdateError:true,
+            AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
+        });
         this.emit('route:Complete', req, res);
         return;
     }
@@ -61,9 +62,14 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
  */
 
 server.append('AnalysisNotificationEndpoint', function (req, res, next) {
+    var body = request.httpParameterMap.requestBodyAsString;
+    var jsonObj = JSON.parse(body);
+    var orderId = jsonObj.order.id;
+    var order = OrderMgr.getOrder(orderId);
     var viewData = res.getViewData();
     var isError = viewData.isError ? viewData.isError : false;
     var responseMessage = viewData.responseMessage ? viewData.responseMessage : "";
+
     if (order && !isError) {
         riskifiedResponseResult.parseRiskifiedResponse(order);
     } else if (order && isError == true && order.custom.isOrderCompleted) {
