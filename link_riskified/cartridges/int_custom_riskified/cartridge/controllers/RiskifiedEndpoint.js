@@ -34,15 +34,15 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     var orderId = jsonObj.order.id;
     var order = OrderMgr.getOrder(orderId);
 	
-	if(!RCUtilities.isCartridgeEnabled()) {
-	    RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
+    if(!RCUtilities.isCartridgeEnabled()) {
+        RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
 		
         res.render('riskified/riskifiedorderanalysisresponse', {
             CartridgeDisabled: true
-	    });
+        });
         this.emit('route:Complete', req, res);
         return;
-	}
+    }
 
     if (order && !order.custom.isOrderCompleted) {
         res.render('riskified/riskifiedorderanalysisresponse', {
