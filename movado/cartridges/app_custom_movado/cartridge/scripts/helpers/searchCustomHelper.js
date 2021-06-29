@@ -136,13 +136,23 @@ function getSingleColumnPerRow(productSearch) {
     return isEnableSingleProductRow;
 }
 
-function getEyewearTile(productSearch) {
+function getIsNonWatchesTileAttribute (productSearch) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var isEyewearTile = false;
+    var isNonWatchesTileEnable = false;
     var currentCategory;
-    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)){
+    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
         currentCategory = CatalogMgr.getCategory(productSearch.category.id);
-        var currentCategoryTemplate = currentCategory.template;
+        if (!empty(currentCategory.custom.isNonWatchesTile)) {
+            isNonWatchesTileEnable = currentCategory.custom.isNonWatchesTile;
+        }
+    }
+    return isNonWatchesTileEnable;
+}
+
+function getEyewearTile(productSearch) {
+    var isEyewearTile = false;
+    if (!empty(productSearch)) {
+        var currentCategoryTemplate = productSearch.category.raw.template;
         var categoryTemplateEyewear = 'search/searchResultsEyewear';
         if (currentCategoryTemplate == categoryTemplateEyewear) {
             isEyewearTile = true;
@@ -157,3 +167,4 @@ exports.getEyewearTile= getEyewearTile;
 exports.setupContentFolderSearch = setupContentFolderSearch;
 exports.getPlPDepartmentCategory = getPlPDepartmentCategory;
 exports.getCategoryBreadcrumb = getCategoryBreadcrumb;
+exports.getIsNonWatchesTileAttribute = getIsNonWatchesTileAttribute;
