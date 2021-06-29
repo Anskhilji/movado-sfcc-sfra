@@ -7,6 +7,7 @@ server.extend(page);
 var URLUtils = require('dw/web/URLUtils');
 
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+var cache = require('*/cartridge/scripts/middleware/cache');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var marketingProductsData = [];
 
@@ -45,6 +46,42 @@ server.append(
         next();
     }
 );
+
+/**
+ * Replacing controller from base as need to remove cache and apply A/B test
+ */
+server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var ProductSearch = require('*/cartridge/models/search/productSearch');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+
+    var apiProductSearch = new ProductSearchModel();
+    apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
+    apiProductSearch.search();
+    var productSearch = new ProductSearch(
+        apiProductSearch,
+        req.querystring,
+        req.querystring.srule,
+        CatalogMgr.getSortingOptions(),
+        CatalogMgr.getSiteCatalog().getRoot()
+    );
+
+    var refineBarTemplate;
+    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest','render-new-design')) {
+        refineBarTemplate = '/search/old/searchRefineBar';
+    } else {
+        refineBarTemplate = '/search/searchRefineBar';
+    }
+
+    res.render(refineBarTemplate, {
+        productSearch: productSearch,
+        querystring: req.querystring
+    });
+
+    next();
+});
 
 
 module.exports = server.exports();

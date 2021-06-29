@@ -355,9 +355,14 @@ module.exports = {
     },
 
     closeRefinments: function () {
+
         // Refinements close button
         $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
+        });
+
+        $(document).on('click', '.plp-filter-redesign .filter-group .close-icon', function () {
+            $('.plp-filter-btn.active').trigger('click');
         });
     },
 
@@ -376,17 +381,29 @@ module.exports = {
             var $selectedItem = $(this);
             e.preventDefault();
             $.spinner().start();
+
             $(this).trigger('search:sort', url);
             $.ajax({
                 url: url,
                 data: { selectedUrl: url },
                 method: 'GET',
                 success: function (response) {
+
                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     $('body').trigger('facet:success', [gtmFacetArray]);
                     $('.product-grid').empty().html(response);
                     updatePageURLForSortRule(url);
+                    /**
+                     * Custom Start: Filter Redesign
+                     */
                     $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($selectedItem.text());
+                    $(".plp-filter-redesign .sort-dropdown-toggle").find('span.selected-value').text($selectedItem.text());
+                    $('.plp-filter-redesign .sort-dropdown .sort-dropdown-item').removeClass('selected');
+                    $selectedItem.addClass('selected');
+
+                    /**
+                     * Custom End:
+                     */
                     $.spinner().stop();
 
                     $('.mobile-sort-menu').removeClass('active');
