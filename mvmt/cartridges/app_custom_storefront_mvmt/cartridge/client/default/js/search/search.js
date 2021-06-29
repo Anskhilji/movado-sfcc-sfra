@@ -381,7 +381,6 @@ module.exports = {
             var $selectedItem = $(this);
             e.preventDefault();
             $.spinner().start();
-            var $selectedItem = $(this);
 
             $(this).trigger('search:sort', url);
             $.ajax({
