@@ -347,7 +347,6 @@ function confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj, pick
     $deleteConfirmBtn.data('pid', productID);
     $deleteConfirmBtn.data('action', actionUrl);
     $deleteConfirmBtn.data('uuid', uuid);
-    $deleteConfirmBtn.data('uuid', uuid);
     $deleteConfirmBtn.data('store-pickup-available', pickupStoreAvailable);
     $('.gtm-cart').attr('data-gtm-cart', JSON.stringify(gtmProdObj));
 

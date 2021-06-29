@@ -1,7 +1,7 @@
 
 $(document).on('click', '.js-store-modal', function (event) {
     event.preventDefault();
-    $searchStore = $("#search-store");
+    $searchStore = $('#search-store');
     var url = $(this).data('url');
     var pid = $searchStore.data('pid');
     $.spinner().start();
