@@ -1,0 +1,4 @@
+<isset name="Order" value="${pdict.OrderCart}" scope="page" />
+<isset name="SCA" value="${pdict.SCACart}" scope="page" />
+
+<script src="${URLUtils.staticURL('/js/ltkSendOrder.js')}" ltk-data-order='<isprint value="${Order}"/>' ltk-data-sca='<isprint value="${SCA}"/>' ltk-data-url='<isprint value="${URLUtils.url("ltkSendOrder-Clear")}"/>'></script>

@@ -106,6 +106,7 @@
     "custom_ebel": "./ebel",
     "custom_adyen_klarna": "./klarna",
     "custom_adyen": "./link_adyen",
+    "custom_listrak": "./listrak",
     "movado": "./movado",
     "movado_china": "./movado_china",
     "boss_watches": "./boss_watches",

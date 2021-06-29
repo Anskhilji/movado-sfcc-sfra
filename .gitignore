@@ -13,5 +13,7 @@
 !yotpo/cartridges/bm_yotpo/**/static/**
 !**/module_pagedesigner**/cartridge/static/**/js/*
 !**/module_pagedesigner**/cartridge/static/**/css/*
+!**/int_listrak**/cartridge/static/**/js/*
+!**/int_listrak_sfra**/cartridge/static/**/js/*
 !einstein-recommendations.js
 rkb.code-workspace
