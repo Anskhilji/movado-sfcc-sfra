@@ -14,7 +14,46 @@ var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
+var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
+
+
+
+/**
+ * This function used to check if order is being placed then let Riskified
+ * change the order status, otherwise send an error.
+ */
+
+server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
+    var moduleName = "AnalysisNotificationEndpoint";
+    var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
+
+    var body = request.httpParameterMap.requestBodyAsString;
+    var jsonObj = JSON.parse(body);
+    var orderId = jsonObj.order.id;
+    var order = OrderMgr.getOrder(orderId);
+	
+    if(!RCUtilities.isCartridgeEnabled()) {
+        RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
+		
+        res.render('riskified/riskifiedorderanalysisresponse', {
+            CartridgeDisabled: true
+        });
+        this.emit('route:Complete', req, res);
+        return;
+    }
+
+    if (order && !order.custom.isOrderCompleted) {
+        res.render('riskified/riskifiedorderanalysisresponse', {
+            AnalysisUpdateError:true,
+            AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
+        });
+        this.emit('route:Complete', req, res);
+        return;
+    }
+    return next();
+});
 
 /**
  * This function handles order analysis status request from Riskified. This
@@ -30,9 +69,10 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
     var viewData = res.getViewData();
     var isError = viewData.isError ? viewData.isError : false;
     var responseMessage = viewData.responseMessage ? viewData.responseMessage : "";
+
     if (order && !isError) {
         riskifiedResponseResult.parseRiskifiedResponse(order);
-    } else if (order && isError == true) {
+    } else if (order && isError == true && order.custom.isOrderCompleted) {
 
         /* Reject in OMS - Do not process to fulfillment status */
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
