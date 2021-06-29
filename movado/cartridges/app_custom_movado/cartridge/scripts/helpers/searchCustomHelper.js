@@ -150,9 +150,12 @@ function getIsNonWatchesTileAttribute (productSearch) {
 }
 
 function getEyewearTile(productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
     var isEyewearTile = false;
-    if (!empty(productSearch)) {
-        var currentCategoryTemplate = productSearch.category.raw.template;
+    var currentCategory;
+    if (!empty(productSearch) && productSearch.category && !empty(productSearch.category.id)) {
+        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        var currentCategoryTemplate = currentCategory.template;
         var categoryTemplateEyewear = 'search/searchResultsEyewear';
         if (currentCategoryTemplate == categoryTemplateEyewear) {
             isEyewearTile = true;
