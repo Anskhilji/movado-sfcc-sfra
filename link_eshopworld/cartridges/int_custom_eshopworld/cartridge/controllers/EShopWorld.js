@@ -9,6 +9,7 @@ var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Site = require('dw/system/Site');
 var Transaction = require('dw/system/Transaction');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 function setInitialCookies(selectedLanguage) {
     var eswPreferedLocale = selectedLanguage.eswPreferedLocale;
@@ -227,7 +228,8 @@ server.append('NotifyV2', function(req, res, next) {
         var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
             email: billingCustomer[0].email,
-            country: deliveryCountry
+            country: deliveryCountry,
+            campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
             SFMCApi.sendSubscriberToSFMC(requestParams);
