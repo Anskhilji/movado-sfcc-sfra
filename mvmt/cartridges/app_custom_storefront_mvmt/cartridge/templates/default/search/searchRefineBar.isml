@@ -31,10 +31,8 @@
                     ${Resource.msgf('label.filter.and.sort', 'search', null)}
                 </button>
                 <isloop items="${refinements}" var="refinement">
-                    <isif
-                        condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
-                        <button class="mvmt-redesign-filter-button"
-                            data-option-select=".mobile-${refinement.displayName}">
+                    <isif condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
+                        <button class="mvmt-redesign-filter-button" data-option-select=".mobile-${refinement.displayName}">
                             <span>${refinement.displayName}</span>
                         </button>
                     </isif>
@@ -151,14 +149,11 @@
                                     <div class="refinements">
                                         <iscomment> Start: Create category slot for straps </iscomment>
                                         <isif condition="${pdict.productSearch.category}">
-                                            <isslot id="slot-straps-mvmt" description="Strap MVMT products"
-                                                context="category"
-                                                context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
+                                            <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
                                         </isif>
                                         <iscomment> End </iscomment>
                                         <isloop items="${refinements}" var="refinement">
-                                            <isif
-                                                condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
+                                            <isif condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
                                                 <div class="plp-filter-list">
                                                     <button class="plp-filter-btn plp-filter-btn-redesign redesigned"
                                                         role="tab" aria-expanded="false"

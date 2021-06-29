@@ -33,7 +33,7 @@ server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     
     viewData.resultsTemplate = resultsTemplate;
     res.setViewData(viewData);
-    
+
     return next();
 });
 
