@@ -307,6 +307,10 @@ function Request(request, customer, session) {
         var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');
         referralCouponHelper.addReferralCoupon(request);
         // Custom End: Adding URL Cupon Logic
+        //Custom Start: Adding Rakuten cookies logic
+        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+        rakutenCookiesHelper.createCookieInSession(request);
+        //Custom End
         if (!eswEnabled) {
             setCurrency(request, session);
         } else {

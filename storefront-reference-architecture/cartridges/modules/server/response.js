@@ -19,6 +19,15 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
+    renderRakutenCookies();
+}
+
+function renderRakutenCookies() {
+    var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+    if (!empty(session.privacy.rakutenCookieValues)) {
+        rakutenCookiesHelper.setCookiesResponse('rmStoreGateway', session.privacy.rakutenCookieValues, '/');
+        delete session.privacy.rakutenCookieValues;
+    }
 }
 
 /**
