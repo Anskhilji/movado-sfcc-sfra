@@ -128,7 +128,7 @@
                             <button type="button" class="btn sort-dropdown-toggle dropdown-toggle"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ${Resource.msgf('lable.filter.sort', 'search', null)}<span>:</span>
-                                <span class="selected-value"></span>
+                                <span class="selected-value"> ${Resource.msg('text.our.favorites', 'search', null)}</span>
                             </button>
                             <div class="sort-dropdown-menu dropdown-menu">
                                 <isloop items="${pdict.productSearch.productSort.options}" var="option">
@@ -180,6 +180,7 @@
                                                             <isif condition="${refinement.isPriceRefinement}">
                                                                 <isinclude template="search/refinements/prices" />
                                                             </isif>
+                                                            <span class="close-icon"></span>
                                                         </div>
                                                     </div>
                                                 </div>

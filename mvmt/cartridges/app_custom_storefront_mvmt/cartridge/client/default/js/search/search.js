@@ -398,6 +398,7 @@ module.exports = {
                      */
                     $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($selectedItem.text());
                     $(".plp-filter-redesign .sort-dropdown-toggle").find('span.selected-value').text($selectedItem.text());
+                    $(".plp-filter-bar .sort-dropdown-toggle").find('span.selected-value').text($selectedItem.text());
                     $('.plp-filter-redesign .sort-dropdown .sort-dropdown-item').removeClass('selected');
                     $selectedItem.addClass('selected');
 
@@ -777,7 +778,7 @@ module.exports = {
             $('.mobile-filter-sort-redesign').addClass('filter-open');
         });
 
-        $(document).on("click", '.plp-filter-btn-redesign', function(e) {
+        $(document).on("click", '.mobile-filter-redesign .plp-filter-btn-redesign', function(e) {
             $(this).toggleClass('active');
             $(this).next().toggleClass('active loaded');
         });
