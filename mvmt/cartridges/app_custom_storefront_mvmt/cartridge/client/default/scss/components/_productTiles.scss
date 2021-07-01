@@ -442,6 +442,12 @@
           letter-spacing: rem(1);
           line-height: rem(20);
 
+          .sales {
+            span {
+              @include font-book;
+            }
+          }
+
           @include media-breakpoint-up(sm) {
               font-size: rem(12);
           }
@@ -453,6 +459,7 @@
       color: $black;
       line-height: rem(20);
       letter-spacing: rem(1);
+      @include font-book;
 
       @include media-breakpoint-up(md-down) {
           font-size: rem(14);
