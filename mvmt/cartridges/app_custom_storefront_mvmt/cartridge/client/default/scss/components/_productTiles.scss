@@ -432,56 +432,56 @@
   }
   
   .mvmt-plp-redesign {
-  
-      .price {
-          padding: 0;
-          @include font-bold;
-  
-          span {
-              font-size: rem(12);
-              letter-spacing: rem(1);
-              line-height: rem(20);
-  
-              @include media-breakpoint-up(sm) {
-                  font-size: rem(12);
-              }
-          }
-      }
-  
-      .product-brand-info { 
-          font-size: rem(11);
-          color: $black;
+  .product-tile-redesign {
+    .price {   
+      padding: 0;
+      @include font-bold;
+
+      span {
+          font-size: rem(12);
+          letter-spacing: rem(1);
           line-height: rem(20);
-          letter-spacing: rem(1);
-  
-          @include media-breakpoint-up(md-down) {
-              font-size: rem(14);
-          }
-  
+
           @include media-breakpoint-up(sm) {
+              font-size: rem(12);
+          }
+      }
+  }
+
+  .product-brand-info { 
+      font-size: rem(11);
+      color: $black;
+      line-height: rem(20);
+      letter-spacing: rem(1);
+
+      @include media-breakpoint-up(md-down) {
+          font-size: rem(14);
+      }
+
+      @include media-breakpoint-up(sm) {
+          font-size: rem(14);
+      }
+  }
+
+  .pdp-link { 
+      margin: 0 0 rem(10) 0;
+      letter-spacing: rem(1);
+      @include font-book;
+
+      @include media-breakpoint-up(lg) {
+          margin: 0 0 rem(10) 0;
+          line-height: rem(20);
+      }
+
+      a {
+          line-height: rem(20);
+          text-transform: none;
+          color: $light-gray2;
+
+          @include media-breakpoint-up(lg) {
               font-size: rem(14);
           }
       }
-  
-      .pdp-link { 
-          margin: 0 0 rem(10) 0;
-          letter-spacing: rem(1);
-          @include font-book;
-  
-          @include media-breakpoint-up(lg) {
-              margin: 0 0 rem(10) 0;
-              line-height: rem(20);
-          }
-  
-          a {
-              line-height: rem(20);
-              text-transform: none;
-              color: $light-gray2;
-  
-              @include media-breakpoint-up(lg) {
-                  font-size: rem(14);
-              }
-          }
-      }
-  
+  }
+  }
   }
