@@ -1,9 +1,9 @@
 "use strict";
 var Calendar = require('dw/util/Calendar');
-var Constants = require('*/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
+var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
 function createCookieInSession(request) {
     var requestHttpParameterMap = request.getHttpParameterMap();
@@ -19,7 +19,7 @@ function createCookieInSession(request) {
         var expiryDateFormat = getDateString(calendar, 'E, dd MMM yyyy HH:mm:ss z');
         var auld = Math.floor(Date.now() / 1000);
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', ranMID, ald, auld, ranSiteID);
-        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, Constants.SITE_DOMAIN_NAME);
+        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, (!empty(sitePreferences.rakutenDomainName) ? sitePreferences.rakutenDomainName : ''));
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat) + rakutenCookiesOptionalValues;
         session.privacy.rakutenCookieValues = encodedValues;
         return;
