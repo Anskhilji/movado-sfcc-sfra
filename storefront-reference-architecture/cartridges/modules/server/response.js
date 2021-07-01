@@ -19,9 +19,15 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
-    renderRakutenCookies();
+    var isRakutenEnable = dw.system.Site.getCurrent().getCustomPreferenceValue('isRakutenEnable');
+    if (isRakutenEnable) {
+        renderRakutenCookies();
+    }
 }
 
+/**
+ * This method is used to call care Rakuten Cookie method.
+ */
 function renderRakutenCookies() {
     if (!empty(session.privacy.rakutenCookieValues)) {
         var Constants = require('*/cartridge/scripts/util/Constants');
