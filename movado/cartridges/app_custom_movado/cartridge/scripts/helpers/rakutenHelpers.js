@@ -1,5 +1,6 @@
 "use strict";
 var Calendar = require('dw/util/Calendar');
+var Constants = require('*/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
@@ -18,7 +19,7 @@ function createCookieInSession(request) {
         var expiryDateFormat = getDateString(calendar, 'E, dd MMM yyyy HH:mm:ss z');
         var auld = Math.floor(Date.now() / 1000);
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', ranMID, ald, auld, ranSiteID);
-        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, 'Movado.com');
+        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, Constants.SITE_DOMAIN);
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat) + rakutenCookiesOptionalValues;
         session.privacy.rakutenCookieValues = encodedValues;
         return;
