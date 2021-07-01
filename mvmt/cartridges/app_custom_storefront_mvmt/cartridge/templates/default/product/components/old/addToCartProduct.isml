@@ -8,7 +8,7 @@
 	<isset name="preOrder" value="${false}" scope="page"/>
 	<isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.pre.order', 'common', null)) != -1}">
 	   <isset name="preOrder" value="${true}" scope="page"/>
-	</isif>  
+	</isif>
 </isif>
 
 <div class="cart-and-ipay w-100">
