@@ -7,4 +7,4 @@ exports.MM_UNIT='MM';
 exports.MVMT_CHECKOUT_CAMPAIGN_NAME='Checkout';
 exports.RAKUTEN_COOKIE_NAME='rmStoreGateway';
 exports.DATE_FORMAT='E, dd MMM yyyy HH:mm:ss z';
-exports.ALD_DARE_FORMAT='YYYYMMdd_HHMM';
+exports.ALD_DATE_FORMAT='YYYYMMdd_HHMM';

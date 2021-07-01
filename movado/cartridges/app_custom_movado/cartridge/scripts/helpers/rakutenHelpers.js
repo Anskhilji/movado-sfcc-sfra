@@ -20,7 +20,7 @@ function createCookieInSession(request) {
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
         calendar.setTimeZone('GMT');
-        var ald = getDateString(calendar, Constants.ALD_DARE_FORMAT);
+        var ald = getDateString(calendar, Constants.ALD_DATE_FORMAT);
         calendar.add(calendar.DAY_OF_MONTH, 30);
         var expiryDateFormat = getDateString(calendar, Constants.DATE_FORMAT);
         var auld = Math.round(new Date().getTime() / 1000).toString();
