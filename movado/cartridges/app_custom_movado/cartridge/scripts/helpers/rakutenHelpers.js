@@ -19,7 +19,7 @@ function createCookieInSession(request) {
         var expiryDateFormat = getDateString(calendar, 'E, dd MMM yyyy HH:mm:ss z');
         var auld = Math.floor(Date.now() / 1000);
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', ranMID, ald, auld, ranSiteID);
-        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, Constants.SITE_DOMAIN);
+        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, Constants.SITE_DOMAIN_NAME);
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat) + rakutenCookiesOptionalValues;
         session.privacy.rakutenCookieValues = encodedValues;
         return;
