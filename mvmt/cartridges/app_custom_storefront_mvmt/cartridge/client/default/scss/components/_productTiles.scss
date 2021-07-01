@@ -435,7 +435,7 @@
   .product-tile-redesign {
     .price {   
       padding: 0;
-      @include font-bold;
+      @include font-medium;
 
       span {
           font-size: rem(12);
