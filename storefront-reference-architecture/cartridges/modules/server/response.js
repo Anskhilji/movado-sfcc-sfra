@@ -23,9 +23,10 @@ function Response(response) {
 }
 
 function renderRakutenCookies() {
-    var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
     if (!empty(session.privacy.rakutenCookieValues)) {
-        rakutenCookiesHelper.setCookiesResponse('rmStoreGateway', session.privacy.rakutenCookieValues, '/');
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+        rakutenCookiesHelper.setCookiesResponse(Constants.RAKUTEN_COOKIE_NAME, session.privacy.rakutenCookieValues, '/');
         delete session.privacy.rakutenCookieValues;
     }
 }
