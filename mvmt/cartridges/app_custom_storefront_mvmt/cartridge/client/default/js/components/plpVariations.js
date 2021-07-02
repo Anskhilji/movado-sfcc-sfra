@@ -5,41 +5,47 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
-        var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
-        if (!($productContainer.parents('.product-grid').length > 0)) {
-            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url);
-            $imageContainer.attr('src', primaryImageUrls.tile256[0].url);
-            // life style image handling
-        } else if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !=='' && $categoryRendringTemplate == true) { 
-            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url).data('lazy', primaryImageUrls.tile532X300[0].url);
-            $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url).data('lazy', primaryImageUrls.tile532X300[0].url);
-            $productContainer.find('.image-container').find('a').attr('href', pdpURL);
-            // life style image handling
-            if ($lifeStyleImageContainer.length > 0) {
-                $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile532X300[3].url).data('lazy', primaryImageUrls.tile532X300[3].url);
-                $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile532X300[3].url).data('lazy', primaryImageUrls.tile532X300[3].url);
+        if ($('.mvmt-plp-redesign').length) {
+            var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
+            var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
+            if (!($productContainer.parents('.product-grid').length > 0)) {
+                $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile256[0].url);
+                // life style image handling
+            } else if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !== '' && $categoryRendringTemplate == true) {
+                $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url).data('lazy', primaryImageUrls.tile532X300[0].url);
+                $imageContainer.attr('src', primaryImageUrls.tile532X300[0].url).data('lazy', primaryImageUrls.tile532X300[0].url);
+                $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+                // life style image handling
+                if ($lifeStyleImageContainer.length > 0) {
+                    $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile532X300[3].url).data('lazy', primaryImageUrls.tile532X300[3].url);
+                    $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile532X300[3].url).data('lazy', primaryImageUrls.tile532X300[3].url);
+                }
+            } else {
+                $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
+                if (response.product.isNonWatchesTileEnabled) {
+                    $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[0].url).data('lazy', primaryImageUrls.tile300X300[0].url);
+                } else {
+                    $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[0].url).data('lazy', primaryImageUrls.tile300X375[0].url);
+                }
+                $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
+                $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+                // life style image handling
+                if ($lifeStyleImageContainer.length > 0) {
+                    $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
+                    var test = response.product;
+                    if (response.product.isNonWatchesTileEnabled) {
+                        $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[3].url).data('lazy', primaryImageUrls.tile300X300[3].url);
+                    } else {
+                        $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
+                    }
+                    $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
+                }
             }
         } else {
-            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
-            if (response.product.isNonWatchesTileEnabled) {
-                $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[0].url).data('lazy', primaryImageUrls.tile300X300[0].url);
-            } else {
-                $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[0].url).data('lazy', primaryImageUrls.tile300X375[0].url);
-            }
-            $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
+            $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.pdp533[0].url);
+            $imageContainer.attr('src', primaryImageUrls.pdp533[0].url);
             $productContainer.find('.image-container').find('a').attr('href', pdpURL);
-            // life style image handling
-            if ($lifeStyleImageContainer.length > 0) {
-                $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
-                var test = response.product;
-                if (response.product.isNonWatchesTileEnabled) {
-                    $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[3].url).data('lazy', primaryImageUrls.tile300X300[3].url);
-                } else {
-                    $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
-                }
-                $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
-            }
         }
 
         // Update Family Name and Case Diameter
