@@ -1,18 +1,8 @@
-<isset name="isSortSelected" value="${false}" scope="page" />
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <div class="sort-dropdown">
         <button type="button" class="btn sort-dropdown-toggle dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ${Resource.msgf('lable.btn.filter.sort', 'search', null)}
-            <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                <isif condition="${pdict.productSearch.productSort.ruleId.toLowerCase() == option.id.toLowerCase()}">
-                    <span class="selected-value"> ${option.displayName.toLowerCase()} </span>
-                    <isset name="isSortSelected" value="${true}" scope="page" />
-                    <isbreak/>
-                </isif>
-            </isloop>
-            <isif condition="${!isSortSelected}">
-                <span class="selected-value"> ${Resource.msg('text.our.favorites', 'search', null)} </span>
-            </isif>
+            ${Resource.msgf('lable.btn.filter.sort', 'search', null)} 
+            <span class="selected-value"> </span>
         </button>
         <div class="sort-dropdown-menu dropdown-menu">
             <isloop items="${pdict.productSearch.productSort.options}" var="option">
