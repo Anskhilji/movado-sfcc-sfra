@@ -431,13 +431,13 @@
     }
   }
   
-  .mvmt-plp-redesign {
-  .product-tile-redesign {
-    .price {   
-      padding: 0;
-      @include font-medium;
+ .mvmt-plp-redesign {
+    .product-tile-redesign {
+      .price {   
+        padding: 0;
+        @include font-medium;
 
-      span {
+        span {
           font-size: rem(12);
           letter-spacing: rem(1);
           line-height: rem(20);
@@ -449,46 +449,46 @@
           }
 
           @include media-breakpoint-up(sm) {
-              font-size: rem(12);
+            font-size: rem(12);
           }
+        }
       }
-  }
 
-  .product-brand-info { 
-      font-size: rem(9);
-      color: $black;
-      line-height: rem(20);
-      letter-spacing: rem(1);
-      @include font-book;
+      .product-brand-info { 
+        font-size: rem(9);
+        color: $black;
+        line-height: rem(20);
+        letter-spacing: rem(1);
+        @include font-book;
 
-      @include media-breakpoint-up(md-down) {
+        @include media-breakpoint-up(md-down) {
           font-size: rem(14);
-      }
+        }
 
-      @include media-breakpoint-up(sm) {
+        @include media-breakpoint-up(sm) {
           font-size: rem(14);
+        }
       }
-  }
 
-  .pdp-link { 
-      margin: 0 0 rem(10) 0;
-      letter-spacing: rem(1);
-      @include font-book;
+      .pdp-link { 
+        margin: 0 0 rem(10) 0;
+        letter-spacing: rem(1);
+        @include font-book;
 
-      @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(lg) {
           margin: 0 0 rem(10) 0;
           line-height: rem(20);
-      }
+        }
 
-      a {
+        a {
           line-height: rem(20);
           text-transform: none;
           color: $light-gray2;
 
           @include media-breakpoint-up(lg) {
-              font-size: rem(14);
+            font-size: rem(14);
           }
+        }
       }
-  }
-  }
+    }
   }
