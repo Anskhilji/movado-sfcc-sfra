@@ -85,5 +85,5 @@
         <isif condition="${empty(pdict.countryCode)}">
             <isinclude url="${URLUtils.https('WelcomeMat-Show')}"/>
         </isif>
-    <iscomment> One trsut html script </iscomment>
+    <iscomment> One trust html script </iscomment>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
