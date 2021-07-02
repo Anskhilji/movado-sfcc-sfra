@@ -302,7 +302,7 @@ function Request(request, customer, session) {
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
-        var isRakutenEnable = dw.system.Site.getCurrent().getCustomPreferenceValue('isRakutenEnable');
+        var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
         var Logger = require('dw/system/Logger');
         // Custom Start : Adding URL Cupon Logic
         var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');

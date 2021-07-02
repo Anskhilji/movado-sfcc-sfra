@@ -19,7 +19,7 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
-    var isRakutenEnable = dw.system.Site.getCurrent().getCustomPreferenceValue('isRakutenEnable');
+    var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
     if (isRakutenEnable) {
         renderRakutenCookies();
     }
