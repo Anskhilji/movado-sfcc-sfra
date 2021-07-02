@@ -311,7 +311,7 @@ function getGtmPromotionObject (promotions) {
  */
 function getCaseDiameter(apiProduct) {
     var caseDiameterWatches = '';
-    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN;
     var caseDiameterUnit = Constants.MM_UNIT;
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
