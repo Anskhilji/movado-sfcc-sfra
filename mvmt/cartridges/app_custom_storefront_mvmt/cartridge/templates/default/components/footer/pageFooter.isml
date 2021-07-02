@@ -83,5 +83,8 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+    <iscomment> One trsut html script </iscomment>
+    <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
+
 </footer>
 <iscomment> Custom End</iscomment>
