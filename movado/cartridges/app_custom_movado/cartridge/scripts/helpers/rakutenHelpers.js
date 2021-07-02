@@ -1,6 +1,6 @@
 "use strict";
 var Calendar = require('dw/util/Calendar');
-var Constants = require('*/cartridge/scripts/util/Constants');
+var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
