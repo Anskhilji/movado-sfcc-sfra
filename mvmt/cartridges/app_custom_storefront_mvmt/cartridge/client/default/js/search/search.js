@@ -452,6 +452,9 @@ module.exports = {
     },
 
     loadMoreProductsOnScroll: function () {
+        if($('.mvmt-plp-redesign').length == 0){
+            return;
+        }
         // Load more products on scroll
         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
 
