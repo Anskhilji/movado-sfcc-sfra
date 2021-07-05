@@ -2411,6 +2411,17 @@
     }
 }
 
+.mvmt-plp-redesign.mvmt-plp {
+    .product-grid {
+        .product-tile, .product-tile-redesign {
+            height: 100%;
+            @include media-breakpoint-up(lg) {
+                padding: rem(0) rem(4);
+            }
+        }
+    }
+}
+
 // MVMT PLP redesign style
 @import 'searchRedesign';
 @import "./components/refinementsRedesigned";
