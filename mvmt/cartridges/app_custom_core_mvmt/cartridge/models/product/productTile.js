@@ -40,7 +40,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var defaultVariantEyeWearLifeStyleImage;
     var tileImage300X300;
     var defaultVariantLifeStyleImage300X300;
-    var isNonWatchesTileEnable = (!empty(params.isNonWatchesTileEnable) && params.isNonWatchesTileEnable) ? params.isNonWatchesTileEnable : false;
 
     try {
         var options = productHelper.getConfig(apiProduct, { pid: product.id });
@@ -247,11 +246,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     variantCaseDiameter = caseDiameter + Constants.MM_UNIT;
                 }
                 
-                Object.defineProperty(product, 'defaultVariantisNonWatchesTile', {
-                    enumerable: true,
-                    value: isNonWatchesTileEnable
-                });
-
                 Object.defineProperty(product, 'defaultVariantCaseDiameter', {
                     enumerable: true,
                     value: !empty(variantCaseDiameter) ? variantCaseDiameter : ''
@@ -308,13 +302,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'caseDiameterRedesigned', {
             enumerable: true,
             value: caseDiameterRedesigned
-        });
-    }
-
-    if (!empty(isNonWatchesTileEnable)) {
-        Object.defineProperty(product, 'isNonWatchesTileEnabled', {
-            enumerable: true,
-            value: isNonWatchesTileEnable
         });
     }
 

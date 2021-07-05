@@ -9,6 +9,8 @@ module.exports = function () {
         if (isPLPRedesign) {
             var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
             var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
+            var isEnableSingleProductRow = $('.search-results').data('is-enable-single-product-row');
+            var isNonWatchesTileEnable = $('.search-results').data('is-non-watches-tile-enable');
             if (!($productContainer.parents('.product-grid').length > 0)) {
                 $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url);
                 $imageContainer.attr('src', primaryImageUrls.tile256[0].url);
@@ -23,19 +25,39 @@ module.exports = function () {
                     $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile532X300[3].url).data('lazy', primaryImageUrls.tile532X300[3].url);
                 }
             } else {
-                $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
-                if (response.product.isNonWatchesTileEnabled) {
-                    $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[0].url).data('lazy', primaryImageUrls.tile300X300[0].url);
-                } else {
+                if (isEnableSingleProductRow && isNonWatchesTileEnable) {
+                    $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url).data('lazy', primaryImageUrls.tile256[0].url);
+                } 
+                else if (!isEnableSingleProductRow && !isNonWatchesTileEnable) {
+                    $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
+                }
+                else if (!isEnableSingleProductRow) {
+                    $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url).data('lazy', primaryImageUrls.tile256[0].url);
+                }
+    
+                if (isNonWatchesTileEnable && isEnableSingleProductRow) {
+                    $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile256[0].url).data('lazy', primaryImageUrls.tile256[0].url);
+                } 
+                else if (!isEnableSingleProductRow && !isNonWatchesTileEnable) {
                     $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[0].url).data('lazy', primaryImageUrls.tile300X375[0].url);
                 }
-                $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
-                $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+                else if (!isEnableSingleProductRow) {
+                    $productContainer.find('.image-container').find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[0].url).data('lazy', primaryImageUrls.tile300X300[0].url);
+                } 
+    
+                if (isEnableSingleProductRow && isNonWatchesTileEnable) {
+                    $imageContainer.attr('src', primaryImageUrls.tile256[0].url).data('lazy', primaryImageUrls.tile256[0].url);
+                } 
+                else if (!isEnableSingleProductRow && !isNonWatchesTileEnable) {
+                    $imageContainer.attr('src', primaryImageUrls.tile512X640[0].url).data('lazy', primaryImageUrls.tile512X640[0].url);
+                }
+                else if (!isEnableSingleProductRow) {
+                    $imageContainer.attr('src', primaryImageUrls.tile256[0].url).data('lazy', primaryImageUrls.tile256[0].url);
+                } 
                 // life style image handling
                 if ($lifeStyleImageContainer.length > 0) {
                     $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
-                    var test = response.product;
-                    if (response.product.isNonWatchesTileEnabled) {
+                    if (isNonWatchesTileEnable) {
                         $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[3].url).data('lazy', primaryImageUrls.tile300X300[3].url);
                     } else {
                         $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
