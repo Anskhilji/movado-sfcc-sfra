@@ -105,6 +105,10 @@
                         max-width: 100%;
                     }
 
+                    span.close-icon {
+                        display: none;
+                    }
+
                     > .refinement-name {
                         position: relative;
                         text-transform: uppercase;
@@ -137,12 +141,12 @@
                         }
 
                         .swatch-image {
-                            border: 1px solid $light-gray9;
+                            border: rem(1) solid $light-gray9;
                             border-radius: 50%;
                         }
 
                         .selected-swatch-image {
-                            border: 1px solid $black;
+                            border: rem(1) solid $black;
                         }
                     }
 
@@ -480,10 +484,16 @@
                                      max-width: 50%;
                                      width: 50%;
 
+                                    &.color-swatch {
+                                        min-width: 33.33%;
+                                        max-width: 33.33%;
+                                        width: 33.33%;
+                                    }
+
                                     label {
 
                                         &.label-selected {
-                                            border: 1px solid $light-green11;
+                                            border: rem(1) solid $light-green11;
                                             color: $light-green11;
 
                                             span {
@@ -638,13 +648,25 @@
                     }
 
                     .mobile-active-option-redesign {
-                        position: absolute;
+                        position: fixed;
                         width: 100%;
                         left: 0;
-                        bottom: rem(50);
+                        bottom: 19vh;
+                        z-index: 111111;
+
+                        .mobile-active-shop-btn {
+                            background-color: $black;
+                            border-radius: rem(3);
+                            color: $white;
+                            width: 100%;
+                            margin: 0 rem(10);
+                            font-family: $font-medium;
+                            font-size: rem(12);
+                            font-weight: 500;
+                            text-transform: uppercase;
+                        }
                     }
                 }
-    
             }
         }
     
@@ -843,6 +865,10 @@
                                         }
                                     }
                                 }
+
+                                span.close-icon {
+                                    display: none;
+                                }
                             }
                         }
                         
@@ -866,9 +892,20 @@
 
                 .values {
                            display: flex;
-                           align-items: center;
+                           align-items: flex-end;
                     li {
-            
+
+                            min-width: 50%;
+                            max-width: 50%;
+                            width: 50%;
+                            flex: 1;
+                            height:100%;
+
+                            &.color-swatch {
+                                min-width: 33.33%;
+                                max-width: 33.33%;
+                                width: 33.33%;
+                            }
                         a {
                             outline: 0;
                             text-decoration: none;
@@ -891,6 +928,43 @@
                                         justify-content: center;
                                         align-items: center;
                                         margin-bottom: rem(10);
+                                    }
+
+                                    .rounded-color {
+                                        height: rem(40);
+                                        width: rem(40);
+                                        border: none;
+                                        margin: rem(10) 0;
+                                    }  
+                                }
+            
+                                .rounded-color {
+                                    &.fa-check-square, &.fa-square-o {
+                                        content: "";
+            
+                                        &:before {
+                                            content: "";
+                                        }
+                                    }
+                                }
+                                
+                            }
+
+                            &.swatch-image {
+                                margin: rem(10) 0;
+
+                                &.selected-swatch-image {
+                                    box-shadow: none;
+                                    border: rem(1) solid black;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+            
+                                    @include media-breakpoint-down(md) {
+                                        display:flex;
+                                        justify-content: center;
+                                        align-items: center;
                                     }
 
                                     .rounded-color {
@@ -966,6 +1040,10 @@
                             &.swatch-image, &.color-swatch-image {
                                 display: inline-block;
                             }
+
+                            &.color-swatch-image.selected-swatch-image {
+                                border: rem(1) solid black;
+                            }
             
                             .rounded-image {
                                 font-size: 0;
@@ -1003,6 +1081,94 @@
                                 &.fa-check-square, &.fa-square-o {
                                     content: "";
                                 }
+                            }
+                        }
+
+                        &.color-swatch-image {
+                            margin: rem(10) 0;
+
+                            &.selected-color-swatch-image {
+                                box-shadow: none;
+                                border: rem(1) solid black;
+                                width: rem(45);
+                                height: rem(45);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                margin: rem(10) 0;
+        
+                                @include media-breakpoint-down(md) {
+                                    display:flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    margin-bottom: rem(10);
+                                }
+                            }
+                        }
+
+                        label {
+                            &.label-selected {
+                                border: rem(1) solid $light-green11;
+                                color: $light-green11;
+
+                                span {
+                                    color: $light-green11;
+                                }
+                            }
+                            
+                            &.size-element {
+    
+                                &.selected-swatch-image {
+                                    box-shadow: none;
+                                    border: rem(1) solid black;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                              
+                                    @include media-breakpoint-down(md) {
+                                        display:flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                }
+                            }
+                        }
+
+                        .btn-boolean-redesign {
+                            background: $white;
+                            border: rem(1) solid $gray90;
+                            border-radius: rem(5);
+                            padding: rem(8) rem(15);
+                            font-size: rem(10);
+                            font-family: $font-medium;
+                            text-transform: uppercase;
+                            font-weight: 500;
+                            letter-spacing: rem(0.83);
+                            line-height: rem(20);
+                            text-align: center;
+                            cursor: pointer;
+                            position: relative;
+                            display: inline-block;
+
+                            &.elements {
+                                display:flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex:0 0 100%;
+                                height:100%;
+                            }
+
+                            .filters-checkbox {
+                                position:absolute;
+                                left:0;
+                                top:0;
+                                width: 100%;
+                                height: 100%;
+                                opacity: 0;
+                            }
+
+                            .boolean-filters-text-redesign {
+                                display: none;
                             }
                         }
                     }
@@ -1135,5 +1301,27 @@
                 }
             }
         }
+
+        .mobile-active {
+            
+            &-option {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                bottom: 12.5vh;
+            }
+
+            &-shop-btn {
+                    background-color: $black;
+                    border-radius: rem(3);
+                    color: $white;
+                    width: 100%;
+                    margin: 0 rem(10);
+                    font-family: $font-medium;
+                    font-size: rem(12);
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+            }
     }
 }
