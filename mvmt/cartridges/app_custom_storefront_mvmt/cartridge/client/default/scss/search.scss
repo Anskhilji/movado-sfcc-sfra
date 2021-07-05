@@ -1231,6 +1231,10 @@
                     &:hover {
                         border: rem(1) solid $black;
                     }
+
+                    img {
+                        border-radius: 50%;
+                    }
                 }
 
                 .rounded-image {
