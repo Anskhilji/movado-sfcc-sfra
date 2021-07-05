@@ -5,7 +5,8 @@ module.exports = function () {
         // Update primary images
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
-        if ($('.mvmt-plp-redesign').length) {
+        var isPLPRedesign = ($('.mvmt-plp-redesign').length > 0);
+        if (isPLPRedesign) {
             var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
             var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
             if (!($productContainer.parents('.product-grid').length > 0)) {
@@ -52,8 +53,10 @@ module.exports = function () {
         if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
             $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
         }
-        if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
+        if (!isPLPRedesign && typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
+        } else if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+            $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameterRedesigned);
         }
 
 
@@ -86,7 +89,11 @@ module.exports = function () {
 
         var $productNameSelector = $productContainer.find('.product-name');
         //Custom Start  [MSS-1375] response.product.productName changed to response.product.color
-        $productNameSelector.text(response.product.color);
+        if (isPLPRedesign) {
+            $productNameSelector.text(response.product.color);
+        } else {
+            $productNameSelector.text(response.product.productName);
+        }
         //Custom End
         $productNameSelector.attr('href', $product.selectedProductUrl);
 

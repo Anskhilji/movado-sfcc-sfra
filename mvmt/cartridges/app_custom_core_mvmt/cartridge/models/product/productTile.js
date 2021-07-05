@@ -26,6 +26,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
+    var caseDiameterRedesigned = productCustomHelper.getCaseDiameterRedesigned(apiProduct);
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
@@ -236,10 +237,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 
                 var variant = apiProduct.variationModel.defaultVariant;
                 var variantCaseDiameter = '';
+                var variantCaseDiameterRedesigned = '';
                 var caseDiameter = !empty(variant.custom.caseDiameter) ? variant.custom.caseDiameter : '';
                 var familyName = !empty(variant.custom.familyName) ? variant.custom.familyName[0] : '';
                 if (!empty(familyName) && !empty(caseDiameter)) {
-                    variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN + caseDiameter + Constants.MM_UNIT;
+                    variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + caseDiameter + Constants.MM_UNIT;
+                    variantCaseDiameterRedesigned = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN + caseDiameter + Constants.MM_UNIT;
                 } else if (!empty(caseDiameter)) {
                     variantCaseDiameter = caseDiameter + Constants.MM_UNIT;
                 }
@@ -253,7 +256,12 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: !empty(variantCaseDiameter) ? variantCaseDiameter : ''
                 });
-                
+
+                Object.defineProperty(product, 'defaultVariantCaseDiameterRedesigned', {
+                    enumerable: true,
+                    value: !empty(variantCaseDiameterRedesigned) ? variantCaseDiameterRedesigned : ''
+                });
+
                 Object.defineProperty(product, 'defaultVariantPrice', {
                     enumerable: true,
                     value: priceFactory.getPrice(apiProduct.variationModel.defaultVariant, null, false, options.promotions, options.optionModel)
@@ -293,6 +301,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'caseDiameter', {
             enumerable: true,
             value: caseDiameter
+        });
+    }
+
+    if (!empty(caseDiameterRedesigned)) {
+        Object.defineProperty(product, 'caseDiameterRedesigned', {
+            enumerable: true,
+            value: caseDiameterRedesigned
         });
     }
 

@@ -432,61 +432,102 @@
   }
   
  .mvmt-plp-redesign {
-    .product-tile-redesign {
-      .price {   
-        padding: 0;
-        @include font-medium;
-
-        span {
-          font-size: rem(12);
-          letter-spacing: rem(1);
-          line-height: rem(20);
-
-          .sales {
-            span {
-              @include font-book;
+    .product-grid {
+      .product-tile {
+        .price {   
+          padding: 0;
+          @include font-medium;
+    
+          span {
+            font-size: rem(12);
+            letter-spacing: rem(1);
+            line-height: rem(20);
+    
+            .sales {
+              span {
+                @include font-book;
+              }
+            }
+    
+            @include media-breakpoint-up(sm) {
+              font-size: rem(12);
             }
           }
-
+        }
+    
+        .product-brand-info { 
+          font-size: rem(9);
+          color: $black;
+          line-height: rem(20);
+          letter-spacing: rem(1);
+          @include font-book;
+    
+          @include media-breakpoint-up(md-down) {
+            font-size: rem(14);
+          }
+    
           @include media-breakpoint-up(sm) {
-            font-size: rem(12);
+            font-size: rem(14);
           }
         }
-      }
-
-      .product-brand-info { 
-        font-size: rem(9);
-        color: $black;
-        line-height: rem(20);
-        letter-spacing: rem(1);
-        @include font-book;
-
-        @include media-breakpoint-up(md-down) {
-          font-size: rem(14);
-        }
-
-        @include media-breakpoint-up(sm) {
-          font-size: rem(14);
-        }
-      }
-
-      .pdp-link { 
-        margin: 0 0 rem(10) 0;
-        letter-spacing: rem(1);
-        @include font-book;
-
-        @include media-breakpoint-up(lg) {
+    
+        .pdp-link { 
           margin: 0 0 rem(10) 0;
-          line-height: rem(20);
+          letter-spacing: rem(1);
+          @include font-book;
+    
+          @include media-breakpoint-up(lg) {
+            margin: 0 0 rem(10) 0;
+            line-height: rem(20);
+          }
+    
+          a {
+            line-height: rem(20);
+            text-transform: none;
+            color: $light-gray2;
+    
+            @include media-breakpoint-up(lg) {
+              font-size: rem(14);
+            }
+          }
         }
 
-        a {
-          line-height: rem(20);
-          text-transform: none;
-          color: $light-gray2;
+        .add-to-cart {
+          border-color: $light-green;
+          border-radius: rem(2.33008);
+      
+          @include media-breakpoint-down(xs) {
+            line-height: 0;
+            border: none;
+            min-height: rem(35);
+            max-height: rem(35);
+            width: 100%;
+            display: block;
+            background-color: $emerald;
+          }
+      
+          &:hover {
 
-          @include media-breakpoint-up(lg) {
-            font-size: rem(14);
+            @include media-breakpoint-up(lg) {
+                background: $light-green;
+            }
+          }
+      
+          &.out-of-stock-btn {
+            background: $light-grey10;
+            opacity: 0.5;
+            color: $black;
+            font-family: $font-bold;
+            font-size: rem(12);
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0;
+            border: none;
+    
+            &:hover {
+              background: $light-grey10;
+              border-color: $light-grey10;
+            }
           }
         }
       }
