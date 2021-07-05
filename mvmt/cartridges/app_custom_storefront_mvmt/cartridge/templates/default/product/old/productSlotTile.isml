@@ -71,7 +71,7 @@
                 </isif>
                 <div class="d-lg-none d-block mt-3">
                     <isif condition="${pdict.display.showAddToCart}">
-                        <isinclude template="product/components/showCartButtonProduct" />
+                        <isinclude template="product/components/old/showCartButtonProduct" />
                     </isif>
                 </div>
             </div>
@@ -79,7 +79,7 @@
     </div>
     <div class="d-none d-lg-block">
         <isif condition="${pdict.display.showAddToCart}">
-            <isinclude template="product/components/showCartButtonProduct" />
+            <isinclude template="product/components/old/showCartButtonProduct" />
         </isif>
     </div>
 
