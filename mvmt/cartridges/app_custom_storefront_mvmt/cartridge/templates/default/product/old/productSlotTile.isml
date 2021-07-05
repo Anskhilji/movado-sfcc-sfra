@@ -24,7 +24,7 @@
 	            </isif>
             </isloop>
         </isif>
-        <isinclude template="product/components/productTileImage" />
+        <isinclude template="product/components/old/productTileImage" />
 
         <div class="tile-body pt-2">
             <div class="tile-badges">
@@ -53,7 +53,7 @@
                         </isif>
                     </div>
                 </isif>
-                <isinclude template="product/components/productTileName" />
+                <isinclude template="product/components/old/productTileName" />
 
                 <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
                     <isset name="price" value="${product.defaultVariantPrice}" scope="page" />

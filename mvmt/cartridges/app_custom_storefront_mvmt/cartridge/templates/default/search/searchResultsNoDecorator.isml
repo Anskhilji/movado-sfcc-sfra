@@ -15,7 +15,7 @@
 		</isif>
 	</h1>
 </div>
-<div class="container search-results">
+<div class="container search-results mvmt-plp-redesign">
    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 		<isif condition="${!pdict.productSearch.isCategorySearch}">
     <div class="row">
