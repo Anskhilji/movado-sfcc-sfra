@@ -1,7 +1,7 @@
 <iscomment>Custom Start: Adding swatchImageURL in the background image and adding new classes swatch-image and selected-swatch-image for changing the selection</iscomment>
 <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
     <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
-        <label class="elements btn-boolean-redesign"> <span class="d-inline d-md-none">${refinementValue.displayValue}</span>
+        <label class="elements btn-boolean-redesign ${refinementValue.selected ? "label-selected" : ''}"> <span class="d-inline d-md-none">${refinementValue.displayValue}</span>
             <a class="filters-checkbox"  role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <iscomment>Checkbox</iscomment>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
