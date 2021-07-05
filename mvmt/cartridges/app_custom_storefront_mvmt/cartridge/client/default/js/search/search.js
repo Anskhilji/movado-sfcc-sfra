@@ -452,6 +452,9 @@ module.exports = {
     },
 
     loadMoreProductsOnScroll: function () {
+        if($('.mvmt-plp-redesign').length == 0){
+            return;
+        }
         // Load more products on scroll
         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
 
@@ -777,7 +780,7 @@ module.exports = {
             $('.mobile-filter-sort-redesign').addClass('filter-open');
         });
 
-        $(document).on("click", '.plp-filter-btn-redesign', function(e) {
+        $(document).on("click", '.mobile-filter-redesign .plp-filter-btn-redesign', function(e) {
             $(this).toggleClass('active');
             $(this).next().toggleClass('active loaded');
         });

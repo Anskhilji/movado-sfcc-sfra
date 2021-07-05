@@ -325,6 +325,20 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    var Site = require('dw/system/Site');
+    var apiProduct;
+    var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
+    var marketingProductsData = [];
+    var marketingProduct;
+    var quantity = 0;
+    var marketingProductData;
+    var isEnableSingleProductRow;
+    var isEyewearTile = false;
+    var categoryTemplate;
+    var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(res.viewData.productSearch);
 
     var apiProductSearch = new ProductSearchModel();
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
@@ -337,6 +351,19 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
+    if (productSearch && productSearch.category && productSearch.category.id) {
+        for (var i = 0; i < productSearch.productIds.length; i++) {
+            apiProduct = ProductMgr.getProduct(productSearch.productIds[i].productID);
+            marketingProduct = productCustomHelpers.getMarketingProducts(apiProduct, quantity)
+            if (marketingProduct !== null) {
+                marketingProductsData.push(marketingProduct);
+            }
+        }
+        marketingProductData = JSON.stringify(marketingProductsData);
+        isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
+        isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
+    }
+
     var productGridTemplate;
     if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest','render-new-design')) {
         productGridTemplate = '/search/old/productGrid';
@@ -346,7 +373,12 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
 
 
     res.render(productGridTemplate, {
-        productSearch: productSearch
+        productSearch: productSearch,
+        compareBoxEnabled: compareBoxEnabled,
+        marketingProductData: marketingProductData,
+        isEnableSingleProductRow: isEnableSingleProductRow,
+        isEyewearTile: isEyewearTile,
+        isNonWatchesTileEnable: isNonWatchesTileEnable
     });
 
     next();

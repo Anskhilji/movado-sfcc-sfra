@@ -183,6 +183,7 @@
                                                             <isif condition="${refinement.isPriceRefinement}">
                                                                 <isinclude template="search/refinements/prices" />
                                                             </isif>
+                                                            <span class="close-icon"></span>
                                                         </div>
                                                     </div>
                                                 </div>

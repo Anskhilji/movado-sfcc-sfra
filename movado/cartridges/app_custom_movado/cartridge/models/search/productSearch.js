@@ -123,13 +123,18 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot) {
     var showMoreEndpoint = 'Search-UpdateGrid';
     var currentStart = httpParams.start || 0;
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
+    var category = catalogMgr.getCategory(productSearch.categoryID);
+    var categoryTemplateEyewear = 'search/searchResultsEyewear';
+    if (category && category.template == categoryTemplateEyewear) {
+        pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
+    }
     var hitsCount = productSearch.count;
     var nextStart;
 
     var paging = getPagingModel(
         productSearch.productSearchHits,
         hitsCount,
-        DEFAULT_PAGE_SIZE,
+        pageSize,
         currentStart
     );
 

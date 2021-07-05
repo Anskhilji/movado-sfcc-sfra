@@ -47,8 +47,8 @@
                     <div class="product-brand-info">
                         <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}"> </isif>
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
-                        <isif condition="${!empty(product.caseDiameter) || !empty(product.defaultVariantCaseDiameter)}">
-                            <span class="case-diameter">${!empty(product.defaultVariantCaseDiameter) ? product.defaultVariantCaseDiameter : product.caseDiameter}</span>
+                        <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
+                            <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
                         </isif>
                     </div>
                 </isif>
