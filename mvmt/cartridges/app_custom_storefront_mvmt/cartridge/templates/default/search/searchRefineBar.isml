@@ -23,11 +23,14 @@
         </isif>
     </isloop>
 </div>
+
+<iscomment> Mobile Filter Redesign </iscomment>
+
 <div class="mobile-filter mobile-filter-redesign">
     <div class="mvmt-redesign-filter-bar">
         <div class="mvmt-redesign-filter-inner">
             <div class="mobile-active-filters loaded">
-                <button class="mobile-filter-sort-redesign" data-menu=".mobile-sort-menu">
+                <button class="mobile-filter-sort-redesign mvmt-redesign-filter-sort" data-menu=".mobile-sort-menu">
                     ${Resource.msgf('label.filter.and.sort', 'search', null)}
                 </button>
                 <isloop items="${refinements}" var="refinement">
