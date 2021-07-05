@@ -23,7 +23,7 @@ server.append(
     'Show',
     function (req, res, next) {
         var viewData = res.getViewData();
-        if(viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
+        if (viewData.productSearch && viewData.productSearch.category && viewData.productSearch.category.id) {
             for (var i = 0; i < viewData.productSearch.productIds.length; i++) {
                 var apiProduct = ProductMgr.getProduct(viewData.productSearch.productIds[i].productID);
                 var quantity = 0;
@@ -33,7 +33,7 @@ server.append(
             }
             viewData.marketingProductData = JSON.stringify(marketingProductsData);
             viewData = {
-                relativeURL: URLUtils.url('Search-Show','cgid', viewData.productSearch.category.id)
+                relativeURL: URLUtils.url('Search-Show', 'cgid', viewData.productSearch.category.id)
             };
         }
         res.setViewData(viewData);
@@ -47,7 +47,7 @@ server.append(
         var viewData = res.getViewData();
         if (viewData.folderID) {
             viewData = {
-                relativeURL: URLUtils.url('Search-ShowContent','fdid', viewData.folderID)
+                relativeURL: URLUtils.url('Search-ShowContent', 'fdid', viewData.folderID)
             };
         }
         res.setViewData(viewData);
@@ -76,7 +76,7 @@ server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (r
     );
 
     var refineBarTemplate;
-    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest','render-new-design')) {
+    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
         refineBarTemplate = '/search/old/searchRefineBar';
     } else {
         refineBarTemplate = '/search/searchRefineBar';
@@ -110,8 +110,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
     var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
-
-
     var apiProductSearch = new ProductSearchModel();
     var maxSlots = 4;
     var reportingURLs;
@@ -119,7 +117,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         ? apiProductSearch.getSearchRedirect(req.querystring.q)
         : null;
     var categoryAnalyticsTrackingData;
-    var userTracking;
 
     if (searchRedirect) {
         res.redirect(searchRedirect.getLocation());
@@ -134,7 +131,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName = req.querystring.q ? stringUtils.removeSingleQuotes(req.querystring.q) : '';
     }
     res.setViewData({
-        departmentCategoryName: departmentCategoryName 
+        departmentCategoryName: departmentCategoryName
     });
 
     /**
@@ -194,16 +191,16 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
- 
-    if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
-    	if (productSearch && productSearch.category && productSearch.category.id){
+
+    if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
+        if (productSearch && productSearch.category && productSearch.category.id) {
             var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
-    		categoryAnalyticsTrackingData = {categoryId : categoryNameWithoutApostrophe};
-    	} else {
+            categoryAnalyticsTrackingData = { categoryId: categoryNameWithoutApostrophe };
+        } else {
             var searchQueryWithoutApostrophe = stringUtils.removeSingleQuotes(req.querystring.q);
-    		categoryAnalyticsTrackingData = {searchQuery: searchQueryWithoutApostrophe};
-    	}
-		categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
+            categoryAnalyticsTrackingData = { searchQuery: searchQueryWithoutApostrophe };
+        }
+        categoryAnalyticsTrackingData.email = (customer.isAuthenticated() && customer.getProfile()) ? customer.getProfile().getEmail() : '';
     }
 
     if (
@@ -304,7 +301,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             });
         }
     }
-    
+
     try {
         var viewData = res.getViewData();
         var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
@@ -317,7 +314,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
         YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
     }
-    
+
     return next();
 }, pageMetaData.computedPageMetaData);
 
@@ -365,10 +362,10 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     }
 
     var productGridTemplate;
-    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest','render-new-design')) {
+    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
         productGridTemplate = '/search/old/productGrid';
     } else {
-        productGridTemplate ='/search/productGrid';
+        productGridTemplate = '/search/productGrid';
     }
 
 
