@@ -104,9 +104,9 @@
                                 <div class="col-12 col-sm-4 col-lg-4" data-gtm-refinements='${product.productSearchHit.productID}'>
                                     <isobject object="${product.productSearchHit}" view="searchhit">
                                         <isif condition="${pdict.productSearch.category}">
-                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName', pdict.productSearch.category.name, 'isEyewearTile', true, 'isRedesigned', true)}" />
+                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName', pdict.productSearch.category.name, 'isEyewearTile', true, 'isLifeStyleEnabled', true, 'isRedesigned', true)}" />
                                             <iselse>
-                                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'isEyewearTile', true, 'isRedesigned', true)}" />
+                                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true, 'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'isEyewearTile',  true, 'isLifeStyleEnabled', true, 'isRedesigned', true)}" />
                                         </isif>
                                     </isobject>
                                 </div>
