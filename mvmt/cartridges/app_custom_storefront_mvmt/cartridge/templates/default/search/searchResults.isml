@@ -24,7 +24,7 @@
         </isif>
     </div>
 
-    <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" >
+    <div class="mvmt-plp mvmt-plp-redesign container-fluid p-0 search-results" data-infinte-scroll-enabled="${sitePref.isInfiniteScrollEnabled ? true : false}" data-enable-pagination="${sitePref.enablePagination ? true : false}" data-is-enable-single-product-row="${pdict.isEnableSingleProductRow || false}" data-is-non-watches-tile-enable="${pdict.isNonWatchesTileEnable || false}">
         <isif condition="${!pdict.productSearch.isCategorySearch}">
         <div class="row">
           <div class="search-nav px-5 mt-2">
@@ -95,9 +95,9 @@
                             <div class="${pdict.isEnableSingleProductRow ? 'col-12 col-sm-4 col-lg-4' : 'col-6 col-sm-4 col-lg-3'}" data-gtm-refinements='${product.productSearchHit.productID}'>
                                 <isobject object="${product.productSearchHit}" view="searchhit">
                                     <isif condition="${pdict.productSearch.category}">
-                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'lazyload', true, 'isLifeStyleEnabled', true, 'isEnableSingleProductRow', pdict.isEnableSingleProductRow, 'isNonWatchesTileEnable', pdict.isNonWatchesTileEnable)}" />
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name, 'lazyload', true, 'isLifeStyleEnabled', true, 'isEnableSingleProductRow', pdict.isEnableSingleProductRow, 'isNonWatchesTileEnable', pdict.isNonWatchesTileEnable, 'isRedesigned', true)}" />
                                     <iselse>
-                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'lazyload', true, 'isLifeStyleEnabled', true, 'isEnableSingleProductRow', pdict.isEnableSingleProductRow, 'isNonWatchesTileEnable', pdict.isNonWatchesTileEnable)}" />
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'lazyload', true, 'isLifeStyleEnabled', true, 'isEnableSingleProductRow', pdict.isEnableSingleProductRow, 'isNonWatchesTileEnable', pdict.isNonWatchesTileEnable, 'isRedesigned', true)}" />
                                     </isif>
                                 </isobject>
                             </div> 
