@@ -26,7 +26,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var variationPdpURL;
     var swatchesURL;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
-    var caseDiameterRedesigned = productCustomHelper.getCaseDiameterRedesigned(apiProduct);
+    var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);

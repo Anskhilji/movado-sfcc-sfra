@@ -25,8 +25,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var currentCountry = productCustomHelper.getCurrentCountry();
     var color = productCustomHelper.getColor(apiProduct, product);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
-    var caseDiameterRedesigned = productCustomHelper.getCaseDiameterRedesigned(apiProduct);
-    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML (apiProduct);
+    var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
 
 
     if (!empty(currentCountry)) {

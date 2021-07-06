@@ -109,7 +109,7 @@
                         display: none;
                     }
 
-                    > .refinement-name {
+                    >.refinement-name {
                         position: relative;
                         text-transform: uppercase;
                         font-size: rem(16);
@@ -365,7 +365,7 @@
 
 // Mobile Filter Redesign -- Added by Mubashir
 .mvmt-plp {
-    
+
     .mobile-filter-redesign {
 
         @mixin mvmtIcon {
@@ -382,7 +382,7 @@
             background-size: 100%;
         }
 
-        @mixin mvmtFilterBtn{
+        @mixin mvmtFilterBtn {
             border: rem(1) solid $light-grey10;
             border-radius: rem(3);
             background-color: $white;
@@ -396,75 +396,76 @@
             align-items: center;
             padding: rem(5) rem(10);
             min-width: fit-content;
-            width:auto;
+            width: auto;
             height: auto;
             text-transform: none;
         }
-    
+
         .mvmt-redesign {
 
-            &-filter{
-      
-              &-bar {
-                  height: auto;
-                  width: 100%;
-                  background-color: $light-gray14;
-                  padding: rem(0);
-                  overflow-x: auto;
-              } 
-              
-              &-inner {
-                  display: flex;
-                  justify-content: start;
-                  align-items: center;
-                  position: relative;
-                  margin: 0;
-                  min-width: 100%;
-                  max-width: 100%;
-                  z-index: 7;
-              }
-      
-              &-active {
-                  display: flex;
-                  align-items: center;
-                  transform: translateX(-100%);
-                  transition: transform .6s;
-                  overflow-x: auto;
-                  
-      
-                  &.loaded, &.skip-animation {
-                      transform: translateY(0);
-                  }
-              }
-      
-              &-button {
-                  margin: rem(10) rem(10) rem(10) 0;
-                  @include mvmtFilterBtn;
-      
-                  &::after {
-                      @include mvmtIcon;
-                  }
-              }
-      
-              &-sort {
-                  margin: rem(10);
-                  @include mvmtFilterBtn;
-      
-                  &::before {
-                      @include mvmtIcon;
-                      position: relative;
-                      left: rem(-10);
-                  }
-              }
+            &-filter {
+
+                &-bar {
+                    height: auto;
+                    width: 100%;
+                    background-color: $light-gray14;
+                    padding: rem(0);
+                    overflow-x: auto;
+                }
+
+                &-inner {
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    position: relative;
+                    margin: 0;
+                    min-width: 100%;
+                    max-width: 100%;
+                    z-index: 7;
+                }
+
+                &-active {
+                    display: flex;
+                    align-items: center;
+                    transform: translateX(-100%);
+                    transition: transform .6s;
+                    overflow-x: auto;
+
+
+                    &.loaded,
+                    &.skip-animation {
+                        transform: translateY(0);
+                    }
+                }
+
+                &-button {
+                    margin: rem(10) rem(10) rem(10) 0;
+                    @include mvmtFilterBtn;
+
+                    &::after {
+                        @include mvmtIcon;
+                    }
+                }
+
+                &-sort {
+                    margin: rem(10);
+                    @include mvmtFilterBtn;
+
+                    &::before {
+                        @include mvmtIcon;
+                        position: relative;
+                        left: rem(-10);
+                    }
+                }
             }
-          }
-        
+        }
+
         .mobile-filter {
 
             &-container {
-                & > .mobile-filter-menu.active {
+                &>.mobile-filter-menu.active {
                     border-radius: rem(15) rem(15) 0 0;
-                    top:12vh;
+                    top: 12vh;
                 }
 
                 .mobile-sort-menu {
@@ -472,17 +473,17 @@
                     &.active {
                         border-radius: rem(15) rem(15) 0 0;
                         background: $white-gray;
-                        top:12vh;
+                        top: 12vh;
 
                         .filter-group-outer {
 
                             .values {
-                        
+
                                 li {
-                                
-                                     min-width: 50%;
-                                     max-width: 50%;
-                                     width: 50%;
+
+                                    min-width: 50%;
+                                    max-width: 50%;
+                                    width: 50%;
 
                                     &.color-swatch {
                                         min-width: 33.33%;
@@ -499,33 +500,33 @@
                                             span {
                                                 color: $light-green11;
                                             }
-                                        }   
+                                        }
                                     }
 
                                     a {
                                         outline: 0;
                                         text-decoration: none;
-                        
+
                                         &.color-swatch-image {
                                             margin: auto auto rem(10);
                                         }
-                        
+
                                         &.swatch-image {
                                             width: rem(70);
                                             height: rem(70);
                                             border-radius: 50%;
                                             border: none;
                                             margin: auto auto rem(10);
-                        
+
                                             &.selected-swatch-image {
                                                 border: rem(1) solid $black;
                                             }
-                        
+
                                             &:hover {
                                                 border: rem(1) solid $black;
                                             }
                                         }
-                        
+
                                         .rounded-image {
                                             width: rem(50);
                                             height: rem(50);
@@ -540,12 +541,12 @@
                                     }
                                 }
                             }
-                            
+
                         }
                     }
-                    
+
                     .sort-dropdown {
-            
+
                         &-menu {
                             position: absolute;
                             margin: 0;
@@ -565,7 +566,7 @@
                             border-top: 0;
                             border-radius: 0;
                         }
-            
+
                         &-item {
                             padding: rem(5.5) rem(25);
                             display: block;
@@ -581,13 +582,13 @@
                             cursor: pointer;
                             background: $white;
                             width: 100%;
-            
+
                             &:hover {
                                 background-color: $white;
                                 text-decoration: none;
                             }
                         }
-            
+
                         &-toggle {
                             font-family: $font-medium;
                             font-size: rem(11);
@@ -608,15 +609,15 @@
                             height: rem(45);
                             text-align: left;
                             padding: 0 1.375rem;
-            
+
                             span.selected-value {
                                 font-weight: 700;
                                 font-family: $font-medium;
                             }
-            
+
                             &::after {
                                 content: '';
-                                background:url("../images/dropdownArrowDown.svg") center center no-repeat;
+                                background: url("../images/dropdownArrowDown.svg") center center no-repeat;
                                 width: rem(6);
                                 height: rem(10);
                                 position: absolute;
@@ -628,18 +629,18 @@
                                 margin: 0;
                                 border: 0;
                             }
-            
+
                             &:focus {
                                 box-shadow: none;
                                 outline: none;
                             }
-            
+
                             &:hover {
-                                background-color:$white;
+                                background-color: $white;
                             }
-            
+
                             &.active {
-            
+
                                 &::after {
                                     transform: rotate(90deg);
                                 }
@@ -669,15 +670,15 @@
                 }
             }
         }
-    
+
         .filter-redesigned {
-    
+
             &-mobile {
                 top: rem(100);
                 left: rem(30);
-    
+
                 .plp-filter {
-    
+
                     &-bar-mobile {
                         background: $white-gray;
                         border: none;
@@ -686,42 +687,43 @@
                         height: rem(350);
                         overflow-x: hidden;
                         overflow-y: auto;
-                        -ms-overflow-style: none;  /* IE and Edge */
-                        scrollbar-width: none; 
+                        -ms-overflow-style: none;
+                        /* IE and Edge */
+                        scrollbar-width: none;
                     }
-    
+
                     &-bar-mobile::-webkit-scrollbar {
                         display: none;
                     }
-    
+
                     &-bar-inner {
                         display: block;
                         border-top: rem(1) solid $transparent-black;
                         border-bottom: rem(1) solid $transparent-black;
                     }
-    
+
                     &-options {
                         display: block;
                         border: none;
                     }
-    
+
                     &-lists {
-    
+
                         .refinements {
                             display: block;
-    
+
                             .plp-filter {
-    
+
                                 &-list {
                                     background: $cyan-blue;
                                     width: 100%;
-    
+
                                     &:not(:first-child) {
                                         border-top: rem(1) solid $transparent-black;
                                     }
-    
+
                                 }
-    
+
                                 &-btn {
                                     height: rem(50);
                                     width: 100%;
@@ -733,30 +735,30 @@
                                     border: none;
                                     text-align: left;
                                     padding: 0;
-    
+
                                     &.active {
                                         background: $cyan-blue;
-    
+
                                         .arrow-down {
                                             transform: rotate(180deg);
                                             right: rem(8);
                                         }
                                     }
-    
+
                                     &:focus,
                                     &:active,
                                     &:hover {
                                         background: $cyan-blue;
                                         outline: none;
                                     }
-    
+
                                     .arrow-down {
                                         display: inline-block;
                                         position: absolute;
                                         right: rem(-4);
                                         height: rem(20);
                                         width: rem(20);
-    
+
                                         &:after {
                                             border: solid $black;
                                             border-width: 0 rem(1) rem(1) 0;
@@ -767,23 +769,23 @@
                                         }
                                     }
                                 }
-    
+
                             }
                         }
-    
+
                         .filter-group {
                             display: none;
                             position: relative;
                             top: 0;
                             background: $cyan-blue;
                             overflow-y: auto;
-    
+
                             &.active {
                                 display: block;
                             }
-    
+
                             &-outer {
-    
+
                                 .values {
                                     min-height: fit-content;
                                     max-height: fit-content;
@@ -791,12 +793,12 @@
                                     overflow: hidden;
                                     display: flex;
                                     align-items: center;
-    
+
                                     .color-swatch {
                                         width: 33.3%;
                                         min-width: 33.3%;
                                         max-width: 33.3%;
-    
+
                                         .rounded-color {
                                             height: rem(40);
                                             width: rem(40);
@@ -816,17 +818,17 @@
                                                 justify-content: center;
                                                 align-items: center;
                                                 margin: rem(10) 0;
-    
+
                                                 .rounded-color {
                                                     height: rem(40);
                                                     width: rem(40);
                                                     border: none;
                                                     margin: rem(10) 0;
-                                                }                                            
+                                                }
                                             }
                                         }
                                     }
-                                
+
                                     .btn-boolean-redesign {
                                         background: $white;
                                         border: rem(1) solid $gray90;
@@ -841,25 +843,25 @@
                                         text-align: center;
                                         cursor: pointer;
                                         position: relative;
-    
+
                                         &.elements {
-                                            display:flex;
+                                            display: flex;
                                             align-items: center;
                                             justify-content: center;
-                                            flex:0 0 100%;
-                                            height:100%;
-    
+                                            flex: 0 0 100%;
+                                            height: 100%;
+
                                         }
-    
+
                                         .filters-checkbox {
-                                            position:absolute;
-                                            left:0;
-                                            top:0;
+                                            position: absolute;
+                                            left: 0;
+                                            top: 0;
                                             width: 100%;
                                             height: 100%;
                                             opacity: 0;
                                         }
-    
+
                                         .boolean-filters-text-redesign {
                                             display: none;
                                         }
@@ -871,15 +873,15 @@
                                 }
                             }
                         }
-                        
+
                         .filter-group::-webkit-scrollbar {
                             display: none;
                         }
-    
+
                     }
                 }
             }
-    
+
         }
 
         .mobile-selection {
@@ -888,28 +890,30 @@
                 border-radius: rem(15) rem(15) 0 0;
             }
 
-            &-inner{
+            &-inner {
 
                 .values {
-                           display: flex;
-                           align-items: flex-end;
+                    display: flex;
+                    align-items: flex-end;
+
                     li {
 
-                            min-width: 50%;
-                            max-width: 50%;
-                            width: 50%;
-                            flex: 1;
-                            height:100%;
+                        min-width: 50%;
+                        max-width: 50%;
+                        width: 50%;
+                        flex: 1;
+                        height: 100%;
 
-                            &.color-swatch {
-                                min-width: 33.33%;
-                                max-width: 33.33%;
-                                width: 33.33%;
-                            }
+                        &.color-swatch {
+                            min-width: 33.33%;
+                            max-width: 33.33%;
+                            width: 33.33%;
+                        }
+
                         a {
                             outline: 0;
                             text-decoration: none;
-            
+
                             &.color-swatch-image {
                                 margin: rem(10) 0;
 
@@ -922,9 +926,9 @@
                                     justify-content: center;
                                     align-items: center;
                                     margin: rem(10) 0;
-            
+
                                     @include media-breakpoint-down(md) {
-                                        display:flex;
+                                        display: flex;
                                         justify-content: center;
                                         align-items: center;
                                         margin-bottom: rem(10);
@@ -935,19 +939,21 @@
                                         width: rem(40);
                                         border: none;
                                         margin: rem(10) 0;
-                                    }  
+                                    }
                                 }
-            
+
                                 .rounded-color {
-                                    &.fa-check-square, &.fa-square-o {
+
+                                    &.fa-check-square,
+                                    &.fa-square-o {
                                         content: "";
-            
+
                                         &:before {
                                             content: "";
                                         }
                                     }
                                 }
-                                
+
                             }
 
                             &.swatch-image {
@@ -960,9 +966,9 @@
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-            
+
                                     @include media-breakpoint-down(md) {
-                                        display:flex;
+                                        display: flex;
                                         justify-content: center;
                                         align-items: center;
                                     }
@@ -972,25 +978,28 @@
                                         width: rem(40);
                                         border: none;
                                         margin: rem(10) 0;
-                                    }  
+                                    }
                                 }
-            
+
                                 .rounded-color {
-                                    &.fa-check-square, &.fa-square-o {
+
+                                    &.fa-check-square,
+                                    &.fa-square-o {
                                         content: "";
-            
+
                                         &:before {
                                             content: "";
                                         }
                                     }
                                 }
-                                
+
                             }
-            
-                            &:not(.swatch-image).color, &.color-swatch-image {
-            
+
+                            &:not(.swatch-image).color,
+                            &.color-swatch-image {
+
                                 i {
-            
+
                                     &.fa {
                                         width: rem(54);
                                         height: rem(54);
@@ -998,24 +1007,27 @@
                                         justify-content: center;
                                         align-items: center;
                                         display: flex;
-            
+
                                         @include media-breakpoint-down(md) {
                                             margin: rem(28) 0 0 0;
                                             height: rem(50);
                                             display: inline-block;
                                         }
-            
-                                        &.fa-check-square, &.fa-square-o, .fa-circle-o, .fa-check-circle {
+
+                                        &.fa-check-square,
+                                        &.fa-square-o,
+                                        .fa-circle-o,
+                                        .fa-check-circle {
                                             font-size: rem(24);
                                         }
                                     }
                                 }
                             }
-            
+
                             &:not(.swatch-image) {
-            
+
                                 i {
-            
+
                                     &.fa {
                                         width: rem(54);
                                         height: rem(61);
@@ -1023,28 +1035,32 @@
                                         justify-content: center;
                                         align-items: center;
                                         display: flex;
-            
+
                                         @include media-breakpoint-down(md) {
                                             margin: rem(28) 0 0 0;
                                             height: rem(50);
                                             display: inline-block;
                                         }
-            
-                                        &.fa-check-square, &.fa-square-o, .fa-circle-o, .fa-check-circle {
+
+                                        &.fa-check-square,
+                                        &.fa-square-o,
+                                        .fa-circle-o,
+                                        .fa-check-circle {
                                             font-size: rem(24);
                                         }
                                     }
                                 }
                             }
-            
-                            &.swatch-image, &.color-swatch-image {
+
+                            &.swatch-image,
+                            &.color-swatch-image {
                                 display: inline-block;
                             }
 
                             &.color-swatch-image.selected-swatch-image {
                                 border: rem(1) solid black;
                             }
-            
+
                             .rounded-image {
                                 font-size: 0;
                                 outline: 0;
@@ -1055,12 +1071,13 @@
                                 padding: 0;
                                 border-radius: 50%;
                                 cursor: pointer;
-            
-                                &.fa-check-square, &.fa-square-o {
+
+                                &.fa-check-square,
+                                &.fa-square-o {
                                     content: "";
                                 }
                             }
-            
+
                             .rounded-color {
                                 font-size: 0;
                                 outline: 0;
@@ -1073,12 +1090,13 @@
                                 border: rem(3) solid $white;
                                 width: rem(44);
                                 height: rem(44);
-            
+
                                 @include media-breakpoint-down(md) {
                                     margin: rem(28) 0 0 0;
                                 }
-            
-                                &.fa-check-square, &.fa-square-o {
+
+                                &.fa-check-square,
+                                &.fa-square-o {
                                     content: "";
                                 }
                             }
@@ -1096,9 +1114,9 @@
                                 justify-content: center;
                                 align-items: center;
                                 margin: rem(10) 0;
-        
+
                                 @include media-breakpoint-down(md) {
-                                    display:flex;
+                                    display: flex;
                                     justify-content: center;
                                     align-items: center;
                                     margin-bottom: rem(10);
@@ -1115,18 +1133,18 @@
                                     color: $light-green11;
                                 }
                             }
-                            
+
                             &.size-element {
-    
+
                                 &.selected-swatch-image {
                                     box-shadow: none;
                                     border: rem(1) solid black;
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
-                                              
+
                                     @include media-breakpoint-down(md) {
-                                        display:flex;
+                                        display: flex;
                                         justify-content: center;
                                         align-items: center;
                                     }
@@ -1151,17 +1169,17 @@
                             display: inline-block;
 
                             &.elements {
-                                display:flex;
+                                display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                flex:0 0 100%;
-                                height:100%;
+                                flex: 0 0 100%;
+                                height: 100%;
                             }
 
                             .filters-checkbox {
-                                position:absolute;
-                                left:0;
-                                top:0;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
                                 width: 100%;
                                 height: 100%;
                                 opacity: 0;
@@ -1174,17 +1192,17 @@
                     }
                 }
             }
-            
+
             &-group {
                 padding-top: rem(0);
                 top: auto;
             }
         }
 
-    
+
         .plp-active-filters-redesign {
             margin-top: rem(10);
-    
+
             .plp-active-filter {
                 display: flex;
                 opacity: 1;
@@ -1195,16 +1213,16 @@
                 width: 100%;
                 max-height: 100%;
                 padding: 0;
-                
+
                 .active-filters {
                     width: 100%;
                     flex-wrap: nowrap;
-            
+
                     .filter-bar {
-                        
+
                         display: flex;
                         flex-wrap: nowrap;
-            
+
                         ul {
                             width: calc(100% - rem(31));
                             flex-wrap: wrap;
@@ -1212,17 +1230,17 @@
                             justify-content: flex-start;
                             align-items: flex-start;
                         }
-            
+
                         .filter-value {
                             box-sizing: border-box;
                             height: rem(25);
                             margin: 0 rem(4) rem(10) 0;
                             padding: 0 0.9375rem 0 0.9375rem;
                             margin-left: rem(10);
-                            border: rem(1) solid rgba(83,197,110,0.55);
+                            border: rem(1) solid rgba(83, 197, 110, 0.55);
                             border-radius: rem(13);
-                            background-color: rgba(83,197,110,0.07);
-            
+                            background-color: rgba(83, 197, 110, 0.07);
+
                             a {
                                 color: $black;
                                 font-family: $font-book;
@@ -1232,7 +1250,7 @@
                                 line-height: rem(20);
                                 padding-left: 0;
                                 padding-right: rem(15);
-            
+
                                 &:before {
                                     height: rem(14);
                                     width: rem(14);
@@ -1242,19 +1260,19 @@
                                 }
                             }
                         }
-            
+
                     }
-            
+
                     .reset {
-                    display: none;
+                        display: none;
                     }
                 }
-            
+
                 &-list {
                     flex-basis: 100%;
                     margin-bottom: rem(30);
                 }
-            
+
             }
         }
 
@@ -1274,7 +1292,7 @@
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
-        
+
                 svg {
                     width: rem(15);
                     height: rem(15);
@@ -1286,7 +1304,7 @@
                     transform: translateY(0);
                     order: 2;
                 }
-        
+
                 .filter-by-heading {
                     color: $black;
                     font-family: $font-medium;
@@ -1297,13 +1315,13 @@
                     position: relative;
                     left: auto;
                     display: block;
-                    order:1;
+                    order: 1;
                 }
             }
         }
 
         .mobile-active {
-            
+
             &-option {
                 position: absolute;
                 width: 100%;
@@ -1312,16 +1330,16 @@
             }
 
             &-shop-btn {
-                    background-color: $black;
-                    border-radius: rem(3);
-                    color: $white;
-                    width: 100%;
-                    margin: 0 rem(10);
-                    font-family: $font-medium;
-                    font-size: rem(12);
-                    font-weight: 500;
-                    text-transform: uppercase;
-                }
+                background-color: $black;
+                border-radius: rem(3);
+                color: $white;
+                width: 100%;
+                margin: 0 rem(10);
+                font-family: $font-medium;
+                font-size: rem(12);
+                font-weight: 500;
+                text-transform: uppercase;
             }
+        }
     }
 }
