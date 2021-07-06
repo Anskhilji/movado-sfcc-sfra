@@ -75,10 +75,8 @@ server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (r
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
-    var refineBarTemplate;
-    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
-        refineBarTemplate = '/search/old/searchRefineBar';
-    } else {
+    var refineBarTemplate = '/search/old/searchRefineBar';
+    if (ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
         refineBarTemplate = '/search/searchRefineBar';
     }
 
@@ -109,7 +107,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
-    var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     var apiProductSearch = new ProductSearchModel();
     var maxSlots = 4;
     var reportingURLs;
@@ -137,14 +134,14 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Implementing A/B test for MVMT PLP
      */
+     var resultsTemplate = isAjax ? 'search/old/searchResultsNoDecorator' : 'search/old/searchResults';
+     if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+         categoryTemplate = '/search/old/searchResults';
+     }
 
-    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
-        resultsTemplate = isAjax ? 'search/old/searchResultsNoDecorator' : 'search/old/searchResults';
-        if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-            categoryTemplate = '/search/old/searchResults';
-        }
-    } else {
+    if (ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
         categoryTemplate = categoryTemplate || '/search/searchResults';
+        resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     }
 
     /**
@@ -361,10 +358,8 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
     }
 
-    var productGridTemplate;
-    if (!ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
-        productGridTemplate = '/search/old/productGrid';
-    } else {
+    var productGridTemplate = '/search/old/productGrid';
+    if (ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
         productGridTemplate = '/search/productGrid';
     }
 
