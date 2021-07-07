@@ -269,7 +269,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             facetNav = true;
         }
 
-        if (productSearch.count === 1 && !facetNav) {
+        if (productSearch.count === 1 && productSearch.productIds.length > 0 && !facetNav) {
             var prodId = productSearch.productIds[0].productID;
             res.redirect(URLUtils.url('Product-Show', 'pid', prodId));
         } else {
