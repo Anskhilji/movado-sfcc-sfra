@@ -129,6 +129,7 @@
                     margin-bottom: rem(10);
                     text-transform: uppercase;
                     padding: 0 rem(10);
+
                     @include media-breakpoint-up(lg) {
                         font-size: rem(20);
                         letter-spacing: rem(1.25);
@@ -140,6 +141,7 @@
                     opacity: 1;
                     transform: none;
                     justify-content: start;
+                    
                     @include media-breakpoint-up(lg) {
                         justify-content: center;
                     }

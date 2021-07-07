@@ -51,6 +51,7 @@ $light-green7: #57cb71;
 $light-green8: #6bd182;
 $light-green9: rgba(83, 197, 110, 0.07);
 $light-green10: rgba(83, 197, 110, 0.55);
+$light-green11: #42A158;
 $gossamer: #3aab4a;
 
 $light-blue: #3b61b3;
@@ -139,7 +140,7 @@ $emerald: #53C56F;
 }
 
 @mixin font-book {
-    font-family: "futura-pt", "sans-serif";
+    font-family: "futura-pt", "Arial", "sans-serif";
     font-weight: 400;
     font-style: normal;
 }

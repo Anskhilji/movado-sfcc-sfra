@@ -23,11 +23,14 @@
         </isif>
     </isloop>
 </div>
+
+<iscomment> Mobile Filter Redesign </iscomment>
+
 <div class="mobile-filter mobile-filter-redesign">
     <div class="mvmt-redesign-filter-bar">
         <div class="mvmt-redesign-filter-inner">
             <div class="mobile-active-filters loaded">
-                <button class="mobile-filter-sort-redesign" data-menu=".mobile-sort-menu">
+                <button class="mobile-filter-sort-redesign mvmt-redesign-filter-sort" data-menu=".mobile-sort-menu">
                     ${Resource.msgf('label.filter.and.sort', 'search', null)}
                 </button>
                 <isloop items="${refinements}" var="refinement">
@@ -104,11 +107,6 @@
                         </div>
                     </isif>
                 </isloop>
-                <div class="mobile-filter-actions">
-                    <button type="button" class="mobile-close-menu" data-close-menu=".mobile-filter-menu">
-                        ${Resource.msgf('lable.close.filter', 'search', null)}
-                    </button>
-                </div>
             </div>
         </div>
         <div class="mobile-sort-menu">
@@ -193,11 +191,13 @@
 
                     </div>
                 </div>
-                <div class="mobile-active-option-redesign">
-                    <div class="mobile-active-actions">
-                        <button type="button" class="mobile-active-shop-btn results-count-loaded"
-                            data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
-                            <isinclude template="search/resultsCount" /></button>
+                <div class="col-lg-12">
+                    <div class="mobile-active-option-redesign">
+                        <div class="mobile-active-actions">
+                            <button type="button" class="mobile-active-shop-btn results-count-loaded"
+                                data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
+                                <isinclude template="search/resultsCount" /></button>
+                        </div>
                     </div>
                 </div>
             </div>

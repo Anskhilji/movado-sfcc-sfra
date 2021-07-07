@@ -452,6 +452,9 @@ module.exports = {
     },
 
     loadMoreProductsOnScroll: function () {
+        if($('.mvmt-plp-redesign').length == 0){
+            return;
+        }
         // Load more products on scroll
         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
 
@@ -743,7 +746,7 @@ module.exports = {
 
     mobileSortFilterMenu: function () {
 
-        $(document).on("click", '.mobile-filter-sort-redesign', function(e) {
+        $(document).on("click", '.mobile-filter-sort-redesign, .mobile-filter-btn-list button', function(e) {
             var  menu = $(this).data('menu');
             var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
             $(''+ menu +'').addClass('active').removeClass('disable-events');

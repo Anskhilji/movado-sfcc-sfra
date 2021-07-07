@@ -37,7 +37,6 @@ var NEWLINE = '\n';
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 
-
 function getBadges(apiProduct) {
 	// Contains what attributes needs to display image/text
     var imageBadges = Site.getCurrent().getCustomPreferenceValue('imageTypeBadges');
