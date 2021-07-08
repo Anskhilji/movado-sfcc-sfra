@@ -135,13 +135,21 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
      * Custom Start: Implementing A/B test for MVMT PLP
      */
      var resultsTemplate = isAjax ? 'search/old/searchResultsNoDecorator' : 'search/old/searchResults';
-     if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-         categoryTemplate = '/search/old/searchResults';
-     }
+     var categoryTemplateEyewear = 'search/searchResultsEyewear';
 
     if (ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
-        categoryTemplate = categoryTemplate || '/search/searchResults';
+        if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
+            categoryTemplate = '/search/searchResultsEyewear';
+        } else {
+            if (!empty(categoryTemplate) && (categoryTemplate.indexOf('searchResults') > 0)) {
+                categoryTemplate = '/search/searchResults';
+            }
+        }
         resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
+    } else {
+        if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+            categoryTemplate = '/search/old/searchResults';
+        }
     }
 
     /**
