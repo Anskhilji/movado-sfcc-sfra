@@ -191,14 +191,13 @@
 
                     </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="mobile-active-option-redesign">
-                        <div class="mobile-active-actions">
-                            <button type="button" class="mobile-active-shop-btn results-count-loaded"
-                                data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
-                                <isinclude template="search/resultsCount" /></button>
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="mobile-active-option-redesign">
+                <div class="mobile-active-actions">
+                    <button type="button" class="mobile-active-shop-btn results-count-loaded"
+                        data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
+                        <isinclude template="search/resultsCount" /></button>
                 </div>
             </div>
         </div>

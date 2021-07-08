@@ -518,6 +518,13 @@
                                             border: none;
                                             margin: auto auto rem(10);
 
+                                            .rounded-image {
+                                                background-repeat: no-repeat;
+                                                background-position: center;
+                                                background-size: contain;
+                                                border-radius: 50%;
+                                            }
+
                                             &.selected-swatch-image {
                                                 border: rem(1) solid $black;
                                             }
@@ -573,6 +580,7 @@
                             font-family: $font-medium;
                             font-size: rem(12);
                             font-weight: 500;
+                            text-transform: uppercase;
                             color: $black;
                             line-height: rem(28.27);
                             height: rem(45);
@@ -655,12 +663,17 @@
                         bottom: 19vh;
                         z-index: 111111;
 
+                        .mobile-active-actions {
+                            transform: translateY(rem(0));
+                        }
+
                         .mobile-active-shop-btn {
                             background-color: $black;
                             border-radius: rem(3);
                             color: $white;
                             width: 100%;
-                            margin: 0 rem(10);
+                            height: 45px;
+                            margin: rem(10) rem(10);
                             font-family: $font-medium;
                             font-size: rem(12);
                             font-weight: 500;
@@ -959,6 +972,10 @@
                             &.swatch-image {
                                 margin: rem(10) 0;
 
+                                img {
+                                    border-radius: 50%;
+                                }
+
                                 &.selected-swatch-image {
                                     box-shadow: none;
                                     border: rem(1) solid black;
@@ -1135,6 +1152,12 @@
                             }
 
                             &.size-element {
+                                
+                                .rounded-image {
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    background-size: contain;
+                                }
 
                                 &.selected-swatch-image {
                                     box-shadow: none;
@@ -1245,7 +1268,7 @@
                                 color: $black;
                                 font-family: $font-book;
                                 font-size: rem(12);
-                                font-weight: 500;
+                                font-weight: 400;
                                 letter-spacing: rem(1);
                                 line-height: rem(20);
                                 padding-left: 0;
