@@ -138,7 +138,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
      var categoryTemplateEyewear = 'search/searchResultsEyewear';
 
     if (ABTestMgr.isParticipant('MVMTRedesignPLPABTest', 'render-new-design')) {
-        if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
+        if (categoryTemplate == categoryTemplateEyewear) {
             categoryTemplate = '/search/searchResultsEyewear';
         } else {
             if (!empty(categoryTemplate) && (categoryTemplate.indexOf('searchResults') > 0)) {
