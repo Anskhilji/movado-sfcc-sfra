@@ -402,15 +402,15 @@
       background-color: $white-gray;
       border-bottom: rem(1) solid $light-gray4;
       padding-top: rem(24);
-      opacity: 0;
       transition: max-height 0.5s, opacity 0.5s;
       transform-origin: top center;
       overflow: hidden;
       pointer-events: none;
+      display: none;
 
       &.active {
         max-height: 100vw;
-        opacity: 1;
+        display: block;
         pointer-events: auto;
         z-index: 99999;
       }
@@ -418,6 +418,7 @@
       &.loaded {
         .filter-group-outer {
           opacity: 1;
+          display: block;
           transform: translateY(0);
         }
       }
@@ -529,8 +530,7 @@
   .mobile {
     &-sort {
       &-menu {
-        opacity: 0;
-        visibility: hidden;
+        display: none;
         z-index: 101;
         position: fixed;
         top: 0;
@@ -543,8 +543,7 @@
         transition: opacity 0.5s, transform 0.5s, border-radius 0.5s;
 
         &.active {
-          opacity: 1;
-          visibility: visible;
+          display: block;
           border-radius: 0;
           transform: scale(1);
           background: $white;
@@ -637,7 +636,7 @@
 
       &-container {
         > div {
-          opacity: 0;
+          display: none;
           visibility: hidden;
           z-index: 101;
           position: fixed;
@@ -651,7 +650,7 @@
           z-index: 999999;
 
           &.active {
-            opacity: 1;
+            display: block;
             visibility: visible;
             border-radius: 0;
             transform: scale(1);
@@ -679,15 +678,14 @@
 
         &-list {
           width: 100%;
-          display: flex;
           flex-wrap: wrap;
           transition: opacity 0.5s, transform 0.5s;
           transform: translateY(80px);
-          opacity: 0;
+          display: none;
           overflow: auto;
 
           &.loaded {
-            opacity: 1;
+            display: flex;
             transform: translateY(0);
           }
         }
@@ -825,17 +823,16 @@
       }
 
       &-outer {
-        display: flex;
         flex-wrap: wrap;
         flex: 1;
         align-items: center;
-        opacity: 0;
+        display: none;
         height: auto;
         transition: opacity 0.5s, transform 0.5s;
         transform: translateY(80px);
 
         &.loaded {
-          opacity: 1;
+          display: flex;
           transform: translateY(0);
         }
       }
@@ -901,7 +898,7 @@
       }
 
       &-filters {
-        display: flex;
+        display: none;
         transform: translateX(-100%);
         transition: transform 0.6s;
         overflow-x: auto;
@@ -922,7 +919,11 @@
           text-transform: uppercase;
         }
 
-        &.loaded,
+        &.loaded {
+          transform: translateY(0);
+          display: flex;
+        }
+
         &.skip-animation {
           transform: translateY(0);
         }
