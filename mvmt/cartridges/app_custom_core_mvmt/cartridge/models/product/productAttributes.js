@@ -77,6 +77,7 @@ function getAllAttrValues(
                 processedAttr.lifeStyleImage300X375 = !empty(largeImages.tile300X375[3]) ? largeImages.tile300X375[3] : '';
                 processedAttr.lifeStyleImage300X300 = !empty(largeImages.tile300X300[3]) ? largeImages.tile300X300[3] : '';
                 processedAttr.eyeWearLifeStyleImage = !empty(largeImages.tile532X300[3]) ? largeImages.tile532X300[3] : '';
+                processedAttr.lifeStyleImage512x512 = !empty(largeImages.tile256[3]) ? largeImages.tile256[3] : '';
                   
                 // Custom End
             }

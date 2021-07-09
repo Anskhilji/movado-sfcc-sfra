@@ -56,13 +56,20 @@ module.exports = function () {
                 } 
                 // life style image handling
                 if ($lifeStyleImageContainer.length > 0) {
-                    $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
-                    if (isNonWatchesTileEnable) {
+                    if (isEnableSingleProductRow && isNonWatchesTileEnable) {
+                        $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);                        
+                        $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);
+                        $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url); 
+                    } else if (isNonWatchesTileEnable) {
+                        $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);                        
                         $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X300[3].url).data('lazy', primaryImageUrls.tile300X300[3].url);
-                    } else {
-                        $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
+                        $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);
                     }
-                    $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
+                    else {
+                        $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
+                        $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile300X375[3].url).data('lazy', primaryImageUrls.tile300X375[3].url);
+                        $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile512X640[3].url).data('lazy', primaryImageUrls.tile512X640[3].url);
+                    }
                 }
             }
         } else {
