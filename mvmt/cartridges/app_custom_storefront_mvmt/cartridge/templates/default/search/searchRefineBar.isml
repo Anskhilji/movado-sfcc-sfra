@@ -162,6 +162,7 @@
 
                                                     <div class="filter-group">
                                                         <div class="filter-group-outer">
+                                                        <h2 class="refinement-name mobile-hide">${refinement.displayName}</h2> <!-- we have same selector refinements for both mobile and desktop so we are facing issue on rendring through js, so this element should be there but hide on mobile -->
                                                             <!--- CATEGORY REFINEMENTS --->
                                                             <isif condition="${refinement.isCategoryRefinement}">
                                                                 <isset name="categories" value="${refinement.values}"
